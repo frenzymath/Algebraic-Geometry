@@ -1,0 +1,458 @@
+% Source-faithful assembly of Mumford, Abelian Varieties, Chapter I,
+% Sections 2--3 (source pages 27--48). Running headers and pedagogical
+% asides are omitted.
+
+\section{Line bundles: Chern classes and Appell--Humbert}
+\label{mumford-source-I2-remainder}
+\dcref{M:ch1:I.2}
+\uses{mumford-frag-integral-cohomology}
+
+Let $H$ be the ring of holomorphic functions on $V$ and
+$H^*=H^0(V,\mathcal O_V^*)$. The exponential sequence and the quotient
+description of line bundles identify the Chern class of a cocycle
+$\{e_u\}\in Z^1(U,H^*)$ with the class of the integral $2$-cocycle
+\[
+ F(u_1,u_2)=f_{u_2}(z+u_1)-f_{u_1+u_2}(z)+f_{u_1}(z),
+ \qquad e_u(z)=e^{2\pi i f_u(z)}.
+\]
+\source{mumford-abelian-varieties:page-0027}
+
+\begin{lemma}[Alternation of group $2$-cocycles]
+\label{mumford-source-alternation}
+\dcref{M:ch1:I.2}
+\uses{mumford-frag-integral-cohomology}
+The map $AF(u_1,u_2)=F(u_1,u_2)-F(u_2,u_1)$ induces an isomorphism
+\[
+ H^2(U,\mathbf Z)\xrightarrow{\sim}\operatorname{Hom}(\Lambda^2U,\mathbf Z)
+ \simeq\Lambda^2\operatorname{Hom}(U,\mathbf Z),
+\]
+and $A(\xi\cup\eta)=\xi\wedge\eta$.
+\source{mumford-abelian-varieties:page-0027}
+\end{lemma}
+\begin{proof}
+The cocycle identity implies, after the three cyclic substitutions and taking
+the combination $(i)+(ii)-(iii)$, that
+$AF(u_3,u_1+u_2)=AF(u_3,u_1)+AF(u_3,u_2)$. Since $AF$ is alternating, it is
+bilinear. If $F=\delta G$, then direct cancellation gives $AF=0$, so $A$
+descends to cohomology. The torus computation of integral cohomology and
+compatibility of the quotient map with cup products show that the cohomology
+ring of $U$ is the exterior algebra on $H^1(U,\mathbf Z)$. For homomorphisms
+$f,g:U\to\mathbf Z$, the cocycle for $\xi\cup\eta$ is
+$c(s,t)=f(s)g(t)$, and
+\[
+ A(\xi\cup\eta)(s,t)=f(s)g(t)-f(t)g(s)=(f\wedge g)(s,t).
+\]
+\source{mumford-abelian-varieties:page-0028}
+\end{proof}
+
+\begin{proposition}[Chern class formula]
+\label{mumford-source-chern-formula}
+\dcref{M:ch1:I.2}
+\uses{mumford-source-alternation}
+The Chern class of the line bundle defined by $\{e_u\}$ is the alternating form
+\[
+ E(u_1,u_2)=f_{u_2}(z+u_1)+f_{u_1}(z)-f_{u_1+u_2}(z)-f_{u_2}(z),
+\]
+independent of $z$, where $e_u=e^{2\pi i f_u}$.
+\source{mumford-abelian-varieties:page-0029}
+\end{proposition}
+
+\begin{corollary}[Type $(1,1)$ condition]
+\label{mumford-source-chern-type}
+\dcref{M:ch1:I.2}
+\uses{mumford-source-chern-formula}
+After extending $E$ $\mathbf R$-linearly to $V$, one has
+$E(ix,iy)=E(x,y)$.
+\source{mumford-abelian-varieties:page-0029}
+\end{corollary}
+\begin{proof}
+The image of a Chern class in $H^2(X,\mathcal O_X)$ vanishes. Under
+\[
+ H^2(X,\mathbf C)\simeq(\Lambda^2T)\oplus(T\otimes\overline T)
+ \oplus(\Lambda^2\overline T),
+\]
+the map to $H^2(X,\mathcal O_X)\simeq\Lambda^2\overline T$ is projection.
+Reality gives $E_1=\overline{E_2}$, so vanishing is equivalent to $E$ lying
+in $T\otimes\overline T$, which is equivalent to $E(ix,iy)=E(x,y)$.
+\end{proof}
+
+
+\begin{lemma}[Hermitian forms and invariant alternating forms]
+\label{mumford-source-hermitian-correspondence}
+\dcref{M:ch1:I.2}
+\uses{mumford-source-chern-type}
+Hermitian forms $H$ on $V$ correspond bijectively to real skew-symmetric forms
+$E$ satisfying $E(ix,iy)=E(x,y)$ by
+\[
+ E(x,y)=\operatorname{Im}H(x,y),\qquad H(x,y)=E(ix,y)+iE(x,y).
+\]
+\source{mumford-abelian-varieties:page-0030}
+% Source explicitly leaves this elementary correspondence proof to the reader.
+\notready
+\end{lemma}
+
+\begin{lemma}[Semicharacters]
+\label{mumford-source-semicharacter}
+\dcref{M:ch1:I.2}
+\uses{mumford-source-hermitian-correspondence}
+If $H$ is Hermitian, $E=\operatorname{Im}H$ is integral on $U$, then there is
+$\alpha:U\to\mathbf C_1^*$ with
+\[
+ \alpha(u_1+u_2)=e^{i\pi E(u_1,u_2)}\alpha(u_1)\alpha(u_2),
+\]
+and
+\[
+ e_u(z)=\alpha(u)e^{\pi H(z,u)+\frac12\pi H(u,u)}
+\]
+is a $1$-cocycle whose Chern class is $E$.
+\source{mumford-abelian-varieties:page-0031}
+\end{lemma}
+\begin{proof}
+Writing the linear solutions as $f_u(z)=H(z,u)/(2i)+\beta_u$ and imposing
+the cocycle equation gives, after a linear coboundary normalization, pure
+imaginary constants $\gamma_u$. Setting $\alpha(u)=e^{2\pi\gamma_u}$ gives
+the displayed semicharacter equation and $|\alpha(u)|=1$; substitution gives
+the displayed $e_u$ and the cocycle identity.
+\end{proof}
+
+\begin{definition}[The bundle $L(H,\alpha)$]
+\label{mumford-source-LHa}
+\dcref{M:ch1:I.2}
+\uses{mumford-source-semicharacter}
+$L(H,\alpha)$ is the quotient of $\mathbf C\times V$ by
+\[
+ (\lambda,z)\longmapsto
+ (\alpha(u)e^{\pi H(z,u)+\frac12\pi H(u,u)}\lambda,z+u).
+\]
+Moreover $L(H_1,\alpha_1)\otimes L(H_2,\alpha_2)\simeq
+L(H_1+H_2,\alpha_1\alpha_2)$.
+\source{mumford-abelian-varieties:page-0031}
+\end{definition}
+
+\begin{theorem}[Appell--Humbert]
+\label{mumford-thm-appell-humbert}
+\dcref{M:ch1:I.2}
+Every line bundle on $X=V/U$ is uniquely $L(H,\alpha)$ as above. There are
+exact sequences
+\[
+0\to\operatorname{Hom}(U,\mathbf C^*)\to\{(H,\alpha)\}\to
+\{H:(\operatorname{Im}H)(U\times U)\subset\mathbf Z\}\to0,
+\]
+and
+\[
+0\to\Pic^0X\to\Pic X\xrightarrow{c^1}
+\ker[H^2(X,\mathbf Z)\to H^2(X,\mathcal O_X)]\to H^2(X,\mathcal O_X)\to0.
+\]
+\source{mumford-abelian-varieties:page-0031}\source{mumford-abelian-varieties:page-0032}
+\end{theorem}
+\begin{proof}
+The type $(1,1)$ corollary identifies the image of the Chern map with the
+Hermitian forms. If $\alpha\in\operatorname{Hom}(U,\mathbf C_1^*)$ becomes a
+coboundary, $g(z+u)/g(z)=\alpha(u)$. A compact fundamental set and
+$|\alpha|=1$ force $g$ constant, so $\alpha=1$. The exponential-sequence
+diagram, together with the surjectivity of $H^1(X,\mathbf C)\to
+H^1(X,\mathcal O_X)$, proves surjectivity. A coboundary normalization makes
+every character unitary, completing the classification.
+\end{proof}
+
+\section{Appendix: group cohomology}
+\label{mumford-source-group-cohomology}
+\dcref{M:ch1:I.2}
+
+For a $G$-module $M$, let $C^p(G,M)$ be functions $G^p\to M$, with
+\[
+\delta f(\sigma_0,\ldots,\sigma_p)=\sigma_0f(\sigma_1,\ldots,\sigma_p)
+ +\sum_{i=0}^{p-1}(-1)^{i+1}f(\sigma_0,\ldots,\sigma_i\sigma_{i+1},\ldots,\sigma_p)
+ +(-1)^{p+1}f(\sigma_0,\ldots,\sigma_{p-1}).
+\]
+Write $H^p(G,M)=\ker\delta/\operatorname{im}\delta$. Cup products are given
+by
+\[
+ (f\cup g)(\sigma_1,\ldots,\sigma_{p+q})=
+ f(\sigma_1,\ldots,\sigma_p)*\sigma_1\cdots\sigma_p
+ g(\sigma_{p+1},\ldots,\sigma_{p+q}).
+\]
+\source{mumford-abelian-varieties:page-0033}
+
+\begin{theorem}[Quotient-space cohomology map]
+\label{mumford-source-quotient-cohomology}
+\dcref{M:ch1:I.2}
+For $Y=X/G$ with $G$ free and discontinuous and $\pi:X\to Y$, every sheaf
+$\mathcal F$ on $Y$ has a natural map
+\[
+ H^p(G,\Gamma(X,\pi^*\mathcal F))\to H^p(Y,\mathcal F).
+\]
+It is compatible with exact sequences and cup products, and is an isomorphism
+if $H^i(X,\pi^*\mathcal F)=0$ for $i\ge1$.
+\source{mumford-abelian-varieties:page-0033}\source{mumford-abelian-varieties:page-0034}\source{mumford-abelian-varieties:page-0035}
+\end{theorem}
+\begin{proof}
+Choose a covering $V_i$ with lifts $U_i$ and unique transition elements
+$\sigma_{ij}$. Map group cochains to Cech cochains by
+\[
+ (\phi_pf)_{i_0\ldots i_p}=\operatorname{res}(\pi^*)_{i_0}^{-1}
+ f(\sigma_{i_0i_1},\ldots,\sigma_{i_{p-1}i_p}).
+\]
+Direct calculation gives $\delta\phi_p=\phi_{p+1}\delta$ and proves the
+compatibilities. For the vanishing assertion, embed $\mathcal F$ in an
+injective $\mathcal F'$, set $\mathcal F''=\mathcal F'/\mathcal F$, and use
+induction on $p$ in the resulting long exact sequences; exactness of global
+sections follows from $H^1(X,\pi^*\mathcal F)=0$.
+\end{proof}
+
+\section{Algebraizability of tori}
+\label{mumford-source-I3}
+\dcref{M:ch1:I.3}
+\uses{mumford-source-LHa}
+
+For $L(H,\alpha)$, sections correspond to holomorphic functions $\theta$ on
+$V$ satisfying
+\[
+ \theta(z+u)=\alpha(u)e^{\pi H(z,u)+\frac12\pi H(u,u)}\theta(z),
+ \qquad u\in U.
+\]
+Such a function is called a theta-function for $(H,\alpha)$.
+\source{mumford-abelian-varieties:page-0036}
+
+\begin{proposition}[Degenerate and negative Hermitian forms]
+\label{mumford-source-theta-degenerate}
+\dcref{M:ch1:I.3}
+\uses{mumford-source-LHa}
+Let $N=\{x:H(x,y)=0\ \forall y\}$.  If $H$ is degenerate, every
+theta-function is constant on cosets of $N$, and a nonzero theta-function can
+exist only if $\alpha|_{N\cap U}=1$; the associated sections factor through
+$X/(N/(N\cap U))$, so $L(H,\alpha)$ is not ample.  If $H$ is negative on a
+nonzero complex subspace, then it has no nonzero theta-functions.
+\source{mumford-abelian-varieties:page-0036}\source{mumford-abelian-varieties:page-0037}
+\end{proposition}
+\begin{proof}
+The identities $N=\{x:E(x,y)=0\ \forall y\}$ and integrality of $E$ show
+that $N\cap U$ is a lattice in $N$.  For $u\in N\cap U$ the functional
+equation gives $\theta(z+u)=\alpha(u)\theta(z)$.  If $K\subset N$ is compact
+with $N=K+(N\cap U)$, then
+\[
+ |\theta(z_0+z')|\leq\sup_{\zeta\in K}|\theta(z_0+\zeta)|.
+\]
+The maximum principle makes $\theta$ constant on every $N$-coset, proving
+the factorization and the ampleness assertion.
+
+Now suppose $H(w,w)<0$ on a complex subspace $W$.  Choose compact $K$ with
+$V=U+K$, write $w=d+u$ with $d\in K$, and use the functional equation:
+\[
+ |\theta(z_0+w)|=|\theta(z_0+d)|
+ e^{\pi\operatorname{Re}H(z_0+d,w)+\frac12\pi H(w,w)}.
+\]
+The exponent equals
+\[
+ \tfrac12H(w,w)+\operatorname{Re}H(z_0,w)+c(d,z_0),
+\]
+where $c(d,z_0)$ is bounded on $K$.  It tends to $-\infty$ along $W$, so
+the maximum principle applied on $W$ gives $\theta(z_0+w)=0$ for every $w$;
+hence $\theta=0$.
+\end{proof}
+
+\begin{proposition}[Dimension of theta-functions]
+\label{mumford-source-theta-dimension}
+\dcref{M:ch1:I.3}
+\uses{mumford-source-LHa}
+If $H$ is positive definite and $E=\operatorname{Im}H$ is integral on $U$,
+then
+\[
+ \dim H^0(X,L(H,\alpha))=\sqrt{\det_U E}.
+\]
+\source{mumford-abelian-varieties:page-0037}\source{mumford-abelian-varieties:page-0038}\source{mumford-abelian-varieties:page-0039}\source{mumford-abelian-varieties:page-0040}
+\end{proposition}
+\begin{proof}
+Choose a rank-$g$ sublattice $U'\subset U$ with $E(U',U')=0$ and, for
+$W=\mathbf R\cdot U'$, $W\cap iW=0$.  Let $B$ be the symmetric complex
+bilinear form extending $H|_{W\times W}$, and choose a complex-linear
+$\lambda$ real on $W$ with $\alpha(u)=e^{2\pi i\lambda(u)}$ on $U'$.  Then
+$e^{-2\pi i\lambda(z)}e^{-\frac12\pi B(z,z)}\theta(z)$ is $U'$-periodic,
+so it has a Fourier expansion
+\[
+ \theta^*(z)=\sum_{\chi\in\widehat U'}c_\chi
+ e^{2\pi i(\chi(z)+\lambda(z))}. \tag{1}
+\]
+For $u\in U$, define $\widehat u\in\widehat U'$ by
+$\widehat u(u')=E(u',u)$.  Since
+$(H-B)(z,u)=2i\widehat u(z)$, substitution of (1) in the functional
+equation gives
+\[
+ c_\chi=\alpha(u)e^{i\pi\widehat u(u)-2\pi i[\chi(u)+\lambda(u)]}
+ c_{\chi-\widehat u}. \tag{2}
+\]
+Thus coefficients are determined by representatives of
+$\widehat U'/M$, where $M$ is the image of $U\to\widehat U'$, and every
+choice of representative coefficients extends uniquely.
+
+For completeness, take one representative $\chi_0$ and set all other
+representative coefficients to zero.  On a compact $K\subset V$, the
+corresponding series is bounded by
+\[
+ \operatorname{const.}\sum_{\widehat u\in M}|c_{\chi_0+\widehat u}|
+ e^{2\pi|\widehat u(z)|}
+ \leq\operatorname{const.}\sum_{\widehat u\in M}
+ e^{\pi\operatorname{Im}\widehat u(u)+A|\widehat u|^2}.
+\]
+Writing $z=\phi(z)+i\psi(z)$ with $\phi,\psi:V\to W$ real-linear gives
+\[
+ \operatorname{Im}\widehat u(u)=-H(\psi(u),\psi(u)),
+\]
+a negative definite quadratic form on $M$.  The series therefore converges
+normally, and the dimension is $[\widehat U':M]$.
+
+Finally, if $n$ is the order of the cokernel of
+$U\to\operatorname{Hom}_{\mathbf Z}(\widehat U',\mathbf Z)$, the exact
+diagram
+\[
+\begin{array}{ccccccccc}
+0&\to&U'&\to&U&\to&U/U'&\to&0\\
+&&\downarrow&&\downarrow&&\downarrow\\
+0&\to&(U'/U')^\wedge&\to&\widehat U'&\to&\widehat{U'}&\to&0
+\end{array}
+\]
+shows that the first and third vertical maps have cokernels of the same order,
+whereas the middle cokernel has order $|\det E|$.  Hence
+$|\det E|=n^2$ and $[\widehat U':M]=\sqrt{\det E}$.
+\end{proof}
+
+\begin{theorem}[Lefschetz]
+\label{mumford-source-lefschetz}
+\dcref{M:ch1:I.3}
+\uses{mumford-source-theta-degenerate,mumford-source-theta-dimension}
+For $L=L(H,\alpha)$ on $X=V/U$, the following are equivalent:
+\begin{enumerate}
+\item for every complex subtorus $Y$ there are $N>0$, a section $\sigma$ of
+  $L^N$, and $x_1,x_2$ with $x_1-x_2\in Y$, $\sigma(x_1)=0$ and
+  $\sigma(x_2)\ne0$;
+\item $H$ is positive definite;
+\item the sections of $L^n$ embed $X$ as a closed complex submanifold of a
+  projective space for every $n\ge3$.
+\end{enumerate}
+\source{mumford-abelian-varieties:page-0040}\source{mumford-abelian-varieties:page-0041}\source{mumford-abelian-varieties:page-0042}\source{mumford-abelian-varieties:page-0043}\source{mumford-abelian-varieties:page-0044}
+\end{theorem}
+\begin{proof}
+We have already proved (1)$\Rightarrow$(2), and (3)$\Rightarrow$(1) is
+clear.  Assume $H$ positive definite and prove (3) for $n=3$; the same
+argument applies for $n>3$.  If $\theta$ is a section of $L(H,\alpha)$ and
+$a,b\in V$, then
+\[
+ \theta(z-a)\theta(z-b)\theta(z+a+b)
+\]
+is a section of $L^3$, since its factor of automorphy is
+$\alpha(u)^3e^{3\pi H(z,u)+\frac32\pi H(u,u)}$.  The dimension proposition
+gives a nonzero $\theta$, and $a,b$ can be chosen so this product does not
+vanish at any prescribed point.  Thus a basis of $H^0(X,L^3)$ defines a
+holomorphic map $\Theta:X\to\mathbf P^d$.
+
+Suppose $\Theta(z_1)=\Theta(z_2)$ with $\sigma=z_2-z_1\notin U$.  For every
+theta-function $\theta$ and all $a,b$, comparison of the two products and
+logarithmic differentiation in $a$ gives
+\[
+ -\omega(z_1-a)+\omega(z_1+a+b)
+ =-\omega(z_2-a)+\omega(z_2+a+b),
+\]
+where $\omega=d\theta/\theta$.  Hence
+$\omega(z_2+z)-\omega(z_1+z)=dl(z)$ for a complex-linear form $l$, and
+\[
+ \theta(z+\sigma)=Ae^{l(z)}\theta(z).
+\]
+Comparing this with the functional equation for $u\in U$ gives
+$e^{\pi H(\sigma,u)}=e^{l(u)}$, hence $\pi H(u,\sigma)=l(u)$ and
+$E(\sigma,u)\in\mathbf Z$.  Therefore $\sigma\in U^+$, where
+$U^+=\{x:E(x,u)\in\mathbf Z\ \forall u\in U\}$, and $\theta$ is a
+theta-function for the larger lattice $U'=U+\mathbf Z\sigma$.  But the
+dimension formula gives $\sqrt{\det_{U'}E}>\sqrt{\det_UE}$, while only
+finitely many multipliers on $U'$ extend $\alpha$; not every $\theta$ can
+extend, a contradiction.  Thus $\Theta$ is injective.
+
+If $d\Theta$ has a nonzero kernel at $z_0$, there are $\alpha_0,\alpha_i$,
+not all $\alpha_i$ zero, such that for every section $\phi$ of $L^3$,
+\[
+ \alpha_0\phi(z_0)+\sum_i\alpha_i\frac{\partial\phi}{\partial z_i}(z_0)=0.
+\]
+With $D=\sum_i\alpha_i\partial/\partial z_i$ and the triple products above,
+$f=D(\log\theta)$ satisfies
+$f(z_0-a)+f(z_0-b)+f(z_0+a+b)=-\alpha_0$.  Hence $f$ is affine-linear, and
+integration gives a nonzero $\alpha\in V$ with
+\[
+ \theta(z+\lambda\alpha)=e^{c\alpha^2+\lambda f(z)}\theta(z).
+\]
+Comparing the transformation laws again shows that every $\lambda\alpha$
+lies in the discrete lattice $U^+$, impossible for all $\lambda\in\mathbf C$.
+Thus $\Theta$ is an immersion.  Since $X$ is compact, an injective immersion
+is a closed embedding.
+\end{proof}
+
+\begin{theorem}[Chow]
+\label{mumford-source-chow}
+\dcref{M:ch1:I.3}
+\uses{mumford-thm-appell-humbert}
+If $X$ is complete algebraic and $Y$ is a closed analytic subset of
+$X_{\mathrm{hol}}$, then $Y$ is Zariski closed. A holomorphic map between
+complete algebraic varieties is algebraic, and meromorphic functions on a
+complete algebraic variety are rational.
+\source{mumford-abelian-varieties:page-0044}\source{mumford-abelian-varieties:page-0045}
+\end{theorem}
+\begin{proof}
+Chow's theorem for projective space, together with Chow's lemma, proves the
+closed-analytic-subset assertion.  If $f:X_{\mathrm{hol}}\to Y_{\mathrm{hol}}$
+is holomorphic, its graph is a closed analytic subset of
+$(X\times Y)_{\mathrm{hol}}$, hence a closed algebraic subset of $X\times Y$.
+At $(x,f(x))$, write $\mathcal O_1=\mathcal O_{X,x}$,
+$\mathcal O_2=\mathcal O_{Y,f(x)}$ and use the analytic local rings
+$\widetilde{\mathcal O}_i$.  The graph projection gives
+\[
+\begin{array}{ccc}
+\mathcal O_1&\longrightarrow&\mathcal O_2\\
+\downarrow&&\downarrow\\
+\widetilde{\mathcal O}_1&\xrightarrow{\sim}&\widetilde{\mathcal O}_2.
+\end{array}
+\]
+Reducing modulo squares and applying Nakayama first yields
+$\mathfrak m_2=\mathfrak m_1\mathcal O_2$, then
+$\mathcal O_2=\mathcal O_1$.  Hence the graph projection is an algebraic
+isomorphism and $f$ is algebraic.  The same graph argument applied to a
+meromorphic function shows it lies in $\mathbf C(X)$.
+\end{proof}
+
+\begin{corollary}[Algebraizability criterion]
+\label{mumford-source-algebraizability}
+\dcref{M:ch1:I.3}
+For a complex torus $X=V/U$, the following are equivalent: $X$ is associated to
+a projective algebraic variety; $X$ is associated to an algebraic variety;
+$X$ has $g$ algebraically independent meromorphic functions; and there is a
+positive definite Hermitian $H$ with $\operatorname{Im}H$ integral on $U$.
+\source{mumford-abelian-varieties:page-0045}\source{mumford-abelian-varieties:page-0046}
+\end{corollary}
+\begin{proof}
+The implications (1)$\Rightarrow$(2)$\Rightarrow$(3) are immediate, and
+(4)$\Rightarrow$(1) is Lefschetz.  For (3)$\Rightarrow$(4), let
+$f_1,\ldots,f_g$ be algebraically independent meromorphic functions, let
+$D_i$ be their polar divisors, $D=\sum D_i$, and let $L=\mathcal O_X(D)$.
+There are sections $\sigma_0,\ldots,\sigma_g$ with
+$\sigma_i=f_i\sigma_0$ where $f_i$ is regular.  Appell--Humbert gives
+$L=L(H,\alpha)$ with $H$ semidefinite.  Let $V_0$ be its nullspace and
+$X_0=V_0/(U\cap V_0)$.  The induced form on $X/X_0$ is positive definite,
+and zeros of sections of $L$ are unions of $X_0$-cosets; hence each $f_i$
+descends to an algebraically independent $\overline f_i$ on $X/X_0$.  Thus
+\[
+ g\le\operatorname{tr.deg}_{\mathbf C}\mathbf C(X/X_0)
+ =\dim(X/X_0)\le g,
+\]
+so $X_0=0$ and $H$ is positive definite.
+\end{proof}
+
+\begin{lemma}[Generic nonalgebraizability]
+\label{mumford-source-generic-nonalgebraic}
+\dcref{M:ch1:I.3}
+For almost all lattices $U$ in a $g$-dimensional complex vector space, the map
+\[
+ \Lambda^2_{\mathbf Z}U\longrightarrow\Lambda^2_{\mathbf C}V
+\]
+is injective. Hence almost all complex tori of dimension at least $2$ are
+nonalgebraic.
+\source{mumford-abelian-varieties:page-0047}\source{mumford-abelian-varieties:page-0048}
+% Source explicitly leaves this genericity lemma proof to the reader.
+\notready
+\end{lemma}

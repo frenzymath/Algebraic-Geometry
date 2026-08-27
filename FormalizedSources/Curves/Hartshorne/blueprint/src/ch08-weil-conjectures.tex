@@ -1,0 +1,241 @@
+% Source-faithful mathematical blueprint of Hartshorne, Algebraic Geometry (1977), Appendix C.
+% Authorial exposition, examples, and exercises are omitted; mathematical definitions, statements,
+% formulas, and proof arguments are retained.
+\section{The Zeta Function and the Weil Conjectures}
+\label{ha-appC-sec1}
+\source{hartshorne-algebraic-geometry:C.1}
+
+\begin{definition}[Zeta function of a variety over a finite field]
+\source{hartshorne-algebraic-geometry:C.1}
+Let $k=\mathbb F_q$, let $X$ be of finite type over $k$, and put
+$N_r=\#X(\mathbb F_{q^r})$.  Define
+\[
+Z(X,t)=\exp\left(\sum_{r\ge1}N_r\frac{t^r}{r}\right)\in\mathbb Q[[t]].
+\]
+\end{definition}
+
+\begin{conjecture}[Weil rationality]
+\label{ha-appC-conj1-1}
+\source{hartshorne-algebraic-geometry:C.1.1}
+\dcref{C.1.1}
+For smooth projective $X/k$ of dimension $n$, $Z(X,t)$ is rational.
+\end{conjecture}
+
+\begin{conjecture}[Weil functional equation]
+\label{ha-appC-conj1-2}
+\source{hartshorne-algebraic-geometry:C.1.2}
+\dcref{C.1.2}
+If $E$ is the self-intersection number of a hyperplane section of $X$, then
+$Z(1/(q^nt))=\pm q^{nE/2}t^E Z(t)$.
+\end{conjecture}
+
+\begin{conjecture}[Weil weights]
+\label{ha-appC-conj1-3}
+\source{hartshorne-algebraic-geometry:C.1.3}
+\dcref{C.1.3}
+There are integer polynomials $P_i(t)$, with $P_0(t)=1-t$ and
+$P_{2n}(t)=1-q^nt$, such that
+$Z(t)=P_1(t)P_3(t)\cdots P_{2n-1}(t)/(P_0(t)P_2(t)\cdots P_{2n}(t))$,
+and every reciprocal root of $P_i$ is an algebraic integer of absolute value
+$q^{i/2}$.
+\end{conjecture}
+
+\begin{conjecture}[Betti numbers]
+\label{ha-appC-conj1-4}
+\source{hartshorne-algebraic-geometry:C.1.4}
+\dcref{C.1.4}
+Assuming C.1.3, $B_i=\deg P_i$ are the Betti numbers and
+$E=\sum_i(-1)^iB_i$; these agree with the topological Betti numbers when
+$X$ is lifted to characteristic zero.
+\end{conjecture}
+
+\section{History of Work on the Weil Conjectures}
+\label{ha-appC-sec2}
+\source{hartshorne-algebraic-geometry:C.2}
+
+The curve case was proved by Weil using correspondences and Jacobians; the
+higher-dimensional rationality and functional equation were proved by Dwork.
+The search for a characteristic-$p$ cohomology with characteristic-zero
+coefficients led to étale and $\ell$-adic cohomology, and Deligne proved the
+weight assertion in 1973.
+
+\section{The $\ell$-adic Cohomology}
+\label{ha-appC-sec3}
+\source{hartshorne-algebraic-geometry:C.3}
+
+\begin{definition}[Etale cohomology and Frobenius data]
+\source{hartshorne-algebraic-geometry:C.3}
+Fix $\ell\ne\operatorname{char}k$.  For $X$ over $k$ write
+\[
+H^i(X,\mathbb Q_\ell)=
+\left(\varprojlim_m H^i_{\acute et}(X,\mathbb Z/\ell^m)\right)\otimes_{\mathbb Z_\ell}\mathbb Q_\ell.
+\]
+For a smooth projective $X/\mathbb F_q$, let $F:X\to X$ be Frobenius; its
+fixed points satisfy $\operatorname{Fix}(F^r)=X(\mathbb F_{q^r})$.
+\end{definition}
+\begin{convention}[Finite-dimensionality]
+\label{ha-appC-prop3-1}
+\source{hartshorne-algebraic-geometry:C.3.1}
+\dcref{C.3.1}
+$H^i(X,\mathbb Q_\ell)$ is finite-dimensional and vanishes for $i<0$ and
+$i>2n$ when $\dim X=n$.
+\end{convention}
+
+\begin{convention}[Contravariance]
+\label{ha-appC-prop3-2}
+\source{hartshorne-algebraic-geometry:C.3.2}
+\dcref{C.3.2}
+$H^i(-,\mathbb Q_\ell)$ is contravariant in $X$.
+\end{convention}
+
+\begin{convention}[Cup product]
+\label{ha-appC-prop3-3}
+\source{hartshorne-algebraic-geometry:C.3.3}
+\dcref{C.3.3}
+There is a cup product
+$H^i(X,\mathbb Q_\ell)\otimes H^j(X,\mathbb Q_\ell)\to H^{i+j}(X,\mathbb Q_\ell)$.
+\end{convention}
+
+\begin{convention}[Poincare duality]
+\label{ha-appC-prop3-4}
+\source{hartshorne-algebraic-geometry:C.3.4}
+\dcref{C.3.4}
+If $X$ is smooth proper of dimension $n$, $H^{2n}(X,\mathbb Q_\ell)$ is
+one-dimensional and cup product gives a perfect pairing
+$H^i(X)\times H^{2n-i}(X)\to H^{2n}(X)$.
+\end{convention}
+
+\begin{convention}[Lefschetz fixed point formula]
+\label{ha-appC-prop3-5}
+\source{hartshorne-algebraic-geometry:C.3.5}
+\dcref{C.3.5}
+If $f:X\to X$ has isolated multiplicity-one fixed points, then
+$L(f,X)=\sum_i(-1)^i\operatorname{Tr}(f^*;H^i(X,\mathbb Q_\ell))$.
+\end{convention}
+
+\begin{convention}[Smooth proper base change]
+\label{ha-appC-prop3-6}
+\source{hartshorne-algebraic-geometry:C.3.6}
+\dcref{C.3.6}
+For a smooth proper morphism with connected base, $\dim H^i(X_y,\mathbb Q_\ell)$
+is constant; in particular it is invariant under finite-field extension.
+\end{convention}
+
+\begin{convention}[Comparison over the complex numbers]
+\label{ha-appC-prop3-7}
+\source{hartshorne-algebraic-geometry:C.3.7}
+\dcref{C.3.7}
+For smooth proper $X/\CC$,
+$H^i(X,\mathbb Q_\ell)\otimes_{\mathbb Q_\ell}\CC\simeq H^i(X_h,\CC)$.
+\end{convention}
+
+\begin{convention}[Cycle classes]
+\label{ha-appC-prop3-8}
+\source{hartshorne-algebraic-geometry:C.3.8}
+\dcref{C.3.8}
+A codimension-$q$ cycle has a class $\eta(Z)\in H^{2q}(X,\mathbb Q_\ell)$;
+rational equivalence is killed, intersections map to cup products, and the
+class of a closed point is nonzero.
+\end{convention}
+
+\section{Cohomological Interpretation of the Weil Conjectures}
+\label{ha-appC-sec4}
+\source{hartshorne-algebraic-geometry:C.4}
+
+Let $X/\mathbb F_q$ be smooth projective and let $F:X\to X$ be Frobenius.
+The fixed points of $F^r$ are exactly $X(\mathbb F_{q^r})$, so by 3.5,
+\[
+N_r=\sum_{i=0}^{2n}(-1)^i\operatorname{Tr}(F^{r*};H^i(X,\mathbb Q_\ell)).
+\]
+
+\begin{lemma}[Determinant identity]
+\label{ha-appC-lem4-1}
+\dcref{C.4.1}
+For an endomorphism $\varphi$ of a finite-dimensional vector space $V$,
+\[
+\exp\left(\sum_{r\ge1}\operatorname{Tr}(\varphi^r;V)\frac{t^r}{r}\right)
+=\det(1-t\varphi;V)^{-1}.
+\]
+\source{hartshorne-algebraic-geometry:C.4.1}
+\end{lemma}
+
+\begin{proof}
+For $\dim V=1$ this is the geometric-series identity.  Induct on dimension
+using an invariant subspace and the resulting short exact sequence; traces and
+determinants are additive and multiplicative, respectively.
+\end{proof}
+
+
+
+\begin{theorem}[Cohomological zeta formula]
+\label{ha-appC-thm4-2}
+\dcref{C.4.2}
+Put $P_i(t)=\det(1-tF^*;H^i(X,\mathbb Q_\ell))$.  Then
+\[
+Z(X,t)=\prod_{i=0}^{2n}P_i(t)^{(-1)^{i+1}}.
+\]
+Consequently $Z(X,t)$ is rational.  Moreover $P_0(t)=1-t$ and
+$P_{2n}(t)=1-q^nt$.
+\source{hartshorne-algebraic-geometry:C.4.2}
+\uses{ha-appC-lem4-1}
+\end{theorem}
+\begin{proof}
+Insert the Lefschetz trace expression for $N_r$ into the definition of $Z$ and
+apply Lemma 4.1 to each cohomological degree.  The Frobenius acts as the
+identity on $H^0$, while it acts as multiplication by $q^n$ on the one-
+dimensional top cohomology, giving the two displayed endpoint factors.
+\end{proof}
+
+\begin{lemma}[Perfect-pairing determinant identity]
+\label{ha-appC-lem4-3}
+\dcref{C.4.3}
+If $V\times W\to K$ is a perfect pairing and endomorphisms $\varphi,\psi$
+satisfy $\langle\varphi v,\psi w\rangle=\lambda\langle v,w\rangle$,
+then
+\[
+\det(1-t\psi;W)=(-1)^rt^r\lambda^r
+\frac{\det(1-(\lambda t)^{-1}\varphi;V)}{\det(\varphi;V)}.
+\]
+\source{hartshorne-algebraic-geometry:C.4.3}
+
+\end{lemma}
+\begin{proof}
+Choose dual bases for the perfect pairing.  The relation
+$\langle\varphi v,\psi w\rangle=\lambda\langle v,w\rangle$ says that the matrix of $\psi$ is
+$\lambda$ times the inverse transpose of the matrix of $\varphi$.  Taking determinants of
+$1-t\psi$ and clearing powers of $t$ gives the displayed identity.
+\end{proof}
+
+\begin{theorem}[Functional equation]
+\label{ha-appC-thm4-4}
+\dcref{C.4.4}
+Under the hypotheses of Theorem 4.2,
+\[
+Z(1/(q^nt))=\pm q^{nE/2}t^E Z(t),
+\qquad E=\sum_i(-1)^i\dim H^i(X,\mathbb Q_\ell).
+\]
+\source{hartshorne-algebraic-geometry:C.4.4}
+\uses{ha-appC-thm4-2,ha-appC-lem4-3}
+\end{theorem}
+
+\begin{proof}
+Apply Poincaré duality to pair $H^i$ with $H^{2n-i}$ and use Lemma 4.3
+to relate the corresponding characteristic polynomials.  Substitution in the
+product of Theorem 4.2 yields the stated equation, with the sign determined by
+the determinants.
+\end{proof}
+
+
+
+\begin{theorem}[Deligne's theorem]
+\label{ha-appC-thm4-5}
+\dcref{C.4.5}
+The reciprocal roots of each $P_i(t)$ are algebraic integers $\alpha_{ij}$
+with $|\alpha_{ij}|=q^{i/2}$.  Hence the Weil conjectures all hold.
+\source{hartshorne-algebraic-geometry:C.4.5}
+\end{theorem}
+\begin{proof}
+This is Deligne's theorem, cited in the source; the source explicitly does not
+give its proof.  It supplies the algebraic-integrality and absolute-value
+assertions for the Frobenius reciprocal roots.
+\end{proof}

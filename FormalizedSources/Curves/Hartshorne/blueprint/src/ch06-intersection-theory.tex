@@ -1,0 +1,295 @@
+% Source-faithful mathematical blueprint of Hartshorne, Algebraic Geometry (1977), Appendix A.
+% Authorial exposition, examples, and exercises are omitted; mathematical conventions, statements,
+% formulas, and proof arguments are retained.
+\section{Intersection Theory}
+\label{ha-appA-sec1}
+\source{hartshorne-algebraic-geometry:A.1}
+
+\begin{definition}[Cycles, rational equivalence, and Chow groups]
+\source{hartshorne-algebraic-geometry:A.1}
+For a variety $X$ over an algebraically closed field, a codimension-$r$ cycle
+is a finite integral combination of closed irreducible codimension-$r$
+subvarieties.  A closed subscheme of pure codimension $r$ determines the
+cycle whose coefficient at a component is the length at its generic point.
+For $f:X\to X'$, proper pushforward sends a subvariety $Y$ to zero if its
+dimension drops and otherwise to $[K(Y):K(f(Y))]f(Y)$, extended linearly.
+If $\widetilde V\to V$ is the normalization, linearly equivalent Weil
+divisors on $\widetilde V$ define rationally equivalent cycles on $X$.
+Write $A^r(X)$ for codimension-$r$ cycles modulo this relation and
+$A(X)=\bigoplus_rA^r(X)$.
+\end{definition}
+
+An intersection theory on nonsingular quasi-projective varieties has products
+$A^r(X)\times A^s(X)\to A^{r+s}(X)$ and pullbacks defined by the graph, subject
+to the following axioms.
+
+\begin{convention}[Chow-ring structure]
+\label{ha-appA-A1}
+\source{hartshorne-algebraic-geometry:A1}
+\dcref{A1}
+$A(X)$ is a commutative associative graded ring with identity.
+\end{convention}
+
+\begin{convention}[Functorial pullback]
+\label{ha-appA-A2}
+\source{hartshorne-algebraic-geometry:A2}
+\dcref{A2}
+Pullback is a ring map and $(gf)^*=f^*g^*$.
+\end{convention}
+
+\begin{convention}[Functorial proper pushforward]
+\label{ha-appA-A3}
+\source{hartshorne-algebraic-geometry:A3}
+\dcref{A3}
+Proper pushforward is graded and $(gf)_*=g_*f_*$.
+\end{convention}
+
+\begin{convention}[Projection formula]
+\label{ha-appA-A4}
+\source{hartshorne-algebraic-geometry:A4}
+\dcref{A4}
+$f_*(x f^*y)=f_*(x)y$.
+\end{convention}
+
+\begin{convention}[Diagonal formula]
+\label{ha-appA-A5}
+\source{hartshorne-algebraic-geometry:A5}
+\dcref{A5}
+For the diagonal $\Delta:X\to X\times X$, $YZ=\Delta^*(Y\times Z)$.
+\end{convention}
+
+\begin{convention}[Proper-intersection multiplicities]
+\label{ha-appA-A6}
+\source{hartshorne-algebraic-geometry:A6}
+\dcref{A6}
+If $Y,Z$ meet properly, $YZ=\sum_W i(Y,Z;W)W$, with $i(Y,Z;W)$ local at the
+generic point of $W$.
+\end{convention}
+
+\begin{convention}[Cartier-divisor normalization]
+\label{ha-appA-A7}
+\source{hartshorne-algebraic-geometry:A7}
+\dcref{A7}
+If $Z$ is an effective Cartier divisor meeting $Y$ properly, $YZ$ is the cycle
+of the Cartier divisor cut on $Y$.
+\end{convention}
+
+\begin{theorem}[Intersection theory]
+\label{ha-appA-thm1-1}
+\dcref{A.1.1}
+On nonsingular quasi-projective varieties there is a unique intersection
+theory satisfying A1--A7.  For proper intersection, the local multiplicity is
+\[
+i(Y,Z;W)=\sum_{j\ge0}(-1)^j\length_A\operatorname{Tor}^A_j(A/\mathfrak a,A/\mathfrak b),
+\]
+where $A=\mathcal O_{X,\eta_W}$ and $\mathfrak a,\mathfrak b$ are the ideals
+of $Y,Z$.  Chow's moving lemma says that $Z$ is rationally equivalent to a
+cycle meeting $Y$ properly, and two such choices give the same product.
+\source{hartshorne-algebraic-geometry:A.1.1}
+\uses{ha-appA-A1,ha-appA-A2,ha-appA-A3,ha-appA-A4,ha-appA-A5,ha-appA-A6,ha-appA-A7}
+\end{theorem}
+
+\begin{proof}
+Serre's Tor formula has the required local, normalization, and positivity
+properties.  By the moving lemma replace one cycle by a rationally equivalent
+cycle meeting the other properly.  For uniqueness use A5 to reduce to the
+diagonal in $X\times X'$, which is a local complete intersection; A6 reduces
+to one factor a complete intersection of Cartier divisors, and repeated A7
+then determines the product.  This also proves independence of the moved
+representative.
+\end{proof}
+
+
+
+\section{Properties of the Chow Ring}
+\label{ha-appA-sec2}
+\source{hartshorne-algebraic-geometry:A.2}
+
+\begin{convention}[Divisors and the Picard group]
+\label{ha-appA-A8}
+\source{hartshorne-algebraic-geometry:A8}
+\dcref{A8}
+$A^1(X)\simeq\operatorname{Pic}X$.
+\end{convention}
+
+\begin{convention}[Affine-space invariance]
+\label{ha-appA-A9}
+\source{hartshorne-algebraic-geometry:A9}
+\dcref{A9}
+Projection $X\times\mathbb A^n\to X$ induces
+$A(X)\simeq A(X\times\mathbb A^n)$.
+\end{convention}
+
+\begin{convention}[Localization]
+\label{ha-appA-A10}
+\source{hartshorne-algebraic-geometry:A10}
+\dcref{A10}
+For a nonsingular closed $Y\subset X$, with $U=X-Y$, the sequence
+$A(Y)\to A(X)\to A(U)\to0$ is exact.
+\end{convention}
+
+\begin{convention}[Projective-bundle formula]
+\label{ha-appA-A11}
+\source{hartshorne-algebraic-geometry:A11}
+\dcref{A11}
+If $\mathcal E$ has rank $r$, then $A(\mathbb P(\mathcal E))$ is a free
+$A(X)$-module on $1,\xi,\ldots,\xi^{r-1}$, where $\xi$ is the tautological
+divisor class.
+\end{convention}
+
+\section{Chern Classes}
+\label{ha-appA-sec3}
+\source{hartshorne-algebraic-geometry:A.3}
+
+\begin{definition}[Chern classes]
+\source{hartshorne-algebraic-geometry:A.3}
+For a rank-$r$ locally free sheaf $\mathcal E$ on $X$, define
+$c_i(\mathcal E)\in A^i(X)$ by $c_0=1$ and
+\[
+\sum_{i=0}^r(-1)^i\xi^{r-i}\pi^*c_i(\mathcal E)=0
+\quad\text{in }A(\mathbb P(\mathcal E)),
+\]
+where $\pi$ is the projection.  The total class is
+$c(\mathcal E)=\sum_i c_i(\mathcal E)$.
+\end{definition}
+
+\begin{convention}[First Chern class of a line bundle]
+\label{ha-appA-C1}
+\source{hartshorne-algebraic-geometry:C1}
+\dcref{C1}
+$c(\mathcal O_X(D))=1+D$.
+\end{convention}
+
+\begin{convention}[Pullback of Chern classes]
+\label{ha-appA-C2}
+\source{hartshorne-algebraic-geometry:C2}
+\dcref{C2}
+$c_i(f^*\mathcal E)=f^*c_i(\mathcal E)$.
+\end{convention}
+
+\begin{convention}[Whitney sum formula]
+\label{ha-appA-C3}
+\source{hartshorne-algebraic-geometry:C3}
+\dcref{C3}
+For $0\to\mathcal E'\to\mathcal E\to\mathcal E''\to0$,
+$c(\mathcal E)=c(\mathcal E')c(\mathcal E'')$.
+\end{convention}
+
+\begin{convention}[Splitting principle]
+\label{ha-appA-C4}
+\source{hartshorne-algebraic-geometry:C4}
+\dcref{C4}
+If $\mathcal E$ has a filtration with invertible quotients $\mathcal L_i$,
+then $c(\mathcal E)=\prod_i(1+c_1(\mathcal L_i))$.
+\end{convention}
+
+\begin{convention}[Chern-root identities]
+\label{ha-appA-C5}
+\source{hartshorne-algebraic-geometry:C5}
+\dcref{C5}
+Under formal Chern roots $a_i,b_j$,
+$c(\mathcal E\otimes\mathcal F)=\prod_{i,j}(1+(a_i+b_j)t)$,
+$c(\bigwedge^p\mathcal E)=\prod_{|I|=p}(1+(\sum_{i\in I}a_i)t)$, and
+$c(\mathcal E^\vee)=\prod_i(1-a_it)$.
+\end{convention}
+
+\begin{convention}[Zero scheme of a section]
+\label{ha-appA-C6}
+\source{hartshorne-algebraic-geometry:C6}
+\dcref{C6}
+If a section of $\mathcal E$ has zero scheme $Y$ of codimension $r$, then
+$c_r(\mathcal E)=[Y]$.
+\end{convention}
+
+\begin{convention}[Self-intersection formula]
+\label{ha-appA-C7}
+\source{hartshorne-algebraic-geometry:C7}
+\dcref{C7}
+If $i:Y\hookrightarrow X$ is nonsingular of codimension $r$, then
+$i_*c_r(N_{Y/X})=Y\cdot Y$.
+\end{convention}
+
+\section{The Riemann--Roch Theorem}
+\label{ha-appA-sec4}
+\source{hartshorne-algebraic-geometry:A.4}
+
+\begin{definition}[Chern character and Todd class]
+\source{hartshorne-algebraic-geometry:A.4}
+For formal roots $a_i$ of $\mathcal E$, set
+$\operatorname{ch}(\mathcal E)=\sum_i e^{a_i}$ and
+$\operatorname{td}(\mathcal E)=\prod_i a_i/(1-e^{-a_i})$.  Thus
+\[
+\operatorname{ch}=r+c_1+\tfrac12(c_1^2-2c_2)+\tfrac16(c_1^3-3c_1c_2+3c_3)+\cdots.
+\]
+\end{definition}
+
+\begin{theorem}[Hirzebruch--Riemann--Roch]
+\label{ha-appA-thm4-1}
+\dcref{A.4.1}
+If $\mathcal E$ is locally free on a nonsingular projective $n$-fold $X$,
+\[
+\chi(\mathcal E)=\deg\bigl(\operatorname{ch}(\mathcal E)\operatorname{td}(T_X)\bigr)_n.
+\]
+\source{hartshorne-algebraic-geometry:A.4.1}
+\end{theorem}
+\begin{proof}
+The source attributes this theorem to Hirzebruch over $\mathbb C$ and to
+Grothendieck in generalized form; it does not give a proof here.
+\end{proof}
+
+\section{Complements and Generalizations}
+\label{ha-appA-sec5}
+\source{hartshorne-algebraic-geometry:A.5}
+
+\begin{theorem}[Nakai--Moishezon criterion]
+\label{ha-appA-thm5-1}
+\dcref{A.5.1}
+For a Cartier divisor $D$ on a scheme $X$ proper over an algebraically closed
+field, $D$ is ample iff
+$D^{\dim Y}\cdot Y>0$ for every positive-dimensional integral closed
+subvariety $Y\subset X$.
+\source{hartshorne-algebraic-geometry:A.5.1}
+\end{theorem}
+\begin{proof}
+The source attributes this criterion to Nakai and says that its proof is
+clarified and simplified by Kleiman; no proof is supplied in this appendix.
+\end{proof}
+
+\begin{theorem}[Hodge index theorem]
+\label{ha-appA-thm5-2}
+\dcref{A.5.2}
+If $X$ is a nonsingular projective surface, $H$ is ample, and $D$ is a
+numerically nonzero divisor, then
+\[
+(D\cdot H)^2\geq (H^2)(D^2),
+\]
+with equality if and only if $D$ is numerically proportional to $H$.
+\source{hartshorne-algebraic-geometry:A.5.2}
+\end{theorem}
+\begin{proof}
+The source attributes this theorem to Hodge and says that the proof uses
+Hodge's theory of harmonic integrals; no proof is supplied here.
+\end{proof}
+
+\begin{definition}[K-theory pushforward]
+\source{hartshorne-algebraic-geometry:A.5}
+The Chern classes extend additively to $K(X)$, the Chern character is a ring
+map $K(X)\to A(X)\otimes\mathbb Q$, and a proper morphism has
+$f_![\mathcal F]=\sum_i(-1)^i[R^if_*\mathcal F]$.
+\end{definition}
+
+\begin{theorem}[Grothendieck--Riemann--Roch]
+\label{ha-appA-thm5-3}
+\dcref{A.5.3}
+For a smooth projective morphism $f:X\to Y$ of nonsingular quasi-projective
+varieties and $x\in K(X)$,
+\[
+\operatorname{ch}(f_!x)\operatorname{td}(T_Y)
+=f_*\bigl(\operatorname{ch}(x)\operatorname{td}(T_X)\bigr).
+\]
+\source{hartshorne-algebraic-geometry:A.5.3}
+\end{theorem}
+\begin{proof}
+The source attributes this theorem to Grothendieck and refers to its proof in
+the cited literature; no proof is supplied here.
+\end{proof}

@@ -1,0 +1,338 @@
+% Source-faithful assembly: Mumford, Abelian Varieties, Chapter IV,
+% Horizon transcription pages 0178--0196.
+
+\section{Etale coverings}
+\label{mumford-IV18-source}
+\dcref{M:ch4:IV.18}
+
+\begin{theorem}[Serre--Lang]
+\label{mumford-thm-etale-cover-abelian-structure}
+\dcref{M:ch4:IV.18}
+If $X$ is an abelian variety, $Y$ a variety, and $f:Y\to X$ an etale
+covering, then $Y$ has a unique abelian-variety structure for which $f$ is
+a separable isogeny.
+\source{mumford-abelian-varieties:page-0178}
+\source{mumford-abelian-varieties:page-0179}
+\source{mumford-abelian-varieties:page-0180}
+\end{theorem}
+\begin{proof}
+Let $\Gamma_m$ be the graph of multiplication on $X$ and let $\Gamma'$ be
+its inverse image in $Y^3$. Let $\Gamma$ be the component containing
+$(y_0,y_0,y_0)$, where $f(y_0)=0$. Its projection
+$p:\Gamma\to Y\times Y$ is etale. The sections
+$\sigma_1(y)=(y_0,y,y)$ and $\sigma_2(y)=(y,y_0,y)$ show that it is enough
+to prove $p$ is an isomorphism, or equivalently that the fibre of
+$q:\Gamma\to Y$ at $y_0$ is irreducible.
+
+We use the lemma below. Since $\Gamma$ is nonsingular and connected it is
+irreducible, and $q$ is proper smooth with a section, so the lemma applies.
+Thus $p$ is an isomorphism. The third projection then defines a morphism
+$v:Y\times Y\to Y$ with $v(y,y_0)=y=v(y_0,y)$. The appendix theorem on
+such a composition makes $Y$ an abelian variety with zero $y_0$; $f$ is a
+homomorphism because $f(y_0)=0$.
+\end{proof}
+
+\begin{lemma}[Irreducibility of fibres]
+\label{mumford-lem-etale-cover-graph}
+\dcref{M:ch4:IV.18}
+\uses{mumford-thm-etale-cover-abelian-structure}
+If $f:X\to Y$ is a proper smooth morphism of irreducible varieties with a
+section, all fibres of $f$ are irreducible.
+\source{mumford-abelian-varieties:page-0179}
+\end{lemma}
+\begin{proof}
+Take $Y=\operatorname{Spec}A$ affine and $B=\Gamma(X,\mathcal O_X)$.
+The factorization $X\to\operatorname{Spec}B\to Y$ and the section imply,
+by equality of dimensions, that $A=B$. Smooth fibres are nonsingular, so it
+remains to prove connectedness. A universally computing free complex gives,
+after completion at a maximal ideal,
+\[
+\widehat A\simeq\varprojlim_n\ker\left[
+ K_0/\mathfrak M^nK_0\to K_1/\mathfrak M^nK_1\right]
+\simeq\varprojlim_n H^0(f^{-1}(y),\mathcal O_X/\mathfrak M^n\mathcal O_X).
+\]
+If a fibre were $Z_1\cup Z_2$ disconnected, a function reducing to $1$ on
+$Z_1$ and $0$ on $Z_2$ would give a nontrivial idempotent in the local ring
+$\widehat A$, a contradiction.
+\end{proof}
+
+\begin{remark}[Quasi-inverse to an isogeny]
+\label{mumford-rem-isogeny-quasi-inverse}
+\dcref{M:ch4:IV.18}
+\uses{mumford-thm-etale-cover-abelian-structure}
+If $f:Y\to X$ is an isogeny of abelian varieties, there is an isogeny
+$g:X\to Y$ and $n>0$ with $g f=n_Y$ and $f g=n_X$: choose $n$ killing
+$\ker f$, and factor multiplication by $n$ through the quotient by $\ker f$.
+\source{mumford-abelian-varieties:page-0180}
+\end{remark}
+
+\begin{proposition}[Fundamental group and Tate modules]
+\label{mumford-prop-etale-coverings-av}
+\label{mumford-def-tate-module}
+\label{mumford-prop-galois-tate-action}
+\dcref{M:ch4:IV.18}
+\uses{mumford-thm-etale-cover-abelian-structure}
+For a pointed nonsingular variety, the pointed connected finite etale
+coverings form an inverse system and
+\[
+\pi_1(X,x_0)=\varprojlim_{(Y,y_0,\pi)}G_Y.
+\]
+For an abelian variety $X$ with zero base point,
+\[
+\pi_1(X)\simeq\prod_lT_l(X),\qquad T_l(X)=\varprojlim_mX_{l^m}.
+\]
+For $l\ne p$, $T_l(X)\simeq\mathbb Z_l^{2g}$; if $r$ is the $p$-rank,
+$T_p(X)=\varprojlim X^r_{p^m}\simeq\mathbb Z_p^r$.
+\source{mumford-abelian-varieties:page-0180}
+\source{mumford-abelian-varieties:page-0181}
+\source{mumford-abelian-varieties:page-0182}
+\source{mumford-abelian-varieties:page-0183}
+\end{proposition}
+\begin{proof}
+There is at most one pointed map over $X$ between two coverings; when it
+exists it induces a unique surjection of their deck groups. For $l\ne p$,
+the coverings $X\xrightarrow{l^m}X$ are cofinal among coverings with
+$l$-power kernel, giving the inverse limit. The finite torsion groups are
+$X_{l^m}\simeq(\mathbb Z/l^m\mathbb Z)^{2g}$. The characteristic-$p$
+statement follows from the reduced part of $X_{p^m}$. Over $\mathbb C$,
+for $X=V/U$, the same system is $\varprojlim U/l^mU$, whose full profinite
+completion is $\varprojlim U/nU$.
+\end{proof}
+
+\section{Structure of $\operatorname{Hom}(X,Y)$}
+\label{mumford-IV19-source}
+\dcref{M:ch4:IV.19}
+
+\begin{definition}[Homomorphisms up to isogeny]
+\label{mumford-def-hom-up-to-isogeny}
+\dcref{M:ch4:IV.19}
+Put
+$\operatorname{Hom}^0(X,Y)=\mathbb Q\otimes_\mathbb Z\operatorname{Hom}(X,Y)$
+and $\operatorname{End}^0X=\mathbb Q\otimes_\mathbb Z\operatorname{End}X$.
+Composition makes abelian varieties up to isogeny a category, in which
+isogenies are isomorphisms, and
+\[
+\operatorname{Hom}^0(X,Y)=\varinjlim_{X'\to X}\operatorname{Hom}(X',Y).
+\]
+\source{mumford-abelian-varieties:page-0183}
+\end{definition}
+
+\begin{theorem}[Poincare complete reducibility]
+\label{mumford-thm-poincare-complete-reducibility}
+\dcref{M:ch4:IV.19}
+\uses{mumford-cor-line-bundle-morphism}
+If $Y$ is an abelian subvariety of $X$, there is an abelian subvariety $Z$
+with $Y\cap Z$ finite and $Y+Z=X$; equivalently $X$ is isogenous to
+$Y\times Z$.
+\source{mumford-abelian-varieties:page-0184}
+\end{theorem}
+\begin{proof}
+Let $i:Y\to X$ be inclusion, $\widehat i:\widehat X\to\widehat Y$ its
+dual, and choose ample $L$ on $X$. Put $Z$ equal to the connected component
+of zero in $\phi_L^{-1}(\ker\widehat i)$. Then
+$\dim Z\ge\dim X-\dim Y$, while
+$Z\cap Y=K(L|_Y)$ is finite. Therefore $Z\times Y\to X$ is surjective
+with finite kernel.
+\end{proof}
+
+\begin{definition}[Simple abelian variety]
+\label{mumford-def-simple-abelian-variety}
+\dcref{M:ch4:IV.19}
+An abelian variety is simple if it has no abelian subvariety other than zero
+and itself.
+\source{mumford-abelian-varieties:page-0185}
+\end{definition}
+
+\begin{corollary}[Simple decomposition]
+\label{mumford-cor-simple-decomposition}
+\label{mumford-cor-simple-endomorphism-algebra}
+\dcref{M:ch4:IV.19}
+Every abelian variety is isogenous to
+$X_1^{n_1}\times\cdots\times X_k^{n_k}$ with the $X_i$ simple and pairwise
+non-isogenous; the types and multiplicities are unique. If $X$ is simple,
+$\operatorname{End}^0X$ is a division ring, and in general
+\[
+\operatorname{End}^0(X)=\bigoplus_iM_{n_i}(\operatorname{End}^0X_i).
+\]
+\source{mumford-abelian-varieties:page-0185}
+\uses{mumford-thm-poincare-complete-reducibility}
+% Source prints these as corollaries without proofs.
+\notready
+\end{corollary}
+
+\begin{theorem}[Degree polynomial]
+\label{mumford-thm-degree-polynomial}
+\dcref{M:ch4:IV.19}
+\uses{mumford-thm-poincare-complete-reducibility,mumford-thm-riemann-roch}
+The function $\phi\mapsto\deg\phi$ on $\operatorname{End}X$ extends to a
+homogeneous polynomial of degree $2g$ on $\operatorname{End}^0X$.
+\source{mumford-abelian-varieties:page-0185}
+\source{mumford-abelian-varieties:page-0186}
+\end{theorem}
+\begin{proof}
+For $P(n)=\deg(n\phi+\psi)$, the ample bundle formula gives
+$P(n)=\chi((n\phi+\psi)^*L)/\chi(L)$. The theorem of the cube supplies
+line bundles $L_1,L_2,L_3$ with
+\[
+L_{n+2}\otimes L_{n+1}^{-2}\otimes L_n\otimes(2\phi)^*L^{-1}
+\otimes\phi^*L\otimes\phi^*L=1,
+\]
+and induction gives
+$L_n=L_1^{n(n-1)/2}\otimes L_2^n\otimes L_3$. Since Euler characteristic
+is polynomial on line bundles, $P(n)$ is polynomial; homogeneity follows
+from $\deg(n\phi)=n^{2g}\deg\phi$.
+\end{proof}
+
+\begin{theorem}[Tate representation]
+\label{mumford-thm-hom-tate-injective}
+\dcref{M:ch4:IV.19}
+\uses{mumford-prop-etale-coverings-av,mumford-thm-degree-polynomial}
+For abelian varieties $X,Y$, $\operatorname{Hom}(X,Y)$ is a finitely
+generated free abelian group, and for $l\ne\operatorname{char}k$,
+\[
+\mathbb Z_l\otimes_\mathbb Z\operatorname{Hom}(X,Y)\longrightarrow
+\operatorname{Hom}_{\mathbb Z_l}(T_l(X),T_l(Y))
+\]
+is injective. In characteristic zero over $\mathbb C$, restriction to the
+lattices in $X_i=V_i/U_i$ injects Hom into
+$\operatorname{Hom}_{\mathbb Z}(U_1,U_2)$.
+\source{mumford-abelian-varieties:page-0186}
+\source{mumford-abelian-varieties:page-0187}
+\source{mumford-abelian-varieties:page-0188}
+\source{mumford-abelian-varieties:page-0189}
+\end{theorem}
+\begin{proof}
+Complex homomorphisms lift to complex-linear maps $V_1\to V_2$ carrying
+$U_1$ into $U_2$, so the lattice map is injective and gives the stated
+finite rank bound. For arbitrary $k$, use $T_l$. For a finitely generated
+subgroup $M$, Step I shows its saturation
+$\mathbb QM\cap\operatorname{Hom}(X,Y)$ is finitely generated: reduce by
+isogenies to simple factors and use the degree polynomial, whose nonzero
+values are bounded away from zero on a lattice. For a saturated $M$ with
+basis $f_i$, a nontrivial $l$-adic relation in the Tate representation can
+be approximated by an integral relation $\sum n_if_i$ not all divisible by
+$l$. Its Tate map is zero, so it factors through multiplication by $l$,
+contradicting saturation. Thus the Tate map is injective. Finite generation
+and torsion-freeness give freeness.
+\end{proof}
+
+\begin{corollary}[Neron--Severi and endomorphism algebras]
+\label{mumford-cor-ns-finite-free}
+\dcref{M:ch4:IV.19}
+$\operatorname{NS}(X)=\operatorname{Pic}X/\operatorname{Pic}^0X$ is free of
+finite rank, and $\operatorname{End}X$ is a finite-dimensional semisimple
+algebra over $\mathbb Q$.
+\source{mumford-abelian-varieties:page-0189}
+\uses{mumford-thm-hom-tate-injective}
+\end{corollary}
+\begin{proof}
+The map $L\mapsto\phi_L$ injects $\operatorname{NS}(X)$ into
+$\operatorname{Hom}(X,\widehat X)$, so the first assertion follows. The
+second follows from the simple decomposition and the division-ring assertion
+for a simple factor.
+\end{proof}
+
+\begin{lemma}[Norms and traces of simple algebras]
+\label{mumford-lem-reduced-norm-simple-algebra}
+\dcref{M:ch4:IV.19}
+\uses{mumford-cor-simple-decomposition}
+For a finite-dimensional associative simple separable algebra $A$ over
+$\Gamma$, with center $\Lambda$, there are canonical reduced norm and trace
+forms. Every norm is
+$(\operatorname{Nm}_{\Lambda/\Gamma}\circ N^0)^k$ and every trace is
+$\phi\circ\operatorname{Tr}^0$; if $[A:\Lambda]=d^2$, $N^0$ has degree $d$.
+\source{mumford-abelian-varieties:page-0189}
+\source{mumford-abelian-varieties:page-0190}
+\source{mumford-abelian-varieties:page-0191}
+\end{lemma}
+\begin{proof}
+After a separable closure, $A$ becomes a product of matrix algebras, where
+the assertion is determinant and trace. Writing the factors using the
+embeddings $\sigma_i:\Lambda\to\overline\Gamma$, a norm is
+$\prod_iN_i^0(\phi_i(\alpha))^{n_i}$. Galois transitivity forces all
+$n_i$ equal, giving the displayed norm; the trace argument is analogous.
+\end{proof}
+
+\begin{theorem}[Degree and Tate determinant]
+\label{mumford-thm-degree-tate-determinant}
+\dcref{M:ch4:IV.19}
+\uses{mumford-lem-reduced-norm-simple-algebra,mumford-thm-hom-tate-injective}
+For $f\in\operatorname{End}X$ and $l\ne\operatorname{char}k$,
+\[
+\deg f=\det T_l(f).
+\]
+Thus $\deg(n_X-f)=P(n)$, where $P(t)=\det(t-T_l(f))$ is monic of degree
+$2g$ with integral rational coefficients and $P(f)=0$.
+\source{mumford-abelian-varieties:page-0191}
+\source{mumford-abelian-varieties:page-0192}
+\end{theorem}
+\begin{proof}
+Both sides extend to norm forms of degree $2g$ on
+$\mathbb Q_l\otimes\operatorname{End}X$. Their $l$-adic absolute values
+agree because the power of $l$ in $\deg f$ is the order of the kernel on
+$X_{l^n}$, hence the order of the cokernel of $T_l(f)$. Decomposition into
+simple factors and the preceding norm lemma give equality. The
+characteristic-polynomial assertions follow.
+\end{proof}
+
+\begin{remark}[Characteristic and CM type]
+\label{mumford-rem-endomorphism-characteristic}
+\dcref{M:ch4:IV.19}
+\uses{mumford-thm-degree-tate-determinant}
+The constant term and negative coefficient of $t^{2g-1}$ in the polynomial
+above are respectively the norm and trace. If $X$ is simple, with center
+$K$, $[K:\mathbb Q]=e$, and $[\operatorname{End}^0X:K]=d^2$, then $de\mid2g$.
+It is of CM type precisely when $de=2g$, equivalently when
+$\operatorname{End}^0X$ contains a field of degree $2g$ over $\mathbb Q$.
+\source{mumford-abelian-varieties:page-0193}
+\source{mumford-abelian-varieties:page-0194}
+\end{remark}
+
+\section{Riemann forms}
+\label{mumford-IV20-opening-source}
+\dcref{M:ch4:IV.20}
+
+\begin{definition}[Tate pairing]
+\label{mumford-def-weil-pairing-ladic}
+\dcref{M:ch4:IV.20}
+\uses{mumford-prop-etale-coverings-av}
+For $l\ne\operatorname{char}k$, put
+$M_l=\varprojlim\mu_{l^n}\simeq\mathbb Z_l$. For $n$ prime to the
+characteristic, the kernels of $n_X$ and $n_{\widehat X}$ have a canonical
+pairing $\bar e_n:X_n\times(\widehat X)_n\to\mu_n$.
+\source{mumford-abelian-varieties:page-0194}
+\end{definition}
+
+\begin{lemma}[Divisor formula for the pairing]
+\label{mumford-lem-riemann-pairing-divisor}
+\dcref{M:ch4:IV.20}
+\uses{mumford-def-weil-pairing-ladic}
+If $(f)=nD$ and $(g)=n_X^{-1}(D)$, then
+\[
+\bar e_n(a,\lambda)=g(x)/g(x+a).
+\]
+\source{mumford-abelian-varieties:page-0195}
+\end{lemma}
+\begin{proof}
+Since $L^n$ and $n_X^*L$ are trivial, choose $f,g$ as stated. Then
+$n_X^*f=(g^n)$, so $g^n(x)=\alpha f(nx)$; hence the ratio is a constant
+$n$th root of unity, equal to the pairing.
+\end{proof}
+
+\begin{proposition}[Compatibility of pairings]
+\label{mumford-prop-riemann-pairing-compatibility}
+\dcref{M:ch4:IV.20}
+\uses{mumford-lem-riemann-pairing-divisor}
+For coprime $m,n$, $x\in X_{mn}$ and $y\in(\widehat X)_{mn}$,
+\[
+\bar e_n(mx,my)=\bar e_{mn}(x,y)^m.
+\]
+\source{mumford-abelian-varieties:page-0196}
+\end{proposition}
+\begin{proof}
+For a complete variety with a free action of a finite group $G$, and a
+normal subgroup $H$, a line bundle on the quotient by $G$ which becomes
+trivial on the quotient by $H$ has its $G/H$ character pulled back to a
+$G$-character. Apply this with $G=X_{mn}$ and $H=X_m$; the quotient maps
+are multiplication maps, giving the formula.
+\end{proof}

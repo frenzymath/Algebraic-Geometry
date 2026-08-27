@@ -1,0 +1,514 @@
+% Source assembly: Mumford, Abelian Varieties, Chapter II Sections 7--9,
+% source pages 77--98 (with the Section 6 applications on pages 72--76).
+
+\section{Applications of the theorem of the square}
+\label{mumford-source-II6-applications}
+\dcref{M:ch2:II.6}
+\uses{mumford-thm-seesaw,mumford-thm-cube-varieties}
+
+For a line bundle $L$ on an abelian variety $X$, put
+$\phi_L(x)=[T_x^*L\otimes L^{-1}]$ and
+$K(L)=\ker\phi_L=\{x:T_x^*L\simeq L\}$.
+\source{mumford-abelian-varieties:page-0071}
+
+\begin{proposition}[Closedness of the translation kernel]
+\label{mumford-prop-KL-closed}
+\dcref{M:ch2:II.6}
+\uses{mumford-thm-seesaw}
+$K(L)$ is a Zariski-closed subgroup of $X$.
+\source{mumford-abelian-varieties:page-0071}
+\end{proposition}
+\begin{proof}
+Apply the seesaw theorem to $m^*L\otimes p_2^*L^{-1}$ on $X\times X$.
+The locus of $x$ for which its restriction to $\{x\}\times X$ is trivial is
+closed, and that restriction is $T_x^*L\otimes L^{-1}$.  It is therefore
+exactly $K(L)$.
+\end{proof}
+
+\begin{proposition}[Effective-divisor criterion]
+\label{mumford-prop-effective-divisor-criterion}
+\dcref{M:ch2:II.6}
+\uses{mumford-prop-KL-closed,mumford-thm-seesaw}
+Let $D$ be an effective divisor on $X$, $L=\mathcal O_X(D)$, and
+$H=\{x:T_x^*D=D\}$.  The following are equivalent:
+\begin{enumerate}
+\item $H$ is finite;
+\item $K(L)$ is finite;
+\item $|2D|$ is base-point free and defines a finite morphism
+      $X\to\mathbf P^N$;
+\item $L$ is ample.
+\end{enumerate}
+\source{mumford-abelian-varieties:page-0071}\source{mumford-abelian-varieties:page-0072}\source{mumford-abelian-varieties:page-0073}
+\end{proposition}
+\begin{proof}
+The implications (iii)$\Rightarrow$(iv) and (ii)$\Rightarrow$(i) are the
+standard finite-morphism criterion and $K(L)\supset H$.  If $K(L)$ is not
+finite, let $Y=K(L)^0$.  The restriction $L_Y$ is ample and invariant under
+all translations by $Y$.  The seesaw theorem makes
+$m^*L_Y\otimes p_1^*L_Y^{-1}\otimes p_2^*L_Y^{-1}$ trivial; pullback by
+$y\mapsto(y,-y)$ makes $L_Y\otimes(-1_Y)^*L_Y$ trivial.  This is impossible
+because it is ample on the positive-dimensional $Y$, proving (iv)$\Rightarrow$(ii).
+
+Assume (i).  The divisors $T_x^*D+T_{-x}^*D$ lie in $|2D|$.  Given $v\in X$,
+choose $x$ with $v\pm x\notin\operatorname{Supp}D$; hence $|2D|$ has no
+base points and defines $\phi:X\to\mathbf P^N$.  If $\phi$ were not finite,
+there would be an irreducible curve $C$ contracted by $\phi$, so every member
+of $|2D|$ would contain $C$ or be disjoint from it.  For almost all $x$,
+$C$ is disjoint from $T_x^*D+T_{-x}^*D$.
+
+We use the following lemma.  If $C$ is a curve and $E$ an irreducible divisor
+with $C\cap E=\varnothing$, then $E$ is invariant under translation by
+$x_1-x_2$ for all $x_1,x_2\in C$.  Indeed, $\mathcal O_X(E)|_C$ is trivial,
+so every translate has degree zero on $C$.  Thus a translate of $C$ either
+misses $E$ or is contained in $E$.  For $y\in E$, the translate
+$T_{y-x_2}(C)$ meets $E$ at $y$ and is consequently contained in $E$;
+therefore $y-x_2+x_1\in E$.
+
+Writing $D=\sum D_i$, the lemma makes every $D_i$ invariant under all
+$x_1-x_2$ with $x_i\in C$, contradicting (i).  Thus $\phi$ is finite and
+(i)$\Rightarrow$(iii).
+\end{proof}
+
+\begin{theorem}[Projectivity of abelian varieties]
+\label{mumford-thm-abelian-projective}
+\dcref{M:ch2:II.6}
+\uses{mumford-prop-effective-divisor-criterion}
+Every abelian variety is projective.
+\source{mumford-abelian-varieties:page-0073}
+\end{theorem}
+\begin{proof}
+Choose an affine open $U\subset X$ and let $D_1,\ldots,D_r$ be the
+irreducible components of $X-U$, with $D=\sum D_i$.  Translate so that
+$0\in U$.  The subgroup $H=\{x:T_x^*D=D\}$ is closed, and each $x\in H$
+preserves $U$, hence $H\subset U$.  Since $H$ is complete and $U$ is affine,
+$H$ is finite.  The criterion therefore makes $\mathcal O_X(D)$ ample, so a
+power embeds $X$ in projective space.
+\end{proof}
+
+\begin{proposition}[Hilbert-polynomial degree]
+\label{mumford-prop-degree-hilbert}
+\dcref{M:ch2:II.6}
+Let $X$ be complete of dimension $g$, $L$ invertible, and $\mathcal F$ coherent.
+Write $P_{\mathcal F}(n)=\chi(\mathcal F\otimes L^n)$ and
+$d_L(\mathcal F)/g!$ for its leading coefficient.  Then
+\[
+d_L(\mathcal F)=\operatorname{rank}(\mathcal F)\deg L.
+\]
+If $f:Y\to X$ is a surjective morphism of complete $g$-folds, then
+\[
+\deg f^*L=(\deg f)\deg L.
+\]
+\source{mumford-abelian-varieties:page-0075}\source{mumford-abelian-varieties:page-0076}
+\end{proposition}
+\begin{proof}
+Choose a nonzero ideal sheaf $\mathcal J$ with an exact sequence
+$0\to\mathcal J^{\operatorname{rank}\mathcal F}\to\mathcal F\to\mathcal G\to0$
+where $\mathcal G$ is torsion.  Its support has dimension $<g$, so it does
+not affect the leading coefficient.  Additivity of $\chi$ and
+$0\to\mathcal J\to\mathcal O_X\to\mathcal O_X/\mathcal J\to0$ give
+$d_L(\mathcal F)=\operatorname{rank}(\mathcal F)d_L(\mathcal J)
+=\operatorname{rank}(\mathcal F)\deg L$.
+
+For (2), projection formula gives
+$R^pf_*(f^*L^n)=R^pf_*\mathcal O_Y\otimes L^n$.  The Leray spectral sequence
+therefore yields
+\[
+\chi(f^*L^n)=\sum_p(-1)^p\chi(R^pf_*\mathcal O_Y\otimes L^n).
+\]
+For $p>0$ the higher direct images are supported on a proper closed subset,
+while $f_*\mathcal O_Y$ has rank $\deg f$.  Comparing the coefficients of
+$n^g$ proves the formula.
+\end{proof}
+
+\begin{corollary}[Degree of multiplication]
+\label{mumford-cor-degree-multiplication-appendix}
+\dcref{M:ch2:II.6}
+\uses{mumford-prop-degree-hilbert,mumford-thm-cube-varieties}
+For an abelian variety of dimension $g$, $\deg(n_X)=n^{2g}$.
+\source{mumford-abelian-varieties:page-0076}
+\end{corollary}
+\begin{proof}
+Choose an ample symmetric line bundle $L$.  The theorem of the square gives
+$n_X^*L\simeq L^{n^2}$, hence
+$\deg n_X\deg L=\deg(n_X^*L)=\deg(L^{n^2})=n^{2g}\deg L$.
+Since $\deg L>0$, cancel to obtain the assertion.
+\end{proof}
+
+\section{Dividing varieties by finite groups}
+\label{mumford-source-II7}
+\dcref{M:ch2:II.7}
+\uses{mumford-def-abelian-variety}
+
+\begin{theorem}[Finite group quotient]
+\label{mumford-thm-finite-group-quotient}
+\dcref{M:ch2:II.7}
+\uses{mumford-def-abelian-variety}
+Let a finite group $G$ act on a variety $X$, with every orbit contained in an
+affine open. Then there is a quotient variety $Y=X/G$ with
+$\mathcal O_Y=\pi_*\mathcal O_X^G$; $\pi$ is finite, surjective, separable,
+and etale when the action is free. If $X$ is affine, so is $Y$.
+\source{mumford-abelian-varieties:page-0077}\source{mumford-abelian-varieties:page-0078}\source{mumford-abelian-varieties:page-0079}
+\end{theorem}
+\begin{proof}
+If $U'$ is affine and contains an orbit $Gx$, then
+$U=\bigcap_{g\in G}gU'$ is affine, $G$-stable, and contains $x$.  Thus it
+suffices to prove the assertion for $X=\operatorname{Spec}A$.  Write
+$A=k[x_1,\ldots,x_n]$, $v=|G|$, and let $B=A^G$.  If $\sigma_j(x_i)$ is
+the $j$th elementary symmetric function in the orbit of $x_i$, put
+$B'=k[\sigma_j(x_i)]$.  Each $x_i$ satisfies
+\[
+ T^v-\sigma_1(x_i)T^{v-1}+\cdots+(-1)^v\sigma_v(x_i)=0,
+\]
+so $A$ is finite over the noetherian ring $B'$.  Since
+$B'\subset B\subset A$, $B$ is finite over $B'$ and $A$ is finite over $B$.
+The inclusion $B\hookrightarrow A$ therefore defines a finite surjective map
+$\pi:\operatorname{Spec}A\to\operatorname{Spec}B$.
+
+If $R=K(A)$, then $R^G=K(B)$: for $a/b\in R^G$,
+\[
+ \frac ab=a\left(\prod_{g\ne e}g(b)\right)\left(\prod_{g\in G}g(b)\right)^{-1},
+\]
+and the numerator and denominator on the right are invariant.  Thus the
+extension of quotient fields is separable.  The invariant direct image is the
+intersection of the kernels of $f\mapsto g(f)-f$, and the affine calculation
+identifies it with $\mathcal O_Y$.
+
+If two points have distinct $G$-orbits, choose $f\in A$ equal to $1$ on one
+orbit and $0$ on the other.  The product $\prod_{g\in G}g(f)$ is invariant and
+separates their images, so the finite map has the orbit quotient topology.
+
+Finally, complete at $y=\pi(x)$.  The Chinese remainder theorem gives
+\[
+ \widehat A\simeq\prod_{g\in G}\widehat{\mathcal O}_{X,gx}.
+\]
+The exact sequence
+\[
+0\to B\to A\to\prod_{g\in G}A,
+\qquad a\mapsto(g(a)-a)_g,
+\]
+remains exact after the flat completion $\widehat B$.  Identifying all
+completed local factors by the action, $G$ permutes the factors, and its
+invariants are the diagonal copy of $\widehat{\mathcal O}_{X,x}$.  Hence
+$\widehat{\mathcal O}_{Y,y}\to\widehat{\mathcal O}_{X,x}$ is an isomorphism
+when the action is free, proving that $\pi$ is etale.  The affine quotients
+glue over the $G$-stable affine cover.
+\end{proof}
+
+\begin{proposition}[Descent of coherent sheaves]
+\label{mumford-prop-coherent-descent-finite-quotient}
+\dcref{M:ch2:II.7}
+\uses{mumford-thm-finite-group-quotient}
+If $G$ acts freely on $X$ and $Y=X/G$, pullback is an equivalence between
+coherent sheaves on $Y$ and coherent $G$-sheaves on $X$.  Its inverse is
+$\mathcal G\mapsto\pi_*\mathcal G^G$, and locally free sheaves correspond with
+the same rank.
+\source{mumford-abelian-varieties:page-0080}\source{mumford-abelian-varieties:page-0081}\source{mumford-abelian-varieties:page-0082}
+\end{proposition}
+\begin{proof}
+There are natural maps
+\[
+ S(\mathcal F):\mathcal F\to\pi_*(\pi^*\mathcal F)^G,qquad
+ T(\mathcal G):\pi^*(\pi_*\mathcal G^G)\to\mathcal G.
+\]
+Affinely, with $X=\operatorname{Spec}A$, $Y=\operatorname{Spec}B$,
+$B=A^G$, these become
+\[
+ S(M):M\to(M\otimes_BA)^G,qquad
+ T(N):(N^G)\otimes_BA\to N.
+\]
+The composite after tensoring $S(M)$ with $A$ is the identity.  Since $A$ is
+faithfully flat over $B$, it is enough to prove that all $T(N)$ are isomorphisms.
+After completion at a point of $Y$, freeness identifies
+$A\otimes_B\widehat B$ with a product of copies of $\widehat B$, one for each
+element of $G$, with $G$ acting by simply transitive permutation.  In this
+model the map $T(N)$ is immediate; faithful flatness of completion descends
+the isomorphism.  The same argument preserves finite projective modules and
+therefore local freeness and rank.
+\end{proof}
+
+\begin{proposition}[Translation quotients]
+\label{mumford-prop-translation-quotient-isogeny}
+\dcref{M:ch2:II.7}
+\uses{mumford-thm-finite-group-quotient}
+For a finite subgroup $K$ of an abelian variety $X$, the quotient $X/K$ is an
+abelian variety and $X\to X/K$ is an etale isogeny. Conversely, every isogeny
+is a quotient by its finite kernel.
+\source{mumford-abelian-varieties:page-0083}\source{mumford-abelian-varieties:page-0084}\source{mumford-abelian-varieties:page-0085}
+\end{proposition}
+\begin{proof}
+Translations by $K$ give a free finite-group action, so the quotient theorem
+gives a finite etale map $X\to X/K$. The group law on the abstract quotient
+is a morphism by applying the quotient property to the addition map; inversion
+is treated similarly. Conversely, an isogeny is the quotient by its finite
+kernel.
+\end{proof}
+
+\begin{proposition}[Characters and descended line bundles]
+\label{mumford-source-character-kernel-pic}
+\dcref{M:ch2:II.7}
+\uses{mumford-thm-finite-group-quotient}
+If $G$ acts freely on $X$ and $Y=X/G$, then for characters $\alpha:G\to k^*$,
+\[
+ \widehat G\simeq\ker[\Pic Y\to\Pic X],
+\]
+and if $|G|$ is prime to the characteristic, every coherent sheaf on $Y$ is
+a direct summand of $\pi_*(\pi^*\mathcal F)$.
+\source{mumford-abelian-varieties:page-0082}\source{mumford-abelian-varieties:page-0083}
+\end{proposition}
+\begin{proof}
+An action on the trivial sheaf covering the action on $X$ sends the unit
+section to a nowhere-vanishing regular function, hence to a scalar because
+$X$ is complete. This scalar is a character; conversely every character
+defines the action $g(f)=\alpha(g)^{-1}(f\circ g^{-1})$.
+\end{proof}
+
+\begin{corollary}[Divisibility and finite torsion]
+\label{mumford-cor-divisible-finite-torsion}
+\dcref{M:ch2:II.7}
+An abelian variety $X$ is divisible and $X_n$ is finite for every $n>1$.
+\source{mumford-abelian-varieties:page-0073}
+\end{corollary}
+\begin{proof}
+For an ample line bundle $L$, the theorem of the square gives
+\[
+ n_X^*L\simeq L^{\otimes n(n+1)/2}\otimes(-1_X)^*L^{\otimes n(n-1)/2},
+\]
+which is ample. Since its restriction to $\ker(n_X)$ is trivial, the kernel
+cannot contain a positive-dimensional subvariety. Thus it is finite, and the
+surjectivity follows from the dimension theorem.
+\end{proof}
+
+\begin{proposition}[Degree and separability of multiplication]
+\label{mumford-prop-multiplication-degree-separability}
+\dcref{M:ch2:II.7}
+For $g=\dim X$,
+\[
+ \deg(n_X)=n^{2g},\qquad n_X\text{ is separable}\Longleftrightarrow p\nmid n.
+\]
+If $p\nmid n$, then $X_n\simeq(\mathbf Z/n\mathbf Z)^{2g}$; for some
+$0\le i\le g$, $X_{p^m}\simeq(\mathbf Z/p^m\mathbf Z)^i$.
+\source{mumford-abelian-varieties:page-0073}\source{mumford-abelian-varieties:page-0074}\source{mumford-abelian-varieties:page-0075}
+\end{proposition}
+\begin{proof}
+For equal-dimensional complete varieties,
+$(f^*D_1\cdots f^*D_g)=\deg(f)(D_1\cdots D_g)$. For an ample symmetric
+divisor $D$, $n_X^*D\sim n^2D$, hence $\deg(n_X)=n^{2g}$. If $p\nmid n$,
+this degree is prime to $p$, so $n_X$ is separable and $\#X_n=n^{2g}$;
+counting all $X_m$ for $m\mid n$ gives the stated group. If $p\mid n$,
+$d(n_X)=0$, the rational differential map is zero, and the inseparable degree
+is at least $p^g$. Thus $X_p\simeq(\mathbf Z/p\mathbf Z)^i$, and divisibility
+gives the assertion for $p^m$.
+\end{proof}
+
+\section{The dual abelian variety in characteristic zero}
+\label{mumford-source-II8}
+\dcref{M:ch2:II.8}
+\uses{mumford-thm-cube-varieties,mumford-thm-seesaw}
+
+\begin{definition}[The dual variety]
+\label{mumford-def-piczero}
+\dcref{M:ch2:II.8}
+\uses{mumford-thm-cube-varieties}
+$\Pic^0(X)$ is the subgroup of line bundles $L$ for which
+$\phi_L(x)=T_x^*L\otimes L^{-1}$ is identically zero. In characteristic zero
+it has a natural structure of an abelian variety, denoted $\widehat X$.
+\source{mumford-abelian-varieties:page-0085}\source{mumford-abelian-varieties:page-0086}
+% Source introduces this definition and develops its structure in the following
+% theorem; it gives no separate proof for the definition itself.
+\notready
+\end{definition}
+
+\begin{theorem}[Dual abelian variety, characteristic zero]
+\label{mumford-thm-dual-char-zero}
+\dcref{M:ch2:II.8}
+\uses{mumford-thm-cube-varieties,mumford-thm-seesaw,mumford-thm-finite-group-quotient}
+For every abelian variety $X$ over a characteristic-zero field there is an
+abelian variety $\widehat X$ representing $\Pic^0(X)$, with a Poincare bundle
+$P_X$ on $X\times\widehat X$ trivial on both coordinate axes. Every line
+bundle in $\Pic^0(X)$ is represented uniquely by a point of $\widehat X$.
+\source{mumford-abelian-varieties:page-0086}\source{mumford-abelian-varieties:page-0087}\source{mumford-abelian-varieties:page-0088}\source{mumford-abelian-varieties:page-0089}\source{mumford-abelian-varieties:page-0090}\source{mumford-abelian-varieties:page-0091}
+\end{theorem}
+\begin{proof}
+The theorem of the square gives, for $L\in\Pic^0(X)$,
+\[
+ T_x^*L\simeq L,\qquad (x+y)^*L\simeq T_x^*L\otimes T_y^*L\otimes L^{-1},
+ \qquad n_X^*L\simeq L^n.
+\]
+Conversely, for arbitrary $L$ one has
+\[
+ n_X^*L\simeq L^{n^2}\otimes
+ [L\otimes(-1_X)^*L^{-1}]^{(n-n^2)/2},
+\]
+and the bracketed factor lies in $\Pic^0(X)$ by the theorem of the square.
+Any finite-order line bundle is therefore in $\Pic^0(X)$, since
+$0=\phi_{L^n}(x)=\phi_L(nx)$ and $X$ is divisible.
+
+If $L\in\Pic^0(X)$ is nontrivial, then $H^0(X,L)=0$: a nonzero section would
+write $L=\mathcal O_X(D)$ with $D\ge0$, while
+$L^{-1}\simeq(-1_X)^*L=\mathcal O_X((-1_X)^*D)$, forcing $D=0$.  If $k$ is
+the least index with $H^k(X,L)\ne0$, pull back the isomorphism
+$m^*L\simeq p_1^*L\otimes p_2^*L$ along $s_1(x)=(x,0)$.  The Kunneth
+decomposition gives
+\[
+ H^k(X\times X,m^*L)\simeq
+ \bigoplus_{i+j=k}H^i(X,L)\otimes H^j(X,L)=0,
+\]
+since in every summand one index is $<k$.  As $m\circ s_1=1_X$, the identity
+on $H^k(X,L)$ factors through zero, a contradiction.  Thus all cohomology
+of a nontrivial $L\in\Pic^0(X)$ vanishes.
+
+Let $L$ be ample and put
+\[
+ K=m^*L\otimes p_1^*L^{-1}\otimes p_2^*(L^{-1}\otimes M^{-1})
+\]
+for $M\in\Pic^0(X)$.  The two Leray spectral sequences for the projections
+$p_1,p_2:X\times X\to X$ have abutment $H^*(X\times X,K)$.  If
+$M\simeq T_x^*L\otimes L^{-1}$, the restriction of $K$ to the $p_1$-fiber
+over $x$ is a nontrivial member of $\Pic^0(X)$ and hence has no cohomology.
+Therefore the first spectral sequence gives $H^*(X\times X,K)=0$.  For the
+second, the support of every $R^kp_{2,*}K$ is contained in the finite set
+$K(L)=\{x:T_x^*L\simeq L\}$.  The second spectral sequence then degenerates,
+so all restrictions $K|_{X\times\{x\}}$ have zero cohomology.  At $x=0$ this
+restriction is trivial and has nonzero $H^0$, a contradiction unless the
+chosen $M$ is of the displayed form.  Hence $\phi_L:X\to\Pic^0(X)$ is
+surjective.
+
+Take $\widehat X=X/K(L)$, which exists by the finite-quotient theorem, and
+let $\pi:X\to\widehat X$.  Put
+\[
+ K_0=m^*L\otimes p_1^*L^{-1}\otimes p_2^*L^{-1}.
+\]
+For $a\in K(L)$, translation by $(0,a)$ preserves $K_0$ because
+$T_a^*L\simeq L$.  Normalize the resulting lift on
+$\{0\}\times X\simeq L^{-1}(0)\times X$ to be
+$(\lambda,x)\mapsto(\lambda,x+a)$.  The normalization is unique, and hence
+the lifts form an action of $K(L)$.  Descent along $1_X\times\pi$ produces a
+line bundle $P$ on $X\times\widehat X$ with
+\[
+ (1_X\times\pi)^*P\simeq K_0.
+\]
+Its fiber at $\pi(x)$ is $T_x^*L\otimes L^{-1}$, and its restriction to
+$\{0\}\times\widehat X$ is trivial, so $P$ is normalized.
+
+Finally, if $S$ is normal and $N$ is a line bundle on $X\times S$ whose
+fibers lie in $\Pic^0(X)$ and whose restriction to $\{0\}\times S$ is trivial,
+form
+\[
+ E=p_{12}^*N\otimes p_{13}^*P^{-1}
+ \quad\text{on }X\times S\times\widehat X.
+\]
+The seesaw theorem makes the locus where
+$E|_{X\times\{s,\alpha\}}$ is trivial a closed subset $\Gamma$ of
+$S\times\widehat X$.  It is the graph of the set-theoretic classifying map
+$f:S\to\widehat X$.  The projection $\Gamma\to S$ is bijective and, in
+characteristic zero with $S$ normal, Zariski's Main Theorem makes it an
+isomorphism.  Thus $f$ is a morphism and seesaw gives
+$N\simeq(1_X\times f)^*P$.  This universal property identifies
+$\widehat X$ with the representing abelian variety for $\Pic^0(X)$.
+\end{proof}
+
+\begin{proposition}[Biduality]
+\label{mumford-prop-biduality-char-zero}
+\dcref{M:ch2:II.8}
+\uses{mumford-thm-dual-char-zero,mumford-source-character-kernel-pic}
+There is a canonical isomorphism $X\simeq\widehat{\widehat X}$.
+If $f:X\to Y$ is an isogeny, then $\widehat f:\widehat Y\to\widehat X$ is an
+isogeny and $\ker f$ and $\ker\widehat f$ are canonically dual finite groups.
+\source{mumford-abelian-varieties:page-0091}\source{mumford-abelian-varieties:page-0092}
+\end{proposition}
+\begin{proof}
+The pullback map on Picard varieties sends $\Pic^0(Y)$ into $\Pic^0(X)$ and
+defines $\widehat f$. If $f$ is an isogeny, the kernel of $\widehat f$ is the
+kernel of pullback on Picard groups, which is dual to $\ker f$ by the finite
+quotient character calculation. Equal dimensions then imply that $\widehat f$
+is an isogeny. Applying this construction twice gives the canonical bidual
+identification.
+\end{proof}
+
+\begin{definition}[Divisorial correspondence]
+\label{mumford-source-divisorial-correspondence}
+\dcref{M:ch2:II.8}
+A divisorial correspondence between $X,Y$ is a line bundle on $X\times Y$
+trivial on $\{0\}\times Y$ and $X\times\{0\}$.
+\source{mumford-abelian-varieties:page-0092}
+\end{definition}
+
+\begin{proposition}[Characterization of the Poincare correspondence]
+\label{mumford-source-divisorial-biduality}
+\dcref{M:ch2:II.8}
+For equal-dimensional $X,Y$ and a divisorial correspondence $Q$, the
+conditions that $Q|_{\{x\}\times Y}$ be trivial only for $x=0$ and that
+$Q|_{X\times\{y\}}$ be trivial only for $y=0$ are equivalent. When they hold,
+$X\simeq\widehat Y$, $Y\simeq\widehat X$, and $Q$ is the Poincare bundle.
+\source{mumford-abelian-varieties:page-0092}\source{mumford-abelian-varieties:page-0093}
+\end{proposition}
+\begin{proof}
+By the universal property, (1) gives an injective $X\to\widehat Y$ and hence
+an isomorphism in equal dimensions and characteristic zero. The induced map
+$\psi:Y\to\widehat X$ must be injective: otherwise factor it through
+$Y/K$ for a nonzero finite subgroup $K$. The correspondence then induces
+$X\to\widehat{Y/K}$ whose composite with $\widehat{Y/K}\to\widehat Y$ is
+an isomorphism, contradicting the nontrivial kernel of the latter dual
+isogeny. Symmetry gives (2) from (1).
+\end{proof}
+
+\section{Analytic comparison over $\mathbf C$}
+\label{mumford-source-II9}
+\dcref{M:ch2:II.9}
+\uses{mumford-thm-appell-humbert,mumford-def-piczero}
+
+\begin{theorem}[Analytic translation formula]
+\label{mumford-thm-analytic-dual-comparison}
+\dcref{M:ch2:II.9}
+\uses{mumford-thm-appell-humbert,mumford-def-piczero}
+For $L(H,\alpha)$ on $X=V/U$,
+\[
+ T_{\pi(a)}^*L(H,\alpha)\simeq L(H,\alpha\gamma_a),
+ \qquad \gamma_a(u)=e^{2\pi iE(a,u)}.
+\]
+Consequently
+\[
+ K(L)=U^\perp/U,
+\quad U^\perp=\{a:E(a,u)\in\mathbf Z\ \forall u\in U\},
+\]
+and $L\in\Pic^0(X)$ iff $H=0$; $K(L)$ is finite iff $H$ is nondegenerate.
+\source{mumford-abelian-varieties:page-0094}\source{mumford-abelian-varieties:page-0095}
+\end{theorem}
+\begin{proof}
+Pull back the factor of automorphy under translation by $a$ and conjugate by
+$e^{-\pi\overline{H(z,a)}}$. The multiplier changes by
+$e^{\pi(H(a,u)-H(u,a))}=e^{2\pi iE(a,u)}$.
+\end{proof}
+
+\begin{proposition}[Analytic construction of the dual]
+\label{mumford-source-analytic-dual}
+\dcref{M:ch2:II.9}
+For $X=V/U$, let
+\[
+ U'=\{l\in\overline T:\operatorname{Im}l(u)\in\mathbf Z\ \forall u\in U\}.
+\]
+Then $\widehat X=\overline T/U'$, and the Poincare bundle is
+$L(H,\alpha)$ with
+\[
+ H((x_1,l_1),(x_2,l_2))=\overline{l_2(x_1)}+l_1(x_2),
+ \qquad \alpha((u,l))=e^{-\pi i\operatorname{Im}l(u)}.
+\]
+The point represented by $l$ corresponds to $L(0,\alpha_l)$ with
+$\alpha_l(u)=e^{2\pi i\operatorname{Im}l(u)}$.
+\source{mumford-abelian-varieties:page-0095}\source{mumford-abelian-varieties:page-0096}\source{mumford-abelian-varieties:page-0097}
+% Source presents this analytic construction directly, without a separate proof.
+\notready
+\end{proposition}
+
+\begin{remark}[Normalization of the analytic dual identification]
+\label{mumford-source-analytic-dual-normalization}
+\dcref{M:ch2:II.9}
+The two analytic descriptions of the map from $\overline T$ to
+$\operatorname{Pic}^0(X)$ differ by the scalar normalization $2i$; explicitly,
+the factor-of-automorphy description sends
+\[
+ l\longmapsto L(0,\alpha_l^*),
+ \qquad \alpha_l^*(u)=e^{4\pi i\operatorname{Re}l(u)}.
+\]
+\source{mumford-abelian-varieties:page-0098}
+\end{remark}

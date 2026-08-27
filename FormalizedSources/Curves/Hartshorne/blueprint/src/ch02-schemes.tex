@@ -1,0 +1,1664 @@
+% Hartshorne, Algebraic Geometry (1977), Chapter II.
+% Source-faithful mathematical blueprint of Hartshorne, Algebraic Geometry (1977), Chapter II.
+% Authorial exposition, examples, and exercises are omitted; definitions, statements, and proof
+% arguments are retained.
+
+\section{Sheaves}
+
+\begin{definition}[Presheaf and sheaf]
+\label{def:II-1-presheaf}
+\source{hartshorne-algebraic-geometry:II.1}
+A presheaf $\mathcal F$ on $X$ assigns an object $\mathcal F(U)$ to every open $U$ and restriction maps
+$\mathcal F(U)\to\mathcal F(V)$ for $V\subset U$, functorially, with $\mathcal F(\varnothing)=0$.
+It is a sheaf when sections that agree locally glue uniquely. The definitions apply to sets,
+abelian groups, rings, and modules.
+More explicitly, if $\{U_i\}$ covers $U$, then restriction to the $U_i$ is injective, and every
+family $s_i\in\mathcal F(U_i)$ satisfying
+$s_i|_{U_i\cap U_j}=s_j|_{U_i\cap U_j}$ comes from a unique $s\in\mathcal F(U)$.
+\end{definition}
+
+\begin{definition}[Stalks and morphisms]
+\label{def:II-1-stalk}
+\source{hartshorne-algebraic-geometry:II.1}
+The stalk is $\mathcal F_x=\varinjlim_{x\in U}\mathcal F(U)$. A morphism is a compatible family
+of maps on opens and induces maps on stalks.  A germ is represented by a pair $(U,s)$ with $x\in U$;
+$(U,s)$ and $(V,t)$ define the same germ exactly when $s$ and $t$ agree on some neighborhood of $x$
+contained in $U\cap V$.
+\uses{def:II-1-presheaf}
+\end{definition}
+
+\begin{proposition}[Sheaf isomorphisms are stalkwise]
+\label{prop:II-1-1}
+\source{hartshorne-algebraic-geometry:II.1.1}
+\dcref{II.1.1}
+A morphism of sheaves is an isomorphism if and only if it induces an isomorphism on every stalk.
+\uses{def:II-1-presheaf,def:II-1-stalk}
+\end{proposition}
+\begin{proof}
+The forward implication is immediate. If all stalk maps are injective, a section whose germs vanish
+has a cover on which it vanishes, hence is zero. If all are surjective, lift the germ of a target
+section near each point; after shrinking, the lifts agree on overlaps by injectivity, and the sheaf
+axiom glues them. The glued lift maps to the target section.
+\end{proof}
+
+
+\begin{proposition}[Sheafification]
+\label{prop:II-1-2}
+\source{hartshorne-algebraic-geometry:II.1.2}
+\dcref{II.1.2}
+Every presheaf $\mathcal F$ admits a sheafification $\mathcal F^a$ and a universal map
+$\mathcal F\to\mathcal F^a$; it is unique up to unique isomorphism and has the same stalks as
+$\mathcal F$.
+\uses{def:II-1-presheaf,def:II-1-stalk}
+\end{proposition}
+\begin{proof}
+Let $\mathcal F^a(U)$ be the functions assigning to each $x\in U$ a germ in $\mathcal F_x$ which,
+locally at every $x$, is represented by a section of $\mathcal F$. These functions form a sheaf under
+restriction; the germ map is universal because any map to a sheaf is determined locally.
+\end{proof}
+
+\begin{definition}[Direct and inverse image]
+\label{def:II-1-direct-inverse}
+\source{hartshorne-algebraic-geometry:II.1}
+For a continuous $f:X\to Y$, define $(f_*\mathcal F)(V)=\mathcal F(f^{-1}V)$. The inverse image
+$f^{-1}\mathcal G$ is the sheafification of $U\mapsto\varinjlim_{f(U)\subset V}\mathcal G(V)$.
+Restriction to a subspace is inverse image under its inclusion.
+\uses{def:II-1-presheaf,prop:II-1-2}
+\end{definition}
+
+For a morphism $\varphi:\mathcal F\to\mathcal G$ of presheaves, define the presheaf kernel,
+cokernel, and image by
+\[
+U\longmapsto\ker\varphi(U),\qquad U\longmapsto\operatorname{coker}\varphi(U),
+\qquad U\longmapsto\operatorname{im}\varphi(U).
+\]
+The kernel presheaf of a morphism of sheaves is a sheaf; in general the presheaf cokernel and image
+must be sheafified.  Thus kernels are computed sectionwise, while cokernels and images in the sheaf
+category are the associated sheaves of the sectionwise constructions.
+
+\begin{definition}[Subsheaves, exactness, and quotients]
+\label{def:II-1-subsheaf-exact}
+\source{hartshorne-algebraic-geometry:II.1}
+A subsheaf $\mathcal F'\subseteq\mathcal F$ is a sheaf whose sections are subgroups of the
+sections of $\mathcal F$ and whose restrictions are induced.  The kernel of a sheaf morphism is its
+sectionwise kernel, the image is the sheaf associated to its sectionwise image, and a morphism is
+injective or surjective according as its kernel is zero or its image is the target.  A sequence is
+exact when the image at every term equals the kernel at that term.  The quotient $\mathcal F/\mathcal F'$
+is the sheaf associated to $U\mapsto\mathcal F(U)/\mathcal F'(U)$, with stalks
+$(\mathcal F/\mathcal F')_x=\mathcal F_x/\mathcal F'_x$.
+\uses{def:II-1-presheaf,def:II-1-stalk,prop:II-1-2}
+\end{definition}
+
+\section{Schemes}
+
+\begin{lemma}[Closed sets in a spectrum]
+\label{lem:II-2-1}
+\source{hartshorne-algebraic-geometry:II.2.1}
+\dcref{II.2.1}
+For ideals $\mathfrak a,\mathfrak b\subset A$,
+$V(\mathfrak a\mathfrak b)=V(\mathfrak a)\cup V(\mathfrak b)$,
+$V(\sum_i\mathfrak a_i)=\bigcap_iV(\mathfrak a_i)$, and
+$V(\mathfrak a)=V(\mathfrak b)$ iff $\sqrt{\mathfrak a}=\sqrt{\mathfrak b}$.
+\end{lemma}
+\begin{proof}
+Use primality for the product formula, the definition of generated ideals for intersections, and
+the fact that the radical is the intersection of all primes containing an ideal.
+\end{proof}
+
+\begin{definition}[Affine spectrum]
+\label{def:II-2-spectrum}
+\source{hartshorne-algebraic-geometry:II.2}
+ $\operatorname{Spec}A$ is the set of prime ideals with closed sets $V(\mathfrak a)$. Its structure
+sheaf consists of locally represented fractions in the local rings $A_{\mathfrak p}$; $D(f)$ is a
+basis of opens.
+\uses{lem:II-2-1,def:II-1-presheaf}
+\end{definition}
+
+\begin{proposition}[Sections of the affine structure sheaf]
+\label{prop:II-2-2}
+\source{hartshorne-algebraic-geometry:II.2.2}
+\dcref{II.2.2}
+For $X=\operatorname{Spec}A$,
+$\mathcal O_{X,\mathfrak p}=A_{\mathfrak p},\qquad
+\Gamma(D(f),\mathcal O_X)=A_f,\qquad\Gamma(X,\mathcal O_X)=A$.
+\uses{def:II-2-spectrum,def:II-1-stalk}
+\end{proposition}
+\begin{proof}
+Evaluation gives the stalk map to $A_{\mathfrak p}$; a fraction represents a section on $D(f)$, proving
+surjectivity. Equality of germs is equality after multiplying by an element outside $\mathfrak p$,
+which proves injectivity. For $D(f)$, injectivity follows by taking annihilators and surjectivity by a
+finite $D(h_i)$-cover, clearing denominators on overlaps, and using a power of $f$ in $(h_i)$.
+\end{proof}
+
+\begin{definition}[Ringed and locally ringed spaces]
+\label{def:II-2-ringed}
+\source{hartshorne-algebraic-geometry:II.2}
+A ringed space is $(X,\mathcal O_X)$; a morphism $(f,f^\sharp)$ has a continuous $f$ and
+$f^\sharp:\mathcal O_Y\to f_*\mathcal O_X$. It is locally ringed when all stalks are local and
+morphisms induce local homomorphisms.
+\uses{def:II-1-presheaf,def:II-1-stalk,def:II-1-direct-inverse}
+\end{definition}
+
+\begin{proposition}[Affine schemes and ring maps]
+\label{prop:II-2-3}
+\source{hartshorne-algebraic-geometry:II.2.3}
+\dcref{II.2.3}
+$\operatorname{Spec}A$ is locally ringed. A ring map $A\to B$ induces
+$\operatorname{Spec}B\to\operatorname{Spec}A$, and every morphism
+$\operatorname{Spec}B\to\operatorname{Spec}A$ arises uniquely in this way.
+\uses{prop:II-2-2}
+\end{proposition}
+\begin{proof}
+The stalk assertion is Proposition \ref{prop:II-2-2}. A ring map sends a prime to its inverse image,
+is continuous on $V(\mathfrak a)$, and localizes to maps $A_{\mathfrak p}\to B_{\mathfrak q}$. Conversely,
+take global sections of a locally ringed-space morphism; the induced stalk map shows its underlying
+point map is inverse-image of primes, and localization compatibility determines the sheaf map.
+\end{proof}
+
+\begin{definition}[Scheme and subschemes]
+\label{def:II-2-scheme}
+\source{hartshorne-algebraic-geometry:II.2}
+An affine scheme is a locally ringed space isomorphic to an affine spectrum; a scheme is locally
+affine. Open subschemes have restricted structure sheaves. A closed immersion is a homeomorphism
+onto a closed subset with surjective structure-sheaf map.
+\uses{def:II-2-spectrum,def:II-2-ringed}
+\end{definition}
+
+\begin{lemma}[Gluing schemes]
+\label{lem:II-2-4}
+\source{hartshorne-algebraic-geometry:II.2.4}
+\dcref{II.2.4}
+Schemes and morphisms glue from affine open charts and compatible overlap isomorphisms satisfying
+the cocycle condition.
+\end{lemma}
+\begin{proof}
+Glue the topological spaces and glue the compatible structure sheaves using the sheaf axioms;
+the affine charts descend because overlaps are open subschemes. Morphisms glue locally.
+\end{proof}
+
+\begin{definition}[Proj]
+\label{def:II-2-proj}
+\source{hartshorne-algebraic-geometry:II.2}
+For a graded ring $S$, $\operatorname{Proj}S$ is the homogeneous-prime space excluding the irrelevant
+ideal, with basic opens $D_+(f)$, and structure sheaf given by degree-zero localizations.
+\uses{def:II-2-spectrum,def:II-1-presheaf}
+\end{definition}
+
+\begin{proposition}[Proj charts]
+\label{prop:II-2-5}
+\source{hartshorne-algebraic-geometry:II.2.5}
+\dcref{II.2.5}
+The $D_+(f)$ form an affine open cover of $\operatorname{Proj}S$ and
+$\Gamma(D_+(f),\mathcal O)=S_{(f)}$.
+\uses{prop:II-2-2}
+\end{proposition}
+\begin{proof}
+The homogeneous-prime topology is covered by $D_+(f)$ for positive-degree homogeneous $f$. Degree-zero
+fractions glue exactly as in Proposition \ref{prop:II-2-2}, giving the affine chart ring $S_{(f)}$.
+\end{proof}
+
+\begin{proposition}[Projective space represents line bundles]
+\label{prop:II-2-6}
+\source{hartshorne-algebraic-geometry:II.2.6}
+\dcref{II.2.6}
+For a field $k$, a morphism $X\to\mathbb P^n_k$ is equivalent to an invertible sheaf $L$ on $X$ and
+global sections $s_0,\ldots,s_n$ generating $L$, up to simultaneous multiplication by an isomorphism.
+\uses{def:II-2-scheme,def:II-1-subsheaf-exact}
+\end{proposition}
+\begin{proof}
+Pull back $\mathcal O(1)$ and its coordinate sections. Conversely, the ratios $s_i/s_j$ define compatible
+maps to the standard affine charts; gluing gives the morphism and the two constructions are inverse.
+\end{proof}
+
+\section{First Properties of Schemes}
+
+\begin{definition}[Connected, reduced, integral, normal]
+\label{def:II-3-properties}
+\source{hartshorne-algebraic-geometry:II.3}
+A scheme is connected or irreducible according to its topological space, reduced when all affine
+rings are reduced, integral when reduced and irreducible, and locally Noetherian when it has a cover
+by spectra of Noetherian rings. An integral scheme is normal if its local rings are integrally closed.
+\end{definition}
+
+\begin{proposition}[Integral schemes]
+\label{prop:II-3-1}
+\source{hartshorne-algebraic-geometry:II.3.1}
+\dcref{II.3.1}
+A scheme is integral iff it is reduced and irreducible.
+\end{proposition}
+\begin{proof}
+On an affine open, irreducibility says the nilradical is prime; reducedness makes it zero, so the
+coordinate ring is a domain. The converse follows because spectra of domains are irreducible and
+localization preserves domains.
+\end{proof}
+
+\begin{proposition}[Noetherian schemes]
+\label{prop:II-3-2}
+\source{hartshorne-algebraic-geometry:II.3.2}
+\dcref{II.3.2}
+A scheme is locally Noetherian iff every affine open has Noetherian coordinate ring; an affine scheme
+is Noetherian iff its coordinate ring is Noetherian.
+\end{proposition}
+\begin{proof}
+Localizations of Noetherian rings are Noetherian, so noetherian affine charts form a basis. If
+$D(f_i)$ cover $\operatorname{Spec}A$ and each $A_{f_i}$ is Noetherian, quasi-compactness gives finitely
+many $f_i$ generating the unit ideal. For an ideal chain, localization makes each chain stationary;
+the equality $\mathfrak a=\bigcap_i(\mathfrak a A_{f_i}\cap A)$ proves the original chain stationary.
+\end{proof}
+
+\begin{definition}[Morphisms of finite type and finite]
+\label{def:II-3-finite-type}
+\source{hartshorne-algebraic-geometry:II.3}
+A morphism is locally of finite type when affine chart rings are finitely generated algebras, of
+finite type when finitely many charts suffice over each affine target, and finite when inverse images
+of affine opens are affine with finite module coordinate rings.
+\end{definition}
+
+\begin{definition}[Dimension and codimension]
+\label{def:II-3-dimension}
+\source{hartshorne-algebraic-geometry:II.3}
+Dimension is the supremum of chains of irreducible closed subsets; codimension is the supremum of
+chains beginning at a given irreducible closed subset. For $\operatorname{Spec}A$ this is Krull dimension.
+\end{definition}
+
+\begin{theorem}[Fibred products]
+\label{thm:II-3-3}
+\source{hartshorne-algebraic-geometry:II.3.3}
+\dcref{II.3.3}
+For schemes $X,Y$ over $S$, $X\times_S Y$ exists and is unique up to unique isomorphism; for affine
+schemes it is $\operatorname{Spec}(A\otimes_RB)$.
+\uses{prop:II-2-3}
+\end{theorem}
+\begin{proof}
+The affine case is the tensor-product universal property and Proposition \ref{prop:II-2-3}.
+Products over affine opens are glued along products over overlaps. The resulting projections and
+universal morphism glue from the corresponding affine constructions; uniqueness is local.
+\end{proof}
+
+\begin{definition}[Fibres and base extension]
+\label{def:II-3-fibre}
+\source{hartshorne-algebraic-geometry:II.3}
+For $f:X\to Y$ and $y\in Y$, $X_y=X\times_Y\operatorname{Spec}\kappa(y)$. Base extension is
+$X_{S'}=X\times_SS'$. Fibres and base extensions are associative up to canonical isomorphism.
+\end{definition}
+
+\section{Separated and Proper Morphisms}
+
+\begin{definition}[Separated morphism]
+\label{def:II-4-separated}
+\source{hartshorne-algebraic-geometry:II.4}
+A morphism $f:X\to Y$ is separated when its diagonal $\Delta_f:X\to X\times_YX$ is a closed immersion.
+\end{definition}
+
+\begin{proposition}[Affine morphisms are separated]
+\label{prop:II-4-1}
+\source{hartshorne-algebraic-geometry:II.4.1}
+\dcref{II.4.1}
+Every morphism of affine schemes is separated.
+\uses{prop:II-2-3}
+\end{proposition}
+\begin{proof}
+For $A\to B$, the diagonal corresponds to the multiplication map $B\otimes_AB\to B$, which is surjective;
+Proposition \ref{prop:II-2-3} identifies it with a closed immersion.
+\end{proof}
+
+\begin{corollary}[Separatedness is local on the target]
+\label{cor:II-4-2}
+\source{hartshorne-algebraic-geometry:II.4.2}
+\dcref{II.4.2}
+A morphism is separated iff its restriction over every member of an open affine cover of the target is
+separated.
+\end{corollary}
+\begin{proof}
+The diagonal is compatible with base change by target opens; closed immersions are local on the target.
+\end{proof}
+
+\begin{theorem}[Valuative criterion for separatedness]
+\label{thm:II-4-3}
+\source{hartshorne-algebraic-geometry:II.4.3}
+\dcref{II.4.3}
+For a finite-type morphism $f:X\to Y$, $f$ is separated iff for every valuation ring $R$ with fraction field $K$,
+a diagram $\operatorname{Spec}K\to X$ over $\operatorname{Spec}R\to Y$ has at most one extension
+$\operatorname{Spec}R\to X$.
+\end{theorem}
+\begin{proof}
+Two extensions define a map to the fibre product agreeing on the generic point, hence a map into the
+diagonal. A closed diagonal contains the generic point of the valuation spectrum only through its
+closed point, proving uniqueness. Conversely, failure of closedness gives a specialization in the
+complement; the affine localization and domination lemma produce a valuation ring realizing two
+extensions.
+\end{proof}
+
+\begin{lemma}[Valuation-ring diagrams]
+\label{lem:II-4-4}
+\source{hartshorne-algebraic-geometry:II.4.4}
+\dcref{II.4.4}
+Let $R$ be a valuation ring with fraction field $K$, $T=\operatorname{Spec}R$, and
+$U=\operatorname{Spec}K$. A map $U\to X$ is a point $x_\eta$ with $k(x_\eta)=K$; a map
+$T\to X$ is points $x_\eta,x_0$ with $x_0$ a specialization of $x_\eta$ and an inclusion
+$k(x_\eta)=K$ such that $R$ dominates the local ring of $x_0$ on its reduced irreducible closure.
+\end{lemma}
+\begin{proof}
+The generic point gives the first description. A map from $T$ factors through the reduced closure
+of the image of its generic point, and the local homomorphism at the closed point is exactly a
+domination by $R$; the converse is obtained by composing $\operatorname{Spec}R\to
+\operatorname{Spec}\mathcal O_{x_0}$ with the inclusion into $X$.
+\end{proof}
+
+\begin{lemma}[Quasi-compact image criterion]
+\label{lem:II-4-5}
+\source{hartshorne-algebraic-geometry:II.4.5}
+\dcref{II.4.5}
+For a quasi-compact morphism $f:X\to Y$, the image $f(X)$ is closed if and only if it is stable
+under specialization.
+\end{lemma}
+\begin{proof}
+For the nontrivial implication, reduce to reduced affine $X,Y$ and write $X$ as a finite union of
+affines. For a point in the closure of the image, choose a minimal prime below its corresponding
+prime; localization and lying-over produce a point of one affine piece over that minimal point.
+Stability under specialization then puts the original point in the image.
+\end{proof}
+
+\begin{corollary}[Stability of separated morphisms]
+\label{cor:II-4-6}
+\source{hartshorne-algebraic-geometry:II.4.6}
+\dcref{II.4.6}
+For noetherian schemes: open and closed immersions are separated; compositions, products over a
+base, and base changes of separated morphisms are separated; if $gf$ is separated then $f$ is
+separated when $g$ is separated; and separatedness is local on the target.
+\end{corollary}
+\begin{proof}
+Apply the valuative criterion for separatedness and the fibre-product description of base change
+and products; the diagonal criterion is local on the target.
+\end{proof}
+
+\begin{definition}[Proper morphism]
+\label{def:II-4-proper}
+\source{hartshorne-algebraic-geometry:II.4}
+A morphism is proper if it is separated, of finite type, and universally closed.
+\end{definition}
+
+\begin{theorem}[Valuative criterion for properness]
+\label{thm:II-4-7}
+\source{hartshorne-algebraic-geometry:II.4.7}
+\dcref{II.4.7}
+For a finite-type morphism f, properness is equivalent to existence and uniqueness of a lift in every
+valuation-ring diagram as above.
+\end{theorem}
+\begin{proof}
+Properness gives existence because the image of the generic point in the closure of the image of
+$\operatorname{Spec}R$ is closed and affine-localization yields a dominating valuation ring; uniqueness
+is separatedness. Conversely, apply the lifting property to valuation rings dominating local rings
+at points of a closure to show every image is closed, then use the separatedness criterion.
+\end{proof}
+
+\begin{corollary}[Stability of properness]
+\label{cor:II-4-8}
+\source{hartshorne-algebraic-geometry:II.4.8}
+\dcref{II.4.8}
+Proper morphisms are stable under composition and arbitrary base change; finite morphisms are proper.
+\end{corollary}
+\begin{proof}
+The valuative criterion is preserved under base change and composition. A finite morphism is affine,
+hence separated and finite type, and its image is closed because integral extensions satisfy lying over.
+\end{proof}
+
+\begin{theorem}[Projective morphisms are proper]
+\label{thm:II-4-9}
+\source{hartshorne-algebraic-geometry:II.4.9}
+\dcref{II.4.9}
+A projective morphism of Noetherian schemes is proper.
+\end{theorem}
+\begin{proof}
+Closed immersions are proper. For $\mathbb P^n_Y\to Y$, homogenize the valuation-ring lifting problem
+and, after scaling coordinates by a common element of K, choose a tuple in R with a unit coordinate;
+this gives the lift. Apply stability under composition and closed immersion.
+\end{proof}
+
+\begin{proposition}[Varieties as schemes]
+\label{prop:II-4-10}
+\source{hartshorne-algebraic-geometry:II.4.10}
+\dcref{II.4.10}
+Over an algebraically closed field, the functor from varieties of Chapter I to schemes has image
+the quasi-projective integral schemes of finite type; projective varieties correspond to projective
+integral schemes. In particular the associated scheme of a variety is integral, separated, and of
+finite type.
+\end{proposition}
+\begin{proof}
+The construction on affine charts gives an integral finite-type scheme and glues to a
+quasi-projective scheme. Conversely, the closed points of a projective integral scheme form an
+irreducible projective variety dense in the scheme; reduced closed subschemes with the same support
+are uniquely identified, and the quasi-projective case follows by an open immersion.
+\end{proof}
+
+\begin{definition}[Abstract variety]
+\label{def:II-4-10-variety}
+\source{hartshorne-algebraic-geometry:II.4.10}
+An abstract variety is an integral separated scheme of finite type over an algebraically closed
+field. A proper abstract variety is complete.
+\end{definition}
+
+\begin{theorem}[Integral closure by valuation rings]
+\label{thm:II-4-11A}
+\source{hartshorne-algebraic-geometry:II.4.11A}
+\dcref{II.4.11A}
+If $A$ is a subring of a field $K$, the integral closure of $A$ in $K$ is the intersection of all
+valuation rings of $K$ containing $A$.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Bourbaki for this algebraic result and gives no proof.
+\end{proof}
+
+\section{Sheaves of Modules}
+
+\begin{definition}[Modules and associated sheaves]
+\label{def:II-5-module-sheaf}
+\source{hartshorne-algebraic-geometry:II.5}
+For an $A$-module $M$, define $\widetilde M$ on $\operatorname{Spec}A$ by
+$\widetilde M(D(f))=M_f$. An $\mathcal O_X$-module is quasi-coherent if it is locally of this form, and
+coherent on a Noetherian scheme if the modules are finitely generated.
+\end{definition}
+
+\begin{proposition}[Basic affine module identities]
+\label{prop:II-5-1}
+\source{hartshorne-algebraic-geometry:II.5.1}
+\dcref{II.5.1}
+For $\operatorname{Spec}A$, $(\widetilde M)_\mathfrak p=M_\mathfrak p$ and
+$\Gamma(D(f),\widetilde M)=M_f$. The map $M\to\Gamma(\operatorname{Spec}A,\widetilde M)$ is an isomorphism.
+\uses{prop:II-2-2}
+\end{proposition}
+\begin{proof}
+The proof is the localization argument of Proposition \ref{prop:II-2-2}, with module fractions in place
+of ring fractions.
+\end{proof}
+
+\begin{proposition}[Quasi-coherent sheaves on affines]
+\label{prop:II-5-2}
+\source{hartshorne-algebraic-geometry:II.5.2}
+\dcref{II.5.2}
+If $X=\operatorname{Spec}A$, then $M\mapsto\widetilde M$ is an equivalence between $A$-modules and
+quasi-coherent sheaves, with quasi-inverse $\Gamma(X,-)$. For $A\to B$,
+$f^*\widetilde M=\widetilde{M\otimes_AB}$.
+\uses{prop:II-5-1}
+\end{proposition}
+\begin{proof}
+The unit and counit are isomorphisms on each D(f) by Proposition \ref{prop:II-5-1}; localization
+commutes with tensor products, giving the pullback formula.
+\end{proof}
+
+\begin{lemma}[Localization criterion]
+\label{lem:II-5-3}
+\source{hartshorne-algebraic-geometry:II.5.3}
+\dcref{II.5.3}
+If $f\in A$ and $\mathcal F$ is quasi-coherent on $\operatorname{Spec}A$, then
+$\Gamma(D(f),\mathcal F)=\Gamma(X,\mathcal F)_f$.
+\end{lemma}
+\begin{proof}
+It holds for associated sheaves and hence locally; restriction and gluing preserve the asserted
+localization.
+\end{proof}
+
+\begin{proposition}[Local characterization]
+\label{prop:II-5-4}
+\source{hartshorne-algebraic-geometry:II.5.4}
+\dcref{II.5.4}
+An $\mathcal O_X$-module is quasi-coherent iff it is locally the cokernel of a morphism between free
+modules; on a Noetherian scheme it is coherent iff the free modules may be chosen finite rank.
+\end{proposition}
+\begin{proof}
+For $\widetilde M$ choose a presentation by free $A$-modules and localize. Conversely, local cokernel
+descriptions give localized sections on basic opens and hence associated sheaves.
+\end{proof}
+
+\begin{corollary}[Affine equivalence]
+\label{cor:II-5-5}
+\source{hartshorne-algebraic-geometry:II.5.5}
+\dcref{II.5.5}
+The functors $M\mapsto\widetilde M$ and $\Gamma$ are mutually inverse on quasi-coherent sheaves.
+\uses{prop:II-5-1}
+\end{corollary}
+\begin{proof}
+The unit $M\to\Gamma(\operatorname{Spec}A,\widetilde M)$ and counit
+$\widetilde{\Gamma(X,\mathcal F)}\to\mathcal F$ are isomorphisms on every basic open by
+Proposition~\ref{prop:II-5-1}; the basic opens form a basis, so the maps are isomorphisms.
+\end{proof}
+
+\begin{proposition}[Exactness on affines]
+\label{prop:II-5-6}
+\source{hartshorne-algebraic-geometry:II.5.6}
+\dcref{II.5.6}
+For an affine scheme, a sequence of quasi-coherent sheaves is exact iff the sequence of global-section
+modules is exact.
+\end{proposition}
+\begin{proof}
+One implication follows from stalkwise exactness. For the converse, localize the exact sequence of
+modules at every prime.
+\end{proof}
+
+\begin{proposition}[Operations on quasi-coherent modules]
+\label{prop:II-5-7}
+\source{hartshorne-algebraic-geometry:II.5.7}
+\dcref{II.5.7}
+Kernels, cokernels, images, and extensions of quasi-coherent sheaves are quasi-coherent; on a
+Noetherian scheme the same holds for coherent sheaves.
+\uses{prop:II-5-6}
+\end{proposition}
+\begin{proof}
+Reduce to an affine. Kernels, cokernels and images follow from the module equivalence. For an extension,
+global sections are exact by Proposition \ref{prop:II-5-6}; sheafify the resulting module sequence and
+use the five lemma. Finite generation is preserved over Noetherian rings.
+\end{proof}
+
+\begin{proposition}[Direct and inverse image of modules]
+\label{prop:II-5-8}
+\source{hartshorne-algebraic-geometry:II.5.8}
+\dcref{II.5.8}
+For $f:X\to Y$, inverse images of quasi-coherent sheaves are quasi-coherent. Direct images are
+quasi-coherent when X is Noetherian or f is quasi-compact and separated; in the Noetherian case
+coherence is preserved by $f^*$.
+\uses{prop:II-5-2,prop:II-5-7}
+\end{proposition}
+\begin{proof}
+The affine cases follow from Proposition \ref{prop:II-5-2}. For direct image, cover a quasi-compact
+source by finitely many affines; separatedness makes pairwise intersections affine, while Noetherianity
+makes them quasi-compact and finitely coverable by affines. The equalizer sequence for compatible
+sections and Proposition \ref{prop:II-5-7} give quasi-coherence.
+\end{proof}
+
+\begin{proposition}[Ideal sheaves and closed subschemes]
+\label{prop:II-5-9}
+\source{hartshorne-algebraic-geometry:II.5.9}
+\dcref{II.5.9}
+The ideal sheaf of a closed subscheme is quasi-coherent, coherent when X is Noetherian, and every
+quasi-coherent ideal sheaf is the ideal sheaf of a unique closed subscheme.
+\uses{prop:II-5-8,prop:II-5-7}
+\end{proposition}
+\begin{proof}
+The ideal is the kernel of $\mathcal O_X\to i_*\mathcal O_Y$, so use Proposition \ref{prop:II-5-8}
+and Proposition \ref{prop:II-5-7}. Conversely, locally write the ideal as $\widetilde{\mathfrak a}$;
+the quotient defines $\operatorname{Spec}(A/\mathfrak a)$, and the affine constructions glue.
+\end{proof}
+
+\begin{corollary}[Affine closed subschemes]
+\label{cor:II-5-10}
+\source{hartshorne-algebraic-geometry:II.5.10}
+\dcref{II.5.10}
+Ideals of $A$ are in bijection with closed subschemes of $\operatorname{Spec}A$; every such closed subscheme
+is affine.
+\uses{prop:II-5-9}
+\end{corollary}
+\begin{proof}
+For an ideal $\mathfrak a\subset A$, the quotient map $A\to A/\mathfrak a$ gives the closed immersion
+$\operatorname{Spec}(A/\mathfrak a)\hookrightarrow\operatorname{Spec}A$.  Conversely, a closed subscheme
+has a quasi-coherent ideal sheaf by Proposition~\ref{prop:II-5-9}; on the affine scheme this is
+$\widetilde{\mathfrak a}$ for the ideal of its global sections, and the quotient is
+$\operatorname{Spec}(A/\mathfrak a)$.  The two constructions are inverse.
+\end{proof}
+
+\begin{proposition}[Proj modules]
+\label{prop:II-5-11}
+\source{hartshorne-algebraic-geometry:II.5.11}
+\dcref{II.5.11}
+For graded $S$ and $M$, the associated sheaf on $\operatorname{Proj}S$ satisfies
+$\Gamma(D_+(f),\widetilde M)=M_{(f)}$. It is quasi-coherent.
+\end{proposition}
+\begin{proof}
+Apply the affine construction to each degree-zero localization and glue on overlaps.
+\end{proof}
+
+\begin{proposition}[Twisting sheaves]
+\label{prop:II-5-12}
+\source{hartshorne-algebraic-geometry:II.5.12}
+\dcref{II.5.12}
+The sheaf $\mathcal O_X(n)=\widetilde{S(n)}$ on $X=\operatorname{Proj}S$ is invertible when $X$ is
+covered by standard affine charts; $\mathcal O_X(m)\otimes\mathcal O_X(n)\simeq\mathcal O_X(m+n)$.
+\end{proposition}
+\begin{proof}
+On $D_+(f)$, multiplication of homogeneous fractions gives the trivialization; the transition functions
+are units and are compatible with tensor products.
+\end{proof}
+
+\begin{proposition}[Generation and projective embedding]
+\label{prop:II-5-13}
+\source{hartshorne-algebraic-geometry:II.5.13}
+\dcref{II.5.13}
+For $S=A[x_0,\ldots,x_r]$ and $X=\operatorname{Proj}S=\mathbb P^r_A$, $\mathcal O_X(1)$ is invertible and
+its coordinate sections generate it. A coherent sheaf on a projective scheme is generated after a
+sufficiently positive twist.
+\end{proposition}
+\begin{proof}
+The coordinate sections generate on each $D_+(x_i)$. For a coherent sheaf, choose finite affine
+generators on the standard cover, clear denominators after a common twist, and use the finite cover
+to obtain global generators.
+\end{proof}
+
+\begin{lemma}[Twisted localization]
+\label{lem:II-5-14}
+\source{hartshorne-algebraic-geometry:II.5.14}
+\dcref{II.5.14}
+Let $\mathcal L$ be invertible on $X$, let $s\in\Gamma(X,\mathcal L)$, and let $X_s$ be the
+open set where $s$ is nonvanishing. If $X$ is quasi-compact and a section of a quasi-coherent
+$\mathcal F$ vanishes on $X_s$, then some power of $s$ kills it. If $X$ has a finite affine cover
+on which $\mathcal L$ is free and whose pairwise intersections are quasi-compact, every section
+of $\mathcal F|_{X_s}$ becomes the restriction of a global section of $\mathcal F\otimes\mathcal L^n$
+after multiplying by a sufficiently high power of $s$.
+\end{lemma}
+\begin{proof}
+On each affine trivializing open this is the localization criterion for modules; quasi-compactness
+allows finitely many powers to be replaced by one common power.
+\end{proof}
+
+\begin{proposition}[Proj reconstruction]
+\label{prop:II-5-15}
+\source{hartshorne-algebraic-geometry:II.5.15}
+\dcref{II.5.15}
+If $S$ is generated by $S_1$ over $S_0$, $X=\operatorname{Proj}S$, and $\mathcal F$ is
+quasi-coherent, then the natural map $\widetilde{\Gamma_*(\mathcal F)}\to\mathcal F$ is an isomorphism.
+\end{proposition}
+\begin{proof}
+On each standard affine $D_+(f)$, apply the preceding lemma to identify sections with the degree-zero
+localization of $\Gamma_*(\mathcal F)$; these identifications agree on overlaps.
+\end{proof}
+
+\begin{corollary}[Projective schemes as Proj]
+\label{cor:II-5-16}
+\source{hartshorne-algebraic-geometry:II.5.16}
+\dcref{II.5.16}
+If $Y$ is a closed subscheme of $\mathbb P^r_A$, it is $\operatorname{Proj}(S/I)$ for a homogeneous
+ideal $I\subset S=A[x_0,\ldots,x_r]$. A scheme over $\operatorname{Spec}A$ is projective iff it is
+isomorphic to $\operatorname{Proj}S$ for a graded $S$ with $S_0=A$ finitely generated by $S_1$.
+\uses{prop:II-5-15}
+\end{corollary}
+\begin{proof}
+The ideal sheaf of $Y$ is quasi-coherent; Proposition~\ref{prop:II-5-15} identifies it with the
+sheaf associated to its homogeneous module of global twisted sections. The converse follows by
+presenting $S$ as a quotient of a polynomial ring.
+\end{proof}
+
+\begin{theorem}[Serre]
+\label{thm:II-5-17}
+\source{hartshorne-algebraic-geometry:II.5.17}
+\dcref{II.5.17}
+If $X$ is projective over a Noetherian ring $A$ and $\mathcal F$ is coherent, then
+$\mathcal F(n)$ is generated by global sections for $n\gg0$ and $H^i(X,\mathcal F(n))=0$ for $i>0,n\gg0$.
+\end{theorem}
+\begin{proof}
+Resolve $\mathcal F$ by finite sums of $\mathcal O_X(-m)$ on projective space. The Cech complex of the
+standard affine cover computes cohomology; multiplication by powers of the homogeneous coordinates
+makes its positive-degree cohomology vanish in high twists. Induct on the length of the resolution.
+\end{proof}
+
+\begin{corollary}[Coherent sheaves are quotients of twists]
+\label{cor:II-5-18}
+\source{hartshorne-algebraic-geometry:II.5.18}
+\dcref{II.5.18}
+On a projective scheme over a Noetherian ring, every coherent sheaf is a quotient of a finite direct
+sum of twisted structure sheaves $\mathcal O_X(n)$.
+\end{corollary}
+\begin{proof}
+By Serre, a sufficiently positive twist is generated by finitely many global sections; the resulting
+surjection from a finite sum of $\mathcal O_X$ becomes the assertion after twisting back.
+\end{proof}
+
+\begin{theorem}[Finiteness of global sections]
+\label{thm:II-5-19}
+\source{hartshorne-algebraic-geometry:II.5.19}
+\dcref{II.5.19}
+If $X$ is projective over a field $k$ and $\mathcal F$ is coherent, then $\Gamma(X,\mathcal F)$ is finite-dimensional
+over k. If X is projective over a finitely generated k-algebra A, it is a finite A-module.
+\end{theorem}
+\begin{proof}
+For a graded presentation, reduce to twists on $\operatorname{Proj}S$. The graded module formed from
+all sufficiently twisted global sections is integral over the coordinate ring and hence finite by
+finiteness of integral closure; each graded piece is finite. The affine pushforward statement follows
+from the affine module criterion.
+\end{proof}
+
+\begin{corollary}[Coherent direct image]
+\label{cor:II-5-20}
+\source{hartshorne-algebraic-geometry:II.5.20}
+\dcref{II.5.20}
+If $f:X\to Y$ is projective of finite type over a field and $\mathcal F$ is coherent, then
+$f_*\mathcal F$ is coherent.
+\end{corollary}
+\begin{proof}
+The assertion is affine-local on $Y$ and follows from finite generation of global sections over each
+finitely generated coordinate ring.
+\end{proof}
+
+\section{Divisors}
+
+\begin{definition}[Weil divisors]
+\label{def:II-6-weil}
+\source{hartshorne-algebraic-geometry:II.6}
+On a Noetherian integral scheme regular in codimension one, a prime divisor is an integral closed
+subscheme of codimension one. A Weil divisor is a finite sum $D=\sum n_Y Y$. The local ring at the
+generic point of $Y$ is a DVR, giving $v_Y:K(X)^*\to\mathbb Z$.
+\end{definition}
+
+\begin{proposition}[Principal divisors]
+\label{prop:II-6-1}
+\source{hartshorne-algebraic-geometry:II.6.1}
+\dcref{II.6.1}
+For $f\in K(X)^*$, $(f)=\sum_Yv_Y(f)Y$ has finite support. Principal divisors form a subgroup of Weil
+divisors.
+\end{proposition}
+\begin{proof}
+On an affine where $f$ is regular, positive valuations occur only at components of $V(f)$; apply the same
+argument to $f^{-1}$ on an affine where it is regular. The valuation identity
+$v_Y(fg)=v_Y(f)+v_Y(g)$ proves additivity.
+\end{proof}
+
+\begin{definition}[Linear equivalence and class group]
+\label{def:II-6-class}
+\source{hartshorne-algebraic-geometry:II.6}
+$D\sim D'$ when $D-D'=(f)$. The class group is $\operatorname{Cl}X=\operatorname{Div}X/\operatorname{Prin}X$.
+\end{definition}
+
+\begin{theorem}[Factoriality and the divisor class group]
+\label{thm:II-6-2}
+\source{hartshorne-algebraic-geometry:II.6.2}
+\dcref{II.6.2}
+Let $A$ be a noetherian domain and $X=\operatorname{Spec}A$.  Then $A$ is a
+unique factorization domain if and only if $X$ is normal and $\operatorname{Cl}X=0$.
+\end{theorem}
+\begin{proof}
+A UFD is integrally closed, hence $X$ is normal.  If every height-one prime is principal, every
+prime divisor is principal and $\operatorname{Cl}X=0$.  Conversely, if $X$ is normal and its class
+group is zero, a height-one prime divisor is linearly equivalent to zero, hence is the divisor of
+an element of $K(X)^*$; valuation one at that prime and nonnegative valuations elsewhere show that
+the element lies in $A$ and generates the prime.  The height-one criterion for a noetherian domain
+then gives factoriality.
+\end{proof}
+
+\begin{proposition}[Intersection of height-one localizations]
+\label{prop:II-6-3A}
+\source{hartshorne-algebraic-geometry:II.6.3A}
+\dcref{II.6.3A}
+If $A$ is an integrally closed noetherian domain, then
+\[
+A=\bigcap_{\operatorname{ht}\mathfrak p=1}A_{\mathfrak p}
+\]
+inside the fraction field of $A$, where the intersection runs over all height-one prime ideals.
+\end{proposition}
+\begin{proof}
+This is the standard intersection theorem for Krull domains; Hartshorne cites Matsumura for the
+result and does not prove it in the text.
+\end{proof}
+
+\begin{definition}[Cartier divisors]
+\label{def:II-6-cartier}
+\source{hartshorne-algebraic-geometry:II.6}
+A Cartier divisor is a compatible collection of rational functions modulo units. It determines an
+invertible sheaf $\mathcal O_X(D)$; addition corresponds to tensor product and principal divisors give
+$\mathcal O_X((f))\simeq\mathcal O_X$.
+\end{definition}
+
+\begin{proposition}[Divisors on projective space]
+\label{prop:II-6-4}
+\source{hartshorne-algebraic-geometry:II.6.4}
+\dcref{II.6.4}
+For $n\geq1$, every divisor on $\mathbb P^n$ is linearly equivalent to a unique multiple of a
+hyperplane; hence $\operatorname{Cl}(\mathbb P^n)\simeq\mathbb Z$ generated by a hyperplane.
+\end{proposition}
+\begin{proof}
+On the standard affine cover, clearing denominators shows that a divisor of degree zero is principal;
+the degree map sends a hyperplane to $1$ and detects the unique multiple.
+\end{proof}
+
+\begin{proposition}[Restriction of divisors]
+\label{prop:II-6-5}
+\source{hartshorne-algebraic-geometry:II.6.5}
+\dcref{II.6.5}
+If $Y$ is a proper closed subset of a noetherian integral scheme $X$, restriction induces an exact
+sequence $\operatorname{Div}_Y(X)\to\operatorname{Cl}(X)\to\operatorname{Cl}(X\setminus Y)\to0$.
+\end{proposition}
+\begin{proof}
+A divisor on the open complement closes to a divisor on $X$, and changing the closure changes it by
+a divisor supported on $Y$; principal divisors restrict to principal divisors.
+\end{proof}
+
+\begin{proposition}[Affine-line invariance of the class group]
+\label{prop:II-6-6}
+\source{hartshorne-algebraic-geometry:II.6.6}
+\dcref{II.6.6}
+If $X$ satisfies the standing hypotheses of this section, then $X\times\mathbb A^1$ also satisfies
+them, and
+\[
+\operatorname{Cl}X\xrightarrow{\sim}\operatorname{Cl}(X\times\mathbb A^1)
+\]
+via pullback along the projection.
+\end{proposition}
+\begin{proof}
+The product is noetherian, integral, and separated.  Codimension-one points are either pullbacks of
+codimension-one points of $X$ or dominate $X$; the latter have local rings which are localizations
+of $K(X)[t]$ and hence principal divisor class.  Sending a divisor to the sum of the pullbacks of
+its components defines the inverse on class groups; valuation computations show that both composites
+are the identity.
+\end{proof}
+
+\begin{proposition}[Divisors on nonsingular curves]
+\label{prop:II-6-7}
+\source{hartshorne-algebraic-geometry:II.6.7}
+\dcref{II.6.7}
+For a complete nonsingular curve, every Weil divisor is Cartier, and the divisor of a nonzero
+rational function is the sum of its valuations at the closed points with finite support.
+\end{proposition}
+\begin{proof}
+The local rings at closed points are DVRs, so local equations exist and glue as Cartier data; finite
+support follows by applying regularity to the function and its inverse on affine neighborhoods.
+\end{proof}
+
+\begin{proposition}[Finite maps of curves]
+\label{prop:II-6-8}
+\source{hartshorne-algebraic-geometry:II.6.8}
+\dcref{II.6.8}
+A nonconstant map of complete nonsingular curves is finite. For $Q\in Y$,
+$f^*Q=\sum_{f(P)=Q}v_P(t)P$, where $t$ is a uniformizer at $Q$, and this is independent of $t$.
+\end{proposition}
+\begin{proof}
+A nonconstant map has zero-dimensional fibres; properness of complete curves makes it finite. A changed
+uniformizer differs by a unit, whose pullback has valuation zero. Integral closure over the DVR at Q
+gives the displayed ramification multiplicities.
+\end{proof}
+
+\begin{proposition}[Degree pullback]
+\label{prop:II-6-9}
+\source{hartshorne-algebraic-geometry:II.6.9}
+\dcref{II.6.9}
+For a finite map of nonsingular complete curves, $\deg f^*D=(\deg f)\deg D$.
+\end{proposition}
+\begin{proof}
+It suffices to use one point $Q$. The integral closure of $\mathcal O_{Y,Q}$ is a free module of rank
+[K(X):K(Y)]; its quotient by a uniformizer has length equal to that rank and also equals the sum
+of the ramification indices.
+\end{proof}
+
+\begin{corollary}[Principal divisors have degree zero]
+\label{cor:II-6-10}
+\source{hartshorne-algebraic-geometry:II.6.10}
+\dcref{II.6.10}
+A principal divisor on a complete nonsingular curve has degree zero.
+\end{corollary}
+\begin{proof}
+Apply the valuation theorem to multiplication by f on the finite-dimensional Riemann--Roch function
+space, or compare zeros and poles through a finite map to $\mathbb P^1$; the total valuation sum is zero.
+\end{proof}
+
+\begin{proposition}[Cartier and Weil divisors]
+\label{prop:II-6-11}
+\source{hartshorne-algebraic-geometry:II.6.11}
+\dcref{II.6.11}
+On an integral separated noetherian normal scheme, Cartier divisors map to Weil divisors by taking
+the valuations at codimension-one points, and this map identifies principal Cartier divisors with
+principal Weil divisors.
+\end{proposition}
+\begin{proof}
+At a codimension-one point the local ring is a DVR, so a local Cartier equation has a well-defined
+order. Compatibility on overlaps gives a Weil divisor; normality makes the construction injective.
+\end{proof}
+
+\begin{proposition}[Invertible sheaves and duals]
+\label{prop:II-6-12}
+\source{hartshorne-algebraic-geometry:II.6.12}
+\dcref{II.6.12}
+For an invertible sheaf $\mathcal L$, its dual $\mathcal L^{-1}$ is invertible and
+$\mathcal L\otimes\mathcal L^{-1}\simeq\mathcal O_X$; isomorphism classes form the Picard group
+$\operatorname{Pic}(X)$ under tensor product.
+\end{proposition}
+\begin{proof}
+Trivialize $\mathcal L$ on an open cover. The dual is locally free of rank one, and evaluation gives
+the inverse; tensor product gives the group law.
+\end{proof}
+
+\begin{proposition}[Cartier divisors and the Picard group]
+\label{prop:II-6-13}
+\source{hartshorne-algebraic-geometry:II.6.13}
+\dcref{II.6.13}
+The map $D\mapsto\mathcal O_X(D)$ induces an isomorphism from Cartier divisors modulo principal
+divisors to $\operatorname{Pic}(X)$.
+\end{proposition}
+\begin{proof}
+Local equations give the invertible sheaf and changing equations by units gives an isomorphic sheaf.
+Conversely, local generators of an invertible sheaf have rational ratios defining inverse Cartier data.
+\end{proof}
+
+\begin{corollary}[Cartier-to-Weil injectivity]
+\label{cor:II-6-14}
+\source{hartshorne-algebraic-geometry:II.6.14}
+\dcref{II.6.14}
+On an integral scheme, the map from Cartier divisors modulo principal divisors to the divisor class
+group is injective.
+\end{corollary}
+\begin{proof}
+If the associated Weil divisor is principal, divide the Cartier data by that rational function; the
+resulting local equations are units, so the Cartier divisor is principal.
+\end{proof}
+
+\begin{proposition}[Effective Cartier divisors]
+\label{prop:II-6-15}
+\source{hartshorne-algebraic-geometry:II.6.15}
+\dcref{II.6.15}
+An effective Cartier divisor is locally defined by a non-zero-divisor. Its ideal sheaf is invertible,
+and the quotient defines a closed subscheme of pure codimension one.
+\end{proposition}
+\begin{proof}
+Multiplication by each local equation is injective and identifies the ideal with a free rank-one
+module; the local quotients glue to the asserted closed subscheme.
+\end{proof}
+
+\begin{corollary}[Locally factorial schemes]
+\label{cor:II-6-16}
+\source{hartshorne-algebraic-geometry:II.6.16}
+\dcref{II.6.16}
+On a locally factorial scheme every Weil divisor is Cartier, and the Cartier and Weil class groups
+are canonically isomorphic.
+\end{corollary}
+\begin{proof}
+Codimension-one equations extend on factorial affine neighborhoods; apply the Cartier--Weil
+identification above.
+\end{proof}
+
+\begin{corollary}[Class group of projective space]
+\label{cor:II-6-17}
+\source{hartshorne-algebraic-geometry:II.6.17}
+\dcref{II.6.17}
+For $n\geq1$, $\operatorname{Pic}(\mathbb P^n)\simeq\mathbb Z$, generated by $\mathcal O(1)$.
+\uses{prop:II-6-4}
+\end{corollary}
+\begin{proof}
+Combine Proposition~\ref{prop:II-6-4} with the Cartier-to-Weil identification.
+\end{proof}
+
+\begin{proposition}[Effective Cartier divisors and closed subschemes]
+\label{prop:II-6-18}
+\source{hartshorne-algebraic-geometry:II.6.18}
+\dcref{II.6.18}
+Effective Cartier divisors on $X$ are in bijection with closed subschemes whose ideal sheaf is
+invertible and locally generated by a non-zero-divisor.
+\end{proposition}
+\begin{proof}
+The two constructions are $D\mapsto\mathcal O_X(-D)$ and an invertible ideal with a local
+non-zero-divisor generator to its vanishing divisor; the constructions are inverse.
+\end{proof}
+
+\section{Projective Morphisms}
+
+\begin{definition}[Projective morphism]
+\label{def:II-7-projective}
+\source{hartshorne-algebraic-geometry:II.7}
+A morphism is projective if it factors as a closed immersion $X\hookrightarrow\mathbb P^n_Y$. An
+invertible sheaf is relatively very ample when it is the pullback of $\mathcal O(1)$ under such an embedding.
+\end{definition}
+
+\begin{theorem}[Morphisms to projective space]
+\label{thm:II-7-1}
+\source{hartshorne-algebraic-geometry:II.7.1}
+\dcref{II.7.1}
+A morphisms $f:X\to\mathbb P^n_Y$ is equivalent to an invertible sheaf $\mathcal L$ on $X$
+together with generating global sections $s_0,\ldots,s_n$, up to the natural change of basis.
+\end{theorem}
+\begin{proof}
+Pull back $\mathcal O(1)$ and its coordinate sections. Conversely, the ratios of the generating
+sections define compatible maps to the standard affine charts and glue to $f$.
+\end{proof}
+
+\begin{proposition}[Closed immersion criterion]
+\label{prop:II-7-2}
+\source{hartshorne-algebraic-geometry:II.7.2}
+\dcref{II.7.2}
+A morphism defined by generating sections of an invertible sheaf is a closed immersion precisely
+when the induced maps on the standard affine opens identify their coordinate rings with the relevant
+affine coordinate rings.
+\end{proposition}
+\begin{proof}
+Check the assertion on the standard affine cover of projective space; a morphism is a closed immersion
+if and only if it is so on an affine open cover of the target.
+\end{proof}
+
+\begin{proposition}[Projective embedding criterion]
+\label{prop:II-7-3}
+\source{hartshorne-algebraic-geometry:II.7.3}
+\dcref{II.7.3}
+For a finite-type scheme over a field, a finite-dimensional space of sections of an invertible sheaf
+defines a closed immersion into projective space iff it separates points and tangent vectors.
+\end{proposition}
+\begin{proof}
+Point separation makes the map injective and an immersion on residue fields; tangent-vector separation
+makes the induced local maps surjective on cotangent spaces. The affine criterion then gives a closed
+immersion.
+\end{proof}
+
+\begin{lemma}[Finite generation from local maps]
+\label{lem:II-7-4}
+\source{hartshorne-algebraic-geometry:II.7.4}
+\dcref{II.7.4}
+If a local homomorphism of noetherian local rings induces a finite extension on residue fields and
+the target is generated by finitely many elements over the image, then the corresponding morphism is
+finite on a neighborhood.
+\end{lemma}
+\begin{proof}
+Choose finitely many generators and clear denominators in the localizations; Nakayama's lemma gives
+finite generation after shrinking.
+\end{proof}
+
+\begin{proposition}[Ample invertible sheaves]
+\label{prop:II-7-5}
+\source{hartshorne-algebraic-geometry:II.7.5}
+\dcref{II.7.5}
+For an invertible sheaf $\mathcal L$ on a noetherian scheme, the following are equivalent: $\mathcal L$
+is ample; every coherent sheaf becomes generated by global sections after a positive twist; and a
+sufficiently high power of $\mathcal L$ gives a projective embedding on every affine neighborhood.
+\end{proposition}
+\begin{proof}
+The implications follow by applying the finite-generation lemma to affine standard opens and using
+the point-and-tangent separation criterion.
+\end{proof}
+
+\begin{theorem}[Projective implies proper]
+\label{thm:II-7-6}
+\source{hartshorne-algebraic-geometry:II.7.6}
+\dcref{II.7.6}
+Every projective morphism is proper.
+\end{theorem}
+\begin{proof}
+The projection $\mathbb P^n_Y\to Y$ satisfies the valuative criterion by scaling homogeneous coordinates
+so one is a unit in the valuation ring. Closed immersions and compositions preserve properness.
+\end{proof}
+
+\begin{proposition}[Divisors of zeros and linear systems]
+\label{prop:II-7-7}
+\source{hartshorne-algebraic-geometry:II.7.7}
+\dcref{II.7.7}
+A nonzero section of an invertible sheaf determines an effective Cartier divisor of zeros. The
+complete linear system of an invertible sheaf is the projective space of its nonzero global sections,
+and its associated map is the map defined by those sections.
+\end{proposition}
+\begin{proof}
+Locally trivialize the sheaf; the section is a non-zero-divisor equation and its local equations differ
+by units. Ratios of a basis of global sections give the associated projective map.
+\end{proof}
+
+\begin{lemma}[Base-point-free linear systems]
+\label{lem:II-7-8}
+\source{hartshorne-algebraic-geometry:II.7.8}
+\dcref{II.7.8}
+A linear system has no base points precisely when its sections generate the associated invertible
+sheaf; in that case it defines a morphism to projective space.
+\uses{thm:II-7-1}
+\end{lemma}
+\begin{proof}
+The stalkwise generation condition is exactly the absence of a common zero, and Theorem~\ref{thm:II-7-1}
+then constructs the morphism.
+\end{proof}
+
+\begin{lemma}[Proj invariant under twisting]
+\label{lem:II-7-9}
+\source{hartshorne-algebraic-geometry:II.7.9}
+\dcref{II.7.9}
+For a graded ring $S$, $\operatorname{Proj}S\simeq\operatorname{Proj}S(d)$ after replacing the grading
+by a positive twist; the standard opens and their structure sheaves are unchanged.
+\end{lemma}
+\begin{proof}
+The homogeneous prime ideals and degree-zero localizations are unchanged by a common shift of degrees.
+\end{proof}
+
+\begin{theorem}[Relative Proj is projective]
+\label{thm:II-7-10}
+\source{hartshorne-algebraic-geometry:II.7.10}
+\dcref{II.7.10}
+If $S$ is a finitely generated graded algebra over $A=S_0$, then $\operatorname{Proj}S\to\operatorname{Spec}A$
+is projective.
+\end{theorem}
+\begin{proof}
+Choose homogeneous generators in degree one after a twist; the resulting graded surjection from a
+polynomial ring gives a closed immersion into projective space over $A$.
+\end{proof}
+
+\begin{proposition}[Relative Proj of a symmetric algebra]
+\label{prop:II-7-11}
+\source{hartshorne-algebraic-geometry:II.7.11}
+\dcref{II.7.11}
+For a quasi-coherent module $\mathcal E$ on $Y$, $\operatorname{Proj}\operatorname{Sym}(\mathcal E)$
+represents invertible quotients of the pullback of $\mathcal E$.
+\end{proposition}
+\begin{proof}
+This is the affine universal property of Proj applied on a cover of $Y$, with the local constructions
+glued by functoriality.
+\end{proof}
+
+\begin{proposition}[Universal property of relative Proj]
+\label{prop:II-7-12}
+\source{hartshorne-algebraic-geometry:II.7.12}
+\dcref{II.7.12}
+Morphisms $T\to\operatorname{Proj}\operatorname{Sym}(\mathcal E)$ over $Y$ are equivalent to pairs
+consisting of an invertible sheaf on $T$ and a surjection from the pullback of $\mathcal E$.
+\end{proposition}
+\begin{proof}
+The universal quotient gives the forward map; local generators of a quotient give homogeneous
+coordinates and glue to the inverse.
+\end{proof}
+
+\begin{proposition}[Blow-up ideal]
+\label{prop:II-7-13}
+\source{hartshorne-algebraic-geometry:II.7.13}
+\dcref{II.7.13}
+For the blow-up $\operatorname{Bl}_\mathcal I X=\operatorname{Proj}\bigoplus_{n\geq0}\mathcal I^n$,
+the inverse image of $\mathcal I$ is an invertible ideal sheaf.
+\end{proposition}
+\begin{proof}
+On a standard Proj chart one generator of $\mathcal I$ becomes a unit times the tautological degree-one
+generator, so the inverse image is locally principal and hence invertible.
+\end{proof}
+
+\begin{proposition}[Universal property of blow-up]
+\label{prop:II-7-14}
+\source{hartshorne-algebraic-geometry:II.7.14}
+\dcref{II.7.14}
+The blow-up of $X$ along $\mathcal I$ is universal among morphisms $g:Y\to X$ for which
+$g^{-1}\mathcal I\mathcal O_Y$ is invertible.
+\end{proposition}
+\begin{proof}
+An invertible pullback ideal gives a graded algebra map from the Rees algebra to the section algebra
+of its powers, hence a unique map to Proj; the tautological ideal proves uniqueness.
+\end{proof}
+
+\begin{corollary}[Functoriality of blow-up]
+\label{cor:II-7-15}
+\source{hartshorne-algebraic-geometry:II.7.15}
+\dcref{II.7.15}
+If a morphism pulls one ideal sheaf into another, it induces the corresponding morphism of blow-ups;
+in particular blow-up commutes with base change in the stated ideal-theoretic sense.
+\end{corollary}
+\begin{proof}
+Apply the universal property to the pullback of the tautological invertible ideal.
+\end{proof}
+
+\begin{proposition}[Blow-ups of varieties]
+\label{prop:II-7-16}
+\source{hartshorne-algebraic-geometry:II.7.16}
+\dcref{II.7.16}
+The blow-up of a variety along a coherent ideal is projective over the variety and is again a variety.
+\end{proposition}
+\begin{proof}
+Finite generation of the Rees algebra gives projectivity by relative Proj. On affine charts the Rees
+algebra is a domain, and the resulting scheme is integral and separated.
+\end{proof}
+
+\begin{theorem}[Factorization through a blow-up]
+\label{thm:II-7-17}
+\source{hartshorne-algebraic-geometry:II.7.17}
+\dcref{II.7.17}
+Every projective morphism of noetherian schemes factors as a blow-up followed by a closed immersion
+into projective space (after choosing a suitable coherent ideal).
+\end{theorem}
+\begin{proof}
+Choose a relatively ample invertible sheaf and finitely many generating sections. The associated
+graded algebra gives a Rees algebra after clearing denominators; the universal property of the blow-up
+then supplies the factorization.
+\end{proof}
+
+\section{Differentials}
+
+\begin{definition}[Kahler differentials]
+\label{def:II-8-differentials}
+\source{hartshorne-algebraic-geometry:II.8}
+For $A\to B$, $\Omega_{B/A}$ represents $A$-derivations: it is generated by symbols $db$ with
+$d(b+b')=db+db'$, $d(bb')=b\,db'+b'\,db$, and $da=0$.
+\end{definition}
+
+\begin{proposition}[Diagonal description]
+\label{prop:II-8-1A}
+\source{hartshorne-algebraic-geometry:II.8.1A}
+\dcref{II.8.1A}
+Let $B$ be an $A$-algebra, let $I$ be the kernel of the multiplication map
+$B\otimes_A B\to B$, and define $db=1\otimes b-b\otimes1$ modulo $I^2$.  Then
+$(I/I^2,d)$ is a module of relative differentials for $B/A$.
+\end{proposition}
+\begin{proof}
+The displayed map satisfies the derivation identities.  Any $A$-derivation $B\to M$ induces a
+$B$-linear map $I/I^2\to M$ by $b\otimes b'\mapsto b\,db'$, and this is the unique such map.
+Hartshorne cites Matsumura for the construction.
+\end{proof}
+
+\begin{proposition}[Base change and localization]
+\label{prop:II-8-2A}
+\source{hartshorne-algebraic-geometry:II.8.2A}
+\dcref{II.8.2A}
+If $A'$ and $B$ are $A$-algebras and $B'=B\otimes_AA'$, then
+$\Omega_{B'/A'}\simeq\Omega_{B/A}\otimes_BB'$.  If $S$ is a multiplicative system in $B$, then
+$\Omega_{S^{-1}B/A}\simeq S^{-1}\Omega_{B/A}$.
+\end{proposition}
+\begin{proof}
+Extend derivations uniquely across the base change and across inverses; the two universal properties
+give the displayed isomorphisms.  Hartshorne cites Matsumura for the result.
+\end{proof}
+
+\begin{proposition}[First exact sequence]
+\label{prop:II-8-3A}
+\source{hartshorne-algebraic-geometry:II.8.3A}
+\dcref{II.8.3A}
+For ring maps $A\to B\to C$ there is a natural exact sequence of $C$-modules
+\[
+\Omega_{B/A}\otimes_BC\longrightarrow\Omega_{C/A}\longrightarrow\Omega_{C/B}\longrightarrow0.
+\]
+\end{proposition}
+\begin{proof}
+The first map is induced by composition of derivations.  A $B$-derivation is exactly an $A$-derivation
+which kills the image of $B$, so the universal property gives exactness; the source cites Matsumura.
+\end{proof}
+
+\begin{proposition}[Second exact sequence]
+\label{prop:II-8-4A}
+\source{hartshorne-algebraic-geometry:II.8.4A}
+\dcref{II.8.4A}
+If $B$ is an $A$-algebra, $I\subset B$ an ideal, and $C=B/I$, then there is an exact sequence
+\[
+I/I^2\xrightarrow{\delta}\Omega_{B/A}\otimes_BC\longrightarrow\Omega_{C/A}\longrightarrow0,
+\]
+where $\delta(\bar b)=db\otimes1$.
+\end{proposition}
+\begin{proof}
+Apply the diagonal description to the quotient map and use the universal property of $\Omega$;
+the kernel consists precisely of differentials of elements of $I$, modulo $I^2$.  Hartshorne cites
+Matsumura for this exact sequence.
+\end{proof}
+
+\begin{corollary}[Finite generation of differentials]
+\label{cor:II-8-5}
+\source{hartshorne-algebraic-geometry:II.8.5}
+\dcref{II.8.5}
+If $B$ is a finitely generated $A$-algebra, or a localization of one, then $\Omega_{B/A}$ is a
+finitely generated $B$-module.
+\end{corollary}
+\begin{proof}
+Present $B$ as a quotient of a polynomial algebra.  Its module of differentials is generated by the
+coordinate differentials, and the second exact sequence and localization preserve finite generation.
+\end{proof}
+
+\begin{theorem}[Separability criterion]
+\label{thm:II-8-6A}
+\source{hartshorne-algebraic-geometry:II.8.6A}
+\dcref{II.8.6A}
+For a finitely generated extension field $K/k$, $\dim_K\Omega_{K/k}\ge\operatorname{trdeg}_kK$, with
+equality if and only if $K/k$ is separably generated.
+\end{theorem}
+\begin{proof}
+Choose a transcendence basis and apply the exact sequence to the finite algebraic extension over the
+rational function field.  The basis differentials are independent, and the algebraic part contributes
+no additional dimension exactly when it is separable; the source cites Matsumura.
+\end{proof}
+
+\begin{proposition}[Residue-field differentials]
+\label{prop:II-8-7}
+\source{hartshorne-algebraic-geometry:II.8.7}
+\dcref{II.8.7}
+Let $B$ be a local ring containing a field $k$ isomorphic to its residue field $B/\mathfrak m$.  Then
+$\delta:\mathfrak m/\mathfrak m^2\to\Omega_{B/k}\otimes_Bk$ is an isomorphism.
+\end{proposition}
+\begin{proof}
+The second exact sequence identifies the cokernel with $\Omega_{k/k}=0$.  A $k$-derivation on $B$
+whose restriction to $\mathfrak m$ vanishes modulo $\mathfrak m^2$ is zero, proving injectivity.
+\end{proof}
+
+\begin{theorem}[Regularity via differentials]
+\label{thm:II-8-8}
+\source{hartshorne-algebraic-geometry:II.8.8}
+\dcref{II.8.8}
+Let $B$ be a local ring containing a perfect field $k$ isomorphic to its residue field, and assume
+$B$ is a localization of a finitely generated $k$-algebra.  Then $\Omega_{B/k}$ is free of rank
+$\dim B$ if and only if $B$ is a regular local ring.
+\uses{prop:II-8-7}
+\end{theorem}
+\begin{proof}
+By Proposition~\ref{prop:II-8-7}, $\mathfrak m/\mathfrak m^2$ is the cotangent space.  The exact
+sequence and separability criterion identify its dimension with the rank of $\Omega_{B/k}$; equality
+with $\dim B$ is the regular-local criterion.
+\end{proof}
+
+\begin{lemma}[Free-module criterion]
+\label{lem:II-8-9}
+\source{hartshorne-algebraic-geometry:II.8.9}
+\dcref{II.8.9}
+If $A$ is a noetherian local integral domain with residue field $k$ and quotient field $K$, and $M$ is
+a finite $A$-module satisfying $\dim_k(M\otimes_Ak)=\dim_K(M\otimes_AK)=r$, then $M$ is free of rank $r$.
+\end{lemma}
+\begin{proof}
+Nakayama gives a surjection $A^r\to M$.  Tensoring with $K$ shows that its kernel has rank zero;
+torsion-freeness forces the kernel to vanish, so the map is an isomorphism.
+\end{proof}
+
+\begin{definition}[Sheaf of relative differentials]
+\label{def:II-8-sheaf-differentials}
+\source{hartshorne-algebraic-geometry:II.8}
+For a morphism $f:X\to Y$ of schemes, the sheaf of relative differentials $\Omega_{X/Y}$ is obtained
+on affine opens from the modules $\Omega_{B/A}$ and glued using localization; equivalently, it is
+the pullback of the conormal sheaf of the diagonal $X\to X\times_YX$.
+\end{definition}
+
+\begin{proposition}[Base change for sheaf differentials]
+\label{prop:II-8-10}
+\source{hartshorne-algebraic-geometry:II.8.10}
+\dcref{II.8.10}
+For $f:X\to Y$ and $g:Y'\to Y$, with $X'=X\times_YY'$, one has
+$\Omega_{X'/Y'}\simeq g'^*\Omega_{X/Y}$, where $g':X'\to X$ is the projection.
+\uses{prop:II-8-2A}
+\end{proposition}
+\begin{proof}
+Work on affine charts and apply Proposition~\ref{prop:II-8-2A}; the local isomorphisms agree on
+overlaps by the universal property and therefore glue.
+\end{proof}
+
+\begin{proposition}[Transitivity sequence]
+\label{prop:II-8-11}
+\source{hartshorne-algebraic-geometry:II.8.11}
+\dcref{II.8.11}
+For morphisms $X\xrightarrow{f}Y\xrightarrow{g}Z$, there is an exact sequence
+\[
+f^*\Omega_{Y/Z}\longrightarrow\Omega_{X/Z}\longrightarrow\Omega_{X/Y}\longrightarrow0.
+\]
+\end{proposition}
+\begin{proof}
+The assertion is the sheafification of the first exact sequence on affine charts.
+\end{proof}
+
+\begin{proposition}[Closed-subscheme sequence]
+\label{prop:II-8-12}
+\source{hartshorne-algebraic-geometry:II.8.12}
+\dcref{II.8.12}
+If $Z\hookrightarrow X$ is a closed subscheme with ideal sheaf $\mathcal I$ and $X\to Y$ is a
+morphism, then there is an exact sequence on $Z$
+\[
+\mathcal I/\mathcal I^2\xrightarrow{\delta}\Omega_{X/Y}\otimes\mathcal O_Z\longrightarrow\Omega_{Z/Y}\longrightarrow0.
+\]
+\end{proposition}
+\begin{proof}
+Apply the second exact sequence on affine charts and glue.  The map sends the class of a local
+equation to its differential restricted to $Z$.
+\end{proof}
+
+\begin{theorem}[Euler sequence]
+\label{thm:II-8-13}
+\source{hartshorne-algebraic-geometry:II.8.13}
+\dcref{II.8.13}
+On $\mathbb P^n_A$,
+\[
+0\to\Omega_{\mathbb P^n_A/A}\to\mathcal O(-1)^{\oplus(n+1)}
+\xrightarrow{(x_0,\ldots,x_n)}\mathcal O\to0.
+\]
+\end{theorem}
+\begin{proof}
+On each standard chart, identify differentials of $x_j/x_i$ and check that the kernel of the Euler
+map is generated by these relations. The local descriptions agree on overlaps and exactness is
+stalkwise.
+\end{proof}
+
+\begin{theorem}[Localization of regular local rings]
+\label{thm:II-8-14A}
+\source{hartshorne-algebraic-geometry:II.8.14A}
+\dcref{II.8.14A}
+If $(A,\mathfrak m)$ is a regular local ring, every localization $A_\mathfrak p$ is regular.
+\end{theorem}
+\begin{proof}
+A regular system of parameters remains a minimal generating set after localization; the
+dimension and embedding-dimension inequality then give regularity at each prime.
+\end{proof}
+
+\begin{theorem}[Differential criterion for nonsingularity]
+\label{thm:II-8-15}
+\source{hartshorne-algebraic-geometry:II.8.15}
+\dcref{II.8.15}
+For a variety over a perfect field, a point is nonsingular if and only if the stalk of
+$\Omega_{X/k}$ is free of rank $\dim X$.
+\uses{thm:II-8-6A}
+\end{theorem}
+\begin{proof}
+Use the conormal sequence and Theorem~\ref{thm:II-8-6A}; the cotangent-space dimension equals
+the local embedding dimension, which equals the dimension precisely for a regular local ring.
+\end{proof}
+
+\begin{corollary}[Open dense nonsingular locus]
+\label{cor:II-8-16}
+\source{hartshorne-algebraic-geometry:II.8.16}
+\dcref{II.8.16}
+For a variety over a perfect field, the nonsingular locus is open and dense.
+\end{corollary}
+\begin{proof}
+The rank condition on a finite presentation of $\Omega_{X/k}$ is open, and the generic point is
+nonsingular by the differential criterion.
+\end{proof}
+
+\begin{theorem}[Conormal characterization]
+\label{thm:II-8-17}
+\source{hartshorne-algebraic-geometry:II.8.17}
+\dcref{II.8.17}
+A finite-type variety $X$ over a perfect field is nonsingular if and only if $\Omega_{X/k}$ is
+locally free of rank $\dim X$; for a closed immersion $X\hookrightarrow Y$ between nonsingular
+varieties, the conormal sequence is exact on the left as well.
+\uses{thm:II-8-15}
+\end{theorem}
+\begin{proof}
+The first assertion is Theorem~\ref{thm:II-8-15}. In local polynomial coordinates, regularity
+makes the defining equations a regular sequence, so the conormal map is injective.
+\end{proof}
+
+\begin{theorem}[Bertini for hyperplane sections]
+\label{thm:II-8-18}
+\source{hartshorne-algebraic-geometry:II.8.18}
+\dcref{II.8.18}
+If $X\subset\mathbb P^n$ is nonsingular over an infinite perfect field, a general hyperplane
+section of $X$ is nonsingular (or empty).
+\end{theorem}
+\begin{proof}
+The hyperplanes tangent to $X$ form a proper closed subset of the dual projective space by the
+dimension estimate. Outside it, the conormal criterion gives a nonsingular section.
+\end{proof}
+
+\begin{theorem}[Birational invariance of geometric genus]
+\label{thm:II-8-19}
+\source{hartshorne-algebraic-geometry:II.8.19}
+\dcref{II.8.19}
+The geometric genus of a nonsingular projective variety is invariant under birational equivalence.
+\end{theorem}
+\begin{proof}
+Resolve the birational correspondence on a common open set; regular top differential forms extend
+across codimension at least two on a nonsingular variety, so the spaces and dimensions agree.
+\end{proof}
+
+\begin{corollary}[Canonical sheaf of projective space]
+\label{cor:II-8-20}
+\source{hartshorne-algebraic-geometry:II.8.20}
+\dcref{II.8.20}
+$\bigwedge^n\Omega_{\mathbb P^n_A/A}\simeq\mathcal O_{\mathbb P^n_A}(-n-1)$.
+\end{corollary}
+\begin{proof}
+Take the top exterior power of the Euler sequence; the determinant of
+$\mathcal O(-1)^{\oplus(n+1)}$ is $\mathcal O(-n-1)$.
+\end{proof}
+
+\begin{theorem}[Cohen--Macaulay criteria]
+\label{thm:II-8-21A}
+\source{hartshorne-algebraic-geometry:II.8.21A}
+\dcref{II.8.21A}
+For a noetherian local ring, a quotient of a regular local ring by a regular sequence is
+Cohen--Macaulay; equivalently, its depth equals its dimension.
+\end{theorem}
+\begin{proof}
+The Koszul complex of a regular sequence is a finite free resolution; its depth computation gives
+the equality, and localization preserves the property.
+\end{proof}
+
+\begin{theorem}[Serre normality criterion]
+\label{thm:II-8-22A}
+\source{hartshorne-algebraic-geometry:II.8.22A}
+\dcref{II.8.22A}
+A noetherian ring is normal if and only if it satisfies $(R_1)$, regularity at codimension-one
+primes, and $(S_2)$, depth at least the minimum of $2$ and the local dimension.
+\end{theorem}
+\begin{proof}
+Apply the intersection description of integral closure in height-one valuation rings and the depth
+criterion for extension across codimension at least two.
+\end{proof}
+
+\begin{proposition}[Local complete intersections]
+\label{prop:II-8-23}
+\source{hartshorne-algebraic-geometry:II.8.23}
+\dcref{II.8.23}
+A local complete intersection in a nonsingular variety is Cohen--Macaulay and is regular in
+codimension one.
+\uses{thm:II-8-21A}
+\end{proposition}
+\begin{proof}
+Its ideal is locally generated by a regular sequence, so Theorem~\ref{thm:II-8-21A} gives
+Cohen--Macaulayness; the codimension-one localizations are hypersurfaces in regular local rings.
+\end{proof}
+
+\begin{theorem}[Blow-up along a local complete intersection]
+\label{thm:II-8-24}
+\source{hartshorne-algebraic-geometry:II.8.24}
+\dcref{II.8.24}
+The blow-up of a nonsingular variety along a local complete intersection is nonsingular.
+\end{theorem}
+\begin{proof}
+On an affine chart the center is generated by a regular sequence; the blow-up charts are polynomial
+extensions of the quotient by all but one generator, hence regular by the Jacobian criterion.
+\end{proof}
+
+\begin{theorem}[Separable scalar extension]
+\label{thm:II-8-25A}
+\source{hartshorne-algebraic-geometry:II.8.25A}
+\dcref{II.8.25A}
+If $K/k$ is a separable field extension and $X$ is a nonsingular variety over $k$, then
+$X_K=X\times_k\operatorname{Spec}K$ is nonsingular.
+\end{theorem}
+\begin{proof}
+The exact differential sequence for $k\subset K$ and separability give $\Omega_{K/k}=0$; base
+change therefore preserves the locally free differential criterion for nonsingularity.
+\end{proof}
+
+\section{Formal Schemes}
+
+\begin{definition}[Adic rings and formal spectra]
+\label{def:II-9-adic}
+\source{hartshorne-algebraic-geometry:II.9}
+An adic ring $A$ is complete and separated for the topology defined by an ideal of definition $I$. Its
+formal spectrum $\operatorname{Spf}A$ has the open prime ideals containing a power of $I$ and the completed
+structure sheaf.
+\end{definition}
+
+\begin{definition}[Formal completion]
+\label{def:II-9-completion}
+\source{hartshorne-algebraic-geometry:II.9}
+For a closed subscheme defined by $\mathcal I$, the formal completion is the ringed space represented
+by the compatible thickenings $X_n=(X,\mathcal O_X/\mathcal I^{n+1})$. A coherent formal module is a
+compatible inverse system of coherent modules on $X_n$.
+\end{definition}
+
+\begin{proposition}[Affine formal schemes]
+\label{prop:II-9-1}
+\source{hartshorne-algebraic-geometry:II.9.1}
+\dcref{II.9.1}
+For an adic ring $A$, sections on a basic formal open are the corresponding completed localization;
+the compatible quotients recover $A/I^{n+1}$, and $\operatorname{Spf}A$ is the inverse limit of
+$\operatorname{Spec}(A/I^{n+1})$.
+\end{proposition}
+\begin{proof}
+Complete the localization along the ideal of definition. Its reductions modulo $I^{n+1}$ are the
+ordinary affine structure sheaves, and completeness identifies sections with the inverse limit.
+\end{proof}
+
+\begin{proposition}[Formal functions]
+\label{prop:II-9-2}
+\source{hartshorne-algebraic-geometry:II.9.2}
+\dcref{II.9.2}
+A morphism into a formal completion is equivalent to a compatible system of morphisms into all
+infinitesimal thickenings; coherent formal modules are equivalent to compatible coherent systems
+under adic completeness.
+\end{proposition}
+\begin{proof}
+Take inverse limits on affine charts. Compatibility gives a continuous map of complete rings, and
+the universal property of completion gives the converse. Finite generation permits passage between
+modules and their adic completions.
+\end{proof}
+
+
+\begin{theorem}[Completed modules]
+\label{thm:II-9-3A}
+\source{hartshorne-algebraic-geometry:II.9.3A}
+\dcref{II.9.3A}
+For a Noetherian ring $A$ and ideal $I$, completion is exact on finitely generated modules, and the
+completed module is finite over the completed ring; an already complete module is recovered by completion.
+\end{theorem}
+\begin{proof}
+Artin--Rees identifies the induced filtrations, so inverse limits preserve the exact sequence; finite
+generators complete to generators, and completeness gives the canonical isomorphism.
+\end{proof}
+
+\begin{proposition}[Formal affine schemes]
+\label{prop:II-9-4}
+\source{hartshorne-algebraic-geometry:II.9.4}
+\dcref{II.9.4}
+If $X=\operatorname{Spec}A$ and $Y=V(I)$, the formal completion is
+$\operatorname{Spf}\widehat A$ with reductions $\operatorname{Spec}(A/I^{n+1})$.
+\end{proposition}
+\begin{proof}
+Basic formal opens have completed localization rings, whose reductions are the affine structure sheaves
+of the thickenings; taking the inverse limit gives $\operatorname{Spf}\widehat A$.
+\end{proof}
+
+\begin{proposition}[Independence of ideal of definition]
+\label{prop:II-9-5}
+\source{hartshorne-algebraic-geometry:II.9.5}
+\dcref{II.9.5}
+Any two ideals of definition on a Noetherian formal scheme give canonically the same formal scheme and
+the same category of coherent formal modules.
+\end{proposition}
+\begin{proof}
+Powers of either ideal contain powers of the other, so the inverse systems are cofinal and have
+canonically isomorphic limits; the affine identifications glue.
+\end{proof}
+
+\begin{proposition}[Coherent formal modules]
+\label{prop:II-9-6}
+\source{hartshorne-algebraic-geometry:II.9.6}
+\dcref{II.9.6}
+A coherent formal module is locally the completion of a finite module, and each reduction modulo a
+power of an ideal of definition is coherent.
+\end{proposition}
+\begin{proof}
+Use finite presentations on affine formal charts; localization and completion commute for finite modules.
+\end{proof}
+
+\begin{theorem}[Formal coherent-module equivalence]
+\label{thm:II-9-7}
+\source{hartshorne-algebraic-geometry:II.9.7}
+\dcref{II.9.7}
+Coherent formal modules are equivalent to compatible systems of coherent modules on all infinitesimal
+thickenings.
+\end{theorem}
+\begin{proof}
+Reduction gives the compatible system. Conversely, lift finite affine presentations compatibly by
+completeness, glue the resulting completions, and use the affine criterion to obtain inverse functors.
+\end{proof}
+
+\begin{corollary}[Exactness of completion]
+\label{cor:II-9-8}
+\source{hartshorne-algebraic-geometry:II.9.8}
+\dcref{II.9.8}
+Completion preserves short exact sequences of coherent formal modules.
+\uses{thm:II-9-7}
+\end{corollary}
+\begin{proof}
+Apply Theorem \ref{thm:II-9-7} and exactness on each finite thickening.
+\end{proof}
+
+\begin{corollary}[Kernels, cokernels, and images]
+\label{cor:II-9-9}
+\source{hartshorne-algebraic-geometry:II.9.9}
+\dcref{II.9.9}
+Kernels, cokernels, and images of morphisms of coherent formal modules are coherent.
+\uses{thm:II-9-7}
+\end{corollary}
+\begin{proof}
+Compute these objects on every thickening and apply Theorem \ref{thm:II-9-7}.
+\end{proof}

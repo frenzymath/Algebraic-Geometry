@@ -1,0 +1,575 @@
+% Source-faithful mathematical blueprint of Hartshorne, Algebraic Geometry (1977), Chapter IV.
+% Authorial exposition, examples, and exercises are omitted; definitions, statements, and proof
+% arguments are retained.
+\section{Riemann--Roch Theorem}
+\label{ha-ch4-s1}\source{hartshorne-algebraic-geometry:IV.1}
+\begin{convention}[Curves and divisors]\label{ha-ch4-conv}
+\source{hartshorne-algebraic-geometry:IV.1}
+A curve is a complete nonsingular integral curve over an algebraically closed
+field \(k\).  For \(D=\sum n_PP\), put
+\(\deg D=\sum n_P\), \(\mathcal L(D)=\{f:(f)+D\ge0\}\cup\{0\}\), and
+\(l(D)=h^0(X,\mathcal L(D))\).  The complete system \(|D|\) is
+\(\mathbf P(H^0(X,\mathcal L(D)))\), of dimension \(l(D)-1\).
+\end{convention}
+
+\begin{proposition}[Genus]\label{ha-ch4-p11}\dcref{IV.1.1}
+\source{hartshorne-algebraic-geometry:IV.1.1}
+\(p_a(X)=p_g(X)=h^1(X,\mathcal O_X)=:g\).
+\end{proposition}
+\begin{proof}
+\(p_a=h^1(\mathcal O_X)\) is III, Ex. 5.3, and Serre duality identifies
+\(H^1(\mathcal O_X)^\vee\) with \(H^0(\omega_X)\).
+\end{proof}
+
+\begin{lemma}[Degree zero]\label{ha-ch4-l12}\dcref{IV.1.2}
+\source{hartshorne-algebraic-geometry:IV.1.2}
+If \(l(D)\ne0\), then \(\deg D\ge0\); if also \(\deg D=0\), then \(D\sim0\).
+\end{lemma}
+\begin{proof}
+\(|D|\) contains an effective representative.  An effective divisor of degree
+zero is zero.
+\end{proof}
+
+\begin{theorem}[Riemann--Roch]\label{ha-ch4-t13}\dcref{IV.1.3}
+\source{hartshorne-algebraic-geometry:IV.1.3}
+\[
+l(D)-l(K-D)=\deg D+1-g.
+\]
+\end{theorem}
+\begin{proof}
+Serre duality reduces the assertion to
+\(\chi(\mathcal L(D))=\deg D+1-g\).  For \(D=0\) this is
+\(h^0(\mathcal O_X)-h^1(\mathcal O_X)=1-g\).  Tensor
+\(0\to\mathcal L(-P)\to\mathcal O_X\to k(P)\to0\) by \(\mathcal L(D+P)\);
+additivity gives \(\chi(\mathcal L(D+P))=\chi(\mathcal L(D))+1\).
+Induction by adding and subtracting points proves the formula.
+\end{proof}
+
+\section{Hurwitz's Theorem}
+\label{ha-ch4-s2}\source{hartshorne-algebraic-geometry:IV.2}
+\begin{definition}[Ramification]\label{ha-ch4-d2}
+\source{hartshorne-algebraic-geometry:IV.2}
+For finite \(f:X\to Y\), \(e_P=v_P(t)\) for a parameter \(t\) at \(f(P)\).
+Ramification means \(e_P>1\), and it is tame if characteristic zero or
+\(p\nmid e_P\).  Separability means \(K(X)/K(Y)\) is separable.
+\end{definition}
+
+\begin{definition}[Divisors and linear systems]
+\label{ha-ch4-def-divisors}
+\source{hartshorne-algebraic-geometry:IV.1--IV.3}
+For a divisor $D$ on a complete nonsingular curve, write
+$\mathcal L(D)=\{f\in K(X):(f)+D\ge0\}\cup\{0\}$ and
+$l(D)=\dim_kH^0(X,\mathcal L(D))$.  The complete linear system is
+$|D|=\mathbf P H^0(X,\mathcal L(D))$; a linear system is base-point-free if
+no point belongs to every member, and very ample if it separates points and
+tangent vectors.  A divisor is ample precisely when it has positive degree.
+\end{definition}
+
+\begin{proposition}[Differential sequence]\label{ha-ch4-p21}\dcref{IV.2.1}
+\source{hartshorne-algebraic-geometry:IV.2.1}
+\[
+0\to f^*\Omega_Y\to\Omega_X\to\Omega_{X/Y}\to0.
+\]
+\end{proposition}
+\begin{proof}
+The standard sequence is exact except possibly on the left.  Its first two
+terms are invertible, and the map is nonzero at the generic point because
+\(\Omega_{X/Y}=0\) for a separable function-field extension.
+\end{proof}
+
+\begin{proposition}[Different]\label{ha-ch4-p22}\dcref{IV.2.2}
+\source{hartshorne-algebraic-geometry:IV.2.2}
+\(\Omega_{X/Y}\) is torsion supported exactly at ramification points, and
+\(\length(\Omega_{X/Y})_P=v_P(dt/du)\).  This equals \(e_P-1\) tamely and is
+larger than \(e_P-1\) wildly.
+\end{proposition}
+\begin{proof}
+Write \(t=au^e\).  Then \(dt=aeu^{e-1}du+u^e da\).  The first term has
+valuation \(e-1\) when \(e\) is nonzero in \(k\), and in the wild case the
+valuation is at least \(e\).
+\end{proof}
+
+\begin{proposition}[Canonical divisors]\label{ha-ch4-p23}\dcref{IV.2.3}
+\source{hartshorne-algebraic-geometry:IV.2.3}
+\[
+K_X\sim f^*K_Y+R,\qquad
+R=\sum_P\length(\Omega_{X/Y})_P\,P.
+\]
+\uses{ha-ch4-p21}
+\end{proposition}
+\begin{proof}
+Tensor the sequence of Proposition 2.1 by \(\Omega_X^{-1}\).  The ideal of
+the ramification subscheme is \(\mathcal L(-R)\), so
+\(f^*\Omega_Y\otimes\Omega_X^{-1}\simeq\mathcal L(-R)\); take divisors.
+\end{proof}
+
+\begin{corollary}[Hurwitz]\label{ha-ch4-c24}\dcref{IV.2.4}
+\source{hartshorne-algebraic-geometry:IV.2.4}
+\[
+2g(X)-2=(\deg f)(2g(Y)-2)+\deg R,
+\]
+and tamely \(\deg R=\sum(e_P-1)\).
+\uses{ha-ch4-p23}
+\end{corollary}
+\begin{proof}
+Take degrees in Proposition 2.3, using \(\deg K=2g-2\) and
+\(\deg f^*D=(\deg f)\deg D\).
+\end{proof}
+
+\begin{proposition}[Purely inseparable maps]\label{ha-ch4-p25}\dcref{IV.2.5}
+\source{hartshorne-algebraic-geometry:IV.2.5}
+If \(K(X)/K(Y)\) is purely inseparable, \(X,Y\) are abstractly isomorphic,
+\(f\) is a composite of relative Frobenius maps, and \(g(X)=g(Y)\).
+\end{proposition}
+\begin{proof}
+For degree \(p^r\), \(K(X)=K(Y)^{1/p^r}\).  The composite relative Frobenius
+has this extension, and curves are determined by their function fields.
+\end{proof}
+
+\section{Embeddings in Projective Space}
+\label{ha-ch4-s3}\source{hartshorne-algebraic-geometry:IV.3}
+\begin{proposition}[Linear systems]\label{ha-ch4-p31}\dcref{IV.3.1}
+\source{hartshorne-algebraic-geometry:IV.3.1}
+\(|D|\) is base-point-free iff \(\dim|D-P|=\dim|D|-1\) for all \(P\); \(D\)
+is very ample iff \(\dim|D-P-Q|=\dim|D|-2\) for all \(P,Q\), including
+\(P=Q\).
+\end{proposition}
+\begin{proof}
+The exact sequence at \(P\) identifies the failure of surjectivity of
+\(|D-P|\to|D|\) with a base point.  The closed-immersion criterion translates
+separation of points and tangent vectors into the two stated dimension drops.
+\end{proof}
+
+\begin{corollary}[Numerical bounds]\label{ha-ch4-c32}\dcref{IV.3.2}
+\source{hartshorne-algebraic-geometry:IV.3.2}
+\(\deg D\ge2g\) implies no base points, and \(\deg D\ge2g+1\) implies very
+ample.
+\uses{ha-ch4-p31}
+\end{corollary}
+\begin{proof}
+Riemann--Roch makes the relevant \(D-P\), respectively \(D-P-Q\), nonspecial,
+and Proposition 3.1 applies.
+\end{proof}
+
+\begin{corollary}[Ample divisors]\label{ha-ch4-c33}\dcref{IV.3.3}
+\source{hartshorne-algebraic-geometry:IV.3.3}
+\(D\) is ample iff \(\deg D>0\).
+\uses{ha-ch4-c32}
+\end{corollary}
+\begin{proof}
+An ample divisor has a positive-degree very ample multiple.  A positive-degree
+divisor has a very ample multiple by Corollary 3.2.
+\end{proof}
+
+\begin{proposition}[Projection criterion]\label{ha-ch4-p34}\dcref{IV.3.4}
+\source{hartshorne-algebraic-geometry:IV.3.4}
+Projection from \(O\notin X\subset\mathbf P^n\) is a closed immersion iff
+\(O\) lies on no secant and no tangent line of \(X\).
+\end{proposition}
+\begin{proof}
+The projection system is cut out by hyperplanes through \(O\).  Such
+hyperplanes separate points exactly off secants and tangent vectors exactly
+off tangent lines.
+\end{proof}
+
+\begin{proposition}[Projection dimension]\label{ha-ch4-p35}\dcref{IV.3.5}
+\source{hartshorne-algebraic-geometry:IV.3.5}
+If \(X\subset\mathbf P^n\) is a curve and \(n\ge4\), some projection embeds it
+in \(\mathbf P^{n-1}\).
+\uses{ha-ch4-p34}
+\end{proposition}
+\begin{proof}
+The secant and tangent varieties have dimensions at most \(3\) and \(2\), so
+their union is proper; apply Proposition 3.4 to a point outside it.
+\end{proof}
+
+\begin{corollary}[Embedding in \(\mathbf P^3\)]\label{ha-ch4-c36}\dcref{IV.3.6}
+\source{hartshorne-algebraic-geometry:IV.3.6}
+Every curve embeds in \(\mathbf P^3\).
+\uses{ha-ch4-p35}
+\end{corollary}
+\begin{proof}
+Embed in some projective space by a sufficiently positive divisor and iterate
+Proposition 3.5.
+\end{proof}
+
+\begin{proposition}[Nodal projection]\label{ha-ch4-p37}\dcref{IV.3.7}
+\source{hartshorne-algebraic-geometry:IV.3.7}
+Projection from \(O\in\mathbf P^3\) is birational with at most nodes iff \(O\)
+lies on finitely many secants, no tangent or multisecant, and no secant with
+coplanar tangent lines.
+\end{proposition}
+\begin{proof}
+The first condition gives generic injectivity.  The other conditions make
+each double image transverse with distinct tangent directions, hence nodal;
+each forbidden incidence gives a worse singularity.
+\end{proof}
+
+\begin{proposition}[Tangent degeneracy]\label{ha-ch4-p38}\dcref{IV.3.8}
+\source{hartshorne-algebraic-geometry:IV.3.8}
+If every secant of a nonplanar curve is a multisecant, or every pair of
+tangents is coplanar, then one point lies on every tangent.
+\end{proposition}
+\begin{proof}
+Projection from a point in the first case gives coplanarity at a general
+unramified fibre.  In the second, intersect two tangents at \(A\); the plane
+they span meets \(X\) finitely, and closedness extends the forced condition
+\(A\in L_R\) from the complement to every \(R\).
+\end{proof}
+
+\begin{theorem}[Samuel]\label{ha-ch4-t39}\dcref{IV.3.9}
+\source{hartshorne-algebraic-geometry:IV.3.9}
+The only strange curves in projective space are a line and a characteristic-two
+conic.
+\end{theorem}
+\begin{proof}
+After projection and coordinates around the common tangent point, Hurwitz for
+the two auxiliary projections gives \(2g-2=-d\) when the point is off \(X\),
+and \(2g-2=-d-1\) when it lies on \(X\).  Thus the alternatives are
+\((g,d)=(0,2)\) and \((0,1)\); the conic is strange precisely in
+characteristic \(2\).
+\end{proof}
+
+\begin{theorem}[Plane nodal model]\label{ha-ch4-t310}\dcref{IV.3.10}
+\source{hartshorne-algebraic-geometry:IV.3.10}
+Every curve in \(\mathbf P^3\) projects birationally to a plane curve with at
+most nodes.
+\uses{ha-ch4-t39,ha-ch4-p38,ha-ch4-p37}
+\end{theorem}
+\begin{proof}
+Theorem 3.9 and Proposition 3.8 leave an open set of centres avoiding the
+tangent, multisecant and coplanar-tangent loci.  The incidence map of secants
+has general finite fibres on a nonempty open set, so a centre on only finitely
+many secants exists; apply Proposition 3.7.
+\end{proof}
+
+\begin{corollary}[Birational nodal model]\label{ha-ch4-c311}\dcref{IV.3.11}
+\source{hartshorne-algebraic-geometry:IV.3.11}
+Every curve is birationally equivalent to a plane curve with at most nodes.
+\uses{ha-ch4-c36,ha-ch4-t310}
+\end{corollary}
+\begin{proof}
+Use Corollary 3.6 followed by Theorem 3.10.
+\end{proof}
+
+\section{Elliptic Curves}
+\label{ha-ch4-s4}\source{hartshorne-algebraic-geometry:IV.4}
+\begin{definition}[Elliptic curve]\label{ha-ch4-d4}
+\source{hartshorne-algebraic-geometry:IV.4}
+An elliptic curve is a genus-one curve with chosen \(P_0\).  In characteristic
+\(\ne2\), normalize the four branch points to \(0,1,\lambda,\infty\), and set
+\(j=2^8(\lambda^2-\lambda+1)^3/(\lambda^2(\lambda-1)^2)\).
+\end{definition}
+
+\begin{definition}[Elliptic and canonical data]
+\label{ha-ch4-def-elliptic-data}
+\source{hartshorne-algebraic-geometry:IV.4--IV.5}
+An elliptic curve is a genus-one curve with a chosen origin $P_0$.  Its
+degree-zero Picard functor is represented by the Jacobian.  For a nonsingular
+curve of genus $g\ge2$, the canonical divisor is represented by
+$\Omega_X$, and the canonical linear system is $|K|$.
+\end{definition}
+
+\begin{theorem}[The \(j\)-invariant]\label{ha-ch4-t41}\dcref{IV.4.1}
+\source{hartshorne-algebraic-geometry:IV.4.1}
+Over an algebraically closed field of characteristic \(\ne2\), \(j\) is
+intrinsic, classifies elliptic curves up to isomorphism, and every element
+occurs.
+\uses{ha-ch4-l44,ha-ch4-l45,ha-ch4-p46}
+\end{theorem}
+\begin{proof}
+Degree-two maps differ by Lemma 4.4 and their parameters by the six
+cross-ratio transforms of Lemma 4.5, under which \(j\) is invariant.
+Conversely equal \(j\)'s give parameters in one orbit and hence isomorphic
+Legendre cubics by Proposition 4.6.  The defining degree-six equation realizes
+every \(j\).
+\end{proof}
+
+\begin{lemma}[Involution]\label{ha-ch4-l42}\dcref{IV.4.2}
+\source{hartshorne-algebraic-geometry:IV.4.2}
+For \(P,Q\in X\), an involution \(\sigma\) satisfies
+\(\sigma(P)=Q\) and \(R+\sigma(R)\sim P+Q\).
+\end{lemma}
+\begin{proof}
+\(|P+Q|\) is a base-point-free degree-two system and its deck involution has
+exactly the asserted fibres.
+\end{proof}
+\begin{corollary}[Transitivity]\label{ha-ch4-c43}\dcref{IV.4.3}
+\source{hartshorne-algebraic-geometry:IV.4.3}
+\(\operatorname{Aut}X\) acts transitively on \(X\).
+\uses{ha-ch4-l42}
+\end{corollary}
+\begin{proof}
+For $P,Q\in X$, the involution of Lemma~\ref{ha-ch4-l42} associated with $P+Q$ sends $P$ to
+$Q$.  Hence an automorphism carries any prescribed point to any other point.
+\end{proof}
+\begin{lemma}[Degree-two maps]\label{ha-ch4-l44}\dcref{IV.4.4}
+\source{hartshorne-algebraic-geometry:IV.4.4}
+Any two degree-two maps \(f_1,f_2:X\to\mathbf P^1\) satisfy
+\(f_2\sigma=\tau f_1\) for source and target automorphisms \(\sigma,\tau\).
+\uses{ha-ch4-c43}
+\end{lemma}
+\begin{proof}
+Send a ramification point of \(f_1\) to one of \(f_2\) by Corollary 4.3;
+both maps then come from the same \(|2P|\).
+\end{proof}
+\begin{lemma}[Cross-ratio orbit]\label{ha-ch4-l45}\dcref{IV.4.5}
+\source{hartshorne-algebraic-geometry:IV.4.5}
+The orbit is \(\lambda,\lambda^{-1},1-\lambda,(1-\lambda)^{-1},
+\lambda/(\lambda-1),(\lambda-1)/\lambda\).
+\end{lemma}
+\begin{proof}
+Evaluate \((c-a)/(b-a)\) over all orderings of \(0,1,\lambda\).
+\end{proof}
+
+\begin{proposition}[Legendre equation]\label{ha-ch4-p46}\dcref{IV.4.6}
+\source{hartshorne-algebraic-geometry:IV.4.6}
+In characteristic \(\ne2\), \(X\) embeds as
+\(y^2=x(x-1)(x-\lambda)\), with \(P_0=(0,1,0)\), and \(\lambda\) is defined
+up to the preceding orbit.
+\end{proposition}
+\begin{proof}
+Choose bases \(1,x\in H^0(2P_0)\), \(1,x,y\in H^0(3P_0)\).  The relation in
+\(H^0(6P_0)\) is \(y^2+a_1xy+a_3y=x^3+a_2x^2+a_4x+a_6\). Complete the
+square and normalize two roots by an affine change of \(x\).
+\end{proof}
+
+\begin{corollary}[Automorphism orders]\label{ha-ch4-c47}\dcref{IV.4.7}
+\source{hartshorne-algebraic-geometry:IV.4.7}
+\(|\operatorname{Aut}(X,P_0)|\) is \(2,4,6,12\) in the four \(j\)/characteristic
+cases displayed in the book.
+\uses{ha-ch4-l45}
+\end{corollary}
+\begin{proof}
+Count the stabilizer of the branch set in the orbit of Lemma 4.5, with two
+lifts for each permutation.
+\end{proof}
+
+\begin{proposition}[Group law morphisms]\label{ha-ch4-p48}\dcref{IV.4.8}
+\source{hartshorne-algebraic-geometry:IV.4.8}
+Negation and addition \(X\times X\to X\) are morphisms.
+\uses{ha-ch4-l42}
+\end{proposition}
+\begin{proof}
+Lemma 4.2 gives negation and translations; the third intersection with a line
+on the plane cubic is rational in the two points, and translation extends over
+the diagonal.
+\end{proof}
+\begin{lemma}[Homomorphism]\label{ha-ch4-l49}\dcref{IV.4.9}
+\source{hartshorne-algebraic-geometry:IV.4.9}
+Every morphism of elliptic curves preserving origins is a group homomorphism.
+\end{lemma}
+\begin{proof}
+Pull back the divisor relation \(P+Q\sim R+P_0\).
+\end{proof}
+\begin{proposition}[Integer endomorphisms]\label{ha-ch4-p410}\dcref{IV.4.10}
+\source{hartshorne-algebraic-geometry:IV.4.10}
+For characteristic \(\ne2\), \(\mathbf Z\hookrightarrow\operatorname{End}(X,P_0)\),
+and every nonzero integer endomorphism is finite.
+\end{proposition}
+\begin{proof}
+Induct using finiteness of \(2_X\), the odd identity
+\(2_Xn_X=(2n)_X\), and the even factorization \(2r_X=2_Xr_X\).
+\end{proof}
+
+\begin{theorem}[Jacobian]\label{ha-ch4-t411}\dcref{IV.4.11}
+\source{hartshorne-algebraic-geometry:IV.4.11}
+The elliptic curve with
+\(\mathcal L=\mathcal L(\Delta)\otimes p_1^*\mathcal L(-P_0)\) represents its
+degree-zero Picard functor and has the divisor-law group structure.
+\end{theorem}
+\begin{proof}
+Twist a degree-zero family by \(P_0\).  Riemann--Roch and base change give a
+unique relative effective divisor of degree one, hence a section and a unique
+map to \(X\).  Its graph identifies the universal sheaf; untwist.
+\end{proof}
+
+\begin{theorem}[Weierstrass functions]\label{ha-ch4-t412b}\dcref{IV.4.12B}
+\source{hartshorne-algebraic-geometry:IV.4.12B}
+The elliptic-function field is generated by \(\wp,\wp'\), satisfying
+\((\wp')^2=4\wp^3-g_2\wp-g_3\).  Proof cited to Hurwitz--Courant.
+\end{theorem}
+\begin{proof}
+The book cites Hurwitz--Courant for this analytic theorem; no proof is
+provided in Hartshorne.
+\end{proof}
+\begin{theorem}[Elliptic divisors]\label{ha-ch4-t413b}\dcref{IV.4.13B}
+\source{hartshorne-algebraic-geometry:IV.4.13B}
+\(\sum n_i(a_i)\) is a principal divisor on \(\mathbf C/\Lambda\) iff
+\(\sum n_i=0\) and \(\sum n_i a_i=0\). Proof cited.
+\end{theorem}
+\begin{proof}
+The book cites the classical theory of elliptic functions for this divisor
+criterion; no proof is supplied in Hartshorne.
+\end{proof}
+\begin{theorem}[Lattice realization]\label{ha-ch4-t414b}\dcref{IV.4.14B}
+\source{hartshorne-algebraic-geometry:IV.4.14B}
+Every nonzero-discriminant pair \(c_2,c_3\) is realized by a lattice up to
+scaling. Proof cited.
+\end{theorem}
+\begin{proof}
+The book cites the analytic theory of elliptic functions for this realization;
+no proof is supplied in Hartshorne.
+\end{proof}
+\begin{theorem}[Modular classification]\label{ha-ch4-t415b}\dcref{IV.4.15B}
+\source{hartshorne-algebraic-geometry:IV.4.15B}
+\(J(\tau)=J(\tau')\) iff \(\tau'=(a\tau+b)/(c\tau+d)\) with
+\(ad-bc=\pm1\), and each value has a unique representative in \(G\). Proof
+cited.
+\end{theorem}
+\begin{proof}
+The book cites the standard modular-function theorem for this classification;
+no proof is supplied in Hartshorne.
+\end{proof}
+\begin{theorem}[Complex group]\label{ha-ch4-t416}\dcref{IV.4.16}
+\source{hartshorne-algebraic-geometry:IV.4.16}
+\(X(\mathbf C)\cong\mathbf R/\mathbf Z\times\mathbf R/\mathbf Z\), with
+\(n\)-torsion \((\mathbf Z/n)^2\).
+\end{theorem}
+\begin{proof}Uniformization gives \(X=\mathbf C/\Lambda\), \(\Lambda\simeq\mathbf Z^2\),
+and \(\frac1n\Lambda/\Lambda\simeq(\mathbf Z/n)^2\).\end{proof}
+\begin{corollary}[Multiplication]\label{ha-ch4-c417}\dcref{IV.4.17}
+\source{hartshorne-algebraic-geometry:IV.4.17}
+Multiplication by \(n\) is finite of degree \(n^2\), since its kernel has that
+order and it is separable.
+\end{corollary}
+\begin{proof}
+Under $X(\mathbf C)\cong\mathbf C/\Lambda$, multiplication by $n$ has kernel
+$n^{-1}\Lambda/\Lambda\cong(\mathbf Z/n)^2$.  It is a nonconstant morphism of complete nonsingular
+curves, hence finite, and characteristic zero makes it separable; its degree is the kernel order $n^2$.
+\end{proof}
+\begin{proposition}[Analytic endomorphisms]\label{ha-ch4-p418}\dcref{IV.4.18}
+\source{hartshorne-algebraic-geometry:IV.4.18}
+Endomorphisms correspond injectively as a ring to \(\alpha\) with
+\(\alpha\Lambda\subseteq\Lambda\).
+\end{proposition}
+\begin{proof}A holomorphic additive lift is multiplication by \(\alpha\); descent is
+equivalent to lattice preservation.\end{proof}
+\begin{theorem}[Complex multiplication]\label{ha-ch4-t419}\dcref{IV.4.19}
+\source{hartshorne-algebraic-geometry:IV.4.19}
+Complex multiplication occurs iff \(\tau\in\mathbf Q(\sqrt{-d})\), and the
+endomorphism ring is the order specified by the integral conditions
+\(2br,b(r^2+ds^2)\in\mathbf Z\) for \(\tau=r+s\sqrt{-d}\).
+\end{theorem}
+\begin{proof}Writing \(\alpha=a+b\tau\), \(\alpha\tau=c+e\tau\), elimination gives
+quadratic equations for \(\tau\) and integral equations for \(\alpha\);
+substitution proves the converse and the displayed order.\end{proof}
+\begin{corollary}[CM count]\label{ha-ch4-c420}\dcref{IV.4.20}
+\source{hartshorne-algebraic-geometry:IV.4.20}
+Only countably many complex \(j\)-values have complex multiplication, since
+there are countably many imaginary quadratic orders.
+\end{corollary}
+\begin{proof}
+An endomorphism outside $\mathbf Z$ makes the lattice an order in an imaginary quadratic field, and
+there are countably many such fields and orders.  Each order gives one $j$-value by the modular
+classification, so the set of CM values is countable.
+\end{proof}
+\begin{proposition}[Hasse coefficient]\label{ha-ch4-p421}\dcref{IV.4.21}
+\source{hartshorne-algebraic-geometry:IV.4.21}
+For a cubic \(f=0\), Hasse invariant zero iff the coefficient of
+\((xyz)^{p-1}\) in \(f^{p-1}\) is zero.
+\end{proposition}
+\begin{proof}The cubic exact sequence identifies \(H^1(\mathcal O_X)\) with
+\(H^2(\mathcal O_{\mathbf P^2}(-3))\), whose generator is \((xyz)^{-1}\).
+Frobenius sends it to \(f^{p-1}(xyz)^{-p}\), so the asserted coefficient is
+the Frobenius scalar.\end{proof}
+\begin{corollary}[Hasse polynomial]\label{ha-ch4-c422}\dcref{IV.4.22}
+\source{hartshorne-algebraic-geometry:IV.4.22}
+For \(y^2=x(x-1)(x-\lambda)\), Hasse zero iff
+\(\sum_{i=0}^{(p-1)/2}{(p-1)/2\choose i}^2\lambda^i=0\).
+\uses{ha-ch4-p421}
+\end{corollary}
+\begin{proof}Homogenize and extract the coefficient in Proposition 4.21.\end{proof}
+\begin{corollary}[Supersingular count]\label{ha-ch4-c423}\dcref{IV.4.23}
+\source{hartshorne-algebraic-geometry:IV.4.23}
+There are at most \(\lfloor p/12\rfloor+2\) supersingular \(j\)'s.
+\end{corollary}
+\begin{proof}The Hasse polynomial has degree \((p-1)/2\), and \(\lambda\mapsto j\)
+is six-to-one except at two orbits.\end{proof}
+
+\section{The Canonical Embedding}
+\label{ha-ch4-s5}\source{hartshorne-algebraic-geometry:IV.5}
+\begin{lemma}[Canonical base points]\label{ha-ch4-l51}\dcref{IV.5.1}
+\source{hartshorne-algebraic-geometry:IV.5.1}
+If \(g\ge2\), \(|K|\) has no base points.
+\uses{ha-ch4-p31}
+\end{lemma}
+\begin{proof}\(\dim|K|=g-1\), \(l(P)=1\), and Riemann--Roch gives
+\(\dim|K-P|=g-2\); use Proposition 3.1.\end{proof}
+\begin{proposition}[Canonical very ampleness]\label{ha-ch4-p52}\dcref{IV.5.2}
+\source{hartshorne-algebraic-geometry:IV.5.2}
+\(|K|\) is very ample iff \(X\) is nonhyperelliptic.
+\uses{ha-ch4-p31}
+\end{proposition}
+\begin{proof}Proposition 3.1 and Riemann--Roch reduce this to \(l(P+Q)=1\).
+Failure is equivalent to a \(g^1_2\), i.e. hyperellipticity.\end{proof}
+\begin{proposition}[Hyperelliptic canonical map]\label{ha-ch4-p53}\dcref{IV.5.3}
+\source{hartshorne-algebraic-geometry:IV.5.3}
+For a hyperelliptic genus-\(g\) curve, the \(g^1_2\) is unique, the canonical
+map has degree two onto a rational normal curve of degree \(g-1\), and
+\(|K|\) is the sum of \(g-1\) fibres.
+\end{proposition}
+\begin{proof}The canonical map collapses the degree-two fibres.  Degree and genus
+force its normalization to be \(\mathbf P^1\), image degree \(g-1\), and map
+degree two.  A second \(g^1_2\) would give a second factorization.  Hyperplane
+sections give the final assertion.\end{proof}
+\begin{theorem}[Clifford]\label{ha-ch4-t54}\dcref{IV.5.4}
+\source{hartshorne-algebraic-geometry:IV.5.4}
+For effective special \(D\), \(\dim|D|\le\frac12\deg D\), with equality only
+for \(0,K\), or hyperelliptic multiples of the unique \(g^1_2\).
+\uses{ha-ch4-l55}
+\end{theorem}
+\begin{proof}Apply Lemma 5.5 to \(D,K-D\) and combine with Riemann--Roch.
+Equality is analyzed by induction on degree using the common-part exact
+sequence; degree two starts the hyperelliptic case, and induction makes \(D\)
+a multiple of its \(g^1_2\).\end{proof}
+
+\begin{lemma}[Addition of systems]\label{ha-ch4-l55}\dcref{IV.5.5}
+\source{hartshorne-algebraic-geometry:IV.5.5}
+\(\dim|D|+\dim|E|\le\dim|D+E|\) for effective \(D,E\).
+\end{lemma}
+\begin{proof}The addition map is finite-to-one and induced by multiplication of
+sections, so its image has the sum of dimensions.\end{proof}
+
+\section{Classification of Curves in \(\mathbf P^3\)}
+\label{ha-ch4-s6}\source{hartshorne-algebraic-geometry:IV.6}
+\begin{proposition}[Halphen]\label{ha-ch4-p61}\dcref{IV.6.1}
+\source{hartshorne-algebraic-geometry:IV.6.1}
+For \(g\ge2\), a nonspecial very ample divisor of degree \(d\) exists iff
+\(d\ge g+3\).
+\end{proposition}
+\begin{proof}Riemann--Roch and the embedding dimension exclude \(d\le g+2\);
+the boundary case would be a plane curve with contradictory canonical genus.
+For \(d\ge g+3\), the bad divisors in \(X^d\) are \(E+P+Q\) with \(E\)
+special; Clifford's dimension count makes their locus proper.\end{proof}
+\begin{corollary}[Space-curve existence]\label{ha-ch4-c62}\dcref{IV.6.2}
+\source{hartshorne-algebraic-geometry:IV.6.2}
+Such a curve in \(\mathbf P^3\) exists iff \(g=0,d\ge1\), \(g=1,d\ge3\), or
+\(g\ge2,d\ge g+3\).
+\uses{ha-ch4-p61}
+\end{corollary}
+\begin{proof}Combine Sections 3 and Proposition 6.1, then project to \(\mathbf P^3\).
+\end{proof}
+\begin{proposition}[Special hyperplane section]\label{ha-ch4-p63}\dcref{IV.6.3}
+\source{hartshorne-algebraic-geometry:IV.6.3}
+For a nonplanar curve with special hyperplane section, \(d\ge6\) and
+\(g\ge d/2+1\); for \(d=6\) it is the canonical genus-four curve.
+\end{proposition}
+\begin{proof}Clifford gives \(\dim|D|\le d/2\), nonplanarity gives
+\(\dim|D|\ge3\), and speciality gives \(d\le2g-2\).  Equality at \(d=6\)
+leaves only the canonical Clifford equality case, since hyperelliptic multiples
+are not very ample.\end{proof}
+\begin{theorem}[Castelnuovo]\label{ha-ch4-t64}\dcref{IV.6.4}
+\source{hartshorne-algebraic-geometry:IV.6.4}
+\[
+g\le\begin{cases}\frac14d^2-d+1&d\text{ even},\\
+\frac14(d^2-1)-d+1&d\text{ odd}.\end{cases}
+\]
+Equality is attained for every \(d\ge3\), and equality curves lie on quadrics.
+\end{theorem}
+\begin{proof}Choose a hyperplane section with no three collinear.  Unions of
+planes through successive pairs give
+\(\dim|nD|-\dim|(n-1)D|\ge\min(d,2n+1)\).  Summation and
+\(\dim|nD|=nd-g\) for large \(n\) give the two parity bounds.  Equality forces
+a nonzero quadratic equation.  Curves of type \((s,s)\) and \((s,s+1)\) on a
+smooth quadric attain equality.\end{proof}

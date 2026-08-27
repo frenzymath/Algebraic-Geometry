@@ -1,0 +1,4545 @@
+\section{Introduction}
+\label{equiv-section-introduction}
+In this chapter we continue the discussion started in
+Derived Categories of Schemes, Section \ref{perfect-section-introduction}.
+We will discuss Fourier-Mukai transforms,
+first studied by Mukai in \cite{Mukai}.
+We will prove Orlov's theorem on derived equivalences (\cite{Orlov-K3}).
+We also discuss the countability of derived equivalence
+classes proved by Anel and To\"en in \cite{AT}.
+
+\medskip\noindent
+A good introduction to this material is the book
+\cite{Huybrechts} by Daniel Huybrechts. Some other
+papers which helped popularize this topic are
+\begin{enumerate}
+\item the paper by Bondal and Kapranov, see \cite{Bondal-Kapranov}
+\item the paper by Bondal and Orlov, see \cite{Bondal-Orlov}
+\item the paper by Bondal and Van den Bergh, see \cite{BvdB}
+\item the papers by Beilinson, see
+\cite{Beilinson} and \cite{Beilinson-derived}
+\item the paper by Orlov, see \cite{Orlov-AV}
+\item the paper by Orlov, see \cite{Orlov-motives}
+\item the paper by Rouquier, see \cite{Rouquier-dimensions}
+\item there are many more we could mention here.
+\end{enumerate}
+
+\section{Conventions and notation}
+\label{equiv-section-conventions}
+Let $k$ be a field. A $k$-linear triangulated category $\mathcal{T}$
+is a triangulated category (Derived Categories, Section
+\ref{derived-section-triangulated-definitions})
+which is endowed with a $k$-linear structure
+(Differential Graded Algebra, Section \ref{dga-section-linear})
+such that the translation functors $[n] : \mathcal{T} \to \mathcal{T}$
+are $k$-linear for all $n \in \mathbf{Z}$.
+
+\medskip\noindent
+Let $k$ be a field. We denote $\text{Vect}_k$ the category of
+$k$-vector spaces. For a $k$-vector space $V$ we denote
+$V^\vee$ the $k$-linear dual of $V$, i.e., $V^\vee = \Hom_k(V, k)$.
+
+\medskip\noindent
+Let $X$ be a scheme. We denote $D_{perf}(\mathcal{O}_X)$ the full
+subcategory of $D(\mathcal{O}_X)$ consisting of perfect complexes
+(Cohomology, Section \ref{cohomology-section-perfect}).
+If $X$ is Noetherian then
+$D_{perf}(\mathcal{O}_X) \subset D^b_{\textit{Coh}}(\mathcal{O}_X)$, see
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-on-noetherian}.
+If $X$ is Noetherian and regular, then
+$D_{perf}(\mathcal{O}_X) = D^b_{\textit{Coh}}(\mathcal{O}_X)$, see
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-on-regular}.
+
+\medskip\noindent
+Let $k$ be a field. Let $X$ and $Y$ be schemes over $k$. In this
+situation we will write $X \times Y$ instead of $X \times_{\Spec(k)} Y$.
+
+
+\medskip\noindent
+Let $S$ be a scheme. Let $X$, $Y$ be schemes over $S$.
+Let $\mathcal{F}$ be a $\mathcal{O}_X$-module and let
+$\mathcal{G}$ be a $\mathcal{O}_Y$-module. We set
+$$
+\mathcal{F} \boxtimes \mathcal{G} =
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times_S Y}}
+\text{pr}_2^*\mathcal{G}
+$$
+as $\mathcal{O}_{X \times_S Y}$-modules.
+If $K \in D(\mathcal{O}_X)$ and $M \in D(\mathcal{O}_Y)$ then we set
+$$
+K \boxtimes M =
+L\text{pr}_1^*K \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} L\text{pr}_2^*M
+$$
+as an object of $D(\mathcal{O}_{X \times_S Y})$.
+Thus our notation is potentially ambiguous, but context should make it clear
+which of the two is meant.
+
+\section{Serre functors}
+\label{equiv-section-Serre-functors}
+The material in this section is taken from \cite{Bondal-Kapranov}.
+
+\begin{lemma}[Serre functor exists]
+\label{equiv-lemma-Serre-functor-exists}
+\source{stacks:0FY4}
+\href{https://stacks.math.columbia.edu/tag/0FY4}{\texttt{Stacks tag 0FY4}}
+\group{equiv}
+
+Let $k$ be a field. Let $\mathcal{T}$ be a $k$-linear
+triangulated category such that $\dim_k \Hom_\mathcal{T}(X, Y) < \infty$
+for all $X, Y \in \Ob(\mathcal{T})$. The following are equivalent
+\begin{enumerate}
+\item there exists a $k$-linear equivalence
+$S : \mathcal{T} \to \mathcal{T}$ and $k$-linear isomorphisms
+$c_{X, Y} : \Hom_\mathcal{T}(X, Y) \to \Hom_\mathcal{T}(Y, S(X))^\vee$
+functorial in $X, Y \in \Ob(\mathcal{T})$,
+\item for every $X \in \Ob(\mathcal{T})$
+the functor $Y \mapsto \Hom_\mathcal{T}(X, Y)^\vee$
+is representable and the functor $Y \mapsto \Hom_\mathcal{T}(Y, X)^\vee$
+is corepresentable.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Condition (1) implies (2) since given $(S, c)$ and $X \in \Ob(\mathcal{T})$
+the object $S(X)$ represents the functor
+$Y \mapsto \Hom_\mathcal{T}(X, Y)^\vee$ and the object $S^{-1}(X)$ corepresents
+the functor $Y \mapsto \Hom_\mathcal{T}(Y, X)^\vee$.
+
+\medskip\noindent
+Assume (2). We will repeatedly use the Yoneda lemma, see
+Categories, Lemma \ref{categories-lemma-yoneda}.
+For every $X$ denote $S(X)$ the object representing the
+functor $Y \mapsto \Hom_\mathcal{T}(X, Y)^\vee$. Given
+$\varphi : X \to X'$, we obtain a unique arrow $S(\varphi) : S(X) \to S(X')$
+determined by the corresponding transformation of functors
+$\Hom_\mathcal{T}(X, -)^\vee \to \Hom_\mathcal{T}(X', -)^\vee$.
+Thus $S$ is a functor and we obtain the isomorphisms $c_{X, Y}$
+by construction. It remains to show that $S$ is an equivalence.
+For every $X$ denote $S'(X)$ the object corepresenting the
+functor $Y \mapsto \Hom_\mathcal{T}(Y, X)^\vee$. Arguing as
+above we find that $S'$ is a functor. We claim that $S'$
+is quasi-inverse to $S$. To see this observe that
+$$
+\Hom_\mathcal{T}(X, Y) = \Hom_\mathcal{T}(Y, S(X))^\vee =
+\Hom_\mathcal{T}(S'(S(X)), Y)
+$$
+bifunctorially, i.e., we find $S' \circ S \cong \text{id}_\mathcal{T}$.
+Similarly, we have
+$$
+\Hom_\mathcal{T}(Y, X) = \Hom_\mathcal{T}(S'(X), Y)^\vee =
+\Hom_\mathcal{T}(Y, S(S'(X)))
+$$
+and we find $S \circ S' \cong \text{id}_\mathcal{T}$.
+\end{proof}
+
+\begin{definition}[Serre functor]
+\label{equiv-definition-Serre-functor}
+\source{stacks:0FY5}
+\href{https://stacks.math.columbia.edu/tag/0FY5}{\texttt{Stacks tag 0FY5}}
+\group{equiv}
+
+\uses{equiv-lemma-Serre-functor-exists}
+Let $k$ be a field. Let $\mathcal{T}$ be a $k$-linear
+triangulated category such that $\dim_k \Hom_\mathcal{T}(X, Y) < \infty$
+for all $X, Y \in \Ob(\mathcal{T})$. We say {\it a Serre functor
+exists} if the equivalent conditions of Lemma \ref{equiv-lemma-Serre-functor-exists}
+are satisfied. In this case a {\it Serre functor} is a $k$-linear equivalence
+$S : \mathcal{T} \to \mathcal{T}$ endowed with $k$-linear isomorphisms
+$c_{X, Y} : \Hom_\mathcal{T}(X, Y) \to \Hom_\mathcal{T}(Y, S(X))^\vee$
+functorial in $X, Y \in \Ob(\mathcal{T})$.
+\end{definition}
+
+\begin{remark}[Matress]
+\label{equiv-remark-matress}
+\source{stacks:0H8B}
+\href{https://stacks.math.columbia.edu/tag/0H8B}{\texttt{Stacks tag 0H8B}}
+\group{equiv}
+
+Let $X^0 \to X^1 \to X^2 \to X^0[1]$ and $Y^0 \to Y^1 \to Y^2 \to Y^0[1]$
+be distinguished triangles in a triangulated category. For
+$p \in \mathbf{Z}$ write $p = 3n + i$ with $i \in \{0, 1, 2\}$ and set
+we set $X^p = X^i[n]$. Simlarly for $Y^q$. Consider the double complex
+with terms
+$$
+K^{p, q} = \Hom(X^{-p}, Y^q)
+$$
+The differential $d_1 : K^{p, q} \to K^{p + 1, q}$ is given by the map
+$X^{-p - 1} \to X^{-p}$ (equal to the corresponding map
+in the first distinguished triangle up the a shift)
+and the differential $d_2 : K^{p, q} \to K^{p, q + 1}$ likewise
+by the map $Y^q \to Y^{q + 1}$. From
+Derived Categories, Lemma \ref{derived-lemma-representable-homological}
+we see that the rows and columns of this double complex are exact.
+Furthermore, we see that $K^{p, q} = K^{p + 3, q - 3}$ and these
+equalities are compatible with the differentials. Finally, axiom TR3
+implies one additional property: given
+$\alpha \in K^{p, q}$ and $\beta \in K^{p - 1, q + 1}$ such
+that $d_2 \alpha = d_1 \beta$, there exists a $\gamma \in K^{p - 2, q + 2}$
+such that
+$d_1 \gamma = d_2 \beta $ in $K^{p - 1, q + 2}$ and
+$d_2 \gamma = d_1 \alpha $ in $K^{p - 2, q + 3} = K^{p + 1, q}$.
+(Hint: for $p = q = 0$ this is exactly the statement of TR3
+and for other indices prove it by shifting.)
+A double complex with these properties is called a {\it matress}
+(see \cite{Bondal-Kapranov}).
+\end{remark}
+
+\begin{remark}[Dual matress]
+\label{equiv-remark-dual-matress}
+\source{stacks:0H8C}
+\href{https://stacks.math.columbia.edu/tag/0H8C}{\texttt{Stacks tag 0H8C}}
+\group{equiv}
+
+\uses{equiv-remark-matress}
+Let $k$ be a field and let $K^{\bullet, \bullet}$ be a double complex
+of finite dimensional $k$-vector spaces which is also a matress as in
+Remark \ref{equiv-remark-matress}. We claim that the dual double complex
+$L^{p, q} = \Hom_k(K^{-q, -p}, k)$ is also a matress. The exactness of
+rows and columns and the 3-periodicity are immediate. To see the
+additional condition holds, consider the linear map
+$$
+\partial :
+K^{p, q} \oplus K^{p - 1, q + 1} \oplus K^{p - 2, q + 2}
+\longrightarrow
+K^{p, q + 1} \oplus K^{p - 1, q + 2} \oplus K^{p - 2, q + 3}
+$$
+sending $(\alpha, \beta, \gamma)$ to
+$(d_2 \alpha - d_1 \beta, d_2 \gamma - d_1 \alpha, d_1 \gamma - d_2 \beta)$
+with identifications as in Remark \ref{equiv-remark-matress}.
+The condition of being a matress is that
+$$
+\Im(\partial) \cap
+\left( 0 \oplus K^{p - 1, q + 2} \oplus K^{p - 2, q + 3} \right)
+=
+\Im(\partial|_{0 \oplus 0 \oplus K^{p - 2, q + 2}})
+$$
+Denoting ${}^\wedge$ the dual of a vector space or map, taking duals
+we get
+$$
+\Ker(\partial^\wedge) +
+\left(L^{-p, -q - 1} \oplus 0 \oplus 0 \right)
+=
+\Ker(\text{pr}_{L^{-p + 2, -q - 2}} \circ \partial^\wedge)
+$$
+where the $\text{pr}$ term indicates projection. This implies
+that
+$\Im(\partial^\wedge) \cap (L^{-p, -q} \oplus L^{-p + 1, -q - 1} \oplus 0)$
+is equal to
+$\Im(\partial^\wedge|_{L^{-p, -q - 1} \oplus 0 \oplus 0})$ and this
+translates into the matress condition for $L^{\bullet, \bullet}$.
+Some details omitted.
+\end{remark}
+
+\begin{lemma}[Serre functor]
+\label{equiv-lemma-Serre-functor}
+\source{stacks:0FY6}
+\href{https://stacks.math.columbia.edu/tag/0FY6}{\texttt{Stacks tag 0FY6}}
+\group{equiv}
+
+\uses{equiv-definition-Serre-functor}
+In the situation of Definition \ref{equiv-definition-Serre-functor}.
+If a Serre functor exists, then it is unique up to unique isomorphism and
+it is an exact functor of triangulated categories.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-remark-matress, equiv-remark-dual-matress}
+
+Given a Serre functor $S$ the object $S(X)$ represents
+the functor $Y \mapsto \Hom_\mathcal{T}(X, Y)^\vee$.
+Thus the object $S(X)$ together with the functorial identification
+$\Hom_\mathcal{T}(X, Y)^\vee = \Hom_\mathcal{T}(Y, S(X))$
+is determined up to unique isomorphism by the Yoneda lemma
+(Categories, Lemma \ref{categories-lemma-yoneda}).
+Moreover, for $\varphi : X \to X'$, the arrow $S(\varphi) : S(X) \to S(X')$
+is uniquely determined by the corresponding transformation of functors
+$\Hom_\mathcal{T}(X, -)^\vee \to \Hom_\mathcal{T}(X', -)^\vee$.
+
+\medskip\noindent
+For objects $X, Y$ of $\mathcal{T}$ we have
+\begin{align*}
+\Hom(Y, S(X)[1])^\vee
+& =
+\Hom(Y[-1], S(X))^\vee \\
+& =
+\Hom(X, Y[-1]) \\
+& =
+\Hom(X[1], Y) \\
+& =
+\Hom(Y, S(X[1]))^\vee
+\end{align*}
+By the Yoneda lemma we conclude that there is a unique isomorphism
+$S(X[1]) \to S(X)[1]$ inducing the isomorphism from top left to bottom right.
+Since each of the isomorphisms above is functorial in both $X$ and $Y$
+we find that this defines an isomorphism of functors
+$S \circ [1] \to [1] \circ S$.
+
+\medskip\noindent
+Let $(A, B, C, f, g, h)$ be a distinguished triangle in $\mathcal{T}$.
+We have to show that the triangle $(S(A), S(B), S(C), S(f), S(g), S(h))$
+is distinguished. Here we use the canonical isomorphism $S(A[1]) \to S(A)[1]$
+constructed above to identify the target $S(A[1])$ of $S(h)$ with $S(A)[1]$.
+We first observe that for any $X$ in $\mathcal{T}$
+the triangle $(S(A), S(B), S(C), S(f), S(g), S(h))$ induces
+a long exact sequence
+$$
+\ldots \to
+\Hom(X, S(A)) \to
+\Hom(X, S(B)) \to
+\Hom(X, S(C)) \to
+\Hom(X, S(A)[1]) \to \ldots
+$$
+of finite dimensional $k$-vector spaces. Namely, this sequence is
+$k$-linear dual of the sequence
+$$
+\ldots \leftarrow
+\Hom(A, X) \leftarrow
+\Hom(B, X) \leftarrow
+\Hom(C, X) \leftarrow
+\Hom(A[1], X) \leftarrow
+\ldots
+$$
+which is exact by Derived Categories, Lemma
+\ref{derived-lemma-representable-homological}.
+Next, we choose a distinguished triangle $(S(A), E, S(C), i, p, S(h))$
+which is possible by axioms TR1 and TR2. We want to construct the dotted
+arrow making following diagram commute
+$$
+\begin{array}{ccccc}S(C)[-1] \underset{S(h[-1])}{\longrightarrow} & S(A) \underset{S(f)}{\longrightarrow} & S(B) \underset{S(g)}{\longrightarrow} & S(C) \underset{S(h)}{\longrightarrow} & S(A)[1] \\ S(C)[-1] \overset{S(h[-1])}{\longrightarrow}\uparrow & S(A) \overset{i}{\longrightarrow}\uparrow & E \overset{p}{\longrightarrow}\overset{\varphi}{\uparrow} & S(C) \overset{S(h)}{\longrightarrow}\uparrow & S(A)[1] \uparrow\end{array}
+$$
+Namely, if we have $\varphi$, then we claim for any $X$ the resulting
+map $\Hom(X, E) \to \Hom(X, S(B))$ will be an isomorphism of $k$-vector
+spaces. Namely, we will obtain a commutative diagram
+$$
+\begin{array}{ccccc}\Hom(X, S(C)[-1]) \longrightarrow & \Hom(X, S(A)) \longrightarrow & \Hom(X, S(B)) \longrightarrow & \Hom(X, S(C)) \longrightarrow & \Hom(X, S(A)[1]) \\ \Hom(X, S(C)[-1]) \longrightarrow\uparrow & \Hom(X, S(A)) \longrightarrow\uparrow & \Hom(X, E) \longrightarrow\overset{\varphi}{\uparrow} & \Hom(X, S(C)) \longrightarrow\uparrow & \Hom(X, S(A)[1]) \uparrow\end{array}
+$$
+with exact rows (see above) and we can apply the 5 lemma
+(Homology, Lemma \ref{homology-lemma-five-lemma}) to see
+that the middle arrow is an isomorphism. By the Yoneda lemma
+we conclude that $\varphi$ is an isomorphism.
+
+\medskip\noindent
+To find $\varphi$, let us form the matress of Remark \ref{equiv-remark-matress}
+from the distinguished triangles
+$A \to B \to C \to A[1]$ and $S(A) \to E \to S(C) \to S(A)[1]$.
+By Remark \ref{equiv-remark-dual-matress} the $k$-linear dual
+of this is also a matress. Using that $S$ is a Serre functor, we
+see as above that this dual matress is the double complex made from
+the triangles (the second of which we do not yet know to be distinguished)
+$S(A) \to E \to S(C) \to S(A)[1]$ and $S(A) \to S(B) \to S(C) \to S(A)[1]$.
+But the matress condition exactly tells us that the maps
+$S(A) \to S(A)$ and $S(C) \to S(C)$ fit into a morphism of triangles,
+i.e., that we have a $\varphi$ making the diagram above commute.
+\end{proof}
+
+\section{Examples of Serre functors}
+\label{equiv-section-examples-Serre-functors}
+The lemma below is the standard example.
+
+\begin{lemma}[Serre functor Gorenstein proper]
+\label{equiv-lemma-Serre-functor-Gorenstein-proper}
+\source{stacks:0FY8}
+\href{https://stacks.math.columbia.edu/tag/0FY8}{\texttt{Stacks tag 0FY8}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ be a proper scheme over $k$ which is Gorenstein.
+Consider the complex $\omega_X^\bullet$ of
+Duality for Schemes, Lemmas \ref{duality-lemma-duality-proper-over-field}.
+Then the functor
+$$
+S : D_{perf}(\mathcal{O}_X) \longrightarrow D_{perf}(\mathcal{O}_X),\quad
+K \longmapsto S(K) = \omega_X^\bullet \otimes_{\mathcal{O}_X}^\mathbf{L} K
+$$
+is a Serre functor.
+\end{lemma}
+
+\begin{proof}
+The statement make sense because $\dim \Hom_X(K, L) < \infty$
+for $K, L \in D_{perf}(\mathcal{O}_X)$ by
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-ext-finite}.
+Since $X$ is Gorenstein the dualizing complex $\omega_X^\bullet$
+is an invertible object of $D(\mathcal{O}_X)$, see
+Duality for Schemes, Lemma \ref{duality-lemma-gorenstein}.
+In particular, locally on $X$ the complex $\omega_X^\bullet$
+has one nonzero cohomology sheaf which is an invertible module, see
+Cohomology, Lemma \ref{cohomology-lemma-invertible-derived}.
+Thus $S(K)$ lies in $D_{perf}(\mathcal{O}_X)$.
+On the other hand, the invertibility of $\omega_X^\bullet$
+clearly implies that $S$ is a self-equivalence of $D_{perf}(\mathcal{O}_X)$.
+Finally, we have to find an isomorphism
+$$
+c_{K, L} : \Hom_X(K, L) \longrightarrow
+\Hom_X(L, \omega_X^\bullet \otimes_{\mathcal{O}_X}^\mathbf{L} K)^\vee
+$$
+bifunctorially in $K, L$. To do this we use the canonical isomorphisms
+$$
+\Hom_X(K, L) = H^0(X, L \otimes_{\mathcal{O}_X}^\mathbf{L} K^\vee)
+$$
+and
+$$
+\Hom_X(L, \omega_X^\bullet \otimes_{\mathcal{O}_X}^\mathbf{L} K) =
+H^0(X,
+\omega_X^\bullet \otimes_{\mathcal{O}_X}^\mathbf{L} K
+\otimes_{\mathcal{O}_X}^\mathbf{L} L^\vee)
+$$
+given in Cohomology, Lemma \ref{cohomology-lemma-dual-perfect-complex}.
+Since $(L \otimes_{\mathcal{O}_X}^\mathbf{L} K^\vee)^\vee =
+(K^\vee)^\vee \otimes_{\mathcal{O}_X}^\mathbf{L} L^\vee$
+and since there is a canonical isomorphism $K \to (K^\vee)^\vee$
+we find these $k$-vector spaces are canonically dual by
+Duality for Schemes, Lemma
+\ref{duality-lemma-duality-proper-over-field-perfect}.
+This produces the isomorphisms $c_{K, L}$.
+We omit the proof that these isomorphisms are functorial.
+\end{proof}
+
+\section{Characterizing coherent modules}
+\label{equiv-section-coherent}
+This section is in some sense a continuation of the discussion
+in Derived Categories of Schemes, Section \ref{perfect-section-pseudo-coherent}
+and More on Morphisms, Section
+\ref{more-morphisms-section-characterize-pseudo-coherent}.
+
+\medskip\noindent
+Before we can state the result we need some notation.
+Let $k$ be a field. Let $n \geq 0$ be an integer.
+Let $S = k[X_0, \ldots, X_n]$. For an integer $e$ denote
+$S_e \subset S$ the homogeneous polynomials of degree $e$.
+Consider the (noncommutative) $k$-algebra
+$$
+R =
+\left(
+\begin{matrix}
+S_0 & S_1 & S_2 & \ldots & \ldots \\
+0 & S_0 & S_1 & \ldots & \ldots\\
+0 & 0 & S_0 & \ldots & \ldots \\
+\ldots & \ldots & \ldots & \ldots & \ldots \\
+0 & \ldots & \ldots & \ldots & S_0
+\end{matrix}
+\right)
+$$
+(with $n + 1$ rows and columns) with obvious multiplication and addition.
+
+\begin{lemma}[Perfect for R]
+\label{equiv-lemma-perfect-for-R}
+\source{stacks:0FYA}
+\href{https://stacks.math.columbia.edu/tag/0FYA}{\texttt{Stacks tag 0FYA}}
+\group{equiv}
+
+With $k$, $n$, and $R$ as above, for an object $K$ of $D(R)$
+the following are equivalent
+\begin{enumerate}
+\item $\sum_{i \in \mathbf{Z}} \dim_k H^i(K) < \infty$, and
+\item $K$ is a compact object.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+If $K$ is a compact object, then $K$ can be represented by a complex
+$M^\bullet$ which is finite projective as a graded $R$-module, see
+Differential Graded Algebra, Lemma \ref{dga-lemma-compact}.
+Since $\dim_k R < \infty$ we conclude $\sum \dim_k M^i < \infty$
+and a fortiori $\sum \dim_k H^i(M^\bullet) < \infty$.
+(One can also easily deduce this implication from the easier
+Differential Graded Algebra, Proposition \ref{dga-proposition-compact}.)
+
+\medskip\noindent
+Assume $K$ satisfies (1). Consider the distinguished triangle
+of trunctions $\tau_{\leq m}K \to K \to \tau_{\geq m + 1}K$, see
+Derived Categories, Remark
+\ref{derived-remark-truncation-distinguished-triangle}.
+It is clear that both $\tau_{\leq m}K$ and $\tau_{\geq m + 1} K$
+satisfy (1). If we can show both are compact, then so is $K$, see
+Derived Categories, Lemma \ref{derived-lemma-compact-objects-subcategory}.
+Hence, arguing on the number of nonzero cohomology modules of $K$
+we may assume $H^i(K)$ is nonzero only for one $i$.
+Shifting, we may assume $K$ is given by the complex
+consisting of a single finite dimensional $R$-module $M$ sitting
+in degree $0$.
+
+\medskip\noindent
+Since $\dim_k(M) < \infty$ we see that $M$ is Artinian as an $R$-module.
+Thus it suffices to show that every simple $R$-module represents a
+compact object of $D(R)$. Observe that
+$$
+I =
+\left(
+\begin{matrix}
+0 & S_1 & S_2 & \ldots & \ldots \\
+0 & 0 & S_1 & \ldots & \ldots\\
+0 & 0 & 0 & \ldots & \ldots \\
+\ldots & \ldots & \ldots & \ldots & \ldots \\
+0 & \ldots & \ldots & \ldots & 0
+\end{matrix}
+\right)
+$$
+is a nilpotent two sided ideal of $R$ and that $R/I$
+is a commutative $k$-algebra isomorphic to a product of $n + 1$ copies of
+$k$ (placed along the diagonal in the matrix, i.e., $R/I$ can be lifted
+to a $k$-subalgebra of $R$). It follows that $R$ has exactly $n + 1$
+isomorphism classes of simple modules $M_0, \ldots, M_n$ (sitting along
+the diagonal). Consider the right $R$-module $P_i$ of row vectors
+$$
+P_i =
+\left(
+\begin{matrix}
+0 &
+\ldots &
+0 &
+S_0 &
+\ldots &
+S_{i - 1} &
+S_i
+\end{matrix}
+\right)
+$$
+with obvious multiplication $P_i \times R \to P_i$. Then we see that
+$R \cong P_0 \oplus \ldots \oplus P_n$ as a right $R$-module. Since clearly
+$R$ is a compact object of $D(R)$, we conclude each $P_i$ is a compact
+object of $D(R)$. (We of course also conclude each $P_i$ is projective
+as an $R$-module, but this isn't what we have to show in this proof.)
+Clearly, $P_0 = M_0$ is the first of our simple $R$-modules.
+For $P_1$ we have a short exact sequence
+$$
+0 \to P_0^{\oplus n + 1} \to P_1 \to M_1 \to 0
+$$
+which proves that $M_1$ fits into a distinguished triangle whose
+other members are compact objects and hence $M_1$ is a compact
+object of $D(R)$. More generally, there exists a short exact sequence
+$$
+0 \to C_i \to P_i \to M_i \to 0
+$$
+where $C_i$ is a finite dimensional $R$-module whose simple constituents
+are isomorphic to $M_j$ for $j < i$. By induction, we first conclude that
+$C_i$ determines a compact object of $D(R)$ whereupon we conclude that $M_i$
+does too as desired.
+\end{proof}
+
+\begin{lemma}[Coherent on projective space]
+\label{equiv-lemma-coherent-on-projective-space}
+\source{stacks:0FYB}
+\href{https://stacks.math.columbia.edu/tag/0FYB}{\texttt{Stacks tag 0FYB}}
+\group{equiv}
+
+Let $k$ be a field. Let $n \geq 0$. Let
+$K \in D_\QCoh(\mathcal{O}_{\mathbf{P}^n_k})$.
+The following are equivalent
+\begin{enumerate}
+\item $K$ is in $D^b_{\textit{Coh}}(\mathcal{O}_{\mathbf{P}^n_k})$,
+\item $\sum_{i \in \mathbf{Z}}
+\dim_k H^i(\mathbf{P}^n_k, E \otimes^\mathbf{L} K) < \infty$
+for each perfect object $E$ of
+$D(\mathcal{O}_{\mathbf{P}^n_k})$,
+\item $\sum_{i \in \mathbf{Z}}
+\dim_k \Ext^i_{\mathbf{P}^n_k}(E, K) < \infty$
+for each perfect object $E$ of $D(\mathcal{O}_{\mathbf{P}^n_k})$,
+\item $\sum_{i \in \mathbf{Z}} \dim_k H^i(\mathbf{P}^n_k,
+K \otimes^\mathbf{L} \mathcal{O}_{\mathbf{P}^n_k}(d)) < \infty$
+for $d = 0, 1, \ldots, n$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-perfect-for-R}
+
+Parts (2) and (3) are equivalent by
+Cohomology, Lemma \ref{cohomology-lemma-dual-perfect-complex}.
+If (1) is true, then for $E$ perfect the derived tensor product
+$E \otimes^\mathbf{L} K$ is in
+$D^b_{\textit{Coh}}(\mathcal{O}_{\mathbf{P}^n_k})$
+and we see that (2) holds by
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-direct-image-coherent}.
+It is clear that (2) implies (4) as $\mathcal{O}_{\mathbf{P}^n_k}(d)$
+can be viewed
+as a perfect object of the derived category of $\mathbf{P}^n_k$.
+Thus it suffices to prove that (4) implies (1).
+
+\medskip\noindent
+Assume (4). Let $R$ be as in Lemma \ref{equiv-lemma-perfect-for-R}.
+Let $P = \bigoplus_{d = 0, \ldots, n} \mathcal{O}_{\mathbf{P}^n_k}(-d)$.
+Recall that $R = \text{End}_{\mathbf{P}^n_k}(P)$ whereas all other
+self-Exts of $P$ are zero and that $P$ determines an equivalence
+$- \otimes^\mathbf{L} P : D(R) \to D_\QCoh(\mathcal{O}_{\mathbf{P}^n_k})$
+by Derived Categories of Schemes, Lemma \ref{perfect-lemma-Pn-module-category}.
+Say $K$ corresponds to $L$ in $D(R)$. Then
+\begin{align*}
+H^i(L)
+& =
+\Ext^i_{D(R)}(R, L) \\
+& =
+\Ext^i_{\mathbf{P}^n_k}(P, K) \\
+& =
+H^i(\mathbf{P}^n_k, K \otimes P^\vee) \\
+& =
+\bigoplus\nolimits_{d = 0, \ldots, n}
+H^i(\mathbf{P}^n_k, K \otimes \mathcal{O}(d))
+\end{align*}
+by Differential Graded Algebra, Lemma
+\ref{dga-lemma-upgrade-tensor-with-complex-derived}
+(and the fact that $- \otimes^\mathbf{L} P$ is an equivalence)
+and Cohomology, Lemma \ref{cohomology-lemma-dual-perfect-complex}.
+Thus our assumption (4) implies that $L$ satisfies condition (2) of
+Lemma \ref{equiv-lemma-perfect-for-R} and hence is a compact object of $D(R)$.
+Therefore $K$ is a compact object of
+$D_\QCoh(\mathcal{O}_{\mathbf{P}^n_k})$.
+Thus $K$ is perfect by
+Derived Categories of Schemes, Proposition
+\ref{perfect-proposition-compact-is-perfect}.
+Since $D_{perf}(\mathcal{O}_{\mathbf{P}^n_k}) =
+D^b_{\textit{Coh}}(\mathcal{O}_{\mathbf{P}^n_k})$
+by
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-on-regular}
+we conclude (1) holds.
+\end{proof}
+
+\begin{lemma}[Finiteness]
+\label{equiv-lemma-finiteness}
+\source{stacks:0FYC}
+\href{https://stacks.math.columbia.edu/tag/0FYC}{\texttt{Stacks tag 0FYC}}
+\group{equiv}
+
+Let $X$ be a scheme proper over a field $k$. Let
+$K \in D^b_{\textit{Coh}}(\mathcal{O}_X)$ and let $E$ in $D(\mathcal{O}_X)$
+be perfect. Then
+$\sum_{i \in \mathbf{Z}} \dim_k \Ext^i_X(E, K) < \infty$.
+\end{lemma}
+
+\begin{proof}
+This follows for example by combining
+Derived Categories of Schemes, Lemmas \ref{perfect-lemma-ext-finite} and
+\ref{perfect-lemma-ext-from-perfect-into-bounded-QCoh}.
+Alternative proof: combine
+Derived Categories of Schemes, Lemmas
+\ref{perfect-lemma-perfect-on-noetherian} and
+\ref{perfect-lemma-direct-image-coherent}.
+\end{proof}
+
+\begin{lemma}[Characterize dbcoh projective]
+\label{equiv-lemma-characterize-dbcoh-projective}
+\source{stacks:0FYD}
+\href{https://stacks.math.columbia.edu/tag/0FYD}{\texttt{Stacks tag 0FYD}}
+\group{equiv}
+
+\begin{reference}
+In the projective case this is \cite[Lemma 7.46]{Rouquier-dimensions}
+and implicit in \cite[Theorem A.1]{BvdB}
+\end{reference}
+Let $X$ be a proper scheme over a field $k$. Let
+$K \in \Ob(D_\QCoh(\mathcal{O}_X))$. The following are equivalent
+\begin{enumerate}
+\item $K \in D^b_{\textit{Coh}}(\mathcal{O}_X)$, and
+\item $\sum_{i \in \mathbf{Z}} \dim_k \Ext^i_X(E, K) < \infty$
+for all perfect $E$ in $D(\mathcal{O}_X)$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-finiteness, equiv-lemma-coherent-on-projective-space}
+
+The implication (1) $\Rightarrow$ (2) follows from
+Lemma \ref{equiv-lemma-finiteness}.
+The implication (2) $\Rightarrow$ (1) follows from
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-characterize-relatively-perfect}
+(see Derived Categories of Schemes, Example
+\ref{perfect-example-relatively-perfect-field}
+for the meaning of a relatively perfect object over a field);
+the easier proof in the projective case is in the next paragraph.
+
+\medskip\noindent
+Assume (2) and $X$ projective over $k$.
+Choose a closed immersion $i : X \to \mathbf{P}^n_k$. It suffices to show
+that $Ri_*K$ is in $D^b_{\textit{Coh}}(\mathbf{P}^n_k)$ since a quasi-coherent
+module $\mathcal{F}$ on $X$ is coherent, resp.\ zero if and only if
+$i_*\mathcal{F}$ is coherent, resp.\ zero. For a perfect object $E$
+of $D(\mathcal{O}_{\mathbf{P}^n_k})$, $Li^*E$ is a perfect object of
+$D(\mathcal{O}_X)$ and
+$$
+\Ext^q_{\mathbf{P}^n_k}(E, Ri_*K) = \Ext^q_X(Li^*E, K)
+$$
+Hence by our assumption we see that
+$\sum_{q \in \mathbf{Z}} \dim_k \Ext^q_{\mathbf{P}^n_k}(E, Ri_*K) < \infty$.
+We conclude by Lemma \ref{equiv-lemma-coherent-on-projective-space}.
+\end{proof}
+
+\section{A representability theorem}
+\label{equiv-section-bondal-van-den-bergh}
+The material in this section is taken from \cite{BvdB}.
+
+\medskip\noindent
+Let $\mathcal{T}$ be a $k$-linear triangulated category.
+In this section we consider $k$-linear cohomological functors
+$H$ from $\mathcal{T}$ to the category of $k$-vector spaces.
+This will mean $H$ is a functor
+$$
+H : \mathcal{T}^{opp} \longrightarrow \text{Vect}_k
+$$
+which is $k$-linear such that for any distinguished triangle
+$X \to Y \to Z$ in $\mathcal{T}$ the sequence $H(Z) \to H(Y) \to H(X)$
+is an exact sequence of $k$-vector spaces. See
+Derived Categories, Definition \ref{derived-definition-homological}
+and Differential Graded Algebra, Section \ref{dga-section-linear}.
+
+\begin{lemma}[Maps from compact filtered]
+\label{equiv-lemma-maps-from-compact-filtered}
+\source{stacks:0FYF}
+\href{https://stacks.math.columbia.edu/tag/0FYF}{\texttt{Stacks tag 0FYF}}
+\group{equiv}
+
+Let $\mathcal{D}$ be a triangulated category. Let
+$\mathcal{D}' \subset \mathcal{D}$ be a full triangulated subcategory. Let
+$X \in \Ob(\mathcal{D})$. The category of arrows $E \to X$ with
+$E \in \Ob(\mathcal{D}')$ is filtered.
+\end{lemma}
+
+\begin{proof}
+We check the conditions of
+Categories, Definition \ref{categories-definition-directed}.
+The category is nonempty because it contains $0 \to X$.
+If $E_i \to X$, $i = 1, 2$ are objects, then $E_1 \oplus E_2 \to X$
+is an object and there are morphisms $(E_i \to X) \to (E_1 \oplus E_2 \to X)$.
+Finally, suppose that $a, b : (E \to X) \to (E' \to X)$ are morphisms.
+Choose a distinguished triangle $E \xrightarrow{a - b} E' \to E''$
+in $\mathcal{D}'$. By Axiom TR3 we obtain a morphism of triangles
+$$
+\begin{array}{ccc}E \underset{a - b}{\longrightarrow}\downarrow & E' \downarrow\longrightarrow & E'' \downarrow \\ 0 \longrightarrow & X \longrightarrow & X\end{array}
+$$
+and we find that the resulting arrow $(E' \to X) \to (E'' \to X)$
+equalizes $a$ and $b$.
+\end{proof}
+
+\begin{lemma}[Van den bergh]
+\label{equiv-lemma-van-den-bergh}
+\source{stacks:0FYG}
+\href{https://stacks.math.columbia.edu/tag/0FYG}{\texttt{Stacks tag 0FYG}}
+\group{equiv}
+
+\begin{reference}
+\cite[Lemma 2.14]{CKN}
+\end{reference}
+Let $k$ be a field. Let $\mathcal{D}$ be a $k$-linear triangulated category
+which has direct sums and is compactly generated.
+Denote $\mathcal{D}_c$ the full
+subcategory of compact objects. Let $H : \mathcal{D}_c^{opp} \to \text{Vect}_k$
+be a $k$-linear cohomological functor such that
+$\dim_k H(X) < \infty$ for all $X \in \Ob(\mathcal{D}_c)$.
+Then $H$ is isomorphic to the functor $X \mapsto \Hom(X, Y)$
+for some $Y \in \Ob(\mathcal{D})$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-maps-from-compact-filtered}
+
+We will use Derived Categories, Lemma
+\ref{derived-lemma-compact-objects-subcategory} without further mention.
+Denote $G : \mathcal{D}_c \to \text{Vect}_k$ the $k$-linear homological
+functor which sends $X$ to $H(X)^\vee$. For any object $Y$ of $\mathcal{D}$
+we set
+$$
+G'(Y) = \colim_{X \to Y, X \in \Ob(\mathcal{D}_c)} G(X)
+$$
+The colimit is filtered by Lemma \ref{equiv-lemma-maps-from-compact-filtered}.
+We claim that $G'$ is a $k$-linear homological functor,
+the restriction of $G'$ to $\mathcal{D}_c$ is $G$, and $G'$
+sends direct sums to direct sums.
+
+\medskip\noindent
+Namely, suppose that $Y_1 \to Y_2 \to Y_3$ is a distinguished triangle.
+Let $\xi \in G'(Y_2)$ map to zero in $G'(Y_3)$. Since the colimit is
+filtered $\xi$ is represented by some $X \to Y_2$ with
+$X \in \Ob(\mathcal{D}_c)$ and $g \in G(X)$.
+The fact that $\xi$ maps to zero in $G'(Y_3)$ means the composition
+$X \to Y_2 \to Y_3$ factors as $X \to X' \to Y_3$ with $X' \in \mathcal{D}_c$
+and $g$ mapping to zero in $G(X')$. Choose a distinguished
+triangle $X'' \to X \to X'$. Then $X'' \in \Ob(\mathcal{D}_c)$.
+Since $G$ is homological we find that $g$ is the image of some
+$g'' \in G'(X'')$. By Axiom TR3 the maps $X \to Y_2$ and $X' \to Y_3$ fit into
+a morphism of distinguished triangles
+$(X'' \to X \to X') \to (Y_1 \to Y_2 \to Y_3)$
+and we find that indeed $\xi$ is the image of the
+element of $G'(Y_1)$ represented by $X'' \to Y_1$ and $g'' \in G(X'')$.
+
+\medskip\noindent
+If $Y \in \Ob(\mathcal{D}_c)$, then $\text{id} : Y \to Y$ is the final
+object in the category of arrows $X \to Y$ with $X \in \Ob(\mathcal{D}_c)$.
+Hence we see that $G'(Y) = G(Y)$ in this case and the
+statement on restriction holds. Let $Y = \bigoplus_{i \in I} Y_i$
+be a direct sum. Let $a : X \to Y$ with $X \in \Ob(\mathcal{D}_c)$
+and $g \in G(X)$ represent an element $\xi$ of $G'(Y)$.
+The morphism $a : X \to Y$ can be uniquely written as a sum of morphisms
+$a_i : X \to Y_i$ almost all zero as $X$ is a compact object of $\mathcal{D}$.
+Let $I' = \{i \in I \mid a_i \not = 0\}$. Then we can factor
+$a$ as the composition
+$$
+X \xrightarrow{(1, \ldots, 1)}
+\bigoplus\nolimits_{i \in I'} X
+\xrightarrow{\bigoplus_{i \in I'} a_i}
+\bigoplus\nolimits_{i \in I} Y_i = Y
+$$
+We conclude that $\xi = \sum_{i \in I'} \xi_i$
+is the sum of the images of the elements
+$\xi_i \in G'(Y_i)$ corresponding to $a_i : X \to Y_i$
+and $g \in G(X)$. Hence $\bigoplus G'(Y_i) \to G'(Y)$
+is surjective. We omit the (trivial) verification that it is injective.
+
+\medskip\noindent
+It follows that the functor $Y \mapsto G'(Y)^\vee$ is cohomological
+and sends direct sums to direct products. Hence by Brown representability,
+see Derived Categories, Proposition \ref{derived-proposition-brown}
+we conclude that there exists a $Y \in \Ob(\mathcal{D})$
+and an isomorphism
+$G'(Z)^\vee = \Hom(Z, Y)$ functorially in $Z$.
+For $X \in \Ob(\mathcal{D}_c)$ we have
+$G'(X)^\vee = G(X)^\vee = (H(X)^\vee)^\vee = H(X)$
+because $\dim_k H(X) < \infty$ and the proof is complete.
+\end{proof}
+
+\begin{theorem}[Bondal van den bergh]
+\label{equiv-theorem-bondal-van-den-bergh}
+\source{stacks:0FYH}
+\href{https://stacks.math.columbia.edu/tag/0FYH}{\texttt{Stacks tag 0FYH}}
+\group{equiv}
+
+\begin{reference}
+In the projective case this is \cite[Theorem A.1]{BvdB}
+\end{reference}
+Let $X$ be a proper scheme over a field $k$.
+Let $F : D_{perf}(\mathcal{O}_X)^{opp} \to \text{Vect}_k$
+be a $k$-linear cohomological functor such that
+$$
+\sum\nolimits_{n \in \mathbf{Z}} \dim_k F(E[n]) < \infty
+$$
+for all $E \in D_{perf}(\mathcal{O}_X)$. Then $F$ is isomorphic to a functor
+of the form $E \mapsto \Hom_X(E, K)$ for some
+$K \in D^b_{\textit{Coh}}(\mathcal{O}_X)$.
+\end{theorem}
+
+\begin{proof}
+\uses{equiv-lemma-van-den-bergh, equiv-lemma-characterize-dbcoh-projective}
+
+The derived category $D_\QCoh(\mathcal{O}_X)$ has direct sums,
+is compactly generated, and $D_{perf}(\mathcal{O}_X)$ is the full subcategory
+of compact objects, see
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-quasi-coherence-direct-sums},
+Theorem \ref{perfect-theorem-bondal-van-den-Bergh}, and
+Proposition \ref{perfect-proposition-compact-is-perfect}.
+By Lemma \ref{equiv-lemma-van-den-bergh} we may assume
+$F(E) = \Hom_X(E, K)$ for some $K \in \Ob(D_\QCoh(\mathcal{O}_X))$.
+Then it follows that $K$ is in $D^b_{\textit{Coh}}(\mathcal{O}_X)$
+by Lemma \ref{equiv-lemma-characterize-dbcoh-projective}.
+\end{proof}
+
+\begin{lemma}[Homological representable]
+\label{equiv-lemma-homological-representable}
+\source{stacks:0H4A}
+\href{https://stacks.math.columbia.edu/tag/0H4A}{\texttt{Stacks tag 0H4A}}
+\group{equiv}
+
+Let $X$ be a proper scheme over a field $k$ which is regular.
+Let $G : D_{perf}(\mathcal{O}_X) \to \text{Vect}_k$
+be a $k$-linear homological functor such that
+$$
+\sum\nolimits_{n \in \mathbf{Z}} \dim_k G(E[n]) < \infty
+$$
+for all $E \in D_{perf}(\mathcal{O}_X)$. Then $G$ is isomorphic to a functor
+of the form $E \mapsto \Hom_X(K, E)$ for some $K \in D_{perf}(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-theorem-bondal-van-den-bergh}
+
+Consider the contravariant functor $E \mapsto E^\vee$
+on $D_{perf}(\mathcal{O}_X)$, see
+Cohomology, Lemma \ref{cohomology-lemma-dual-perfect-complex}.
+This functor is an exact anti-self-equivalence of $D_{perf}(\mathcal{O}_X)$.
+Hence we may apply Theorem \ref{equiv-theorem-bondal-van-den-bergh}
+to the functor $F(E) = G(E^\vee)$ to find
+$K \in D_{perf}(\mathcal{O}_X)$ such that $G(E^\vee) = \Hom_X(E, K)$.
+It follows that $G(E) = \Hom_X(E^\vee, K) = \Hom_X(K^\vee, E)$
+and we conclude that taking $K^\vee$ works.
+\end{proof}
+
+\section{Existence of adjoints}
+\label{equiv-section-adjoints}
+As a consequence of the results in the paper of Bondal and van den Bergh
+we get the following automatic existence of adjoints.
+
+\begin{lemma}[Always right adjoints]
+\label{equiv-lemma-always-right-adjoints}
+\source{stacks:0FYN}
+\href{https://stacks.math.columbia.edu/tag/0FYN}{\texttt{Stacks tag 0FYN}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ and $Y$ be proper schemes over $k$.
+If $X$ is regular, then any $k$-linear exact functor
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+has an exact right adjoint and an exact left adjoint.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-theorem-bondal-van-den-bergh, equiv-lemma-finiteness, equiv-lemma-homological-representable}
+
+If an adjoint exists it is an exact functor by the very general
+Derived Categories, Lemma \ref{derived-lemma-adjoint-is-exact}.
+
+\medskip\noindent
+Let us prove the existence of a right adjoint.
+To see existence, it suffices to show that for
+$M \in D_{perf}(\mathcal{O}_Y)$ the contravariant functor
+$K \mapsto \Hom_Y(F(K), M)$ is representable.
+This functor is contravariant, $k$-linear, and cohomological.
+Hence by Theorem \ref{equiv-theorem-bondal-van-den-bergh}
+it suffices to show that
+$$
+\sum\nolimits_{i \in \mathbf{Z}} \dim_k \Ext^i_Y(F(K), M) < \infty
+$$
+This follows from Lemma \ref{equiv-lemma-finiteness}.
+
+\medskip\noindent
+For the existence of the left adjoint we argue in the same
+manner using Lemma \ref{equiv-lemma-homological-representable}
+in stead of Theorem \ref{equiv-theorem-bondal-van-den-bergh}.
+\end{proof}
+
+\section{Fourier-Mukai functors}
+\label{equiv-section-fourier-mukai}
+These functors were first introduced in \cite{Mukai}.
+
+\begin{definition}[Fourier mukai functor]
+\label{equiv-definition-fourier-mukai-functor}
+\source{stacks:0FYQ}
+\href{https://stacks.math.columbia.edu/tag/0FYQ}{\texttt{Stacks tag 0FYQ}}
+\group{equiv}
+
+Let $S$ be a scheme. Let $X$ and $Y$ be schemes over $S$.
+Let $K \in D(\mathcal{O}_{X \times_S Y})$. The exact functor
+$$
+\Phi_K : D(\mathcal{O}_X) \longrightarrow D(\mathcal{O}_Y),\quad
+M \longmapsto R\text{pr}_{2, *}(
+L\text{pr}_1^*M \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K)
+$$
+of triangulated categories is called a {\it Fourier-Mukai functor}
+and $K$ is called a {\it Fourier-Mukai kernel} for this functor.
+Moreover,
+\begin{enumerate}
+\item if $\Phi_K$ sends $D_\QCoh(\mathcal{O}_X)$ into $D_\QCoh(\mathcal{O}_Y)$
+then the resulting exact functor
+$\Phi_K : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$
+is called a Fourier-Mukai functor,
+\item if $\Phi_K$ sends $D_{perf}(\mathcal{O}_X)$ into
+$D_{perf}(\mathcal{O}_Y)$ then the resulting exact functor
+$\Phi_K : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+is called a Fourier-Mukai functor, and
+\item if $X$ and $Y$ are Noetherian and $\Phi_K$ sends
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$ into $D^b_{\textit{Coh}}(\mathcal{O}_Y)$
+then the resulting exact functor
+$\Phi_K : D^b_{\textit{Coh}}(\mathcal{O}_X) \to
+D^b_{\textit{Coh}}(\mathcal{O}_Y)$
+is called a Fourier-Mukai functor.
+Similarly for $D_{\textit{Coh}}$, $D^+_{\textit{Coh}}$, $D^-_{\textit{Coh}}$.
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}[Fourier Mukai QCoh]
+\label{equiv-lemma-fourier-Mukai-QCoh}
+\source{stacks:0FYR}
+\href{https://stacks.math.columbia.edu/tag/0FYR}{\texttt{Stacks tag 0FYR}}
+\group{equiv}
+
+Let $S$ be a scheme. Let $X$ and $Y$ be schemes over $S$.
+Let $K \in D(\mathcal{O}_{X \times_S Y})$.
+The corresponding Fourier-Mukai functor $\Phi_K$ sends
+$D_\QCoh(\mathcal{O}_X)$ into $D_\QCoh(\mathcal{O}_Y)$
+if $K$ is in $D_\QCoh(\mathcal{O}_{X \times_S Y})$ and $X \to S$ is
+quasi-compact and quasi-separated.
+\end{lemma}
+
+\begin{proof}
+This follows from the fact that derived pullback preserves
+$D_\QCoh$
+(Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-quasi-coherence-pullback}),
+derived tensor products preserve $D_\QCoh$
+(Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-quasi-coherence-tensor-product}),
+the projection $\text{pr}_2 : X \times_S Y \to Y$ is
+quasi-compact and quasi-separated
+(Schemes, Lemmas
+\ref{schemes-lemma-quasi-compact-preserved-base-change} and
+\ref{schemes-lemma-separated-permanence}), and
+total direct image along a quasi-separated and quasi-compact
+morphism preserves $D_\QCoh$
+(Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-quasi-coherence-direct-image}).
+\end{proof}
+
+\begin{lemma}[Compose fourier mukai]
+\label{equiv-lemma-compose-fourier-mukai}
+\source{stacks:0FYS}
+\href{https://stacks.math.columbia.edu/tag/0FYS}{\texttt{Stacks tag 0FYS}}
+\group{equiv}
+
+Let $S$ be a scheme. Let $X, Y, Z$ be schemes over $S$. Assume
+$X \to S$, $Y \to S$, and $Z \to S$ are quasi-compact and quasi-separated.
+Let $K \in D_\QCoh(\mathcal{O}_{X \times_S Y})$.
+Let $K' \in D_\QCoh(\mathcal{O}_{Y \times_S Z})$.
+Consider the Fourier-Mukai functors
+$\Phi_K : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$
+and $\Phi_{K'} : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_Z)$.
+If $X$ and $Z$ are tor independent over $S$ and $Y \to S$ is flat,
+then
+$$
+\Phi_{K'} \circ \Phi_K = \Phi_{K''} :
+D_\QCoh(\mathcal{O}_X)
+\longrightarrow
+D_\QCoh(\mathcal{O}_Z)
+$$
+where
+$$
+K'' = R\text{pr}_{13, *}(
+L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S Z}}^\mathbf{L}
+L\text{pr}_{23}^*K')
+$$
+in $D_\QCoh(\mathcal{O}_{X \times_S Z})$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-fourier-Mukai-QCoh}
+
+The statement makes sense by Lemma \ref{equiv-lemma-fourier-Mukai-QCoh}.
+We are going to use
+Derived Categories of Schemes, Lemmas
+\ref{perfect-lemma-quasi-coherence-pullback},
+\ref{perfect-lemma-quasi-coherence-tensor-product}, and
+\ref{perfect-lemma-quasi-coherence-direct-image}
+and Schemes, Lemmas
+\ref{schemes-lemma-quasi-compact-preserved-base-change} and
+\ref{schemes-lemma-separated-permanence}
+without further mention.
+By Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-base-change-tor-independent}
+we see that $X \times_S Y$ and $Y \times_S Z$ are tor independent
+over $Y$. This means that we have base change for the cartesian diagram
+$$
+\begin{array}{cc}X \times_S Y \times_S Z \downarrow\longrightarrow & Y \times_S Z \overset{p^{YZ}_Y}{\downarrow} \\ X \times_S Y \overset{p^{XY}_Y}{\longrightarrow} & Y\end{array}
+$$
+for complexes with quasi-coherent cohomology sheaves, see
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-compare-base-change}.
+Abbreviating $p^* = Lp^*$, $p_* = Rp_*$ and $\otimes = \otimes^\mathbf{L}$
+we have for $M \in D_\QCoh(\mathcal{O}_X)$ the sequence of equalities
+\begin{align*}
+\Phi_{K'}(\Phi_K(M))
+& =
+p^{YZ}_{Z, *}(p^{YZ, *}_Y p^{XY}_{Y, *}(p^{XY, *}_X M \otimes K) \otimes K') \\
+& =
+p^{YZ}_{Z, *}(\text{pr}_{23, *} \text{pr}_{12}^*(p^{XY, *}_X M \otimes K)
+\otimes K') \\
+& =
+p^{YZ}_{Z, *}(\text{pr}_{23, *}(\text{pr}_1^*M \otimes \text{pr}_{12}^*K)
+\otimes K') \\
+& =
+p^{YZ}_{Z, *}(\text{pr}_{23, *}(\text{pr}_1^*M \otimes \text{pr}_{12}^*K
+\otimes \text{pr}_{23}^*K')) \\
+& =
+\text{pr}_{3, *}(\text{pr}_1^*M \otimes \text{pr}_{12}^*K
+\otimes \text{pr}_{23}^*K') \\
+& =
+p^{XZ}_{Z, *}\text{pr}_{13, *}(\text{pr}_1^*M \otimes \text{pr}_{12}^*K
+\otimes \text{pr}_{23}^*K') \\
+& =
+p^{XZ}_{Z, *} (p^{XZ, *}_X M \otimes \text{pr}_{13, *}(\text{pr}_{12}^*K
+\otimes \text{pr}_{23}^*K'))
+\end{align*}
+as desired. Here we have used the remark on base change in the
+second equality and we have use Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-cohomology-base-change} in the $4$th and
+last equality.
+\end{proof}
+
+\begin{lemma}[Fourier mukai]
+\label{equiv-lemma-fourier-mukai}
+\source{stacks:0FYT}
+\href{https://stacks.math.columbia.edu/tag/0FYT}{\texttt{Stacks tag 0FYT}}
+\group{equiv}
+
+Let $S$ be a scheme. Let $X$ and $Y$ be schemes over $S$.
+Let $K \in D(\mathcal{O}_{X \times_S Y})$.
+The corresponding Fourier-Mukai functor $\Phi_K$ sends
+$D_{perf}(\mathcal{O}_X)$ into $D_{perf}(\mathcal{O}_Y)$ if at least
+one of the following conditions is satisfied:
+\begin{enumerate}
+\item $S$ is Noetherian, $X \to S$ and $Y \to S$ are of finite type,
+$K \in D^b_{\textit{Coh}}(\mathcal{O}_{X \times_S Y})$, the support of $H^i(K)$
+is proper over $Y$ for all $i$, and $K$ has finite tor dimension
+as an object of $D(\text{pr}_2^{-1}\mathcal{O}_Y)$,
+\item $X \to S$ is of finite presentation and $K$ can be represented
+by a bounded complex $\mathcal{K}^\bullet$ of finitely presented
+$\mathcal{O}_{X \times_S Y}$-modules, flat over $Y$, with support
+proper over $Y$,
+\item $X \to S$ is a proper flat morphism of finite presentation
+and $K$ is perfect,
+\item $S$ is Noetherian, $X \to S$ is flat and proper, and $K$ is perfect
+\item $X \to S$ is a proper flat morphism of finite presentation
+and $K$ is $Y$-perfect,
+\item $S$ is Noetherian, $X \to S$ is flat and proper, and $K$ is
+$Y$-perfect.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+If $M$ is perfect on $X$, then $L\text{pr}_1^*M$
+is perfect on $X \times_S Y$, see
+Cohomology, Lemma \ref{cohomology-lemma-perfect-pullback}.
+We will use this without further mention below.
+We will also use that if $X \to S$ is of finite type, or proper, or
+flat, or of finite presentation, then the same thing is true for
+the base change $\text{pr}_2 : X \times_S Y \to Y$, see
+Morphisms, Lemmas
+\ref{morphisms-lemma-base-change-finite-type},
+\ref{morphisms-lemma-base-change-proper},
+\ref{morphisms-lemma-base-change-flat}, and
+\ref{morphisms-lemma-base-change-finite-presentation}.
+
+\medskip\noindent
+Part (1) follows from
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-direct-image}
+combined with
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-on-noetherian}.
+
+\medskip\noindent
+Part (2) follows from
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-base-change-tensor-perfect}.
+
+\medskip\noindent
+Part (3) follows from
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}.
+
+\medskip\noindent
+Part (4) follows from part (3) and the fact that a finite type
+morphism of Noetherian schemes is of finite presentation by Morphisms, Lemma
+\ref{morphisms-lemma-noetherian-finite-type-finite-presentation}.
+
+\medskip\noindent
+Part (5) follows from
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-derived-pushforward-rel-perfect} combined with
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-perfect-relatively-perfect}.
+
+\medskip\noindent
+Part (6) follows from part (5) in the same way that part (4) follows from
+part (3).
+\end{proof}
+
+\begin{lemma}[Fourier mukai Coh]
+\label{equiv-lemma-fourier-mukai-Coh}
+\source{stacks:0FYU}
+\href{https://stacks.math.columbia.edu/tag/0FYU}{\texttt{Stacks tag 0FYU}}
+\group{equiv}
+
+Let $S$ be a Noetherian scheme. Let $X$ and $Y$ be schemes of finite type
+over $S$. Let $K \in D^b_{\textit{Coh}}(\mathcal{O}_{X \times_S Y})$.
+The corresponding Fourier-Mukai functor $\Phi_K$ sends
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$ into $D^b_{\textit{Coh}}(\mathcal{O}_Y)$
+if at least one of the following conditions is satisfied:
+\begin{enumerate}
+\item the support of $H^i(K)$ is proper over $Y$ for all $i$, and $K$
+has finite tor dimension as an object of $D(\text{pr}_1^{-1}\mathcal{O}_X)$,
+\item $K$ can be represented by a bounded complex $\mathcal{K}^\bullet$
+of coherent $\mathcal{O}_{X \times_S Y}$-modules, flat over $X$, with support
+proper over $Y$,
+\item the support of $H^i(K)$ is proper over $Y$ for all $i$
+and $X$ is a regular scheme,
+\item $K$ is perfect, the support of $H^i(K)$ is proper over $Y$ for all $i$,
+and $Y \to S$ is flat.
+\end{enumerate}
+Furthermore in each case the support condition is automatic
+if $X \to S$ is proper.
+\end{lemma}
+
+\begin{proof}
+Let $M$ be an object of $D^b_{\textit{Coh}}(\mathcal{O}_X)$.
+In each case we will use Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-direct-image-coherent} to show that
+$$
+\Phi_K(M) = R\text{pr}_{2, *}(
+L\text{pr}_1^*M
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L}
+K)
+$$
+is in $D^b_{\textit{Coh}}(\mathcal{O}_Y)$. The derived tensor product
+$L\text{pr}_1^*M \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K$
+is a pseudo-coherent object of $D(\mathcal{O}_{X \times_S Y})$
+(by
+Cohomology, Lemma \ref{cohomology-lemma-pseudo-coherent-pullback},
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-identify-pseudo-coherent-noetherian}, and
+Cohomology, Lemma \ref{cohomology-lemma-tensor-pseudo-coherent})
+whence has coherent cohomology sheaves (by
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-identify-pseudo-coherent-noetherian} again).
+In each case the supports of the cohomology sheaves
+$H^i(L\text{pr}_1^*M \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K)$
+is proper over $Y$ as these supports are contained in the
+union of the supports of the $H^i(K)$. Hence in each case
+it suffices to prove that this tensor product is bounded below.
+
+\medskip\noindent
+Case (1). By Cohomology, Lemma \ref{cohomology-lemma-variant-derived-pullback}
+we have
+$$
+L\text{pr}_1^*M
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L}
+K
+\cong
+\text{pr}_1^{-1}M
+\otimes_{\text{pr}_1^{-1}\mathcal{O}_X}^\mathbf{L}
+K
+$$
+with obvious notation. Hence the assumption on tor dimension
+and the fact that $M$ has only a finite number of nonzero
+cohomology sheaves, implies the bound we want.
+
+\medskip\noindent
+Case (2) follows because here the assumption implies that $K$ has
+finite tor dimension as an object of $D(\text{pr}_1^{-1}\mathcal{O}_X)$
+hence the argument in the previous paragraph applies.
+
+\medskip\noindent
+In Case (3) it is also the case that $K$ has finite tor dimension
+as an object of $D(\text{pr}_1^{-1}\mathcal{O}_X)$. Namely, choose
+affine opens $U = \Spec(A)$ and $V = \Spec(B)$ of $X$ and $Y$ mapping into the
+affine open $W = \Spec(R)$ of $S$. Then
+$K|_{U \times V}$ is given by a bounded complex of finite
+$A \otimes_R B$-modules $M^\bullet$. Since $A$ is a regular ring
+of finite dimension we see that each $M^i$ has finite projective dimension
+as an $A$-module (Algebra, Lemma
+\ref{algebra-lemma-finite-gl-dim-finite-dim-regular})
+and hence finite tor dimension as an $A$-module.
+Thus $M^\bullet$ has finite tor dimension as a complex of $A$-modules
+(More on Algebra, Lemma
+\ref{more-algebra-lemma-complex-finite-tor-dimension-modules}).
+Since $X \times Y$ is quasi-compact we conclude there exist $[a, b]$
+such that for every point $z \in X \times Y$ the stalk $K_z$
+has tor amplitude in $[a, b]$ over $\mathcal{O}_{X, \text{pr}_1(z)}$.
+This implies $K$ has bounded tor dimension as an object of
+$D(\text{pr}_1^{-1}\mathcal{O}_X)$, see
+Cohomology, Lemma \ref{cohomology-lemma-tor-amplitude-stalk}.
+We conclude as in the previous to paragraphs.
+
+\medskip\noindent
+Case (4). With notation as above, the ring map $R \to B$ is flat.
+Hence the ring map $A \to A \otimes_R B$ is flat. Hence any projective
+$A \otimes_R B$-module is $A$-flat. Thus any perfect complex of
+$A \otimes_R B$-modules has finite tor dimension as a complex
+of $A$-modules and we conclude as before.
+\end{proof}
+
+\begin{example}[Diagonal fourier mukai]
+\label{equiv-example-diagonal-fourier-mukai}
+\source{stacks:0FYV}
+\href{https://stacks.math.columbia.edu/tag/0FYV}{\texttt{Stacks tag 0FYV}}
+\group{equiv}
+
+Let $X \to S$ be a separated morphism of schemes. Then the diagonal
+$\Delta : X \to X \times_S X$ is a closed immersion and hence
+$\mathcal{O}_\Delta = \Delta_*\mathcal{O}_X = R\Delta_*\mathcal{O}_X$
+is a quasi-coherent $\mathcal{O}_{X \times_S X}$-module of finite type
+which is flat over $X$ (under either projection). The Fourier-Mukai functor
+$\Phi_{\mathcal{O}_\Delta}$ is equal to the identity in this case.
+Namely, for any $M \in D(\mathcal{O}_X)$ we have
+\begin{align*}
+L\text{pr}_1^*M \otimes_{\mathcal{O}_{X \times_S X}}^\mathbf{L}
+\mathcal{O}_\Delta
+& =
+L\text{pr}_1^*M \otimes_{\mathcal{O}_{X \times_S X}}^\mathbf{L}
+R\Delta_*\mathcal{O}_X \\
+& =
+R\Delta_*(
+L\Delta^*L\text{pr}_1^*M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_X) \\
+& =
+R\Delta_*(M)
+\end{align*}
+The first equality we discussed above.
+The second equality is Cohomology, Lemma
+\ref{cohomology-lemma-projection-formula-closed-immersion}.
+The third because $\text{pr}_1 \circ \Delta = \text{id}_X$ and we have
+Cohomology, Lemma \ref{cohomology-lemma-derived-pullback-composition}.
+If we push this to $X$ using $R\text{pr}_{2, *}$
+we obtain $M$ by
+Cohomology, Lemma \ref{cohomology-lemma-derived-pushforward-composition}
+and the fact that $\text{pr}_2 \circ \Delta = \text{id}_X$.
+\end{example}
+
+\begin{lemma}[Fourier mukai right adjoint]
+\label{equiv-lemma-fourier-mukai-right-adjoint}
+\source{stacks:0FYW}
+\href{https://stacks.math.columbia.edu/tag/0FYW}{\texttt{Stacks tag 0FYW}}
+\group{equiv}
+
+\begin{reference}
+Compare with discussion in \cite{Rizzardo}.
+\end{reference}
+Let $X \to S$ and $Y \to S$ be morphisms of quasi-compact and quasi-separated
+schemes. Let $\Phi : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$
+be a Fourier-Mukai functor with pseudo-coherent kernel
+$K \in D_\QCoh(\mathcal{O}_{X \times_S Y})$.
+Let $a : D_\QCoh(\mathcal{O}_Y) \to  D_\QCoh(\mathcal{O}_{X \times_S Y})$
+be the right adjoint to $R\text{pr}_{2, *}$, see
+Duality for Schemes, Lemma \ref{duality-lemma-twisted-inverse-image}.
+Denote
+$$
+K' = (Y \times_S X \to X \times_S Y)^*
+R\SheafHom_{\mathcal{O}_{X \times_S Y}}(K, a(\mathcal{O}_Y)) \in
+D_\QCoh(\mathcal{O}_{Y \times_S X})
+$$
+and denote $\Phi' : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_X)$
+the corresponding Fourier-Mukai transform. There is a canonical map
+$$
+\Hom_X(M, \Phi'(N)) \longrightarrow \Hom_Y(\Phi(M), N)
+$$
+functorial in $M$ in $D_\QCoh(\mathcal{O}_X)$ and $N$ in
+$D_\QCoh(\mathcal{O}_Y)$ which is an isomorphism if
+\begin{enumerate}
+\item $N$ is perfect, or
+\item $K$ is perfect and $X \to S$ is proper flat and of finite presentation.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-fourier-Mukai-QCoh}
+
+By Lemma \ref{equiv-lemma-fourier-Mukai-QCoh} we obtain a functor $\Phi$
+as in the statement. Observe that $a(\mathcal{O}_Y)$ is in
+$D^+_\QCoh(\mathcal{O}_{X \times_S Y})$ by Duality for Schemes,
+Lemma \ref{duality-lemma-twisted-inverse-image-bounded-below}.
+Hence for $K$ pseudo-coherent we have
+$K' \in D_\QCoh(\mathcal{O}_{Y \times_S X})$
+by Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-quasi-coherence-internal-hom}
+we we obtain $\Phi'$ as indicated.
+
+\medskip\noindent
+We abbreviate
+$\otimes^\mathbf{L} = \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L}$
+and
+$\SheafHom = R\SheafHom_{\mathcal{O}_{X \times_S Y}}$.
+Let $M$ be in $D_\QCoh(\mathcal{O}_X)$ and let
+$N$ be in $D_\QCoh(\mathcal{O}_Y)$. We have
+\begin{align*}
+\Hom_Y(\Phi(M), N)
+& =
+\Hom_Y(R\text{pr}_{2, *}(L\text{pr}_1^*M \otimes^\mathbf{L} K), N) \\
+& =
+\Hom_{X \times_S Y}(L\text{pr}_1^*M \otimes^\mathbf{L} K, a(N)) \\
+& =
+\Hom_{X \times_S Y}(L\text{pr}_1^*M,
+R\SheafHom(K, a(N))) \\
+& =
+\Hom_X(M, R\text{pr}_{1, *}R\SheafHom(K, a(N)))
+\end{align*}
+where we have used Cohomology, Lemmas \ref{cohomology-lemma-internal-hom}
+and \ref{cohomology-lemma-adjoint}. There are canonical maps
+$$
+L\text{pr}_2^*N \otimes^\mathbf{L} R\SheafHom(K, a(\mathcal{O}_Y))
+\xrightarrow{\alpha}
+R\SheafHom(K, L\text{pr}_2^*N \otimes^\mathbf{L} a(\mathcal{O}_Y))
+\xrightarrow{\beta}
+R\SheafHom(K, a(N))
+$$
+Here $\alpha$ is
+Cohomology, Lemma \ref{cohomology-lemma-internal-hom-diagonal-better}
+and $\beta$ is Duality for Schemes, Equation
+(\ref{duality-equation-compare-with-pullback}).
+Combining all of these arrows we obtain the functorial displayed
+arrow in the statement of the lemma.
+
+\medskip\noindent
+The arrow $\alpha$ is an isomorphism by
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-internal-hom-evaluate-tensor-isomorphism}
+as soon as either $K$ or $N$ is perfect.
+The arrow $\beta$ is an isomorphism if $N$ is perfect by
+Duality for Schemes, Lemma \ref{duality-lemma-compare-with-pullback-perfect}
+or in general if $X \to S$ is
+flat proper of finite presentation by
+Duality for Schemes, Lemma
+\ref{duality-lemma-compare-with-pullback-flat-proper}.
+\end{proof}
+
+\begin{lemma}[Fourier mukai left adjoint]
+\label{equiv-lemma-fourier-mukai-left-adjoint}
+\source{stacks:0FYX}
+\href{https://stacks.math.columbia.edu/tag/0FYX}{\texttt{Stacks tag 0FYX}}
+\group{equiv}
+
+\begin{reference}
+Compare with discussion in \cite{Rizzardo}.
+\end{reference}
+Let $S$ be a Noetherian scheme. Let $Y \to S$ be a flat proper
+Gorenstein morphism and let $X \to S$ be a finite type morphism.
+Denote $\omega^\bullet_{Y/S}$ the relative dualizing complex of
+$Y$ over $S$. Let $\Phi : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$
+be a Fourier-Mukai functor with perfect kernel
+$K \in D_\QCoh(\mathcal{O}_{X \times_S Y})$. Denote
+$$
+K' = (Y \times_S X \to X \times_S Y)^*(K^\vee
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L}
+L\text{pr}_2^*\omega^\bullet_{Y/S})
+\in
+D_\QCoh(\mathcal{O}_{Y \times_S X})
+$$
+and denote $\Phi' : D_\QCoh(\mathcal{O}_Y) \to D_\QCoh(\mathcal{O}_X)$
+the corresponding Fourier-Mukai transform. There is a canonical
+isomorphism
+$$
+\Hom_Y(N, \Phi(M)) \longrightarrow \Hom_X(\Phi'(N), M)
+$$
+functorial in $M$ in $D_\QCoh(\mathcal{O}_X)$ and $N$ in
+$D_\QCoh(\mathcal{O}_Y)$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-fourier-Mukai-QCoh, equiv-lemma-fourier-mukai-right-adjoint}
+
+By Lemma \ref{equiv-lemma-fourier-Mukai-QCoh} we obtain a functor $\Phi$
+as in the statement.
+
+\medskip\noindent
+Observe that formation of the relative dualizing complex commutes
+with base change in our setting, see Duality for Schemes,
+Remark \ref{duality-remark-relative-dualizing-complex}.
+Thus $L\text{pr}_2^*\omega^\bullet_{Y/S} = \omega^\bullet_{X \times_S Y/X}$.
+Moreover, we observe that $\omega^\bullet_{Y/S}$ is an
+invertible object of the derived category, see Duality for Schemes, Lemma
+\ref{duality-lemma-affine-flat-Noetherian-gorenstein}, and a fortiori
+perfect.
+
+\medskip\noindent
+To actually prove the lemma we're going to cheat. Namely, we will
+show that if we replace the roles of $X$ and $Y$ and $K$ and $K'$
+then these are as in Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint}
+and we get the result. It is clear that $K'$ is perfect as a
+tensor product of perfect objects so that the discussion in
+Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint} applies to it.
+To show that the procedure of
+Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint} applied to $K'$
+on $Y \times_S X$ produces a complex isomorphic to $K$ it suffices
+(details omitted) to show that
+$$
+R\SheafHom(R\SheafHom(K, \omega^\bullet_{X \times_S Y/X}),
+\omega^\bullet_{X \times_S Y/X}) = K
+$$
+This is clear because $K$ is perfect and $\omega^\bullet_{X \times_S Y/X}$
+is invertible; details omitted. Thus
+Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint} produces a map
+$$
+\Hom_Y(N, \Phi(M)) \longrightarrow \Hom_X(\Phi'(N), M)
+$$
+functorial in $M$ in $D_\QCoh(\mathcal{O}_X)$ and $N$ in
+$D_\QCoh(\mathcal{O}_Y)$ which is an isomorphism because
+$K'$ is perfect. This finishes the proof.
+\end{proof}
+
+\begin{lemma}[Fourier mukai flat proper over noetherian]
+\label{equiv-lemma-fourier-mukai-flat-proper-over-noetherian}
+\source{stacks:0FYY}
+\href{https://stacks.math.columbia.edu/tag/0FYY}{\texttt{Stacks tag 0FYY}}
+\group{equiv}
+
+\uses{equiv-lemma-compose-fourier-mukai}
+Let $S$ be a Noetherian scheme.
+\begin{enumerate}
+\item For $X$, $Y$ proper and flat over $S$ and $K$ in
+$D_{perf}(\mathcal{O}_{X \times_S Y})$ we obtain a Fourier-Mukai functor
+$\Phi_K : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$.
+\item For $X$, $Y$, $Z$ proper and flat over $S$, $K \in
+D_{perf}(\mathcal{O}_{X \times_S Y})$, $K' \in
+D_{perf}(\mathcal{O}_{Y \times_S Z})$ the composition
+$\Phi_{K'} \circ \Phi_K : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Z)$
+is equal to $\Phi_{K''}$ with $K'' \in D_{perf}(\mathcal{O}_{X \times_S Z})$
+computed as in Lemma \ref{equiv-lemma-compose-fourier-mukai},
+\item For $X$, $Y$, $K$, $\Phi_K$ as in (1) if $X \to S$ is Gorenstein, then
+$\Phi_{K'} : D_{perf}(\mathcal{O}_Y) \to D_{perf}(\mathcal{O}_X)$ is a right
+adjoint to $\Phi_K$ where $K' \in D_{perf}(\mathcal{O}_{Y \times_S X})$
+is the pullback of $L\text{pr}_1^*\omega_{X/S}^\bullet
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K^\vee$ by
+$Y \times_S X \to X \times_S Y$.
+\item For $X$, $Y$, $K$, $\Phi_K$ as in (1) if $Y \to S$ is Gorenstein, then
+$\Phi_{K''} : D_{perf}(\mathcal{O}_Y) \to D_{perf}(\mathcal{O}_X)$ is a left
+adjoint to $\Phi_K$ where $K'' \in D_{perf}(\mathcal{O}_{Y \times_S X})$
+is the pullback of $L\text{pr}_2^*\omega_{Y/S}^\bullet
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K^\vee$ by
+$Y \times_S X \to X \times_S Y$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-fourier-mukai, equiv-lemma-compose-fourier-mukai, equiv-lemma-fourier-mukai-right-adjoint, equiv-lemma-fourier-mukai-left-adjoint}
+
+Part (1) is immediate from Lemma \ref{equiv-lemma-fourier-mukai} part (4).
+
+\medskip\noindent
+Part (2) follows from Lemma \ref{equiv-lemma-compose-fourier-mukai} and the
+fact that
+$K'' = R\text{pr}_{13, *}(
+L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S Z}}^\mathbf{L}
+L\text{pr}_{23}^*K')$ is perfect for example by
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image}.
+
+\medskip\noindent
+The adjointness in part (3) on all complexes with quasi-coherent cohomology
+sheaves follows from Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint} with
+$K'$ equal to the pullback of
+$R\SheafHom_{\mathcal{O}_{X \times_S Y}}(K, a(\mathcal{O}_Y))$
+by $Y \times_S X \to X \times_S Y$ where $a$ is the right adjoint
+to $R\text{pr}_{2, *} : D_\QCoh(\mathcal{O}_{X \times_S Y}) \to
+D_\QCoh(\mathcal{O}_Y)$. Denote $f : X \to S$ the structure morphism of $X$.
+Since $f$ is proper the functor
+$f^! : D_\QCoh^+(\mathcal{O}_S) \to D_\QCoh^+(\mathcal{O}_X)$
+is the restriction to $D_\QCoh^+(\mathcal{O}_S)$
+of the right adjoint to
+$Rf_* : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_S)$, see
+Duality for Schemes, Section \ref{duality-section-upper-shriek}.
+Hence the relative dualizing complex $\omega_{X/S}^\bullet$ as defined in
+Duality for Schemes, Remark
+\ref{duality-remark-relative-dualizing-complex}
+is equal to $\omega_{X/S}^\bullet = f^!\mathcal{O}_S$.
+Since formation of the relative dualizing complex
+commutes with base change (see Duality for Schemes, Remark
+\ref{duality-remark-relative-dualizing-complex}) we see that
+$a(\mathcal{O}_Y) = L\text{pr}_1^*\omega_{X/S}^\bullet$.
+Thus
+$$
+R\SheafHom_{\mathcal{O}_{X \times_S Y}}(K, a(\mathcal{O}_Y))
+\cong
+L\text{pr}_1^*\omega_{X/S}^\bullet
+\otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} K^\vee
+$$
+by Cohomology, Lemma \ref{cohomology-lemma-dual-perfect-complex}.
+Finally, since $X \to S$ is assumed Gorenstein the relative dualizing complex
+is invertible: this follows from Duality for Schemes, Lemma
+\ref{duality-lemma-affine-flat-Noetherian-gorenstein}.
+We conclude that $\omega_{X/S}^\bullet$ is perfect
+(Cohomology, Lemma \ref{cohomology-lemma-invertible-derived})
+and hence $K'$ is perfect.
+Therefore $\Phi_{K'}$ does indeed map $D_{perf}(\mathcal{O}_Y)$
+into $D_{perf}(\mathcal{O}_X)$ which finishes the proof of (3).
+
+\medskip\noindent
+The proof of (4) is the same as the proof of (3) except one uses
+Lemma \ref{equiv-lemma-fourier-mukai-left-adjoint} instead of
+Lemma \ref{equiv-lemma-fourier-mukai-right-adjoint}.
+\end{proof}
+
+\section{Resolutions and bounds}
+\label{equiv-section-tricks-smooth}
+The diagonal of a smooth proper scheme has a nice resolution.
+
+\begin{lemma}[On product]
+\label{equiv-lemma-on-product}
+\source{stacks:0FZ0}
+\href{https://stacks.math.columbia.edu/tag/0FZ0}{\texttt{Stacks tag 0FZ0}}
+\group{equiv}
+
+Let $R$ be a Noetherian ring. Let $X$, $Y$ be finite type schemes over $R$
+having the resolution property. For any coherent
+$\mathcal{O}_{X \times_R Y}$-module $\mathcal{F}$ there exist
+a surjection $\mathcal{E} \boxtimes \mathcal{G} \to \mathcal{F}$
+where $\mathcal{E}$ is a finite locally free $\mathcal{O}_X$-module
+and $\mathcal{G}$ is a finite locally free $\mathcal{O}_Y$-module.
+\end{lemma}
+
+\begin{proof}
+Let $U \subset X$ and $V \subset Y$ be affine open subschemes. Let
+$\mathcal{I} \subset \mathcal{O}_X$ be the ideal sheaf of the
+reduced induced closed subscheme structure on $X \setminus U$.
+Similarly, let $\mathcal{I}' \subset \mathcal{O}_Y$ be the ideal sheaf of the
+reduced induced closed subscheme structure on $Y \setminus V$.
+Then the ideal sheaf
+$$
+\mathcal{J} = \Im(\text{pr}_1^*\mathcal{I} \otimes_{\mathcal{O}_{X \times_R Y}}
+\text{pr}_2^*\mathcal{I}' \to \mathcal{O}_{X \times_R Y})
+$$
+satisfies $V(\mathcal{J}) = X \times_R Y \setminus U \times_R V$.
+For any section $s \in \mathcal{F}(U \times_R V)$ we can find an integer
+$n > 0$ and a map $\mathcal{J}^n \to \mathcal{F}$ whose restriction to
+$U \times_R V$ gives $s$, see
+Cohomology of Schemes, Lemma \ref{coherent-lemma-homs-over-open}.
+By assumption we can choose surjections
+$\mathcal{E} \to \mathcal{I}$ and $\mathcal{G} \to \mathcal{I}'$.
+These produce corresponding surjections
+$$
+\mathcal{E} \boxtimes \mathcal{G} \to \mathcal{J}
+\quad\text{and}\quad
+\mathcal{E}^{\otimes n} \boxtimes \mathcal{G}^{\otimes n} \to \mathcal{J}^n
+$$
+and hence a map
+$\mathcal{E}^{\otimes n} \boxtimes \mathcal{G}^{\otimes n} \to \mathcal{F}$
+whose image contains the section $s$ over $U \times_R V$.
+Since we can cover $X \times_R Y$ by a finite number of affine opens
+of the form $U \times_R V$ and since $\mathcal{F}|_{U \times_R V}$
+is generated by finitely many sections (Properties, Lemma
+\ref{properties-lemma-finite-type-module})
+we conclude that there exists a surjection
+$$
+\bigoplus\nolimits_{j = 1, \ldots, N}
+\mathcal{E}_j^{\otimes n_j} \boxtimes \mathcal{G}_j^{\otimes n_j}
+\to \mathcal{F}
+$$
+where $\mathcal{E}_j$ is finite locally free on $X$ and
+$\mathcal{G}_j$ is finite locally free on $Y$.
+Setting $\mathcal{E} = \bigoplus \mathcal{E}_j^{\otimes n_j}$
+and $\mathcal{G} = \bigoplus \mathcal{G}_j^{\otimes n_j}$
+we conclude that the lemma is true.
+\end{proof}
+
+\begin{lemma}[On product general]
+\label{equiv-lemma-on-product-general}
+\source{stacks:0FZ1}
+\href{https://stacks.math.columbia.edu/tag/0FZ1}{\texttt{Stacks tag 0FZ1}}
+\group{equiv}
+
+Let $R$ be a ring. Let $X$, $Y$ be quasi-compact and quasi-separated
+schemes over $R$ having the resolution property. For any finite
+type quasi-coherent $\mathcal{O}_{X \times_R Y}$-module $\mathcal{F}$
+there exist a surjection $\mathcal{E} \boxtimes \mathcal{G} \to \mathcal{F}$
+where $\mathcal{E}$ is a finite locally free $\mathcal{O}_X$-module
+and $\mathcal{G}$ is a finite locally free $\mathcal{O}_Y$-module.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-on-product}
+
+Follows from Lemma \ref{equiv-lemma-on-product} by a limit argument.
+We urge the reader to skip the proof.
+Since $X \times_R Y$ is a closed subscheme of $X \times_\mathbf{Z} Y$
+it is harmless if we replace $R$ by $\mathbf{Z}$.
+We can write $\mathcal{F}$ as the quotient of
+a finitely presented $\mathcal{O}_{X \times_R Y}$-module by
+Properties, Lemma
+\ref{properties-lemma-finite-directed-colimit-surjective-maps}.
+Hence we may assume $\mathcal{F}$ is of
+finite presentation. Next we can write $X = \lim X_i$
+with $X_i$ of finite presentation over $\mathbf{Z}$ and similarly
+$Y = \lim Y_j$, see Limits, Proposition \ref{limits-proposition-approximate}.
+Then $\mathcal{F}$ will descend to $\mathcal{F}_{ij}$ on some $X_i \times_R Y_j$
+(Limits, Lemma \ref{limits-lemma-descend-modules-finite-presentation}) and
+so does the property of having the resolution property
+(Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-resolution-property-descends}).
+Then we apply Lemma \ref{equiv-lemma-on-product}
+to $\mathcal{F}_{ij}$ and we pullback.
+\end{proof}
+
+\begin{lemma}[Diagonal resolution]
+\label{equiv-lemma-diagonal-resolution}
+\source{stacks:0FZ2}
+\href{https://stacks.math.columbia.edu/tag/0FZ2}{\texttt{Stacks tag 0FZ2}}
+\group{equiv}
+
+Let $R$ be a Noetherian ring. Let $X$ be a separated finite type scheme
+over $R$ which has the resolution property. Set
+$\mathcal{O}_\Delta = \Delta_*(\mathcal{O}_X)$ where
+$\Delta : X \to X \times_R X$ is the diagonal of $X/k$.
+There exists a resolution
+$$
+\ldots \to
+\mathcal{E}_2 \boxtimes \mathcal{G}_2 \to
+\mathcal{E}_1 \boxtimes \mathcal{G}_1 \to
+\mathcal{E}_0 \boxtimes \mathcal{G}_0 \to
+\mathcal{O}_\Delta \to 0
+$$
+where each $\mathcal{E}_i$ and $\mathcal{G}_i$ is a finite locally
+free $\mathcal{O}_X$-module.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-on-product}
+
+Since $X$ is separated, the diagonal morphism $\Delta$ is a closed
+immersion and hence $\mathcal{O}_\Delta$ is a coherent
+$\mathcal{O}_{X \times_R X}$-module (Cohomology of Schemes, Lemma
+\ref{coherent-lemma-i-star-equivalence}).
+Thus the lemma follows immediately from Lemma \ref{equiv-lemma-on-product}.
+\end{proof}
+
+\begin{lemma}[Ext 0 regular]
+\label{equiv-lemma-Ext-0-regular}
+\source{stacks:0FZ3}
+\href{https://stacks.math.columbia.edu/tag/0FZ3}{\texttt{Stacks tag 0FZ3}}
+\group{equiv}
+
+Let $X$ be a regular Noetherian scheme of dimension $d < \infty$. Then
+\begin{enumerate}
+\item for $\mathcal{F}$, $\mathcal{G}$ coherent $\mathcal{O}_X$-modules
+we have $\Ext^n_X(\mathcal{F}, \mathcal{G}) = 0$ for $n > d$, and
+\item for $K, L \in D^b_{\textit{Coh}}(\mathcal{O}_X)$ and $a \in \mathbf{Z}$
+if $H^i(K) = 0$ for $i < a + d$ and $H^i(L) = 0$ for $i \geq a$ then
+$\Hom_X(K, L) = 0$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+To prove (1) we use the spectral sequence
+$$
+H^p(X, \SheafExt^q(\mathcal{F}, \mathcal{G})) \Rightarrow
+\Ext^{p + q}_X(\mathcal{F}, \mathcal{G})
+$$
+of Cohomology, Section \ref{cohomology-section-ext}. Let $x \in X$.
+We have
+$$
+\SheafExt^q(\mathcal{F}, \mathcal{G})_x =
+\SheafExt^q_{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)
+$$
+see Cohomology, Lemma \ref{cohomology-lemma-stalk-internal-hom}
+(this also uses that $\mathcal{F}$ is pseudo-coherent by
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-identify-pseudo-coherent-noetherian}).
+Set $d_x = \dim(\mathcal{O}_{X, x})$.
+Since $\mathcal{O}_{X, x}$ is regular the ring
+$\mathcal{O}_{X, x}$ has global dimension $d_x$, see
+Algebra, Proposition \ref{algebra-proposition-regular-finite-gl-dim}.
+Thus $\SheafExt^q_{\mathcal{O}_{X, x}}(\mathcal{F}_x, \mathcal{G}_x)$
+is zero for $q > d_x$. It follows that the modules
+$\SheafExt^q(\mathcal{F}, \mathcal{G})$ have support
+of dimension at most $d - q$. Hence we have
+$H^p(X, \SheafExt^q(\mathcal{F}, \mathcal{G})) = 0$ for $p > d - q$
+by Cohomology, Proposition \ref{cohomology-proposition-vanishing-Noetherian}.
+This proves (1).
+
+\medskip\noindent
+Proof of (2).
+We may use induction on the number of nonzero cohomology sheaves
+of $K$ and $L$. The case where these numbers are $0, 1$ follows
+from (1). If the number of nonzero cohomology sheaves of $K$
+is $> 1$, then we let $i \in \mathbf{Z}$ be minimal such that
+$H^i(K)$ is nonzero. We obtain a distinguished triangle
+$$
+H^i(K)[-i] \to K \to \tau_{\geq i + 1}K
+$$
+(Derived Categories, Remark
+\ref{derived-remark-truncation-distinguished-triangle})
+and we get the vanishing of $\Hom(K, L)$ from the vanishing
+of $\Hom(H^i(K)[-i], L)$ and $\Hom(\tau_{\geq i + 1}K, L)$
+by Derived Categories, Lemma \ref{derived-lemma-representable-homological}.
+Similarly if $L$ has more than one nonzero cohomology sheaf.
+\end{proof}
+
+\begin{lemma}[Split complex regular]
+\label{equiv-lemma-split-complex-regular}
+\source{stacks:0FZ4}
+\href{https://stacks.math.columbia.edu/tag/0FZ4}{\texttt{Stacks tag 0FZ4}}
+\group{equiv}
+
+Let $X$ be a regular Noetherian scheme of dimension $d < \infty$.
+Let $K \in D^b_{\textit{Coh}}(\mathcal{O}_X)$ and $a \in \mathbf{Z}$.
+If $H^i(K) = 0$ for $a < i < a + d$, then
+$K = \tau_{\leq a}K \oplus \tau_{\geq a + d}K$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-Ext-0-regular}
+
+We have $\tau_{\leq a}K = \tau_{\leq a + d - 1}K$ by the assumed
+vanishing of cohomology sheaves. By Derived Categories, Remark
+\ref{derived-remark-truncation-distinguished-triangle}
+we have a distinguished triangle
+$$
+\tau_{\leq a}K \to K \to \tau_{\geq a + d}K \xrightarrow{\delta}
+(\tau_{\leq a}K)[1]
+$$
+By Derived Categories, Lemma \ref{derived-lemma-split} it
+suffices to show that the morphism $\delta$ is zero.
+This follows from Lemma \ref{equiv-lemma-Ext-0-regular}.
+\end{proof}
+
+\begin{lemma}[Diagonal trick]
+\label{equiv-lemma-diagonal-trick}
+\source{stacks:0FZ5}
+\href{https://stacks.math.columbia.edu/tag/0FZ5}{\texttt{Stacks tag 0FZ5}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ be a quasi-compact separated smooth scheme over $k$.
+There exist finite locally free $\mathcal{O}_X$-modules
+$\mathcal{E}$ and $\mathcal{G}$ such that
+$$
+\mathcal{O}_\Delta \in \langle \mathcal{E} \boxtimes \mathcal{G} \rangle
+$$
+in $D(\mathcal{O}_{X \times X})$ where the notation is as in
+Derived Categories, Section \ref{derived-section-generators}.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-diagonal-resolution, equiv-lemma-split-complex-regular}
+
+Recall that $X$ is regular by
+Varieties, Lemma \ref{varieties-lemma-smooth-regular}.
+Hence $X$ has the resolution property by
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-regular-resolution-property}.
+Hence we may choose a resolution as in Lemma \ref{equiv-lemma-diagonal-resolution}.
+Say $\dim(X) = d$. Since $X \times X$ is smooth over $k$ it is regular.
+Hence $X \times X$ is a regular Noetherian scheme with
+$\dim(X \times X) = 2d$. The object
+$$
+K = (\mathcal{E}_{2d} \boxtimes \mathcal{G}_{2d} \to
+\ldots \to
+\mathcal{E}_0 \boxtimes \mathcal{G}_0)
+$$
+of $D_{perf}(\mathcal{O}_{X \times X})$
+has cohomology sheaves $\mathcal{O}_\Delta$
+in degree $0$ and $\Ker(\mathcal{E}_{2d} \boxtimes \mathcal{G}_{2d} \to
+\mathcal{E}_{2d-1} \boxtimes \mathcal{G}_{2d-1})$ in degree $-2d$ and zero
+in all other degrees.
+Hence by Lemma \ref{equiv-lemma-split-complex-regular} we see that
+$\mathcal{O}_\Delta$ is a summand of $K$ in
+$D_{perf}(\mathcal{O}_{X \times X})$.
+Clearly, the object $K$ is in
+$$
+\left\langle
+\bigoplus\nolimits_{i = 0, \ldots, 2d} \mathcal{E}_i \boxtimes \mathcal{G}_i
+\right\rangle
+\subset
+\left\langle
+\left(\bigoplus\nolimits_{i = 0, \ldots, 2d} \mathcal{E}_i\right)
+\boxtimes
+\left(\bigoplus\nolimits_{i = 0, \ldots, 2d} \mathcal{G}_i\right)
+\right\rangle
+$$
+which finishes the proof. (The reader may consult
+Derived Categories, Lemmas \ref{derived-lemma-generated-by-E-explicit} and
+\ref{derived-lemma-in-cone-n} to see that our object is contained in this
+category.)
+\end{proof}
+
+\begin{lemma}[Smooth proper strong generator]
+\label{equiv-lemma-smooth-proper-strong-generator}
+\source{stacks:0FZ6}
+\href{https://stacks.math.columbia.edu/tag/0FZ6}{\texttt{Stacks tag 0FZ6}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ be a scheme proper and smooth over $k$.
+Then $D_{perf}(\mathcal{O}_X)$
+has a strong generator.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-diagonal-trick, equiv-example-diagonal-fourier-mukai}
+
+Using Lemma \ref{equiv-lemma-diagonal-trick} choose finite locally free
+$\mathcal{O}_X$-modules $\mathcal{E}$ and $\mathcal{G}$ such that
+$\mathcal{O}_\Delta \in \langle \mathcal{E} \boxtimes \mathcal{G} \rangle$
+in $D(\mathcal{O}_{X \times X})$. We claim that $\mathcal{G}$
+is a strong generator for $D_{perf}(\mathcal{O}_X)$. With notation as in
+Derived Categories, Section \ref{derived-section-operate-on-full}
+choose $m, n \geq 1$ such that
+$$
+\mathcal{O}_\Delta \in
+smd(add(\mathcal{E} \boxtimes \mathcal{G}[-m, m])^{\star n})
+$$
+This is possible by Derived Categories, Lemma
+\ref{derived-lemma-find-smallest-containing-E}.
+Let $K$ be an object of $D_{perf}(\mathcal{O}_X)$. Since
+$L\text{pr}_1^*K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L} -$
+is an exact functor and since
+$$
+L\text{pr}_1^*K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L}
+(\mathcal{E} \boxtimes \mathcal{G}) =
+(K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{E}) \boxtimes \mathcal{G}
+$$
+we conclude from
+Derived Categories, Remark \ref{derived-remark-operations-functor} that
+$$
+L\text{pr}_1^*K
+\otimes_{\mathcal{O}_{X \times X}}^\mathbf{L}
+\mathcal{O}_\Delta
+\in
+smd(add(
+(K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{E})
+\boxtimes \mathcal{G}[-m, m])^{\star n})
+$$
+Applying the exact functor $R\text{pr}_{2, *}$ and observing that
+$$
+R\text{pr}_{2, *}
+\left((K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{E}) \boxtimes
+\mathcal{G}\right) =
+R\Gamma(X, K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{E})
+\otimes_k \mathcal{G}
+$$
+by Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-cohomology-base-change} we conclude that
+$$
+K = R\text{pr}_{2, *}(L\text{pr}_1^*K
+\otimes_{\mathcal{O}_{X \times X}}^\mathbf{L} \mathcal{O}_\Delta)
+\in
+smd(add(R\Gamma(X, K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{E})
+\otimes_k \mathcal{G}[-m, m])^{\star n})
+$$
+The equality follows from the discussion in
+Example \ref{equiv-example-diagonal-fourier-mukai}.
+Since $K$ is perfect, there exist $a \leq b$ such that
+$H^i(X, K)$ is nonzero only for $i \in [a, b]$. Since $X$ is proper,
+each $H^i(X, K)$ is finite dimensional. We conclude that
+the right hand side is contained in
+$smd(add(\mathcal{G}[-m + a, m + b])^{\star n})$ which is
+itself contained in $\langle \mathcal{G} \rangle_n$ by one of the
+references given above. This finishes the proof.
+\end{proof}
+
+\begin{lemma}[Diagonal trick proper]
+\label{equiv-lemma-diagonal-trick-proper}
+\source{stacks:0FZ7}
+\href{https://stacks.math.columbia.edu/tag/0FZ7}{\texttt{Stacks tag 0FZ7}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ be a proper smooth scheme over $k$.
+There exists integers $m, n \geq 1$ and a finite locally free
+$\mathcal{O}_X$-module $\mathcal{G}$ such that every coherent
+$\mathcal{O}_X$-module is contained in $smd(add(\mathcal{G}[-m, m])^{\star n})$
+with notation as in Derived Categories, Section
+\ref{derived-section-operate-on-full}.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-smooth-proper-strong-generator}
+
+In the proof of Lemma \ref{equiv-lemma-smooth-proper-strong-generator}
+we have shown that there exist $m', n \geq 1$ such that for any
+coherent $\mathcal{O}_X$-module $\mathcal{F}$,
+$$
+\mathcal{F} \in smd(add(\mathcal{G}[-m' + a, m' + b])^{\star n})
+$$
+for any $a \leq b$ such that $H^i(X, \mathcal{F})$ is nonzero only
+for $i \in [a, b]$. Thus we can take $a = 0$ and $b = \dim(X)$.
+Taking $m = \max(m', m' + b)$ finishes the proof.
+\end{proof}
+
+The following lemma is the boundedness result referred to
+in the title of this section.
+
+\begin{lemma}[Boundedness]
+\label{equiv-lemma-boundedness}
+\source{stacks:0FZ8}
+\href{https://stacks.math.columbia.edu/tag/0FZ8}{\texttt{Stacks tag 0FZ8}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ be a smooth proper scheme over $k$.
+Let $\mathcal{A}$ be an abelian category. Let
+$H : D_{perf}(\mathcal{O}_X) \to \mathcal{A}$ be a homological
+functor (Derived Categories, Definition \ref{derived-definition-homological})
+such that for all $K$ in $D_{perf}(\mathcal{O}_X)$ the object
+$H^i(K)$ is nonzero for only a finite number of $i \in \mathbf{Z}$.
+Then there exists an integer $m \geq 1$ such that
+$H^i(\mathcal{F}) = 0$ for any coherent $\mathcal{O}_X$-module
+$\mathcal{F}$ and $i \not \in [-m, m]$.
+Similarly for cohomological functors.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-diagonal-trick-proper}
+
+Combine Lemma \ref{equiv-lemma-diagonal-trick-proper} with
+Derived Categories, Lemma \ref{derived-lemma-forward-cone-n}.
+\end{proof}
+
+\begin{lemma}[Bounded fibres]
+\label{equiv-lemma-bounded-fibres}
+\source{stacks:0FZ9}
+\href{https://stacks.math.columbia.edu/tag/0FZ9}{\texttt{Stacks tag 0FZ9}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$, $Y$ be finite type schemes over $k$.
+Let $K_0 \to K_1 \to K_2 \to \ldots$ be a system of objects
+of $D_{perf}(\mathcal{O}_{X \times Y})$ and $m \geq 0$ an integer such that
+\begin{enumerate}
+\item $H^q(K_i)$ is nonzero only for $q \leq m$,
+\item for every coherent $\mathcal{O}_X$-module $\mathcal{F}$ with
+$\dim(\text{Supp}(\mathcal{F})) = 0$ the object
+$$
+R\text{pr}_{2, *}(
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times Y}}^\mathbf{L}
+K_n)
+$$
+has vanishing cohomology sheaves in degrees outside
+$[-m, m] \cup [-m - n, m - n]$ and for $n > 2m$ the transition maps
+induce isomorphisms on cohomology sheaves in degrees in $[-m, m]$.
+\end{enumerate}
+Then $K_n$ has vanishing cohomology sheaves in degrees outside
+$[-m, m] \cup [-m - n, m - n]$ and for $n > 2m$ the
+transition maps induce isomorphisms on cohomology sheaves in degrees in
+$[-m, m]$. Moreover, if $X$ and $Y$ are smooth over $k$, then for $n$
+large enough we find $K_n = K \oplus C_n$ in
+$D_{perf}(\mathcal{O}_{X \times Y})$
+where $K$ has cohomology only indegrees $[-m, m]$ and $C_n$ only in
+degrees $[-m - n, m - n]$ and the transition maps
+define isomorphisms between various copies of $K$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-split-complex-regular}
+
+Let $Z$ be the scheme theoretic support of an $\mathcal{F}$ as in (2).
+Then $Z \to \Spec(k)$ is finite, hence $Z \times Y \to Y$ is finite.
+It follows that for an object $M$ of $D_\QCoh(\mathcal{O}_{X \times Y})$
+with cohomology sheaves supported on $Z \times Y$ we have
+$H^i(R\text{pr}_{2, *}(M)) = \text{pr}_{2, *}H^i(M)$ and the functor
+$\text{pr}_{2, *}$ is faithful on quasi-coherent modules supported
+on $Z \times Y$; details omitted. Hence we see that the objects
+$$
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times Y}}^\mathbf{L} K_n
+$$
+in $D_{perf}(\mathcal{O}_{X \times Y})$ have vanishing cohomology sheaves
+outside $[-m, m] \cup [-m - n, m - n]$ and for $n > 2m$ the transition maps
+induce isomorphisms on cohomology sheaves in $[-m, m]$.
+Let $z \in X \times Y$ be a closed point mapping to the closed point
+$x \in X$. Then we know that
+$$
+K_{n, z} \otimes_{\mathcal{O}_{X \times Y, z}}^\mathbf{L}
+\mathcal{O}_{X \times Y, z}/\mathfrak m_x^t\mathcal{O}_{X \times Y, z}
+$$
+has nonzero cohomology only in the intervals
+$[-m, m] \cup [-m - n, m - n]$.
+We conclude by More on Algebra, Lemma
+\ref{more-algebra-lemma-kollar-kovacs-pseudo-coherent}
+that $K_{n, z}$ only has nonzero cohomology
+in degrees $[-m, m] \cup [-m - n, m - n]$. Since this holds for all
+closed points of $X \times Y$, we conclude $K_n$ only has nonzero
+cohomology sheaves in degrees $[-m, m] \cup [-m - n, m - n]$.
+In exactly the same way we see that the maps $K_n \to K_{n + 1}$
+are isomorphisms on cohomology sheaves in degrees $[-m, m]$
+for $n > 2m$.
+
+\medskip\noindent
+If $X$ and $Y$ are smooth over $k$, then $X \times Y$ is smooth
+over $k$ and hence regular by
+Varieties, Lemma \ref{varieties-lemma-smooth-regular}.
+Thus we will obtain the direct sum decomposition of $K_n$
+as soon as $n > 2m + \dim(X \times Y)$ from
+Lemma \ref{equiv-lemma-split-complex-regular}. The final statement
+is clear from this.
+\end{proof}
+
+\section{Sibling functors}
+\label{equiv-section-sibling}
+In this section we prove some categorical result on the following notion.
+
+\begin{definition}[Siblings]
+\label{equiv-definition-siblings}
+\source{stacks:0FZT}
+\href{https://stacks.math.columbia.edu/tag/0FZT}{\texttt{Stacks tag 0FZT}}
+\group{equiv}
+
+Let $\mathcal{A}$ be an abelian category. Let $\mathcal{D}$ be a
+triangulated category. We say two exact functors of triangulated categories
+$$
+F, F' : D^b(\mathcal{A}) \longrightarrow \mathcal{D}
+$$
+are {\it siblings}, or we say $F'$ is a {\it sibling} of $F$,
+if the following two conditions are satisfied
+\begin{enumerate}
+\item the functors $F \circ i$ and $F' \circ i$ are isomorphic
+where $i : \mathcal{A} \to D^b(\mathcal{A})$ is the inclusion functor, and
+\item $F(K) \cong F'(K)$ for any $K$ in $D^b(\mathcal{A})$.
+\end{enumerate}
+\end{definition}
+
+Sometimes the second condition is a consequence of the first.
+
+\begin{lemma}[Sibling fully faithful]
+\label{equiv-lemma-sibling-fully-faithful}
+\source{stacks:0FZU}
+\href{https://stacks.math.columbia.edu/tag/0FZU}{\texttt{Stacks tag 0FZU}}
+\group{equiv}
+
+Let $\mathcal{A}$ be an abelian category. Let $\mathcal{D}$ be a
+triangulated category. Let
+$F, F' : D^b(\mathcal{A}) \longrightarrow \mathcal{D}$
+be exact functors of triangulated categories. Assume
+\begin{enumerate}
+\item the functors $F \circ i$ and $F' \circ i$ are isomorphic
+where $i : \mathcal{A} \to D^b(\mathcal{A})$ is the inclusion functor, and
+\item for all $X, Y \in \Ob(\mathcal{A})$ we have
+$\Ext^q_\mathcal{D}(F(X), F(Y)) = 0$ for $q < 0$ (for example
+if $F$ is fully faithful).
+\end{enumerate}
+Then $F$ and $F'$ are siblings.
+\end{lemma}
+
+\begin{proof}
+Let $K \in D^b(\mathcal{A})$. We will show $F(K)$ is isomorphic to $F'(K)$.
+We can represent $K$ by a bounded complex $A^\bullet$ of objects of
+$\mathcal{A}$. After replacing $K$ by a translation we may
+assume $A^i = 0$ for $i > 0$. Choose $n \geq 0$ such that $A^{-i} = 0$
+for $i > n$. The objects
+$$
+M_i = (A^{-i} \to \ldots \to A^0)[-i],\quad i = 0, \ldots, n
+$$
+form a Postnikov system in $D^b(\mathcal{A})$ for the complex
+$A^\bullet = A^{-n} \to \ldots \to A^0$ in $D^b(\mathcal{A})$.
+See Derived Categories, Example \ref{derived-example-key-postnikov}.
+Since both $F$ and $F'$ are exact functors of triangulated categories both
+$$
+F(M_i)
+\quad\text{and}\quad
+F'(M_i)
+$$
+form a Postnikov system in $\mathcal{D}$ for the complex
+$$
+F(A^{-n}) \to \ldots \to F(A^0) =
+F'(A^{-n}) \to \ldots \to F'(A^0)
+$$
+Since all negative $\Ext$s between these objects vanish by assumption
+we conclude by uniqueness of Postnikov systems
+(Derived Categories, Lemma \ref{derived-lemma-existence-postnikov-system})
+that $F(K) = F(M_n[n]) \cong F'(M_n[n]) = F'(K)$.
+\end{proof}
+
+\begin{lemma}[Sibling faithful]
+\label{equiv-lemma-sibling-faithful}
+\source{stacks:0FZV}
+\href{https://stacks.math.columbia.edu/tag/0FZV}{\texttt{Stacks tag 0FZV}}
+\group{equiv}
+
+\uses{equiv-definition-siblings}
+Let $F$ and $F'$ be siblings as in Definition \ref{equiv-definition-siblings}.
+Then
+\begin{enumerate}
+\item if $F$ is essentially surjective, then $F'$ is essentially
+surjective,
+\item if $F$ is fully faithful, then $F'$ is fully faithful.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-definition-siblings}
+
+Part (1) is immediate from property (2) for siblings.
+
+\medskip\noindent
+Assume $F$ is fully faithful. Denote $\mathcal{D}' \subset \mathcal{D}$
+the essential image of $F$ so that $F : D^b(\mathcal{A}) \to \mathcal{D}'$
+is an equivalence. Since the functor $F'$ factors through $\mathcal{D}'$
+by property (2) for siblings, we can consider the functor
+$H = F^{-1} \circ F' : D^b(\mathcal{A}) \to D^b(\mathcal{A})$.
+Observe that $H$ is a sibling of the identity functor.
+Since it suffices to prove that $H$ is fully faithful,
+we reduce to the problem discussed in the next paragraph.
+
+\medskip\noindent
+Set $\mathcal{D} = D^b(\mathcal{A})$. We have to show a sibling
+$F : \mathcal{D} \to \mathcal{D}$ of the identity functor is fully faithful.
+Denote $a_X : X \to F(X)$ the functorial isomorphism for
+$X \in \Ob(\mathcal{A})$ given to us by Definition \ref{equiv-definition-siblings}.
+For any $K$ in $\mathcal{D}$ and distinguished triangle
+$K_1 \to K_2 \to K_3$ of $\mathcal{D}$
+if the maps
+$$
+F : \Hom(K, K_i[n]) \to \Hom(F(K), F(K_i[n]))
+$$
+are isomorphisms for all $n \in \mathbf{Z}$ and $i = 1, 3$, then the
+same is true for $i = 2$ and all $n \in \mathbf{Z}$. This uses the
+$5$-lemma Homology, Lemma \ref{homology-lemma-five-lemma} and
+Derived Categories, Lemma \ref{derived-lemma-representable-homological};
+details omitted. Similarly, if the maps
+$$
+F : \Hom(K_i[n], K) \to \Hom(F(K_i[n]), F(K))
+$$
+are isomorphisms for all $n \in \mathbf{Z}$ and $i = 1, 3$, then the
+same is true for $i = 2$ and all $n \in \mathbf{Z}$. Using the canonical
+truncations and induction on the number of nonzero cohomology objects,
+we see that it is enough to show
+$$
+F : \Ext^q(X, Y) \to \Ext^q(F(X), F(Y))
+$$
+is bijective for all $X, Y \in \Ob(\mathcal{A})$ and all $q \in \mathbf{Z}$.
+Since $F$ is a sibling of $\text{id}$ we have $F(X) \cong X$ and
+$F(Y) \cong Y$ hence the right hand side is zero for $q < 0$.
+The case $q = 0$ is OK by our assumption that $F$ is a sibling of
+the identity functor. It remains to prove the cases $q > 0$.
+
+\medskip\noindent
+The case $q = 1$: Injectivity. An element $\xi$ of $\Ext^1(X, Y)$
+gives rise to a distinguished triangle
+$$
+Y \to E \to X \xrightarrow{\xi} Y[1]
+$$
+Observe that $E \in \Ob(\mathcal{A})$. Since $F$ is a sibling of the
+identity functor we obtain a commutative diagram
+$$
+\begin{array}{cc}E \downarrow\longrightarrow & X \downarrow \\ F(E) \longrightarrow & F(X)\end{array}
+$$
+whose vertical arrows are the isomorphisms $a_E$ and $a_X$.
+By TR3 the distinguished triangle associated to $\xi$ we started
+with is isomorphic to the distinguished triangle
+$$
+F(Y) \to F(E) \to F(X) \xrightarrow{F(\xi)} F(Y[1]) = F(Y)[1]
+$$
+Thus $\xi = 0$ if and only if $F(\xi)$ is zero, i.e., we see that
+$F : \Ext^1(X, Y) \to \Ext^1(F(X), F(Y))$ is injective.
+
+\medskip\noindent
+The case $q = 1$: Surjectivity. Let $\theta$ be an element of
+$\Ext^1(F(X), F(Y))$. This defines an extension of $F(X)$ by $F(Y)$
+in $\mathcal{A}$ which we may write as $F(E)$
+as $F$ is a sibling of the identity functor. We thus get a distinguished
+triangle
+$$
+F(Y) \xrightarrow{F(\alpha)} F(E)
+\xrightarrow{F(\beta)} F(X)
+\xrightarrow{\theta} F(Y[1]) = F(Y)[1]
+$$
+for some morphisms $\alpha : Y \to E$ and $\beta : E \to X$.
+Since $F$ is a sibling of the identity functor, the sequence
+$0 \to Y \to E \to X \to 0$
+is a short exact sequence in $\mathcal{A}$! Hence we obtain a
+distinguished triangle
+$$
+Y \xrightarrow{\alpha} E \xrightarrow{\beta} X \xrightarrow{\delta} Y[1]
+$$
+for some morphism $\delta : X \to Y[1]$. Applying the exact functor
+$F$ we obtain the distinguished triangle
+$$
+F(Y) \xrightarrow{F(\alpha)} F(E) \xrightarrow{F(\beta)} F(X)
+\xrightarrow{F(\delta)} F(Y)[1]
+$$
+Arguing as above, we see that these triangles are isomorphic.
+Hence there exists a commutative diagram
+$$
+\begin{array}{cc}F(X) \overset{\gamma}{\downarrow}\underset{F(\delta)}{\longrightarrow} & F(Y[1]) \underset{\epsilon}{\downarrow} \\ F(X) \overset{\theta}{\longrightarrow} & F(Y[1])\end{array}
+$$
+for some isomorphisms $\gamma$, $\epsilon$ (we can say more but we won't
+need more information). We may write $\gamma = F(\gamma')$ and
+$\epsilon = F(\epsilon')$. Then we have
+$\theta = F(\epsilon' \circ \delta \circ (\gamma')^{-1})$
+and we see the surjectivity holds.
+
+\medskip\noindent
+The case $q > 1$: surjectivity. Using Yoneda extensions, see
+Derived Categories, Section \ref{derived-section-ext}, we find that for any
+element $\xi$ in $\Ext^q(F(X), F(Y))$ we can find
+$F(X) = B_0, B_1, \ldots, B_{q - 1}, B_q = F(Y) \in \Ob(\mathcal{A})$ and
+elements
+$$
+\xi_i \in \Ext^1(B_{i - 1}, B_i)
+$$
+such that $\xi$ is the composition $\xi_q \circ \ldots \circ \xi_1$.
+Write $B_i = F(A_i)$ (of course we have $A_i = B_i$ but we don't
+need to use this) so that
+$$
+\xi_i = F(\eta_i) \in \Ext^1(F(A_{i - 1}), F(A_i))
+\quad\text{with}\quad
+\eta_i \in \Ext^1(A_{i - 1}, A_i)
+$$
+by surjectivity for $q = 1$. Then $\eta = \eta_q \circ \ldots \circ \eta_1$
+is an element of $\Ext^q(X, Y)$ with $F(\eta) = \xi$.
+
+\medskip\noindent
+The case $q > 1$: injectivity. An element $\xi$ of $\Ext^q(X, Y)$
+gives rise to a distinguished triangle
+$$
+Y[q - 1] \to E \to X \xrightarrow{\xi} Y[q]
+$$
+Applying $F$ we obtain a distinguished triangle
+$$
+F(Y)[q - 1] \to F(E) \to F(X) \xrightarrow{F(\xi)} F(Y)[q]
+$$
+If $F(\xi) = 0$, then $F(E) \cong F(Y)[q - 1] \oplus F(X)$
+in $\mathcal{D}$, see
+Derived Categories, Lemma \ref{derived-lemma-split}.
+Since $F$ is a sibling of the identity functor we have
+$E \cong F(E)$ and hence
+$$
+E \cong F(E) \cong F(Y)[q - 1] \oplus F(X) \cong Y[q - 1] \oplus X
+$$
+In other words, $E$ is isomorphic to the
+direct sum of its cohomology objects. This implies that the
+initial distinguished triangle is split, i.e., $\xi = 0$.
+\end{proof}
+
+Let us make a nonstandard definition. Let $\mathcal{A}$ be an abelian
+category. Let us say $\mathcal{A}$ {\it has enough negative objects}
+if given any $X \in \Ob(\mathcal{A})$ there exists an object $N$ such that
+\begin{enumerate}
+\item there is a surjection $N \to X$ and
+\item $\Hom(X, N) = 0$.
+\end{enumerate}
+Let us prove a couple of lemmas about this notion in order to
+help with the proof of Proposition \ref{equiv-proposition-siblings-isomorphic}.
+
+\begin{lemma}[Good map]
+\label{equiv-lemma-good-map}
+\source{stacks:0GWF}
+\href{https://stacks.math.columbia.edu/tag/0GWF}{\texttt{Stacks tag 0GWF}}
+\group{equiv}
+
+Let $\mathcal{A}$ be an abelian category with enough negative objects.
+Let $X \in D^b(\mathcal{A})$. Let $b \in \mathbf{Z}$ with
+$H^i(X) = 0$ for $i > b$. Then
+there exists a map $N[-b] \to X$ such that the induced map
+$N \to H^b(X)$ is surjective and $\Hom(H^b(X), N) = 0$.
+\end{lemma}
+
+\begin{proof}
+Using the truncation functors we can represent $X$ by a complex
+$A^a \to A^{a + 1} \to \ldots \to A^b$ of objects of $\mathcal{A}$.
+Choose $N$ in $\mathcal{A}$ such that there exists a surjection
+$t : N \to A^b$ and such that $\Hom(A^b, N) = 0$. Then the surjection $t$
+defines a map $N[-b] \to X$ as desired.
+\end{proof}
+
+\begin{lemma}[Good map zero]
+\label{equiv-lemma-good-map-zero}
+\source{stacks:0GWG}
+\href{https://stacks.math.columbia.edu/tag/0GWG}{\texttt{Stacks tag 0GWG}}
+\group{equiv}
+
+Let $\mathcal{A}$ be an abelian category with enough negative objects.
+Let $f : X \to X'$ be a morphism of $D^b(\mathcal{A})$. Let $b \in \mathbf{Z}$
+such that $H^i(X) = 0$ for $i > b$ and $H^i(X') = 0$ for $i \geq b$.
+Then there exists a map $N[-b] \to X$ such that the induced map
+$N \to H^b(X)$ is surjective, such that $\Hom(H^b(X), N) = 0$, and
+such that the composition $N[-b] \to X \to X'$ is zero.
+\end{lemma}
+
+\begin{proof}
+We can represent $f$ by a map $f^\bullet : A^\bullet \to B^\bullet$
+of bounded complexes of objects of $\mathcal{A}$, see for example
+Derived Categories, Lemma \ref{derived-lemma-bounded-derived}.
+Consider the object
+$$
+C = \Ker(A^b \to A^{b + 1}) \times_{\Ker(B^b \to B^{b + 1})} B^{b - 1}
+$$
+of $\mathcal{A}$. Since $H^b(B^\bullet) = 0$ we see that
+$C \to H^b(A^\bullet)$ is surjective. On the other hand, the map
+$C \to A^b \to B^b$ is the same as the map $C \to B^{b - 1} \to B^b$
+and hence the composition $C[-b] \to X \to X'$ is zero.
+Since $\mathcal{A}$ has enough negative objects, we can find an object $N$
+which has a surjection $N \to C \oplus H^b(X)$ such that
+$\Hom(C \oplus H^b(X), N) = 0$. Then $N$ together with the map
+$N[-b] \to X$ is a solution to the problem posed by the lemma.
+\end{proof}
+
+We encourage the reader to read the original
+\cite[Proposition 2.16]{Orlov-K3} for the marvellous ideas
+that go into the proof of the following proposition.
+
+\begin{proposition}[Siblings isomorphic]
+\label{equiv-proposition-siblings-isomorphic}
+\source{stacks:0FZW}
+\href{https://stacks.math.columbia.edu/tag/0FZW}{\texttt{Stacks tag 0FZW}}
+\group{equiv}
+
+\uses{equiv-definition-siblings}
+\begin{reference}
+\cite[Proposition 2.16]{Orlov-K3}; the fact that we do not need
+to assume vanishing of $\Ext^q(N, X)$ for $q > 0$ in the definition
+of negative objects above is due to \cite{Canonaco-Stellari}.
+\end{reference}
+Let $F$ and $F'$ be siblings as in Definition \ref{equiv-definition-siblings}.
+Assume that $F$ is fully faithful and that $\mathcal{A}$ has enough
+negative objects (see above). Then $F$ and $F'$ are isomorphic functors.
+\end{proposition}
+
+\begin{proof}
+\uses{equiv-definition-siblings, equiv-lemma-good-map, equiv-lemma-good-map-zero}
+
+By part (2) of Definition \ref{equiv-definition-siblings} the image of the functor
+$F'$ is contained in the essential image of the functor $F$. Hence
+the functor $H = F^{-1} \circ F'$ is a sibling of the identity functor.
+This reduces us to the case described in the next paragraph.
+
+\medskip\noindent
+Let $\mathcal{D} = D^b(\mathcal{A})$. We have to show a sibling
+$F : \mathcal{D} \to \mathcal{D}$ of the identity functor is
+isomorphic to the identity functor. Given an object $X$ of $\mathcal{D}$
+let us say $X$ has {\it width} $w = w(X)$ if $w \geq 0$ is minimal
+such that there exists an integer $a \in \mathbf{Z}$ with $H^i(X) = 0$
+for $i \not \in [a, a + w - 1]$. Since $F$ is a sibling of the identity
+and since $F \circ [n] = [n] \circ F$ we are already given isomorphisms
+$$
+c_X : X \to F(X)
+$$
+for $w(X) \leq 1$ compatible with shifts. Moreover, if $X = A[-a]$ and
+$X' = A'[-a]$ for some $A, A' \in \Ob(\mathcal{A})$ then for any morphism
+$f : X \to X'$ the diagram
+\begin{equation}
+\label{equation-to-show}
+\vcenter{
+\begin{array}{cc}X \underset{c_X}{\downarrow}\underset{f}{\longrightarrow} & X' \overset{c_{X'}}{\downarrow} \\ F(X) \overset{F(f)}{\longrightarrow} & F(X')\end{array}
+}
+\end{equation}
+is commutative.
+
+\medskip\noindent
+Next, let us show that for any morphism $f : X \to X'$  with
+$w(X), w(X') \leq 1$ the diagram (\ref{equation-to-show}) commutes.
+If $X$ or $X'$ is zero, this is clear. If not then we can write
+$X = A[-a]$ and $X' = A'[-a']$ for unique $A, A'$ in $\mathcal{A}$
+and $a, a' \in \mathbf{Z}$. The case $a = a'$ was discussed above.
+If $a' > a$, then $f = 0$ (Derived Categories, Lemma
+\ref{derived-lemma-negative-exts}) and the result is clear.
+If $a' < a$ then $f$ corresponds to an element
+$\xi \in \Ext^q(A, A')$ with $q = a - a'$. Using Yoneda extensions, see
+Derived Categories, Section \ref{derived-section-ext}, we can find
+$A = A_0, A_1, \ldots, A_{q - 1}, A_q = A' \in \Ob(\mathcal{A})$ and
+elements
+$$
+\xi_i \in \Ext^1(A_{i - 1}, A_i)
+$$
+such that $\xi$ is the composition $\xi_q \circ \ldots \circ \xi_1$.
+In other words, setting $X_i = A_i[-a + i]$
+we obtain morphisms
+$$
+X = X_0 \xrightarrow{f_1} X_1 \to \ldots \to X_{q - 1}
+\xrightarrow{f_q} X_q = X'
+$$
+whose compostion is $f$. Since the commutativity of  (\ref{equation-to-show})
+for $f_1, \ldots, f_q$ implies it for $f$, this reduces us to the case $q = 1$.
+In this case after shifting we may assume we have a distinguished triangle
+$$
+A' \to E \to A \xrightarrow{f} A'[1]
+$$
+Observe that $E$ is an object of $\mathcal{A}$. Consider the following
+diagram
+$$
+\begin{array}{cccc}E \underset{c_E}{\downarrow}\longrightarrow & A \underset{c_A}{\downarrow}\underset{f}{\longrightarrow} & A'[1] \overset{c_{A'}[1]}{\downarrow}\underset{\gamma}{\downarrow}\overset{\epsilon}{\swarrow}\longrightarrow & E[1] \overset{c_E[1]}{\downarrow} \\ F(E) \longrightarrow & F(A) \overset{F(f)}{\longrightarrow} & F(A')[1] \longrightarrow & F(E)[1]\end{array}
+$$
+whose rows are distinguished triangles.
+The square on the right commutes already but we don't yet know that
+the middle square does. By the axioms of a triangulated category
+we can find a morphism $\gamma$ which does make the diagram commute.
+Then $\gamma - c_{A'}[1]$ composed with
+$F(A')[1] \to F(E)[1]$ is zero hence we
+can find $\epsilon : A'[1] \to F(A)$ such that
+$\gamma - c_{A'}[1] = F(f) \circ \epsilon$. However, any arrow
+$A'[1] \to F(A)$ is zero as it is a negative ext class
+between objects of $\mathcal{A}$. Hence $\gamma = c_{A'}[1]$
+and we conclude the middle square commutes too which is what we
+wanted to show.
+
+\medskip\noindent
+To finish the proof we are going to argue by induction on $w$
+that there exist isomorphisms $c_X : X \to F(X)$ for all
+$X$ with $w(X) \leq w$ compatible with all morphisms between
+such objects. The base case $w = 1$ was shown above. Assume
+we know the result for some $w \geq 1$.
+
+\medskip\noindent
+Let $X$ be an object with $w(X) = w + 1$. Pick $a \in \mathbf{Z}$ with
+$H^i(X) = 0$ for $i \not \in [a, a + w]$. Set $b = a + w$ so that
+$H^b(X)$ is nonzero. Choose $N[-b] \to X$ as in Lemma \ref{equiv-lemma-good-map}.
+Choose a distinguished diagram
+$$
+N[-b] \to X \to Y \to N[-b + 1]
+$$
+Computing the long exact cohomology sequence we find
+$w(Y) \leq w$. Hence by induction we find the solid arrows
+in the following diagram
+$$
+\begin{array}{cccc}N[-b] \longrightarrow\underset{c_N[-b]}{\downarrow} & X \longrightarrow\underset{c_{N[-b] \to X}}{\downarrow} & Y \longrightarrow\overset{c_Y}{\downarrow} & N[-b + 1] \overset{c_N[-b + 1]}{\downarrow} \\ F(N)[-b] \longrightarrow & F(X) \longrightarrow & F(Y) \longrightarrow & F(N)[-b + 1]\end{array}
+$$
+We obtain the dotted arrow $c_{N[-b] \to X}$.
+By Derived Categories, Lemma \ref{derived-lemma-uniqueness-third-arrow}
+the dotted arrow is unique because $\Hom(X, F(N)[-b]) \cong \Hom(X, N[-b]) = 0$
+by our choice of $N$. In fact, $c_{N[-b] \to X}$ is the unique dotted
+arrow making the square with vertices $X, Y, F(X), F(Y)$ commute.
+
+\medskip\noindent
+Let $N'[-b] \to X$ be another map as in Lemma \ref{equiv-lemma-good-map}
+and let us prove that $c_{N[-b] \to X} = c_{N'[-b] \to X}$.
+Observe that the map $(N \oplus N')[-b] \to X$ also satisfies the
+conditions of Lemma \ref{equiv-lemma-good-map}.
+Thus we may assume $N'[-b] \to X$ factors
+as $N'[-b] \to N[-b] \to X$ for some morphism $N' \to N$.
+Choose distinguished triangles $N[-b] \to X \to Y \to N[-b + 1]$ and
+$N'[-b] \to X \to Y' \to N'[-b + 1]$. By axiom TR3 we can find
+a morphism $g : Y' \to Y$ which joint with $\text{id}_X$ and $N' \to N$
+forms a morphism of triangles. Since we have
+(\ref{equation-to-show}) for $g$ we conclude that
+$$
+(F(X) \to F(Y)) \circ c_{N'[-b] \to X} = (F(X) \to F(Y)) \circ c_{N[-b] \to X}
+$$
+The uniqueness of $c_{N[-b] \to X}$ pointed out in the construction
+above now shows that $c_{N'[-b] \to X} = c_{N[-b] \to X}$.
+
+\medskip\noindent
+Thus we can now define for $X$ of width $w + 1$ the isomorphism
+$c_X : X \to F(X)$ as the common value of the maps $c_{N[-b] \to X}$
+where $N[-b] \to X$ is as in Lemma \ref{equiv-lemma-good-map}. To finish
+the proof, we have to show that the diagrams (\ref{equation-to-show})
+commute for all morphisms $f : X \to X'$ between objects with $w(X) \leq w + 1$
+and $w(X') \leq w + 1$. Choose $a \leq b \leq a + w$ such that
+$H^i(X) = 0$ for $i \not \in [a, b]$ and
+$a' \leq b' \leq a' + w$ such that $H^i(X') = 0$ for
+$i \not \in [a', b']$. We will use induction on
+$(b' - a') + (b - a)$ to show the claim. (The base case
+is when this number is zero which is OK because $w \geq 1$.)
+We distinguish two cases.
+
+\medskip\noindent
+Case I: $b' < b$. In this case, by Lemma \ref{equiv-lemma-good-map-zero}
+we may choose $N[-b] \to X$ as in Lemma \ref{equiv-lemma-good-map}
+such that the composition $N[-b] \to X \to X'$ is zero.
+Choose a distuiguished triangle $N[-b] \to X \to Y \to N[-b + 1]$. Since
+$N[-b] \to X'$ is zero, we find that $f$ factors
+as $X \to Y \to X'$. Since $H^i(Y)$ is nonzero only for $i \in [a, b - 1]$
+we see by induction that (\ref{equation-to-show}) commutes for
+$Y \to X'$. The diagram (\ref{equation-to-show}) commutes for
+$X \to Y$ by construction if $w(X) = w + 1$ and by our first
+induction hypothesis if $w(X) \leq w$.
+Hence (\ref{equation-to-show}) commutes for $f$.
+
+\medskip\noindent
+Case II: $b' \geq b$. In this case we choose $N'[-b'] \to X'$
+as in Lemma \ref{equiv-lemma-good-map}.
+We may also assume that $\Hom(H^{b'}(X), N') = 0$ (this is
+relevant only if $b' = b$), for example because we can
+replace $N'$ by an object $N''$ which surjects onto $N' \oplus H^{b'}(X)$
+and such that $\Hom(N' \oplus H^{b'}(X), N'') = 0$.
+We choose a distinguished triangle
+$N'[-b'] \to X' \to Y' \to N'[-b' + 1]$. Since
+$\Hom(X, X') \to \Hom(X, Y')$ is injective by our choice of $N'$
+(details omitted) the same is true for
+$\Hom(X, F(X')) \to \Hom(X, F(Y'))$.
+Hence it suffices in this case to check that
+(\ref{equation-to-show}) commutes for the composition $X \to Y'$
+of the morphisms $X \to X' \to Y'$.
+Since $H^i(Y')$ is nonzero only for $i \in [a', b' - 1]$
+we conclude by induction hypothesis.
+\end{proof}
+
+\section{Deducing fully faithfulness}
+\label{equiv-section-get-fully-faithful}
+It will be useful for us to know when a functor is fully faithful
+we offer the following variant of \cite[Lemma 2.15]{Orlov-K3}.
+
+\begin{lemma}[Get fully faithful]
+\label{equiv-lemma-get-fully-faithful}
+\source{stacks:0G24}
+\href{https://stacks.math.columbia.edu/tag/0G24}{\texttt{Stacks tag 0G24}}
+\group{equiv}
+
+\begin{reference}
+Variant of \cite[Lemma 2.15]{Orlov-K3}
+\end{reference}
+Let $F : \mathcal{D} \to \mathcal{D}'$ be an exact functor of
+triangulated categories. Let $S \subset \Ob(\mathcal{D})$ be
+a set of objects. Assume
+\begin{enumerate}
+\item $F$ has both right and left adjoints,
+\item for $K \in \mathcal{D}$ if $\Hom(E, K[i]) = 0$ for all
+$E \in S$ and $i \in \mathbf{Z}$ then $K = 0$,
+\item for $K \in \mathcal{D}$ if $\Hom(K, E[i]) = 0$ for all
+$E \in S$ and $i \in \mathbf{Z}$ then $K = 0$,
+\item the map $\Hom(E, E'[i]) \to \Hom(F(E), F(E')[i])$ induced by $F$
+is bijective for all $E, E' \in S$ and $i \in \mathbf{Z}$.
+\end{enumerate}
+Then $F$ is fully faithful.
+\end{lemma}
+
+\begin{proof}
+Denote $F_r$ and $F_l$ the right and left adjoints of $F$. For
+$E \in S$ choose a distinguished triangle
+$$
+E \to F_r(F(E)) \to C \to E[1]
+$$
+where the first arrow is the unit of the adjunction. For $E' \in S$ we have
+$$
+\Hom(E', F_r(F(E))[i]) = \Hom(F(E'), F(E)[i]) = \Hom(E', E[i])
+$$
+The last equality holds by assumption (4).
+Hence applying the homological functor $\Hom(E', -)$
+(Derived Categories, Lemma \ref{derived-lemma-representable-homological})
+to the distinguished triangle above we conclude that $\Hom(E', C[i]) = 0$
+for all $i \in \mathbf{Z}$ and $E' \in S$. By assumption (2) we conclude
+that $C = 0$ and $E = F_r(F(E))$.
+
+\medskip\noindent
+For $K \in \Ob(\mathcal{D})$ choose a distinguished triangle
+$$
+F_l(F(K)) \to K \to C \to F_l(F(K))[1]
+$$
+where the first arrow is the counit of the adjunction. For $E \in S$
+we have
+$$
+\Hom(F_l(F(K)), E[i]) = \Hom(F(K), F(E)[i]) =
+\Hom(K, F_r(F(E))[i]) = \Hom(K, E[i])
+$$
+where the last equality holds by the result of the first paragraph.
+Thus we conclude as before that $\Hom(C, E[i]) = 0$ for all $E \in S$
+and $i \in \mathbf{Z}$. Hence $C = 0$ by assumption (3).
+Thus $F$ is fully faithful by Categories, Lemma
+\ref{categories-lemma-adjoint-fully-faithful}.
+\end{proof}
+
+\begin{lemma}[Duality at point]
+\label{equiv-lemma-duality-at-point}
+\source{stacks:0G02}
+\href{https://stacks.math.columbia.edu/tag/0G02}{\texttt{Stacks tag 0G02}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ be a scheme of finite type over $k$ which
+is regular. Let $x \in X$ be a closed point. For a coherent
+$\mathcal{O}_X$-module $\mathcal{F}$ supported at $x$ choose
+a coherent $\mathcal{O}_X$-module $\mathcal{F}'$ supported at $x$
+such that $\mathcal{F}_x$ and $\mathcal{F}'_x$ are Matlis dual.
+Then there is an isomorphism
+$$
+\Hom_X(\mathcal{F}, M) =
+H^0(X, M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{F}'[-d_x])
+$$
+where $d_x = \dim(\mathcal{O}_{X, x})$
+functorial in $M$ in $D_{perf}(\mathcal{O}_X)$.
+\end{lemma}
+
+\begin{proof}
+Since $\mathcal{F}$ is supported at $x$ we have
+$$
+\Hom_X(\mathcal{F}, M) =
+\Hom_{\mathcal{O}_{X, x}}(\mathcal{F}_x, M_x)
+$$
+and similarly we have
+$$
+H^0(X, M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{F}'[-d_x]) =
+\text{Tor}^{\mathcal{O}_{X, x}}_{d_x}(M_x, \mathcal{F}'_x)
+$$
+Thus it suffices to show that given a Noetherian regular local ring $A$
+of dimension $d$ and a finite length $A$-module $N$, if
+$N'$ is the Matlis dual to $N$, then there exists a functorial isomorphism
+$$
+\Hom_A(N, K) = \text{Tor}^A_d(K, N')
+$$
+for $K$ in $D_{perf}(A)$. We can write the left hand side as
+$H^0(R\Hom_A(N, A) \otimes_A^\mathbf{L} K)$ by
+More on Algebra, Lemma \ref{more-algebra-lemma-dual-perfect-complex}
+and the fact that $N$ determines a perfect object of $D(A)$.
+Hence the formula holds because
+$$
+R\Hom_A(N, A) = R\Hom_A(N, A[d])[-d] = N'[-d]
+$$
+by Dualizing Complexes, Lemma \ref{dualizing-lemma-dualizing-finite-length}
+and the fact that $A[d]$ is a normalized dualizing complex over $A$
+($A$ is Gorenstein by
+Dualizing Complexes, Lemma \ref{dualizing-lemma-regular-gorenstein}).
+\end{proof}
+
+\begin{lemma}[Orthogonal point sheaf]
+\label{equiv-lemma-orthogonal-point-sheaf}
+\source{stacks:0G03}
+\href{https://stacks.math.columbia.edu/tag/0G03}{\texttt{Stacks tag 0G03}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ be a scheme of finite type over $k$ which
+is regular. Let $x \in X$ be a closed point and denote $\mathcal{O}_x$
+the skyscraper sheaf at $x$ with value $\kappa(x)$. Let $K$ in
+$D_{perf}(\mathcal{O}_X)$.
+\begin{enumerate}
+\item If $\Ext^i_X(\mathcal{O}_x, K) = 0$ then there exists an open
+neighbourhood $U$ of $x$ such that $H^{i - d_x}(K)|_U = 0$ where
+$d_x = \dim(\mathcal{O}_{X, x})$.
+\item If $\Hom_X(\mathcal{O}_x, K[i]) = 0$ for all
+$i \in \mathbf{Z}$, then $K$ is zero in an open neighbourhood of $x$.
+\item If $\Ext^i_X(K, \mathcal{O}_x) = 0$ then there exists an open
+neighbourhood $U$ of $x$ such that $H^i(K^\vee)|_U = 0$.
+\item If $\Hom_X(K, \mathcal{O}_x[i]) = 0$ for all
+$i \in \mathbf{Z}$, then $K$ is zero in an open neighbourhood of $x$.
+\item If $H^i(X, K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_x) = 0$
+then there exists an open neighbourhood $U$ of $x$ such that
+$H^i(K)|_U = 0$.
+\item If $H^i(X, K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_x) = 0$
+for $i \in \mathbf{Z}$ then $K$ is zero in an
+open neighbourhood of $x$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-duality-at-point}
+
+Observe that $H^i(X, K \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_x)$
+is equal to $K_x  \otimes_{\mathcal{O}_{X, x}}^\mathbf{L} \kappa(x)$.
+Hence part (5) follows from More on Algebra, Lemma
+\ref{more-algebra-lemma-cut-complex-in-two}.
+Part (6) follows from part (5).
+Part (1) follows from part (5), Lemma \ref{equiv-lemma-duality-at-point}, and the
+fact that the Matlis dual of $\kappa(x)$ is $\kappa(x)$.
+Part (2) follows from part (1).
+Part (3) follows from part (5) and the fact that
+$\Ext^i(K, \mathcal{O}_x) =
+H^i(X, K^\vee \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{O}_x)$ by
+Cohomology, Lemma \ref{cohomology-lemma-dual-perfect-complex}.
+Part (4) follows from part (3) and the fact that $K \cong (K^\vee)^\vee$
+by the lemma just cited.
+\end{proof}
+
+\begin{lemma}[Hom into point sheaf]
+\label{equiv-lemma-hom-into-point-sheaf}
+\source{stacks:0GWZ}
+\href{https://stacks.math.columbia.edu/tag/0GWZ}{\texttt{Stacks tag 0GWZ}}
+\group{equiv}
+
+Let $X$ be a Noetherian scheme. Let $x \in X$ be a closed point and
+denote $\mathcal{O}_x$ the skyscraper sheaf at $x$ with value $\kappa(x)$.
+Let $K$ in $D^b_{\textit{Coh}}(\mathcal{O}_X)$. Let $b \in \mathbf{Z}$.
+The following are equivalent
+\begin{enumerate}
+\item $H^i(K)_x = 0$ for all $i > b$ and
+\item $\Hom_X(K, \mathcal{O}_x[-i]) = 0$ for all $i > b$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Consider the complex $K_x$ in $D^b_{\textit{Coh}}(\mathcal{O}_{X, x})$.
+There exist an integer $b_x \in \mathbf{Z}$ such that $K_x$
+can be represented by a bounded above complex
+$$
+\ldots \to
+\mathcal{O}_{X, x}^{\oplus n_{b_x - 2}} \to
+\mathcal{O}_{X, x}^{\oplus n_{b_x - 1}} \to
+\mathcal{O}_{X, x}^{\oplus n_{b_x}} \to 0 \to \ldots
+$$
+with $\mathcal{O}_{X, x}^{\oplus n_i}$ sitting in degree $i$
+where all the transition maps are given by matrices whose
+coefficients are in $\mathfrak m_x$. See
+More on Algebra, Lemma
+\ref{more-algebra-lemma-lift-pseudo-coherent-from-residue-field}.
+The result follows easily from this (and the equivalent
+conditions hold if and only if $b \geq b_x$).
+\end{proof}
+
+\begin{lemma}[Get fully faithful geometric]
+\label{equiv-lemma-get-fully-faithful-geometric}
+\source{stacks:0G25}
+\href{https://stacks.math.columbia.edu/tag/0G25}{\texttt{Stacks tag 0G25}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ and $Y$ be proper schemes over $k$.
+Assume $X$ is regular. Then a $k$-linear exact functor
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+is fully faithful if and only if
+for any closed points $x, x' \in X$ the maps
+$$
+F : \Ext^i_X(\mathcal{O}_x, \mathcal{O}_{x'})
+\longrightarrow
+\Ext^i_Y(F(\mathcal{O}_x), F(\mathcal{O}_{x'}))
+$$
+are isomorphisms for all $i \in \mathbf{Z}$.
+Here $\mathcal{O}_x$ is the skyscraper sheaf at $x$ with value $\kappa(x)$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-always-right-adjoints, equiv-lemma-get-fully-faithful, equiv-lemma-orthogonal-point-sheaf}
+
+By Lemma \ref{equiv-lemma-always-right-adjoints} the functor $F$
+has both a left and a right adjoint. Thus we may apply the criterion
+of Lemma \ref{equiv-lemma-get-fully-faithful}
+because assumptions (2) and (3) of that lemma
+follow from Lemma \ref{equiv-lemma-orthogonal-point-sheaf}.
+\end{proof}
+
+\begin{lemma}[Noah pre]
+\label{equiv-lemma-noah-pre}
+\source{stacks:0G26}
+\href{https://stacks.math.columbia.edu/tag/0G26}{\texttt{Stacks tag 0G26}}
+\group{equiv}
+
+\begin{reference}
+Email from Noah Olander of Jun 9, 2020
+\end{reference}
+Let $k$ be a field. Let $X$ be a proper scheme over $k$ which is regular.
+Let $F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_X)$
+be a $k$-linear exact functor. Assume for every coherent
+$\mathcal{O}_X$-module $\mathcal{F}$ with $\dim(\text{Supp}(\mathcal{F})) = 0$
+there is an isomorphism $\mathcal{F} \cong F(\mathcal{F})$.
+Then $F$ is fully faithful.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-get-fully-faithful-geometric}
+
+By Lemma \ref{equiv-lemma-get-fully-faithful-geometric} it suffices to show
+that the maps
+$$
+F : \Ext^i_X(\mathcal{O}_x, \mathcal{O}_{x'})
+\longrightarrow
+\Ext^i_X(F(\mathcal{O}_x), F(\mathcal{O}_{x'}))
+$$
+are isomorphisms for all $i \in \mathbf{Z}$ and all closed points
+$x, x' \in X$. By assumption, the source and the target are isomorphic.
+If $x \not = x'$, then both sides are zero and the result is true.
+If $x = x'$, then it suffices to prove that the map is either injective
+or surjective. For $i < 0$ both sides are zero and the result is true.
+For $i = 0$ any nonzero map $\alpha : \mathcal{O}_x \to \mathcal{O}_x$ of
+$\mathcal{O}_X$-modules is an isomorphism. Hence $F(\alpha)$ is an
+isomorphism too and so $F(\alpha)$ is nonzero. Thus the result for $i = 0$.
+For $i = 1$ a nonzero element $\xi$ in $\Ext^1(\mathcal{O}_x, \mathcal{O}_x)$
+corresponds to a nonsplit short exact sequence
+$$
+0 \to \mathcal{O}_x \to \mathcal{F} \to \mathcal{O}_x \to 0
+$$
+Since $F(\mathcal{F}) \cong \mathcal{F}$ we see that $F(\mathcal{F})$
+is a nonsplit extension of $\mathcal{O}_x$ by $\mathcal{O}_x$ as well.
+Since $\mathcal{O}_x \cong F(\mathcal{O}_x)$ is a simple
+$\mathcal{O}_X$-module and $\mathcal{F} \cong F(\mathcal{F})$ has
+length $2$, we see that in the distinguished triangle
+$$
+F(\mathcal{O}_x) \to F(\mathcal{F}) \to F(\mathcal{O}_x)
+\xrightarrow{F(\xi)} F(\mathcal{O}_x)[1]
+$$
+the first two arrows must form a short exact sequence which must be
+isomorphic to the above short exact sequence and hence is nonsplit.
+It follows that $F(\xi)$ is nonzero and we conclude for $i = 1$.
+For $i > 1$ composition of ext classes defines a surjection
+$$
+\Ext^1(F(\mathcal{O}_x), F(\mathcal{O}_x)) \otimes \ldots \otimes
+\Ext^1(F(\mathcal{O}_x), F(\mathcal{O}_x))
+\longrightarrow
+\Ext^i(F(\mathcal{O}_x), F(\mathcal{O}_x))
+$$
+See Duality for Schemes, Lemma \ref{duality-lemma-regular-ideal-ext}.
+Hence surjectivity in degree $1$ implies surjectivity for $i > 0$.
+This finishes the proof.
+\end{proof}
+
+\section{Special functors}
+\label{equiv-section-special-functors}
+In this section we prove some results on functors of a special type
+that we will use later in this chapter.
+
+\begin{definition}[Siblings geometric]
+\label{equiv-definition-siblings-geometric}
+\source{stacks:0FZZ}
+\href{https://stacks.math.columbia.edu/tag/0FZZ}{\texttt{Stacks tag 0FZZ}}
+\group{equiv}
+
+\uses{equiv-definition-siblings}
+Let $k$ be a field. Let $X$, $Y$ be finite type schemes over $k$.
+Recall that
+$D^b_{\textit{Coh}}(\mathcal{O}_X) = D^b(\textit{Coh}(\mathcal{O}_X))$
+by Derived Categories of Schemes, Proposition \ref{perfect-proposition-DCoh}.
+We say two $k$-linear exact functors
+$$
+F, F' :
+D^b_{\textit{Coh}}(\mathcal{O}_X) = D^b(\textit{Coh}(\mathcal{O}_X))
+\longrightarrow
+D^b_{\textit{Coh}}(\mathcal{O}_Y)
+$$
+are {\it siblings}, or we say $F'$ is a {\it sibling} of $F$ if $F$ and $F'$
+are siblings in the sense of Definition \ref{equiv-definition-siblings}
+with abelian category being $\textit{Coh}(\mathcal{O}_X)$.
+If $X$ is regular then
+$D_{perf}(\mathcal{O}_X) = D^b_{\textit{Coh}}(\mathcal{O}_X)$ by
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-on-noetherian}
+and we use the same terminology for $k$-linear exact functors
+$F, F' : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$.
+\end{definition}
+
+\begin{lemma}[Exact functor preserving Coh]
+\label{equiv-lemma-exact-functor-preserving-Coh}
+\source{stacks:0G00}
+\href{https://stacks.math.columbia.edu/tag/0G00}{\texttt{Stacks tag 0G00}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$, $Y$ be finite type schemes over $k$ with
+$X$ separated. Let
+$F : D^b_{\textit{Coh}}(\mathcal{O}_X) \to D^b_{\textit{Coh}}(\mathcal{O}_Y)$
+be a $k$-linear exact functor sending
+$\textit{Coh}(\mathcal{O}_X) \subset D^b_{\textit{Coh}}(\mathcal{O}_X)$
+into
+$\textit{Coh}(\mathcal{O}_Y) \subset D^b_{\textit{Coh}}(\mathcal{O}_Y)$.
+Then there exists a Fourier-Mukai functor
+$F' : D^b_{\textit{Coh}}(\mathcal{O}_X) \to D^b_{\textit{Coh}}(\mathcal{O}_Y)$
+whose kernel is a coherent $\mathcal{O}_{X \times Y}$-module $\mathcal{K}$
+flat over $X$ and with support finite over $Y$ which is a sibling of $F$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-fourier-mukai-Coh, equiv-lemma-sibling-fully-faithful}
+
+Denote $H : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_Y)$
+the restriction of $F$. Since $F$ is an exact functor of triangulated
+categories, we see that $H$ is an exact functor of abelian categories.
+Of course $H$ is $k$-linear as $F$ is. By
+Functors and Morphisms, Lemma \ref{functors-lemma-functor-coherent-over-field}
+we obtain a coherent $\mathcal{O}_{X \times Y}$-module
+$\mathcal{K}$ which is flat over $X$ and has support finite over $Y$.
+Let $F'$ be the Fourier-Mukai functor defined using $\mathcal{K}$
+so that $F'$ restricts to $H$ on $ \textit{Coh}(\mathcal{O}_X)$.
+The functor $F'$ sends $D^b_{\textit{Coh}}(\mathcal{O}_X)$
+into $D^b_{\textit{Coh}}(\mathcal{O}_Y)$ by
+Lemma \ref{equiv-lemma-fourier-mukai-Coh}.
+Observe that $F$ and $F'$ satisfy the first and second
+condition of Lemma \ref{equiv-lemma-sibling-fully-faithful} and hence are siblings.
+\end{proof}
+
+\begin{remark}[Difficult]
+\label{equiv-remark-difficult}
+\source{stacks:0G01}
+\href{https://stacks.math.columbia.edu/tag/0G01}{\texttt{Stacks tag 0G01}}
+\group{equiv}
+
+\uses{equiv-proposition-siblings-isomorphic, equiv-theorem-fully-faithful, equiv-lemma-exact-functor-preserving-Coh}
+If $F, F' : D^b_{\textit{Coh}}(\mathcal{O}_X) \to \mathcal{D}$ are siblings, $F$
+is fully faithful, and $X$ is reduced and projective over $k$ then
+$F \cong F'$; this follows from
+Proposition \ref{equiv-proposition-siblings-isomorphic} via the argument
+given in the proof of Theorem \ref{equiv-theorem-fully-faithful}.
+However, in general we do not know whether siblings are isomorphic.
+Even in the situation of Lemma \ref{equiv-lemma-exact-functor-preserving-Coh}
+it seems difficult to prove that the siblings $F$ and $F'$
+are isomorphic functors. If $X$ is smooth and proper over $k$
+and $F$ is fully faithful, then $F \cong F'$ as is shown in
+\cite{Noah}.
+If you have a proof or a counter example in more general situations,
+please email
+\href{mailto:stacks.project@gmail.com}{stacks.project@gmail.com}.
+\end{remark}
+
+\begin{lemma}[Two functors pre]
+\label{equiv-lemma-two-functors-pre}
+\source{stacks:0GX0}
+\href{https://stacks.math.columbia.edu/tag/0GX0}{\texttt{Stacks tag 0GX0}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$, $Y$ be proper schemes over $k$. Assume
+$X$ is regular. Let
+$F, G : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+be $k$-linear exact functors such that
+\begin{enumerate}
+\item $F(\mathcal{F}) \cong G(\mathcal{F})$ for any coherent
+$\mathcal{O}_X$-module $\mathcal{F}$ with $\dim(\text{Supp}(\mathcal{F})) = 0$,
+\item $F$ is fully faithful.
+\end{enumerate}
+Then the essential image of $G$ is contained in the essential
+image of $F$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-always-right-adjoints, equiv-lemma-orthogonal-point-sheaf}
+
+Recall that $F$ and $G$ have both adjoints, see
+Lemma \ref{equiv-lemma-always-right-adjoints}. In particular
+the essential image $\mathcal{A} \subset D_{perf}(\mathcal{O}_Y)$ of $F$
+satisfies the equivalent conditions of
+Derived Categories, Lemma \ref{derived-lemma-right-adjoint}.
+We claim that $G$ factors through $\mathcal{A}$.
+Since $\mathcal{A} = {}^\perp(\mathcal{A}^\perp)$ by
+Derived Categories, Lemma \ref{derived-lemma-right-adjoint}
+it suffices to show that $\Hom_Y(G(M), N) = 0$ for
+all $M$ in $D_{perf}(\mathcal{O}_X)$ and $N \in \mathcal{A}^\perp$.
+We have
+$$
+\Hom_Y(G(M), N) = \Hom_X(M, G_r(N))
+$$
+where $G_r$ is the right adjoint to $G$. Thus it suffices to prove
+that $G_r(N) = 0$. Since
+$G(\mathcal{F}) \cong F(\mathcal{F})$ for $\mathcal{F}$ as in (1)
+we see that
+$$
+\Hom_X(\mathcal{F}, G_r(N)) =
+\Hom_Y(G(\mathcal{F}), N) =
+\Hom_Y(F(\mathcal{F}), N) = 0
+$$
+as $N$ is in the right orthogonal to the essential image $\mathcal{A}$ of $F$.
+Of course, the same vanishing holds for $\Hom_X(\mathcal{F}, G_r(N)[i])$
+for any $i \in \mathbf{Z}$. Thus $G_r(N) = 0$ by
+Lemma \ref{equiv-lemma-orthogonal-point-sheaf} and we win.
+\end{proof}
+
+\begin{lemma}[Noah]
+\label{equiv-lemma-noah}
+\source{stacks:0G27}
+\href{https://stacks.math.columbia.edu/tag/0G27}{\texttt{Stacks tag 0G27}}
+\group{equiv}
+
+\begin{reference}
+Email from Noah Olander of Jun 8, 2020
+\end{reference}
+Let $k$ be a field. Let $X$ be a proper scheme over $k$ which is regular.
+Let $F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_X)$
+be a $k$-linear exact functor. Assume for every coherent
+$\mathcal{O}_X$-module $\mathcal{F}$ with $\dim(\text{Supp}(\mathcal{F})) = 0$
+there is an isomorphism $\mathcal{F} \cong F(\mathcal{F})$.
+Then there exists an automorphism $f : X \to X$ over $k$
+which induces the identity on the
+underlying topological space\footnote{This often forces $f$
+to be the identity, see Varieties, Lemma \ref{varieties-lemma-automorphism}.}
+and an invertible $\mathcal{O}_X$-module $\mathcal{L}$
+such that $F$ and $F'(M) = f^*M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{L}$
+are siblings.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-noah-pre, equiv-lemma-two-functors-pre, equiv-lemma-hom-into-point-sheaf, equiv-lemma-sibling-fully-faithful}
+
+By Lemma \ref{equiv-lemma-noah-pre} the functor $F$ is fully faithful.
+By Lemma \ref{equiv-lemma-two-functors-pre} the essential image of
+the identity functor is contained in the essential image of $F$, i.e.,
+we see that $F$ is essentially surjective. Thus $F$ is an equivalence.
+Observe that the quasi-inverse $F^{-1}$ satisfies the same assumptions
+as $F$.
+
+\medskip\noindent
+Let $M \in D_{perf}(\mathcal{O}_X)$ and say $H^i(M) = 0$ for $i > b$.
+Since $F$ is fully faithful, we see that
+$$
+\Hom_X(M, \mathcal{O}_x[-i]) =
+\Hom_X(F(M), F(\mathcal{O}_x)[-i]) \cong
+\Hom_X(F(M), \mathcal{O}_x[-i])
+$$
+for any $i \in \mathbf{Z}$ for any closed point $x$ of $X$.
+Thus by Lemma \ref{equiv-lemma-hom-into-point-sheaf} we see that $F(M)$
+has vanishing cohomology sheaves in degrees $> b$.
+
+\medskip\noindent
+Let $\mathcal{F}$ be a coherent $\mathcal{O}_X$-module. By
+the above $F(\mathcal{F})$ has nonzero cohomology sheaves
+only in degrees $\leq 0$.
+Set $\mathcal{G} = H^0(F(\mathcal{F}))$. Choose a distinguished
+triangle
+$$
+K \to F(\mathcal{F}) \to \mathcal{G} \to K[1]
+$$
+Then $K$ has nonvanishing cohomology sheaves only in
+degrees $\leq -1$.
+Applying $F^{-1}$ we obtain a distinguished triangle
+$$
+F^{-1}(K) \to \mathcal{F} \to F^{-1}(\mathcal{G}) \to F^{-1}(K')[1]
+$$
+Since $F^{-1}(K)$ has nonvanishing cohomology sheaves only
+in degrees $\leq -1$ (by the previous paragraph applied to $F^{-1}$)
+we see that the arrow $F^{-1}(K) \to \mathcal{F}$ is zero
+(Derived Categories, Lemma \ref{derived-lemma-negative-exts}).
+Hence $K \to F(\mathcal{F})$ is zero, which implies
+that $F(\mathcal{F}) = \mathcal{G}$ by our choice of the
+first distinguished triangle.
+
+\medskip\noindent
+From the preceding paragraph, we deduce that $F$ preserves
+$\textit{Coh}(\mathcal{O}_X)$ and indeed defines an equivalence
+$H : \textit{Coh}(\mathcal{O}_X) \to \textit{Coh}(\mathcal{O}_X)$.
+By Functors and Morphisms, Lemma
+\ref{functors-lemma-equivalence-coherent-over-field}
+we get an automorphism $f : X \to X$ over $k$
+and an invertible $\mathcal{O}_X$-module $\mathcal{L}$
+such that $H(\mathcal{F}) = f^*\mathcal{F} \otimes \mathcal{L}$.
+Set $F'(M) = f^*M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{L}$.
+Using Lemma \ref{equiv-lemma-sibling-fully-faithful}
+we see that $F$ and $F'$ are siblings.
+To see that $f$ is the identity on the underlying topological
+space of $X$, we use that $F(\mathcal{O}_x) \cong \mathcal{O}_x$
+and that the support of $\mathcal{O}_x$ is $\{x\}$.
+This finishes the proof.
+\end{proof}
+
+\begin{lemma}[Two functors]
+\label{equiv-lemma-two-functors}
+\source{stacks:0G06}
+\href{https://stacks.math.columbia.edu/tag/0G06}{\texttt{Stacks tag 0G06}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$, $Y$ be proper schemes over $k$.
+Assume $X$ regular.
+Let $F, G : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+be $k$-linear exact functors such that
+\begin{enumerate}
+\item $F(\mathcal{F}) \cong G(\mathcal{F})$ for any coherent
+$\mathcal{O}_X$-module $\mathcal{F}$ with $\dim(\text{Supp}(\mathcal{F})) = 0$,
+\item $F$ is fully faithful, and
+\item $G$ is a Fourier-Mukai functor whose kernel is in
+$D_{perf}(\mathcal{O}_{X \times Y})$.
+\end{enumerate}
+Then there exists a Fourier-Mukai functor
+$F' : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+whose kernel is in $D_{perf}(\mathcal{O}_{X \times Y})$
+such that $F$ and $F'$ are siblings.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-two-functors-pre, equiv-lemma-noah, equiv-lemma-sibling-faithful, equiv-lemma-compose-fourier-mukai}
+
+The essential image of $G$ is contained in the essential
+image of $F$ by Lemma \ref{equiv-lemma-two-functors-pre}.
+Consider the functor $H = F^{-1} \circ G$
+which makes sense as $F$ is fully faithful.
+By Lemma \ref{equiv-lemma-noah} we obtain an automorphism $f : X \to X$
+and an invertible $\mathcal{O}_X$-module $\mathcal{L}$ such that
+the functor $H' : K \mapsto f^*K \otimes \mathcal{L}$
+is a sibling of $H$. In particular
+$H$ is an auto-equivalence by Lemma \ref{equiv-lemma-sibling-faithful}
+and $H$ induces an auto-equivalence of
+$\textit{Coh}(\mathcal{O}_X)$ (as this is true for its sibling functor $H'$).
+Thus the quasi-inverses $H^{-1}$ and $(H')^{-1}$ exist, are siblings
+(small detail omitted), and $(H')^{-1}$ sends $M$ to
+$(f^{-1})^*(M \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{L}^{\otimes -1})$
+which is a Fourier-Mukai functor (details omitted).
+Then of course $F = G \circ H^{-1}$ is a sibling of
+$G \circ (H')^{-1}$. Since compositions of Fourier-Mukai
+functors are Fourier-Mukai by
+Lemma \ref{equiv-lemma-compose-fourier-mukai}
+we conclude.
+\end{proof}
+
+\section{Fully faithful functors}
+\label{equiv-section-fully-faithful}
+Our goal is to prove fully faithful functors between derived categories
+are siblings of Fourier-Mukai functors, following
+\cite{Orlov-K3} and \cite{Ballard}.
+
+\begin{definition}[Situation: Fully faithful]
+\label{equiv-situation-fully-faithful}
+\source{stacks:0G08}
+\href{https://stacks.math.columbia.edu/tag/0G08}{\texttt{Stacks tag 0G08}}
+\group{equiv}
+
+Here $k$ is a field. We have proper smooth schemes $X$ and $Y$ over $k$.
+We have a $k$-linear, exact, fully faithful functor
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$.
+\end{definition}
+
+Before reading on, it makes sense to read at least some of
+Derived Categories, Section \ref{derived-section-postnikov}.
+
+\medskip\noindent
+Recall that $X$ is regular and hence has the resolution property
+(Varieties, Lemma \ref{varieties-lemma-smooth-regular} and
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-regular-resolution-property}). Thus
+on $X \times X$ we may choose a resolution
+$$
+\ldots \to
+\mathcal{E}_2 \boxtimes \mathcal{G}_2 \to
+\mathcal{E}_1 \boxtimes \mathcal{G}_1 \to
+\mathcal{E}_0 \boxtimes \mathcal{G}_0 \to
+\mathcal{O}_\Delta \to 0
+$$
+where each $\mathcal{E}_i$ and $\mathcal{G}_i$ is a finite locally
+free $\mathcal{O}_X$-module, see Lemma \ref{equiv-lemma-diagonal-resolution}.
+Using the complex
+\begin{equation}
+\label{equation-original-complex}
+\ldots \to
+\mathcal{E}_2 \boxtimes \mathcal{G}_2 \to
+\mathcal{E}_1 \boxtimes \mathcal{G}_1 \to
+\mathcal{E}_0 \boxtimes \mathcal{G}_0
+\end{equation}
+in $D_{perf}(\mathcal{O}_{X \times X})$ as in
+Derived Categories, Example \ref{derived-example-key-postnikov}
+if for each $n$ we denote
+$$
+M_n = (\mathcal{E}_n \boxtimes \mathcal{G}_n \to \ldots \to
+\mathcal{E}_0 \boxtimes \mathcal{G}_0)[-n]
+$$
+we obtain an infinite Postnikov system for the complex
+(\ref{equation-original-complex}). This means
+the morphisms $M_0 \to M_1[1] \to M_2[2] \to \ldots$ and
+$M_n \to \mathcal{E}_n \boxtimes \mathcal{G}_n$ and
+$\mathcal{E}_n \boxtimes \mathcal{G}_n \to M_{n - 1}$
+satisfy certain conditions documented in
+Derived Categories, Definition \ref{derived-definition-postnikov-system}.
+Set
+$$
+\mathcal{F}_n = \Ker(\mathcal{E}_n \boxtimes \mathcal{G}_n \to
+\mathcal{E}_{n - 1} \boxtimes \mathcal{G}_{n - 1})
+$$
+Observe that since $\mathcal{O}_\Delta$ is flat over $X$ via $\text{pr}_1$
+the same is true for $\mathcal{F}_n$ for all $n$ (this is a convenient though
+not essential observation). We have
+$$
+H^q(M_n[n]) = \left\{
+\begin{matrix}
+\mathcal{O}_\Delta & \text{if} & q = 0 \\
+\mathcal{F}_n & \text{if} & q = -n \\
+0 & \text{if} & q \not = 0, -n
+\end{matrix}
+\right.
+$$
+Thus for $n \geq \dim(X \times X)$ we have
+$$
+M_n[n] \cong \mathcal{O}_\Delta \oplus \mathcal{F}_n[n]
+$$
+in $D_{perf}(\mathcal{O}_{X \times X})$ by
+Lemma \ref{equiv-lemma-split-complex-regular}.
+
+\medskip\noindent
+We are interested in the complex
+\begin{equation}
+\label{equation-complex}
+\ldots \to
+\mathcal{E}_2 \boxtimes F(\mathcal{G}_2) \to
+\mathcal{E}_1 \boxtimes F(\mathcal{G}_1) \to
+\mathcal{E}_0 \boxtimes F(\mathcal{G}_0)
+\end{equation}
+in $D_{perf}(\mathcal{O}_{X \times Y})$
+as the ``totalization'' of this complex should
+give us the kernel of the Fourier-Mukai functor we are trying to construct.
+For all $i, j \geq 0$ we have
+\begin{align*}
+\Ext^q_{X \times Y}(\mathcal{E}_i \boxtimes F(\mathcal{G}_i),
+\mathcal{E}_j \boxtimes F(\mathcal{G}_j))
+& =
+\bigoplus\nolimits_p
+\Ext^{q + p}_X(\mathcal{E}_i, \mathcal{E}_j) \otimes_k
+\Ext^{-p}_Y(F(\mathcal{G}_i), F(\mathcal{G}_j)) \\
+& =
+\bigoplus\nolimits_p
+\Ext^{q + p}_X(\mathcal{E}_i, \mathcal{E}_j) \otimes_k
+\Ext^{-p}_X(\mathcal{G}_i, \mathcal{G}_j)
+\end{align*}
+The second equality holds because $F$ is
+fully faithful and the first by
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-kunneth-Ext}.
+We find these $\Ext^q$ are zero for $q < 0$.
+Hence by
+Derived Categories, Lemma \ref{derived-lemma-existence-postnikov-system}
+we can build an infinite Postnikov system $K_0, K_1, K_2, \ldots$
+in $D_{perf}(\mathcal{O}_{X \times Y})$ for the complex
+(\ref{equation-complex}).
+Parallel to what happens with $M_0, M_1, M_2, \ldots$ this means we
+obtain morphisms
+$K_0 \to K_1[1] \to K_2[2] \to \ldots$ and
+$K_n \to \mathcal{E}_n \boxtimes F(\mathcal{G}_n)$ and
+$\mathcal{E}_n \boxtimes F(\mathcal{G}_n) \to K_{n - 1}$
+in $D_{perf}(\mathcal{O}_{X \times Y})$
+satisfying certain conditions documented in
+Derived Categories, Definition \ref{derived-definition-postnikov-system}.
+
+\medskip\noindent
+Let $\mathcal{F}$ be a coherent $\mathcal{O}_X$-module whose support
+has a finite number of points, i.e., with $\dim(\text{Supp}(\mathcal{F})) = 0$.
+Consider the exact functor of triangulated categories
+$$
+D_{perf}(\mathcal{O}_{X \times Y})
+\longrightarrow
+D_{perf}(\mathcal{O}_Y),\quad
+N \longmapsto R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times Y}} N)
+$$
+It follows that the objects $R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times Y}} K_i)$
+form a Postnikov system for the complex in
+$D_{perf}(\mathcal{O}_Y)$ with terms
+$$
+R\text{pr}_{2, *}(
+(\mathcal{F} \otimes \mathcal{E}_i) \boxtimes F(\mathcal{G}_i)) =
+\Gamma(X, \mathcal{F} \otimes \mathcal{E}_i) \otimes_k F(\mathcal{G}_i) =
+F(\Gamma(X, \mathcal{F} \otimes \mathcal{E}_i) \otimes_k \mathcal{G}_i)
+$$
+Here we have used that $\mathcal{F} \otimes \mathcal{E}_i$ has
+vanishing higher cohomology as its support has dimension $0$.
+On the other hand, applying the exact functor
+$$
+D_{perf}(\mathcal{O}_{X \times X})
+\longrightarrow
+D_{perf}(\mathcal{O}_Y),\quad
+N \longmapsto F(R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times X}} N))
+$$
+we find that the objects
+$F(R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times X}} M_n))$
+form a second infinite Postnikov system
+for the complex in $D_{perf}(\mathcal{O}_Y)$ with terms
+$$
+F(R\text{pr}_{2, *}(
+(\mathcal{F} \otimes \mathcal{E}_i) \boxtimes \mathcal{G}_i)) =
+F(\Gamma(X, \mathcal{F} \otimes \mathcal{E}_i) \otimes_k \mathcal{G}_i)
+$$
+This is the same as before! By uniqueness of Postnikov systems
+(Derived Categories, Lemma \ref{derived-lemma-existence-postnikov-system})
+which applies because
+$$
+\Ext^q_Y(
+F(\Gamma(X, \mathcal{F} \otimes \mathcal{E}_i) \otimes_k \mathcal{G}_i),
+F(\Gamma(X, \mathcal{F} \otimes \mathcal{E}_j) \otimes_k \mathcal{G}_j)) = 0,
+\quad q < 0
+$$
+as $F$ is fully faithful, we find a system of isomorphisms
+$$
+F(R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times X}} M_n[n]))
+\cong
+R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times Y}} K_n[n])
+$$
+in $D_{perf}(\mathcal{O}_Y)$ compatible with the morphisms in
+$D_{perf}(\mathcal{O}_Y)$ induced by the morphisms
+$$
+M_{n - 1}[n - 1] \to M_n[n]
+\quad\text{and}\quad
+K_{n - 1}[n - 1] \to K_n[n]
+$$
+$$
+M_n \to \mathcal{E}_n \boxtimes \mathcal{G}_n
+\quad\text{and}\quad
+K_n \to \mathcal{E}_n \boxtimes F(\mathcal{G}_n)
+$$
+$$
+\mathcal{E}_n \boxtimes \mathcal{G}_n \to M_{n - 1}
+\quad\text{and}\quad
+\mathcal{E}_n \boxtimes F(\mathcal{G}_n) \to K_{n - 1}
+$$
+which are part of the structure of Postnikov systems.
+For $n$ sufficiently large we obtain a direct sum decomposition
+$$
+F(R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times X}} M_n[n]))
+=
+F(\mathcal{F}) \oplus
+F(R\text{pr}_{2, *}(
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times Y}} \mathcal{F}_n
+))[n]
+$$
+corresponding to the direct sum decomposition of $M_n$ constructed above
+(we are using the flatness of $\mathcal{F}_n$ over $X$ via $\text{pr}_1$
+to write a usual tensor product in the formula above, but this isn't
+essential for the argument).
+By Lemma \ref{equiv-lemma-boundedness} we find there exists an integer $m \geq 0$
+such that the first summand in this direct sum decomposition has nonzero
+cohomology sheaves only in the interval $[-m, m]$ and the
+second summand in this direct sum decomposition has nonzero cohomology
+sheaves only in the interval $[-m - n, m + \dim(X) - n]$.
+We conclude the system $K_0 \to K_1[1] \to K_2[2] \to \ldots$
+in $D_{perf}(\mathcal{O}_{X \times Y})$ satisfies the assumptions of
+Lemma \ref{equiv-lemma-bounded-fibres} after possibly replacing $m$ by
+a larger integer. We conclude we can write
+$$
+K_n[n] = K \oplus C_n
+$$
+for $n \gg 0$ compatible with transition maps and with $C_n$
+having nonzero cohomology sheaves only in the range $[-m - n, m - n]$.
+Denote $G$ the Fourier-Mukai functor corresponding to $K$.
+Putting everything together we find
+$$
+\begin{matrix}
+G(\mathcal{F}) \oplus
+R\text{pr}_{2, *}(
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times Y}}^\mathbf{L} C_n)
+\cong \\
+R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times Y}} K_n[n]) \cong \\
+F(R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F}
+\otimes^\mathbf{L}_{\mathcal{O}_{X \times X}} M_n[n]))
+\cong \\
+F(\mathcal{F}) \oplus
+F(R\text{pr}_{2, *}(
+\text{pr}_1^*\mathcal{F} \otimes_{\mathcal{O}_{X \times Y}} \mathcal{F}_n
+))[n]
+\end{matrix}
+$$
+Looking at the degrees that objects live in we conclude that for $n \gg m$
+we obtain an isomorphism
+$$
+F(\mathcal{F}) \cong G(\mathcal{F})
+$$
+Moreover, recall that this holds for every coherent $\mathcal{F}$ on $X$
+whose support has dimension $0$.
+
+\begin{lemma}[Fully faithful]
+\label{equiv-lemma-fully-faithful}
+\source{stacks:0G0B}
+\href{https://stacks.math.columbia.edu/tag/0G0B}{\texttt{Stacks tag 0G0B}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ and $Y$ be smooth proper schemes over $k$.
+Given a $k$-linear, exact, fully faithful functor
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+there exists a Fourier-Mukai functor
+$F' : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$ whose kernel
+is in $D_{perf}(\mathcal{O}_{X \times Y})$ which is a sibling to $F$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-two-functors}
+
+Apply Lemma \ref{equiv-lemma-two-functors} to $F$ and the functor
+$G$ constructed above.
+\end{proof}
+
+The following theorem is also true without assuming $X$ is projective,
+see \cite{Noah}.
+
+\begin{theorem}[Orlov]
+
+\label{equiv-theorem-fully-faithful}
+\source{stacks:0G0C}
+\href{https://stacks.math.columbia.edu/tag/0G0C}{\texttt{Stacks tag 0G0C}}
+\group{equiv}
+
+\begin{reference}
+\cite[Theorem 2.2]{Orlov-K3}; this is shown in \cite{Noah}
+without the assumption that $X$ be projective
+\end{reference}
+Let $k$ be a field. Let $X$ and $Y$ be smooth proper schemes over $k$
+with $X$ projective over $k$. Any $k$-linear fully faithful exact
+functor $F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+is a Fourier-Mukai functor for some kernel in
+$D_{perf}(\mathcal{O}_{X \times Y})$.
+\end{theorem}
+
+\begin{proof}
+\uses{equiv-lemma-fully-faithful, equiv-proposition-siblings-isomorphic}
+
+Let $F'$ be the Fourier-Mukai functor which is a sibling of $F$
+as in Lemma \ref{equiv-lemma-fully-faithful}.
+By Proposition \ref{equiv-proposition-siblings-isomorphic} we have $F \cong F'$
+provided we can show that $\textit{Coh}(\mathcal{O}_X)$ has enough
+negative objects. However, if $X = \Spec(k)$ for example, then
+this isn't true. Thus we first decompose $X = \coprod X_i$
+into its connected (and irreducible) components and we
+argue that it suffices to prove the result for each of the
+(fully faithful) composition functors
+$$
+F_i :
+D_{perf}(\mathcal{O}_{X_i}) \to
+D_{perf}(\mathcal{O}_X) \to
+D_{perf}(\mathcal{O}_Y)
+$$
+Details omitted. Thus we may assume $X$ is irreducible.
+
+\medskip\noindent
+The case $\dim(X) = 0$. Here $X$ is the spectrum of a finite (separable)
+extension $k'/k$ and hence $D_{perf}(\mathcal{O}_X)$
+is equivalent to the category
+of graded $k'$-vector spaces such that $\mathcal{O}_X$ corresponds to the
+trivial $1$-dimensional vector space in degree $0$.
+It is straightforward to see that any two
+siblings $F, F' : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+are isomorphic. Namely, we are given an isomorphism
+$F(\mathcal{O}_X) \cong F'(\mathcal{O}_X)$
+compatible the action of the $k$-algebra
+$k' = \text{End}_{D_{perf}(\mathcal{O}_X)}(\mathcal{O}_X)$
+which extends canonically to an isomorphism on any graded $k'$-vector space.
+
+\medskip\noindent
+The case $\dim(X) > 0$. Here $X$ is a projective smooth
+variety of dimension $> 1$. Let $\mathcal{F}$ be a coherent
+$\mathcal{O}_X$-module. We have to show there exists a
+coherent module $\mathcal{N}$ such that
+\begin{enumerate}
+\item there is a surjection $\mathcal{N} \to \mathcal{F}$ and
+\item $\Hom(\mathcal{F}, \mathcal{N}) = 0$.
+\end{enumerate}
+Choose an ample invertible $\mathcal{O}_X$-module $\mathcal{L}$.
+We claim that $\mathcal{N} = (\mathcal{L}^{\otimes n})^{\oplus r}$
+will work for $n \ll 0$ and $r$ large enough.
+Condition (1) follows from
+Properties, Proposition \ref{properties-proposition-characterize-ample}.
+Finally, we have
+$$
+\Hom(\mathcal{F}, \mathcal{L}^{\otimes n}) =
+H^0(X, \SheafHom(\mathcal{F}, \mathcal{L}^{\otimes n})) =
+H^0(X, \SheafHom(\mathcal{F}, \mathcal{O}_X) \otimes \mathcal{L}^{\otimes n})
+$$
+Since the dual $\SheafHom(\mathcal{F}, \mathcal{O}_X)$ is torsion free, this
+vanishes for $n \ll 0$ by Varieties, Lemma
+\ref{varieties-lemma-vanishin-h0-negative}. This finishes the proof.
+\end{proof}
+
+\begin{proposition}[Equivalence]
+\label{equiv-proposition-equivalence}
+\source{stacks:0G0D}
+\href{https://stacks.math.columbia.edu/tag/0G0D}{\texttt{Stacks tag 0G0D}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ and $Y$ be smooth proper schemes over $k$.
+If $F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+is a $k$-linear exact equivalence of triangulated categories then
+there exists a Fourier-Mukai functor
+$F' : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$ whose
+kernel is in $D_{perf}(\mathcal{O}_{X \times Y})$
+which is an equivalence and a sibling of $F$.
+\end{proposition}
+
+\begin{proof}
+\uses{equiv-lemma-fully-faithful, equiv-lemma-sibling-faithful}
+
+The functor $F'$ of Lemma \ref{equiv-lemma-fully-faithful}
+is an equivalence by Lemma \ref{equiv-lemma-sibling-faithful}.
+\end{proof}
+
+\begin{lemma}[Uniqueness]
+\label{equiv-lemma-uniqueness}
+\source{stacks:0G0E}
+\href{https://stacks.math.columbia.edu/tag/0G0E}{\texttt{Stacks tag 0G0E}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ be a smooth proper scheme over $k$.
+Let $K \in D_{perf}(\mathcal{O}_{X \times X})$. If the Fourier-Mukai
+functor $\Phi_K : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_X)$
+is isomorphic to the identity functor, then
+$K \cong \Delta_*\mathcal{O}_X$ in $_{perf}(\mathcal{O}_{X \times X})$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-on-product}
+
+Let $i$ be the minimal integer such that the cohomology sheaf $H^i(K)$ is
+nonzero. Let $\mathcal{E}$ and $\mathcal{G}$ be finite locally free
+$\mathcal{O}_X$-modules. Then
+\begin{align*}
+H^i(X \times X, K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L}
+(\mathcal{E} \boxtimes \mathcal{G}))
+& =
+H^i(X, R\text{pr}_{2, *}(K \otimes_{\mathcal{O}_{X \times X}}^\mathbf{L}
+(\mathcal{E} \boxtimes \mathcal{G}))) \\
+& =
+H^i(X, \Phi_K(\mathcal{E}) \otimes_{\mathcal{O}_X}^\mathbf{L} \mathcal{G}) \\
+& \cong
+H^i(X, \mathcal{E} \otimes \mathcal{G})
+\end{align*}
+which is zero if $i < 0$. On the other hand, we can choose
+$\mathcal{E}$ and $\mathcal{G}$ such that there is a surjection
+$\mathcal{E}^\vee \boxtimes \mathcal{G}^\vee \to H^i(K)$
+by Lemma \ref{equiv-lemma-on-product}.
+In this case the left hand side of the equalities is nonzero.
+Hence we conclude that $H^i(K) = 0$ for $i < 0$.
+
+\medskip\noindent
+Let $i$ be the maximal integer such that $H^i(K)$ is nonzero.
+The same argument with $\mathcal{E}$ and $\mathcal{G}$
+support of dimension $0$ shows that $i \leq 0$.
+Hence we conclude that $K$ is given by a single coherent
+$\mathcal{O}_{X \times X}$-module $\mathcal{K}$ sitting in degree $0$.
+
+\medskip\noindent
+Since $R\text{pr}_{2, *}(\text{pr}_1^*\mathcal{F} \otimes \mathcal{K})$
+is $\mathcal{F}$, by taking $\mathcal{F}$ supported at closed points
+we see that the support of $\mathcal{K}$ is finite over $X$ via
+$\text{pr}_2$. Since $R\text{pr}_{2, *}(\mathcal{K}) \cong \mathcal{O}_X$
+we conclude by Functors and Morphisms, Lemma
+\ref{functors-lemma-pushforward-invertible-pre}
+that $\mathcal{K} = s_*\mathcal{O}_X$ for some section $s : X \to X \times X$
+of the second projection. Then $\Phi_K(M) = f^*M$ where
+$f = \text{pr}_1 \circ s$ and this can happen only if $s$
+is the diagonal morphism as desired.
+\end{proof}
+
+\section{A category of Fourier-Mukai kernels}
+\label{equiv-section-category-Fourier-Mukai-kernels}
+Let $S$ be a scheme. We claim there is a category
+with
+\begin{enumerate}
+\item Objects are proper smooth schemes over $S$.
+\item Morphisms from $X$ to $Y$ are isomorphism classes
+of objects of $D_{perf}(\mathcal{O}_{X \times_S Y})$.
+\item Composition of the isomorphism class of
+$K \in D_{perf}(\mathcal{O}_{X \times_S Y})$
+and the isomorphism class of $K'$ in $D_{perf}(\mathcal{O}_{Y \times_S Z})$
+is the isomorphism class of
+$$
+R\text{pr}_{13, *}(
+L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S Z}}^\mathbf{L}
+L\text{pr}_{23}^*K')
+$$
+which is in $D_{perf}(\mathcal{O}_{X \times_S Z})$ by
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}.
+\item The identity morphism from $X$ to $X$ is the
+isomorphism class of $\Delta_{X/S, *}\mathcal{O}_X$
+which is in $D_{perf}(\mathcal{O}_{X \times_S X})$
+by More on Morphisms, Lemma
+\ref{more-morphisms-lemma-perfect-closed-immersion-perfect-direct-image}
+and the fact that $\Delta_{X/S}$ is a perfect morphism by
+Divisors, Lemma
+\ref{divisors-lemma-immersion-smooth-into-smooth-regular-immersion} and
+More on Morphisms, Lemma \ref{more-morphisms-lemma-regular-immersion-perfect}.
+\end{enumerate}
+Let us check that associativity of composition
+of morphisms holds; we omit verifying that the identity
+morphisms are indeed identities. To see this suppose we have
+$X, Y, Z, W$ and
+$c \in D_{perf}(\mathcal{O}_{X \times_S Y})$,
+$c' \in D_{perf}(\mathcal{O}_{Y \times_S Z})$, and
+$c'' \in D_{perf}(\mathcal{O}_{Z \times_S W})$. Then we have
+\begin{align*}
+c'' \circ (c' \circ c)
+& \cong
+\text{pr}^{134}_{14, *}(
+\text{pr}^{134, *}_{13}
+\text{pr}^{123}_{13, *}(\text{pr}^{123, *}_{12}c \otimes
+\text{pr}^{123, *}_{23}c')
+\otimes \text{pr}^{134, *}_{34}c'') \\
+& \cong
+\text{pr}^{134}_{14, *}(
+\text{pr}^{1234}_{134, *}
+\text{pr}^{1234, *}_{123}(\text{pr}^{123, *}_{12}c \otimes
+\text{pr}^{123, *}_{23}c')
+\otimes \text{pr}^{134, *}_{34}c'') \\
+& \cong
+\text{pr}^{134}_{14, *}(
+\text{pr}^{1234}_{134, *}
+(\text{pr}^{1234, *}_{12}c \otimes
+\text{pr}^{1234, *}_{23}c')
+\otimes \text{pr}^{134, *}_{34}c'') \\
+& \cong
+\text{pr}^{134}_{14, *}
+\text{pr}^{1234}_{134, *}
+((\text{pr}^{1234, *}_{12}c \otimes
+\text{pr}^{1234, *}_{23}c')
+\otimes \text{pr}^{1234, *}_{34}c'') \\
+& \cong
+\text{pr}^{1234}_{14, *}(
+(\text{pr}^{1234, *}_{12}c \otimes
+\text{pr}^{1234, *}_{23}c') \otimes
+\text{pr}^{1234, *}_{34}c'')
+\end{align*}
+Here we use the notation
+$$
+p^{1234}_{134} : X \times_S Y \times_S Z \times_S W
+\to X \times_S Z \times_S W
+\quad\text{and}\quad
+p^{134}_{14} : X \times_S Z \times_S W \to X \times_S W
+$$
+the projections and similarly for other indices.
+We also write $\text{pr}_*$ instead of $R\text{pr}_*$ and
+$\text{pr}^*$ instead of $L\text{pr}^*$ and we drop
+all super and sub scripts on $\otimes$.
+The first equality is the definition of the composition.
+The second equality holds because
+$\text{pr}^{134, *}_{13} \text{pr}^{123}_{13, *} =
+\text{pr}^{1234}_{134, *} \text{pr}^{1234, *}_{123}$
+by base change (Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-compare-base-change}).
+The third equality holds because pullbacks compose
+correctly and pass through tensor products, see
+Cohomology, Lemmas \ref{cohomology-lemma-derived-pullback-composition} and
+\ref{cohomology-lemma-pullback-tensor-product}.
+The fourth equality follows from the ``projection formula'' for
+$p^{1234}_{134}$, see Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-cohomology-base-change}.
+The fifth equality is that proper pushforward is compatible
+with composition, see
+Cohomology, Lemma \ref{cohomology-lemma-derived-pushforward-composition}.
+Since tensor product is associative
+this concludes the proof of associativity of composition.
+
+\begin{lemma}[Base change is functor]
+\label{equiv-lemma-base-change-is-functor}
+\source{stacks:0G0G}
+\href{https://stacks.math.columbia.edu/tag/0G0G}{\texttt{Stacks tag 0G0G}}
+\group{equiv}
+
+Let $S' \to S$ be a morphism of schemes.
+The rule which sends
+\begin{enumerate}
+\item a smooth proper scheme $X$ over $S$ to $X' =  S' \times_S X$, and
+\item the isomorphism class of an object $K$
+of $D_{perf}(\mathcal{O}_{X \times_S Y})$ to the isomorphism class of
+$L(X' \times_{S'} Y' \to X \times_S Y)^*K$
+in $D_{perf}(\mathcal{O}_{X' \times_{S'} Y'})$
+\end{enumerate}
+is a functor from the category defined for $S$ to the category
+defined for $S'$.
+\end{lemma}
+
+\begin{proof}
+To see this suppose we have $X, Y, Z$ and
+$K \in D_{perf}(\mathcal{O}_{X \times_S Y})$ and
+$M \in D_{perf}(\mathcal{O}_{Y \times_S Z})$.
+Denote
+$K' \in D_{perf}(\mathcal{O}_{X' \times_{S'} Y'})$ and
+$M' \in D_{perf}(\mathcal{O}_{Y' \times_{S'} Z'})$
+their pullbacks as in the statement of the lemma.
+The diagram
+$$
+\begin{array}{cc}X' \times_{S'} Y' \times_{S'} Z' \longrightarrow\underset{\text{pr}'_{13}}{\downarrow} & X \times_S Y \times_S Z \overset{\text{pr}_{13}}{\downarrow} \\ X' \times_{S'} Z' \longrightarrow & X \times_S Z\end{array}
+$$
+is cartesian and $\text{pr}_{13}$ is proper and smooth.
+By Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}
+we see that the derived pullback by the lower horizontal
+arrow of the composition
+$$
+R\text{pr}_{13, *}(
+L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S Z}}^\mathbf{L}
+L\text{pr}_{23}^*M)
+$$
+indeed is (canonically) isomorphic to
+$$
+R\text{pr}'_{13, *}(
+L(\text{pr}'_{12})^*K'
+\otimes_{\mathcal{O}_{X' \times_{S'} Y' \times_{S'} Z'}}^\mathbf{L}
+L(\text{pr}'_{23})^*M')
+$$
+as desired. Some details omitted.
+\end{proof}
+
+\section{Relative equivalences}
+\label{equiv-section-relative-equivalences}
+In this section we prove some lemmas about the following concept.
+
+\begin{definition}[Relative equivalence kernel]
+\label{equiv-definition-relative-equivalence-kernel}
+\source{stacks:0G0I}
+\href{https://stacks.math.columbia.edu/tag/0G0I}{\texttt{Stacks tag 0G0I}}
+\group{equiv}
+
+Let $S$ be a scheme. Let $X \to S$ and $Y \to S$ be smooth proper morphisms.
+An object $K \in D_{perf}(\mathcal{O}_{X \times_S Y})$
+is said to be {\it the Fourier-Mukai kernel of a relative equivalence
+from $X$ to $Y$ over $S$}
+if there exist an object $K' \in D_{perf}(\mathcal{O}_{X \times_S Y})$
+such that
+$$
+\Delta_{X/S, *}\mathcal{O}_X \cong
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S X}}^\mathbf{L}
+L\text{pr}_{23}^*K')
+$$
+in $D(\mathcal{O}_{X \times_S X})$ and
+$$
+\Delta_{Y/S, *}\mathcal{O}_Y \cong
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K'
+\otimes_{\mathcal{O}_{Y \times_S X \times_S Y}}^\mathbf{L}
+L\text{pr}_{23}^*K)
+$$
+in $D(\mathcal{O}_{Y \times_S Y})$. In other words, the isomorphism class
+of $K$ defines an invertible arrow in the category defined in
+Section \ref{equiv-section-category-Fourier-Mukai-kernels}.
+\end{definition}
+
+The language is intentionally cumbersome.
+
+\begin{lemma}[Equivalences rek]
+\label{equiv-lemma-equivalences-rek}
+\source{stacks:0G0J}
+\href{https://stacks.math.columbia.edu/tag/0G0J}{\texttt{Stacks tag 0G0J}}
+\group{equiv}
+
+\uses{equiv-definition-relative-equivalence-kernel, equiv-lemma-fourier-Mukai-QCoh, equiv-lemma-fourier-mukai}
+With notation as in Definition \ref{equiv-definition-relative-equivalence-kernel}
+let $K$ be the Fourier-Mukai kernel of a relative equivalence from $X$
+to $Y$ over $S$. Then the corresponding Fourier-Mukai functors
+$\Phi_K : D_\QCoh(\mathcal{O}_X) \to D_\QCoh(\mathcal{O}_Y)$
+(Lemma \ref{equiv-lemma-fourier-Mukai-QCoh})
+and $\Phi_K : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+(Lemma \ref{equiv-lemma-fourier-mukai})
+are equivalences.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-compose-fourier-mukai, equiv-example-diagonal-fourier-mukai}
+
+Immediate from Lemma \ref{equiv-lemma-compose-fourier-mukai} and
+Example \ref{equiv-example-diagonal-fourier-mukai}.
+\end{proof}
+
+\begin{lemma}[Base change rek]
+\label{equiv-lemma-base-change-rek}
+\source{stacks:0G0K}
+\href{https://stacks.math.columbia.edu/tag/0G0K}{\texttt{Stacks tag 0G0K}}
+\group{equiv}
+
+\uses{equiv-definition-relative-equivalence-kernel}
+With notation as in Definition \ref{equiv-definition-relative-equivalence-kernel}
+let $K$ be the Fourier-Mukai kernel of a relative equivalence from $X$
+to $Y$ over $S$. Let $S_1 \to S$ be a morphism of schemes. Let
+$X_1 = S_1 \times_S X$ and $Y_1 = S_1 \times_S Y$. Then the pullback
+$K_1 = L(X_1 \times_{S_1} Y_1 \to X \times_S Y)^*K$ is
+the Fourier-Mukai kernel of a relative equivalence from $X_1$
+to $Y_1$ over $S_1$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-definition-relative-equivalence-kernel}
+
+Let $K' \in D_{perf}(\mathcal{O}_{Y \times_S X})$ be the object assumed to
+exist in Definition \ref{equiv-definition-relative-equivalence-kernel}.
+Denote $K'_1$ the pullback of $K'$ by
+$Y_1 \times_{S_1} X_1 \to Y \times_S X$.
+Then it suffices to prove that we have
+$$
+\Delta_{X_1/S_1, *}\mathcal{O}_X \cong
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K_1
+\otimes_{\mathcal{O}_{X_1 \times_{S_1} Y_1 \times_{S_1} X_1}}^\mathbf{L}
+L\text{pr}_{23}^*K_1')
+$$
+in $D(\mathcal{O}_{X_1 \times_{S_1} X_1})$ and similarly for the other
+condition. Since
+$$
+\begin{array}{cc}X_1 \times_{S_1} Y_1 \times_{S_1} X_1 \longrightarrow\underset{\text{pr}_{13}}{\downarrow} & X \times_S Y \times_S X \overset{\text{pr}_{13}}{\downarrow} \\ X_1 \times_{S_1} X_1 \longrightarrow & X \times_S X\end{array}
+$$
+is cartesian it suffices by Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}
+to prove that
+$$
+\Delta_{X_1/S_1, *}\mathcal{O}_{X_1}
+\cong
+L(X_1 \times_{S_1} X_1 \to X \times_S X)^*\Delta_{X/S, *}\mathcal{O}_X
+$$
+This in turn will be true if $X$ and $X_1 \times_{S_1} X_1$ are tor
+independent over $X \times_S X$, see
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-compare-base-change}.
+This tor independence can be seen directly but also follows from
+the more general More on Morphisms, Lemma
+\ref{more-morphisms-lemma-case-of-tor-independence} applied to the square
+with corners $X, X, X, S$ and its base change by $S_1 \to S$.
+\end{proof}
+
+\begin{lemma}[Descend rek]
+\label{equiv-lemma-descend-rek}
+\source{stacks:0G0L}
+\href{https://stacks.math.columbia.edu/tag/0G0L}{\texttt{Stacks tag 0G0L}}
+\group{equiv}
+
+Let $S = \lim_{i \in I} S_i$ be a limit of a directed system of schemes
+with affine transition morphisms $g_{i'i} : S_{i'} \to S_i$.
+We assume that $S_i$ is quasi-compact and quasi-separated for all $i \in I$.
+Let $0 \in I$. Let $X_0 \to S_0$ and $Y_0 \to S_0$ be smooth proper morphisms.
+We set $X_i = S_i \times_{S_0} X_0$ for $i \geq 0$
+and $X = S \times_{S_0} X_0$ and similarly for $Y_0$. If $K$ is the
+Fourier-Mukai kernel of a relative equivalence from $X$ to $Y$ over $S$
+then for some $i \geq 0$ there exists a
+Fourier-Mukai kernel of a relative equivalence from $X_i$ to $Y_i$ over $S_i$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-definition-relative-equivalence-kernel, equiv-lemma-base-change-rek}
+
+Let $K' \in D_{perf}(\mathcal{O}_{Y \times_S X})$ be the object assumed to
+exist in Definition \ref{equiv-definition-relative-equivalence-kernel}.
+Since $X \times_S Y = \lim X_i \times_{S_i} Y_i$ there exists an
+$i$ and objects $K_i$ and $K'_i$ in
+$D_{perf}(\mathcal{O}_{Y_i \times_{S_i} X_i})$
+whose pullbacks to $Y \times_S X$ give $K$ and $K'$.
+See Derived Categories of Schemes, Lemma \ref{perfect-lemma-descend-perfect}.
+By Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-flat-proper-perfect-direct-image-general}
+the object
+$$
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K_i
+\otimes_{\mathcal{O}_{X_i \times_{S_i} Y_i \times_{S_i} X_i}}^\mathbf{L}
+L\text{pr}_{23}^*K_i')
+$$
+is perfect and its pullback to $X \times_S X$ is equal to
+$$
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K
+\otimes_{\mathcal{O}_{X \times_S Y \times_S X}}^\mathbf{L}
+L\text{pr}_{23}^*K') \cong \Delta_{X/S, *}\mathcal{O}_X
+$$
+See proof of Lemma \ref{equiv-lemma-base-change-rek}.
+On the other hand, since $X_i \to S$ is smooth and separated the
+object
+$$
+\Delta_{i, *}\mathcal{O}_{X_i}
+$$
+of $D(\mathcal{O}_{X_i \times_{S_i} X_i})$ is also perfect
+(by More on Morphisms, Lemmas
+\ref{more-morphisms-lemma-smooth-diagonal-perfect} and
+\ref{more-morphisms-lemma-perfect-proper-perfect-direct-image}) and
+its pullback to $X \times_S X$ is equal to
+$$
+\Delta_{X/S, *}\mathcal{O}_X
+$$
+See proof of Lemma \ref{equiv-lemma-base-change-rek}. Thus by
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-descend-perfect}
+after increasing $i$ we may assume that
+$$
+\Delta_{i, *}\mathcal{O}_{X_i} \cong
+R\text{pr}_{13, *}(L\text{pr}_{12}^*K_i
+\otimes_{\mathcal{O}_{X_i \times_{S_i} Y_i \times_{S_i} X_i}}^\mathbf{L}
+L\text{pr}_{23}^*K_i')
+$$
+as desired. The same works for the roles of $K$ and $K'$ reversed.
+\end{proof}
+
+\section{No deformations}
+\label{equiv-section-no-deformations}
+The title of this section refers to Lemma \ref{equiv-lemma-no-deformations}
+
+\begin{lemma}[Deform koszul]
+\label{equiv-lemma-deform-koszul}
+\source{stacks:0G0N}
+\href{https://stacks.math.columbia.edu/tag/0G0N}{\texttt{Stacks tag 0G0N}}
+\group{equiv}
+
+Let $(R, \mathfrak m, \kappa) \to (A, \mathfrak n, \lambda)$
+be a flat local ring homorphism of local rings
+which is essentially of finite presentation.
+Let $\overline{f}_1, \ldots, \overline{f}_r \in \mathfrak n/\mathfrak m A
+\subset A/\mathfrak m A$ be a regular sequence. Let $K \in D(A)$. Assume
+\begin{enumerate}
+\item $K$ is perfect,
+\item $K \otimes_A^\mathbf{L} A/\mathfrak m A$ is isomorphic in
+$D(A/\mathfrak m A)$ to the
+Koszul complex on $\overline{f}_1, \ldots, \overline{f}_r$.
+\end{enumerate}
+Then $K$ is isomorphic in $D(A)$ to a Koszul complex on a regular sequence
+$f_1, \ldots, f_r \in A$ lifting the given elements
+$\overline{f}_1, \ldots, \overline{f}_r$. Moreover, $A/(f_1, \ldots, f_r)$
+is flat over $R$.
+\end{lemma}
+
+\begin{proof}
+Let us use chain complexes in the proof of this lemma.
+The Koszul complex $K_\bullet(\overline{f}_1, \ldots, \overline{f}_r)$
+is defined in More on Algebra, Definition
+\ref{more-algebra-definition-koszul-complex}.
+By More on Algebra, Lemma \ref{more-algebra-lemma-lift-complex-stably-frees}
+we can represent $K$ by a complex
+$$
+K_\bullet :
+A \to A^{\oplus r} \to \ldots \to A^{\oplus r} \to A
+$$
+whose tensor product with $A/\mathfrak mA$ is equal (!)
+to $K_\bullet(\overline{f}_1, \ldots, \overline{f}_r)$.
+Denote $f_1, \ldots, f_r \in A$ the components of the
+arrow $A^{\oplus r} \to A$. These $f_i$ are lifts of the
+$\overline{f}_i$. By Algebra, Lemma
+\ref{algebra-lemma-grothendieck-regular-sequence-general}
+$f_1, \ldots, f_r$ form a regular sequence in $A$ and $A/(f_1, \ldots, f_r)$
+is flat over $R$. Let $J = (f_1, \ldots, f_r) \subset A$.
+Consider the diagram
+$$
+\begin{array}{ccc}K_\bullet \searrow\underset{\varphi_\bullet}{\dashrightarrow} &  & K_\bullet(f_1, \ldots, f_r) \swarrow \\  & A/J & \end{array}
+$$
+Since $f_1, \ldots, f_r$ is a regular sequence the south-west arrow
+is a quasi-isomorphism (see
+More on Algebra, Lemma \ref{more-algebra-lemma-regular-koszul-regular}).
+Hence we can find the dotted arrow making the
+diagram commute for example by
+Algebra, Lemma \ref{algebra-lemma-compare-resolutions}.
+Reducing modulo $\mathfrak m$ we obtain a commutative diagram
+$$
+\begin{array}{ccc}K_\bullet(\overline{f}_1, \ldots, \overline{f}_r)
+\searrow\underset{\overline{\varphi}_\bullet}{\longrightarrow} &  & K_\bullet(\overline{f}_1, \ldots, \overline{f}_r) \swarrow \\  & (A/\mathfrak m A)/(\overline{f}_1, \ldots, \overline{f}_r) & \end{array}
+$$
+by our choice of $K_\bullet$. Thus $\overline{\varphi}$ is an isomorphism
+in the derived category $D(A/\mathfrak m A)$. It follows that
+$\overline{\varphi} \otimes_{A/\mathfrak m A}^\mathbf{L} \lambda$
+is an isomorphism. Since $\overline{f}_i \in \mathfrak n / \mathfrak m A$
+we see that
+$$
+\text{Tor}_i^{A/\mathfrak m A}(
+K_\bullet(\overline{f}_1, \ldots, \overline{f}_r), \lambda)
+=
+K_i(\overline{f}_1, \ldots, \overline{f}_r) \otimes_{A/\mathfrak m A} \lambda
+$$
+Hence $\varphi_i \bmod \mathfrak n$ is invertible.
+Since $A$ is local this means that $\varphi_i$ is an
+isomorphism and the proof is complete.
+\end{proof}
+
+\begin{lemma}[Limit arguments]
+\label{equiv-lemma-limit-arguments}
+\source{stacks:0G0P}
+\href{https://stacks.math.columbia.edu/tag/0G0P}{\texttt{Stacks tag 0G0P}}
+\group{equiv}
+
+Let $R \to S$ be a finite type flat ring map of Noetherian rings.
+Let $\mathfrak q \subset S$ be a prime ideal lying over
+$\mathfrak p \subset R$. Let $K \in D(S)$ be perfect.
+Let $f_1, \ldots, f_r \in \mathfrak q S_\mathfrak q$
+be a regular sequence such that $S_\mathfrak q/(f_1, \ldots, f_r)$
+is flat over $R$ and such that
+$K \otimes_S^\mathbf{L} S_\mathfrak q$ is isomorphic to the
+Koszul complex on $f_1, \ldots, f_r$. Then there exists a
+$g \in S$, $g \not \in \mathfrak q$ such that
+\begin{enumerate}
+\item $f_1, \ldots, f_r$ are the images of
+$f'_1, \ldots, f'_r \in S_g$,
+\item $f'_1, \ldots, f'_r$ form a regular sequence in $S_g$,
+\item $S_g/(f'_1, \ldots, f'_r)$ is flat over $R$,
+\item $K \otimes_S^\mathbf{L} S_g$ is isomorphic to the
+Koszul complex on $f_1, \ldots, f_r$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+We can find $g \in S$, $g \not \in \mathfrak q$ with property (1) by
+the definition of localizations. After replacing $g$ by
+$gg'$ for some $g' \in S$, $g' \not \in \mathfrak q$
+we may assume (2) holds, see
+Algebra, Lemma \ref{algebra-lemma-regular-sequence-in-neighbourhood}.
+By Algebra, Theorem \ref{algebra-theorem-openness-flatness}
+we find that $S_g/(f'_1, \ldots, f'_r)$ is flat over $R$
+in an open neighbourhood of $\mathfrak q$.
+Hence after once more replacing $g$ by $gg'$ for some
+$g' \in S$, $g' \not \in \mathfrak q$ we may assume (3) holds as well.
+Finally, we get (4) for a further replacement by
+More on Algebra, Lemma \ref{more-algebra-lemma-colimit-perfect-complexes}.
+\end{proof}
+
+For a generalization of the following lemma, please see
+More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-where-isomorphism}.
+
+\begin{lemma}[Isomorphism in neighbourhood]
+\label{equiv-lemma-isomorphism-in-neighbourhood}
+\source{stacks:0G0Q}
+\href{https://stacks.math.columbia.edu/tag/0G0Q}{\texttt{Stacks tag 0G0Q}}
+\group{equiv}
+
+Let $S$ be a Noetherian scheme. Let $s \in S$.
+Let $p : X \to Y$ be a morphism of schemes over $S$.
+Assume
+\begin{enumerate}
+\item $Y \to S$ and $X \to S$ proper,
+\item $X$ is flat over $S$,
+\item $X_s \to Y_s$ an isomorphism.
+\end{enumerate}
+Then there exists an open neighbourhood $U \subset S$ of $s$
+such that the base change $X_U \to Y_U$ is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+The morphism $p$ is proper by Morphisms, Lemma
+\ref{morphisms-lemma-closed-immersion-proper}.
+By Cohomology of Schemes, Lemma
+\ref{coherent-lemma-proper-finite-fibre-finite-in-neighbourhood}
+there is an open $Y_s \subset V \subset Y$ such that
+$p|_{p^{-1}(V)} : p^{-1}(V) \to V$ is finite.
+By More on Morphisms, Theorem
+\ref{more-morphisms-theorem-criterion-flatness-fibre-Noetherian}
+there is an open $X_s \subset U \subset X$ such that
+$p|_U : U \to Y$ is flat. After removing the images of
+$X \setminus U$ and $Y \setminus V$ (which are closed subsets
+not containing $s$) we may assume $p$ is flat and finite.
+Then $p$ is open (Morphisms, Lemma \ref{morphisms-lemma-fppf-open})
+and $Y_s \subset p(X) \subset Y$ hence after shrinking $S$
+we may assume $p$ is surjective.
+As $p_s : X_s \to Y_s$ is an isomorphism, the map
+$$
+p^\sharp : \mathcal{O}_Y \longrightarrow p_*\mathcal{O}_X
+$$
+of coherent $\mathcal{O}_Y$-modules ($p$ is finite)
+becomes an isomorphism after pullback by $i : Y_s \to Y$
+(by Cohomology of Schemes, Lemma
+\ref{coherent-lemma-affine-base-change} for example).
+By Nakayama's lemma, this implies that
+$\mathcal{O}_{Y, y} \to (p_*\mathcal{O}_X)_y$ is surjective
+for all $y \in Y_s$. Hence there is an open $Y_s \subset V \subset Y$
+such that $p^\sharp|_V$ is surjective
+(Modules, Lemma \ref{modules-lemma-finite-type-surjective-on-stalk}).
+Hence after shrinking $S$ once more we may assume
+$p^\sharp$ is surjective which means that $p$ is a closed
+immersion (as $p$ is already finite).
+Thus now $p$ is a surjective flat closed immersion
+of Noetherian schemes and hence an isomorphism, see
+Morphisms, Section \ref{morphisms-section-flat-closed-immersions}.
+\end{proof}
+
+\begin{lemma}[No deformations]
+\label{equiv-lemma-no-deformations}
+\source{stacks:0G0R}
+\href{https://stacks.math.columbia.edu/tag/0G0R}{\texttt{Stacks tag 0G0R}}
+\group{equiv}
+
+Let $k$ be a field. Let $S$ be a finite type scheme over $k$
+with $k$-rational point $s$. Let $Y \to S$ be a smooth proper morphism.
+Let $X = Y_s \times S \to S$ be the constant family with fibre
+$Y_s$. Let $K$ be the Fourier-Mukai kernel of a relative equivalence
+from $X$ to $Y$ over $S$. Assume the restriction
+$$
+L(Y_s \times_S Y_s \to X \times_S Y)^*K \cong
+\Delta_{Y_s/k, *} \mathcal{O}_{Y_s}
+$$
+in $D(\mathcal{O}_{Y_s \times Y_s})$. Then there is an open neighbourhood
+$s \in U \subset S$ such that $Y|_U$ is isomorphic to $Y_s \times U$ over $U$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-orthogonal-point-sheaf, equiv-lemma-deform-koszul, equiv-lemma-limit-arguments, equiv-lemma-isomorphism-in-neighbourhood}
+
+Denote $i : Y_s \times Y_s = X_s \times Y_s \to X \times_S Y$
+the natural closed immersion. (We will write $Y_s$ and not $X_s$
+for the fibre of $X$ over $s$ from now on.) Let
+$z \in Y_s \times Y_s = (X \times_S Y)_s \subset X \times_S Y$
+be a closed point. As indicated we think of $z$ both as a closed point
+of $Y_s \times Y_s$ as well as a closed point of $X \times_S Y$.
+
+\medskip\noindent
+Case I: $z \not \in \Delta_{Y_s/k}(Y_s)$. Denote $\mathcal{O}_z$
+the coherent $\mathcal{O}_{Y_s \times Y_s}$-module supported at $z$
+whose value is $\kappa(z)$. Then $i_*\mathcal{O}_z$ is the
+coherent $\mathcal{O}_{X \times_S Y}$-module supported at $z$
+whose value is $\kappa(z)$. Our assumption means that
+$$
+K \otimes_{\mathcal{O}_{X \times_S Y}}^\mathbf{L} i_*\mathcal{O}_z =
+Li^*K \otimes_{\mathcal{O}_{Y_s \times Y_s}}^\mathbf{L} \mathcal{O}_z = 0
+$$
+Hence by Lemma \ref{equiv-lemma-orthogonal-point-sheaf}
+we find an open neighbourhood $U(z) \subset X \times_S Y$ of $z$
+such that $K|_{U(z)} = 0$. In this case we set $Z(z) = \emptyset$
+as closed subscheme of $U(z)$.
+
+\medskip\noindent
+Case II: $z \in \Delta_{Y_s/k}(Y_s)$. Since $Y_s$ is smooth over $k$
+we know that $\Delta_{Y_s/k} : Y_s \to Y_s \times Y_s$ is a
+regular immersion, see More on Morphisms, Lemma
+\ref{more-morphisms-lemma-smooth-diagonal-perfect}.
+Choose a regular sequence $\overline{f}_1, \ldots, \overline{f}_r \in
+\mathcal{O}_{Y_s \times Y_s, z}$ cutting out the ideal sheaf of
+$\Delta_{Y_s/k}(Y_s)$. Since a regular sequence is Koszul-regular
+(More on Algebra, Lemma \ref{more-algebra-lemma-regular-koszul-regular})
+our assumption means that
+$$
+K_z \otimes_{\mathcal{O}_{X \times_S Y, z}}^\mathbf{L}
+\mathcal{O}_{Y_s \times Y_s, z}
+\in D(\mathcal{O}_{Y_s \times Y_s, z})
+$$
+is represented by the Koszul complex on
+$\overline{f}_1, \ldots, \overline{f}_r$ over
+$\mathcal{O}_{Y_s \times Y_s, z}$.
+By Lemma \ref{equiv-lemma-deform-koszul} applied to
+$\mathcal{O}_{S, s} \to \mathcal{O}_{X \times_S Y, z}$
+we conclude that $K_z \in D(\mathcal{O}_{X \times_S Y, z})$ is
+represented by the Koszul complex on a regular sequence
+$f_1, \ldots, f_r \in \mathcal{O}_{X \times_S Y, z}$
+lifting the regular sequence
+$\overline{f}_1, \ldots, \overline{f}_r$
+such that moreover $\mathcal{O}_{X \times_S Y}/(f_1, \ldots, f_r)$
+is flat over $\mathcal{O}_{S, s}$.
+By some limit arguments (Lemma \ref{equiv-lemma-limit-arguments})
+we conclude that there exists an affine open neighbourhood
+$U(z) \subset X \times_S Y$ of $z$ and a closed subscheme
+$Z(z) \subset U(z)$ such that
+\begin{enumerate}
+\item $Z(z) \to U(z)$ is a regular closed immersion,
+\item $K|_{U(z)}$ is quasi-isomorphic to $\mathcal{O}_{Z(z)}$,
+\item $Z(z) \to S$ is flat,
+\item $Z(z)_s = \Delta_{Y_s/k}(Y_s) \cap U(z)_s$
+as closed subschemes of $U(z)_s$.
+\end{enumerate}
+
+By property (2), for $z, z' \in Y_s \times Y_s$, we
+find that $Z(z) \cap U(z') = Z(z') \cap U(z)$ as closed subschemes.
+Hence we obtain an open neighbourhood
+$$
+U = \bigcup\nolimits_{z \in Y_s \times Y_s\text{ closed}} U(z)
+$$
+of $Y_s \times Y_s$ in $X \times_S Y$ and a closed subscheme $Z \subset U$
+such that (1) $Z \to U$ is a regular closed immersion,
+(2) $Z \to S$ is flat, and (3) $Z_s = \Delta_{Y_s/k}(Y_s)$.
+Since $X \times_S Y \to S$ is proper, after replacing $S$
+by an open neighbourhood of $s$ we may assume $U = X \times_S Y$.
+Since the projections $Z_s \to Y_s$ and $Z_s \to X_s$
+are isomorphisms, we conclude that after shrinking $S$
+we may assume $Z \to Y$ and $Z \to X$ are isomorphisms, see
+Lemma \ref{equiv-lemma-isomorphism-in-neighbourhood}.
+This finishes the proof.
+\end{proof}
+
+\begin{lemma}[No deformations better]
+\label{equiv-lemma-no-deformations-better}
+\source{stacks:0G0S}
+\href{https://stacks.math.columbia.edu/tag/0G0S}{\texttt{Stacks tag 0G0S}}
+\group{equiv}
+
+Let $k$ be an algebraically closed field. Let $X$
+be a smooth proper scheme over $k$.
+Let $f : Y \to S$ be a smooth proper morphism with $S$ of finite type over $k$.
+Let $K$ be the Fourier-Mukai kernel of a relative equivalence
+from $X \times S$ to $Y$ over $S$. Then $S$ can be covered by
+open subschemes $U$ such that there is a $U$-isomorphism
+$f^{-1}(U) \cong Y_0 \times U$ for some $Y_0$ proper and smooth over $k$.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-base-change-rek, equiv-definition-relative-equivalence-kernel, equiv-lemma-base-change-is-functor, equiv-lemma-no-deformations}
+
+Choose a closed point $s \in S$. Since $k$ is algebraically closed
+this is a $k$-rational point. Set $Y_0 = Y_s$. The restriction
+$K_0$ of $K$ to $X \times Y_0$ is the Fourier-Mukai kernel of a
+relative equivalence from $X$ to $Y_0$ over $\Spec(k)$ by
+Lemma \ref{equiv-lemma-base-change-rek}. Let $K'_0$ in
+$D_{perf}(\mathcal{O}_{Y_0 \times X})$ be the
+object assumed to
+exist in Definition \ref{equiv-definition-relative-equivalence-kernel}.
+Then $K'_0$ is the Fourier-Mukai kernel of a
+relative equivalence from $Y_0$ to $X$ over $\Spec(k)$
+by the symmetry inherent in
+Definition \ref{equiv-definition-relative-equivalence-kernel}.
+Hence by
+Lemma \ref{equiv-lemma-base-change-rek}
+we see that the pullback
+$$
+M = (Y_0 \times X \times S \to Y_0 \times X)^*K'_0
+$$
+on $(Y_0 \times S) \times_S (X \times S) = Y_0 \times X \times S$
+is the Fourier-Mukai kernel of a
+relative equivalence from $Y_0 \times S$ to $X \times S$ over $S$.
+Now consider the kernel
+$$
+K_{new} =
+R\text{pr}_{13, *}(L\text{pr}_{12}^*M
+\otimes_{\mathcal{O}_{(Y_0 \times S) \times_S (X \times S)
+\times_S Y}}^\mathbf{L}
+L\text{pr}_{23}^*K)
+$$
+on $(Y_0 \times S) \times_S Y$. This is the Fourier-Mukai kernel of a
+relative equivalence from $Y_0 \times S$ to $Y$ over $S$ since it is
+the composition of two invertible arrows in
+the category constructed in
+Section \ref{equiv-section-category-Fourier-Mukai-kernels}.
+Moreover, this composition passes through base change
+(Lemma \ref{equiv-lemma-base-change-is-functor}).
+Hence we see that the pullback of $K_{new}$ to
+$((Y_0 \times S) \times_S Y)_s = Y_0 \times Y_0$
+is equal to the composition of $K_0$ and $K'_0$
+and hence equal to the identity in this category.
+In other words, we have
+$$
+L(Y_0 \times Y_0 \to (Y_0 \times S) \times_S Y)^*K_{new}
+\cong
+\Delta_{Y_0/k, *}\mathcal{O}_{Y_0}
+$$
+Thus by Lemma \ref{equiv-lemma-no-deformations} we conclude that $Y \to S$
+is isomorphic to $Y_0 \times S$ in an open neighbourhood of $s$.
+This finishes the proof.
+\end{proof}
+
+\section{Countability}
+\label{equiv-section-countability}
+In this section we prove some elementary lemmas about countability
+of certain sets. Let $\mathcal{C}$ be a category. In this section
+we will say that $\mathcal{C}$ is {\it countable} if
+\begin{enumerate}
+\item for any $X, Y \in \Ob(\mathcal{C})$ the set
+$\Mor_\mathcal{C}(X, Y)$ is countable, and
+\item the set of isomorphism classes of objects of $\mathcal{C}$
+is countable.
+\end{enumerate}
+
+\begin{lemma}[Countable finite type]
+\label{equiv-lemma-countable-finite-type}
+\source{stacks:0G0U}
+\href{https://stacks.math.columbia.edu/tag/0G0U}{\texttt{Stacks tag 0G0U}}
+\group{equiv}
+
+Let $R$ be a countable Noetherian ring. Then the category of schemes of finite
+type over $R$ is countable.
+\end{lemma}
+
+\begin{proof}
+Omitted.
+\end{proof}
+
+\begin{lemma}[Countable abelian]
+\label{equiv-lemma-countable-abelian}
+\source{stacks:0G0V}
+\href{https://stacks.math.columbia.edu/tag/0G0V}{\texttt{Stacks tag 0G0V}}
+\group{equiv}
+
+Let $\mathcal{A}$ be a countable abelian category.
+Then $D^b(\mathcal{A})$ is countable.
+\end{lemma}
+
+\begin{proof}
+It suffices to prove the statement for $D(\mathcal{A})$ as the others
+are full subcategories of this one. Since every object in $D(\mathcal{A})$
+is a complex of objects of $\mathcal{A}$ it is immediate that the set of
+isomorphism classes of objects of $D^b(\mathcal{A})$ is countable.
+Moreover, for bounded complexes $A^\bullet$ and $B^\bullet$ of $\mathcal{A}$
+it is clear that $\Hom_{K^b(\mathcal{A})}(A^\bullet, B^\bullet)$ is countable.
+We have
+$$
+\Hom_{D^b(\mathcal{A})}(A^\bullet, B^\bullet) =
+\colim_{s : (A')^\bullet \to A^\bullet
+\text{ qis and }(A')^\bullet\text{ bounded}}
+\Hom_{K^b(\mathcal{A})}((A')^\bullet, B^\bullet)
+$$
+by Derived Categories, Lemma \ref{derived-lemma-bounded-derived}.
+Thus this is a countable set as a countable colimit of
+\end{proof}
+
+\begin{lemma}[Countable perfect]
+\label{equiv-lemma-countable-perfect}
+\source{stacks:0G0W}
+\href{https://stacks.math.columbia.edu/tag/0G0W}{\texttt{Stacks tag 0G0W}}
+\group{equiv}
+
+Let $X$ be a scheme of finite type over a countable Noetherian ring.
+Then the categories $D_{perf}(\mathcal{O}_X)$ and
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$ are countable.
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-countable-abelian}
+
+Observe that $X$ is Noetherian by
+Morphisms, Lemma \ref{morphisms-lemma-finite-type-noetherian}.
+Hence $D_{perf}(\mathcal{O}_X)$ is a full subcategory of
+$D^b_{\textit{Coh}}(\mathcal{O}_X)$ by
+Derived Categories of Schemes, Lemma \ref{perfect-lemma-perfect-on-noetherian}.
+Thus it suffices to prove
+the result for $D^b_{\textit{Coh}}(\mathcal{O}_X)$.
+Recall that
+$D^b_{\textit{Coh}}(\mathcal{O}_X) = D^b(\textit{Coh}(\mathcal{O}_X))$
+by
+Derived Categories of Schemes, Proposition \ref{perfect-proposition-DCoh}.
+Hence by Lemma \ref{equiv-lemma-countable-abelian}
+it suffices to prove that $\textit{Coh}(\mathcal{O}_X)$ is
+countable. This we omit.
+\end{proof}
+
+\begin{lemma}[Countable isos]
+\label{equiv-lemma-countable-isos}
+\source{stacks:0G0X}
+\href{https://stacks.math.columbia.edu/tag/0G0X}{\texttt{Stacks tag 0G0X}}
+\group{equiv}
+
+Let $K$ be an algebraically closed field.
+Let $S$ be a finite type scheme over $K$.
+Let $X \to S$ and $Y \to S$ be finite type morphisms.
+There exists a countable set $I$ and for $i \in I$ a pair
+$(S_i \to S, h_i)$ with the following properties
+\begin{enumerate}
+\item $S_i \to S$ is a morphism of finite type, set
+$X_i = X \times_S S_i$ and $Y_i = Y \times_S S_i$,
+\item $h_i : X_i \to Y_i$ is an isomorphism over $S_i$, and
+\item for any closed point $s \in S(K)$ if $X_s \cong Y_s$
+over $K = \kappa(s)$ then $s$ is in the image of $S_i \to S$
+for some $i$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-countable-finite-type}
+
+The field $K$ is the filtered union of its countable subfields.
+Dually, $\Spec(K)$ is the cofiltered limit of the spectra
+of the countable subfields of $K$.
+Hence Limits, Lemma \ref{limits-lemma-descend-finite-presentation}
+guarantees that we can find a countable subfield
+$k$ and morphisms $X_0 \to S_0$ and $Y_0 \to S_0$
+of schemes of finite type over $k$ such that
+$X \to S$ and $Y \to S$ are the base changes of these.
+
+\medskip\noindent
+By Lemma \ref{equiv-lemma-countable-finite-type} there is a countable set $I$ and
+pairs $(S_{0, i} \to S_0, h_{0, i})$ such that
+\begin{enumerate}
+\item $S_{0, i} \to S_0$ is a morphism of finite type, set
+$X_{0, i} = X_0 \times_{S_0} S_{0, i}$ and
+$Y_{0, i} = Y_0 \times_{S_0} S_{0, i}$,
+\item $h_{0, i} : X_{0, i} \to Y_{0, i}$ is an isomorphism over $S_{0, i}$.
+\end{enumerate}
+such that every pair $(T \to S_0, h_T)$ with $T \to S_0$ of finite type
+and $h_T : X_0 \times_{S_0} T \to Y_0 \times_{S_0} T$ an isomorphism
+is isomorphic to one of these.
+Denote $(S_i \to S, h_i)$ the base change of $(S_{0, i} \to S_0, h_{0, i})$
+by $\Spec(K) \to \Spec(k)$.
+We claim this works.
+
+\medskip\noindent
+Let $s \in S(K)$ and let $h_s : X_s \to Y_s$ be an isomorphism over
+$K = \kappa(s)$. We can write $K$ as the filtered union of its
+finitely generated $k$-subalgebras. Hence by
+Limits, Proposition
+\ref{limits-proposition-characterize-locally-finite-presentation} and
+Lemma \ref{limits-lemma-descend-finite-presentation}
+we can find such a finitely generated $k$-subalgebra
+$K \supset A \supset k$ such that
+\begin{enumerate}
+\item there is a commutative diagram
+$$
+\begin{array}{cc}\Spec(K) \underset{s}{\downarrow}\longrightarrow & \Spec(A) \overset{s'}{\downarrow} \\ S \longrightarrow & S_0\end{array}
+$$
+for some morphism $s' : \Spec(A) \to S_0$ over $k$,
+\item $h_s$ is the base change of an isomorphism
+$h_{s'} : X_0 \times_{S_0, s'} \Spec(A) \to
+X_0 \times_{S_0, s'} \Spec(A)$ over $A$.
+\end{enumerate}
+Of course, then $(s' : \Spec(A) \to S_0, h_{s'})$ is isomorphic
+to the pair $(S_{0, i} \to S_0, h_{0, i})$ for some $i \in I$.
+This concludes the proof because the commutative diagram
+in (1) shows that $s$ is in the image of
+the base change of $s'$ to $\Spec(K)$.
+\end{proof}
+
+\begin{lemma}[Countable equivs]
+\label{equiv-lemma-countable-equivs}
+\source{stacks:0G0Y}
+\href{https://stacks.math.columbia.edu/tag/0G0Y}{\texttt{Stacks tag 0G0Y}}
+\group{equiv}
+
+Let $K$ be an algebraically closed field. There exists a countable set $I$
+and for $i \in I$ a pair $(S_i/K, X_i \to S_i, Y_i \to S_i, M_i)$
+with the following properties
+\begin{enumerate}
+\item $S_i$ is a scheme of finite type over $K$,
+\item $X_i \to S_i$ and $Y_i \to S_i$ are proper smooth
+morphisms of schemes,
+\item $M_i \in D_{perf}(\mathcal{O}_{X_i \times_{S_i} Y_i})$
+is the Fourier-Mukai kernel of a relative equivalence from
+$X_i$ to $Y_i$ over $S_i$, and
+\item for any smooth proper schemes $X$ and $Y$ over $K$
+such that there is a $K$-linear exact equivalence
+$D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$
+there exists an $i \in I$ and a $s \in S_i(K)$
+such that $X \cong (X_i)_s$ and $Y \cong (Y_i)_s$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+\uses{equiv-lemma-countable-finite-type, equiv-lemma-countable-perfect, equiv-lemma-base-change-rek, equiv-proposition-equivalence, equiv-lemma-fourier-mukai-flat-proper-over-noetherian, equiv-lemma-uniqueness, equiv-lemma-descend-rek}
+
+Choose a countable subfield $k \subset K$ for example the prime field.
+By Lemmas \ref{equiv-lemma-countable-finite-type} and \ref{equiv-lemma-countable-perfect}
+there exists a countable set of isomorphism classes of systems
+over $k$ satisfying parts (1), (2), (3) of the lemma.
+Thus we can choose a countable set
+$I$ and for each $i \in I$ such a system
+$$
+(S_{0, i}/k, X_{0, i} \to S_{0, i}, Y_{0, i} \to S_{0, i}, M_{0, i})
+$$
+over $k$ such that each isomorphism class occurs at least once.
+Denote $(S_i/K, X_i \to S_i, Y_i \to S_i, M_i)$ the base change
+of the displayed system to $K$. This system has properties (1), (2), (3),
+see Lemma \ref{equiv-lemma-base-change-rek}. Let us prove property (4).
+
+\medskip\noindent
+Consider smooth proper schemes $X$ and $Y$ over $K$
+such that there is a $K$-linear exact equivalence
+$F : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$.
+By Proposition \ref{equiv-proposition-equivalence}
+we may assume that there exists an object
+$M \in D_{perf}(\mathcal{O}_{X \times Y})$
+such that $F = \Phi_M$ is the corresponding Fourier-Mukai functor.
+By Lemma \ref{equiv-lemma-fourier-mukai-flat-proper-over-noetherian}
+there is an $M'$ in $D_{perf}(\mathcal{O}_{Y \times X})$
+such that $\Phi_{M'}$ is the right adjoint to $\Phi_M$.
+Since $\Phi_M$ is an equivalence, this means that
+$\Phi_{M'}$ is the quasi-inverse to $\Phi_M$.
+By Lemma \ref{equiv-lemma-fourier-mukai-flat-proper-over-noetherian}
+we see that the Fourier-Mukai functors defined by the objects
+$$
+A = R\text{pr}_{13, *}(
+L\text{pr}_{12}^*M
+\otimes_{\mathcal{O}_{X \times Y \times X}}^\mathbf{L}
+L\text{pr}_{23}^*M')
+$$
+in $D_{perf}(\mathcal{O}_{X \times X})$ and
+$$
+B = R\text{pr}_{13, *}(
+L\text{pr}_{12}^*M'
+\otimes_{\mathcal{O}_{Y \times X \times Y}}^\mathbf{L}
+L\text{pr}_{23}^*M)
+$$
+in $D_{perf}(\mathcal{O}_{Y \times Y})$
+are isomorphic to
+$\text{id} : D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_X)$
+and
+$\text{id} : D_{perf}(\mathcal{O}_Y) \to D_{perf}(\mathcal{O}_Y)$
+Hence
+$A \cong \Delta_{X/K, *}\mathcal{O}_X$ and
+$B \cong \Delta_{Y/K, *}\mathcal{O}_Y$
+by Lemma \ref{equiv-lemma-uniqueness}. Hence we see that $M$ is the
+Fourier-Mukai kernel of a relative equivalence from $X$ to $Y$
+over $K$ by definition.
+
+\medskip\noindent
+We can write $K$ as the filtered colimit of its finite type
+$k$-subalgebras $A \subset K$. By
+Limits, Lemma \ref{limits-lemma-descend-finite-presentation}
+we can find $X_0, Y_0$ of finite type over $A$ whose
+base changes to $K$ produces $X$ and $Y$.
+By Limits, Lemmas
+\ref{limits-lemma-eventually-proper} and \ref{limits-lemma-descend-smooth}
+after enlarging $A$ we may assume $X_0$ and $Y_0$
+are smooth and proper over $A$.
+By Lemma \ref{equiv-lemma-descend-rek}
+after enlarging $A$ we may assume $M$ is the pullback of
+some $M_0  \in D_{perf}(\mathcal{O}_{X_0 \times_{\Spec(A)} Y_0})$
+which is the Fourier-Mukai kernel of a relative equivalence
+from $X_0$ to $Y_0$ over $\Spec(A)$.
+Thus we see that $(S_0/k, X_0 \to S_0, Y_0 \to S_0, M_0)$
+is isomorphic to
+$(S_{0, i}/k, X_{0, i} \to S_{0, i}, Y_{0, i} \to S_{0, i}, M_{0, i})$
+for some $i \in I$.
+Since $S_i = S_{0, i} \times_{\Spec(k)} \Spec(K)$
+we conclude that (4) is true with $s : \Spec(K) \to S_i$
+induced by the morphism $\Spec(K) \to \Spec(A) \cong S_{0, i}$
+we get from $A \subset K$.
+\end{proof}
+
+\section{Countability of derived equivalent varieties}
+\label{equiv-section-countable-derived-equivalent}
+In this section we prove a result of Anel and To\"en, see \cite{AT}.
+
+\begin{definition}[Derived equivalent]
+\label{equiv-definition-derived-equivalent}
+\source{stacks:0G10}
+\href{https://stacks.math.columbia.edu/tag/0G10}{\texttt{Stacks tag 0G10}}
+\group{equiv}
+
+Let $k$ be a field. Let $X$ and $Y$ be smooth projective schemes over $k$.
+We say $X$ and $Y$ are {\it derived equivalent} if there exists a $k$-linear
+exact equivalence
+$D_{perf}(\mathcal{O}_X) \to D_{perf}(\mathcal{O}_Y)$.
+\end{definition}
+
+Here is the result
+
+\begin{theorem}[Countable]
+\label{equiv-theorem-countable}
+\source{stacks:0G11}
+\href{https://stacks.math.columbia.edu/tag/0G11}{\texttt{Stacks tag 0G11}}
+\group{equiv}
+
+\begin{reference}
+Slight improvement of \cite{AT}
+\end{reference}
+Let $K$ be an algebraically closed field. Let $\mathbf{X}$ be a smooth proper
+scheme over $K$. There are at most countably many isomorphism classes
+of smooth proper schemes $\mathbf{Y}$ over $K$ which are derived
+equivalent to $\mathbf{X}$.
+\end{theorem}
+
+\begin{proof}
+\uses{equiv-lemma-countable-equivs, equiv-lemma-countable-isos, equiv-lemma-base-change-rek, equiv-lemma-no-deformations-better}
+
+Choose a countable set $I$ and for $i \in I$ systems
+$(S_i/K, X_i \to S_i, Y_i \to S_i, M_i)$ satisfying properties
+(1), (2), (3), and (4) of Lemma \ref{equiv-lemma-countable-equivs}.
+Pick $i \in I$ and set $S = S_i$, $X = X_i$, $Y = Y_i$, and
+$M = M_i$. Clearly it suffice to show that
+the set of isomorphism classes of fibres $Y_s$ for $s \in S(K)$
+such that $X_s \cong \mathbf{X}$ is countable.
+This we prove in the next paragraph.
+
+\medskip\noindent
+Let $S$ be a finite type scheme over $K$, let $X \to S$ and $Y \to S$
+be proper smooth morphisms, and let $M \in D_{perf}(\mathcal{O}_{X \times_S Y})$
+be the Fourier-Mukai kernel of a relative equivalence from $X$
+to $Y$ over $S$. We will show
+the set of isomorphism classes of fibres $Y_s$ for $s \in S(K)$
+such that $X_s \cong \mathbf{X}$ is countable.
+By Lemma \ref{equiv-lemma-countable-isos} applied
+to the families $\mathbf{X} \times S \to S$ and $X \to S$
+there exists a countable set $I$ and for $i \in I$ a pair
+$(S_i \to S, h_i)$ with the following properties
+\begin{enumerate}
+\item $S_i \to S$ is a morphism of finite type, set
+$X_i = X \times_S S_i$,
+\item $h_i : \mathbf{X} \times S_i \to X_i$
+is an isomorphism over $S_i$, and
+\item for any closed point $s \in S(K)$ if $\mathbf{X} \cong X_s$
+over $K = \kappa(s)$ then $s$ is in the image of $S_i \to S$
+for some $i$.
+\end{enumerate}
+Set $Y_i = Y \times_S S_i$. Denote
+$M_i \in D_{perf}(\mathcal{O}_{X_i \times_{S_i} Y_i})$
+the pullback of $M$. By Lemma \ref{equiv-lemma-base-change-rek}
+$M_i$ is the Fourier-Mukai kernel of a relative equivalence from
+$X_i$ to $Y_i$ over $S_i$. Since $I$ is countable, by
+property (3) it suffices to prove that
+the set of isomorphism classes of fibres $Y_{i, s}$ for $s \in S_i(K)$
+is countable.
+In fact, this number is finite by
+Lemma \ref{equiv-lemma-no-deformations-better}
+and the proof is complete.
+\end{proof}
+
+
+\input{chapters}

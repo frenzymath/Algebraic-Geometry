@@ -1,0 +1,3631 @@
+\section{Introduction}
+\label{spaces-pushouts-section-introduction}
+The goal of this chapter is to discuss pushouts in the category of
+algebraic spaces. This can be done with varying assumptions.
+A fairly general pushout construction is given in \cite{Temkin-Tyomkin}:
+one of the morphisms is affine and the other is a closed immersion.
+We discuss a particular case of this in Section \ref{spaces-pushouts-section-pushouts}
+where we assume one of the morphisms is affine and the other is a
+thickening, a situation that often comes up in deformation theory.
+
+\medskip\noindent
+In Sections \ref{spaces-pushouts-section-formal-glueing} and
+\ref{spaces-pushouts-section-formal-glueing-spaces} we discuss diagrams
+$$
+\begin{array}{cc}f^{-1}(X \setminus Z) \longrightarrow\downarrow & Y \overset{f}{\downarrow} \\ X \setminus Z \longrightarrow & X\end{array}
+$$
+where $f$ is a quasi-compact and quasi-separated morphism of
+algebraic spaces, $Z \to X$ is a closed immersion of finite presentation,
+the map $f^{-1}(Z) \to Z$ is an isomorphism, and
+$f$ is flat along $f^{-1}(Z)$. In this situation we glue
+quasi-coherent modules on $X \setminus Z$ and $Y$
+(in Section \ref{spaces-pushouts-section-formal-glueing}) to quasi-coherent modules on $X$
+and we glue algebraic spaces over $X \setminus Z$ and $Y$
+(in Section \ref{spaces-pushouts-section-formal-glueing-spaces}) to algebraic spaces over $X$.
+
+\medskip\noindent
+In Section \ref{spaces-pushouts-section-coequalizer-glue} we discuss how proper birational
+morphisms of Noetherian algebraic spaces give rise to coequalizer diagrams
+in algebraic spaces in some sense.
+
+\medskip\noindent
+In Section \ref{spaces-pushouts-section-compactifications} we use the construction
+of elementary distinguished squares
+in Section \ref{spaces-pushouts-section-elementary-dsitnguished-squares}
+to prove Nagata's theorem on compactifications in the setting
+of algebraic spaces.
+
+\section{Conventions}
+\label{spaces-pushouts-section-conventions}
+The standing assumption is that all schemes are contained in
+a big fppf site $\Sch_{fppf}$. And all rings $A$ considered
+have the property that $\Spec(A)$ is (isomorphic) to an
+object of this big site.
+
+\medskip\noindent
+Let $S$ be a scheme and let $X$ be an algebraic space over $S$.
+In this chapter and the following we will write $X \times_S X$
+for the product of $X$ with itself (in the category of algebraic
+spaces over $S$), instead of $X \times X$.
+
+\section{Colimits of algebraic spaces}
+\label{spaces-pushouts-section-pushouts-generalities}
+We briefly discuss colimits of algebraic spaces. Let $S$ be a scheme.
+Let $\mathcal{I} \to (\Sch/S)_{fppf}$, $i \mapsto X_i$
+be a diagram (see Categories, Section \ref{categories-section-limits}).
+For each $i$ we may consider the small \'etale site $X_{i, \etale}$
+whose objects are schemes \'etale over $X_i$, see
+Properties of Spaces, Section \ref{spaces-properties-section-etale-site}.
+For each morphism $i \to j$ of $\mathcal{I}$ we have the morphism
+$X_i \to X_j$ and hence a pullback functor
+$X_{j, \etale} \to X_{i, \etale}$.
+Hence we obtain a pseudo functor from $\mathcal{I}^{opp}$ into
+the $2$-category of categories. Denote
+$$
+\lim_i X_{i, \etale}
+$$
+the $2$-limit (see insert future reference here). What does this mean
+concretely? An object of this limit is a system of \'etale morphisms
+$U_i \to X_i$ over $\mathcal{I}$ such that for each $i \to j$ in
+$\mathcal{I}$ the diagram
+$$
+\begin{array}{cc}U_i \longrightarrow\downarrow & U_j \downarrow \\ X_i \longrightarrow & X_j\end{array}
+$$
+is cartesian. Morphisms between objects are defined in the obvious manner.
+Suppose that $f_i : X_i \to T$ is a family of morphisms such that
+for each $i \to j$ the composition $X_i \to X_j \to T$ is equal to $f_i$.
+Then we get a functor $T_\etale \to \lim X_{i, \etale}$.
+With this notation in hand we can formulate our lemma.
+
+\begin{lemma}[Colimit agrees]
+\label{spaces-pushouts-lemma-colimit-agrees}
+\source{stacks:07SX}
+\href{https://stacks.math.columbia.edu/tag/07SX}{\texttt{Stacks tag 07SX}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $\mathcal{I} \to (\Sch/S)_{fppf}$, $i \mapsto X_i$
+be a diagram of schemes over $S$ as above. Assume that
+\begin{enumerate}
+\item $X = \colim X_i$ exists in the category of schemes,
+\item $\coprod X_i \to X$ is surjective,
+\item if $U \to X$ is \'etale and $U_i = X_i \times_X U$, then
+$U = \colim U_i$ in the category of schemes, and
+\item every object $(U_i \to X_i)$ of $\lim X_{i, \etale}$
+with $U_i \to X_i$ separated is in the essential image of
+the functor $X_\etale \to \lim X_{i, \etale}$.
+\end{enumerate}
+Then $X = \colim X_i$ in the category of algebraic spaces over $S$ also.
+\end{lemma}
+
+\begin{proof}
+Let $Z$ be an algebraic space over $S$. Suppose that $f_i : X_i \to Z$ is
+a family of morphisms such that for each $i \to j$ the composition
+$X_i \to X_j \to Z$ is equal to $f_i$. We have to construct a morphism
+of algebraic spaces $f : X \to Z$ such that we can recover $f_i$ as
+the composition $X_i \to X \to Z$. Let $W \to Z$ be a surjective
+\'etale morphism of a scheme to $Z$. We may assume that $W$ is a
+disjoint union of affines and in particular we may assume that
+$W \to Z$ is separated. For each $i$ set
+$U_i = W \times_{Z, f_i} X_i$ and denote $h_i : U_i \to W$ the projection.
+Then $U_i \to X_i$ forms an object of $\lim X_{i, \etale}$
+with $U_i \to X_i$ separated. By
+assumption (4) we can find an \'etale morphism $U \to X$ and (functorial)
+isomorphisms $U_i = X_i \times_X U$. By assumption (3) there exists a morphism
+$h : U \to W$ such that the compositions $U_i \to U \to W$ are $h_i$.
+Let $g : U \to Z$ be the composition of $h$ with the map $W \to Z$. To
+finish the proof we have to show that $g : U \to Z$ descends to a morphism
+$X \to Z$. To do this, consider the morphism
+$(h, h) : U \times_X U \to W \times_S W$.
+Composing with $U_i \times_{X_i} U_i \to U \times_X U$ we obtain
+$(h_i, h_i)$ which factors through $W \times_Z W$. Since $U \times_X U$
+is the colimit of the schemes $U_i \times_{X_i} U_i$ by (3) we see
+that $(h, h)$ factors through $W \times_Z W$. Hence the two compositions
+$U \times_X U \to U \to W \to Z$ are equal. Because each $U_i \to X_i$ is
+surjective and assumption (2) we see that $U \to X$ is surjective.
+As $Z$ is a sheaf for the \'etale topology, we conclude that
+$g : U \to Z$ descends to $f : X \to Z$ as desired.
+\end{proof}
+
+We can check that a cocone is a colimit (fpqc) locally on the cocone.
+
+\begin{lemma}[Pushout fpqc local]
+\label{spaces-pushouts-lemma-pushout-fpqc-local}
+\source{stacks:0GFQ}
+\href{https://stacks.math.columbia.edu/tag/0GFQ}{\texttt{Stacks tag 0GFQ}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $\mathcal{I} \to (\Sch/S)_{fppf}$, $i \mapsto X_i$
+be a diagram of algebraic spaces over $B$. Let $(X, X_i \to X)$
+be a cocone for the diagram in the category of algebraic spaces over $B$
+(Categories, Remark \ref{categories-remark-cones-and-cocones}).
+If there exists a fpqc covering $\{U_a \to X\}_{a \in A}$ such that
+\begin{enumerate}
+\item for all $a \in A$ we have
+$U_a = \colim X_i \times_X U_a$
+in the category of algebraic spaces over $B$, and
+\item for all $a, b \in A$ we have
+$U_a \times_X U_b = \colim X_i \times_X U_a \times_X U_b$
+in the category of algebraic spaces over $B$,
+\end{enumerate}
+then $X = \colim X_i$ in the category of algebraic spaces over $B$.
+\end{lemma}
+
+\begin{proof}
+Namely, for an algebraic space $Y$ over $B$ a morphism $X \to Y$ over $B$
+is the same thing as a collection of morphism $U_a \to Y$ which agree on
+the overlaps $U_a \times_X U_b$ for all $a, b \in A$, see
+Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-fpqc-universal-effective-epimorphisms}.
+\end{proof}
+
+We are going to find a common partial generalization of
+Lemmas \ref{spaces-pushouts-lemma-colimit-agrees} and \ref{spaces-pushouts-lemma-pushout-fpqc-local}
+which can in particular be used to reduce a colimit construction to a
+subcategory of the category of all algebraic spaces.
+
+\medskip\noindent
+Let $S$ be a scheme and let $B$ be an algebraic space over $S$. Let
+$\mathcal{I}$ be an index category and let $i \mapsto X_i$
+be a diagram in the category of algebraic spaces over $B$,
+see Categories, Section \ref{categories-section-limits}.
+For each $i$ we may consider the small \'etale site
+$X_{i, spaces, \etale}$
+whose objects are algebraic spaces \'etale over $X_i$, see
+Properties of Spaces, Section \ref{spaces-properties-section-etale-site}.
+For each morphism $i \to j$ of $\mathcal{I}$ we have the morphism
+$X_i \to X_j$ and hence a pullback functor
+$X_{j, spaces, \etale} \to X_{i, spaces, \etale}$.
+Hence we obtain a pseudo functor from $\mathcal{I}^{opp}$ into
+the $2$-category of categories. Denote
+$$
+\lim_i X_{i, spaces, \etale}
+$$
+the $2$-limit (see insert future reference here). What does this mean
+concretely? An object of this limit is a diagram
+$i \mapsto (U_i \to X_i)$ in the category of arrows of
+algebraic spaces over $B$
+such that for each $i \to j$ in $\mathcal{I}$ the diagram
+$$
+\begin{array}{cc}U_i \longrightarrow\downarrow & U_j \downarrow \\ X_i \longrightarrow & X_j\end{array}
+$$
+is cartesian. Morphisms between objects are defined in the obvious manner.
+Suppose that $f_i : X_i \to Z$ is a family of morphisms of algebraic
+spaces over $B$ such that
+for each $i \to j$ the composition $X_i \to X_j \to Z$ is equal to $f_i$.
+Then we get a functor $Z_{spaces, \etale} \to \lim X_{i, spaces, \etale}$.
+With this notation in hand we can formulate our next lemma.
+
+\begin{lemma}[Colimit check etale locally]
+\label{spaces-pushouts-lemma-colimit-check-etale-locally}
+\source{stacks:0GHL}
+\href{https://stacks.math.columbia.edu/tag/0GHL}{\texttt{Stacks tag 0GHL}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $\mathcal{I} \to (\Sch/S)_{fppf}$, $i \mapsto X_i$
+be a diagram of algebraic spaces over $B$. Let $(X, X_i \to X)$
+be a cocone for the diagram in the category of algebraic spaces over $B$
+(Categories, Remark \ref{categories-remark-cones-and-cocones}).
+Assume that
+\begin{enumerate}
+\item the base change functor
+$X_{spaces, \'etale} \to \lim X_{i, spaces, \etale}$,
+sending $U$ to $U_i = X_i \times_X U$ is an equivalence,
+\item given
+\begin{enumerate}
+\item $B'$ affine and \'etale over $B$,
+\item $Z$ an affine scheme over $B'$,
+\item $U \to X \times_B B'$ an \'etale morphism of algebraic spaces
+with $U$ affine,
+\item $f_i : U_i \to Z$ a cocone over $B'$ of the diagram
+$i \mapsto U_i = U \times_X X_i$,
+\end{enumerate}
+there exists a unique morphism $f : U \to Z$ over $B'$
+such that $f_i$ equals the composition $U_i \to U \to Z$.
+\end{enumerate}
+Then $X = \colim X_i$ in the category of all algebraic spaces over $B$.
+\end{lemma}
+
+\begin{proof}
+In this paragraph we reduce to the case where $B$ is an affine scheme.
+Let $B' \to B$ be an \'etale morphism of algebraic spaces.
+Observe that conditions (1) and (2) are preserved if we replace
+$B$, $X_i$, $X$ by $B'$, $X_i \times_B B'$, $X \times_B B'$.
+Let $\{B_a \to B\}_{a \in A}$ be an \'etale covering with $B_a$
+affine, see Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-cover-by-union-affines}.
+For $a \in A$ denote $X_a$, $X_{a, i}$ the base changes of $X$ and the
+diagram to $B_a$. For $a, b \in A$ denote
+$X_{a, b}$ and $X_{a, b, i}$ the base changes of $X$ and the
+diagram to $B_a \times_B B_b$.
+By Lemma \ref{spaces-pushouts-lemma-pushout-fpqc-local}
+it suffices to prove that $X_a = \colim X_{a, i}$ and
+$X_{a, b} = \colim X_{a, b, i}$.
+This reduces us to the case where $B = B_a$ (an affine scheme) or
+$B = B_a \times_B B_b$ (a separated scheme). Repeating the
+argument once more, we conclude that we may assume $B$ is
+an affine scheme (this uses that the intersection of affine
+opens in a separated scheme is affine).
+
+\medskip\noindent
+Assume $B$ is an affine scheme. Let $Z$ be an algebraic space over $B$.
+We have to show
+$$
+\Mor_B(X, Z) \longrightarrow \lim \Mor_B(X_i, Z)
+$$
+is a bijection.
+
+\medskip\noindent
+Proof of injectivity. Let $f, g : X \to Z$ be morphisms
+such that the compositions $f_i, g_i : X_i \to Z$ are the same for all $i$.
+Choose an affine scheme $Z'$ and an \'etale morphism $Z' \to Z$. By
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-cover-by-union-affines}
+we know we can cover $Z$ by such affines. Set $U = X \times_{f, Z} Z'$
+and $U' = X \times_{g, Z} Z'$ and denote $p : U \to X$ and $p' : U' \to X$
+the projections. Since $f_i = g_i$ for all $i$, we see that
+$$
+U_i = X_i \times_{f_i, Z} Z' = X_i \times_{g_i, Z} Z' = U'_i
+$$
+compatible with transition morphisms. By (1) there is a unique isomorphism
+$\epsilon : U \to U'$ as algebraic spaces over $X$, i.e., with
+$p = p' \circ \epsilon$ which is compatible with
+the displayed identifications. Choose an \'etale covering
+$\{h_a : U_a \to U\}$ with $U_a$ affine.
+By (2) we see that $f \circ p \circ h_a = g \circ p' \circ \epsilon \circ h_a =
+g \circ p \circ h_a$. Since $\{h_a : U_a \to U\}$ is an \'etale covering
+we conclude $f \circ p = g \circ p$.
+Since the collection of morphisms $p : U \to X$ we obtain
+in this manner is an \'etale covering, we conclude that $f = g$.
+
+\medskip\noindent
+Proof of surjectivity. Let $f_i : X_i \to Z$ be an element of the
+right hand side of the displayed arrow in the first paragraph of the proof.
+It suffices to find an \'etale covering $\{U_c \to X\}_{c \in C}$
+such that the families $f_{c, i} \in \lim_i \Mor_B(X_i \times_X U_c, Z)$
+come from morphisms $f_c : U_c \to Z$. Namely, by the uniqueness
+proved above the morphisms $f_c$ will agree on $U_c \times_X U_b$
+and hence will descend to give the desired morphism $f : X \to Z$.
+To find our covering, we first choose an \'etale covering
+$\{g_a : Z_a \to Z\}_{a \in A}$ where each $Z_a$ is affine. Then we let
+$U_{a, i} = X_i \times_{f_i, Z} Z_a$. By (1) we find
+$U_{a, i} = X_i \times_X U_a$ for some algebraic spaces $U_a$ \'etale
+over $X$. Then we choose \'etale coverings
+$\{U_{a, b} \to U_a\}_{b \in B_a}$
+with $U_{a, b}$ affine and we consider the morphisms
+$$
+U_{a, b, i} = X_i \times_X U_{a, b} \to
+X_i \times_X U_a = X_i \times_{f_i, Z} Z_a \to Z_a
+$$
+By (2) we obtain morphisms $f_{a, b} : U_{a, b} \to Z_a$ compatible with these
+morphisms. Setting $C = \coprod_{a \in A} B_a$ and for $c \in C$
+corresponding to $b \in B_a$ setting $U_c = U_{a, b}$ and
+$f_c = g_a \circ f_{a, b} : U_c \to Z$ we conclude.
+\end{proof}
+
+Here is an application of these ideas to reduce the general case
+to the case of separated algebraic spaces.
+
+\begin{lemma}[Colimit separated enough]
+\label{spaces-pushouts-lemma-colimit-separated-enough}
+\source{stacks:0GFP}
+\href{https://stacks.math.columbia.edu/tag/0GFP}{\texttt{Stacks tag 0GFP}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $B$ be an algebraic space over $S$.
+Let $\mathcal{I} \to (\Sch/S)_{fppf}$, $i \mapsto X_i$
+be a diagram of algebraic spaces over $B$. Assume that
+\begin{enumerate}
+\item each $X_i$ is separated over $B$,
+\item $X = \colim X_i$ exists in the category of
+algebraic spaces separated over $B$,
+\item $\coprod X_i \to X$ is surjective,
+\item if $U \to X$ is an \'etale separated morphism of algebraic spaces and
+$U_i = X_i \times_X U$, then $U = \colim U_i$ in
+the category of algebraic spaces separated over $B$, and
+\item every object $(U_i \to X_i)$ of $\lim X_{i, spaces, \etale}$
+with $U_i \to X_i$ separated is of the form $U_i = X_i \times_X U$
+for some \'etale separated morphism of algebraic spaces $U \to X$.
+\end{enumerate}
+Then $X = \colim X_i$ in the category of all algebraic spaces over $B$.
+\end{lemma}
+
+\begin{proof}
+We encourage the reader to look instead at
+Lemma \ref{spaces-pushouts-lemma-colimit-check-etale-locally}
+and its proof.
+
+\medskip\noindent
+Let $Z$ be an algebraic space over $B$. Suppose that $f_i : X_i \to Z$ is
+a family of morphisms such that for each $i \to j$ the composition
+$X_i \to X_j \to Z$ is equal to $f_i$. We have to construct a morphism
+of algebraic spaces $f : X \to Z$ over $B$ such that we can recover $f_i$ as
+the composition $X_i \to X \to Z$. Let $W \to Z$ be a surjective
+\'etale morphism of a scheme to $Z$. We may assume that $W$ is a
+disjoint union of affines and in particular we may assume that
+$W \to Z$ is separated and that $W$ is separated over $B$. For each $i$ set
+$U_i = W \times_{Z, f_i} X_i$ and denote $h_i : U_i \to W$ the projection.
+Then $U_i \to X_i$ forms an object of $\lim X_{i, spaces, \etale}$
+with $U_i \to X_i$ separated. By
+assumption (5) we can find a separated \'etale morphism $U \to X$
+of algebraic spaces and (functorial) isomorphisms $U_i = X_i \times_X U$.
+By assumption (4) there exists a morphism $h : U \to W$ over $B$
+such that the compositions $U_i \to U \to W$ are $h_i$.
+Let $g : U \to Z$ be the composition of $h$ with the map $W \to Z$. To
+finish the proof we have to show that $g : U \to Z$
+descends to a morphism $X \to Z$. To do this, consider the morphism
+$(h, h) : U \times_X U \to W \times_S W$.
+Composing with $U_i \times_{X_i} U_i \to U \times_X U$ we obtain
+$(h_i, h_i)$ which factors through $W \times_Z W$. Since $U \times_X U$
+is the colimit of the algebraic spaces $U_i \times_{X_i} U_i$
+in the category of algebraic spaces separated over $B$ by (4) we see
+that $(h, h)$ factors through $W \times_Z W$. Hence the two compositions
+$U \times_X U \to U \to W \to Z$ are equal. Because each $U_i \to X_i$ is
+surjective and assumption (2) we see that $U \to X$ is surjective.
+As $Z$ is a sheaf for the \'etale topology, we conclude that
+$g : U \to Z$ descends to $f : X \to Z$ as desired.
+\end{proof}
+
+\section{Descending \'etale sheaves}
+\label{spaces-pushouts-section-glueing-etale}
+This section is the analogue for algebraic spaces of
+\'Etale Cohomology, Section \ref{etale-cohomology-section-glueing-etale}.
+
+\medskip\noindent
+In order to conveniently express our results we need some notation.
+Let $S$ be a scheme.
+Let $\mathcal{U} = \{f_i : X_i \to X\}$
+be a family of morphisms of algebraic spaces over $S$ with fixed target.
+A {\it descent datum} for \'etale sheaves with respect to
+$\mathcal{U}$ is a family
+$((\mathcal{F}_i)_{i \in I}, (\varphi_{ij})_{i, j \in I})$ where
+\begin{enumerate}
+\item $\mathcal{F}_i$ is in $\Sh(X_{i, \etale})$, and
+\item $\varphi_{ij} :
+\text{pr}_{0, small}^{-1} \mathcal{F}_i
+\longrightarrow
+\text{pr}_{1, small}^{-1} \mathcal{F}_j$
+is an isomorphism in $\Sh((X_i \times_X X_j)_\etale)$
+\end{enumerate}
+such that the {\it cocycle condition} holds: the diagrams
+$$
+\begin{array}{ccc}\text{pr}_{0, small}^{-1}\mathcal{F}_i
+\underset{\text{pr}_{02, small}^{-1}\varphi_{ik}}{\searrow}\overset{\text{pr}_{01, small}^{-1}\varphi_{ij}}{\longrightarrow} &  & \text{pr}_{1, small}^{-1}\mathcal{F}_j
+\overset{\text{pr}_{12, small}^{-1}\varphi_{jk}}{\swarrow} \\  & \text{pr}_{2, small}^{-1}\mathcal{F}_k & \end{array}
+$$
+commute in $\Sh((X_i \times_X X_j \times_X X_k)_\etale)$.
+There is an obvious notion of {\it morphisms of descent data}
+and we obtain a category of descent data.
+A descent datum
+$((\mathcal{F}_i)_{i \in I}, (\varphi_{ij})_{i, j \in I})$
+is called {\it effective} if there exist a
+$\mathcal{F}$ in $\Sh(X_\etale)$ and isomorphisms
+$\varphi_i : f_{i, small}^{-1} \mathcal{F} \to \mathcal{F}_i$
+in $\Sh(X_{i, \etale})$ compatible with the $\varphi_{ij}$, i.e.,
+such that
+$$
+\varphi_{ij} =
+\text{pr}_{1, small}^{-1} (\varphi_j) \circ
+\text{pr}_{0, small}^{-1} (\varphi_i^{-1})
+$$
+Another way to say this is the following. Given an object $\mathcal{F}$
+of $\Sh(X_\etale)$ we obtain the {\it canonical descent datum}
+$(f_{i, small}^{-1}\mathcal{F}_i, c_{ij})$ where $c_{ij}$
+is the canonical isomorphism
+$$
+c_{ij} : \text{pr}_{0, small}^{-1} f_{i, small}^{-1}\mathcal{F}
+\longrightarrow
+\text{pr}_{1, small}^{-1} f_{j, small}^{-1}\mathcal{F}
+$$
+The descent datum
+$((\mathcal{F}_i)_{i \in I}, (\varphi_{ij})_{i, j \in I})$
+is effective if and only if it is isomorphic to the canonical
+descent datum associated to some $\mathcal{F}$ in $\Sh(X_\etale)$.
+
+\medskip\noindent
+If the family consists of a single morphism $\{X \to Y\}$,
+then we think of a descent datum as a pair $(\mathcal{F}, \varphi)$
+where $\mathcal{F}$ is an object of $\Sh(X_\etale)$ and
+$\varphi$ is an isomorphism
+$$
+\text{pr}_{0, small}^{-1} \mathcal{F}
+\longrightarrow
+\text{pr}_{1, small}^{-1} \mathcal{F}
+$$
+in $\Sh((X \times_Y X)_\etale)$ such that the cocycle condition holds:
+$$
+\begin{array}{ccc}\text{pr}_{0, small}^{-1}\mathcal{F}
+\underset{\text{pr}_{02, small}^{-1}\varphi}{\searrow}\overset{\text{pr}_{01, small}^{-1}\varphi}{\longrightarrow} &  & \text{pr}_{1, small}^{-1}\mathcal{F}
+\overset{\text{pr}_{12, small}^{-1}\varphi}{\swarrow} \\  & \text{pr}_{2, small}^{-1}\mathcal{F} & \end{array}
+$$
+commutes in $\Sh((X \times_Y X \times_Y X)_\etale)$.
+There is a notion of morphisms of descent data and effectivity
+exactly as before.
+
+\begin{lemma}[Glue etale sheaf etale]
+\label{spaces-pushouts-lemma-glue-etale-sheaf-etale}
+\source{stacks:0GFS}
+\href{https://stacks.math.columbia.edu/tag/0GFS}{\texttt{Stacks tag 0GFS}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $\{f_i : X_i \to X\}$ be an \'etale covering of
+algebraic spaces. The functor
+$$
+\Sh(X_\etale)
+\longrightarrow
+\text{descent data for \'etale sheaves wrt }\{f_i : X_i \to X\}
+$$
+is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+In Properties of Spaces, Section \ref{spaces-properties-section-etale-site}
+we have defined a site $X_{spaces, \etale}$ whose objects
+are algebraic spaces \'etale over $X$ with \'etale coverings.
+Moreover, we have identifications
+$\Sh(X_\etale) = \Sh(X_{spaces, \etale})$ compatible
+with morphisms of algebraic spaces, i.e., compatible with
+pushforward and pullback. Hence the statement of the lemma follows
+from the much more general discussion in
+Sites, Section \ref{sites-section-glueing-sheaves}.
+\end{proof}
+
+\begin{lemma}[Reduce to scheme base]
+\label{spaces-pushouts-lemma-reduce-to-scheme-base}
+\source{stacks:0GFT}
+\href{https://stacks.math.columbia.edu/tag/0GFT}{\texttt{Stacks tag 0GFT}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of
+algebraic spaces over $S$. Let $\{Y_i \to Y\}_{i \in I}$ be an \'etale
+covering of algebraic spaces. If for each $i \in I$ the functor
+$$
+\Sh(Y_{i, \etale})
+\longrightarrow
+\text{descent data for \'etale sheaves wrt }\{X \times_Y Y_i \to Y_i\}
+$$
+is an equivalence of categories and for each $i, j \in I$ the functor
+$$
+\Sh((Y_i \times_Y Y_j)_\etale)
+\longrightarrow
+\text{descent data for \'etale sheaves wrt }
+\{X \times_Y Y_i \times_Y Y_j \to Y_i \times_Y Y_j\}
+$$
+is an equivalence of categories, then
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\text{descent data for \'etale sheaves wrt }\{X \to Y\}
+$$
+is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+Formal consequence of Lemma \ref{spaces-pushouts-lemma-glue-etale-sheaf-etale}
+and the definitions.
+\end{proof}
+
+\begin{lemma}[Representable case]
+\label{spaces-pushouts-lemma-representable-case}
+\source{stacks:0GFU}
+\href{https://stacks.math.columbia.edu/tag/0GFU}{\texttt{Stacks tag 0GFU}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Assume $f$ is representable (by schemes) and $f$
+has one of the following properties:
+surjective and integral,
+surjective and proper, or
+surjective and flat and locally of finite presentation
+Then
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\text{descent data for \'etale sheaves wrt }\{X \to Y\}
+$$
+is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+Each of the properties of morphisms of algebraic spaces
+mentioned in the statement of the lemma is preserved by
+arbitrary base change, see the lists in
+Spaces, Section \ref{spaces-section-lists}.
+Thus we can apply Lemma \ref{spaces-pushouts-lemma-reduce-to-scheme-base}
+to see that we can work \'etale locally on $Y$.
+In this way we reduce to the case where $Y$ is a scheme;
+some details omitted. In this case $X$ is also a scheme
+and the result follows from \'Etale Cohomology, Lemma
+\ref{etale-cohomology-lemma-glue-etale-sheaf-integral-surjective},
+\ref{etale-cohomology-lemma-glue-etale-sheaf-proper-surjective}, or
+\ref{etale-cohomology-lemma-glue-etale-sheaf-fppf-cover}.
+\end{proof}
+
+\begin{lemma}[Reduce to scheme source]
+\label{spaces-pushouts-lemma-reduce-to-scheme-source}
+\source{stacks:0GFV}
+\href{https://stacks.math.columbia.edu/tag/0GFV}{\texttt{Stacks tag 0GFV}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of algebraic spaces
+over $S$. Let $\pi : X' \to X$ be a morphism of algebraic spaces. Assume
+\begin{enumerate}
+\item $f \circ \pi$ is representable (by schemes),
+\item $f \circ \pi$ has one of the following properties:
+surjective and integral,
+surjective and proper, or
+surjective and flat and locally of finite presentation.
+\end{enumerate}
+Then
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\text{descent data for \'etale sheaves wrt }\{X \to Y\}
+$$
+is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+Formal consequence of Lemma \ref{spaces-pushouts-lemma-representable-case}
+and Stacks, Lemma \ref{stacks-lemma-compare-descent-condition}.
+\end{proof}
+
+\begin{lemma}[Glue etale sheaf proper surjective]
+\label{spaces-pushouts-lemma-glue-etale-sheaf-proper-surjective}
+\source{stacks:0GFW}
+\href{https://stacks.math.columbia.edu/tag/0GFW}{\texttt{Stacks tag 0GFW}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : X \to Y$ be a morphism of
+algebraic spaces over $S$ which has one of the following
+properties: surjective and integral, surjective and proper, or
+surjective and flat and locally of finite presentation. Then the functor
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\text{descent data for \'etale sheaves wrt }\{X \to Y\}
+$$
+is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+Observe that the base change of a proper surjective morphism is
+proper and surjective, see
+Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-base-change-proper}
+and \ref{spaces-morphisms-lemma-base-change-surjective}.
+Hence by Lemma \ref{spaces-pushouts-lemma-reduce-to-scheme-base}
+we may work \'etale locally on $Y$. Hence
+we reduce to $Y$ being an affine scheme; some details omitted.
+
+\medskip\noindent
+Assume $Y$ is affine. By Lemma \ref{spaces-pushouts-lemma-reduce-to-scheme-source}
+it suffices to find a morphism $X' \to X$ where $X'$ is a scheme such
+that $X' \to Y$ is surjective and integral, surjective and proper, or
+surjective and flat and locally of finite presentation.
+
+\medskip\noindent
+In case $X \to Y$ is integral and surjective, we can take $X = X'$
+as an integral morphism is representable.
+
+\medskip\noindent
+If $f$ is proper and surjective, then the algebraic space
+$X$ is quasi-compact and separated, see
+Morphisms of Spaces, Section \ref{spaces-morphisms-section-quasi-compact} and
+Lemma \ref{spaces-morphisms-lemma-separated-over-separated}.
+Choose a scheme $X'$ and a surjective finite morphism $X' \to X$, see
+Limits of Spaces, Proposition
+\ref{spaces-limits-proposition-there-is-a-scheme-finite-over}.
+Then $X' \to Y$ is surjective and proper.
+
+\medskip\noindent
+Finally, if $X \to Y$ is surjective and flat and locally of finite
+presentation then we can take an affine \'etale covering $\{U_i \to X\}$
+and set $X'$ equal to the disjoint $\coprod U_i$.
+\end{proof}
+
+\begin{lemma}[Glue etale sheaf fppf]
+\label{spaces-pushouts-lemma-glue-etale-sheaf-fppf}
+\source{stacks:0GFX}
+\href{https://stacks.math.columbia.edu/tag/0GFX}{\texttt{Stacks tag 0GFX}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme.
+Let $\{f_i : X_i \to X\}$ be an fppf covering of algebraic spaces over $S$.
+The functor
+$$
+\Sh(X_\etale)
+\longrightarrow
+\text{descent data for \'etale sheaves wrt }\{f_i : X_i \to X\}
+$$
+is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+We have Lemma \ref{spaces-pushouts-lemma-glue-etale-sheaf-proper-surjective}
+for the morphism $f : \coprod X_i \to X$.
+Then a formal argument shows that descent data for $f$
+are the same thing as descent data for the covering, compare
+with Descent, Lemma \ref{descent-lemma-family-is-one}.
+Details omitted.
+\end{proof}
+
+\begin{lemma}[Glue etale sheaf modification]
+\label{spaces-pushouts-lemma-glue-etale-sheaf-modification}
+\source{stacks:0GFY}
+\href{https://stacks.math.columbia.edu/tag/0GFY}{\texttt{Stacks tag 0GFY}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : Y' \to Y$ be a proper morphism of
+algebraic spaces over $S$. Let $i : Z \to Y$
+be a closed immersion. Set $E = Z \times_Y Y'$. Picture
+$$
+\begin{array}{cc}E \underset{g}{\downarrow}\underset{j}{\longrightarrow} & Y' \overset{f}{\downarrow} \\ Z \overset{i}{\longrightarrow} & Y\end{array}
+$$
+If $f$ is an isomorphism over $Y \setminus Z$, then the functor
+$$
+\Sh(Y_\etale)
+\longrightarrow
+\Sh(Y'_\etale) \times_{\Sh(E_\etale)} \Sh(Z_\etale)
+$$
+is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+Observe that $X = Y' \coprod Z \to Y$ is a proper surjective morphism.
+Thus it suffice to construct an equivalence of categories
+$$
+\Sh(Y'_\etale) \times_{\Sh(E_\etale)} \Sh(Z_\etale)
+\longrightarrow
+\text{descent data for \'etale sheaves wrt }\{X \to Y\}
+$$
+compatible with pullback functors from $Y$
+because then we can use Lemma \ref{spaces-pushouts-lemma-glue-etale-sheaf-proper-surjective}
+to conclude. Thus let $(\mathcal{G}', \mathcal{G}, \alpha)$ be an
+object of $\Sh(Y'_\etale) \times_{\Sh(E_\etale)} \Sh(Z_\etale)$ with
+notation as in Categories, Example
+\ref{categories-example-2-fibre-product-categories}.
+Then we can consider the sheaf $\mathcal{F}$ on $X$ defined
+by taking $\mathcal{G}'$ on the summand $Y'$ and $\mathcal{G}$
+on the summand $Z$. We have
+$$
+X \times_Y X = Y' \times_Y Y' \amalg
+Y' \times_Y Z \amalg Z \times_Y Y' \amalg Z \times_Y Z =
+Y' \times_Y Y' \amalg E \amalg E \amalg Z
+$$
+The isomorphisms of the two pullbacks of $\mathcal{F}$ to this algebraic
+space are obvious over the summands $E$, $E$, $Z$. The interesting
+part of the proof is to find an isomorphism
+$\text{pr}_{0, small}^{-1}\mathcal{G}' \to
+\text{pr}_{1, small}^{-1}\mathcal{G}'$
+over $Y' \times_Y Y'$ satisfying the cocycle condition.
+However, our assumption that $Y' \to Y$ is an isomorphism
+over $Y \setminus Z$ implies that
+$$
+h : Y \coprod E \times_Z E \longrightarrow Y' \times_Y Y'
+$$
+is a surjective proper morphism. (It is in fact a finite morphism
+as it is the disjoint union of two closed immersions.)
+Hence it suffices to construct an isomorphism of the pullbacks
+of $\text{pr}_{0, small}^{-1}\mathcal{G}'$and
+$\text{pr}_{1, small}^{-1}\mathcal{G}'$ by $h_{small}$ satisfying
+a certain cocycle condition. For the diagonal, it is clear
+how to do this. And for the pullback to $E \times_Z E$
+we use that both sheaves pull back to the pullback of
+$\mathcal{G}$ by the morphism $E \times_Z E \to Z$.
+We omit the details.
+\end{proof}
+
+\section{Descending \'etale morphisms of algebraic spaces}
+\label{spaces-pushouts-section-descending-etale}
+In this section we combine the glueing results for \'etale sheaves given in
+Section \ref{spaces-pushouts-section-glueing-etale} with the flexibility of algebraic spaces
+to get some descent statements for \'etale morphisms of algebraic spaces.
+
+\begin{lemma}[Descend etale proper surjective]
+\label{spaces-pushouts-lemma-descend-etale-proper-surjective}
+\source{stacks:0GG0}
+\href{https://stacks.math.columbia.edu/tag/0GG0}{\texttt{Stacks tag 0GG0}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : X \to Y$ be a proper surjective morphism
+of algebraic spaces over $S$. Any descent datum $(U/X, \varphi)$ relative to $f$
+(Descent on Spaces, Definition \ref{spaces-descent-definition-descent-datum})
+with $U$ \'etale over $X$ is effective
+(Descent on Spaces, Definition \ref{spaces-descent-definition-effective}).
+More precisely, there exists an \'etale morphism $V \to Y$ of algebraic spaces
+whose corresponding canonical descent datum is isomorphic to $(U/X, \varphi)$.
+\end{lemma}
+
+\begin{proof}
+Recall that $U$ gives rise to a representable sheaf
+$\mathcal{F} = h_U$ in $\Sh(X_{spaces, \etale}) = \Sh(X_\etale)$, see
+Properties of Spaces, Section \ref{spaces-properties-section-etale-site}.
+The descent datum on $U$ relative to $f$
+exactly gives a descent datum $(\mathcal{F}, \varphi)$
+for \'etale sheaves with respect to $\{X \to Y\}$.
+By Lemma \ref{spaces-pushouts-lemma-glue-etale-sheaf-proper-surjective}
+this descent datum is effective.
+Let $\mathcal{G}$ be the corresponding sheaf on $Y_\etale$.
+By Properties of Spaces, Lemma \ref{spaces-properties-lemma-sheaf-gives-space}
+we obtain an \'etale morphism $V \to Y$ of algebraic spaces
+corresponding to $\mathcal{G}$; we omit the verification of
+the set theoretic condition\footnote{It follows from the
+fact that $\mathcal{F}$ satisfies the corresponding condition.}.
+The given isomorphism $\mathcal{F} \to f_{small}^{-1}\mathcal{G}$
+corresponds to an isomorphism $U \to V \times_Y X$ compatible
+with the descent datum.
+\end{proof}
+
+\begin{lemma}[Glue etale space modification]
+\label{spaces-pushouts-lemma-glue-etale-space-modification}
+\source{stacks:0GG1}
+\href{https://stacks.math.columbia.edu/tag/0GG1}{\texttt{Stacks tag 0GG1}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : Y' \to Y$ be a proper morphism of
+algebraic spaces over $S$. Let $i : Z \to Y$
+be a closed immersion. Set $E = Z \times_Y Y'$. Picture
+$$
+\begin{array}{cc}E \underset{g}{\downarrow}\underset{j}{\longrightarrow} & Y' \overset{f}{\downarrow} \\ Z \overset{i}{\longrightarrow} & Y\end{array}
+$$
+If $f$ is an isomorphism over $Y \setminus Z$, then the functor
+$$
+Y_{spaces, \etale}
+\longrightarrow
+Y'_{spaces, \etale} \times_{E_{spaces, \etale}} Z_{spaces, \etale}
+$$
+is an equivalence of categories.
+\end{lemma}
+
+\begin{proof}
+Let $(V' \to Y', W \to Z, \alpha)$ be an object of the right hand side.
+Recall that $V'$, resp.\ $W$ gives rise to a representable sheaf
+$\mathcal{G}' = h_{V'}$ in $\Sh(Y'_{spaces, \etale}) = \Sh(Y'_\etale)$,
+resp.\ $\mathcal{G} = h_W$
+in $\Sh(Z_{spaces, \etale}) = \Sh(Z_\etale)$, see
+Properties of Spaces, Section \ref{spaces-properties-section-etale-site}.
+The isomorphism $\alpha : V' \times_{Y'} E \to W \times_Z E$
+determines an isomorphism
+$j_{small}^{-1}\mathcal{G}' \to g_{small}^{-1}\mathcal{G}$ of
+sheaves on $E$.
+By Lemma \ref{spaces-pushouts-lemma-glue-etale-sheaf-modification}
+we obtain a unique sheaf $\mathcal{F}$ on $Y$ pulling pack
+to $\mathcal{G}'$ and $\mathcal{G}$ compatibly with the isomorphism.
+By Properties of Spaces, Lemma \ref{spaces-properties-lemma-sheaf-gives-space}
+we obtain an \'etale morphism $V \to Y$ of algebraic spaces
+corresponding to $\mathcal{F}$; we omit the verification of
+the set theoretic condition\footnote{It follows from the
+fact that $\mathcal{G}$ and $\mathcal{G}'$ satisfies the
+corresponding condition.}.
+The given isomorphism $\mathcal{G}' \to f_{small}^{-1}\mathcal{F}$
+and $\mathcal{G} \to i_{small}^{-1}\mathcal{F}$
+corresponds to isomorphisms $V' \to V \times_Y Y'$
+and $W \to V \times_Y Z$ compatible
+with $\alpha$ as desired.
+\end{proof}
+
+\section{Pushouts along thickenings and affine morphisms}
+\label{spaces-pushouts-section-pushouts}
+This section is analogue of
+More on Morphisms, Section \ref{more-morphisms-section-pushouts}.
+
+\begin{lemma}[Pushout along thickening schemes]
+\label{spaces-pushouts-lemma-pushout-along-thickening-schemes}
+\source{stacks:07SY}
+\href{https://stacks.math.columbia.edu/tag/07SY}{\texttt{Stacks tag 07SY}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $X \to X'$ be a thickening of schemes
+over $S$ and let $X \to Y$ be an affine morphism of schemes over $S$.
+Let $Y' = Y \amalg_X X'$ be the pushout in the category of schemes (see
+More on Morphisms, Lemma \ref{more-morphisms-lemma-pushout-along-thickening}).
+Then $Y'$ is also a pushout in the category of algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+This is an immediate consequence of Lemma \ref{spaces-pushouts-lemma-colimit-agrees} and
+More on Morphisms, Lemmas
+\ref{more-morphisms-lemma-pushout-along-thickening},
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}, and
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}.
+\end{proof}
+
+\begin{lemma}[Pushout along thickening]
+\label{spaces-pushouts-lemma-pushout-along-thickening}
+\source{stacks:07VX}
+\href{https://stacks.math.columbia.edu/tag/07VX}{\texttt{Stacks tag 07VX}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $X \to X'$ be a thickening of algebraic spaces
+over $S$ and let $X \to Y$ be an affine morphism of algebraic spaces over $S$.
+Then there exists a pushout
+$$
+\begin{array}{cc}X \longrightarrow\underset{f}{\downarrow} & X' \overset{f'}{\downarrow} \\ Y \longrightarrow & Y \amalg_X X'\end{array}
+$$
+in the category of algebraic spaces over $S$. Moreover $Y' = Y \amalg_X X'$
+is a thickening of $Y$ and
+$$
+\mathcal{O}_{Y'} = \mathcal{O}_Y \times_{f_*\mathcal{O}_X} f'_*\mathcal{O}_{X'}
+$$
+as sheaves on $Y_\etale = (Y')_\etale$.
+\end{lemma}
+
+\begin{proof}
+Choose a scheme $V$ and a surjective \'etale morphism $V \to Y$.
+Set $U = V \times_Y X$. This is a scheme affine over $V$ with a
+surjective \'etale morphism $U \to X$. By More on Morphisms of Spaces,
+Lemma \ref{spaces-more-morphisms-lemma-thickening-equivalence}
+there exists a $U' \to X'$
+surjective \'etale with $U = U' \times_{X'} X$. In particular the
+morphism of schemes $U \to U'$ is a thickening too. Apply
+More on Morphisms, Lemma \ref{more-morphisms-lemma-pushout-along-thickening}
+to obtain a pushout $V' = V \amalg_U U'$ in the category of schemes.
+
+\medskip\noindent
+We repeat this procedure to construct a pushout
+$$
+\begin{array}{cc}U \times_X U \downarrow\longrightarrow & U' \times_{X'} U' \downarrow \\ V \times_Y V \longrightarrow & R'\end{array}
+$$
+in the category of schemes. Consider the morphisms
+$$
+U \times_X U \to U \to V',\quad
+U' \times_{X'} U' \to U' \to V',\quad
+V \times_Y V \to V \to V'
+$$
+where we use the first projection in each case. Clearly these glue to
+give a morphism $t' : R' \to V'$ which is \'etale by
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}.
+Similarly, we obtain $s' : R' \to V'$ \'etale.
+The morphism $j' = (t', s') : R' \to V' \times_S V'$ is unramified
+(as $t'$ is \'etale) and a monomorphism when restricted to the closed
+subscheme $V \times_Y V \subset R'$. As $V \times_Y V \subset R'$ is
+a thickening it follows that $j'$ is a monomorphism too. Finally, $j'$
+is an equivalence relation as we can use the functoriality of pushouts
+of schemes to construct a morphism $c' : R' \times_{s', V', t'} R' \to R'$
+(details omitted). At this point we set $Y' = V'/R'$, see
+Spaces, Theorem \ref{spaces-theorem-presentation}.
+
+\medskip\noindent
+We have morphisms $X' = U'/U' \times_{X'} U' \to V'/R' = Y'$ and
+$Y = V/V \times_Y V \to V'/R' = Y'$.
+By construction these fit into the commutative diagram
+$$
+\begin{array}{cc}X \longrightarrow\underset{f}{\downarrow} & X' \overset{f'}{\downarrow} \\ Y \longrightarrow & Y'\end{array}
+$$
+Since $Y \to Y'$ is a thickening we have
+$Y_\etale = (Y')_\etale$, see More on Morphisms of Spaces,
+Lemma \ref{spaces-more-morphisms-lemma-thickening-equivalence}.
+The commutativity of the diagram gives a map of sheaves
+$$
+\mathcal{O}_{Y'}
+\longrightarrow
+\mathcal{O}_Y \times_{f_*\mathcal{O}_X} f'_*\mathcal{O}_{X'}
+$$
+on this set. By More on Morphisms, Lemma
+\ref{more-morphisms-lemma-pushout-along-thickening}
+this map is an isomorphism when we restrict to
+the scheme $V'$, hence it is an isomorphism.
+
+\medskip\noindent
+To finish the proof we show that the diagram above is a pushout in
+the category of algebraic spaces. To see this, let $Z$ be an algebraic
+space and let $a' : X' \to Z$ and $b : Y \to Z$ be morphisms of
+algebraic spaces. By
+Lemma \ref{spaces-pushouts-lemma-pushout-along-thickening-schemes}
+we obtain a unique morphism $h : V' \to Z$ fitting into the commutative
+diagrams
+$$
+\vcenter{
+\begin{array}{cc}U' \downarrow\longrightarrow & V' \overset{h}{\downarrow} \\ X' \overset{a'}{\longrightarrow} & Z\end{array}
+}
+\quad\text{and}\quad
+\vcenter{
+\begin{array}{cc}V \longrightarrow\downarrow & V' \overset{h}{\downarrow} \\ Y \overset{b}{\longrightarrow} & Z\end{array}
+}
+$$
+The uniqueness shows that $h \circ t' = h \circ s'$. Hence $h$ factors
+uniquely as $V' \to Y' \to Z$ and we win.
+\end{proof}
+
+In the following lemma we use the fibre product of categories as
+defined in
+Categories, Example \ref{categories-example-2-fibre-product-categories}.
+
+\begin{lemma}[Categories spaces over pushout]
+\label{spaces-pushouts-lemma-categories-spaces-over-pushout}
+\source{stacks:07VY}
+\href{https://stacks.math.columbia.edu/tag/07VY}{\texttt{Stacks tag 07VY}}
+\group{spaces-pushouts}
+
+Let $S$ be a base scheme. Let $X \to X'$ be a thickening of algebraic spaces
+over $S$ and let $X \to Y$ be an affine morphism of algebraic spaces over $S$.
+Let $Y' = Y \amalg_X X'$ be the pushout (see
+Lemma \ref{spaces-pushouts-lemma-pushout-along-thickening}). Base change gives a functor
+$$
+F :
+(\textit{Spaces}/Y')
+\longrightarrow
+(\textit{Spaces}/Y) \times_{(\textit{Spaces}/Y')} (\textit{Spaces}/X')
+$$
+given by $V' \longmapsto (V' \times_{Y'} Y, V' \times_{Y'} X', 1)$ which
+sends $(\Sch/Y')$ into $(\Sch/Y) \times_{(\Sch/Y')} (\Sch/X')$.
+The functor $F$ has a left adjoint
+$$
+G :
+(\textit{Spaces}/Y) \times_{(\textit{Spaces}/Y')} (\textit{Spaces}/X')
+\longrightarrow
+(\textit{Spaces}/Y')
+$$
+which sends the triple $(V, U', \varphi)$ to the pushout
+$V \amalg_{(V \times_Y X)} U'$ in the category of algebraic spaces over $S$.
+The functor $G$ sends $(\Sch/Y) \times_{(\Sch/Y')} (\Sch/X')$ into $(\Sch/Y')$.
+\end{lemma}
+
+\begin{proof}
+The proof is completely formal.
+Since the morphisms $X \to X'$ and $X \to Y$ are representable it
+is clear that $F$ sends $(\Sch/Y')$ into
+$(\Sch/Y) \times_{(\Sch/Y')} (\Sch/X')$.
+
+\medskip\noindent
+Let us construct $G$. Let $(V, U', \varphi)$ be an object of the fibre
+product category. Set $U = U' \times_{X'} X$. Note that $U \to U'$ is a
+thickening. Since $\varphi : V \times_Y X \to U' \times_{X'} X = U$ is an
+isomorphism we have a morphism $U \to V$ over $X \to Y$ which identifies
+$U$ with the fibre product $X \times_Y V$. In particular $U \to V$ is
+affine, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-base-change-affine}.
+Hence we can apply Lemma \ref{spaces-pushouts-lemma-pushout-along-thickening}
+to get a pushout $V' = V \amalg_U U'$. Denote $V' \to Y'$ the morphism
+we obtain in virtue of the fact that $V'$ is a pushout and because
+we are given morphisms $V \to Y$ and $U' \to X'$ agreeing on $U$
+as morphisms into $Y'$. Setting $G(V, U', \varphi) = V'$
+gives the functor $G$.
+
+\medskip\noindent
+If $(V, U', \varphi)$ is an object of $(\Sch/Y) \times_{(\Sch/Y')} (\Sch/X')$
+then $U = U' \times_{X'} X$ is a scheme too and we can form the pushout
+$V' = V \amalg_U U'$ in the category of schemes by
+More on Morphisms, Lemma \ref{more-morphisms-lemma-pushout-along-thickening}.
+By Lemma \ref{spaces-pushouts-lemma-pushout-along-thickening-schemes}
+this is also a pushout in the category of schemes, hence
+$G$ sends $(\Sch/Y) \times_{(\Sch/Y')} (\Sch/X')$ into $(\Sch/Y')$.
+
+\medskip\noindent
+Let us prove that $G$ is a left adjoint to $F$. Let $Z$ be an algebraic space
+over $Y'$. We have to show that
+$$
+\Mor(V', Z) = \Mor((V, U', \varphi), F(Z))
+$$
+where the morphism sets are taking in their respective categories.
+Let $g' : V' \to Z$ be a morphism. Denote $\tilde g$, resp.\ $\tilde f'$
+the composition of $g'$ with the morphism $V \to V'$, resp.\ $U' \to V'$.
+Base change $\tilde g$, resp.\ $\tilde f'$ by $Y \to Y'$, resp.\ $X' \to Y'$
+to get a morphism $g : V \to Z \times_{Y'} Y$,
+resp.\ $f' : U' \to Z \times_{Y'} X'$. Then $(g, f')$ is an element
+of the right hand side of the equation above (details omitted).
+Conversely, suppose that $(g, f') : (V, U', \varphi) \to F(Z)$ is an
+element of the right hand side.
+We may consider the composition $\tilde g : V \to Z$,
+resp.\ $\tilde f' : U' \to Z$ of $g$, resp.\ $f$ by
+$Z \times_{Y'} X' \to Z$, resp.\ $Z \times_{Y'} Y \to Z$.
+Then $\tilde g$ and $\tilde f'$ agree as morphism from $U$ to $Z$.
+By the universal property of pushout, we obtain a morphism
+$g' : V' \to Z$, i.e., an element of the left hand side.
+We omit the verification that these constructions are mutually inverse.
+\end{proof}
+
+\begin{lemma}[Diagram]
+\label{spaces-pushouts-lemma-diagram}
+\source{stacks:07VZ}
+\href{https://stacks.math.columbia.edu/tag/07VZ}{\texttt{Stacks tag 07VZ}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let
+$$
+\begin{array}{ccc}A \longrightarrow\downarrow & C \downarrow\longrightarrow & E \downarrow \\ B \longrightarrow & D \longrightarrow & F\end{array}
+$$
+be a commutative diagram of algebraic spaces over $S$.
+Assume that $A, B, C, D$ and $A, B, E, F$ form cartesian squares
+and that $B \to D$ is surjective \'etale.
+Then $C, D, E, F$ is a cartesian square.
+\end{lemma}
+
+\begin{proof}
+This is formal.
+\end{proof}
+
+\begin{lemma}[Equivalence categories spaces over pushout]
+\label{spaces-pushouts-lemma-equivalence-categories-spaces-over-pushout}
+\source{stacks:07W0}
+\href{https://stacks.math.columbia.edu/tag/07W0}{\texttt{Stacks tag 07W0}}
+\group{spaces-pushouts}
+
+In the situation of Lemma \ref{spaces-pushouts-lemma-categories-spaces-over-pushout}
+the functor $F \circ G$ is isomorphic to the identity functor.
+\end{lemma}
+
+\begin{proof}
+We will prove that $F \circ G$ is isomorphic to the identity by
+reducing this to the corresponding statement of
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}.
+
+\medskip\noindent
+Choose a scheme $Y_1$ and a surjective \'etale morphism
+$Y_1 \to Y$. Set $X_1 = Y_1 \times_Y X$. This is a scheme affine over
+$Y_1$ with a surjective \'etale morphism $X_1 \to X$. By
+More on Morphisms of Spaces,
+Lemma \ref{spaces-more-morphisms-lemma-thickening-equivalence}
+there exists a $X'_1 \to X'$
+surjective \'etale with $X_1 = X_1' \times_{X'} X$. In particular the
+morphism of schemes $X_1 \to X_1'$ is a thickening too. Apply
+More on Morphisms, Lemma \ref{more-morphisms-lemma-pushout-along-thickening}
+to obtain a pushout $Y_1' = Y_1 \amalg_{X_1} X_1'$ in the category of
+schemes. In the proof of Lemma \ref{spaces-pushouts-lemma-pushout-along-thickening}
+we constructed
+$Y'$ as a quotient of an \'etale equivalence relation on $Y_1'$
+such that we get a commutative diagram
+\begin{equation}
+\label{equation-cube}
+\vcenter{
+\begin{array}{cccc} & X \longrightarrow\downarrow &  & X' \downarrow \\ X_1 \longrightarrow\downarrow\nearrow &  & X_1' \downarrow\nearrow &  \\  & Y \longrightarrow &  & Y' \\ Y_1 \longrightarrow\nearrow &  & Y_1' \nearrow & \end{array}
+}
+\end{equation}
+where all squares except the front and back squares are cartesian
+(the front and back squares are pushouts) and the northeast arrows
+are surjective \'etale. Denote $F_1$, $G_1$ the
+functors constructed in
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}
+for the front square. Then the diagram of categories
+$$
+\begin{array}{cc}(\Sch/Y_1') \underset{F_1}{\longrightarrow}\downarrow & (\Sch/Y_1) \times_{(\Sch/Y_1')} (\Sch/X_1') \downarrow\underset{G_1}{\longleftarrow} \\ (\textit{Spaces}/Y') \underset{F}{\longrightarrow} & (\textit{Spaces}/Y) \times_{(\textit{Spaces}/Y')} (\textit{Spaces}/X')
+\underset{G}{\longleftarrow}\end{array}
+$$
+is commutative by simple considerations regarding base change functors
+and the agreement of pushouts in schemes with pushouts in
+spaces of Lemma \ref{spaces-pushouts-lemma-pushout-along-thickening-schemes}.
+
+\medskip\noindent
+Let $(V, U', \varphi)$ be an object of
+$(\textit{Spaces}/Y) \times_{(\textit{Spaces}/Y')} (\textit{Spaces}/X')$.
+Denote $U = U' \times_{X'} X$ so that $G(V, U', \varphi) = V \amalg_U U'$.
+Choose a scheme $V_1$ and a surjective \'etale morphism
+$V_1 \to Y_1 \times_Y V$. Set $U_1 = V_1 \times_Y X$. Then
+$$
+U_1 = V_1 \times_Y X
+\longrightarrow
+(Y_1 \times_Y V) \times_Y X =
+X_1 \times_Y V = X_1 \times_X X \times_Y V = X_1 \times_X U
+$$
+is surjective \'etale too. By
+More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-thickening-equivalence}
+there exists a thickening $U_1 \to U_1'$ and a surjective \'etale morphism
+$U_1' \to X_1' \times_{X'} U'$ whose base change to $X_1 \times_X U$ is the
+displayed morphism. At this point $(V_1, U'_1, \varphi_1)$ is an object of
+$(\Sch/Y_1) \times_{(\Sch/Y_1')} (\Sch/X_1')$. In the proof of
+Lemma \ref{spaces-pushouts-lemma-pushout-along-thickening} we constructed
+$G(V, U', \varphi) = V \amalg_U U'$ as a quotient of an \'etale equivalence
+relation on $G_1(V_1, U_1', \varphi_1) = V_1 \amalg_{U_1} U_1'$
+such that we get a commutative diagram
+\begin{equation}
+\label{equation-cube-over}
+\vcenter{
+\begin{array}{cccc} & U \longrightarrow\downarrow &  & U' \downarrow \\ U_1 \longrightarrow\downarrow\nearrow &  & U_1' \downarrow\nearrow &  \\  & V \longrightarrow &  & G(V, U', \varphi) \\ V_1 \longrightarrow\nearrow &  & G_1(V_1, U_1', \varphi_1) \nearrow & \end{array}
+}
+\end{equation}
+where all squares except the front and back squares are cartesian
+(the front and back squares are pushouts) and the northeast arrows
+are surjective \'etale. In particular
+$$
+G_1(V_1, U_1', \varphi_1) \to G(V, U', \varphi)
+$$
+is surjective \'etale.
+
+\medskip\noindent
+Finally, we come to the proof of the lemma. We have to show that the adjunction
+mapping $(V, U', \varphi) \to F(G(V, U', \varphi))$ is an isomorphism. We know
+$(V_1, U_1', \varphi_1) \to F_1(G_1(V_1, U_1', \varphi_1))$ is an isomorphism
+by More on Morphisms, Lemma
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout}.
+Recall that $F$ and $F_1$ are given by base change.
+Using the properties of (\ref{equation-cube-over})
+and Lemma \ref{spaces-pushouts-lemma-diagram}
+we see that
+$V \to G(V, U', \varphi) \times_{Y'} Y$ and
+$U' \to G(V, U', \varphi) \times_{Y'} X'$ are isomorphisms, i.e.,
+$(V, U', \varphi) \to F(G(V, U', \varphi))$ is an isomorphism.
+\end{proof}
+
+\begin{lemma}[Space over pushout flat modules]
+\label{spaces-pushouts-lemma-space-over-pushout-flat-modules}
+\source{stacks:08KV}
+\href{https://stacks.math.columbia.edu/tag/08KV}{\texttt{Stacks tag 08KV}}
+\group{spaces-pushouts}
+
+Let $S$ be a base scheme.
+Let $X \to X'$ be a thickening of algebraic spaces over $S$
+and let $X \to Y$ be an affine morphism of algebraic spaces over $S$.
+Let $Y' = Y \amalg_X X'$ be the pushout
+(see Lemma \ref{spaces-pushouts-lemma-pushout-along-thickening}).
+Let $V' \to Y'$ be a morphism of algebraic spaces over $S$. Set
+$V = Y \times_{Y'} V'$, $U' = X' \times_{Y'} V'$, and $U = X \times_{Y'} V'$.
+There is an equivalence of categories between
+\begin{enumerate}
+\item quasi-coherent $\mathcal{O}_{V'}$-modules flat over $Y'$, and
+\item the category of triples $(\mathcal{G}, \mathcal{F}', \varphi)$ where
+\begin{enumerate}
+\item $\mathcal{G}$ is a quasi-coherent $\mathcal{O}_V$-module flat over $Y$,
+\item $\mathcal{F}'$ is a quasi-coherent $\mathcal{O}_{U'}$-module flat
+over $X$, and
+\item $\varphi : (U \to V)^*\mathcal{G} \to (U \to U')^*\mathcal{F}'$
+is an isomorphism of $\mathcal{O}_U$-modules.
+\end{enumerate}
+\end{enumerate}
+The equivalence maps $\mathcal{G}'$ to
+$((V \to V')^*\mathcal{G}', (U' \to V')^*\mathcal{G}', can)$.
+Suppose $\mathcal{G}'$ corresponds to the triple
+$(\mathcal{G}, \mathcal{F}', \varphi)$. Then
+\begin{enumerate}
+\item[(a)] $\mathcal{G}'$ is a finite type $\mathcal{O}_{V'}$-module if and
+only if $\mathcal{G}$ and $\mathcal{F}'$ are finite type
+$\mathcal{O}_Y$ and $\mathcal{O}_{U'}$-modules.
+\item[(b)] if $V' \to Y'$ is locally of finite presentation, then
+$\mathcal{G}'$ is an $\mathcal{O}_{V'}$-module of finite
+presentation if and only if $\mathcal{G}$ and $\mathcal{F}'$ are
+$\mathcal{O}_Y$ and $\mathcal{O}_{U'}$-modules of finite presentation.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+A quasi-inverse functor assigns to the triple
+$(\mathcal{G}, \mathcal{F}', \varphi)$ the fibre product
+$$
+(V \to V')_*\mathcal{G}
+\times_{(U \to V')_*\mathcal{F}}
+(U' \to V')_*\mathcal{F}'
+$$
+where $\mathcal{F} = (U \to U')^*\mathcal{F}'$. This works, because on
+affines \'etale over $V'$ and $Y'$ we recover the equivalence of
+More on Algebra, Lemma
+\ref{more-algebra-lemma-relative-flat-module-over-fibre-product}.
+Details omitted.
+
+\medskip\noindent
+Parts (a) and (b) reduce by \'etale localization
+(Properties of Spaces, Section
+\ref{spaces-properties-section-properties-modules})
+to the case where $V'$ and $Y'$ are affine in which case the result
+follows from
+More on Algebra, Lemmas
+\ref{more-algebra-lemma-relative-finite-module-over-fibre-product} and
+\ref{more-algebra-lemma-relative-finitely-presented-module-over-fibre-product}.
+\end{proof}
+
+
+\begin{lemma}[Equivalence categories spaces pushout flat]
+\label{spaces-pushouts-lemma-equivalence-categories-spaces-pushout-flat}
+\source{stacks:07W3}
+\href{https://stacks.math.columbia.edu/tag/07W3}{\texttt{Stacks tag 07W3}}
+\group{spaces-pushouts}
+
+In the situation of
+Lemma \ref{spaces-pushouts-lemma-equivalence-categories-spaces-over-pushout}.
+If $V' = G(V, U', \varphi)$ for some triple $(V, U', \varphi)$, then
+\begin{enumerate}
+\item $V' \to Y'$ is locally of finite type if and only if $V \to Y$ and
+$U' \to X'$ are locally of finite type,
+\item $V' \to Y'$ is flat if and only if $V \to Y$ and $U' \to X'$ are flat,
+\item $V' \to Y'$ is flat and locally of finite presentation if and only if
+$V \to Y$ and $U' \to X'$ are flat and locally of finite presentation,
+\item $V' \to Y'$ is smooth if and only if $V \to Y$ and $U' \to X'$ are smooth,
+\item $V' \to Y'$ is \'etale if and only if $V \to Y$ and $U' \to X'$
+are \'etale, and
+\item add more here as needed.
+\end{enumerate}
+If $W'$ is flat over $Y'$, then the adjunction mapping
+$G(F(W')) \to W'$ is an isomorphism. Hence $F$ and $G$ define mutually
+quasi-inverse functors between the category of spaces flat over $Y'$
+and the category of triples $(V, U', \varphi)$ with $V \to Y$
+and $U' \to X'$ flat.
+\end{lemma}
+
+\begin{proof}
+Choose a diagram (\ref{equation-cube}) as in the proof of
+Lemma \ref{spaces-pushouts-lemma-equivalence-categories-spaces-over-pushout}.
+
+\medskip\noindent
+Proof of (1) -- (5). Let $(V, U', \varphi)$ be an object of
+$(\textit{Spaces}/Y) \times_{(\textit{Spaces}/Y')} (\textit{Spaces}/X')$.
+Construct a diagram (\ref{equation-cube-over}) as in the proof of
+Lemma \ref{spaces-pushouts-lemma-equivalence-categories-spaces-over-pushout}.
+Then the base change of $G(V, U', \varphi) \to Y'$ to
+$Y'_1$ is $G_1(V_1, U_1', \varphi_1) \to Y_1'$. Hence (1) -- (5)
+follow immediately from the corresponding statements of
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}
+for schemes.
+
+\medskip\noindent
+Suppose that $W' \to Y'$ is flat. Choose a scheme $W'_1$ and a surjective
+\'etale morphism $W'_1 \to Y_1' \times_{Y'} W'$. Observe that $W'_1 \to W'$
+is surjective \'etale as a composition of surjective \'etale morphisms. We
+know that $G_1(F_1(W_1')) \to W_1'$ is an isomorphism by
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-equivalence-categories-schemes-over-pushout-flat}
+applied to $W'_1$ over $Y'_1$ and the front of the diagram (with functors
+$G_1$ and $F_1$ as in the proof of
+Lemma \ref{spaces-pushouts-lemma-equivalence-categories-spaces-over-pushout}).
+Then the construction of $G(F(W'))$ (as a pushout, i.e.,
+as constructed in Lemma \ref{spaces-pushouts-lemma-pushout-along-thickening}) shows that
+$G_1(F_1(W'_1)) \to G(F(W))$ is surjective \'etale. Whereupon we conclude
+that $G(F(W)) \to W$ is \'etale, see for example
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-etale-local}.
+But $G(F(W)) \to W$ is an isomorphism on underlying reduced
+algebraic spaces (by construction), hence it is an isomorphism.
+\end{proof}
+
+\section{Pushouts along closed immersions and integral morphisms}
+\label{spaces-pushouts-section-pushouts-II}
+This section is analogue of
+More on Morphisms, Section \ref{more-morphisms-section-pushouts-II}.
+
+\begin{lemma}[Pushout along closed immersion and integral]
+\label{spaces-pushouts-lemma-pushout-along-closed-immersion-and-integral}
+\source{stacks:0EDP}
+\href{https://stacks.math.columbia.edu/tag/0EDP}{\texttt{Stacks tag 0EDP}}
+\group{spaces-pushouts}
+
+In More on Morphisms, Situation
+\ref{more-morphisms-situation-pushout-along-closed-immersion-and-integral}
+let $Y \amalg_Z X$ be the pushout in the category of schemes
+(More on Morphisms, Proposition
+\ref{more-morphisms-proposition-pushout-along-closed-immersion-and-integral}).
+Then $Y \amalg_Z X$
+is also a pushout in the category of algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+This is a consequence of Lemma \ref{spaces-pushouts-lemma-colimit-agrees}, the proposition
+mentioned in the lemma and More on Morphisms, Lemmas
+\ref{more-morphisms-lemma-pushout-functor} and
+\ref{more-morphisms-lemma-pushout-functor-equivalence-flat}.
+Conditions (1) and (2) of Lemma \ref{spaces-pushouts-lemma-colimit-agrees}
+follow immediately. To see (3) and (4) note that an \'etale morphism
+is locally quasi-finite and use that the equivalence of categories of
+More on Morphisms, Lemma
+\ref{more-morphisms-lemma-pushout-functor-equivalence-flat}
+is constructed using the pushout construction of
+More on Morphisms, Lemmas \ref{more-morphisms-lemma-pushout-functor}.
+Minor details omitted.
+\end{proof}
+
+\section{Pushouts and derived categories}
+\label{spaces-pushouts-section-pushouts-derived}
+In this section we discuss the behaviour of the derived
+category of modules under pushouts.
+
+\begin{lemma}[Pushout along thickening derived]
+\label{spaces-pushouts-lemma-pushout-along-thickening-derived}
+\source{stacks:0DL7}
+\href{https://stacks.math.columbia.edu/tag/0DL7}{\texttt{Stacks tag 0DL7}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Consider a pushout
+$$
+\begin{array}{cc}X \underset{i}{\longrightarrow}\underset{f}{\downarrow} & X' \overset{f'}{\downarrow} \\ Y \overset{j}{\longrightarrow} & Y'\end{array}
+$$
+in the category of algebraic spaces over $S$
+as in Lemma \ref{spaces-pushouts-lemma-pushout-along-thickening}.
+Assume $i$ is a thickening. Then the essential
+image of the functor\footnote{All functors given by derived pullback.}
+$$
+D(\mathcal{O}_{Y'}) \longrightarrow
+D(\mathcal{O}_Y) \times_{D(\mathcal{O}_X)} D(\mathcal{O}_{X'})
+$$
+contains every triple $(M, K', \alpha)$ where $M \in D(\mathcal{O}_Y)$
+and $K' \in D(\mathcal{O}_{X'})$ are pseudo-coherent.
+\end{lemma}
+
+\begin{proof}
+Let $(M, K', \alpha)$ be an object of the target of the functor
+of the lemma. Here $\alpha : Lf^*M \to Li^*K'$
+is an isomorphism which is adjoint to a map $\beta : M \to Rf_*Li^*K'$.
+Thus we obtain maps
+$$
+Rj_*M \xrightarrow{Rj_*\beta}
+Rj_*Rf_*Li^*K' = Rf'_*Ri_*Li^*K' \leftarrow Rf'_*K'
+$$
+where the arrow pointing left comes from $K' \to Ri_*Li^*K'$.
+Choose a distinguished triangle
+$$
+M' \to Rj_*M \oplus Rf'_*K' \to Rj_*Rf_*Li^*K' \to M'[1]
+$$
+in $D(\mathcal{O}_{Y'})$. The first arrow defines canonical maps
+$Lj^*M' \to M$ and $L(f')^*M' \to K'$ compatible with $\alpha$.
+Thus it suffices to show that the maps
+$Lj^*M' \to M$ and $L(f')^*M' \to K$ are isomorphisms.
+This we may check \'etale locally on $Y'$, hence we may
+assume $Y'$ is \'etale.
+
+\medskip\noindent
+Assume $Y'$ affine and $M \in D(\mathcal{O}_Y)$
+and $K' \in D(\mathcal{O}_{X'})$ are pseudo-coherent.
+Say our pushout corresponds to the fibre product
+$$
+\begin{array}{cc}B & B' \longleftarrow \\ A \uparrow & A' \longleftarrow\uparrow\end{array}
+$$
+of rings where $B' \to B$ is surjective with locally nilpotent kernel $I$
+(and hence $A' \to A$ is surjective with locally nilpotent kernel $I$ as well).
+The assumption on $M$ and $K'$ imply that $M$ comes from a pseudo-coherent
+object of $D(A)$ and $K'$ comes from a pseudo-coherent object of $D(B')$, see
+Derived Categories of Spaces, Lemmas
+\ref{spaces-perfect-lemma-pseudo-coherent},
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}, and
+\ref{spaces-perfect-lemma-descend-pseudo-coherent}
+and
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-affine-compare-bounded} and
+\ref{perfect-lemma-pseudo-coherent-affine}.
+Moreover, pushforward and derived pullback agree with the
+corresponding operations on derived categories of modules, see
+Derived Categories of Spaces, Remark
+\ref{spaces-perfect-remark-match-total-direct-images}
+and
+Derived Categories of Schemes, Lemmas
+\ref{perfect-lemma-quasi-coherence-pushforward} and
+\ref{perfect-lemma-quasi-coherence-pullback}.
+This reduces us to the statement formulated in the next paragraph.
+(To be sure these references show
+the object $M'$ lies $D_\QCoh(\mathcal{O}_{Y'})$
+as this is a triangulated subcategory of $D(\mathcal{O}_{Y'})$.)
+
+\medskip\noindent
+Given a diagram of rings as above and a triple
+$(M, K', \alpha)$ where $M \in D(A)$, $K' \in D(B')$ are
+pseudo-coherent and
+$\alpha : M \otimes_A^\mathbf{L} B \to K' \otimes_{B'}^\mathbf{L} B$
+is an isomorphism suppose we have distinguished triangle
+$$
+M' \to M \oplus K' \to K' \otimes_{B'}^\mathbf{L} B \to M'[1]
+$$
+in $D(A')$. Goal: show that the induced maps
+$M' \otimes_{A'}^\mathbf{L} A \to M$ and
+$M' \otimes_{A'}^\mathbf{L} B' \to K'$ are isomorphisms.
+To do this, choose a bounded above complex
+$E^\bullet$ of finite free $A$-modules representing $M$.
+Since $(B', I)$ is a henselian pair
+(More on Algebra, Lemma \ref{more-algebra-lemma-locally-nilpotent-henselian})
+with $B = B'/I$ we may apply More on Algebra, Lemma
+\ref{more-algebra-lemma-lift-complex-finite-projectives}
+to see that there exists a bounded above complex $P^\bullet$
+of free $B'$-modules such that $\alpha$ is represented
+by an isomorphism $E^\bullet \otimes_A B \cong P^\bullet \otimes_{B'} B$.
+Then we can consider the short exact sequence
+$$
+0 \to L^\bullet \to
+E^\bullet \oplus P^\bullet \to P^\bullet \otimes_{B'} B \to 0
+$$
+of complexes of $B'$-modules.
+More on Algebra, Lemma
+\ref{more-algebra-lemma-finitely-presented-module-over-fibre-product}
+implies $L^\bullet$ is a bounded above complex of
+finite projective $A'$-modules
+(in fact it is rather easy to show directly that $L^n$ is finite free
+in our case) and that we have
+$L^\bullet \otimes_{A'} A = E^\bullet$ and
+$L^\bullet \otimes_{A'} B' = P^\bullet$.
+The short exact sequence gives a distinguished triangle
+$$
+L^\bullet \to M \oplus K' \to K' \otimes_{B'}^\mathbf{L} B \to (L^\bullet)[1]
+$$
+in $D(A')$ (Derived Categories, Section
+\ref{derived-section-canonical-delta-functor}) which is isomorphic
+to the given distinguished triangle by general properties of
+triangulated categories (Derived Categories, Section
+\ref{derived-section-elementary-results}). In other words, $L^\bullet$
+represents $M'$ compatibly with the given maps. Thus the maps
+$M' \otimes_{A'}^\mathbf{L} A \to M$ and
+$M' \otimes_{A'}^\mathbf{L} B' \to K'$ are
+isomorphisms because we just saw that the corresponding
+thing is true for $L^\bullet$.
+\end{proof}
+
+\section{Constructing elementary distinguished squares}
+\label{spaces-pushouts-section-elementary-dsitnguished-squares}
+Elementary distinguished squares were defined in
+Derived Categories of Spaces, Section \ref{spaces-perfect-section-induction}.
+
+\begin{lemma}[Elementary distinguished square pushout]
+\label{spaces-pushouts-lemma-elementary-distinguished-square-pushout}
+\source{stacks:0DVI}
+\href{https://stacks.math.columbia.edu/tag/0DVI}{\texttt{Stacks tag 0DVI}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $(U \subset W, f : V \to W)$ be
+an elementary distinguished square. Then
+$$
+\begin{array}{cc}U \times_W V \longrightarrow\downarrow & V \overset{f}{\downarrow} \\ U \longrightarrow & W\end{array}
+$$
+is a pushout in the category of algebraic spaces over $S$.
+\end{lemma}
+
+\begin{proof}
+Observe that $U \amalg V \to W$ is a surjective \'etale morphism.
+The fibre product
+$$
+(U \amalg V) \times_W (U \amalg V)
+$$
+is the disjoint union of four pieces, namely
+$U = U \times_W U$, $U \times_W V$, $V \times_W U$,
+and $V \times_W V$.
+There is a surjective \'etale morphism
+$$
+V \amalg (U \times_W V) \times_U (U \times_W V) \longrightarrow V \times_W V
+$$
+because $f$ induces an isomorphism over $W \setminus U$
+(part of the definition of being an elementary distinguished square).
+Let $B$ be an algebraic space over $S$ and let
+$g : V \to B$ and $h : U \to B$ be morphisms over
+$S$ which agree after restricting to $U \times_W V$.
+Then the description of
+$(U \amalg V) \times_W (U \amalg V)$ given above
+shows that $h \amalg g : U \amalg V \to B$
+equalizes the two projections. Since $B$ is a sheaf
+for the \'etale topology we obtain a unique
+factorization of $h \amalg g$ through $W$ as desired.
+\end{proof}
+
+\begin{lemma}[Construct elementary distinguished square]
+\label{spaces-pushouts-lemma-construct-elementary-distinguished-square}
+\source{stacks:0DVJ}
+\href{https://stacks.math.columbia.edu/tag/0DVJ}{\texttt{Stacks tag 0DVJ}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $V$, $U$ be algebraic spaces over $S$.
+Let $V' \subset V$ be an open subspace and let $f' : V' \to U$ be a
+separated \'etale morphism of algebraic spaces over $S$.
+Then there exists a pushout
+$$
+\begin{array}{cc}V' \longrightarrow\downarrow & V \overset{f}{\downarrow} \\ U \longrightarrow & W\end{array}
+$$
+in the category of algebraic spaces over $S$ and moreover
+$(U \subset W, f : V \to W)$ is an elementary distinguished square.
+\end{lemma}
+
+\begin{proof}
+We are going to construct $W$ as the quotient of an \'etale
+equivalence relation $R$ on $U \amalg V$. Such a quotient is an
+algebraic space for example by
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}.
+Moreover, the proof of
+Lemma \ref{spaces-pushouts-lemma-elementary-distinguished-square-pushout} tells us to take
+$$
+R = U \amalg V' \amalg V' \amalg V \amalg
+(V' \times_U V' \setminus \Delta_{V'/U}(V'))
+$$
+Since we assumed $V' \to U$ is separated, the image of
+$\Delta_{V'/U}$ is closed and hence the complement is an
+open subspace. The morphism $j : R \to (U \amalg V) \times_S (U \amalg V)$
+is given by
+$$
+u,\ v',\ v',\ v,\ (v'_1, v'_2) \mapsto
+(u, u),\ (f'(v'), v'),\ (v', f'(v')),\ (v, v),\ (v'_1, v'_2)
+$$
+with obvious notation. It is immediately verified that this is a
+monomorphism, an equivalence relation, and that the induced morphisms
+$s, t : R \to U \amalg V$ are \'etale. Let
+$W = (U \amalg V)/R$ be the quotient algebraic space.
+We obtain a commutative diagram as in the statement of the lemma.
+To finish the proof it suffices to show that this diagram is
+an elementary distinguished square, since then
+Lemma \ref{spaces-pushouts-lemma-elementary-distinguished-square-pushout}
+implies that it is a pushout.
+Thus we have to show that $U \to W$ is open and that
+$f$ is \'etale and is an isomorphism over $W \setminus U$.
+This follows from the choice of $R$; we omit the details.
+\end{proof}
+
+\section{Formal glueing of quasi-coherent modules}
+\label{spaces-pushouts-section-formal-glueing}
+This section is the analogue of
+More on Algebra, Section \ref{more-algebra-section-formal-glueing}.
+In the case of morphisms of schemes, the result can be found in
+the paper by Joyet \cite{Joyet}; this is a good place to start reading.
+For a discussion of applications to descent problems for stacks, see the
+paper by Moret-Bailly \cite{MB}. In the case of an affine
+morphism of schemes there is a statement in the appendix of the paper
+\cite{Ferrand-Raynaud} but one needs to add the hypothesis
+that the closed subscheme is cut out by a finitely generated
+ideal (as in the paper by Joyet) since otherwise the result does not hold.
+A generalization of this material to (higher) derived categories
+with potential applications to nonflat situations
+can be found in \cite[Section 5]{Bhatt-Algebraize}.
+
+\medskip\noindent
+We start with a lemma on abelian sheaves supported on closed subsets.
+
+\begin{lemma}[Stalk pushforward with support]
+\label{spaces-pushouts-lemma-stalk-pushforward-with-support}
+\source{stacks:0AEQ}
+\href{https://stacks.math.columbia.edu/tag/0AEQ}{\texttt{Stacks tag 0AEQ}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : Y \to X$ be a morphism of algebraic spaces
+over $S$. Let $Z \subset X$ closed subspace such that $f^{-1}Z \to Z$ is
+integral and universally injective. Let $\overline{y}$ be a geometric point
+of $Y$ and $\overline{x} = f(\overline{y})$. We have
+$$
+(Rf_*Q)_{\overline{x}} = Q_{\overline{y}}
+$$
+in $D(\textit{Ab})$ for any object $Q$ of $D(Y_\etale)$ supported
+on $|f^{-1}Z|$.
+\end{lemma}
+
+\begin{proof}
+Consider the commutative diagram of algebraic spaces
+$$
+\begin{array}{cc}f^{-1}Z \underset{i'}{\longrightarrow}\underset{f'}{\downarrow} & Y \underset{f}{\downarrow} \\ Z \overset{i}{\longrightarrow} & X\end{array}
+$$
+By Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-complexes-with-support-on-closed} we can write
+$Q = Ri'_*K'$ for some object $K'$ of $D(f^{-1}Z_\etale)$.
+By Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-integral-universally-injective-push-pull}
+we have $K' = (f')^{-1}K$ with $K = Rf'_*K'$.
+Then we have $Rf_*Q = Rf_*Ri'_*K' = Ri_*Rf'_*K' = Ri_*K$.
+Let $\overline{z}$ be the geometric point of $Z$ corresponding
+to $\overline{x}$ and let $\overline{z}'$ be the geometric point
+of $f^{-1}Z$ corresponding to $\overline{y}$. We obtain
+the result of the lemma as follows
+$$
+Q_{\overline{y}} = (Ri'_*K')_{\overline{y}} = K'_{\overline{z}'} =
+(f')^{-1}K_{\overline{z}'} = K_{\overline{z}} = Ri_*K_{\overline{x}} =
+Rf_*Q_{\overline{x}}
+$$
+The middle equality holds because of the description of the stalk
+of a pullback given in
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-stalk-pullback}.
+\end{proof}
+
+\begin{lemma}[Stalk formal glueing]
+\label{spaces-pushouts-lemma-stalk-formal-glueing}
+\source{stacks:0AER}
+\href{https://stacks.math.columbia.edu/tag/0AER}{\texttt{Stacks tag 0AER}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : Y \to X$ be a morphism of algebraic spaces
+over $S$. Let $Z \subset X$ closed subspace such that $f^{-1}Z \to Z$ is
+integral and universally injective. Let $\overline{y}$ be a geometric point
+of $Y$ and $\overline{x} = f(\overline{y})$. Let $\mathcal{G}$
+be an abelian sheaf on $Y$. Then the map of two term complexes
+$$
+\left(f_*\mathcal{G}_{\overline{x}} \to
+(f \circ j')_*(\mathcal{G}|_V)_{\overline{x}}\right)
+\longrightarrow
+\left(\mathcal{G}_{\overline{y}} \to j'_*(\mathcal{G}|_V)_{\overline{y}}\right)
+$$
+induces an isomorphism on kernels and an injection on cokernels.
+Here $V = Y \setminus f^{-1}Z$ and $j' : V \to Y$ is the inclusion.
+\end{lemma}
+
+\begin{proof}
+Choose a distinguished triangle
+$$
+\mathcal{G} \to Rj'_*\mathcal{G}|_V \to Q \to \mathcal{G}[1]
+$$
+n $D(Y_\etale)$. The cohomology sheaves of $Q$
+are supported on $|f^{-1}Z|$. We apply $Rf_*$ and we obtain
+$$
+Rf_*\mathcal{G} \to Rf_*Rj'_*\mathcal{G}|_V \to Rf_*Q
+\to Rf_*\mathcal{G}[1]
+$$
+Taking stalks at $\overline{x}$ we obtain an exact sequence
+$$
+0 \to
+(R^{-1}f_*Q)_{\overline{x}} \to
+f_*\mathcal{G}_{\overline{x}} \to
+(f \circ j')_*(\mathcal{G}|_V)_{\overline{x}} \to
+(R^0f_*Q)_{\overline{x}}
+$$
+We can compare this with the exact sequence
+$$
+0 \to
+H^{-1}(Q)_{\overline{y}} \to
+\mathcal{G}_{\overline{y}} \to
+j'_*(\mathcal{G}|_V)_{\overline{y}} \to
+H^0(Q)_{\overline{y}}
+$$
+Thus we see that the lemma follows because
+$Q_{\overline{y}} = Rf_*Q_{\overline{x}}$ by
+Lemma \ref{spaces-pushouts-lemma-stalk-pushforward-with-support}.
+\end{proof}
+
+\begin{lemma}[Stalk of pushforward]
+\label{spaces-pushouts-lemma-stalk-of-pushforward}
+\source{stacks:0AES}
+\href{https://stacks.math.columbia.edu/tag/0AES}{\texttt{Stacks tag 0AES}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $f : Y \to X$ be a quasi-compact and quasi-separated morphism.
+Let $\overline{x}$ be a geometric point of $X$ and let
+$\Spec(\mathcal{O}_{X, \overline{x}}) \to X$
+be the canonical morphism. For a quasi-coherent module
+$\mathcal{G}$ on $Y$ we have
+$$
+f_*\mathcal{G}_{\overline{x}} =
+\Gamma(Y \times_X \Spec(\mathcal{O}_{X, \overline{x}}), p^*\mathcal{F})
+$$
+where $p : Y \times_X \Spec(\mathcal{O}_{X, \overline{x}}) \to Y$
+is the projection.
+\end{lemma}
+
+\begin{proof}
+Observe that $f_*\mathcal{G}_{\overline{x}} =
+\Gamma(\Spec(\mathcal{O}_{X, \overline{x}}), h^*f_*\mathcal{G})$
+where $h : \Spec(\mathcal{O}_{X, \overline{x}}) \to X$.
+Hence the result is true because $h$ is flat so that
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}
+applies.
+\end{proof}
+
+\begin{lemma}[Stalk of module with support]
+\label{spaces-pushouts-lemma-stalk-of-module-with-support}
+\source{stacks:0AET}
+\href{https://stacks.math.columbia.edu/tag/0AET}{\texttt{Stacks tag 0AET}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $X$ be an algebraic space over $S$.
+Let $i : Z \to X$ be a closed immersion of finite presentation.
+Let $Q \in D_\QCoh(\mathcal{O}_X)$ be supported on $|Z|$.
+Let $\overline{x}$ be a geometric point of $X$ and let
+$I_{\overline{x}} \subset \mathcal{O}_{X, \overline{x}}$ be the stalk of
+the ideal sheaf of $Z$. Then the cohomology modules
+$H^n(Q_{\overline{x}})$ are $I_{\overline{x}}$-power torsion
+(see More on Algebra, Definition
+\ref{more-algebra-definition-f-power-torsion}).
+\end{lemma}
+
+\begin{proof}
+Choose an affine scheme $U$ and an \'etale morphism $U \to X$ such
+that $\overline{x}$ lifts to a geometric point $\overline{u}$
+of $U$. Then we can replace $X$ by $U$, $Z$ by $U \times_X Z$,
+$Q$ by the restriction $Q|_U$, and $\overline{x}$ by $\overline{u}$.
+Thus we may assume that $X = \Spec(A)$ is affine. Let $I \subset A$
+be the ideal defining $Z$. Since $i : Z \to X$ is of finite presentation,
+the ideal $I = (f_1, \ldots, f_r)$ is finitely generated.
+The object $Q$ comes from a complex of $A$-modules $M^\bullet$, see
+Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-derived-quasi-coherent-small-etale-site}
+and
+Derived Categories of Schemes, Lemma
+\ref{perfect-lemma-affine-compare-bounded}.
+Since the cohomology sheaves of $Q$ are supported on $Z$
+we see that the localization $M^\bullet_f$ is acyclic for each $f \in I$.
+Take $x \in H^p(M^\bullet)$. By the above we can find $n_i$ such
+that $f_i^{n_i} x = 0$ in $H^p(M^\bullet)$ for each $i$.
+Then with $n = \sum n_i$ we see that $I^n$ annihilates $x$.
+Thus $H^p(M^\bullet)$ is $I$-power torsion. Since the ring
+map $A \to \mathcal{O}_{X, \overline{x}}$ is flat and since
+$I_{\overline{x}} = I\mathcal{O}_{X, \overline{x}}$ we conclude.
+\end{proof}
+
+\begin{lemma}[Formal glueing on closed]
+\label{spaces-pushouts-lemma-formal-glueing-on-closed}
+\source{stacks:0AEU}
+\href{https://stacks.math.columbia.edu/tag/0AEU}{\texttt{Stacks tag 0AEU}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : Y \to X$ be a morphism of algebraic spaces
+over $S$. Let $Z \subset X$ be a closed subspace. Assume $f^{-1}Z \to Z$
+is an isomorphism and that $f$ is flat in every point of $f^{-1}Z$. For any
+$Q$ in $D_\QCoh(\mathcal{O}_Y)$ supported on $|f^{-1}Z|$ we have
+$Lf^*Rf_*Q = Q$.
+\end{lemma}
+
+\begin{proof}
+We show the canonical map $Lf^*Rf_*Q \to Q$ is an isomorphism
+by checking on stalks at $\overline{y}$. If $\overline{y}$ is not
+in $f^{-1}Z$, then both sides are zero and the result is true.
+Assume the image $\overline{x}$ of $\overline{y}$ is in $Z$.
+By Lemma \ref{spaces-pushouts-lemma-stalk-pushforward-with-support} we have
+$Rf_*Q_{\overline{x}} = Q_{\overline{y}}$ and since $f$ is flat
+at $\overline{y}$ we see that
+$$
+(Lf^*Rf_*Q)_{\overline{y}} =
+(Rf_*Q)_{\overline{x}}
+\otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}} =
+Q_{\overline{y}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}}
+$$
+Thus we have to check that the canonical map
+$$
+Q_{\overline{y}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}}
+\longrightarrow Q_{\overline{y}}
+$$
+is an isomorphism in the derived category. Let
+$I_{\overline{x}} \subset \mathcal{O}_{X, \overline{x}}$ be the
+stalk of the ideal sheaf defining $Z$. Since $Z \to X$ is locally of
+finite presentation this ideal is finitely generated and the
+cohomology groups of $Q_{\overline{y}}$
+are $I_{\overline{y}} = I_{\overline{x}}\mathcal{O}_{Y, \overline{y}}$-power
+torsion by Lemma \ref{spaces-pushouts-lemma-stalk-of-module-with-support} applied to $Q$ on $Y$.
+It follows that they are also $I_{\overline{x}}$-power torsion.
+The ring map
+$\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Y, \overline{y}}$
+is flat and induces an isomorphism after dividing by
+$I_{\overline{x}}$ and $I_{\overline{y}}$ because we assumed
+that $f^{-1}Z \to Z$ is an isomorphism. Hence we see that
+the cohomology modules of
+$Q_{\overline{y}} \otimes_{\mathcal{O}_{X, \overline{x}}}
+\mathcal{O}_{Y, \overline{y}}$
+are equal to the cohomology modules of $Q_{\overline{y}}$ by
+More on Algebra, Lemma \ref{more-algebra-lemma-neighbourhood-isomorphism}
+which finishes the proof.
+\end{proof}
+
+\begin{definition}[Situation: Formal glueing]
+\label{spaces-pushouts-situation-formal-glueing}
+\source{stacks:0AEV}
+\href{https://stacks.math.columbia.edu/tag/0AEV}{\texttt{Stacks tag 0AEV}}
+\group{spaces-pushouts}
+
+Here $S$ is a base scheme, $f : Y \to X$ is a quasi-compact
+and quasi-separated morphism of algebraic spaces over $S$, and
+$Z \to X$ is a closed immersion of finite presentation. We assume that
+$f^{-1}(Z) \to Z$ is an isomorphism and that $f$ is flat in every
+point $x \in |f^{-1}Z|$. We set $U = X \setminus Z$ and
+$V = Y \setminus f^{-1}(Z)$.
+Picture
+$$
+\begin{array}{cc}V \underset{j'}{\longrightarrow}\underset{f|_V}{\downarrow} & Y \overset{f}{\downarrow} \\ U \overset{j}{\longrightarrow} & X\end{array}
+$$
+\end{definition}
+
+In Situation \ref{spaces-pushouts-situation-formal-glueing} we define
+$\textit{QCoh}(Y \to X, Z)$ as the category of
+triples $(\mathcal{H}, \mathcal{G}, \varphi)$ where
+$\mathcal{H}$ is a quasi-coherent sheaf of
+$\mathcal{O}_U$-modules, $\mathcal{G}$ is a quasi-coherent sheaf
+of $\mathcal{O}_Y$-modules, and
+$\varphi : f^*\mathcal{H} \to \mathcal{G}|_V$ is an isomorphism
+of $\mathcal{O}_V$-modules. There is a canonical
+functor
+\begin{equation}
+\label{equation-formal-glueing-modules}
+\QCoh(\mathcal{O}_X) \longrightarrow \textit{QCoh}(Y \to X, Z)
+\end{equation}
+which maps $\mathcal{F}$ to the system
+$(\mathcal{F}|_U, f^*\mathcal{F}, can)$.
+By analogy with the proof given in the affine case, we construct
+a functor in the opposite direction. To an object
+$(\mathcal{H}, \mathcal{G}, \varphi)$ we assign the $\mathcal{O}_X$-module
+\begin{equation}
+\label{equation-reverse}
+\Ker(j_*\mathcal{H} \oplus f_*\mathcal{G} \to (f \circ j')_*\mathcal{G}|_V)
+\end{equation}
+Observe that $j$ and $j'$ are quasi-compact morphisms as
+$Z \to X$ is of finite presentation. Hence $f_*$, $j_*$, and $(f \circ j')_*$
+transform quasi-coherent modules into quasi-coherent modules
+(Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-pushforward}).
+Thus the module (\ref{equation-reverse}) is quasi-coherent.
+
+\begin{lemma}[Adjoint]
+\label{spaces-pushouts-lemma-adjoint}
+\source{stacks:0AEY}
+\href{https://stacks.math.columbia.edu/tag/0AEY}{\texttt{Stacks tag 0AEY}}
+\group{spaces-pushouts}
+
+In Situation \ref{spaces-pushouts-situation-formal-glueing}.
+The functor (\ref{equation-reverse}) is right adjoint to
+the functor (\ref{equation-formal-glueing-modules}).
+\end{lemma}
+
+\begin{proof}
+This follows easily from the adjointness of $f^*$ to $f_*$
+and $j^*$ to $j_*$. Details omitted.
+\end{proof}
+
+\begin{lemma}[Reverse commutes with flat base change]
+\label{spaces-pushouts-lemma-reverse-commutes-with-flat-base-change}
+\source{stacks:0AEZ}
+\href{https://stacks.math.columbia.edu/tag/0AEZ}{\texttt{Stacks tag 0AEZ}}
+\group{spaces-pushouts}
+
+In Situation \ref{spaces-pushouts-situation-formal-glueing}.
+Let $X' \to X$ be a flat morphism of algebraic spaces.
+Set $Z' = X' \times_X Z$ and $Y' = X' \times_X Y$.
+The pullbacks $\QCoh(\mathcal{O}_X) \to \QCoh(\mathcal{O}_{X'})$
+and $\QCoh(Y \to X, Z) \to \QCoh(Y' \to X', Z')$ are compatible
+with the functors (\ref{equation-reverse}) and
+\ref{equation-formal-glueing-modules}).
+\end{lemma}
+
+\begin{proof}
+This is true because pullback commutes with pullback and because
+flat pullback commutes with pushforward along quasi-compact
+and quasi-separated morphisms, see
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}.
+\end{proof}
+
+\begin{proposition}[Formal glueing modules]
+\label{spaces-pushouts-proposition-formal-glueing-modules}
+\source{stacks:0AF0}
+\href{https://stacks.math.columbia.edu/tag/0AF0}{\texttt{Stacks tag 0AF0}}
+\group{spaces-pushouts}
+
+In Situation \ref{spaces-pushouts-situation-formal-glueing} the functor
+(\ref{equation-formal-glueing-modules}) is an equivalence
+with quasi-inverse given by (\ref{equation-reverse}).
+\end{proposition}
+
+\begin{proof}
+We first treat the special case where $X$ and $Y$ are affine schemes
+and where the morphism $f$ is flat. Say $X = \Spec(R)$ and $Y = \Spec(S)$.
+Then $f$ corresponds to a flat ring map $R \to S$. Moreover, $Z \subset X$
+is cut out by a finitely generated ideal $I \subset R$. Choose generators
+$f_1, \ldots, f_t \in I$. By the description of quasi-coherent modules
+in terms of modules
+(Schemes, Section \ref{schemes-section-quasi-coherent-affine}),
+we see that the category $\textit{QCoh}(Y \to X, Z)$
+is canonically equivalent to the category
+$\text{Glue}(R \to S, f_1, \ldots, f_t)$
+of More on Algebra, Remark \ref{more-algebra-remark-glueing-data}
+such that the functors
+(\ref{equation-formal-glueing-modules}) and (\ref{equation-reverse})
+correspond to the functors $\text{Can}$ and $H^0$.
+Hence the result follows from
+More on Algebra, Proposition \ref{more-algebra-proposition-equivalence}
+in this case.
+
+\medskip\noindent
+We return to the general case.
+Let $\mathcal{F}$ be a quasi-coherent module on $X$.
+We will show that
+$$
+\alpha :
+\mathcal{F}
+\longrightarrow
+\Ker\left(j_*\mathcal{F}|_U \oplus f_*f^*\mathcal{F} \to
+(f \circ j')_*f^*\mathcal{F}|_V\right)
+$$
+is an isomorphism. Let $(\mathcal{H}, \mathcal{G}, \varphi)$
+be an object of $\QCoh(Y \to X, Z)$. We will show that
+$$
+\beta :
+f^*\Ker\left(
+j_*\mathcal{H} \oplus f_*\mathcal{G} \to (f \circ j')_*\mathcal{G}|_V
+\right)
+\longrightarrow
+\mathcal{G}
+$$
+and
+$$
+\gamma :
+j^*\Ker\left(
+j_*\mathcal{H} \oplus f_*\mathcal{G} \to (f \circ j')_*\mathcal{G}|_V
+\right)
+\longrightarrow
+\mathcal{H}
+$$
+are isomorphisms. To see these statements are true it suffices to
+look at stalks. Let $\overline{y}$ be a geometric point of $Y$ mapping
+to the geometric point $\overline{x}$ of $X$.
+
+\medskip\noindent
+Fix an object $(\mathcal{H}, \mathcal{G}, \varphi)$ of $\QCoh(Y \to X, Z)$.
+By Lemma \ref{spaces-pushouts-lemma-stalk-formal-glueing}
+and a diagram chase (omitted) the canonical map
+$$
+\Ker(j_*\mathcal{H} \oplus f_*\mathcal{G} \to
+(f \circ j')_*\mathcal{G}|_V)_{\overline{x}}
+\longrightarrow
+\Ker(
+j_*\mathcal{H}_{\overline{x}} \oplus \mathcal{G}_{\overline{y}}
+\to
+j'_*\mathcal{G}_{\overline{y}}
+)
+$$
+is an isomorphism.
+
+\medskip\noindent
+In particular, if $\overline{y}$ is a geometric point of $V$, then
+we see that $j'_*\mathcal{G}_{\overline{y}} = \mathcal{G}_{\overline{y}}$
+and hence that this kernel is equal to $\mathcal{H}_{\overline{x}}$.
+This easily implies that $\alpha_{\overline{x}}$, $\beta_{\overline{x}}$,
+and $\beta_{\overline{y}}$ are isomorphisms in this case.
+
+\medskip\noindent
+Next, assume that $\overline{y}$ is a point of $f^{-1}Z$.
+Let $I_{\overline{x}} \subset \mathcal{O}_{X, \overline{x}}$,
+resp.\ $I_{\overline{y}} \subset \mathcal{O}_{Y, \overline{y}}$
+be the stalk of the ideal cutting out $Z$, resp.\ $f^{-1}Z$.
+Then $I_{\overline{x}}$ is a finitely generated ideal,
+$I_{\overline{y}} = I_{\overline{x}}\mathcal{O}_{Y, \overline{y}}$,
+and $\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Y, \overline{y}}$
+is a flat local homomorphism inducing an isomorphism
+$\mathcal{O}_{X, \overline{x}}/I_{\overline{x}} =
+\mathcal{O}_{Y, \overline{y}}/I_{\overline{y}}$.
+At this point we can bootstrap using the diagram of categories
+$$
+\begin{array}{cc}\QCoh(\mathcal{O}_X) \underset{(\ref{equation-formal-glueing-modules})}{\longrightarrow}\downarrow & \QCoh(Y \to X, Z) \downarrow\overset{(\ref{equation-reverse})}{\longleftarrow} \\ \text{Mod}_{\mathcal{O}_{X, \overline{x}}} \overset{\text{Can}}{\longrightarrow} & \text{Glue}(\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Y, \overline{y}},
+f_1, \ldots, f_t) \underset{H^0}{\longleftarrow}\end{array}
+$$
+Namely, as in the first paragraph of the proof we identify
+$$
+\text{Glue}(\mathcal{O}_{X, \overline{x}} \to \mathcal{O}_{Y, \overline{y}},
+f_1, \ldots, f_t)
+=
+\QCoh(\Spec(\mathcal{O}_{Y, \overline{y}}) \to
+\Spec(\mathcal{O}_{X, \overline{x}}), V(I_{\overline{x}}))
+$$
+The right vertical functor is given by pullback, and it is clear that
+the inner square is commutative. Our computation of the stalk of the
+kernel in the third paragraph of the proof combined with
+Lemma \ref{spaces-pushouts-lemma-stalk-of-pushforward} implies that
+the outer square (using the curved arrows) commutes. Thus we
+conclude using the case of a flat morphism of affine schemes
+which we handled in the first paragraph of the proof.
+\end{proof}
+
+\begin{lemma}[Derived equivalent]
+\label{spaces-pushouts-lemma-derived-equivalent}
+\source{stacks:0AFJ}
+\href{https://stacks.math.columbia.edu/tag/0AFJ}{\texttt{Stacks tag 0AFJ}}
+\group{spaces-pushouts}
+
+In Situation \ref{spaces-pushouts-situation-formal-glueing} the functor
+$Rf_*$ induces an equivalence between $D_{\QCoh, |f^{-1}Z|}(\mathcal{O}_Y)$
+and $D_{\QCoh, |Z|}(\mathcal{O}_X)$ with quasi-inverse given by
+$Lf^*$.
+\end{lemma}
+
+\begin{proof}
+Since $f$ is quasi-compact and quasi-separated we see that $Rf_*$
+defines a functor from $D_{\QCoh, |f^{-1}Z|}(\mathcal{O}_Y)$
+to $D_{\QCoh, |Z|}(\mathcal{O}_X)$, see
+Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-quasi-coherence-direct-image}.
+By Derived Categories of Spaces, Lemma
+\ref{spaces-perfect-lemma-quasi-coherence-pullback}
+we see that $Lf^*$ maps $D_{\QCoh, |Z|}(\mathcal{O}_X)$
+into $D_{\QCoh, |f^{-1}Z|}(\mathcal{O}_Y)$.
+In Lemma \ref{spaces-pushouts-lemma-formal-glueing-on-closed} we have seen that
+$Lf^*Rf_*Q = Q$ for $Q$ in $D_{\QCoh, |f^{-1}Z|}(\mathcal{O}_Y)$.
+By the dual of Derived Categories, Lemma
+\ref{derived-lemma-fully-faithful-adjoint-kernel-zero}
+to finish the proof it suffices to show that $Lf^*K = 0$
+implies $K = 0$ for $K$ in $D_{\QCoh, |Z|}(\mathcal{O}_X)$.
+This follows from the fact that $f$ is flat at all points of
+$f^{-1}Z$ and the fact that $f^{-1}Z \to Z$ is surjective.
+\end{proof}
+
+\begin{lemma}[Dominate by fpqc covering]
+\label{spaces-pushouts-lemma-dominate-by-fpqc-covering}
+\source{stacks:0AF1}
+\href{https://stacks.math.columbia.edu/tag/0AF1}{\texttt{Stacks tag 0AF1}}
+\group{spaces-pushouts}
+
+In Situation \ref{spaces-pushouts-situation-formal-glueing} there exists an
+fpqc covering $\{X_i \to X\}_{i \in I}$ refining the
+family $\{U \to X, Y \to X\}$.
+\end{lemma}
+
+\begin{proof}
+For the definition and general properties of fpqc coverings we refer to
+Topologies, Section \ref{topologies-section-fpqc}. In particular, we can
+first choose an \'etale covering $\{X_i \to X\}$ with $X_i$ affine and by
+base changing $Y$, $Z$, and $U$ to each $X_i$ we reduce to the case where
+$X$ is affine. In this case $U$ is quasi-compact and hence a finite union
+$U = U_1 \cup \ldots \cup U_n$ of affine opens.
+Then $Z$ is quasi-compact hence also $f^{-1}Z$ is quasi-compact.
+Thus we can choose an affine scheme $W$ and an \'etale morphism
+$h : W \to Y$ such that $h^{-1}f^{-1}Z \to f^{-1}Z$ is surjective.
+Say $W = \Spec(B)$ and $h^{-1}f^{-1}Z = V(J)$ where $J \subset B$
+is an ideal of finite type.
+By Pro-\'etale Cohomology, Lemma \ref{proetale-lemma-localization}
+there exists a localization $B \to B'$ such that points of
+$\Spec(B')$ correspond exactly to points of $W = \Spec(B)$
+specializing to $h^{-1}f^{-1}Z = V(J)$. It follows that the
+composition $\Spec(B') \to \Spec(B) = W \to Y \to X$ is flat
+as by assumption $f : Y \to X$ is flat at all the points of $f^{-1}Z$. Then
+$\{\Spec(B') \to X, U_1 \to X, \ldots, U_n \to X\}$
+is an fpqc covering by
+Topologies, Lemma \ref{topologies-lemma-recognize-fpqc-covering}.
+\end{proof}
+
+\section{Formal glueing of algebraic spaces}
+\label{spaces-pushouts-section-formal-glueing-spaces}
+In Situation \ref{spaces-pushouts-situation-formal-glueing} we consider the category
+$\textit{Spaces}(Y \to X, Z)$
+of commutative diagrams of algebraic spaces over $S$ of the form
+$$
+\begin{array}{ccc}U' \downarrow & V' \longleftarrow\downarrow\longrightarrow & Y' \downarrow \\ U & V \longleftarrow\longrightarrow & Y\end{array}
+$$
+where both squares are cartesian. There is a canonical functor
+\begin{equation}
+\label{equation-formal-glueing-spaces}
+\textit{Spaces}/X \longrightarrow \textit{Spaces}(Y \to X, Z)
+\end{equation}
+which maps $X' \to X$ to the morphisms
+$U \times_X X' \leftarrow V \times_X X' \rightarrow Y \times_X X'$.
+
+\begin{lemma}[Equivalence on affine]
+\label{spaces-pushouts-lemma-equivalence-on-affine}
+\source{stacks:0AF4}
+\href{https://stacks.math.columbia.edu/tag/0AF4}{\texttt{Stacks tag 0AF4}}
+\group{spaces-pushouts}
+
+In Situation \ref{spaces-pushouts-situation-formal-glueing} the functor
+(\ref{equation-formal-glueing-spaces}) restricts to an
+equivalence
+\begin{enumerate}
+\item from the category of algebraic spaces affine over $X$
+to the full subcategory of $\textit{Spaces}(Y \to X, Z)$ consisting
+of $(U' \leftarrow V' \rightarrow Y')$ with $U' \to U$, $V' \to V$,
+and $Y' \to Y$ affine,
+\item from the category of closed immersions $X' \to X$
+to the full subcategory of $\textit{Spaces}(Y \to X, Z)$ consisting
+of $(U' \leftarrow V' \rightarrow Y')$ with $U' \to U$, $V' \to V$,
+and $Y' \to Y$ closed immersions, and
+\item same statement as in (2) for finite morphisms.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+The category of algebraic spaces affine over $X$ is equivalent to the
+category of quasi-coherent sheaves $\mathcal{A}$ of $\mathcal{O}_X$-algebras.
+The full subcategory of $\textit{Spaces}(Y \to X, Z)$ consisting of
+$(U' \leftarrow V' \rightarrow Y')$ with $U' \to U$, $V' \to V$,
+and $Y' \to Y$ affine is equivalent to the category of
+algebra objects of $\QCoh(Y \to X, Z)$. In both cases this follows
+from Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-affine-equivalence-algebras}
+with quasi-inverse given by the relative spectrum construction
+(Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-relative-spec})
+which commutes with arbitrary base change. Thus part (1) of the
+lemma follows from Proposition \ref{spaces-pushouts-proposition-formal-glueing-modules}.
+
+\medskip\noindent
+Fully faithfulness in part (2) follows from part (1). For essential
+surjectivity, we reduce by part (1) to proving that $X' \to X$
+is a closed immersion if and only if both $U \times_X X' \to U$ and
+$Y \times_X X' \to Y$ are closed immersions. By
+Lemma \ref{spaces-pushouts-lemma-dominate-by-fpqc-covering}
+$\{U \to X, Y \to X\}$ can be refined by an fpqc covering.
+Hence the result follows from
+Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-descending-property-closed-immersion}.
+
+\medskip\noindent
+For (3) use the argument proving (2) and
+Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-descending-property-finite}.
+\end{proof}
+
+\begin{lemma}[Reflects isomorphisms]
+\label{spaces-pushouts-lemma-reflects-isomorphisms}
+\source{stacks:0AF5}
+\href{https://stacks.math.columbia.edu/tag/0AF5}{\texttt{Stacks tag 0AF5}}
+\group{spaces-pushouts}
+
+In Situation \ref{spaces-pushouts-situation-formal-glueing} the functor
+(\ref{equation-formal-glueing-spaces}) reflects isomorphisms.
+\end{lemma}
+
+\begin{proof}
+By a formal argument with base change, this reduces to the following
+question: A morphism $a : X' \to X$ of algebraic spaces such that
+$U \times_X X' \to U$ and $Y \times_X X' \to Y$ are isomorphisms, is
+an isomorphism. The family $\{U \to X, Y \to X\}$ can be refined by
+an fpqc covering by Lemma \ref{spaces-pushouts-lemma-dominate-by-fpqc-covering}.
+Hence the result follows from
+Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-descending-property-isomorphism}.
+\end{proof}
+
+\begin{lemma}[Fully faithful on separated]
+\label{spaces-pushouts-lemma-fully-faithful-on-separated}
+\source{stacks:0AF6}
+\href{https://stacks.math.columbia.edu/tag/0AF6}{\texttt{Stacks tag 0AF6}}
+\group{spaces-pushouts}
+
+In Situation \ref{spaces-pushouts-situation-formal-glueing} the functor
+(\ref{equation-formal-glueing-spaces}) is fully faithful
+on algebraic spaces separated over $X$. More precisely, it induces
+a bijection
+$$
+\Mor_X(X'_1, X'_2)
+\longrightarrow
+\Mor_{\textit{Spaces}(Y \to X, Z)}(F(X'_1), F(X'_2))
+$$
+whenever $X'_2 \to X$ is separated.
+\end{lemma}
+
+\begin{proof}
+Since $X'_2 \to X$ is separated, the graph $i : X'_1 \to X'_1 \times_X X'_2$
+of a morphism $X'_1 \to X'_2$ over $X$ is a closed immersion, see
+Morphisms of Spaces, Lemma \ref{spaces-morphisms-lemma-semi-diagonal}.
+Moreover a closed immersion $i : T \to X'_1 \times_X X'_2$ is the graph of a
+morphism if and only if $\text{pr}_1 \circ i$ is an isomorphism.
+The same is true for
+\begin{enumerate}
+\item the graph of a morphism $U \times_X X'_1 \to U \times_X X'_2$ over $U$,
+\item the graph of a morphism $V \times_X X'_1 \to V \times_X X'_2$ over $V$,
+and
+\item the graph of a morphism $Y \times_X X'_1 \to Y \times_X X'_2$ over $Y$.
+\end{enumerate}
+Moreover, if morphisms as in (1), (2), (3) fit together to form a
+morphism in the category $\textit{Spaces}(Y \to X, Z)$, then these
+graphs fit together to give an object of
+$\textit{Spaces}(Y \times_X (X'_1 \times_X X'_2) \to X'_1 \times_X X'_2,
+Z \times_X (X'_1 \times_X X'_2))$
+whose triple of morphisms are closed immersions. The proof is finished
+by applying Lemmas \ref{spaces-pushouts-lemma-equivalence-on-affine} and
+\ref{spaces-pushouts-lemma-reflects-isomorphisms}.
+\end{proof}
+
+\section{Glueing and the Beauville-Laszlo theorem}
+\label{spaces-pushouts-section-glueing-beauville-laszlo}
+Let $R \to R'$ be a ring homomorphism and let $f \in R$ be an element such that
+$$
+0 \to R \to R_f \oplus R' \to R'_f \to 0
+$$
+is a short exact sequence. This implies that $R/f^nR \cong R'/f^nR'$
+for all $n$ and $(R \to R', f)$ is a glueing pair in the sense of
+More on Algebra, Section \ref{more-algebra-section-beauville-laszlo}.
+Set $X = \Spec(R)$, $U = \Spec(R_f)$, $X' = \Spec(R')$ and
+$U' = \Spec(R'_f)$. Picture
+$$
+\begin{array}{cc}U' \longrightarrow\downarrow & X' \downarrow \\ U \longrightarrow & X\end{array}
+$$
+In this situation we can consider the category
+$\textit{Spaces}(U \leftarrow U' \to X')$ whose objects
+are commutative diagrams
+$$
+\begin{array}{ccc}V \downarrow & V' \longleftarrow\downarrow\longrightarrow & Y' \downarrow \\ U & U' \longleftarrow\longrightarrow & X'\end{array}
+$$
+of algebraic spaces with both squares cartesian and whose morphism
+are defined in the obvious manner. An object of this category will
+be denoted $(V, V', Y')$ with arrows suppressed from the notation.
+There is a functor
+\begin{equation}
+\label{equation-beauville-laszlo-glueing-spaces}
+\textit{Spaces}/X
+\longrightarrow
+\textit{Spaces}(U \leftarrow U' \to X')
+\end{equation}
+given by base change: $Y \mapsto (U \times_X Y, U' \times_X Y, X' \times_X Y)$.
+
+\medskip\noindent
+We have seen in
+More on Algebra, Section \ref{more-algebra-section-beauville-laszlo}
+that not every $R$-module $M$ can be recovered from its
+gluing data. Similarly, the functor
+(\ref{equation-beauville-laszlo-glueing-spaces})
+won't be fully faithful on the category of all spaces over $X$.
+In order to single out a suitable subcategory of algebraic
+spaces over $X$ we need a lemma.
+
+\begin{lemma}[Glueable]
+\label{spaces-pushouts-lemma-glueable}
+\source{stacks:0F9P}
+\href{https://stacks.math.columbia.edu/tag/0F9P}{\texttt{Stacks tag 0F9P}}
+\group{spaces-pushouts}
+
+Let $(R \to R', f)$ be a glueing pair, see above. Let $Y$ be an algebraic
+space over $X$. The following are equivalent
+\begin{enumerate}
+\item there exists an \'etale covering $\{Y_i \to Y\}_{i \in I}$
+with $Y_i$ affine and $\Gamma(Y_i, \mathcal{O}_{Y_i})$
+glueable as an $R$-module,
+\item for every \'etale morphism $W \to Y$ with $W$ affine
+$\Gamma(W, \mathcal{O}_W)$ is a glueable $R$-module.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+It is immediate that (2) implies (1). Assume $\{Y_i \to Y\}$
+is as in (1) and let $W \to Y$ be as in (2). Then
+$\{Y_i \times_Y W \to W\}_{i \in I}$ is an \'etale covering,
+which we may refine by an \'etale covering
+$\{W_j \to W\}_{j = 1, \ldots, m}$ with $W_j$ affine
+(Topologies, Lemma \ref{topologies-lemma-etale-affine}).
+Thus to finish the proof it suffices to show
+the following three algebraic statements:
+\begin{enumerate}
+\item if $R \to A \to B$ are ring maps with $A \to B$ \'etale
+and $A$ glueable as an $R$-module, then $B$ is glueable as an
+$R$-module,
+\item finite products of glueable $R$-modules are glueable,
+\item if $R \to A \to B$ are ring maps with $A \to B$ faithfully \'etale
+and $B$ glueable as an $R$-module, then $A$ is glueable as an
+$R$-module.
+\end{enumerate}
+Namely, the first of these will imply that $\Gamma(W_j, \mathcal{O}_{W_j})$
+is a glueable $R$-module, the second will imply that
+$\prod \Gamma(W_j, \mathcal{O}_{W_j})$ is a glueable $R$-module, and
+the third will imply that $\Gamma(W, \mathcal{O}_W)$ is a glueable
+$R$-module.
+
+\medskip\noindent
+Consider an \'etale $R$-algebra homomorphism $A \to B$. Set
+$A' = A \otimes_R R'$ and $B' = B \otimes_R R' = A' \otimes_A B$.
+Statements (1) and (3) then follow from the following facts:
+(a) $A$, resp.\ $B$ is glueable if and only if the sequence
+$$
+0 \to A \to A_f \oplus A' \to A'_f \to 0,
+\quad\text{resp.}\quad
+0 \to B \to B_f \oplus B' \to B'_f \to 0,
+$$
+is exact, (b) the second sequence is equal to
+the functor $- \otimes_A B$ applied to the first and
+(c) (faithful) flatness of $A \to B$. We omit the proof of (2).
+\end{proof}
+
+Let $(R \to R', f)$ be a glueing pair, see above.
+We will say an algebraic space $Y$ over $X = \Spec(R)$
+is {\it glueable for $(R \to R', f)$}
+if the equivalent conditions of Lemma \ref{spaces-pushouts-lemma-glueable}
+are satisfied.
+
+\begin{lemma}[Glueing affines]
+\label{spaces-pushouts-lemma-glueing-affines}
+\source{stacks:0F9Q}
+\href{https://stacks.math.columbia.edu/tag/0F9Q}{\texttt{Stacks tag 0F9Q}}
+\group{spaces-pushouts}
+
+Let $(R \to R', f)$ be a glueing pair, see above.
+The functor (\ref{equation-beauville-laszlo-glueing-spaces})
+restricts to an equivalence between the category of affine
+$Y/X$ which are glueable for $(R \to R', f)$ and the
+full subcategory of objects $(V, V', Y')$ of
+$\textit{Spaces}(U \leftarrow U' \to X')$
+with $V$, $V'$, $Y'$ affine.
+\end{lemma}
+
+\begin{proof}
+Let $(V, V', Y')$ be an object of
+$\textit{Spaces}(U \leftarrow U' \to X')$
+with $V$, $V'$, $Y'$ affine.
+Write $V = \Spec(A_1)$ and $Y' = \Spec(A')$. By our definition of the
+category $\textit{Spaces}(U \leftarrow U' \to X')$ we find that
+$V'$ is the spectrum of $A_1 \otimes_{R_f} R'_f = A_1 \otimes_R R'$
+and the spectrum of $A'_f$. Hence we get an isomorphism
+$\varphi : A'_f \to A_1 \otimes_R R'$ of $R'_f$-algebras.
+By More on Algebra, Theorem \ref{more-algebra-theorem-BL-glueing}
+there exists a unique glueable $R$-module $A$ and isomorphisms
+$A_f \to A_1$ and $A \otimes_R R' \to A'$ of modules compatible with
+$\varphi$. Since the sequence
+$$
+0 \to A \to A_1 \oplus A' \to A'_f \to 0
+$$
+is short exact, the multiplications on $A_1$ and $A'$ define
+a unique $R$-algebra structure on $A$ such that the maps $A \to A_1$
+and $A \to A'$ are ring homomorphisms. We omit the verification
+that this construction defines a quasi-inverse to the functor
+(\ref{equation-beauville-laszlo-glueing-spaces})
+restricted to the subcategories mentioned in the statement of the lemma.
+\end{proof}
+
+\begin{lemma}[Glueing affines etale]
+\label{spaces-pushouts-lemma-glueing-affines-etale}
+\source{stacks:0F9R}
+\href{https://stacks.math.columbia.edu/tag/0F9R}{\texttt{Stacks tag 0F9R}}
+\group{spaces-pushouts}
+
+Let $P$ be one of the following properties of morphisms:
+``finite'', ``closed immersion'', ``flat'', ``finite type'',
+``flat and finite presentation'', ``\'etale''.
+Under the equivalence of Lemma \ref{spaces-pushouts-lemma-glueing-affines}
+the morphisms having $P$ correspond to morphisms of triples
+whose components have $P$.
+\end{lemma}
+
+\begin{proof}
+Let $P'$ be one of the following properties of homomorphisms of rings:
+``finite'', ``surjective'', ``flat'', ``finite type'',
+``flat and of finite presentation'', ``\'etale''.
+Translated into algebra, the statement means the following:
+If $A \to B$ is an $R$-algebra homomorphism and $A$ and $B$
+are glueable for $(R \to R', f)$, then
+$A_f \to B_f$ and $A \otimes_R R' \to B \otimes_R R'$ have $P'$
+if and only if $A \to B$ has $P'$.
+
+\medskip\noindent
+By More on Algebra, Lemmas \ref{more-algebra-lemma-faithful-descent}
+and \ref{more-algebra-lemma-BL-flat} the algebraic statement
+is true for $P'$ equal to ``finite'' or ``flat''.
+
+\medskip\noindent
+If $A_f \to B_f$ and $A \otimes_R R' \to B \otimes_R R'$ are surjective,
+then $N = B/A$ is an $R$-module with $N_f = 0$ and $N \otimes_R R' = 0$ and
+hence vanishes by More on Algebra, Lemma
+\ref{more-algebra-lemma-BL-faithful}. Thus $A \to B$ is surjective.
+
+\medskip\noindent
+If $A_f \to B_f$ and $A \otimes_R R' \to B \otimes_R R'$ are finite type,
+then we can choose an $A$-algebra homomorphism $A[x_1, \ldots, x_n] \to B$
+such that $A_f[x_1, \ldots, x_n] \to B_f$ and
+$(A \otimes_R R')[x_1, \ldots, x_n] \to B \otimes_R R'$ are surjective
+(small detail omitted). We conclude that $A[x_1, \ldots, x_n] \to B$
+is surjective by the previous result. Thus $A \to B$ is of finite type.
+
+\medskip\noindent
+If $A_f \to B_f$ and $A \otimes_R R' \to B \otimes_R R'$ are
+flat and of finite presentation, then we know that $A \to B$ is flat and
+of finite type by what we have already shown. Choose a surjection
+$A[x_1, \ldots, x_n] \to B$ and denote $I$ the kernel.
+By flatness of $B$ over $A$ we see that $I_f$ is the kernel of
+$A_f[x_1, \ldots, x_n] \to B_f$ and $I \otimes_R R'$ is the kernel of
+$A \otimes_R R'[x_1, \ldots, x_n] \to B \otimes_R R'$.
+Thus $I_f$ is a finite $A_f[x_1, \ldots, x_n]$-module and
+$I \otimes_R R'$ is a finite $(A \otimes_R R')[x_1, \ldots, x_n]$-module.
+By More on Algebra, Lemma \ref{more-algebra-lemma-faithful-descent}
+applied to $I$ viewed as a module over $A[x_1, \ldots, x_n]$
+we conclude that $I$ is a finitely generated ideal and we conclude
+$A \to B$ is flat and of finite presentation.
+
+\medskip\noindent
+If $A_f \to B_f$ and $A \otimes_R R' \to B \otimes_R R'$ are \'etale,
+then we know that $A \to B$ is flat and of finite presentation by what
+we have already shown. Since the fibres of $\Spec(B) \to \Spec(A)$
+are isomorphic to fibres of $\Spec(B_f) \to \Spec(A_f)$ or
+$\Spec(B/fB) \to \Spec(A/fA)$, we conclude that $A \to B$ is unramified,
+see Morphisms, Lemmas \ref{morphisms-lemma-unramified-over-field}
+and \ref{morphisms-lemma-unramified-etale-fibres}.
+We conclude that $A \to B$ is \'etale by
+Morphisms, Lemma \ref{morphisms-lemma-flat-unramified-etale} for example.
+\end{proof}
+
+\begin{lemma}[Glueing f]
+\label{spaces-pushouts-lemma-glueing-f}
+\source{stacks:0F9S}
+\href{https://stacks.math.columbia.edu/tag/0F9S}{\texttt{Stacks tag 0F9S}}
+\group{spaces-pushouts}
+
+Let $(R \to R', f)$ be a glueing pair, see above.
+The functor (\ref{equation-beauville-laszlo-glueing-spaces})
+is faithful on the full subcategory of
+algebraic spaces $Y/X$ glueable for $(R \to R', f)$.
+\end{lemma}
+
+\begin{proof}
+Let $f, g : Y \to Z$ be two morphisms of algebraic spaces over $X$
+with $Y$ and $Z$ glueable for $(R \to R', f)$ such that $f$ and $g$ are mapped
+to the same morphism in the category $\textit{Spaces}(U \leftarrow U' \to X')$.
+We have to show the equalizer $E \to Y$ of $f$ and $g$ is an isomorphism.
+Working \'etale locally on $Y$ we may assume $Y$ is an affine scheme.
+Then $E$ is a scheme and the morphism $E \to Y$ is a monomorphism
+and locally quasi-finite, see Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-properties-diagonal}.
+Moreover, the base change of $E \to Y$ to $U$ and to $X'$ is
+an isomorphism. As $Y$ is the disjoint union of the affine open
+$V = U \times_X Y$ and the affine closed $V(f) \times_X Y$, we conclude
+$E$ is the disjoint union of their isomorphic inverse images.
+It follows in particular that $E$ is quasi-compact.
+By Zariski's main theorem (More on Morphisms, Lemma
+\ref{more-morphisms-lemma-quasi-finite-separated-pass-through-finite})
+we conclude that $E$ is quasi-affine.
+Set $B = \Gamma(E, \mathcal{O}_E)$ and $A = \Gamma(Y, \mathcal{O}_Y)$
+so that we have an $R$-algebra homomorphism $A \to B$.
+Since $E \to Y$ becomes an isomorphism after base change to $U$ and $X'$
+we obtain ring maps $B \to A_f$ and $B \to A \otimes_R R'$
+agreeing as maps into $A \otimes_R R'_f$. Since $A$ is glueable
+for $(R \to R', f)$ we get a ring map $B \to A$ which is left inverse
+to the map $A \to B$. The corresponding morphism $Y = \Spec(A) \to \Spec(B)$
+maps into the open subscheme $E \subset \Spec(B)$ pointwise because
+this is true after base change to $U$ and $X'$. Hence we get a morphism
+$Y \to E$ over $Y$. Since $E \to Y$ is a monomorhism we conclude
+$Y \to E$ is an isomorphism as desired.
+\end{proof}
+
+\begin{lemma}[Glueing ff]
+\label{spaces-pushouts-lemma-glueing-ff}
+\source{stacks:0F9T}
+\href{https://stacks.math.columbia.edu/tag/0F9T}{\texttt{Stacks tag 0F9T}}
+\group{spaces-pushouts}
+
+Let $(R \to R', f)$ be a glueing pair, see above.
+The functor (\ref{equation-beauville-laszlo-glueing-spaces})
+is fully faithful on the full subcategory of
+algebraic spaces $Y/X$ which are (a) glueable for $(R \to R', f)$
+and (b) have affine diagonal $Y \to Y \times_X Y$.
+\end{lemma}
+
+\begin{proof}
+Let $Y, Z$ be two algebraic spaces over $X$ which are both glueable for
+$(R \to R', f)$ and assume the diagonal of $Z$ is affine. Let
+$a : U \times_X Y \to U \times_X Z$ over $U$ and
+$b : X' \times_X Y \to X' \times_X Z$ over $X'$ be two morphisms
+of algebraic spaces
+which induce the same morphism $c : U' \times_X Y \to U' \times_X Z$
+over $U'$.
+We want to construct a morphism $f : Y \to Z$ over $X$
+which produces the morphisms $a$, $b$ on base change to $U$, $X'$.
+By the faithfulness of Lemma \ref{spaces-pushouts-lemma-glueing-f}, it suffices to construct
+the morphism $f$ \'etale locally on $Y$ (details omitted).
+Thus we may and do assume $Y$ is affine.
+
+\medskip\noindent
+Let $y \in |Y|$ be a point. If $y$ maps into the open $U \subset X$,
+then $U \times_X Y$ is an open of $Y$ on which the morphism $f$
+is defined (we can just take $a$).
+Thus we may assume $y$ maps into the closed subset
+$V(f)$ of $X$. Since $R/fR = R'/fR'$ there is a unique point
+$y' \in |X' \times_X Y|$ mapping to $y$. Denote
+$z' = b(y') \in |X' \times_X Z|$ and $z \in |Z|$ the images of $y'$.
+Choose an \'etale neighbourhood $(W, w) \to (Z, z)$
+with $W$ affine. Observe that
+$$
+(U \times_X W) \times_{U \times_X Z, a} (U \times_X Y),\quad
+(U' \times_X W) \times_{U' \times_X Z, c} (U' \times_X Y),
+$$
+and
+$$
+(X' \times_X W) \times_{X' \times_X Z, b} (X' \times_X Y)
+$$
+form an object of $\textit{Spaces}(U \leftarrow U' \to X')$
+with affine parts (this is where we use that $Z$ has affine diagonal).
+Hence by Lemma \ref{spaces-pushouts-lemma-glueing-affines}
+there exists a unique affine scheme $V$ glueable for $(R \to R', f)$ such that
+$$
+(U \times_X V, U' \times_X V, X' \times_X V)
+$$
+is the triple displayed above. By fully faithfulness for the affine
+case (Lemma \ref{spaces-pushouts-lemma-glueing-affines}) we get a unique morphisms
+$V \to W$ and $V \to Y$ agreeing with the first and second projection
+morphisms over $U$ and $X'$ in the construction above.
+By Lemma \ref{spaces-pushouts-lemma-glueing-affines-etale} the morphism $V \to Y$ is \'etale.
+To finish the proof, it suffices to show that there is a point $v \in |V|$
+mapping to $y$ (because then $f$ is defined on an \'etale neighbourhood
+of $y$, namely $V$).
+There is a unique point $w' \in |X' \times_X W|$ mapping to $w$.
+By uniqueness $w'$ is mapped to $z'$ under the map
+$|X' \times_X W| \to |X' \times_X Z|$. Then we consider the cartesian
+diagram
+$$
+\begin{array}{cc}X' \times_X V \longrightarrow\downarrow & X' \times_X W \downarrow \\ X' \times_X Y \longrightarrow & X' \times_X Z\end{array}
+$$
+to see that there is a point $v' \in |X' \times_X V|$
+mapping to $y'$ and $w'$, see
+Properties of Spaces, Lemma \ref{spaces-properties-lemma-points-cartesian}.
+Of course the image $v$ of $v'$ in $|V|$ maps to $y$ and the proof is complete.
+\end{proof}
+
+\begin{lemma}[Glueing quasi affines]
+\label{spaces-pushouts-lemma-glueing-quasi-affines}
+\source{stacks:0F9U}
+\href{https://stacks.math.columbia.edu/tag/0F9U}{\texttt{Stacks tag 0F9U}}
+\group{spaces-pushouts}
+
+Let $(R \to R', f)$ be a glueing pair, see above. Any object
+$(V, V', Y')$ of $\textit{Spaces}(U \leftarrow U' \to X')$
+with $V$, $V'$, $Y'$ quasi-affine is isomorphic to
+the image under the functor (\ref{equation-beauville-laszlo-glueing-spaces})
+of a separated algebraic space $Y$ over $X$.
+\end{lemma}
+
+\begin{proof}
+Choose $n'$, $T' \to Y'$ and $n_1$, $T_1 \to V$ as in
+Properties, Lemma \ref{properties-lemma-quasi-affine-presentation}.
+Picture
+$$
+\begin{array}{ccccc} &  & T_1 \times_V V' \times_Y T' \swarrow\searrow &  &  \\ T_1 \downarrow & T_1 \times_V V' \longleftarrow\searrow &  & V' \times_{Y'} T' \longrightarrow\swarrow & T' \downarrow \\ V &  & V' \longrightarrow\longleftarrow &  & Y'\end{array}
+$$
+Observe that $T_1 \times_V V'$ and $V' \times_{Y'} T'$
+are affine (namely the morphisms $V' \to V$ and $V' \to Y'$
+are affine as base changes of the affine morphisms $U' \to U$
+and $U' \to X'$). By construction we see that
+$$
+\mathbf{A}^{n'}_{T_1 \times_V V'} \cong
+T_1 \times_V V' \times_{Y'} T' \cong
+\mathbf{A}^{n_1}_{V' \times_{Y'} T'}
+$$
+In other words, the affine schemes $\mathbf{A}^{n'}_{T_1}$
+and $\mathbf{A}^{n_1}_{T'}$ are part of a triple making an affine object of
+$\textit{Spaces}(U \leftarrow U' \to X')$.
+By Lemma \ref{spaces-pushouts-lemma-glueing-affines}
+there exists a morphism of affine schemes $T \to X$
+and isomorphisms $U \times_X T \cong \mathbf{A}^{n'}_{T_1}$
+and $X' \times_X T \cong \mathbf{A}^{n_1}_{T'}$ compatible
+with the isomorphisms displayed above.
+These isomorphisms produce morphisms
+$$
+U \times_X T \longrightarrow V
+\quad\text{and}\quad
+X' \times_X T \longrightarrow Y'
+$$
+satisfying the property of
+Properties, Lemma \ref{properties-lemma-quasi-affine-presentation}
+with $n = n' + n_1$ and moreover define a morphism from the triple
+$(U \times_X T, U' \times_X T, X' \times_X T)$ to
+our triple $(V, V', Y')$ in the category
+$\textit{Spaces}(U \leftarrow U' \to X')$.
+
+\medskip\noindent
+By Lemma \ref{spaces-pushouts-lemma-glueing-affines} there is an affine scheme $W$ whose
+image in $\textit{Spaces}(U \leftarrow U' \to X')$ is isomorphic to
+the triple
+$$
+((U \times_X T) \times_V (U \times_X T),
+(U' \times_X T) \times_{V'} (U' \times_X T),
+(X' \times_X T) \times_{Y'} (X' \times_X T))
+$$
+By fully faithfulness of this construction, we obtain
+two maps $p_0, p_1 : W \to T$ whose base changes
+to $U, U', X'$ are the projection morphisms.
+By Lemma \ref{spaces-pushouts-lemma-glueing-affines-etale}
+the morphisms $p_0, p_1$ are flat and of finite presentation and
+the morphism $(p_0, p_1) : W \to T \times_X T$ is a closed immersion.
+In fact, $W \to T \times_X T$ is an equivalence relation: by the lemmas
+used above we may check symmetry, reflexivity, and transitivity
+after base change to $U$ and $X'$, where these are obvious (details omitted).
+Thus the quotient sheaf
+$$
+Y = T/W
+$$
+is an algebraic space for example by
+Bootstrap, Theorem \ref{bootstrap-theorem-final-bootstrap}.
+Since it is clear that $Y/X$ is sent to the triple $(V, V', Y')$.
+The base change of the diagonal $\Delta : Y \to Y \times_X Y$
+by the quasi-compact surjective flat morphism $T \times_X T \to Y \times_X Y$
+is the closed immersion $W \to T \times_X T$. Thus $\Delta$
+is a closed immersion by Descent on Spaces, Lemma
+\ref{spaces-descent-lemma-descending-property-closed-immersion}.
+Thus the algebraic space $Y$ is separated and the proof is complete.
+\end{proof}
+
+\section{Coequalizers and glueing}
+\label{spaces-pushouts-section-coequalizer-glue}
+Let $X$ be a Noetherian algebraic space and $Z \to X$ a closed subspace.
+Let $X' \to X$ be the blowing up in $Z$. In this section we show that
+$X$ can be recovered from $X'$, $Z_n$ and glueing data where $Z_n$
+is the $n$th infinitesimal neighbourhood of $Z$ in $X$.
+
+\begin{lemma}[Coequalizer]
+\label{spaces-pushouts-lemma-coequalizer}
+\source{stacks:0AGG}
+\href{https://stacks.math.columbia.edu/tag/0AGG}{\texttt{Stacks tag 0AGG}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let
+$$
+g : Y \longrightarrow X
+$$
+be a morphism of algebraic spaces over $S$. Assume $X$ is locally Noetherian,
+and $g$ is proper. Let $R = Y \times_X Y$ with projection morphisms
+$t, s : R \to Y$. There exists a coequalizer $X'$ of $s, t : R \to Y$
+in the category of algebraic spaces over $S$. Moreover
+\begin{enumerate}
+\item The morphism $X' \to X$ is finite.
+\item The morphism $Y \to X'$ is proper.
+\item The morphism $Y \to X'$ is surjective.
+\item The morphism $X' \to X$ is universally injective.
+\item If $g$ is surjective, the morphism $X' \to X$
+is a universal homeomorphism.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Denote $h : R \to X$ denote the composition of either $s$ or $t$
+with $g$. Then $h$ is proper by Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-base-change-proper} and
+\ref{spaces-morphisms-lemma-composition-proper}.
+The sheaves
+$$
+g_*\mathcal{O}_Y
+\quad\text{and}\quad
+h_*\mathcal{O}_R
+$$
+are coherent $\mathcal{O}_X$-algebras by Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-proper-pushforward-coherent}.
+The $X$-morphisms $s$, $t$ induce $\mathcal{O}_X$-algebra maps
+$s^\sharp, t^\sharp$ from the first to the second.
+Set
+$$
+\mathcal{A} = \text{Equalizer}\left(s^\sharp, t^\sharp :
+g_*\mathcal{O}_Y \longrightarrow h_*\mathcal{O}_R\right)
+$$
+Then $\mathcal{A}$ is a coherent $\mathcal{O}_X$-algebra and we
+can define
+$$
+X' = \underline{\Spec}_X(\mathcal{A})
+$$
+as in Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-relative-spec}.
+By Morphisms of Spaces, Remark
+\ref{spaces-morphisms-remark-factorization-quasi-compact-quasi-separated}
+and functoriality of the $\underline{\Spec}$ construction
+there is a factorization
+$$
+Y \longrightarrow X' \longrightarrow X
+$$
+and the morphism $g' : Y \to X'$ equalizes $s$ and $t$.
+
+\medskip\noindent
+Before we show that $X'$ is the coequalizer of $s$ and $t$, we show
+that $Y \to X'$ and $X' \to X$ have the desired properties. Since $\mathcal{A}$
+is a coherent $\mathcal{O}_X$-module it is clear that $X' \to X$ is a
+finite morphism of algebraic spaces. This proves (1).
+The morphism $Y \to X'$ is proper by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-universally-closed-permanence}. This proves (2).
+Denote $Y \to Y' \to X$ with
+$Y' = \underline{\Spec}_X(g_*\mathcal{O}_Y)$ the Stein factorization of $g$,
+see More on Morphisms of Spaces, Theorem
+\ref{spaces-more-morphisms-theorem-stein-factorization-Noetherian}.
+Of course we obtain morphisms $Y \to Y' \to X' \to X$ fitting
+with the morphisms studied above.
+Since $\mathcal{O}_{X'} \subset g_*\mathcal{O}_Y$ is a finite extension
+we see that $Y' \to X'$ is finite and surjective.
+Some details omitted; hint: use
+Algebra, Lemma \ref{algebra-lemma-integral-overring-surjective}
+and reduce to the affine case by \'etale localization.
+Since $Y \to Y'$ is surjective (with geometrically connected fibres)
+we conclude that $Y \to X'$ is surjective. This proves (3).
+To show that $X' \to X$ is universally injective, we have to show
+that $X' \to X' \times_X X'$ is surjective, see
+Morphisms of Spaces, Definition
+\ref{spaces-morphisms-definition-universally-injective} and
+Lemma \ref{spaces-morphisms-lemma-universally-injective}.
+Since $Y \to X'$ is surjective (see above) and since base changes
+and compositions of surjective morphisms are surjective by
+Morphisms of Spaces, Lemmas
+\ref{spaces-morphisms-lemma-base-change-surjective} and
+\ref{spaces-morphisms-lemma-composition-surjective}
+we see that $Y \times_X Y \to X' \times_X X'$ is surjective.
+However, since $Y \to X'$ equalizes $s$ and $t$, we see that
+$Y \times_X Y \to X' \times_X X'$ factors through $X' \to X' \times_X X'$
+and we conclude this latter map is surjective. This proves (4).
+Finally, if $g$ is surjective, then since $g$ factors through $X' \to X$
+we see that $X' \to X$ is surjective. Since a surjective, universally
+injective, finite morphism is a universal homeomorphism (because it
+is universally bijective and universally closed), this proves (5).
+
+\medskip\noindent
+In the rest of the proof we show that $Y \to X'$ is the coequalizer
+of $s$ and $t$ in the category of algebraic spaces over $S$.
+Observe that $X'$ is locally Noetherian
+(Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-locally-finite-type-locally-noetherian}).
+Moreover, observe that $Y \times_{X'} Y \to Y \times_X Y$ is an
+isomorphism as $Y \to X'$ equalizes $s$ and $t$ (this is a categorical
+statement). Hence in order to prove the statement that $Y \to X'$
+is the coequalizer of $s$ and $t$, we may and do assume $X = X'$.
+In other words, $\mathcal{O}_X$ is the equalizer of the maps
+$s^\sharp, t^\sharp : g_*\mathcal{O}_Y \to h_*\mathcal{O}_R$.
+
+\medskip\noindent
+Let $X_1 \to X$ be a flat morphism of algebraic spaces over $S$ with $X_1$
+locally Noetherian. Denote $g_1 : Y_1 \to X_1$, $h_1 : R_1 \to X_1$ and
+$s_1, t_1 : R_1 \to Y_1$ the base changes of $g, h, s, t$ to $X_1$.
+Of course $g_1$ is proper and $R_1 = Y_1 \times_{X_1} Y_1$.
+Since we have flat base change for pushforward of quasi-coherent modules,
+Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-flat-base-change-cohomology}, we see that
+$\mathcal{O}_{X_1}$ is the equalizer of the maps
+$s_1^\sharp, t_1^\sharp : g_{1, *}\mathcal{O}_{Y_1} \to
+h_{1, *}\mathcal{O}_{R_1}$. Hence all the assumptions we have
+are preserved by this base change.
+
+\medskip\noindent
+At this point we are going to check conditions (1) and (2) of
+Lemma \ref{spaces-pushouts-lemma-colimit-check-etale-locally}. Condition (1)
+follows from Lemma \ref{spaces-pushouts-lemma-descend-etale-proper-surjective}
+and the fact that $g$ is proper and surjective (because $X = X'$).
+To check condition (2), by the remarks on base change above,
+we reduce to the statement discussed and proved in the next paragraph.
+
+\medskip\noindent
+Assume $S = \Spec(A)$ is an affine scheme, $X = X'$ is an affine scheme, and
+$Z$ is an affine scheme over $S$. We have to show that
+$$
+\Mor_S(X, Z) \longrightarrow
+\text{Equalizer}(s, t : \Mor_S(Y, Z) \to \Mor_S(R, Z))
+$$
+is bijective. However, this is clear from the fact that $X = X'$
+which implies $\mathcal{O}_X$ is the equalizer of the maps
+$s^\sharp, t^\sharp : g_*\mathcal{O}_Y \to h_*\mathcal{O}_R$
+which in turn implies
+$$
+\Gamma(X, \mathcal{O}_X) =
+\text{Equalizer}\left(
+s^\sharp, t^\sharp : \Gamma(Y, \mathcal{O}_Y) \to
+\Gamma(R, \mathcal{O}_R)
+\right)
+$$
+Namely, we have
+$$
+\Mor_S(X, Z) = \Hom_A(\Gamma(Z, \mathcal{O}_Z), \Gamma(X, \mathcal{O}_X))
+$$
+and similarly for $Y$ and $R$, see Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-morphism-to-affine-scheme}.
+\end{proof}
+
+We will work in the following situation.
+
+\begin{definition}[Situation: Coequalizer glue]
+\label{spaces-pushouts-situation-coequalizer-glue}
+\source{stacks:0AGH}
+\href{https://stacks.math.columbia.edu/tag/0AGH}{\texttt{Stacks tag 0AGH}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $X$ be a locally Noetherian algebraic space over $S$.
+Let $Z \to X$ be a closed immersion and let $U \subset X$ be the complementary
+open subspace. Finally, let $f : X' \to X$ be a proper morphism of algebraic
+spaces such that $f^{-1}(U) \to U$ is an isomorphism.
+\end{definition}
+
+\begin{lemma}[Coequalizer glue]
+\label{spaces-pushouts-lemma-coequalizer-glue}
+\source{stacks:0AGI}
+\href{https://stacks.math.columbia.edu/tag/0AGI}{\texttt{Stacks tag 0AGI}}
+\group{spaces-pushouts}
+
+In Situation \ref{spaces-pushouts-situation-coequalizer-glue} let $Y = X' \amalg Z$ and
+$R = Y \times_X Y$ with projections $t, s : R \to Y$. There exists a
+coequalizer $X_1$ of $s, t : R \to Y$ in the category of algebraic spaces
+over $S$. The morphism $X_1 \to X$ is a finite universal homeomorphism,
+an isomorphism over $U$, and $Z \to X$ lifts to $X_1$.
+\end{lemma}
+
+\begin{proof}
+Existence of $X_1$ and the fact that $X_1 \to X$ is a finite
+universal homeomorphism is a special case of Lemma \ref{spaces-pushouts-lemma-coequalizer}.
+The formation of $X_1$ commutes with \'etale localization on $X$
+(see proof of Lemma \ref{spaces-pushouts-lemma-coequalizer}).
+Thus the morphism $X_1 \to X$ is an isomorphism over $U$.
+It is immediate from the construction that $Z \to X$ lifts to $X_1$.
+\end{proof}
+
+In Situation \ref{spaces-pushouts-situation-coequalizer-glue} for $n \geq 1$ let
+$Z_n \subset X$ be the $n$th order infinitesimal neighbourhood
+of $Z$ in $X$, i.e., the closed subscheme defined by the $n$th
+power of the sheaf of ideals cutting out $Z$. Consider $Y_n = X' \amalg Z_n$
+and $R_n = Y_n \times_X Y_n$ and the coequalizer
+$$
+\begin{array}{cccc}R_n \longrightarrow\longrightarrow & Y_n \longrightarrow & X_n \longrightarrow & X\end{array}
+$$
+as in Lemma \ref{spaces-pushouts-lemma-coequalizer-glue}. The maps $Y_n \to Y_{n + 1}$
+and $R_n \to R_{n + 1}$ induce morphisms
+\begin{equation}
+\label{equation-system-coequalizers}
+X_1 \to X_2 \to X_3 \to \ldots \to X
+\end{equation}
+Each of these morphisms is a universal homeomorphism as the morphisms
+$X_n \to X$ are universal homeomorphisms.
+
+\begin{lemma}[Essentially constant]
+\label{spaces-pushouts-lemma-essentially-constant}
+\source{stacks:0AGK}
+\href{https://stacks.math.columbia.edu/tag/0AGK}{\texttt{Stacks tag 0AGK}}
+\group{spaces-pushouts}
+
+In Situation \ref{spaces-pushouts-situation-coequalizer-glue} assume $X$ quasi-compact.
+In (\ref{equation-system-coequalizers}) for all $n$ large enough, there
+exists an $m$ such that $X_n \to X_{n + m}$ factors through a
+closed immersion $X \to X_{n + m}$.
+\end{lemma}
+
+\begin{proof}
+Let's look a bit more closely at the construction of $X_n$
+and how it changes as we increase $n$. We have
+$X_n = \underline{\Spec}(\mathcal{A}_n)$
+where $\mathcal{A}_n$ is the equalizer of $s_n^\sharp$ and $t_n^\sharp$
+going from $g_{n , *}\mathcal{O}_{Y_n}$ to $h_{n, *}\mathcal{O}_{R_n}$.
+Here $g_n : Y_n = X' \amalg Z_n \to X$ and $h_n : R_n = Y_n \times_X Y_n \to X$
+are the given morphisms. Let $\mathcal{I} \subset \mathcal{O}_X$ be the
+coherent sheaf of ideals corresponding to $Z$. Then
+$$
+g_{n, *}\mathcal{O}_{Y_n} =
+f_*\mathcal{O}_{X'} \times \mathcal{O}_X/\mathcal{I}^n
+$$
+Similarly, we have a decomposition
+$$
+R_n = X' \times_X X' \amalg X' \times_X Z_n \amalg
+Z_n \times_X X' \amalg Z_n \times_X Z_n
+$$
+As $Z_n \to X$ is a monomorphism, we see that
+$X' \times_X Z_n = Z_n \times_X X'$ and that this identification
+is compatible with the two morphisms to $X$, with the two morphisms to
+$X'$, and with the two morphisms to $Z_n$.
+Denote $f_n : X' \times_X Z_n \to X$ the morphism to $X$.
+Denote
+$$
+\mathcal{A} = \text{Equalizer}(
+\begin{array}{cc}f_*\mathcal{O}_{X'} \longrightarrow\longrightarrow & (f \times f)_*\mathcal{O}_{X' \times_X X'}\end{array}
+)
+$$
+By the remarks above we find that
+$$
+\mathcal{A}_n =
+\text{Equalizer}(
+\begin{array}{cc}\mathcal{A} \times \mathcal{O}_X/\mathcal{I}^n \longrightarrow\longrightarrow & f_{n, *}\mathcal{O}_{X' \times_X Z_n}\end{array}
+)
+$$
+We have canonical maps
+$$
+\mathcal{O}_X \to \ldots \to \mathcal{A}_3 \to \mathcal{A}_2 \to \mathcal{A}_1
+$$
+of coherent $\mathcal{O}_X$-algebras. The statement of the lemma means that
+for $n$ large enough there exists an $m \geq 0$ such that the image of
+$\mathcal{A}_{n + m} \to \mathcal{A}_n$ is isomorphic to $\mathcal{O}_X$.
+This we may check \'etale locally on $X$. Hence by Properties of Spaces,
+Lemma \ref{spaces-properties-lemma-quasi-compact-affine-cover}
+we may assume $X$ is an affine Noetherian scheme.
+
+\medskip\noindent
+Since $X_n \to X$ is an isomorphism over $U$ we see that the kernel
+of $\mathcal{O}_X \to \mathcal{A}_n$ is supported on $|Z|$.
+Since $X$ is Noetherian, the sequence of kernels
+$\mathcal{J}_n = \Ker(\mathcal{O}_X \to \mathcal{A}_n)$ stabilizes
+(Cohomology of Spaces, Lemma \ref{spaces-cohomology-lemma-acc-coherent}).
+Say $\mathcal{J}_{n_0} = \mathcal{J}_{n_0 + 1} = \ldots = \mathcal{J}$.
+By Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-power-ideal-kills-sheaf}
+we find that $\mathcal{I}^t \mathcal{J} = 0$ for some $t \geq 0$.
+On the other hand, there is an $\mathcal{O}_X$-algebra map
+$\mathcal{A}_n \to \mathcal{O}_X/\mathcal{I}^n$
+and hence $\mathcal{J} \subset \mathcal{I}^n$ for all $n$.
+By Artin-Rees (Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-Artin-Rees}) we find that
+$\mathcal{J} \cap \mathcal{I}^n \subset \mathcal{I}^{n - c}\mathcal{J}$
+for some $c  \geq 0$ and all $n \gg 0$. We conclude that $\mathcal{J} = 0$.
+
+\medskip\noindent
+Pick $n \geq n_0$ as in the previous paragraph. Then
+$\mathcal{O}_X \to \mathcal{A}_n$ is injective. Hence it now
+suffices to find $m \geq 0$ such that the image of
+$\mathcal{A}_{n + m} \to \mathcal{A}_n$ is equal
+to the image of $\mathcal{O}_X$. Observe that $\mathcal{A}_n$
+sits in a short exact sequence
+$$
+0 \to \Ker(\mathcal{A} \to f_{n, *}\mathcal{O}_{X' \times_X Z_n})
+\to \mathcal{A}_n \to \mathcal{O}_X/\mathcal{I}^n \to 0
+$$
+and similarly for $\mathcal{A}_{n + m}$. Hence it suffices to show
+$$
+\Ker(\mathcal{A} \to f_{n + m, *}\mathcal{O}_{X' \times_X Z_{n + m}})
+\subset
+\Im(\mathcal{I}^n \to \mathcal{A})
+$$
+for some $m \geq 0$. To do this we may work \'etale locally on
+$X$ and since $X$ is Noetherian we may assume that $X$ is
+a Noetherian affine scheme. Say $X = \Spec(R)$ and $\mathcal{I}$
+corresponds to the ideal $I \subset R$. Let $\mathcal{A} = \widetilde{A}$
+for a finite $R$-algebra $A$. Let $f_*\mathcal{O}_{X'} = \widetilde{B}$
+for a finite $R$-algebra $B$. Then $R \to A \subset B$ and these maps
+become isomorphisms on inverting any element of $I$.
+
+\medskip\noindent
+Note that $f_{n, *}\mathcal{O}_{X' \times_X Z_n}$
+is equal to $f_*(\mathcal{O}_{X'}/I^n\mathcal{O}_{X'})$
+in the notation used in Cohomology of Spaces, Section
+\ref{spaces-cohomology-section-theorem-formal-functions}.
+By Cohomology of Spaces, Lemma
+\ref{spaces-cohomology-lemma-ML-cohomology-powers-ideal}
+we see that there exists a $c \geq 0$ such that
+$$
+\Ker(B \to \Gamma(X, f_*(\mathcal{O}_{X'}/I^{n + m + c}\mathcal{O}_{X'}))
+$$
+is contained in $I^{n + m}B$. On the other hand, as $R \to B$ is
+finite and an isomorphism after inverting any element of $I$
+we see that $I^{n + m}B \subset \Im(I^n \to B)$ for $m$ large enough
+(can be chosen independent of $n$). This finishes the proof as $A \subset B$.
+\end{proof}
+
+\begin{remark}[Essentially constant]
+\label{spaces-pushouts-remark-essentially-constant}
+\source{stacks:0AGL}
+\href{https://stacks.math.columbia.edu/tag/0AGL}{\texttt{Stacks tag 0AGL}}
+\group{spaces-pushouts}
+
+The meaning of Lemma \ref{spaces-pushouts-lemma-essentially-constant}
+is the system $X_1 \to X_2 \to X_3 \to \ldots$ is essentially
+constant with value $X$. See Categories, Definition
+\ref{categories-definition-essentially-constant-diagram}.
+\end{remark}
+
+\section{Compactifications}
+\label{spaces-pushouts-section-compactifications}
+This section is the analogue of More on Flatness, Section
+\ref{flat-section-compactifications}. The theorem in this
+section is the main theorem in \cite{CLO}.
+
+\medskip\noindent
+Let $B$ be a quasi-compact and quasi-separated algebraic space over
+some base scheme $S$. We will say an algebraic space $X$ over $B$
+{\it has a compactification over $B$} or {\it is compactifyable over $B$}
+if there exists a quasi-compact open immersion $X \to \overline{X}$
+into an algebraic space $\overline{X}$ proper over $B$. If $X$
+has a compactification over $B$, then $X \to B$ is separated and
+of finite type. The main theorem of this section is that the converse
+is true as well.
+
+\begin{lemma}[Check separated]
+\label{spaces-pushouts-lemma-check-separated}
+\source{stacks:0F45}
+\href{https://stacks.math.columbia.edu/tag/0F45}{\texttt{Stacks tag 0F45}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $X \to Y$ be a morphism of algebraic spaces over $S$.
+If $(U \subset X, f : V \to X)$ is an elementary distinguished square
+such that $U \to Y$ and $V \to Y$ are separated and
+$U \times_X V \to U \times_Y V$ is closed, then $X \to Y$ is separated.
+\end{lemma}
+
+\begin{proof}
+We have to check that $\Delta : X \to X \times_Y X$ is a closed immersion.
+There is an \'etale covering of $X \times_Y X$ given by the four parts
+$U \times_Y U$, $U \times_Y V$, $V \times_Y U$, and $V \times_Y V$.
+Observe that
+$(U \times_Y U) \times_{(X \times_Y X), \Delta} X  = U$,
+$(U \times_Y V) \times_{(X \times_Y X), \Delta} X = U \times_X V$,
+$(V \times_Y U) \times_{(X \times_Y X), \Delta} X = V \times_X U$, and
+$(V \times_Y V) \times_{(X \times_Y X), \Delta} X = V$.
+Thus the assumptions of the lemma
+exactly tell us that $\Delta$ is a closed immersion.
+\end{proof}
+
+\begin{lemma}[Separate disjoint locally closed by blowing up]
+\label{spaces-pushouts-lemma-separate-disjoint-locally-closed-by-blowing-up}
+\source{stacks:0F46}
+\href{https://stacks.math.columbia.edu/tag/0F46}{\texttt{Stacks tag 0F46}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme.
+Let $X$ be a quasi-compact and quasi-separated algebraic space over $S$.
+Let $U \subset X$ be a quasi-compact open.
+\begin{enumerate}
+\item If $Z_1, Z_2 \subset X$ are closed subspaces of finite
+presentation such that $Z_1 \cap Z_2 \cap U = \emptyset$, then
+there exists a $U$-admissible blowing up $X' \to X$
+such that the strict transforms of $Z_1$ and $Z_2$ are disjoint.
+\item If $T_1, T_2 \subset |U|$ are disjoint constructible closed
+subsets, then there is a $U$-admissible blowing up $X' \to X$
+such that the closures of $T_1$ and $T_2$ are disjoint.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Proof of (1). The assumption that $Z_i \to X$ is of finite presentation
+signifies that the quasi-coherent ideal sheaf $\mathcal{I}_i$ of $Z_i$
+is of finite type, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-closed-immersion-finite-presentation}.
+Denote $Z \subset X$ the closed subspace
+cut out by the product $\mathcal{I}_1 \mathcal{I}_2$.
+Observe that $Z \cap U$ is the disjoint union
+of $Z_1 \cap U$ and $Z_2 \cap U$. By Divisors on Spaces, Lemma
+\ref{spaces-divisors-lemma-separate-disjoint-opens-by-blowing-up}
+there is a $U \cap Z$-admissible blowup $Z' \to Z$ such that
+the strict transforms of $Z_1$ and $Z_2$ are disjoint.
+Denote $Y \subset Z$ the center of this blowing up.
+Then $Y \to X$ is a closed immersion of finite presentation as the composition
+of $Y \to Z$ and $Z \to X$ (Divisors on Spaces, Definition
+\ref{spaces-divisors-definition-admissible-blowup} and
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-composition-finite-presentation}).
+Thus the blowing up $X' \to X$ of $Y$ is a $U$-admissible blowing
+up. By general properties of strict transforms, the
+strict transform of $Z_1, Z_2$ with respect to $X' \to X$
+is the same as the strict transform of $Z_1, Z_2$ with respect
+to $Z' \to Z$, see
+Divisors on Spaces, Lemma \ref{spaces-divisors-lemma-strict-transform}.
+Thus (1) is proved.
+
+\medskip\noindent
+Proof of (2). By Limits of Spaces, Lemma
+\ref{spaces-limits-lemma-quasi-coherent-finite-type-ideals}
+there exists a finite type quasi-coherent sheaf of ideals
+$\mathcal{J}_i \subset \mathcal{O}_U$ such that
+$T_i = V(\mathcal{J}_i)$ (set theoretically).
+By Limits of Spaces, Lemma \ref{spaces-limits-lemma-extend}
+there exists a finite type quasi-coherent sheaf
+of ideals $\mathcal{I}_i \subset \mathcal{O}_X$
+whose restriction to $U$ is $\mathcal{J}_i$.
+Apply the result of part (1) to the closed
+subspaces $Z_i = V(\mathcal{I}_i)$ to conclude.
+\end{proof}
+
+\begin{lemma}[Blowup iso along]
+\label{spaces-pushouts-lemma-blowup-iso-along}
+\source{stacks:0F47}
+\href{https://stacks.math.columbia.edu/tag/0F47}{\texttt{Stacks tag 0F47}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $f : X \to Y$ be a proper morphism of quasi-compact
+and quasi-separated algebraic spaces over $S$. Let $V \subset Y$ be a
+quasi-compact open and $U = f^{-1}(V)$. Let $T \subset |V|$ be a closed subset
+such that $f|_U : U \to V$ is an isomorphism over an open neighbourhood of $T$
+in $V$. Then there exists a $V$-admissible blowing up $Y' \to Y$ such that
+the strict transform $f' : X' \to Y'$ of $f$ is an isomorphism over an open
+neighbourhood of the closure of $T$ in $|Y'|$.
+\end{lemma}
+
+\begin{proof}
+Let $T' \subset |V|$ be the complement of the maximal open over which
+$f|_U$ is an isomorphism. Then $T', T$ are closed in $|V|$ and
+$T \cap T' = \emptyset$. Since $|V|$ is a spectral topological space
+(Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quasi-compact-quasi-separated-spectral})
+we can find constructible closed subsets $T_c, T'_c$ of $|V|$
+with $T \subset T_c$, $T' \subset T'_c$ such that
+$T_c \cap T'_c = \emptyset$ (choose a quasi-compact
+open $W$ of $|V|$ containing $T'$ not meeting $T$
+and set $T_c = |V| \setminus W$, then choose a quasi-compact
+open $W'$ of $|V|$ containing $T_c$ not meeting $T'$
+and set $T'_c = |V| \setminus W'$).
+By Lemma \ref{spaces-pushouts-lemma-separate-disjoint-locally-closed-by-blowing-up}
+we may, after replacing $Y$ by a $V$-admissible blowing up,
+assume that $T_c$ and $T'_c$ have disjoint closures in $|Y|$.
+Let $Y_0$ be the open subspace of $Y$ corresponding to the open
+$|Y| \setminus \overline{T}'_c$ and set $V_0 = V \cap Y_0$,
+$U_0 = U \times_V V_0$, and $X_0 = X \times_Y Y_0$.
+Since $U_0 \to V_0$ is an isomorphism, we can find a
+$V_0$-admissible blowing up $Y'_0 \to Y_0$ such that the
+strict transform $X'_0$ of $X_0$ maps isomorphically to $Y'_0$, see
+More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-zariski-after-blowup}.
+By Divisors on Spaces, Lemma
+\ref{spaces-divisors-lemma-extend-admissible-blowups}
+there exists a $V$-admissible blow up $Y' \to Y$ whose restriction
+to $Y_0$ is $Y'_0 \to Y_0$. If $f' : X' \to Y'$ denotes the
+strict transform of $f$, then we see what we want is true because
+$f'$ restricts to an isomorphism over $Y'_0$.
+\end{proof}
+
+\begin{lemma}[Blowup etale along]
+\label{spaces-pushouts-lemma-blowup-etale-along}
+\source{stacks:0F48}
+\href{https://stacks.math.columbia.edu/tag/0F48}{\texttt{Stacks tag 0F48}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Consider a diagram
+$$
+\begin{array}{ccc}X \underset{f}{\downarrow} & U \longleftarrow\underset{f|_U}{\downarrow} & A \downarrow\longleftarrow \\ Y & V \longleftarrow & B \longleftarrow\end{array}
+$$
+of quasi-compact and quasi-separated algebraic spaces over $S$.
+Assume
+\begin{enumerate}
+\item $f$ is proper,
+\item $V$ is a quasi-compact open of $Y$, $U = f^{-1}(V)$,
+\item $B \subset V$ and $A \subset U$ are closed subspaces,
+\item $f|_A : A \to B$ is an isomorphism, and
+$f$ is \'etale at every point of $A$.
+\end{enumerate}
+Then there exists a $V$-admissible blowing up $Y' \to Y$ such that the strict
+transform $f' : X' \to Y'$ satisfies: for every geometric point
+$\overline{a}$ of the closure of $|A|$ in $|X'|$
+there exists a quotient $\mathcal{O}_{X', \overline{a}} \to \mathcal{O}$
+such that $\mathcal{O}_{Y', f'(\overline{a})} \to \mathcal{O}$
+is finite flat.
+\end{lemma}
+
+As you can see from the proof, more is true, but the statement is
+already long enough and this will be sufficient later on.
+
+\begin{proof}
+Let $T' \subset |U|$ be the complement of the maximal open on which
+$f|_U$ is \'etale. Then $T'$ is closed in $|U|$ and disjoint from $|A|$.
+Since $|U|$ is a spectral topological space (Properties of Spaces, Lemma
+\ref{spaces-properties-lemma-quasi-compact-quasi-separated-spectral})
+we can find constructible closed subsets $T_c, T'_c$ of $|U|$
+with $|A| \subset T_c$, $T' \subset T'_c$ such that
+$T_c \cap T'_c = \emptyset$ (see proof of Lemma \ref{spaces-pushouts-lemma-blowup-iso-along}).
+By Lemma \ref{spaces-pushouts-lemma-separate-disjoint-locally-closed-by-blowing-up}
+there is a $U$-admissible blowing up $X_1 \to X$ such that
+$T_c$ and $T'_c$ have disjoint closures in $|X_1|$.
+Let $X_{1, 0}$ be the open subspace of $X_1$ corresponding to the open
+$|X_1| \setminus \overline{T}'_c$ and set $U_0 = U \cap X_{1, 0}$.
+Observe that the scheme theoretic image $\overline{A}_1 \subset X_1$
+of $A$ is contained in $X_{1, 0}$ by construction.
+
+\medskip\noindent
+After replacing $Y$ by a $V$-admissible blowing up and taking
+strict transforms, we may assume $X_{1, 0} \to Y$ is flat, quasi-finite,
+and of finite presentation, see
+More on Morphisms of Spaces, Lemmas
+\ref{spaces-more-morphisms-lemma-flat-after-blowing-up} and
+\ref{spaces-more-morphisms-lemma-flat-fp-dimension-over-dense-open}.
+Consider the commutative diagram
+$$
+\vcenter{
+\begin{array}{ccc}X_1 \longrightarrow\searrow &  & X \swarrow \\  & Y & \end{array}
+}
+\quad\text{and the diagram}\quad
+\vcenter{
+\begin{array}{ccc}\overline{A}_1 \longrightarrow\searrow &  & \overline{A} \swarrow \\  & \overline{B} & \end{array}
+}
+$$
+of scheme theoretic images. The morphism $\overline{A}_1 \to \overline{A}$
+is surjective because it is proper and hence the scheme theoretic
+image of $\overline{A}_1 \to \overline{A}$ must be equal to $\overline{A}$
+and then we can use Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-scheme-theoretic-image-is-proper}.
+The statement on \'etale local rings follows
+by choosing a lift of the geometric point $\overline{a}$
+to a geometric point $\overline{a}_1$ of $\overline{A}_1$ and setting
+$\mathcal{O} = \mathcal{O}_{X_1, \overline{a}_1}$. Namely, since
+$X_1 \to Y$ is flat and quasi-finite on
+$X_{1, 0} \supset \overline{A}_1$, the map
+$\mathcal{O}_{Y', f'(\overline{a})} \to \mathcal{O}_{X_1, \overline{a}_1}$
+is finite flat, see Algebra, Lemmas
+\ref{algebra-lemma-quasi-finite-strict-henselization}
+and \ref{algebra-lemma-characterize-henselian}.
+\end{proof}
+
+\begin{lemma}[Replaced by strict transform]
+\label{spaces-pushouts-lemma-replaced-by-strict-transform}
+\source{stacks:0F49}
+\href{https://stacks.math.columbia.edu/tag/0F49}{\texttt{Stacks tag 0F49}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $X \to B$ and $Y \to B$ be morphisms of
+algebraic spaces over $S$. Let $U \subset X$ be an open subspace.
+Let $V \to X \times_B Y$ be a quasi-compact morphism
+whose composition with the first projection maps into $U$.
+Let $Z \subset X \times_B Y$ be the scheme theoretic image of
+$V \to X \times_B Y$. Let $X' \to X$ be a $U$-admissible blowup.
+Then the scheme theoretic image of $V \to X' \times_B Y$ is the
+strict transform of $Z$ with respect to the blowing up.
+\end{lemma}
+
+\begin{proof}
+Denote $Z' \to Z$ the strict transform. The morphism $Z' \to X'$
+induces a morphism $Z' \to X' \times_B Y$ which is a closed immersion
+(as $Z'$ is a closed subspace of $X' \times_X Z$ by definition).
+Thus to finish the proof it suffices to show that the scheme theoretic
+image $Z''$ of $V \to Z'$ is $Z'$. Observe that $Z'' \subset Z'$
+is a closed subspace such that $V \to Z'$ factors through $Z''$.
+Since both $V \to X \times_B Y$ and $V \to X' \times_B Y$ are
+quasi-compact (for the latter this follows from Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-quasi-compact-permanence}
+and the fact that $X' \times_B Y \to X \times_B Y$ is separated
+as a base change of a proper morphism), by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-quasi-compact-scheme-theoretic-image}
+we see that $Z \cap (U \times_B Y) = Z'' \cap (U \times_B Y)$.
+Thus the inclusion morphism $Z'' \to Z'$ is an isomorphism
+away from the exceptional divisor $E$ of $Z' \to Z$. However, the
+structure sheaf of $Z'$ does not have any nonzero sections supported
+on $E$ (by definition of strict transforms) and we conclude that
+the surjection $\mathcal{O}_{Z'} \to \mathcal{O}_{Z''}$ must be an isomorphism.
+\end{proof}
+
+\begin{lemma}[Compactification dominates]
+\label{spaces-pushouts-lemma-compactification-dominates}
+\source{stacks:0F4A}
+\href{https://stacks.math.columbia.edu/tag/0F4A}{\texttt{Stacks tag 0F4A}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $B$ be a quasi-compact and quasi-separated
+algebraic space over $S$. Let $U$ be an algebraic space
+of finite type and separated over $B$. Let $V \to U$ be an \'etale morphism.
+If $V$ has a compactification $V \subset Y$ over $B$, then there
+exists a $V$-admissible blowing up $Y' \to Y$ and an
+open $V \subset V' \subset Y'$ such that $V \to U$
+extends to a proper morphism $V' \to U$.
+\end{lemma}
+
+\begin{proof}
+Consider the scheme theoretic image $Z \subset Y \times_B U$
+of the ``diagonal'' morphism $V \to Y \times_B U$. If we replace
+$Y$ by a $V$-admissible blowing up, then $Z$ is replaced by
+the strict transform with respect to this blowing up, see
+Lemma \ref{spaces-pushouts-lemma-replaced-by-strict-transform}. Hence by
+More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-zariski-after-blowup}
+we may assume $Z \to Y$
+is an open immersion. If $V' \subset Y$ denotes the image, then we
+see that the induced morphism $V' \to U$ is proper because the
+projection $Y \times_B U \to U$ is proper and $V' \cong Z$
+is a closed subspace of $Y \times_B U$.
+\end{proof}
+
+The following lemma is formulated for finite type separated algebraic spaces
+over a finite type algebraic space over $\mathbf{Z}$. The version for
+quasi-compact and quasi-separated algebraic spaces is true as well (with
+essentially the same proof), but will be trivially
+implied by the main theorem in this section. We strongly urge the
+reader to read the proof of this lemma in the case of schemes first.
+
+\begin{lemma}[Two compactifications]
+\label{spaces-pushouts-lemma-two-compactifications}
+\source{stacks:0F4B}
+\href{https://stacks.math.columbia.edu/tag/0F4B}{\texttt{Stacks tag 0F4B}}
+\group{spaces-pushouts}
+
+Let $B$ be an algebraic space of finite type over $\mathbf{Z}$.
+Let $U$ be an algebraic space of finite type and separated over $B$.
+Let $(U_2 \subset U, f : U_1 \to U)$ be an
+elementary distinguished square. Assume $U_1$ and $U_2$ have
+compactifications over $B$ and $U_1 \times_U U_2 \to U$ has dense image.
+Then $U$ has a compactification over $B$.
+\end{lemma}
+
+\begin{proof}
+Choose a compactification $U_i \subset X_i$ over $B$ for $i = 1, 2$. We may
+assume $U_i$ is scheme theoretically dense in $X_i$. We may assume there
+is an open $V_i \subset X_i$ and a proper morphism
+$\psi_i : V_i \to U$ extending $U_i \to U$, see
+Lemma \ref{spaces-pushouts-lemma-compactification-dominates}. Picture
+$$
+\begin{array}{ccc}U_i \longrightarrow\downarrow & V_i \longrightarrow\overset{\psi_i}{\swarrow} & X_i \\ U &  & \end{array}
+$$
+Denote $Z_1 \subset U$ the reduced closed subspace corresponding
+to the closed subset $|U| \setminus |U_2|$. Recall that $f^{-1}Z_1$
+is a closed subspace of $U_1$ mapping isomorphically to $Z_1$.
+Denote $Z_2 \subset U$ the reduced closed subspace corresponding
+to the closed subset $|U| \setminus \Im(|f|) =
+|U_2| \setminus \Im(|U_1 \times_U U_2| \to |U_2|)$.
+Thus we have
+$$
+U = U_2 \amalg Z_1 = Z_2 \amalg \Im(f) =
+Z_2 \amalg \Im(U_1 \times_U U_2 \to U_2) \amalg Z_1
+$$
+set theoretically. Denote $Z_{i, i} \subset V_i$ the inverse image of $Z_i$
+under $\psi_i$. Observe that $\psi_2$ is an isomorphism over an open
+neighbourhood of $Z_2$. Observe that
+$Z_{1, 1} = \psi_1^{-1}Z_1 = f^{-1}Z_1 \amalg T$ for some
+closed subspace $T \subset V_1$ disjoint from $f^{-1}Z_1$ and furthermore
+$\psi_1$ is \'etale along $f^{-1}Z_1$.
+Denote $Z_{i, j} \subset V_i$ the inverse image of $Z_j$ under $\psi_i$.
+Observe that $\psi_i : Z_{i, j} \to Z_j$ is a proper morphism.
+Since $Z_i$ and $Z_j$ are disjoint closed subspaces of $U$, we see that
+$Z_{i, i}$ and $Z_{i, j}$ are disjoint closed subspaces of $V_i$.
+
+\medskip\noindent
+Denote $\overline{Z}_{i, i}$ and $\overline{Z}_{i, j}$ the
+scheme theoretic images of $Z_{i, i}$ and $Z_{i, j}$ in $X_i$.
+We recall that $|Z_{i, j}|$ is dense in $|\overline{Z}_{i, j}|$, see
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-quasi-compact-immersion}.
+After replacing $X_i$ by a $V_i$-admissible blowup we may assume that
+$\overline{Z}_{i, i}$ and $\overline{Z}_{i, j}$ are disjoint, see
+Lemma \ref{spaces-pushouts-lemma-separate-disjoint-locally-closed-by-blowing-up}.
+We assume this holds for both $X_1$ and $X_2$.
+Observe that this property is preserved if we replace $X_i$
+by a further $V_i$-admissible blowup. Hence we may replace $X_1$ by another
+$V_1$-admissible blowup and assume $|\overline{Z}_{1, 1}|$
+is the disjoint union of the closures of $|T|$ and $|f^{-1}Z_1|$ in $|X_1|$.
+
+\medskip\noindent
+Set $V_{12} = V_1 \times_U V_2$. We have an immersion
+$V_{12} \to X_1 \times_B X_2$ which is the composition of the closed
+immersion $V_{12} = V_1 \times_U V_2 \to V_1 \times_B V_2$
+(Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-fibre-product-after-map})
+and the open immersion $V_1 \times_B V_2 \to X_1 \times_B X_2$.
+Let $X_{12} \subset X_1 \times_B X_2$ be the scheme theoretic image of
+$V_{12} \to X_1 \times_B X_2$. The projection morphisms
+$$
+p_1 : X_{12} \to X_1
+\quad\text{and}\quad
+p_2 : X_{12} \to X_2
+$$
+are proper as $X_1$ and $X_2$ are proper over $B$. If we replace $X_1$ by a
+$V_1$-admissible blowing up, then $X_{12}$ is replaced by
+the strict transform with respect to this blowing up, see
+Lemma \ref{spaces-pushouts-lemma-replaced-by-strict-transform}.
+
+\medskip\noindent
+Denote $\psi : V_{12} \to U$ the compositions
+$\psi = \psi_1 \circ p_1|_{V_{12}} = \psi_2 \circ p_2|_{V_{12}}$.
+Consider the closed subspace
+$$
+Z_{12, 2} =
+(p_1|_{V_{12}})^{-1}Z_{1, 2} =
+(p_2|_{V_{12}})^{-1}Z_{2, 2} =
+\psi^{-1}Z_2 \subset V_{12}
+$$
+The morphism $p_1|_{V_{12}} : V_{12} \to V_1$ is an isomorphism
+over an open neighbourhood of $Z_{1, 2}$ because $\psi_2 : V_2 \to U$
+is an isomorphism over an open neighbourhood of $Z_2$ and
+$V_{12} = V_1 \times_U V_2$. By Lemma \ref{spaces-pushouts-lemma-blowup-iso-along}
+there exists a $V_1$-admissible blowing up $X_1' \to X_1$
+such that the strict transform $p'_1 : X'_{12} \to X'_1$
+of $p_1$ is an isomorphism over an open neighbourhood of
+the closure of $|Z_{1, 2}|$ in $|X'_1|$.
+After replacing $X_1$ by $X'_1$ and $X_{12}$ by $X'_{12}$
+we may assume that $p_1$ is an isomorphism over an open
+neighbourhood of $|\overline{Z}_{1, 2}|$.
+
+\medskip\noindent
+The result of the previous paragraph tells us that
+$$
+X_{12} \cap (\overline{Z}_{1, 2} \times_B \overline{Z}_{2, 1}) = \emptyset
+$$
+where the intersection taken in $X_1 \times_B X_2$. Namely, the inverse
+image $p_1^{-1}\overline{Z}_{1, 2}$ in $X_{12}$ maps isomorphically
+to $\overline{Z}_{1, 2}$. In particular, we see that $|Z_{12, 2}|$
+is dense in $|p_1^{-1}\overline{Z}_{1, 2}|$. Thus $p_2$ maps
+$|p_1^{-1}\overline{Z}_{1, 2}|$ into $|\overline{Z}_{2, 2}|$.
+Since $|\overline{Z}_{2, 2}| \cap |\overline{Z}_{2, 1}| = \emptyset$
+we conclude.
+
+\medskip\noindent
+It turns out that we need to do one additional blowing up before we
+can conclude the argument. Namely, let $V_2 \subset W_2 \subset X_2$
+be the open subspace with underlying topological space
+$$
+|W_2| =
+|V_2| \cup (|X_2| \setminus |\overline{Z}_{2, 1}|) =
+|X_2| \setminus \left(|\overline{Z}_{2, 1}| \setminus |Z_{2, 1}|\right)
+$$
+Since $p_2(p_1^{-1}\overline{Z}_{1, 2})$ is contained in $W_2$ (see above)
+we see that replacing $X_2$ by a $W_2$-admissible blowup and $X_{21}$
+by the corresponding strict transform will preserve the property of
+$p_1$ being an isomorphism over an open neighbourhood of $\overline{Z}_{1, 2}$.
+Since $\overline{Z}_{2, 1} \cap W_2 = \overline{Z}_{2, 1} \cap V_2 = Z_{2, 1}$
+we see that $Z_{2, 1}$ is a closed subspace of $W_2$ and $V_2$.
+Observe that $V_{12} = V_1 \times_U V_2 = p_1^{-1}(V_1) = p_2^{-1}(V_2)$
+as open subspaces of $X_{12}$ as it is the largest open subspace of $X_{12}$
+over which the morphism $\psi : V_{12} \to U$ extends; details
+omitted\footnote{Namely, $V_1 \times_U V_2$ is proper over $U$ so if
+$\psi$ extends to a larger open of $X_{12}$, then $V_1 \times_U V_2$
+would be closed in this open by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-universally-closed-permanence}.
+Then we get equality as $V_{12} \subset X_{12}$ is dense.}.
+We have the following equalities of closed subspaces of $V_{12}$:
+$$
+p_2^{-1}Z_{2, 1} = p_2^{-1} \psi_2^{-1} Z_1 =
+p_1^{-1} \psi_1^{-1} Z_1= p_1^{-1}Z_{1, 1} =
+p_1^{-1}f^{-1}Z_1 \amalg p_1^{-1}T
+$$
+Here and below we use the slight abuse of notation of writing $p_2$ in
+stead of the restriction of $p_2$ to $V_{12}$, etc.
+Since $p_2^{-1}(Z_{2, 1})$ is a closed subspace of $p_2^{-1}(W_2)$
+as $Z_{2, 1}$ is a closed subspace of $W_2$ we conclude that also
+$p_1^{-1}f^{-1}Z_1$ is a closed subspace of $p_2^{-1}(W_2)$.
+Finally, the morphism $p_2 : X_{12} \to X_2$ is \'etale at points of
+$p_1^{-1}f^{-1}Z_1$ as $\psi_1$ is \'etale along $f^{-1}Z_1$
+and $V_{12} = V_1 \times_U V_2$.
+Thus we may apply Lemma \ref{spaces-pushouts-lemma-blowup-etale-along} to the morphism
+$p_2 : X_{12} \to X_2$, the open $W_2$, the closed subspace
+$Z_{2, 1} \subset W_2$, and the closed subspace
+$p_1^{-1}f^{-1}Z_1 \subset p_2^{-1}(W_2)$.
+Hence after replacing $X_2$ by a $W_2$-admissible blowup and $X_{12}$ by
+the corresponding strict transform, we obtain for every geometric
+point $\overline{y}$ of the closure of $|p_1^{-1}f^{-1}Z_1|$ a local ring map
+$\mathcal{O}_{X_{12}, \overline{y}} \to \mathcal{O}$ such that
+$\mathcal{O}_{X_2, p_2(\overline{y})} \to \mathcal{O}$ is finite flat.
+
+\medskip\noindent
+Consider the algebraic space
+$$
+W_2 = U \coprod\nolimits_{U_2} (X_2 \setminus \overline{Z}_{2, 1}),
+$$
+and with $T \subset V_1$ as in the first paragraph the algebraic space
+$$
+W_1 = U \coprod\nolimits_{U_1}
+(X_1 \setminus \overline{Z}_{1, 2} \cup \overline{T}),
+$$
+obtained by pushout, see
+Lemma \ref{spaces-pushouts-lemma-construct-elementary-distinguished-square}.
+Let us apply Lemma \ref{spaces-pushouts-lemma-check-separated}
+to see that $W_i \to B$ is separated. First,
+$U \to B$ and $X_i \to B$ are separated. Let us check the quasi-compact
+immersion $U_i \to U \times_B (X_i \setminus \overline{Z}_{i, j})$
+is closed using the valuative criterion, see Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-quasi-compact-existence-universally-closed}.
+Choose a valuation ring $A$ over $B$ with fraction field $K$ and
+compatible morphisms $(u, x_i) : \Spec(A) \to U \times_B X_i$ and
+$u_i : \Spec(K) \to U_i$. Since $\psi_i$ is proper, we
+can find a unique $v_i : \Spec(A) \to V_i$ compatible with
+$u$ and $u_i$. Since $X_i$ is proper over $B$ we see that $x_i = v_i$.
+If $v_i$ does not factor through $U_i \subset V_i$, then we conclude
+that $x_i$ maps the closed point of $\Spec(A)$ into $Z_{i, j}$ or
+$T$ when $i = 1$. This finishes the proof because we removed
+$\overline{Z}_{i, j}$ and $\overline{T}$ in the construction of $W_i$.
+
+\medskip\noindent
+On the other hand, for any valuation ring $A$ over $B$ with
+fraction field $K$ and any morphism
+$$
+\gamma : \Spec(K) \to \Im(U_1 \times_U U_2 \to U)
+$$
+over $B$, we claim that after replacing $A$ by an extension of valuation
+rings, there is an $i$ and an extension of $\gamma$ to a morphism
+$h_i : \Spec(A) \to W_i$. Namely, we first extend $\gamma$ to a
+morphism $g_2 : \Spec(A) \to X_2$ using the valuative criterion of
+properness. If the image of $g_2$ does not meet $\overline{Z}_{2, 1}$,
+then we obtain our morphism into $W_2$.
+Otherwise, denote $\overline{z} \in \overline{Z}_{2, 1}$ a geometric
+point lying over the image of the closed point under $g_2$.
+We may lift this to a geometric point $\overline{y}$ of $X_{12}$
+in the closure of $|p_1^{-1}f^{-1}Z_1|$ because the map of
+spaces $|p_1^{-1}f^{-1}Z_1| \to |\overline{Z}_{2, 1}|$ is closed
+with image containing the dense open $|Z_{2, 1}|$. After replacing $A$
+by its strict henselization
+(More on Algebra, Lemma \ref{more-algebra-lemma-henselization-valuation-ring})
+we get the following diagram
+$$
+\begin{array}{ccc}A \dashrightarrow &  & A' \\ \mathcal{O}_{X_2, \overline{z}} \longrightarrow\uparrow & \mathcal{O}_{X_{12}, \overline{y}} \longrightarrow & \mathcal{O} \uparrow\end{array}
+$$
+where $\mathcal{O}_{X_{12}, \overline{y}} \to \mathcal{O}$ is the
+map we found in the 5th paragraph of the proof.
+Since the horizontal composition is finite and flat we can find an
+extension of valuation rings $A'/A$ and dotted arrow making the diagram
+commute. After replacing $A$ by $A'$ this means that we obtain a lift
+$g_{12} : \Spec(A) \to X_{12}$ whose closed point maps into
+the closure of $|p_1^{-1}f^{-1}Z_1|$.
+Then $g_1 = p_1 \circ g_{12} : \Spec(A) \to X_1$ is a morphism whose
+closed point maps into the closure of $|f^{-1}Z_1|$. Since the closure
+of $|f^{-1}Z_1|$ is disjoint from the closure of $|T|$ and contained in
+$|\overline{Z}_{1, 1}|$ which is disjoint from $|\overline{Z}_{1, 2}|$
+we conclude that $g_1$ defines a morphism $h_1 : \Spec(A) \to W_1$
+as desired.
+
+\medskip\noindent
+Consider a diagram
+$$
+\begin{array}{ccc}W_1' \downarrow\longrightarrow & W & W_2' \longleftarrow\downarrow \\ W_1 & U \longleftarrow\nwarrow\uparrow\nearrow\longrightarrow & W_2\end{array}
+$$
+as in More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-find-common-blowups}.
+By the previous paragraph for every solid diagram
+$$
+\begin{array}{cc}\Spec(K) \underset{\gamma}{\longrightarrow}\downarrow & W \downarrow \\ \Spec(A) \nearrow\longrightarrow & B\end{array}
+$$
+where $\Im(\gamma) \subset \Im(U_1 \times_U U_2 \to U)$
+there is an $i$ and an extension $h_i : \Spec(A) \to W_i$ of $\gamma$
+after possibly replacing $A$ by an extension of valuation rings.
+Using the valuative criterion of properness for $W'_i \to W_i$,
+we can then lift $h_i$ to $h'_i : \Spec(A) \to W'_i$.
+Hence the dotted arrow in the diagram exists after possibly
+extending $A$. Since $W$ is separated over $B$, we see that the choice
+of extension isn't needed and the arrow is unique as well, see
+Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-usual-enough}
+and \ref{spaces-morphisms-lemma-separated-implies-valuative}.
+Then finally the existence of the dotted arrow
+implies that $W \to B$ is universally closed by
+Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-refined-valuative-criterion-universally-closed}.
+As $W \to B$ is already of finite type and separated, we win.
+\end{proof}
+
+\begin{lemma}[Filter Noetherian space]
+\label{spaces-pushouts-lemma-filter-Noetherian-space}
+\source{stacks:0F4C}
+\href{https://stacks.math.columbia.edu/tag/0F4C}{\texttt{Stacks tag 0F4C}}
+\group{spaces-pushouts}
+
+Let $S$ be a scheme. Let $X$ be a Noetherian algebraic space over $S$.
+Let $U \subset X$ be a proper dense open subspace. Then there exists an
+affine scheme $V$ and an \'etale morphism $V \to X$ such that
+\begin{enumerate}
+\item the open subspace $W = U \cup \Im(V \to X)$ is strictly larger
+than $U$,
+\item $(U \subset W, V \to W)$ is a distinguished square, and
+\item $U \times_W V \to U$ has dense image.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Choose a stratification
+$$
+\emptyset = U_{n + 1} \subset
+U_n \subset U_{n - 1} \subset \ldots \subset U_1 = X
+$$
+and morphisms $f_p : V_p \to U_p$ as in Decent Spaces, Lemma
+\ref{decent-spaces-lemma-filter-quasi-compact-quasi-separated}.
+Let $p$ be the smallest integer such that $U_p \not \subset U$
+(this is possible as $U \not = X$). Choose an affine open $V \subset V_p$
+such that the \'etale morphism $f_p|_V : V \to X$ does not factor through $U$.
+Consider the open $W = U \cup \Im(V \to X)$ and the
+reduced closed subspace $Z \subset W$ with $|Z| = |W| \setminus |U|$.
+Then $f^{-1}Z \to Z$ is an isomorphism because we have the
+corresponding property for the morphism $f_p$, see the lemma cited above.
+Thus $(U \subset W, f : V \to W)$ is a distinguished square.
+It may not be true that the open $I = \Im(U \times_W V \to U)$
+is dense in $U$. The algebraic space $U' \subset U$ whose underlying
+set is $|U| \setminus \overline{|I|}$ is Noetherian
+and hence we can find a dense open subscheme $U'' \subset U'$, see
+for example Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}.
+Then we can find a dense open affine $U''' \subset U''$, see
+Properties, Lemmas \ref{properties-lemma-Noetherian-irreducible-components}
+and \ref{properties-lemma-maximal-points-affine}.
+After we replace $f$ by $V \amalg U''' \to X$ everything is clear.
+\end{proof}
+
+\begin{theorem}[Nagata]
+\label{spaces-pushouts-theorem-nagata}
+\source{stacks:0F4D}
+\href{https://stacks.math.columbia.edu/tag/0F4D}{\texttt{Stacks tag 0F4D}}
+\group{spaces-pushouts}
+
+\begin{reference}
+\cite{CLO}
+\end{reference}
+Let $S$ be a scheme. Let $B$ be a quasi-compact and quasi-separated
+algebraic space over $S$. Let $X \to B$ be a separated, finite type morphism.
+Then $X$ has a compactification over $B$.
+\end{theorem}
+
+\begin{proof}
+We first reduce to the Noetherian case. We strongly urge the reader
+to skip this paragraph. First, we may replace $S$ by $\Spec(\mathbf{Z})$.
+See Spaces, Section \ref{spaces-section-change-base-scheme} and
+Properties of Spaces, Definition \ref{spaces-properties-definition-separated}.
+There exists a closed immersion
+$X \to X'$ with $X' \to B$ of finite presentation and separated.
+See Limits of Spaces, Proposition
+\ref{spaces-limits-proposition-separated-closed-in-finite-presentation}.
+If we find a compactification of $X'$ over $B$, then
+taking the scheme theoretic closure of $X$ in this will give
+a compactification of $X$ over $B$. Thus we may assume
+$X \to B$ is separated and of finite presentation.
+We may write $B = \lim B_i$ as a directed
+limit of a system of Noetherian algebraic spaces
+of finite type over $\Spec(\mathbf{Z})$
+with affine transition morphisms.
+See Limits of Spaces, Proposition \ref{spaces-limits-proposition-approximate}.
+We can choose an $i$ and a morphism $X_i \to B_i$ of finite
+presentation whose base change to $B$ is $X \to B$, see
+Limits of Spaces, Lemma \ref{spaces-limits-lemma-descend-finite-presentation}.
+After increasing $i$ we may assume $X_i \to B_i$ is separated, see
+Limits of Spaces, Lemma
+\ref{spaces-limits-lemma-descend-separated-morphism}.
+If we can find a compactification of $X_i$ over $B_i$, then the
+base change of this to $B$ will be a compactification of $X$ over $B$.
+This reduces us to the case discussed in the next paragraph.
+
+\medskip\noindent
+Assume $B$ is of finite type over $\mathbf{Z}$ in addition to being
+quasi-compact and quasi-separated. Let $U \to X$ be an \'etale
+morphism of algebraic spaces such that $U$ has a compactification
+$Y$ over $\Spec(\mathbf{Z})$. The morphism
+$$
+U \longrightarrow B \times_{\Spec(\mathbf{Z})} Y
+$$
+is separated and quasi-finite by Morphisms of Spaces, Lemma
+\ref{spaces-morphisms-lemma-monomorphism-loc-finite-type-loc-quasi-finite}
+(the displayed morphism factors into an immersion hence is a monomorphism).
+Hence by Zariski's main theorem (More on Morphisms of Spaces, Lemma
+\ref{spaces-more-morphisms-lemma-quasi-finite-separated-pass-through-finite})
+there is an open immersion of $U$ into an algebraic space $Y'$
+finite over $B \times_{\Spec(\mathbf{Z})} Y$. Then $Y' \to B$ is proper
+as the composition $Y' \to B \times_{\Spec(\mathbf{Z})} Y \to B$
+of two proper morphisms
+(use Morphisms of Spaces, Lemmas \ref{spaces-morphisms-lemma-finite-proper},
+\ref{spaces-morphisms-lemma-composition-proper}, and
+\ref{spaces-morphisms-lemma-base-change-proper}).
+We conclude that $U$ has a compactification over $B$.
+
+\medskip\noindent
+There is a dense open subspace $U \subset X$ which is a scheme.
+(Properties of Spaces, Proposition
+\ref{spaces-properties-proposition-locally-quasi-separated-open-dense-scheme}).
+In fact, we may choose $U$ to be an affine scheme
+(Properties, Lemmas \ref{properties-lemma-Noetherian-irreducible-components}
+and \ref{properties-lemma-maximal-points-affine}).
+Thus $U$ has a compactification over $\Spec(\mathbf{Z})$;
+this is easily shown directly but also follows from the
+theorem for schemes, see
+More on Flatness, Theorem \ref{flat-theorem-nagata}.
+By the previous paragraph $U$ has a compactification over $B$.
+By Noetherian induction we can find a maximal dense open subspace
+$U \subset X$ which has a compactification over $B$. We will show
+that the assumption that $U \not = X$ leads to a contradiction.
+Namely, by Lemma \ref{spaces-pushouts-lemma-filter-Noetherian-space}
+we can find a strictly larger open $U \subset W \subset X$
+and a distinguished square $(U \subset W, f : V \to W)$
+with $V$ affine and $U \times_W V$ dense image in $U$.
+Since $V$ is affine, as before it has a compactification over $B$. Hence
+Lemma \ref{spaces-pushouts-lemma-two-compactifications}
+applies to show that $W$ has a compactification over $B$
+which is the desired contradiction.
+\end{proof}
+
+
+\input{chapters}

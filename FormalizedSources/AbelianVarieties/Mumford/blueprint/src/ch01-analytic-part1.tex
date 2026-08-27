@@ -1,0 +1,493 @@
+% Source-faithful assembly of Mumford, Abelian Varieties, Chapter I,
+% Section 1 and the beginning of Section 2.  Running headers and pedagogical
+% asides have been omitted; mathematical remarks and proofs are retained.
+
+\section{Complex Tori}
+\label{mumford-frag-I1}
+\dcref{M:ch1:I.1}
+
+We investigate a compact connected complex Lie group $X$ of dimension $g$.
+Let $V$ be the tangent space to $X$ at the identity point $e$.  For every
+$v\in V$ there is a unique holomorphic homomorphism
+\[
+ \phi_v:\mathbf C\longrightarrow X
+\]
+whose differential takes the unit tangent vector at $0$ to $v$, and
+$\phi_v(t)=\exp(tv)$, where $\exp(v)=\phi_v(1)$.  The differential of
+$\exp$ at $0$ is the identity.
+\source{mumford-abelian-varieties:page-0012}
+
+\begin{theorem}[Commutativity of a compact connected complex Lie group]
+\label{mumford-frag-commutative}
+\dcref{M:ch1:I.1}
+Let $X$ be a compact connected complex Lie group.  Then $X$ is commutative.
+\source{mumford-abelian-varieties:page-0012}
+\end{theorem}
+\begin{proof}
+For $x\in X$, let $C_x(y)=xyx^{-1}$.  The differential $(dC_x)_e$ is an
+automorphism of $V$, and $x\mapsto(dC_x)_e$ is a holomorphic map from $X$ to
+the finite-dimensional vector space $\operatorname{End}(V)$.  It is constant,
+so $(dC_x)_e=(dC_e)_e=1_V$.
+
+For any homomorphism $T:X_1\to X_2$ of complex Lie groups,
+\[
+ T(\exp_{X_1}y)=\exp_{X_2}((dT)_e y).
+\]
+This follows from the uniqueness of the homomorphisms
+$t\mapsto\exp_{X_i}(tv)$.  Thus
+$C_x(\exp y)=\exp((dC_x)_e y)=\exp y$, so $\exp(V)$ is in the center.
+Since $d\exp$ is the identity, the implicit function theorem shows that
+$\exp$ maps a neighborhood of $0$ homeomorphically onto a neighborhood of
+$e$.  As $X$ is connected, $\exp(V)$ generates $X$, and hence $X$ is
+commutative.
+\end{proof}
+
+\begin{theorem}[Uniformization]
+\label{mumford-frag-uniformization}
+\dcref{M:ch1:I.1}
+The exponential map $\exp:V\to X$ is a surjective homomorphism of complex
+Lie groups with kernel a lattice $U$ in $V$, and induces an isomorphism
+$V/U\simeq X$.
+\source{mumford-abelian-varieties:page-0013}
+\end{theorem}
+\begin{proof}
+For $x,y\in V$, commutativity shows that
+$t\mapsto(\exp tx)(\exp ty)$ is a holomorphic homomorphism whose tangent at
+$0$ is $x+y$.  Uniqueness gives
+$(\exp tx)(\exp ty)=\exp t(x+y)$, so $\exp$ is a homomorphism.  Its image is
+open and closed and contains $e$, hence is all of $X$.
+
+The kernel $U$ is discrete because $\exp$ is injective on a neighborhood of
+$0$.  The induced map $V/U\to X$ is holomorphic; its tangent map is an
+isomorphism, so its inverse is holomorphic near the identity and everywhere
+by translations.  Thus $V/U\simeq X$.  Since a discrete subgroup of a vector
+space with compact quotient is a lattice, $U$ is a lattice.
+\end{proof}
+
+From now on write the group law additively and denote the exponential
+homomorphism by $\pi:V\to X$.
+\source{mumford-abelian-varieties:page-0014}
+
+\begin{proposition}[Divisibility and torsion]
+\label{mumford-frag-torsion}
+\dcref{M:ch1:I.1}
+As an abstract group, $X$ is divisible.  If $n\neq0$ and $X_n$ is the subgroup
+of elements annihilated by $n$, then
+\[
+ X_n\simeq(\mathbf Z/n\mathbf Z)^{2g}.
+\]
+\source{mumford-abelian-varieties:page-0014}
+\end{proposition}
+\begin{proof}
+By uniformization, as a real Lie group $X\simeq(\mathbf R/\mathbf Z)^{2g}$,
+which has these properties.
+\end{proof}
+
+\begin{theorem}[Integral cohomology]
+\label{mumford-frag-integral-cohomology}
+\dcref{M:ch1:I.1}
+There are canonical isomorphisms
+\[
+ H^r(X,\mathbf Z)\simeq
+ \{\text{alternating $r$-forms }U\times\cdots\times U\to\mathbf Z\}.
+\]
+\source{mumford-abelian-varieties:page-0014}
+\end{theorem}
+\begin{proof}
+$(V,\pi)$ is the universal covering space, so $U=\pi^{-1}(0)=\pi_1(X,0)$.
+The assertion is clear for $r=1$ from
+$H^1(X,\mathbf Z)=\operatorname{Hom}(\pi_1(X),\mathbf Z)$.  It suffices to
+show that cup product induces
+\[
+ \Lambda^rH^1(X,\mathbf Z)\xrightarrow{\sim}H^r(X,\mathbf Z).
+ \tag{*}
+\]
+If $(*)$ holds for $X_1,X_2$ with finitely generated cohomologies, the
+Kunneth formula gives it for $X_1\times X_2$:
+\[
+\begin{array}{ccc}
+\Lambda^rH^1(X_1\times X_2,\mathbf Z)&\longrightarrow&H^r(X_1\times X_2,\mathbf Z)\\
+\Vert&&\Vert\\
+\Lambda^r[H^1(X_1,\mathbf Z)\oplus H^1(X_2,\mathbf Z)]&&\\
+\Vert&&\Vert\\
+\displaystyle\bigoplus_{p+q=r}[\Lambda^pH^1(X_1,\mathbf Z)\otimes\Lambda^qH^1(X_2,\mathbf Z)]&\xrightarrow{\sim}&
+\displaystyle\bigoplus_{p+q=r}H^p(X_1,\mathbf Z)\otimes H^q(X_2,\mathbf Z).
+\end{array}
+\]
+Here the torsion term vanishes because $(*)$ implies torsion-freeness.  Since
+$X$ is a product of circles, $(*)$ holds.
+\end{proof}
+
+\begin{lemma}[Interior multiplication]
+\label{mumford-frag-interior}
+\dcref{M:ch1:I.1}
+If $W$ is a complex vector space and $D\in\operatorname{Hom}_{\C}(W,\C)$,
+then $D$ extends to $D\mathbin{\lrcorner}:\Lambda^pW\to\Lambda^{p-1}W$ by
+\[
+ D\mathbin{\lrcorner}(X_1\wedge\cdots\wedge X_p)=
+ \sum_{k=1}^p(-1)^{p-k}D(X_k)X_1\wedge\cdots\wedge\widehat X_k\wedge\cdots\wedge X_p.
+\]
+If $DX_0=1$, then
+$D\mathbin{\lrcorner}(\omega\wedge X_0)+(D\mathbin{\lrcorner}\omega)\wedge X_0=\omega$.
+\source{mumford-abelian-varieties:page-0018}
+\end{lemma}
+
+\begin{theorem}[Dolbeault cohomology of a complex torus]
+\label{mumford-frag-dolbeault}
+\dcref{M:ch1:I.1}
+Let $T=\operatorname{Hom}_{\mathbf C}(V,\mathbf C)$ and
+$\overline T=\operatorname{Hom}_{\mathbf C\text{-antilinear}}(V,\mathbf C)$.
+Then
+\[
+ H^q(X,\mathcal O_X)\simeq\Lambda^q\overline T,
+ \qquad
+ H^q(X,\Omega^p)\simeq\Lambda^pT\otimes\Lambda^q\overline T.
+\]
+\source{mumford-abelian-varieties:page-0015}
+\end{theorem}
+\begin{proof}
+Translation extends each $\alpha\in\Lambda^pT$ to an invariant holomorphic
+$p$-form $\omega_\alpha$, with
+$(\omega_\alpha)_x=T_{-x}^*(\alpha)$.  Hence
+\[
+ \mathcal O_X\otimes_{\mathbf C}\Lambda^pT\xrightarrow{\sim}\Omega^p,
+ \qquad
+ H^q(X,\Omega^p)\simeq H^q(X,\mathcal O_X)\otimes\Lambda^pT.
+\]
+The Dolbeault resolution and fineness give
+\[
+ H^q(X,\mathcal O_X)\simeq
+ \frac{\{\bar\partial\text{-closed $(0,q)$-forms}\}}
+ {\bar\partial\{\text{$(0,q-1)$-forms}\}}.
+\]
+Let $\mathcal C=\mathcal C^{0,0}$ and
+$\mathcal C^{p,q}$ be smooth forms of type $(p,q)$.  There is an isomorphism
+\[
+ \phi_{p,q}:\mathcal C\otimes_{\mathbf C}
+ [\Lambda^pT\otimes\Lambda^q\overline T]\xrightarrow{\sim}\mathcal C^{p,q}.
+\]
+Invariant forms are closed: on pulling back to $V$, a degree-one invariant
+form is $d\alpha$, so its exterior derivative is $d^2\alpha=0$, and the
+general case follows by products.
+
+Put $\Lambda=\bigoplus_q\Lambda^q\overline T$ and
+$\mathfrak a=\Gamma(X,\mathcal C)$.  Then
+\[
+ \mathfrak a\otimes_{\mathbf C}\Lambda\xrightarrow{\sim}
+ \Gamma(X,\mathcal C^{0,\bullet}),
+ \qquad H^q(X,\mathcal O_X)\simeq H^q(\mathfrak a\otimes_{\mathbf C}\Lambda),
+\]
+where $\bar\partial(f\otimes\alpha)=\bar\partial f\wedge\alpha$.
+The inclusion $\iota:\Lambda\to\mathfrak a\otimes\Lambda$ is a cohomology
+isomorphism.  To prove this, normalize the Euclidean measure $\mu$ on $X$
+to have volume $1$ and let $\mu:\mathfrak a\to\mathbf C$ be integration.
+For any vector space $W$, $\mu\otimes1_W$ gives
+\[
+ \mu_A:\mathfrak a\otimes_{\mathbf C}A^\bullet\to A^\bullet,
+ \qquad \mu_A\iota=\operatorname{Id}_{A^\bullet}.
+\]
+\source{mumford-abelian-varieties:page-0015}\source{mumford-abelian-varieties:page-0016}\source{mumford-abelian-varieties:page-0017}
+\end{proof}
+
+\begin{lemma}[Integration kills invariant derivatives]
+\label{mumford-frag-integration-lemma}
+\dcref{M:ch1:I.1}
+For every $\omega\in\mathfrak a\otimes_{\mathbf C}A^\bullet$,
+$\mu_A(\bar\partial\omega)=0$.
+\source{mumford-abelian-varieties:page-0017}
+\end{lemma}
+\begin{proof}
+By $A^\bullet$-linearity it is enough to consider $\bar\partial f$ for
+$f\in\mathfrak a$.  In a basis $\omega_1,\ldots,\omega_n$ of $\overline T$,
+write $\bar\partial f=\sum h_i\otimes\omega_i$.  Each $h_i$ is an invariant
+directional derivative $D(f)$.  Pulling to $V$, periodicity and integration
+over a fundamental domain give
+\[
+ \int_{V/U}D(f)\,dx=0,
+\]
+so every coefficient has zero integral.
+\end{proof}
+
+\begin{proof}[Proof (continued)]
+For $\lambda\in U^*=\operatorname{Hom}(U,\mathbf Z)$, let
+$e_\lambda\circ\pi(x)=e^{2\pi i\lambda(x)}$ and define Fourier coefficients
+\[
+ Q_\lambda(f)=\mu(e_{-\lambda}f),
+ \qquad f=\sum_{\lambda\in U^*}e_\lambda\otimes Q_\lambda(f).
+\]
+Choosing a Hermitian norm and writing $\overline C(\lambda)$ for the
+$\overline T$-projection of $\lambda$, one has
+\[
+ Q_\lambda(\bar\partial\omega)=(-1)^p2\pi i
+ [Q_\lambda(\omega)\wedge\overline C(\lambda)].
+\]
+\source{mumford-abelian-varieties:page-0017}\source{mumford-abelian-varieties:page-0018}
+\end{proof}
+
+\begin{lemma}[Fourier coefficients and $\bar\partial$]
+\label{mumford-frag-fourier-lemma}
+\dcref{M:ch1:I.1}
+For $\omega\in\mathfrak a\otimes_{\mathbf C}A^p$,
+\[
+ Q_\lambda(\bar\partial\omega)=(-1)^p2\pi i\,
+ [Q_\lambda(\omega)\wedge\overline C(\lambda)].
+\]
+\source{mumford-abelian-varieties:page-0018}
+\end{lemma}
+\begin{proof}
+Since $\bar\partial e_{-\lambda}=-2\pi i e_{-\lambda}\otimes
+\overline C(\lambda)$, apply the preceding lemma to
+$\bar\partial(\omega e_{-\lambda})$ and use the graded Leibniz rule.
+The rapid-decay assertion is the standard Fourier-series isomorphism for
+smooth functions on the compact torus.
+\end{proof}
+
+\paragraph{Fourier homotopy.}
+For $\omega\in\mathfrak a\otimes\Lambda^p$, define $k(\omega)$ by
+\[
+ Q_\lambda(k\omega)=(-1)^{p-1}\lambda^*\mathbin{\lrcorner}Q_\lambda(\omega)
+ \quad(\lambda\neq0),
+ \qquad Q_0(k\omega)=0,
+\]
+where
+$\lambda^*(x)=\langle x,\overline C(\lambda)\rangle/
+(2\pi i\|\overline C(\lambda)\|^2)$.  Then
+\[
+ \bar\partial k+k\bar\partial=1_{\mathfrak a\otimes\Lambda^\bullet}-\iota\mu_A.
+\tag{*}
+\]
+\source{mumford-abelian-varieties:page-0019}
+\begin{proof}[Proof (continued)]
+\textit{Proof.}
+The Fourier coefficients have rapid decay, so exactly one such $k(\omega)$
+exists.  For $\lambda\neq0$, Lemma~\ref{mumford-frag-fourier-lemma} and
+interior multiplication give
+\[
+\begin{aligned}
+ Q_\lambda(\bar\partial k\omega+k\bar\partial\omega)
+ &=2\pi i\left[(-1)^{p-1}(\lambda^*\mathbin{\lrcorner}Q_\lambda\omega)
+ \wedge\overline C(\lambda)+\lambda^*\mathbin{\lrcorner}
+ (Q_\lambda\omega\wedge\overline C(\lambda))\right]\\
+ &=Q_\lambda(\omega),
+\end{aligned}
+\]
+and $Q_\lambda(\iota\mu_A\omega)=0$.  For $\lambda=0$, both homotopy terms
+have zero coefficient and $Q_0(\omega)=Q_0(\iota\mu_A\omega)$.  Thus $(*)$
+holds.  It implies that $\mu_A$ commutes with $\bar\partial$ and that
+$\iota\mu_A$ is homotopic to the identity.
+\end{proof}
+
+\begin{remark}
+\label{mumford-frag-cup-product}
+\dcref{M:ch1:I.1}
+Under $H^q(X,\mathcal O_X)\simeq\Lambda^q\overline T$, cup product is
+exterior product.  This follows by computing cup product in the differential
+graded algebra resolving $\mathcal O_X$.
+\source{mumford-abelian-varieties:page-0019}
+\end{remark}
+
+\begin{corollary}
+\label{mumford-frag-cup-cor}
+\dcref{M:ch1:I.1}
+The map induced by cup product
+\[
+ \Lambda^qH^1(X,\mathcal O_X)\longrightarrow H^q(X,\mathcal O_X)
+\]
+is an isomorphism.
+\source{mumford-abelian-varieties:page-0019}\end{corollary}
+
+\begin{remark}[de Rham and Hodge decomposition]
+\label{mumford-frag-hodge}
+\dcref{M:ch1:I.1}
+The de Rham resolution gives
+\[
+ H^n(X,\C)\simeq
+ \frac{\{d\text{-closed $n$-forms}\}}{d\{\text{$(n-1)$-forms}\}}.
+\]
+Every closed form differs by an exact form from a unique invariant form, so
+\[
+ H^n(X,\C)\simeq\Lambda^n\operatorname{Hom}_{\mathbf R}(V,\C).
+\]
+Since
+\[
+ \operatorname{Hom}_{\mathbf R}(V,\C)\simeq T\oplus\overline T,
+\]
+we obtain
+\[
+ H^n(X,\C)\simeq\Lambda^n(T\oplus\overline T)
+ \simeq\bigoplus_{p+q=n}(\Lambda^pT\otimes\Lambda^q\overline T)
+ \simeq\bigoplus_{p+q=n}H^q(X,\Omega^p).
+\]
+This is the Hodge decomposition.
+\source{mumford-abelian-varieties:page-0020}\end{remark}
+
+\begin{proposition}[Comparison of the three $H^1$ evaluations]
+\label{mumford-frag-comparison}
+\dcref{M:ch1:I.1}
+Under the evaluations
+\[
+ H^1(X,\mathbf Z)\simeq U^*,\qquad
+ H^1(X,\C)\simeq T\oplus\overline T,\qquad
+ H^1(X,\mathcal O_X)\simeq\overline T,
+\]
+the maps induced by $\mathbf Z\to\C\to\mathcal O_X$ are the inclusion
+$U^*\subset T\oplus\overline T$ and projection onto $\overline T$.
+\source{mumford-abelian-varieties:page-0020}\source{mumford-abelian-varieties:page-0021}\source{mumford-abelian-varieties:page-0022}\source{mumford-abelian-varieties:page-0023}
+\end{proposition}
+\begin{proof}
+For $\beta:H^1(X,\C)\to H^1(X,\mathcal O_X)$, compare the de Rham and
+Dolbeault resolutions.  The projection
+$C_{0,1}:\mathcal E^1=\mathcal E^{1,0}\oplus\mathcal E^{0,1}\to\mathcal E^{0,1}$
+takes closed forms to $\bar\partial$-closed forms, giving a commutative
+diagram of the two resolutions.  On cohomology this gives
+\[
+\begin{array}{ccccc}
+T\oplus\overline T&\longrightarrow&H^0(X,\mathcal E^1_{d\text{-closed}})&\xrightarrow{\delta}&H^1(X,\C)\\
+\downarrow\scriptstyle{\rm projection}&&\downarrow\scriptstyle{C_{0,1}}&&\downarrow\scriptstyle{\beta}\\
+\overline T&\longrightarrow&H^0(X,\mathcal E^{0,1}_{\bar\partial\text{-closed}})&\xrightarrow{\delta}&H^1(X,\mathcal O_X).
+\end{array}
+\]
+Thus $\beta$ is the expected map and is surjective.
+
+For $\alpha:H^1(X,\mathbf Z)\to H^1(X,\C)$, let $a\in H^1(X,\mathbf Z)$.
+For $u\in U$, use the loop $\phi_u(t)=\pi(tu)$ on $S^1=\mathbf R/\mathbf Z$
+and the canonical isomorphism $\epsilon:H^1(S^1,\mathbf Z)\simeq\mathbf Z$:
+\[
+ \widetilde a(u)=\epsilon(\phi_u^*a).
+\]
+If $b\in T\oplus\overline T$ represents $\alpha(a)$, then
+\[
+ \widetilde a(u)=\epsilon(\phi_u^*a)
+ =\epsilon(\delta(\phi_u^*\omega_b))
+ =\int_{S^1}\phi_u^*(\omega_b)
+ =\int_0^u\pi^*(\omega_b)=b(u).
+\]
+Indeed, if $\eta$ is a $1$-form on $S^1$ and $\delta(\eta)$ is its image in
+$H^1(S^1,\C)$, then the canonical isomorphism
+$\epsilon:H^1(S^1,\C)\simeq\C$ satisfies
+\[
+ \epsilon(\delta(\eta))=\int_{S^1}\eta.
+\]
+Thus $\widetilde a$ is the restriction of $b$ to $U$.  Compatibility with
+cup products gives the corresponding commutative diagram in degree $n$:
+\[
+\begin{array}{ccccc}
+H^n(X,\mathbf Z)&\xrightarrow{\sim}&\Lambda^nU^*\\
+\downarrow&&\downarrow\Lambda^n(U^*\subset T\oplus\overline T)\\
+H^n(X,\C)&\xrightarrow{\sim}&\displaystyle\bigoplus_{p+q=n}\Lambda^pT\otimes\Lambda^q\overline T\\
+\downarrow&&\downarrow\\
+H^n(X,\mathcal O_X)&\xrightarrow{\sim}&\Lambda^n\overline T.
+\end{array}
+\]
+The right vertical map in the last row is projection onto the $p=0,q=n$
+factor.
+\end{proof}
+
+\section{Line bundles on a complex torus}
+\label{mumford-frag-I2}
+\dcref{M:ch1:I.2}
+
+\begin{theorem}[Vanishing on affine space]
+\label{mumford-frag-affine-vanishing}
+\dcref{M:ch1:I.2}
+For every integer $p>0$, $H^p(\mathbf C^N,\mathcal O)=0$.
+\source{mumford-abelian-varieties:page-0024}\end{theorem}
+
+\begin{corollary}[Triviality on affine space]
+\label{mumford-frag-affine-line-bundles}
+\dcref{M:ch1:I.2}
+For every $p>0$, $H^p(\mathbf C^N,\mathcal O^*)=0$.  In particular, every
+holomorphic line bundle on $\mathbf C^N$ is trivial.
+\source{mumford-abelian-varieties:page-0024}
+\end{corollary}
+\begin{proof}
+Use
+\[
+ 0\longrightarrow\mathbf Z\longrightarrow\mathcal O
+ \xrightarrow{e^{2\pi i(\ )}}\mathcal O^*\longrightarrow0
+\]
+and $H^p(\mathbf C^N,\mathbf Z)=0$ for $p>0$.
+\end{proof}
+
+Let $L$ be a holomorphic line bundle on $X$.  Its pullback to $V$ is trivial;
+choose $\chi:\pi^*L\xrightarrow{\sim}\mathbf C\times V$.  The canonical
+$U$-action then has the form
+\[
+ (\alpha,z)\longmapsto\phi_u(\alpha,z)=(e_u(z)\alpha,z+u),
+ \qquad e_u\in H^0(V,\mathcal O_V^*).
+ \tag{A}
+\]
+The group law is equivalent to
+\[
+ e_{u+u'}(z)=e_u(z+u')e_{u'}(z).
+\]
+Changing $\chi$ by multiplication by $f\in H^0(V,\mathcal O_V^*)$ replaces
+the cocycle by
+\[
+ e'_u(z)=e_u(z)f(z+u)f(z)^{-1}.
+\]
+\source{mumford-abelian-varieties:page-0024}\source{mumford-abelian-varieties:page-0025}
+
+\begin{theorem}[Factors of automorphy]
+\label{mumford-frag-factors}
+\dcref{M:ch1:I.2}
+Writing $H^*=H^0(V,\mathcal O_V^*)$, the above construction gives an
+isomorphism
+\[
+ H^1(U,H^*)\xrightarrow{\sim}H^1(X,\mathcal O_X^*).
+\]
+Explicitly, a $1$-cocycle $\{e_u\}$ defines the quotient of
+$\mathbf C\times V$ by (A), and every line bundle arises in this way.
+More generally there is a natural map
+\[
+ H^i(U,\Gamma(\mathcal F,\pi^*\mathcal F))\longrightarrow H^i(X,\mathcal F),
+\]
+When $H^i(V,\pi^*\mathcal F)=0$ for $i\ge1$, this natural map is an
+isomorphism; in the present case this applies because
+$H^i(V,\mathcal O_V^*)=0$ for $i\ge1$.
+\source{mumford-abelian-varieties:page-0025}
+\end{theorem}
+\begin{proof}
+The cocycle construction in the forward direction was described above.  In
+the reverse direction, quotienting by the displayed action gives a line
+bundle, and cohomologous cocycles give isomorphic bundles.
+
+To identify this with the Cech construction, choose a covering $\{V_i\}$ by
+small connected open sets and connected lifts $W_i$.  Then
+\[
+ \pi^{-1}(V_i)=\coprod_{u\in U}(u+W_i),\qquad
+ \pi_i:W_i\xrightarrow{\sim}V_i,
+\]
+and, when $V_i\cap V_j\ne\varnothing$, there is $u_{ij}\in U$ with
+\[
+ \pi_i^{-1}(V_i\cap V_j)=\pi_j^{-1}(V_i\cap V_j)+u_{ij}.
+\]
+The Cech cocycle is
+\[
+ f_{ij}(z)=e_{u_{ij}}(\pi_i^{-1}(z)).
+\]
+The associated line bundle is obtained by patching
+$(\alpha,x)\mapsto(\alpha f_{ij}(x),x)$ over $V_i\cap V_j$.  Pulling this
+description to $W_i$ gives
+\[
+ (\alpha,x)\longmapsto
+ (\alpha f_{ij}(\pi_i(x)),x+u_{ij})=\phi_{u_{ij}}(\alpha,x),
+\]
+so it is precisely the quotient by $U$.
+\end{proof}
+
+
+On any complex analytic space the exponential sequence is exact:
+\[
+ 0\longrightarrow\mathbf Z\longrightarrow\mathcal O_X
+ \xrightarrow{e^{2\pi i(\ )}}\mathcal O_X^*\longrightarrow0.
+\]
+\footnote{With the action of $U$ on $H^*$ given by $(uh)(z)=h(z-u)$,
+$u\in U$, $z\in V$, if $e_u$ satisfies the condition above then
+$f_{u_{ij}}=e_{-u_{ij}}$ is a $1$-cocycle for this action, and conversely.
+Thus the associated $1$-cocycle is given by
+\[
+ f_{ij}(z)=f_{-u_{ij}}(\pi_i^{-1}(z))
+ =e_{u_{ij}}(\pi_i^{-1}(z)).
+\]}
+\source{mumford-abelian-varieties:page-0026}

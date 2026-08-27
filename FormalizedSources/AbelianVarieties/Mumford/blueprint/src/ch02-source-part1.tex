@@ -1,0 +1,475 @@
+% Source-faithful assembly: Mumford, Abelian Varieties, Chapter II,
+% Sections 4--6 (pages 50--66 of the source PDF). Running headers and
+% pedagogical questions/examples are omitted.
+
+\section{Definition of abelian varieties}
+\label{mumford-source-II4}
+\dcref{M:ch2:II.4}
+
+\begin{definition}[Abelian variety]
+\label{mumford-def-abelian-variety}
+\dcref{M:ch2:II.4}
+An abelian variety $X$ is a complete algebraic variety over an algebraically
+closed field $k$ with a group law $m:X\times X\to X$ such that $m$ and the
+inverse map are morphisms of varieties.
+\source{mumford-abelian-varieties:page-0050}\source{mumford-abelian-varieties:page-0051}
+\end{definition}
+
+\begin{proposition}[Basic structure]
+\label{mumford-source-basic-structure}
+\dcref{M:ch2:II.4}
+If $g=\dim X$, then
+\[
+ X_n\simeq(\mathbf Z/n\mathbf Z)^{2g}\quad(\operatorname{char}k\nmid n),
+ \qquad X_{p^m}\simeq(\mathbf Z/p^m\mathbf Z)^i
+\]
+for $p=\operatorname{char}k$, where $0\le i\le g$; $X$ is commutative and
+divisible. Moreover
+\[
+ H^q(X,\Omega^p)\simeq\bigwedge^p H^1(X,\Omega^1)\otimes_k
+ \bigwedge^q H^1(X,\mathcal O_X),
+\quad \dim H^1(X,\mathcal O_X)=\dim H^0(X,\Omega^1)=g.
+\]
+\source{mumford-abelian-varieties:page-0050}
+\end{proposition}
+
+\begin{lemma}[Translations]
+\label{mumford-lem-abelian-translations}
+\dcref{M:ch2:II.4}
+For every $a\in X$, the translation $T_a(x)=a+x$ is an automorphism of $X$;
+its inverse is $T_{-a}$.  Consequently, local geometric properties are
+preserved by translation.
+\source{mumford-abelian-varieties:page-0052}\source{mumford-abelian-varieties:page-0053}
+\uses{mumford-def-abelian-variety}
+\end{lemma}
+\begin{proof}
+The group identities give $T_{-a}\circ T_a=T_a\circ T_{-a}=\operatorname{id}$,
+and both maps are morphisms because the group law and inverse are morphisms.
+\end{proof}
+
+\begin{proposition}[Fundamental group and free finite quotients]
+\label{mumford-source-II4-roadmap}
+\dcref{M:ch2:II.4}
+If $g=\dim X$ and $p=\operatorname{char}k$, then the algebraic fundamental group
+has the expected form
+\[
+ \pi_1(X)\simeq\prod_\ell(\mathbf Z_\ell)^{2g}\quad(p=0),\qquad
+ \pi_1(X)\simeq\prod_{\ell\ne p}(\mathbf Z_\ell)^{2g}\times\mathbf Z_p^i
+ \quad(p>0),
+\]
+where $i$ is the $p$-rank.  More generally, if a finite group acts freely on a
+variety $Y$ with quotient $X$, then some $n>0$ and homomorphisms fit into
+\[
+\begin{array}{ccccc}&&Y&&\\[-2pt]&\swarrow&&\searrow&\\[-2pt]
+X&&\xrightarrow{\,n_X\,}&&X.
+\end{array}
+\]
+The variety $Y$ carries an abelian-variety structure for which both maps are
+homomorphisms.
+\source{mumford-abelian-varieties:page-0050}\source{mumford-abelian-varieties:page-0051}
+% Source states this roadmap result on pp. 50--51 but gives no proof there.
+\notready
+\end{proposition}
+
+\begin{lemma}[Everywhere nonsingular]
+\label{mumford-source-nonsingular}
+\dcref{M:ch2:II.4}
+An abelian variety is everywhere nonsingular.
+\source{mumford-abelian-varieties:page-0052}
+\end{lemma}
+\begin{proof}
+There is a nonsingular point $x_0$. For $x\in X$, the translation morphism
+$T_{(x,x_0^{-1})}(y)=x\cdot x_0^{-1}\cdot y$ is an automorphism carrying
+$x_0$ to $x$, so $x$ is nonsingular.
+\end{proof}
+
+\begin{theorem}[First commutativity proof]
+\label{mumford-source-commutativity-I}
+\dcref{M:ch2:II.4}
+An abelian variety is commutative.
+\source{mumford-abelian-varieties:page-0052}
+\end{theorem}
+\begin{proof}
+For $x\in X$, conjugation $C_x(y)=xyx^{-1}$ induces an automorphism
+$C^*_{x,n}$ of $\mathcal O_{X,e}/\mathfrak m_{X,e}^n$. The map
+$X\to\operatorname{Aut}(\mathcal O_{X,e}/\mathfrak m_{X,e}^n)$ is a morphism
+to an affine variety, hence constant because $X$ is complete and connected.
+It equals the identity at $e$. Thus $C^*_{x,n}=1$ for every $n$; since
+$\bigcap_n\mathfrak m_{X,e}^n=0$, $C_x$ is the identity near $e$, hence on
+the irreducible variety $X$.
+\end{proof}
+
+We write the group law additively. Let $T_x(y)=x+y$ and let $n_X$ denote
+multiplication by $n$.
+\source{mumford-abelian-varieties:page-0052}\source{mumford-abelian-varieties:page-0053}
+
+\begin{proposition}[Invariant differentials]
+\label{mumford-source-invariant-differentials}
+\dcref{M:ch2:II.4}
+If $T=T_{X,0}$ and $\Omega_0=T^*_{X,0}$, then
+\[
+ \Omega_0\otimes_k\mathcal O_X\xrightarrow{\sim}\Omega_X^1.
+\]
+Every regular differential form on $X$ is translation invariant.
+\source{mumford-abelian-varieties:page-0053}
+\end{proposition}
+\begin{proof}
+For $\theta\in\Omega_0$, define $\omega_\theta$ by
+$(\omega_\theta)_x=T^*_{-x}(\theta)$. This is regular and gives the map.
+At each $x$, $T^*_{-x}$ identifies the fiber with $\Omega_0$, so Nakayama's
+lemma proves it is an isomorphism. Since $H^0(X,\mathcal O_X)=k$, the claim
+about global forms follows.
+\end{proof}
+
+\begin{theorem}[Prime-to-characteristic multiplication]
+\label{mumford-prop-multiplication-n}
+\dcref{M:ch2:II.4}
+For every $n$ not divisible by $\operatorname{char}k$, $n_X$ is surjective.
+\source{mumford-abelian-varieties:page-0053}\source{mumford-abelian-varieties:page-0054}
+\end{theorem}
+\begin{proof}
+The tangent space at $(0,0)$ splits as $T\oplus T$, and the differential of
+$m$ is addition: $d(m)(t_1,t_2)=t_1+t_2$, since the restrictions to the two
+summands are the identity. Induction gives $(dn_X)_0=n$ on $T$. Thus it is an
+isomorphism when $\operatorname{char}k\nmid n$. If $n_X$ were not surjective,
+the dimension theorem would give a nonzero tangent vector to
+$n_X^{-1}(0)$ at $0$, contradicting injectivity of $(dn_X)_0$.
+\end{proof}
+
+\begin{lemma}[Rigidity Lemma, Form I]
+\label{mumford-lem-rigidity-form-I}
+\dcref{M:ch2:II.4}
+Let $X$ be complete, $Y,Z$ varieties, and $f:X\times Y\to Z$ a morphism such
+that $f(X\times\{y_0\})=\{z_0\}$. Then $f=g\circ p_2$ for a morphism
+$g:Y\to Z$.
+\source{mumford-abelian-varieties:page-0054}
+\end{lemma}
+\begin{proof}
+Choose $x_0\in X$ and set $g(y)=f(x_0,y)$. Let $U$ be an affine neighborhood
+of $z_0$, $F=Z-U$, and $G=p_2(f^{-1}(F))$. Since $X$ is complete, $G$ is
+closed; since $y_0\notin G$, $V=Y-G$ is nonempty open. For $y\in V$, the
+complete variety $X\times\{y\}$ maps into affine $U$, hence to one point.
+Thus $f(x,y)=f(x_0,y)=g(p_2(x,y))$ on a nonempty open, and therefore everywhere.
+\end{proof}
+
+\begin{corollary}[Morphisms are homomorphisms up to translation]
+\label{mumford-cor-morphism-translation}
+\dcref{M:ch2:II.4}
+If $X,Y$ are abelian varieties and $f:X\to Y$ is a morphism, then
+$f(x)=h(x)+a$ for a homomorphism $h$ and $a\in Y$.
+\source{mumford-abelian-varieties:page-0054}
+\uses{mumford-lem-rigidity-form-I}
+\end{corollary}
+\begin{proof}
+Replace $f$ by $f-f(0)$. The morphism
+$\phi(x,y)=f(x+y)-f(y)-f(x)$ vanishes on both coordinate axes. Rigidity gives
+$\phi=0$, so $f$ is a homomorphism.
+\end{proof}
+
+\begin{corollary}[Second commutativity proof]
+\label{mumford-cor-abelian-commutative}
+\dcref{M:ch2:II.4}
+An abelian variety is commutative.
+\source{mumford-abelian-varieties:page-0055}
+\uses{mumford-cor-morphism-translation}
+\end{corollary}
+\begin{proof}
+The inverse map is a homomorphism by the preceding corollary. Hence
+$(xy)^{-1}=x^{-1}y^{-1}=y^{-1}x^{-1}$, so $X$ is commutative.
+\end{proof}
+
+\begin{corollary}[Linearity of maps into an abelian variety]
+\label{mumford-cor-pointed-hom-linear}
+\dcref{M:ch2:II.4}
+For pointed complete varieties $S,T$ and an abelian variety $X$,
+\[
+ \Hom(S,X)\times\Hom(T,X)\xrightarrow{\sim}\Hom(S\times T,X),
+ \qquad(f,g)\mapsto[(s,t)\mapsto f(s)+g(t)].
+\]
+\source{mumford-abelian-varieties:page-0055}
+\end{corollary}
+\begin{proof}
+Injectivity follows by setting either variable equal to its base point. Given
+$h$, set $f(s)=h(s,t_0)$, $g(t)=h(s_0,t)$ and
+$k(s,t)=h(s,t)-f(s)-g(t)$. Rigidity applied to $k$ gives $k=0$.
+\end{proof}
+
+\begin{theorem}[Recognition criterion]
+\label{mumford-thm-unital-composition}
+\dcref{M:ch2:II.4}
+Let $X$ be complete, $e\in X$, and $m:X\times X\to X$ satisfy
+$m(x,e)=m(e,x)=x$. Then $m$ is an abelian-variety group law with identity $e$.
+\source{mumford-abelian-varieties:page-0055}\source{mumford-abelian-varieties:page-0056}
+\end{theorem}
+\begin{proof}
+Write $xy=m(x,y)$ and define $\psi(x,y)=(xy,y)$. Since
+$\psi^{-1}(e,e)=\{(e,e)\}$, the dimension theorem and completeness make
+$\psi$ surjective. Let $\Gamma'$ be $\{(x,y):xy=e\}$, choose an irreducible
+component $\Gamma$ projecting onto the second factor, and then onto the first
+factor by the dimension theorem. Rigidity applied to
+$\phi((x',x),y)=x'(xy)$ gives
+\[
+ x'(xy)=y\quad((x',x)\in\Gamma).
+ \tag{1}
+\]
+Choosing $(x'',x')\in\Gamma$ and using (1) shows also $xx'=e$.
+
+Apply rigidity to $\chi(((x',x),y,z))=x'((xy)z)$ to obtain
+$x'((xy)z)=yz$. Multiplying on the left by $x'$ and using (1) gives
+$(x'y)z=x'(yz)$. Since $x'$ is arbitrary, multiplication is associative.
+Translations are then automorphisms, so $X$ is nonsingular; $\psi$ is
+bijective. Its tangent map at $(e,e)$ is an isomorphism, so it is inseparable
+and, by Zariski's Main Theorem, an isomorphism. Its inverse is
+$(x,y)\mapsto(xy^{-1},y)$, proving that inversion is a morphism.
+\end{proof}
+
+\section{Cohomology and base change}
+\label{mumford-source-II5}
+\dcref{M:ch2:II.5}
+
+\begin{theorem}[Coherence of proper direct images]
+\label{mumford-thm-proper-direct-image-coherent}
+\dcref{M:ch2:II.5}
+If $f:X\to Y$ is proper between locally noetherian preschemes and $\mathcal F$
+is coherent, then $R^pf_*\mathcal F$ is coherent for all $p\ge0$.
+\source{mumford-abelian-varieties:page-0057}
+% Source explicitly takes this coherence theorem as a basic result; no proof is given.
+\notready
+\end{theorem}
+
+\begin{definition}[Flat over the base]
+\label{mumford-def-f-flat}
+\dcref{M:ch2:II.5}
+A quasicoherent $\mathcal F$ on $X$ is $f$-flat if every $\mathcal F_x$ is
+$\mathcal O_{Y,f(x)}$-flat; equivalently, sections over affine $U$ mapping into
+affine $V$ are flat $\mathcal O_Y(V)$-modules.
+\source{mumford-abelian-varieties:page-0057}
+\end{definition}
+
+\begin{theorem}[Cohomology and base change complex]
+\label{mumford-thm-grothendieck-complex}
+\dcref{M:ch2:II.5}
+For proper $f:X\to Y$ with $Y=\Spec A$, $X$ noetherian, and coherent
+$\mathcal F$ flat over $Y$, there is a finite complex $K^\bullet$ of finitely generated
+projective $A$-modules such that, functorially for every $A$-algebra $B$,
+\[
+ H^p(X\times_Y\Spec B,\mathcal F\otimes_A B)
+ \simeq H^p(K^\bullet\otimes_A B).
+\]
+\source{mumford-abelian-varieties:page-0057}\source{mumford-abelian-varieties:page-0058}\source{mumford-abelian-varieties:page-0059}\source{mumford-abelian-varieties:page-0060}
+\end{theorem}
+\begin{proof}
+Choose a finite affine covering and its Cech complex $C^\bullet$. It is a
+finite complex of flat $A$-modules and base change identifies its cohomology
+with the fiber cohomology. Lemma~\ref{mumford-source-complex-model} supplies
+a finite complex $K^\bullet$ of finite modules, free in positive degrees,
+quasi-isomorphic to $C^\bullet$, with $K^0$ flat. Since $A$ is noetherian,
+$K^0$ is projective.
+
+For completeness, the construction descends on $m$: choose a free module
+mapping onto the kernel of $\ker\partial^{m+1}\to H^{m+1}(C^\bullet)$ and a
+free module mapping onto $H^m(C^\bullet)$, lift the latter to cycles, and
+take their direct sum. At $m=-1$ quotient $K^0$ by
+$\ker\partial^0\cap\ker\phi_0$. The mapping cylinder
+$L^p=K^p\oplus C^{p-1}$ is exact; if all $C^p$ are flat, the short exact
+sequences $0\to Z^p\to L^p\to Z^{p+1}\to0$ show $K^0=L^0$ is flat.
+
+Lemma~\ref{mumford-lem-flat-quasi-iso-base-change} applied to $K^\bullet\to C^\bullet$
+shows that base change preserves the quasi-isomorphism, proving the claim.
+\end{proof}
+
+\begin{lemma}[Finite complex model]
+\label{mumford-source-complex-model}
+\dcref{M:ch2:II.5}
+Let $C^\bullet$ be bounded over a noetherian ring $A$, with finitely generated
+cohomology. There is a bounded complex $K^\bullet$ of finite modules, free in
+positive degrees, mapping quasi-isomorphically to $C^\bullet$; if $C^p$ are
+flat, $K^0$ is flat.
+\source{mumford-abelian-varieties:page-0058}\source{mumford-abelian-varieties:page-0059}\source{mumford-abelian-varieties:page-0060}
+\end{lemma}
+\begin{proof}
+Construct $K^\bullet$ by descending induction. Put $K^p=0$ for $p>n$.
+Assume the maps have been constructed above degree $m$ so that they induce
+cohomology isomorphisms above degree $m+1$ and a surjection
+$\ker\partial^{m+1}\to H^{m+1}(C^\bullet)$. For $m\ge0$, let
+$B^{m+1}$ be the kernel of this surjection. Choose a finite free ${K'}^m$
+surjecting onto $B^{m+1}$, and a finite free ${K''}^m$ surjecting onto
+$H^m(C^\bullet)$; lift the latter map to cycles. Set
+$K^m={K'}^m\oplus{K''}^m$, let the differential vanish on ${K''}^m$ and
+map ${K'}^m$ onto $B^{m+1}$, and lift this map to $C^m$. The resulting map
+of complexes has the required cohomology properties. For $m=-1$, replace
+$K^0$ by $K^0/(\ker\partial^0\cap\ker\phi_0)$.
+
+If all $C^p$ are flat, form the mapping cylinder
+$L^p=K^p\oplus C^{p-1}$ with
+$\partial(x,0)=(\partial x,\phi(x))$ and
+$\partial(0,y)=(0,-\partial y)$. The exact sequence of complexes with the
+shifted $C^\bullet$ shows $H^p(L^\bullet)=0$. Hence
+$0\to K^0=L^0\to L^1\to\cdots\to L^{n+1}\to0$ is exact; its other terms
+are flat, so $K^0$ is flat.
+\end{proof}
+
+\begin{lemma}[Flat complexes commute with arbitrary base change]
+\label{mumford-lem-flat-quasi-iso-base-change}
+\dcref{M:ch2:II.5}
+If finite complexes of flat $A$-modules are quasi-isomorphic, then their
+cohomologies remain isomorphic after tensoring with every $A$-algebra $B$.
+\source{mumford-abelian-varieties:page-0060}
+\end{lemma}
+\begin{proof}
+Construct the mapping cylinder $L^\bullet$ of the quasi-isomorphism. It is an
+exact finite complex of flat modules. Its cycles $Z^p$ are flat, and
+\[
+0\to Z^p\to L^p\to Z^{p+1}\to0
+\]
+is exact. Tensoring with $B$ remains exact, so $L^\bullet\otimes_A B$ is
+exact. It is the mapping cylinder after base change; the cohomology sequence
+therefore gives the required isomorphisms.
+\end{proof}
+
+\begin{corollary}[Semicontinuity and Euler characteristic]
+\label{mumford-thm-semicontinuity}
+\dcref{M:ch2:II.5}
+For proper $f:X\to Y$ and coherent $\mathcal F$ flat over $Y$, the function
+$y\mapsto\dim_{k(y)}H^p(X_y,\mathcal F_y)$ is upper semicontinuous, while
+$y\mapsto\chi(\mathcal F_y)$ is locally constant.
+\source{mumford-abelian-varieties:page-0061}
+\end{corollary}
+\begin{proof}
+Locally choose the free complex $K^\bullet$ and write $d^p:K^p\to K^{p+1}$.
+Then
+\[
+\dim H^p=\dim K^p\otimes k(y)-\dim\operatorname{Im}(d^p\otimes k(y))
+ -\dim\operatorname{Im}(d^{p-1}\otimes k(y)).
+\]
+The alternating sum is locally constant. The image rank is lower
+semicontinuous because its rank-drop locus is cut out by the entries of the
+induced exterior-power matrix, proving upper semicontinuity.
+\end{proof}
+
+\begin{corollary}[Base-change criterion]
+\label{mumford-thm-base-change-criterion}
+\dcref{M:ch2:II.5}
+If $Y$ is reduced and connected, constancy of
+$y\mapsto\dim H^p(X_y,\mathcal F_y)$ is equivalent to $R^pf_*\mathcal F$
+being locally free and having fibers $H^p(X_y,\mathcal F_y)$. Under these
+conditions the same base-change map is an isomorphism in degree $p-1$.
+\source{mumford-abelian-varieties:page-0061}\source{mumford-abelian-varieties:page-0062}\source{mumford-abelian-varieties:page-0063}
+\end{corollary}
+\begin{proof}
+First, on a reduced scheme, a coherent sheaf with constant fiber dimension
+$r$ is locally free of rank $r$: lift generators at a point, apply Nakayama,
+and observe that the kernel lies in $\mathfrak m_y\mathcal O_y^r$ at every
+point, hence vanishes on a reduced scheme. Second, if
+$\phi:\mathscr F\to\mathfrak D$ is a map of locally free sheaves with
+locally constant image rank, the preceding result makes the cokernel locally
+free. Thus the image is projective and both source and target split, with
+matrix $\left[\begin{smallmatrix}0&\text{isom.}\\0&0\end{smallmatrix}\right]$.
+Applying the splitting to $d_{p-1}$ and $d_p$ in $K^\bullet$ gives projective
+modules $B_p,H_p,K'_p$ with
+$B_p\oplus H_p=\ker d_p$ and $d_p:K'_p\simeq B_{p+1}$. Hence
+$H^p(K^\bullet\otimes B)=H_p\otimes B=H^p(K^\bullet)\otimes B$ and likewise
+in degree $p-1$.
+\end{proof}
+
+\begin{corollary}[Vanishing in the preceding degree]
+\label{mumford-source-base-change-vanishing}
+\dcref{M:ch2:II.5}
+If $H^p(X_y,\mathcal F_y)=0$ for all $y$, then
+$R^{p-1}f_*\mathcal F\otimes k(y)\simeq H^{p-1}(X_y,\mathcal F_y)$ for all $y$.
+\source{mumford-abelian-varieties:page-0064}
+\end{corollary}
+\begin{proof}
+Locally write the relevant part of $K^\bullet$ as
+$K^{p-1}\to K^p\to K^{p+1}$. Exactness after tensoring with $k(y)$ permits
+a splitting $K^p\otimes k(y)=\overline W_1\oplus\overline W_2$, where the
+first summand is the image and the second maps injectively. After localizing
+at a function nonzero at $y$, lift bases to a splitting $K^p=W_1\oplus W_2$
+with $W_1\subset\operatorname{Im}d^{p-1}$; injectivity on $W_2$ persists,
+so $W_1=\operatorname{Im}d^{p-1}$. The surjection onto $W_1$ splits, giving
+$K^{p-1}=\ker d^{p-1}\oplus W_1$ and exact sequences
+\[
+ K^{p-2}\to\ker d^{p-1}\to H^{p-1}(X,\mathcal F)\to0,
+\quad
+ K^{p-2}\otimes k(y)\to\ker d^{p-1}\otimes k(y)\to
+ H^{p-1}(X_y,\mathcal F_y)\to0.
+\]
+This proves the asserted base-change isomorphism.
+\end{proof}
+
+\begin{corollary}[Higher vanishing]
+\label{mumford-source-higher-vanishing}
+\dcref{M:ch2:II.5}
+If $R^kf_*\mathcal F=0$ for $k>k_0$, then $H^k(X_y,\mathcal F_y)=0$ for
+$k>k_0$ and all $y$.
+\source{mumford-abelian-varieties:page-0064}
+\end{corollary}
+\begin{proof}
+Apply the preceding vanishing-in-the-preceding-degree corollary and use
+decreasing induction on $k_0$.
+\end{proof}
+
+\begin{corollary}[Flat base change]
+\label{mumford-cor-flat-base-change}
+\dcref{M:ch2:II.5}
+If $B$ is flat over $A$, then
+\[
+ H^p(X\times_Y\Spec B,\mathcal F\otimes_A B)\simeq H^p(X,\mathcal F)\otimes_A B.
+\]
+\source{mumford-abelian-varieties:page-0064}\source{mumford-abelian-varieties:page-0065}
+\end{corollary}
+\begin{proof}
+For a flat algebra, cohomology of any complex commutes with tensor product.
+\end{proof}
+
+\begin{theorem}[Seesaw theorem, provisional form]
+\label{mumford-thm-seesaw}
+\dcref{M:ch2:II.5}
+For complete $X$, any variety $T$, and a line bundle $L$ on $X\times T$, the
+set of $t$ for which $L|_{X\times\{t\}}$ is trivial is closed. On this closed
+set $T_1$, $L|_{X\times T_1}\simeq p_2^*M$ for a line bundle $M$ on $T_1$.
+\source{mumford-abelian-varieties:page-0065}\source{mumford-abelian-varieties:page-0066}
+\uses{mumford-thm-base-change-criterion}
+\end{theorem}
+\begin{proof}
+A line bundle $M$ on complete $X$ is trivial iff both $H^0(X,M)$ and
+$H^0(X,M^{-1})$ are nonzero: dual nonzero sections compose to a nonzero
+constant, giving inverse isomorphisms. Thus $T_1$ is the intersection of the
+two closed loci supplied by semicontinuity. After replacing $T$ by $T_1$,
+all fibers are trivial and have one-dimensional $H^0$. Base-change criterion
+gives $p_{2*}\underline L=\underline M$ invertible and the natural map
+$p_2^*\underline M\to\underline L$ is an isomorphism.
+\end{proof}
+
+\section{The theorem of the cube: I}
+\label{mumford-source-II6}
+\dcref{M:ch2:II.6}
+
+\begin{theorem}[Theorem of the cube]
+\label{mumford-thm-cube-varieties}
+\dcref{M:ch2:II.6}
+Let $X,Y$ be complete varieties, $Z$ any variety, with base points
+$x_0,y_0,z_0$. If a line bundle $L$ on $X\times Y\times Z$ restricts
+trivially to each of $\{x_0\}\times Y\times Z$,
+$X\times\{y_0\}\times Z$, and $X\times Y\times\{z_0\}$, then $L$ is trivial.
+\source{mumford-abelian-varieties:page-0066}
+% The source proof is assembled in ch02-source-part3.tex from pp. 67--70.
+\end{theorem}
+
+\begin{remark}[Functorial order]
+\label{mumford-source-functor-order}
+\dcref{M:ch2:II.6}
+For a contravariant functor $T$ on complete varieties, define projections
+$\pi_i$ and base-point inclusions $\sigma_i$ by omitting and restoring the
+$i$th factor. Then
+\[
+ \alpha_T^n(\xi_0,\ldots,\xi_n)=\sum_{i=0}^n\pi_i^*(\xi_i),
+ \qquad
+ \beta_T^n(\eta)=(\sigma_0^*\eta,\sigma_2^*\eta,\ldots,\sigma_n^*\eta),
+\]
+and induction gives $T(\prod X_i)=\operatorname{Im}\alpha\oplus\ker\beta$.
+The functor has order $n$ when $\alpha$ is surjective (equivalently $\beta$
+injective). The cube theorem, when $Z$ is complete, says that $\Pic X$ is
+quadratic.
+\source{mumford-abelian-varieties:page-0066}
+\end{remark}

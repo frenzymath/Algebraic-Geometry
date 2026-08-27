@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  website:
+    name: Validate hgraph workspace
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install pinned hgraph
+        run: pip install "hgraph @ git+https://github.com/AxelDlv00/hgraph.git@d2e1fe51ea90e5854d689c4cebf26d00294e3190"
+
+      - name: Synchronize planned routes
+        run: hgraph sync --manifest config.yaml
+
+      - name: Build static site
+        run: hgraph site --manifest config.yaml --out _site/index.html
+
+      - name: Check generated site inputs
+        run: |
+          test -s _site/index.html
+          grep -q 'stylesheet' _site/index.html
+          grep -q 'Algebraic Geometry' _site/index.html
+          grep -q 'Milne - Abelian Varieties' _site/index.html
+          grep -q 'Schemes' _site/index.html
+          grep -q 'Hartshorne - Algebraic Geometry' _site/index.html

@@ -1,0 +1,1082 @@
+\section{The finiteness program}
+
+\begin{convention}[Arithmetic setting]
+\label{conv:milne-finiteness-arithmetic}
+
+\dcref{MI:ch4:1}
+In this chapter $K$ is a number field, $S$ is a finite set of its places, and
+dimensions and genera are fixed when a finiteness assertion says so.  Good or
+semistable reduction is always understood at the places outside $S$.
+\end{convention}
+
+\begin{theorem}[Finiteness I]
+\label{thm:milne-finiteness-I}
+
+\dcref{MI:ch4:1.1}
+For an abelian variety $A$ over a number field $K$, only finitely many
+$K$-isomorphism classes of abelian varieties are isogenous to $A$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+When $A$ has semistable reduction everywhere, the Faltings-height theorem in
+Section~IV.8 and modular-height finiteness give only finitely many isomorphism
+classes in its isogeny class.  For general $A$, pass to a finite extension over
+which it is semistable and apply the finite descent step for the forms over the
+original number field.
+
+\end{proof}
+
+
+\begin{theorem}[Semisimplicity]
+\label{thm:milne-finiteness-semisimplicity}
+
+\dcref{MI:ch4:1.2}
+Assume Finiteness I.  For every prime $\ell$, the representation of
+$\Gal(K^{\mathrm{sep}}/K)$ on $V_\ell A$ is semisimple.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Under Finiteness~I, the Tate-module argument of Section~IV.2 realizes every
+stable subspace by an endomorphism and obtains a stable complementary summand.
+
+\end{proof}
+
+
+\begin{theorem}[Tate homomorphism conjecture]
+\label{thm:milne-finiteness-tate-conjecture}
+
+\dcref{MI:ch4:1.3}
+Assume Finiteness I for $A$, $B$, and $A\times B$.  For abelian varieties
+$A,B/K$, the canonical map
+$\Hom_K(A,B)\otimes\Z_\ell\to\Hom_{\Gal(K^{\mathrm{sep}}/K)}(T_\ell A,T_\ell B)$
+is an isomorphism.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+The proof is the rational Tate homomorphism theorem of Section~IV.2 together
+with the integral finite-level torsion sequences.
+
+\end{proof}
+
+
+\begin{theorem}[Finiteness II]
+\label{thm:milne-finiteness-II}
+
+\dcref{MI:ch4:1.4}
+For fixed $K$, dimension $g$, and finite set $S$ of finite places, only
+finitely many $K$-isomorphism classes of $g$-dimensional abelian varieties have
+good reduction outside $S$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Section~IV.3 detects finitely many isogeny classes from Frobenius polynomials at
+a finite set of places; Finiteness~I then makes each class finite.
+
+\end{proof}
+
+
+\begin{theorem}[Shafarevich finiteness]
+\label{thm:milne-finiteness-shafarevich}
+
+\dcref{MI:ch4:1.5}
+For fixed $K$, genus $g$, and finite set $S$, only finitely many smooth complete
+curves of genus $g$ have good reduction outside $S$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Apply Finiteness~II to the principally polarized Jacobians and use the rational
+Torelli theorem of Section~IV.4.
+
+\end{proof}
+
+
+\begin{theorem}[Faltings-height finiteness]
+\label{thm:milne-finiteness-height}
+
+\dcref{MI:ch4:1.6}
+If $A/K$ has semistable reduction everywhere, the set of Faltings heights of
+abelian varieties over $K$ isogenous to $A$ is finite.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+This is the height theorem completed in Section~IV.8: isogenous varieties have
+bounded stable Faltings height, and modular-height finiteness turns bounded
+height into finitely many isomorphism classes.
+
+\end{proof}
+
+
+\section{Tate modules and semisimplicity}
+
+\begin{lemma}[Finite torsion kernels of prime-to-characteristic isogenies]
+\label{lem:milne-finite-level-tate}
+
+\dcref{MI:ch4:2.1}
+\uses{def:milne-tate-module,def:milne-isogeny}
+Let $u:A\to B$ be an isogeny over a field $K$, with degree prime to
+$\operatorname{char}(K)$.  The geometric kernel of $u$ is finite and Galois
+stable, and every such finite stable subgroup occurs as the kernel of an
+isogeny whose quotient is defined over $K$.
+\end{lemma}
+
+\begin{proof}
+
+Over a separable closure this is the finite-kernel quotient construction for
+abelian varieties.  If $N\subset A(K^{\mathrm{sep}})$ is stable under Galois,
+the quotient $A/N$ and the quotient map descend to $K$.
+
+\end{proof}
+
+
+\begin{lemma}[Stable subspaces from endomorphisms]
+\label{lem:milne-stable-tate-subspace}
+
+\dcref{MI:ch4:2.4}
+\uses{lem:milne-finite-level-tate,thm:milne-hom-tate-injective}
+Assume that $A$ satisfies (*): up to isomorphism, only finitely many abelian
+varieties are isogenous to $A$ by an isogeny of $\ell$-power degree.  For every
+Galois-stable subspace $W\subset V_\ell A$ there is
+$u\in\End(A)\otimes\Q_\ell$ with $uV_\ell A=W$.
+\end{lemma}
+
+\begin{proof}
+
+Write $T=T_\ell A$ and $V=V_\ell A$.  Set
+$X_n=(T\cap W)+\ell^nT$.  Each $X_n$ is Galois-stable and of finite index in
+$T$, so Lemma~\ref{lem:milne-stable-tate-lattices} gives an isogeny
+$f_n:B_n\to A$ with $f_n(T_\ell B_n)=X_n$.  By (*), infinitely many of the
+$B_n$ are isomorphic; choose an infinite set $I$ and isomorphisms
+$v_i:B_{i_0}\to B_i$ for a fixed $i_0\in I$.  Then
+$u_i=f_i v_i f_{i_0}^{-1}$ lies in $\End(A)\otimes\Q_\ell$ and satisfies
+$u_i(X_{i_0})=X_i$.
+
+For $i\ge i_0$, $X_i\subset X_{i_0}$, so the $u_i$ lie in the compact set
+$\Hom_{\mathbb Z_\ell}(X_{i_0},T)$.  After passing to a subsequence, they
+converge to $u$.  The subspace $\End(A)\otimes\Q_\ell$ is closed in
+$\End_{Q_\ell}(V)$, hence $u$ still belongs to it.  For $x\in X_{i_0}$,
+$u(x)\in\bigcap_{i\in I}X_i=T\cap W$.  Conversely, if
+$y\in\bigcap_{i\in I}X_i$, choose $x_i\in X_{i_0}$ with $u_i(x_i)=y$.
+Compactness gives a convergent subsequence $x_i\to x\in X_{i_0}$, and then
+$u(x)=y$.  Thus $u(X_{i_0})=T\cap W$, and after tensoring with $\Q_\ell$,
+$uV=W$.
+
+\end{proof}
+
+
+\begin{corollary}[Tate's homomorphism theorem]
+\label{cor:milne-tate-hom-finiteness}
+
+\dcref{MI:ch4:2.6}
+\uses{lem:milne-stable-tate-subspace,lem:milne-finite-level-tate}
+Assuming Faltings finiteness for $A$, $B$, and $A\times B$,
+\[
+ \Hom(A,B)\otimes\Q_\ell
+ \simeq \Hom_{\Gal(K^{\mathrm{sep}}/K)}(V_\ell A,V_\ell B).
+\]
+\end{corollary}
+
+\begin{proof}[Source proof]
+
+Apply the stable-subspace argument to the relevant products.  Equivalently,
+compare the two inclusions in the matrix decomposition
+\[
+\End(A\times B)\otimes\Q_\ell
+ =\End(A)\otimes\Q_\ell\oplus\Hom(B,A)\otimes\Q_\ell
+ \oplus\Hom(A,B)\otimes\Q_\ell\oplus\End(B)\otimes\Q_\ell
+\]
+and its Galois-equivariant Tate-module analogue.  The endomorphism equality
+for the product makes the middle summands equal, proving the asserted rational
+isomorphism; the finite-level torsion sequences give the corresponding
+integral injectivity.
+
+\end{proof}
+
+
+\begin{theorem}[Semisimplicity of Tate representations]
+\label{thm:milne-tate-semisimplicity}
+
+\dcref{MI:ch4:2.5}
+\uses{cor:milne-tate-hom-finiteness}
+Under the same finiteness hypotheses, $V_\ell A$ is a semisimple representation
+of the absolute Galois group, and the canonical map
+\[
+\End(A)\otimes\Q_\ell\longrightarrow
+\End_{\Gal(K^{\mathrm{sep}}/K)}(V_\ell A)
+\]
+is an isomorphism.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Let $W\subset V_\ell A$ be Galois-stable and set
+$\mathfrak a=\{u\in\End(A)\otimes\Q_\ell:uV_\ell A\subset W\}$.  This is a
+right ideal, and the stable-subspace lemma gives
+$\mathfrak aV_\ell A=W$.  Since $\End(A)\otimes\Q_\ell$ is semisimple,
+$\mathfrak a=e(\End(A)\otimes\Q_\ell)$ for an idempotent $e$.  Therefore
+$V_\ell A=eV_\ell A\oplus(1-e)V_\ell A$, and the second summand is stable
+because Galois commutes with $\End(A)\otimes\Q_\ell$.
+
+For (b), let $C$ be the centralizer of $\End(A)\otimes\Q_\ell$ in
+$\End(V_\ell A)$ and $B$ its centralizer.  By the double-centralizer theorem,
+$B=\End(A)\otimes\Q_\ell$.  If $\varphi\in\End(V_\ell A)$, its graph is a
+Galois-stable subspace of $V_\ell(A\times A)$.  The stable-subspace lemma
+produces $u\in\End(A\times A)\otimes\Q_\ell$ with image this graph.  For
+$c\in C$, the diagonal endomorphism
+$\left(\begin{smallmatrix}c&0\\0&c\end{smallmatrix}\right)$ commutes with $u$,
+so it preserves the graph.  Hence $\varphi c=c\varphi$ for every $c\in C$,
+and $\varphi\in B$ as required.
+
+\end{proof}
+
+
+\section{Finiteness I implies Finiteness II}
+
+\begin{theorem}[Bounded extensions]
+\label{thm:milne-bounded-number-fields}
+
+\dcref{MI:ch4:3.1}
+For any number field $K$, integer $N$, and finite set of primes $S$ of $K$,
+only finitely many fields $L\supset K$, up to $K$-isomorphism, are unramified
+outside $S$ and have degree $N$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+For each place $v$ and each degree dividing $N$, there are only finitely many
+extensions of $K_v$ of that degree.  This follows from Krasner's lemma: such
+extensions are represented by monic integral polynomials of bounded degree,
+and the compactness of the coefficient space gives finitely many sufficiently
+close equivalence classes.  If $L/K$ is unramified outside $S$, its relative
+discriminant is the product of the local discriminants at places above $S$;
+the local finiteness therefore bounds it.  Hermite's theorem gives only
+finitely many global fields with bounded discriminant.
+
+\end{proof}
+
+
+\begin{theorem}[Neron criterion for good reduction]
+\label{thm:milne-good-reduction-criterion}
+
+\dcref{MI:ch4:3.5}
+\uses{thm:milne-bounded-number-fields,thm:milne-neron-model}
+For a finite place $v$ and a prime $\ell$ different from its residue
+characteristic, an abelian variety has good reduction at $v$ exactly when the
+representation on $V_\ell A$ is unramified at $v$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Let $K_v^{\rm un}$ and $K_v^{\rm al}$ denote the maximal unramified and
+algebraic extensions of $K_v$, and let $A^0$ be the special fibre of the
+Neron model.  For $\ell\ne\operatorname{char}(k(v))$, reduction gives a
+bijection
+
+\[
+A(K_v)[\ell^n]\;\xrightarrow{\sim}\;A^0(k(v))[\ell^n],
+\]
+
+and the same remains true after replacing $K_v$ by an unramified extension.
+The algebraic group $A^0$ has a filtration whose successive quotients are a
+finite algebraic group, an abelian variety $B$, a torus $T$, and a unipotent
+group $U$, with
+$g=\dim B+\dim T+\dim U$.  Over an algebraic closure their $\ell^n$-torsion
+has respectively $\ell^{2n\dim B}$, $\ell^{n\dim T}$, and $1$ elements.
+If $A$ has good reduction, $A^0$ is an abelian variety, so
+\[
+\#A(K_v^{\rm un})[\ell^n]=\ell^{2ng}
+ =\#A(K_v^{\rm al})[\ell^n].
+\]
+Thus inertia acts trivially on every $\ell$-power torsion point, and the
+representation on $V_\ell A$ is unramified.  Conversely, if $A$ does not
+have good reduction, then for all sufficiently large $n$,
+$\#A(K_v^{\rm un})[\ell^n]<\ell^{2ng}$.  But
+$A(K_v^{\rm un})[\ell^n]$ is the inertia-invariant subgroup of
+$A(K_v^{\rm al})[\ell^n]$, so inertia does not act trivially on
+$V_\ell A$.
+
+\end{proof}
+
+
+\begin{theorem}[Finiteness I implies Finiteness II]
+\label{thm:milne-finiteness-I-II}
+
+\dcref{MI:ch4:3.10}
+\uses{thm:milne-tate-semisimplicity,thm:milne-good-reduction-criterion,thm:milne-bounded-number-fields,thm:milne-finite-isogeny-possibilities}
+Assume finiteness of $K$-isomorphism classes in each isogeny class.  Then, for
+fixed dimension and finite $S$, only finitely many $K$-isomorphism classes of
+abelian varieties have good reduction outside $S$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Fix a prime $\ell$ away from the residue characteristics in $S$ and take the
+finite set $T=T(S,\ell,g)$ from Theorem~\ref{thm:milne-finite-isogeny-possibilities}.
+For an abelian variety $A/K$ of dimension $g$ with good reduction outside $S$,
+each $P_v(A,t)$, $v\in T$, is a monic integral polynomial of degree $2g$ whose
+roots have absolute value $N(v)^{1/2}$.  There are only finitely many such
+polynomials for each $v$, hence only finitely many tuples
+$(P_v(A,t))_{v\in T}$.  The finite-isogeny theorem shows that each tuple
+determines at most one isogeny class, and Finiteness~I makes each isogeny class
+contain only finitely many $K$-isomorphism classes.
+
+\end{proof}
+
+
+\begin{definition}[Frobenius polynomial at a good place]
+\label{def:milne-frobenius-polynomial}
+
+\dcref{MI:ch4:3.4}
+Let $A/K$ have good reduction at a finite place $v$.  If $A_v$ is its special
+fibre and $\pi_{A_v}$ is its Frobenius endomorphism, define
+\[
+P_v(A,t)=\det(t-\pi_{A_v}\mid V_\ell A_v).
+\]
+For $\ell$ different from the residue characteristic of $v$, this polynomial
+is independent of $\ell$ and has integral coefficients.
+\end{definition}
+
+\section{Finiteness II and Shafarevich}
+
+\begin{proposition}[Jacobians preserve good reduction]
+\label{prop:milne-jacobian-good-reduction}
+
+\dcref{MI:ch4:4.1}
+\uses{thm:milne-jacobian-general,def:milne-polarization}
+If a smooth projective curve has good reduction at a place, its Jacobian has
+good reduction there and carries the canonical principal polarization.  The
+construction is compatible with the integral model and with base change.
+\end{proposition}
+
+\begin{proof}[Source proof]
+
+Let $R$ be the local ring of $K$ at the place $v$.  Good reduction of $C$
+means that there is a proper smooth curve $\mathcal C/R$ with generic fibre
+$C$ and special fibre $C_v$.  The relative Jacobian construction of
+Chapter~III, applied over $R$, gives an abelian scheme $\mathcal J/R$.
+Its generic fibre is $J(C)$ and its special fibre is $J(C_v)$, so $J(C)$ has
+good reduction at $v$ and the reduction is the Jacobian of $C_v$.
+
+\end{proof}
+
+
+\begin{theorem}[Shafarevich finiteness for curves]
+\label{thm:milne-shafarevich-curves}
+
+\dcref{MI:ch4:4.3}
+\uses{thm:milne-finiteness-I-II,prop:milne-jacobian-good-reduction,thm:milne-torelli-source}
+Assume Finiteness II.  For fixed $K$, genus $g\ge2$, and finite $S$, only
+finitely many $K$-isomorphism classes of complete nonsingular curves of genus
+$g$ have good reduction outside $S$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Finiteness~II may be stated for principally polarized abelian varieties, since
+each underlying isomorphism class has only finitely many principal
+polarizations.  By the preceding proposition, the canonical principally
+polarized Jacobian of a curve with good reduction outside $S$ also has good
+reduction outside $S$.  The rational Torelli theorem says that the map
+$C\mapsto(J(C),\lambda(C))$ is injective on $K$-isomorphism classes.  Applying
+Finiteness~II to these polarized Jacobians gives the required finiteness.
+
+\end{proof}
+
+
+\section{Shafarevich and Mordell}
+
+\begin{theorem}[De Franchis finiteness]
+\label{thm:milne-de-franchis}
+
+\dcref{MI:ch4:5.2}
+For curves $C'$ and $C$ over a field $k$, with $g(C)\ge2$, there are only
+finitely many nonconstant maps $C'\to C$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Let $g'=g(C')$ and let $d$ be the degree of a nonconstant map.  Hurwitz gives
+$2g'-2=d(2g(C)-2)+\operatorname{ramification}$, so $d$ is bounded.  The graph
+$\Gamma\subset X=C'\times C$ is isomorphic to $C'$, and
+\[
+\Gamma\cdot K_X=(2g(C)-2)d+(2g'-2).
+\]
+Adjunction gives $\Gamma\cdot K_X+\Gamma^2=2g'-2$, hence
+$\Gamma^2=-(2g(C)-2)d$.  Thus the self-intersections of these graphs lie in a
+finite set of negative integers.  For each Hilbert polynomial, the Hilbert
+scheme of curves in $X$ is a finite union of varieties.  At a graph its
+tangent space is $H^0(\Gamma,N_{\Gamma/X})$, which vanishes because
+$\deg N_{\Gamma/X}=\Gamma^2<0$.  Each component containing such a graph is
+therefore zero-dimensional, so there are only finitely many graphs and hence
+only finitely many maps.
+
+\end{proof}
+
+
+\begin{theorem}[Parshin covering construction]
+\label{thm:milne-parshin-cover}
+
+\dcref{MI:ch4:5.1}
+\uses{prop:milne-generalized-jacobian-coverings-source,thm:milne-de-franchis,thm:milne-bounded-number-fields,prop:milne-weak-mordell-weil-extension,lem:milne-parshin-cover-construction}
+Let $K$ be a number field and let $S$ contain the dyadic primes.  For every
+complete nonsingular curve $C/K$ of genus $g\ge1$ with good reduction outside
+$S$, there is a finite extension $L/K$ such that for every $P\in C(K)$ there
+are a curve $C_P/L$ and a finite map $\phi_P:C_P\to C_L$ satisfying:
+\begin{enumerate}
+\item $C_P$ has good reduction outside the places of $L$ above $S$;
+\item the genus of $C_P$ is bounded independently of $P$;
+\item $\phi_P$ is ramified exactly at $P$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+If $C(K)$ is empty there is nothing to prove.  Otherwise embed $C$ in its
+Jacobian $J$.  Multiplication by $2$ on $J$ is etale of degree $2^{2g}$; its
+pullback gives an etale cover $C_1\to C$ of that degree.  Over the ring of
+$S$-integers, the multiplication map is etale on the abelian scheme and the
+embedding extends to the smooth proper models, so $C_1$ has good reduction
+outside $S$.  The points above any $P\in C(K)$ lie in extensions unramified
+outside $S$ and of degree at most $2^{2g}$.  The bounded-extension theorem
+therefore gives one finite extension $L_1/K$, unramified outside $S$, over
+which all these points are rational.
+
+Choose two distinct points $P_1,P_2$ above $P$.  By the weak Mordell--Weil
+proposition, after a further finite extension $L_2/L_1$ independent of $P$,
+there is a divisor $D$ with $2D\sim P_1-P_2$.  Pass to a Hilbert class field
+$L_3$ so that the relevant ring of integers is principal, and choose
+$f\in L_3(C)^\times$ with
+$(f)=P_1-P_2+2D$.  The square-root cover from
+Lemma~\ref{lem:milne-parshin-cover-construction} is ramified exactly over
+$P_1$ and $P_2$; composed with $C_1\to C$, it gives a map
+$C_P\to C_{L_3}$ ramified exactly over $P$.  The Hurwitz formula bounds
+$g(C_P)$ in terms of $g$ and the fixed degree $2^{2g+1}$, independently of
+$P$.  The same lemma gives good reduction outside the places above $S$.
+
+\end{proof}
+
+
+\section{Numbered finiteness ingredients}
+
+\begin{lemma}[Finite-level Tate sequences]
+\label{lem:milne-tate-finite-level-sequences}
+
+\dcref{MI:ch4:2.2}
+\uses{lem:milne-finite-level-tate}
+For $\ell\ne\operatorname{char}(K)$ and $n\ge1$,
+\[
+0\longrightarrow T_\ell A\xrightarrow{\ell^n}T_\ell A
+\longrightarrow A[\ell^n](K^{\mathrm{sep}})\longrightarrow0.
+\]
+If $\alpha:A\to B$ is an isogeny of degree prime to
+$\operatorname{char}(K)$, then
+\[
+0\longrightarrow T_\ell A\xrightarrow{T_\ell\alpha}T_\ell B
+\longrightarrow C\longrightarrow0,
+\]
+where $C$ is finite of order equal to the $\ell$-primary part of
+$\deg(\alpha)$.
+\end{lemma}
+
+\begin{proof}
+
+The first sequence follows directly from
+$T_\ell A=\{(a_n)_{n\ge1}:a_n\in A[\ell^n](K^{\mathrm{sep}}),\ \ell a_n=a_{n-1}\}$.
+For the second, let $K_n$ and $C_n$ be the kernel and cokernel in the diagram
+of finite torsion groups induced by $\alpha$.  For sufficiently large $n$,
+$K_n=K_{n+1}=\cdots=K$.  Since $K$ is finite, it has no nonzero element
+divisible by every power of $\ell$, so $\varprojlim K_n=0$.  The two torsion
+groups have the same order; hence $\#K_n=\#C_n$, and $\#C_n$ is constant for
+large $n$.  The transition maps $C_{n+1}\to C_n$ are then surjective and
+therefore bijective.  Passing to inverse limits gives the displayed exact
+sequence, and its finite cokernel has order the $\ell$-primary part of
+$\deg(\alpha)$.
+
+\end{proof}
+
+
+\begin{lemma}[Stable lattices and isogenies]
+\label{lem:milne-stable-tate-lattices}
+
+\dcref{MI:ch4:2.3}
+\uses{lem:milne-tate-finite-level-sequences}
+Every finite-index Galois-stable sublattice of $T_\ell A$ is the image of an
+$\ell$-power isogeny $A'\to A$ defined over $K$.  Conversely, the Tate module
+of an $\ell$-power isogeny is such a stable sublattice.
+\end{lemma}
+
+\begin{proof}
+
+Choose $n$ with $\ell^nT_\ell A\subset W$, and let $N$ be the image of $W$ in
+$T_\ell A/\ell^nT_\ell A=A[\ell^n](K^{\mathrm{sep}})$.  By Galois stability,
+$N$ is stable, so $B=A/N$ and the quotient map $\pi:A\to B$ are defined over
+$K$.  The map $\ell^n:A\to A$ factors through $\pi$, say
+$\ell^n=\beta\circ\pi$ with $\beta:B\to A$.  Consequently the image of
+$T_\ell\beta$ contains $\ell^nT_\ell A$.  Its image modulo
+$\ell^nT_\ell A$ is $N$: indeed
+$B[\ell^n]=\{a\in A(K^{\mathrm{sep}}):\ell^na\in N\}/N$, and $\beta$ maps
+this group onto $N$.  Thus $\operatorname{im}(T_\ell\beta)=W$, as required.
+
+\end{proof}
+
+
+\begin{corollary}[Tate double-centralizer]
+\label{cor:milne-tate-double-centralizer}
+
+\dcref{MI:ch4:2.7}
+\uses{cor:milne-tate-hom-finiteness,thm:milne-tate-semisimplicity}
+Under the Finiteness I hypotheses for the varieties occurring in the product,
+the image $R$ of $\Q_\ell[\Gal(K^{\mathrm{sep}}/K)]$ in
+$\End_{\Q_\ell}(V_\ell A)$ is the centralizer of
+$\End^0(A)\otimes\Q_\ell$.
+\end{corollary}
+
+\begin{proof}[Source proof]
+
+Theorem~2.5 makes $V_\ell A$ a faithful semisimple $R$-module.  The double
+centralizer theorem, together with the endomorphism equality in Theorem~2.5,
+identifies the centralizer of $\End^0(A)\otimes\Q_\ell$ with $R$.
+
+\end{proof}
+
+
+\begin{theorem}[Hermite finiteness]
+\label{thm:milne-hermite-finiteness}
+
+\dcref{MI:ch4:3.2}
+\uses{thm:milne-bounded-number-fields}
+For any number field $K$, integer $N$, and finite set of primes $S$ of $K$,
+there are only finitely many fields $L\supset K$, up to $K$-isomorphism, that
+are unramified outside $S$ and have degree $N$.  Equivalently, there are only
+finitely many number fields of a fixed discriminant.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Let $D=|\operatorname{Disc}(L/\mathbb Q)|$.  Minkowski's ideal-class bound
+gives an integral ideal in every ideal class whose norm is bounded in terms of
+$[L:\mathbb Q]$ and $D$.  Since such a norm is at least one, a bound on $D$
+also bounds $[L:\mathbb Q]$ (the factorial term in Minkowski's bound dominates
+as the degree grows).  For a fixed degree, embed $L$ in its real and complex
+Minkowski space.  Minkowski's theorem supplies a nonzero algebraic integer
+whose conjugates are bounded in terms of $D$.  The coefficients of its minimal
+polynomial are consequently bounded, so only finitely many such polynomials
+can occur; the usual choice in the Minkowski argument generates $L$ over
+$\mathbb Q$.  Thus only finitely many fields have the given discriminant, and
+the bounded-extension assertion follows.
+
+\end{proof}
+
+
+\begin{theorem}[Chebotarev density]
+\label{thm:milne-chebotarev-detection}
+
+\dcref{MI:ch4:3.3}
+Let $L/K$ be a finite Galois extension of number fields with group $G$, and let
+$C\subset G$ be stable under conjugation.  The primes $v$ of $K$ with
+Frobenius conjugacy class $(v,L/K)=C$ have density $|C|/|G|$.
+\end{theorem}
+
+\begin{proof}[Source-omitted proof]
+
+This is the Chebotarev density theorem; Milne cites ANT, 8.31, and CFT,
+VIII~\S7 for the proof.
+
+\end{proof}
+
+
+\begin{corollary}[Good reduction is preserved by isogeny]
+\label{cor:milne-isogeny-good-reduction}
+
+\dcref{MI:ch4:3.6}
+\uses{thm:milne-good-reduction-criterion}
+If $A$ and $B$ are isogenous over $K$, and one has good reduction at $v$, then
+the other has good reduction at $v$.
+\end{corollary}
+
+\begin{proof}[Source proof]
+
+The isogeny induces an isomorphism $V_\ell A\simeq V_\ell B$ compatible with
+the Galois action.  The Neron criterion (Theorem~3.5) gives the result.
+
+\end{proof}
+
+
+\begin{theorem}[Finite isogeny possibilities]
+\label{thm:milne-finite-isogeny-possibilities}
+
+\dcref{MI:ch4:3.7}
+\uses{thm:milne-good-reduction-criterion,thm:milne-tate-semisimplicity,cor:milne-tate-hom-finiteness,lem:milne-semisimple-module-finiteness,thm:milne-chebotarev-detection,def:milne-frobenius-polynomial}
+Let $A,B$ be abelian varieties of dimension $g$ over $K$.  Let $S$ contain all
+places where either has bad reduction, and choose $\ell$ away from the residue
+characteristics in $S$.  There is a finite set
+$T=T(S,\ell,g)$, disjoint from $S$ and the places above $\ell$, such that
+\[
+ P_v(A,t)=P_v(B,t)\quad(v\in T)\quad\Longrightarrow\quad A\text{ and }B
+\text{ are isogenous}.
+\]
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+By the Neron criterion and Tate semisimplicity, $V_\ell A$ and $V_\ell B$ are
+semisimple representations unramified outside $S\cup\{v:v\mid\ell\}$.  Apply
+the semisimple-module finiteness lemma to obtain a finite set $T$ of places.
+At a place outside $S$ and above $\ell$, the Frobenius characteristic
+polynomial on $V_\ell A$ is $P_v(A,t)$, and similarly for $B$.  Equality at
+all $v\in T$ therefore gives an isomorphism
+$V_\ell A\simeq V_\ell B$ of Galois representations.  Tate's homomorphism
+theorem then gives an isogeny $A\to B$.
+
+\end{proof}
+
+
+\begin{lemma}[Semisimple module finiteness]
+\label{lem:milne-semisimple-module-finiteness}
+
+\dcref{MI:ch4:3.8}
+\uses{thm:milne-tate-semisimplicity}
+Let $(V,\rho)$ and $(W,\sigma)$ be semisimple representations of
+$\Gal(K^{\mathrm{sep}}/K)$ on $\Qell$-vector spaces of dimension $d$, both
+unramified outside $S\cup\{v:v\mid\ell\}$.  There is a finite set
+$T=T(S,\ell,d)$, disjoint from that bad set, such that equality of the
+characteristic polynomials of Frobenius on $V$ and $W$ at every $v\in T$ implies
+$(V,\rho)\simeq(W,\sigma)$.
+\end{lemma}
+
+\begin{proof}[Source proof]
+
+By Hermite finiteness, the composite $L$ of all subextensions of
+$K^{\mathrm{sep}}/K$ of degree at most $\ell^{2d}$ unramified outside
+$S\cup\{v:v\mid\ell\}$ is finite, Galois, and unramified outside that set.
+Chebotarev supplies a finite set $T$ of places, disjoint from the bad set,
+whose Frobenius conjugacy classes cover $\operatorname{Gal}(L/K)$.
+
+Choose full stable $\mathbb Z_\ell$-lattices $M\subset V$ and $N\subset W$.
+The $\mathbb Z_\ell$-algebra $R$ generated by the two actions of
+$\operatorname{Gal}(L/K)$ acts on both lattices.  Equality of the Frobenius
+characteristic polynomials gives equality of traces on the generators of $R$,
+and hence on all of $R$.  The trace criterion for semisimple $R\otimes\Q_\ell$-
+modules now gives $(V,\rho)\simeq(W,\sigma)$.
+
+\end{proof}
+
+
+\begin{lemma}[Trace criterion for semisimple modules]
+\label{lem:milne-endomorphism-algebra-bound}
+
+\dcref{MI:ch4:3.9}
+\uses{thm:milne-tate-semisimplicity}
+Let $k$ have characteristic zero and let $R$ be a finite-dimensional
+$k$-algebra.  Two finite-dimensional semisimple $R$-modules are isomorphic if
+and only if they have the same trace on every element of $R$.
+\end{lemma}
+
+\begin{proof}[Source-omitted proof]
+
+This is the standard character criterion for semisimple modules (Milne cites
+Bourbaki, \emph{Algebre}, VIII, \S12, no.~1, Prop.~3).
+
+\end{proof}
+
+
+\begin{theorem}[Rational Torelli for the Shafarevich step]
+\label{thm:milne-rational-torelli}
+
+\dcref{MI:ch4:4.2}
+\uses{thm:milne-torelli-source,prop:milne-jacobian-good-reduction}
+Let $C$ be a complete nonsingular curve of genus at least $2$ over a perfect
+field $k$.  The isomorphism class of $C$ is uniquely determined by the
+principally polarized abelian variety $(J(C),\lambda(C))$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+After extending to an algebraic closure, the Torelli theorem of
+Chapter~III gives an isomorphism $\alpha:C_{k^{\rm al}}\to C'_{k^{\rm al}}$
+from an isomorphism of the polarized Jacobians.  The theorem also specifies
+$\alpha$ uniquely once the relevant points and sign are fixed (and gives the
+same curve isomorphism independently of the auxiliary points in the rational
+statement).  For every $\sigma\in\operatorname{Gal}(k^{\rm al}/k)$, the
+isomorphism associated with $\sigma\beta$ is $\sigma\alpha$.  Since $\beta$ is
+defined over $k$, $\sigma\beta=\beta$, and uniqueness gives
+$\sigma\alpha=\alpha$.  Thus $\alpha$ descends to $k$; perfectness makes this
+the required effective descent of curves.
+
+\end{proof}
+
+
+\begin{lemma}[Square-root cover construction]
+\label{lem:milne-parshin-cover-construction}
+
+\dcref{MI:ch4:5.3}
+\uses{thm:milne-parshin-cover}
+Let $C/K$ be complete nonsingular and let
+$(f)=P_1-P_2+2D$ with $P_1,P_2\in C(K)$.  The double cover obtained from
+$K(C)\subset K(C)(\sqrt f)$ is ramified exactly at $P_1$ and $P_2$.  If $S$
+contains the bad-reduction primes of $C$, the primes where $P_1$ and $P_2$
+coalesce, and the primes above $2$, and the ring of $S$-integers is principal,
+then the cover has good reduction outside $S$.
+\end{lemma}
+
+\begin{proof}[Source proof]
+
+The odd valuations of $f$ are exactly those at $P_1$ and $P_2$.  Extend $C$
+to a smooth model over the $S$-integers; principality lets one multiply $f$ by
+a constant so that its divisor has no vertical components.  The resulting
+double cover is smooth away from the dyadic and collision primes.
+
+\end{proof}
+
+
+\begin{proposition}[Weak Mordell--Weil field extension]
+\label{prop:milne-weak-mordell-weil-extension}
+
+\dcref{MI:ch4:5.5}
+\uses{thm:milne-parshin-cover}
+For an abelian variety $A/K$ with good reduction outside a finite set, there
+is a finite extension $L/K$ such that every point of $A(K)$ is twice a point
+of $A(L)$.
+\end{proposition}
+
+\begin{proof}[Source proof]
+
+The quotient $A(K)/2A(K)$ is finite by Mordell--Weil.  Adjoin to $K$ the
+coordinates of representatives of this finite quotient.
+
+\end{proof}
+
+
+\begin{proposition}[Elliptic height normalization choices]
+\label{prop:milne-faltings-height-normalization}
+
+\dcref{MI:ch4:6.1}
+\uses{def:milne-faltings-height}
+For a complex elliptic curve $E$, each of the following choices determines the
+remainder:
+\begin{enumerate}
+\item an isomorphism $\C/\Lambda\to E(\C)$;
+\item a basis of $(E,\Omega^1)$, equivalently a nonzero holomorphic
+differential;
+\item an equation $Y^2=4X^3-g_2X-g_3$ for $E$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}[Source proof]
+
+The Weierstrass function attached to $\Lambda$ gives the equation and the
+uniformization.  The equation gives $dX/Y$, while integrating a nonzero
+differential over a homology basis recovers the lattice.
+
+\end{proof}
+
+
+\begin{lemma}[Height of a normed rank-one module]
+\label{lem:milne-faltings-height-formula}
+
+\dcref{MI:ch4:6.2}
+\uses{prop:milne-faltings-height-normalization}
+The height defined from a normed rank-one module is independent of the chosen
+nonzero module element.
+\end{lemma}
+
+\begin{proof}[Source proof]
+
+Write the finite-index factors using local generators.  Their product is the
+product of normalized absolute values of the scalar relating two generators,
+which is $1$ by the product formula.
+
+\end{proof}
+
+
+\begin{proposition}[Invariant differentials]
+\label{prop:milne-arakelov-determinant}
+
+\dcref{MI:ch4:6.4}
+\uses{def:milne-faltings-height}
+If $V$ is a smooth variety of dimension $g$, then $\Omega^1_{V/k}$ is locally
+free of rank $g$; when $V$ is a group variety it is free.
+\end{proposition}
+
+\begin{proof}[Source proof]
+
+This is the standard smoothness criterion for differentials; for a group
+variety, translation identifies the sheaf with its fibre at the identity.
+
+\end{proof}
+
+
+\begin{corollary}[Top differential sheaf]
+\label{cor:milne-height-finite-maps}
+
+\dcref{MI:ch4:6.5}
+\uses{prop:milne-arakelov-determinant}
+The sheaf $\Omega^g_{V/k}=\bigwedge^g\Omega^1_{V/k}$ is locally free of rank
+one, and it is free when $V$ is a group variety.
+\end{corollary}
+
+\begin{proof}[Source proof]
+
+Take the top exterior power of the locally free sheaf in Proposition~6.4.
+
+\end{proof}
+
+
+\begin{proposition}[Global sections on a complete variety]
+\label{prop:milne-bounded-complete-height}
+
+\dcref{MI:ch4:6.6}
+\uses{cor:milne-height-finite-maps}
+If $V$ is complete and geometrically connected and $M$ is a free coherent
+sheaf, evaluation at any $k$-rational point identifies $H^0(V,M)$ with the
+fibre $M(v)$.
+\end{proposition}
+
+\begin{proof}[Source proof]
+
+Complete connected varieties have only constant global functions.  For a free
+sheaf $M\simeq\mathcal O_V^{\oplus n}$, evaluation is therefore $k^n\to k^n$.
+
+\end{proof}
+
+
+\begin{proposition}[Invariant differential evaluation]
+\label{prop:milne-isogeny-height-estimate}
+
+\dcref{MI:ch4:6.7}
+\uses{cor:milne-height-finite-maps}
+For an abelian variety $A$ of dimension $g$, evaluation at the identity gives
+canonical isomorphisms $H^0(A,\Omega^1_{A/k})\simeq\Omega^1_{A/k}(0)$ and
+$H^0(A,\Omega^g_{A/k})\simeq\Omega^g_{A/k}(0)$.
+\end{proposition}
+
+\begin{proof}[Source proof]
+
+Combine the preceding two propositions and evaluate at the identity element.
+
+\end{proof}
+
+
+\begin{theorem}[Siegel moduli over the complex numbers]
+\label{thm:milne-siegel-moduli-complex}
+
+\dcref{MI:ch4:7.3}
+\uses{def:milne-polarization}
+For fixed dimension $g$ and polarization degree $d$, there is a unique
+algebraic variety $M_{g,d}/\C$ and a bijection between $M_{g,d}(\C)$ and
+isomorphism classes of pairs $(A,\lambda)$ of dimension $g$ and degree $d$,
+such that locally every point is represented by a family and every family over
+a variety induces a regular classifying map to $M_{g,d}$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Uniqueness follows by applying the family property in neighborhoods and gluing
+the resulting inverse regular maps.  Existence is the algebraicity theorem for
+the Siegel modular variety.
+
+\end{proof}
+
+
+\begin{proposition}[Northcott finiteness in projective space]
+\label{prop:milne-projective-height}
+
+\dcref{MI:ch4:7.1}
+For a number field $K$ and a constant $C$, only finitely many points of
+projective space over $K$ have absolute Weil height at most $C$.
+\end{proposition}
+
+\begin{proof}[Source proof]
+
+Clear denominators and use the product formula to choose primitive integral
+coordinates.  A height bound bounds every coordinate, leaving finitely many
+tuples.
+
+\end{proof}
+
+
+\begin{proposition}[Height comparison for projective embeddings]
+\label{prop:milne-projective-height-comparison}
+
+\dcref{MI:ch4:7.2}
+\uses{prop:milne-projective-height}
+If two projective embeddings of a variety pull back linearly equivalent
+hyperplanes, their associated Weil height functions differ by a bounded amount.
+\end{proposition}
+
+\begin{proof}[Source proof]
+
+The ratio of the two height functions is represented by a rational function
+with divisor zero, hence its logarithmic absolute values are bounded on the
+projective variety.
+
+\end{proof}
+
+
+\begin{theorem}[Canonical modular model]
+\label{thm:milne-siegel-moduli-rational-model}
+
+\dcref{MI:ch4:7.5}
+\uses{thm:milne-siegel-moduli-complex}
+There is a unique model of $M_{g,d}$ over $\Q$ for which the complex
+classification bijection commutes with the two actions of $\operatorname{Aut}(\C)$.
+For every field $L\supset\Q$ this gives a functorial map
+$M_{g,d}(L)\to\{(A,\lambda)\text{ over }L\}/\cong$, which is an isomorphism
+when $L$ is algebraically closed.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+The complex classification is equivariant for $\operatorname{Aut}(\C)$, so it
+descends uniquely to $\Q$.  Base change gives the functorial map, and over an
+algebraically closed field every polarized pair has a complex classification.
+
+\end{proof}
+
+
+\begin{theorem}[Faltings and modular height comparison]
+\label{thm:milne-bounded-modular-height}
+
+\dcref{MI:ch4:7.8}
+\uses{thm:milne-siegel-moduli-rational-model,prop:milne-projective-height}
+For every polarized abelian variety over a number field,
+$h_F(A)=h_M(A,\lambda)+O(\log h_M(A,\lambda))$.
+\end{theorem}
+
+\begin{proof}[Source-omitted proof]
+
+Milne explains that this comparison is obtained by extending the two height
+functions to a compactification of the Siegel modular scheme over $\mathbb Z$;
+the analysis of their boundary singularities is not proved in the source.
+
+\end{proof}
+
+
+\begin{theorem}[Modular finiteness with fixed height]
+\label{thm:milne-modular-finiteness-fixed-level}
+
+\dcref{MI:ch4:7.10}
+\uses{thm:milne-bounded-modular-height,prop:milne-projective-height}
+Let $K$ be a number field and $g,d,C$ integers.  Up to isomorphism there are
+only finitely many polarized abelian varieties $(A,\lambda)$ over $K$ of
+dimension $g$ and degree $d$, semistable everywhere, with $h_M(A,\lambda)\le C$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+The finite set of points of $M_{g,d}(K)$ of bounded height is supplied by
+Northcott.  Fix one geometric pair $(A_0,\lambda_0)$ among them and choose
+$\ell\ge3$.  The field generated by the points of order $\ell$ on a pair in
+this geometric class has degree at most
+$\#\operatorname{GL}_{2g}(\mathbb F_\ell)$ and is unramified outside the
+bad places and the places above $\ell$.  Hermite finiteness therefore gives a
+single finite Galois extension $L/K$ over which the $\ell$-torsion of every
+such pair is rational.
+
+If $\alpha:(A,\lambda)\to(A_0,\lambda_0)$ is an isomorphism over
+$K^{\mathrm{sep}}$ and $\sigma\in\operatorname{Gal}(K^{\mathrm{sep}}/L)$,
+then $\sigma\alpha$ and $\alpha$ agree on $A[\ell]$.  Their quotient is an
+automorphism of the polarized pair $(A_0,\lambda_0)$ acting trivially on
+$A_0[\ell]$, hence is the identity.  Thus $\alpha$ is defined over $L$.
+After replacing $L$ by a Galois extension, the $K$-forms are classified by
+the finite set
+$H^1(\operatorname{Gal}(L/K),\operatorname{Aut}(A_{0,L},\lambda_{0,L}))$.
+This proves finiteness.
+
+\end{proof}
+
+
+\begin{corollary}[Faltings-height polarized finiteness]
+\label{cor:milne-unpolarized-height-consequence}
+
+\dcref{MI:ch4:7.12}
+\uses{thm:milne-modular-finiteness-fixed-level,thm:milne-bounded-modular-height}
+For fixed dimension, polarization degree, number field, and semistability,
+there are only finitely many polarized abelian varieties of bounded Faltings
+height.
+\end{corollary}
+
+\begin{proof}[Source proof]
+
+The height comparison theorem turns a Faltings-height bound into a modular-height
+bound, so apply Theorem~7.10.
+
+\end{proof}
+
+
+\begin{corollary}[Semistable unpolarized finiteness]
+\label{cor:milne-semistable-unpolarized-finiteness}
+
+\dcref{MI:ch4:7.13}
+\uses{cor:milne-unpolarized-height-consequence}
+For fixed $K$, dimension $g$, and real $C$, there are only finitely many
+abelian varieties over $K$ of dimension $g$ with semistable reduction everywhere
+and $h_F(A)\le C$, up to isomorphism.
+\end{corollary}
+
+\begin{proof}[Source proof]
+
+Use the principally polarized abelian variety $(A\times A^\vee)^4$ and the
+identity $h_F(A^\vee)=h_F(A)$.  Its Faltings height is $8h_F(A)$, so the
+polarized finiteness result applies.
+
+\end{proof}
+
+
+\section{Faltings height}
+
+\begin{definition}[Faltings height]
+\label{def:milne-faltings-height}
+
+\dcref{MI:ch4:6}
+For a semistable abelian variety over a number field, the stable Faltings height
+is defined from the Arakelov degree of the determinant of invariant
+differentials, with the archimedean metric induced by a period integral.  The
+definition is normalized by an auxiliary multiplication integer and then shown
+to be independent of that choice.
+\end{definition}
+
+\begin{lemma}[Height of a normed module under field extension]
+\label{lem:milne-faltings-height-isogeny}
+
+\dcref{MI:ch4:6.3}
+\uses{def:milne-faltings-height,def:milne-polarization}
+Let $M$ be a normed projective rank-one module over the integers of $K$.  In
+the expression for $H(M)$ a nonzero element of $M\otimes K$ may be used, and
+for $h(M)=[K:\Q]^{-1}\log H(M)$ one has
+\[
+h(\mathcal O_L\otimes_{\mathcal O_K}M)=h(M)
+\]
+for every finite extension $L/K$.
+\end{lemma}
+\begin{proof}
+Choose a nonzero $m\in M\otimes K$.  The determinant norm in the extension
+is the field norm of the original determinant, so its logarithm is multiplied
+by $[L:K]$.  Dividing by $[L:\Q]=[L:K][K:\Q]$ gives the same normalized
+height.
+\end{proof}
+
+\section{Completion of Finiteness I}
+
+\begin{theorem}[Faltings-height finiteness in an isogeny class]
+\label{thm:milne-complete-finiteness-I}
+
+\dcref{MI:ch4:8.1}
+\uses{lem:milne-faltings-height-isogeny,thm:milne-bounded-modular-height,thm:milne-modular-finiteness-fixed-level}
+Let $A/K$ have semistable reduction everywhere.  The set of stable Faltings
+heights of abelian varieties $B/K$ isogenous to $A$ is finite.
+\end{theorem}
+
+\begin{proof}[Source-omitted proof]
+
+Milne states that Faltings proves the height assertion using algebraic
+geometry, including Raynaud's finiteness theorem for finite group schemes, but
+does not give the argument.  Together with the polarized bounded-height
+finiteness theorem, it yields Finiteness~I.
+
+\end{proof}

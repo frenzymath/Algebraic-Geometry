@@ -1,0 +1,703 @@
+\section{Definition of abelian varieties}
+\label{mumford-II4}
+\dcref{M:ch2:II.4}
+
+\begin{convention}[Varieties and completeness]
+\label{mumford-conv-variety-field}
+\dcref{M:ch2:II.4}
+The ground field $k$ is algebraically closed.  In this chapter a variety is an
+irreducible separated scheme of finite type over $k$; complete means proper
+over $k$.  Products and morphisms are taken over $k$.
+\notready
+\end{convention}
+
+\begin{definition}[Abelian variety]
+\label{mumford-def-abelian-variety}
+\dcref{M:ch2:II.4}
+An abelian variety is a complete variety $A$ equipped with a point $0$, a
+multiplication $m:A\times A\to A$, and an inverse $i:A\to A$ which are
+morphisms and satisfy the group axioms.  We write $x+y=m(x,y)$ and
+$-x=i(x)$.
+\uses{mumford-conv-variety-field}
+\notready
+\end{definition}
+
+\begin{lemma}[Translations]
+\label{mumford-lem-abelian-translations}
+\dcref{M:ch2:II.4}
+For every $a\in A$, the translation $t_a(x)=x+a$ is an automorphism of $A$;
+its inverse is $t_{-a}$.  Consequently all local geometric properties of $A$
+are invariant under translation.
+\uses{mumford-def-abelian-variety}
+\begin{proof}
+The group identities give $t_{-a}t_a=t_at_{-a}=\operatorname{id}$.  Both maps
+are morphisms because they are composites of the multiplication and inverse
+morphisms.
+\end{proof}
+\notready
+\end{lemma}
+
+\begin{proposition}[Multiplication by an integer]
+\label{mumford-prop-multiplication-n}
+\dcref{M:ch2:II.4}
+For $n\in\Z$, let $[n]:A\to A$ be repeated addition (and inversion for
+$n<0$).  If $n$ is nonzero and prime to $\operatorname{char}(k)$, then $[n]$
+is finite and etale, hence surjective.  Its kernel $A[n]$ is a finite group
+scheme of rank $n^{2\dim A}$.
+\uses{mumford-def-abelian-variety,mumford-lem-abelian-translations}
+\notready
+\end{proposition}
+
+\begin{lemma}[Rigidity Lemma, Form I]
+\label{mumford-lem-rigidity-form-I}
+Let $X$ be complete and let $Y,Z$ be varieties.  If
+$f:X\times Y\to Z$ is a morphism and there are $y_0\in Y$, $z_0\in Z$ with
+$f(X\times\{y_0\})=\{z_0\}$, then there is a unique morphism $g:Y\to Z$ such
+that $f=g\circ p_2$.
+\dcref{M:ch2:II.4}
+\uses{mumford-conv-variety-field}
+\begin{proof}
+Restrict $f$ to the slice through a chosen $x_0$; this gives the only possible
+$g$.  To verify that it works, test the graph of $f$ over an affine
+neighbourhood of $z_0$.  Properness of the first projection shows that the
+parameters for which the image leaves this neighbourhood form a closed set
+disjoint from $y_0$.  Over its complement, regular functions on the complete
+fibres are constant, so the graph is the pullback of the graph of $g$.
+Equality of morphisms on this dense open and separatedness of $Z$ extend the
+identity to all of $X\times Y$; the slice also proves uniqueness.
+\end{proof}
+\notready
+\end{lemma}
+
+\begin{corollary}[Morphisms of abelian varieties]
+\label{mumford-cor-morphism-translation}
+If $A,B$ are abelian varieties and $f:A\to B$ is a morphism, then
+$f(x)=h(x)+b$ for a unique $b\in B$ and a homomorphism $h:A\to B$.
+\dcref{M:ch2:II.4}
+\uses{mumford-lem-rigidity-form-I,mumford-def-abelian-variety}
+\begin{proof}
+Translate the target so that $f(0)=0$.  Compare $f\circ m$ with the sum of
+the two pullbacks of $f$.  Their quotient is a morphism from $A\times A$ to
+$B$ which is trivial on both coordinate axes.  Applying rigidity first in one
+variable and then in the other makes this quotient trivial, proving additivity.
+The original translation is the unique constant term.
+\end{proof}
+\notready
+\end{corollary}
+
+\begin{corollary}[Commutativity]
+\label{mumford-cor-abelian-commutative}
+The abstract group underlying an abelian variety is commutative.
+\dcref{M:ch2:II.4}
+\uses{mumford-cor-morphism-translation}
+\begin{proof}
+Apply the morphism decomposition to inversion after translating its value at
+the identity (which is already the identity).  Comparing inversion of a sum
+with the two possible orders gives $x^{-1}+y^{-1}=y^{-1}+x^{-1}$; invert once
+more to obtain commutativity.
+\end{proof}
+\notready
+\end{corollary}
+
+\begin{corollary}[Pointed Hom is linear]
+\label{mumford-cor-pointed-hom-linear}
+For complete pointed varieties $S,T$ and an abelian variety $A$, restriction to
+the two coordinate axes gives a bijection
+\[
+ \Hom_*(S,A)\times\Hom_*(T,A)\xrightarrow{\sim}
+ \Hom_*(S\times T,A),\qquad (f,g)\mapsto((s,t)\mapsto f(s)+g(t)).
+\]
+\dcref{M:ch2:II.4}
+\uses{mumford-lem-rigidity-form-I,mumford-cor-abelian-commutative}
+\begin{proof}
+Normalize $h$ by removing its two axis restrictions.  The normalized map is
+zero on each axis, and rigidity in either variable forces it to be zero on the
+whole product.  The two restrictions therefore reconstruct $h$ uniquely, and
+the group law supplies the displayed sum.
+\end{proof}
+\notready
+\end{corollary}
+
+\begin{theorem}[Unital composition criterion]
+\label{mumford-thm-unital-composition}
+Let $X$ be complete, let $e\in X$, and let $m:X\times X\to X$ be a morphism
+with $m(x,e)=m(e,x)=x$.  Then associativity and the existence of inverse follow
+from completeness and rigidity, so $(X,m,e)$ is an abelian variety.
+\dcref{M:ch2:II.4}
+\uses{mumford-lem-rigidity-form-I}
+\notready
+\end{theorem}
+
+\begin{corollary}[No rational curves]
+\label{mumford-cor-no-rational-curves}
+Every morphism $\PP^1_k\to A$ to an abelian variety is constant.  The same
+holds for a unirational complete variety.  This is a derived corollary of the
+rigidity lemma.
+\dcref{M:ch2:II.4}
+\uses{mumford-def-abelian-variety,mumford-lem-rigidity-form-I}
+\notready
+\end{corollary}
+
+\section{Supporting dependency interfaces}
+\label{mumford-II-coverage-register}
+These compact nodes record auxiliary results and applications used by the
+variety-theoretic constructions.  Detailed proofs are treated as external
+inputs where the available evidence is insufficient for reconstruction.
+
+\begin{remark}[First commutativity argument]
+\label{ch02-sec04-commutativity-first-proof}
+The invariant-differential argument gives commutativity independently of the
+translation decomposition; it applies when the group law is transported
+through a quotient.
+\dcref{M:ch2:II.4}
+\uses{mumford-def-abelian-variety}
+\notready
+\end{remark}
+
+\begin{remark}[Cohomology fibre notation]
+\label{ch02-sec05-fiber-notation}
+For $y\in Y$, write $X_y=X\times_Y\Spec k(y)$ and
+$\cF_y=\cF\otimes_{\cO_Y}k(y)$.  All semicontinuity and base-change claims
+use this restricted sheaf notation.
+\dcref{M:ch2:II.5}
+\uses{mumford-def-f-flat}
+\notready
+\end{remark}
+
+\begin{lemma}[Constant-fibre freeness]
+\label{ch02-sec05-constant-fiber-lemma}
+If the fibre dimension of a cohomology group is locally constant on a reduced
+base, the corresponding cohomology sheaf is locally free and commutes with
+base change.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-base-change-criterion}
+\notready
+\end{lemma}
+
+\begin{lemma}[Split image in a finite complex]
+\label{ch02-sec05-image-splitting-lemma}
+On a locus where the rank of a differential in the finite projective complex is
+constant, its image is locally a direct summand; this is the linear-algebra
+step behind the base-change criterion.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-grothendieck-complex}
+\notready
+\end{lemma}
+
+\begin{lemma}[Trivial line-bundle section test]
+\label{ch02-sec05-trivial-line-bundle-criterion}
+On a complete connected variety, a line bundle is trivial exactly when it and
+its inverse have nonzero global sections whose product is a nonzero constant.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-proper-direct-image-coherent}
+\notready
+\end{lemma}
+
+\begin{remark}[Cube applications]
+\label{ch02-sec06-unread-proof}
+Further symmetry and Picard-group identities follow from the cube; these
+applications are external inputs while the displayed cube and
+cross-effect formulation provide their dependencies.
+\dcref{M:ch2:II.6}
+\uses{mumford-thm-cube-varieties,mumford-prop-picard-quadratic}
+\notready
+\end{remark}
+
+\begin{remark}[Finite-quotient coverage]
+\label{ch02-sec07-coverage}
+The finite-quotient construction also treats orbit sheaves, principal bundles,
+and translation quotients; the finite-quotient theorem and translation-isogeny
+proposition are the interfaces used by subsequent arguments.
+\dcref{M:ch2:II.7}
+\uses{mumford-thm-finite-group-quotient,mumford-prop-translation-quotient-isogeny}
+\notready
+\end{remark}
+
+\begin{remark}[Remaining quotient applications]
+\label{ch02-sec07-unread-results}
+The affine-local quotient calculations and their descent proofs are retained as
+external inputs.
+\dcref{M:ch2:II.7}
+\uses{ch02-sec07-coverage}
+\notready
+\end{remark}
+
+\begin{remark}[Characteristic-zero dual construction]
+\label{ch02-sec08-coverage}
+The characteristic-zero Picard construction, normalized Poincare bundle,
+biduality, and functorial dual maps form one dependency package.
+\dcref{M:ch2:II.8}
+\uses{mumford-thm-dual-char-zero,mumford-prop-biduality-char-zero}
+\notready
+\end{remark}
+
+\begin{remark}[Remaining duality arguments]
+\label{ch02-sec08-unread-results}
+The representability and Poincare descent calculations not reproduced in detail
+are external inputs for the scheme-theoretic duality construction.
+\dcref{M:ch2:II.8}
+\uses{ch02-sec08-coverage}
+\notready
+\end{remark}
+
+\begin{remark}[Complex comparison coverage]
+\label{ch02-sec09-coverage}
+The analytic comparison identifies the dual lattice and Poincare factor of
+automorphy; its remaining period-matrix computations are external inputs.
+\dcref{M:ch2:II.9}
+\uses{mumford-thm-analytic-dual-comparison}
+\notready
+\end{remark}
+
+\begin{remark}[Complex-comparison proof interface]
+\label{ch02-sec09-unread-results}
+The omitted examples and detailed analytic identifications are external inputs;
+the comparison theorem supplies the interface needed by the complex case.
+\dcref{M:ch2:II.9}
+\uses{ch02-sec09-coverage}
+\notready
+\end{remark}
+
+\begin{remark}[Abelian-variety structure package]
+\label{ch02-sec04-abelian-variety}
+The complete group-variety definition is the standing object for this theory.
+\dcref{M:ch2:II.4}
+\uses{mumford-def-abelian-variety}
+\notready
+\end{remark}
+
+\begin{remark}[Rigidity package]
+\label{ch02-sec04-rigidity}
+The Form I rigidity lemma is the primitive from which the morphism and
+no-rational-curves consequences are derived.
+\dcref{M:ch2:II.4}
+\uses{mumford-lem-rigidity-form-I}
+\notready
+\end{remark}
+
+\begin{remark}[Translation decomposition package]
+\label{ch02-sec04-morphism-translation}
+Every morphism between abelian varieties is a unique translation followed by a
+homomorphism.
+\dcref{M:ch2:II.4}
+\uses{mumford-cor-morphism-translation}
+\notready
+\end{remark}
+
+\begin{remark}[Second commutativity argument]
+\label{ch02-sec04-commutativity-second-proof}
+The inverse-morphism argument gives a second proof of commutativity in the
+abelian-variety setting.
+\dcref{M:ch2:II.4}
+\uses{mumford-cor-abelian-commutative}
+\notready
+\end{remark}
+
+\begin{remark}[Product-linearity package]
+\label{ch02-sec04-hom-linearity}
+Pointed maps from a product into an abelian variety split as the sum of their
+two axis restrictions.
+\dcref{M:ch2:II.4}
+\uses{mumford-cor-pointed-hom-linear}
+\notready
+\end{remark}
+
+\begin{remark}[Unital-law package]
+\label{ch02-sec04-unital-law}
+A unital multiplication on a complete variety satisfies the remaining group
+axioms by rigidity.
+\dcref{M:ch2:II.4}
+\uses{mumford-thm-unital-composition}
+\notready
+\end{remark}
+
+\begin{remark}[Projective-line package]
+\label{ch02-sec04-no-rational-curves}
+Maps from $\PP^1$ and, more generally, unirational complete varieties to an
+abelian variety are constant.
+\dcref{M:ch2:II.4}
+\uses{mumford-cor-no-rational-curves}
+\notready
+\end{remark}
+
+\begin{remark}[Proper direct-image package]
+\label{ch02-sec05-proper-direct-image}
+Proper pushforward preserves coherence for higher direct images of coherent
+sheaves.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-proper-direct-image-coherent}
+\notready
+\end{remark}
+
+\begin{remark}[Flatness package]
+\label{ch02-sec05-flatness}
+Flatness over the base is checked stalkwise for the structure morphism.
+\dcref{M:ch2:II.5}
+\uses{mumford-def-f-flat}
+\notready
+\end{remark}
+
+\begin{remark}[Finite-complex package]
+\label{ch02-sec05-finite-projective-complex}
+A finite projective complex computes all fibre cohomology after arbitrary base
+change in a proper flat family.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-grothendieck-complex}
+\notready
+\end{remark}
+
+\begin{remark}[Complex-model package]
+\label{ch02-sec05-complex-model}
+The bounded complex can be replaced by a flat finite model without changing
+cohomology.
+\dcref{M:ch2:II.5}
+\uses{mumford-lem-flat-complex-replacement}
+\notready
+\end{remark}
+
+\begin{remark}[Complex base-change package]
+\label{ch02-sec05-complex-base-change}
+Quasi-isomorphisms of bounded flat complexes remain quasi-isomorphisms after
+tensoring with a base algebra.
+\dcref{M:ch2:II.5}
+\uses{mumford-lem-flat-quasi-iso-base-change}
+\notready
+\end{remark}
+
+\begin{remark}[Semicontinuity package]
+\label{ch02-sec05-semicontinuity}
+Fibre cohomology dimensions are upper semicontinuous and Euler characteristic is
+locally constant.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-semicontinuity}
+\notready
+\end{remark}
+
+\begin{remark}[Base-change criterion package]
+\label{ch02-sec05-base-change-criterion}
+Constant fibre dimension on a reduced connected base is equivalent to local
+freeness and the cohomology-and-base-change isomorphism.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-base-change-criterion}
+\notready
+\end{remark}
+
+\begin{remark}[Vanishing in the previous degree]
+\label{ch02-sec05-vanishing-previous-degree}
+Vanishing of fibre cohomology in degree $p$ forces base change in degree $p-1$.
+\dcref{M:ch2:II.5}
+\uses{mumford-cor-flat-base-change}
+\notready
+\end{remark}
+
+\begin{remark}[Higher-vanishing package]
+\label{ch02-sec05-higher-vanishing}
+Vanishing of higher direct images bounds the degrees in which fibre cohomology
+can occur.
+\dcref{M:ch2:II.5}
+\uses{mumford-cor-flat-base-change}
+\notready
+\end{remark}
+
+\begin{remark}[Flat base-change package]
+\label{ch02-sec05-flat-base-change}
+Cohomology commutes with a flat extension of the base ring.
+\dcref{M:ch2:II.5}
+\uses{mumford-cor-flat-base-change}
+\notready
+\end{remark}
+
+\begin{remark}[Seesaw package]
+\label{ch02-sec05-seesaw}
+The scheme of trivial fibres carries the residual line bundle whose pullback is
+the original family.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-seesaw}
+\notready
+\end{remark}
+
+\begin{remark}[Cube package]
+\label{ch02-sec06-cube-theorem}
+Three trivial coordinate faces force a line bundle on a triple product to be
+trivial.
+\dcref{M:ch2:II.6}
+\uses{mumford-thm-cube-varieties}
+\notready
+\end{remark}
+
+\begin{remark}[Product-splitting package]
+\label{ch02-sec06-product-splitting}
+The alpha--beta maps split a contravariant functor on a product into coordinate
+and cross-effect parts.
+\dcref{M:ch2:II.6}
+\uses{mumford-prop-picard-quadratic}
+\notready
+\end{remark}
+
+\begin{remark}[Order-of-functor package]
+\label{ch02-sec06-order-functor}
+The Picard functor has order at most two in the cross-effect filtration.
+\dcref{M:ch2:II.6}
+\uses{mumford-prop-picard-quadratic}
+\notready
+\end{remark}
+
+\begin{remark}[Finite quotient package]
+\label{ch02-sec07-quotient}
+Finite group actions admit a finite quotient, and free actions give principal
+etale/flat torsors according to the characteristic.
+\dcref{M:ch2:II.7}
+\uses{mumford-thm-finite-group-quotient}
+\notready
+\end{remark}
+
+\begin{remark}[Characteristic-zero duality package]
+\label{ch02-sec08-dual}
+In characteristic zero, $\Pic^0(A)$ is represented by an abelian variety with
+normalized Poincare bundle and biduality.
+\dcref{M:ch2:II.8}
+\uses{mumford-thm-dual-char-zero}
+\notready
+\end{remark}
+
+\begin{remark}[Complex comparison package]
+\label{ch02-sec09-comparison}
+The analytic dual lattice and the algebraic Poincare bundle agree under
+complexification.
+\dcref{M:ch2:II.9}
+\uses{mumford-thm-analytic-dual-comparison}
+\notready
+\end{remark}
+
+\section{Cohomology and base change}
+\label{mumford-II5}
+\dcref{M:ch2:II.5}
+
+\begin{definition}[Flatness over a base]
+\label{mumford-def-f-flat}
+\dcref{M:ch2:II.5}
+For a morphism $f:X\to Y$ and a quasi-coherent sheaf $\cF$ on $X$, say that
+$\cF$ is $f$-flat if each stalk $\cF_x$ is flat over $\cO_{Y,f(x)}$.
+\notready
+\end{definition}
+
+\begin{theorem}[Coherence of proper direct images]
+\label{mumford-thm-proper-direct-image-coherent}
+If $f:X\to Y$ is proper between locally noetherian schemes and $\cF$ is
+coherent, then each $R^pf_*\cF$ is coherent.
+\dcref{M:ch2:II.5}
+\notready
+\end{theorem}
+
+\begin{theorem}[Finite complex for a proper flat family]
+\label{mumford-thm-grothendieck-complex}
+Let $Y=\Spec A$, $f:X\to Y$ proper noetherian, and $\cF$ coherent and
+$f$-flat.  There is a bounded complex $K^\bullet$ of finitely generated
+projective $A$-modules such that, for every $A$-algebra $B$,
+\[
+H^p(X\times_Y\Spec B,\cF\otimes_A B)\simeq
+H^p(K^\bullet\otimes_A B)
+\]
+functorially in $B$.
+\dcref{M:ch2:II.5.1}
+\uses{mumford-def-f-flat,mumford-thm-proper-direct-image-coherent}
+\notready
+\end{theorem}
+
+\begin{lemma}[Flat replacement of a finite complex]
+\label{mumford-lem-flat-complex-replacement}
+Let $C^\bullet$ be a bounded complex over a noetherian ring with finitely
+generated cohomology.  It admits a quasi-isomorphic complex $K^\bullet$ whose
+positive terms are finite free and whose degree-zero term is flat whenever all
+$C^p$ are flat.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-proper-direct-image-coherent}
+\notready
+\end{lemma}
+
+\begin{lemma}[Flat quasi-isomorphisms survive base change]
+\label{mumford-lem-flat-quasi-iso-base-change}
+A quasi-isomorphism between bounded complexes of flat $A$-modules remains a
+quasi-isomorphism after tensoring with every $A$-algebra.
+\dcref{M:ch2:II.5}
+\uses{mumford-lem-flat-complex-replacement}
+\notready
+\end{lemma}
+
+\begin{theorem}[Semicontinuity and Euler characteristic]
+\label{mumford-thm-semicontinuity}
+For a proper morphism $f:X\to Y$ of noetherian schemes and a coherent sheaf
+flat over $Y$, the function
+$y\mapsto\dim_{k(y)}H^p(X_y,\cF_y)$ is upper semicontinuous, while
+$\chi(\cF_y)=\sum_p(-1)^p\dim_{k(y)}H^p(X_y,\cF_y)$ is locally constant.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-grothendieck-complex,mumford-lem-flat-quasi-iso-base-change}
+\notready
+\end{theorem}
+
+\begin{theorem}[Cohomology-and-base-change criterion]
+\label{mumford-thm-base-change-criterion}
+Assume $Y$ is reduced and connected, and let $K^\bullet$ be the finite complex
+representing the derived pushforward.  Constancy of $\dim H^p(X_y,\cF_y)$ is equivalent to local freeness of
+$R^pf_*\cF$ together with the fibrewise isomorphism
+\[
+ (R^pf_*\cF)\otimes k(y)\xrightarrow{\sim}H^p(X_y,\cF_y).
+\]
+Under these conditions the analogous map in degree $p-1$ is also an
+isomorphism.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-grothendieck-complex,mumford-thm-semicontinuity}
+\notready
+\end{theorem}
+
+\begin{corollary}[Vanishing and flat base change]
+\label{mumford-cor-flat-base-change}
+If $H^p(X_y,\cF_y)=0$ for every $y$, then base change in degree $p-1$ is an
+isomorphism even when $Y$ is nonreduced.  If $R^kf_*\cF=0$ for $k>k_0$, then
+$H^k(X_y,\cF_y)=0$ for $k>k_0$.  Finally, for a flat $A$-algebra $B$,
+\[
+ H^p(X\times_Y\Spec B,\cF\otimes_A B)\simeq H^p(X,\cF)\otimes_A B.
+\]
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-base-change-criterion,mumford-lem-flat-quasi-iso-base-change}
+\notready
+\end{corollary}
+
+\begin{theorem}[Seesaw theorem]
+\label{mumford-thm-seesaw}
+Let $X$ be complete and connected, $T$ a noetherian variety, and $L$ a line
+bundle on $X\times T$.  The scheme-theoretic locus
+\[
+ T_1=\{t\in T\mid L|_{X\times\{t\}}\simeq\cO_X\}
+\]
+is closed, and there is a line bundle $M$ on $T_1$ with
+$L|_{X\times T_1}\simeq p_2^*M$.
+\dcref{M:ch2:II.5}
+\uses{mumford-thm-semicontinuity,mumford-cor-flat-base-change}
+\begin{proof}
+Apply the finite-complex description to $L$ and $L^{-1}$.  The simultaneous
+rank-one locus for their zeroth cohomology sheaves is represented by a closed
+subscheme $T_1$.  On this locus cohomology and base change make
+$p_{2*}L$ invertible.  The universal evaluation map from its pullback to $L$
+is an isomorphism on every geometric fibre, hence is an isomorphism by the
+fibre criterion for coherent maps.  Taking $M=p_{2*}L$ gives the claim.
+\end{proof}
+\notready
+\end{theorem}
+
+\section{The theorem of the cube}
+\label{mumford-II6}
+\dcref{M:ch2:II.6}
+
+\begin{theorem}[Theorem of the cube for varieties]
+\label{mumford-thm-cube-varieties}
+Let $X,Y$ be complete varieties, let $Z$ be a variety, and choose points
+$x_0,y_0,z_0$.  If a line bundle $L$ on $X\times Y\times Z$ restricts
+trivially to each coordinate face
+$\{x_0\}\times Y\times Z$, $X\times\{y_0\}\times Z$, and
+$X\times Y\times\{z_0\}$, then $L$ is trivial.
+\dcref{M:ch2:II.6}
+\uses{mumford-thm-seesaw}
+\notready
+\end{theorem}
+
+\begin{proposition}[Picard splitting and order]
+\label{mumford-prop-picard-quadratic}
+For a contravariant functor $T$ from complete varieties to abelian groups, use
+alternating sums of pullbacks along coordinate faces to form the cross-effects.
+The projection and section maps then give a canonical splitting
+\[
+ T(X_0\times\cdots\times X_n)=\operatorname{im}(\alpha_T^n)\oplus
+ \ker(\beta_T^n).
+\]
+The functor has order at most $n$ when its $(n+1)$-fold cross-effect vanishes.
+For $T=\Pic$, the cube theorem is precisely the assertion that this order is
+at most two.
+\dcref{M:ch2:II.6}
+\uses{mumford-thm-cube-varieties}
+\notready
+\end{proposition}
+
+\section{Dividing varieties by finite groups}
+\label{mumford-II7}
+\dcref{M:ch2:II.7}
+
+\begin{definition}[Free finite group action]
+\label{mumford-def-free-finite-action}
+\dcref{M:ch2:II.7}
+A finite group $G$ acts freely on a variety $X$ if the map
+$G\times X\to X\times X$, $(g,x)\mapsto(gx,x)$ is a closed immersion on
+each component and distinct geometric points have distinct translates.
+\notready
+\end{definition}
+
+\begin{theorem}[Finite quotient]
+\label{mumford-thm-finite-group-quotient}
+If a finite group acts on a quasi-projective variety $X$, the quotient sheaf
+$X/G$ is represented by a variety and the quotient map is finite.  If the
+action is free, the map is etale and $X\to X/G$ is a principal $G$-bundle in
+the etale topology.
+\dcref{M:ch2:II.7}
+\uses{mumford-def-free-finite-action,mumford-def-abelian-variety}
+\notready
+\end{theorem}
+
+\begin{proposition}[Translation quotients and isogenies]
+\label{mumford-prop-translation-quotient-isogeny}
+If $H\subset A$ is a finite subgroup acting by translations, then $A/H$ is an
+abelian variety and the quotient map is an isogeny.  Conversely, every finite
+etale isogeny is obtained this way from its kernel.
+\dcref{M:ch2:II.7}
+\uses{mumford-thm-finite-group-quotient,mumford-prop-multiplication-n}
+\notready
+\end{proposition}
+
+\section{The dual abelian variety in characteristic zero}
+\label{mumford-II8}
+\dcref{M:ch2:II.8}
+
+\begin{definition}[Algebraically trivial line bundles]
+\label{mumford-def-piczero}
+\dcref{M:ch2:II.8}
+For a complete variety $X$, write $\Pic^0(X)$ for the connected component of
+the identity in the Picard scheme, equivalently the subgroup of line bundles
+algebraically equivalent to zero when the Picard scheme is represented.
+\notready
+\end{definition}
+
+\begin{theorem}[Dual abelian variety in characteristic zero]
+\label{mumford-thm-dual-char-zero}
+For an abelian variety $A$ over a field of characteristic zero, $\Pic^0(A)$ is
+represented by an abelian variety $\Adual$.  There is a normalized Poincare line
+bundle $\cP$ on $A\times\Adual$, trivial on both coordinate origins, and it
+represents the universal family of algebraically trivial line bundles on $A$.
+\dcref{M:ch2:II.8}
+\uses{mumford-def-piczero,mumford-thm-cube-varieties,mumford-thm-seesaw}
+\notready
+\end{theorem}
+
+\begin{proposition}[Biduality and functoriality]
+\label{mumford-prop-biduality-char-zero}
+The Poincare bundle induces a canonical isomorphism $A\xrightarrow{\sim}
+\widehat{\Adual}$ and reverses arrows: a homomorphism $f:A\to B$ has a
+dual $\widehat f:\Bdual\to\Adual$ characterized by
+$(f\times1)^*\cP_B\simeq(1\times\widehat f)^*\cP_A$.
+\dcref{M:ch2:II.8}
+\uses{mumford-thm-dual-char-zero}
+\notready
+\end{proposition}
+
+\section{The case of the complex ground field}
+\label{mumford-II9}
+\dcref{M:ch2:II.9}
+
+\begin{theorem}[Analytic description of the dual]
+\label{mumford-thm-analytic-dual-comparison}
+If $A(\C)=V/\Lambda$ is the analytic torus attached to a complex abelian
+variety, then $\Adual(\C)$ is the torus whose lattice is dual to $\Lambda$ under
+the integral pairing supplied by the Poincare bundle.  The analytic Poincare
+bundle agrees with the Appell--Humbert bundle of that pairing.
+\dcref{M:ch2:II.9}
+\uses{mumford-cor-complex-av-torus,mumford-prop-biduality-char-zero,mumford-thm-appell-humbert}
+\notready
+\end{theorem}

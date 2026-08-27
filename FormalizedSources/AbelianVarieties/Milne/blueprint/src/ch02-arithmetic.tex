@@ -1,0 +1,407 @@
+\section{The zeta function of an abelian variety}
+\begin{definition}[Frobenius and zeta function]\label{def:milne-frobenius-zeta}\dcref{MI:ch2:1}
+Write $\overline{\F_q}$ for an algebraic closure of $\F_q$ and
+$\F_{q^m}$ for its unique subfield with $q^m$ elements. Let $V/\F_q$ be a
+variety. The Frobenius map $\pi_V:V\to V$ is the identity on the underlying
+topological space and sends a local function $f$ to $f^q$. For
+$V=\PP^n$, it is induced by $X_i\mapsto X_i^q$ and sends
+$(x_0:\cdots:x_n)$ to $(x_0^q:\cdots:x_n^q)$. Every morphism over $\F_q$
+commutes with Frobenius, and $V(\F_{q^m})$ is the fixed-point set of
+$\pi_V^m$ on $V(\overline{\F_q})$. For $N_m=|V(\F_{q^m})|$, its zeta function is
+\[
+ Z(V,t)=\exp\left(\sum_{m\geq 1}N_m\frac{t^m}{m}\right).
+\]
+\end{definition}
+
+\begin{theorem}[Weil bounds]\label{thm:milne-zeta-weil-bounds}\dcref{MI:ch2:1.1}
+Let $A/\F_q$ be an abelian variety of dimension $g$, let $\pi$ be its
+Frobenius, and write its characteristic polynomial as
+$P_\pi(X)=\prod_{i=1}^{2g}(X-a_i)$. If $N_m=|A(\F_{q^m})|$, then
+$N_m=\prod_i(1-a_i^m)$ and $|a_i|=q^{1/2}$. Moreover,
+\[
+ |N_m-q^{mg}|\leq 2gq^{m(g-1/2)}+(2^{2g}-2g-1)q^{m(g-1)}.
+\]
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+We first deduce the inequality from the preceding statements.  Take $m=1$
+in (a) and expand the product.  The term containing all $2g$ eigenvalues is
+an integer, in fact the positive integer $P_\pi(0)=\deg(\pi)$; by (b) its
+absolute value is $q^g$, and hence it is $q^g$.  Each of the $2g$ terms in
+which one eigenvalue is omitted has absolute value $q^{g-1/2}$, while the
+remaining $2^{2g}-2g-1$ terms have absolute value at most $q^{g-1}$.
+Replacing $\pi$ by $\pi^m$ gives the displayed inequality.
+
+We now prove (a).  First take $m=1$.  The kernel of
+$\pi-\operatorname{id}:A(\F)\to A(\F)$ is $A(\F_q)$.  The differential of Frobenius at
+the origin is zero.  Indeed, after replacing an affine neighbourhood of the
+origin by an affine space with the origin at $0$, Frobenius is given by
+$Y_i=X_i^q$, whose differential is zero in characteristic $p$.  Therefore
+$d(\pi-\operatorname{id})_0=-1$, so $\pi-\operatorname{id}$ is etale at the origin and, by homogeneity,
+at every point.  Every point of its kernel consequently occurs with
+multiplicity one, and
+\[
+ |A(\F_q)|=\deg(\pi-\operatorname{id})=P_\pi(1).
+\]
+The same argument applied to $\pi^m$ gives
+$|A(\F_{q^m})|=P_{\pi^m}(1)$.  The eigenvalues of $\pi^m$ on $V_\ell A$
+are $a_1^m,\ldots,a_{2g}^m$, so
+\[
+ P_{\pi^m}(X)=\prod_i(X-a_i^m),\qquad
+ P_{\pi^m}(1)=\prod_i(1-a_i^m),
+\]
+as required.  Part (b) follows from the next two lemmas.
+
+\end{proof}
+
+\begin{lemma}[Rosati--Frobenius identity]\label{lem:milne-rosati-frobenius}\dcref{MI:ch2:1.2}
+Let $\dagger$ be the Rosati involution on $\End(A)\otimes\Q$ defined by a
+polarization of $A/\F_q$. Then
+$\pi_A^\dagger\circ\pi_A=q\,\operatorname{id}_A$.
+\end{lemma}
+
+\begin{proof}[Source proof]
+Let $D$ be the ample divisor defining the polarization, so that
+$\lambda(a)=[D_a-D]$. It is enough to prove
+$\pi^\vee\circ\lambda\circ\pi=q\lambda$. If $D'$ is a divisor and
+$D'=\operatorname{div}(f)$ near $\pi(P)$, then
+$\pi^*D'=\operatorname{div}(f\circ\pi)=qD'$ near $P$; hence
+$\pi^*D=qD$. Also, for every homomorphism $\alpha:A\to A$ and point $a$,
+$\alpha\circ t_a=t_{\alpha(a)}\circ\alpha$.
+
+For $a\in A(\F)$, we have
+\[
+\begin{aligned}
+ (\pi^\vee\circ\lambda\circ\pi)(a)
+ &=\pi^*[D_{\pi(a)}-D] \\
+ &=[(t_{\pi(a)}\circ\pi)^*D-\pi^*D] \\
+ &=[(\pi\circ t_a)^*D-\pi^*D] \\
+ &=[t_a^*(qD)-qD]=q\lambda(a).
+\end{aligned}
+\]
+Thus $\pi^\vee\circ\lambda\circ\pi=q\lambda$, as required.
+\end{proof}
+
+\begin{lemma}[Rosati eigenvalue lemma]\label{lem:milne-rosati-eigenvalues}\dcref{MI:ch2:1.3}
+Let $A$ be an abelian variety over a field $k$, and let $\alpha$ be an
+element of $\End(A)\otimes\Q$ such that $\alpha^\dagger\alpha$ is an integer
+$r$, where $\dagger$ is the Rosati involution defined by a polarization.  For
+any root $a$ of $P_\alpha$ in $\C$, one has $|a|^2=r$.
+\end{lemma}
+
+\begin{proof}[Source proof]
+
+The ring $\Q[\alpha]$ is a commutative finite-dimensional $\Q$-algebra and
+therefore an Artin ring.  Let $\mathfrak m_1,\ldots,\mathfrak m_n$ be its
+maximal ideals.  The quotient by their intersection is a product of fields,
+\[
+ \Q[\alpha]/\bigcap_i\mathfrak m_i=K_1\times\cdots\times K_n,
+ \qquad K_i=\Q[\alpha]/\mathfrak m_i.
+\]
+We first show that $\bigcap_i\mathfrak m_i=0$.  The ring is stable under
+the Rosati involution.  If $a\ne0$ in $\Q[\alpha]$, then
+$b=a^\dagger a\ne0$, because $\operatorname{Tr}(a^\dagger a)>0$.  Since
+$b^\dagger=b$, we have
+$\operatorname{Tr}(b^2)=\operatorname{Tr}(b^\dagger b)>0$, so $b^2\ne0$;
+iterating gives $b^{2^j}\ne0$ for every $j$.  Thus $b$, and hence $a$, is
+not nilpotent.
+
+Every automorphism $\tau$ of $\Q[\alpha]$ permutes the maximal ideals and
+therefore the factors: there is a permutation $\sigma$ and isomorphisms
+$\tau_i:K_i\to K_{\sigma(i)}$ such that
+$\tau(a_1,\ldots,a_n)=(b_1,\ldots,b_n)$ with
+$b_{\sigma(i)}=\tau_i(a_i)$.  For $\tau=\dagger$, the permutation must be
+trivial, since otherwise positivity would fail on an element such as
+$(a_1,0,\ldots,0)$.  Hence $\dagger$ preserves every factor and is positive
+definite on each.
+
+The involution extends by linearity (equivalently, by continuity) to a
+positive-definite involution on $\Q[\alpha]\otimes_\Q\R$.  The same argument
+shows that this is a product of fields, with each factor isomorphic to $\R$
+or $\C$, and that the involution preserves every factor.  It is the identity
+on a real factor.  On a complex factor it cannot be the identity, since that
+is not positive definite, so it is complex conjugation.  Consequently, for
+every homomorphism $\rho:\Q[\alpha]\to\C$,
+\[
+ \rho(\alpha^\dagger)=\overline{\rho(\alpha)}.
+\]
+Applying $\rho$ to $\alpha^\dagger\alpha=r$ gives
+$|\rho(\alpha)|^2=r$.  The values $\rho(\alpha)$ are the roots of the
+minimum polynomial of $\alpha$, and the roots of $P_\alpha$ are among these
+values by the characteristic-polynomial comparison recalled in Chapter I.
+This proves the lemma.
+
+\end{proof}
+
+\begin{corollary}[Zeta function]\label{cor:milne-zeta-function}\dcref{MI:ch2:1.5}
+For $0\leq r\leq 2g$, let $P_r(t)=\prod_{i_1<\cdots<i_r}(1-a_{i_1}\cdots a_{i_r}t)$, with $P_0(t)=1$. Then
+\[
+ Z(A,t)=\frac{P_1(t)P_3(t)\cdots P_{2g-1}(t)}
+ {P_0(t)P_2(t)\cdots P_{2g}(t)}.
+\]
+\end{corollary}
+
+\begin{proof}
+Take logarithms and use $\log(1-t)=-\sum_{m\ge1}t^m/m$ together with
+Theorem~\ref{thm:milne-zeta-weil-bounds}; the coefficient of $t^m/m$ is
+the alternating sum of the power sums of the $a_i^m$, which is $N_m$.
+\end{proof}
+
+
+\section{Abelian varieties over finite fields}
+\begin{definition}[Category up to isogeny]\label{def:milne-isogeny-category}\dcref{MI:ch2:2}
+For a field $k$, let $\operatorname{Isab}(k)$ be the $\Q$-linear category whose objects are
+abelian varieties over $k$ and whose morphisms are
+$\Hom_{\operatorname{Isab}(k)}(A,B)=\Hom(A,B)\otimes\Q$. Two objects are
+isomorphic in $\operatorname{Isab}(k)$ exactly when they are isogenous. It is
+additive, and every object is a direct sum of finitely many simple objects.
+\end{definition}
+
+\begin{lemma}[Frobenius and isogeny classes]\label{lem:milne-frobenius-isogeny}\dcref{MI:ch2:2.0}
+Let $A$ be an abelian variety over $\F_q$ and let $\pi_A$ be its Frobenius.
+Then $\pi_A$ commutes with every endomorphism of $A$. If $A$ is simple,
+$\End^0(A)$ is a division algebra and $\Q[\pi_A]$ is a field. An isogeny
+$A\to B$ between simple abelian varieties induces an isomorphism
+$\End^0(A)\to\End^0(B)$ carrying $\pi_A$ to $\pi_B$.
+\end{lemma}
+
+\begin{proof}[Source proof]
+Every morphism defined over $\F_q$ commutes with Frobenius. For simple $A$,
+every nonzero endomorphism is an isogeny, so it is invertible in
+$\End^0(A)$. If $A\to B$ is an isogeny, a quasi-inverse conjugates the two
+endomorphism algebras and carries Frobenius to Frobenius.
+\end{proof}
+
+\begin{definition}[Weil integers and conjugacy]\label{def:milne-weil-integer}\dcref{MI:ch2:2}
+A Weil $q$-integer is an algebraic integer $\pi$ such that, for every
+embedding $\sigma:\Q[\pi]\hookrightarrow\C$,
+$|\sigma(\pi)|=q^{1/2}$. Let $W(q)$ be the set of Weil $q$-integers in
+$\overline{\Q}$. Two elements $\pi$ and $\pi'$ of $W(q)$ are conjugate if any
+of the following equivalent conditions holds: they have the same minimum
+polynomial over $\Q$; there is an isomorphism $\Q[\pi]\to\Q[\pi']$ carrying
+$\pi$ to $\pi'$; or they lie in the same orbit under
+$\operatorname{Gal}(\overline{\Q}/\Q)$.
+\end{definition}
+
+\begin{definition}[Central simple algebras and the Brauer group]\label{def:milne-central-simple}\dcref{MI:ch2:2}
+A central simple $k$-algebra is a finite-dimensional simple $k$-algebra with
+centre $k$; if it is a division algebra it is central division. The Brauer
+group $\Br(k)$ consists of their similarity classes, with multiplication
+induced by tensor product and inverse induced by the opposite algebra.
+\end{definition}
+
+\begin{theorem}[Honda--Tate classification]\label{thm:milne-honda-tate}\dcref{MI:ch2:2.1}
+The map $A\mapsto\pi_A$ gives a bijection between isogeny classes of simple abelian varieties over $\F_q$ and conjugacy classes of Weil $q$-integers.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+For injectivity, Tate's isogeny theorem gives
+\[
+ \Hom(A,B)\otimes\Q_\ell\simeq
+ \Hom_{\operatorname{Gal}(\overline{\F}_q/\F_q)}(V_\ell A,V_\ell B).
+\]
+Frobenius acts semisimply, and the right side is nonzero when the Frobenius
+polynomials have a common root. For simple $A$ and $B$, a nonzero homomorphism
+is an isogeny, so equal conjugacy classes give equal isogeny classes.
+More explicitly, if
+$P_{\pi_A}(X)=\prod_i(X-a_i)$ and
+$P_{\pi_B}(X)=\prod_j(X-b_j)$, then semisimplicity gives
+\[
+ \dim_{\Q_\ell}\Hom_{\operatorname{Gal}}(V_\ell A,V_\ell B)
+ =\#\{(i,j):a_i=b_j\}.
+\]
+For surjectivity, Honda constructs the required varieties by starting with
+complex-multiplication varieties over $\C$, choosing models over number fields,
+and reducing at a suitable prime. Proposition~\ref{prop:milne-cm-reduction}
+and Theorem~\ref{thm:milne-shimura-taniyama} identify the resulting Weil
+integer; the remaining number-theoretic argument is Honda's theorem.
+
+\end{proof}
+
+\begin{lemma}[Tensor products of central simple algebras]\label{lem:milne-central-simple-tensor}\dcref{MI:ch2:2.2}
+The tensor product over $k$ of two central simple $k$-algebras is central simple.
+\end{lemma}
+
+\begin{proof}[Source proof]
+
+This is the standard central-simple tensor theorem (Milne cites CFT, IV, 2.8).
+
+\end{proof}
+
+\begin{proposition}[Wedderburn]\label{prop:milne-wedderburn}\dcref{MI:ch2:2.3}
+Every central simple algebra is $M_r(D)$ for a central division algebra $D$, with $r$ uniquely determined and $D$ unique up to isomorphism.
+\end{proposition}
+
+\begin{proof}[Source proof]
+
+This is Wedderburn's structure theorem (Milne cites CFT, IV, 1.15 and 1.20).
+
+\end{proof}
+
+\begin{theorem}[Local Brauer invariants]\label{thm:milne-local-brauer}\dcref{MI:ch2:2.4}
+For every local field $k$, $\operatorname{inv}:\Br(k)\hookrightarrow\Q/\Z$ is canonical and injective; it is an isomorphism for nonarchimedean $k$, has image $\frac12\Z/\Z$ for $\R$, and $\Br(\C)=0$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+This is the local invariant theorem for Brauer groups (Milne cites CFT, III,
+2.1 and IV, 4.3).
+
+\end{proof}
+
+\begin{theorem}[Global Brauer sequence]\label{thm:milne-global-brauer}\dcref{MI:ch2:2.6}
+For a number field $k$, there is an exact sequence
+\[
+ 0\longrightarrow\Br(k)\longrightarrow\bigoplus_v\Br(k_v)
+ \longrightarrow\Q/\Z\longrightarrow0.
+\]
+The sum is over all primes of $k$, including the infinite primes. The first
+map sends $[D]$ to $([D\otimes_k k_v])_v$, and the second sends
+$(a_v)_v$ to $\sum_v\operatorname{inv}_v(a_v)$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+See CFT VIII, 4.2; Milne notes that this is no easier to prove than the main
+theorem of abelian class field theory.
+
+\end{proof}
+
+\begin{theorem}[Brauer exponent]\label{thm:milne-brauer-exponent}\dcref{MI:ch2:2.8}
+For a central division algebra $D$ over a number field $k$, the order of
+$[D]$ in $\Br(k)$ equals $\sqrt{[D:k]}$ and the least common denominator of
+its local invariants.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+Since the order of an element of $\bigoplus_v\Q/\Z$ is the least common
+denominator of its components, the second assertion follows directly from the
+global Brauer exact sequence.  The first assertion follows from the
+Grunwald--Wang theorem (CFT VIII, 2.4); Milne also refers to Reiner,
+\emph{Maximal Orders}, 32.19.
+
+\end{proof}
+
+\begin{theorem}[Endomorphism algebra of a simple finite-field variety]\label{thm:milne-simple-finite-field}\dcref{MI:ch2:2.9}
+Let $A/\F_q$ be simple, let $D=\End^0(A)$, and let $\pi$ be its Frobenius.
+Then the centre of $D$ is $E=\Q[\pi]$. For a prime $v$ of $E$, put
+$i_v=\operatorname{inv}_v(D)$. Then $|\pi|_v=q^{i_v}$, and, at a finite
+place $v$ above $p$,
+\[
+\operatorname{inv}_v(D)=
+\frac{\operatorname{ord}_v(\pi)}{\operatorname{ord}_v(q)}[E_v:\Q_p]
+\quad\text{in }\Q/\Z;
+\]
+the invariant is $1/2$ at a real place and $0$ at a complex place or at a
+finite place not dividing $p$.
+Finally
+$2\dim A=[D:E]^{1/2}[E:\Q]$.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+This was proved by Tate (Inventiones Mathematicae, 1966), who did not publish
+the proof of the assertion about the local invariants.  That part is given in
+the account of Waterhouse and Milne, Proc. Symp. Pure Math., AMS XX.
+
+\end{proof}
+
+\begin{definition}[CM fields and CM types]\label{def:milne-cm-type}\dcref{MI:ch2:2}
+A CM-field is a totally imaginary quadratic extension $E$ of a totally real
+field $F$. Equivalently, it has an involution $\iota\ne 1$ whose action under
+each embedding $E\hookrightarrow\C$ is complex conjugation. If $[E:\Q]=2g$,
+a CM-type $\Phi$ is a choice of one embedding from each of the $g$ conjugate
+pairs of embeddings $E\hookrightarrow\C$.
+\end{definition}
+
+\begin{definition}[Complex multiplication and good reduction]\label{def:milne-cm-good-reduction}\dcref{MI:ch2:2}
+An abelian variety $A/\C$ of dimension $g$ has complex multiplication by a
+CM-field $E$ if $E\hookrightarrow\End^0(A)$, $[E:\Q]=2g$, and a polarization
+has Rosati involution restricting to the CM involution on $E$. Let $A$ be an
+abelian variety over a nonarchimedean local field $k$, with valuation ring
+$R$ and residue field $k_0$. Choose a projective embedding of $A$ and reduce
+its defining equations modulo the maximal ideal of $R$, obtaining a variety
+$A_0/k_0$. If the embedding can be chosen so that $A_0$ is nonsingular, then
+$A_0$ is independent of all choices and is an abelian variety. In this case
+$A$ is said to have good reduction and $A_0$ is its reduced variety. For an
+abelian variety over a number field, good reduction at a finite prime means
+good reduction after base change to the corresponding completion.
+\end{definition}
+
+\begin{proposition}[CM-type construction]\label{prop:milne-cm-type-construction}\dcref{MI:ch2:2}
+Let $(E,\Phi)$ be a CM-type with $[E:\Q]=2g$. The quotient
+\[
+ A_\Phi=\C^g/\Phi(\mathcal O_E),\qquad
+ \Phi(x)=(\phi(x))_{\phi\in\Phi},
+\]
+is a complex abelian variety of dimension $g$ with complex multiplication by
+$E$.
+\end{proposition}
+
+\begin{proof}[Source proof]
+The lattice $\Phi(\mathcal O_E)$ makes the quotient a complex torus. The
+standard alternating form obtained from the trace pairing and the CM
+involution is a Riemann form, so the torus is an abelian variety. Multiplication
+by $x\in\mathcal O_E$ acts through the diagonal map $\Phi(x)$ and extends to
+$E\subset\End^0(A_\Phi)$; the trace form gives the required Rosati involution.
+\end{proof}
+
+\begin{proposition}[CM Weil integer construction]\label{prop:milne-cm-weil-integer}\dcref{MI:ch2:2}
+Let $(E,\Phi)$ be a CM-type, let $\mathfrak p$ be a prime of $E$ above the
+rational prime $p$, and choose $h$ and $a\in\mathcal O_E$ with
+$\mathfrak p^h=(a)$. For $n$ sufficiently divisible, set
+\[
+ \pi=\prod_{\phi\in\Phi}\phi(a^{2n}),
+ \qquad q=p^{2nf(\mathfrak p/p)}.
+\]
+Then $\pi$ is a Weil $q$-integer, and its conjugacy class is independent of
+the choice of the generator $a$.
+\end{proposition}
+
+\begin{proof}[Source proof]
+Writing $\overline{\pi}$ for the product over the conjugate embeddings gives
+\[
+ \pi\overline{\pi}=\Norm_{E/\Q}(a^n)^2=q.
+\]
+The ideal norm calculation gives
+$(\Norm_{E/\Q}a)=(p)^{f(\mathfrak p/p)}$, so the displayed integer is
+$q=p^{2nf(\mathfrak p/p)}$. The same calculation for every conjugate of
+$\pi$ proves the Weil absolute-value condition.
+
+The unit theorem gives
+$\operatorname{rank}(\mathcal O_E^\times)=g-1=\operatorname{rank}(\mathcal O_F^\times)$.
+Choose $n$ so that $u^n\in\mathcal O_F^\times$ for every unit $u$ of $E$.
+If $a$ is replaced by $au$, then, because the restrictions of the embeddings
+in $\Phi$ are all the embeddings of $F$ into $\R$,
+\[
+ \prod_{\phi\in\Phi}\phi((au)^{2n})
+ =\pi\,\Norm_{F/\Q}(u^n)^2=\pi.
+\]
+Thus the construction is independent of the choice of the generator.
+\end{proof}
+
+\begin{proposition}[CM reduction]\label{prop:milne-cm-reduction}\dcref{MI:ch2:2.10}
+If $A/\C$ has complex multiplication by a CM-field $E$, then $A$ has a model over a number field and, after finite extension, good reduction at every prime.
+\end{proposition}
+\begin{proof}[Source proof omitted]
+Milne writes ``Omitted'' and refers to the theory of complex multiplication.
+\end{proof}
+\begin{theorem}[Shimura--Taniyama]\label{thm:milne-shimura-taniyama}\dcref{MI:ch2:2.11}
+Let $A/\F_q$ be obtained by reduction from an abelian variety of CM-type
+$(E,\Phi)$. Then the Weil $q$-integer associated with $A$ is the one
+constructed from a prime $\mathfrak p$ of $E$ and a generator of a power of
+$\mathfrak p$, up to a root of unity.
+\end{theorem}
+
+\begin{proof}[Source proof]
+
+This is the main theorem of Shimura and Taniyama,
+\emph{Complex Multiplication of Abelian Varieties and its Applications to
+Number Theory} (1961).  Milne refers to that monograph and, for a concise
+modern exposition, to his note ``The fundamental theorem of complex
+multiplication,'' arXiv:0705.3446.
+
+\end{proof}

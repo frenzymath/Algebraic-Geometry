@@ -1,0 +1,829 @@
+% Source-faithful assembly: Mumford, Abelian Varieties, Chapter III,
+% Horizon transcription pages 0132--0176 (with quotient continuation pages
+% 0127--0131 assembled in ch03-source-part1.tex).
+
+\section{Finite-fibre associated spaces}
+\label{mumford-III12-associated-source}
+\dcref{M:ch3:III.12}
+
+\begin{definition}[Fibration with finite fibre]
+\label{mumford-def-associated-finite-fibre}
+\dcref{M:ch3:III.12}
+Let a finite group scheme $G$ act freely on $X$, with quotient $X/G$, and
+let $F$ be a finite scheme with a $G$-action. The induced free action on
+$X\times F$ has quotient
+\[
+U=(X\times F)/G,
+\]
+and the natural morphism $\pi:U\to V=X/G$ is called the fibration with
+fibre $F$ associated to the principal $G$-bundle $X\to X/G$. It is finite
+and flat; its degree is the rank of $\pi_*\mathcal O_U$ over
+$\mathcal O_V$.
+\source{mumford-abelian-varieties:page-0132}
+\uses{mumford-thm-finite-groupscheme-quotient}
+\end{definition}
+
+\begin{theorem}[Euler characteristic of an associated fibration]
+\label{mumford-thm-euler-associated-fibration}
+\dcref{M:ch3:III.12}
+\uses{mumford-def-associated-finite-fibre}
+If $\pi:U\to V$ is a finite-fibre fibration associated to a principal
+$G$-bundle, then for every coherent sheaf $\mathcal F$ on $V$,
+\[
+\chi(\pi^*\mathcal F)=(\deg\pi)\chi(\mathcal F).
+\]
+\source{mumford-abelian-varieties:page-0132}
+\source{mumford-abelian-varieties:page-0133}
+\end{theorem}
+\begin{proof}
+It is enough to treat the case $V=U/G$ for a free action, since
+$(X\times F)\to(X\times F)/G\to X/G$ reduces the general case to the
+composite and first morphism. Suppose the assertion fails, and choose a
+counterexample $\mathcal F$ minimal by support. Let $\mathcal J$ annihilate
+$\mathcal F$ and write $V'$ for its support, $U'=\pi^{-1}(V')$. The quotient
+proposition shows that $U'\to V'$ remains a principal $G$-space. Thus we
+may assume the assertion holds for every coherent sheaf with proper support.
+Exact sequences and flatness then show it also holds for extensions whenever
+it holds for two terms.
+
+If $V$ is reducible, a short exact sequence with both terms supported on
+proper closed subsets gives a contradiction. If the nilpotent ideal
+$\mathcal J$ of $V$ is nonzero, the exact sequence
+\[
+0\to\mathcal J\mathcal F\to\mathcal F\to
+\mathcal F/\mathcal J\mathcal F\to0
+\]
+does the same. Hence assume $V$ reduced and irreducible. If $r$ is the
+generic rank of $\mathcal F$, there is an ideal $\mathcal J$ and an
+injection $\mathcal F^r\to\mathcal F$ with proper-support cokernel.
+Consequently it suffices to prove the formula for $\mathcal O_V$.
+
+Apply it to $\pi_*\mathcal O_U$, a coherent sheaf of nonzero rank. By the
+projection formula,
+\[
+\begin{aligned}
+\chi(\pi^*\pi_*\mathcal O_U)
+ &=\chi(\mathcal O_V\otimes_{\mathcal O_V}\pi_*\mathcal O_U)\\
+ &=(\deg\pi)\chi(\mathcal O_V)
+ =(\deg\pi)\chi(\pi_*\mathcal O_U),
+\end{aligned}
+\]
+which proves the assertion.
+\end{proof}
+
+\begin{remark}[Finite étale maps as associated spaces]
+\label{mumford-rem-symmetric-associated-space}
+\dcref{M:ch3:III.12}
+Every finite étale morphism $f:U\to V$ of constant degree $n$ is an
+associated finite-fibre fibration for a principal $\Sigma(n)$-space. In the
+$n$-fold fibre product $U\times_V\cdots\times_VU$, let $P$ be the open and
+closed locus of tuples with pairwise distinct entries. Then $P\to V$ is a
+principal $\Sigma(n)$-space. If $F$ is the reduced $n$-point scheme with
+the natural permutation action, the invariant map
+\[
+P\times F\longrightarrow V,
+\qquad ((x_1,\ldots,x_n),i)\longmapsto x_i
+\]
+has quotient $V$ and identifies the associated space with $U$.
+\source{mumford-abelian-varieties:page-0133}
+\source{mumford-abelian-varieties:page-0134}
+\uses{mumford-thm-euler-associated-fibration}
+\end{remark}
+
+\section{The dual abelian variety in any characteristic}
+\label{mumford-III13-source}
+\dcref{M:ch3:III.13}
+
+\begin{definition}[Scheme-theoretic stabilizer of a line bundle]
+\label{mumford-def-KL}
+\dcref{M:ch3:III.13}
+For a line bundle $L$ on an abelian variety $X$, put
+\[
+M=m^*L\otimes p_1^*L^{-1}\otimes p_2^*L^{-1}
+\]
+on $X\times X$. The group scheme $K(L)\subset X$ is the maximal closed
+subscheme for which $M|_{K(L)\times X}$ is trivial. Equivalently, for every
+scheme $S$ and $f:S\to X$, one has $f\in K(L)(S)$ exactly when
+\[
+T_f^*L_S\simeq L_S\otimes p_2^*N
+\]
+for a line bundle $N$ on $S$.
+\source{mumford-abelian-varieties:page-0134}
+\source{mumford-abelian-varieties:page-0135}
+\end{definition}
+\begin{proof}
+The composite $X\times S\xrightarrow{T_f}X\times S\to X$ is
+$m\circ(1_X\times f)$, so
+$T_f^*L_S\simeq(1_X\times f)^*m^*L$. Restricting a putative isomorphism
+to $\{0\}\times S$ identifies $N$ with $f^*L$. Hence the displayed
+condition is equivalent to triviality of $(1_X\times f)^*M$, which is the
+defining universal property of $K(L)$. In particular $K(L)$ is a subgroup
+scheme of $X$.
+\end{proof}
+
+\begin{construction}[Dual quotient and normalized Poincare bundle]
+\label{mumford-thm-dual-any-characteristic}
+\label{mumford-prop-abelian-quotient}
+\dcref{M:ch3:III.13}
+\uses{mumford-def-KL,mumford-prop-maximal-triviality-scheme,
+ mumford-thm-finite-groupscheme-quotient}
+Choose an ample line bundle $L$ on $X$. Then $K(L)$ is finite. The quotient
+\[
+\pi:X\longrightarrow\widehat X=X/K(L)
+\]
+is an abelian variety. The bundle $M$ above admits a canonical
+$K(L)$-linearization and descends uniquely to a normalized line bundle $P$ on
+$\widehat X\times X$. Its restrictions to $\{0\}\times X$ and
+$\widehat X\times\{0\}$ are trivial, and
+\[
+\widehat X\xrightarrow{\sim}\operatorname{Pic}^0X
+\]
+identifies the fibre of $P$ over $\alpha$ with the corresponding algebraically
+trivial line bundle on $X$.
+\source{mumford-abelian-varieties:page-0135}
+\source{mumford-abelian-varieties:page-0136}
+\end{construction}
+\begin{proof}
+For $x\in K(L)(S)$, write $T_x^*L_S\simeq L_S\otimes L_0$ with $L_0$ from
+$S$. Then translation by $(x,0)$ preserves $M_S$. Any two lifts to $M_S$
+differ by a global unit; the restriction map from $X_S\times_SX_S$ to
+$X_S\times_S\{0\}$ is an isomorphism on units. Rigidifying along the second
+factor therefore selects a unique lift, and these lifts form a group action.
+Faithfully flat descent for the finite quotient gives $P$ and its uniqueness.
+The map $X\to\operatorname{Pic}^0X$, $x\mapsto T_x^*L\otimes L^{-1}$, is
+constant on $K(L)$ and has kernel $K(L)$, so the induced map from $\widehat X$
+is the displayed isomorphism.
+\end{proof}
+
+\begin{theorem}[Universal Poincare mapping property]
+\label{mumford-thm-poincare-universal-mapping}
+\dcref{M:ch3:III.13}
+\uses{mumford-prop-maximal-triviality-scheme,mumford-cor-structure-sheaf-cohomology}
+Let $S$ be a scheme and $L$ a line bundle on $S\times X$, trivial on
+$S\times\{0\}$, whose restriction to every fibre $\{s\}\times X$ lies in
+$\operatorname{Pic}^0X$. There is a unique morphism $\phi:S\to\widehat X$
+such that $L\simeq(\phi\times1_X)^*P$.
+\source{mumford-abelian-varieties:page-0136}
+\source{mumford-abelian-varieties:page-0137}
+\source{mumford-abelian-varieties:page-0138}
+\source{mumford-abelian-varieties:page-0139}
+\source{mumford-abelian-varieties:page-0140}
+\end{theorem}
+\begin{proof}
+Put $M=p_{23}^*P\otimes p_{13}^*L^{-1}$ on
+$S\times\widehat X\times X$ and let $\Gamma_S$ be its maximal triviality
+subscheme. Uniqueness and existence reduce to proving
+$\Gamma_S\to S$ is an isomorphism. By localization and base change assume
+$S=\operatorname{Spec}B$ is finite local and twist $L$ so its closed fibre
+is trivial. The direct images along $S\times\widehat X\times X\to S\times X$
+have discrete support, so Leray gives free $B$-modules
+\[
+H^p(S\times\widehat X\times X,M)
+\simeq H^0(S\times X,R^pp_{13,*}M).
+\]
+The direct images along $S\times\widehat X\times X\to S\times\widehat X$
+are supported at $(s,0)$ and are computed by a finite free complex
+$0\to K_0\to\cdots\to K_g\to0$ over
+$A=B\otimes_k\mathcal O_{0,\widehat X}$.
+
+We use the following regular-local-ring lemma: if $\mathcal O$ is regular of
+dimension $g$ and a length-$g$ complex of finite free modules has artinian
+cohomology, then $H^i=0$ for $i<g$. For $g>0$, choose
+$x\in\mathfrak M\setminus\mathfrak M^2$, reduce the complex modulo $x$,
+and use the long exact cohomology sequence and induction on $g$; Nakayama
+then gives the vanishing. Applying the lemma and its dual to the complex
+above gives an artinian terminal module $K\simeq A/\mathfrak Q$, with
+$\mathfrak Q\cap B=0$. For every $\mathfrak M$-primary ideal $\mathfrak b$,
+\[
+H^0(V(\mathfrak b)\times X,M)
+\simeq\operatorname{Hom}_A(A/\mathfrak Q,A/\mathfrak b).
+\]
+The evaluation map is surjective after reduction at the closed point, hence
+$M$ is trivial over $V(\mathfrak Q)\times X$ and
+$\Gamma_S=V(\mathfrak Q)$. Its fibre is the reduced point $(s,0)$, so
+$A/(\mathfrak Q+\mathfrak M_A)=k$ and $B\to A/\mathfrak Q$ is an
+isomorphism. Thus $\Gamma_S\to S$ is an isomorphism, proving the universal
+mapping property.
+\end{proof}
+
+\begin{corollary}[Cohomology of the Poincare bundle]
+\label{mumford-cor-poincare-cohomology}
+\dcref{M:ch3:III.13}
+\uses{mumford-thm-poincare-universal-mapping}
+For an abelian variety $X$ of dimension $g$ and its dual $\widehat X$,
+\[
+H^i(\widehat X\times X,P)=
+\begin{cases}0&i\ne g,\\ k&i=g.\end{cases}
+\]
+\source{mumford-abelian-varieties:page-0140}
+\source{mumford-abelian-varieties:page-0141}
+\end{corollary}
+\begin{proof}
+With $S=\operatorname{Spec}k$ and the trivial bundle in the universal
+mapping proof, the resulting complex is a free resolution of $k$ over the
+regular local ring $\mathcal O_{0,\widehat X}$. Comparing it with the
+Koszul resolution on a basis $x_1,\ldots,x_g$ of the maximal ideal modulo
+its square gives the asserted cohomology. Explicitly, the Koszul differential
+is
+\[
+d_p(e_{i_1}\wedge\cdots\wedge e_{i_p})=
+\sum_{j=1}^p(-1)^j x_{i_j}e_{i_1}\wedge\cdots\widehat e_{i_j}\cdots\wedge e_{i_p}.
+\]
+\end{proof}
+
+\begin{corollary}[Structure-sheaf cohomology]
+\label{mumford-cor-structure-sheaf-cohomology}
+\dcref{M:ch3:III.13}
+\uses{mumford-cor-poincare-cohomology}
+For $\dim X=g$,
+\[
+\dim_kH^p(X,\mathcal O_X)=\binom gp.
+\]
+\source{mumford-abelian-varieties:page-0141}
+\end{corollary}
+\begin{proof}
+The cohomology is that of the Koszul complex tensored with $k$; all its
+differentials vanish, and the rank of its $p$-cochains is $\binom gp$.
+\end{proof}
+
+\begin{corollary}[Tangent space of the dual]
+\label{mumford-cor-tangent-dual-h1}
+\dcref{M:ch3:III.13}
+\uses{mumford-thm-poincare-universal-mapping}
+There is a canonical isomorphism
+$T_0\widehat X\simeq H^1(X,\mathcal O_X)$.
+\source{mumford-abelian-varieties:page-0141}
+\source{mumford-abelian-varieties:page-0142}
+\end{corollary}
+\begin{proof}
+For $S=\operatorname{Spec}k[\epsilon]/(\epsilon^2)$, the universal property
+identifies $T_0\widehat X$ with the kernel of restriction from line bundles
+on $S\times X$ trivial on the closed fibre. The exact sequence
+\[
+1\to1+\epsilon\mathcal O_X\to\mathcal O_{S\times X}^*\to
+\mathcal O_X^*\to1,
+\qquad1+\epsilon\mathcal O_X\simeq\mathcal O_X,
+\]
+gives the result.
+\end{proof}
+
+\begin{corollary}[Dual isogenies]
+\label{mumford-cor-dual-isogeny-degree}
+\dcref{M:ch3:III.13}
+\uses{mumford-thm-poincare-universal-mapping,mumford-thm-euler-associated-fibration}
+If $f:X\to Y$ is an isogeny, there is a unique homomorphism
+$\widehat f:\widehat Y\to\widehat X$ with
+\[
+(1\times\widehat f)^*P_X\simeq(f\times1)^*P_Y,
+\]
+and $\deg f=\deg\widehat f$.
+\source{mumford-abelian-varieties:page-0141}
+\source{mumford-abelian-varieties:page-0142}
+\end{corollary}
+\begin{proof}
+The universal property gives $\widehat f$. Applying the Euler
+characteristic formula for a finite flat associated fibre space to the two
+pullbacks gives
+\[
+\chi((1\times\widehat f)^*P_X)=\deg\widehat f\,\chi(P_X),\qquad
+\chi((f\times1)^*P_Y)=\deg f\,\chi(P_Y).
+\]
+Since both Poincare bundles have Euler characteristic $(-1)^g$, the degrees
+are equal.
+\end{proof}
+
+\begin{corollary}[The morphism associated to a line bundle]
+\label{mumford-cor-line-bundle-morphism}
+\label{mumford-prop-phi-L}
+\dcref{M:ch3:III.13}
+\uses{mumford-thm-poincare-universal-mapping,mumford-prop-maximal-triviality-scheme}
+For every line bundle $L$ on $X$, $\phi_L:X\to\operatorname{Pic}^0X\simeq
+\widehat X$ is a morphism and its scheme-theoretic kernel is $K(L)$.
+\source{mumford-abelian-varieties:page-0142}
+\end{corollary}
+\begin{proof}
+The universal property applied to
+$m^*L\otimes p_1^*L^{-1}\otimes p_2^*L^{-1}$ gives the morphism. The
+definition of $K(L)$ as the maximal subscheme on which this bundle is
+trivial is exactly the scheme-theoretic kernel.
+\end{proof}
+
+\begin{proposition}[Divisorial correspondences]
+\label{mumford-prop-divisorial-correspondence}
+\dcref{M:ch3:III.13}
+\uses{mumford-thm-poincare-universal-mapping,mumford-thm-euler-associated-fibration}
+Let $Q$ be a line bundle on $X\times Y$, with trivial restrictions to the
+two coordinate factors, and $\dim X=\dim Y$. The following are equivalent:
+\begin{enumerate}
+\item no nonzero subscheme of $X$ makes $Q$ trivial;
+\item no nonzero subscheme of $Y$ makes $Q$ trivial;
+\item $|\chi(Q)|=1$.
+\end{enumerate}
+When they hold, $Y\simeq\widehat X$ and $X\simeq\widehat Y$.
+\source{mumford-abelian-varieties:page-0142}
+\source{mumford-abelian-varieties:page-0143}
+\end{proposition}
+\begin{proof}
+The universal property gives $f:Y\to\widehat X$ with
+$Q=(1_X\times f)^*P$. Condition (2) says that $f$ has trivial kernel. Equal
+dimensions then make $f$ an isogeny, and
+$|\chi(Q)|=\deg f\,|\chi(P)|=\deg f$. Conversely, if $f$ has positive
+dimensional kernel, finite subgroups of arbitrarily large order $d$ in the
+kernel make $Q$ descend through $X\times Y/F$, so the Euler characteristic
+is divisible by every such $d$ and is zero. This proves the equivalence.
+\end{proof}
+
+\begin{corollary}[Duality hypothesis]
+\label{mumford-thm-duality-hypothesis}
+\label{mumford-prop-biduality-any-characteristic}
+\dcref{M:ch3:III.13}
+The canonical morphism $X\to\widehat{\widehat X}$ defined by the Poincare
+bundle is an isomorphism.
+\source{mumford-abelian-varieties:page-0143}
+\uses{mumford-prop-divisorial-correspondence}
+\end{corollary}
+\begin{proof}
+The Poincare bundle satisfies condition (2) of the preceding proposition,
+and hence also (1), so the induced morphism is an isomorphism.
+\end{proof}
+
+\section{Duality of finite commutative group schemes}
+\label{mumford-III14-source}
+\dcref{M:ch3:III.14}
+
+\begin{definition}[Cartier dual]
+\label{mumford-def-cartier-dual}
+\dcref{M:ch3:III.14}
+For a finite commutative group scheme $G=\operatorname{Spec}R$ in
+characteristic $p>0$, the dual group scheme is
+$\widehat G=\operatorname{Spec}R^*$, where the dual of the group-law
+coproduct is the multiplication on $R^*$ and the dual of multiplication on
+$R$ is its coproduct.
+\source{mumford-abelian-varieties:page-0143}
+\source{mumford-abelian-varieties:page-0144}
+\end{definition}
+
+\begin{theorem}[Cartier dual represents characters]
+\label{mumford-thm-cartier-duality}
+\dcref{M:ch3:III.14}
+\uses{mumford-def-cartier-dual}
+For every scheme $S$,
+\[
+\widehat G(S)\simeq\operatorname{Hom}_S(G_S,\mathbb G_{m,S}),
+\]
+functorially in $S$.
+\source{mumford-abelian-varieties:page-0144}
+\source{mumford-abelian-varieties:page-0145}
+\source{mumford-abelian-varieties:page-0146}
+\end{theorem}
+\begin{proof}
+For $S=\operatorname{Spec}A$, a homomorphism to $\mathbb G_m$ is an
+$\alpha\in R\otimes A$ satisfying
+$\mu_R(\alpha)=\alpha\otimes\alpha$ and $\epsilon(\alpha)=1$.
+The latter condition implies invertibility, using the inverse map. Since
+$R\otimes A\simeq\operatorname{Hom}_A((R\otimes A)^*,A)$, these elements
+are precisely algebra homomorphisms $A^*\otimes A\to A$, i.e. $A$-points of
+$\operatorname{Spec}R^*$. The construction is natural and respects group
+laws. Taking $S=\widehat G$ gives the universal bilinear character
+$\widehat G\times G\to\mathbb G_m$.
+\end{proof}
+
+\begin{proposition}[Local/reduced decomposition]
+\label{mumford-prop-cartier-local-reduced}
+\dcref{M:ch3:III.14}
+\uses{mumford-thm-cartier-duality}
+Every finite commutative group scheme has a unique product decomposition
+$G_{r,r}\times G_{r,l}\times G_{l,r}\times G_{l,l}$ according as it and
+its Cartier dual are reduced or local. Groups of type $(r,r)$ are products
+of cyclic groups of order prime to $p$; groups of type $(r,l)$ are products
+of cyclic $p$-groups and type $(l,r)$ are their duals.
+\source{mumford-abelian-varieties:page-0147}
+\end{proposition}
+\begin{proof}
+If $G$ is reduced, it is uniquely expressible as a product $G_1\times G_2$,
+where $G_1$ has order prime to $p$ and $G_2$ is a $p$-group. By duality,
+$\widehat G_1$ is reduced and $\widehat G_2$ is local. When $G$ is local,
+splitting $\widehat G$ into local and reduced parts and dualizing back proves
+the analogous assertion. The only groups of type $(r,r)$ are reduced groups
+of order prime to $p$, hence products of cyclic prime-power groups with
+primes distinct from $p$. The only groups of type $(r,l)$ are $p$-groups,
+hence products of $\mathbb Z/p^{n_i}\mathbb Z$'s; the groups of type $(l,r)$
+are their duals. Applying these decompositions to the four possible types
+gives the asserted unique product decomposition.
+\end{proof}
+
+\begin{proposition}[Primitive elements and the Lie algebra]
+\label{mumford-prop-cartier-primitives}
+\dcref{M:ch3:III.14}
+\uses{mumford-thm-cartier-duality,mumford-prop-group-scheme-lie}
+\[
+\operatorname{Hom}_{\mathrm{Gp.Sch}}(\widehat G,\mathbb G_a)
+\simeq\{\alpha\in R^*:s^*\alpha=\alpha\otimes1+1\otimes\alpha\}
+\simeq\Lie(G).
+\]
+The $p$-power operation corresponds to composition with Frobenius.
+\source{mumford-abelian-varieties:page-0148}
+\source{mumford-abelian-varieties:page-0149}
+\end{proposition}
+\begin{proof}
+For $\alpha(1)=0$ and $\alpha(\mathfrak M^2)=0$, the transpose of $\alpha$
+is a derivation. Primitive elements are exactly these invariant derivations,
+and the coproduct calculation gives the displayed bijections.
+\end{proof}
+
+\begin{definition}[Height one]
+\label{mumford-def-height-one-group}
+\dcref{M:ch3:III.14}
+A finite group scheme is of height one if it has one point $e$ and
+$x^p=0$ for every $x$ in the maximal ideal at $e$.
+\source{mumford-abelian-varieties:page-0150}
+\end{definition}
+
+\begin{theorem}[Height-one group schemes and $p$-Lie algebras]
+\label{mumford-thm-height-one-equivalence}
+\dcref{M:ch3:III.14}
+\uses{mumford-prop-cartier-primitives}
+The functor $G\mapsto\Lie G$ is an equivalence between finite commutative
+height-one group schemes and finite-dimensional $p$-Lie algebras.
+\source{mumford-abelian-varieties:page-0150}
+\source{mumford-abelian-varieties:page-0151}
+\source{mumford-abelian-varieties:page-0152}
+\end{theorem}
+\begin{proof}
+For a $p$-Lie algebra $\mathfrak g$, set
+$U(\mathfrak g)=S(\mathfrak g)/\langle\alpha^{(p)}-\alpha^p\rangle$ and
+$G(\mathfrak g)=\operatorname{Spec}U(\mathfrak g)^*$. The coproduct
+$s(\alpha)=1\otimes\alpha+\alpha\otimes1$ makes this a finite group
+scheme of height one. Primitive elements identify its Lie algebra with
+$\mathfrak g$. Conversely, the inclusion $\Lie G\to R^*$ extends to a
+bialgebra map $U(\Lie G)\to R^*$; its transpose is a group morphism.
+The differential is an isomorphism, hence the morphism is a closed immersion
+by Nakayama, and both coordinate rings have dimension
+$p^{\dim\Lie G}$, so it is an isomorphism.
+\end{proof}
+
+\begin{corollary}[Actions of height-one groups]
+\label{mumford-cor-height-one-actions}
+\dcref{M:ch3:III.14}
+\uses{mumford-thm-height-one-equivalence}
+For a commutative height-one $G$ with Lie algebra $\mathfrak g$, an action on
+$X$ is equivalent to derivations $D_\alpha$ satisfying
+\[
+[D_\alpha,D_\beta]=0,\qquad D_{\alpha^{(p)}}=D_\alpha^p.
+\]
+Moreover multiplication by $p$ on $G$ is zero.
+\source{mumford-abelian-varieties:page-0152}
+\source{mumford-abelian-varieties:page-0153}
+\end{corollary}
+\begin{proof}
+The relations define a homomorphism from $U(\mathfrak g)$ to differential
+operators. Transposing it gives
+$\mathcal O_X\to R\otimes\mathcal O_X$; the unit and composition diagrams
+are exactly the action diagrams. The assertion about multiplication by $p$
+follows because it kills the Lie algebra and the height-one equivalence is
+faithful.
+\end{proof}
+
+\begin{corollary}[Semisimple/nilpotent decomposition]
+\label{mumford-cor-p-lie-semisimple-nilpotent}
+\dcref{M:ch3:III.14}
+\uses{mumford-thm-height-one-equivalence}
+Any vector space with a $p$-linear operation decomposes uniquely as
+$V=V_s\oplus V_n$, with a basis of fixed vectors on $V_s$ and nilpotent
+$p$-operation on $V_n$. For a height-one group this is the decomposition
+$\Lie G_{l,r}\oplus\Lie G_{l,l}$.
+\source{mumford-abelian-varieties:page-0153}
+\source{mumford-abelian-varieties:page-0154}
+\end{corollary}
+\begin{proof}
+For a height-one group scheme, the local/reduced decomposition gives
+\[
+G=G_{l,r}\times G_{l,l}.
+\]
+Both factors are again of height one. Since $G_{l,r}$ is killed by $p$, it
+is isomorphic to $\mu_p^n$ for some $n$. As $\Lie(\mu_p)$ has a generator
+$e$ with $e^{(p)}=e$, the induced decomposition
+\[
+\Lie G=\Lie G_{l,r}\oplus\Lie G_{l,l}=\mathfrak g_1\oplus\mathfrak g_2
+\]
+gives a basis $e_1,\ldots,e_n$ of $\mathfrak g_1$ with
+$e_i^{(p)}=e_i$. Since $G_{l,l}$ is local and $\mathfrak g_2$ is contained
+in the maximal ideal of $\Gamma(\mathcal O_{G_{l,l}})$, every
+$\alpha\in\mathfrak g_2$ satisfies $\alpha^{(p^m)}=0$ for $m$ sufficiently
+large. Thus the displayed decomposition is invariant under the $p$-linear
+operation, with the first summand having a basis of fixed vectors and the
+second having nilpotent $p$-operation. The height-one equivalence identifies
+these summands with $\Lie G_{l,r}$ and $\Lie G_{l,l}$, respectively; the
+uniqueness follows from the corresponding uniqueness of the group-scheme
+decomposition.
+\end{proof}
+
+\section{Applications to abelian varieties}
+\label{mumford-III15-source}
+\dcref{M:ch3:III.15}
+
+\begin{theorem}[Kernel of the dual isogeny]
+\label{mumford-thm-dual-isogeny-kernel}
+\dcref{M:ch3:III.15}
+\uses{mumford-thm-cartier-duality,mumford-prop-translation-quotient-isogeny}
+If $f:X\to Y$ is an isogeny with kernel $K$ and dual map
+$\widehat f:\widehat Y\to\widehat X$ with kernel $K'$, then
+$K'\simeq\widehat K$ canonically.
+\source{mumford-abelian-varieties:page-0154}
+\source{mumford-abelian-varieties:page-0155}
+\source{mumford-abelian-varieties:page-0156}
+\end{theorem}
+\begin{proof}
+For a line bundle $L$ on $Y$,
+\[
+\phi_{f^*L}(x)=\widehat f(\phi_L(f(x))).
+\]
+Thus $\widehat K(S)$ is the kernel of pullback between families of line
+bundles on $S\times Y$ and $S\times X$. Since $S\times Y$ is the quotient
+of $S\times X$ by the free action of $K$, these are liftings of the action
+to $S\times X\times\mathbb A^1$. Completeness of $X$ makes a linear lift
+independent of $x$, so it has the form
+\[
+k:(s,x,\alpha)\longmapsto(s,x+k,\chi(k,s)\alpha)
+\]
+for a character $\chi:K\times S\to\mathbb G_m$. Cartier duality identifies
+these with $\widehat K(S)$, naturally in $S$.
+\end{proof}
+
+\begin{definition}[Height-one isogeny]
+\label{mumford-def-height-one-isogeny}
+\dcref{M:ch3:III.15}
+\uses{mumford-def-height-one-group}
+An isogeny $f:X\to Y$ is of height one if $k(X)^p\subset k(Y)$.
+This is equivalent to its kernel being a height-one group scheme.
+\source{mumford-abelian-varieties:page-0156}
+\end{definition}
+\begin{proof}
+For a height-one isogeny, integral closure gives
+$\mathcal O_{Y,0}\supset\{a^p:a\in\mathcal O_{X,0}\}$, so the kernel has
+height one. Conversely, invariants of the height-one kernel on affine opens
+are exactly the functions coming from $Y$.
+\end{proof}
+
+\begin{theorem}[Height-one isogenies and $p$-Lie subalgebras]
+\label{mumford-thm-height-one-isogeny}
+\dcref{M:ch3:III.15}
+\uses{mumford-thm-height-one-equivalence}
+Height-one isogenies out of $X$, up to isomorphism, correspond one-to-one to
+$p$-Lie subalgebras of $\Lie X$.
+\source{mumford-abelian-varieties:page-0157}
+\end{theorem}
+\begin{proof}
+Such isogenies are determined by their height-one kernels, which are
+subgroup schemes of $X_p$. The height-one equivalence identifies these with
+$p$-Lie subalgebras of $\Lie X_p=\Lie X$.
+\end{proof}
+
+\begin{theorem}[Frobenius and the Hasse--Witt operation]
+\label{mumford-thm-lie-dual-frobenius}
+\dcref{M:ch3:III.15}
+\uses{mumford-cor-tangent-dual-h1}
+Under $\Lie\widehat X\simeq H^1(X,\mathcal O_X)$, the $p$-power operation
+on $\Lie\widehat X$ is the Frobenius map on $H^1(X,\mathcal O_X)$.
+\source{mumford-abelian-varieties:page-0158}
+\source{mumford-abelian-varieties:page-0159}
+\source{mumford-abelian-varieties:page-0160}
+\source{mumford-abelian-varieties:page-0161}
+\end{theorem}
+\begin{proof}
+For $D$ represented by an infinitesimal automorphism over
+$k[\epsilon]/(\epsilon^2)$, take $p$ copies over
+$k[\epsilon_1,\ldots,\epsilon_p]/(\epsilon_i^2)$. Their composite is
+$1+s_1D+s_2D^2+\cdots+s_pD^p$. Specializing the elementary symmetric
+functions by $s_1\mapsto0$, $s_p\mapsto\epsilon$ gives $D^{(p)}$.
+For a group scheme this is translation by the $p$-power of the tangent
+point. A tangent vector of the dual represented by a cocycle
+$\{1+\epsilon f_{ij}\}$ therefore has $p$-power represented by
+$\{1+\epsilon f_{ij}^p\}$, exactly Frobenius on $H^1(X,\mathcal O_X)$.
+\end{proof}
+
+\section{Cohomology of line bundles}
+\label{mumford-III16-source}
+\dcref{M:ch3:III.16}
+
+\begin{theorem}[Riemann--Roch]
+\label{mumford-thm-riemann-roch}
+\dcref{M:ch3:III.16}
+\uses{mumford-prop-degree-hilbert,mumford-thm-cube-varieties}
+For $L\simeq\mathcal O_X(D)$ on a $g$-dimensional abelian variety,
+\[
+\chi(L)=\frac{(D^g)}{g!},\qquad \chi(L)^2=\deg\phi_L.
+\]
+\source{mumford-abelian-varieties:page-0161}
+\source{mumford-abelian-varieties:page-0162}
+\source{mumford-abelian-varieties:page-0163}
+\end{theorem}
+\begin{proof}
+Twisting by $\operatorname{Pic}^0X$ does not change Euler characteristic.
+For symmetric $L$, $n_X^*(L^m)\simeq L^{mn^2}$, so homogeneity gives
+$\chi(L^n)=a(L)n^g/g!$. For very ample $L_i=\mathcal O(D_i)$, the polynomial
+$g!\chi(L_1^{n_1}\otimes L_2^{n_2})$ equals
+$((n_1D_1+n_2D_2)^g)$; taking $n_1=1,n_2=-1$ yields the first formula.
+
+If $K(L)$ is finite, pullback of the Poincare bundle gives
+\[
+\chi(m^*L\otimes p_1^*L^{-1}\otimes p_2^*L^{-1})=(-1)^g\chi(L)^2.
+\]
+The quotient $X\times X\to X\times\widehat X$ has degree $\deg\phi_L$,
+so the same expression is $(-1)^g\deg\phi_L$. If $K(L)$ is not finite,
+ finite subgroups of arbitrarily large order force both quantities to vanish.
+\end{proof}
+
+\begin{remark}[Analytic degree and Pfaffian]
+\label{mumford-source-pfaffian-degree}
+\dcref{M:ch3:III.16}
+Over $\mathbf C$, for $L=L(H,\alpha)$ with $K(L)$ finite,
+\[
+ \deg\phi_L=\operatorname{order}K(L)
+ =\operatorname{order}(U^\perp/U)=\det(E(u_i,u_j)),
+ \qquad |\chi(L)|=\sqrt{\det(E(u_i,u_j))}.
+\]
+Thus $|\chi(L)|$ is the Pfaffian of the skew matrix $(E(u_i,u_j))$ up to
+sign, since $\operatorname{pf}(A)^2=\det A$.
+\source{mumford-abelian-varieties:page-0165}
+\end{remark}
+
+\begin{theorem}[Vanishing and index]
+\label{mumford-thm-line-bundle-index}
+\dcref{M:ch3:III.16}
+\uses{mumford-thm-riemann-roch,mumford-thm-cube-varieties}
+If $K(L)$ is finite, there is a unique $i(L)$ with
+$H^p(X,L)=0$ for $p\ne i(L)$ and $H^{i(L)}(X,L)\ne0$, and
+$i(L^{-1})=g-i(L)$.
+\source{mumford-abelian-varieties:page-0161}
+\source{mumford-abelian-varieties:page-0164}
+\end{theorem}
+\begin{proof}
+The Cartesian diagram for $1\times\phi_L$ and flatness gives
+\[
+\dim H^q(X\times X,m^*L\otimes p_1^*L^{-1})=
+\begin{cases}0&q\ne g,\\\deg\phi_L&q=g.\end{cases}
+\]
+Kunneth therefore gives
+\[
+\sum_{i=0}^qh^i(L)h^{q-i}(L^{-1})=
+\begin{cases}0&q\ne g,\\\deg\phi_L&q=g.\end{cases}
+\]
+Nonnegativity forces exactly one nonzero group on each side and their
+indices sum to $g$.
+\end{proof}
+
+\begin{lemma}[Polynomial growth of cohomology]
+\label{mumford-lem-index-growth}
+\dcref{M:ch3:III.16}
+For a projective $r$-fold and line bundles $L_1,\ldots,L_k$, there is $c$
+such that
+\[
+\dim H^i(L_1^{a_1}\otimes\cdots\otimes L_k^{a_k})
+<c(1+|a|^r).
+\]
+\source{mumford-abelian-varieties:page-0166}
+\source{mumford-abelian-varieties:page-0167}
+\source{mumford-abelian-varieties:page-0168}
+\end{lemma}
+\begin{proof}
+Twist by a sufficiently ample bundle to reduce to very ample bundles and
+induct on $\dim X+k$. A hyperplane-section exact sequence compares the
+cohomology for consecutive exponents with cohomology on a variety of
+dimension $r-1$. The inductive bound is $c(1+|a|^{r-1})$; summing over the
+exponent gives the asserted $c'(1+|a|^r)$, with negative exponents handled
+by the reversed exact sequence.
+\end{proof}
+
+\begin{theorem}[Index polynomial]
+\label{mumford-thm-index-polynomial}
+\dcref{M:ch3:III.16}
+If $L$ is ample and $M$ non-degenerate on a $g$-fold, the polynomial
+$P(t)=\chi(L^t\otimes M)$ has all roots real, and $i(M)$ is the number of
+positive roots counted with multiplicity.
+\source{mumford-abelian-varieties:page-0166}
+\source{mumford-abelian-varieties:page-0168}
+\source{mumford-abelian-varieties:page-0169}
+\source{mumford-abelian-varieties:page-0170}
+\source{mumford-abelian-varieties:page-0171}
+\uses{mumford-lem-index-growth,mumford-thm-line-bundle-index}
+\end{theorem}
+\begin{proof}
+Step A: if $P(1,t)\ne0$ for $0<t<1$, then
+$i(L)=i(L\otimes H)$. Otherwise choose the first exponent at which the
+index changes. The hyperplane exact sequence gives cohomology on a
+dimension $g-1$ section at least $N^gP(1,a/N)$, contradicting the growth
+lemma as $N$ tends to infinity.
+
+Step B: for $F(s,t)=\chi(L_1^s\otimes L_2^t)$, nonvanishing of
+$F(t,1-t)$ on $(0,1)$ and Step A applied after inserting a very ample $L_3$
+give equality of the indices of $L_1$ and $L_2$.
+
+Step C: if all three of $L_1,L_2,L_1\otimes L_2$ are non-degenerate, apply
+the map $(x,y)\mapsto x-y$ and Leray to obtain
+$i(L_1\otimes L_2)\le i(L_1)+i(L_2)$. Step D compares the indices along a
+segment whose Euler polynomial has a unique zero of multiplicity $\lambda$;
+the hyperplane exact sequences and the growth lemma give
+\(0<i(L_2)-i(L_1)\le\lambda\).
+
+For completeness, the final induction in the source takes hyperplane powers
+$H^\alpha$ and proves
+\[
+H^p(H^\alpha,L_1^k\otimes L_2^l)=0\quad(p<i_2-\alpha-1)
+\]
+from the exact sequence
+\[
+0\to L_1^{k-1}\otimes L_2^{l+1}|_{H^{\alpha-1}}
+\to L_1^k\otimes L_2^l|_{H^{\alpha-1}}
+\to L_1^k\otimes L_2^l|_{H^\alpha}\to0.
+\]
+The resulting injection and the growth estimate yield
+\[
+\left|f\left(\frac{r}{N},\frac{s}{N}\right)\right|<\frac{c}{N^{i_2-i_1}},
+\qquad
+\left|f\left(\frac{r}{N},\frac{s}{N}\right)\right|>\frac{c'}{N^\lambda},
+\]
+so $i_2-i_1\le\lambda$ and the theorem follows.
+\end{proof}
+
+\begin{remark}[Completion of the index root count]
+\label{mumford-rem-index-root-count-conclusion}
+\dcref{M:ch3:III.16}
+\uses{mumford-thm-index-polynomial}
+For $P(n,m)=\chi(L^n\otimes M^m)$, choose $q>0$ and integers $r_i$ with
+$q^{-1}(r_i-1)<t_i<q^{-1}r_i$, where $t_i$ are the real roots of
+$P(t,1)$. By the preceding index comparisons,
+\[
+i(r_k)\le i(r_k-1)=i(r_{k-1})\le\cdots\le i(r_1-1)=i(0),
+\]
+and $i(r_i-1)-i(r_i)\le\lambda_i$. For large positive $r$, $i(r)=0$,
+and for large negative $r$, $i(r)=g$. Hence
+\[
+g=i(\text{very negative }r)-i(\text{very positive }r)\le\sum_i\lambda_i.
+\]
+Since $P$ has degree at most $g$, equality holds; $i(0)=i(M)$ is the sum
+of multiplicities of positive roots.
+\source{mumford-abelian-varieties:page-0172}
+\source{mumford-abelian-varieties:page-0173}
+\end{remark}
+
+\begin{corollary}[Complex index and eigenvalues]
+\label{mumford-cor-complex-index-negative-eigenvalues}
+\dcref{M:ch3:III.16}
+\uses{mumford-thm-index-polynomial}
+If $X=V/U$ and $L=L(H,\alpha)$ is non-degenerate, then $i(L)$ is the
+number of negative eigenvalues of $H$. Choosing an ample
+$L_0=L(H_0,\alpha_0)$,
+\[
+\chi(L_0^n\otimes L)=\operatorname{pf}(nE_0+E),
+\qquad E=\operatorname{Im}H.
+\]
+Diagonalizing relative to $H_0$, $H(e_i,e_j)=\lambda_i\delta_{ij}$, the
+Pfaffian is $\prod_i(n+\lambda_i)$, proving the assertion.
+\source{mumford-abelian-varieties:page-0173}
+\source{mumford-abelian-varieties:page-0174}
+\end{corollary}
+
+\section{Very ample line bundles}
+\label{mumford-III17-source}
+\dcref{M:ch3:III.17}
+
+\begin{theorem}[Very ampleness of powers]
+\label{mumford-thm-high-power-very-ample}
+\dcref{M:ch3:III.17}
+\uses{mumford-thm-index-polynomial,mumford-cor-complex-index-negative-eigenvalues}
+For any ample line bundle $L$ on an abelian variety $X$, $L^n$ is very ample
+if $n>3$.
+\source{mumford-abelian-varieties:page-0174}
+\source{mumford-abelian-varieties:page-0175}
+\source{mumford-abelian-varieties:page-0176}
+\end{theorem}
+\begin{proof}
+It suffices to prove the assertion for $L^3$. Choose an effective divisor
+$D$ without multiple components. For $x,y\in X$,
+\[
+T_x^*D+T_y^*D+T_{-x-y}^*D\in|3D|.
+\]
+We establish: (1) for $x_0\ne x_1$, some $D'\in|3D|$ contains $x_0$ but
+not $x_1$; (2) every tangent vector at $x_0$ is separated by some
+$D'\in|3D|$. By translation assume $x_0=0$.
+
+If (1) failed, then $\operatorname{Supp}D=\operatorname{Supp}D-x_1$, so
+$x_1\in K(L)$. Quotienting by the finite group generated by $x_1$ and
+comparing dimensions of sections gives a contradiction. Thus (1) holds.
+
+If (2) failed for a nonzero tangent vector $t$, the invariant vector field
+$T$ would be tangent to $D$ everywhere. Locally, $T(\phi)=\alpha\phi$.
+In characteristic $0$ this forces $t=0$. In characteristic $p$, let
+$H\subset K(L)$ be the smallest subgroup containing $t$; $D$ is invariant
+under translations by $H$.
+
+Let $X'=X/H$, $D'=D/H$. The quotient $\pi:X\to X'$ is flat and
+surjective, $D'$ is a divisor, and $D=\pi^*D'$. Thus
+\[
+\mathcal O_X(-D)\simeq
+\mathcal O_{X'}(-D')\otimes_{\mathcal O_{X'}}\mathcal O_X.
+\]
+Comparing dimensions of sections on $X$ and $X'$ gives a contradiction.
+Therefore (2) holds.
+\end{proof}

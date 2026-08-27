@@ -1,0 +1,1492 @@
+% Source-faithful mathematical blueprint of Hartshorne, Chapter III (Cohomology).
+% Authorial exposition, examples, and exercises are omitted; definitions, statements, and proof
+% arguments are retained. Statement coordinates are the printed chapter coordinates.
+\section{Derived functors}
+\label{ha-ch3-sec1}
+
+\begin{definition}[Abelian category, complexes, and exact functors]
+\label{ha-ch3-def-abelian}
+\source{hartshorne-algebraic-geometry:III.1}
+An abelian category has abelian Hom groups, finite direct sums, kernels and
+cokernels, and the usual normality and factorization axioms.  A complex is a
+sequence $d^{i}:A^{i}\to A^{i+1}$ with $d^{i+1}d^i=0$; its cohomology is
+$\ker d^i/\operatorname{im}d^{i-1}$.  A functor is left exact if it preserves
+the left three terms of every short exact sequence.  An object is injective if
+$\operatorname{Hom}(-,I)$ is exact, and an injective resolution is an exact
+embedding into a complex of injectives.  An object is $F$-acyclic if
+$R^iF(A)=0$ for $i>0$; a category has enough injectives if every object embeds
+in an injective object.  For a left exact functor $F$, the derived functors are
+$R^iF(A)=H^i(F(I^\bullet))$ for an injective resolution $I^\bullet$.
+\end{definition}
+
+\begin{theorem}[Derived functors]
+\label{ha-ch3-thm-derived}
+\dcref{III.1.1A}
+\source{hartshorne-algebraic-geometry:III.1.1A}
+If $\mathcal A$ has enough injectives and $F:\mathcal A\to\mathcal B$ is
+additive left exact, then $R^iF(A)=H^i(F(I^\bullet))$ is independent of the
+injective resolution and is functorial and additive.  There is a natural
+isomorphism $R^0F\cong F$, and each short exact sequence
+$0\to A'\to A\to A''\to0$ gives a functorial long exact sequence with
+connecting maps $\delta^i:R^iF(A'')\to R^{i+1}F(A')$.  Morphisms of short
+exact sequences commute with the connecting maps, and $R^iF(I)=0$ for
+$i>0$ and $I$ injective.
+
+\uses{ha-ch3-def-abelian}
+\end{theorem}
+\begin{proof}
+
+Comparison maps between injective resolutions are unique up to homotopy, so
+applying $F$ gives canonically isomorphic cohomology.  The short exact
+sequence is replaced by a short exact sequence of resolutions; the long
+exact cohomology sequence gives the connecting maps.  Homotopic comparison
+maps induce the same cohomology maps.  An injective has the resolution
+$0\to I\to I\to0$, proving the vanishing.
+
+\end{proof}
+
+\begin{proposition}[Acyclic resolutions]
+\label{ha-ch3-prop-acyclic-resolution}
+\dcref{III.1.2A}
+\source{hartshorne-algebraic-geometry:III.1.2A}
+If $0\to A\to J^0\to J^1\to\cdots$ is exact and every $J^i$ is
+$F$-acyclic, then $R^iF(A)\cong H^i(F(J^\bullet))$ naturally.
+
+\uses{ha-ch3-thm-derived,ha-ch3-def-abelian}
+\end{proposition}
+\begin{proof}
+
+Embed the acyclic resolution and an injective resolution into a common
+comparison diagram.  The quotient complexes are acyclic after applying $F$
+by induction and the long exact sequence, hence the comparison is a
+quasi-isomorphism.
+
+\end{proof}
+
+\begin{definition}[Cohomological $\delta$-functor and universality]
+\label{ha-ch3-def-delta}
+\source{hartshorne-algebraic-geometry:III.1}
+A covariant $\delta$-functor is functors $T^i$ with connecting maps giving
+long exact sequences and commuting with morphisms of short exact sequences.
+It is universal if a map in degree zero to another $\delta$-functor extends
+uniquely in every degree.  A functor is effaceable if every object embeds into
+an object on which it vanishes.
+\end{definition}
+
+\begin{theorem}[Effaceability criterion]
+\label{ha-ch3-thm-effaceable}
+\dcref{III.1.3A}
+\source{hartshorne-algebraic-geometry:III.1.3A}
+An effaceable positive-degree $\delta$-functor is universal.
+
+\uses{ha-ch3-def-delta}
+\end{theorem}
+\begin{proof}
+
+Embed successively in objects killing the given positive-degree functor and
+use the long exact sequence to define the extension degree by degree.  The
+connecting maps force uniqueness.
+
+\end{proof}
+
+\begin{corollary}[Universal property of derived functors]
+\label{ha-ch3-cor-universal-derived}
+\dcref{III.1.4}
+\source{hartshorne-algebraic-geometry:III.1.4}
+For a left exact $F$ on a category with enough injectives, $(R^iF)$ is a
+universal $\delta$-functor with degree zero $F$.  Conversely, every universal
+$\delta$-functor has left exact degree zero and is naturally isomorphic to the
+derived functors of that degree-zero functor.
+
+\uses{ha-ch3-def-delta,ha-ch3-thm-effaceable,ha-ch3-thm-derived}
+\end{corollary}
+\begin{proof}
+
+Every object embeds in an injective, so positive derived functors are
+effaceable; apply III.1.3A.  The converse follows by applying universality to
+the derived functors of $T^0$.
+
+\end{proof}
+
+\section{Cohomology of sheaves}
+\label{ha-ch3-sec2}
+\begin{proposition}[Enough injectives for modules]
+\label{ha-ch3-prop-module-injective}\dcref{III.2.1A}
+\source{hartshorne-algebraic-geometry:III.2.1A}
+Every module over a ring embeds in an injective module.
+
+\uses{ha-ch3-def-abelian}
+\end{proposition}
+\begin{proof}
+
+Embed the module in its injective envelope, or equivalently apply Baer's criterion: extend the
+identity map from the module to an injective hull and regard the hull as the required injective module.
+
+\end{proof}
+\begin{proposition}[Enough injective sheaves]
+\label{ha-ch3-prop-sheaf-injective}\dcref{III.2.2}
+\source{hartshorne-algebraic-geometry:III.2.2}
+For every ringed space $(X,\mathcal O_X)$, the category of $\mathcal O_X$-modules
+has enough injectives.
+
+\uses{ha-ch3-def-abelian}
+\end{proposition}
+\begin{proof}
+
+Embed each stalk $\mathcal F_x$ into an injective module $I_x$ and embed
+$\mathcal F$ into the product of the skyscraper direct images $j_{x*}I_x$.
+The target is injective because its Hom functor is a product of exact stalk
+functors followed by exact Hom functors.
+
+\end{proof}
+\begin{corollary}[Enough injective abelian sheaves]
+\label{ha-ch3-cor-sheaf-injective}\dcref{III.2.3}
+\source{hartshorne-algebraic-geometry:III.2.3}
+The category of sheaves of abelian groups on any topological space has enough
+injectives.
+
+\uses{ha-ch3-prop-sheaf-injective}
+\end{corollary}
+\begin{proof}
+
+For an abelian sheaf $\mathcal F$, embed each stalk $\mathcal F_x$ in an injective abelian group
+$I_x$.  The map sending a section to its germs embeds $\mathcal F$ in the product of the skyscraper
+sheaves $i_{x*}I_x$.  A product of skyscraper injectives is injective: a map from a subsheaf extends
+stalkwise, and the sheaf axiom assembles the extensions.
+
+\end{proof}
+\begin{definition}[Sheaf cohomology and flasque sheaves]
+\label{ha-ch3-def-cohomology-flasque}
+\source{hartshorne-algebraic-geometry:III.2}
+For an abelian sheaf $\mathcal F$, $H^i(X,\mathcal F)$ is the $i$th right
+derived functor of $\Gamma(X,-)$.  A sheaf is flasque when all restriction
+maps are surjective.
+\uses{ha-ch3-def-abelian,ha-ch3-thm-derived}
+\end{definition}
+\begin{lemma}[Injectives are flasque]
+\label{ha-ch3-lem-injective-flasque}\dcref{III.2.4}
+\source{hartshorne-algebraic-geometry:III.2.4}
+Every injective $\mathcal O_X$-module is flasque.
+
+\uses{ha-ch3-def-cohomology-flasque}
+\end{lemma}
+\begin{proof}
+
+For $V\subset U$, the inclusion of extension-by-zero structure sheaves
+$\mathcal O_V\hookrightarrow\mathcal O_U$ and injectivity give a surjection
+$\operatorname{Hom}(\mathcal O_U,I)\to\operatorname{Hom}(\mathcal O_V,I)$,
+which is $I(U)\to I(V)$.
+
+\end{proof}
+\begin{proposition}[Flasque acyclicity]
+\label{ha-ch3-prop-flasque-acyclic}\dcref{III.2.5}
+\source{hartshorne-algebraic-geometry:III.2.5}
+If $\mathcal F$ is flasque, then $H^i(X,\mathcal F)=0$ for $i>0$.
+
+\uses{ha-ch3-def-cohomology-flasque,ha-ch3-lem-injective-flasque}
+\end{proposition}
+\begin{proof}
+
+Embed $\mathcal F$ in an injective $I$ and let $Q$ be the quotient.  Both
+$I$ and $Q$ are flasque, and $0\to\Gamma(F)\to\Gamma(I)\to\Gamma(Q)\to0$
+is exact.  The long exact sequence and induction on degree give the claim.
+
+\end{proof}
+\begin{proposition}[Global sections as derived functors]
+\label{ha-ch3-prop-cohomology-derived}\dcref{III.2.6}
+\source{hartshorne-algebraic-geometry:III.2.6}
+The derived functors of $\Gamma(X,-)$ on $\mathcal O_X$-modules are the
+groups $H^i(X,-)$ defined on abelian sheaves.
+
+\uses{ha-ch3-def-cohomology-flasque,ha-ch3-thm-derived,ha-ch3-prop-acyclic-resolution}
+\end{proposition}
+\begin{proof}
+Use an injective resolution, which is flasque by III.2.4 and
+acyclic by III.2.5, and apply III.1.2A.
+\end{proof}
+\begin{theorem}[Grothendieck vanishing]
+\label{ha-ch3-thm-grothendieck-vanishing}\dcref{III.2.7}
+\source{hartshorne-algebraic-geometry:III.2.7}
+If $X$ is noetherian of dimension $n$, then $H^i(X,\mathcal F)=0$ for every
+abelian sheaf $\mathcal F$ and $i>n$.
+
+\end{theorem}
+\begin{proof}
+
+Induct on dimension and number of irreducible components.  Reduce by the
+closed/open exact sequence to an irreducible $X$.  Express a sheaf as a
+filtered direct limit of finitely generated subsheaves; cohomology commutes
+with these limits because limits of flasques are flasque on a noetherian
+space.  Reduce a finitely generated sheaf to a quotient of a constant sheaf
+on an open set.  The kernel is treated by noetherian induction on its support;
+the constant sheaf on an irreducible space is flasque, and the closed
+complement has smaller dimension.
+
+\end{proof}
+\begin{lemma}[Limits of flasque sheaves]
+\label{ha-ch3-lem-limits-flasque}\dcref{III.2.8}
+\source{hartshorne-algebraic-geometry:III.2.8}
+On a noetherian space, a filtered direct limit of flasque sheaves is flasque.
+
+\end{lemma}
+\begin{proof}
+
+For $V\subseteq U$, choose a finite affine (hence quasi-compact) cover of $U$ refining a cover on
+which a representative section is defined.  Surjectivity of each restriction map in the system gives
+compatible lifts on this finite cover; the sheaf axiom glues them.  Thus every section of the colimit
+over $V$ lifts to $U$.
+
+\end{proof}
+\begin{proposition}[Cohomology and direct limits]
+\label{ha-ch3-prop-cohomology-direct-limits}\dcref{III.2.9}
+\source{hartshorne-algebraic-geometry:III.2.9}
+For a filtered direct system of abelian sheaves on a noetherian space,
+$H^i(X,\varinjlim\mathcal F_\alpha)\cong\varinjlim H^i(X,\mathcal F_\alpha)$;
+in particular cohomology commutes with arbitrary direct sums.
+
+\end{proposition}
+\begin{proof}
+
+The canonical maps form morphisms of delta-functors.  Efface both sides by
+the functorial sheaf of discontinuous sections; the limit is flasque by
+III.2.8, so universality (III.1.3A) identifies the two delta-functors.
+
+\end{proof}
+\begin{lemma}[Closed-subset extension]
+\label{ha-ch3-lem-closed-extension}\dcref{III.2.10}
+\source{hartshorne-algebraic-geometry:III.2.10}
+For a closed inclusion $j:Y\hookrightarrow X$,
+$H^i(Y,\mathcal F)\cong H^i(X,j_*\mathcal F)$.
+
+\end{lemma}
+\begin{proof}
+Apply a flasque resolution on $Y$ and extend each term by zero.
+\end{proof}
+
+\section{Noetherian affine schemes}
+\label{ha-ch3-sec3}
+\begin{proposition}[Krull's theorem]
+\label{ha-ch3-prop-krull}\dcref{III.3.1A}
+\source{hartshorne-algebraic-geometry:III.3.1A}
+If $A$ is noetherian, $M\subset N$ are finite $A$-modules and $\mathfrak a$
+is an ideal, the $\mathfrak a$-adic topology on $M$ is induced from $N$.
+
+\end{proposition}
+\begin{proof}
+
+The book cites the Artin--Rees lemma (Atiyah--Macdonald, or Bourbaki) for
+this assertion; no independent proof is supplied here.
+
+\end{proof}
+\begin{lemma}[Torsion in an injective module]
+\label{ha-ch3-lem-torsion-injective}\dcref{III.3.2}
+\source{hartshorne-algebraic-geometry:III.3.2}
+For an injective $A$-module $I$, the submodule $\Gamma_{\mathfrak a}(I)$ of
+$\mathfrak a$-power torsion is injective.
+
+\end{lemma}
+\begin{proof}
+
+For a map from an ideal $\mathfrak b$ to the torsion submodule, finite
+generation and Krull's theorem make it factor through
+$\mathfrak b/(\mathfrak b\cap\mathfrak a^n)$.  Extend this map to $A/\mathfrak a^n$
+using injectivity of $I$; its image is torsion, proving Baer's criterion.
+
+\end{proof}
+\begin{lemma}[Localization of injectives]
+\label{ha-ch3-lem-localize-injective}\dcref{III.3.3}
+\source{hartshorne-algebraic-geometry:III.3.3}
+For injective $I$ over a noetherian ring, $I\to I_f$ is surjective for every
+$f\in A$.
+
+\end{lemma}
+\begin{proof}
+
+The ascending annihilators of powers of $f$ stabilize.  Represent an element
+of $I_f$ by $y/f^r$, extend the resulting map from the stabilized principal
+ideal to $A$ by injectivity, and the image of $1$ maps to the given element.
+
+\end{proof}
+\begin{proposition}[Injective quasi-coherent sheaves are flasque]
+\label{ha-ch3-prop-affine-injective-flasque}\dcref{III.3.4}
+\source{hartshorne-algebraic-geometry:III.3.4}
+If $I$ is injective over noetherian $A$, then $\widetilde I$ on
+$\operatorname{Spec}A$ is flasque.
+
+\end{proposition}
+\begin{proof}
+
+Use noetherian induction on the support.  Restriction to a principal open is
+surjective by III.3.3; the difference is supported on the closed complement,
+where its torsion submodule is injective by III.3.2 and induction applies.
+
+\end{proof}
+\begin{theorem}[Affine vanishing]
+\label{ha-ch3-thm-affine-vanishing}\dcref{III.3.5}
+\source{hartshorne-algebraic-geometry:III.3.5}
+For $X=\operatorname{Spec}A$ noetherian and $\mathcal F$ quasi-coherent,
+$H^i(X,\mathcal F)=0$ for $i>0$ and $\Gamma(X,\mathcal F)$ recovers its
+module.
+\end{theorem}
+\begin{proof}
+Resolve the module of global sections by injectives, sheafify,
+and use III.3.4 and III.2.5; the resulting global-section complex is exact.
+\end{proof}
+\begin{corollary}[Flasque quasi-coherent embedding]
+\label{ha-ch3-cor-flasque-qcoh}\dcref{III.3.6}
+\source{hartshorne-algebraic-geometry:III.3.6}
+Every quasi-coherent sheaf on a noetherian scheme embeds in a flasque
+quasi-coherent sheaf.
+\uses{ha-ch3-prop-affine-injective-flasque}
+\end{corollary}
+\begin{proof}
+
+Cover $X$ by finitely many affine opens.  On each affine, embed the corresponding module in an
+injective module and use Proposition~\ref{ha-ch3-prop-affine-injective-flasque}.  The resulting
+local embeddings glue after taking their product; the product is quasi-coherent and flasque, and the
+stalkwise maps give the required global embedding.
+
+\end{proof}
+\begin{theorem}[Serre's affineness criterion]
+\label{ha-ch3-thm-serre-affine}\dcref{III.3.7}
+\source{hartshorne-algebraic-geometry:III.3.7}
+For a noetherian scheme $X$, the following are equivalent: $X$ is affine;
+$H^i(X,\mathcal F)=0$ for every quasi-coherent $\mathcal F$ and $i>0$; and
+$H^1(X,\mathcal J)=0$ for every coherent ideal sheaf $\mathcal J$.
+
+\end{theorem}
+\begin{proof}
+
+The first implication is III.3.5.  For the converse, use vanishing for ideal
+sheaves to find, around each closed point, an affine principal open $X_f$.
+Choose finitely many $f_i$ covering $X$.  The kernel of
+$\mathcal O_X^{\oplus m}\to\mathcal O_X$, $(a_i)\mapsto\sum f_i a_i$,
+has a filtration with coherent ideal quotients, so its $H^1$ vanishes.  Global
+sections therefore express $1$ as a combination of the $f_i$, and the affine
+criterion applies.
+
+\end{proof}
+
+\section{Cech cohomology}
+\label{ha-ch3-sec4}
+\begin{definition}[Cech complex]
+\label{ha-ch3-def-cech}
+\source{hartshorne-algebraic-geometry:III.4}
+For an ordered open cover $\mathfrak U=(U_i)$, set
+$C^p(\mathfrak U,\mathcal F)=\prod_{i_0<\cdots<i_p}\mathcal F(U_{i_0\cdots i_p})$
+with the alternating restriction differential, and define
+$\check H^p(\mathfrak U,\mathcal F)=H^p(C^\bullet)$.
+\end{definition}
+\begin{lemma}[Cech degree zero]
+\label{ha-ch3-lem-cech-zero}\dcref{III.4.1}
+\source{hartshorne-algebraic-geometry:III.4.1}
+The canonical map $H^0(\mathfrak U,\mathcal F)\to\Gamma(X,\mathcal F)$ is an
+isomorphism.
+\end{lemma}
+\begin{proof}
+A zero cocycle is a compatible family of sections, hence
+glues uniquely by the sheaf axiom.
+\end{proof}
+\begin{lemma}[Sheafified Cech resolution]
+\label{ha-ch3-lem-cech-resolution}\dcref{III.4.2}
+\source{hartshorne-algebraic-geometry:III.4.2}
+The sheafified Cech complex is a resolution of $\mathcal F$.
+
+\end{lemma}
+\begin{proof}
+
+Exactness is stalkwise.  At a point choose one cover member containing it;
+insertion of that index gives a contracting homotopy in positive degrees.
+
+\end{proof}
+\begin{proposition}[Flasque Cech acyclicity]
+\label{ha-ch3-prop-cech-flasque}\dcref{III.4.3}
+\source{hartshorne-algebraic-geometry:III.4.3}
+If $\mathcal F$ is flasque, then $\check H^p(\mathfrak U,\mathcal F)=0$ for
+$p>0$.
+\end{proposition}
+\begin{proof}
+The sheafified resolution consists of flasque sheaves, so it
+computes both derived and Cech cohomology, and III.2.5 gives vanishing.
+\end{proof}
+\begin{lemma}[Cech comparison map]
+\label{ha-ch3-lem-cech-comparison-map}\dcref{III.4.4}
+\source{hartshorne-algebraic-geometry:III.4.4}
+There is a natural map $\check H^p(\mathfrak U,\mathcal F)\to H^p(X,\mathcal F)$,
+functorial in $\mathcal F$.
+
+\end{lemma}
+\begin{proof}
+
+The sheafified Cech resolution maps to an injective resolution of $\mathcal F$ by the comparison
+theorem for resolutions.  Applying $\Gamma(X,-)$ gives a cochain map from the Cech complex to an
+injective complex; its induced cohomology map is independent of the chosen comparison up to homotopy.
+
+\end{proof}
+\begin{theorem}[Cech comparison for affine covers]
+\label{ha-ch3-thm-cech-comparison}\dcref{III.4.5}
+\source{hartshorne-algebraic-geometry:III.4.5}
+If $X$ is noetherian separated, $\mathfrak U$ is an affine open cover, and
+$\mathcal F$ is quasi-coherent, then the comparison map is an isomorphism in
+every degree.
+\end{theorem}
+\begin{proof}
+Embed $\mathcal F$ in a flasque quasi-coherent sheaf and
+induct on degree using the long exact sequences.  All finite intersections are
+affine, so their section sequences are exact by III.3.5; the flasque term has
+zero positive Cech cohomology by III.4.3.
+\end{proof}
+
+\section{Projective space}
+\label{ha-ch3-sec5}
+\begin{theorem}[Cohomology of projective space]
+\label{ha-ch3-thm-projective-space}\dcref{III.5.1}
+\source{hartshorne-algebraic-geometry:III.5.1}
+Let $X=\mathbf P_A^r$, $r\ge1$, over noetherian $A$.  Then
+$\bigoplus_nH^0(X,\mathcal O_X(n))\cong A[x_0,\ldots,x_r]$;
+$H^i(X,\mathcal O_X(n))=0$ for $0<i<r$; $H^r(X,\mathcal O_X(-r-1))\cong A$;
+and multiplication gives a perfect pairing
+$H^0(\mathcal O(n))\times H^r(\mathcal O(-n-r-1))\to A$.
+
+\end{theorem}
+\begin{proof}
+
+Use the standard affine cover and the Cech comparison theorem.  The top
+Cech quotient is free on Laurent monomials with every exponent negative;
+this gives the top group, its grading, and the pairing with nonnegative
+monomials.  Localizing at $x_r$ makes the intermediate cohomology vanish;
+the hyperplane exact sequence identifies multiplication by $x_r$ with a
+bijective shift in intermediate degrees, while localization already makes
+each class $x_r$-power torsion.  Thus those groups vanish.
+
+\end{proof}
+\begin{theorem}[Serre finiteness and eventual vanishing]
+\label{ha-ch3-thm-serre-finiteness}\dcref{III.5.2}
+\source{hartshorne-algebraic-geometry:III.5.2}
+For $X$ projective over noetherian $A$ with a very ample $\mathcal O_X(1)$ and
+$\mathcal F$ coherent, $H^i(X,\mathcal F)$ is finite over $A$, and
+$H^i(X,\mathcal F(n))=0$ for $i>0$ and all $n\gg0$.
+
+\end{theorem}
+\begin{proof}
+
+Embed $X$ in projective space and use III.5.1 for sums of twists.  Resolve a
+coherent sheaf by a finite sum of twists and induct on the cohomological
+degree using the long exact sequence; noetherianity preserves finite
+generation and the same induction gives eventual vanishing.
+
+\end{proof}
+\begin{proposition}[Cohomological criterion for ampleness]
+\label{ha-ch3-prop-ample-criterion}\dcref{III.5.3}
+\source{hartshorne-algebraic-geometry:III.5.3}
+For an invertible sheaf $\mathcal L$ on a proper noetherian $A$-scheme,
+$\mathcal L$ is ample iff for every coherent $\mathcal F$,
+$H^i(X,\mathcal F\otimes\mathcal L^n)=0$ for $i>0$ and $n\gg0$.
+
+\end{proposition}
+\begin{proof}
+
+The forward implication follows after replacing $\mathcal L$ by a very ample
+power and applying III.5.2 to finitely many residue classes of exponents.
+Conversely apply vanishing to the ideal of each closed point; global sections
+surject onto the skyscraper quotient, hence generate every twist locally by
+Nakayama.  A finite cover and a common exponent show all coherent sheaves
+are eventually generated, which is the ampleness criterion.
+
+\end{proof}
+
+\section{Ext groups and sheaves}
+\label{ha-ch3-sec6}
+\begin{definition}[Ext]
+\label{ha-ch3-def-ext}
+\source{hartshorne-algebraic-geometry:III.6}
+$\mathcal H om(\mathcal F,\mathcal G)$ is the sheaf of local homomorphisms,
+and $\mathcal E xt^i(\mathcal F,\mathcal G)$ is the $i$th right derived
+functor of $\mathcal H om(\mathcal F,-)$.  The groups
+$\operatorname{Ext}^i_X(\mathcal F,\mathcal G)$ are the right derived
+functors of $\operatorname{Hom}_X(\mathcal F,-)$.
+\end{definition}
+\begin{lemma}[Restriction of injectives]\label{ha-ch3-lem-ext-restriction}\dcref{III.6.1}
+\source{hartshorne-algebraic-geometry:III.6.1}
+Injective sheaves remain injective after restriction to an open subset.
+
+\end{lemma}
+\begin{proof}
+
+Restriction to an open subset has extension by zero as an exact left adjoint.  The adjunction and
+injectivity of the original sheaf therefore extend every map into its restriction.
+
+\end{proof}
+\begin{proposition}[Restriction of sheaf Ext]\label{ha-ch3-prop-ext-restriction}\dcref{III.6.2}
+\source{hartshorne-algebraic-geometry:III.6.2}
+For $U\subset X$, $\mathcal E xt_X^i(\mathcal F,\mathcal G)|_U\cong
+\mathcal E xt_U^i(\mathcal F|_U,\mathcal G|_U)$.
+\uses{ha-ch3-lem-ext-restriction}
+\end{proposition}
+\begin{proof}
+
+Restrict an injective resolution of $\mathcal G$ and use Lemma~\ref{ha-ch3-lem-ext-restriction}.
+Restriction commutes with sheaf Hom, so the two resulting complexes agree on $U$ and have isomorphic
+cohomology sheaves.
+
+\end{proof}
+\begin{proposition}[Ext from the structure sheaf]\label{ha-ch3-prop-ext-structure}\dcref{III.6.3}
+\source{hartshorne-algebraic-geometry:III.6.3}
+$\mathcal E xt^0(\mathcal O_X,\mathcal G)=\mathcal G$, higher sheaf Ext from
+$\mathcal O_X$ vanishes, and $\operatorname{Ext}^i(\mathcal O_X,\mathcal G)=H^i(X,\mathcal G)$.
+
+\end{proposition}
+\begin{proof}
+
+$\mathcal H om(\mathcal O_X,\mathcal G)=\mathcal G$, and $\mathcal O_X$ is locally free of rank one,
+so its higher sheaf Ext vanishes.  Taking global sections of an injective resolution of $\mathcal G$
+identifies global Ext with sheaf cohomology.
+
+\end{proof}
+\begin{proposition}[Long exact Ext sequences]\label{ha-ch3-prop-ext-les}\dcref{III.6.4}
+\source{hartshorne-algebraic-geometry:III.6.4}
+A short exact sequence in the first variable gives the usual long exact
+sequences for both global Ext and sheaf Ext.
+
+\end{proposition}
+\begin{proof}
+Apply Hom into an injective resolution; Hom into an injective is
+exact in the first variable, and use the long exact cohomology sequence.
+\end{proof}
+\begin{proposition}[Locally free resolutions]\label{ha-ch3-prop-ext-resolution}\dcref{III.6.5}
+\source{hartshorne-algebraic-geometry:III.6.5}
+If $\mathcal F$ has a locally free finite-rank resolution $\mathcal L_\bullet$,
+then $\mathcal E xt^i(\mathcal F,\mathcal G)=H^i(\mathcal H om(\mathcal L_\bullet,\mathcal G))$.
+
+\end{proposition}
+\begin{proof}
+
+Apply $\mathcal H om(-,\mathcal G)$ to the resolution.  Since every $\mathcal L_j$ is locally free,
+the resulting complex computes the derived Hom object and its cohomology is the stated sheaf Ext.
+
+\end{proof}
+\begin{lemma}[Tensoring injectives]\label{ha-ch3-lem-tensor-injective}\dcref{III.6.6}
+\source{hartshorne-algebraic-geometry:III.6.6}
+If $\mathcal L$ is locally free of finite rank and $I$ injective, then
+$\mathcal L\otimes I$ is injective.
+
+\end{lemma}
+\begin{proof}
+
+Locally $\mathcal L$ is finite free, so $\mathcal L\otimes I$ is a finite direct sum of copies of
+$I$.  Finite direct sums of injectives are injective, and the assertion is local for sheaves.
+
+\end{proof}
+\begin{proposition}[Ext and locally free tensor factors]\label{ha-ch3-prop-ext-tensor}\dcref{III.6.7}
+\source{hartshorne-algebraic-geometry:III.6.7}
+$\operatorname{Ext}^i(\mathcal F\otimes\mathcal L,\mathcal G)\cong
+\operatorname{Ext}^i(\mathcal F,\mathcal L^\vee\otimes\mathcal G)$, and likewise for sheaf Ext.
+
+\end{proposition}
+\begin{proof}
+
+The adjunction $\mathcal H om(\mathcal F\otimes\mathcal L,\mathcal G)
+\cong\mathcal H om(\mathcal F,\mathcal L^\vee\otimes\mathcal G)$ is termwise valid because
+$\mathcal L$ is finite locally free.  Resolve $\mathcal G$ injectively and use the preceding lemma.
+
+\end{proof}
+\begin{proposition}[Stalks of sheaf Ext]\label{ha-ch3-prop-ext-stalk}\dcref{III.6.8}
+\source{hartshorne-algebraic-geometry:III.6.8}
+For coherent $\mathcal F$ on a noetherian scheme,
+$(\mathcal E xt^i(\mathcal F,\mathcal G))_x\cong
+\operatorname{Ext}^i_{\mathcal O_{X,x}}(\mathcal F_x,\mathcal G_x)$.
+
+\end{proposition}
+\begin{proof}
+Work affine and use a free resolution of the coherent module;
+stalks are exact and commute with Hom from finite free modules.
+\end{proof}
+\begin{proposition}[Ext twisting comparison]\label{ha-ch3-prop-ext-twist}\dcref{III.6.9}
+\source{hartshorne-algebraic-geometry:III.6.9}
+For coherent $\mathcal F,\mathcal G$ on projective $X$, and fixed $i$, for
+$n\gg0$ the natural maps from global sections of $\mathcal E xt^i(\mathcal F,\mathcal G(n))$
+to $\operatorname{Ext}^i(\mathcal F,\mathcal G(n))$ are isomorphisms.
+
+\end{proposition}
+\begin{proof}
+Resolve $\mathcal F$ by locally free sheaves and induct on its
+length, using III.5.2 and exactness of sufficiently twisted global sections.
+\end{proof}
+\begin{proposition}[Projective dimension]\label{ha-ch3-prop-projective-dimension}\dcref{III.6.10A}
+\source{hartshorne-algebraic-geometry:III.6.10A}
+For a module, projective dimension is the length of its shortest projective
+resolution.
+
+\end{proposition}
+\begin{proof}
+
+A projective resolution can be shortened exactly when the corresponding syzygy is projective.  Taking
+the infimum of the lengths of all projective resolutions gives the invariant, with value $\infty$
+when no finite resolution exists.
+
+\end{proof}
+\begin{proposition}[Regular local rings]\label{ha-ch3-prop-regular-local}\dcref{III.6.11A}
+\source{hartshorne-algebraic-geometry:III.6.11A}
+Over a regular local ring, finite projective dimension equals dimension minus
+depth.
+
+\end{proposition}
+\begin{proof}
+
+A regular local ring has finite global dimension $\dim A$.  The Auslander--Buchsbaum formula gives
+$\operatorname{pd}_A M+\operatorname{depth}_A M=\operatorname{depth}A=\dim A$ for every finite module
+$M$ of finite projective dimension.
+
+\end{proof}
+\begin{proposition}[Ext detects depth]\label{ha-ch3-prop-ext-depth}\dcref{III.6.12A}
+\source{hartshorne-algebraic-geometry:III.6.12A}
+The Ext groups against the residue field detect the depth of a finite module.
+
+\end{proposition}
+\begin{proof}
+
+For $(A,\mathfrak m,k)$ local, take a minimal free resolution of $M$; all differentials have entries
+in $\mathfrak m$, so after applying $\operatorname{Hom}_A(-,k)$ the differentials vanish.  The first
+nonzero group $\operatorname{Ext}^i_A(k,M)$ is therefore in degree $\operatorname{depth}_A M$.
+
+\end{proof}
+
+\section{Serre duality}
+\label{ha-ch3-sec7}
+\begin{theorem}[Duality for projective space]\label{ha-ch3-thm-duality-projective}\dcref{III.7.1}
+\source{hartshorne-algebraic-geometry:III.7.1}
+For $X=\mathbf P_k^n$ and $\omega_X=\mathcal O_X(-n-1)$,
+$H^n(X,\omega_X)\cong k$, the pairing
+$\operatorname{Hom}(\mathcal F,\omega_X)\times H^n(X,\mathcal F)\to k$
+is perfect, and $\operatorname{Ext}^i(\mathcal F,\omega_X)\cong
+H^{n-i}(X,\mathcal F)^\vee$ for coherent $\mathcal F$.
+
+\end{theorem}
+\begin{proof}
+The first assertion and the line-bundle case follow from III.5.1;
+resolve a coherent sheaf by sums of twists and use the five lemma for degree
+zero and universality of coeffaceable contravariant delta-functors in higher
+degrees.
+\end{proof}
+\begin{definition}[Dualizing sheaf]\label{ha-ch3-def-dualizing}
+\source{hartshorne-algebraic-geometry:III.7}
+For proper $n$-dimensional $X/k$, a dualizing sheaf is coherent $\omega_X$ with
+a trace $H^n(X,\omega_X)\to k$ inducing perfect Hom--top-cohomology pairings.
+\end{definition}
+\begin{proposition}[Uniqueness of dualizing sheaves]\label{ha-ch3-prop-dualizing-unique}\dcref{III.7.2}
+\source{hartshorne-algebraic-geometry:III.7.2}
+A dualizing sheaf with trace is unique up to a unique trace-preserving
+isomorphism.
+\end{proposition}
+\begin{proof}
+Use the representing property on the two sheaves to get
+mutually inverse maps; uniqueness follows from the same property.
+\end{proof}
+\begin{lemma}[Ext vanishing by codimension]\label{ha-ch3-lem-ext-codim}\dcref{III.7.3}
+\source{hartshorne-algebraic-geometry:III.7.3}
+If $X\subset\mathbf P^N$ has codimension $r$, then
+$\mathcal E xt^i(\mathcal O_X,\omega_{\mathbf P^N})=0$ for $i<r$.
+
+\end{lemma}
+\begin{proof}
+
+At a point of $X$, a free resolution of the local defining ideal has length at least the codimension
+by the depth inequality.  Applying $\operatorname{Hom}(-,\omega_{\mathbf P^N})$ therefore has no
+cohomology below degree $r$; stalkwise vanishing gives the sheaf assertion.
+
+\end{proof}
+\begin{lemma}[The dualizing Ext sheaf]\label{ha-ch3-lem-dualizing-ext}\dcref{III.7.4}
+\source{hartshorne-algebraic-geometry:III.7.4}
+With $\omega_X=\mathcal E xt^r(\mathcal O_X,\omega_{\mathbf P^N})$,
+$\operatorname{Hom}_X(\mathcal F,\omega_X)\cong
+\operatorname{Ext}_{\mathbf P^N}^r(\mathcal F,\omega_{\mathbf P^N})$.
+\uses{ha-ch3-lem-ext-codim}
+\end{lemma}
+\begin{proof}
+
+Use the local-to-global Ext spectral sequence and the vanishing below $r$ from Lemma
+~\ref{ha-ch3-lem-ext-codim}.  Its degree-$r$ edge map is the displayed isomorphism, compatible
+with restriction to affine opens and hence global.
+
+\end{proof}
+\begin{proposition}[Existence of dualizing sheaves]\label{ha-ch3-prop-dualizing-existence}\dcref{III.7.5}
+\source{hartshorne-algebraic-geometry:III.7.5}
+Every projective scheme over a field has a dualizing sheaf.
+
+\end{proposition}
+\begin{proof}
+Embed in projective space and use the Ext sheaf of III.7.4;
+projective-space duality supplies the trace and representing property.
+\end{proof}
+\begin{theorem}[Duality for a projective scheme]\label{ha-ch3-thm-duality-projective-scheme}\dcref{III.7.6}
+\source{hartshorne-algebraic-geometry:III.7.6}
+For projective equidimensional $n$-fold $X/k$ with dualizing sheaf $\omega_X$,
+there are natural maps $\operatorname{Ext}^i(\mathcal F,\omega_X)\to
+H^{n-i}(X,\mathcal F)^\vee$.  They are all isomorphisms iff $X$ is
+Cohen--Macaulay and equidimensional, equivalently iff every locally free
+$\mathcal F$ has $H^i(X,\mathcal F(-q))=0$ for $i<n$ and $q\gg0$.
+
+\end{theorem}
+\begin{proof}
+Universality gives the maps.  Embed in $\mathbf P^N$ and compare
+depth/projective dimension with Ext vanishing to prove the equivalence of the
+first two conditions.  Under the vanishing both contravariant delta-functors
+are universal, so the maps are isomorphisms; the converse follows by taking
+locally free sheaves and applying projective-space duality.
+\end{proof}
+\begin{corollary}[Cohen--Macaulay duality]\label{ha-ch3-cor-duality-cm}\dcref{III.7.7}
+\source{hartshorne-algebraic-geometry:III.7.7}
+For Cohen--Macaulay equidimensional projective $X$, duality holds for locally
+free sheaves.
+\uses{ha-ch3-thm-duality-projective-scheme}
+\end{corollary}
+\begin{proof}
+
+For a Cohen--Macaulay equidimensional scheme, the depth criterion gives the vanishing hypothesis in
+Theorem~\ref{ha-ch3-thm-duality-projective-scheme}; specialize that theorem to locally free
+$\mathcal F$.
+
+\end{proof}
+\begin{corollary}[Normal vanishing]\label{ha-ch3-cor-normal-vanishing}\dcref{III.7.8}
+\source{hartshorne-algebraic-geometry:III.7.8}
+If $X$ is normal of dimension at least two, then
+$H^i(X,\mathcal F(-q))=0$ for $i<2$ and $q\gg0$.
+\uses{ha-ch3-thm-duality-projective-scheme}
+\end{corollary}
+\begin{proof}
+
+Normality implies Serre's condition $S_2$, so local depth is at least two away from codimension one.
+The Ext/depth criterion in Theorem~\ref{ha-ch3-thm-duality-projective-scheme} gives the stated
+vanishing after a sufficiently negative twist.
+
+\end{proof}
+\begin{corollary}[Connected ample divisors]\label{ha-ch3-cor-connected-divisor}\dcref{III.7.9}
+\source{hartshorne-algebraic-geometry:III.7.9}
+An ample effective divisor on a normal projective variety of dimension at least
+two is connected.
+
+\end{corollary}
+\begin{proof}
+
+Apply the normal vanishing statement to the structure sheaf and use the exact
+sequence of the divisor; the resulting $H^0$ calculation forces connectedness.
+
+\end{proof}
+\begin{proposition}[Koszul regular sequence]\label{ha-ch3-prop-koszul}\dcref{III.7.10A}
+\source{hartshorne-algebraic-geometry:III.7.10A}
+If $f_1,\ldots,f_r$ is an $M$-regular sequence, the positive homology of its
+Koszul complex with coefficients in $M$ vanishes and degree zero is
+$M/(f_1,\ldots,f_r)M$.
+
+\end{proposition}
+\begin{proof}
+
+The book cites Matsumura (Theorem 43, p. 135) and Serre (IV.A) for the
+Koszul exactness assertion; no proof is supplied here.
+
+\end{proof}
+\begin{theorem}[Dualizing sheaf of a local complete intersection]\label{ha-ch3-thm-lci-dualizing}\dcref{III.7.11}
+\source{hartshorne-algebraic-geometry:III.7.11}
+If $X\subset\mathbf P^N$ is a codimension-$r$ local complete intersection with
+ideal $\mathcal I$, then
+$\omega_X\cong\omega_{\mathbf P^N}\otimes\bigwedge^r(\mathcal I/\mathcal I^2)^\vee$;
+it is invertible.
+\end{theorem}
+\begin{proof}
+Locally resolve $\mathcal O_X$ by the Koszul complex of a
+regular sequence.  Its dual computes the top Ext and changes by the
+determinant under a change of generators, exactly compensated by
+$\bigwedge^r(\mathcal I/\mathcal I^2)^\vee$.
+\end{proof}
+\begin{corollary}[Canonical sheaf on a nonsingular variety]\label{ha-ch3-cor-nonsingular-duality}\dcref{III.7.12}
+\source{hartshorne-algebraic-geometry:III.7.12}
+For a nonsingular projective variety, $\omega_X$ is the canonical sheaf.
+\uses{ha-ch3-thm-lci-dualizing}
+\end{corollary}
+\begin{proof}
+
+The conormal sequence for a nonsingular closed embedding is locally split with a regular sequence of
+equations.  The local-complete-intersection formula of Theorem~\ref{ha-ch3-thm-lci-dualizing}
+therefore identifies the dualizing sheaf with $\bigwedge^{\dim X}\Omega_X$.
+
+\end{proof}
+\begin{corollary}[Serre duality for nonsingular varieties]\label{ha-ch3-cor-serre-nonsingular}\dcref{III.7.13}
+\source{hartshorne-algebraic-geometry:III.7.13}
+Serre duality holds with the canonical sheaf; in particular
+$H^n(X,\omega_X)\cong k$ and for curves $p_a=p_g$.
+\uses{ha-ch3-thm-duality-projective-scheme}
+\end{corollary}
+\begin{proof}
+
+Apply Theorem~\ref{ha-ch3-thm-duality-projective-scheme} with $\mathcal F=\mathcal O_X$ and use
+the preceding identification of $\omega_X$.  For a curve, the equality of the dimensions of
+$H^1(X,\mathcal O_X)$ and regular differentials is exactly $p_a=p_g$.
+
+\end{proof}
+\begin{theorem}[Existence of residues]\label{ha-ch3-thm-residues-existence}\dcref{III.7.14.1}
+\source{hartshorne-algebraic-geometry:III.7.14.1}
+Let $X$ be a complete nonsingular curve over an algebraically closed field
+$k$, let $K$ be its function field, and let $\Omega_K$ be the space of
+meromorphic differentials.  For each closed point $P$ there is a unique
+$k$-linear map $\operatorname{res}_P:\Omega_K\to k$ such that, for a local
+parameter $t$, $\operatorname{res}_P(t^n\,dt)=0$ for $n\ne-1$ and
+$\operatorname{res}_P(t^{-1}dt)=1$.
+
+\end{theorem}
+\begin{proof}
+
+The existence and parameter-independence are cited in the text to Serre,
+*Algebraic Groups and Class Fields*, Chap. II, and to Tate's construction;
+the book does not give a proof here.
+
+\end{proof}
+\begin{theorem}[Residue theorem]\label{ha-ch3-thm-residue-theorem}\dcref{III.7.14.2}
+\source{hartshorne-algebraic-geometry:III.7.14.2}
+For every $\omega\in\Omega_K$, $\sum_{P\in X}\operatorname{res}_P(\omega)=0$.
+
+\end{theorem}
+\begin{proof}
+
+The residue theorem is cited in the text to Serre and Tate; no proof is
+provided in Hartshorne at this point.
+
+\end{proof}
+
+\section{Higher direct images}
+\label{ha-ch3-sec8}
+\begin{definition}[Higher direct image]\label{ha-ch3-def-higher-direct-image}
+\source{hartshorne-algebraic-geometry:III.8}
+$R^if_*\mathcal F$ is the $i$th derived functor of direct image.
+\end{definition}
+\begin{proposition}[Stalk description]\label{ha-ch3-prop-direct-image-stalk}\dcref{III.8.1}
+\source{hartshorne-algebraic-geometry:III.8.1}
+The sheaf $R^if_*\mathcal F$ is the sheaf associated to
+$U\mapsto H^i(f^{-1}U,\mathcal F)$.
+
+\end{proposition}
+\begin{proof}
+
+Take an injective resolution $\mathcal F\to I^\bullet$.  Direct image is left exact, and on an
+open $U\subseteq Y$ its cochain complex is $\Gamma(f^{-1}U,I^\bullet)$.  Its cohomology is
+$H^i(f^{-1}U,\mathcal F)$, and sheafifying this presheaf gives $R^if_*\mathcal F$.
+
+\end{proof}
+\begin{corollary}[Restriction of direct images]\label{ha-ch3-cor-direct-image}\dcref{III.8.2}
+\source{hartshorne-algebraic-geometry:III.8.2}
+Restriction to an open $V\subset Y$ identifies $(R^if_*\mathcal F)|_V$ with
+$R^i(f|_{f^{-1}V})_*\mathcal F$.
+
+\end{corollary}
+\begin{proof}
+
+Restrict the complex in the preceding proof.  The sections on an open $W\subseteq V$ are still
+$H^i(f^{-1}W,\mathcal F)$, so the associated sheaves agree.
+
+\end{proof}
+\begin{corollary}[Flasque vanishing]\label{ha-ch3-cor-flasque-vanishing}\dcref{III.8.3}
+\source{hartshorne-algebraic-geometry:III.8.3}
+$R^if_*$ vanishes on flasque sheaves.
+
+\end{corollary}
+\begin{proof}
+
+For a flasque $\mathcal F$, every inverse-image open $f^{-1}U$ is flasque by restriction.  Its
+positive cohomology vanishes, so the stalk description gives $R^if_*\mathcal F=0$ for $i>0$.
+
+\end{proof}
+\begin{proposition}[Direct image on module categories]\label{ha-ch3-prop-direct-image-composition}\dcref{III.8.4}
+\source{hartshorne-algebraic-geometry:III.8.4}
+Let $f:X\to Y$ be a morphism of ringed spaces.  The functors $R^if_*$ on
+sheaves of modules are the derived functors of
+$f_*:\operatorname{Mod}(X)\to\operatorname{Mod}(Y)$.
+\uses{ha-ch3-prop-cohomology-derived}
+\end{proposition}
+\begin{proof}
+
+This is the derived-functor comparison stated in the book; it follows by
+calculating with injective resolutions and Proposition~III.2.6.
+
+\end{proof}
+\begin{proposition}[Affine direct images]\label{ha-ch3-prop-affine-direct-image}\dcref{III.8.5}
+\source{hartshorne-algebraic-geometry:III.8.5}
+Let $X$ be noetherian, let $f:X\to Y$ be a morphism of schemes, and let
+$Y=\operatorname{Spec}A$ be affine.  For every quasi-coherent $\mathcal F$ on
+$X$ there is a natural isomorphism
+\[
+R^if_*\mathcal F\cong\widetilde{H^i(X,\mathcal F)}.
+\]
+
+\end{proposition}
+\begin{proof}
+
+The text proves this by identifying both sides as universal delta-functors,
+using the affine case and the vanishing of cohomology for flasque sheaves.
+
+\end{proof}
+\begin{corollary}[Quasi-coherence of direct images]\label{ha-ch3-cor-direct-image-affine}\dcref{III.8.6}
+\source{hartshorne-algebraic-geometry:III.8.6}
+Let $f:X\to Y$ be a morphism of schemes with $X$ noetherian.  If
+$\mathcal F$ is quasi-coherent, then each $R^if_*\mathcal F$ is
+quasi-coherent.
+\uses{ha-ch3-prop-affine-direct-image}
+\end{corollary}
+\begin{proof}
+
+This follows locally on affine opens of $Y$ from Proposition~III.8.5 and
+the quasi-coherent affine calculation.
+
+\end{proof}
+\begin{corollary}[Separated affine computation]\label{ha-ch3-cor-separated-direct-image}\dcref{III.8.7}
+\source{hartshorne-algebraic-geometry:III.8.7}
+In the separated noetherian case, higher direct images are computed on affine
+covers by Cech complexes.
+
+\end{corollary}
+\begin{proof}
+
+Apply the affine-cover Cech comparison theorem to $f^{-1}U$ for each affine $U\subseteq Y$.
+Separatedness makes finite intersections affine, and the identifications are compatible with
+restriction in $U$, giving the claimed sheaf calculation.
+
+\end{proof}
+\begin{theorem}[Coherence of proper direct images]\label{ha-ch3-thm-direct-image-coherent}\dcref{III.8.8}
+\source{hartshorne-algebraic-geometry:III.8.8}
+Let $f:X\to Y$ be projective between noetherian schemes, let $\mathcal F$ be
+coherent, and let $\mathcal L=\mathcal O_X(1)$ be very ample over $Y$.  Then
+(a) for every $n>0$, the natural map
+$f^*f_*\mathcal F(n)\to\mathcal F(n)$ is surjective; (b) each
+$R^if_*\mathcal F$ is coherent; and (c) $R^if_*\mathcal F(n)=0$ for
+$i>0$ and $n\gg0$.
+
+\end{theorem}
+\begin{proof}
+Reduce to projective space, use the finite generation and eventual
+vanishing of III.5.2 on affine opens, and glue the resulting finite modules.
+\end{proof}
+
+\section{Flat morphisms}
+\label{ha-ch3-sec9}
+\begin{proposition}[Flatness criteria]\label{ha-ch3-prop-flat-criteria}\dcref{III.9.1A}
+\source{hartshorne-algebraic-geometry:III.9.1A}
+For an $A$-module $M$ the following hold: (a) $M$ is flat iff
+$-\otimes_A M$ is exact; (b) base extension preserves flatness; (c) flatness
+is transitive; (d) flatness is local under localization; (e) in a short exact
+sequence, if two terms are flat then so is the third; and (f) a finite module
+over a local noetherian ring is flat iff it is free.
+
+\end{proposition}
+\begin{proof}
+
+The proof is cited in the text to Atiyah--Macdonald, Chap. 2, and Bourbaki;
+the book does not reprove these standard module-theoretic criteria here.
+
+\end{proof}
+\begin{definition}[Flat morphism]\label{ha-ch3-def-flat}
+\source{hartshorne-algebraic-geometry:III.9}
+A morphism is flat when the induced local ring maps are flat.
+\end{definition}
+\begin{proposition}[Localization and base change of flatness]\label{ha-ch3-prop-flat-preservation}\dcref{III.9.2}
+\source{hartshorne-algebraic-geometry:III.9.2}
+The properties of flat modules in Proposition~III.9.1A globalize: localization,
+base change, and composition preserve flatness.
+\uses{ha-ch3-prop-flat-criteria}
+\end{proposition}
+\begin{proof}
+
+This follows from the corresponding module statements in
+Proposition~III.9.1A, applied on affine charts.
+
+\end{proof}
+\begin{proposition}[Base change for quasi-coherent sheaves]\label{ha-ch3-prop-flat-base-change}\dcref{III.9.3}
+\source{hartshorne-algebraic-geometry:III.9.3}
+Let $f:X\to Y$ be a separated morphism of finite type between noetherian
+schemes, let $g:Y'\to Y$ be flat, and let $X'=X\times_Y Y'$ with projection
+$g':X'\to X$.  Then, for quasi-coherent $\mathcal F$,
+\[
+g^*R^if_*\mathcal F\simeq R^ig'_*g'^*\mathcal F.
+\]
+
+\end{proposition}
+\begin{proof}
+
+The proof is the Cech calculation on affine covers: flat base change tensors
+the Cech complex with the new base ring, and separatedness keeps all finite
+intersections affine.
+
+\end{proof}
+\begin{corollary}[Affine flat base change]\label{ha-ch3-cor-flat-affine}\dcref{III.9.4}
+\source{hartshorne-algebraic-geometry:III.9.4}
+If $Y=\operatorname{Spec}A$ and $y\in Y$ has residue field $k(y)$, then
+\[
+H^i(X,\mathcal F)\otimes_A k(y)\simeq H^i(X_y,\mathcal F_y)
+\]
+under the hypotheses of Proposition~III.9.3.
+\uses{ha-ch3-prop-flat-base-change}
+\end{corollary}
+\begin{proof}
+
+Apply Proposition~III.9.3 to the base change $\operatorname{Spec}k(y)\to Y$.
+
+\end{proof}
+\begin{proposition}[Flatness and fiber dimensions]\label{ha-ch3-prop-flat-fibers}\dcref{III.9.5}
+\source{hartshorne-algebraic-geometry:III.9.5}
+Let $f:X\to Y$ be a morphism of finite type over a field $k$, and assume
+$f$ is flat.  Then for every $x\in X$, with $y=f(x)$,
+\[
+\dim_x(X_y)=\dim_xX-\dim_yY.
+\]
+
+\end{proposition}
+\begin{proof}
+
+This is the local dimension formula for a finite-type flat algebra, as cited
+in the text.
+
+\end{proof}
+\begin{corollary}[Flat families over regular curves]\label{ha-ch3-cor-flat-curve}\dcref{III.9.6}
+\source{hartshorne-algebraic-geometry:III.9.6}
+Let $f:X\to Y$ be flat, of finite type over a field, with $Y$ irreducible.
+If $Y$ is regular of dimension one, then the following are equivalent: every
+associated point of $X$ maps to the generic point of $Y$, and every
+irreducible component of every fiber has the expected dimension.
+\uses{ha-ch3-prop-flat-fibers}
+\end{corollary}
+\begin{proof}
+
+Use the non-zero-divisor criterion for a parameter of the regular curve and
+the dimension formula of Proposition~III.9.5.
+
+\end{proof}
+\begin{proposition}[Flatness and associated points]\label{ha-ch3-prop-flat-specialization}\dcref{III.9.7}
+\source{hartshorne-algebraic-geometry:III.9.7}
+Let $f:X\to Y$ be a morphism with $Y$ integral and regular of dimension one.
+Then $f$ is flat iff every associated point of $X$ maps to the generic point
+of $Y$; if $X$ is reduced, this is equivalent to every irreducible component
+of $X$ dominating $Y$.
+
+\end{proposition}
+\begin{proof}
+
+This is the associated-point flatness criterion, proved in the text by the
+local criterion for flatness.
+
+\end{proof}
+\begin{proposition}[Flat closure over a curve]\label{ha-ch3-prop-flat-limitations}\dcref{III.9.8}
+\source{hartshorne-algebraic-geometry:III.9.8}
+Let $Y$ be a regular integral curve, let $P\in Y$ be closed, and let
+$X\subset\mathbf P^n_{Y-P}$ be flat over $Y-P$.  The scheme-theoretic closure
+$\overline X\subset\mathbf P^n_Y$ is flat over $Y$.
+
+\end{proposition}
+\begin{proof}
+
+The proof is the local associated-point argument given in the text: the
+closure has no associated point over $P$, so the parameter of the regular
+curve is a non-zero-divisor and the local criterion gives flatness.
+
+\end{proof}
+\begin{theorem}[Flat families of projective schemes]\label{ha-ch3-thm-flat-family}\dcref{III.9.9}
+\source{hartshorne-algebraic-geometry:III.9.9}
+For an integral noetherian base $T$ and a flat projective family
+$X\subset\mathbf P_T^n$, the Hilbert polynomial of the fibers is constant.
+
+\end{theorem}
+\begin{proof}
+The graded coordinate module is flat over the base in each large
+degree; III.5.2 and the Hilbert polynomial calculation identify its fiber
+dimensions, which therefore agree on the integral base.
+\end{proof}
+\begin{corollary}[Constancy on connected bases]\label{ha-ch3-cor-flat-family}\dcref{III.9.10}
+\source{hartshorne-algebraic-geometry:III.9.10}
+For connected bases the Hilbert polynomial is constant.
+
+\end{corollary}
+\begin{proof}
+
+The coefficients of the fiber Hilbert polynomial are locally constant by the flat-family theorem.
+An integer-valued locally constant function is constant on a connected base.
+
+\end{proof}
+\begin{theorem}[Normal families over a nonsingular curve]\label{ha-ch3-thm-normal-family}\dcref{III.9.11}
+\source{hartshorne-algebraic-geometry:III.9.11}
+An algebraic family of normal varieties parametrized by a nonsingular curve is
+a flat family of schemes.
+\uses{ha-ch3-lem-hironaka}
+\end{theorem}
+\begin{proof}
+
+Flatness follows from the local flatness criterion.  At a point of a fiber,
+let $t$ be a uniformizer on the curve and $\mathfrak p$ the unique minimal
+prime over $(t)$.  The generic-point multiplicity hypothesis makes $t$ a
+uniformizer in $A_{\mathfrak p}$, while the fiber's normality makes
+$A/\mathfrak p$ normal.  Lemma III.9.12 gives $\mathfrak p=tA$, so the
+scheme-theoretic fiber is reduced and equals the prescribed variety.
+
+\end{proof}
+\begin{lemma}[Hironaka]\label{ha-ch3-lem-hironaka}\dcref{III.9.12}
+\source{hartshorne-algebraic-geometry:III.9.12}
+For a local noetherian domain, the relevant intersection of principal ideals
+in a flat finite-type algebra is controlled by the generic fiber; this gives
+the specialization lemma used in the normal-family result.
+
+\end{lemma}
+\begin{proof}
+
+Let $t$ be a parameter of the one-dimensional base and $A$ the local algebra.  Flatness makes $t$
+ a non-zero-divisor, while normality of the generic and special fibers identifies the contraction of
+ $(t)$ with the intersection of the height-one principal ideals above it.  Krull intersection then
+ gives $\bigcap_{n\ge1}t^nA=0$ and the claimed control of the special fiber.
+
+\end{proof}
+
+\begin{corollary}[Normal-family genus]\label{ha-ch3-cor-normal-genus}\dcref{III.9.13}
+\source{hartshorne-algebraic-geometry:III.9.13}
+In a flat family of normal projective varieties the arithmetic genus is
+constant.
+
+\end{corollary}
+\begin{proof}
+
+The arithmetic genus is the fixed value of the Hilbert polynomial at $0$ (up to the usual sign and
+constant term).  Apply the constancy of the Hilbert polynomial in a flat projective family.
+
+\end{proof}
+
+\section{Smooth morphisms}
+\label{ha-ch3-sec10}
+\begin{definition}[Smooth morphism]\label{ha-ch3-def-smooth}
+\source{hartshorne-algebraic-geometry:III.10}
+A finite-type morphism is smooth of relative dimension $n$ when it is flat and
+its geometric fibers are nonsingular $n$-folds; equivalently it has the formal
+lifting property and locally free relative differentials of rank $n$.
+\end{definition}
+\begin{proposition}[Differentials]\label{ha-ch3-prop-differentials}\dcref{III.10.1}
+\source{hartshorne-algebraic-geometry:III.10.1}
+For $X\to Y\to Z$ there is a right-exact sequence
+$f^*\Omega_{Y/Z}\to\Omega_{X/Z}\to\Omega_{X/Y}\to0$; smoothness is
+characterized by local freeness of the last term together with flatness.
+
+\end{proposition}
+\begin{proof}
+
+For affine rings $A\to B\to C$, a $C$-derivation of $C$ over $A$ restricts to a $B$-derivation after
+quotienting by derivations coming from $B$; the universal property gives the exact sequence.  Localize
+to obtain the sheaf statement.  The infinitesimal lifting criterion identifies smoothness with
+flatness and locally free relative differentials of the expected rank.
+
+\end{proof}
+\begin{theorem}[Jacobian criterion]\label{ha-ch3-thm-jacobian}\dcref{III.10.2}
+\source{hartshorne-algebraic-geometry:III.10.2}
+For finite-type schemes over a field, smoothness is equivalent to the expected
+rank condition on differentials/Jacobian at every point.
+
+\end{theorem}
+\begin{proof}
+Present the local algebra by generators and relations; the formal
+lifting criterion is equivalent to solving the linearized relation equations,
+which is exactly the Jacobian rank condition.
+\end{proof}
+\begin{lemma}[Regular local algebra]\label{ha-ch3-lem-regular-local}\dcref{III.10.3A}
+\source{hartshorne-algebraic-geometry:III.10.3A}
+The dimension, embedding dimension, and projective dimension relations for a
+local homomorphism give the regularity criterion used in the smoothness proof.
+
+\end{lemma}
+\begin{proof}
+
+For a local map $(A,\mathfrak m)\to(B,\mathfrak n)$, the conormal exact sequence compares
+$\mathfrak n/\mathfrak n^2$ with $\Omega_{B/A}\otimes k(\mathfrak n)$.  The depth and dimension
+equalities in a regular local ring make the Jacobian rank equal to the relative codimension; conversely
+that rank equality forces the maximal ideal to be generated by the dimension number of parameters.
+
+\end{proof}
+\begin{proposition}[Composition and base change for smooth maps]\label{ha-ch3-prop-smooth-composition}\dcref{III.10.4}
+\source{hartshorne-algebraic-geometry:III.10.4}
+Composites and base changes of smooth morphisms are smooth.
+\uses{ha-ch3-prop-differentials}
+\end{proposition}
+\begin{proof}
+
+Flatness is stable under composition and tensor product.  The differential sequence in
+Proposition~\ref{ha-ch3-prop-differentials} shows that the relative differentials of a composite are
+locally free of the sum of the ranks, and base change preserves the same presentation and rank.
+
+\end{proof}
+\begin{lemma}[Generic separability]\label{ha-ch3-lem-generic-separable}\dcref{III.10.5}
+\source{hartshorne-algebraic-geometry:III.10.5}
+A dominant finite-type morphism of integral schemes is generically smooth
+after removing the inseparable locus; in characteristic zero this holds
+without a separability qualification.
+
+\end{lemma}
+\begin{proof}
+
+Choose a separating transcendence basis of the extension of function fields.  The module of
+Kähler differentials has the expected dimension after inverting one nonzero determinant of the
+Jacobian.  Its nonvanishing locus is dense exactly when the extension is separable; in characteristic
+zero every finite extension is separable.
+
+\end{proof}
+\begin{proposition}[Generic smoothness]\label{ha-ch3-prop-smooth-nonsingular}\dcref{III.10.6}
+\source{hartshorne-algebraic-geometry:III.10.6}
+A dominant morphism of nonsingular varieties is smooth on a dense open set.
+
+\end{proposition}
+\begin{proof}
+
+At the generic point the induced extension of function fields is separable.  By the generic
+separability lemma, a Jacobian minor is nonzero there; its nonvanishing locus is a dense open.  The
+Jacobian criterion identifies the restriction over this open with a smooth morphism.
+
+\end{proof}
+\begin{corollary}[Generic smoothness over a perfect field]\label{ha-ch3-cor-bertini}\dcref{III.10.7}
+\source{hartshorne-algebraic-geometry:III.10.7}
+Over a perfect field, a finite-type morphism is smooth on a dense open when its
+generic extension is separable.
+
+\end{corollary}
+\begin{proof}
+
+The generic separability lemma gives a dense open where the differential rank is maximal.  Perfectness
+ makes residue-field extensions separable, so geometric regularity agrees with regularity there; the
+ Jacobian criterion then gives smoothness.
+
+\end{proof}
+\begin{theorem}[Homogeneous-space smoothness]\label{ha-ch3-thm-homogeneous}\dcref{III.10.8}
+\source{hartshorne-algebraic-geometry:III.10.8}
+A homogeneous space under an algebraic group is nonsingular, and its general
+hyperplane sections satisfy the Bertini conclusion.
+
+\end{theorem}
+\begin{proof}
+
+Translation by the group identifies all tangent spaces, so it is enough to check smoothness at the
+identity coset, where the stabilizer quotient gives the expected tangent dimension.  Apply generic
+smoothness to the universal hyperplane section to obtain the Bertini assertion.
+
+\end{proof}
+\begin{corollary}[Bertini theorem]\label{ha-ch3-cor-bertini-section}\dcref{III.10.9}
+\source{hartshorne-algebraic-geometry:III.10.9}
+A general hyperplane section of a nonsingular projective variety is
+nonsingular under the stated characteristic hypotheses.
+
+\end{corollary}
+\begin{proof}
+
+Apply the generic smoothness theorem to the universal hyperplane family.  The nonsmooth locus has
+ proper image in the dual projective space, so a hyperplane outside that image has a nonsingular
+ section.
+
+\end{proof}
+
+\section{Formal functions}
+\label{ha-ch3-sec11}
+\begin{theorem}[Theorem on formal functions]\label{ha-ch3-thm-formal-functions}\dcref{III.11.1}
+\source{hartshorne-algebraic-geometry:III.11.1}
+Let $f:X\to Y$ be projective noetherian, $y\in Y$, and $\mathcal F$ coherent.
+Writing $X_n=X\times_Y\operatorname{Spec}(\mathcal O_{Y,y}/\mathfrak m_y^{n+1})$,
+there is a natural isomorphism
+\[\widehat{(R^if_*\mathcal F)}_y\cong\varprojlim_nH^i(X_n,\mathcal F|_{X_n}).\]
+
+\end{theorem}
+\begin{proof}
+Embed $X$ in projective space, resolve $\mathcal F$ by sums of
+twists, and apply the finite generation and eventual vanishing theorem to the
+resulting complexes.  Completion commutes with their finite cohomology, and
+passage to the inverse limit gives the displayed map and its inverse.
+\end{proof}
+\begin{corollary}[Completion and base change]\label{ha-ch3-cor-formal-functions}\dcref{III.11.2}
+\source{hartshorne-algebraic-geometry:III.11.2}
+The completed direct image is compatible with completion and base change.
+
+\end{corollary}
+\begin{proof}
+
+Reduce the formal-functions isomorphism modulo $\mathfrak m_y^{n+1}$.  The inverse system is then the
+ cohomology of the corresponding thickening, which is exactly the base-change complex; passing to the
+ inverse limit gives the compatibility.
+
+\end{proof}
+\begin{corollary}[Affine formal functions]\label{ha-ch3-cor-formal-affine}\dcref{III.11.3}
+\source{hartshorne-algebraic-geometry:III.11.3}
+In the affine case, the completed direct-image modules are finite.
+
+\end{corollary}
+\begin{proof}
+
+On an affine base, the cohomology modules in the theorem on formal functions are finite by
+Serre finiteness.  Their inverse limit is therefore a finitely generated module over the completed
+local ring.
+
+\end{proof}
+\begin{corollary}[Zariski main theorem]\label{ha-ch3-cor-zariski-main}\dcref{III.11.4}
+\source{hartshorne-algebraic-geometry:III.11.4}
+A proper birational morphism to a normal scheme has
+$f_*\mathcal O_X=\mathcal O_Y$.
+
+\end{corollary}
+\begin{proof}
+
+The inclusion $\mathcal O_Y\hookrightarrow f_*\mathcal O_X$ is an isomorphism over the generic point.
+For a normal affine open $\operatorname{Spec}A\subset Y$, a section on $f^{-1}\operatorname{Spec}A$
+lies in the fraction field and is regular at every codimension-one point because $f$ is proper and
+birational.  Normality gives $A=\bigcap_{\operatorname{ht}\mathfrak p=1}A_{\mathfrak p}$, so the
+section belongs to $A$.
+
+\end{proof}
+\begin{corollary}[Stein factorization]\label{ha-ch3-cor-stein}\dcref{III.11.5}
+\source{hartshorne-algebraic-geometry:III.11.5}
+A proper morphism factors through a finite morphism after taking the relative
+Spec of its direct-image algebra.
+
+\end{corollary}
+\begin{proof}
+
+Set $Y'=\operatorname{Spec}_Yf_*\mathcal O_X$.  Properness and coherence make $f_*\mathcal O_X$
+ a finite $\mathcal O_Y$-algebra, so $Y'\to Y$ is finite.  The adjunction map $X\to Y'$ is proper
+ with geometrically connected fibers, and its composite with $Y'\to Y$ is $f$.
+
+\end{proof}
+
+\section{Semicontinuity}
+\label{ha-ch3-sec12}
+\begin{proposition}[Universal complexes]\label{ha-ch3-prop-universal-complex}\dcref{III.12.1}
+\source{hartshorne-algebraic-geometry:III.12.1}
+For a bounded complex of finite free modules over a noetherian ring, its
+cohomology after tensoring with a residue field is represented by a bounded
+complex of finite free modules with differentials in the maximal ideal.
+
+\end{proposition}
+\begin{proof}
+
+Over a local ring, split off every unit entry occurring in a differential.  Each such entry gives a
+contractible two-term summand.  Removing all of them leaves a homotopy-equivalent complex whose
+ differential matrices have entries in the maximal ideal; the construction localizes and glues.
+
+\end{proof}
+\begin{proposition}[Fiber dimensions of complexes]\label{ha-ch3-prop-fiber-dimensions}\dcref{III.12.2}
+\source{hartshorne-algebraic-geometry:III.12.2}
+The resulting fiber dimensions are controlled by the ranks of the
+differentials.
+
+\end{proposition}
+\begin{proof}
+
+For a complex of vector spaces, $\dim H^i=\dim C^i-\operatorname{rank}d^{i-1}-\operatorname{rank}d^i$.
+Apply this identity after tensoring the universal complex with $k(y)$.
+
+\end{proof}
+\begin{lemma}[Minimal complexes]\label{ha-ch3-lem-minimal-complex}\dcref{III.12.3}
+\source{hartshorne-algebraic-geometry:III.12.3}
+Over a local ring, a complex with differentials in the maximal ideal has fiber
+cohomology whose dimension is the rank of the corresponding free term minus
+the ranks of adjacent differentials.
+
+\end{lemma}
+\begin{proof}
+
+The differentials vanish after tensoring with the residue field, so the fiber cohomology is the
+corresponding vector-space kernel modulo image.  Its dimension is the alternating rank expression in
+the preceding proposition, and Nakayama lifts the rank conditions back to the local ring.
+
+\end{proof}
+\begin{proposition}[Equivalent complex conditions]\label{ha-ch3-prop-complex-conditions}\dcref{III.12.4}
+\source{hartshorne-algebraic-geometry:III.12.4}
+For a complex of finite free modules, the following are equivalent: a fiber
+cohomology dimension is locally constant; the relevant cohomology module is
+free and commutes with residue-field base change; and the neighboring
+differential has the required constant rank.
+
+\end{proposition}
+\begin{proof}
+
+Localize at a point and replace the complex by the minimal complex of III.12.1.  The rank formula of
+III.12.2 shows that constant fiber dimension is equivalent to constant rank of the neighboring
+differential.  A constant-rank map between finite free modules has locally free kernel and cokernel,
+and tensoring with residue fields preserves them; the converse follows by taking dimensions.
+
+\end{proof}
+\begin{proposition}[Natural fiber map]\label{ha-ch3-prop-fiber-map}\dcref{III.12.5}
+\source{hartshorne-algebraic-geometry:III.12.5}
+There is a natural map from the cohomology of a finite complex tensored with
+$k(y)$ to the cohomology of the tensor complex, and its kernel/cokernel are
+controlled by the neighboring cohomology module.
+
+\end{proposition}
+\begin{proof}
+
+Tensor the short exact sequences defining cycles and boundaries with $k(y)$ and use the resulting
+Tor exact sequence.  The edge map from $H^i(C^\bullet)\otimes k(y)$ to $H^i(C^\bullet\otimes k(y))$
+has kernel the image of $\operatorname{Tor}_1(H^{i+1}(C^\bullet),k(y))$ and cokernel a quotient of
+$H^{i+1}(C^\bullet)[\mathfrak m_y]$.
+
+\end{proof}
+\begin{corollary}[Local freeness criterion]\label{ha-ch3-cor-local-free-cohomology}\dcref{III.12.6}
+\source{hartshorne-algebraic-geometry:III.12.6}
+Constancy of the relevant fiber dimension makes the cohomology module locally
+free and makes the fiber map an isomorphism.
+\uses{ha-ch3-prop-complex-conditions}
+\end{corollary}
+\begin{proof}
+
+Use Proposition~\ref{ha-ch3-prop-complex-conditions}: constancy gives the required constant rank,
+so the cohomology module is locally free and the Tor terms in the natural fiber map vanish.
+
+\end{proof}
+\begin{definition}[Upper semicontinuity]\label{ha-ch3-def-upper-semicontinuity}\dcref{III.12.7}
+\source{hartshorne-algebraic-geometry:III.12.7}
+A function is upper semicontinuous when each locus where its value is at most a
+fixed integer is open.
+\end{definition}
+\begin{theorem}[Semicontinuity]\label{ha-ch3-thm-semicontinuity}\dcref{III.12.8}
+\source{hartshorne-algebraic-geometry:III.12.8}
+For projective $f:X\to Y$ with $Y$ noetherian and coherent $\mathcal F$ flat
+over $Y$, $y\mapsto\dim_{k(y)}H^i(X_y,\mathcal F_y)$ is upper semicontinuous.
+
+\end{theorem}
+\begin{proof}
+Represent $R^if_*\mathcal F$ locally by a finite complex of free
+modules.  The preceding rank description shows that the locus where fiber
+cohomology has dimension at most $N$ is open.
+\end{proof}
+\begin{corollary}[Grauert and base change]\label{ha-ch3-cor-grauert}\dcref{III.12.9}
+\source{hartshorne-algebraic-geometry:III.12.9}
+If a fiber cohomology dimension is constant near $y$, $R^if_*\mathcal F$ is
+locally free there and commutes with arbitrary residue-field base change.
+
+\end{corollary}
+\begin{proof}
+
+The semicontinuity theorem makes the constant-dimension locus open.  On that neighborhood apply the
+local freeness criterion to the finite free complex representing $R^if_*\mathcal F$.
+
+\end{proof}
+\begin{proposition}[Cohomology and base change criterion]\label{ha-ch3-prop-cohomology-base-change}\dcref{III.12.10}
+\source{hartshorne-algebraic-geometry:III.12.10}
+The base-change map $(R^if_*\mathcal F)\otimes k(y)\to H^i(X_y,\mathcal F_y)$
+is surjective precisely under the neighboring-map condition; if it is
+surjective, it is an isomorphism near $y$ and $R^{i-1}f_*\mathcal F$ is locally
+free there.
+\uses{ha-ch3-prop-fiber-map}
+\end{proposition}
+\begin{proof}
+
+Represent the derived direct image locally by a finite free complex.  The natural fiber map is the
+edge map in the Tor exact sequence of Proposition~\ref{ha-ch3-prop-fiber-map}; surjectivity is
+equivalent to vanishing of the neighboring Tor term.  Nakayama then makes the neighboring differential
+constant rank near $y$, so the map is an isomorphism there and the previous cohomology module is free.
+
+\end{proof}
+\begin{theorem}[Cohomology and base change]\label{ha-ch3-thm-cohomology-base-change}\dcref{III.12.11}
+\source{hartshorne-algebraic-geometry:III.12.11}
+Let $f:X\to Y$ be projective, $Y$ noetherian, and $\mathcal F$ coherent and
+flat over $Y$.  The natural map
+$(R^if_*\mathcal F)\otimes k(y)\to H^i(X_y,\mathcal F_y)$ is an isomorphism
+near $y$ whenever the degree-$i$ map is surjective at $y$; in that case the
+preceding direct image is locally free near $y$.
+
+\end{theorem}
+\begin{proof}
+Apply III.12.10 to the finite free complex representing direct
+image cohomology and use the rank/minimal-complex criterion of III.12.4.
+\end{proof}

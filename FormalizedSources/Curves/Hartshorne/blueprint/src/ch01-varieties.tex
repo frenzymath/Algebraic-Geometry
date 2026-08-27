@@ -1,0 +1,1035 @@
+% Source-faithful mathematical blueprint of Hartshorne, Algebraic Geometry (1977), Chapter I.
+% Authorial exposition, examples, and exercises are omitted; definitions, statements, and proof
+% arguments are retained. Source coordinates are the printed Chapter I coordinates.
+
+\section{Affine Varieties}
+
+Fix an algebraically closed field $k$, put $A=k[x_1,\ldots,x_n]$, and write
+\(\mathbb A^n=k^n\).  For $T\subset A$, set
+\[
+Z(T)=\{P\in\mathbb A^n:f(P)=0\text{ for every }f\in T\}.
+\]
+
+\begin{definition}[Polynomial evaluation and zero sets]
+\label{def:ha-ch1-polynomial-evaluation}
+\source{hartshorne-algebraic-geometry:I.1}
+For $P=(a_1,\ldots,a_n)\in\mathbb A^n$ and $f\in A$, regard $f$ as the function
+$f(P)=f(a_1,\ldots,a_n)$.  For one polynomial write
+$Z(f)=\{P\in\mathbb A^n:f(P)=0\}$, and for a subset $T\subseteq A$ write $Z(T)$
+for the common zero set displayed above.  If $\mathfrak a=(T)$, then
+$Z(T)=Z(\mathfrak a)$; since $A$ is noetherian, $\mathfrak a$ has finitely many generators.
+\end{definition}
+
+\begin{definition}[Algebraic set]
+\label{def:ha-ch1-algebraic-set}
+\source{hartshorne-algebraic-geometry:I.1}
+A subset $Y\subseteq\mathbb A^n$ is algebraic if and only if $Y=Z(T)$ for some subset
+$T\subseteq A$.
+\uses{def:ha-ch1-polynomial-evaluation}
+\end{definition}
+
+\begin{proposition}[Affine algebraic sets]
+\label{prop:ha-ch1-1-1}
+\source{hartshorne-algebraic-geometry:I.1.1}
+\dcref{I.1.1}
+The union of two algebraic sets and every intersection of algebraic sets are algebraic; so are
+$\varnothing$ and $\mathbb A^n$.
+\uses{def:ha-ch1-algebraic-set,def:ha-ch1-polynomial-evaluation}
+\end{proposition}
+\begin{proof}
+If $Y_i=Z(T_i)$, then $Y_1\cup Y_2=Z(T_1T_2)$, where $T_1T_2$ consists of all products
+of one element from each set.  Also $\bigcap_\alpha Z(T_\alpha)=Z(\bigcup_\alpha T_\alpha)$,
+while $Z(1)=\varnothing$ and $Z(0)=\mathbb A^n$.
+\end{proof}
+
+\begin{definition}[Zariski topology]
+\label{def:ha-ch1-zariski-topology}
+\source{hartshorne-algebraic-geometry:I.1}
+The Zariski topology on $\mathbb A^n$ is the topology whose closed subsets are the algebraic
+sets; equivalently, the complements of the sets $Z(T)$ are the open subsets.
+\uses{def:ha-ch1-algebraic-set}
+\end{definition}
+
+\begin{definition}[Irreducible subset]
+\label{def:ha-ch1-irreducible-subset}
+\source{hartshorne-algebraic-geometry:I.1}
+A nonempty subset $Y$ of a topological space is irreducible if it is not the union of two proper
+closed subsets (with the induced topology). The empty set is not irreducible.
+\end{definition}
+
+\begin{definition}[Affine algebraic variety]
+\label{def:ha-ch1-affine-variety}
+\source{hartshorne-algebraic-geometry:I.1}
+An affine algebraic variety is an irreducible algebraic set.
+\uses{def:ha-ch1-algebraic-set,def:ha-ch1-irreducible-subset}
+\end{definition}
+
+\begin{definition}[Quasi-affine variety]
+\label{def:ha-ch1-quasi-affine-variety}
+\source{hartshorne-algebraic-geometry:I.1}
+A quasi-affine variety is an open subset of an affine algebraic variety.
+\uses{def:ha-ch1-affine-variety}
+\end{definition}
+
+\begin{definition}[Vanishing ideal]
+\label{def:ha-ch1-vanishing-ideal}
+\source{hartshorne-algebraic-geometry:I.1}
+For $Y\subseteq\mathbb A^n$, its ideal is
+\[
+ I(Y)=\{f\in A:f(P)=0\text{ for every }P\in Y\}.
+\]
+\uses{def:ha-ch1-polynomial-evaluation}
+\end{definition}
+
+\begin{proposition}[Ideal-zero-set identities]
+\label{prop:ha-ch1-1-2}
+\source{hartshorne-algebraic-geometry:I.1.2}
+\dcref{I.1.2}
+For $T_1\subseteq T_2\subset A$, $Z(T_1)\supseteq Z(T_2)$; for $Y_1\subseteq Y_2$,
+$I(Y_1)\supseteq I(Y_2)$; $I(Y_1\cup Y_2)=I(Y_1)\cap I(Y_2)$; for an ideal $\mathfrak a$,
+$I(Z(\mathfrak a))=\sqrt{\mathfrak a}$; and $Z(I(Y))=\overline Y$.
+\uses{def:ha-ch1-polynomial-evaluation,def:ha-ch1-algebraic-set,def:ha-ch1-vanishing-ideal,thm:ha-ch1-1-3A}
+\end{proposition}
+\begin{proof}
+The first three assertions follow immediately from the definitions.  The fourth is the
+Nullstellensatz (Theorem~\ref{thm:ha-ch1-1-3A}).  For the last, $Y\subseteq Z(I(Y))$; if
+$W=Z(\mathfrak a)$ is any closed set containing $Y$, then $\mathfrak a\subseteq I(W)\subseteq I(Y)$,
+so $W\supseteq Z(I(Y))$.  Thus $Z(I(Y))$ is the smallest closed set containing $Y$.
+\end{proof}
+
+\begin{theorem}[Hilbert Nullstellensatz]
+\label{thm:ha-ch1-1-3A}
+\source{hartshorne-algebraic-geometry:I.1.3A}
+\dcref{I.1.3A}
+If $\mathfrak a\subset A$ and $f$ vanishes on $Z(\mathfrak a)$, then $f^r\in\mathfrak a$
+for some integer $r>0$.
+\end{theorem}
+\begin{proof}
+Hartshorne gives external references for this theorem and does not prove it in Chapter I.
+\end{proof}
+
+\begin{corollary}[Affine Nullstellensatz correspondence]
+\label{cor:ha-ch1-1-4}
+\source{hartshorne-algebraic-geometry:I.1.4}
+\dcref{I.1.4}
+Algebraic sets correspond inclusion-reversingly to radical ideals by $Y\mapsto I(Y)$ and
+$\mathfrak a\mapsto Z(\mathfrak a)$.  An algebraic set is irreducible exactly when its ideal is prime.
+\uses{thm:ha-ch1-1-3A,prop:ha-ch1-1-2}
+\end{corollary}
+\begin{proof}
+The first assertion is Theorem~\ref{thm:ha-ch1-1-3A} together with Proposition~\ref{prop:ha-ch1-1-2}.
+If $Y$ is irreducible and $fg\in I(Y)$, then $Y\subseteq Z(f)\cup Z(g)$, so one of $f,g$
+vanishes on $Y$; hence $I(Y)$ is prime.  Conversely, if $\mathfrak p$ is prime and
+$Z(\mathfrak p)=Y_1\cup Y_2$, then $\mathfrak p=I(Y_1)\cap I(Y_2)$, so primality forces
+$\mathfrak p=I(Y_i)$ for some $i$, and $Z(\mathfrak p)=Y_i$.
+\end{proof}
+
+\begin{definition}[Affine coordinate ring]
+\label{def:ha-ch1-affine-coordinate}
+\source{hartshorne-algebraic-geometry:I.1.4}
+For an affine algebraic set $Y$, put $A(Y)=A/I(Y)$.
+\uses{def:ha-ch1-algebraic-set,def:ha-ch1-vanishing-ideal}
+\end{definition}
+
+\begin{proposition}[Irreducible components]
+\label{prop:ha-ch1-1-5}
+\source{hartshorne-algebraic-geometry:I.1.5}
+\dcref{I.1.5}
+In a noetherian topological space, every nonempty closed set is a finite union of irreducible
+closed subsets, uniquely after omitting components contained in another.
+\uses{def:ha-ch1-zariski-topology,def:ha-ch1-irreducible-subset}
+\end{proposition}
+\begin{proof}
+If a minimal counterexample $Y$ were reducible, write $Y=Y'\cup Y''$ with both proper closed;
+minimality decomposes each into finitely many irreducible closed sets, contradiction.  For
+uniqueness, an irreducible component in one decomposition is contained in a component of the
+other; applying this in both directions and removing the first common component gives induction.
+\end{proof}
+
+\begin{corollary}[Affine components]
+\label{cor:ha-ch1-1-6}
+\source{hartshorne-algebraic-geometry:I.1.6}
+\dcref{I.1.6}
+Every affine algebraic set is a unique irredundant union of affine varieties.
+\uses{prop:ha-ch1-1-5,cor:ha-ch1-1-4}
+\end{corollary}
+\begin{proof}
+Apply Proposition~\ref{prop:ha-ch1-1-5} to the noetherian Zariski space $Y$.  Its irreducible
+components are closed in $Y$, hence affine algebraic sets, and their ideals are prime by
+Corollary~\ref{cor:ha-ch1-1-4}.  The uniqueness and irredundancy are exactly the uniqueness clause
+in Proposition~\ref{prop:ha-ch1-1-5}.
+\end{proof}
+
+For a topological space, dimension is the supremum of lengths of chains of distinct irreducible
+closed subsets.  For a ring, the height of a prime is the supremum of lengths of chains ending in
+that prime, and the Krull dimension is the supremum of prime heights.
+
+\begin{proposition}[Dimension of an affine coordinate ring]
+\label{prop:ha-ch1-1-7}
+\source{hartshorne-algebraic-geometry:I.1.7}
+\dcref{I.1.7}
+For an affine algebraic set $Y$, $\dim Y=\dim A(Y)$.
+\uses{def:ha-ch1-affine-coordinate}
+\end{proposition}
+\begin{proof}
+Closed irreducible subsets of $Y$ correspond to prime ideals of $A$ containing $I(Y)$, hence
+to prime ideals of $A(Y)$; chains correspond and have the same lengths.
+\end{proof}
+
+\begin{theorem}[Dimension theorem for finite type domains]
+\label{thm:ha-ch1-1-8A}
+\source{hartshorne-algebraic-geometry:I.1.8A}
+\dcref{I.1.8A}
+If $B$ is a finitely generated domain over a field $k$, then
+$\dim B=\operatorname{trdeg}_kK(B)$ and
+$\operatorname{ht}\mathfrak p+\dim(B/\mathfrak p)=\dim B$ for every prime $\mathfrak p$.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Matsumura and Atiyah--Macdonald for this commutative-algebra theorem.
+\end{proof}
+
+\begin{proposition}[Dimension of affine space]
+\label{prop:ha-ch1-1-9}
+\source{hartshorne-algebraic-geometry:I.1.9}
+\dcref{I.1.9}
+\(\dim\mathbb A^n=n\).
+\uses{prop:ha-ch1-1-7,thm:ha-ch1-1-8A}
+\end{proposition}
+\begin{proof}
+Apply Proposition~\ref{prop:ha-ch1-1-7} and Theorem~\ref{thm:ha-ch1-1-8A} to the polynomial ring.
+\end{proof}
+
+\begin{proposition}[Dimension of a quasi-affine variety]
+\label{prop:ha-ch1-1-10}
+\source{hartshorne-algebraic-geometry:I.1.10}
+\dcref{I.1.10}
+If $Y$ is quasi-affine, then $\dim Y=\dim\overline Y$.
+\uses{thm:ha-ch1-1-8A}
+\end{proposition}
+\begin{proof}
+Closing a chain gives $\dim Y\le\dim\overline Y$.  Choose a maximal chain in $Y$ beginning at a
+point $P$.  Its closures form a maximal chain in $\overline Y$, and the corresponding prime
+ideals lie under the maximal ideal $\mathfrak m_P$ with residue field $k$.  Theorem~\ref{thm:ha-ch1-1-8A}(b)
+then gives the same chain length as $\dim A(\overline Y)$, which is $\dim\overline Y$.
+\end{proof}
+
+\begin{theorem}[Krull Hauptidealsatz]
+\label{thm:ha-ch1-1-11A}
+\source{hartshorne-algebraic-geometry:I.1.11A}
+\dcref{I.1.11A}
+If $A$ is noetherian and $f$ is neither a zero divisor nor a unit, every minimal prime containing
+$f$ has height one.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Atiyah--Macdonald for the proof.
+\end{proof}
+
+\begin{proposition}[Height-one criterion for a UFD]
+\label{prop:ha-ch1-1-12A}
+\source{hartshorne-algebraic-geometry:I.1.12A}
+\dcref{I.1.12A}
+A noetherian domain is a unique factorization domain iff every height-one prime is principal.
+\end{proposition}
+\begin{proof}
+Hartshorne cites Matsumura and Bourbaki for the proof.
+\end{proof}
+
+\begin{proposition}[Affine hypersurfaces]
+\label{prop:ha-ch1-1-13}
+\source{hartshorne-algebraic-geometry:I.1.13}
+\dcref{I.1.13}
+A variety $Y\subset\mathbb A^n$ has dimension $n-1$ iff $Y=Z(f)$ for one nonconstant irreducible
+$f\in k[x_1,\ldots,x_n]$.
+\uses{thm:ha-ch1-1-11A,prop:ha-ch1-1-12A}
+\end{proposition}
+\begin{proof}
+For irreducible $f$, $(f)$ is prime and has height one by Hauptidealsatz, so the dimension theorem
+gives $n-1$.  Conversely, $Y$ corresponds to a height-one prime in the polynomial UFD; by the
+height-one criterion it is generated by an irreducible $f$, hence $Y=Z(f)$.
+\end{proof}
+
+\section{Projective Varieties}
+
+Let $S=k[x_0,\ldots,x_n]$ with its total-degree grading.
+
+\begin{definition}[Projective space and homogeneous coordinates]
+\label{def:ha-ch1-projective-space}
+\source{hartshorne-algebraic-geometry:I.2}
+The projective space $\mathbb P^n$ is the set of nonzero $(n+1)$-tuples in $k^{n+1}$ modulo
+scalar multiplication. A homogeneous polynomial has all terms of one total degree, and $S$ is
+graded by total degree.
+\uses{def:ha-ch1-polynomial-evaluation}
+\end{definition}
+
+\begin{definition}[Projective algebraic set]
+\label{def:ha-ch1-projective-algebraic-set}
+\source{hartshorne-algebraic-geometry:I.2}
+For homogeneous $T\subset S$, define $Z(T)\subset\mathbb P^n$ by common vanishing. A projective
+algebraic set is a set $Z(T)$; its homogeneous vanishing ideal is $I(Y)$ and its homogeneous
+coordinate ring is $S(Y)=S/I(Y)$.
+\uses{def:ha-ch1-projective-space}
+\end{definition}
+
+\begin{definition}[Projective and quasi-projective varieties]
+\label{def:ha-ch1-projective-variety}
+\source{hartshorne-algebraic-geometry:I.2}
+A projective variety is an irreducible projective algebraic set. A quasi-projective variety is an
+open subset of a projective variety.
+\uses{def:ha-ch1-projective-algebraic-set,def:ha-ch1-irreducible-subset}
+\end{definition}
+
+\begin{proposition}[Projective algebraic sets]
+\label{prop:ha-ch1-2-1}
+\source{hartshorne-algebraic-geometry:I.2.1}
+\dcref{I.2.1}
+Unions and arbitrary intersections of projective algebraic sets are algebraic, as are $\varnothing$
+and $\mathbb P^n$.
+\uses{prop:ha-ch1-1-1}
+\end{proposition}
+\begin{proof}
+Hartshorne leaves the proof to the reader; it is the homogeneous analogue of Proposition 1.1.
+\end{proof}
+
+\begin{proposition}[Standard projective charts]
+\label{prop:ha-ch1-2-2}
+\source{hartshorne-algebraic-geometry:I.2.2}
+\dcref{I.2.2}
+With $H_i=Z(x_i)$ and $U_i=\mathbb P^n-H_i$, the ratio map
+$\varphi_i:U_i\to\mathbb A^n$ is a homeomorphism for the induced/projective and affine Zariski
+topologies.
+\uses{def:ha-ch1-projective-space,def:ha-ch1-projective-algebraic-set,def:ha-ch1-zariski-topology}
+\end{proposition}
+\begin{proof}
+For $i=0$, dehomogenization sends a homogeneous polynomial $f$ to $f(1,y_1,\ldots,y_n)$;
+homogenization sends a polynomial $g$ of degree $d$ to
+$x_0^d g(x_1/x_0,\ldots,x_n/x_0)$.  These maps identify projective closed subsets in $U_0$
+with affine closed subsets and are inverse, proving the claim.  Other charts are identical.
+\end{proof}
+
+\begin{corollary}[Affine chart cover]
+\label{cor:ha-ch1-2-3}
+\source{hartshorne-algebraic-geometry:I.2.3}
+\dcref{I.2.3}
+Every projective (respectively quasi-projective) variety is covered by its intersections with the
+$U_i$, which are affine (respectively quasi-affine) varieties.
+\uses{prop:ha-ch1-2-2}
+\end{corollary}
+\begin{proof}
+The $U_i$ cover projective space because a nonzero homogeneous coordinate tuple has some nonzero
+coordinate.  Proposition~\ref{prop:ha-ch1-2-2} identifies $Y\cap U_i$ with a closed subset of
+$\mathbb A^n$ when $Y$ is projective, and with an open subset of such a closed set when $Y$ is
+quasi-projective.
+\end{proof}
+
+\section{Morphisms}
+
+\begin{definition}[Regular function]
+\label{def:ha-ch1-regular-function}
+\source{hartshorne-algebraic-geometry:I.3}
+A function to $k$ is regular at $P$ if on a neighborhood of $P$ it is $g/h$ with $h$ nowhere
+zero; in projective space $g,h$ are homogeneous of the same degree. It is regular if it is regular
+at every point.
+\uses{def:ha-ch1-quasi-affine-variety,def:ha-ch1-projective-variety}
+\end{definition}
+
+\begin{definition}[Morphism and isomorphism]
+\label{def:ha-ch1-morphism}
+\source{hartshorne-algebraic-geometry:I.3}
+A morphism is a continuous map pulling regular functions back to regular functions. An isomorphism
+is a morphism having a morphism as inverse.
+\uses{def:ha-ch1-regular-function}
+\end{definition}
+
+\begin{lemma}[Continuity of regular functions]
+\label{lem:ha-ch1-3-1}
+\source{hartshorne-algebraic-geometry:I.3.1}
+\dcref{I.3.1}
+Every regular function is continuous.
+\end{lemma}
+\begin{proof}
+It suffices to show that each fiber over $a\in k$ is closed.  On a neighborhood where $f=g/h$,
+with $h$ nowhere zero, the fiber is the zero set of $g-ah$; local closedness therefore implies
+global closedness.
+\end{proof}
+
+\begin{theorem}[Affine variety functions and local rings]
+\label{thm:ha-ch1-3-2}
+\source{hartshorne-algebraic-geometry:I.3.2}
+\dcref{I.3.2}
+For affine $Y$, $\mathcal O(Y)\cong A(Y)$; points correspond to maximal ideals; for $P$,
+$\mathcal O_{P,Y}\cong A(Y)_{\mathfrak m_P}$ and $\dim\mathcal O_{P,Y}=\dim Y$; and
+$K(Y)$ is the fraction field of $A(Y)$ with transcendence degree $\dim Y$.
+\uses{def:ha-ch1-affine-coordinate,def:ha-ch1-affine-variety,cor:ha-ch1-1-4,thm:ha-ch1-1-8A}
+\end{theorem}
+\begin{proof}
+Polynomial restriction gives an injective map $A(Y)\to\mathcal O(Y)$.  The affine Nullstellensatz
+identifies points with maximal ideals and gives the stated $\mathfrak m_P$.  Local expressions $g/h$
+give the surjection $A(Y)_{\mathfrak m_P}\to\mathcal O_{P,Y}$, while injectivity follows from
+the preceding injection.  The dimension and transcendence assertions follow from the dimension
+theorem.  Finally, inside the fraction field, a domain is the intersection of its localizations at
+all maximal ideals; since $\mathcal O(Y)$ lies between $A(Y)$ and this intersection, equality follows.
+\end{proof}
+
+\begin{proposition}[Projective chart isomorphism]
+\label{prop:ha-ch1-3-3}
+\source{hartshorne-algebraic-geometry:I.3.3}
+\dcref{I.3.3}
+The chart map $\varphi_i:U_i\to\mathbb A^n$ of Proposition 2.2 is an isomorphism of varieties.
+\uses{prop:ha-ch1-2-2}
+\end{proposition}
+\begin{proof}
+The dehomogenization and homogenization maps identify local quotients of equal-degree homogeneous
+polynomials with local quotients of affine polynomials, so the homeomorphism preserves regular
+functions in both directions.
+\end{proof}
+
+\begin{theorem}[Functions on a projective variety]
+\label{thm:ha-ch1-3-4}
+\source{hartshorne-algebraic-geometry:I.3.4}
+\dcref{I.3.4}
+For projective $Y$ with homogeneous coordinate ring $S(Y)$, $\mathcal O(Y)=k$,
+$\mathcal O_{P,Y}=S(Y)_{(\mathfrak m_P)}$, and $K(Y)$ is the degree-zero fraction field
+$S(Y)_{((0))}$.
+\uses{def:ha-ch1-projective-variety,def:ha-ch1-projective-algebraic-set}
+\end{theorem}
+\begin{proof}
+Chart localization gives the local-ring and function-field assertions.  If a global function $f$
+has chart expressions, choose one common degree $N$ so that multiplication by $x_i^N$ sends it
+into $S(Y)$.  Consequently $S(Y)[f]$ is a finite $S(Y)$-module, so $f$ is integral over $S(Y)$.
+Taking degree-zero parts makes $f$ integral over $S(Y)_0=k$; algebraic closedness gives $f\in k$.
+\end{proof}
+
+\begin{proposition}[Maps to affine varieties]
+\label{prop:ha-ch1-3-5}
+\source{hartshorne-algebraic-geometry:I.3.5}
+\dcref{I.3.5}
+For any variety $X$ and affine variety $Y$, morphisms $X\to Y$ correspond naturally to
+$k$-algebra homomorphisms $A(Y)\to\mathcal O(X)$.
+\uses{lem:ha-ch1-3-6}
+\end{proposition}
+\begin{proof}
+Pullback gives the homomorphism.  Conversely, choose affine coordinates for $Y$ and take the
+images of their coordinate functions; they define a map to affine space, and the ideal of $Y$
+vanishes after applying the homomorphism, so the image lies in $Y$.  Lemma 3.6 makes the map a
+morphism, and the two constructions are inverse.
+\end{proof}
+
+\begin{lemma}[Coordinate criterion for affine morphisms]
+\label{lem:ha-ch1-3-6}
+\source{hartshorne-algebraic-geometry:I.3.6}
+\dcref{I.3.6}
+A map $\psi:X\to Y\subset\mathbb A^n$ is a morphism iff every coordinate function $x_i\circ\psi$
+is regular on $X$.
+\end{lemma}
+\begin{proof}
+Necessity is the definition.  For sufficiency, polynomial pullbacks are regular and therefore
+continuous; local quotients of polynomials pull back to regular functions, so $\psi$ is a morphism.
+\end{proof}
+
+\begin{corollary}[Affine anti-equivalence]
+\label{cor:ha-ch1-3-7}
+\source{hartshorne-algebraic-geometry:I.3.7}
+\dcref{I.3.7}
+Affine varieties are isomorphic iff their coordinate rings are isomorphic as $k$-algebras.
+\uses{thm:ha-ch1-3-2,prop:ha-ch1-3-5,lem:ha-ch1-3-6}
+\end{corollary}
+\begin{proof}
+A morphism induces pullback on global regular functions, and Theorem~\ref{thm:ha-ch1-3-2} identifies
+these rings with the affine coordinate rings.  Conversely an isomorphism of coordinate rings gives,
+by Proposition~\ref{prop:ha-ch1-3-5}, morphisms in both directions.  The two composites pull back to
+the identity on coordinate functions, hence are the identity by Lemma~\ref{lem:ha-ch1-3-6}.
+\end{proof}
+
+\begin{corollary}[Affine varieties and finite type domains]
+\label{cor:ha-ch1-3-8}
+\source{hartshorne-algebraic-geometry:I.3.8}
+\dcref{I.3.8}
+$X\mapsto A(X)$ is an arrow-reversing equivalence between affine varieties over $k$ and finitely
+generated integral $k$-domains.
+\uses{cor:ha-ch1-1-4,prop:ha-ch1-3-5}
+\end{corollary}
+\begin{proof}
+For an affine variety, $A(X)$ is finitely generated and a domain by the affine Nullstellensatz.
+Conversely, write a finitely generated domain as $k[x_1,\ldots,x_n]/\mathfrak p$ with $\mathfrak p$
+prime; Corollary~\ref{cor:ha-ch1-1-4} makes $Z(\mathfrak p)$ an affine variety with that coordinate
+ring.  Proposition~\ref{prop:ha-ch1-3-5} identifies the arrows contravariantly.
+\end{proof}
+
+\begin{theorem}[Finiteness of integral closure]
+\label{thm:ha-ch1-3-9A}
+\source{hartshorne-algebraic-geometry:I.3.9A}
+\dcref{I.3.9A}
+If $A$ is a finitely generated domain over $k$, $L$ is finite algebraic over $K(A)$, and $A'$ is
+the integral closure of $A$ in $L$, then $A'$ is a finite $A$-module and a finitely generated
+$k$-algebra.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Zariski--Samuel and gives no proof in Chapter I.
+\end{proof}
+
+\section{Rational Maps}
+
+\begin{definition}[Rational and birational maps]
+\label{def:ha-ch1-rational-map}
+\source{hartshorne-algebraic-geometry:I.4}
+A rational map $X\dashrightarrow Y$ is an equivalence class of morphisms from nonempty open
+subsets of $X$, where two representatives agree after restriction to a common nonempty open.
+It is dominant if its image is dense, and birational if it has an inverse rational map.
+\end{definition}
+
+\begin{definition}[Function field]
+\label{def:ha-ch1-function-field}
+\source{hartshorne-algebraic-geometry:I.4}
+For an irreducible variety $X$, its function field $K(X)$ is the field of rational functions,
+equivalently the fraction field of the coordinate ring of any dense affine open subset.
+\end{definition}
+
+\begin{lemma}[Density determines morphisms]
+\label{lem:ha-ch1-4-1}
+\source{hartshorne-algebraic-geometry:I.4.1}
+\dcref{I.4.1}
+Two morphisms from $X$ to $Y$ agreeing on a nonempty open subset agree everywhere.
+\end{lemma}
+\begin{proof}
+Embed $Y$ in projective space.  The product map to $\mathbb P^n\times\mathbb P^n$ has image of
+the dense open in the diagonal, which is closed (the equations $x_i y_j=x_j y_i$).  Hence its
+whole image lies in the diagonal.
+\end{proof}
+
+\begin{lemma}[Principal open as affine]
+\label{lem:ha-ch1-4-2}
+\source{hartshorne-algebraic-geometry:I.4.2}
+\dcref{I.4.2}
+If $Y=V(f)\subset\mathbb A^n$, then $\mathbb A^n-Y$ is isomorphic to
+$H=V(x_{n+1}f-1)\subset\mathbb A^{n+1}$, and its coordinate ring is $k[x_1,\ldots,x_n]_f$.
+\uses{lem:ha-ch1-3-6}
+\end{lemma}
+\begin{proof}
+Projection from $H$ has inverse $(a_1,\ldots,a_n)\mapsto(a_1,\ldots,a_n,1/f(a))$; Lemma 3.6
+shows both maps are morphisms.
+\end{proof}
+
+\begin{proposition}[Affine basis]
+\label{prop:ha-ch1-4-3}
+\source{hartshorne-algebraic-geometry:I.4.3}
+\dcref{I.4.3}
+Every variety has a basis of open affine subsets.
+\uses{lem:ha-ch1-4-2}
+\end{proposition}
+\begin{proof}
+Reduce to quasi-affine $Y\subset\mathbb A^n$.  For $P\in U\subset Y$, choose $f\in I(Ybar-Y)$
+with $f(P)\ne0$.  Then $Y-f^{-1}(0)$ is an affine closed subset of the affine principal open
+$\mathbb A^n-f^{-1}(0)$ by Lemma 4.2, and lies in $U$ after choosing $f$ from the complement.
+\end{proof}
+
+\begin{theorem}[Rational maps and function fields]
+\label{thm:ha-ch1-4-4}
+\source{hartshorne-algebraic-geometry:I.4.4}
+\dcref{I.4.4}
+Dominant rational maps $X\dashrightarrow Y$ correspond bijectively to $k$-embeddings
+$K(Y)\hookrightarrow K(X)$, giving an arrow-reversing equivalence with finitely generated field
+extensions of $k$.
+\uses{prop:ha-ch1-3-5,lem:ha-ch1-4-1}
+\end{theorem}
+\begin{proof}
+Pullback on a dense domain gives the embedding.  Conversely, choose affine generators of $K(Y)$;
+after shrinking $X$ they are regular, and Proposition 3.5 gives a morphism to an affine open of
+$Y$.  Lemma 4.1 makes the resulting rational map independent of choices.  A finitely generated
+field is the function field of the affine variety defined by the relations among a finite set of
+field generators, proving essential surjectivity and compatibility with composition.
+\end{proof}
+
+\begin{corollary}[Birational tests]
+\label{cor:ha-ch1-4-5}
+\source{hartshorne-algebraic-geometry:I.4.5}
+\dcref{I.4.5}
+For varieties $X,Y$, the following are equivalent: $X,Y$ are birational; they have isomorphic
+dense open subsets; and $K(X)\cong K(Y)$ over $k$.
+\uses{thm:ha-ch1-4-4}
+\end{corollary}
+\begin{proof}
+Restrict inverse rational maps to common domains for the first implication; an isomorphism of opens
+induces an isomorphism of function fields; Theorem 4.4 gives the converse.
+\end{proof}
+
+\begin{theorem}[Primitive element]
+\label{thm:ha-ch1-4-6A}
+\source{hartshorne-algebraic-geometry:I.4.6A}
+\dcref{I.4.6A}
+A finite separable extension $L/K$ is generated by one element; over an infinite $K$, a generator
+can be chosen as a $K$-linear combination of any finite generating set.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Zariski--Samuel.
+\end{proof}
+
+\begin{theorem}[Separating transcendence bases]
+\label{thm:ha-ch1-4-7A}
+\source{hartshorne-algebraic-geometry:I.4.7A}
+\dcref{I.4.7A}
+Every finitely generated separably generated extension has, inside any generating set, a separating
+transcendence basis.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Zariski--Samuel.
+\end{proof}
+
+\begin{theorem}[Perfect fields]
+\label{thm:ha-ch1-4-8A}
+\source{hartshorne-algebraic-geometry:I.4.8A}
+\dcref{I.4.8A}
+Every finitely generated extension of a perfect field is separably generated.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Zariski--Samuel and Matsumura.
+\end{proof}
+
+\begin{proposition}[Birational hypersurface model]
+\label{prop:ha-ch1-4-9}
+\source{hartshorne-algebraic-geometry:I.4.9}
+\dcref{I.4.9}
+Every $r$-dimensional variety is birational to a hypersurface in $\mathbb A^{r+1}$ (and to its
+projective closure in $\mathbb P^{r+1}$).
+\uses{cor:ha-ch1-4-5}
+\end{proposition}
+\begin{proof}
+Choose a separating transcendence basis $x_1,\ldots,x_r$ and, by the primitive-element theorem,
+$y$ with $K(X)=k(x_1,\ldots,x_r,y)$.  Clearing denominators in the algebraic equation of $y$
+gives an irreducible equation in $r+1$ variables whose hypersurface has function field $K(X)$.
+Apply Corollary 4.5.
+\end{proof}
+
+\section{Nonsingular Varieties}
+
+\begin{definition}[Local, cotangent, and tangent spaces]
+\label{def:ha-ch1-tangent-space}
+\source{hartshorne-algebraic-geometry:I.5}
+For a point $P$ of an affine variety, let $\mathfrak m_P$ be the maximal ideal of its local ring.
+The cotangent space is $\mathfrak m_P/\mathfrak m_P^2$ and the Zariski tangent space is its dual.
+\end{definition}
+
+\begin{definition}[Regular local ring and nonsingularity]
+\label{def:ha-ch1-regular-local}
+\source{hartshorne-algebraic-geometry:I.5}
+A noetherian local ring $(A,\mathfrak m,k)$ is regular if
+$\dim_k\mathfrak m/\mathfrak m^2=\dim A$. A variety is nonsingular at $P$ when its local ring is
+regular, and singular otherwise.
+\end{definition}
+
+\begin{definition}[Multiplicity]
+\label{def:ha-ch1-multiplicity}
+\source{hartshorne-algebraic-geometry:I.5}
+The multiplicity of a local ring is the normalized leading coefficient of its Hilbert--Samuel
+polynomial; at a point of a variety it is the multiplicity of its local ring.
+\end{definition}
+
+\begin{theorem}[Jacobian criterion]
+\label{thm:ha-ch1-5-1}
+\source{hartshorne-algebraic-geometry:I.5.1}
+\dcref{I.5.1}
+For an affine variety $Y\subset\mathbb A^n$, $P$ is nonsingular iff $\mathcal O_{P,Y}$ is
+regular.  If $\dim Y=r$, this is equivalent to the Jacobian of generators of $I(Y)$ having rank
+$n-r$ at $P$.
+\end{theorem}
+\begin{proof}
+Translate $P=(a_i)$ to the origin.  The differential map identifies the cotangent space of affine
+space with $k^n$, and the image of $I(Y)$ has dimension equal to the Jacobian rank.  Thus
+\(\dim_k\mathfrak m_P/\mathfrak m_P^2+\operatorname{rank}J=n\).  Since
+\(\dim\mathcal O_{P,Y}=r\), regularity is equivalent to rank $J=n-r$.
+\end{proof}
+
+\begin{proposition}[Embedding-dimension inequality]
+\label{prop:ha-ch1-5-2A}
+\source{hartshorne-algebraic-geometry:I.5.2A}
+\dcref{I.5.2A}
+For a noetherian local ring $(A,\mathfrak m,k)$, \(\dim_k\mathfrak m/\mathfrak m^2\ge\dim A\), with equality precisely when $A$ is regular.
+\end{proposition}
+\begin{proof}
+Hartshorne cites Atiyah--Macdonald and Matsumura.
+\end{proof}
+
+\begin{theorem}[Openness of the nonsingular locus]
+\label{thm:ha-ch1-5-3}
+\source{hartshorne-algebraic-geometry:I.5.3}
+\dcref{I.5.3}
+For every variety $Y$, $\operatorname{Sing}Y$ is a proper closed subset.
+\end{theorem}
+\begin{proof}
+On an affine chart of dimension $r$ it is cut out by $I(Y)$ and all $(n-r)\times(n-r)$ Jacobian
+minors, hence is closed.  Birationality reduces properness to an irreducible hypersurface
+$f=0$.  If every point were singular, all partial derivatives would vanish on $Y$, hence would
+be multiples of $f$; their lower degrees force them to be zero.  In characteristic zero this is
+impossible.  In characteristic $p$, $f$ is a polynomial in the $p$th powers of the variables,
+and algebraic closedness makes $f$ a $p$th power, contradicting irreducibility.
+\end{proof}
+
+\begin{theorem}[Completion of local rings]
+\label{thm:ha-ch1-5-4A}
+\source{hartshorne-algebraic-geometry:I.5.4A}
+\dcref{I.5.4A}
+For a noetherian local ring $A$ with completion $\widehat A$: $\widehat A$ is local with maximal
+ideal $\mathfrak m\widehat A$ and $A\hookrightarrow\widehat A$; the completion of every finite
+$A$-module $M$ is $M\otimes_A\widehat A$; \(\dim\widehat A=\dim A\); and $A$ is regular iff
+$\widehat A$ is regular.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Atiyah--Macdonald and Zariski--Samuel.
+\end{proof}
+
+\begin{theorem}[Cohen structure theorem]
+\label{thm:ha-ch1-5-5A}
+\source{hartshorne-algebraic-geometry:I.5.5A}
+\dcref{I.5.5A}
+If a complete regular local ring of dimension $n$ contains a field, then it is isomorphic to
+$k[[x_1,\ldots,x_n]]$ over its residue field $k$.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Matsumura and Zariski--Samuel.
+\end{proof}
+
+\begin{theorem}[Elimination theory]
+\label{thm:ha-ch1-5-7A}
+\source{hartshorne-algebraic-geometry:I.5.7A}
+\dcref{I.5.7A}
+For homogeneous polynomials $f_1,\ldots,f_r$ with indeterminate coefficients, there are universal
+integer-coefficient polynomials in those coefficients, homogeneous in the coefficients of each
+$f_i$, whose simultaneous vanishing is equivalent over every field to the existence of a common
+nonzero projective zero.
+\end{theorem}
+\begin{proof}
+Hartshorne cites van der Waerden.
+\end{proof}
+
+\section{Nonsingular Curves}
+
+\begin{definition}[Curves, valuation rings, and DVRs]
+\label{def:ha-ch1-curve-valuation}
+\source{hartshorne-algebraic-geometry:I.6}
+A curve is a one-dimensional variety. A valuation ring of a field $K$ is a local subring $R$
+such that for every $x\in K^*$ either $x$ or $x^{-1}$ lies in $R$. It is discrete when its value
+group is $\mathbb Z$, in which case it is a discrete valuation ring (DVR).
+\end{definition}
+
+\begin{definition}[Domination and abstract nonsingular curve]
+\label{def:ha-ch1-abstract-curve}
+\source{hartshorne-algebraic-geometry:I.6}
+A local ring $R$ dominates a local ring $A$ when $A\subseteq R$ and the maximal ideal of $R$
+contracts to that of $A$. An abstract nonsingular curve is the curve obtained by gluing the local
+models associated to the DVRs of its function field.
+\end{definition}
+
+\begin{theorem}[Valuation rings]
+\label{thm:ha-ch1-6-1A}
+\source{hartshorne-algebraic-geometry:I.6.1A}
+\dcref{I.6.1A}
+A local subring $R\subset K$ is a valuation ring iff for each $x\in K^*$, $x\in R$ or
+$x^{-1}\in R$.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Bourbaki and Atiyah--Macdonald.
+\end{proof}
+
+\begin{theorem}[One-dimensional normal local rings]
+\label{thm:ha-ch1-6-2A}
+\source{hartshorne-algebraic-geometry:I.6.2A}
+\dcref{I.6.2A}
+A one-dimensional noetherian local domain is a DVR iff it is integrally closed.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Atiyah--Macdonald.
+\end{proof}
+
+\begin{theorem}[Integral closure of a Dedekind domain]
+\label{thm:ha-ch1-6-3A}
+\source{hartshorne-algebraic-geometry:I.6.3A}
+\dcref{I.6.3A}
+The integral closure of a Dedekind domain in a finite extension of its fraction field is Dedekind.
+\end{theorem}
+\begin{proof}
+Hartshorne cites Zariski--Samuel.
+\end{proof}
+
+\begin{lemma}[Incomparability of curve local rings]
+\label{lem:ha-ch1-6-4}
+\source{hartshorne-algebraic-geometry:I.6.4}
+\dcref{I.6.4}
+If $P\ne Q$ are points of a quasi-projective variety with the same function field, neither local
+ring dominates the other.
+\end{lemma}
+\begin{proof}
+Embed in projective space and choose a homogeneous coordinate ratio regular at one point and
+having a pole at the other.  It belongs to one local ring but not the other, ruling out domination.
+\end{proof}
+
+\begin{lemma}[Valuation-ring intersection]
+\label{lem:ha-ch1-6-5}
+\source{hartshorne-algebraic-geometry:I.6.5}
+\dcref{I.6.5}
+For a one-dimensional function field $K/k$ and $x\in K^*$, $x$ belongs to a valuation ring $R$
+iff it has nonnegative valuation there; if $x\notin R$, then $x^{-1}$ lies in the maximal ideal.
+The intersection of the valuation rings containing $k$ is the relative constant field.
+\end{lemma}
+\begin{proof}
+The membership equivalence is the defining dichotomy of a valuation ring.  Applying it to $x^{-1}$
+gives the maximal-ideal assertion; intersecting over all such rings gives the constant-field claim.
+\end{proof}
+
+\begin{corollary}[DVRs are curve local rings]
+\label{cor:ha-ch1-6-6}
+\source{hartshorne-algebraic-geometry:I.6.6}
+\dcref{I.6.6}
+Every DVR of a one-dimensional function field $K/k$ is isomorphic to the local ring of a point on
+a nonsingular affine curve.
+\uses{lem:ha-ch1-6-5}
+\end{corollary}
+\begin{proof}
+Choose $y\in R\setminus k$.  The construction in Lemma 6.5 gives a finitely generated normal
+one-dimensional $k$-algebra whose localization at a maximal ideal is $R$.
+\end{proof}
+
+\begin{proposition}[Abstract model of a nonsingular curve]
+\label{prop:ha-ch1-6-7}
+\source{hartshorne-algebraic-geometry:I.6.7}
+\dcref{I.6.7}
+Every nonsingular quasi-projective curve is isomorphic to an abstract nonsingular curve formed from
+the DVRs of its function field.
+\uses{lem:ha-ch1-6-4,cor:ha-ch1-6-6}
+\end{proposition}
+\begin{proof}
+Map each point to its local DVR.  The map is injective by Lemma 6.4 and surjective onto the chosen
+open DVR set by Corollary 6.6.  Affine neighborhoods and the valuation criterion identify the
+topology and local rings, hence give an isomorphism.
+\end{proof}
+
+\begin{proposition}[Extension across finitely many points]
+\label{prop:ha-ch1-6-8}
+\source{hartshorne-algebraic-geometry:I.6.8}
+\dcref{I.6.8}
+A morphism from an open subset of a nonsingular curve to a nonsingular complete curve extends
+uniquely across the finitely many omitted points.
+\uses{lem:ha-ch1-4-1}
+\end{proposition}
+\begin{proof}
+Embed the target in projective space and write the map by homogeneous coordinates in the function
+field.  At an omitted DVR choose a coordinate of minimal valuation; after rescaling all coordinates
+lie in the DVR and one is a unit, so they define a point and a morphism there.  Uniqueness follows
+from Lemma 4.1.
+\end{proof}
+
+\begin{theorem}[Complete nonsingular model]
+\label{thm:ha-ch1-6-9}
+\source{hartshorne-algebraic-geometry:I.6.9}
+\dcref{I.6.9}
+Every one-dimensional function field $K/k$ has a nonsingular projective curve $C_K$ whose points
+are exactly the DVRs of $K/k$; it is unique up to unique isomorphism.
+\uses{lem:ha-ch1-6-4,prop:ha-ch1-6-8}
+\end{theorem}
+\begin{proof}
+Choose finitely many affine normal curve models whose local rings cover all DVRs, and glue them
+along common principal affine opens.  The result is nonsingular and, by the finite affine cover
+and the projective-coordinate construction, projective.  Any other model has the same DVR points;
+Lemma 6.4 identifies them uniquely and Lemma 6.8 extends the resulting birational map everywhere.
+\end{proof}
+
+\begin{corollary}[Projective completion of curves]
+\label{cor:ha-ch1-6-10}
+\source{hartshorne-algebraic-geometry:I.6.10}
+\dcref{I.6.10}
+Every abstract nonsingular curve is quasi-projective, and every nonsingular quasi-projective curve is
+an open subset of a nonsingular projective curve.
+\uses{thm:ha-ch1-6-9,prop:ha-ch1-6-7}
+\end{corollary}
+\begin{proof}
+The construction in Theorem~\ref{thm:ha-ch1-6-9} realizes the abstract curve attached to its
+function field as an open subset of the complete nonsingular model.  Conversely, Proposition
+~\ref{prop:ha-ch1-6-7} identifies a nonsingular quasi-projective curve with the corresponding open
+subset of its DVR space.  The omitted set is finite because a quasi-projective curve has a finite
+affine cover and the complete model is proper.
+\end{proof}
+
+\begin{corollary}[Nonsingular projective model]
+\label{cor:ha-ch1-6-11}
+\source{hartshorne-algebraic-geometry:I.6.11}
+\dcref{I.6.11}
+Every curve is birationally equivalent to a nonsingular projective curve.
+\uses{thm:ha-ch1-6-9}
+\end{corollary}
+\begin{proof}
+Apply Theorem 6.9 to its one-dimensional function field.
+\end{proof}
+
+\begin{corollary}[Equivalent categories of curves]
+\label{cor:ha-ch1-6-12}
+\source{hartshorne-algebraic-geometry:I.6.12}
+\dcref{I.6.12}
+The categories of nonsingular projective curves with dominant morphisms, quasi-projective curves
+with dominant rational maps, and one-dimensional function fields over $k$ with $k$-homomorphisms
+are equivalent.
+\uses{prop:ha-ch1-6-8,thm:ha-ch1-6-9}
+\end{corollary}
+\begin{proof}
+Use the function-field functor and the construction $K\mapsto C_K$.  Proposition 6.8 extends the
+rational maps to complete models, and uniqueness in Theorem 6.9 proves that the composites are
+identity functors up to canonical isomorphism.
+\end{proof}
+
+\section{Intersections in Projective Space}
+
+\begin{proposition}[Affine dimension theorem]
+\label{prop:ha-ch1-7-1}
+\source{hartshorne-algebraic-geometry:I.7.1}
+\dcref{I.7.1}
+If $Y,Z\subset\mathbb A^n$ have dimensions $r,s$, every irreducible component of $Y\cap Z$ has
+dimension at least $r+s-n$.
+\end{proposition}
+\begin{proof}
+For a hypersurface, minimal primes over its equation have height one by Hauptidealsatz, giving
+dimension $r-1$.  For general $Z$, identify $Y\cap Z$ with $(Y\times Z)\cap\Delta$ in
+$\mathbb A^{2n}$; the diagonal is cut out by $n$ hypersurfaces, so iterating the hypersurface case
+gives $(r+s)-n$.
+\end{proof}
+
+\begin{theorem}[Projective dimension theorem]
+\label{thm:ha-ch1-7-2}
+\source{hartshorne-algebraic-geometry:I.7.2}
+\dcref{I.7.2}
+For varieties $Y,Z\subset\mathbb P^n$ of dimensions $r,s$, every component of $Y\cap Z$ has
+dimension at least $r+s-n$; if $r+s-n\ge0$, then $Y\cap Z\ne\varnothing$.
+\uses{prop:ha-ch1-7-1}
+\end{theorem}
+\begin{proof}
+The dimension assertion follows on affine charts from Proposition 7.1.  For nonemptiness, take
+the affine cones, of dimensions $r+1,s+1$, which meet at the origin.  Proposition 7.1 gives their
+intersection dimension at least $r+s-n+1>0$, so it contains a nonzero point, whose projective class
+lies in $Y\cap Z$.
+\end{proof}
+
+\begin{definition}[Numerical and Hilbert polynomials]
+\label{def:ha-ch1-hilbert-polynomial}
+\source{hartshorne-algebraic-geometry:I.7}
+A numerical polynomial is a polynomial taking integer values at all sufficiently large integers.
+For a finite graded module, its Hilbert polynomial is the numerical polynomial agreeing eventually
+with the Hilbert function.
+\end{definition}
+
+\begin{proposition}[Numerical polynomials]
+\label{prop:ha-ch1-7-3}
+\source{hartshorne-algebraic-geometry:I.7.3}
+\dcref{I.7.3}
+(a) Every numerical polynomial has a unique integer expansion \(P(z)=\sum_{i=0}^r c_i\binom zi\).
+(b) If a function $f:\mathbb Z\to\mathbb Z$ has eventually numerical-polynomial first difference,
+then $f$ agrees eventually with a numerical polynomial.
+\end{proposition}
+\begin{proof}
+Induct on degree.  Since \(\Delta\binom zi=\binom z{i-1}\), the coefficients below the top
+degree are integral by induction; eventual integrality of $P$ forces the top coefficient integral.
+For (b), expand the difference in the binomial basis, sum it to a polynomial $P$, and observe that
+$f-P$ is eventually constant.
+\end{proof}
+
+\begin{proposition}[Graded-module filtration]
+\label{prop:ha-ch1-7-4}
+\source{hartshorne-algebraic-geometry:I.7.4}
+\dcref{I.7.4}
+Every finite graded module over a noetherian graded ring has a finite graded filtration whose factors
+are shifts of $S/\mathfrak p_i$ for homogeneous primes.  Every prime containing $\operatorname{Ann}M$
+contains some $\mathfrak p_i$; the minimal such primes are the minimal primes of $M$, and each occurs
+with multiplicity equal to $\length_{S_\mathfrak p}M_\mathfrak p$.
+\end{proposition}
+\begin{proof}
+Choose a maximal graded submodule with such a filtration.  In the quotient choose a nonzero
+homogeneous element with maximal annihilator; the annihilator is prime, since $abm=0$ and $bm\ne0$
+force $a$ into the maximal annihilator.  Adjoining the cyclic submodule extends the filtration,
+contradicting maximality unless it is all of $M$.  Localizing at a minimal prime leaves precisely
+the factors with that prime, each contributing the residue field, proving the multiplicity claim.
+\end{proof}
+
+\begin{theorem}[Hilbert--Serre]
+\label{thm:ha-ch1-7-5}
+\source{hartshorne-algebraic-geometry:I.7.5}
+\dcref{I.7.5}
+For a finite graded module $M$ over $S=k[x_0,\ldots,x_n]$, the Hilbert function agrees for all
+large integers with a unique polynomial $P_M(z)$, and \(\deg P_M=\dim Z(\operatorname{Ann}M)\).
+\uses{prop:ha-ch1-7-4,thm:ha-ch1-7-2,prop:ha-ch1-7-3}
+\end{theorem}
+\begin{proof}
+Use the filtration of Proposition 7.4 and induction on the dimension of the support.  For
+$M=S/\mathfrak p$ choose $x_i\notin\mathfrak p$ and use
+$0\to M(-1)\xrightarrow{x_i}M\to M/x_iM\to0$; the last support is the hyperplane section,
+of one lower dimension by Theorem 7.2.  Proposition 7.3 integrates the first differences.  Additivity
+of Hilbert functions over short exact sequences and the filtration prove the general case; eventual
+polynomial equality gives uniqueness.
+\end{proof}
+
+\begin{definition}[Degree]
+\label{def:ha-ch1-degree}
+\source{hartshorne-algebraic-geometry:I.7}
+The degree of a projective variety is the leading coefficient of its Hilbert polynomial multiplied
+by the factorial of its dimension.
+\end{definition}
+
+\begin{proposition}[Degree]
+\label{prop:ha-ch1-7-6}
+\source{hartshorne-algebraic-geometry:I.7.6}
+\dcref{I.7.6}
+For nonempty $Y\subset\mathbb P^n$, $\deg Y$ is a positive integer.  If $Y=Y_1\cup Y_2$ has
+same-dimensional components with smaller-dimensional intersection, degrees add; $\deg\mathbb P^n=1$;
+and a hypersurface defined by a degree-$d$ form has degree $d$.
+\uses{prop:ha-ch1-7-3}
+\end{proposition}
+\begin{proof}
+The binomial expansion of Proposition 7.3 makes the leading coefficient integral and positive.
+The exact sequence
+\(0\to S/(I_1\cap I_2)\to S/I_1\oplus S/I_2\to S/(I_1+I_2)\to0\)
+shows additivity because the last term has lower-dimensional support.  Since
+$P_{\mathbb P^n}=\binom{z+n}{n}$, its degree is one.  Finally
+$0\to S(-d)\xrightarrow f S\to S/(f)\to0$ gives
+$P_{S/(f)}(z)=\binom{z+n}{n}-\binom{z-d+n}{n}$, whose degree is $d$.
+\end{proof}
+
+\begin{definition}[Intersection multiplicity]
+\label{def:ha-ch1-intersection-multiplicity}
+\source{hartshorne-algebraic-geometry:I.7}
+The intersection multiplicity of a component in a hypersurface intersection is the length of the
+corresponding localized graded module.
+\end{definition}
+
+\begin{theorem}[Intersection with a hypersurface]
+\label{thm:ha-ch1-7-7}
+\source{hartshorne-algebraic-geometry:I.7.7}
+\dcref{I.7.7}
+Let $Y\subset\mathbb P^n$ have dimension at least one and let $H$ be a hypersurface not containing
+$Y$.  If $Z_1,\ldots,Z_s$ are the components of $Y\cap H$, and
+$i(Y,H;Z_j)$ is the multiplicity of the corresponding minimal prime, then
+\[
+\sum_j i(Y,H;Z_j)\deg Z_j=(\deg Y)(\deg H).
+\]
+\uses{prop:ha-ch1-7-4}
+\end{theorem}
+\begin{proof}
+For a degree-$d$ equation of $H$, the exact sequence
+$0\to(S/I_Y)(-d)\to S/I_Y\to S/(I_Y+I_H)\to0$ gives
+$P_M(z)=P_Y(z)-P_Y(z-d)$.  Comparing leading coefficients yields
+$d\deg Y/(r-1)!$.  Filter $M$ as in Proposition 7.4; only minimal primes of dimension $r-1$
+contribute to the leading coefficient, each with multiplicity $i(Y,H;Z_j)$ and degree $\deg Z_j$.
+Equating the coefficients proves the formula.
+\end{proof}
+
+\begin{corollary}[Bezout]
+\label{cor:ha-ch1-7-8}
+\source{hartshorne-algebraic-geometry:I.7.8}
+\dcref{I.7.8}
+Distinct plane curves of degrees $d,e$ with finite intersection points $P_1,\ldots,P_s$ satisfy
+$\sum_i i(Y,Z;P_i)=de$.
+\uses{thm:ha-ch1-7-7}
+\end{corollary}
+\begin{proof}
+Apply Theorem 7.7.  Each point has Hilbert polynomial $1$ and degree one.
+\end{proof}
+
+\section{What Is Algebraic Geometry?}
+
+This final section is exposition: classification by birational equivalence and isomorphism, the
+curve genus/moduli picture, intrinsic invariants, cohomology, arbitrary ground fields, abstract
+varieties, reducible algebraic sets, and the transition to schemes.  It contains no numbered
+definition, lemma, proposition, theorem, or corollary to include in the blueprint.

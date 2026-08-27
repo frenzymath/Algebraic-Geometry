@@ -1,0 +1,265 @@
+\section{Fields of definition and torsion}
+\label{mumford-AppI-setup}
+\dcref{M:appI:I}
+
+\begin{convention}[Finite-field arithmetic]
+\label{mumford-conv-tate-fields}
+\dcref{M:appI:I}
+Let $k_0$ be a finite field, let $\bar k_0$ be an algebraic closure, and let
+$A,B$ be abelian varieties defined over $k_0$.  For a prime $\ell\ne
+\operatorname{char}(k_0)$, all Tate modules and Hom groups in this chapter
+are taken over $\bar k_0$ with their natural Frobenius action.
+\notready
+\end{convention}
+
+\begin{lemma}[Rationality of prime-to-$p$ torsion]
+\label{mumford-lem-torsion-defined-over-finite-field}
+\dcref{M:appI:I}
+For an abelian variety over a finite field, every prime-to-$p$ torsion point is
+defined over a finite extension, and Frobenius acts continuously on
+$T_\ell(A)$.  The action on $A[\ell^n]$ is compatible with the Weil pairing.
+\uses{mumford-conv-tate-fields,mumford-def-tate-module,mumford-prop-galois-tate-action}
+\notready
+\end{lemma}
+
+\section{Tate's homomorphism theorem}
+\label{mumford-AppI-tate-hom}
+\dcref{M:appI:I}
+
+\begin{theorem}[Tate isomorphism over a finite field]
+\label{mumford-thm-tate-hom-isomorphism}
+For abelian varieties $A,B$ over a finite field $k_0$ and every prime
+$\ell\ne\operatorname{char}(k_0)$, the natural map
+\[
+ \Hom_{k_0}(A,B)\otimes_\Z\Zell
+ \xrightarrow{\ \sim\ }
+ \Hom_{\Zell[F]}(T_\ell(A),T_\ell(B))
+\]
+is an isomorphism, where $F$ denotes geometric Frobenius.
+\dcref{M:appI:I}
+\uses{mumford-lem-torsion-defined-over-finite-field,mumford-thm-hom-tate-injective}
+\notready
+\end{theorem}
+
+\begin{lemma}[Frobenius-fixed homomorphisms]
+\label{mumford-lem-frobenius-fixed-hom}
+\dcref{M:appI:I}
+The image of $\Hom_{k_0}(A,B)$ in
+$\Hom_{\Zell}(T_\ell(A),T_\ell(B))$ is exactly the subgroup fixed by Frobenius.
+After tensoring with $\Qell$, the fixed subspace is finite-dimensional and
+has the same dimension as $\Hom_{k_0}(A,B)\otimes\Qell$.
+\uses{mumford-thm-tate-hom-isomorphism}
+\notready
+\end{lemma}
+
+\section{Frobenius and characteristic polynomials}
+\label{mumford-AppI-frobenius}
+\dcref{M:appI:I}
+
+\begin{definition}[Frobenius polynomial]
+\label{mumford-def-frobenius-polynomial}
+\dcref{M:appI:I}
+For $A/k_0$ of dimension $g$, let $F_A$ be Frobenius and define
+\[
+ P_A(T)=\det(T-F_A\mid V_\ell(A)),\qquad
+ V_\ell(A)=T_\ell(A)\otimes_{\Zell}\Qell.
+\]
+This monic polynomial has integer coefficients independent of $\ell$ and degree
+$2g$.
+\uses{mumford-def-tate-module,mumford-conv-tate-fields}
+\notready
+\end{definition}
+
+\begin{theorem}[Frobenius criterion for isogeny]
+\label{mumford-thm-frobenius-isogeny-criterion}
+\dcref{M:appI:I}
+For abelian varieties $A,B$ over $k_0$, the following are equivalent:
+\begin{enumerate}
+\item $A$ and $B$ are $k_0$-isogenous;
+\item $V_\ell(A)$ and $V_\ell(B)$ are isomorphic as $\Qell[F]$-modules;
+\item $P_A(T)=P_B(T)$.
+\end{enumerate}
+More generally, $B$ is isogenous to an abelian subvariety of $A$ exactly when
+$P_B$ divides $P_A$.
+\uses{mumford-def-frobenius-polynomial,mumford-thm-tate-hom-isomorphism,mumford-thm-poincare-complete-reducibility}
+\notready
+\end{theorem}
+
+\begin{theorem}[Semisimplicity of Frobenius]
+\label{mumford-thm-frobenius-semisimple}
+\dcref{M:appI:I}
+The Frobenius action on $V_\ell(A)$ is semisimple.  Its eigenvalues are
+algebraic integers with absolute value $\sqrt{|k_0|}$ under every complex
+embedding, and $P_A$ satisfies the functional equation forced by the Weil
+pairing.
+\uses{mumford-def-frobenius-polynomial,mumford-def-weil-pairing-ladic}
+\notready
+\end{theorem}
+
+\begin{corollary}[Finite-field endomorphism algebra]
+\label{mumford-cor-finite-field-end-algebra}
+\dcref{M:appI:I}
+The algebra $\End^0_{k_0}(A)$ is the Frobenius-centralizer in
+$\End_{\Qell}(V_\ell(A))$.  If $A$ is simple, $\Q[F_A]$ is a field and the
+endomorphism algebra is a central division algebra over its center containing
+that field.
+\uses{mumford-thm-tate-hom-isomorphism,mumford-thm-frobenius-semisimple,mumford-cor-simple-endomorphism-algebra}
+\notready
+\end{corollary}
+
+\begin{remark}[Tate theorem proof interface]
+\label{mumford-app1-tate-main-theorem}
+The finite-field Tate homomorphism theorem is the central assertion of this
+chapter; its proof interfaces are recorded in the supporting register.
+\dcref{M:appI:I}
+\uses{mumford-thm-tate-hom-isomorphism,mumford-app1-step-verification-finite-field}
+\notready
+\end{remark}
+
+\section{Supporting proof interfaces}
+\label{mumford-AppI-coverage-register}
+The theorem statement and its finite-field proof architecture are separated
+here so that every dependency remains visible even where a detailed proof is
+treated as an external input.
+
+\begin{definition}[Galois-equivariant Tate map]
+\label{mumford-app1-tate-map-and-galois-invariants}
+Restriction of a homomorphism over $k_0$ to prime-to-$p$ torsion gives a
+Galois-equivariant map
+\[
+ \Zell\otimes\Hom_{k_0}(A,B)\longrightarrow
+ \Hom_{\Zell[G]}(T_\ell A,T_\ell B).
+\]
+\dcref{M:appI:I}
+\uses{mumford-def-tate-module,mumford-prop-galois-tate-action}
+\notready
+\end{definition}
+
+\begin{remark}[Reduction to endomorphisms]
+\label{mumford-app1-step-reduction-endomorphisms}
+Products reduce Tate's Hom assertion to the endomorphism algebra of one
+abelian variety; the invariant Hom space is then a commutant.
+\dcref{M:appI:I}
+\uses{mumford-app1-tate-map-and-galois-invariants}
+\notready
+\end{remark}
+
+\begin{remark}[Independence of the prime]
+\label{mumford-app1-step-independence-l}
+The dimension of the Frobenius-invariant commutant is independent of the
+auxiliary prime $\ell$; this is the comparison step in the proof.
+\dcref{M:appI:I}
+\uses{mumford-def-frobenius-polynomial,mumford-app1-step-reduction-endomorphisms}
+\notready
+\end{remark}
+
+\begin{convention}[Finite isogeny-model hypothesis]
+\label{mumford-app1-hypothesis-finite-isogeny-models}
+For a fixed polarized numerical type over a finite field, only finitely many
+$\ell$-power isogeny models occur up to isomorphism.
+\dcref{M:appI:I}
+\notready
+\end{convention}
+
+\begin{lemma}[Finite polarized models]
+\label{mumford-app1-finite-field-finiteness-lemma}
+Bounded projective embeddings and finiteness of the base field give finitely many
+models of the fixed polarized type.
+\dcref{M:appI:I}
+\uses{mumford-app1-hypothesis-finite-isogeny-models}
+\notready
+\end{lemma}
+
+\begin{remark}[Stable torsion quotients]
+\label{mumford-app1-step-descent-torsion-quotients}
+Galois-stable Tate submodules define finite quotient varieties; the quotient
+group law and a descended polarization are constructed before the commutant
+calculation.
+\dcref{M:appI:I}
+\uses{mumford-app1-finite-field-finiteness-lemma,mumford-prop-abelian-quotient}
+\notready
+\end{remark}
+
+\begin{lemma}[Galois descent of finite quotients]
+\label{mumford-app1-quotient-descent-lemma}
+A finite quotient by a Galois-stable subgroup descends to the finite base field,
+with its induced abelian-variety structure.
+\dcref{M:appI:I}
+\uses{mumford-app1-step-descent-torsion-quotients}
+\notready
+\end{lemma}
+
+\begin{lemma}[Descent of line bundles]
+\label{mumford-app1-line-bundle-galois-descent-lemmas}
+Galois-invariant divisor and line-bundle classes descend after the finite
+extension used to define the quotient model.
+\dcref{M:appI:I}
+\uses{mumford-app1-quotient-descent-lemma}
+\notready
+\end{lemma}
+
+\begin{remark}[Commutant calculation]
+\label{mumford-app1-step-commutant-isomorphism}
+Under the finite-model hypothesis, the commutant of the Frobenius action has
+the same dimension as the image of the geometric Hom group.
+\dcref{M:appI:I}
+\uses{mumford-app1-step-independence-l,mumford-app1-line-bundle-galois-descent-lemmas}
+\notready
+\end{remark}
+
+\begin{remark}[Finite-field verification]
+\label{mumford-app1-step-verification-finite-field}
+The finite-field model lemma verifies the finite-isogeny-model hypothesis and
+closes the proof of Tate's isomorphism.
+\dcref{M:appI:I}
+\uses{mumford-app1-finite-field-finiteness-lemma,mumford-app1-step-commutant-isomorphism}
+\notready
+\end{remark}
+
+\begin{lemma}[Polynomial primes]
+\label{mumford-app1-polynomial-prime-lemma}
+A nonconstant integral polynomial has roots modulo infinitely many primes after
+passing to a suitable residue factor; this supplies split auxiliary primes.
+\dcref{M:appI:I}
+\uses{mumford-app1-step-independence-l}
+\notready
+\end{lemma}
+
+\begin{lemma}[Linear-algebra commutant formula]
+\label{mumford-app1-linear-algebra-commutant-lemma}
+If semisimple operators have characteristic polynomials
+$\prod p^{m(p)}$ and $\prod p^{n(p)}$, then the intertwiner space has dimension
+$\sum_p m(p)n(p)\deg p$.
+\dcref{M:appI:I}
+\uses{mumford-app1-polynomial-prime-lemma}
+\notready
+\end{lemma}
+
+\begin{theorem}[Invariant form of Tate's theorem]
+\label{mumford-app1-tate-theorem-finite-field-invariant-form}
+The finite-field Hom group is exactly the Frobenius-fixed part of the l-adic
+Hom space, integrally and after tensoring with $\Qell$.
+\dcref{M:appI:I}
+\uses{mumford-thm-tate-hom-isomorphism,mumford-app1-linear-algebra-commutant-lemma}
+\notready
+\end{theorem}
+
+\begin{theorem}[Finite-field equivalences]
+\label{mumford-app1-finite-field-equivalences}
+For abelian varieties over $k_0$, equality/divisibility of Frobenius
+polynomials is equivalent to the corresponding isogeny and subvariety
+criteria, and determines the Hom rank.
+\dcref{M:appI:I}
+\uses{mumford-thm-frobenius-isogeny-criterion,mumford-app1-tate-theorem-finite-field-invariant-form}
+\notready
+\end{theorem}
+
+\begin{corollary}[Simple factors and supersingular elliptic curves]
+\label{mumford-app1-simple-factor-structure}
+Poincare decomposition plus the Frobenius criterion gives simple-factor
+uniqueness up to isogeny and the mutual isogeny of supersingular elliptic
+curves over an algebraic closure.
+\dcref{M:appI:I}
+\uses{mumford-app1-finite-field-equivalences,mumford-thm-poincare-complete-reducibility}
+\notready
+\end{corollary}

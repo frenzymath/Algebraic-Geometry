@@ -1,0 +1,483 @@
+% Source-faithful assembly: Mumford, Abelian Varieties, Chapter III,
+% pages 88--120 (Horizon transcription pages 0099--0131).
+
+\section{The scheme-theoretic theorem of the cube}
+\label{mumford-III10-source}
+\dcref{M:ch3:III.10}
+
+\begin{proposition}[Fibres of a morphism from an abelian variety]
+\label{mumford-prop-abelian-fibre-kernel}
+\dcref{M:ch3:III.10}
+Let $f:X\to Y$ be a morphism of varieties with $X$ an abelian variety. If
+$F_x$ is the connected component of the fibre $f^{-1}(f(x))$ containing $x$,
+then there is a closed connected subgroup $F\subset X$ such that
+$F_x=x+F$ for every $x$.
+\source{mumford-abelian-varieties:page-0099}
+\end{proposition}
+\begin{proof}
+For fixed $x$, apply the rigidity lemma to
+$\phi:X\times F_x\to Y$, $\phi(z,w)=f(z+w)$, since $F_x$ is complete and
+connected and $\phi(\{e\}\times F_x)$ is constant. Hence
+$f(z-x+F_x)=f(z)$, so connectedness gives
+$F_z\supset z-x+F_x$. Interchanging $x,z$ gives equality. Taking
+$F=F_e$ yields $F_z=z+F$. If $u\in F$, then
+$F_{-u}=-u+F$ contains $e$, hence equals $F_e=F$. Thus $-u+F=F$ for all
+$u\in F$, proving that $F$ is a subgroup; it is closed and connected by
+construction.
+\end{proof}
+
+\begin{theorem}[Effective divisors and their stabilizers]
+\label{mumford-thm-effective-divisor-stabilizer}
+\dcref{M:ch3:III.10}
+\uses{mumford-prop-abelian-fibre-kernel}
+For an effective divisor $D$ on an abelian variety $X$, let
+$H(D)=\{x\mid T_x^*D=D\}$ (equality of divisors), let $L=L(D)$, and let
+$f:X\to\mathbf P(H^0(X,L^2))$ be the morphism defined by the base-point-free
+bundle $L^2$. If $F(D)=\ker f$, then
+\[
+H(D)\text{ is Zariski closed},\qquad H(D)^0=K(L)^0=F(D).
+\]
+\source{mumford-abelian-varieties:page-0099}
+\emph{The source states this theorem without proof.}
+\end{theorem}
+
+\begin{proposition}[Maximal triviality subscheme]
+\label{mumford-prop-maximal-triviality-scheme}
+\dcref{M:ch3:III.10}
+\uses{mumford-thm-seesaw}
+Let $X$ be a complete variety, $Y$ any scheme and $L$ a line bundle on
+$X\times Y$. There exists a unique closed subscheme $Y_1\hookrightarrow Y$
+such that:
+\begin{enumerate}
+\item if $L_1$ is the restriction of $L$ to $X\times Y_1$, then
+there is a line bundle $M_1$ on $Y_1$ and an isomorphism
+$p_2^*M_1\simeq L_1$;
+\item if $f:Z\to Y$ and $p_2^*K\simeq(1_X\times f)^*L$ for a line bundle
+$K$ on $Z$, then $f$ factors through $Y_1$.
+\end{enumerate}
+\source{mumford-abelian-varieties:page-0100}
+\source{mumford-abelian-varieties:page-0101}
+\source{mumford-abelian-varieties:page-0102}
+\end{proposition}
+\begin{proof}
+Uniqueness follows because the two closed immersions factor through one
+another. If $p_2^*M_1\simeq L_1$, the Kunneth formula gives
+$M_1\simeq p_{2,*}L_1$; thus it is enough to require that this direct image
+be invertible and that the natural map $p_2^*p_{2,*}L_1\to L_1$ be an
+isomorphism. The assertion is local on $Y$: local subschemes agree on
+overlaps by uniqueness.
+
+Take $Y=\operatorname{Spec}A$ and, after shrinking, a free complex
+$0\to A^0\xrightarrow{\phi}A^1\to\cdots$ computing direct images of $L$
+universally. If $M=\operatorname{coker}(A^1\xrightarrow{\phi}A^0)$, then for
+every $A$-algebra $B$,
+\[
+0\to\operatorname{Hom}_B(M\otimes_A B,B)\to B^0\xrightarrow{\phi_B}B^1
+\]
+is exact. Hence
+$p_{2,*}(1_X\times f)^*L\simeq\operatorname{Hom}_A(M,B)$.
+Let $F$ be the closed set of points where $L_y$ is trivial. Outside $F$ the
+empty subscheme works. At $y\in F$,
+\[
+1=\dim H^0(X,L_y)=\dim_k M/\mathfrak m_yM,
+\]
+so Nakayama gives, after shrinking, $M\simeq A/\mathfrak a$. For the
+subscheme defined by $\mathfrak a$, the direct image is
+$\operatorname{Hom}_A(A/\mathfrak a,A/\mathfrak a)\simeq A/\mathfrak a$.
+The evaluation map
+\[
+p_2^*p_{2,*}L_1\xrightarrow{\lambda}L_1
+\]
+is an isomorphism on the fibre over $y$: its fibre map is surjective because
+\(\operatorname{Hom}_A(A/\mathfrak a,A/\mathfrak a)\to
+\operatorname{Hom}_A(A/\mathfrak a,A/\mathfrak m_y)\) is surjective and
+$L_y$ is trivial. The non-isomorphism locus is closed, and its projection is
+closed and avoids $y$; shrinking once more gives (a).
+
+For (b), take $Z=\operatorname{Spec}B$ affine and trivialize $K$. Then
+$p_{2,*}(1_X\times f)^*L\simeq B$, while the universal complex gives
+$B\simeq\operatorname{Hom}_A(A/\mathfrak a,B)$. Therefore
+$\mathfrak aB=0$, so $A\to B$ factors through $A/\mathfrak a$.
+\end{proof}
+
+\begin{theorem}[Theorem of the cube, scheme-theoretic form]
+\label{mumford-thm-cube-schemes}
+\dcref{M:ch3:III.10}
+\uses{mumford-prop-maximal-triviality-scheme}
+Let $X,Y$ be complete varieties, $Z$ a connected scheme, and $L$ a line
+bundle on $X\times Y\times Z$. If the restrictions to
+\(\{x_0\}\times Y\times Z$, $X\times\{y_0\}\times Z$ and
+$X\times Y\times\{z_0\}$ are trivial, then $L$ is trivial.
+\source{mumford-abelian-varieties:page-0102}
+\source{mumford-abelian-varieties:page-0103}
+\source{mumford-abelian-varieties:page-0104}
+\end{theorem}
+\begin{proof}
+Let $Z'$ be the maximal closed subscheme over which $L$ is trivial. It is
+nonempty, since it contains $z_0$. It suffices, by connectedness, to show
+that every point of $Z'$ has an open neighbourhood in $Z'$ equal to an open
+neighbourhood in $Z$. At $z_0$, write $\mathfrak m$ for the maximal ideal
+of $\mathcal O_{Z,z_0}$ and $I$ for the ideal of $Z'$. If $I\ne0$, Krull's
+theorem gives $n>0$ with $\mathfrak m^n\supset I$ but
+$\mathfrak m^{n+1}\not\supset I$. Put $\mathfrak a_1=\mathfrak m^{n+1}+I$;
+choose $\mathfrak a_2$ with
+$\mathfrak a_1\supset\mathfrak a_2\supset\mathfrak m^{n+1}$ and
+$\dim_k\mathfrak a_1/\mathfrak a_2=1$. Thus
+$\mathfrak a_1=\mathfrak a_2+k a$, with $\mathfrak a_1\supset I$ but
+$\mathfrak a_2\not\supset I$.
+
+Let $Z_i$ be the one-point subscheme defined by $\mathfrak a_i$ (and let
+$Z_0=\{z_0\}$). The exact sequence
+\[
+0\to\mathcal O_{Z_0}\xrightarrow{a}\mathcal O_{Z_2}
+\to\mathcal O_{Z_1}\to0
+\]
+induces
+\[
+0\to L_0\xrightarrow{a}L_2\to L_1\to0.
+\]
+Both $L_0$ and $L_1$ are trivial. If $s$ is the section of $L_1$ induced by
+a trivialization, $L_2$ is trivial exactly when $s$ lifts to a section of
+$L_2$: a lift gives a map from the structure sheaf which is an isomorphism
+on the closed fibre, while a trivialization makes restriction on global
+sections surjective.
+
+Fix a trivialization of $L_0$. The obstruction to lifting $s$ is
+$\xi\in H^1(X\times Y,\mathcal O_{X\times Y})$. The two assumed trivial
+restrictions show that the images of $\xi$ under
+\[
+H^1(X\times Y,\mathcal O)\to H^1(X,\mathcal O_X),\qquad
+H^1(X\times Y,\mathcal O)\to H^1(Y,\mathcal O_Y)
+\]
+are zero. The Kunneth formula identifies these two maps with the two
+projections from
+$H^1(X,\mathcal O_X)\oplus H^1(Y,\mathcal O_Y)$, so $\xi=0$. Thus $L_2$
+is trivial, contradicting $\mathfrak a_2\not\supset I$. Hence $I=0$.
+\end{proof}
+
+\section{Basic theory of group schemes}
+\label{mumford-III11-source}
+\dcref{M:ch3:III.11}
+
+\begin{definition}[Group scheme and functor of points]
+\label{mumford-def-group-scheme}
+\dcref{M:ch3:III.11}
+A group scheme is a scheme $G$ with morphisms $m:G\times G\to G$,
+$e:\operatorname{Spec}k\to G$, and $i:G\to G$ satisfying associativity,
+identity, and inverse diagrams. Equivalently, $G(S)=\operatorname{Hom}_k(S,G)$
+is a group, functorially in $S$. The functor $X\mapsto\underline X$ is fully
+faithful (Yoneda).
+\source{mumford-abelian-varieties:page-0104}
+\source{mumford-abelian-varieties:page-0105}
+\source{mumford-abelian-varieties:page-0106}
+\end{definition}
+
+\begin{proposition}[Lie algebra of a group scheme]
+\label{mumford-prop-group-scheme-lie}
+\dcref{M:ch3:III.11}
+\uses{mumford-def-group-scheme}
+For a group scheme $G$, every tangent vector at $e$ extends uniquely to a
+left-invariant vector field. The left-invariant vector fields form the Lie
+algebra of $G$ under the Poisson bracket, and in characteristic $p$ under
+the $p$-th power operation.
+\source{mumford-abelian-varieties:page-0107}
+\source{mumford-abelian-varieties:page-0108}
+\source{mumford-abelian-varieties:page-0109}
+\source{mumford-abelian-varieties:page-0110}
+\end{proposition}
+\begin{proof}
+A vector field is a derivation $D:\mathcal O_X\to\mathcal O_X$, equivalently
+$\mathcal O_X\to\Omega_X\to\mathcal O_X$. Tangent vectors at $x$ are
+$\operatorname{Hom}_{\mathcal O_{X,x}}(\Omega_{X,x},k)$, and hence linear
+forms on $\mathfrak m_x/\mathfrak m_x^2$. Put
+$\Lambda=k[\epsilon]/(\epsilon^2)$. A derivation $D:A\to B$ is equivalent
+to a homomorphism $A\to B\otimes_k\Lambda$, $a\mapsto a+(Da)\epsilon$.
+Thus a vector field is an infinitesimal automorphism over $\Lambda$.
+
+For a group scheme, left invariance says that this automorphism commutes with
+right multiplication. If $\widetilde t:\operatorname{Spec}\Lambda\to G$ is
+the value at the identity, the commutative diagram forces the automorphism to
+be right multiplication by $\widetilde t$, and conversely. This proves the
+canonical identification of left-invariant vector fields with $T_eG$.
+The commutator $[D_1,D_2]=D_1D_2-D_2D_1$ and, in characteristic $p$, $D^p$
+are again vector fields and preserve left invariance.
+\end{proof}
+
+\begin{remark}[Lie identities and commutative groups]
+\label{mumford-rem-lie-identities}
+\dcref{M:ch3:III.11}
+\uses{mumford-prop-group-scheme-lie}
+The bracket is bilinear, alternating, and satisfies Jacobi. In characteristic
+$p$, $\operatorname{ad}(X^p)=(\operatorname{ad}X)^p$ and
+\[
+(X+Y)^p=X^p+Y^p+F_p(\operatorname{ad}X,\operatorname{ad}Y)Y.
+\]
+If $G$ is commutative, the bracket is zero: using
+$k[\epsilon,\epsilon']/ (\epsilon^2,\epsilon'^2)$, the commutator of the
+two infinitesimal translations is the translation by the commutator of two
+$S$-valued points, which is the identity.
+\source{mumford-abelian-varieties:page-0110}
+\source{mumford-abelian-varieties:page-0111}
+\source{mumford-abelian-varieties:page-0112}
+\end{remark}
+
+\begin{theorem}[Characteristic-zero smoothness]
+\label{mumford-thm-abelian-smooth}
+\dcref{M:ch3:III.11}
+\uses{mumford-prop-group-scheme-lie}
+Every group scheme over a field of characteristic zero is smooth and reduced.
+\source{mumford-abelian-varieties:page-0112}
+\source{mumford-abelian-varieties:page-0113}
+\end{theorem}
+\begin{proof}
+More generally, let $x$ be a point of a characteristic-zero scheme $X$ and
+suppose vector fields $D_1,\ldots,D_n$, with
+$n=\dim_k\mathfrak m_x/\mathfrak m_x^2$, give independent tangent vectors.
+Choose $x_i\in\mathfrak m_x$ with $(D_ix_j)(x)=\delta_{ij}$. Since
+$D_i(\mathfrak m_x^r)\subset\mathfrak m_x^{r-1}$, the derivations extend to
+$\widehat{\mathcal O}_x$. Define
+\[
+\alpha:k[[t_1,\ldots,t_n]]\to\widehat{\mathcal O}_x,\quad t_i\mapsto x_i,
+\]
+and
+\[
+\beta(f)=\sum_{\nu\ge0}\frac{D^\nu f}{\nu!}(x)t^\nu,
+\quad D^\nu=D_1^{\nu_1}\cdots D_n^{\nu_n}.
+\]
+Leibniz and induction show that $\beta$ is a continuous homomorphism.
+Both maps are surjective: $\alpha$ because the $x_i$ generate the maximal
+ideal, and $\beta$ because $\beta(x_i)\equiv t_i$ modulo the square of the
+maximal ideal. Hence $\beta\alpha$ is an automorphism, so $\alpha$ is an
+isomorphism. The completed local ring is regular, proving smoothness.
+\end{proof}
+
+\begin{definition}[Subgroup schemes and kernels]
+\label{mumford-lem-group-scheme-kernel}
+\dcref{M:ch3:III.11}
+\uses{mumford-def-group-scheme}
+A closed subscheme $H\subset G$ is a subgroup scheme if multiplication on
+$H\times H$ factors through $H$. The fibre over the identity of a homomorphism
+of group schemes is its kernel and is a closed subgroup scheme.
+In characteristic $p$, with $\mathfrak m$ the maximal ideal at $e$, the
+subscheme $G_n=\operatorname{Spec}(\mathcal O_e/\mathfrak m^{(p^n)})$ is a
+subgroup scheme and $\Lie(G_n)=\Lie(G)$ for $n\ge1$.
+\source{mumford-abelian-varieties:page-0113}
+\source{mumford-abelian-varieties:page-0114}
+\end{definition}
+\begin{proof}
+For $f\in\mathfrak m$, write $m^*f=g+h$ in the local ring at $(e,e)$,
+with $g$ in the sum of the two maximal ideals and $h$ a unit. In
+characteristic $p$, $m^*(f^{p^n})$ lies in the ideal generated by the two
+$p^n$-power ideals, so multiplication factors through $G_n$. The statement
+about Lie algebras is immediate from the definition.
+\end{proof}
+
+\section{Left-invariant differential operators}
+\label{mumford-III11-hyperalgebra}
+\dcref{M:ch3:III.11}
+
+\begin{definition}[Hyperalgebra]
+\label{mumford-def-hyperalgebra}
+\dcref{M:ch3:III.11}
+\uses{mumford-def-group-scheme}
+Put
+\[
+H_x=\operatorname{Hom}_{\mathrm{cont}}(\mathcal O_{x,G},k),\qquad
+H=\bigoplus_{x\in G}H_x
+ =\varinjlim_{Z\subset G\ {\text{finite}}}\Gamma(\mathcal O_Z)^*.
+\]
+The convolution is
+\[
+L_1*L_2(f)=L_1\otimes L_2(m^*f).
+\]
+The elements $\delta_x$ are convolution identities at points,
+$\delta_e*L=L*\delta_e=L$, and evaluation at $1$ is the augmentation.
+\source{mumford-abelian-varieties:page-0115}
+\source{mumford-abelian-varieties:page-0116}
+\end{definition}
+
+\begin{proposition}[Invariant differential operators]
+\label{mumford-prop-hyperalgebra-operators}
+\dcref{M:ch3:III.11}
+\uses{mumford-def-hyperalgebra}
+Each $L\in H$ defines a left-invariant differential operator
+\[
+D_L(f)=(L\otimes1)m^*(f),\qquad D_Lf(e)=L(f),
+\]
+and $D_{L_1*L_2}=D_{L_1}\circ D_{L_2}$. If $G$ is commutative, $H$ is
+commutative and the Lie bracket is zero.
+\source{mumford-abelian-varieties:page-0116}
+\source{mumford-abelian-varieties:page-0117}
+\source{mumford-abelian-varieties:page-0118}
+\end{proposition}
+\begin{proof}
+If $L$ is supported on a finite subscheme $Z$, the construction factors
+through $G\times Z$ and is therefore a differential operator. Associativity
+of $m$ gives the composition formula. Cocommutativity of $m^*$ for a
+commutative group scheme gives commutativity of convolution.
+\end{proof}
+
+\section{Quotients by finite group schemes}
+\label{mumford-III12-source}
+\dcref{M:ch3:III.12}
+
+\begin{definition}[Action and freeness]
+\label{mumford-def-group-scheme-action}
+\dcref{M:ch3:III.12}
+\uses{mumford-def-group-scheme}
+An action is a morphism $\mu:G\times X\to X$ satisfying the unit and
+associativity diagrams. A morphism is invariant if $f\mu=fp_2$. The action
+is free if $(\mu,p_2):G\times X\to X\times X$ is a closed immersion.
+A $G$-linearization of a coherent sheaf $\mathcal F$ is an isomorphism
+$p_2^*\mathcal F\simeq\mu^*\mathcal F$ satisfying the corresponding
+associativity diagram and restricting to the identity at $e$.
+\source{mumford-abelian-varieties:page-0119}
+\source{mumford-abelian-varieties:page-0120}
+\source{mumford-abelian-varieties:page-0121}
+\source{mumford-abelian-varieties:page-0122}
+\end{definition}
+
+\begin{theorem}[Quotient by a finite group scheme]
+\label{mumford-thm-finite-groupscheme-quotient}
+\dcref{M:ch3:III.12}
+\uses{mumford-def-group-scheme-action}
+Let a finite group scheme $G$ act on $X$, with every orbit contained in an
+affine open. There is a quotient $(Y,\pi)$ whose underlying topological
+space is the orbit quotient and for which
+$\mathcal O_Y\simeq\pi_*\mathcal O_X^G$. It is unique, finite and
+surjective, and has the universal property for invariant morphisms.
+If the action is free, $\pi$ is flat of degree $n=\dim_kR$ for
+$G=\operatorname{Spec}R$, $G\times X\simeq X\times_YX$, and pullback is an
+equivalence between coherent sheaves on $Y$ and coherent $G$-sheaves on $X$.
+\source{mumford-abelian-varieties:page-0122}
+\source{mumford-abelian-varieties:page-0123}
+\end{theorem}
+\begin{proof}
+For (A), reduce to $X=\operatorname{Spec}A$. Let
+$B=A^G=\{a\mid\mu^*(a)=1\otimes a\}$. The norm
+$\operatorname{Nm}_A:R\otimes_kA\to A$ defines
+$N(a)=\operatorname{Nm}_A(\mu^*(a))$. If
+$\phi(a)=1\otimes a$ and
+$\psi(\xi\otimes\eta\otimes a)=(m^*\xi\otimes1)(1\otimes\eta\otimes a)$,
+functoriality and invariance of norm under the $R\otimes A$-algebra
+automorphism $\psi$ give
+\[
+\mu^*N=\operatorname{Nm}_{R\otimes A}(1\otimes\phi)\mu^*
+=\phi\operatorname{Nm}_A\mu^*=\phi N.
+\]
+Thus $N(A)\subset B$. For $a\in A$, the characteristic polynomial
+$\chi_a(T)=N(T-a)=T^n+s_1T^{n-1}+\cdots+s_n$ has invariant coefficients.
+Since $\mu^*(a)-a$ vanishes on the quotient by $\epsilon\otimes1$,
+$\chi_a(a)=0$. Hence $A$ is integral over $B$, so $B$ is finitely generated
+and $\pi:\operatorname{Spec}A\to\operatorname{Spec}B$ is finite and
+surjective. The norm separates orbits. Finally the invariant sheaf is the
+kernel of
+\[
+\pi_*\mathcal O_X\longrightarrow\pi_*\mathcal O_X\otimes_kR,
+\qquad f\longmapsto\mu^*(f)-f\otimes1,
+\]
+which proves the sheaf assertion.
+
+For (B), the canonical pullback isomorphism
+$(g f)^*\mathcal F\simeq f^*g^*\mathcal F$ satisfies its associativity
+diagram; since $\pi\mu=\pi p_2$, it gives the natural action on
+$\pi^*\mathcal F$. For a $G$-sheaf with module $M$, define invariants
+$M^G$ and the natural maps
+\[
+\mathcal F\to\pi_*(\pi^*\mathcal F)^G,qquad
+A\otimes_BM^G\to M.
+\]
+It remains affine to prove these are isomorphisms.
+
+Freeness makes
+\[
+\lambda:A\otimes_BA\to R\otimes_kA,\qquad
+\lambda(a_1\otimes a_2)=\mu^*(a_1)(1\otimes a_2)
+\]
+surjective. Localize so that $B$ is local and $A$ semilocal. There are
+$a_1,\ldots,a_n$ such that $\mu^*(a_i)$ is an $A$-basis of $R\otimes A$.
+Then
+\[
+\mu^*(a)=\sum_i(1\otimes\lambda_i)\mu^*(a_i)
+\Longleftrightarrow a=\sum_i\lambda_i a_i\text{ and }\lambda_i\in B.
+\]
+This identifies $A$ as a free, hence faithfully flat, $B$-module, proves
+injectivity of $\lambda$, and gives $A\otimes_BM^G\simeq M$. If $M$ is
+projective over $A$, faithful flatness shows $M^G$ is $B$-flat; finite
+presentation makes it $B$-projective.
+\end{proof}
+
+\begin{proof}[Details of the affine descent step]
+The implication in the displayed basis criterion from right to left follows
+by applying $\mu^*$ and using $\mu^*(\lambda_i)=1\otimes\lambda_i$ for
+$\lambda_i\in B$. Conversely, apply $1\otimes\mu^*$ and
+$(1\otimes\mu^*)(\mu^*a)=(m^*\otimes1)(\mu^*a)$ to the expansion
+$\mu^*(a)=\sum_i(1\otimes\lambda_i)\mu^*(a_i)$. Independence of the basis
+$\mu^*(a_i)$ gives $\lambda_i\in B$, and $\epsilon\otimes1$ gives
+$a=\sum_i\lambda_i a_i$. The same calculation gives
+$A\otimes_BA\simeq R\otimes_kA$. For a $G$-sheaf with module $M$, write the
+action as $\tau:A\otimes_BM\to M\otimes_BA$ and set
+\[
+N=\{m\in M\mid\tau(1\otimes m)=m\otimes1\}.
+\]
+Flatness identifies $N\otimes_BA$ with the kernel of
+\[
+M\otimes_BA\to M\otimes_BA\otimes_BA,\quad
+m\otimes a\mapsto m\otimes1\otimes a-\tau(1\otimes m)\otimes a.
+\]
+ Associativity identifies this kernel with $\tau(1\otimes M)$, and faithful
+ flatness gives $N\otimes_BA\simeq M$.
+\source{mumford-abelian-varieties:page-0124}
+\source{mumford-abelian-varieties:page-0125}
+\source{mumford-abelian-varieties:page-0126}
+\source{mumford-abelian-varieties:page-0127}
+\source{mumford-abelian-varieties:page-0128}
+\end{proof}
+
+\begin{definition}[Epimorphism of group schemes]
+\label{mumford-def-group-scheme-epimorphism}
+\dcref{M:ch3:III.12}
+A homomorphism $f:X\to Y$ is an epimorphism if it is surjective and
+$f^*:\mathcal O_Y\to f_*\mathcal O_X$ is injective.
+\source{mumford-abelian-varieties:page-0128}
+\end{definition}
+
+\begin{corollary}[Finite normal quotients]
+\label{mumford-cor-finite-normal-quotient}
+\dcref{M:ch3:III.12}
+\uses{mumford-thm-finite-groupscheme-quotient}
+If a finite normal subgroup scheme $G\subset X$ acts by right translations,
+then $X/G$ is a group scheme, $\pi:X\to X/G$ is an epimorphism, and
+$G=\ker(\pi)$. Conversely, an epimorphism with finite kernel is the quotient
+by its kernel.
+\source{mumford-abelian-varieties:page-0128}
+\source{mumford-abelian-varieties:page-0129}
+\source{mumford-abelian-varieties:page-0130}
+\end{corollary}
+\begin{proof}
+Multiplication descends because $\pi\circ m$ is $G\times G$-invariant.
+The identity $G\times X\simeq X\times_{X/G}X$ gives
+$x\in\ker\pi\Longleftrightarrow\pi(x)=\pi(e)\Longleftrightarrow x\in G(S)$.
+Conversely factor through $X/G\to Y$. It is finite; translated affine opens
+and Nakayama reduce isomorphy to residue fields. Its fibres are translates of
+the trivial kernel, hence one reduced point.
+\end{proof}
+
+\begin{corollary}[Base change for equivariant sheaves]
+\label{mumford-cor-quotient-sheaf-base-change}
+\dcref{M:ch3:III.12}
+\uses{mumford-thm-finite-groupscheme-quotient}
+If $Y=X/G$ and $\mathcal G$ is a coherent $G$-sheaf on $X$, then
+\[
+\pi^*(\pi_*\mathcal G)\simeq\mathcal G\otimes_kR,
+\qquad G=\operatorname{Spec}R.
+\]
+\source{mumford-abelian-varieties:page-0129}
+\source{mumford-abelian-varieties:page-0130}
+\source{mumford-abelian-varieties:page-0131}
+\end{corollary}
+\begin{proof}
+Affine base change gives the natural pullback isomorphism. Identifying the
+two pullbacks through $G\times X\simeq X\times_YX$ and using the action
+identifies it with $\mathcal G\otimes_kR$.
+\end{proof}
