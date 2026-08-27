@@ -1,0 +1,485 @@
+% archon:covers AlgebraicJacobian/Albanese/CoheightBridge.lean
+
+\chapter{Coheight--Krull dim bridge for scheme points}
+\label{chap:Albanese_CoheightBridge}
+
+% STRATEGY NOTE (iter-183). This chapter is a project-side scaffold sitting
+% between \cref{chap:Albanese_CodimOneExtension} and the Riemann--Roch
+% Weil-divisor machinery of \cref{chap:RiemannRoch_WeilDivisor}. The
+% directive originates from the iter-182 plan-phase api-alignment consult
+% \texttt{analogies/stacks-00tt-coheight.md} (Decision 2), which determined
+% that Mathlib at the project's pinned commit (\texttt{b80f227}) ships every
+% prerequisite for the scheme-level coheight \(=\) Krull-dim-of-stalk
+% identification but does \emph{not} ship the bridge itself. The bridge is
+% \emph{not} a published-textbook lemma; it is the project-side assembly of
+% four standard Mathlib API pieces:
+%   1. \texttt{Order.coheight\_orderIso} -- coheight transport across order
+%      isomorphisms (Mathlib \texttt{Order.KrullDimension}).
+%   2. \texttt{Topology.Inseparable.Specializes.mem\_open} -- opens contain
+%      every generisation of their points (Mathlib \texttt{Topology.Inseparable}).
+%   3. \texttt{IsLocalization.AtPrime.ringKrullDim\_eq\_height} -- the algebra
+%      bridge between localisation Krull dim and prime-ideal height
+%      (Mathlib \texttt{RingTheory.Ideal.Height}).
+%   4. \texttt{IsAffineOpen.isLocalization\_stalk} -- the affine-stalk
+%      \(=\) localisation identification (Mathlib \texttt{AlgebraicGeometry.AffineScheme}).
+% The Lean target file \texttt{AlgebraicJacobian/Albanese/CoheightBridge.lean}
+% does not yet exist; this chapter is the prover-ready specification for
+% creating it. None of the four blocks below has a direct Hartshorne / Milne /
+% Mumford / Stacks tag that quotes the exact statement, so the blocks are
+% packaged as Archon-original assembly lemmas with explicit Mathlib API
+% pointers in lieu of \texttt{\% SOURCE QUOTE:} blocks.
+
+\section{Setup and motivation}
+\label{sec:coheight_setup}
+
+A point \(z\) of a scheme \(X\) has two natural ``dimension'' invariants attached
+to it. The \emph{Krull dimension of the local ring at \(z\)}, written
+\(\dim \mathcal{O}_{X,z}\), is an algebraic quantity: the supremum of the lengths
+of chains of prime ideals in the stalk \(\mathcal{O}_{X,z}\). The
+\emph{coheight} of \(z\) in \(X\), written \(\operatorname{coheight}_X(z)\), is a
+topological quantity attached to the specialisation preorder on the underlying
+topological space of \(X\): the supremum of the lengths of strict-generisation
+chains \(z = a_0 \prec a_1 \prec \cdots \prec a_n\) in \(X\), where \(\prec\) is the
+strict specialisation order \(x \prec y \iff y \rightsquigarrow x \wedge y \neq x\).
+
+These two invariants agree:
+\[
+  \dim \mathcal{O}_{X,z} \;=\; \operatorname{coheight}_X(z),
+\]
+which is the headline theorem \cref{thm:ringKrullDim_stalk_eq_coheight} of this
+chapter. The identification is folklore in algebraic geometry --- it is the
+statement that the dimension of the local ring at \(z\) counts irreducible
+closed subsets of \(X\) containing \(z\) --- but at the project's pinned Mathlib
+commit (\texttt{b80f227}) the equation is not packaged as a single declaration
+and must be assembled project-side from four Mathlib API pieces.
+
+\paragraph{Why the bridge is needed.} Two downstream files in the project
+currently work around the missing bridge by threading explicit
+\texttt{[Ring.KrullDimLE 1 (X.presheaf.stalk \_)]} instance arguments at every
+codim-\(1\) use site:
+\begin{itemize}
+  \item \cref{chap:Albanese_CodimOneExtension} carries an internal conjunction
+    \[
+      \text{hreg\_dim : IsRegularLocalRing\ } \mathcal{O}_{X,z} \;\wedge\;
+      \operatorname{ringKrullDim}(\mathcal{O}_{X,z}) = 1
+    \]
+    inside the private helper
+    \texttt{smooth\_codim\_one\_maximalIdeal\_isPrincipal\_and\_ne\_bot};
+    the Krull-dim conjunct is supplied by \emph{this chapter's}
+    \cref{lem:ringKrullDimLE_of_coheight_eq_one}, leaving only the
+    irreducible \texttt{IsRegularLocalRing} half (which is the separate
+    Stacks tag \texttt{00TT} sub-project, out of scope here).
+  \item \cref{chap:RiemannRoch_WeilDivisor}'s order-at-a-prime-divisor map
+    \texttt{Scheme.RationalMap.order} currently carries an explicit
+    \texttt{[Ring.KrullDimLE 1 (X.presheaf.stalk Y.point)]} instance argument;
+    after \cref{lem:ringKrullDimLE_of_coheight_eq_one} lands, the instance is
+    synthesisable from the codim-\(1\) hypothesis on \(Y\) alone, so the explicit
+    argument can be dropped.
+\end{itemize}
+
+\paragraph{Chapter structure.} \cref{sec:coheight_topology} proves the
+topology-only lemma that coheight is preserved by open immersions
+(\cref{lem:coheight_eq_of_isOpenEmbedding}). \cref{sec:coheight_spec_duality}
+identifies coheight on a \(\Spec\) with the height of the underlying prime ideal
+(\cref{lem:coheight_spec_eq_height_primeSpectrum}). \cref{sec:coheight_bridge}
+assembles the bridge \cref{thm:ringKrullDim_stalk_eq_coheight}. The closing
+\cref{sec:coheight_le_one_instance} packages the codim-\(1\) specialisation
+\cref{lem:ringKrullDimLE_of_coheight_eq_one} that downstream files consume.
+
+\section{Coheight is preserved by open immersions}
+\label{sec:coheight_topology}
+
+% Source pointer: \texttt{analogies/stacks-00tt-coheight.md} Decision 2 sketch
+% L246--257 (the recipe extracts the lemma from a generic
+% \texttt{Specializes.mem\_open} chain-lifting argument). The lemma is a
+% generic topological fact about the specialisation preorder; no external
+% reference shipped at \texttt{b80f227} states it under this exact
+% formulation.
+
+\begin{lemma}[Coheight on opens equals coheight in the ambient space]\leanok
+  \label{lem:coheight_eq_of_isOpenEmbedding}
+  \dcref{custom}
+  \lean{Order.coheight_eq_of_isOpenEmbedding}
+  Let \(X\) be a topological space carrying the specialisation preorder, and
+  let \(U \subseteq X\) be an open subset. For any \(z \in U\),
+  \[
+    \operatorname{coheight}_{X}(z) \;=\; \operatorname{coheight}_{U}\bigl(\langle z, \, z \in U\rangle\bigr),
+  \]
+  where on the right \(U\) carries the subspace topology and \(\langle z, \,
+  z \in U\rangle\) denotes \(z\) viewed as a point of \(U\).
+\end{lemma}
+
+\begin{proof}
+
+\leanok
+  Both sides are by definition the supremum, over natural numbers \(n\), of the
+  set of \(n\) for which there exists a strictly increasing chain
+  \(z = a_0 \prec a_1 \prec \cdots \prec a_n\) in the relevant
+  specialisation preorder (with \(\prec\) denoting strict specialisation). It
+  therefore suffices to give an order-preserving bijection between the
+  strict-generisation chains starting at \(z\) in \(X\) and those starting at the
+  corresponding point of \(U\).
+
+  \emph{Chains in \(U\) embed into \(X\).} The inclusion \(U \hookrightarrow X\) is
+  continuous, so it preserves specialisation: if \(y \rightsquigarrow x\) in \(U\)
+  then \(y \rightsquigarrow x\) in \(X\), and distinct points of \(U\) remain
+  distinct in \(X\). Hence every strict-generisation chain in \(U\) starting at
+  \(z\) lifts to one in \(X\) of the same length.
+
+  \emph{Chains in \(X\) starting at \(z\) all lie in \(U\).} Conversely, suppose
+  \(z = a_0 \prec a_1 \prec \cdots \prec a_n\) is a strict-generisation chain
+  in \(X\) with \(a_0 = z \in U\). For each \(i \geq 0\), the relation \(a_i \succeq
+  z\) (in the specialisation preorder) is \(z \rightsquigarrow a_i\), i.e.\
+  \(a_i\) is in the closure of \(\{z\}\) \emph{viewed from above}; in our
+  convention the strict order \(a \prec b\) records \(b \rightsquigarrow a\)
+  (the generic point is the strict maximum), so \(a_i \succeq z\) in \(X\) means
+  \(a_i \rightsquigarrow z\) in \(X\). By the Mathlib lemma
+  \texttt{Topology.Inseparable.Specializes.mem\_open} (any specialisation
+  \(a \rightsquigarrow z\) with \(z\) in an open set \(U\) forces \(a \in U\), since
+  \(U\) is open and contains \(z\), hence contains every point whose closure
+  contains \(z\) --- equivalently every \(a\) with \(a \rightsquigarrow z\)),
+  every \(a_i\) lies in \(U\). Thus the chain descends to a strict-generisation
+  chain \(\langle z\rangle = \langle a_0\rangle \prec \langle a_1\rangle \prec
+  \cdots \prec \langle a_n\rangle\) in \(U\) of the same length.
+
+  These two operations are mutually inverse on the set of strict-generisation
+  chains starting at \(z\) (resp.\ at \(\langle z, \, z \in U\rangle\)) and
+  preserve length, so the suprema agree.
+\end{proof}
+
+\section{Coheight on Spec equals height in PrimeSpectrum}
+\label{sec:coheight_spec_duality}
+
+% Source pointer: \texttt{analogies/stacks-00tt-coheight.md} Decision 2 sketch
+% L259--268. The convention reconciliation step traces to Mathlib's
+% \texttt{spec\_le\_iff} in \texttt{AlgebraicGeometry.AffineSpace} L438--447
+% and to \texttt{Order.coheight\_orderIso} +
+% \texttt{Order.height\_toDual} in \texttt{Mathlib.Order.KrullDimension}.
+
+\begin{lemma}[Coheight on \(\Spec R\) equals height in \(\operatorname{PrimeSpectrum} R\)]\leanok
+  \label{lem:coheight_spec_eq_height_primeSpectrum}
+  \dcref{custom}
+  \lean{Order.coheight_spec_eq_height_primeSpectrum}
+  Let \(R\) be a commutative ring and let \(p \in \Spec R\) (viewed as a point of
+  the scheme spectrum, with the specialisation preorder). Then
+  \[
+    \operatorname{coheight}_{\Spec R}(p) \;=\; \operatorname{height}_{\operatorname{PrimeSpectrum}(R)}(p),
+  \]
+  where the right-hand side is the supremum of the lengths of strict
+  prime-ideal chains \(\mathfrak{p}_0 \subsetneq \cdots \subsetneq \mathfrak{p}\)
+  ending at the prime \(\mathfrak{p}\) corresponding to \(p\).
+\end{lemma}
+
+\begin{proof}
+
+\leanok
+  The specialisation preorder on \(\Spec R\) is the dual of the natural
+  inclusion preorder on \(\operatorname{PrimeSpectrum}(R)\). Concretely, for
+  \(p, q \in \Spec R\) with underlying primes \(\mathfrak{p}, \mathfrak{q}\),
+  the relation \(p \leq q\) in the specialisation preorder (which is
+  \(q \rightsquigarrow p\) in topological notation) corresponds to the prime
+  containment \(\mathfrak{q} \subseteq \mathfrak{p}\). This is the content of
+  the Mathlib lemma \texttt{spec\_le\_iff} (located in
+  \texttt{Mathlib.AlgebraicGeometry.AffineSpace}, lines 438--447 at commit
+  \texttt{b80f227}, with the explicit remark that the preorder on \(\Spec R\)
+  equals the order-dual of the preorder on \(\operatorname{PrimeSpectrum} R\)).
+
+  Under this order anti-isomorphism, coheight of \(p\) in \(\Spec R\)
+  (= supremum of strict-generisation chain lengths starting at \(p\),
+  i.e.\ ascending chains \(p \prec a_1 \prec \cdots \prec a_n\) in the
+  specialisation preorder) translates to height of \(\mathfrak{p}\) in
+  \(\operatorname{PrimeSpectrum}(R)\) (= supremum of strict descending prime-ideal
+  chains \(\mathfrak{p} \supsetneq \mathfrak{q}_1 \supsetneq \cdots \supsetneq
+  \mathfrak{q}_n\), equivalently strict ascending chains
+  \(\mathfrak{q}_n \subsetneq \cdots \subsetneq \mathfrak{q}_1 \subsetneq
+  \mathfrak{p}\)). The transport is mechanised by the Mathlib lemmas
+  \texttt{Order.coheight\_orderIso} (coheight is invariant under order
+  isomorphisms) and \texttt{Order.height\_toDual} (height in the order-dual
+  equals coheight in the original order), applied to the order-dual
+  identification \(\Spec R \simeq_o (\operatorname{PrimeSpectrum} R)^{\operatorname{op}}\)
+  furnished by \texttt{spec\_le\_iff}.
+\end{proof}
+
+\section{The coheight \(=\) Krull-dim-of-stalk bridge}
+\label{sec:coheight_bridge}
+
+% Source pointer: \texttt{analogies/stacks-00tt-coheight.md} Decision 2 sketch
+% L280--296 (the 5-step assembly recipe). Mathlib API surface consumed:
+%   - \texttt{AlgebraicGeometry.exists\_isAffineOpen\_mem\_and\_subset}
+%     (\texttt{AffineScheme.lean:271})
+%   - \texttt{IsAffineOpen.primeIdealOf}, \texttt{IsAffineOpen.isLocalization\_stalk}
+%     (\texttt{AffineScheme.lean:806--813})
+%   - \texttt{IsLocalization.AtPrime.ringKrullDim\_eq\_height}
+%     (\texttt{Mathlib.RingTheory.Ideal.Height:341--348})
+%   - \texttt{Ideal.height\_eq\_primeHeight}
+%     (\texttt{Mathlib.RingTheory.Ideal.Height:45})
+%   - \cref{lem:coheight_eq_of_isOpenEmbedding}, \cref{lem:coheight_spec_eq_height_primeSpectrum}
+
+\begin{theorem}[Coheight-to-Krull-dim bridge for a scheme point]\leanok
+  \label{thm:ringKrullDim_stalk_eq_coheight}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.ringKrullDim_stalk_eq_coheight}
+  \uses{lem:coheight_eq_of_isOpenEmbedding, lem:coheight_spec_eq_height_primeSpectrum}
+
+  Let \(X\) be a scheme and let \(z \in X\) be any point. Then
+  \[
+    \operatorname{ringKrullDim}(\mathcal{O}_{X,z}) \;=\; \operatorname{coheight}_{X}(z),
+  \]
+  i.e.\ the Krull dimension of the stalk at \(z\) equals the coheight of \(z\) in
+  the underlying topological space of \(X\) (with respect to the specialisation
+  preorder).
+\end{theorem}
+
+\begin{proof}
+
+  \leanok
+  The proof proceeds in five steps, assembling Mathlib API rather than
+  arguing from a single textbook reference.
+
+  \emph{Step 1: pick an affine open neighbourhood of \(z\).} By
+  \texttt{AlgebraicGeometry.exists\_isAffineOpen\_mem\_and\_subset}
+  applied to the open set \(X\) itself, there exists an affine open
+  \(U \subseteq X\) with \(z \in U\). Write \(\langle z, \, z \in U \rangle \in U\)
+  for \(z\) viewed as a point of the subscheme \(U\).
+
+  \emph{Step 2: name the prime corresponding to \(z\) inside \(U\).} Since
+  \(U \cong \Spec \Gamma(U, \mathcal{O}_X)\) via the affine equivalence
+  \(U \simeq \Spec R\) (with \(R := \Gamma(U, \mathcal{O}_X)\)), the point
+  \(\langle z, \, z \in U\rangle\) corresponds to a prime ideal \(\mathfrak{p}
+  \subseteq R\). In Mathlib this prime is named
+  \texttt{IsAffineOpen.primeIdealOf}\,\(\langle z, \, z \in U\rangle\).
+
+  \emph{Step 3: the stalk is the localisation of \(\Gamma(U)\) at
+  \(\mathfrak{p}\).} The classical affine-stalk identification says
+  \(\mathcal{O}_{X,z} \cong R_{\mathfrak{p}}\). In Mathlib this is the
+  instance \texttt{IsAffineOpen.isLocalization\_stalk}, which witnesses
+  \(\mathcal{O}_{X,z}\) as a localisation of \(R\) at \(\mathfrak{p}\) in the
+  \texttt{IsLocalization.AtPrime} sense.
+
+  \emph{Step 4: Krull dim of the localisation equals the height of
+  \(\mathfrak{p}\).} The Mathlib lemma
+  \texttt{IsLocalization.AtPrime.ringKrullDim\_eq\_height} gives
+  \[
+    \operatorname{ringKrullDim}(\mathcal{O}_{X,z}) \;=\;
+    \operatorname{ringKrullDim}(R_{\mathfrak{p}}) \;=\;
+    \operatorname{height}(\mathfrak{p}),
+  \]
+  where \(\operatorname{height}(\mathfrak{p})\) is the prime-ideal height in
+  \(\operatorname{PrimeSpectrum}(R)\). By
+  \texttt{Ideal.height\_eq\_primeHeight} this matches the
+  \(\operatorname{height}_{\operatorname{PrimeSpectrum}(R)}\) used in
+  \cref{lem:coheight_spec_eq_height_primeSpectrum}.
+
+  \emph{Step 5: lift back from \(U\) to \(X\).} By
+  \cref{lem:coheight_spec_eq_height_primeSpectrum} applied to \(R\) and the
+  affine identification \(U \simeq \Spec R\),
+  \[
+    \operatorname{height}_{\operatorname{PrimeSpectrum}(R)}(\mathfrak{p}) \;=\;
+    \operatorname{coheight}_{\Spec R}(\langle\text{image of } z\rangle) \;=\;
+    \operatorname{coheight}_{U}\bigl(\langle z, \, z \in U\rangle\bigr).
+  \]
+  Then \cref{lem:coheight_eq_of_isOpenEmbedding} applied to the open
+  \(U \subseteq X\) promotes the right-hand side back to
+  \(\operatorname{coheight}_{X}(z)\). Concatenating the equalities from
+  Steps~4--5 gives the conclusion.
+\end{proof}
+
+\section{Codim-1 specialisation: synthesising \texorpdfstring{\(\operatorname{KrullDimLE} 1\)}{KrullDimLE 1}}
+\label{sec:coheight_le_one_instance}
+
+% Source pointer: \texttt{analogies/stacks-00tt-coheight.md} Decision 2
+% recipe scaffold L298--307 + Decision 2 hreg\_dim refactor sketch
+% L319--340. This block is the consumer-facing wrapper of the bridge
+% \cref{thm:ringKrullDim_stalk_eq_coheight} for the codim-\(1\) case used in
+% \cref{chap:Albanese_CodimOneExtension} and
+% \cref{chap:RiemannRoch_WeilDivisor}.
+
+\begin{lemma}[Coheight \(= 1\) forces stalk \(\operatorname{Krull\,dim} \leq 1\)]\leanok
+  \label{lem:ringKrullDimLE_of_coheight_eq_one}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.ringKrullDimLE_of_coheight_eq_one}
+  \uses{thm:ringKrullDim_stalk_eq_coheight}
+
+  Let \(X\) be a scheme and let \(z \in X\) be a point with
+  \(\operatorname{coheight}_{X}(z) = 1\). Then the stalk \(\mathcal{O}_{X,z}\)
+  has Krull dimension at most \(1\), equivalently \(\operatorname{Ring.KrullDimLE}\,1\,
+  \mathcal{O}_{X,z}\) holds.
+\end{lemma}
+
+\begin{proof}
+
+  \leanok
+  By \cref{thm:ringKrullDim_stalk_eq_coheight},
+  \(\operatorname{ringKrullDim}(\mathcal{O}_{X,z}) = \operatorname{coheight}_{X}(z) = 1\).
+  The Mathlib predicate \(\operatorname{Ring.KrullDimLE}\,1\,R\) unfolds to
+  \(\operatorname{ringKrullDim}(R) \leq 1\), so the inequality \(1 \leq 1\)
+  discharges the goal.
+\end{proof}
+
+\section{Consumer wiring and the Stacks 00TT carve-out}
+\label{sec:coheight_consumers}
+
+\paragraph{Consumer 1: the \texttt{hreg\_dim} refactor in
+\texorpdfstring{\cref{chap:Albanese_CodimOneExtension}}{the codim-1 extension chapter}.}
+The private helper
+\texttt{smooth\_codim\_one\_maximalIdeal\_isPrincipal\_and\_ne\_bot}
+inside that chapter's Lean target currently carries an internal
+\texttt{sorry} of the form
+\[
+  \text{hreg\_dim : IsRegularLocalRing}\,\mathcal{O}_{X,z}\;\wedge\;
+  \operatorname{ringKrullDim}\,\mathcal{O}_{X,z} = 1.
+\]
+After this chapter's
+\cref{lem:ringKrullDimLE_of_coheight_eq_one} (and its underlying
+\cref{thm:ringKrullDim_stalk_eq_coheight}) land, the conjunction splits into
+two independent goals:
+\begin{itemize}
+  \item The right conjunct \(\operatorname{ringKrullDim}(\mathcal{O}_{X,z}) = 1\)
+    is discharged by
+    \(\operatorname{coheight}_{X}(z) = 1\) (the standing codim-\(1\) hypothesis
+    on \(z\)) plus \cref{thm:ringKrullDim_stalk_eq_coheight}; the antisymmetric
+    pair \(\operatorname{ringKrullDim} \leq 1\) (\cref{lem:ringKrullDimLE_of_coheight_eq_one})
+    and \(\operatorname{ringKrullDim} \geq 1\) (also from the bridge, since
+    \(1 \leq 1\)) gives equality.
+  \item The left conjunct \(\operatorname{IsRegularLocalRing}\,\mathcal{O}_{X,z}\)
+    is the genuinely-irreducible \emph{Stacks tag \texttt{00TT}} statement
+    ``smooth ring map over a field forces regular stalks''. It is a separate,
+    out-of-scope sub-project (Mathlib does \emph{not} ship the implication
+    \texttt{Algebra.Smooth k A \(\to\) IsRegularLocalRing \(A_{\mathfrak{p}}\)} at
+    \texttt{b80f227}; the project-side build is \(\sim 200\)--\(300\)~LOC of
+    cotangent-space and pure-dimension machinery, not packaged in this
+    chapter).
+\end{itemize}
+Thus the present chapter \emph{halves} the \texttt{hreg\_dim} obligation in
+\cref{chap:Albanese_CodimOneExtension}: one conjunct closes via the bridge,
+one remains as a named Mathlib gap.
+
+\paragraph{Consumer 2: the \texttt{Scheme.RationalMap.order} threading
+hygiene in \texorpdfstring{\cref{chap:RiemannRoch_WeilDivisor}}{the Weil-divisor chapter}.}
+The order-at-a-prime-divisor map currently carries an explicit instance
+argument
+\[
+  [\,\operatorname{Ring.KrullDimLE}\,1\,(X.\text{presheaf.stalk}\,Y.\text{point})\,]
+\]
+at every use site. Because \(Y\) is a prime divisor of \(X\) (so
+\(\operatorname{coheight}_{X}(Y.\text{point}) = 1\) by the definition of a prime
+divisor as a codim-\(1\) irreducible closed subset),
+\cref{lem:ringKrullDimLE_of_coheight_eq_one} synthesises the instance
+automatically from the codim-\(1\) hypothesis on \(Y\), so the explicit instance
+argument can be dropped from \texttt{Scheme.RationalMap.order}'s signature.
+
+\paragraph{Consumer 3: future codim-\(1\) infrastructure.} Any subsequent
+project lemma that needs to discharge ``the stalk at a codim-\(1\) point has
+Krull dim \(\leq 1\)'' --- the implicit hypothesis behind every DVR-at-codim-\(1\)
+argument (cf.\ \cref{lem:smooth_codim_one_dvr} of
+\cref{chap:Albanese_CodimOneExtension}) --- now has a one-liner consequence.
+The instance form
+\cref{lem:ringKrullDimLE_of_coheight_eq_one} is the right shape for
+typeclass-search to find it without ceremony.
+
+\section{Lean encoding}
+\label{sec:coheight_lean_encoding}
+
+The Lean target file is the new
+\texttt{AlgebraicJacobian/Albanese/CoheightBridge.lean}. The declarations to
+introduce, in order:
+
+\begin{enumerate}
+  \item \texttt{Order.coheight\_eq\_of\_isOpenEmbedding} ---
+    \cref{lem:coheight_eq_of_isOpenEmbedding}. Signature (informal): for
+    \(X\) a topological space, \(U \subseteq X\) open, and \(z \in U\),
+    \(\operatorname{coheight}_{X}(z) = \operatorname{coheight}_{U}(\langle z, hz\rangle)\).
+    Tools: \texttt{Topology.Inseparable.Specializes.mem\_open} for the
+    chain-lifting direction; \texttt{Subtype.val} continuity for the
+    embedding direction. Estimated \(\sim 20\)--\(30\)~LOC.
+  \item \texttt{Order.coheight\_spec\_eq\_height\_primeSpectrum} ---
+    \cref{lem:coheight_spec_eq_height_primeSpectrum}. Signature (informal):
+    for \(R\) a \texttt{CommRingCat} and \(p : \Spec R\) a point, coheight of \(p\)
+    in \(\Spec R\) equals height in \(\operatorname{PrimeSpectrum} R\). Tools:
+    \texttt{spec\_le\_iff} (\texttt{Mathlib.AlgebraicGeometry.AffineSpace} L438--447),
+    \texttt{Order.coheight\_orderIso}, \texttt{Order.height\_toDual}
+    (\texttt{Mathlib.Order.KrullDimension}). Estimated \(\sim 10\)--\(15\)~LOC.
+  \item \texttt{AlgebraicGeometry.Scheme.ringKrullDim\_stalk\_eq\_coheight} ---
+    \cref{thm:ringKrullDim_stalk_eq_coheight}. Signature (informal): for
+    \(X : \texttt{Scheme}\) and \(z : X\),
+    \(\operatorname{ringKrullDim}(X.\text{presheaf.stalk}\,z) =
+    \operatorname{coheight}\,z\). Five-step assembly per the proof above.
+    Tools: \texttt{exists\_isAffineOpen\_mem\_and\_subset},
+    \texttt{IsAffineOpen.primeIdealOf}, \texttt{IsAffineOpen.isLocalization\_stalk},
+    \texttt{IsLocalization.AtPrime.ringKrullDim\_eq\_height},
+    \texttt{Ideal.height\_eq\_primeHeight}, plus the two lemmas above.
+    Estimated \(\sim 30\)--\(50\)~LOC.
+  \item \texttt{AlgebraicGeometry.Scheme.ringKrullDimLE\_of\_coheight\_eq\_one} ---
+    \cref{lem:ringKrullDimLE_of_coheight_eq_one}. Signature (informal):
+    given \(X : \texttt{Scheme}\), \(z : X\), and \(\operatorname{coheight}\,z = 1\),
+    derive \texttt{Ring.KrullDimLE 1 (X.presheaf.stalk z)}. Trivial corollary
+    of (3). Estimated \(\sim 10\)~LOC. Lemma vs.\ instance phrasing: the
+    \texttt{coheight\,z = 1} hypothesis is not a typeclass, so this lands as
+    a plain lemma. Downstream files that have the codim-\(1\) hypothesis in
+    hand invoke it explicitly; downstream typeclass infrastructure that
+    bundles ``\(z\) is a codim-\(1\) point'' into a typeclass (if any is added
+    later) can re-export as an instance.
+\end{enumerate}
+
+\paragraph{Mathlib readiness audit.} At commit \texttt{b80f227} the prover
+should verify:
+\begin{itemize}
+  \item \texttt{Order.coheight}, \texttt{Order.height}, \texttt{Order.coheight\_orderIso},
+    \texttt{Order.height\_toDual} all live in
+    \texttt{Mathlib.Order.KrullDimension} and are imported transitively by
+    \texttt{Mathlib.AlgebraicGeometry.Stalk}.
+  \item \texttt{Topology.Inseparable.Specializes.mem\_open} lives in
+    \texttt{Mathlib.Topology.Inseparable}; the file already imports it via
+    \texttt{Mathlib.Topology.Defs.Filter}.
+  \item \texttt{IsAffineOpen.isLocalization\_stalk} and
+    \texttt{IsAffineOpen.primeIdealOf} live in
+    \texttt{Mathlib.AlgebraicGeometry.AffineScheme} (lines 806--813 and
+    surrounding, at the pinned commit).
+  \item \texttt{IsLocalization.AtPrime.ringKrullDim\_eq\_height} and
+    \texttt{Ideal.height\_eq\_primeHeight} live in
+    \texttt{Mathlib.RingTheory.Ideal.Height} (lines 341--348 and 45 at the
+    pinned commit).
+  \item \texttt{Ring.KrullDimLE} is defined and unfolds to
+    \(\operatorname{ringKrullDim}(R) \leq n\) at \texttt{Mathlib.RingTheory.KrullDimension.Basic}.
+\end{itemize}
+No new core axiom is required. The chapter introduces no new macro.
+
+\section{Out of scope}
+\label{sec:coheight_out_of_scope}
+
+This chapter packages \emph{only} the coheight-to-Krull-dim bridge and its
+codim-\(1\) specialisation. The following adjacent content is explicitly out
+of scope:
+\begin{itemize}
+  \item \textbf{Stacks tag \texttt{00TT} (smooth \(\Rightarrow\) regular stalks).}
+    This is a separate sub-project of \(\sim 200\)--\(300\)~LOC, tracked in
+    \texttt{analogies/stacks-00tt-coheight.md} Decision 1. The directive
+    flags it as iter-200+ work. The natural project landing site, when
+    attacked, is a standalone file
+    \texttt{AlgebraicJacobian/Albanese/SmoothToRegular.lean} (not part of
+    this chapter).
+  \item \textbf{The codim-\(1\) valuative criterion / Milne Lemma 3.3
+    difference-map construction.} This is the second multi-iter sub-project
+    flagged in \texttt{analogies/stacks-00tt-coheight.md} Decision 3
+    (\(\sim 300\)--\(500\)~LOC of project-side new infrastructure); see
+    \cref{lem:milne_codim1_indeterminacy} in
+    \cref{chap:Albanese_CodimOneExtension} for the chapter that owns it.
+  \item \textbf{Refactoring \texttt{Scheme.RationalMap.order} to drop its
+    explicit \texttt{[Ring.KrullDimLE 1 \_]} instance argument.} This is a
+    downstream consequence of \cref{lem:ringKrullDimLE_of_coheight_eq_one}
+    that lives in \cref{chap:RiemannRoch_WeilDivisor}; the present chapter
+    only \emph{enables} the refactor, it does not perform it.
+  \item \textbf{Mathlib upstream PRs.} The two lemmas
+    \cref{lem:coheight_eq_of_isOpenEmbedding} and
+    \cref{thm:ringKrullDim_stalk_eq_coheight} are natural candidates for
+    upstreaming (their natural Mathlib homes are
+    \texttt{Mathlib.Order.KrullDimension} and a new
+    \texttt{Mathlib.AlgebraicGeometry.Coheight} respectively); the chapter
+    flags this as an observation but does not pursue it.
+  \item \textbf{General codim-\(n\) specialisations.} Only the codim-\(1\)
+    instance is packaged here, because that is the consumer-facing case.
+    A general \texttt{ringKrullDimLE\_of\_coheight\_le} or
+    \texttt{ringKrullDimLE\_of\_coheight\_eq} family of lemmas can be added
+    iteratively if downstream demand emerges, but is not required for any
+    A.4.* sub-row at the time of writing.
+\end{itemize}

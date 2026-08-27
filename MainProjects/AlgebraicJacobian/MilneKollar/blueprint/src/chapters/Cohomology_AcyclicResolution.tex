@@ -1,0 +1,1064 @@
+\chapter{Acyclic resolutions compute right-derived functors}
+\label{chap:Cohomology_AcyclicResolution}
+% archon:covers AlgebraicJacobian/Cohomology/AcyclicResolution.lean
+% SOURCE: \cite{stacks-project}, Derived Categories, \S Higher derived functors
+% (Definition \texttt{definition-derived-functor} (Tag 0157), Lemmas
+% \texttt{lemma-F-acyclic} (Tag 015C), \texttt{lemma-F-acyclic-ses} (Tag 015D),
+% \texttt{lemma-leray-acyclicity} (Tag 015E) and Proposition
+% \texttt{proposition-enough-acyclics} (Tag 05TA))
+% (read from references/homological-acyclic-derived.tex).
+
+\section{Setup and motivation}
+
+This chapter isolates the one abstract, scheme-independent piece of homological
+algebra on which the {\v C}ech computation of the higher direct images rests: an
+\emph{acyclic resolution computes the right-derived functor}. The companion chapter
+\ref{chap:Cohomology_CechHigherDirectImage} builds, from a separated quasi-compact
+morphism \(f : X \to S\) and an affine open cover, an explicit complex of
+\(\mathcal{O}_S\)-modules --- the relative {\v C}ech complex
+\(\check{\mathcal{C}}^\bullet(\mathfrak{U}, \mathcal{F})\) --- whose terms are
+pushforwards of \(\mathcal{F}\) over the affine intersections. To identify the
+cohomology of that complex with \(R^i f_*\mathcal{F}\), one observes that the
+{\v C}ech complex is a resolution of \(\mathcal{F}\) by objects on which the higher
+direct images vanish (the affine acyclicity of
+Lemma~\ref{lem:cech_acyclic_affine}), and then invokes the present theorem with
+\(G = f_*\). This single homological lemma thereby replaces \emph{both} the
+{\v C}ech-to-cohomology spectral sequence and the Leray spectral sequence.
+
+Throughout, \(\mathcal{A}\) and \(\mathcal{B}\) are abelian categories,
+\(\mathcal{A}\) has enough injectives (so that injective resolutions exist and the
+right-derived functors below are everywhere defined), and
+\(G : \mathcal{A} \to \mathcal{B}\) is an additive functor. For \(n \in \mathbb{N}\)
+we write \(R^n G\) for the \(n\)-th right-derived functor of \(G\)
+(a functor \(\mathcal{A} \to \mathcal{B}\)), constructed from injective resolutions:
+for an injective resolution \(X \to I^\bullet\) one has
+\((R^n G)(X) \cong H^n\bigl(G(I^\bullet)\bigr)\)
+(Lemma~\ref{lem:right_derived_injective_resolution} below). When in addition \(G\) is
+left exact --- equivalently, \(G\) preserves finite limits, which holds for any \(G\)
+that is a right adjoint, such as a pushforward \(f_*\) --- one has \(R^0 G \cong G\)
+(Lemma~\ref{lem:right_derived_zero_iso_self}).
+
+\section{Known results}
+
+The following three well-known results underpin the injective-resolution
+construction of \(R^n G\) and are the foundational inputs to the argument.
+
+\begin{lemma}[Right-derived functor via an injective resolution]
+  \label{lem:right_derived_injective_resolution}
+  \dcref{custom}
+  \lean{CategoryTheory.InjectiveResolution.isoRightDerivedObj}
+  \mathlibok
+  \textit{Provided by Mathlib.}
+  Let \(\mathcal{A}\) be an abelian category with enough injectives,
+  \(\mathcal{B}\) abelian, and \(G : \mathcal{A} \to \mathcal{B}\) additive. For an
+  object \(X\) of \(\mathcal{A}\), a choice of injective resolution
+  \(I\) of \(X\) (an exact complex \(0 \to X \to I^0 \to I^1 \to \cdots\) with each
+  \(I^n\) injective), and every \(n \in \mathbb{N}\), there is a canonical
+  isomorphism in \(\mathcal{B}\)
+  \[
+    (R^n G)(X)
+      \;\cong\;
+      H^n\bigl(G(I^\bullet)\bigr),
+  \]
+  where \(G(I^\bullet)\) is the cochain complex obtained by applying \(G\)
+  degreewise to the resolution complex \(I^\bullet\) and \(H^n\) is its \(n\)-th
+  cohomology object. This is the defining computation of the right-derived functor
+  and the seed from which the acyclic-resolution generalization is bootstrapped.
+\end{lemma}
+
+\begin{lemma}[Higher derived functors vanish on injectives]
+  \label{lem:right_derived_vanishes_injective}
+  \dcref{custom}
+  \lean{CategoryTheory.Functor.isZero_rightDerived_obj_injective_succ}
+  \mathlibok
+  \textit{Provided by Mathlib.}
+  With \(\mathcal{A}, \mathcal{B}, G\) as above, if \(J\) is an injective object of
+  \(\mathcal{A}\) then \((R^{n+1} G)(J) = 0\) for every \(n \in \mathbb{N}\); that
+  is, the higher right-derived functors vanish on injective objects. In particular
+  every injective object is right-\(G\)-acyclic in the sense of
+  Definition~\ref{def:right_acyclic}.
+\end{lemma}
+
+\begin{lemma}[The zeroth derived functor of a left-exact functor]
+  \label{lem:right_derived_zero_iso_self}
+  \dcref{custom}
+  \lean{CategoryTheory.Functor.rightDerivedZeroIsoSelf}
+  \mathlibok
+  \textit{Provided by Mathlib.}
+  With \(\mathcal{A}, \mathcal{B}, G\) as above, if \(G\) is left exact (preserves
+  finite limits) then the natural transformation \(G \to R^0 G\) is an isomorphism,
+  \[
+    R^0 G \;\cong\; G.
+  \]
+\end{lemma}
+
+\begin{lemma}[Long exact homology sequence of a short exact sequence of complexes]
+  \label{lem:homology_long_exact_sequence}
+  \dcref{custom}
+  \lean{CategoryTheory.ShortComplex.ShortExact.homology_exact₁,
+    CategoryTheory.ShortComplex.ShortExact.homology_exact₂,
+    CategoryTheory.ShortComplex.ShortExact.homology_exact₃,
+    CategoryTheory.ShortComplex.ShortExact.δ}
+  \mathlibok
+  \textit{Provided by Mathlib.}
+  Let \(\mathcal{C}\) be an abelian category and let
+  \[
+    0 \longrightarrow S.X_1 \longrightarrow S.X_2 \longrightarrow S.X_3
+      \longrightarrow 0
+  \]
+  be a short exact sequence of cochain complexes in \(\mathcal{C}\) --- that is, a
+  short complex \(S = (S.X_1 \to S.X_2 \to S.X_3)\) of objects of the category of
+  \(\mathbb{Z}\)-indexed cochain complexes \(\mathrm{HomologicalComplex}\,\mathcal{C}\)
+  which is short exact (degreewise mono, epi and exact in the middle). Then for every
+  degree \(n\) there is a connecting morphism
+  \[
+    \delta^n \;:\; H^n(S.X_3) \longrightarrow H^{n+1}(S.X_1)
+  \]
+  (the Mathlib map \texttt{ShortComplex.ShortExact.\(\delta\)}), and these assemble
+  into a long exact sequence of homology objects in \(\mathcal{C}\)
+  \[
+    \cdots \longrightarrow H^n(S.X_2) \longrightarrow H^n(S.X_3)
+      \xrightarrow{\ \delta^n\ } H^{n+1}(S.X_1)
+      \longrightarrow H^{n+1}(S.X_2) \longrightarrow \cdots .
+  \]
+  This is the complex-level homology long exact sequence and its connecting
+  homomorphism. The derived-functor long exact sequence used in the sequel is
+  constructed from this complex-level result via a horseshoe lift; see
+  Lemma~\ref{lem:acyclic_dimension_shift}.
+\end{lemma}
+
+\section{Right-acyclic objects}
+
+\begin{definition}[Right-\(G\)-acyclic object]\leanok
+  \label{def:right_acyclic}
+  \dcref{custom}
+  \lean{CategoryTheory.Functor.IsRightAcyclic}
+  \uses{lem:right_derived_injective_resolution}
+  % SOURCE: \cite{stacks-project}, Derived Categories, Definition
+  % \texttt{definition-derived-functor} (Tag 0157, items 3--4) and Lemma
+  % \texttt{lemma-F-acyclic} (Tag 015C, part 2)
+  % (read from references/homological-acyclic-derived.tex, L5264--5269 and
+  % L5594--5617).
+  % SOURCE QUOTE: "\item An object $A$ of $\mathcal{A}$ is said to be
+  % {\it right acyclic for $F$}, or {\it acyclic for $RF$}
+  % if $A[0]$ computes $RF$.
+  % \item An object $A$ of $\mathcal{A}$ is said to be
+  % {\it left acyclic for $F$}, or {\it acyclic for $LF$}
+  % if $A[0]$ computes $LF$."
+  % SOURCE QUOTE: "Let $F : \mathcal{A} \to \mathcal{B}$ be an additive functor
+  % between abelian categories and assume
+  % $RF : D^{+}(\mathcal{A}) \to D^{+}(\mathcal{B})$ is everywhere
+  % defined. Let $A$ be an object of $\mathcal{A}$.
+  % \begin{enumerate}
+  % \item $A$ is right acyclic for $F$ if and only if
+  % $F(A) \to R^0F(A)$ is an isomorphism and $R^iF(A) = 0$ for all $i > 0$,
+  % \item if $F$ is left exact, then $A$ is right acyclic for $F$
+  % if and only if $R^iF(A) = 0$ for all $i > 0$.
+  % \end{enumerate}"
+  \textit{Source: Stacks Project, Derived Categories, Tag 0157
+  (\texttt{definition-derived-functor}) and Tag 015C
+  (\texttt{lemma-F-acyclic}).}
+  Let \(G : \mathcal{A} \to \mathcal{B}\) be an additive functor between abelian
+  categories. An object \(J\) of \(\mathcal{A}\) is \emph{right-\(G\)-acyclic} when
+  the higher right-derived functors of \(G\) vanish at \(J\):
+  \[
+    (R^k G)(J) = 0 \qquad \text{for all } k \geq 1.
+  \]
+  Equivalently, writing the condition with the index shifted, \((R^{k+1} G)(J) = 0\)
+  for all \(k \in \mathbb{N}\). The Stacks Project defines a right-\(G\)-acyclic
+  object intrinsically (as one for which the one-term complex \(J[0]\) computes the
+  derived functor \(RG\)); for an additive --- in our applications, left exact ---
+  functor \(G\) that intrinsic condition is equivalent to the vanishing of all
+  \((R^k G)(J)\) with \(k \geq 1\), which is the form we adopt here and which is
+  directly checkable against the injective-resolution computation of
+  Lemma~\ref{lem:right_derived_injective_resolution}.
+
+  \emph{Remark (alternative quantifier shapes).} Two equivalent formulations are
+  available: ``\((R^k G)(J) = 0\) for all \(k \geq 1\)'' or the index-shifted
+  ``\((R^{k+1} G)(J) = 0\) for all \(k \in \mathbb{N}\)''; the latter avoids the
+  inequality side-condition and aligns with the vanishing statement of
+  Lemma~\ref{lem:right_derived_vanishes_injective}.
+\end{definition}
+
+\section{Lifting a short exact sequence to injective resolutions}
+
+The passage from the complex-level homology long exact sequence
+(Lemma~\ref{lem:homology_long_exact_sequence}) to a long exact sequence of
+right-derived functors requires one geometric input: a short exact sequence of
+objects must be lifted to a short exact sequence of their injective resolutions
+which is, moreover, \emph{degreewise split}. This is the dual Horseshoe Lemma. It is the single genuinely new homological-algebra construction the argument
+requires; individual injective resolutions (provided by enough injectives) furnish
+the building blocks, and the horseshoe construction assembles them into the required
+lift.
+
+\subsection{The horseshoe construction, step by step}
+
+The construction proceeds by induction on degree; we isolate its independent moving
+parts as the sub-lemmas below, from which the horseshoe lemma is assembled. Throughout,
+\(I_A\) and \(I_C\) are fixed injective resolutions of \(A\) and \(C\) (they exist
+because \(\mathcal{A}\) has enough injectives), and we write
+\(d_A, d_C\) for their differentials and \(I_A^n, I_C^n\) for their degree-\(n\) terms.
+The middle resolution is built degreewise as the biproduct
+\(I_B^n := I_A^n \oplus I_C^n\). All seven statements are structural pieces of the dual
+Horseshoe Lemma (dual of Weibel, \emph{An Introduction to Homological Algebra}, Lemma
+2.2.8); no new source is introduced.
+
+\begin{lemma}[Degree term: a finite biproduct of injectives is injective]
+  \label{lem:horseshoe_biprod_injective}
+  \dcref{custom}
+  \lean{CategoryTheory.Injective.instBiprod}
+  \mathlibok
+  \textit{Provided by Mathlib.}
+  In an abelian category, if \(P\) and \(Q\) are injective objects then their biproduct
+  \(P \oplus Q\) is injective. Consequently each degree term
+  \(I_B^n := I_A^n \oplus I_C^n\) of the middle complex is injective, being the
+  biproduct of the injective terms \(I_A^n\) and \(I_C^n\) of the two chosen
+  resolutions.
+\end{lemma}
+
+\begin{lemma}[Degree term: the biproduct short complex is split exact]
+  \label{lem:horseshoe_degree_split}
+  \dcref{custom}
+  \lean{CategoryTheory.ShortComplex.Splitting.ofHasBinaryBiproduct}
+  \mathlibok
+  \textit{Provided by Mathlib.}
+  For objects \(P, Q\) of an abelian category the short complex
+  \[
+    P \xrightarrow{\ \iota_P\ } P \oplus Q \xrightarrow{\ \pi_Q\ } Q
+  \]
+  formed from the biproduct coprojection \(\iota_P\) and projection \(\pi_Q\) carries a
+  canonical \texttt{ShortComplex.Splitting}; in particular it is a split short exact
+  sequence. Applied in each degree \(n\) with \(P = I_A^n\), \(Q = I_C^n\), this exhibits
+  every degree
+  \[
+    0 \longrightarrow I_A^n \longrightarrow I_B^n \longrightarrow I_C^n \longrightarrow 0
+  \]
+  as split, furnishing the degreewise-splitting data required for the construction.
+\end{lemma}
+
+\begin{lemma}[Per-stage monomorphism into the biproduct]\leanok
+  \label{lem:horseshoe_stage_mono}
+  \dcref{custom}
+  \lean{CategoryTheory.mono_biprod_lift_factorThru_of_exact}
+  \uses{lem:horseshoe_biprod_injective}
+  Let \(0 \to S.X_1 \xrightarrow{S.f} S.X_2 \xrightarrow{S.g} S.X_3 \to 0\) be an exact
+  short complex with \(S.f\) a monomorphism, and let \(\alpha : S.X_1 \to P\),
+  \(\gamma : S.X_3 \to Q\) be monomorphisms with \(P\) injective. Then the map
+  \[
+    \bigl\langle\, \mathrm{factorThru}(\alpha, S.f)\,,\; S.g \circ \gamma \,\bigr\rangle
+      \;:\; S.X_2 \longrightarrow P \oplus Q,
+  \]
+  whose first component is the injective extension of \(\alpha\) along the mono \(S.f\)
+  and whose second component is \(S.X_2 \twoheadrightarrow S.X_3 \hookrightarrow Q\), is a
+  monomorphism. This is the kernel/cokernel step driving each stage of the recursion:
+  applied to the \(n\)-th cosyzygy short exact sequence with \(P = I_A^{n+1}\),
+  \(Q = I_C^{n+1}\) it produces the monomorphism of the next cosyzygy into the next
+  biproduct term, whose cokernel feeds the following stage (and, at the base stage with
+  the original sequence \(0 \to A \to B \to C \to 0\), the augmentation
+  \(\beta : B \hookrightarrow I_B^0\)).
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:horseshoe_biprod_injective}
+  \leanok
+  Write \(u := \langle \mathrm{factorThru}(\alpha, S.f), S.g \circ \gamma\rangle\). To see
+  \(u\) is mono it suffices, in an abelian category, to show \(x \circ u = 0 \implies x = 0\)
+  for any \(x\). Composing \(x \circ u\) with the two biproduct projections gives
+  \(x \circ \mathrm{factorThru}(\alpha, S.f) = 0\) and \(x \circ S.g \circ \gamma = 0\);
+  since \(\gamma\) is mono the latter yields \(x \circ S.g = 0\). Exactness of \(S\) at
+  \(S.X_2\) (with \(S.f\) mono) lets us lift \(x\) through \(S.f\): there is \(y\) with
+  \(y \circ S.f = x\). Then \(y \circ \alpha = y \circ S.f \circ \mathrm{factorThru}(\alpha, S.f)
+  = x \circ \mathrm{factorThru}(\alpha, S.f) = 0\), using the defining property
+  \(S.f \circ \mathrm{factorThru}(\alpha, S.f) = \alpha\); as \(\alpha\) is mono, \(y = 0\),
+  hence \(x = y \circ S.f = 0\).
+\end{proof}
+
+\begin{lemma}[Off-diagonal twist and augmentation lifts]
+  \label{lem:horseshoe_twist}
+  \dcref{custom}
+  \lean{CategoryTheory.InjectiveResolution.horseshoeτ, CategoryTheory.InjectiveResolution.horseshoeτ_cocycle, CategoryTheory.InjectiveResolution.horseshoeβ, CategoryTheory.InjectiveResolution.twistPair,
+    CategoryTheory.InjectiveResolution.horseshoeβ₁, CategoryTheory.InjectiveResolution.f_comp_horseshoeβ₁,
+    CategoryTheory.InjectiveResolution.horseshoeH, CategoryTheory.InjectiveResolution.g_comp_horseshoeH,
+    CategoryTheory.InjectiveResolution.horseshoeH_comp_d, CategoryTheory.InjectiveResolution.horseshoeτZero,
+    CategoryTheory.InjectiveResolution.horseshoeτZero_hf, CategoryTheory.InjectiveResolution.horseshoeτ_zero,
+    CategoryTheory.InjectiveResolution.horseshoeβ_comp_d, CategoryTheory.InjectiveResolution.horseshoeβ_fst,
+    CategoryTheory.InjectiveResolution.horseshoeβ_snd, CategoryTheory.InjectiveResolution.ιC0,
+    CategoryTheory.InjectiveResolution.ιC0_comp_d, CategoryTheory.InjectiveResolution.ιC0_comp_τZero,
+    CategoryTheory.InjectiveResolution.ιC_comp_horseshoeτZero}
+  \uses{lem:horseshoe_stage_mono}
+  There exist an augmentation \(\beta : B \to I_B^0\) and a family of morphisms
+  \[
+    \tau^n : I_C^n \longrightarrow I_A^{n+1} \qquad (n \in \mathbb{N})
+  \]
+  --- the off-diagonal components of the middle differential --- satisfying the cocycle
+  identity
+  \[
+    \tau^{n+1} \circ d_C^n \;=\; -\, d_A^{n+1} \circ \tau^n \qquad (n \in \mathbb{N}),
+  \]
+  together with the compatibility of \(\beta\) with the augmentations \(A \to I_A^0\),
+  \(C \to I_C^0\) and the maps of the original short exact sequence. Each \(\tau^n\) (and
+  \(\beta\)) is produced by the universal lifting property of injectives: the target
+  summand \(I_A^{n+1}\) is injective and the relevant source map is a monomorphism
+  (Lemma~\ref{lem:horseshoe_stage_mono}).
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:horseshoe_stage_mono}
+  The lifts are constructed by recursion on \(n\). For the augmentation, the first
+  component of \(\beta\) extends the composite \(A \to I_A^0\) along the monomorphism
+  \(A \hookrightarrow B\) using injectivity of \(I_A^0\); the second component is
+  \(B \twoheadrightarrow C \to I_C^0\).
+  At the inductive step we have \(\tau^{n}\) (with \(\tau^{n} : I_C^{n} \to I_A^{n+1}\))
+  and seek \(\tau^{n+1} : I_C^{n+1} \to I_A^{n+2}\) with
+  \(\tau^{n+1} \circ d_C^n = -\,d_A^{n+1} \circ \tau^n\). The right-hand side
+  \(-\,d_A^{n+1} \circ \tau^n : I_C^n \to I_A^{n+2}\) annihilates
+  \(\ker d_C^n = \operatorname{im} d_C^{n-1}\) --- the equality \(\ker d_C^n =
+  \operatorname{im} d_C^{n-1}\) being the exactness of the injective resolution \(I_C\) in
+  the positive degree \(n\), which is part of the defining data of an injective resolution.
+  Indeed, precomposing with \(d_C^{n-1}\) and using the
+  previous-stage identity \(\tau^{n} \circ d_C^{n-1} = -\,d_A^{n} \circ \tau^{n-1}\) gives
+  \(-\,d_A^{n+1} \circ \tau^n \circ d_C^{n-1} = d_A^{n+1} \circ d_A^{n} \circ \tau^{n-1} = 0\),
+  where the final equality is the complex identity \(d_A^{n+1} \circ d_A^{n} = 0\) for the
+  cochain complex \(I_A\). Hence
+  \(-\,d_A^{n+1} \circ \tau^n\) factors through the image of \(d_C^n\), i.e.\ through the
+  monomorphism \(\operatorname{im} d_C^n \hookrightarrow I_C^{n+1}\); injectivity of the
+  target \(I_A^{n+2}\) extends that factorization along this monomorphism to a map
+  \(\tau^{n+1} : I_C^{n+1} \to I_A^{n+2}\) defined on all of \(I_C^{n+1}\) and satisfying
+  \(\tau^{n+1} \circ d_C^n = -\,d_A^{n+1} \circ \tau^n\) by construction. This is exactly
+  the dual of the inductive lift in the Horseshoe Lemma.
+\end{proof}
+
+\begin{lemma}[The assembled middle differential squares to zero]\leanok
+  \label{lem:horseshoe_dComp}
+  \dcref{custom}
+  \lean{CategoryTheory.twistedBiprodD_comp}
+  \uses{lem:horseshoe_twist}
+  With the twist family \(\tau\) of Lemma~\ref{lem:horseshoe_twist}, define the middle
+  differential degreewise by the matrix
+  \[
+    d_B^n \;=\;
+    \begin{pmatrix} d_A^n & \tau^n \\ 0 & d_C^n \end{pmatrix}
+    \;:\; I_A^n \oplus I_C^n \longrightarrow I_A^{n+1} \oplus I_C^{n+1}.
+  \]
+  Then \(d_B^{n+1} \circ d_B^n = 0\) for every \(n\), so \((I_B^\bullet, d_B)\) is a
+  cochain complex.
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:horseshoe_twist}
+  \leanok
+  Multiplying the two matrices, the composite \(d_B^{n+1} \circ d_B^n\) has diagonal
+  entries \(d_A^{n+1} \circ d_A^n = 0\) and \(d_C^{n+1} \circ d_C^n = 0\) (the complexes
+  \(I_A\), \(I_C\) being complexes), lower-left entry \(0\), and upper-right entry
+  \[
+    d_A^{n+1} \circ \tau^n + \tau^{n+1} \circ d_C^n,
+  \]
+  which vanishes precisely by the cocycle identity
+  \(\tau^{n+1} \circ d_C^n = -\,d_A^{n+1} \circ \tau^n\) of
+  Lemma~\ref{lem:horseshoe_twist}. Hence \(d_B^{n+1} \circ d_B^n = 0\).
+\end{proof}
+
+\begin{lemma}[The inclusion and projection are chain maps]
+  \label{lem:horseshoe_chainMap}
+  \dcref{custom}
+  \lean{CategoryTheory.twistedBiprodInl, CategoryTheory.twistedBiprodSnd, CategoryTheory.twistedBiprodSplitting, CategoryTheory.InjectiveResolution.horseshoeSES_shortExact,
+    CategoryTheory.InjectiveResolution.horseshoeMid, CategoryTheory.InjectiveResolution.horseshoeSES,
+    CategoryTheory.InjectiveResolution.horseshoeSES_splitting, CategoryTheory.InjectiveResolution.horseshoeι,
+    CategoryTheory.InjectiveResolution.horseshoeι_f_zero, CategoryTheory.InjectiveResolution.mono_horseshoeβ,
+    CategoryTheory.twistedBiprod, CategoryTheory.twistedBiprod_X, CategoryTheory.twistedBiprod_d,
+    CategoryTheory.twistedBiprodD, CategoryTheory.twistedBiprodD_fst, CategoryTheory.twistedBiprodD_snd,
+    CategoryTheory.twistedBiprodInl_f, CategoryTheory.twistedBiprodSnd_f, CategoryTheory.twistedBiprodInl_comp_Snd}
+  \uses{lem:horseshoe_dComp}
+  With \(d_B\) as in Lemma~\ref{lem:horseshoe_dComp}, the degreewise biproduct
+  coprojection \(\iota^n = \iota_{I_A^n} : I_A^n \to I_B^n\) and projection
+  \(\pi^n = \pi_{I_C^n} : I_B^n \to I_C^n\) assemble into chain maps
+  \(\iota : I_A^\bullet \to I_B^\bullet\) and \(\pi : I_B^\bullet \to I_C^\bullet\); that
+  is, \(d_B^n \circ \iota^n = \iota^{n+1} \circ d_A^n\) and
+  \(\pi^{n+1} \circ d_B^n = d_C^n \circ \pi^n\). Moreover \(\iota, \pi\) are compatible
+  with the augmentations and form, in each degree, the split short exact sequence
+  \(0 \to I_A^n \to I_B^n \to I_C^n \to 0\) of
+  Lemma~\ref{lem:horseshoe_degree_split}.
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:horseshoe_dComp, lem:horseshoe_degree_split}
+  These are direct biproduct computations from the matrix form of \(d_B\). Pre-composing
+  \(d_B^n\) with the coprojection \(\iota^n\) of the first summand selects the first
+  column \(\begin{pmatrix} d_A^n \\ 0\end{pmatrix}\), which equals
+  \(\iota^{n+1} \circ d_A^n\); so \(\iota\) is a chain map. Post-composing \(d_B^n\) with
+  the projection \(\pi^{n+1}\) onto the second summand selects the second row
+  \(\begin{pmatrix} 0 & d_C^n\end{pmatrix}\), which equals \(d_C^n \circ \pi^n\); so
+  \(\pi\) is a chain map. Compatibility with the augmentations is the corresponding
+  statement in degree \(-1 \to 0\), immediate from the construction of \(\beta\) in
+  Lemma~\ref{lem:horseshoe_twist}. In each degree \(\iota^n = \iota_{I_A^n}\) and
+  \(\pi^n = \pi_{I_C^n}\) are the structure maps of the biproduct, so the degree is split
+  exact by Lemma~\ref{lem:horseshoe_degree_split}.
+\end{proof}
+
+\begin{lemma}[Middle-term quasi-isomorphism transfer]\leanok
+  \label{lem:quasiIso_tau2}
+  \dcref{custom}
+  \lean{HomologicalComplex.HomologySequence.quasiIso_τ₂}
+  \uses{lem:homology_long_exact_sequence}
+  Project-local supplement (the \(\tau_2\) companion of Mathlib's \(\tau_3\) transfer
+  \texttt{quasiIso\_τ₃}). Let \(\varphi : S_1 \to S_2\) be a morphism of short exact
+  sequences of cochain complexes, with components \(\varphi.\tau_1, \varphi.\tau_2,
+  \varphi.\tau_3\) on the three columns. Suppose \(\varphi.\tau_1\) and \(\varphi.\tau_3\)
+  are quasi-isomorphisms, and that the middle component \(\varphi.\tau_2\) is a
+  monomorphism in every degree \(i\) that has no incoming differential, and an
+  epimorphism in every degree \(i\) that has no outgoing differential. Then
+  \(\varphi.\tau_2\) is a quasi-isomorphism.
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:homology_long_exact_sequence}
+  \leanok
+  This is the homology four-lemma. Fix a degree \(i\); we show
+  \(H^i(\varphi.\tau_2)\) is an isomorphism by proving it is both epimorphic and
+  monomorphic and concluding that a map which is both is an isomorphism. \emph{Epi:}
+  when \(i\) has an outgoing differential to some \(j\), the two short exact sequences
+  yield a commuting ladder whose rows are the five-term exact windows of the homology
+  long exact sequence (Lemma~\ref{lem:homology_long_exact_sequence}) about degree
+  \(i\); the four-lemma (epi form), using that \(H^i(\varphi.\tau_1)\),
+  \(H^i(\varphi.\tau_3)\) are epi and \(H^j(\varphi.\tau_1)\) is mono, forces
+  \(H^i(\varphi.\tau_2)\) epi. When \(i\) has no outgoing differential,
+  \(\varphi.\tau_2\) is epi in degree \(i\) by hypothesis, and an epimorphism of
+  complexes that is epi in a degree with no outgoing differential is epi on homology
+  there. \emph{Mono:} dually, when \(i\) has an incoming differential from some \(k\),
+  the four-lemma (mono form), using that \(H^k(\varphi.\tau_3)\) is epi and
+  \(H^i(\varphi.\tau_1), H^i(\varphi.\tau_3)\) are mono, forces
+  \(H^i(\varphi.\tau_2)\) mono; when \(i\) has no incoming differential it is mono in
+  that degree by hypothesis, hence mono on homology. Being epi and mono in every
+  degree, \(H^i(\varphi.\tau_2)\) is an isomorphism for all \(i\), so
+  \(\varphi.\tau_2\) is a quasi-isomorphism.
+\end{proof}
+
+\begin{lemma}[The middle complex resolves \(B\)]
+  \label{lem:horseshoe_resolvesMiddle}
+  \dcref{custom}
+  \lean{CategoryTheory.InjectiveResolution.ofShortExact_resolvesMiddle,
+    CategoryTheory.InjectiveResolution.horseshoeφ, CategoryTheory.InjectiveResolution.horseshoeφ_comm₁₂,
+    CategoryTheory.InjectiveResolution.horseshoeφ_comm₂₃, CategoryTheory.InjectiveResolution.horseshoeφ_τ₁,
+    CategoryTheory.InjectiveResolution.horseshoeφ_τ₂, CategoryTheory.InjectiveResolution.horseshoeφ_τ₃,
+    CategoryTheory.InjectiveResolution.quasiIso_horseshoeι, CategoryTheory.InjectiveResolution.single₀_hom_ext}
+  \uses{lem:horseshoe_chainMap, lem:homology_long_exact_sequence, lem:quasiIso_tau2}
+  The cochain complex \((I_B^\bullet, d_B)\) of Lemma~\ref{lem:horseshoe_dComp}, with the
+  augmentation \(\beta : B \to I_B^0\) of Lemma~\ref{lem:horseshoe_twist}, is an injective
+  resolution of \(B\): its terms are injective
+  (Lemma~\ref{lem:horseshoe_biprod_injective}), it is exact in every positive degree, and
+  \(H^0 \cong B\) via \(\beta\).
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:horseshoe_chainMap, lem:homology_long_exact_sequence,
+    lem:horseshoe_biprod_injective, lem:quasiIso_tau2}
+  By Lemma~\ref{lem:horseshoe_chainMap} the maps \(\iota, \pi\) form, degreewise, the
+  split short exact sequence \(0 \to I_A^n \to I_B^n \to I_C^n \to 0\); assembling these
+  splittings (Lemma~\ref{lem:horseshoe_degree_split}) gives a short exact sequence of
+  cochain complexes
+  \[
+    0 \longrightarrow I_A^\bullet \longrightarrow I_B^\bullet
+      \longrightarrow I_C^\bullet \longrightarrow 0 .
+  \]
+  Apply the complex-level homology long exact sequence
+  (Lemma~\ref{lem:homology_long_exact_sequence}). The outer complexes \(I_A^\bullet\),
+  \(I_C^\bullet\) are injective resolutions, hence exact in every positive degree
+  (\(H^{k}(I_A) = H^{k}(I_C) = 0\) for \(k \geq 1\)) with \(H^0(I_A) \cong A\),
+  \(H^0(I_C) \cong C\). In the long exact sequence the terms flanking \(H^{k}(I_B)\) for
+  \(k \geq 1\) vanish, forcing \(H^{k}(I_B) = 0\); in degree \(0\) the initial segment
+  \(0 \to H^0(I_A) \to H^0(I_B) \to H^0(I_C) \to H^1(I_A) = 0\) reads
+  \(0 \to A \to H^0(I_B) \to C \to 0\), which together with the original sequence
+  \(0 \to A \to B \to C \to 0\) and the augmentation \(\beta\) identifies
+  \(H^0(I_B) \cong B\). Hence \(I_B^\bullet\) is exact in positive degrees and resolves
+  \(B\); with injective terms it is an injective resolution of \(B\).
+\end{proof}
+
+\begin{lemma}[Horseshoe lift of a short exact sequence to injective resolutions]\leanok
+  \label{lem:injective_resolution_of_ses}
+  \dcref{custom}
+  \lean{CategoryTheory.InjectiveResolution.ofShortExact}
+  \uses{lem:horseshoe_biprod_injective, lem:horseshoe_degree_split,
+    lem:horseshoe_stage_mono, lem:horseshoe_twist, lem:horseshoe_dComp,
+    lem:horseshoe_chainMap, lem:horseshoe_resolvesMiddle,
+    lem:right_derived_injective_resolution}
+  Let \(\mathcal{A}\) be an abelian category with enough injectives and let
+  \[
+    0 \longrightarrow A \longrightarrow B \longrightarrow C \longrightarrow 0
+  \]
+  be a short exact sequence in \(\mathcal{A}\). Then there exist injective
+  resolutions \(I_A\) of \(A\), \(I_B\) of \(B\), \(I_C\) of \(C\), together with a
+  short exact sequence of cochain complexes
+  \[
+    0 \longrightarrow I_A \longrightarrow I_B \longrightarrow I_C \longrightarrow 0
+  \]
+  which is compatible with the augmentations \(A \to I_A^0\), \(B \to I_B^0\),
+  \(C \to I_C^0\) and which is \emph{degreewise split}: for every \(n\) the sequence
+  \[
+    0 \longrightarrow I_A^n \longrightarrow I_B^n \longrightarrow I_C^n
+      \longrightarrow 0
+  \]
+  is a split short exact sequence of \(\mathcal{A}\), so that
+  \(I_B^n \cong I_A^n \oplus I_C^n\).
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:horseshoe_biprod_injective, lem:horseshoe_degree_split,
+    lem:horseshoe_stage_mono, lem:horseshoe_twist, lem:horseshoe_dComp,
+    lem:horseshoe_chainMap, lem:horseshoe_resolvesMiddle,
+    lem:right_derived_injective_resolution, lem:homology_long_exact_sequence}
+  \leanok
+  This is the (dual) Horseshoe Lemma (dual of Weibel, \emph{An Introduction to
+  Homological Algebra}, Lemma 2.2.8), assembled from the sub-lemmas of \S``The horseshoe
+  construction, step by step''. Take \(I_A, I_C\) and set \(I_B^n := I_A^n \oplus I_C^n\):
+  injective by Lemma~\ref{lem:horseshoe_biprod_injective}, degreewise split by
+  Lemma~\ref{lem:horseshoe_degree_split}. The twist \(\tau\) and augmentation exist with
+  the cocycle identity (Lemma~\ref{lem:horseshoe_twist}, via
+  Lemma~\ref{lem:horseshoe_stage_mono}); the matrix differential then squares to zero
+  (Lemma~\ref{lem:horseshoe_dComp}) with coprojection and projection chain maps
+  (Lemma~\ref{lem:horseshoe_chainMap}); and \(I_B^\bullet\) resolves \(B\)
+  (Lemma~\ref{lem:horseshoe_resolvesMiddle}). These data are exactly the asserted
+  degreewise-split short exact sequence \(0 \to I_A \to I_B \to I_C \to 0\) of cochain
+  complexes compatible with the augmentations.
+\end{proof}
+
+\section{The dimension-shift step}
+
+The induction driving the comparison theorem rests on a single short-exact-sequence
+calculation: cutting a resolution into short exact sequences and reading off the
+long exact sequence of right-derived functors. The latter is not available off the
+shelf at the level of the derived-functor objects \((R^k G)\); we build it from the
+complex-level homology long exact sequence
+(Lemma~\ref{lem:homology_long_exact_sequence}) via the horseshoe lift
+(Lemma~\ref{lem:injective_resolution_of_ses}). We first record the shift at the
+\emph{resolution} level — where the horseshoe lift directly supplies the
+degreewise-split short exact sequence of injective resolutions — and then specialize
+to objects.
+
+\begin{lemma}[Resolution-level dimension shift]
+  \label{lem:right_derived_shift_split_resolution}
+  \dcref{custom}
+  \lean{CategoryTheory.Functor.rightDerivedShiftIsoOfSplitResolutionSES, CategoryTheory.shortExact_of_degreewise_splitting, CategoryTheory.shortExact_map_mapHomologicalComplex_of_degreewise_splitting, CategoryTheory.Functor.isZero_homology_mapHomologicalComplex_of_isRightAcyclic}
+  \uses{def:right_acyclic, lem:right_derived_injective_resolution,
+    lem:homology_long_exact_sequence}
+  Let \(G : \mathcal{A} \to \mathcal{B}\) be additive and let
+  \(0 \to A \to J \to Z \to 0\) be a short exact sequence with \(J\) right-\(G\)-acyclic,
+  lifted to a \emph{degreewise-split} short exact sequence of injective resolutions
+  \(0 \to I_A \to I_J \to I_Z \to 0\) (chain maps \(\varphi, \psi\) with
+  \(\psi \circ \varphi = 0\) and a splitting of \(0 \to I_A^n \to I_J^n \to I_Z^n \to 0\)
+  in each degree \(n\)). Then for every \(k \geq 0\) the connecting map of the homology
+  long exact sequence of \(G(I_\bullet)\) is an isomorphism
+  \[
+    (R^{k+1} G)(Z) \;\cong\; (R^{k+2} G)(A).
+  \]
+\end{lemma}
+
+\begin{proof}
+  \uses{def:right_acyclic, lem:right_derived_injective_resolution,
+    lem:homology_long_exact_sequence}
+  Applying \(G\) degreewise to the degreewise-split sequence preserves each split
+  degree, yielding a short exact sequence of cochain complexes
+  \(0 \to G(I_A) \to G(I_J) \to G(I_Z) \to 0\) in \(\mathcal{B}\). Its homology long
+  exact sequence (Lemma~\ref{lem:homology_long_exact_sequence}) has connecting maps
+  \(\delta^m : H^m(G(I_Z)) \to H^{m+1}(G(I_A))\); transport these across the
+  injective-resolution computation \(H^m(G(I_-)) \cong (R^m G)(-)\)
+  (Lemma~\ref{lem:right_derived_injective_resolution}). For \(m = k+1 \geq 1\) the two
+  homology objects flanking \(\delta^m\) in the long exact sequence both sit on the
+  middle complex \(G(I_J)\), namely \(H^{k+1}(G(I_J))\) and \(H^{k+2}(G(I_J))\); both
+  vanish because \(J\) is right-\(G\)-acyclic (Definition~\ref{def:right_acyclic}).
+  With both neighbours zero, \(\delta^{k+1}\) is an isomorphism, giving
+  \((R^{k+1} G)(Z) \cong (R^{k+2} G)(A)\).
+\end{proof}
+
+\begin{lemma}[Dimension shift across an acyclic short exact sequence]\leanok
+  \label{lem:acyclic_dimension_shift}
+  \dcref{custom}
+  \lean{CategoryTheory.Functor.rightDerivedShiftIsoOfAcyclic}
+  \uses{def:right_acyclic, lem:right_derived_zero_iso_self,
+    lem:injective_resolution_of_ses, lem:homology_long_exact_sequence,
+    lem:right_derived_shift_split_resolution}
+  % SOURCE: \cite{stacks-project}, Derived Categories, Lemma
+  % \texttt{lemma-F-acyclic-ses} (Tag 015D)
+  % (read from references/homological-acyclic-derived.tex, L5619--5654).
+  % SOURCE QUOTE: "Let $F : \mathcal{A} \to \mathcal{B}$ be a left exact functor
+  % between abelian categories and assume
+  % $RF : D^{+}(\mathcal{A}) \to D^{+}(\mathcal{B})$ is everywhere
+  % defined. Let $0 \to A \to B \to C \to 0$ be a short exact sequence
+  % of $\mathcal{A}$.
+  % \begin{enumerate}
+  % \item If $A$ and $C$ are right acyclic for $F$ then so is $B$.
+  % \item If $A$ and $B$ are right acyclic for $F$ then so is $C$.
+  % \item If $B$ and $C$ are right acyclic for $F$ and $F(B) \to F(C)$ is
+  % surjective then $A$ is right acyclic for $F$.
+  % \end{enumerate}
+  % In each of the three cases
+  % $$
+  % 0 \to F(A) \to F(B) \to F(C) \to 0
+  % $$
+  % is a short exact sequence of $\mathcal{B}$."
+  \textit{Source: Stacks Project, Derived Categories, Tag 015D
+  (\texttt{lemma-F-acyclic-ses}).}
+  Let \(G : \mathcal{A} \to \mathcal{B}\) be an additive left-exact functor, and let
+  \[
+    0 \longrightarrow A \longrightarrow J \longrightarrow Z \longrightarrow 0
+  \]
+  be a short exact sequence in \(\mathcal{A}\) with the middle term \(J\)
+  right-\(G\)-acyclic. Then the connecting maps of the long exact sequence of
+  right-derived functors furnish isomorphisms
+  \[
+    (R^{k} G)(Z) \;\xrightarrow{\ \cong\ }\; (R^{k+1} G)(A)
+    \qquad \text{for all } k \geq 1.
+  \]
+  (The companion lowest-degree statement
+  \((R^{1} G)(A) \cong \operatorname{coker}(G(J) \to G(Z))\) is isolated as the
+  sibling Lemma~\ref{lem:acyclic_one_iso_coker}.)
+\end{lemma}
+
+% The Stacks proof of Tag 015D derives the long exact sequence from the
+% delta-functor structure of $RF$ on the derived category $D^{+}(\mathcal{A})$.
+% The proof below constructs the same sequence at the level of right-derived-functor
+% objects from the complex-level homology long exact sequence
+% (Lemma \ref{lem:homology_long_exact_sequence}) after a horseshoe lift
+% (Lemma \ref{lem:injective_resolution_of_ses}); accordingly no verbatim proof
+% quote from Tag 015D is attached.
+\begin{proof}
+  \uses{def:right_acyclic, lem:right_derived_zero_iso_self,
+    lem:right_derived_injective_resolution, lem:homology_long_exact_sequence,
+    lem:injective_resolution_of_ses, lem:right_derived_shift_split_resolution}
+    \leanok
+  We first construct the long exact sequence of right-derived functors associated
+  to \(0 \to A \to J \to Z \to 0\). In the classical treatment this sequence is
+  supplied by the \(\delta\)-functor structure of \(\{R^k G\}\) on the derived
+  category; here it is built directly from the complex-level homology long exact
+  sequence via a horseshoe lift.
+
+  \emph{Building the long exact sequence.} By the horseshoe lift
+  (Lemma~\ref{lem:injective_resolution_of_ses}) choose injective resolutions
+  \(I_A, I_J, I_Z\) of \(A, J, Z\) fitting into a short exact sequence of cochain
+  complexes
+  \[
+    0 \longrightarrow I_A \longrightarrow I_J \longrightarrow I_Z \longrightarrow 0
+  \]
+  that is degreewise split. Apply \(G\) degreewise. Because each degree
+  \(0 \to I_A^n \to I_J^n \to I_Z^n \to 0\) is a \emph{split} short exact sequence
+  (so \(I_J^n \cong I_A^n \oplus I_Z^n\) compatibly with the maps), the additive
+  functor \(G\) carries it to a split short exact sequence
+  \(0 \to G(I_A^n) \to G(I_J^n) \to G(I_Z^n) \to 0\) --- this is where degreewise
+  splitness is essential, since \(G\) is not assumed exact and would not in general
+  preserve a non-split short exact sequence. Hence
+  \[
+    0 \longrightarrow G(I_A) \longrightarrow G(I_J) \longrightarrow G(I_Z)
+      \longrightarrow 0
+  \]
+  is a short exact sequence of cochain complexes in \(\mathcal{B}\). The
+  complex-level homology long exact sequence
+  (Lemma~\ref{lem:homology_long_exact_sequence}) applied to it reads
+  \[
+    \cdots \to H^k\bigl(G(I_J)\bigr) \to H^k\bigl(G(I_Z)\bigr)
+      \xrightarrow{\ \delta^k\ } H^{k+1}\bigl(G(I_A)\bigr)
+      \to H^{k+1}\bigl(G(I_J)\bigr) \to \cdots .
+  \]
+  By Lemma~\ref{lem:right_derived_injective_resolution} the homology of each applied
+  resolution computes the right-derived functor:
+  \(H^k(G(I_A)) \cong (R^k G)(A)\), \(H^k(G(I_J)) \cong (R^k G)(J)\) and
+  \(H^k(G(I_Z)) \cong (R^k G)(Z)\), naturally in the maps of the sequence. Transporting
+  the homology long exact sequence across these isomorphisms gives the long exact
+  sequence of right-derived functors
+  \[
+    \cdots \to (R^k G)(J) \to (R^k G)(Z)
+      \xrightarrow{\ \delta^k\ } (R^{k+1} G)(A) \to (R^{k+1} G)(J) \to \cdots,
+  \]
+  and, using \(R^0 G \cong G\) (Lemma~\ref{lem:right_derived_zero_iso_self}) at the
+  bottom, its low-degree initial segment
+  \[
+    0 \to G(A) \to G(J) \to G(Z)
+      \xrightarrow{\ \delta^0\ } (R^1 G)(A) \to (R^1 G)(J) \to \cdots .
+  \]
+
+  \emph{Killing the acyclic terms.} Because \(J\) is right-\(G\)-acyclic
+  (Definition~\ref{def:right_acyclic}), every term \((R^k G)(J)\) with \(k \geq 1\)
+  vanishes. For \(k \geq 1\) the segment around \((R^k G)(J)\),
+  \[
+    \underbrace{(R^{k} G)(J)}_{=0} \to (R^{k} G)(Z)
+      \xrightarrow{\ \delta^k\ } (R^{k+1} G)(A) \to \underbrace{(R^{k+1} G)(J)}_{=0},
+  \]
+  has both outer terms zero, so the connecting map
+  \(\delta^k : (R^{k} G)(Z) \to (R^{k+1} G)(A)\) is an isomorphism, which is the
+  asserted dimension shift. (The lowest-degree segment of the same long exact
+  sequence yields the cokernel description of \((R^1 G)(A)\); that reading is
+  recorded separately in Lemma~\ref{lem:acyclic_one_iso_coker}.)
+\end{proof}
+
+\begin{lemma}[Lowest-degree cokernel description across an acyclic short exact sequence]\leanok
+  \label{lem:acyclic_one_iso_coker}
+  \dcref{custom}
+  \lean{CategoryTheory.Functor.rightDerivedOneIsoCokerOfAcyclic}
+  \uses{def:right_acyclic, lem:right_derived_zero_iso_self,
+    lem:right_derived_injective_resolution, lem:homology_long_exact_sequence,
+    lem:injective_resolution_of_ses}
+  % SOURCE: \cite{stacks-project}, Derived Categories, Lemma
+  % \texttt{lemma-F-acyclic-ses} (Tag 015D)
+  % (read from references/homological-acyclic-derived.tex, L5619--5654).
+  % SOURCE QUOTE: "Let $F : \mathcal{A} \to \mathcal{B}$ be a left exact functor
+  % between abelian categories and assume
+  % $RF : D^{+}(\mathcal{A}) \to D^{+}(\mathcal{B})$ is everywhere
+  % defined. Let $0 \to A \to B \to C \to 0$ be a short exact sequence
+  % of $\mathcal{A}$."
+  % SOURCE QUOTE PROOF: "As $RF$ is an exact functor and since
+  % $R^iF = 0$ for $i < 0$ and $R^0F = F$
+  % (Lemma \ref{lemma-left-exact-higher-derived})
+  % we obtain an exact cohomology sequence
+  % $0 \to F(A) \to F(B) \to F(C) \to R^1F(A) \to \ldots$
+  % in the abelian category $\mathcal{B}$."
+  \textit{Source: Stacks Project, Derived Categories, Tag 015D
+  (\texttt{lemma-F-acyclic-ses}).}
+  Let \(G : \mathcal{A} \to \mathcal{B}\) be an additive left-exact functor, and let
+  \[
+    0 \longrightarrow A \longrightarrow J \longrightarrow Z \longrightarrow 0
+  \]
+  be a short exact sequence in \(\mathcal{A}\) with the middle term \(J\)
+  right-\(G\)-acyclic. Then there is an isomorphism in \(\mathcal{B}\)
+  \[
+    (R^{1} G)(A) \;\cong\; \operatorname{coker}\bigl(G(J) \to G(Z)\bigr),
+  \]
+  i.e.\ \((R^1 G)(A)\) is the cokernel of the map \(G(J) \to G(Z)\) induced by the
+  surjection \(J \twoheadrightarrow Z\).
+\end{lemma}
+
+\begin{proof}
+  \uses{def:right_acyclic, lem:right_derived_zero_iso_self,
+    lem:right_derived_injective_resolution, lem:homology_long_exact_sequence,
+    lem:injective_resolution_of_ses}
+    \leanok
+  This reads off the lowest-degree segment of the very long exact sequence of
+  right-derived functors built, from the same short exact sequence
+  \(0 \to A \to J \to Z \to 0\), in the proof of
+  Lemma~\ref{lem:acyclic_dimension_shift}; here we use only its initial terms, so we
+  recall the construction briefly and then specialize. By the horseshoe lift
+  (Lemma~\ref{lem:injective_resolution_of_ses}) choose injective resolutions
+  \(I_A, I_J, I_Z\) of \(A, J, Z\) fitting into a degreewise-split short exact
+  sequence of cochain complexes \(0 \to I_A \to I_J \to I_Z \to 0\). Applying the
+  additive functor \(G\) degreewise preserves each split degree, giving a short exact
+  sequence of complexes \(0 \to G(I_A) \to G(I_J) \to G(I_Z) \to 0\) in
+  \(\mathcal{B}\); its complex-level homology long exact sequence
+  (Lemma~\ref{lem:homology_long_exact_sequence}), transported across the
+  injective-resolution computation \(H^k(G(I_\bullet)) \cong (R^k G)(-)\)
+  (Lemma~\ref{lem:right_derived_injective_resolution}) and using
+  \(R^0 G \cong G\) (Lemma~\ref{lem:right_derived_zero_iso_self}), has low-degree
+  initial segment
+  \[
+    G(J) \to G(Z) \xrightarrow{\ \delta^0\ } (R^1 G)(A) \to (R^1 G)(J).
+  \]
+  Because \(J\) is right-\(G\)-acyclic (Definition~\ref{def:right_acyclic}), the right
+  end \((R^1 G)(J)\) vanishes. Hence the segment
+  \(G(J) \to G(Z) \xrightarrow{\ \delta^0\ } (R^1 G)(A) \to 0\) is exact with vanishing
+  right end, so \(\delta^0\) is an epimorphism whose kernel is the image of
+  \(G(J) \to G(Z)\). Therefore \(\delta^0\) factors through an isomorphism
+  \(\operatorname{coker}\bigl(G(J) \to G(Z)\bigr) \xrightarrow{\ \cong\ } (R^1 G)(A)\),
+  which is the assertion.
+\end{proof}
+
+\section{Cosyzygies of an acyclic resolution}
+
+The comparison theorem decomposes an acyclic resolution into the short exact
+sequences cut out by its cosyzygies, and reads the cohomology of the applied complex
+off those sequences using left-exactness of \(G\). We isolate the two ingredients
+here.
+
+\begin{lemma}[Cosyzygy short exact sequences of an acyclic resolution]
+  \label{lem:cosyzygy_ses}
+  \dcref{custom}
+  \lean{CategoryTheory.Functor.cosyzygyShortExact, CategoryTheory.Functor.cosyzygyShortComplex, CategoryTheory.cosyzygyKernelFork, CategoryTheory.cosyzygy_iCycles_comp_toCycles, CategoryTheory.epi_toCycles_of_exactAt}
+  \uses{def:right_acyclic}
+  % SOURCE: \cite{stacks-project}, Derived Categories, Proposition
+  % \texttt{proposition-enough-acyclics} (Tag 05TA)
+  % (read from references/homological-acyclic-derived.tex, L5785--5838).
+  % SOURCE QUOTE PROOF: "Say $I^n = 0$ for $n < n_0$. Setting $J^n = \Im(d^n)$ we break
+  % $I^\bullet$ into short exact sequences
+  % $0 \to J^n \to I^{n + 1} \to J^{n + 1} \to 0$
+  % for $n \geq n_0$."
+  \textit{Source: Stacks Project, Derived Categories, Tag 05TA
+  (\texttt{proposition-enough-acyclics}).}
+  Let \(G : \mathcal{A} \to \mathcal{B}\) be additive and let
+  \[
+    0 \longrightarrow A
+      \longrightarrow J^0 \longrightarrow J^1 \longrightarrow J^2
+      \longrightarrow \cdots
+  \]
+  be an exact resolution of \(A\) with every \(J^n\) right-\(G\)-acyclic. Define the
+  cosyzygies \(Z^0 := A\) and, for \(m \geq 1\),
+  \[
+    Z^m \;:=\; \ker\bigl(J^m \to J^{m+1}\bigr)
+      \;=\; \operatorname{im}\bigl(J^{m-1} \to J^m\bigr).
+  \]
+  Then for every \(m \geq 0\) the sequence
+  \[
+    0 \longrightarrow Z^m \longrightarrow J^m \longrightarrow Z^{m+1}
+      \longrightarrow 0 \tag{$S_m$}
+  \]
+  is short exact, with the inclusion \(Z^m \hookrightarrow J^m\) the canonical one,
+  the surjection \(J^m \twoheadrightarrow Z^{m+1}\) the corestriction of
+  \(J^m \to J^{m+1}\) onto its image, and the middle term \(J^m\) right-\(G\)-acyclic.
+  In particular \(Z^1 = \operatorname{im}(J^0 \to J^1) = \operatorname{coker}(A \to J^0)\).
+\end{lemma}
+
+\begin{proof}
+  \uses{def:right_acyclic}
+  Fix \(m \geq 0\). Mono of \(Z^m \hookrightarrow J^m\) is immediate: \(Z^m\) is by
+  definition a subobject of \(J^m\) (for \(m = 0\) via the injection \(A \hookrightarrow
+  J^0\) of the resolution, for \(m \geq 1\) as the kernel \(\ker(J^m \to J^{m+1})\)).
+  The map \(J^m \to Z^{m+1}\) is the corestriction of the differential
+  \(d^m : J^m \to J^{m+1}\) onto its image \(Z^{m+1} = \operatorname{im}(d^m)\), hence
+  an epimorphism. Exactness in the middle is exactness of the resolution at \(J^m\):
+  the image of \(Z^m \hookrightarrow J^m\) equals \(\ker(d^m)\) --- for \(m \geq 1\)
+  by the definition \(Z^m = \ker(J^m \to J^{m+1})\), and for \(m = 0\) because
+  exactness of \(0 \to A \to J^0 \to J^1\) makes \(A \hookrightarrow J^0\) identify
+  \(A\) with \(\ker(d^0)\) --- while the kernel of the epimorphism
+  \(J^m \twoheadrightarrow Z^{m+1}\) is exactly \(\ker(d^m)\). Thus
+  \(\operatorname{im}(Z^m \to J^m) = \ker(J^m \to Z^{m+1})\), so \((S_m)\) is short
+  exact. The middle term \(J^m\) is right-\(G\)-acyclic by hypothesis. The final
+  identity \(Z^1 = \operatorname{im}(J^0 \to J^1) = \operatorname{coker}(A \to J^0)\)
+  is the case \(m = 0\): \(\operatorname{coker}(A \to J^0) = \operatorname{coker}(Z^0 \to J^0)
+  \cong Z^1\) by \((S_0)\).
+\end{proof}
+
+\begin{lemma}[Applied cosyzygy is the cocycle object of the applied complex]
+  \label{lem:applied_cosyzygy_cycles}
+  \dcref{custom}
+  \lean{CategoryTheory.Functor.gCosyzygyIsoCocycles, CategoryTheory.Functor.gCosyzygyIsoCocycles_hom_iCycles, CategoryTheory.Functor.gCosyzygyIsoCocycles_toCycles}
+  \uses{lem:cosyzygy_ses, lem:right_derived_zero_iso_self}
+  % SOURCE: \cite{stacks-project}, Derived Categories, Lemma
+  % \texttt{lemma-F-acyclic-ses} (Tag 015D) — the left-exact initial segment
+  % $0 \to F(A) \to F(B) \to F(C)$ specialized to the cosyzygy sequences
+  % (read from references/homological-acyclic-derived.tex, L5619--5654).
+  % SOURCE QUOTE PROOF: "we obtain an exact cohomology sequence
+  % $0 \to F(A) \to F(B) \to F(C) \to R^1F(A) \to \ldots$
+  % in the abelian category $\mathcal{B}$."
+  \textit{Source: Stacks Project, Derived Categories, Tag 015D
+  (\texttt{lemma-F-acyclic-ses}), left-exact initial segment.}
+  With \(G\) additive left exact and the acyclic resolution and cosyzygies of
+  Lemma~\ref{lem:cosyzygy_ses}, for every \(n \geq 0\) the morphism \(G\) applies to
+  the inclusion \(Z^n \hookrightarrow J^n\) to give an isomorphism
+  \[
+    G(Z^n) \;\xrightarrow{\ \cong\ }\; \ker\bigl(G(J^n) \to G(J^{n+1})\bigr),
+  \]
+  identifying \(G(Z^n)\), as a subobject of \(G(J^n)\), with the \(n\)-th cocycle
+  object of the applied complex \(G(J^\bullet)\). For \(n = 0\) this reads
+  \(G(A) \cong \ker(G(J^0) \to G(J^1)) = H^0\bigl(G(J^\bullet)\bigr)\).
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:cosyzygy_ses, lem:right_derived_zero_iso_self}
+  Fix \(n \geq 0\). Apply the left-exact functor \(G\) to the cosyzygy short exact
+  sequence \((S_n)\), \(0 \to Z^n \to J^n \to Z^{n+1} \to 0\) of
+  Lemma~\ref{lem:cosyzygy_ses}; left-exactness yields an exact sequence
+  \[
+    0 \longrightarrow G(Z^n) \longrightarrow G(J^n) \longrightarrow G(Z^{n+1}),
+  \]
+  so \(G(Z^n) \hookrightarrow G(J^n)\) is the kernel of \(G(J^n) \to G(Z^{n+1})\).
+  Next, the differential \(G(J^n) \to G(J^{n+1})\) of the applied complex factors as
+  \(G(J^n) \xrightarrow{G(J^n \twoheadrightarrow Z^{n+1})} G(Z^{n+1})
+  \xrightarrow{G(Z^{n+1} \hookrightarrow J^{n+1})} G(J^{n+1})\), because the original
+  differential \(J^n \to J^{n+1}\) factors through its image \(Z^{n+1}\) as
+  \(J^n \twoheadrightarrow Z^{n+1} \hookrightarrow J^{n+1}\) and \(G\) preserves
+  composition. The second factor \(G(Z^{n+1}) \to G(J^{n+1})\) is a monomorphism (the
+  image of the left-exact application of \(G\) to \((S_{n+1})\), whose first map
+  \(G(Z^{n+1}) \hookrightarrow G(J^{n+1})\) is mono). A monomorphism does not change
+  kernels under precomposition, so
+  \(\ker(G(J^n) \to G(J^{n+1})) = \ker(G(J^n) \to G(Z^{n+1})) = G(Z^n)\). Hence
+  \(G(Z^n) \xrightarrow{\cong} \ker(G(J^n) \to G(J^{n+1}))\) as subobjects of
+  \(G(J^n)\). For \(n = 0\), \(Z^0 = A\) gives
+  \(G(A) \cong \ker(G(J^0) \to G(J^1)) = H^0(G(J^\bullet))\), the last equality being
+  the definition of the zeroth cohomology of a cochain complex starting in degree
+  \(0\) (no incoming differential). The use of \(R^0 G \cong G\)
+  (Lemma~\ref{lem:right_derived_zero_iso_self}) is what licenses reading \(G(A)\) as
+  \((R^0 G)(A)\) when this identification feeds the comparison theorem.
+\end{proof}
+
+\begin{lemma}[Cohomology of the applied resolution as a cosyzygy cokernel]
+  \label{lem:cohomology_of_applied_resolution}
+  \dcref{custom}
+  \lean{CategoryTheory.Functor.cohomologyAppliedResolutionIso, CategoryTheory.Functor.gHomologyZeroIso}
+  % NOTE (iter-007 review): this lemma states BOTH the degree-0 case (H⁰ ≅ G(A)) and the
+  % positive-degree case (Hⁿ ≅ coker). The Lean split is unavoidable — the n=0 and n≥1 targets
+  % have different types — so the \lean{} names both decls: cohomologyAppliedResolutionIso (n≥1)
+  % and gHomologyZeroIso (n=0). Both are sorry-free + axiom-clean.
+  \uses{lem:cosyzygy_ses, lem:applied_cosyzygy_cycles, lem:right_derived_zero_iso_self}
+  % SOURCE: \cite{stacks-project}, Derived Categories, Proposition
+  % \texttt{proposition-enough-acyclics} (Tag 05TA) and Lemma
+  % \texttt{lemma-F-acyclic-ses} (Tag 015D)
+  % (read from references/homological-acyclic-derived.tex, L5785--5838 and L5619--5654).
+  % SOURCE QUOTE PROOF: "Setting $J^n = \Im(d^n)$ we break
+  % $I^\bullet$ into short exact sequences
+  % $0 \to J^n \to I^{n + 1} \to J^{n + 1} \to 0$
+  % for $n \geq n_0$."
+  \textit{Source: Stacks Project, Derived Categories, Tag 05TA
+  (\texttt{proposition-enough-acyclics}) and Tag 015D
+  (\texttt{lemma-F-acyclic-ses}).}
+  With \(G\) additive left exact and the acyclic resolution and cosyzygies of
+  Lemma~\ref{lem:cosyzygy_ses}, the cohomology of the applied complex
+  \(G(J^\bullet) = \bigl(G(J^0) \to G(J^1) \to \cdots\bigr)\) is computed by
+  \[
+    H^0\bigl(G(J^\bullet)\bigr) \;\cong\; G(A),
+    \qquad
+    H^n\bigl(G(J^\bullet)\bigr) \;\cong\;
+      \operatorname{coker}\bigl(G(J^{n-1}) \to G(Z^n)\bigr) \quad (n \geq 1),
+  \]
+  where \(G(J^{n-1}) \to G(Z^n)\) is \(G\) applied to the surjection
+  \(J^{n-1} \twoheadrightarrow Z^n\) of \((S_{n-1})\).
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:cosyzygy_ses, lem:applied_cosyzygy_cycles, lem:right_derived_zero_iso_self}
+  The degree-zero statement is the \(n = 0\) case of
+  Lemma~\ref{lem:applied_cosyzygy_cycles}: \(H^0(G(J^\bullet)) = \ker(G(J^0) \to G(J^1))
+  \cong G(Z^0) = G(A)\). Fix now \(n \geq 1\). By definition of the cohomology of the
+  cochain complex \(G(J^\bullet)\) in positive degree,
+  \[
+    H^n\bigl(G(J^\bullet)\bigr)
+      \;=\; \ker\bigl(G(J^n) \to G(J^{n+1})\bigr) \big/
+            \operatorname{im}\bigl(G(J^{n-1}) \to G(J^n)\bigr).
+  \]
+  By Lemma~\ref{lem:applied_cosyzygy_cycles} the numerator is
+  \(\ker(G(J^n) \to G(J^{n+1})) \cong G(Z^n)\), realized as the subobject
+  \(G(Z^n) \hookrightarrow G(J^n)\). Under this identification the differential
+  \(G(J^{n-1}) \to G(J^n)\) lands inside \(G(Z^n)\): it factors as
+  \(G(J^{n-1}) \xrightarrow{G(J^{n-1} \twoheadrightarrow Z^n)} G(Z^n)
+  \hookrightarrow G(J^n)\) by the factorization of \(J^{n-1} \to J^n\) through its image
+  \(Z^n\), so its image equals the image of \(G(J^{n-1}) \to G(Z^n)\) inside the
+  subobject \(G(Z^n)\). Therefore the quotient
+  \(\ker(G(J^n) \to G(J^{n+1})) / \operatorname{im}(G(J^{n-1}) \to G(J^n))\) is exactly
+  \(G(Z^n) / \operatorname{im}(G(J^{n-1}) \to G(Z^n)) =
+  \operatorname{coker}(G(J^{n-1}) \to G(Z^n))\). Hence
+  \(H^n(G(J^\bullet)) \cong \operatorname{coker}(G(J^{n-1}) \to G(Z^n))\).
+\end{proof}
+
+\section{The acyclic-resolution comparison theorem}
+
+\begin{theorem}[An acyclic resolution computes the right-derived functor]\leanok
+  \label{lem:acyclic_resolution_computes_derived}
+  \dcref{custom}
+  \lean{CategoryTheory.Functor.rightDerivedIsoOfAcyclicResolution}
+  \uses{def:right_acyclic, lem:cosyzygy_ses, lem:cohomology_of_applied_resolution,
+    lem:acyclic_dimension_shift, lem:acyclic_one_iso_coker,
+    lem:right_derived_zero_iso_self, lem:right_derived_vanishes_injective}
+  % NOTE (iter-009 review): the Lean encodes the augmentation in the
+  % "augmentation-dropped" form `(K, e : A ≅ K.cycles 0, hexact : ∀ n, K.ExactAt (n+1))`,
+  % equivalent to the blueprint's augmented complex `A → K•`; left-exactness of `G`
+  % is `[PreservesFiniteLimits G]`. Verified faithful by the iter-009
+  % lean-vs-blueprint-checker (PASS, 0 red flags).
+  % SOURCE: \cite{stacks-project}, Derived Categories, Lemma
+  % \texttt{lemma-leray-acyclicity} (Tag 015E, Leray's acyclicity lemma) and
+  % Proposition \texttt{proposition-enough-acyclics} (Tag 05TA)
+  % (read from references/homological-acyclic-derived.tex, L5692--5705 and
+  % L5785--5811).
+  % SOURCE QUOTE: "Let $F : \mathcal{A} \to \mathcal{B}$ be an additive functor
+  % between abelian categories. Let $A^\bullet$ be a bounded below complex
+  % of right $F$-acyclic objects such that $RF$ is defined at
+  % $A^\bullet$. The canonical map
+  % $$
+  % F(A^\bullet) \longrightarrow RF(A^\bullet)
+  % $$
+  % is an isomorphism in $D^{+}(\mathcal{B})$, i.e., $A^\bullet$ computes
+  % $RF$."
+  % SOURCE QUOTE: "Let $F : \mathcal{A} \to \mathcal{B}$ be an additive functor of
+  % abelian categories. ... If every object of $\mathcal{A}$ injects into an object
+  % acyclic for $RF$, then $RF$ is defined on all of $K^{+}(\mathcal{A})$
+  % and we obtain an exact functor
+  % $$
+  % RF : D^{+}(\mathcal{A}) \longrightarrow D^{+}(\mathcal{B})
+  % $$
+  % ... Moreover, any bounded below complex
+  % $A^\bullet$ whose terms are acyclic for $RF$ computes $RF$."
+  \textit{Source: Stacks Project, Derived Categories, Tag 015E (Leray's acyclicity
+  lemma) and Tag 05TA (\texttt{proposition-enough-acyclics}).}
+  Let \(\mathcal{A}\) be an abelian category with enough injectives, \(\mathcal{B}\)
+  abelian, and \(G : \mathcal{A} \to \mathcal{B}\) an additive left-exact functor.
+  Let
+  \[
+    0 \longrightarrow A
+      \longrightarrow J^0 \longrightarrow J^1 \longrightarrow J^2
+      \longrightarrow \cdots
+  \]
+  be a resolution of \(A\) (an exact sequence) in which every object \(J^n\) is
+  right-\(G\)-acyclic in the sense of Definition~\ref{def:right_acyclic}. Then for
+  every \(n \in \mathbb{N}\) the \(n\)-th right-derived functor of \(G\) at \(A\) is
+  computed by the resolution: there is an isomorphism in \(\mathcal{B}\)
+  \[
+    (R^n G)(A) \;\cong\; H^n\bigl(G(J^\bullet)\bigr),
+  \]
+  where \(G(J^\bullet)\) is the cochain complex
+  \(G(J^0) \to G(J^1) \to G(J^2) \to \cdots\) obtained by applying \(G\) degreewise
+  to the augmentation-dropped resolution and \(H^n\) is its \(n\)-th cohomology
+  object.
+\end{theorem}
+
+% SOURCE QUOTE PROOF: "Say $I^n = 0$ for $n < n_0$. Setting $J^n = \Im(d^n)$ we break
+% $I^\bullet$ into short exact sequences
+% $0 \to J^n \to I^{n + 1} \to J^{n + 1} \to 0$
+% for $n \geq n_0$. These sequences induce distinguished triangles
+% $(J^n, I^{n + 1}, J^{n + 1})$ in $D^+(\mathcal{A})$ by
+% Lemma \ref{lemma-derived-canonical-delta-functor}.
+% ... By Proposition \ref{proposition-derived-functor} we have a
+% distinguished triangle $(RF(J^n), RF(I^{n + 1}), RF(J^{n + 1}))$.
+% Since $J^n, I^{n + 1}, J^{n + 1}$ are in $\mathcal{I}$
+% the long exact cohomology sequence
+% ... associated to this distinguished triangle collapses
+% to an exact sequence
+% $$
+% 0 \to F(J^n) \to F(I^{n + 1}) \to F(J^{n + 1}) \to 0
+% $$
+% This in turn proves that $F(I^\bullet)$ is exact."
+\begin{proof}
+  \uses{def:right_acyclic, lem:cosyzygy_ses, lem:cohomology_of_applied_resolution,
+    lem:acyclic_dimension_shift, lem:acyclic_one_iso_coker,
+    lem:right_derived_zero_iso_self, lem:right_derived_vanishes_injective}
+    \leanok
+  The argument is the classical dimension shift, now assembled from the cosyzygy
+  infrastructure and the dimension-shift step proved above. Cut the resolution into
+  its cosyzygy short exact sequences \((S_m) : 0 \to Z^m \to J^m \to Z^{m+1} \to 0\)
+  with \(Z^0 = A\) and acyclic middle terms, as furnished by
+  Lemma~\ref{lem:cosyzygy_ses}.
+
+  \emph{Degree zero.} By Lemma~\ref{lem:cohomology_of_applied_resolution},
+  \(H^0(G(J^\bullet)) \cong G(A)\), and by \(R^0 G \cong G\)
+  (Lemma~\ref{lem:right_derived_zero_iso_self}) the right-hand side is \((R^0 G)(A)\).
+  This is the case \(n = 0\).
+
+  \emph{Positive degrees.} Fix \(n \geq 1\). The sequences
+  \((S_0), \ldots, (S_{n-2})\) all have acyclic middle terms, so the dimension-shift
+  Lemma~\ref{lem:acyclic_dimension_shift} applied to them gives, for each \(k \geq 1\),
+  isomorphisms \((R^k G)(Z^{m+1}) \cong (R^{k+1} G)(Z^m)\) for \(0 \le m \le n-2\)
+  (with \(Z^0 = A\)). Composing them down the staircase
+  \[
+    (R^n G)(A)
+      \;\cong\; (R^{n-1} G)(Z^1)
+      \;\cong\; (R^{n-2} G)(Z^2)
+      \;\cong\; \cdots
+      \;\cong\; (R^{1} G)(Z^{n-1})
+  \]
+  reduces \((R^n G)(A)\) to a single first-derived functor. (For \(n = 1\) the
+  staircase is empty and \((R^1 G)(A) = (R^1 G)(Z^0)\).) Now apply the lowest-degree
+  cokernel description (Lemma~\ref{lem:acyclic_one_iso_coker}) to \((S_{n-1})\),
+  \(0 \to Z^{n-1} \to J^{n-1} \to Z^n \to 0\), whose middle term \(J^{n-1}\) is
+  acyclic:
+  \[
+    (R^1 G)(Z^{n-1}) \;\cong\; \operatorname{coker}\bigl(G(J^{n-1}) \to G(Z^n)\bigr).
+  \]
+  Finally Lemma~\ref{lem:cohomology_of_applied_resolution} identifies this cokernel
+  with the cohomology of the applied complex,
+  \(\operatorname{coker}(G(J^{n-1}) \to G(Z^n)) \cong H^n(G(J^\bullet))\). Composing
+  the staircase, the cokernel description, and this identification gives
+  \((R^n G)(A) \cong H^n(G(J^\bullet))\) for every \(n \geq 1\); together with the
+  degree-zero case this proves the theorem for every \(n \in \mathbb{N}\).
+
+  Every long exact sequence consumed above is the one produced by the dimension-shift
+  Lemma~\ref{lem:acyclic_dimension_shift} and its lowest-degree companion
+  Lemma~\ref{lem:acyclic_one_iso_coker}, and is therefore grounded --- through the
+  horseshoe lift and the complex-level homology long exact sequence on which those
+  lemmas rest --- on the injective-resolution computation of \(R^n G\). The injective
+  objects supplied by ``enough injectives'' are themselves right-\(G\)-acyclic
+  (Lemma~\ref{lem:right_derived_vanishes_injective}), which is what makes an injective
+  resolution a special case of an acyclic resolution and reconciles the present
+  formula with the defining computation \((R^n G)(A) \cong H^n(G(I^\bullet))\) for an
+  injective resolution \(I^\bullet\).
+\end{proof}

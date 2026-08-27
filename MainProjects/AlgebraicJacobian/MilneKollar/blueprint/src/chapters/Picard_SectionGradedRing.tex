@@ -1,0 +1,3268 @@
+% archon:covers AlgebraicJacobian/Picard/SectionGradedRing.lean
+% archon:covers AlgebraicJacobian/Picard/InvertibleGrBridge.lean
+% archon:covers AlgebraicJacobian/Picard/SerreTwistSections.lean
+% archon:covers AlgebraicJacobian/Picard/GradedPiecesFinite.lean
+\chapter{Section graded ring infrastructure: tensor powers and graded sections}
+\label{chap:Picard_SectionGradedRing}
+
+\providecommand{\PshMod}{\mathrm{PresheafOfModules}}
+\providecommand{\ShMod}{\mathrm{SheafOfModules}}
+\providecommand{\Modules}{\mathrm{Modules}}
+
+The Hilbert-polynomial development of \cref{chap:Picard_QuotScheme} represents the
+degree-\(m\) graded component of a fibre by the global sections
+\(\Gamma(X_s, \mathcal{F}_s \otimes L_s^{\otimes m})\) of a twist of a coherent
+sheaf by a tensor power of a line bundle, and it organises these components into
+a graded ring \(R(X_s, L_s) = \bigoplus_{m \ge 0} \Gamma(X_s, L_s^{\otimes m})\)
+(\cref{def:sectionGradedRing}) and a graded module
+\(M(X_s, \mathcal{F}_s, L_s) = \bigoplus_{m \ge 0}
+\Gamma(X_s, \mathcal{F}_s \otimes L_s^{\otimes m})\)
+(\cref{def:sectionGradedModule}). Three pieces of that picture have no direct
+Mathlib counterpart and must be built here, each in its own section:
+
+\begin{enumerate}
+  \item \textbf{Tensor powers of a sheaf of modules}
+    (\cref{sec:sgr_tensor_powers}). Mathlib equips the category
+    \(\PshMod\) of \emph{presheaves} of modules over a presheaf of commutative
+    rings with a symmetric monoidal structure
+    (\cref{lem:presheafModule_monoidal_mathlib}) and provides the
+    sheafification functor \(\PshMod \to \ShMod\)
+    (\cref{lem:presheafModule_sheafification_mathlib}); but the category
+    \(\ShMod\) of \emph{sheaves} of modules carries \emph{no} monoidal
+    structure. The tensor product of sheaves of modules
+    \(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}\) must therefore be built
+    as the sheafification of the pointwise tensor presheaf, and the iterated
+    tensor power \(\mathcal{L}^{\otimes m}\) recursively from it.
+  \item \textbf{Lax-monoidal global sections} (\cref{sec:sgr_lax_sections}).
+    The global-sections functor \(\Gamma\) is only \emph{lax} monoidal: from the
+    pointwise-strict monoidality of the presheaf tensor product and the
+    sheafification unit one obtains a natural multiplication
+    \(\Gamma(\mathcal{F}) \otimes_{\Gamma(\mathcal{O}_X)} \Gamma(\mathcal{G})
+    \to \Gamma(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G})\), together with
+    the associativity and unit coherence those products must satisfy.
+  \item \textbf{Graded-ring / graded-module assembly}
+    (\cref{sec:sgr_graded_assembly}). The section multiplications and the
+    tensor-power comparison isomorphisms assemble, through Mathlib's
+    external-direct-sum graded API (\cref{lem:directSum_gsemiring_mathlib},
+    \cref{lem:directSum_gcommSemiring_mathlib}, \cref{lem:directSum_gmodule_mathlib}),
+    into the graded \emph{ring} structure on
+    \(\bigoplus_{m \ge 0} \Gamma(X_s, L_s^{\otimes m})\) and the graded
+    \emph{module} structure on
+    \(\bigoplus_{m \ge 0} \Gamma(X_s, \mathcal{F}_s \otimes L_s^{\otimes m})\).
+    For a \emph{general} sheaf \(L_s\) the ring is only a non-commutative graded
+    semiring (the free tensor algebra on \(\Gamma(L_s)\),
+    \cref{lem:sectionGradedRing_gsemiring}); it becomes \emph{commutative} exactly
+    when \(L_s\) is an invertible sheaf / line bundle (\cref{def:isInvertible}),
+    which is the case relevant to the application
+    (\cref{lem:sectionGradedRing_gcommSemiring}). Stacks defines
+    \(\Gamma_*(X,\mathcal{L})\) only for invertible \(\mathcal{L}\) for this reason.
+\end{enumerate}
+
+\section{Tensor powers of a sheaf of modules}
+\label{sec:sgr_tensor_powers}
+
+We work over a fixed scheme \(X\) (in the application \(X = X_s\), a fibre over a
+field \(\kappa(s)\)). Its category of sheaves of modules is
+\(X.\Modules = \ShMod(\mathcal{O}_X)\), with global-sections notation
+\(\Gamma(X, \mathcal{M}) = \mathcal{M}(X)\) for the value of the underlying
+presheaf on the top open. The structure sheaf \(\mathcal{O}_X\) is a sheaf of
+commutative rings, so its underlying presheaf factors through the category of
+commutative rings; this is the hypothesis under which Mathlib's presheaf-level
+monoidal structure applies.
+
+\begin{lemma}[Monoidal structure on presheaves of modules]
+  \label{lem:presheafModule_monoidal_mathlib}
+  \dcref{custom}
+  \lean{PresheafOfModules.monoidalCategory}
+  \mathlibok
+  \textit{Provided by Mathlib
+  (\texttt{Mathlib.Algebra.Category.ModuleCat.Presheaf.Monoidal}).}
+  Let \(R : \mathcal{C}^{\mathrm{op}} \to \mathrm{CommRingCat}\) be a presheaf of
+  commutative rings. Then the category \(\PshMod(R)\) of presheaves of modules
+  over \(R\) carries a symmetric monoidal structure whose tensor product is
+  computed objectwise: for presheaves of modules \(\mathcal{M}_1, \mathcal{M}_2\)
+  and an object \(U\),
+  \[
+    (\mathcal{M}_1 \otimes \mathcal{M}_2)(U)
+      \;=\; \mathcal{M}_1(U) \otimes_{R(U)} \mathcal{M}_2(U),
+  \]
+  with restriction maps the tensor products of the restriction maps. The unit is
+  the presheaf \(R\) viewed as a module over itself, and the associator,
+  unitors, and braiding are induced objectwise from those of
+  \(\mathrm{ModuleCat}\). In particular evaluation at a fixed object \(U\) is a
+  \emph{strict} monoidal functor
+  \(\PshMod(R) \to \mathrm{ModuleCat}(R(U))\).
+\end{lemma}
+
+\begin{lemma}[Sheafification of presheaves of modules]
+  \label{lem:presheafModule_sheafification_mathlib}
+  \dcref{custom}
+  \lean{PresheafOfModules.sheafification}
+  \mathlibok
+  \textit{Provided by Mathlib
+  (\texttt{Mathlib.Algebra.Category.ModuleCat.Presheaf.Sheafification}).}
+  Let \(R\) be a sheaf of (commutative) rings on a site, with underlying
+  presheaf \(R_0\). There is a sheafification functor
+  \[
+    (-)^{\#} \;:\; \PshMod(R_0) \longrightarrow \ShMod(R),
+  \]
+  left adjoint to the forgetful functor, together with the unit
+  \(\eta_{\mathcal{M}_0} : \mathcal{M}_0 \to (\mathcal{M}_0)^{\#}\) of the
+  adjunction. On underlying sheaves of abelian groups it agrees with the
+  ordinary sheafification, and it sends a presheaf of \(R_0\)-modules to the
+  associated sheaf of \(R\)-modules.
+\end{lemma}
+
+\begin{lemma}[The structure sheaf as the unit module]
+  \label{lem:moduleUnit_mathlib}
+  \dcref{custom}
+  \lean{SheafOfModules.unit}
+  \mathlibok
+  \textit{Provided by Mathlib
+  (\texttt{Mathlib.Algebra.Category.ModuleCat.Sheaf}).}
+  For a sheaf of rings \(R\) (in the application \(R = \mathcal{O}_X\)) the
+  structure sheaf, viewed as a module over itself, is a distinguished object
+  \(\mathbf{1} = \mathcal{O}_X \in \ShMod(\mathcal{O}_X)\). It is the value at
+  the zeroth tensor power, \(\mathcal{L}^{\otimes 0} = \mathcal{O}_X\), and its
+  global sections \(\Gamma(X, \mathcal{O}_X)\) form the degree-zero component of
+  the section graded ring.
+\end{lemma}
+
+
+\begin{definition}[Unit module of a scheme]\leanok
+  \label{def:unitModule}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.unitModule}
+  \uses{lem:moduleUnit_mathlib}
+  For a scheme \(X\), the \emph{unit module} \(\mathbf{1}_X \in X.\Modules\) is the
+  structure sheaf viewed as a module over itself, i.e.\ Mathlib's
+  \(\mathrm{SheafOfModules.unit}\) (\cref{lem:moduleUnit_mathlib}) for
+  \(\mathcal{O}_X\). It is the value of the zeroth tensor power,
+  \(\mathcal{L}^{\otimes 0} = \mathbf{1}_X\) (\cref{def:sheafTensorPow}).
+\end{definition}
+
+\begin{definition}[Tensor product of sheaves of modules]\leanok
+  \label{def:sheafTensorObj}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sheafTensorObj}
+  \uses{lem:presheafModule_monoidal_mathlib,
+    lem:presheafModule_sheafification_mathlib}
+  % SOURCE: \cite{stacks-project}, "Sheaves of Modules", \S "Tensor product" (Tag
+  % 01CA), prose definition (read from references/stacks-modules.tex,
+  % L2282-L2297).
+  % SOURCE QUOTE:
+  % "Let $(X, \mathcal{O}_X)$ be a ringed space and let
+  %  $\mathcal{F}$ and $\mathcal{G}$ be $\mathcal{O}_X$-modules.
+  %  We define first the {\it tensor product presheaf}
+  %  $$
+  %  \mathcal{F} \otimes_{p, \mathcal{O}_X} \mathcal{G}
+  %  $$
+  %  as the rule which assigns to $U \subset X$ open the
+  %  $\mathcal{O}_X(U)$-module
+  %  $\mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{G}(U)$.
+  %  Having defined this we define the {\it tensor product sheaf}
+  %  as the sheafification of the above:
+  %  $$
+  %  \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}
+  %  =
+  %  (\mathcal{F} \otimes_{p, \mathcal{O}_X} \mathcal{G})^\#
+  %  $$"
+  \textit{Source: \cite{stacks-project}, "Sheaves of Modules", Tag 01CA (tensor
+  product).}
+  Let \(\mathcal{F}, \mathcal{G}\) be sheaves of \(\mathcal{O}_X\)-modules. Their
+  \emph{tensor product} is the sheaf of \(\mathcal{O}_X\)-modules
+  \[
+    \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}
+      \;=\; \bigl(\mathcal{F} \otimes_{p,\mathcal{O}_X} \mathcal{G}\bigr)^{\#},
+  \]
+  the sheafification (\cref{lem:presheafModule_sheafification_mathlib}) of the
+  tensor product presheaf \(\mathcal{F} \otimes_{p,\mathcal{O}_X} \mathcal{G}\),
+  whose value on an open \(U\) is the \(\mathcal{O}_X(U)\)-module
+  \(\mathcal{F}(U) \otimes_{\mathcal{O}_X(U)} \mathcal{G}(U)\). Concretely, the
+  tensor product presheaf is the Mathlib presheaf-level monoidal product
+  (\cref{lem:presheafModule_monoidal_mathlib}) of the underlying presheaves of
+  modules of \(\mathcal{F}\) and \(\mathcal{G}\), and
+  \(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}\) is its sheafification. This
+  construction is symmetric and associative because the presheaf tensor product
+  is, and sheafification preserves the coherence isomorphisms.
+\end{definition}
+
+\begin{definition}[Tensor power of a line bundle]\leanok
+  \label{def:sheafTensorPow}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorPow}
+  \uses{def:sheafTensorObj, def:unitModule, lem:moduleUnit_mathlib}
+  % SOURCE: \cite{stacks-project}, "Sheaves of Modules", \S "Invertible modules",
+  % `definition-powers' (Tag 01CU) (read from references/stacks-modules.tex,
+  % L4220-L4228).
+  % SOURCE QUOTE:
+  % "Let $(X, \mathcal{O}_X)$ be a ringed space. Given an invertible sheaf
+  %  $\mathcal{L}$ on $X$ and $n \in \mathbf{Z}$ we define the
+  %  $n$th {\it tensor power} $\mathcal{L}^{\otimes n}$ of $\mathcal{L}$
+  %  as the image of $\mathcal{O}_X$ under applying the equivalence
+  %  $\mathcal{F} \mapsto\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}$
+  %  exactly $n$ times."
+  \textit{Source: \cite{stacks-project}, "Sheaves of Modules", Tag 01CU (tensor
+  powers).}
+  Let \(\mathcal{L}\) be a sheaf of \(\mathcal{O}_X\)-modules (in the application
+  an invertible sheaf / line bundle \(L_s\)). For \(m \in \mathbb{N}\) the
+  \emph{\(m\)th tensor power} \(\mathcal{L}^{\otimes m}\) is defined by recursion
+  on \(m\):
+  \[
+    \mathcal{L}^{\otimes 0} = \mathcal{O}_X
+      \quad(\text{the unit module, \cref{lem:moduleUnit_mathlib}}),
+    \qquad
+    \mathcal{L}^{\otimes (m+1)}
+      = \mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X} \mathcal{L}
+        \quad(\cref{def:sheafTensorObj}).
+  \]
+  We restrict to non-negative powers, which is all the section graded ring uses;
+  the Stacks definition extends \(\mathcal{L}^{\otimes n}\) to all
+  \(n \in \mathbf{Z}\) using invertibility, but negative powers are not needed
+  here. For \(\mathcal{L}\) invertible each \(\mathcal{L}^{\otimes m}\) is again
+  invertible.
+\end{definition}
+
+\begin{definition}[Invertible sheaf of modules]\leanok
+  \label{def:isInvertible}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.IsInvertibleGr}
+  \uses{lem:tensorProductComm_eq_refl_mathlib}
+  % SOURCE: \cite{stacks-project}, "Sheaves of Modules", \S "Invertible modules",
+  % `definition-invertible' (Tag 01CR) (read from references/stacks-modules.tex,
+  % L4046-L4059).
+  % SOURCE QUOTE:
+  % "Let $(X, \mathcal{O}_X)$ be a ringed space. An
+  %  {\it invertible $\mathcal{O}_X$-module} is a sheaf
+  %  of $\mathcal{O}_X$-modules $\mathcal{L}$ such that
+  %  the functor
+  %  $$
+  %  \textit{Mod}(\mathcal{O}_X) \longrightarrow \textit{Mod}(\mathcal{O}_X),\quad
+  %  \mathcal{F} \longmapsto \mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{F}
+  %  $$
+  %  is an equivalence of categories. We say that $\mathcal{L}$ is
+  %  {\it trivial} if it is isomorphic as an $\mathcal{O}_X$-module
+  %  to $\mathcal{O}_X$."
+  % SOURCE: \cite{stacks-project}, "Sheaves of Modules", \S "Invertible modules",
+  % `lemma-invertible-is-locally-free-rank-1' (read from
+  % references/stacks-modules.tex, L4159-L4165).
+  % SOURCE QUOTE:
+  % "Let $(X, \mathcal{O}_X)$ be a ringed space. Any locally free
+  %  $\mathcal{O}_X$-module of rank $1$ is invertible.
+  %  If all stalks $\mathcal{O}_{X, x}$ are local rings, then
+  %  the converse holds as well (but in general this is not the case)."
+  \textit{Source: \cite{stacks-project}, "Sheaves of Modules", Tag 01CR (invertible
+  modules).}
+  A sheaf of \(\mathcal{O}_X\)-modules \(\mathcal{L} \in X.\Modules\) is
+  \emph{invertible} when it admits a \emph{trivializing basis}: an indexed family
+  \(\{U_i\}_{i \in \iota}\) of opens of \(X\) whose range is a basis of the
+  topology (\(\mathrm{Opens.IsBasis}\) of \(\{U_i\}\)) such that on each \(U_i\)
+  the sections \(\Gamma(\mathcal{L}, U_i)\) form an \emph{invertible} module over
+  the ring \(\Gamma(X, U_i)\), i.e.
+  \(\mathrm{Module.Invertible}\,\Gamma(X,U_i)\,\Gamma(\mathcal{L},U_i)\)
+  (\cref{lem:tensorProductComm_eq_refl_mathlib}; equivalently
+  \(\Gamma(\mathcal{L},U_i)\) is finite projective of constant rank one). This is
+  the trivializing-cover / locally-free-of-rank-one form of invertibility: on each
+  basis open \(\mathcal{L}\) restricts to a free rank-one module, hence
+  \(\mathcal{L}|_{U_i} \cong \mathcal{O}_X|_{U_i}\). Over a scheme --- where every
+  stalk \(\mathcal{O}_{X,x}\) is a local ring --- this is equivalent to the
+  \(\otimes\)-invertible form (the existence of a sheaf \(\mathcal{N}\) with
+  \(\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{N} \cong \mathbf{1}_X\),
+  equivalently \(\mathcal{F} \mapsto \mathcal{L} \otimes_{\mathcal{O}_X}
+  \mathcal{F}\) an equivalence of \(X.\Modules\)), Stacks Tag 01CR. The
+  trivializing-basis form implies the triviality of the self-braiding
+  \(\beta_{\mathcal{L},\mathcal{L}} = \mathrm{id}\)
+  (\cref{lem:braiding_eq_id_of_invertible}) by a basis-local argument; in
+  particular \(\Gamma(X,\mathcal{L})\) itself need not be an invertible
+  \(\Gamma(X,\mathcal{O}_X)\)-module. This is the line-bundle hypothesis under which
+  the section graded ring becomes commutative
+  (\cref{lem:sectionGradedRing_gcommSemiring}). The structure sheaf \(\mathbf{1}_X\)
+  is invertible (it trivializes on the basis of all opens), and any tensor power
+  \(\mathcal{L}^{\otimes m}\) of an invertible sheaf is again invertible.
+\end{definition}
+
+
+\begin{definition}[Twist of a coherent sheaf by a tensor power]\leanok
+  \label{def:sheafModuleTwist}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.moduleTensorPow}
+  \uses{def:sheafTensorObj, def:sheafTensorPow}
+  Let \(\mathcal{F}\) be a sheaf of \(\mathcal{O}_X\)-modules (in the application
+  a coherent sheaf \(\mathcal{F}_s\)) and \(\mathcal{L}\) a line bundle. For
+  \(m \in \mathbb{N}\) the \emph{\(m\)-twist} of \(\mathcal{F}\) by
+  \(\mathcal{L}\) is
+  \[
+    \mathcal{F}(m) \;:=\;
+      \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m}
+      \qquad(\cref{def:sheafTensorObj}, \cref{def:sheafTensorPow}),
+  \]
+  the degree-\(m\) carrier of the section graded module. By construction
+  \(\mathcal{F}(0) = \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{O}_X \cong
+  \mathcal{F}\).
+\end{definition}
+
+
+The next four isomorphisms are the parts of the (would-be) symmetric monoidal
+structure on \(X.\Modules\) that descend through sheafification from
+\cref{lem:presheafModule_monoidal_mathlib} using only \emph{functoriality} of the
+sheafification functor (\cref{def:schemeModuleSheafification}) and, for the
+unitors, the reflective counit isomorphism --- no strong monoidality of
+sheafification is required. They are the structural inputs of the tensor-power
+comparison \cref{lem:sheafTensorPow_add}.
+
+
+The strong-monoidality comparison \cref{lem:isIso_sheafification_whiskerRight_unit}
+below is assembled from three reduction lemmas --- a localization criterion, the
+local-isomorphism property of the unit, and their corollary --- together with the
+coequalizer presentation of the relative module-presheaf tensor product, the single
+Mathlib-absent brick on which the comparison rests.
+
+
+\begin{definition}[Scheme-level module sheafification functor]\leanok
+  \label{def:schemeModuleSheafification}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sheafification}
+  \uses{lem:presheafModule_sheafification_mathlib}
+  For a scheme \(X\), the \emph{module sheafification functor}
+  \[
+    (-)^{\#} \;:\; X.\PshMod \longrightarrow X.\Modules
+  \]
+  is Mathlib's presheaf-of-modules sheafification
+  (\cref{lem:presheafModule_sheafification_mathlib}) for the identity morphism of
+  the underlying presheaf of (commutative) rings of \(\mathcal{O}_X\), which is
+  locally bijective. It is left adjoint to the forgetful functor
+  \(X.\Modules \to X.\PshMod\), with adjunction unit
+  \(\eta_{\mathcal{M}_0} : \mathcal{M}_0 \to (\mathcal{M}_0)^{\#}\) and an
+  invertible counit (the forgetful functor is fully faithful). Being a functor it
+  carries isomorphisms to isomorphisms, which is precisely what lets the
+  presheaf-level coherence isomorphisms of
+  \cref{lem:presheafModule_monoidal_mathlib} descend to \(X.\Modules\).
+\end{definition}
+
+\begin{definition}[Left unitor of the sheaf tensor product]\leanok
+  \label{def:tensorObjUnitIso}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjUnitIso}
+  \uses{def:sheafTensorObj, def:unitModule, def:schemeModuleSheafification,
+    lem:presheafModule_monoidal_mathlib}
+  For a sheaf of \(\mathcal{O}_X\)-modules \(G\), the \emph{left unitor}
+  \[
+    \mathbf{1}_X \otimes_{\mathcal{O}_X} G \;\xrightarrow{\ \sim\ }\; G
+  \]
+  is obtained by descending the presheaf-level left unitor of
+  \cref{lem:presheafModule_monoidal_mathlib} through the sheafification functor
+  (\cref{def:schemeModuleSheafification}) and composing with the reflective counit
+  isomorphism \((\mathcal{M}_0)^{\#} \cong \mathcal{M}\) of the sheafification
+  adjunction. It is the base case \(m = 0\) of the tensor-power comparison
+  \cref{lem:sheafTensorPow_add}, and uses no monoidal structure on
+  \(X.\Modules\) --- only functoriality of sheafification and the invertible
+  counit.
+\end{definition}
+
+\begin{definition}[Braiding of the sheaf tensor product]\leanok
+  \label{def:tensorBraiding}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorBraiding}
+  \uses{def:sheafTensorObj, def:schemeModuleSheafification,
+    lem:presheafModule_monoidal_mathlib}
+  For sheaves of \(\mathcal{O}_X\)-modules \(F, G\), the \emph{braiding}
+  \[
+    F \otimes_{\mathcal{O}_X} G \;\xrightarrow{\ \sim\ }\;
+      G \otimes_{\mathcal{O}_X} F
+  \]
+  is the image under the sheafification functor
+  (\cref{def:schemeModuleSheafification}) of the symmetric braiding of the
+  presheaf symmetric monoidal structure (\cref{lem:presheafModule_monoidal_mathlib})
+  on the underlying presheaves of modules. As pure sheafification-functoriality of
+  an isomorphism it is again an isomorphism, requiring no monoidal structure on
+  \(X.\Modules\). It is the symmetry used in the inductive step of
+  \cref{lem:sheafTensorPow_add}.
+\end{definition}
+
+\begin{lemma}[Sheafification inverts the whiskered localization unit]\leanok
+  \label{lem:isIso_sheafification_whiskerRight_unit}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.isIso_sheafification_whiskerRight_unit}
+  \uses{def:schemeModuleSheafification, lem:presheafModule_monoidal_mathlib,
+    lem:presheafModule_sheafification_mathlib}
+  Let \(P, Q\) be presheaves of \(\mathcal{O}_X\)-modules and let
+  \(\eta_P : P \to P^{\#}\) be the unit of the sheafification adjunction
+  (\cref{def:schemeModuleSheafification},
+  \cref{lem:presheafModule_sheafification_mathlib}). Then the sheafification of the
+  right-whiskered unit
+  \[
+    (\eta_P \rhd Q)^{\#} :
+      (P \otimes_{p,\mathcal{O}_X} Q)^{\#} \longrightarrow
+      (P^{\#} \otimes_{p,\mathcal{O}_X} Q)^{\#},
+  \]
+  where \(\otimes_{p,\mathcal{O}_X}\) is the presheaf monoidal product
+  (\cref{lem:presheafModule_monoidal_mathlib}), is an isomorphism of sheaves of
+  modules. This is the strong-monoidality comparison of the module sheafification
+  functor on a whiskered unit, the single Mathlib-absent brick on which the
+  sheaf-level associator \cref{cor:sheafTensorObjAssoc} and the tensor-power
+  comparison \cref{lem:sheafTensorPow_add} rest.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  isomorphism. The unit \(\eta_P\) is, on underlying abelian presheaves, the
+  ordinary sheafification unit (the canonical map from a presheaf to its associated sheaf), which is a local
+  isomorphism. Right-whiskering by \(Q\) preserves this: the relative
+  module-presheaf tensor product is presented as a coequalizer, and tensoring with
+  the fixed presheaf \(Q\) carries the local isomorphism \(\eta_P\) to a local
+  isomorphism. Feeding this through the localization criterion gives the claim.
+\end{proof}
+
+\subsection{Monoidal structure by localization transport}
+\label{subsec:sgr_monoidal_localization}
+
+The preceding isomorphisms (unitors, braiding, whiskered-unit comparison) are
+exactly the data Mathlib needs to \emph{transport} the entire symmetric monoidal
+structure from presheaves of modules onto \(X.\Modules\) along the sheafification
+functor, rather than reassembling associator, pentagon, triangle and hexagon by
+hand. The mechanism is \emph{monoidal localization}: a localization functor whose
+inverted class of morphisms is compatible with the tensor product carries the
+monoidal structure of its source to its target, with all coherence laws inherited.
+The two Mathlib anchors below supply the general transport theorem and the fact
+that module sheafification is such a localization; the two project blocks assemble
+the compatibility hypothesis and read off the resulting structure.
+
+\begin{lemma}[Monoidal localization transport]
+  \label{lem:monoidalLocalization_mathlib}
+  \dcref{custom}
+  \lean{CategoryTheory.LocalizedMonoidal}
+  \mathlibok
+  \textit{Provided by Mathlib
+  (\texttt{Mathlib.CategoryTheory.Localization.Monoidal.Basic} and
+  \texttt{\ldots.Localization.Monoidal.Braided}).}
+  % SOURCE: [Mathlib], \texttt{Mathlib.CategoryTheory.Localization.Monoidal.Basic}
+  %   (Mathlib/CategoryTheory/Localization/Monoidal/Basic.lean) and
+  %   \texttt{Mathlib.CategoryTheory.Localization.Monoidal.Braided}
+  %   (Mathlib/CategoryTheory/Localization/Monoidal/Braided.lean).
+  % SOURCE QUOTE:
+  % class MorphismProperty.IsMonoidal : Prop extends W.IsMultiplicative where
+  %   whiskerLeft (X : C) {Y₁ Y₂ : C} (g : Y₁ ⟶ Y₂) (hg : W g) : W (X ◁ g)
+  %   whiskerRight {X₁ X₂ : C} (f : X₁ ⟶ X₂) (hf : W f) (Y : C) : W (f ▷ Y)
+  %
+  % def LocalizedMonoidal (L : C ⥤ D) (W : MorphismProperty C)
+  %     [W.IsMonoidal] [L.IsLocalization W] {unit : D} (_ : L.obj (𝟙_ C) ≅ unit) := D
+  %
+  % noncomputable def μ (X Y : C) : (L').obj X ⊗ (L').obj Y ≅ (L').obj (X ⊗ Y) :=
+  %   ((tensorBifunctorIso L W ε).app X).app Y
+  Let \(\mathcal{C}\) be a monoidal category and let \(W\) be a class of morphisms
+  of \(\mathcal{C}\) satisfying \(\mathrm{MorphismProperty.IsMonoidal}\): \(W\) is
+  multiplicative and stable under left- and right-whiskering by arbitrary objects.
+  Let \(L : \mathcal{C} \to \mathcal{D}\) be a
+  localization functor for \(W\). Then \(\mathcal{D}\) acquires a full monoidal
+  category structure --- tensor product, associator and unitors --- for which the
+  pentagon and triangle coherence identities hold, and \(L\) is strong monoidal,
+  with comparison isomorphisms
+  \[
+    \mu_{X,Y} : L(X) \otimes L(Y) \;\xrightarrow{\ \sim\ }\; L(X \otimes Y).
+  \]
+  All of this structure is inherited from \(\mathcal{C}\) through \(L\). If moreover
+  \(\mathcal{C}\) is braided (resp.\ symmetric), then \(\mathcal{D}\) inherits a
+  braided (resp.\ symmetric) structure for which the hexagon identities hold and
+  \(L\) is braided monoidal. The sheafification of presheaves over a site is the
+  archetypal instance of this transport.
+\end{lemma}
+
+\begin{lemma}[Module sheafification is a monoidal localization input]
+  \label{lem:moduleSheafification_isLocalization_mathlib}
+  \dcref{custom}
+  \lean{PresheafOfModules.sheafification}
+  \mathlibok
+  \textit{Provided by Mathlib
+  (\texttt{Mathlib.Algebra.Category.ModuleCat.Sheaf.Localization} and
+  \texttt{\ldots.ModuleCat.Presheaf.Monoidal}).}
+  % SOURCE: [Mathlib], \texttt{Mathlib.Algebra.Category.ModuleCat.Sheaf.Localization}
+  %   (Mathlib/Algebra/Category/ModuleCat/Sheaf/Localization.lean).
+  % SOURCE QUOTE:
+  % instance : (sheafification.{v} α).IsLocalization (J.W.inverseImage (toPresheaf R₀)) := by
+  %   rw [inverseImage_W_toPresheaf_eq_inverseImage_isomorphisms α]
+  %   exact (sheafificationAdjunction.{v} α).isLocalization
+  The sheafification functor for presheaves of modules
+  (\cref{lem:presheafModule_sheafification_mathlib}) is a \emph{localization
+  functor} for the morphism class
+  \[
+    W' \;=\; J.W.\mathrm{inverseImage}\,(\mathrm{toPresheaf}\,R_0),
+  \]
+  the class of morphisms of presheaves of \(R_0\)-modules whose underlying
+  morphism of abelian-group presheaves lies in the local-isomorphism class
+  \(J.W\) of the topology --- equivalently, the morphisms that sheafification
+  sends to isomorphisms. Moreover the source category \(\PshMod(R_0)\) is
+  symmetric monoidal (\cref{lem:presheafModule_monoidal_mathlib}). Thus
+  sheafification supplies precisely a localization functor \(L\) on a symmetric
+  monoidal source, the two standing inputs of the transport theorem
+  \cref{lem:monoidalLocalization_mathlib}; the only remaining hypothesis is that
+  \(W'\) be compatible with the tensor product. The \(\mathrm{IsLocalization}\)
+  instance quoted above is for the bare Mathlib functor; the corresponding
+  instance for the scheme-level sheafification functor
+  \(\mathbf{(-)}^{\#}\), re-typed onto the monoidal carrier, is
+  \cref{def:sheafificationMon_isLocalization}.
+\end{lemma}
+
+\begin{definition}[Monoidal-carrier sheafification functor]\leanok
+  \label{def:sheafificationMon}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sheafificationMon}
+  \uses{def:schemeModuleSheafification}
+  For a scheme \(X\), \(\mathrm{sheafificationMon}\) is the module sheafification
+  functor (\cref{def:schemeModuleSheafification}) re-typed so that its source is
+  the carrier \(\mathrm{MonoidalPresheaf}\,X\) of the presheaf-level symmetric
+  monoidal structure (\cref{lem:presheafModule_monoidal_mathlib}):
+  \[
+    \mathrm{sheafificationMon} \;:\;
+      \mathrm{MonoidalPresheaf}\,X \longrightarrow X.\Modules .
+  \]
+  It is definitionally the same functor as \((-)^{\#}\); the only change is that
+  its domain is presented as the carrier equipped with the symmetric monoidal
+  structure of \cref{lem:presheafModule_monoidal_mathlib}, so that the localization
+  transport \cref{lem:monoidalLocalization_mathlib} applies to it. This re-typing
+  carries no mathematical content.
+\end{definition}
+
+\begin{definition}[The sheafification localization class \(W'\)]\leanok
+  \label{def:sheafificationW}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sheafificationW}
+  \uses{lem:moduleSheafification_isLocalization_mathlib}
+  For a scheme \(X\), \(\mathrm{sheafificationW}\) is the morphism class
+  \[
+    W' \;=\; J.W.\mathrm{inverseImage}\,(\mathrm{toPresheaf}\,R_0)
+      \;\subseteq\; \mathrm{Mor}(\mathrm{MonoidalPresheaf}\,X),
+  \]
+  for \(R_0\) the underlying presheaf of \(\mathcal{O}_X\) and \(J\) the opens
+  topology of \(X\): the morphisms of presheaves of modules whose underlying
+  morphism of abelian-group presheaves is a local isomorphism, equivalently the
+  morphisms inverted by sheafification
+  (\cref{lem:moduleSheafification_isLocalization_mathlib}). This is the class
+  \(W'\) referred to in \cref{def:sheafModule_W_isMonoidal} and
+  \cref{lem:moduleSheafification_isLocalization_mathlib}.
+\end{definition}
+
+\begin{lemma}[Sheafification is the localization at \(W'\) on the monoidal carrier]\leanok
+  \label{def:sheafificationMon_isLocalization}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sheafificationMon_isLocalization}
+  \uses{def:sheafificationMon, def:sheafificationW,
+    lem:moduleSheafification_isLocalization_mathlib}
+  For a scheme \(X\), the functor \(\mathrm{sheafificationMon}\)
+  (\cref{def:sheafificationMon}) is a localization functor for the class
+  \(W' = \mathrm{sheafificationW}\) (\cref{def:sheafificationW}). The
+  \(\mathrm{IsLocalization}\) property of \(\mathrm{sheafificationMon}\) is
+  obtained by transporting the localization fact
+  \cref{lem:moduleSheafification_isLocalization_mathlib} across the definitional
+  identification of \((-)^{\#}\) with the Mathlib sheafification functor and the
+  re-typing of its domain onto the monoidal carrier \(\mathrm{MonoidalPresheaf}\,X\).
+  It is the instance that allows the transport theorem
+  \cref{lem:monoidalLocalization_mathlib} to be applied to
+  \(\mathrm{sheafificationMon}\).
+\end{lemma}
+
+\begin{definition}[Transport unit of the monoidal localization]\leanok
+  \label{def:localizationUnitIso}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.localizationUnitIso}
+  \uses{def:unitModule, def:sheafificationMon, def:schemeModuleSheafification}
+  For a scheme \(X\), \(\mathrm{localizationUnitIso}\) is the isomorphism
+  \[
+    \varepsilon \;:\;
+      \mathrm{sheafificationMon}(\mathbf{1}_{\mathrm{MonoidalPresheaf}\,X})
+      \;\xrightarrow{\ \sim\ }\; \mathbf{1}_X
+  \]
+  identifying the image under \(\mathrm{sheafificationMon}\)
+  (\cref{def:sheafificationMon}) of the presheaf-level monoidal unit with the
+  unit module \(\mathbf{1}_X\) (\cref{def:unitModule}). Since the unit module is
+  already a sheaf, this is the reflective counit isomorphism of the
+  sheafification adjunction (\cref{def:schemeModuleSheafification}) at the unit.
+  It is the datum \(\varepsilon\) the transport theorem
+  \cref{lem:monoidalLocalization_mathlib} requires in order to fix the unit
+  object of the transported monoidal structure on \(X.\Modules\) to be
+  \(\mathbf{1}_X\).
+\end{definition}
+
+\begin{definition}[Tensor-compatibility of the sheafification localization class]\leanok
+  \label{def:sheafModule_W_isMonoidal}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.W_isMonoidal}
+  \uses{lem:isIso_sheafification_whiskerRight_unit,
+    lem:presheafModule_monoidal_mathlib,
+    lem:moduleSheafification_isLocalization_mathlib,
+    def:sheafificationW}
+  For a scheme \(X\), write \(R_0\) for the underlying presheaf of the structure
+  sheaf \(\mathcal{O}_X\) and
+  \(W' = J.W.\mathrm{inverseImage}\,(\mathrm{toPresheaf}\,R_0)\) for the
+  sheafification localization class of
+  \cref{lem:moduleSheafification_isLocalization_mathlib}. Then \(W'\) satisfies
+  \(\mathrm{MorphismProperty.IsMonoidal}\): it is multiplicative and stable under
+  left- and right-whiskering. This is the compatibility hypothesis that, together
+  with \cref{lem:moduleSheafification_isLocalization_mathlib}, feeds the transport
+  theorem \cref{lem:monoidalLocalization_mathlib}.
+\end{definition}
+
+\begin{proof}
+  \leanok
+  \cref{lem:isIso_sheafification_whiskerRight_unit} --- stated there for the unit,
+  but established for an arbitrary morphism inverted by sheafification --- shows
+  that \(f \rhd Q\) is again inverted by sheafification, hence lies in \(W'\); the
+  bridge between ``lies in \(W'\)'' and ``sheafification inverts'' is the
+  localization criterion for the sheafification functor. Left-whiskering stability
+  follows by conjugating the right-whiskering argument with the symmetric braiding of
+  the presheaf monoidal structure (\cref{lem:presheafModule_monoidal_mathlib}):
+  since \(Q \lhd f\) is carried to \(f \rhd Q\) by the braiding isomorphism on
+  both ends, and membership in \(W'\) is invariant under isomorphism of arrows,
+  stability under left-whiskering reduces to stability under right-whiskering.
+\end{proof}
+
+\begin{definition}[Symmetric monoidal structure on sheaves of modules by transport]\leanok
+  \label{def:sheafModule_monoidalStructure}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.monoidalCategory}
+  \uses{def:sheafModule_W_isMonoidal, lem:monoidalLocalization_mathlib, def:unitModule,
+    def:sheafificationMon_isLocalization, def:localizationUnitIso}
+  For a scheme \(X\), the category \(X.\Modules\) of sheaves of
+  \(\mathcal{O}_X\)-modules carries a symmetric monoidal structure obtained by
+  transporting the symmetric monoidal structure of \(X.\PshMod\) along the
+  sheafification functor. Concretely, one instantiates the monoidal localization
+  transport \cref{lem:monoidalLocalization_mathlib} with source the symmetric
+  monoidal category \(X.\PshMod\), localization functor the module sheafification
+  \cref{lem:moduleSheafification_isLocalization_mathlib}, and the
+  tensor-compatibility of its inverted class \cref{def:sheafModule_W_isMonoidal};
+  the unit is chosen to be the unit module \(\mathbf{1}_X\) (\cref{def:unitModule}).
+  The resulting tensor product agrees objectwise with the sheaf tensor product
+  \cref{def:sheafTensorObj}, via the strong-monoidal comparison
+  \(\mu\) of \cref{lem:monoidalLocalization_mathlib}. In particular the associator
+  is the canonical (Mac Lane) associator, the pentagon and triangle laws hold, and
+  --- the source being symmetric --- the braiding and its hexagon laws are
+  inherited as well, giving \(X.\Modules\) the structure of a
+  \emph{symmetric monoidal category}.
+\end{definition}
+
+\begin{proof}
+  \leanok
+  the source being symmetric --- a symmetric structure with the hexagon
+  identities, all inherited through sheafification. What is inherited in this way
+  is precisely the \emph{ambient} coherence of the monoidal and braided structure:
+  the associator, the unitors, the braiding, and their pentagon, triangle, and
+  hexagon laws, which hold for every pair of sheaves and require no separate
+  induction. This ambient coherence is the raw material for the section-graded-ring
+  assembly, but it is not the same as the multiplication identities of that ring:
+  the \(\mu\)-comparison coherences \cref{lem:sheafTensorPow_add} (associativity)
+  and \cref{lem:tensorPowAdd_comm} (commutativity) are established by induction on
+  the tensor-power index --- the associativity pentagon and the commutativity
+  hexagon respectively --- with the inherited coherence supplying only the
+  per-step canonical isomorphism. The downstream section-ring identities are thus
+  assembled inductively \emph{from} the inherited coherence, not read off it as a
+  free consequence.
+\end{proof}
+
+\begin{corollary}
+[Inherited braided and symmetric structure on sheaves of modules]
+  \label{cor:sheafModule_braided_symmetric}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.braidedCategory,
+    AlgebraicGeometry.Scheme.Modules.symmetricCategory}
+  \uses{def:sheafModule_monoidalStructure, lem:monoidalLocalization_mathlib,
+    lem:presheafModule_monoidal_mathlib}
+  For a scheme \(X\), the transported monoidal structure on \(X.\Modules\)
+  (\cref{def:sheafModule_monoidalStructure}) refines to a braided and a symmetric
+  monoidal structure. Because the presheaf source \(X.\PshMod\) is symmetric
+  monoidal (\cref{lem:presheafModule_monoidal_mathlib}), the braided- and
+  symmetric-transport clauses of \cref{lem:monoidalLocalization_mathlib} apply:
+  the braiding of \(X.\Modules\) is the localization transport of the presheaf
+  braiding, its hexagon identities are inherited, and the symmetry
+  \(\beta_{F,G} \circ \beta_{G,F} = \mathrm{id}\) holds by transport. These are
+  the intermediate \(\mathrm{BraidedCategory}\) and the final
+  \(\mathrm{SymmetricCategory}\) instances on \(X.\Modules\) whose existence the
+  prose of \cref{def:sheafModule_monoidalStructure} asserts. What the inherited
+  symmetric structure supplies for free --- for \emph{every} sheaf, with no
+  hypothesis on \(\mathcal{L}\) --- is the braiding \(\beta\) together with its
+  forward and reverse hexagon identities; this is exactly the input that
+  \cref{lem:tensorBraiding_hexagon_forward} descends to the tensor-power braiding
+  and consumes.
+
+  It does \emph{not}, by itself, make the commutativity identity of the section
+  graded ring \cref{lem:sectionMul_coherent} --- equivalently the comparison law
+  \(\mu_{m,m'} = \mu_{m',m} \circ \beta\) of \cref{lem:tensorPowAdd_comm} --- a
+  free consequence. That identity additionally requires the self-braiding to be
+  trivial, \(\beta_{\mathcal{L},\mathcal{L}} = \mathrm{id}\)
+  (\cref{lem:braiding_eq_id_of_invertible}), which holds precisely when
+  \(\mathcal{L}\) is invertible (\cref{def:isInvertible}). For a general
+  \(\mathcal{L}\) the section ring is the free tensor algebra and commutativity
+  \emph{fails}. So commutativity is invertibility-gated and hand-proved --- from
+  the inherited hexagon together with \(\beta_{\mathcal{L},\mathcal{L}} =
+  \mathrm{id}\) --- rather than inherited outright.
+\end{corollary}
+
+\begin{definition}[Bridge between the inherited and the project tensor product]\leanok
+  \label{def:tensorObjIso}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjIso}
+  \uses{def:sheafTensorObj, def:sheafModule_monoidalStructure,
+    lem:monoidalLocalization_mathlib}
+  For sheaves of \(\mathcal{O}_X\)-modules \(F, G\), the \emph{tensor-agreement
+  bridge} is the isomorphism
+  \[
+    F \otimes G \;\xrightarrow{\ \sim\ }\;
+      F \otimes_{\mathcal{O}_X} G
+  \]
+  identifying the inherited tensor product \(F \otimes G\) of the transported
+  monoidal structure (\cref{def:sheafModule_monoidalStructure}) with the project's
+  sheaf tensor product \(F \otimes_{\mathcal{O}_X} G\) (\cref{def:sheafTensorObj}).
+  It is built from the strong-monoidal comparison \(\mu\) of
+  \cref{lem:monoidalLocalization_mathlib} --- whose codomain
+  \(L(a \otimes_{p} b)\) is exactly the sheafification of the presheaf tensor, i.e.\
+  \(F \otimes_{\mathcal{O}_X} G\) --- precomposed with the reflective counit
+  isomorphisms identifying \(F, G\) with the sheafifications of their underlying
+  presheaves. This bridge is the structural device along which the canonical
+  associator \(\alpha\), braiding \(\beta\) and unitors \(\lambda, \rho\) of the
+  inherited symmetric monoidal structure are transported onto the project's
+  \(\mathrm{tensorObj}\) family: each project-level coherence isomorphism is the
+  conjugate, by \(\mathrm{tensorObjIso}\), of the corresponding canonical map of
+  \(X.\Modules\). It is the launching point for the canonical reconstruction of
+  the associator \cref{cor:sheafTensorObjAssoc} and the tensor-power comparison
+  \cref{lem:sheafTensorPow_add}.
+\end{definition}
+
+\begin{corollary}[Associator of the sheaf tensor product]\leanok
+  \label{cor:sheafTensorObjAssoc}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjAssoc}
+  \uses{def:sheafTensorObj, def:sheafModule_monoidalStructure, def:tensorObjIso}
+  For sheaves of \(\mathcal{O}_X\)-modules \(A, B, C\) there is a canonical
+  associativity isomorphism
+  \[
+    (A \otimes_{\mathcal{O}_X} B) \otimes_{\mathcal{O}_X} C
+      \;\xrightarrow{\ \sim\ }\;
+      A \otimes_{\mathcal{O}_X} (B \otimes_{\mathcal{O}_X} C)
+  \]
+  of sheaves of \(\mathcal{O}_X\)-modules.
+\end{corollary}
+
+\begin{proof}
+  \leanok
+  the bridge. The required isomorphism
+  \[
+    (A \otimes_{\mathcal{O}_X} B) \otimes_{\mathcal{O}_X} C
+      \;\xrightarrow{\ \sim\ }\;
+      A \otimes_{\mathcal{O}_X} (B \otimes_{\mathcal{O}_X} C)
+  \]
+  is obtained by conjugating the canonical associator
+  \(\alpha_{A,B,C} : (A \otimes B) \otimes C \xrightarrow{\sim}
+  A \otimes (B \otimes C)\) of \(X.\Modules\) by the bridge on each bracketing:
+  one transports both iterated project tensors to the corresponding iterated
+  inherited tensors using \(\Phi\) (whiskered appropriately on the outer and inner
+  factors), applies \(\alpha\), and transports back. As a composite of
+  isomorphisms it is an isomorphism, and being the conjugate of the canonical
+  associator it is itself canonical --- no hand-rolled double-braiding detour and
+  no separate strong-monoidality bricks are involved. Its pentagon and triangle
+  coherence are then inherited from those of \(\alpha\)
+  (\cref{def:sheafModule_monoidalStructure}), which is exactly what
+  \cref{lem:sheafTensorPow_add} consumes.
+\end{proof}
+
+
+\subsection{Bridge lemmas to the canonical coherence maps}
+
+The associator of \cref{cor:sheafTensorObjAssoc} is obtained by conjugating the
+canonical Mac Lane associator of \(X.\Modules\) along the tensor-agreement bridge
+\(\mathrm{tensorObjIso}\) (\cref{def:tensorObjIso}). The remaining coherence data
+of the project's \(\mathrm{tensorObj}\) family --- the unitors, the braiding, and
+the two whiskerings --- admit the same description. The bridge lemmas of this
+subsection make that description explicit: each hand-built project-level
+coherence isomorphism is shown to equal the conjugate, by
+\(\mathrm{tensorObjIso}\), of the corresponding canonical map of the inherited
+symmetric monoidal structure. They are the formalization-scaffolding layer along
+which the inherited triangle, pentagon and hexagon are transported onto
+\(\otimes_{\mathcal{O}_X}\); downstream, the \(\mathrm{tensorObjIso}\) bridges
+introduced by adjacent factors cancel, leaving the canonical coherence laws to do
+the work. Throughout, write \(\Phi_{F,G} : F \otimes G \xrightarrow{\sim}
+F \otimes_{\mathcal{O}_X} G\) for the bridge \(\mathrm{tensorObjIso}\)
+(\cref{def:tensorObjIso}).
+
+\begin{definition}[Right unitor of the sheaf tensor product]\leanok
+  \label{def:tensorObjRightUnitor}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjRightUnitor}
+  \uses{def:sheafTensorObj, def:unitModule, def:schemeModuleSheafification,
+    lem:presheafModule_monoidal_mathlib}
+  For a sheaf of \(\mathcal{O}_X\)-modules \(G\), the \emph{right unitor}
+  \[
+    G \otimes_{\mathcal{O}_X} \mathbf{1}_X \;\xrightarrow{\ \sim\ }\; G
+  \]
+  is obtained by descending the presheaf-level right unitor of
+  \cref{lem:presheafModule_monoidal_mathlib} through the sheafification functor
+  (\cref{def:schemeModuleSheafification}) and composing with the reflective counit
+  isomorphism \((\mathcal{M}_0)^{\#} \cong \mathcal{M}\) of the sheafification
+  adjunction. Like the left unitor (\cref{def:tensorObjUnitIso}) it uses no
+  monoidal structure on \(X.\Modules\) --- only functoriality of sheafification
+  and the invertible counit --- and it is the right-unitality datum consumed by
+  the section-level coherence of \cref{lem:sectionMul_coherent}.
+\end{definition}
+
+\begin{lemma}[The right unitor is the bridge-conjugate of the canonical right unitor]\leanok
+  \label{lem:tensorObjRightUnitor_eq}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjRightUnitor_eq}
+  \uses{def:tensorObjRightUnitor, def:tensorObjIso,
+    def:sheafModule_monoidalStructure}
+  For a sheaf of \(\mathcal{O}_X\)-modules \(G\), the hand-built right unitor
+  (\cref{def:tensorObjRightUnitor}) equals the conjugate of the canonical right
+  unitor \(\rho\) of the inherited monoidal structure
+  (\cref{def:sheafModule_monoidalStructure}) by the bridge:
+  \[
+    \mathrm{tensorObjRightUnitor}_G
+      \;=\; \rho_G \circ \Phi_{G,\mathbf{1}}^{-1},
+  \]
+  where \(\rho_G : G \otimes \mathbf{1} \xrightarrow{\sim} G\) and
+  \(\Phi_{G,\mathbf{1}}^{-1} : G \otimes_{\mathcal{O}_X} \mathbf{1}_X
+  \xrightarrow{\sim} G \otimes \mathbf{1}\).
+\end{lemma}
+
+\begin{proof}
+  \(\rho\) exhibits exactly the descended presheaf right unitor and counit that
+  define \(\mathrm{tensorObjRightUnitor}_G\), after the bridge
+  \(\Phi_{G,\mathbf{1}}\) is moved across by naturality of \(\rho\). Cancelling the
+  bridge on the unit factor gives the stated equality.
+\end{proof}
+
+\begin{lemma}[The left unitor is the bridge-conjugate of the canonical left unitor]\leanok
+  \label{lem:tensorObjUnitIso_eq}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjUnitIso_eq}
+  \uses{def:tensorObjUnitIso, def:tensorObjIso,
+    def:sheafModule_monoidalStructure}
+  For a sheaf of \(\mathcal{O}_X\)-modules \(G\), the hand-built left unitor
+  (\cref{def:tensorObjUnitIso}) equals the conjugate of the canonical left unitor
+  \(\lambda\) of the inherited monoidal structure
+  (\cref{def:sheafModule_monoidalStructure}) by the bridge:
+  \[
+    \mathrm{tensorObjUnitIso}_G
+      \;=\; \lambda_G \circ \Phi_{\mathbf{1},G}^{-1},
+  \]
+  with \(\lambda_G : \mathbf{1} \otimes G \xrightarrow{\sim} G\) and
+  \(\Phi_{\mathbf{1},G}^{-1} : \mathbf{1}_X \otimes_{\mathcal{O}_X} G
+  \xrightarrow{\sim} \mathbf{1} \otimes G\). It is an auxiliary lemma used to put
+  the \(m = 0\) base case of \cref{lem:sheafTensorPow_add} on canonical footing.
+\end{lemma}
+
+\begin{proof}
+  transported across by naturality of \(\lambda\) and cancelled on the unit
+  factor.
+\end{proof}
+
+\begin{lemma}[The braiding is the bridge-conjugate of the canonical braiding]\leanok
+  \label{lem:tensorBraiding_eq}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorBraiding_eq}
+  \uses{def:tensorBraiding, def:tensorObjIso,
+    cor:sheafModule_braided_symmetric, def:sheafModule_monoidalStructure}
+  For sheaves of \(\mathcal{O}_X\)-modules \(F, G\), the hand-built braiding
+  (\cref{def:tensorBraiding}) equals the conjugate of the canonical braiding
+  \(\beta\) of the inherited symmetric monoidal structure
+  (\cref{cor:sheafModule_braided_symmetric}) by the bridge on each side:
+  \[
+    \mathrm{tensorBraiding}_{F,G}
+      \;=\; \Phi_{G,F} \circ \beta_{F,G} \circ \Phi_{F,G}^{-1},
+  \]
+  where \(\beta_{F,G} : F \otimes G \xrightarrow{\sim} G \otimes F\),
+  \(\Phi_{F,G}^{-1} : F \otimes_{\mathcal{O}_X} G \xrightarrow{\sim} F \otimes G\)
+  and \(\Phi_{G,F} : G \otimes F \xrightarrow{\sim} G \otimes_{\mathcal{O}_X} F\).
+  It is an auxiliary lemma and the template for the two whiskering bridges
+  below.
+\end{lemma}
+
+\begin{proof}
+  rewrites \(\Phi_{G,F} \circ \beta_{F,G} \circ \Phi_{F,G}^{-1}\) as the descended
+  presheaf braiding, which is \(\mathrm{tensorBraiding}_{F,G}\) by definition
+  (\cref{def:tensorBraiding}). The two bridges sit on opposite ends and are
+  absorbed by this naturality rather than cancelling against each other.
+\end{proof}
+
+\begin{lemma}[Left whiskering is the bridge-conjugate of the canonical left whiskering]\leanok
+  \label{lem:tensorObjWhiskerLeftIso_eq}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjWhiskerLeftIso_eq}
+  \uses{def:tensorObjIso, def:sheafModule_monoidalStructure}
+  Let \(F\) be a sheaf of \(\mathcal{O}_X\)-modules and \(e : G \xrightarrow{\sim}
+  H\) an isomorphism of such sheaves. The hand-built left-whiskered isomorphism
+  \(\mathrm{tensorObjWhiskerLeftIso}\,F\,e : F \otimes_{\mathcal{O}_X} G
+  \xrightarrow{\sim} F \otimes_{\mathcal{O}_X} H\) equals the conjugate of the
+  canonical left whiskering by the bridge:
+  \[
+    \mathrm{tensorObjWhiskerLeftIso}\,F\,e
+      \;=\; \Phi_{F,H} \circ (F \lhd e) \circ \Phi_{F,G}^{-1},
+  \]
+  where \(F \lhd e : F \otimes G \xrightarrow{\sim} F \otimes H\) is the canonical
+  left whiskering of \(X.\Modules\) (\cref{def:sheafModule_monoidalStructure}).
+\end{lemma}
+
+\begin{proof}
+  \(\Phi_{F,H} \circ (F \lhd e) \circ \Phi_{F,G}^{-1}\) into the descended
+  whiskering, which is \(\mathrm{tensorObjWhiskerLeftIso}\,F\,e\).
+\end{proof}
+
+\begin{lemma}[Right whiskering is the bridge-conjugate of the canonical right whiskering]\leanok
+  \label{lem:tensorObjWhiskerRightIso_eq}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjWhiskerRightIso_eq}
+  \uses{def:tensorObjIso, def:sheafModule_monoidalStructure}
+  Let \(e : G \xrightarrow{\sim} H\) be an isomorphism of sheaves of
+  \(\mathcal{O}_X\)-modules and \(F\) a further such sheaf. The hand-built
+  right-whiskered isomorphism \(\mathrm{tensorObjWhiskerRightIso}\,e\,F :
+  G \otimes_{\mathcal{O}_X} F \xrightarrow{\sim} H \otimes_{\mathcal{O}_X} F\)
+  equals the conjugate of the canonical right whiskering by the bridge:
+  \[
+    \mathrm{tensorObjWhiskerRightIso}\,e\,F
+      \;=\; \Phi_{H,F} \circ (e \rhd F) \circ \Phi_{G,F}^{-1},
+  \]
+  where \(e \rhd F : G \otimes F \xrightarrow{\sim} H \otimes F\) is the canonical
+  right whiskering of \(X.\Modules\) (\cref{def:sheafModule_monoidalStructure}).
+\end{lemma}
+
+\begin{proof}
+  whiskering \(\mathrm{tensorObjWhiskerRightIso}\,e\,F\).
+\end{proof}
+
+
+\begin{lemma}[Tensor-power comparison isomorphism]\leanok
+  \label{lem:sheafTensorPow_add}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorPowAdd}
+  \uses{def:sheafTensorPow, def:sheafTensorObj}
+  % SOURCE: \cite{stacks-project}, "Sheaves of Modules", \S "Invertible modules"
+  % (Tag 01CU, following `definition-powers') (read from
+  % references/stacks-modules.tex, L4249-L4254).
+  % SOURCE QUOTE:
+  % "With this definition we have canonical isomorphisms
+  %  $\mathcal{L}^{\otimes n} \otimes_{\mathcal{O}_X}
+  %  \mathcal{L}^{\otimes m} \to
+  %  \mathcal{L}^{\otimes n + m}$, and these isomorphisms
+  %  satisfy a commutativity and an associativity constraint
+  %  (formulation omitted)."
+  \textit{Source: \cite{stacks-project}, "Sheaves of Modules", Tag 01CU (canonical
+  power isomorphisms).}
+  For a line bundle \(\mathcal{L}\) and \(m, m' \in \mathbb{N}\) there is a
+  canonical isomorphism of sheaves of \(\mathcal{O}_X\)-modules
+  \[
+    \mu_{m,m'} :
+    \mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m'}
+    \;\xrightarrow{\ \sim\ }\; \mathcal{L}^{\otimes (m+m')},
+  \]
+  natural in \(\mathcal{L}\), and these isomorphisms satisfy a commutativity
+  constraint (\(\mu_{m,m'}\) agrees with \(\mu_{m',m}\) after the braiding) and
+  an associativity constraint (the two ways of combining
+  \(\mathcal{L}^{\otimes m} \otimes \mathcal{L}^{\otimes m'} \otimes
+  \mathcal{L}^{\otimes m''}\) into \(\mathcal{L}^{\otimes (m+m'+m'')}\) agree).
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  All the structural isomorphisms used to assemble \(\mu_{m,m'}\) are the
+  \emph{canonical} associator, braiding and unitors of the inherited symmetric
+  monoidal structure on \(X.\Modules\) (\cref{def:sheafModule_monoidalStructure},
+  \cref{cor:sheafModule_braided_symmetric}), transported to the project's tensor
+  product \(\otimes_{\mathcal{O}_X}\) along the tensor-agreement bridge
+  \(\mathrm{tensorObjIso}\) (\cref{def:tensorObjIso}). In particular the associator
+  is \cref{cor:sheafTensorObjAssoc} --- itself the transported Mac Lane associator
+  \(\alpha\) --- the braiding is the transport of the canonical \(\beta\)
+  (\cref{def:tensorBraiding}), and the left unitor is the transport of \(\lambda\)
+  (\cref{def:tensorObjUnitIso}). No hand-rolled associator and no separate
+  strong-monoidality brick enters.
+
+  \textbf{Construction of \(\mu_{m,m'}\).} Fix \(m\) and recurse on \(m'\),
+  matching the right-growth of \(\mathrm{tensorPow}\) (\cref{def:sheafTensorPow},
+  \(\mathcal{L}^{\otimes(n+1)} = \mathcal{L}^{\otimes n} \otimes_{\mathcal{O}_X}
+  \mathcal{L}\)) and the recursion of \(\mathbb{N}\)-addition on its \emph{second}
+  argument. For \(m' = 0\), using \(\mathcal{L}^{\otimes 0} = \mathbf{1}_X\) and
+  \(m + 0 = m\) (both \emph{definitional}),
+  \[
+    \mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes 0}
+      = \mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X} \mathbf{1}_X
+      \xrightarrow{\ \rho\ } \mathcal{L}^{\otimes m}
+  \]
+  is the (transported) right unitor \(\rho\) of \cref{def:tensorObjRightUnitor}.
+  For the inductive step the recursive definition \(\mathcal{L}^{\otimes (c+1)} =
+  \mathcal{L}^{\otimes c} \otimes_{\mathcal{O}_X} \mathcal{L}\)
+  (\cref{def:sheafTensorPow}) gives, with \(m + (c+1) = (m+c)+1\) again
+  \emph{definitional},
+  \[
+    \mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes (c+1)}
+    = \mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X}
+      (\mathcal{L}^{\otimes c} \otimes_{\mathcal{O}_X} \mathcal{L})
+    \xrightarrow{\ \alpha^{-1}\ }
+    (\mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes c})
+      \otimes_{\mathcal{O}_X} \mathcal{L}
+    \xrightarrow{\ \mu_{m,c} \rhd \mathcal{L}\ }
+    \mathcal{L}^{\otimes (m+c)} \otimes_{\mathcal{O}_X} \mathcal{L}
+    = \mathcal{L}^{\otimes (m + (c+1))},
+  \]
+  using only the inverse associator \(\alpha^{-1}\) (\cref{cor:sheafTensorObjAssoc})
+  and the inductive comparison \(\mu_{m,c}\) whiskered by \(\mathcal{L}\) on the
+  right; the final equality is the recursive definition of \(\mathrm{tensorPow}\)
+  together with \(m + (c+1) = (m+c)+1\). The composite is \(\mu_{m,c+1}\), an
+  isomorphism as a composite of isomorphisms. \emph{No braiding and no \(eqToIso\)
+  reindexer enter the construction}: because both \(\mathrm{tensorPow}\) and
+  \(\mathbb{N}\)-addition grow on the right, the new \(\mathcal{L}\)-factor already
+  sits at the right edge of both source and target, so it never has to be
+  transported across \(\mathcal{L}^{\otimes c}\). (This is the categorification of
+  \(\mathrm{pow\_add}\), proved in Mathlib by induction on the second exponent with
+  \(\mathrm{pow\_succ}\) and associativity only, no commutativity.) Naturality in
+  \(\mathcal{L}\) holds because each constituent map is natural.
+
+  \textbf{Associativity constraint.} Because \(\alpha\) and \(\lambda\) are the
+  canonical coherence data of a genuine symmetric monoidal category on
+  \(X.\Modules\) (\cref{def:sheafModule_monoidalStructure},
+  \cref{cor:sheafModule_braided_symmetric}), the associativity diagram (the two
+  bracketings of \(\mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X}
+  \mathcal{L}^{\otimes m'} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m''} \to
+  \mathcal{L}^{\otimes (m+m'+m'')}\)) is an instance of the pentagon identity of
+  that inherited structure. It therefore holds by \emph{inheritance} --- Mac Lane
+  coherence applied once, at the level of the symmetric monoidal category
+  \(X.\Modules\) --- rather than by a separate induction over a hand-rolled
+  associator. The bridge \(\mathrm{tensorObjIso}\) (\cref{def:tensorObjIso})
+  transports the coherence diagram from the inherited tensor \(\otimes\) to the
+  project tensor \(\otimes_{\mathcal{O}_X}\) intact, so the associativity
+  constraint passes to the family \(\{\mu_{m,m'}\}\) verbatim; this holds for an
+  \emph{arbitrary} sheaf of modules \(\mathcal{L}\) and is \cref{lem:tensorPowAdd_assoc}.
+
+  \textbf{Commutativity constraint (for invertible \(\mathcal{L}\) only).} The
+  commutativity square (\(\mu_{m,m'}\) versus \(\mu_{m',m}\) postcomposed with the
+  braiding) does \emph{not} follow from Mac Lane coherence alone and requires
+  \(\mathcal{L}\) to be invertible (\cref{def:isInvertible}). After the hexagon and
+  bridge reductions, the per-step inductive obligation reduces to a self-braiding
+  \(\beta_{\mathcal{L},\mathcal{L}}\), which equals the identity precisely when
+  \(\mathcal{L}\) is invertible (\cref{lem:braiding_eq_id_of_invertible}); for a
+  general sheaf of modules this identity fails. The full argument is
+  \cref{lem:tensorPowAdd_comm}.
+
+  Concretely, the constituents \(\alpha^{-1}\) and \(\mu_{m,c} \rhd \mathcal{L}\)
+  of the construction are rewritten as bridge-conjugates of the canonical associator
+  and right-whiskering of \(X.\Modules\) by the whiskering bridge
+  \cref{lem:tensorObjWhiskerRightIso_eq} (the associator already canonical by
+  \cref{cor:sheafTensorObjAssoc}), so that the associativity diagram collapses to the
+  canonical \emph{pentagon} of \cref{def:sheafModule_monoidalStructure} --- with the
+  \(\mathrm{tensorObjIso}\) bridges introduced by adjacent factors cancelling in
+  pairs --- and is then dischargeable by the \(\mathrm{monoidal}\) coherence tactic.
+  The commutativity diagram (for invertible \(\mathcal{L}\) only) additionally
+  introduces the braiding via \cref{lem:tensorBraiding_eq} and
+  \cref{lem:tensorObjWhiskerLeftIso_eq} and collapses to the canonical hexagon.
+\end{proof}
+
+\subsection{Coherence constraints of the tensor-power comparison}
+\label{subsec:sgr_tensorPowAdd_constraints}
+
+The commutativity and associativity constraints of the comparison family
+\(\{\mu_{m,m'}\}\) --- the content Stacks Tag 01CU leaves with ``formulation
+omitted'' in \cref{lem:sheafTensorPow_add} --- are decomposed here into named
+iso-level identities, so each can be discharged against a single canonical
+coherence law of the inherited symmetric monoidal structure on \(X.\Modules\)
+(\cref{def:sheafModule_monoidalStructure},
+\cref{cor:sheafModule_braided_symmetric}). After re-orienting \(\mu\) to recurse on
+its \emph{second} index, the right-unit constraint
+\cref{lem:tensorPowAdd_zero_right} holds \emph{definitionally} --- it is the base
+clause of that recursion --- so the worked templates are now the left-unit
+constraint \cref{lem:tensorPowAdd_zero_left} and the associativity constraint
+\cref{lem:tensorPowAdd_assoc}: each is an induction mirroring the recursion of
+\(\mu\), whose per-step obligation collapses --- after the bridge lemmas of the
+previous subsection rewrite every hand-built constituent to its canonical
+counterpart and the \(\mathrm{tensorObjIso}\) bridges cancel in adjacent pairs ---
+to a single canonical coherence law (the unitor coherence, resp.\ the pentagon) of
+the inherited symmetric monoidal structure on \(X.\Modules\).
+
+\begin{lemma}[Right-unit constraint for the tensor-power comparison]\leanok
+  \label{lem:tensorPowAdd_zero_right}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorPowAdd_zero_right}
+  \uses{lem:sheafTensorPow_add, def:tensorObjRightUnitor}
+  For a sheaf of modules \(\mathcal{L}\) and \(n \in \mathbb{N}\), the degree-\((n,0)\)
+  comparison isomorphism \(\mu_{n,0}\) (\cref{lem:sheafTensorPow_add}) is the right
+  unitor:
+  \[
+    \mu_{n,0} \;=\;
+      \mathrm{tensorObjRightUnitor}_{\mathcal{L}^{\otimes n}}
+    \;:\; \mathcal{L}^{\otimes n} \otimes_{\mathcal{O}_X} \mathbf{1}_X
+    \;\xrightarrow{\ \sim\ }\; \mathcal{L}^{\otimes n}
+  \]
+  (\cref{def:tensorObjRightUnitor}). Here \(\mathcal{L}^{\otimes 0} = \mathbf{1}_X\)
+  and \(n + 0 = n\) hold on the nose, so the two sides inhabit a common type.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  holds definitionally, so no reindexing intervenes. Hence \(\mu_{n,0} = \rho\) for
+  every \(n\), without induction.
+\end{proof}
+
+\begin{lemma}[Left-unit constraint for the tensor-power comparison]\leanok
+  \label{lem:tensorPowAdd_zero_left}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorPowAdd_zero_left}
+  \uses{lem:sheafTensorPow_add, def:tensorObjUnitIso, lem:tensorObjUnitIso_eq,
+    lem:tensorObjRightUnitor_eq, lem:tensorObjWhiskerRightIso_eq,
+    def:sheafModule_monoidalStructure}
+  For a sheaf of modules \(\mathcal{L}\) and \(n \in \mathbb{N}\), the degree-\((0,n)\)
+  comparison isomorphism \(\mu_{0,n}\) (\cref{lem:sheafTensorPow_add}) is the left
+  unitor, reindexed along \(0 + n = n\):
+  \[
+    \mu_{0,n} \;=\;
+      \mathrm{tensorObjUnitIso}_{\mathcal{L}^{\otimes n}}
+      \;:\; \mathbf{1}_X \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n}
+      \;\xrightarrow{\ \sim\ }\; \mathcal{L}^{\otimes n}
+  \]
+  (\cref{def:tensorObjUnitIso}, transport of the left unitor \(\lambda\)). Unlike
+  the right-unit case, this is \emph{not} the base clause of the second-index
+  recursion, so it requires an induction on \(n\).
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \uses{lem:sheafTensorPow_add, def:tensorObjUnitIso, lem:tensorObjUnitIso_eq,
+    lem:tensorObjRightUnitor_eq, lem:tensorObjWhiskerRightIso_eq,
+    def:sheafModule_monoidalStructure}
+  Induction on \(n\). For \(n = 0\), \(\mu_{0,0}\) is the base clause
+  \(\mathrm{tensorObjRightUnitor}_{\mathbf{1}_X}\) (right unitor of the unit), and on
+  the unit object the left and right unitors coincide
+  (\(\mathrm{MonoidalCategory.unitors\_equal}\)); descending that equality through
+  sheafification gives \(\mu_{0,0} = \mathrm{tensorObjUnitIso}\). For the inductive
+  step \(n = c+1\), unfold \(\mu_{0,c+1}\) by the succ-clause
+  (\cref{lem:sheafTensorPow_add}), \(\alpha^{-1} \circ (\mu_{0,c} \rhd \mathcal{L})\),
+  and substitute the inductive hypothesis \(\mu_{0,c} = \lambda\). After the bridges
+  \cref{lem:tensorObjUnitIso_eq}/\cref{lem:tensorObjWhiskerRightIso_eq} rewrite to
+  canonical maps and the \(\mathrm{tensorObjIso}\) bridges cancel in pairs, the step
+  is the canonical \emph{triangle} identity \(\lambda_{A \otimes \mathcal{L}} =
+  (\lambda_A \rhd \mathcal{L}) \circ \alpha^{-1}_{\mathbf{1}, A, \mathcal{L}}\) of the
+  inherited monoidal structure (\cref{def:sheafModule_monoidalStructure}), closed by
+  the \(\mathrm{monoidal}\) coherence tactic.
+\end{proof}
+
+\begin{lemma}[Self-braiding of an invertible module is trivial (affine)]
+  \label{lem:tensorProductComm_eq_refl_mathlib}
+  \dcref{custom}
+  \lean{Module.Invertible.tensorProductComm_eq_refl}
+  \mathlibok
+  \textit{Provided by Mathlib (\texttt{Mathlib.RingTheory.PicardGroup}).}
+  Let \(R\) be a commutative ring and \(M\) an invertible \(R\)-module
+  (\(\mathrm{Module.Invertible}\,R\,M\): the evaluation map
+  \(M \otimes_R M^{\ast} \to R\) is bijective, equivalently \(M\) is finite
+  projective of constant rank one). Then the swap involution of the tensor square
+  is the identity:
+  \[
+    \mathrm{TensorProduct.comm}_R\,M\,M \;=\;
+      \mathrm{id}_{M \otimes_R M},
+  \]
+  i.e.\ \(x \otimes y = y \otimes x\) in \(M \otimes_R M\) for all
+  \(x, y \in M\). This is the affine kernel of self-braiding triviality. Note the
+  abstract monoidal statement ``a \(\otimes\)-invertible object has
+  \(\beta = \mathrm{id}\)'' is \emph{false} --- an odd line in super vector spaces
+  is \(\otimes\)-invertible yet has \(\beta = -\mathrm{id}\) --- so the result
+  genuinely uses the concrete swap on a module that is invertible in the
+  \(\mathrm{Module.Invertible}\) sense, not mere categorical invertibility.
+\end{lemma}
+
+\begin{lemma}[Trivial self-braiding of an invertible sheaf]\leanok
+  \label{lem:braiding_eq_id_of_invertible}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorBraiding_self_eq_id_of_isInvertible}
+  \uses{def:isInvertible, def:tensorBraiding, def:sheafTensorObj,
+    def:sheafTensorPow, def:schemeModuleSheafification,
+    lem:tensorProductComm_eq_refl_mathlib,
+    lem:presheafModule_monoidal_mathlib}
+  Let \(\mathcal{L}\) be an invertible sheaf (\cref{def:isInvertible}) on a scheme
+  \(X\). Then the braiding of \(\mathcal{L}\) with itself is the identity:
+  \[
+    \beta_{\mathcal{L},\mathcal{L}} \;=\;
+      \mathrm{id}_{\mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{L}}
+    \qquad(\cref{def:tensorBraiding}).
+  \]
+  More generally each tensor power \(\mathcal{L}^{\otimes m}\) is again invertible
+  (\cref{def:sheafTensorPow}, \cref{def:isInvertible}), so its self-braiding is
+  trivial as well, \(\beta_{\mathcal{L}^{\otimes m},\mathcal{L}^{\otimes m}} =
+  \mathrm{id}\). This is the single arithmetic input distinguishing the invertible
+  case: it holds precisely because \(\mathcal{L}\) is locally free of rank one, and
+  fails for a general sheaf of modules --- already for
+  \(\mathcal{O}_X^{\oplus 2}\) over a point, where
+  \(e_1 \otimes e_2 \neq e_2 \otimes e_1\).
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \uses{def:isInvertible, def:tensorBraiding, def:sheafTensorPow,
+    def:schemeModuleSheafification, lem:tensorProductComm_eq_refl_mathlib,
+    lem:presheafModule_monoidal_mathlib}
+  Equality of morphisms of sheaves of modules is a \emph{local} condition that can
+  be tested on a basis of opens; we obtain
+  \(\beta_{\mathcal{L},\mathcal{L}} = \mathrm{id}\) by descent from the trivializing
+  basis carried by the invertibility datum.
+
+  \emph{The trivializing basis.} By \cref{def:isInvertible}, invertibility of
+  \(\mathcal{L}\) supplies an indexed family \(\{U_i\}\) of opens whose range is a
+  basis of the topology of \(X\), together with, on each \(U_i\), an
+  invertible-module structure
+  \(\mathrm{Module.Invertible}\,\Gamma(X,U_i)\,\Gamma(\mathcal{L},U_i)\)
+  (\cref{lem:tensorProductComm_eq_refl_mathlib}).
+
+  \emph{The presheaf braiding is the identity on each basis open.} By construction
+  (\cref{def:tensorBraiding}) the braiding \(\beta_{\mathcal{L},\mathcal{L}}\) is
+  the image under sheafification (\cref{def:schemeModuleSheafification}) of the
+  presheaf braiding \(\beta^{\mathrm{pre}}\), whose component on an open \(U\) is the
+  swap \(\mathrm{TensorProduct.comm}_{\Gamma(X,U)}\,\Gamma(\mathcal{L},U)\,
+  \Gamma(\mathcal{L},U)\) (\cref{lem:presheafModule_monoidal_mathlib}). On a basis
+  open \(U_i\) the module \(\Gamma(\mathcal{L},U_i)\) is invertible over
+  \(\Gamma(X,U_i)\), so that swap is the identity by
+  \cref{lem:tensorProductComm_eq_refl_mathlib}; hence \(\beta^{\mathrm{pre}}\)
+  agrees with \(\mathrm{id}\) on every basis open \(U_i\).
+
+  \emph{Descent to the sheafification.} Write \(T = \mathcal{L} \otimes
+  \mathcal{L}\) for the underlying presheaf tensor product and
+  \(\eta : T \to T^{\#}\) for the sheafification unit, so that
+  \(\beta_{\mathcal{L},\mathcal{L}}\) is the sheafified endomorphism of \(T^{\#}\)
+  induced by \(\beta^{\mathrm{pre}}\). Its target \(T^{\#}\) is a sheaf, so two
+  morphisms into it that agree on a basis of opens coincide (separatedness, the
+  basis form of sheaf-morphism extensionality, applied to the underlying sheaf of
+  abelian groups). The two presheaf morphisms
+  \(\beta^{\mathrm{pre}} \circ \eta\) and \(\eta\) (both \(T \to T^{\#}\)) agree on
+  every basis open \(U_i\), because there \(\beta^{\mathrm{pre}}\) is the identity;
+  therefore \(\beta^{\mathrm{pre}} \circ \eta = \eta\). By naturality of \(\eta\),
+  \[
+    \eta \circ (\text{sheafification of } \beta^{\mathrm{pre}})
+      = \beta^{\mathrm{pre}} \circ \eta = \eta = \eta \circ \mathrm{id}_{T^{\#}}.
+  \]
+  Precomposition with the unit \(\eta\) is injective on morphisms into a sheaf (the
+  universal property of the sheafification adjunction,
+  \cref{def:schemeModuleSheafification}), so the sheafified map equals
+  \(\mathrm{id}_{T^{\#}}\). An isomorphism whose forward map is the identity is the
+  identity isomorphism, whence \(\beta_{\mathcal{L},\mathcal{L}} = \mathrm{id}\).
+  Crucially the check is performed on the trivializing basis and \emph{never} at the
+  global open \(\top\), where \(\Gamma(X,\mathcal{L})\) need not be invertible.
+
+  The generalization to \(\mathcal{L}^{\otimes m}\) is the identical argument: a
+  tensor power of an invertible sheaf is again invertible
+  (\cref{def:sheafTensorPow}), so it carries a trivializing basis on which the
+  presheaf braiding is the identity, and the same descent gives
+  \(\beta_{\mathcal{L}^{\otimes m},\mathcal{L}^{\otimes m}} = \mathrm{id}\).
+\end{proof}
+
+\begin{lemma}[First-index successor recursion of the tensor-power comparison]\leanok
+  \label{lem:tensorPowAdd_succ_left}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorPowAdd_succ_left}
+  \uses{lem:sheafTensorPow_add, lem:tensorPowAdd_assoc, cor:sheafTensorObjAssoc,
+    lem:tensorObjWhiskerLeftIso_eq, lem:tensorObjWhiskerRightIso_eq,
+    lem:tensorObjUnitIso_eq, def:tensorObjUnitIso, def:sheafTensorPow,
+    lem:tensorPowAdd_zero_right}
+  For an \emph{arbitrary} sheaf of \(\mathcal{O}_X\)-modules \(\mathcal{L}\) (no
+  invertibility needed) and \(c, m \in \mathbb{N}\), the comparison
+  \[
+    \mu_{c+1,m} : \mathcal{L}^{\otimes(c+1)} \otimes_{\mathcal{O}_X}
+      \mathcal{L}^{\otimes m} \;\xrightarrow{\ \sim\ }\;
+      \mathcal{L}^{\otimes((c+1)+m)}
+  \]
+  is recovered from the lower comparison \(\mu_{c,\,1+m}\) by peeling the
+  freshly-added factor to the left:
+  \[
+    \mu_{c+1,m}
+      \;=\;
+      \mu_{c,\,1+m}
+      \;\circ\;
+      \bigl(\mathcal{L}^{\otimes c} \lhd \nu_m\bigr)
+      \;\circ\;
+      \alpha_{\mathcal{L}^{\otimes c},\,\mathcal{L},\,\mathcal{L}^{\otimes m}},
+  \]
+  where \(\alpha\) is the associator (\cref{cor:sheafTensorObjAssoc}), \(\lhd\)
+  the canonical left whiskering, and
+  \(\nu_m : \mathcal{L} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m}
+  \xrightarrow{\sim} \mathcal{L}^{\otimes(1+m)}\) is \(\mu_{1,m}\) precomposed
+  with the left-unit identification \(\mathcal{L} \cong
+  \mathbf{1}_X \otimes_{\mathcal{O}_X}\mathcal{L} = \mathcal{L}^{\otimes 1}
+  \otimes_{\mathcal{O}_X} \cdots\) (\cref{def:tensorObjUnitIso}), modulo the
+  reindexing \((c+1)+m = c+(1+m)\). This is the first-index dual of the
+  definitional second-index successor clause of \(\mu\)
+  (\cref{lem:sheafTensorPow_add}); unlike the commutativity hexagon it is
+  \emph{braiding-free} and holds for every \(\mathcal{L}\), both sides realising
+  the identity permutation of the \((c+1)+m\) identical \(\mathcal{L}\)-factors.
+  This order-preserving form is correct, reusable infrastructure, but it is
+  \emph{not} the ingredient consumed by the commutativity proof: the glue of
+  \cref{lem:tensorPowAdd_comm} requires the order-\emph{reversing} recursion
+  \cref{lem:tensorPowAdd_succ_left_braided} (brick~1\('\)), which exposes the lower
+  comparison \(\mu_{c,m}\) rather than the unreachable \(\mu_{c,1+m}\).
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \uses{lem:tensorPowAdd_assoc, cor:sheafTensorObjAssoc, lem:sheafTensorPow_add,
+    lem:tensorObjWhiskerLeftIso_eq, lem:tensorObjWhiskerRightIso_eq,
+    lem:tensorObjUnitIso_eq, lem:tensorPowAdd_zero_right}
+  Instantiate the associativity constraint \cref{lem:tensorPowAdd_assoc} at the
+  indices \((m,m',m'') = (c,1,m)\), which relates the comparison
+  \(\mu_{(c+1),m} = \mu_{c+1,m}\) to lower data:
+  \[
+    (\mu_{c,1} \rhd \mathcal{L}^{\otimes m}) \circ \mu_{c+1,m}
+      \circ (\text{reindex})
+    \;=\;
+    \alpha_{\mathcal{L}^{\otimes c},\mathcal{L}^{\otimes 1},
+        \mathcal{L}^{\otimes m}} \circ
+      (\mathcal{L}^{\otimes c} \lhd \mu_{1,m}) \circ \mu_{c,\,1+m}.
+  \]
+  The factor \(\mu_{c,1}\) is the second-index successor of \(\mu_{c,0}\), and by
+  \cref{lem:sheafTensorPow_add} together with \cref{lem:tensorPowAdd_zero_right}
+  (which makes \(\mu_{c,0}\) the right unitor) it is the canonical right-unit
+  isomorphism \(\mathcal{L}^{\otimes c}\otimes_{\mathcal{O}_X}\mathcal{L}^{
+  \otimes 1}\cong\mathcal{L}^{\otimes(c+1)}\); hence its right-whiskering
+  \(\mu_{c,1}\rhd\mathcal{L}^{\otimes m}\) is invertible with a structural
+  inverse. Solving the displayed identity for \(\mu_{c+1,m}\) and absorbing the
+  unit isomorphism \(\mu_{c,1}\) and the \(\mathcal{L}^{\otimes 1}=\mathbf{1}_X
+  \otimes_{\mathcal{O}_X}\mathcal{L}\) identification into the left-unit factor
+  \(\nu_m\) --- using \cref{lem:tensorObjUnitIso_eq} and the whisker bridges
+  \cref{lem:tensorObjWhiskerLeftIso_eq}, \cref{lem:tensorObjWhiskerRightIso_eq} to
+  pass to canonical whiskerings --- yields the stated formula. No braiding occurs:
+  the entire computation stays inside the associator/unitor (pentagon--triangle)
+  fragment, so once the hand-built whiskerings are rewritten to canonical ones it
+  is closed by the canonical coherence tactic \(\mathrm{monoidal}\).
+\end{proof}
+
+\begin{lemma}[Descended forward hexagon for the sheaf braiding]\leanok
+  \label{lem:tensorBraiding_hexagon_forward}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorBraiding_hexagon_forward}
+  \uses{def:tensorBraiding, lem:tensorBraiding_eq, cor:sheafTensorObjAssoc,
+    lem:tensorObjWhiskerLeftIso_eq, lem:tensorObjWhiskerRightIso_eq,
+    cor:sheafModule_braided_symmetric, def:tensorObjIso}
+  For sheaves of \(\mathcal{O}_X\)-modules \(F, A, B\), the hand-built braiding
+  (\cref{def:tensorBraiding}) and associator (\cref{cor:sheafTensorObjAssoc})
+  satisfy the \emph{forward hexagon} identity
+  \[
+    \alpha_{A,B,F} \circ
+    \beta_{F,\,A\otimes_{\mathcal{O}_X}B} \circ
+    \alpha_{F,A,B}
+    \;=\;
+    (A \lhd \beta_{F,B}) \circ
+    \alpha_{A,F,B} \circ
+    (\beta_{F,A} \rhd B),
+  \]
+  where \(\beta\) is the braiding (\cref{def:tensorBraiding}), \(\alpha\) the
+  associator (\cref{cor:sheafTensorObjAssoc}), and \(\lhd,\rhd\) the canonical
+  whiskerings. In words: braiding \(F\) past the tensor \(A\otimes_{\mathcal{O}_X}
+  B\) factors, up to associators, as braiding \(F\) past \(A\) and then past
+  \(B\) separately. This is the symmetric-monoidal hexagon of the inherited
+  structure (\cref{cor:sheafModule_braided_symmetric}) read off at the project's
+  tensor product, the braided analogue of the right-unit/braiding coherence used
+  in the base case of \cref{lem:tensorPowAdd_comm}.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \uses{lem:tensorBraiding_eq, cor:sheafTensorObjAssoc,
+    lem:tensorObjWhiskerLeftIso_eq, lem:tensorObjWhiskerRightIso_eq,
+    cor:sheafModule_braided_symmetric, def:tensorObjIso}
+  This is the descent of the canonical forward hexagon identity
+  through the tensor-agreement bridge, exactly mirroring how the
+  base-case coherence \(\rho = \beta_{G,\mathbf{1}}\circ\lambda\) was descended
+  from the canonical braiding--left-unitor coherence. The inherited symmetric
+  monoidal structure on \(X.\Modules\) (\cref{cor:sheafModule_braided_symmetric})
+  satisfies the canonical forward hexagon
+  \[
+    \alpha'_{A,B,F}\circ\beta'_{F,A\otimes B}\circ\alpha'_{F,A,B}
+    = (A\lhd\beta'_{F,B})\circ\alpha'_{A,F,B}\circ(\beta'_{F,A}\rhd B)
+  \]
+  for its canonical braiding \(\beta'\) and associator \(\alpha'\). By the bridge
+  lemmas --- \cref{lem:tensorBraiding_eq} (the hand-built braiding is the
+  conjugate of \(\beta'\) by the bridge \(\Phi\) of \cref{def:tensorObjIso}),
+  \cref{cor:sheafTensorObjAssoc} (the associator is the conjugate of \(\alpha'\)),
+  and the whisker bridges \cref{lem:tensorObjWhiskerLeftIso_eq},
+  \cref{lem:tensorObjWhiskerRightIso_eq} --- every project-level construct is
+  replaced by its canonical counterpart conjugated by \(\Phi\). The bridges
+  introduced by adjacent factors telescope and cancel in inverse pairs (the
+  cancellation recipe of \cref{lem:tensorPowAdd_zero_right}), leaving exactly the
+  canonical hexagon, which discharges the identity. The braiding is genuine and is
+  \emph{not} closed by the \(\mathrm{monoidal}\) coherence tactic (which handles
+  only associators and unitors); the explicit canonical hexagon is what is
+  consumed.
+\end{proof}
+
+\begin{lemma}[Order-reversing first-index successor recursion (brick 1$'$)]\leanok
+  \label{lem:tensorPowAdd_succ_left_braided}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorPowAdd_succ_left_braided}
+  \uses{lem:sheafTensorPow_add, def:isInvertible,
+    lem:braiding_eq_id_of_invertible, def:tensorBraiding,
+    cor:sheafTensorObjAssoc, lem:tensorBraiding_eq,
+    lem:tensorBraiding_hexagon_forward, lem:tensorObjWhiskerLeftIso_eq,
+    lem:tensorObjWhiskerRightIso_eq, lem:tensorPowAdd_zero_right,
+    lem:tensorPowAdd_zero_left}
+  Let \(\mathcal{L}\) be an \emph{invertible} sheaf (\cref{def:isInvertible}) and
+  \(c, m \in \mathbb{N}\). The first-index successor comparison
+  \[
+    \mu_{c+1,m} : \mathcal{L}^{\otimes(c+1)} \otimes_{\mathcal{O}_X}
+      \mathcal{L}^{\otimes m} \;\xrightarrow{\ \sim\ }\;
+      \mathcal{L}^{\otimes((c+1)+m)}
+  \]
+  is recovered from the \emph{lower} comparison \(\mu_{c,m}\) by braiding the
+  freshly-added left factor \(\mathcal{L}\) past the block \(\mathcal{L}^{\otimes
+  m}\) and applying \(\mu_{c,m}\) on the right, framed by associators:
+  \[
+    \mu_{c+1,m}
+      \;=\;
+      (\text{reindex})\circ
+      (\mu_{c,m} \rhd \mathcal{L})\circ
+      \alpha^{-1}_{\mathcal{L}^{\otimes c},\,\mathcal{L}^{\otimes m},\,\mathcal{L}}\circ
+      (\mathcal{L}^{\otimes c} \lhd \beta_{\mathcal{L},\,\mathcal{L}^{\otimes m}})\circ
+      \alpha_{\mathcal{L}^{\otimes c},\,\mathcal{L},\,\mathcal{L}^{\otimes m}},
+  \]
+  where \(\alpha\) is the associator (\cref{cor:sheafTensorObjAssoc}), \(\beta\)
+  the braiding (\cref{def:tensorBraiding}), \(\lhd,\rhd\) the canonical
+  whiskerings, and the reindex is the definitional identification
+  \(\mathcal{L}^{\otimes(c+m)}\otimes_{\mathcal{O}_X}\mathcal{L} =
+  \mathcal{L}^{\otimes((c+m)+1)} = \mathcal{L}^{\otimes((c+1)+m)}\). The maps are
+  displayed in \(\circ\) (right-to-left) order; the Lean realisation chains them
+  left-to-right (diagrammatic order). In contrast with the
+  order-\emph{preserving} \cref{lem:tensorPowAdd_succ_left} --- which is
+  braiding-free but supplies the wrong atom for the commutativity glue --- this
+  order-\emph{reversing} form surfaces exactly the lower comparison \(\mu_{c,m}\)
+  demanded by the inductive hypothesis of \cref{lem:tensorPowAdd_comm}, at the
+  cost of a genuine braiding \(\beta_{\mathcal{L},\mathcal{L}^{\otimes m}}\);
+  hence the invertibility hypothesis enters here.
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:sheafTensorPow_add, def:isInvertible,
+    lem:braiding_eq_id_of_invertible, def:tensorBraiding,
+    cor:sheafTensorObjAssoc, lem:tensorBraiding_eq,
+    lem:tensorBraiding_hexagon_forward, lem:tensorObjWhiskerLeftIso_eq,
+    lem:tensorObjWhiskerRightIso_eq, lem:tensorPowAdd_zero_right,
+    lem:tensorPowAdd_zero_left}
+    \leanok
+  Induction on \(m\).
+
+  \emph{Base \(m = 0\).} Here \(\mathcal{L}^{\otimes 0} = \mathbf{1}_X\), so the
+  only braiding occurring is \(\beta_{\mathcal{L},\mathbf{1}_X}\), the unit
+  coherence --- no self-braiding \(\beta_{\mathcal{L},\mathcal{L}}\) appears and
+  no invertibility is needed. Reading \(\mu_{c,0}\) and \(\mu_{c+1,0}\) as the
+  appropriate unit isomorphisms (\cref{lem:tensorPowAdd_zero_right},
+  \cref{lem:tensorPowAdd_zero_left}) and passing the hand-built braiding and
+  whiskerings to their canonical counterparts (\cref{lem:tensorBraiding_eq},
+  \cref{lem:tensorObjWhiskerLeftIso_eq}, \cref{lem:tensorObjWhiskerRightIso_eq}),
+  the residual identity lies entirely in the associator/unitor
+  (pentagon--triangle) fragment and is closed by the canonical coherence tactic.
+
+  \emph{Successor \(m \to m+1\).} Expand both \(\mu_{c,m+1}\) and
+  \(\mu_{c+1,m+1}\) by the second-index successor clause
+  (\cref{lem:sheafTensorPow_add}), \(\mu_{-,m+1} = \alpha^{-1}\circ(\mu_{-,m}
+  \rhd\mathcal{L})\). The braiding on the factored target,
+  \(\beta_{\mathcal{L},\,\mathcal{L}^{\otimes(m+1)}} =
+  \beta_{\mathcal{L},\,\mathcal{L}^{\otimes m}\otimes_{\mathcal{O}_X}\mathcal{L}}\),
+  splits over \(\mathcal{L}^{\otimes(m+1)} = \mathcal{L}^{\otimes m}
+  \otimes_{\mathcal{O}_X}\mathcal{L}\) by the canonical right-tensor braiding
+  identity (the forward hexagon \cref{lem:tensorBraiding_hexagon_forward} read on
+  the right factor) into \((\beta_{\mathcal{L},\mathcal{L}^{\otimes m}}\rhd
+  \mathcal{L})\) and \((\mathcal{L}^{\otimes m}\lhd\beta_{\mathcal{L},\mathcal{L}})\),
+  framed by associators. Rewrite \(\beta_{\mathcal{L},\mathcal{L}^{\otimes m}}\) by
+  the inductive hypothesis and collapse the emergent self-braiding
+  \(\beta_{\mathcal{L},\mathcal{L}}\) to the identity by
+  \cref{lem:braiding_eq_id_of_invertible} (this is the sole use of
+  invertibility). After the hand-built whiskerings are rewritten to canonical ones
+  (\cref{lem:tensorObjWhiskerLeftIso_eq},
+  \cref{lem:tensorObjWhiskerRightIso_eq}), the remaining structural
+  associator/unitor obligation is closed by the canonical coherence tactic. This
+  is the braided analogue of the pentagon successor step of
+  \cref{lem:tensorPowAdd_assoc}.
+\end{proof}
+
+\begin{lemma}[Commutativity constraint for the tensor-power comparison]\leanok
+  \label{lem:tensorPowAdd_comm}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorPowAdd_comm}
+  \uses{lem:sheafTensorPow_add, def:isInvertible, def:tensorBraiding,
+    lem:braiding_eq_id_of_invertible, cor:sheafTensorObjAssoc,
+    lem:tensorBraiding_eq, lem:tensorObjWhiskerLeftIso_eq,
+    lem:tensorObjWhiskerRightIso_eq, lem:tensorPowAdd_zero_right,
+    lem:tensorPowAdd_succ_left_braided, lem:tensorBraiding_hexagon_forward}
+  Let \(\mathcal{L}\) be an \emph{invertible} sheaf (\cref{def:isInvertible}) and
+  \(m, m' \in \mathbb{N}\). Then the comparison family is symmetric:
+  \[
+    \mu_{m,m'} \;=\;
+      \mu_{m',m} \circ
+      \beta_{\mathcal{L}^{\otimes m}, \mathcal{L}^{\otimes m'}},
+  \]
+  i.e.\ \(\mu_{m,m'}\) factors through the braiding
+  \(\beta_{\mathcal{L}^{\otimes m},\mathcal{L}^{\otimes m'}} :
+  \mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m'}
+  \xrightarrow{\sim}
+  \mathcal{L}^{\otimes m'} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m}\)
+  (\cref{def:tensorBraiding}) followed by \(\mu_{m',m}\), after the index
+  reindexing \(m' + m = m + m'\). This is the commutativity constraint of
+  \cref{lem:sheafTensorPow_add}. The invertibility hypothesis is essential: for a
+  general sheaf of modules the section ring is the free tensor algebra on
+  \(\Gamma(X,\mathcal{L})\), and \(\mu_{m,m'}\) and \(\mu_{m',m} \circ \beta\)
+  realize \emph{different} permutations of the \(m + m'\) identical
+  \(\mathcal{L}\)-factors; already at \(m = m' = 1\) the identity reduces to
+  \(\beta_{\mathcal{L},\mathcal{L}} = \mathrm{id}\), which holds exactly when
+  \(\mathcal{L}\) is invertible (\cref{lem:braiding_eq_id_of_invertible}).
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:sheafTensorPow_add, def:tensorBraiding,
+    lem:braiding_eq_id_of_invertible, cor:sheafTensorObjAssoc,
+    lem:tensorBraiding_eq, lem:tensorObjWhiskerLeftIso_eq,
+    lem:tensorObjWhiskerRightIso_eq, lem:tensorPowAdd_zero_right,
+    lem:tensorPowAdd_zero_left, lem:tensorPowAdd_succ_left_braided,
+    lem:tensorBraiding_hexagon_forward, cor:sheafModule_braided_symmetric}
+  Induction mirroring the recursion of \(\mu\) (now on the second index), so the
+  statement relates two distinct inductions. The base cases \(m = 0\) and
+  \(m' = 0\) are the unit constraints: the right unit
+  \cref{lem:tensorPowAdd_zero_right} and the left unit
+  \cref{lem:tensorPowAdd_zero_left} read off the two sides.
+
+  \emph{Successor \(m' = c+1\).} The successor step is the symmetric-monoidal
+  hexagon, assembled from the bricks above. Unfold the left-hand side by the
+  second-index successor clause (\cref{lem:sheafTensorPow_add}), \(\mu_{m,c+1} =
+  \alpha^{-1}\circ(\mu_{m,c}\rhd\mathcal{L})\), and apply the inductive hypothesis
+  \(\mu_{m,c} = \beta_{\mathcal{L}^{\otimes m},\mathcal{L}^{\otimes c}}\circ
+  \mu_{c,m}\circ(\text{reindex})\); this exposes the lower comparison
+  \(\mu_{c,m}\) precomposed with the braiding
+  \(\beta_{\mathcal{L}^{\otimes m},\mathcal{L}^{\otimes c}}\). On the right-hand
+  side the comparison \(\mu_{c+1,m}\) is a \emph{first-index} successor that the
+  inductive hypothesis cannot reach (it supplies \(\mu_{c,m}\), not
+  \(\mu_{c+1,m}\)). Split the right-hand braiding
+  \(\beta_{\mathcal{L}^{\otimes m},\,\mathcal{L}^{\otimes(c+1)}}\) on
+  \(\mathcal{L}^{\otimes(c+1)}=\mathcal{L}^{\otimes c}\otimes_{\mathcal{O}_X}
+  \mathcal{L}\) by the descended forward hexagon
+  \cref{lem:tensorBraiding_hexagon_forward} and distribute the whiskers; the
+  shared prefix \(\alpha^{-1}\circ(\beta_{\mathcal{L}^{\otimes m},
+  \mathcal{L}^{\otimes c}}\rhd\mathcal{L})\) cancels off both sides. The residual
+  obligation is then \emph{exactly} the order-reversing recursion of
+  \(\mu_{c+1,m}\), namely brick~1\('\) (\cref{lem:tensorPowAdd_succ_left_braided}),
+  whose right-hand factor \(\beta_{\mathcal{L},\mathcal{L}^{\otimes m}}\) meets the
+  surviving \(\beta_{\mathcal{L}^{\otimes m},\mathcal{L}}\) coming from the
+  hexagon. Substituting brick~1\('\) and passing the hand-built braiding and
+  whiskerings to canonical maps (\cref{lem:tensorBraiding_eq},
+  \cref{lem:tensorObjWhiskerLeftIso_eq},
+  \cref{lem:tensorObjWhiskerRightIso_eq}), the two opposed braidings annihilate by
+  the symmetry relation \(\beta_{\mathcal{L}^{\otimes m},\mathcal{L}}\circ
+  \beta_{\mathcal{L},\mathcal{L}^{\otimes m}} = \mathrm{id}\)
+  (\cref{cor:sheafModule_braided_symmetric}); the only remaining self-braiding
+  \(\beta_{\mathcal{L},\mathcal{L}}\) on a doubled \(\mathcal{L}\)-factor is the
+  identity by \cref{lem:braiding_eq_id_of_invertible}. With both braidings
+  discharged and the \(\mathrm{tensorObjIso}\) bridges cancelled pairwise
+  (\cref{lem:tensorPowAdd_zero_right}), the residue is a pure
+  associator/unitor identity, closed by the canonical coherence
+  (\(\mathrm{monoidal}\)); the reindex \(m'+m=m+m'\) matches the two ends.
+\end{proof}
+
+\begin{lemma}[Associativity constraint for the tensor-power comparison]\leanok
+  \label{lem:tensorPowAdd_assoc}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorPowAdd_assoc}
+  \uses{lem:sheafTensorPow_add, cor:sheafTensorObjAssoc,
+    def:sheafModule_monoidalStructure, lem:tensorObjWhiskerRightIso_eq,
+    lem:tensorObjWhiskerLeftIso_eq, lem:tensorPowAdd_zero_right}
+  For an arbitrary \(\mathcal{L} : \mathbf{Mod}(\mathcal{O}_X)\) (no invertibility
+  needed --- associativity holds for all \(\mathcal{L}\)) and \(m, m', m'' \in \mathbb{N}\)
+  the two bracketings of
+  \(\mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m'}
+  \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m''}\) into
+  \(\mathcal{L}^{\otimes (m+m'+m'')}\) agree:
+  \[
+    \mu_{m+m', m''} \circ (\mu_{m,m'} \rhd \mathcal{L}^{\otimes m''})
+      \;=\;
+    \mu_{m, m'+m''} \circ (\mathcal{L}^{\otimes m} \lhd \mu_{m',m''})
+      \circ \alpha_{\mathcal{L}^{\otimes m}, \mathcal{L}^{\otimes m'},
+        \mathcal{L}^{\otimes m''}},
+  \]
+  where \(\alpha\) is the associator \cref{cor:sheafTensorObjAssoc} and \(\lhd,
+  \rhd\) the canonical whiskerings, modulo the reindexings
+  \((m+m')+m'' = m+(m'+m'')\). This is the associativity constraint of
+  \cref{lem:sheafTensorPow_add}.
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:sheafTensorPow_add, cor:sheafTensorObjAssoc,
+    def:sheafModule_monoidalStructure, lem:tensorObjWhiskerRightIso_eq,
+    lem:tensorObjWhiskerLeftIso_eq, lem:tensorPowAdd_zero_right}
+  Induction on the \emph{last} index \(m''\), mirroring the second-index recursion
+  of \(\mu = \mathrm{tensorPowAdd}\) (\cref{lem:sheafTensorPow_add}). Because that
+  recursion is now braiding-free --- each clause is built from \(\alpha^{-1}\) and a
+  single right-whisker --- both sides of the identity are composites of canonical
+  associators and whiskerings only; \emph{no braiding occurs anywhere}, so the whole
+  statement is an instance of Mac~Lane's pentagon coherence and is dischargeable by
+  the \(\mathrm{monoidal}\) coherence tactic once the project's hand-built isos are
+  rewritten to their canonical counterparts by \cref{lem:tensorObjWhiskerRightIso_eq}
+  (the associator is already canonical by \cref{cor:sheafTensorObjAssoc}).
+
+  \emph{Base case \(m'' = 0\).} Both \(\mu_{m+m',0}\) and \(\mu_{m',0}\),
+  \(\mu_{m'+0,\dots}\) collapse to right unitors (\cref{lem:tensorPowAdd_zero_right},
+  which is now \(\mathrm{rfl}\)) and \(\mathcal{L}^{\otimes 0} = \mathbf{1}\), \(\,\cdot
+  + 0 = \cdot\) hold definitionally; the two sides reduce to the unit triangle
+  \(\rho_{A\otimes B} = (A \lhd \rho_B)\circ\dots\), closed by \(\mathrm{monoidal}\).
+
+  \emph{Inductive step \(m'' = c+1\).} Unfold \(\mu_{-,\,c+1}\) on both sides by the
+  second-index succ-clause \(\alpha^{-1}\circ(\mu_{-,c}\rhd\mathcal{L})\)
+  (\cref{lem:sheafTensorPow_add}). The outer right-whisker distributes over the
+  composite and, after rewriting by \cref{lem:tensorObjWhiskerRightIso_eq}, the
+  inductive hypothesis (the \(m''=c\) instance, whiskered \(\rhd\mathcal{L}\)) folds
+  into the central atom via one pure-associator slide
+  \(\mathrm{associator\_inv\_naturality\_left}\) (\cref{cor:sheafTensorObjAssoc}) ---
+  NOT a braiding. The residual structural glue between the four folded comparison
+  atoms and the associator \(\alpha_{\mathcal{L}^{\otimes m},\mathcal{L}^{\otimes
+  m'},\mathcal{L}^{\otimes m''}}\) is a pure pentagon on canonical associators and
+  whiskerings, closed by \(\mathrm{monoidal}\). The reindexings \((m+m')+c =
+  m+(m'+c)\) etc.\ are \(\mathrm{Nat.add}\)-definitional except for one
+  \(\mathrm{add\_assoc}\) transport in the frozen statement, dispatched by a
+  \(\mathrm{subst}\) helper exactly as before.
+\end{proof}
+
+\section{Lax-monoidal global sections}
+\label{sec:sgr_lax_sections}
+
+The graded multiplication is supplied by the lax-monoidal structure of the
+global-sections functor \(\Gamma(X, -) : \ShMod(\mathcal{O}_X) \to
+\mathrm{ModuleCat}(\Gamma(X, \mathcal{O}_X))\). It is only \emph{lax} because
+global sections do not commute with sheafification: a global section of a
+sheafified tensor product is not in general a finite sum of elementary tensors of
+global sections.
+
+\begin{definition}[Section multiplication]\leanok
+  \label{def:sectionMul}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionsMul}
+  \uses{def:sheafTensorObj, lem:presheafModule_monoidal_mathlib,
+    lem:presheafModule_sheafification_mathlib}
+  Let \(\mathcal{F}, \mathcal{G}\) be sheaves of \(\mathcal{O}_X\)-modules. The
+  \emph{section multiplication} is the \(\Gamma(X,\mathcal{O}_X)\)-bilinear map
+  \[
+    \Gamma(X, \mathcal{F}) \otimes_{\Gamma(X,\mathcal{O}_X)}
+      \Gamma(X, \mathcal{G})
+    \;\longrightarrow\;
+    \Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G})
+  \]
+  defined as follows. A pair of global sections \((\sigma, \tau)\) determines,
+  by the objectwise formula of \cref{lem:presheafModule_monoidal_mathlib} at the
+  top open, the elementary tensor \(\sigma \otimes \tau \in
+  (\mathcal{F} \otimes_{p,\mathcal{O}_X} \mathcal{G})(X)\), a global section of
+  the tensor product presheaf. Composing with the global-sections component of
+  the sheafification unit
+  \(\eta : \mathcal{F} \otimes_{p,\mathcal{O}_X} \mathcal{G} \to
+  (\mathcal{F} \otimes_{p,\mathcal{O}_X} \mathcal{G})^{\#} =
+  \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G}\)
+  (\cref{lem:presheafModule_sheafification_mathlib},
+  \cref{def:sheafTensorObj}) yields a global section
+  \(\sigma \cdot \tau \in
+  \Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{G})\). Bilinearity over
+  \(\Gamma(X,\mathcal{O}_X)\) is inherited from bilinearity of the elementary
+  tensor and \(\Gamma(X,\mathcal{O}_X)\)-linearity of \(\eta\).
+\end{definition}
+
+The coherence of the section multiplication is governed by how the canonical
+coherence maps of \(X.\Modules\) interact with \(\mathrm{sectionsMul}\). Because
+\(\mathrm{sectionsMul}\) is the image under \(\Gamma(X,-)\) of the sheafification
+unit \(\eta\) evaluated at the top open, and \(\eta\) is natural, each canonical
+coherence isomorphism --- the unitors, the braiding, the associator --- pushes
+through \(\mathrm{sectionsMul}\) on the corresponding section factors. The four
+naturality helpers below record these push-through identities at the level of
+global sections; they are the section-level partners of the iso-level constraints
+\cref{lem:tensorPowAdd_zero_right}, \cref{lem:tensorPowAdd_comm} and
+\cref{lem:tensorPowAdd_assoc}. The key local fact in each case is that the
+\(\mathrm{MonoidalPresheaf}\) coherence map at the top open is the corresponding
+\(\mathrm{ModuleCat}\) symmetric-monoidal structure map, computed on elementary
+tensors of sections.
+
+\begin{lemma}[Left unitor through the section multiplication]\leanok
+  \label{lem:tensorObjUnitIso_hom_sectionsMul}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjUnitIso_hom_sectionsMul}
+  \uses{def:sectionMul, def:tensorObjUnitIso}
+  Let \(G\) be a sheaf of \(\mathcal{O}_X\)-modules and \(a \in \Gamma(X, G)\).
+  Then
+  \[
+    \Gamma\bigl(\mathrm{tensorObjUnitIso}_G\bigr)
+      \bigl(\mathrm{sectionsMul}_{\mathbf{1}_X, G}(1 \otimes a)\bigr) = a,
+  \]
+  i.e.\ applying global sections of the left unitor
+  \(\mathbf{1}_X \otimes_{\mathcal{O}_X} G \xrightarrow{\sim} G\)
+  (\cref{def:tensorObjUnitIso}) to the section product of the unit section
+  \(1 \in \Gamma(X,\mathcal{O}_X)\) and \(a\) (\cref{def:sectionMul}) returns
+  \(a\). This is the section-level reading of the left-unit law via
+  \(\eta\)-naturality of the lax structure.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  unitor). Evaluating at the top open and using the \(\mathrm{ModuleCat}\)
+  left-unitor formula \(r \otimes m \mapsto r \cdot m\) sends \(1 \otimes a\) to
+  \(1 \cdot a = a\).
+\end{proof}
+
+\begin{lemma}[Right unitor through the section multiplication]\leanok
+  \label{lem:tensorObjRightUnitor_hom_sectionsMul}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjRightUnitor_hom_sectionsMul}
+  \uses{def:sectionMul, def:tensorObjRightUnitor}
+  Let \(G\) be a sheaf of \(\mathcal{O}_X\)-modules and \(a \in \Gamma(X, G)\).
+  Then
+  \[
+    \Gamma\bigl(\mathrm{tensorObjRightUnitor}_G\bigr)
+      \bigl(\mathrm{sectionsMul}_{G, \mathbf{1}_X}(a \otimes 1)\bigr) = a,
+  \]
+  the right-unit analogue of \cref{lem:tensorObjUnitIso_hom_sectionsMul}: global
+  sections of the right unitor
+  \(G \otimes_{\mathcal{O}_X} \mathbf{1}_X \xrightarrow{\sim} G\)
+  (\cref{def:tensorObjRightUnitor}) carry the section product of \(a\) with the
+  unit section to \(a\), via the same \(\eta\)-naturality and right-triangle
+  argument and the \(\mathrm{ModuleCat}\) right-unitor formula
+  \(m \otimes r \mapsto r \cdot m\).
+\end{lemma}
+
+\begin{proof}
+  \leanok
+\end{proof}
+
+\begin{lemma}[Braiding through the section multiplication]\leanok
+  \label{lem:tensorBraiding_hom_sectionsMul}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorBraiding_hom_sectionsMul}
+  \uses{def:sectionMul, def:tensorBraiding}
+  Let \(\mathcal{F}, \mathcal{G}\) be sheaves of \(\mathcal{O}_X\)-modules,
+  \(a \in \Gamma(X,\mathcal{F})\) and \(b \in \Gamma(X,\mathcal{G})\). Then
+  \[
+    \Gamma\bigl(\mathrm{tensorBraiding}_{\mathcal{F},\mathcal{G}}\bigr)
+      \bigl(\mathrm{sectionsMul}_{\mathcal{F},\mathcal{G}}(a \otimes b)\bigr)
+      = \mathrm{sectionsMul}_{\mathcal{G},\mathcal{F}}(b \otimes a),
+  \]
+  i.e.\ global sections of the braiding (\cref{def:tensorBraiding}) push through
+  the section multiplication (\cref{def:sectionMul}), swapping the two section
+  factors. This is the section-level partner of the commutativity constraint
+  \cref{lem:tensorPowAdd_comm}.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  presheaf braiding at the top open. The
+  \(\mathrm{MonoidalPresheaf}\) braiding at the top open is the
+  \(\mathrm{ModuleCat}\) symmetric braiding (the tensor-swap
+  \(a \otimes b \mapsto b \otimes a\)), so it sends \(a \otimes b\) to
+  \(b \otimes a\), giving the stated equality.
+\end{proof}
+
+The associator push-through \cref{lem:tensorObjAssoc_hom_sectionsMul} is \emph{not}
+a one-step \(\eta\)-naturality like the braiding
+\cref{lem:tensorBraiding_hom_sectionsMul}. The braiding is the sheafification of a
+single presheaf morphism, so a single naturality square moves it through
+\(\mathrm{sectionsMul}\). The associator \cref{cor:sheafTensorObjAssoc}, by
+contrast, is the canonical Mac Lane associator \(\alpha\) of \(X.\Modules\)
+conjugated by five tensor-agreement bridges \(\mathrm{tensorObjIso}\)
+(\cref{def:tensorObjIso}) acting through the localization comparison \(\mu\)
+(\cref{lem:monoidalLocalization_mathlib}) --- not the image of one presheaf map ---
+so the one-step argument does not transfer. We therefore cut the proof into a chain
+mirroring the bridge-telescoping construction of
+\cref{lem:tensorPowAdd_zero_right}: two whiskered-unit legs
+(\cref{lem:sectionsMul_whiskerRight_unit},
+\cref{lem:sectionsMul_whiskerLeft_unit}) identifying each iterated section product
+with a sheafification unit on the raw presheaf tensor, the presheaf associator
+computed at the top open (\cref{lem:presheafAssociator_top_apply}), and a
+presheaf-morphism factorization (\cref{lem:tensorObjAssoc_eta_factor}) assembling
+them; the target then evaluates that factorization on the iterated elementary
+tensor. Throughout, \(\eta\) denotes the sheafification unit
+(\cref{lem:presheafModule_sheafification_mathlib}) and \(\otimes_{p,\mathcal{O}_X}\)
+the presheaf monoidal product (\cref{lem:presheafModule_monoidal_mathlib}).
+
+\begin{lemma}[Right-whiskered-unit leg of the iterated section product]\leanok
+  \label{lem:sectionsMul_whiskerRight_unit}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionsMul_whiskerRight_unit}
+  \uses{def:sectionMul, lem:presheafModule_monoidal_mathlib,
+    lem:isIso_sheafification_whiskerRight_unit,
+    lem:presheafModule_sheafification_mathlib}
+  Let \(A, B, C\) be sheaves of \(\mathcal{O}_X\)-modules. As morphisms of
+  presheaves of modules
+  \[
+    (A \otimes_{p,\mathcal{O}_X} B) \otimes_{p,\mathcal{O}_X} C
+      \;\longrightarrow\;
+    (A \otimes_{\mathcal{O}_X} B) \otimes_{\mathcal{O}_X} C,
+  \]
+  the right-whiskered-unit leg of the iterated section product equals the
+  sheafification unit after the right-whiskered unit:
+  \[
+    \eta_{(A \otimes_{\mathcal{O}_X} B) \otimes_{p,\mathcal{O}_X} C}
+      \circ (\eta_{A \otimes_{p,\mathcal{O}_X} B} \rhd C),
+  \]
+  where the right-whiskered unit \(\eta_{A \otimes_{p,\mathcal{O}_X} B} \rhd C\) is
+  the comparison whose sheafification is invertible by
+  \cref{lem:isIso_sheafification_whiskerRight_unit}. Its component at the top open is a \(\mathrm{ModuleCat}\)
+  morphism; equivalently, evaluating that component on the elementary tensor
+  \((a \otimes b) \otimes c\) (\(a \in \Gamma(X,A)\), \(b \in \Gamma(X,B)\),
+  \(c \in \Gamma(X,C)\)) recovers the iterated section product over the
+  already-sheafified first factor:
+  \[
+    \mathrm{sectionsMul}_{A \otimes_{\mathcal{O}_X} B,\, C}\bigl(
+      \mathrm{sectionsMul}_{A,B}(a \otimes b) \otimes c\bigr)
+    \;=\;
+    \Gamma\bigl(
+      \eta_{(A \otimes_{\mathcal{O}_X} B) \otimes_{p,\mathcal{O}_X} C}
+        \circ (\eta_{A \otimes_{p,\mathcal{O}_X} B} \rhd C)
+    \bigr)\bigl((a \otimes b) \otimes c\bigr).
+  \]
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  By the objectwise formula of \cref{lem:presheafModule_monoidal_mathlib} the
+  right-whiskering \(\eta_{A \otimes_{p,\mathcal{O}_X} B} \rhd C\) sends, at the top
+  open, \((a \otimes b) \otimes c\) to
+  \(\bigl(\eta_{A \otimes_{p,\mathcal{O}_X} B}(a \otimes b)\bigr) \otimes c\);
+  composing the two units gives the stated equality. The whisker comparison
+  \cref{lem:isIso_sheafification_whiskerRight_unit} records that this leg is the
+  invertible right-whiskered unit, the form in which it enters the bridge
+  telescoping of \cref{lem:tensorObjAssoc_eta_factor}.
+\end{proof}
+
+\begin{lemma}[Left-whiskered-unit leg of the iterated section product]\leanok
+  \label{lem:sectionsMul_whiskerLeft_unit}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionsMul_whiskerLeft_unit}
+  \uses{def:sectionMul, lem:presheafModule_monoidal_mathlib,
+    lem:isIso_sheafification_whiskerRight_unit,
+    lem:presheafModule_sheafification_mathlib}
+  Let \(A, B, C\) be sheaves of \(\mathcal{O}_X\)-modules. As morphisms of
+  presheaves of modules
+  \[
+    A \otimes_{p,\mathcal{O}_X} (B \otimes_{p,\mathcal{O}_X} C)
+      \;\longrightarrow\;
+    A \otimes_{\mathcal{O}_X} (B \otimes_{\mathcal{O}_X} C),
+  \]
+  the left-whiskered-unit leg of the iterated section product equals the
+  sheafification unit after the left-whiskered unit:
+  \[
+    \eta_{A \otimes_{p,\mathcal{O}_X} (B \otimes_{\mathcal{O}_X} C)}
+      \circ (A \lhd \eta_{B \otimes_{p,\mathcal{O}_X} C}),
+  \]
+  the left-whiskered analogue of \cref{lem:sectionsMul_whiskerRight_unit}, with the
+  left-whiskered unit \(A \lhd \eta_{B \otimes_{p,\mathcal{O}_X} C}\) (invertible
+  after sheafification by \cref{lem:isIso_sheafification_whiskerRight_unit} via the
+  presheaf braiding) replacing the right-whiskered one. Its component at the
+  top open is a \(\mathrm{ModuleCat}\) morphism; equivalently, evaluating that
+  component on the elementary tensor \(a \otimes (b \otimes c)\)
+  (\(a \in \Gamma(X,A)\), \(b \in \Gamma(X,B)\), \(c \in \Gamma(X,C)\)) recovers the
+  iterated section product over the already-sheafified second factor:
+  \[
+    \mathrm{sectionsMul}_{A,\, B \otimes_{\mathcal{O}_X} C}\bigl(
+      a \otimes \mathrm{sectionsMul}_{B,C}(b \otimes c)\bigr)
+    \;=\;
+    \Gamma\bigl(
+      \eta_{A \otimes_{p,\mathcal{O}_X} (B \otimes_{\mathcal{O}_X} C)}
+        \circ (A \lhd \eta_{B \otimes_{p,\mathcal{O}_X} C})
+    \bigr)\bigl(a \otimes (b \otimes c)\bigr).
+  \]
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \(A \lhd \eta_{B \otimes_{p,\mathcal{O}_X} C}\) at the top open as
+  \(a \otimes (b \otimes c) \mapsto a \otimes \eta_{B \otimes_{p,\mathcal{O}_X} C}(b \otimes c)\);
+  composing with the outer unit gives the equality. The left-whiskered form of
+  \cref{lem:isIso_sheafification_whiskerRight_unit} --- its proof handles left
+  whiskering by conjugating with the presheaf braiding --- supplies the
+  invertibility used in \cref{lem:tensorObjAssoc_eta_factor}.
+\end{proof}
+
+\begin{lemma}[Right-whisker naturality of the section product]\leanok
+  \label{lem:sectionsMul_whiskerRight_natural}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionsMul_whiskerRight_natural}
+  \uses{def:sectionMul, lem:presheafModule_monoidal_mathlib,
+    lem:presheafModule_sheafification_mathlib}
+  Let \(f : F \to F'\) be a morphism of sheaves of \(\mathcal{O}_X\)-modules and let
+  \(G\) be a sheaf of modules. The section product \(\mathrm{sectionsMul}\) is
+  \emph{natural in its first argument}: evaluating at the top open on
+  \(x \in \Gamma(X,F)\), \(y \in \Gamma(X,G)\),
+  \[
+    \mathrm{sectionsMul}_{F',G}\bigl(\Gamma(f)(x) \otimes y\bigr)
+      \;=\;
+    \Gamma\bigl(f \rhd G\bigr)\bigl(\mathrm{sectionsMul}_{F,G}(x \otimes y)\bigr),
+  \]
+  where \(f \rhd G : F \otimes_{\mathcal{O}_X} G \to F' \otimes_{\mathcal{O}_X} G\) is
+  the right-whiskering of \(f\) by \(G\) and \(\Gamma(-)\) denotes the top-open
+  component of a sheaf morphism. This is the general-morphism analogue of
+  \cref{lem:sectionsMul_whiskerRight_unit} (which is the special case
+  \(f = \eta_{F \otimes_p \mathbf{1}}\), the sheafification unit), and is the slide
+  used in the associativity leg of \cref{lem:sectionMul_coherent} to move an inner
+  comparison \(\Gamma(\mu)\) out of the first tensor factor of an outer
+  \(\mathrm{sectionsMul}\).
+\end{lemma}
+
+\begin{proof}
+  \leanok
+
+  By \cref{def:sectionMul}, \(\mathrm{sectionsMul}_{F,G}\) is the top-open component of
+  the sheafification unit \(\eta_{F \otimes_{p} G}\), itself the component of a natural
+  transformation (\cref{lem:presheafModule_sheafification_mathlib}). Naturality of
+  \(\eta\) along the presheaf-of-modules right-whiskering \(f \rhd_p G\) reads, as
+  presheaf morphisms,
+  \[
+    \eta_{F' \otimes_p G} \circ (f \rhd_p G)
+      \;=\;
+    (f \rhd G) \circ \eta_{F \otimes_p G}.
+  \]
+  The objectwise whiskering formula of \cref{lem:presheafModule_monoidal_mathlib}
+  identifies \(f \rhd_p G\) at the top open as
+  \(x \otimes y \mapsto \Gamma(f)(x) \otimes y\). Evaluating the naturality square at
+  the top open on the elementary tensor \(x \otimes y\) gives the displayed equality.
+\end{proof}
+
+\begin{lemma}[Left-whisker naturality of the section product]\leanok
+  \label{lem:sectionsMul_whiskerLeft_natural}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionsMul_whiskerLeft_natural}
+  \uses{def:sectionMul, lem:presheafModule_monoidal_mathlib,
+    lem:presheafModule_sheafification_mathlib}
+  Let \(F\) be a sheaf of \(\mathcal{O}_X\)-modules and let \(g : G \to G'\) be a
+  morphism of sheaves of modules. The section product \(\mathrm{sectionsMul}\) is
+  \emph{natural in its second argument}: evaluating at the top open on
+  \(x \in \Gamma(X,F)\), \(y \in \Gamma(X,G)\),
+  \[
+    \mathrm{sectionsMul}_{F,G'}\bigl(x \otimes \Gamma(g)(y)\bigr)
+      \;=\;
+    \Gamma\bigl(F \lhd g\bigr)\bigl(\mathrm{sectionsMul}_{F,G}(x \otimes y)\bigr),
+  \]
+  where \(F \lhd g : F \otimes_{\mathcal{O}_X} G \to F \otimes_{\mathcal{O}_X} G'\) is
+  the left-whiskering of \(g\) by \(F\). This is the left-handed analogue of
+  \cref{lem:sectionsMul_whiskerRight_natural} (the general-morphism analogue of
+  \cref{lem:sectionsMul_whiskerLeft_unit}), and is the slide used in the associativity
+  leg of \cref{lem:sectionMul_coherent} to move an inner comparison \(\Gamma(\mu)\) out
+  of the second tensor factor of an outer \(\mathrm{sectionsMul}\).
+\end{lemma}
+
+\begin{proof}
+  \leanok
+
+  Identical to \cref{lem:sectionsMul_whiskerRight_natural} with the roles of the two
+  tensor factors exchanged: naturality of the sheafification unit \(\eta\)
+  (\cref{lem:presheafModule_sheafification_mathlib}) along the left-whiskering
+  \(F \lhd_p g\), whose top-open component is
+  \(x \otimes y \mapsto x \otimes \Gamma(g)(y)\) by the objectwise formula of
+  \cref{lem:presheafModule_monoidal_mathlib}, evaluated on \(x \otimes y\).
+\end{proof}
+
+\begin{lemma}[Presheaf associator at the top open]\leanok
+  \label{lem:presheafAssociator_top_apply}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.presheafAssociator_top_apply}
+  \uses{lem:presheafModule_monoidal_mathlib}
+  Let \(A, B, C\) be presheaves of \(\mathcal{O}_X\)-modules. The associator
+  \(\alpha^{p}_{A,B,C}\) of the presheaf monoidal structure
+  (\cref{lem:presheafModule_monoidal_mathlib}) evaluated at the top open is the
+  \(\mathrm{ModuleCat}\) associator on the module sections, sending the iterated
+  elementary tensor to its reassociation:
+  \[
+    \alpha^{p}_{A,B,C}\bigm|_{\top}\bigl((a \otimes b) \otimes c\bigr)
+      = a \otimes (b \otimes c),
+    \qquad a \in A(\top),\ b \in B(\top),\ c \in C(\top).
+  \]
+\end{lemma}
+
+\begin{proof}\leanok\end{proof}
+
+\begin{lemma}[Presheaf-morphism factorization of the associator]\leanok
+  \label{lem:tensorObjAssoc_eta_factor}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjAssoc_eta_factor}
+  \uses{cor:sheafTensorObjAssoc, def:tensorObjIso,
+    lem:isIso_sheafification_whiskerRight_unit, lem:monoidalLocalization_mathlib,
+    lem:presheafModule_sheafification_mathlib, lem:presheafModule_monoidal_mathlib,
+    lem:tensorObjAssoc_eta_factor_sheaf}
+  Let \(A, B, C\) be sheaves of \(\mathcal{O}_X\)-modules. Then, as morphisms of
+  presheaves of modules
+  \((A \otimes_{p,\mathcal{O}_X} B) \otimes_{p,\mathcal{O}_X} C
+    \;\longrightarrow\; A \otimes_{\mathcal{O}_X} (B \otimes_{\mathcal{O}_X} C)\),
+  \[
+    \mathrm{tensorObjAssoc}_{A,B,C}
+      \circ \eta_{(A \otimes_{\mathcal{O}_X} B) \otimes_{p,\mathcal{O}_X} C}
+      \circ (\eta_{A \otimes_{p,\mathcal{O}_X} B} \rhd C)
+    \;=\;
+    \eta_{A \otimes_{p,\mathcal{O}_X} (B \otimes_{\mathcal{O}_X} C)}
+      \circ (A \lhd \eta_{B \otimes_{p,\mathcal{O}_X} C})
+      \circ \alpha^{p}_{A,B,C},
+  \]
+  where \(\alpha^{p}\) is the presheaf associator
+  (\cref{lem:presheafModule_monoidal_mathlib}). This is the
+  \(\eta\)-naturality-plus-bridge-telescoping identity that makes
+  \(\Gamma(\mathrm{tensorObjAssoc})\) push the presheaf associator through the
+  iterated \(\mathrm{sectionsMul}\). It is stated as an equality of presheaf
+  morphisms (holding component-wise at every open), the form in which the
+  bridge-telescoping is carried out; evaluating both sides at the top open on the
+  iterated elementary tensor is what feeds the associator push-through
+  \cref{lem:tensorObjAssoc_hom_sectionsMul}.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  obtain it by transporting an identity of sheaf morphisms across the naturality of
+  the sheafification unit \(\eta\) (\cref{lem:presheafModule_sheafification_mathlib}).
+  Each of the three constituent presheaf maps --- the right-whiskered unit
+  \(\eta_{A \otimes_{p} B} \rhd C\), the presheaf associator \(\alpha^{p}_{A,B,C}\)
+  (\cref{lem:presheafModule_monoidal_mathlib}), and the left-whiskered unit
+  \(A \lhd \eta_{B \otimes_{p} C}\) --- fits into a naturality square for \(\eta\):
+  composing it with the unit at its codomain equals the unit at its domain composed
+  with \(T(L(\cdot))\), the underlying presheaf map of its sheafification. Applying
+  these three naturality squares rewrites both sides of the claim as
+  \(\eta_{(A \otimes_{p} B) \otimes_{p} C}\) post-composed with \(T\) of a single
+  sheaf morphism, so the claim reduces to the equality of those two sheaf morphisms
+  inside \(X.\Modules\),
+  \[
+    L(\eta_{A \otimes_{p} B} \rhd C) \;\circ\; \mathrm{tensorObjAssoc}_{A,B,C}
+      \;=\; L(\alpha^{p}_{A,B,C}) \;\circ\; L(A \lhd \eta_{B \otimes_{p} C}),
+  \]
+  which is the sheaf-level core \cref{lem:tensorObjAssoc_eta_factor_sheaf}. (The
+  shared middle object is presented two definitionally-equal but not syntactically
+  equal ways --- \(\eta\)'s codomain carries the right-adjoint's
+  \(\mathrm{restrictScalars}(\mathbf{1})\) decoration absent from
+  \(\mathrm{tensorObjAssoc}\)'s domain --- so the three naturality rewrites are
+  performed up to this definitional equality.)
+\end{proof}
+
+\begin{lemma}[Sheafification unit on the left triangle]\leanok
+  \label{lem:sheafification_map_unit_eq}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sheafification_map_unit_eq}
+  \uses{lem:presheafModule_sheafification_mathlib}
+  Let \(L\) be the sheafification functor on presheaves of \(\mathcal{O}_X\)-modules,
+  with unit \(\eta\) and counit \(\varepsilon\) of the sheafification adjunction
+  (\cref{lem:presheafModule_sheafification_mathlib}). For a presheaf of modules
+  \(P\),
+  \[
+    L(\eta_P) \;=\; \varepsilon_{L P}^{-1},
+  \]
+  i.e.\ the sheafification of the unit at \(P\) is the inverse of the counit
+  isomorphism at \(LP\).
+\end{lemma}
+
+\begin{proof}\leanok\end{proof}
+
+\begin{lemma}[Sheaf-level associator factorization (core of \cref{lem:tensorObjAssoc_eta_factor})]\leanok
+  \label{lem:tensorObjAssoc_eta_factor_sheaf}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjAssoc_eta_factor_sheaf}
+  \uses{cor:sheafTensorObjAssoc, def:tensorObjIso,
+    lem:isIso_sheafification_whiskerRight_unit, lem:monoidalLocalization_mathlib,
+    lem:sheafification_map_unit_eq, lem:tensorPowAdd_zero_right}
+  Let \(A, B, C\) be sheaves of \(\mathcal{O}_X\)-modules and \(L\) the sheafification
+  functor. As morphisms of sheaves of \(\mathcal{O}_X\)-modules
+  \[
+    L\bigl(\eta_{A \otimes_{p,\mathcal{O}_X} B} \rhd C\bigr)
+      \;\circ\; \mathrm{tensorObjAssoc}_{A,B,C}
+    \;=\;
+    L\bigl(\alpha^{p}_{A,B,C}\bigr)
+      \;\circ\; L\bigl(A \lhd \eta_{B \otimes_{p,\mathcal{O}_X} C}\bigr),
+  \]
+  where \(\eta\) is the sheafification unit and \(\alpha^{p}\) the presheaf
+  associator (\cref{lem:presheafModule_monoidal_mathlib}). Equivalently,
+  \(\mathrm{tensorObjAssoc}\) (the canonical-\(\alpha\) form
+  \cref{cor:sheafTensorObjAssoc}) coincides with the original \(\eta\)-conjugated
+  associator \(\bigl(\mathrm{asIso}\,L(\eta \rhd C)\bigr)^{-1}
+  \circ L(\alpha^{p}) \circ \mathrm{asIso}\,L(A \lhd \eta)\).
+\end{lemma}
+
+% SOURCE QUOTE PROOF: project-bespoke (no external source; bookkeeping of the
+% inherited monoidal-localization structure of \cref{lem:monoidalLocalization_mathlib}).
+\begin{proof}
+  associator \(\alpha\) of \(X.\Modules\) flanked by the four tensor-agreement
+  bridges \(\Phi = \mathrm{tensorObjIso}\) (\cref{def:tensorObjIso}) whiskered on the
+  outer and inner factors,
+  \[
+    \mathrm{tensorObjAssoc} = \Phi^{-1}_{A\otimes B,\,C}
+      \circ (\Phi^{-1}_{A,B} \rhd C) \circ \alpha_{A,B,C}
+      \circ (A \lhd \Phi_{B,C}) \circ \Phi_{A,\,B\otimes C}.
+  \]
+  Each bridge \(\Phi\) is built from the localization comparison \(\mu\)
+  (\cref{lem:monoidalLocalization_mathlib}); the canonical associator \(\alpha\)
+  transported through the \(\mu\)'s is the sheafification \(L(\alpha^{p})\) of the
+  presheaf associator. Substitute \(L(\eta_P) = \varepsilon_{LP}^{-1}\)
+  (\cref{lem:sheafification_map_unit_eq}) so each whiskered sheafification unit on the
+  two sides becomes a whiskered counit, and rewrite the three localization-comparison
+  segments via the strong-monoidality whisker comparison
+  \cref{lem:isIso_sheafification_whiskerRight_unit} (in its right- and, via the
+  presheaf braiding, left-whiskered forms) together with the naturality of the
+  localization comparison \(\mu\) (\cref{lem:monoidalLocalization_mathlib}) in each of
+  its two arguments and the comparison identifying the transported canonical associator
+  with \(L(\alpha^{p})\). The \(\mathrm{tensorObjIso}\) bridges
+  then telescope in adjacent pairs --- the bridge-cancellation recipe already carried
+  out for \cref{lem:tensorPowAdd_zero_right} --- leaving exactly
+  \(L(\eta \rhd C)\) on the left and \(L(\alpha^{p}) \circ L(A \lhd \eta)\) on the
+  right, which is the stated equality. (As in \cref{lem:tensorObjAssoc_eta_factor},
+  every \(\mu\)-conjugation step bridges the
+  \(\mathrm{restrictScalars}(\mathbf{1})\) definitional decoration on \(\eta\)'s
+  codomain against \(\mathrm{tensorObjIso}\)'s undecorated factor, so the rewrites are
+  carried out up to that definitional equality.)
+\end{proof}
+
+\begin{lemma}[Associator through the section multiplication]\leanok
+  \label{lem:tensorObjAssoc_hom_sectionsMul}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.tensorObjAssoc_hom_sectionsMul}
+  \uses{def:sectionMul, cor:sheafTensorObjAssoc,
+    lem:sectionsMul_whiskerRight_unit, lem:sectionsMul_whiskerLeft_unit,
+    lem:presheafAssociator_top_apply, lem:tensorObjAssoc_eta_factor}
+  Let \(\mathcal{A}, \mathcal{B}, \mathcal{C}\) be sheaves of
+  \(\mathcal{O}_X\)-modules and \(a \in \Gamma(X,\mathcal{A})\),
+  \(b \in \Gamma(X,\mathcal{B})\), \(c \in \Gamma(X,\mathcal{C})\). Applying global
+  sections of the associator (\cref{cor:sheafTensorObjAssoc}) to the iterated
+  section product reassociates the three factors:
+  \[
+    \Gamma\bigl(\mathrm{tensorObjAssoc}_{\mathcal{A},\mathcal{B},\mathcal{C}}\bigr)
+      \Bigl(\mathrm{sectionsMul}\bigl(
+        \mathrm{sectionsMul}(a \otimes b) \otimes c\bigr)\Bigr)
+      = \mathrm{sectionsMul}\bigl(a \otimes \mathrm{sectionsMul}(b \otimes c)\bigr),
+  \]
+  i.e.\ \(\Gamma(\alpha)\) sends \((a \otimes b) \otimes c\) to
+  \(a \otimes (b \otimes c)\) at the level of section multiplications. This is the
+  \(\eta\)-naturality of the lax structure pushing the associator through
+  \(\mathrm{sectionsMul}\), the section-level partner of the associativity
+  constraint \cref{lem:tensorPowAdd_assoc}.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \cref{lem:sectionsMul_whiskerRight_unit}; its right side is the RHS of the claim
+  by \cref{lem:presheafAssociator_top_apply} (the presheaf associator sends
+  \((a \otimes b) \otimes c \mapsto a \otimes (b \otimes c)\)) followed by
+  \cref{lem:sectionsMul_whiskerLeft_unit}.
+\end{proof}
+
+The graded-monoid axioms below are not raw equalities between sections of two
+different tensor powers --- on \(\mathbb{N}\) the indices \((i+j)+k\) and
+\(i+(j+k)\), or \(0+n\) and \(n\), are equal but not definitionally so, so the two
+sides a priori inhabit distinct section modules. Following
+\texttt{Mathlib.LinearAlgebra.TensorPower.Basic}, we phrase each coherence as an
+honest equality in a single section module, obtained by transporting one side
+along an index-equality isomorphism, and provide a bridge that repackages such a
+transported equality as an equality of dependent pairs.
+
+\begin{definition}[Section component in degree \(m\)]\leanok
+  \label{def:sectionDeg}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionDeg}
+  \uses{def:sheafTensorPow}
+  Let \(\mathcal{L}\) be a sheaf of \(\mathcal{O}_X\)-modules. The
+  \emph{degree-\(m\) section component} is the \(\Gamma(X,\mathcal{O}_X)\)-module of
+  global sections of the \(m\)th tensor power,
+  \[
+    (\mathrm{sectionDeg}\ \mathcal{L})_m
+      \;:=\; \Gamma(X, \mathcal{L}^{\otimes m})
+      \;=\; \mathcal{L}^{\otimes m}(X)
+        \qquad(\cref{def:sheafTensorPow}).
+  \]
+  It inherits its additive-group and \(\Gamma(X,\mathcal{O}_X)\)-module structure
+  from the underlying module object \(\mathcal{L}^{\otimes m}(X)\). These are the
+  carriers \(m \mapsto (\mathrm{sectionDeg}\ \mathcal{L})_m\) of the section graded
+  ring \(R(X_s, L_s)\) (\cref{lem:sectionGradedRing_gcommSemiring}) and the
+  domains of the index transport \cref{def:sectionsCast}.
+\end{definition}
+
+\begin{definition}[Index-equality transport of section components]\leanok
+  \label{def:sectionsCast}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionsCast}
+  \uses{def:sheafTensorPow}
+  Let \(\mathcal{L}\) be an invertible sheaf on \(X\) and let \(h : i = j\) be an
+  equality of natural numbers. Applying the global-sections functor
+  \(\Gamma(X,-)\) to the canonical isomorphism
+  \(\mathcal{L}^{\otimes i} \xrightarrow{\sim} \mathcal{L}^{\otimes j}\) induced by
+  \(h\) under the tensor-power functor (\cref{def:sheafTensorPow}) yields the
+  \(\Gamma(X,\mathcal{O}_X)\)-linear isomorphism
+  \[
+    \mathrm{sectionsCast}(h) :
+    \Gamma(X, \mathcal{L}^{\otimes i}) \;\xrightarrow{\ \sim\ }\;
+    \Gamma(X, \mathcal{L}^{\otimes j}),
+  \]
+  the \emph{section-component transport} along \(h\). It is the section-level
+  analogue of the tensor-power index cast \(\mathrm{TensorPower.cast}\) of
+  \texttt{Mathlib.LinearAlgebra.TensorPower.Basic}, which transports
+  \(\bigotimes^{i} M\) to \(\bigotimes^{j} M\) along \(i = j\). Because the
+  isomorphism induced by the reflexive equality is the identity and
+  \(\Gamma(X,-)\) preserves identities, the transport along a reflexive index
+  equality is the identity map (the reflexivity simplification
+  \(\mathrm{sectionsCast\_refl}\), \cref{lem:sectionsCast_refl}).
+\end{definition}
+
+\begin{lemma}[Reflexivity of the section transport]\leanok
+  \label{lem:sectionsCast_refl}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionsCast_refl}
+  \uses{def:sectionsCast}
+  For any \(i\), the transport along the reflexive equality \(i = i\)
+  (\cref{def:sectionsCast}) equals the identity automorphism of
+  \(\Gamma(X, \mathcal{L}^{\otimes i})\). This is the section-level counterpart of
+  \(\mathrm{TensorPower.cast\_refl}\), and serves as a simplification lemma
+  collapsing the transport along a reflexive index equality.
+\end{lemma}
+
+\begin{proof}\leanok\end{proof}
+
+\begin{lemma}[Cast-mediated equality in the graded monoid]\leanok
+  \label{lem:gradedMonoid_eq_of_cast}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.gradedMonoid_eq_of_cast}
+  \uses{def:sectionsCast, lem:sectionsCast_refl}
+  Write the carrier of the graded monoid as the dependent sum
+  \(\coprod_{n} \Gamma(X, \mathcal{L}^{\otimes n})\), whose elements are pairs
+  \((n, s)\) with \(s \in \Gamma(X, \mathcal{L}^{\otimes n})\). Let
+  \(a = (i, x)\) and \(b = (j, y)\) be two such pairs. If \(h : i = j\) and the
+  transported component agrees, \(\mathrm{sectionsCast}(h)\,x = y\), then
+  \(a = b\). That is, a component-level equality mediated by the index transport
+  \cref{def:sectionsCast} repackages into a genuine equality of dependent pairs.
+  This is the section-level analogue of the bridge
+  \(\mathrm{gradedMonoid\_eq\_of\_cast}\) of
+  \texttt{Mathlib.LinearAlgebra.TensorPower.Basic} (line~123 there).
+\end{lemma}
+
+\begin{proof}
+  \leanok
+\end{proof}
+
+\begin{definition}[Graded multiplication on section components]
+  \label{def:sectionGradedGMul}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.instGMulNatSectionDeg}
+  \uses{def:sectionDeg, def:sectionMul, lem:sheafTensorPow_add}
+  The section components \cref{def:sectionDeg} carry a graded multiplication
+  \[
+    (\mathrm{sectionDeg}\ \mathcal{L})_i \times
+      (\mathrm{sectionDeg}\ \mathcal{L})_j
+    \;\longrightarrow\; (\mathrm{sectionDeg}\ \mathcal{L})_{i+j},
+    \qquad (a, b) \longmapsto a \cdot b,
+  \]
+  landing in the index-sum component (a \(\mathrm{GradedMonoid.GMul}\) on
+  \(m \mapsto (\mathrm{sectionDeg}\ \mathcal{L})_m\)). It is the section
+  multiplication \(a \otimes b \mapsto a \cdot b\) (\cref{def:sectionMul}) on
+  \(\mathcal{L}^{\otimes i}\) and \(\mathcal{L}^{\otimes j}\), followed by global
+  sections of the tensor-power comparison isomorphism \(\mu_{i,j}\)
+  (\cref{lem:sheafTensorPow_add}),
+  \[
+    \Gamma(X, \mathcal{L}^{\otimes i}) \otimes_{\Gamma(X,\mathcal{O}_X)}
+      \Gamma(X, \mathcal{L}^{\otimes j})
+    \xrightarrow{\ \cdot\ }
+    \Gamma(X, \mathcal{L}^{\otimes i} \otimes_{\mathcal{O}_X}
+      \mathcal{L}^{\otimes j})
+    \xrightarrow{\ \Gamma(\mu_{i,j})\ }
+    \Gamma(X, \mathcal{L}^{\otimes (i+j)}).
+  \]
+\end{definition}
+
+\begin{definition}[Graded unit in degree zero]
+  \label{def:sectionGradedGOne}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.instGOneNatSectionDeg}
+  \uses{def:sectionDeg, lem:moduleUnit_mathlib}
+  The graded unit (a \(\mathrm{GradedMonoid.GOne}\) on
+  \(m \mapsto (\mathrm{sectionDeg}\ \mathcal{L})_m\)) is the element
+  \[
+    1 \;\in\; (\mathrm{sectionDeg}\ \mathcal{L})_0
+      = \Gamma(X, \mathcal{L}^{\otimes 0}) = \Gamma(X, \mathcal{O}_X),
+  \]
+  the image of \(1 \in \Gamma(X, \mathcal{O}_X)\) under the canonical
+  \(\Gamma(X,\mathcal{O}_X)\)-module identification
+  \(\Gamma(X, \mathcal{O}_X) = \Gamma(X, \mathcal{L}^{\otimes 0})\) coming from the
+  unit module \(\mathcal{L}^{\otimes 0} = \mathbf{1}_X\)
+  (\cref{lem:moduleUnit_mathlib}).
+\end{definition}
+
+\begin{lemma}[Coherence of the section multiplication]
+  \label{lem:sectionMul_coherent}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionsMul_one_mul,
+    AlgebraicGeometry.Scheme.Modules.sectionsMul_mul_one,
+    AlgebraicGeometry.Scheme.Modules.sectionsMul_mul_assoc,
+    AlgebraicGeometry.Scheme.Modules.sectionsMul_mul_comm}
+  \uses{def:sectionMul, def:sectionsCast, def:sectionGradedGMul,
+    def:sectionGradedGOne, def:isInvertible, lem:moduleUnit_mathlib,
+    lem:sheafTensorPow_add,
+    lem:tensorPowAdd_zero_right, lem:tensorPowAdd_zero_left, lem:tensorPowAdd_comm,
+    lem:tensorPowAdd_assoc,
+    lem:tensorObjUnitIso_hom_sectionsMul, lem:tensorObjRightUnitor_hom_sectionsMul,
+    lem:tensorBraiding_hom_sectionsMul, lem:tensorObjAssoc_hom_sectionsMul,
+    lem:sectionsMul_whiskerRight_natural, lem:sectionsMul_whiskerLeft_natural}
+  Write \(a \cdot b\) for the degreewise section multiplication on tensor powers:
+  for \(a \in \Gamma(X, \mathcal{L}^{\otimes i})\) and
+  \(b \in \Gamma(X, \mathcal{L}^{\otimes j})\) it is the elementary section
+  multiplication (\cref{def:sectionMul}) followed by the tensor-power comparison
+  isomorphism \(\mu_{i,j}\) (\cref{lem:sheafTensorPow_add}), landing in
+  \(\Gamma(X, \mathcal{L}^{\otimes (i+j)})\); and let \(1\) denote the unit of
+  degree \(0\), the image of \(1 \in \Gamma(X,\mathcal{O}_X)\) under the
+  identification \(\Gamma(X,\mathcal{O}_X) = \Gamma(X, \mathcal{L}^{\otimes 0})\)
+  (\cref{lem:moduleUnit_mathlib}). Mirroring
+  \(\mathrm{TensorPower.\{one\_mul, mul\_one, mul\_assoc\}}\) together with the
+  commutativity lemma of \texttt{Mathlib.LinearAlgebra.TensorPower.Basic}, the
+  multiplication satisfies the following four component-level identities. Each is
+  an honest equality in a single section module, obtained by transporting one side
+  along the relevant index equality via \cref{def:sectionsCast}; the subscript on
+  \(\mathrm{sectionsCast}\) records that index equality. The first three ---
+  left and right unitality and associativity --- hold for an \emph{arbitrary}
+  sheaf of modules \(\mathcal{L}\), and make the section components a
+  non-commutative graded semiring. The fourth --- commutativity --- requires
+  \(\mathcal{L}\) to be \emph{invertible} (\cref{def:isInvertible}); it is the
+  upgrade to a graded \emph{commutative} semiring and is false for general
+  \(\mathcal{L}\), the section ring then being the free tensor algebra on
+  \(\Gamma(X,\mathcal{L})\).
+  \begin{itemize}
+    \item \emph{Left unitality.} For \(a \in \Gamma(X, \mathcal{L}^{\otimes n})\),
+      \[
+        \mathrm{sectionsCast}_{\,0+n=n}\,(1 \cdot a) = a .
+      \]
+    \item \emph{Right unitality.} For \(a \in \Gamma(X, \mathcal{L}^{\otimes n})\),
+      \[
+        \mathrm{sectionsCast}_{\,n+0=n}\,(a \cdot 1) = a .
+      \]
+    \item \emph{Associativity.} For
+      \(a \in \Gamma(X, \mathcal{L}^{\otimes n_a})\),
+      \(b \in \Gamma(X, \mathcal{L}^{\otimes n_b})\),
+      \(c \in \Gamma(X, \mathcal{L}^{\otimes n_c})\),
+      \[
+        \mathrm{sectionsCast}_{\,(n_a+n_b)+n_c = n_a+(n_b+n_c)}\,
+          ((a \cdot b) \cdot c) = a \cdot (b \cdot c) .
+      \]
+    \item \emph{Commutativity (\(\mathcal{L}\) invertible,
+      \cref{def:isInvertible}).} For
+      \(a \in \Gamma(X, \mathcal{L}^{\otimes n_a})\) and
+      \(b \in \Gamma(X, \mathcal{L}^{\otimes n_b})\),
+      \[
+        \mathrm{sectionsCast}_{\,n_a+n_b = n_b+n_a}\,(a \cdot b) = b \cdot a .
+      \]
+  \end{itemize}
+  The transport is indispensable: the indices on the two sides of each identity
+  are equal but not definitionally so, hence a priori live in distinct section
+  modules, and \cref{def:sectionsCast} moves one side into the other's module to
+  produce a genuine equality there.
+\end{lemma}
+
+\begin{proof}  \uses{def:sectionMul, def:sectionsCast, def:sectionGradedGMul,
+    lem:sheafTensorPow_add, lem:moduleUnit_mathlib,
+    lem:tensorPowAdd_zero_right, lem:tensorPowAdd_zero_left, lem:tensorPowAdd_comm,
+    lem:tensorPowAdd_assoc,
+    lem:tensorObjUnitIso_hom_sectionsMul, lem:tensorObjRightUnitor_hom_sectionsMul,
+    lem:tensorBraiding_hom_sectionsMul, lem:tensorObjAssoc_hom_sectionsMul,
+    lem:sectionsMul_whiskerRight_natural, lem:sectionsMul_whiskerLeft_natural}
+  Each identity is obtained by unfolding the degreewise multiplication
+  \(a \cdot b = \Gamma(\mu_{i,j})\bigl(\mathrm{sectionsMul}(a \otimes b)\bigr)\)
+  (\cref{def:sectionGradedGMul}, \cref{def:sectionMul},
+  \cref{lem:sheafTensorPow_add}) and combining two ingredients: an
+  \emph{iso-level constraint} on the comparison family \(\{\mu_{m,m'}\}\), and the
+  \emph{section-level naturality} that pushes the corresponding canonical coherence
+  map through \(\mathrm{sectionsMul}\). The index transport \cref{def:sectionsCast}
+  --- the image under \(\Gamma(X,-)\) of the reindexing isomorphism of tensor
+  powers --- matches the two sides, which a priori inhabit the distinct section
+  modules of two equal-but-not-definitionally-equal indices, into a common module.
+
+  \emph{Left unitality.} Unfolding \(1 \cdot a\) and using the base case
+  \(\mu_{0,n} = \lambda\) of \cref{lem:sheafTensorPow_add}, the inner reindexing
+  cast pairs with the outer \(\mathrm{sectionsCast}_{\,0+n=n}\) and the two cancel;
+  \cref{lem:tensorObjUnitIso_hom_sectionsMul} then closes the leg.
+
+  \emph{Right unitality.} Unfolding \(a \cdot 1\) and rewriting the comparison by
+  the right-unit constraint \(\mu_{n,0} = \mathrm{tensorObjRightUnitor}\)
+  (\cref{lem:tensorPowAdd_zero_right}),
+  \cref{lem:tensorObjRightUnitor_hom_sectionsMul} closes the leg after the residual
+  reflexive transport collapses.
+
+  \emph{Associativity.} Unfold both bracketings to composites
+  \(\Gamma(\mu) \circ \mathrm{sectionsMul}\). Unlike the unit legs --- where the
+  inner factor is the literal degree-\(0\) unit and carries no comparison --- here
+  each bracketing hides an \emph{inner} comparison nested inside one tensor factor of
+  the outer \(\mathrm{sectionsMul}\), and these must first be slid out. On the left,
+  \[
+    (a \cdot b) \cdot c
+      = \Gamma(\mu_{n_a+n_b,\,n_c})\Bigl(
+          \mathrm{sectionsMul}_{\mathcal{L}^{n_a+n_b},\mathcal{L}^{n_c}}\bigl(
+            \Gamma(\mu_{n_a,n_b})(\mathrm{sectionsMul}(a \otimes b)) \otimes c\bigr)\Bigr),
+  \]
+  and the right-whisker naturality \cref{lem:sectionsMul_whiskerRight_natural}
+  (applied to \(f = \mu_{n_a,n_b}\), \(G = \mathcal{L}^{n_c}\)) slides
+  \(\Gamma(\mu_{n_a,n_b})\) out of the first factor, giving
+  \(\Gamma\bigl(\mu_{n_a+n_b,\,n_c} \circ (\mu_{n_a,n_b} \rhd \mathcal{L}^{n_c})\bigr)\)
+  applied to the bare iterated product
+  \(\mathrm{sectionsMul}(\mathrm{sectionsMul}(a \otimes b) \otimes c)\). Symmetrically,
+  on the right, the left-whisker naturality
+  \cref{lem:sectionsMul_whiskerLeft_natural} (applied to \(g = \mu_{n_b,n_c}\),
+  \(F = \mathcal{L}^{n_a}\)) slides \(\Gamma(\mu_{n_b,n_c})\) out of the second factor,
+  giving \(\Gamma\bigl(\mu_{n_a,\,n_b+n_c} \circ (\mathcal{L}^{n_a} \lhd \mu_{n_b,n_c})\bigr)\)
+  applied to \(\mathrm{sectionsMul}(a \otimes \mathrm{sectionsMul}(b \otimes c))\). Both
+  sides are now \(\Gamma(\text{comparison composite}) \circ (\text{iterated }
+  \mathrm{sectionsMul})\). The iso-level associativity (pentagon) constraint
+  \cref{lem:tensorPowAdd_assoc} equates the two comparison composites along the
+  associator \(\alpha\) modulo the reindexing
+  \((n_a+n_b)+n_c = n_a+(n_b+n_c)\):
+  \[
+    \mu_{n_a+n_b,\,n_c} \circ (\mu_{n_a,n_b} \rhd \mathcal{L}^{n_c})
+      \;=\;
+    \mathrm{(reindex)} \circ \mu_{n_a,\,n_b+n_c}
+      \circ (\mathcal{L}^{n_a} \lhd \mu_{n_b,n_c}) \circ \alpha,
+  \]
+  and the section-level associator naturality
+  \cref{lem:tensorObjAssoc_hom_sectionsMul} pushes the residual \(\Gamma(\alpha)\)
+  through the iterated \(\mathrm{sectionsMul}\), reassociating the three section
+  factors; the transport
+  \(\mathrm{sectionsCast}_{\,(n_a+n_b)+n_c = n_a+(n_b+n_c)}\) absorbs the reindexing
+  and identifies the two sides in a single module. This is the right-unit leg with the
+  associator triple
+  (\cref{lem:tensorPowAdd_assoc} + \cref{lem:tensorObjAssoc_hom_sectionsMul} +
+  the two slides \cref{lem:sectionsMul_whiskerRight_natural},
+  \cref{lem:sectionsMul_whiskerLeft_natural}) in place of the right-unitor pair.
+
+  \emph{Commutativity.} Symmetrically, the iso-level commutativity constraint
+  \cref{lem:tensorPowAdd_comm} factors \(\mu_{n_a,n_b}\) through the braiding into
+  \(\mu_{n_b,n_a}\), and the section-level naturality
+  \cref{lem:tensorBraiding_hom_sectionsMul} pushes \(\Gamma(\beta)\) through
+  \(\mathrm{sectionsMul}\), swapping the two section factors; the transport
+  \(\mathrm{sectionsCast}_{\,n_a+n_b = n_b+n_a}\) identifies the two sides. This is
+  again the right-unit leg with the braiding pair (\cref{lem:tensorPowAdd_comm} +
+  \cref{lem:tensorBraiding_hom_sectionsMul}) in place of the right-unitor pair.
+\end{proof}
+
+\section{Graded-ring and graded-module assembly}
+\label{sec:sgr_graded_assembly}
+
+The components and multiplications of the previous two sections are assembled
+into the graded ring and graded module through Mathlib's
+\emph{external-direct-sum} graded API: the relevant inputs are families of
+abelian groups indexed by \(\mathbb{N}\) together with multiplication maps
+landing in the index-sum component, not submodules of a pre-existing ring.
+
+\begin{lemma}[External-direct-sum graded semiring]
+  \label{lem:directSum_gsemiring_mathlib}
+  \dcref{custom}
+  \lean{DirectSum.GSemiring}
+  \mathlibok
+  \textit{Provided by Mathlib (\texttt{Mathlib.Algebra.DirectSum.Ring}).}
+  Let \(A : \mathbb{N} \to \mathrm{Type}\) be a family of additive commutative
+  monoids equipped with a graded multiplication \(A_i \times A_j \to A_{i+j}\) and
+  a unit \(1 \in A_0\) satisfying graded associativity, two-sided unitality and
+  distributivity --- but \emph{not} necessarily graded commutativity (the data of
+  a \(\mathrm{GSemiring}\) on \(A\)). Then the external direct sum
+  \(\bigoplus_i A_i\) is a (not necessarily commutative) semiring, with
+  multiplication the bilinear extension of the graded multiplication and identity
+  the image of \(1 \in A_0\). This is the general assembly; the commutative
+  upgrade is \cref{lem:directSum_gcommSemiring_mathlib}, which adds graded
+  commutativity.
+\end{lemma}
+
+\begin{lemma}[External-direct-sum graded commutative semiring]
+  \label{lem:directSum_gcommSemiring_mathlib}
+  \dcref{custom}
+  \lean{DirectSum.GCommSemiring}
+  \mathlibok
+  \textit{Provided by Mathlib (\texttt{Mathlib.Algebra.DirectSum.Ring}).}
+  Let \(A : \mathbb{N} \to \mathrm{Type}\) be a family of additive commutative
+  monoids equipped with a graded multiplication
+  \(A_i \times A_j \to A_{i+j}\) and a unit \(1 \in A_0\) satisfying graded
+  associativity, two-sided unitality, distributivity, and graded commutativity
+  (the data of a \(\mathrm{GCommSemiring}\) on \(A\)). Then the external direct
+  sum \(\bigoplus_i A_i\) is a commutative semiring, with multiplication the
+  bilinear extension of the graded multiplication and identity the image of
+  \(1 \in A_0\).
+\end{lemma}
+
+\begin{lemma}[External-direct-sum graded module]
+  \label{lem:directSum_gmodule_mathlib}
+  \dcref{custom}
+  \lean{DirectSum.Gmodule}
+  \mathlibok
+  \textit{Provided by Mathlib (\texttt{Mathlib.Algebra.Module.GradedModule}).}
+  Let \(A : \mathbb{N} \to \mathrm{Type}\) carry a graded semiring structure as
+  in \cref{lem:directSum_gsemiring_mathlib} and let
+  \(M : \mathbb{N} \to \mathrm{Type}\) be a family of additive commutative
+  monoids with a graded scalar action \(A_i \times M_j \to M_{i+j}\) satisfying
+  the graded module axioms (the data of a \(\mathrm{Gmodule}\) of \(M\) over
+  \(A\)). Then the external direct sum \(\bigoplus_j M_j\) is a module over the
+  semiring \(\bigoplus_i A_i\), with scalar multiplication the bilinear
+  extension of the graded action.
+\end{lemma}
+
+\begin{lemma}[Graded monoid structure on the section components]\leanok
+  \label{lem:sectionGradedRing_gmonoid}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionGradedRing_gmonoid}
+  \uses{lem:sectionMul_coherent, lem:gradedMonoid_eq_of_cast,
+    def:sectionGradedGMul, def:sectionGradedGOne}
+  Let \(\mathcal{L}\) be an arbitrary sheaf of \(\mathcal{O}_X\)-modules. The degree
+  family \(\mathrm{sectionDeg}\,\mathcal{L}\), \(m \mapsto
+  \Gamma(X,\mathcal{L}^{\otimes m})\), equipped with the graded multiplication
+  \(\mathrm{gMul}\) (\cref{def:sectionGradedGMul}) and graded unit \(\mathrm{gOne}\)
+  (\cref{def:sectionGradedGOne}), is a graded monoid (a
+  \(\mathrm{GradedMonoid.GMonoid}\) on \(\mathrm{sectionDeg}\,\mathcal{L}\)).
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \uses{lem:sectionMul_coherent, lem:gradedMonoid_eq_of_cast,
+    def:sectionGradedGMul, def:sectionGradedGOne}
+  The three graded-monoid axioms --- left unitality, right unitality and
+  associativity of \(\mathrm{gMul}\) about \(\mathrm{gOne}\) --- are the first three
+  \emph{hypothesis-free} clauses of \cref{lem:sectionMul_coherent}, stated as
+  transport-mediated equalities of sections. Each is converted into the required
+  equality of dependent \(\mathrm{GradedMonoid}\) pairs by the bridge
+  \cref{lem:gradedMonoid_eq_of_cast}, which turns a transport-mediated equality into an
+  equality of pairs. This assembles the \(\mathrm{GMonoid}\) on
+  \(\mathrm{sectionDeg}\,\mathcal{L}\).
+\end{proof}
+
+\begin{lemma}[Graded semiring structure on the section components (general)]
+\leanok
+  \label{lem:sectionGradedRing_gsemiring}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionGradedRing_gsemiring}
+  \uses{def:sheafTensorPow, lem:sheafTensorPow_add, def:sectionMul,
+    lem:sectionMul_coherent, def:sectionsCast, lem:gradedMonoid_eq_of_cast,
+    lem:directSum_gsemiring_mathlib, lem:moduleUnit_mathlib}
+  Let \(\mathcal{L}\) be an \emph{arbitrary} sheaf of \(\mathcal{O}_X\)-modules on
+  \(X\). The family of \(\Gamma(X,\mathcal{O}_X)\)-modules
+  \(m \mapsto \Gamma(X, \mathcal{L}^{\otimes m})\) carries a graded
+  \emph{semiring} structure (a \(\mathrm{GSemiring}\),
+  \cref{lem:directSum_gsemiring_mathlib}) whose degree-\((m,m')\) multiplication is
+  the composite
+  \[
+    \Gamma(X, \mathcal{L}^{\otimes m}) \otimes_{\Gamma(X,\mathcal{O}_X)}
+      \Gamma(X, \mathcal{L}^{\otimes m'})
+    \xrightarrow{\ \cdot\ }
+    \Gamma\bigl(X, \mathcal{L}^{\otimes m} \otimes_{\mathcal{O}_X}
+      \mathcal{L}^{\otimes m'}\bigr)
+    \xrightarrow{\ \Gamma(\mu_{m,m'})\ }
+    \Gamma\bigl(X, \mathcal{L}^{\otimes (m+m')}\bigr),
+  \]
+  the section multiplication (\cref{def:sectionMul}) followed by the tensor-power
+  comparison isomorphism (\cref{lem:sheafTensorPow_add}), with unit
+  \(1 \in \Gamma(X, \mathcal{O}_X) = \Gamma(X, \mathcal{L}^{\otimes 0})\)
+  (\cref{lem:moduleUnit_mathlib}). Consequently
+  \(\bigoplus_{m \ge 0} \Gamma(X, \mathcal{L}^{\otimes m})\) is a semiring. This
+  structure exists for \emph{every} \(\mathcal{L}\) and is in general
+  \emph{non-commutative} --- it is the free tensor algebra on
+  \(\Gamma(X,\mathcal{L})\) --- because it uses only the unit and associativity
+  clauses of \cref{lem:sectionMul_coherent}, which hold without hypotheses; graded
+  commutativity (the invertible upgrade \cref{lem:sectionGradedRing_gcommSemiring})
+  is \emph{not} part of this layer.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \uses{lem:sectionGradedRing_gmonoid, lem:gradedMonoid_eq_of_cast, def:sectionMul,
+    lem:directSum_gsemiring_mathlib}
+  The structure is assembled field-for-field as \(\mathrm{TensorPower}\) builds its
+  graded semiring in \texttt{Mathlib.LinearAlgebra.TensorPower.Basic}. The
+  degreewise multiplication \(\Gamma(\mu_{m,m'}) \circ (\,\cdot\,)\) of the
+  statement and the degree-\(0\) unit \(1 \in \Gamma(X, \mathcal{L}^{\otimes 0})\)
+  provide the graded multiplication and unit. Their graded-monoid axioms --- left
+  and right unitality and associativity --- are the first three (hypothesis-free)
+  component-level identities of \cref{lem:sectionMul_coherent}, each passed through
+  the bridge \cref{lem:gradedMonoid_eq_of_cast}, which converts a
+  transport-mediated equality (\cref{def:sectionsCast}) into the required equality
+  of dependent pairs; the graded power operation is the default iterated product
+  and contributes no further data. This yields the graded-monoid layer.
+
+  The remaining semiring axioms are the bilinearity (left and right distributivity
+  and annihilation by \(0\)) of the graded multiplication and the behaviour of the
+  natural-number coercion. Bilinearity is immediate: the degreewise multiplication
+  \(\Gamma(\mu_{m,m'}) \circ (\,\cdot\,)\) is \(\Gamma(X,\mathcal{O}_X)\)-bilinear,
+  being the composite of the bilinear section multiplication (\cref{def:sectionMul})
+  with the linear comparison \(\Gamma(\mu_{m,m'})\)
+  (\cref{lem:sheafTensorPow_add}), so each side vanishes on \(0\) and distributes
+  over sums. The natural-number coercion sends \(n\) to \(n \cdot 1\), the
+  \(n\)-fold sum of the degree-\(0\) unit. These are precisely the data of a
+  \(\mathrm{GSemiring}\) on \(m \mapsto \Gamma(X, \mathcal{L}^{\otimes m})\), so
+  \cref{lem:directSum_gsemiring_mathlib} endows
+  \(\bigoplus_{m \ge 0} \Gamma(X, \mathcal{L}^{\otimes m})\) with its semiring
+  structure. No commutativity clause enters.
+\end{proof}
+
+\begin{lemma}[A semiring structure on the section direct sum exists]\leanok
+  \label{lem:sectionGradedRing_semiring_nonempty}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionGradedRing_semiring_nonempty}
+  \uses{lem:sectionGradedRing_gsemiring, lem:directSum_gsemiring_mathlib}
+  Let \(\mathcal{L}\) be an arbitrary sheaf of \(\mathcal{O}_X\)-modules. Then the
+  external direct sum \(\bigoplus_{m \ge 0} \Gamma(X,\mathcal{L}^{\otimes m})\)
+  admits a semiring structure; equivalently the type of semiring structures on it
+  is nonempty.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \uses{lem:sectionGradedRing_gsemiring, lem:directSum_gsemiring_mathlib}
+  By \cref{lem:sectionGradedRing_gsemiring} the family \(m \mapsto
+  \Gamma(X,\mathcal{L}^{\otimes m})\) carries a \(\mathrm{GSemiring}\). Mathlib's
+  external-direct-sum assembly (\cref{lem:directSum_gsemiring_mathlib}, via
+  \(\mathrm{DirectSum.toSemiring}\)) turns this graded data into a genuine semiring
+  on \(\bigoplus_{m \ge 0} \Gamma(X,\mathcal{L}^{\otimes m})\); exhibiting this one
+  structure witnesses the nonemptiness.
+\end{proof}
+
+\begin{lemma}[A commutative semiring structure on the section direct sum exists]\leanok
+  \label{lem:sectionGradedRing_commSemiring_nonempty}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionGradedRing_commSemiring_nonempty}
+  \uses{lem:sectionGradedRing_gcommSemiring, lem:directSum_gcommSemiring_mathlib}
+  Let \(L\) be an \emph{invertible} sheaf of \(\mathcal{O}_X\)-modules. Then the
+  external direct sum \(\bigoplus_{m \ge 0} \Gamma(X, L^{\otimes m})\) admits a
+  commutative semiring structure.
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:sectionGradedRing_gcommSemiring, lem:directSum_gcommSemiring_mathlib}
+  \leanok
+  By \cref{lem:sectionGradedRing_gcommSemiring} the family \(m \mapsto
+  \Gamma(X, L^{\otimes m})\) carries a \(\mathrm{GCommSemiring}\) when \(L\) is
+  invertible. The external-direct-sum assembly
+  \cref{lem:directSum_gcommSemiring_mathlib} turns this graded data into a genuine
+  commutative semiring on \(\bigoplus_{m \ge 0} \Gamma(X, L^{\otimes m})\).
+\end{proof}
+
+\begin{lemma}[Graded commutative semiring for an invertible sheaf]\leanok
+  \label{lem:sectionGradedRing_gcommSemiring}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionGradedRing_gcommSemiring}
+  \uses{def:isInvertible, lem:sectionGradedRing_gsemiring, lem:sheafTensorPow_add,
+    def:sectionMul, lem:sectionMul_coherent, def:sectionsCast,
+    lem:gradedMonoid_eq_of_cast, lem:directSum_gcommSemiring_mathlib,
+    lem:moduleUnit_mathlib}
+  % SOURCE: \cite{stacks-project}, "Sheaves of Modules", \S "Invertible modules",
+  % preceding `definition-gamma-star' (Tag 01CV) (read from
+  % references/stacks-modules.tex, L4257-L4267).
+  % SOURCE QUOTE:
+  % "Let $(X, \mathcal{O}_X)$ be a ringed space. We can define a $\mathbf{Z}$-graded
+  %  ring structure on $\bigoplus \Gamma(X, \mathcal{L}^{\otimes n})$ by mapping
+  %  $s \in \Gamma(X, \mathcal{L}^{\otimes n})$ and
+  %  $t \in \Gamma(X, \mathcal{L}^{\otimes m})$ to the
+  %  section corresponding to $s \otimes t$ in
+  %  $\Gamma(X, \mathcal{L}^{\otimes n + m})$.
+  %  We omit the verification that this defines a commutative
+  %  and associative ring with $1$."
+  \textit{Source: \cite{stacks-project}, "Sheaves of Modules", Tag 01CV (the graded
+  ring structure on \(\bigoplus \Gamma(X,\mathcal{L}^{\otimes n})\)).}
+  Let \(L_s\) be an \emph{invertible} sheaf --- a line bundle,
+  \cref{def:isInvertible} --- on \(X_s\). Then the graded semiring of
+  \cref{lem:sectionGradedRing_gsemiring} on
+  \(m \mapsto \Gamma(X_s, L_s^{\otimes m})\) is graded \emph{commutative} (a
+  \(\mathrm{GCommSemiring}\), \cref{lem:directSum_gcommSemiring_mathlib}), with the
+  same degree-\((m,m')\) multiplication
+  \[
+    \Gamma(X_s, L_s^{\otimes m}) \otimes_{\Gamma(X_s,\mathcal{O}_{X_s})}
+      \Gamma(X_s, L_s^{\otimes m'})
+    \xrightarrow{\ \cdot\ }
+    \Gamma\bigl(X_s, L_s^{\otimes m} \otimes L_s^{\otimes m'}\bigr)
+    \xrightarrow{\ \Gamma(\mu_{m,m'})\ }
+    \Gamma\bigl(X_s, L_s^{\otimes (m+m')}\bigr)
+  \]
+  and unit \(1 \in \Gamma(X_s, \mathcal{O}_{X_s}) = \Gamma(X_s, L_s^{\otimes 0})\)
+  (\cref{lem:moduleUnit_mathlib}). Consequently
+  \(R(X_s, L_s) = \bigoplus_{m \ge 0} \Gamma(X_s, L_s^{\otimes m})\) is a
+  commutative semiring; this is the graded-ring structure underlying
+  \cref{def:sectionGradedRing}. Invertibility of \(L_s\) enters only here, through
+  the commutativity clause; for a general sheaf only the non-commutative semiring
+  \cref{lem:sectionGradedRing_gsemiring} is available.
+\end{lemma}
+
+\begin{proof}
+  \uses{def:isInvertible, lem:sectionGradedRing_gsemiring, lem:sectionMul_coherent,
+    lem:gradedMonoid_eq_of_cast, def:sectionsCast,
+    lem:directSum_gcommSemiring_mathlib}
+    \leanok
+  By \cref{lem:sectionGradedRing_gsemiring} the family
+  \(m \mapsto \Gamma(X_s, L_s^{\otimes m})\) is already a graded semiring, so it
+  remains only to supply graded commutativity. Since \(L_s\) is invertible, the
+  commutativity clause of \cref{lem:sectionMul_coherent} holds; passing it through
+  the bridge \cref{lem:gradedMonoid_eq_of_cast} --- which converts the
+  transport-mediated equality (\cref{def:sectionsCast}) into an equality of
+  dependent pairs --- yields the graded-commutativity axiom. Adjoining it to the
+  graded-semiring data produces a \(\mathrm{GCommSemiring}\) on
+  \(m \mapsto \Gamma(X_s, L_s^{\otimes m})\), so
+  \cref{lem:directSum_gcommSemiring_mathlib} endows
+  \(\bigoplus_{m \ge 0} \Gamma(X_s, L_s^{\otimes m})\) with its commutative-semiring
+  structure.
+\end{proof}
+
+\begin{definition}[Action comparison isomorphism for the twisted module]\leanok
+  \label{def:moduleTensorPowAdd}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.moduleTensorPowAdd}
+  \uses{cor:sheafTensorObjAssoc, def:tensorBraiding, def:sheafTensorObj,
+    def:sheafTensorPow, lem:sheafTensorPow_add}
+  Let \(\mathcal{F}\) be a sheaf of \(\mathcal{O}_X\)-modules and \(\mathcal{L}\) a
+  line bundle. For \(i, j \in \mathbb{N}\) the \emph{action comparison
+  isomorphism} is the isomorphism of sheaves of \(\mathcal{O}_X\)-modules
+  \[
+    \mathcal{L}^{\otimes i} \otimes_{\mathcal{O}_X}
+      \bigl(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes j}\bigr)
+    \;\xrightarrow{\ \cong\ }\;
+    \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes (i+j)}
+  \]
+  relating the left graded action of the section ring on the twisted module
+  \(\mathcal{F}(j)\) (\cref{def:sheafModuleTwist}) with the merge of the
+  line-bundle factors. It is assembled from the sheaf-level associator
+  (\cref{cor:sheafTensorObjAssoc}), the braiding
+  \(\beta_{\mathcal{L}^{\otimes i},\mathcal{F}}\) (\cref{def:tensorBraiding})
+  exchanging the two \emph{distinct} factors \(\mathcal{L}^{\otimes i}\) and
+  \(\mathcal{F}\) --- a braiding of distinct objects, requiring \emph{no}
+  invertibility hypothesis --- the whiskering isomorphisms of \(\otimes\)
+  (\cref{def:sheafTensorObj}), and the tensor-power comparison \(\mu_{i,j}\)
+  merging \(\mathcal{L}^{\otimes i} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes j}
+  \cong \mathcal{L}^{\otimes (i+j)}\) (\cref{lem:sheafTensorPow_add},
+  \cref{def:sheafTensorPow}). It underlies the graded-module
+  structure of \cref{lem:sectionGradedModule_gmodule}.
+\end{definition}
+
+\begin{lemma}[Associativity (hexagon) constraint for the action comparison]\leanok
+  \label{lem:moduleTensorPowAdd_assoc}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.moduleTensorPowAdd_assoc}
+  \uses{def:moduleTensorPowAdd, cor:sheafTensorObjAssoc, def:tensorBraiding,
+    lem:tensorPowAdd_assoc, lem:sheafTensorPow_add}
+  Let \(\mathcal{F}\) be a sheaf of \(\mathcal{O}_X\)-modules, \(\mathcal{L}\) a line
+  bundle, and \(i, j, k \in \mathbb{N}\). Write \(a_{p,q}\) for the action comparison
+  isomorphism (\cref{def:moduleTensorPowAdd})
+  \(\mathcal{L}^{\otimes p}\otimes(\mathcal{F}\otimes\mathcal{L}^{\otimes q})
+  \xrightarrow{\cong}\mathcal{F}\otimes\mathcal{L}^{\otimes(p+q)}\). The two ways of
+  contracting
+  \(\mathcal{L}^{\otimes i}\otimes\bigl(\mathcal{L}^{\otimes j}\otimes
+  (\mathcal{F}\otimes\mathcal{L}^{\otimes k})\bigr)\) down to
+  \(\mathcal{F}\otimes\mathcal{L}^{\otimes(i+j+k)}\) agree:
+  \[
+    a_{i+j,\,k}\circ\bigl(\mu_{i,j}\rhd(\mathcal{F}\otimes\mathcal{L}^{\otimes k})\bigr)
+      \circ \alpha^{-1}_{\mathcal{L}^{\otimes i},\,\mathcal{L}^{\otimes j},\,
+        \mathcal{F}\otimes\mathcal{L}^{\otimes k}}
+    \;=\;
+    \mathrm{(reindex)}\circ a_{i,\,j+k}\circ
+      \bigl(\mathcal{L}^{\otimes i}\lhd a_{j,k}\bigr),
+  \]
+  where \(\mu\) is the tensor-power comparison (\cref{lem:sheafTensorPow_add}),
+  \(\alpha\) the associator (\cref{cor:sheafTensorObjAssoc}), \(\rhd, \lhd\) the
+  canonical whiskerings, and the reindexing is \((i+j)+k = i+(j+k)\). One side merges
+  the two line-bundle factors first and then acts once; the other acts twice in
+  succession. This is the module analogue of the associativity constraint
+  \cref{lem:tensorPowAdd_assoc}, with the action comparison \(a\) in place of the
+  ring comparison \(\mu\) on the two legs that touch \(\mathcal{F}\).
+\end{lemma}
+
+\begin{proof}
+  \uses{def:moduleTensorPowAdd, cor:sheafTensorObjAssoc, def:tensorBraiding,
+    lem:tensorPowAdd_assoc, lem:sheafTensorPow_add}
+    \leanok
+  Unlike \cref{lem:tensorPowAdd_assoc}, this identity is \emph{not} braiding-free:
+  the action comparison \(a_{p,q}\) (\cref{def:moduleTensorPowAdd}) contains the
+  braiding \(\beta_{\mathcal{L}^{\otimes p},\mathcal{F}}\) (\cref{def:tensorBraiding})
+  sliding the line-bundle block \(\mathcal{L}^{\otimes p}\) past the module factor
+  \(\mathcal{F}\). Since \(\mathcal{F}\) is \emph{not} assumed invertible the braiding
+  does not collapse to the identity, so the statement is a genuine
+  symmetric-monoidal \emph{hexagon} (Mac Lane), not a pentagon: on each side the
+  block \(\mathcal{L}^{\otimes i}\) (and then \(\mathcal{L}^{\otimes j}\)) must be
+  braided across \(\mathcal{F}\), and the identity records the two orders in which
+  the merge \(\mu_{i,j}\) and the two braidings may be performed.
+
+  Expand \(a_{p,q}\) on both sides into its constituents --- the associator
+  (\cref{cor:sheafTensorObjAssoc}), the braiding
+  \(\beta_{\mathcal{L}^{\otimes p},\mathcal{F}}\) (\cref{def:tensorBraiding}), the
+  whiskerings, and the comparison \(\mu_{p,q}\) (\cref{lem:sheafTensorPow_add}). The
+  line-bundle-merge halves of the two sides are equated by the braiding-free pentagon
+  \cref{lem:tensorPowAdd_assoc} applied to the three factors
+  \(\mathcal{L}^{\otimes i},\mathcal{L}^{\otimes j},\mathcal{L}^{\otimes k}\); the
+  residual structural glue is a hexagon among canonical associators, whiskerings and
+  the braiding \(\beta\) carrying \(\mathcal{L}^{\otimes i}\) (then
+  \(\mathcal{L}^{\otimes j}\)) across \(\mathcal{F}\), discharged by coherence for
+  symmetric monoidal categories.
+\end{proof}
+
+\begin{definition}[Twisted-section component in degree \(m\)]\leanok
+  \label{def:moduleSectionDeg}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.moduleSectionDeg}
+  \uses{def:sheafModuleTwist, def:sheafTensorPow}
+  Let \(\mathcal{F}\) be a sheaf of \(\mathcal{O}_X\)-modules and \(\mathcal{L}\) a
+  sheaf of \(\mathcal{O}_X\)-modules. The \emph{degree-\(m\) twisted-section
+  component} is the \(\Gamma(X,\mathcal{O}_X)\)-module of global sections of the
+  \(m\)th twist of \(\mathcal{F}\),
+  \[
+    (\mathrm{moduleSectionDeg}\ \mathcal{F}\ \mathcal{L})_m
+      \;:=\; \Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m})
+      \;=\; (\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m})(X)
+        \qquad(\cref{def:sheafModuleTwist},\ \cref{def:sheafTensorPow}).
+  \]
+  It inherits its additive-group and \(\Gamma(X,\mathcal{O}_X)\)-module structure
+  from the underlying module object
+  \((\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m})(X)\). These are the
+  carriers \(m \mapsto (\mathrm{moduleSectionDeg}\ \mathcal{F}\ \mathcal{L})_m\) of
+  the graded section module \(M(X_s, \mathcal{F}_s, L_s)\)
+  (\cref{lem:sectionGradedModule_gmodule}) and the domains of the index transport
+  \cref{def:moduleSectionsCast}. It is the module analogue of the degree-\(m\)
+  section component \cref{def:sectionDeg}, with the twisted module
+  \(\mathcal{F} \otimes \mathcal{L}^{\otimes m}\) in place of the pure power
+  \(\mathcal{L}^{\otimes m}\).
+\end{definition}
+
+\begin{definition}[Index-equality transport of twisted-section components]\leanok
+  \label{def:moduleSectionsCast}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.moduleSectionsCast}
+  \uses{def:moduleSectionDeg}
+  Let \(\mathcal{F}\) be a sheaf of \(\mathcal{O}_X\)-modules, \(\mathcal{L}\) a sheaf
+  of \(\mathcal{O}_X\)-modules, and let \(h : i = j\) be an equality of natural
+  numbers. Applying the global-sections functor \(\Gamma(X,-)\) to the canonical
+  isomorphism
+  \(\mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes i}
+    \xrightarrow{\sim}
+    \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes j}\)
+  induced by \(h\) under the twist functor
+  \(m \mapsto \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes m}\)
+  (\cref{def:moduleSectionDeg}) yields the \(\Gamma(X,\mathcal{O}_X)\)-linear
+  isomorphism
+  \[
+    \mathrm{moduleSectionsCast}(h) :
+    \Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes i})
+      \;\xrightarrow{\ \sim\ }\;
+    \Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes j}),
+  \]
+  the \emph{twisted-section-component transport} along \(h\). It is the
+  twisted-module analogue of the pure section-component transport
+  \cref{def:sectionsCast}. Because the isomorphism induced by the reflexive equality
+  is the identity and \(\Gamma(X,-)\) preserves identities, the transport along a
+  reflexive index equality is the identity map (the reflexivity simplification
+  \(\mathrm{moduleSectionsCast\_refl}\), \cref{lem:moduleSectionsCast_refl}).
+\end{definition}
+
+\begin{lemma}[Reflexivity of the twisted-section transport]\leanok
+  \label{lem:moduleSectionsCast_refl}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.moduleSectionsCast_refl}
+  \uses{def:moduleSectionsCast}
+  For any \(i\), the transport along the reflexive equality \(i = i\)
+  (\cref{def:moduleSectionsCast}) equals the identity automorphism of
+  \(\Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes i})\). This is
+  the twisted-module counterpart of \cref{lem:sectionsCast_refl}, and serves as a
+  simplification lemma collapsing the transport along a reflexive index equality.
+\end{lemma}
+
+\begin{proof}\leanok
+\end{proof}
+
+\begin{lemma}[Cast-mediated equality in the graded module]\leanok
+  \label{lem:moduleGradedMonoid_eq_of_cast}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.moduleGradedMonoid_eq_of_cast}
+  \uses{def:moduleSectionsCast, lem:moduleSectionsCast_refl}
+  Write the carrier of the graded module as the dependent sum
+  \(\coprod_{n} \Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})\),
+  whose elements are pairs \((n, s)\) with
+  \(s \in \Gamma(X, \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})\). Let
+  \(a = (i, x)\) and \(b = (j, y)\) be two such pairs. If \(h : i = j\) and the
+  transported component agrees, \(\mathrm{moduleSectionsCast}(h)\,x = y\), then
+  \(a = b\). That is, a component-level equality mediated by the index transport
+  \cref{def:moduleSectionsCast} repackages into a genuine equality of dependent
+  pairs. This is the twisted-module analogue of the ring-side bridge
+  \cref{lem:gradedMonoid_eq_of_cast}; it is the bridge that converts each
+  transport-mediated clause of \cref{lem:moduleSectionAction_coherent} into the
+  dependent-pair form required by the \(\mathrm{Gmodule}\) axioms.
+\end{lemma}
+
+\begin{proof}
+
+\leanok
+\end{proof}
+
+\begin{definition}[Graded scalar action on twisted-section components]
+  \label{def:moduleSectionGradedGSMul}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.instGSMulNatSectionDegModuleSectionDeg}
+  \uses{def:moduleSectionDeg, def:sectionDeg, def:sectionMul, def:moduleTensorPowAdd}
+  The section components \cref{def:sectionDeg} act on the twisted-section components
+  \cref{def:moduleSectionDeg} by a graded scalar multiplication
+  \[
+    (\mathrm{sectionDeg}\ \mathcal{L})_i \times
+      (\mathrm{moduleSectionDeg}\ \mathcal{F}\ \mathcal{L})_j
+    \;\longrightarrow\; (\mathrm{moduleSectionDeg}\ \mathcal{F}\ \mathcal{L})_{i+j},
+    \qquad (r, x) \longmapsto r \star x,
+  \]
+  landing in the index-sum component (a \(\mathrm{GradedMonoid.GSMul}\) of
+  \(\mathrm{moduleSectionDeg}\ \mathcal{F}\ \mathcal{L}\) over
+  \(\mathrm{sectionDeg}\ \mathcal{L}\); the action degree is \(i+j\)). It is the section multiplication
+  \(r \otimes x \mapsto r \cdot x\) (\cref{def:sectionMul}) of the line-bundle power
+  \(\mathcal{L}^{\otimes i}\) against the twisted module
+  \(\mathcal{F} \otimes \mathcal{L}^{\otimes j}\), followed by global sections of the
+  action comparison isomorphism \(a_{i,j}\) (\cref{def:moduleTensorPowAdd}),
+  \[
+    \Gamma(X, \mathcal{L}^{\otimes i}) \otimes_{\Gamma(X,\mathcal{O}_X)}
+      \Gamma(X, \mathcal{F} \otimes \mathcal{L}^{\otimes j})
+    \xrightarrow{\ \cdot\ }
+    \Gamma\bigl(X, \mathcal{L}^{\otimes i} \otimes
+      (\mathcal{F} \otimes \mathcal{L}^{\otimes j})\bigr)
+    \xrightarrow{\ \Gamma(a_{i,j})\ }
+    \Gamma(X, \mathcal{F} \otimes \mathcal{L}^{\otimes (i+j)}).
+  \]
+  It is the module analogue of the graded multiplication \cref{def:sectionGradedGMul},
+  with the action comparison \(a_{i,j}\) in place of the ring comparison
+  \(\mu_{i,j}\) and the twisted module in the right-hand factor.
+\end{definition}
+
+\begin{lemma}[Left-unit (base-case) constraint for the action comparison]\leanok
+  \label{lem:moduleTensorPowAdd_zero_left}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.moduleTensorPowAdd_zero_left}
+  \uses{def:moduleTensorPowAdd, lem:tensorPowAdd_zero_left, def:tensorBraiding,
+    def:tensorObjUnitIso, lem:tensorObjUnitIso_eq, cor:sheafTensorObjAssoc}
+  Let \(\mathcal{F}\) be a sheaf of \(\mathcal{O}_X\)-modules, \(\mathcal{L}\) a line
+  bundle, and \(k \in \mathbb{N}\). The degree-\((0,k)\) action comparison
+  isomorphism \(a_{0,k}\) (\cref{def:moduleTensorPowAdd}) is the left unitor,
+  reindexed along \(0 + k = k\):
+  \[
+    a_{0,k} \;=\;
+      \mathrm{tensorObjUnitIso}_{\mathcal{F}\otimes\mathcal{L}^{\otimes k}}
+      \;:\; \mathbf{1}_X \otimes_{\mathcal{O}_X}
+        (\mathcal{F}\otimes_{\mathcal{O}_X}\mathcal{L}^{\otimes k})
+      \;\xrightarrow{\ \sim\ }\;
+      \mathcal{F}\otimes_{\mathcal{O}_X}\mathcal{L}^{\otimes k}
+  \]
+  (\cref{def:tensorObjUnitIso}, transport of the left unitor \(\lambda\)). This is
+  the base case of the action comparison, the module analogue of the left-unit
+  constraint \cref{lem:tensorPowAdd_zero_left}, and is the key input to the
+  Unitality clause of \cref{lem:moduleSectionAction_coherent}.
+\end{lemma}
+
+\begin{proof}
+  \uses{def:moduleTensorPowAdd, lem:tensorPowAdd_zero_left, def:tensorBraiding,
+    def:tensorObjUnitIso, lem:tensorObjUnitIso_eq, cor:sheafTensorObjAssoc}
+    \leanok
+  Expand \(a_{0,k}\) into its constituents (\cref{def:moduleTensorPowAdd}): the
+  sheaf-level associator (\cref{cor:sheafTensorObjAssoc}), the braiding
+  \(\beta_{\mathcal{L}^{\otimes 0},\mathcal{F}}\) (\cref{def:tensorBraiding}), the
+  whiskerings, and the line-bundle merge \(\mu_{0,k}\). In degree \(p=0\) the
+  line-bundle block collapses, \(\mathcal{L}^{\otimes 0}=\mathbf{1}_X\), so the merge
+  reduces to the left-unit constraint \(\mu_{0,k}=\lambda\) of
+  \cref{lem:tensorPowAdd_zero_left}, and the braiding
+  \(\beta_{\mathcal{L}^{\otimes 0},\mathcal{F}}=\beta_{\mathbf{1}_X,\mathcal{F}}\)
+  becomes the unit-braiding, the composite \(\lambda_{\mathcal{F}} \circ
+  \rho_{\mathcal{F}}^{-1}\) of the left unitor with the inverse right unitor on the
+  unit object.
+
+  The verification requires the unit-braiding coherence: the monoidal unit object of
+  \(X.\Modules\) is the structure sheaf \(\mathbf{1}_X = \mathcal{O}_X\), and the
+  unit-braiding identity \(\beta_{\mathbf{1},\mathcal{F}} = \lambda_{\mathcal{F}} \circ
+  \rho_{\mathcal{F}}^{-1}\) is established over the formal monoidal unit \(\mathbf{1}\)
+  by symmetric-monoidal coherence (Mac Lane), using the equality of unitors on the
+  unit object (\(\mathrm{MonoidalCategory.unitors\_equal}\), descended through
+  sheafification as in \cref{lem:tensorPowAdd_zero_left}), and then applied at
+  \(\mathbf{1}_X\) via the definitional equality of the two unit presentations.
+  The bridge \cref{lem:tensorObjUnitIso_eq} then identifies the left-unitor with
+  \(\mathrm{tensorObjUnitIso}\), and the reindexing cast along \(0+k=k\) absorbs
+  into it, yielding
+  \(a_{0,k}=\mathrm{tensorObjUnitIso}_{\mathcal{F}\otimes\mathcal{L}^{\otimes k}}\).
+\end{proof}
+
+\begin{lemma}[Coherence of the module action]
+  \label{lem:moduleSectionAction_coherent}
+  \dcref{custom}
+  % NOTE: both clauses formalized + axiom-clean (iter-036): unitality
+  % moduleSectionAction_one_smul, compatibility moduleSectionAction_mul_smul.
+  % Two-clause \lean{} form (precedent: lem:sectionMul_coherent).
+  \lean{AlgebraicGeometry.Scheme.Modules.moduleSectionAction_one_smul,
+    AlgebraicGeometry.Scheme.Modules.moduleSectionAction_mul_smul}
+  \uses{lem:moduleTensorPowAdd_assoc, lem:moduleTensorPowAdd_zero_left,
+    lem:tensorBraiding_hom_sectionsMul,
+    lem:tensorObjAssoc_hom_sectionsMul, lem:sectionsMul_whiskerRight_natural,
+    lem:sectionsMul_whiskerLeft_natural, lem:tensorObjUnitIso_hom_sectionsMul,
+    def:sectionMul, def:moduleTensorPowAdd, def:sectionsCast, lem:sheafTensorPow_add}
+  Let \(\mathcal{F}\) be a sheaf of \(\mathcal{O}_X\)-modules and \(\mathcal{L}\) a
+  line bundle. For \(r\in\Gamma(X,\mathcal{L}^{\otimes i})\) and
+  \(x\in\Gamma(X,\mathcal{F}\otimes\mathcal{L}^{\otimes k})\) write
+  \[
+    r\star x \;=\; \Gamma(a_{i,k})\bigl(\mathrm{sectionsMul}(r\otimes x)\bigr)
+      \;\in\;\Gamma(X,\mathcal{F}\otimes\mathcal{L}^{\otimes(i+k)})
+  \]
+  for the degreewise action: the section multiplication (\cref{def:sectionMul})
+  followed by global sections of the action comparison \(a_{i,k}\)
+  (\cref{def:moduleTensorPowAdd}). Then, as transport-mediated equalities of sections
+  (the subscript on \(\mathrm{sectionsCast}\), \cref{def:sectionsCast}, recording the
+  index equality that matches the two a-priori-distinct section modules):
+  \begin{itemize}
+    \item \emph{Unitality.} For \(x\in\Gamma(X,\mathcal{F}\otimes
+      \mathcal{L}^{\otimes k})\) and \(1\) the degree-\(0\) unit of the section ring,
+      \[ \mathrm{sectionsCast}_{\,0+k=k}\,(1\star x) = x. \]
+    \item \emph{Compatibility.} For \(r\in\Gamma(X,\mathcal{L}^{\otimes i})\),
+      \(r'\in\Gamma(X,\mathcal{L}^{\otimes j})\) and
+      \(x\in\Gamma(X,\mathcal{F}\otimes\mathcal{L}^{\otimes k})\),
+      \[ \mathrm{sectionsCast}_{\,(i+j)+k=i+(j+k)}\,\bigl((r\cdot r')\star x\bigr)
+        = r\star(r'\star x), \]
+      where \(r\cdot r'\) is the section ring multiplication (\cref{def:sectionMul}
+      followed by \(\Gamma(\mu_{i,j})\)).
+  \end{itemize}
+  This is the module analogue of the unit and associativity clauses of
+  \cref{lem:sectionMul_coherent}, with the action comparison \(a\) replacing the
+  ring comparison \(\mu\) on the legs touching \(\mathcal{F}\).
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:moduleTensorPowAdd_assoc, lem:moduleTensorPowAdd_zero_left,
+    lem:tensorBraiding_hom_sectionsMul,
+    lem:tensorObjAssoc_hom_sectionsMul, lem:sectionsMul_whiskerRight_natural,
+    lem:sectionsMul_whiskerLeft_natural, lem:tensorObjUnitIso_hom_sectionsMul,
+    def:sectionsCast, lem:sheafTensorPow_add}
+  Both identities are the section-level shadow of the iso-level constraints, pushed
+  through \(\mathrm{sectionsMul}\) by the naturality helpers --- exactly as in
+  \cref{lem:sectionMul_coherent}, but with the action comparison \(a\) in place of
+  the ring comparison \(\mu\) on the legs that touch \(\mathcal{F}\).
+
+  \emph{Unitality.} Unfold \(1\star x\). The base case \(a_{0,k}\) of the action
+  comparison (\cref{def:moduleTensorPowAdd}) is the left unitor
+  \(\lambda_{\mathcal{F}\otimes\mathcal{L}^{\otimes k}}\) reindexed along \(0+k=k\),
+  by \cref{lem:moduleTensorPowAdd_zero_left} (where the unit-braiding coherence is
+  established; see that proof). Granting that identification, the inner
+  reindexing cast pairs with the outer \(\mathrm{sectionsCast}_{\,0+k=k}\) and the two
+  cancel; \cref{lem:tensorObjUnitIso_hom_sectionsMul} then closes the leg.
+
+  \emph{Compatibility.} Unfold both sides to composites
+  \(\Gamma(a)\circ\mathrm{sectionsMul}\). On the left, \((r\cdot r')\star x\) hides
+  the ring comparison \(\mu_{i,j}\) inside the first factor of the outer
+  \(\mathrm{sectionsMul}\); the right-whisker naturality
+  \cref{lem:sectionsMul_whiskerRight_natural} (applied to \(f=\mu_{i,j}\),
+  \(G=\mathcal{F}\otimes\mathcal{L}^{\otimes k}\)) slides \(\Gamma(\mu_{i,j})\) out.
+  On the right, \(r\star(r'\star x)\) hides the action comparison \(a_{j,k}\) inside
+  the second factor; the left-whisker naturality
+  \cref{lem:sectionsMul_whiskerLeft_natural} (applied to \(g=a_{j,k}\),
+  \(F=\mathcal{L}^{\otimes i}\)) slides \(\Gamma(a_{j,k})\) out. Both sides are now
+  \(\Gamma(\text{comparison composite})\) applied to a bare iterated product,
+  \(\mathrm{sectionsMul}(\mathrm{sectionsMul}(r\otimes r')\otimes x)\) on the left and
+  \(\mathrm{sectionsMul}(r\otimes\mathrm{sectionsMul}(r'\otimes x))\) on the right.
+  The iso-level hexagon \cref{lem:moduleTensorPowAdd_assoc} equates the two
+  comparison composites modulo the associator \(\alpha\) and the braiding \(\beta\).
+  The residual \(\Gamma(\alpha)\) is pushed through the iterated
+  \(\mathrm{sectionsMul}\) by \cref{lem:tensorObjAssoc_hom_sectionsMul},
+  reassociating the three section factors, and the residual
+  \(\Gamma(\beta_{\mathcal{L}^{\otimes i},\mathcal{F}})\) is pushed through by
+  \cref{lem:tensorBraiding_hom_sectionsMul} --- stated precisely for the two
+  \emph{distinct} factors \(\mathcal{L}^{\otimes i}\) and \(\mathcal{F}\) --- swapping
+  those two section factors. The transport
+  \(\mathrm{sectionsCast}_{\,(i+j)+k=i+(j+k)}\) absorbs the reindexing and identifies
+  the two sides in a single module. This is the associativity leg of
+  \cref{lem:sectionMul_coherent} with the action hexagon and braiding slide in place
+  of the pentagon and the right-unitor pair.
+\end{proof}
+
+\begin{lemma}[Graded module structure on the twisted-section components]\leanok
+  \label{lem:sectionGradedModule_gmodule}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Modules.sectionGradedModule_gmodule}
+  \uses{def:sheafModuleTwist, lem:sheafTensorPow_add, def:sectionMul,
+    lem:moduleSectionAction_coherent, lem:moduleTensorPowAdd_assoc,
+    def:moduleSectionDeg, def:moduleSectionsCast, def:moduleSectionGradedGSMul,
+    def:sectionsCast, lem:moduleGradedMonoid_eq_of_cast,
+    lem:directSum_gmodule_mathlib, lem:sectionGradedRing_gsemiring,
+    def:moduleTensorPowAdd, def:tensorBraiding}
+  % SOURCE: \cite{stacks-project}, "Sheaves of Modules", \S "Invertible modules",
+  % `definition-gamma-star' (Tag 01CV) (read from
+  % references/stacks-modules.tex, L4279-L4286).
+  % SOURCE QUOTE:
+  % "Given a sheaf of $\mathcal{O}_X$-modules $\mathcal{F}$ we set
+  %  $$
+  %  \Gamma_*(X, \mathcal{L}, \mathcal{F})
+  %  =
+  %  \bigoplus\nolimits_{n \in \mathbf{Z}} \Gamma(X,
+  %  \mathcal{F} \otimes_{\mathcal{O}_X} \mathcal{L}^{\otimes n})
+  %  $$
+  %  which we think of as a graded $\Gamma_*(X, \mathcal{L})$-module."
+  \textit{Source: \cite{stacks-project}, "Sheaves of Modules", Tag 01CV (the graded
+  module \(\Gamma_*(X,\mathcal{L},\mathcal{F})\)).}
+  This lemma establishes the \(\mathbb{N}\)-graded (\(n\ge 0\)) analogue of Tag 01CV: the
+  Stacks source assembles the \(\mathbb{Z}\)-graded module over an \emph{invertible}
+  \(\mathcal{L}\) (using \(\mathcal{L}^\vee\) for negative degrees), whereas the
+  action comparison \(a_{i,j}\) (\cref{def:moduleTensorPowAdd}) exists for an
+  arbitrary sheaf of modules \(\mathcal{F}\) and an arbitrary \(\mathcal{L}\), yielding
+  the \(n\ge 0\) truncation \(\bigoplus_{m\ge 0}\Gamma(X,\mathcal{F}\otimes
+  \mathcal{L}^{\otimes m})\) without any invertibility hypothesis.
+  Let \(\mathcal{F}_s\) be a coherent sheaf and \(L_s\) a line bundle on
+  \(X_s\). The family
+  \(m \mapsto \Gamma(X_s, \mathcal{F}_s \otimes L_s^{\otimes m})\)
+  (\cref{def:sheafModuleTwist}) carries a graded module structure (a
+  \(\mathrm{Gmodule}\), \cref{lem:directSum_gmodule_mathlib}) over the graded
+  semiring of \cref{lem:sectionGradedRing_gsemiring}, with degree-\((m,m')\)
+  action
+  \[
+    \Gamma(X_s, L_s^{\otimes m}) \otimes_{\Gamma(X_s,\mathcal{O}_{X_s})}
+      \Gamma(X_s, \mathcal{F}_s \otimes L_s^{\otimes m'})
+    \xrightarrow{\ \cdot\ }
+    \Gamma\bigl(X_s, L_s^{\otimes m} \otimes
+      (\mathcal{F}_s \otimes L_s^{\otimes m'})\bigr)
+    \xrightarrow{\ \sim\ }
+    \Gamma\bigl(X_s, \mathcal{F}_s \otimes L_s^{\otimes (m+m')}\bigr),
+  \]
+  the section multiplication followed by the comparison isomorphism that
+  reassociates and merges the line-bundle factors (using
+  \cref{lem:sheafTensorPow_add} and the symmetry of the tensor product).
+  Consequently \(M(X_s, \mathcal{F}_s, L_s) = \bigoplus_{m \ge 0}
+  \Gamma(X_s, \mathcal{F}_s \otimes L_s^{\otimes m})\) is a graded module over
+  \(R(X_s, L_s)\); this is the graded-module structure underlying
+  \cref{def:sectionGradedModule}.
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:moduleSectionAction_coherent, lem:moduleGradedMonoid_eq_of_cast,
+    def:moduleSectionDeg, def:moduleSectionsCast, def:moduleSectionGradedGSMul,
+    lem:directSum_gmodule_mathlib, lem:sectionGradedRing_gsemiring,
+    lem:sectionGradedRing_gmonoid}
+    \leanok
+  Assemble the \(\mathrm{Gmodule}\) field-for-field over the graded semiring of
+  \cref{lem:sectionGradedRing_gsemiring}, exactly as
+  \cref{lem:sectionGradedRing_gmonoid} assembles the graded monoid. The action grades
+  by ordinary addition on \(\mathbb{N}\) (degree-\((m,m')\) action landing in degree
+  \(m+m'\)), with the degreewise action \(r\star x\) of
+  \cref{lem:moduleSectionAction_coherent}. Its two \(\mathrm{Gmodule}\) axioms ---
+  unitality \(1 \cdot x = x\) and compatibility \(r \cdot (r' \cdot x) = (rr')\cdot x\)
+  with the ring multiplication --- are the unitality and compatibility clauses of
+  \cref{lem:moduleSectionAction_coherent}, each turned from its transport-mediated
+  form into the required equality of dependent pairs by the module bridge
+  \cref{lem:moduleGradedMonoid_eq_of_cast}. Bilinearity (additivity and annihilation by
+  \(0\) in each variable) is free, as in \cref{lem:sectionGradedRing_gsemiring}. By
+  \cref{lem:directSum_gmodule_mathlib} this produces the module structure of
+  \(M(X_s,\mathcal{F}_s,L_s)\) over \(R(X_s,L_s)\).
+\end{proof}
+
+\section{P0.5: the bridge from local triviality to invertible-graded sheaves}
+\label{sec:sgr_invertibleGr_bridge}
+
+\Cref{def:isInvertible} defines invertibility of a sheaf of modules through
+a \emph{trivializing basis}; the line bundles that occur in practice (the
+Serre twists \(\mathcal{O}(m)\) of \Cref{chap:Picard_QuotScheme}) are given
+instead as \emph{locally trivial} sheaves in the geometric sense of
+\(\mathrm{IsLocallyTrivial}\) (\Cref{def:IsLocallyTrivial}: every point has
+an affine neighbourhood on which the sheaf restricts to the structure
+sheaf). This section supplies the missing bridge between the two notions,
+unlocking the graded-commutative section ring
+\Cref{lem:sectionGradedRing_gcommSemiring} for every locally trivial line
+bundle.
+
+\begin{lemma}
+[Section-level invertibility from a chart trivialisation]
+  \label{lem:isInvertible_of_restrict_iso}
+  \dcref{custom}
+  \leanok
+  \lean{AlgebraicGeometry.Scheme.LineBundle.isInvertible_of_restrict_iso}
+  \uses{def:IsLocallyTrivial}
+  Let \(M\) be a sheaf of \(\mathcal{O}_X\)-modules and \(V \subseteq X\)
+  an open with a trivialisation \(M|_V \cong \mathcal{O}_V\). Then
+  \(\Gamma(M, V)\) is an invertible \(\Gamma(X, V)\)-module.
+\end{lemma}
+\begin{proof}
+  \leanok
+  Evaluating the trivialisation at the top open of \(V\) gives a
+  \(\Gamma(X,V)\)-linear isomorphism \(\Gamma(M, V) \cong \Gamma(X, V)\)
+  (using \(\Gamma(\mathcal{O}_V, \top) = \Gamma(X, V)\)), exhibiting
+  \(\Gamma(M,V)\) as a free rank-one, hence invertible, \(\Gamma(X,V)\)-module.
+\end{proof}
+
+\begin{theorem}
+[P0.5: local triviality implies invertible-graded]
+  \label{thm:isLocallyTrivial_isInvertibleGr}
+  \leanok
+  \lean{AlgebraicGeometry.Scheme.LineBundle.IsLocallyTrivial.isInvertibleGr}
+  \uses{def:IsLocallyTrivial, def:isInvertible, lem:isInvertible_of_restrict_iso,
+    cor:IsLocallyTrivial_exists_affine_trivializing_le}
+  \dcref{custom}
+  If \(M\) is locally trivial (\Cref{def:IsLocallyTrivial}), then \(M\)
+  is invertible in the sense of \Cref{def:isInvertible}.
+\end{theorem}
+\begin{proof}
+  \leanok
+  The trivialising opens \(\{V : M|_V \cong \mathcal{O}_V\}\) form a
+  basis of the topology of \(X\): every neighbourhood of every point
+  contains an affine trivialising chart
+  (\Cref{cor:IsLocallyTrivial_exists_affine_trivializing_le}). On each
+  such \(V\), \(\Gamma(M,V)\) is an invertible \(\Gamma(X,V)\)-module by
+  \Cref{lem:isInvertible_of_restrict_iso}. Together these are exactly
+  the trivializing-basis data required by \Cref{def:isInvertible}.
+\end{proof}
+
+\begin{corollary}
+[The Serre twist family is invertible-graded]
+  \label{cor:serreTwist_isInvertibleGr}
+  \dcref{custom}
+  \leanok
+  \lean{AlgebraicGeometry.ProjTwist.serreTwistGlued_isInvertibleGr,
+    AlgebraicGeometry.ProjTwist.serreTwist_isInvertibleGr,
+    AlgebraicGeometry.ProjTwist.twistingSheaf_isInvertibleGr}
+  \uses{thm:isLocallyTrivial_isInvertibleGr, lem:serreTwist_isLocallyTrivial}
+  Every member of the Serre twist family --- the twist on the glued
+  model, on the integral model \(\operatorname{Proj}\mathbb{Z}[X_i]\),
+  and on the relative projective space \(\mathbb{P}(n; S)\)
+  (\Cref{lem:serreTwist_isLocallyTrivial}: each is locally trivial) ---
+  is invertible in the sense of \Cref{def:isInvertible}. Consequently
+  \Cref{lem:sectionGradedRing_gcommSemiring} applies unconditionally to
+  each: its section ring \(\bigoplus_{m \ge 0} \Gamma(-, \mathcal{O}(m))\)
+  is graded-commutative.
+\end{corollary}
+\begin{proof}
+  \leanok
+  Immediate instances of \Cref{thm:isLocallyTrivial_isInvertibleGr}
+  applied to \Cref{lem:serreTwist_isLocallyTrivial}.
+\end{proof}
+
+\section{D5: finite-dimensional graded pieces from finite generation}
+\label{sec:sgr_graded_pieces_finite}
+
+The Hilbert-series rationality induction \(\Cref{lem:graded_subquotient_isRatHilb}\)
+(Stacks Tag 00K1) assumes each graded piece \(\mathcal{M}_n\) of the ambient
+graded module is finite-dimensional over the base field \(\kappa\). This
+section discharges that hypothesis from finite generation alone, for a
+module graded by a finite family of commuting degree-raising endomorphisms
+(\Cref{def:graded_raisesDegree}) --- the abstraction, used throughout
+\Cref{chap:Picard_QuotScheme}, of the degree-one generators \(X_1,
+\dots, X_r\) of a polynomial grading ring acting on \(M\).
+
+\begin{theorem}
+[D5: finite generation forces finite-dimensional graded pieces]
+  \label{thm:graded_finiteDimensional_of_polyModule_finite}
+  \leanok
+  \lean{AlgebraicGeometry.GradedModule.finiteDimensional_of_polyModule_finite}
+  \uses{def:graded_polyModule, def:graded_raisesDegree}
+  % SOURCE: \cite{stacks-project}, "Commutative Algebra", Tag 00K1;
+  % Atiyah--Macdonald, Introduction to Commutative Algebra, Ch. 11.
+  \dcref{custom}
+  Let \(M = \bigoplus_n \mathcal{M}_n\) be an \(\mathbb{N}\)-graded
+  \(\kappa\)-vector space and \(t \colon \mathrm{Fin}\,r \to
+  \mathrm{End}_\kappa(M)\) a finite family of pairwise commuting
+  endomorphisms, each raising degree by one
+  (\Cref{def:graded_raisesDegree}), making \(M\) a module over
+  \(\kappa[X_1, \dots, X_r]\) with \(X_i\) acting as \(t_i\)
+  (\Cref{def:graded_polyModule}). If \(M\) is finitely generated over
+  this polynomial ring, then every graded piece \(\mathcal{M}_n\) is
+  finite-dimensional over \(\kappa\).
+\end{theorem}
+\begin{proof}
+  \leanok
+  A monomial \(X^\alpha\) of total degree \(|\alpha|\) shifts a vector
+  of \(\mathcal{M}_d\) into \(\mathcal{M}_{d+|\alpha|}\) (induction on
+  \(|\alpha|\) via the degree-raising hypothesis on each \(t_i\)); by
+  linearity, a homogeneous polynomial of degree \(e\) shifts
+  \(\mathcal{M}_d\) into \(\mathcal{M}_{d+e}\). Fix a finite generating
+  set of \(M\) over \(\kappa[X_1,\dots,X_r]\) and replace each generator
+  by its (finitely many) homogeneous components \(h \in \mathcal{M}_{d}\);
+  these homogeneous pieces still generate \(M\). For \(p \in
+  \kappa[X_1,\dots,X_r]\) and a homogeneous generator \(h \in
+  \mathcal{M}_d\), decomposing \(p\) into its homogeneous components
+  shows that the degree-\(n\) part of \(p \cdot h\) is
+  \((\mathrm{hc}_{n-d}\,p) \cdot h\), the action of the degree-\((n-d)\)
+  homogeneous component of \(p\); since a homogeneous polynomial of
+  degree \(\le n\) ranges over a \emph{finite-dimensional} space of
+  coefficients (in the finitely many variables \(X_1,\dots,X_r\) of
+  degree \(\le n\)), the degree-\(n\) part of \(p \cdot h\) lies in the
+  image of a fixed finite-dimensional space under \(\kappa\)-linear
+  action of \(h\). Every \(x \in \mathcal{M}_n\) is (via the finite
+  generating set and the graded-piece projection) a finite sum of such
+  contributions, one for each of the finitely many homogeneous
+  generators; hence \(\mathcal{M}_n\) is contained in a finite sum of
+  finite-dimensional subspaces, so is itself finite-dimensional.
+\end{proof}
+
+\begin{remark}
+[Feeding the Hilbert-series induction]
+  \label{rem:graded_pieces_finite_consumer}
+  \dcref{custom}
+  \uses{thm:graded_finiteDimensional_of_polyModule_finite, lem:graded_subquotient_isRatHilb}
+  Registering \(\Cref{thm:graded_finiteDimensional_of_polyModule_finite}\)'s
+  conclusion as the instance \([\forall n,
+  \mathrm{FiniteDimensional}\,\kappa\,(\mathcal{M}_n)]\) discharges the
+  finiteness hypothesis of the Hilbert-series rationality induction
+  \(\Cref{lem:graded_subquotient_isRatHilb}\) from finite generation
+  alone, with no further geometric input.
+\end{remark}

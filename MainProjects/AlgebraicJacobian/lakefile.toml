@@ -1,0 +1,33 @@
+name = "AlgebraicJacobian"
+version = "0.1.0"
+keywords = ["math"]
+defaultTargets = ["AlgebraicJacobian"]
+packagesDir = "../../.lake-packages"
+
+
+[leanOptions]
+pp.unicode.fun = true # pretty-prints `fun a ↦ b`
+relaxedAutoImplicit = false
+weak.linter.mathlibStandardSet = true
+maxSynthPendingDepth = 3
+
+[[require]]
+name = "checkdecls"
+git = "https://github.com/PatrickMassot/checkdecls.git"
+
+[[require]]
+name = "«doc-gen4»"
+git = "https://github.com/leanprover/doc-gen4"
+# pinned to the doc-gen4 commit on main that targets toolchain v4.31.0
+# (rev "main" tracks v4.32.0-rc1 and conflicts with mathlib v4.31.0)
+rev = "0bc516c1b9db"
+
+# mathlib required LAST so its transitive dep versions (e.g. Cli) take
+# precedence over doc-gen4's, keeping `lake exe cache get` hashes correct.
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"
+rev = "v4.31.0"
+
+[[lean_lib]]
+name = "AlgebraicJacobian"

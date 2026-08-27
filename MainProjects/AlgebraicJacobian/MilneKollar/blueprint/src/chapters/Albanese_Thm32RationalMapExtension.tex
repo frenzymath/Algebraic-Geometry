@@ -1,0 +1,175 @@
+\chapter{Milne Theorem 3.2: Rational maps into abelian varieties}
+\label{chap:Albanese_Thm32RationalMapExtension}
+% archon:covers AlgebraicJacobian/Albanese/Thm32RationalMapExtension.lean
+
+\section{Setup and statement}
+\label{sec:thm32_setup}
+
+Fix an algebraically closed field \(\bar k\), a nonsingular variety \(X\) over
+\(\bar k\), and an abelian variety \(A\) over \(\bar k\).  Thus \(X\) is
+integral and smooth, while \(A\) is a complete smooth group variety.  Following
+Milne, the extension statement is the one in \cite{milne-av}.  A
+rational map \(f \colon X \dashrightarrow A\) is represented by a regular
+morphism \(\varphi_U \colon U \to A\) on a dense open subset
+\(U \subseteq X\), two such pairs \((U, \varphi_U)\) and \((U', \varphi_{U'})\) being equivalent
+if \(\varphi_U\) and \(\varphi_{U'}\) agree on \(U \cap U'\).
+
+\begin{theorem}[Milne Theorem~3.2: a rational map from a nonsingular variety to an abelian variety extends]\leanok
+  \label{thm:rational_map_to_av_extends}
+  \lean{AlgebraicGeometry.Scheme.RationalMap.extend_to_av}
+  \dcref{custom}
+
+  Let \(X\) be a nonsingular variety over an algebraically closed field \(\bar k\), let \(A\) be
+  an abelian variety over \(\bar k\), and let \(f \colon X \dashrightarrow A\) be a rational
+  map. Then \(f\) is defined on the whole of \(X\): there is a unique regular morphism
+  \(\widetilde f \colon X \to A\) whose restriction to some (equivalently, every) dense open
+  set of definition \(U \subseteq X\) of \(f\) agrees with \(\varphi_U\).
+\end{theorem}
+
+\begin{proof}
+  \uses{lem:av_indeterminacyLocus_eq_empty}
+  Let \(U\) be the maximal open subset on which \(f\) is defined, and put
+  \(Z=X\setminus U\).  By \cref{lem:av_indeterminacyLocus_eq_empty},
+  \(Z=\varnothing\).  Hence \(U=X\), and the representative of \(f\) on
+  \(U\) is the desired morphism \(\widetilde f\colon X\to A\).
+
+  If two morphisms \(X\to A\) represent \(f\), they agree on a dense open
+  subset of \(X\).  Their equalizer is closed because \(A\) is separated,
+  and it contains that dense open subset.  Since \(X\) is reduced, the two
+  morphisms are equal.  Thus the extension is unique.
+\end{proof}
+
+\begin{remark}
+  \label{rmk:thm32_role_of_ab}
+  \dcref{custom}
+  The Auslander--Buchsbaum theorem is not needed for
+  \cref{thm:rational_map_to_av_extends}.  The codimension-one argument uses
+  regularity only to obtain normality and discrete valuation rings at prime
+  divisors; properness then supplies extensions by the valuative criterion.
+  It does not extend across a codimension-two locus by a depth argument.
+  The stronger Cohen--Macaulay consequences of Auslander--Buchsbaum in
+  \cref{chap:Albanese_AuslanderBuchsbaum} describe the same regular local
+  rings but are logically separate from Milne's proof.
+\end{remark}
+
+\section{Why the proof is characteristic-free}
+\label{sec:thm32_char_free}
+
+Both ingredients are independent of the characteristic:
+\begin{itemize}
+  \item \emph{Theorem~3.1 / codim-\(\geq 2\) extension} (\cref{thm:codim_one_extension}):
+    a codimension-one local ring on a normal variety is a discrete valuation
+    ring, and the valuative criterion of properness extends the map over that
+    local ring.
+  \item \emph{Lemma~3.3 / pure-codim-\(1\) indeterminacy for maps into a group variety}
+    (\cref{lem:milne_codim1_indeterminacy}): Milne's proof forms the difference map
+    \(\Phi(x, y) := \varphi(x)\,\varphi(y)^{-1} \colon X \times X \dashrightarrow A\) and
+    examines its pole divisors along the diagonal.  This uses the group law,
+    regularity, and the codimension-one support of principal divisors, none
+    of which imposes a characteristic restriction.
+\end{itemize}
+Consequently \cref{thm:rational_map_to_av_extends} holds over every algebraically closed
+field, in arbitrary characteristic.
+
+\section{Application to the symmetric-product Albanese map}
+\label{sec:thm32_application_to_a4d}
+
+Let \(C\) be a complete nonsingular curve of genus \(g>0\), let \(J\) be
+its Jacobian, and let \(\varphi\colon C\to A\) send a chosen point \(P\) to
+zero.  The symmetric map
+\[
+  (P_1,\ldots,P_g)\longmapsto
+  \varphi(P_1)+\cdots+\varphi(P_g)
+\]
+descends to a morphism \(\varphi^{(g)}\colon C^{(g)}\to A\).  The
+Abel--Jacobi morphism \(C^{(g)}\to J\) is birational, so composing
+\(\varphi^{(g)}\) with its rational inverse gives a rational map
+\(J\dashrightarrow A\).  Since \(J\) is nonsingular,
+\cref{thm:rational_map_to_av_extends} makes this map regular.  It factors
+\(\varphi\) through \(C\to J\), and the rigidity theorem shows that it is a
+homomorphism.  This is the existence step in the Albanese universal property
+of \(J\) proved in \cref{chap:Albanese_AlbaneseUP}.
+
+\section{Structure of the proof}
+\label{sec:thm32_lean_encoding}
+
+The argument separates into three elementary reductions.  Smoothness makes
+the abelian variety reduced; geometric irreducibility then makes it
+integral.  Milne's two indeterminacy results force the indeterminacy locus to
+be empty.  Finally, a rational map with empty indeterminacy locus has a
+global representative, unique because its source is reduced and its target
+is separated.
+
+\section{Auxiliary lemmas}
+\label{sec:thm32_lean_helpers}
+
+We record the reductions concerning the target and the indeterminacy locus.
+
+\begin{lemma}[A scheme smooth over a field is reduced]\leanok
+  \label{lem:isReduced_of_smooth_over_field}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.RationalMap.isReduced_of_smooth_over_field}
+  Let \(A\) be a scheme over an algebraically closed field \(\bar k\).  If
+  the structure morphism \(A\to\Spec\bar k\) is smooth, then \(A\) is
+  reduced.
+\end{lemma}
+\begin{proof}
+  An algebraically closed field is perfect.  A scheme smooth over a
+  perfect field is regular, since its local rings are geometrically
+  regular over the field.  Regular local rings are reduced, and
+  reducedness is local; hence \(A\) is reduced.
+\end{proof}
+
+\begin{lemma}[Integrality of the abelian variety]\leanok
+  \label{lem:av_isIntegral_of_smooth_geomIrred}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.RationalMap.av_isIntegral_of_smooth_geomIrred}
+  An abelian variety \(A\) over an algebraically closed field \(\bar k\) is
+  integral.  Indeed, it is geometrically irreducible and smooth over
+  \(\bar k\), hence irreducible and reduced.
+\end{lemma}
+\begin{proof}
+  \uses{lem:isReduced_of_smooth_over_field}
+  The spectrum of \(\bar k\) consists of one point.  Geometric
+  irreducibility of the structure morphism therefore implies that the
+  underlying topological space of \(A\) is irreducible.  By
+  \cref{lem:isReduced_of_smooth_over_field}, \(A\) is also reduced.  A
+  nonempty scheme is integral precisely when it is irreducible and
+  reduced, so \(A\) is integral.
+\end{proof}
+
+\begin{lemma}[Emptiness of the indeterminacy locus of a rational map into an abelian variety]\leanok
+  \label{lem:av_indeterminacyLocus_eq_empty}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.RationalMap.av_indeterminacyLocus_eq_empty}
+  For a rational map \(f \colon X \dashrightarrow A\) from a nonsingular variety
+  \(X\) to an abelian variety \(A\) over an algebraically closed field \(\bar k\),
+  the indeterminacy locus \(Z(f)\) is empty.
+\end{lemma}
+\begin{proof}
+  \uses{lem:av_isIntegral_of_smooth_geomIrred, lem:milne_codim1_indeterminacy, thm:codim_one_extension}
+  The abelian variety \(A\) is integral
+  (\cref{lem:av_isIntegral_of_smooth_geomIrred}), so Milne's Lemma~3.3
+  (\cref{lem:milne_codim1_indeterminacy}) applies and gives the dichotomy: either
+  \(Z(f) = \emptyset\), or every point of \(Z(f)\) specialises from a point
+  \(z \in Z(f)\) of coheight \(1\). In the second branch, applying the
+  codim-\(\geq 2\) indeterminacy theorem (\cref{thm:codim_one_extension},
+  Milne~3.1) to such a \(z \in Z(f)\) forces \(\mathrm{coheight}(z) \geq 2\),
+  contradicting \(\mathrm{coheight}(z) = 1\). Hence \(Z(f) = \emptyset\).
+\end{proof}
+
+\section{Relations with neighbouring results}
+\label{sec:thm32_out_of_scope}
+
+Milne's codimension estimate and pure-codimension-one theorem are proved in
+\cref{chap:Albanese_CodimOneExtension} as
+\cref{thm:codim_one_extension} and
+\cref{lem:milne_codim1_indeterminacy}.  Their combination here is special to
+group-variety targets: a rational map to a general complete variety can have
+a nonempty codimension-two indeterminacy locus.
+
+The extension theorem feeds both the Albanese construction discussed above
+and the usual rigidity consequences for rational maps between abelian
+varieties.  Over a non-algebraically-closed field the local extension
+arguments remain available after suitable residue-field bookkeeping, but
+descent of the resulting morphism is an additional problem.

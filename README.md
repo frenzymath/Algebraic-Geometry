@@ -16,8 +16,8 @@
 </p>
 
 > [!IMPORTANT]
-> The workspace currently registers 11 active projects: the eight Stacks
-> Project parts plus the Mumford, Milne, and Hartshorne reference blueprints.
+> The workspace currently registers 21 routes: 13 active projects and 8 planned
+> source projects for the next Luna/Codex transcription pass.
 > The source statements are indexed in hgraph; Lean declarations are added
 > incrementally and are never claimed before they exist.
 
@@ -50,11 +50,18 @@ site/algebraic-geometry.css  workspace-wide hgraph style override
 | Project | Role |
 |---|---|
 | [`MainProjects/AlgebraicJacobian`](MainProjects/AlgebraicJacobian/) | Flagship algebraic-Jacobian challenge |
+| [`MainProjects/AlgebraicJacobian/AlgebraicJacobian`](MainProjects/AlgebraicJacobian/AlgebraicJacobian/) | Compiled AJ Lean library (388 modules) |
+| [`MainProjects/AlgebraicJacobian/MilneKollar`](MainProjects/AlgebraicJacobian/MilneKollar/) | Milne-Kollar Picard-scheme route |
+| [`MainProjects/AlgebraicJacobian/PicardAlbanese`](MainProjects/AlgebraicJacobian/PicardAlbanese/) | Etale Picard-Albanese route |
 | [`shared/`](shared/) | Source-independent reusable Lean infrastructure |
 | [`FormalizedSources/StacksProject/`](FormalizedSources/StacksProject/) | **8** part-level projects containing all **109** Stacks chapters |
 | [`FormalizedSources/AbelianVarieties/Mumford`](FormalizedSources/AbelianVarieties/Mumford/) | Mumford's geometric treatment of abelian varieties |
 | [`FormalizedSources/AbelianVarieties/Milne`](FormalizedSources/AbelianVarieties/Milne/) | Milne's geometric and arithmetic treatment |
 | [`FormalizedSources/Curves/Hartshorne`](FormalizedSources/Curves/Hartshorne/) | Curves, divisors, and cohomology |
+| [`FormalizedSources/Moduli/`](FormalizedSources/Moduli/) | Planned Picard, Hilbert, Quot, and FGA references |
+| [`FormalizedSources/Curves/Papaioannou`](FormalizedSources/Curves/Papaioannou/) | Planned algebraic Riemann--Roch and function-field reference |
+| [`FormalizedSources/CommutativeAlgebra/`](FormalizedSources/CommutativeAlgebra/) | Planned commutative-algebra references |
+| [`FormalizedSources/CategoryTheory/Leinster`](FormalizedSources/CategoryTheory/Leinster/) | Planned categorical foundations reference |
 
 Stacks source chapter inventory (aggregated into one hgraph project per part):
 
@@ -78,17 +85,23 @@ Stacks source chapter inventory (aggregated into one hgraph project per part):
 | `Stacks/` | One hgraph group containing the eight Stacks part projects |
 | `AbelianVarieties/` | Mumford, Milne, and related abelian-variety sources |
 | `Curves/` | Curves, divisors, differentials, and Riemann-Roch |
+| `Moduli/` | Picard, Hilbert, Quot, and compactification references |
+| `CommutativeAlgebra/` | Ring-theoretic foundations |
+| `CategoryTheory/` | Categorical foundations |
 
 Each Stacks part project aggregates numbered chapter files adapted from the
 upstream LaTeX. The parent part route is the registered hgraph project; there
 are no child project directories. Future routes can remain `planned: true`
-until their blueprint or Lean sources exist.
+until their blueprint or Lean sources exist. The eight new planned projects
+carry their source-specific handoff prompts and exact Horizon paths.
 
 ## Current state
 
 The current workspace provides:
 
-- 11 registered hgraph project routes, including eight Stacks part projects;
+- 21 registered hgraph routes: 13 active projects and 8 planned source
+  projects, including eight Stacks part projects and two Algebraic Jacobian
+  construction routes;
 - **109** Stacks chapter blueprints covering Parts 1–8 completely;
 - source blueprints for Mumford, Milne, and Hartshorne;
 - a workspace-level visual theme distinct from the default Poincare styling;

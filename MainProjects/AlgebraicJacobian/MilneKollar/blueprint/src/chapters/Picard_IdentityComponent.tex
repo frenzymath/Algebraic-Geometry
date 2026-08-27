@@ -1,0 +1,1387 @@
+\chapter{The identity component of the Picard scheme}
+\label{chap:Picard_IdentityComponent}
+% archon:covers AlgebraicJacobian/Picard/IdentityComponent.lean
+\providecommand{\connComp}{\operatorname{Comp}}
+
+% STRATEGY NOTE (iter-184). This chapter is the A.3 sub-row of Route~A
+% (positive-genus arm of \texttt{nonempty\_jacobianWitness}). It builds the
+% identity component \(\Pic^0_{C/k}\) of the Picard scheme as an
+% open-and-closed subgroup scheme of \(\Pic_{C/k}\), equips it with the
+% degree-zero characterisation, and identifies it as an abelian variety
+% of dimension \(g(C)\). The abstract identity-component substrate
+% (\cref{def:identity_component_group_scheme} +
+% \cref{thm:identity_component_open_subgroup}) is new project material:
+% the Lean target
+% \texttt{AlgebraicGeometry.GroupScheme.IdentityComponent} does not yet
+% exist in Mathlib.
+%
+% NOTE: future split candidate when a second consumer materialises. The
+% abstract identity-component substrate is kept in this chapter (rather
+% than split off into a separate
+% \texttt{GroupScheme\_IdentityComponent.tex}) because it is small and
+% has a single consumer for now. If a second consumer materialises,
+% revisit the split.
+
+% STATUS (run 0009). The Lean target file
+% \texttt{AlgebraicJacobian/Picard/IdentityComponent.lean} exists; the
+% \S 1 group-scheme substrate (identity-component definition and its four
+% conclusion-specific theorems) is fully proved. Remaining sorries are
+% confined to \S 3--\S 4. The mathematical degree rows have no exact Lean
+% pins; \texttt{finrank\_eq\_genus} and \texttt{kPoints\_iff\_kerDegree}
+% remain typed sorries downstream of the FGA representability foundation
+% (\texttt{AJC.picrep}).
+
+\section{Setup and motivation}
+\label{sec:pic0_setup}
+
+Throughout this chapter, fix a base field \(k\) and a smooth proper
+geometrically integral curve \(C\) over \(k\) of genus \(g = g(C)\)
+(\cref{def:genus}). Write \(\Pic^{\et}_{C/k}\) for a \(k\)-scheme
+representing the \'etale-sheafified relative Picard functor
+\(\Pic_{(C/k)\et}\) of \cref{def:pic_et_sheaf}. Its existence over an
+arbitrary field, with no rational-point hypothesis, is the open theorem
+\cref{thm:fga_pic_representability_etale}. It is separated and locally of
+finite type over \(k\), and its degree pieces form a disjoint union of open
+quasi-projective \(k\)-subschemes.
+
+The Lean-pinned \(\Pic_{C/k}\) and \(\Pic^0_{C/k}\) below instead use the
+legacy scheme representing the unsheafified \(\Pic^\sharp_{C/k}\), conditional
+on its separate representability hypotheses. They are not identified here
+with \(\Pic^{\et}_{C/k}\); the arbitrary-field degree statements use the
+superscript \(\et\) explicitly.
+
+The arbitrary-field mathematical target is the identity component
+\((\Pic^{\et}_{C/k})^0\), the connected component containing the trivial line
+bundle. It is the degree-zero locus and an abelian variety of dimension \(g\).
+The Lean-pinned legacy specialization and the still-open arbitrary-field degree
+rows are kept distinct below.
+
+\section{The identity component of a group scheme}
+\label{sec:identity_component_abstract}
+
+The identity component is an abstract feature of group schemes locally
+of finite type over a field. We record the definition and its
+open-and-closed subgroup-scheme structure separately, so that the
+Lean substrate
+\texttt{AlgebraicGeometry.GroupScheme.IdentityComponent} is reusable
+outside the Picard context.
+
+\begin{definition}[Identity component of a group scheme]\leanok
+  \label{def:identity_component_group_scheme}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.IdentityComponent}
+  \uses{def:identity_component_carrier}
+  % SOURCE: \cite{kleiman-picard}, ``The Picard scheme'', \S 5, Lem.~5.1;
+  % arXiv:math/0504020, p.~36 (read from
+  % references/kleiman-picard-src/kleiman-picard.tex, L2851-L2863).
+  % SOURCE QUOTE:
+  % "\\label{lem:agps}
+  %  Let \(k\) be a field, and \(G\) a group scheme locally of finite
+  % type.  Let \(G^0\) denote the connected component of the identity element \(e\).
+  %
+  % \tu{(1)} Then \(G\) is separated.
+  %
+  % \tu{(2)} Then \(G\) is smooth if it has a geometrically
+  % reduced open subscheme.
+  %
+  %  \tu{(3)} Then \(G^0\) is an open and closed group subscheme of finite
+  % type; it is geometrically irreducible; and forming it commutes with
+  % extending \(k\).
+  %  \"
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 5, Lem.~5.1.}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite type
+  whose identity section \(e : \Spec k \to G\) factors through \(G\). The
+  \emph{identity component} of \(G\), denoted \(G^0\), is the locally closed
+  subscheme of \(G\) whose underlying topological space is the connected
+  component of \(|G|\) containing the image of \(e\), equipped with the
+  reduced-induced (a priori) subscheme structure inherited from \(G\).
+  In characteristic zero, or more generally when \(G\) has a
+  geometrically reduced open subscheme, the substructure agrees with
+  the open subscheme structure of \cref{thm:identity_component_open_subgroup}.
+\end{definition}
+
+% The four conclusions of Kleiman \S 5 Lem.~5.1~(3) are split below
+% into per-conclusion theorem blocks, each with its own \lean{...} pin to
+% a Lean declaration. The verbatim source quote of lem:agps~(3) is
+% reproduced once at \cref{thm:identity_component_open_subgroup} below
+% (covering all four conclusions); the three subsequent blocks reference
+% that quote rather than duplicating it. Each theorem carries its own
+% \begin{proof} block (the matching paragraph of Kleiman's proof of
+% lem:agps~(3)); the verbatim \texttt{\% SOURCE QUOTE PROOF:} comment from
+% Kleiman's proof, covering all four conclusions, precedes the proof of
+% \cref{thm:identity_component_open_subgroup}.
+
+\begin{theorem}
+[Identity component is a clopen subscheme]
+  \label{thm:identity_component_open_subgroup}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.IdentityComponent.isOpenSubgroupScheme}
+
+  % SOURCE: \cite{kleiman-picard}, ``The Picard scheme'', \S 5, Lem.~5.1~(3);
+  % arXiv:math/0504020, p.~36 (read from
+  % references/kleiman-picard-src/kleiman-picard.tex, L2860-L2863).
+  % SOURCE QUOTE:
+  % " \tu{(3)} Then \(G^0\) is an open and closed group subscheme of finite
+  % type; it is geometrically irreducible; and forming it commutes with
+  % extending \(k\)."
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 5, Lem.~5.1~(3).}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite
+  type. Then the identity component \(G^0\)
+  (\cref{def:identity_component_group_scheme}) is an open and closed
+  subscheme of \(G\): the inclusion \(G^0 \hookrightarrow G\) is both an
+  open immersion and a closed immersion of schemes.
+\end{theorem}
+
+% SOURCE QUOTE PROOF: (from references/kleiman-picard-src/kleiman-picard.tex,
+% L2864-L2911, proof of lem:agps; we reproduce the part dealing with
+% (3).)
+% "Consider (3).  By definition, \(G^0\) is the largest connected subspace
+% containing \(e\).  But the closure of a connected subspace is plainly
+% connected; so \(G^0\) is closed.  By \cite[6.1.9]{ega-i}, in any locally
+% Noetherian topological space, the connected components are open.  Thus
+% \(G^0\) is open too.
+%
+% Since \(G^0\) is connected and has a \(k\)-point, \(G^0\) is geometrically
+% connected by \cite[4.5.14]{ega-iv2}.  Thus forming \(G^0\) commutes with
+% extending \(k\).
+%
+% Furthermore, \(G^0\x G^0\) is connected by \cite[4.5.8]{ega-iv2}.
+% So \(\alpha(G^0\x G^0)\subset G\) is connected, and contains \(e\),
+% so lies in \(G^0\).  Thus \(G^0\) is a subgroup.
+%
+% To prove \(G^0\) is geometrically irreducible and quasi-compact, we may
+% replace \(k\) by its algebraic closure.  Then \(G^0_{\red}\x G^0_{\red}\) is
+% reduced by \cite[4.6.1]{ega-iv2}.  Hence \(\alpha\) induces a map from
+% \(G^0_{\red}\x G^0_{\red}\) into \(G^0_{\red}\).  So \(G^0_{\red}\) is a
+% subgroup.  Thus we may replace \(G^0\) by \(G^0_{\red}\).
+% [\dots]
+% Hence \(G^0\) is irreducible locally at \(h\).  But \(h\) is
+% arbitrary, and \(G^0\) is connected.  So \(G^0\) is irreducible by
+% \cite[6.1.10]{ega-i}.
+% [\dots]
+% Now, \(U\x U\) is affine, so quasi-compact.  Hence \(G^0\) is
+% quasi-compact.  By hypothesis, \(G\) is locally of finite type. Hence
+% \(G^0\) is of finite type.  Thus (3) holds."
+\begin{proof}
+  \uses{def:identity_component_group_scheme, def:identity_component_carrier, lem:identity_component_locally_connected}
+  Following Kleiman's proof of Lem.~5.1~(3) (clopen-subscheme part).
+  Since \(e\) is a \(k\)-rational point, the singleton \(\{e\}\) is a closed
+  point of \(G\). The connected component \(G^0\) of \(|G|\) at \(e\) is the
+  largest connected subspace containing \(e\); the closure of a connected
+  subspace is connected, hence \(G^0\) is closed. On the other hand, a
+  locally Noetherian topological space has open connected components
+  (EGA I 6.1.9), so \(G^0 \subseteq |G|\) is also open. Equip \(G^0\) with
+  the open-subscheme structure; the inclusion
+  \(G^0 \hookrightarrow G\) is then both an open and a closed immersion.
+\end{proof}
+
+\begin{theorem}[Identity component inclusion is a group-scheme homomorphism]\leanok
+  \label{thm:identity_component_is_subgroup_homomorphism}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.IdentityComponent.isSubgroupHomomorphism}
+  \uses{thm:identity_component_open_subgroup, def:identity_component_group_scheme, lem:identity_component_geometrically_connected}
+
+  % SOURCE: \cite{kleiman-picard}, ``The Picard scheme'', \S 5, Lem.~5.1~(3);
+  % verbatim quote of (3) reproduced at
+  % \cref{thm:identity_component_open_subgroup} above
+  % (references/kleiman-picard-src/kleiman-picard.tex, L2860-L2863).
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 5,
+  Lem.~5.1~(3); the verbatim source quote of (3) is at
+  \cref{thm:identity_component_open_subgroup}.}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite
+  type. The clopen inclusion \(G^0 \hookrightarrow G\)
+  (\cref{thm:identity_component_open_subgroup}) is a homomorphism of
+  \(k\)-group schemes: \(G^0\) inherits a \(k\)-group-scheme structure
+  from \(G\), and the inclusion morphism in the over-category over
+  \(\Spec k\) is compatible with the group laws on source and target.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  \uses{thm:identity_component_open_subgroup, def:identity_component_group_scheme, lem:identity_component_geometrically_connected}
+  Following Kleiman's proof of Lem.~5.1~(3) (subgroup part); the
+  verbatim source quote is reproduced at
+  \cref{thm:identity_component_open_subgroup}.
+  The product \(G^0 \times_k G^0\) is connected (EGA IV\(_2\) 4.5.8):
+  \(G^0\) is geometrically connected
+  (\cref{lem:identity_component_geometrically_connected}) and every
+  morphism to \(\Spec k\) is universally open, so the fibre product over
+  \(k\) of the connected \(G^0\) with itself is connected. Its image under
+  the multiplication \(\mu : G \times_k G \to G\) is therefore a connected
+  subset of \(|G|\) containing \(\mu(e, e) = e\), hence contained in the
+  clopen identity component \(G^0\)
+  (\cref{thm:identity_component_open_subgroup}). Likewise the image of the
+  connected set \(G^0\) under the inversion of \(G\) is connected and
+  contains \(e^{-1} = e\), hence lies in \(G^0\). Consequently, for every
+  \(k\)-scheme \(T\), the subset of \(\operatorname{Hom}_k(T, G)\)
+  consisting of morphisms whose set-theoretic image lies in \(G^0\) is a
+  subgroup, functorially in \(T\); and since a morphism lands in the open
+  subscheme \(G^0\) exactly when its set-theoretic image lies in \(G^0\),
+  this subgroup presheaf is represented by \(G^0\). By the Yoneda
+  characterisation of group objects, \(G^0\) inherits a \(k\)-group-scheme
+  structure from \(G\), for which the inclusion \(G^0 \hookrightarrow G\)
+  is a homomorphism of \(k\)-group schemes.
+\end{proof}
+
+\begin{theorem}[Identity component is of finite type and geometrically irreducible]\leanok
+  \label{thm:identity_component_finite_type_geom_irreducible}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.IdentityComponent.isFiniteTypeGeometricallyIrreducible}
+
+  % SOURCE: \cite{kleiman-picard}, ``The Picard scheme'', \S 5, Lem.~5.1~(3);
+  % verbatim quote of (3) reproduced at
+  % \cref{thm:identity_component_open_subgroup} above
+  % (references/kleiman-picard-src/kleiman-picard.tex, L2860-L2863).
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 5,
+  Lem.~5.1~(3); the verbatim source quote of (3) is at
+  \cref{thm:identity_component_open_subgroup}.}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite
+  type. Then the identity component \(G^0\) is of finite type over
+  \(k\) --- equivalently, locally of finite type \emph{and}
+  quasi-compact --- and geometrically irreducible: after base change
+  to the algebraic closure \(\bar k\), the underlying scheme
+  \(G^0_{\bar k}\) is an irreducible \(\bar k\)-scheme.
+\end{theorem}
+
+\begin{proof}\leanok
+  \uses{thm:identity_component_open_subgroup, thm:identity_component_base_change_commutes, thm:identity_component_is_subgroup_homomorphism, def:identity_component_group_scheme}
+  Following Kleiman's proof of Lem.~5.1~(3) (finite-type and
+  geometric-irreducibility part); the verbatim source quote is
+  reproduced at \cref{thm:identity_component_open_subgroup}. Base-change to
+  \(\overline k\) is permitted because formation of \(G^0\) commutes with
+  field extension (\cref{thm:identity_component_base_change_commutes}), and
+  over \(\overline k\) the identity component \(G^0\) carries the group
+  structure inherited from \(G\)
+  (\cref{thm:identity_component_is_subgroup_homomorphism}).
+
+  \emph{Irreducibility over \(\overline k\).}  Inside a Noetherian affine
+  open of \(G^0\) (Noetherian because \(G\) is locally of finite type over a
+  field), removing the union of all irreducible components but one leaves a
+  nonempty irreducible open (Stacks 0052 (3)); its image under the
+  inclusion of the affine open is a nonempty irreducible open
+  \(U \subseteq G^0\). Pick a closed point \(g \in U\) (\(G^0\) is a
+  Jacobson space, being locally of finite type over a field). For every
+  closed point \(z\) of \(G^0\), \(g^{-1}z\) is again a closed --- hence,
+  \(\overline k\) being algebraically closed, rational --- point, and right
+  translation \(x \mapsto x \cdot (g^{-1}z)\) is an automorphism of \(G^0\)
+  carrying \(g\) to \(z\); it therefore carries \(U\) to an irreducible open
+  neighbourhood of \(z\). Consequently the union of all irreducible opens of
+  \(G^0\) contains every closed point; since this union is open, its
+  complement is closed, and a nonempty closed subset of a Jacobson space
+  contains a closed point (Jacobson density) --- which cannot lie outside
+  every constructed neighbourhood --- the complement is empty, so the union
+  of irreducible opens is all of \(G^0\). By EGA I 6.1.10 (a connected space
+  in which every point has an irreducible open neighbourhood is
+  irreducible) and connectedness of \(G^0\)
+  (\cref{thm:identity_component_open_subgroup}), \(G^0\) is irreducible.
+
+  \emph{Quasi-compactness over \(\overline k\).}  Fix an affine open
+  \(W \ni e\). For a closed point \(z\), the ``division'' morphism
+  \(\chi_z : x \mapsto x^{-1}z\) satisfies \(\chi_z(z) = e \in W\), so
+  \(W \cap \chi_z^{-1}(W)\) is a nonempty open subset of the irreducible
+  \(G^0\), hence contains a closed point \(g\) by Jacobson density. Then
+  \(u := g^{-1}z\) is a rational point of \(W\) and \(z = g \cdot u\) lies in
+  the image of the multiplication map \(m : W \times_{\overline k} W \to
+  G^0\). Thus every closed point of \(G^0\) lies in the image of \(m\),
+  which is quasi-compact as the image of the quasi-compact scheme
+  \(W \times_{\overline k} W\); a finite affine subcover of this image,
+  together with Jacobson density, covers all of \(G^0\), so \(G^0\) is
+  quasi-compact.
+
+  \emph{Descent to \(k\).}  Both conjuncts descend along the surjective
+  projection \((G^0)_{\overline k} \to G^0\) coming from the base-change
+  identification \((G_{\overline k})^0 \cong (G^0)_{\overline k}\)
+  (\cref{thm:identity_component_base_change_commutes}): a scheme admitting a
+  surjection from a quasi-compact (resp. irreducible) scheme is itself
+  quasi-compact (resp. irreducible). Quasi-compactness together with the
+  standing locally-of-finite-type hypothesis on \(G\) makes \(G^0\) of
+  finite type over \(k\). For geometric irreducibility at an arbitrary field
+  extension \(K/k\), apply the same descent along the surjective projection
+  from the algebraic closure of \(K\).
+\end{proof}
+
+\begin{theorem}[Formation of the identity component commutes with base change]\leanok
+  \label{thm:identity_component_base_change_commutes}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.IdentityComponent.baseChangeIso}
+  \uses{thm:identity_component_open_subgroup, lem:geometricallyConnected_of_connected_of_section, lem:identity_component_geometrically_connected, def:identity_component_group_scheme}
+
+  % SOURCE: \cite{kleiman-picard}, ``The Picard scheme'', \S 5, Lem.~5.1~(3);
+  % verbatim quote of (3) reproduced at
+  % \cref{thm:identity_component_open_subgroup} above
+  % (references/kleiman-picard-src/kleiman-picard.tex, L2860-L2863).
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 5,
+  Lem.~5.1~(3); the verbatim source quote of (3) is at
+  \cref{thm:identity_component_open_subgroup}.}
+  Let \(k\) be a field, \(G\) a \(k\)-group scheme locally of finite
+  type, and \(K/k\) a field extension. The natural map
+  \((G^0)_K \to (G_K)^0\), induced by base-changing the inclusion of
+  \cref{thm:identity_component_open_subgroup} along \(\Spec K \to \Spec k\)
+  and using the universal property of the identity component on
+  \(G_K\), is an isomorphism of \(K\)-schemes.
+\end{theorem}
+
+\begin{proof}
+  \leanok
+  \uses{thm:identity_component_open_subgroup, lem:geometricallyConnected_of_connected_of_section, lem:identity_component_geometrically_connected, def:identity_component_group_scheme}
+  Following Kleiman's proof of Lem.~5.1~(3) (base-change part); the
+  verbatim source quote is reproduced at
+  \cref{thm:identity_component_open_subgroup}.
+  Geometric connectedness of \(G^0\) follows from the existence of the
+  \(k\)-rational point \(e \in G^0(k)\): the identity component is
+  connected and carries a \(k\)-rational section, so it is geometrically
+  connected by
+  \cref{lem:geometricallyConnected_of_connected_of_section} (the
+  Stacks 037Q criterion; cf.\ EGA IV\(_2\) 4.5.14). In particular for
+  any field extension \(K/k\) the base change \((G^0)_K\) is connected,
+  contains the image of the identity section of \(G_K\), and is open and
+  closed in \(G_K\) (since open- and closed-immersion both descend under
+  base change, \cref{thm:identity_component_open_subgroup}). Hence
+  \((G^0)_K\) coincides, as a subscheme of \(G_K\), with the identity
+  component \((G_K)^0\) of \(G_K\); the natural comparison map
+  \((G^0)_K \to (G_K)^0\) is therefore an isomorphism.
+\end{proof}
+
+\subsection{Descent of connectedness along field extensions}
+\label{subsec:connectedness_descent}
+
+The bridge from connectedness of \(|G^0|\) to geometric connectedness of
+\(G^0 \to \Spec k\) is the classical statement that a connected
+\(k\)-scheme with a \(k\)-rational point is geometrically connected
+(Stacks 04KV, EGA IV\(_2\) 4.5.14). We prove it from first principles.
+The transcendental heart is the fact that over an algebraically closed
+field the tensor product of two field extensions is a domain
+(Stacks 05P3); the geometric assembly combines universal openness of
+morphisms to the spectrum of a field (Stacks 0383, available in
+mathlib), closedness of integral base changes, and a clopen-image
+argument at the rational point.
+
+\begin{lemma}[Evaluation at a maximal ideal over an algebraically closed field]\leanok
+  \label{lem:maximal_ideal_evaluation_alg_closed}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.exists_algHom_ker_eq}
+  \textit{Source: Zariski's lemma; Stacks, tag 00FV.}
+  Let \(k\) be an algebraically closed field, \(R\) a finite-type
+  \(k\)-algebra, and \(\mathfrak m \subseteq R\) a maximal ideal. Then
+  there is a \(k\)-algebra homomorphism \(\varphi : R \to k\) with
+  \(\ker \varphi = \mathfrak m\).
+\end{lemma}
+\begin{proof}
+  \leanok
+  The quotient \(R/\mathfrak m\) is a field and a finite-type
+  \(k\)-algebra, hence a finite (in particular integral) extension of
+  \(k\) by Zariski's lemma. Since \(k\) is algebraically closed, the
+  structure map \(k \to R/\mathfrak m\) is bijective. Composing the
+  quotient map \(R \to R/\mathfrak m\) with its inverse yields
+  \(\varphi\), whose kernel is \(\mathfrak m\).
+\end{proof}
+
+\begin{lemma}[Tensor product with a finite-type domain over an algebraically closed field]\leanok
+  \label{lem:tensor_domain_finite_type_alg_closed}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.isDomain_tensorProduct_of_finiteType}
+  \uses{lem:maximal_ideal_evaluation_alg_closed}
+  \textit{Source: Stacks, tag 05P3 (finite-type case).}
+  Let \(k\) be an algebraically closed field, \(R\) a finite-type
+  \(k\)-algebra which is a domain, and \(A/k\) a field extension. Then
+  \(R \otimes_k A\) is a domain.
+\end{lemma}
+\begin{proof}
+  \leanok
+  \uses{lem:maximal_ideal_evaluation_alg_closed}
+  Nontriviality holds because \(R\) and \(A\) are nontrivial and embed
+  their fraction fields compatibly. Fix a \(k\)-basis \((a_i)\) of
+  \(A\); then \(R \otimes_k A\) is a free \(R\)-module with basis
+  \((1 \otimes a_i)\), so every element \(x\) has unique coordinates
+  \(c_i(x) \in R\). Suppose \(x y = 0\). For every maximal ideal
+  \(\mathfrak m \subseteq R\), choose
+  \(\varphi : R \to k\) with kernel \(\mathfrak m\) by
+  \cref{lem:maximal_ideal_evaluation_alg_closed}, and apply the ring
+  homomorphism \(\varphi \otimes \id : R \otimes_k A \to A\): it sends
+  \(x \mapsto \sum_i \varphi(c_i(x)) a_i\). Since \(A\) is a field,
+  \((\varphi \otimes \id)(x) = 0\) or \((\varphi \otimes \id)(y) = 0\);
+  by linear independence of \((a_i)\) over \(k\) this means all
+  \(c_i(x) \in \mathfrak m\) or all \(c_j(y) \in \mathfrak m\). In
+  either case \(c_i(x)\, c_j(y) \in \mathfrak m\) for all \(i, j\) and
+  all maximal \(\mathfrak m\). A finite-type algebra over a field is a
+  Jacobson ring, and in a Jacobson domain the intersection of all
+  maximal ideals is zero; hence \(c_i(x)\, c_j(y) = 0\) for all
+  \(i, j\). If \(x \neq 0\), some \(c_{i_0}(x) \neq 0\), and since
+  \(R\) is a domain every \(c_j(y) = 0\), i.e.\ \(y = 0\).
+\end{proof}
+
+\begin{lemma}[Tensor product of field extensions over an algebraically closed field]\leanok
+  \label{lem:tensor_domain_alg_closed}
+  \dcref{custom}
+  \lean{Algebra.TensorProduct.isDomain_of_isAlgClosed}
+  \uses{lem:tensor_domain_finite_type_alg_closed}
+  \textit{Source: Stacks, tag 05P3.}
+  Let \(k\) be an algebraically closed field and \(A/k\), \(B/k\) field
+  extensions. Then \(A \otimes_k B\) is a domain.
+\end{lemma}
+\begin{proof}
+  \leanok
+  \uses{lem:tensor_domain_finite_type_alg_closed}
+  Suppose \(x y = 0\) with \(x, y \in A \otimes_k B\). Writing \(x\) and
+  \(y\) as finite sums of elementary tensors, let \(R \subseteq A\) be
+  the \(k\)-subalgebra generated by the finitely many first components;
+  \(R\) is a finite-type \(k\)-algebra and a domain (a subring of the
+  field \(A\)). Since \(B\) is free, hence flat, as a \(k\)-module, the
+  natural map \(R \otimes_k B \to A \otimes_k B\) is injective. The
+  elements \(x, y\) lift to \(x', y' \in R \otimes_k B\) with
+  \(x' y' = 0\); by \cref{lem:tensor_domain_finite_type_alg_closed}
+  (applied with the field extension \(B\)) we get \(x' = 0\) or
+  \(y' = 0\), hence \(x = 0\) or \(y = 0\). Nontriviality is as in
+  \cref{lem:tensor_domain_finite_type_alg_closed}.
+\end{proof}
+
+\begin{lemma}[The spectrum of a domain is connected]\leanok
+  \label{lem:spec_domain_connected}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.connectedSpace_spec_of_isDomain}
+  Let \(R\) be a commutative domain. Then \(\Spec R\) is a connected
+  (indeed irreducible) nonempty topological space.
+\end{lemma}
+\begin{proof}
+  \leanok
+  In a domain the nilradical \((0)\) is prime, so \(\Spec R\) is
+  irreducible with generic point \((0)\); irreducible spaces are
+  connected and nonempty.
+\end{proof}
+
+\begin{lemma}[Projections from constant-field base changes are geometrically connected]\leanok
+  \label{lem:geometrically_connected_projection_alg_closed}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.geometricallyConnected_pullback_fst_of_isAlgClosed}
+  \uses{lem:tensor_domain_alg_closed, lem:spec_domain_connected}
+  Let \(k\) be an algebraically closed field, \(L/k\) a field extension,
+  and \(f : X \to \Spec k\) a morphism of schemes. Then the projection
+  \(q : X \times_k \Spec L \to X\) is geometrically connected: for every
+  field \(K\) and morphism \(\Spec K \to X\), the fiber product
+  \((X \times_k \Spec L) \times_X \Spec K\) is connected.
+\end{lemma}
+\begin{proof}
+  \leanok
+  \uses{lem:tensor_domain_alg_closed, lem:spec_domain_connected}
+  By the pasting law for fiber products,
+  \((X \times_k \Spec L) \times_X \Spec K \cong \Spec K \times_{\Spec k}
+  \Spec L = \Spec (K \otimes_k L)\), where \(K\) is a field extension of
+  \(k\) via \(\Spec K \to X \to \Spec k\). By
+  \cref{lem:tensor_domain_alg_closed} the ring \(K \otimes_k L\) is a
+  domain, so its spectrum is connected by
+  \cref{lem:spec_domain_connected}.
+\end{proof}
+
+\begin{lemma}[Connectedness is stable under base change from an algebraically closed field]\leanok
+  \label{lem:connected_base_change_alg_closed}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.connectedSpace_pullback_of_isAlgClosed}
+  \uses{lem:geometrically_connected_projection_alg_closed}
+  \textit{Source: Stacks, tag 0363.}
+  Let \(k\) be an algebraically closed field, \(L/k\) a field extension,
+  and \(f : X \to \Spec k\) a morphism with \(|X|\) connected. Then
+  \(X \times_k \Spec L\) is connected.
+\end{lemma}
+\begin{proof}
+  \leanok
+  \uses{lem:geometrically_connected_projection_alg_closed}
+  The projection \(q : X \times_k \Spec L \to X\) is open: it is the
+  base change of \(\Spec L \to \Spec k\), which is universally open
+  because every morphism to the spectrum of a field is universally open
+  (Stacks 0383; available in mathlib). By
+  \cref{lem:geometrically_connected_projection_alg_closed} the
+  fibers of \(q\) over points of \(X\) are connected. An open
+  surjective map with connected fibers onto a connected space has
+  connected total space (mathlib,
+  \(\texttt{GeometricallyConnected.connectedSpace}\)).
+\end{proof}
+
+\begin{lemma}[Base change to the algebraic closure preserves connectedness given a section]\leanok
+  \label{lem:connected_base_change_algebraic_closure}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.connectedSpace_pullback_algebraicClosure}
+  \textit{Source: Stacks, tag 04KV (algebraic step); EGA IV\(_2\) 4.5.13.}
+  Let \(k\) be a field, \(f : X \to \Spec k\) a morphism with \(|X|\)
+  connected admitting a section \(s : \Spec k \to X\), and
+  \(\bar k\) an algebraic closure of \(k\). Then
+  \(X \times_k \Spec \bar k\) is connected.
+\end{lemma}
+\begin{proof}
+  \leanok
+  The projection \(p : X_{\bar k} := X \times_k \Spec \bar k \to X\) is:
+  open (base change of the universally open \(\Spec \bar k \to \Spec
+  k\), as in \cref{lem:connected_base_change_alg_closed}); closed
+  (base change of \(\Spec \bar k \to \Spec k\), which is integral
+  because \(\bar k / k\) is algebraic, and integral morphisms are
+  universally closed); and surjective (base change of a surjection).
+  Let \(x_0 = s(\ast)\) be the image of the section. The section
+  induces a \(k\)-algebra retraction \(\kappa(x_0) \to k\) of the field
+  map \(k \to \kappa(x_0)\); a field homomorphism admitting a
+  retraction is bijective, so \(\kappa(x_0) = k\). Hence the fiber
+  \(p^{-1}(x_0) = \Spec(\kappa(x_0) \otimes_k \bar k) = \Spec \bar k\)
+  is a single point \(\zeta\).
+
+  \(X_{\bar k}\) is nonempty (it contains \(\zeta\), or equivalently
+  the image of the base-changed section). Let \(T \subseteq
+  X_{\bar k}\) be clopen with \(T \neq \emptyset\) and
+  \(T^{\mathsf c} \neq \emptyset\). Since \(p\) is both open and
+  closed, \(p(T)\) and \(p(T^{\mathsf c})\) are nonempty clopen subsets
+  of the connected space \(|X|\), hence both equal \(|X|\). In
+  particular \(x_0 \in p(T) \cap p(T^{\mathsf c})\), so the fiber
+  \(p^{-1}(x_0)\) meets both \(T\) and \(T^{\mathsf c}\); but that
+  fiber is the single point \(\zeta\) — a contradiction. So
+  \(X_{\bar k}\) admits no nontrivial clopen partition and is
+  connected.
+\end{proof}
+
+\begin{theorem}[Connected with a rational section implies geometrically connected]\leanok
+  \label{thm:geometrically_connected_of_section}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.geometricallyConnected_of_connectedSpace_of_section}
+  \uses{lem:connected_base_change_algebraic_closure, lem:connected_base_change_alg_closed}
+  \textit{Source: Stacks, tag 04KV; EGA IV\(_2\) 4.5.14.}
+  Let \(k\) be a field and \(f : X \to \Spec k\) a morphism with
+  \(|X|\) connected, admitting a section \(s : \Spec k \to X\). Then
+  \(f\) is geometrically connected: for every field extension \(L/k\)
+  the base change \(X \times_k \Spec L\) is connected.
+\end{theorem}
+\begin{proof}
+  \leanok
+  \uses{lem:connected_base_change_algebraic_closure, lem:connected_base_change_alg_closed}
+  Let \(L/k\) be arbitrary, \(\bar L\) an algebraic closure of \(L\),
+  and \(\bar k\) an algebraic closure of \(k\). Since \(\bar k/k\) is
+  algebraic and \(\bar L\) is algebraically closed, there is a
+  \(k\)-embedding \(\bar k \hookrightarrow \bar L\). By
+  \cref{lem:connected_base_change_algebraic_closure},
+  \(X_{\bar k}\) is connected; by
+  \cref{lem:connected_base_change_alg_closed} applied over the
+  algebraically closed field \(\bar k\) to the extension
+  \(\bar L / \bar k\), the scheme
+  \(X_{\bar L} = X_{\bar k} \times_{\bar k} \Spec \bar L\) is
+  connected. Finally the projection \(X_{\bar L} \to X_L\) is
+  surjective (base change of the surjection
+  \(\Spec \bar L \to \Spec L\)) and continuous, so \(X_L\) is the
+  continuous image of a connected space, hence connected.
+\end{proof}
+
+% NOTE (iter-194 progress-critic must-fix): elevating Stacks 037Q
+% (the iff-direction of "connected + k-rational section ⟹ geometrically
+% connected") as a FIRST-CLASS blueprint obligation. iter-189..iter-193
+% Route A.3.i was STUCK because the Lean side `geometricallyConnected_of_connected_of_section`
+% helper was a substrate footnote without its own blueprint lemma + proof
+% sketch. Below we add the standalone Stacks 037Q lemma block.
+
+% NOTE (iter-194 reviewer): The corresponding Lean
+% `identityComponent_geometricallyConnected` derivation at
+% `Picard/IdentityComponent.lean:500-567` was DEMOTED from `private
+% instance` to `private theorem` per the iter-193 lean-auditor must-fix:
+% the prior `instance` form would silently propagate `sorryAx` through
+% typeclass synthesis for `[GeometricallyConnected (IdentityComponent
+% G).hom]` queries while the body relies on a sorry-bodied helper.
+% Post-demotion, consumers must thread `letI :=
+% identityComponent_geometricallyConnected G` explicitly. Verified by
+% `lean_verify` that `IdentityComponent.isOpenSubgroupScheme` is now
+% kernel-only.
+\begin{lemma}[Stacks 037Q iff-direction: connected + section ⟹ geometrically connected]\leanok
+  \label{lem:geometricallyConnected_of_connected_of_section}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.geometricallyConnected_of_connected_of_section}
+  \uses{thm:geometrically_connected_of_section}
+  % SOURCE: [Stacks], tag 037Q (criteria for geometric connectedness via
+  % algebraic closure of the base field in the global sections) +
+  % tag 04KV (geometrically connected descent of clopen partitions).
+  % SOURCE QUOTE: Stacks 037Q (Lemma): "Let \(X\) be a scheme over the
+  % field \(k\). Set \(K = H^0(X, \mathcal{O}_X)\). The following are
+  % equivalent: (1) \(X\) is geometrically connected over \(k\), (2)
+  % \(X\) is connected and \(k\) is algebraically closed in \(K\), (3)
+  % \(K\) is a field and the inclusion \(k \subset K\) is purely
+  % inseparable."  (read from references/stacks-varieties.tex section
+  % \S geom-connected, tag 037Q).
+  \textit{Source: Stacks, tag 037Q (iff-direction (2)\(\Rightarrow\)(1)).}
+  Let \(k\) be a field and let \(f : X \to \Spec k\) be a morphism of
+  schemes such that the underlying topological space \(|X|\) is
+  connected. Suppose there is a \(k\)-rational section \(s : \Spec k \to X\)
+  of \(f\) (so \(s \circ f = \id_X\) topologically and the image of \(s\)
+  meets every irreducible component of \(X\) through which \(s\) factors).
+  Then \(f : X \to \Spec k\) is geometrically connected, in the sense
+  that for every field extension \(K/k\) the base change \(X_K\) is
+  connected.
+\end{lemma}
+\begin{proof}
+  \leanok
+  \uses{thm:geometrically_connected_of_section}
+  Immediate from \cref{thm:geometrically_connected_of_section} applied
+  to \(f\) and the section \(s\).
+\end{proof}
+
+% The clopen-subscheme, subgroup-homomorphism, finite-type/geometric-
+% irreducibility, and base-change conclusions of Kleiman \S 5
+% Lem.~5.1~(3) are proved in the four per-theorem \begin{proof}
+% blocks attached to
+% \crefrange{thm:identity_component_open_subgroup}{thm:identity_component_base_change_commutes}
+% above; the verbatim Kleiman source-proof quote covering all four
+% conclusions is reproduced once before the proof of
+% \cref{thm:identity_component_open_subgroup}.
+
+\subsection{Topological and connectedness substrate (helper lemmas)}
+\label{subsec:identity_component_substrate}
+
+The construction of \cref{def:identity_component_group_scheme} and the
+proofs of its open-and-closed and base-change conclusions rest on a small
+chain of helper results: a purely topological core about connected
+components of Noetherian spaces, the identity point and its connected
+component (the carrier of \(G^0\)), the local connectedness of \(|G|\), the
+identity section landing in \(G^0\), and the connectedness of \(G^0\). We
+record each helper so the dependency graph of the chapter is faithful to
+the Lean development.
+
+\begin{lemma}
+[Finitely many connected components on a Noetherian space]
+  \label{lem:noetherian_finite_connected_components}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.noetherianSpace_finite_connectedComponents}
+  Let \(\alpha\) be a Noetherian topological space. Then the set of
+  connected components of \(\alpha\) is finite.
+\end{lemma}
+\begin{proof}
+  The assignment sending an irreducible component \(C\) of \(\alpha\) to the
+  connected component of an arbitrarily chosen point of \(C\) is
+  well-defined (an irreducible component is preconnected, hence lies in a
+  single connected component) and surjective (every point lies in the
+  irreducible component through it, which is contained in its connected
+  component). A Noetherian space has finitely many irreducible components,
+  so the connected components are finite as the image of a finite set.
+  Proved directly in Lean.
+\end{proof}
+
+\begin{lemma}[Connected components are open on a Noetherian space]\leanok
+  \label{lem:noetherian_isopen_connected_component}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.noetherianSpace_isOpen_connectedComponent}
+  \uses{lem:noetherian_finite_connected_components}
+  Let \(\alpha\) be a Noetherian topological space and \(x \in \alpha\). Then
+  the connected component \(\connComp(x)\) of \(x\) is open in \(\alpha\).
+\end{lemma}
+\begin{proof}
+  \uses{lem:noetherian_finite_connected_components}
+  The space of connected components of \(\alpha\) is totally disconnected,
+  hence \(T_1\), and finite by
+  \cref{lem:noetherian_finite_connected_components}; a finite \(T_1\) space
+  carries the discrete topology, so each singleton is open. The preimage of
+  the singleton \(\{\,[x]\,\}\) under the continuous quotient map
+  \(\alpha \to \pi_0(\alpha)\) is exactly \(\connComp(x)\), which is
+  therefore open. Proved directly in Lean.
+\end{proof}
+
+\begin{lemma}[The underlying space of a locally-finite-type \(k\)-scheme is locally connected]\leanok
+  \label{lem:identity_component_locally_connected}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.identityComponent_locallyConnectedSpace}
+  \uses{lem:noetherian_isopen_connected_component}
+  Let \(k\) be a field and \(G\) an object of the over-category over
+  \(\Spec k\) whose structural morphism \(G \to \Spec k\) is locally of
+  finite type. Then the underlying topological space \(|G|\) is locally
+  connected.
+\end{lemma}
+\begin{proof}
+  \uses{lem:noetherian_isopen_connected_component}
+  Being locally of finite type over the field \(k\), the scheme \(G\) is
+  locally Noetherian. Each point \(y \in |G|\) has an affine open
+  neighbourhood \(W = \Spec R\) with \(R\) Noetherian, so \(|W|\) is a
+  Noetherian space; by
+  \cref{lem:noetherian_isopen_connected_component} the connected component
+  of \(y\) inside \(W\) is open, and its image under the open inclusion
+  \(W \hookrightarrow |G|\) is an open connected neighbourhood of \(y\)
+  contained in any prescribed open set through \(y\). This is precisely the
+  local-connectedness criterion. Proved directly in Lean.
+\end{proof}
+
+\begin{definition}[The identity point]\leanok
+  \label{def:identity_section_point}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.identitySectionPoint}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme. The
+  \emph{identity point} of \(G\) is the image \(e(\ast) \in |G|\) of the
+  unique point of \(\Spec k\) under the identity section
+  \(e : \Spec k \to G\) (well-defined because \(|\Spec k|\) is a
+  one-point space).
+\end{definition}
+\begin{proof}
+  Proved directly in Lean (a one-point evaluation of the identity
+  section).
+\end{proof}
+
+\begin{definition}[The carrier of the identity component]\leanok
+  \label{def:identity_component_carrier}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.identityComponentCarrier}
+  \uses{def:identity_section_point, lem:identity_component_locally_connected}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite
+  type. The \emph{carrier of the identity component} is the open subset of
+  \(|G|\) given by the connected component
+  \(\connComp(e(\ast))\) of the identity point
+  (\cref{def:identity_section_point}), packaged as an open of \(G\); its
+  openness is supplied by the local connectedness of \(|G|\)
+  (\cref{lem:identity_component_locally_connected}).
+\end{definition}
+\begin{proof}
+  \uses{def:identity_section_point, lem:identity_component_locally_connected}
+  The carrier set is \(\connComp(e(\ast))\); a connected component of a
+  locally connected space is open
+  (\cref{lem:identity_component_locally_connected}). Proved directly in
+  Lean.
+\end{proof}
+
+\begin{lemma}[The carrier of the identity component is connected]\leanok
+  \label{lem:identity_component_carrier_connected}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.identityComponentCarrier_connectedSpace}
+  \uses{def:identity_component_carrier, def:identity_section_point}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite
+  type. The carrier of the identity component
+  (\cref{def:identity_component_carrier}), with its subspace topology, is a
+  connected topological space.
+\end{lemma}
+\begin{proof}
+  \uses{def:identity_component_carrier, def:identity_section_point}
+  As a subspace, the carrier \(\connComp(e(\ast))\) is preconnected (a
+  connected component is preconnected) and nonempty (it contains the
+  identity point \(e(\ast)\), \cref{def:identity_section_point}), hence
+  connected. Proved directly in Lean.
+\end{proof}
+
+\begin{lemma}[The identity component is connected]\leanok
+  \label{lem:identity_component_connected}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.identityComponent_connectedSpace}
+  \uses{lem:identity_component_carrier_connected, def:identity_component_group_scheme}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite
+  type. The underlying topological space of the identity component
+  \(G^0\) (\cref{def:identity_component_group_scheme}) is connected.
+\end{lemma}
+\begin{proof}
+  \uses{lem:identity_component_carrier_connected, def:identity_component_group_scheme}
+  By construction the underlying space of \(G^0\) coincides with the
+  carrier of \cref{def:identity_component_carrier}, whose connectedness is
+  \cref{lem:identity_component_carrier_connected}. Proved directly in
+  Lean.
+\end{proof}
+
+\begin{lemma}[The identity section lands in the identity-component carrier]\leanok
+  \label{lem:identity_component_section_range_subset}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.identityComponentSection_range_subset}
+  \uses{def:identity_component_carrier, def:identity_section_point}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite
+  type. The image of the identity section \(e : \Spec k \to G\) is
+  contained in the carrier of the identity component
+  (\cref{def:identity_component_carrier}).
+\end{lemma}
+\begin{proof}
+  \uses{def:identity_component_carrier, def:identity_section_point}
+  The image of \(e\) is the single point \(e(\ast)\)
+  (\cref{def:identity_section_point}), which lies in its own connected
+  component, i.e.\ in the carrier. Proved directly in Lean.
+\end{proof}
+
+\begin{definition}[The identity section into the identity component]\leanok
+  \label{def:identity_component_section}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.identityComponentSection}
+  \uses{def:identity_component_carrier, lem:identity_component_section_range_subset, def:identity_component_group_scheme}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite
+  type. The identity section \(e : \Spec k \to G\) factors through the
+  open immersion \(G^0 \hookrightarrow G\)
+  (\cref{def:identity_component_carrier}); the resulting morphism
+  \(\Spec k \to G^0\) is the \emph{identity section into the identity
+  component}, obtained by the universal property of the open immersion
+  using the range containment of
+  \cref{lem:identity_component_section_range_subset}.
+\end{definition}
+\begin{proof}
+  \uses{def:identity_component_carrier, lem:identity_component_section_range_subset}
+  The lift exists and is unique by the universal property of the open
+  immersion \(G^0 \hookrightarrow G\), the hypothesis being the range
+  containment of \cref{lem:identity_component_section_range_subset}.
+  Proved directly in Lean.
+\end{proof}
+
+\begin{lemma}[The lifted identity section is a section]\leanok
+  \label{lem:identity_component_section_is_section}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.identityComponentSection_isSection}
+  \uses{def:identity_component_section, lem:identity_component_section_range_subset, def:identity_component_group_scheme}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite
+  type. The morphism \(\Spec k \to G^0\) of
+  \cref{def:identity_component_section} is a section of the structural
+  morphism \(G^0 \to \Spec k\): composing it with \(G^0 \to \Spec k\)
+  recovers the identity on \(\Spec k\).
+\end{lemma}
+\begin{proof}
+  \uses{def:identity_component_section, lem:identity_component_section_range_subset}
+  Composing through the open immersion recovers the original identity
+  section \(e\) (the defining factorisation of
+  \cref{def:identity_component_section}), and \(e\) is a section of
+  \(G \to \Spec k\); hence the lift is a section of \(G^0 \to \Spec k\).
+  Proved directly in Lean.
+\end{proof}
+
+\begin{lemma}[The identity component is geometrically connected]\leanok
+  \label{lem:identity_component_geometrically_connected}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.GroupScheme.identityComponent_geometricallyConnected}
+  \uses{lem:geometricallyConnected_of_connected_of_section, def:identity_component_section, lem:identity_component_section_is_section, lem:identity_component_connected}
+  Let \(k\) be a field and \(G\) a \(k\)-group scheme locally of finite
+  type. The structural morphism \(G^0 \to \Spec k\) of the identity
+  component is geometrically connected.
+\end{lemma}
+\begin{proof}
+  \leanok
+  \uses{lem:geometricallyConnected_of_connected_of_section, def:identity_component_section, lem:identity_component_section_is_section, lem:identity_component_connected}
+  The identity component \(G^0\) is connected
+  (\cref{lem:identity_component_connected}) and carries the \(k\)-rational
+  section of \cref{def:identity_component_section}, which is a section of
+  \(G^0 \to \Spec k\) by \cref{lem:identity_component_section_is_section}.
+  The criterion ``connected \(+\) \(k\)-rational section \(\Rightarrow\)
+  geometrically connected''
+  (\cref{lem:geometricallyConnected_of_connected_of_section}) then yields
+  the conclusion.
+\end{proof}
+
+\section{The identity component of the Picard scheme}
+\label{sec:pic0_definition}
+
+We now specialise the abstract identity-component construction to the
+conditional legacy representer \(G = \Pic_{C/k}\) of
+\(\Pic^\sharp_{C/k}\). This Lean-pinned specialization is distinct from the
+arbitrary-field \(\Pic^{\et}_{C/k}\) used in the degree rows below.
+
+\begin{definition}[The identity component of the Picard scheme]\leanok
+  \label{def:pic_zero_subscheme}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Pic0Scheme}
+  \uses{def:identity_component_group_scheme, def:pic_scheme,
+    def:pic_scheme_lft, thm:pic_is_group_scheme}
+  % NOTE (run-0008): the Lean body is now REAL —
+  % Pic0Scheme C := GroupScheme.IdentityComponent (PicScheme C) — because
+  % the two gate instances landed with the run-0008 FGA rewire: the group
+  % structure GrpObj (PicScheme C) is genuinely proved (Yoneda transport,
+  % thm:pic_is_group_scheme) and local finiteness is the typed-sorry
+  % carrier def:pic_scheme_lft. The former raw-sorry body is gone; all §1
+  % substrate theorems now apply to Pic^0_{C/k} definitionally. The Lean
+  % signature carries [HasPicScheme C] [PicSchemeLocallyOfFiniteType C].
+
+  % SOURCE: \cite{kleiman-picard}, ``The Picard scheme'', \S 5, opening + Prp.~5.3;
+  % arXiv:math/0504020, p.~36 (read from
+  % references/kleiman-picard-src/kleiman-picard.tex, L2836-L2841 +
+  % L2921-L2929).
+  % SOURCE QUOTE:
+  % "Having treated the existence of the Picard scheme \(\IPic_{X/S}\), we now
+  % turn to its structure.  In this section, we study the union
+  % \(\IPicz_{X/S}\) of the connected components of the identity element,
+  % \(\IPicz_{X_s/k_s}\), for \(s\in S\)."
+  % SOURCE QUOTE:
+  % "\\label{prp:pic0}
+  %   Assume \(S\) is the spectrum of a field \(k\).  Assume \(\IPic_{X/k}\)
+  % exists and represents \(\Pic_{(X/k)\fppf}\).  Then \(\IPic_{X/k}\) is
+  % separated, and it is smooth if it has a geometrically reduced open
+  % subscheme.  Furthermore, the connected component of the identity
+  % \(\IPicz_{X/k}\) is an open and closed group subscheme of finite type; it
+  % is geometrically irreducible; and forming it commutes with extending
+  % \(k\).
+  %  \"
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 5, opening +
+  Prp.~5.3.}
+  Let \(C/k\) be a smooth proper geometrically integral curve over a field
+  \(k\), and assume the legacy relative Picard functor
+  \(\Pic^\sharp_{C/k}\) is represented by \(\Pic_{C/k}\). The
+  \emph{identity component of the Picard scheme}
+  \(\Pic^0_{C/k}\) is the identity component
+  \((\Pic_{C/k})^0\) of the \(k\)-group scheme \(\Pic_{C/k}\) of
+  \cref{def:pic_scheme}, in the sense of
+  \cref{def:identity_component_group_scheme}. By
+  \cref{thm:identity_component_open_subgroup}, \(\Pic^0_{C/k}\) is an open
+  and closed subgroup scheme of \(\Pic_{C/k}\) of finite type over \(k\),
+  geometrically irreducible, and its formation commutes with
+  extension of the base field.
+\end{definition}
+
+\section{The degree map}
+\label{sec:pic_degree}
+
+Return now to the arbitrary-field representer \(\Pic^{\et}_{C/k}\) of
+\cref{thm:fga_pic_representability_etale}. Its disjoint open pieces are indexed
+by the Hilbert polynomial \(\Phi\) used in the FGA construction. Given a
+\(T\)-point, choose an \'etale cover \(U\to T\) on which it is represented by
+an invertible sheaf \(\mathcal L\) on \(C\times_kU\). With \(\mathcal H\) the
+chosen very ample sheaf, the construction uses the fibrewise dual convention
+\[
+  \Phi_{\mathcal L,u}(n)
+  =\chi(C_u,\mathcal L_u^{-1}\otimes\mathcal H_u^{\otimes n})
+  =-\deg\mathcal L_u+n\deg\mathcal H_u+1-g
+  \qquad (u\in U).
+\]
+Thus its coefficient of \(n\) is \(\deg\mathcal H_u\), while
+\(\deg\mathcal L_u=-(\Phi_{\mathcal L,u}(0)-
+\chi(C_u,\mathcal O_{C_u}))\). Intrinsically,
+\(\deg\mathcal L_u=\chi(C_u,\mathcal L_u)-
+\chi(C_u,\mathcal O_{C_u})\), equivalently the coefficient of \(n\) in
+\(n\mapsto\chi(C_u,\mathcal L_u^{\otimes n})\).
+
+\begin{definition}[Degree of a Picard family]\notready
+  \label{def:divisor_degree_pic}
+  \dcref{custom}
+  \uses{def:pic_et_sheaf, def:hilbert_polynomial,
+    thm:fga_pic_representability_etale}
+
+  % SOURCE: \cite{milne-av}, ``Abelian Varieties'' (course notes, 2008),
+  % \S III.1, ``Definitions and main statements'', p.~88 (PDF p.~94)
+  % (read from references/abelian-varieties.pdf).
+  % SOURCE QUOTE:
+  % "Let \(C\) be a complete nonsingular curve over \(k\). The degree of a
+  % divisor \(D = n_i P_i\) on \(C\) is \(n_i [k(P_i):k]\). Since every
+  % invertible sheaf \(\mathcal{L}\) on \(C\) is of the form \(\mathcal{L}(D)\)
+  % for some divisor \(D\), and \(D\) is uniquely determined up to linear
+  % equivalence, we can define \(\deg(\mathcal{L}) = \deg(D)\). Then
+  % \(\deg(\mathcal{L}^n) = \deg(n D) = n \deg(D)\), and the Riemann-Roch
+  % theorem says that \(\chi(C, \mathcal{L}^n) = n \deg(\mathcal{L}) + 1 - g\).
+  % This gives a more canonical description of \(\deg(\mathcal{L})\): when
+  % \(\chi(C, \mathcal{L}^n)\) is written as a polynomial in \(n\),
+  % \(\deg(\mathcal{L})\) is the leading coefficient. We write
+  % \(\Pic^0(C)\) for the group of isomorphism classes of invertible sheaves
+  % of degree zero on \(C\)."
+  \textit{Source: \cite{milne-av}, ``Abelian Varieties'' (course notes, 2008),
+  \S III.1, p.~88.}
+  Let \(C/k\) be a smooth proper geometrically integral curve, and let
+  \(\Pic^{\et}_{C/k}\) represent the \'etale-sheafified relative Picard
+  functor. For every \(k\)-scheme \(T\), the \emph{family degree} is an
+  additive map
+  \[
+    \deg_T:\Pic_{(C/k)\et}(T)
+      \longrightarrow \operatorname{LC}(|T|,\mathbb Z),
+  \]
+  natural under pullback in \(T\). Here
+  \(\operatorname{LC}(|T|,\mathbb Z)\) denotes the additive group of locally
+  constant integer-valued functions on the underlying space. If a class is
+  represented after an \'etale cover \(U\to T\) by \(\mathcal L\) on
+  \(C\times_kU\), its pullback has value at \(u\in U\)
+  \[
+    \deg_U(\mathcal L)(u)=\deg(\mathcal L_u)
+    =\chi(C_u,\mathcal L_u)-\chi(C_u,\mathcal O_{C_u}).
+  \]
+  These fibre values are locally constant on \(U\), invariant under the
+  relative Picard quotient and \'etale descent relation, and therefore define
+  \(\deg_T\). For \(f:T'\to T\), one has
+  \(\deg_{T'}(f^*\lambda)=\deg_T(\lambda)\circ|f|\); fibrewise additivity of
+  divisor degree gives additivity.
+
+  Taking \(T=\Spec k\) yields
+  \(\deg:\Pic^{\et}_{C/k}(k)\to\mathbb Z\). The subfunctor on which
+  \(\deg_T\) is constantly \(d\) is represented by an open-and-closed degree
+  piece \((\Pic^{\et}_{C/k})^d\), giving
+  \(\Pic^{\et}_{C/k}=\coprod_{d\in\mathbb Z}(\Pic^{\et}_{C/k})^d\). After
+  base change to \(\overline k\), these are the geometric connected components.
+\end{definition}
+
+\section{The Pic-zero abelian variety}
+\label{sec:pic0_abelian_variety}
+
+The terminal statement of the chapter identifies \(\Pic^0_{C/k}\) with
+an abelian variety of dimension \(g\) --- the Jacobian variety of \(C\).
+Recall (Milne~\S I.1, p.~8) that a \(k\)-group scheme is an
+\emph{abelian variety} iff it is a complete (proper) connected group
+variety over \(k\); commutativity and projectivity then follow
+automatically.
+
+% The three conclusions of the original ``\(\Pic^0_{C/k}\) is an abelian
+% variety of dimension \(g\)'' theorem are split below into per-conclusion
+% blocks. The completed blocks carry \lean{...} pins; the degree-zero
+% characterisation remains \notready. The Kleiman ex:jac + rmk:Jac
+% verbatim source quote (covering the abelian-variety structure) is
+% reproduced once at \cref{thm:pic_zero_is_abelian_variety}; the Milne
+% III.1.4(e) verbatim quote (covering the dimension formula) is at
+% \cref{thm:pic_zero_dimension_equals_genus}; the Milne III.1 quote
+% characterising \(\Pic^0(C)\) as degree-zero classes is already reproduced
+% in \cref{def:divisor_degree_pic} and referenced from
+% \cref{thm:pic_zero_k_points_iff_degree_zero}. Each theorem carries its
+% own \begin{proof} block: the Kleiman th:qpp\&p source-proof quote
+% precedes the proof of \cref{thm:pic_zero_is_abelian_variety}, and the
+% Cor.~5.13 source-proof quote precedes the proof of
+% \cref{thm:pic_zero_dimension_equals_genus}.
+
+\begin{theorem}[\(\Pic^0_{C/k}\) is an abelian variety]\leanok
+  \label{thm:pic_zero_is_abelian_variety}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Pic0Scheme.isAbelianVariety}
+  \uses{def:pic_zero_subscheme, thm:identity_component_open_subgroup, thm:identity_component_is_subgroup_homomorphism, thm:identity_component_finite_type_geom_irreducible, thm:identity_component_base_change_commutes, thm:fga_pic_representability, thm:pic_is_group_scheme}
+
+  % SOURCE: \cite{kleiman-picard}, ``The Picard scheme'', \S 5, Ex.~5.23 + Rmk.~5.26;
+  % arXiv:math/0504020, pp.~50--51 (read from
+  % references/kleiman-picard-src/kleiman-picard.tex, L3911-L3917 +
+  % L3990-L3996).
+  % SOURCE QUOTE:
+  % "\\label{ex:jac}
+  % Assume \(X/S\) is projective and flat, its geometric fibers are integral
+  % curves of arithmetic genus \(p_a\), and \(S\) is Noetherian.  Show the
+  % ``generalized Jacobians'' \(\IPicz_{X_s/k_s}\) form a smooth
+  % quasi-projective family of relative dimension \(p_a\).  And show this
+  % family is projective if and only if \(X/S\) is smooth.
+  % \"
+  % SOURCE QUOTE:
+  % "\\label{rmk:Jac}
+  %  Assume \(X/S\) is projective and smooth, its geometric fibers are
+  % connected curves of genus \(g>0\), and \(S\) is Noetherian.  Set
+  % \(J:=\IPicz_{X/S}\); it exists and is a projective Abelian \(S\)-scheme by
+  % Exercise~\ref{ex:jac}."
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 5,
+  Ex.~5.23 + Rmk.~5.26; cf.\ \cite{milne-av}, ``Abelian Varieties'',
+  \S I.1 (def.\ of abelian variety, p.~8).}
+  Let \(C/k\) be a smooth proper geometrically integral curve of genus
+  \(g\) over a field \(k\). The identity component \(\Pic^0_{C/k}\) of
+  \cref{def:pic_zero_subscheme} is an \emph{abelian variety over
+  \(k\)}: it is proper, smooth, and geometrically irreducible as a
+  \(k\)-scheme, and it carries a \(k\)-group-scheme structure. (In the
+  Lean encoding this is the conjunction of
+  \texttt{[IsProper]}, \texttt{[Smooth]}, and
+  \texttt{[GeometricallyIrreducible]} on the structural morphism
+  \texttt{(Pic0Scheme C).hom} together with the existence of a
+  \texttt{[GrpObj]} structure on \(\Pic^0_{C/k}\). Commutativity
+  follows automatically from Milne~\S I.1, Cor.~1.4 and is not
+  separately stated.)
+\end{theorem}
+
+% SOURCE QUOTE PROOF: (substrate construction --- the relevant source
+% statements above prove the existence + properties; we assemble the
+% conclusion from those statements together with the abstract
+% identity-component substrate.)
+% (from references/kleiman-picard-src/kleiman-picard.tex, L2935-L2939,
+% Thm.~th:qpp&p, on smoothness/projectivity of \(\IPicz_{X/k}\):)
+% "\\label{th:qpp&p}
+%  Assume \(S\) is the spectrum of a field \(k\).  Assume \(X/k\) is projective
+% and geometrically integral.  Then \(\IPicz_{X/k}\) exists and is
+% quasi-projective.  If also \(X/k\) is geometrically normal, then
+% \(\IPicz_{X/k}\) is projective."
+\begin{proof}
+  \uses{def:pic_zero_subscheme, thm:identity_component_open_subgroup, thm:identity_component_is_subgroup_homomorphism, thm:identity_component_finite_type_geom_irreducible, thm:identity_component_base_change_commutes, thm:fga_pic_representability, thm:pic_is_group_scheme, thm:pic0_isAbelianVariety}
+  We assemble the four conjuncts of the abelian-variety structure on
+  \(\Pic^0_{C/k}\) (\cref{def:pic_zero_subscheme}) from four inputs.
+
+  (i) \emph{Clopen subgroup of finite type, geometrically irreducible.}
+  By
+  \cref{thm:identity_component_open_subgroup},
+  \cref{thm:identity_component_is_subgroup_homomorphism},
+  \cref{thm:identity_component_finite_type_geom_irreducible}, and
+  \cref{thm:identity_component_base_change_commutes}
+  applied to \(G = \Pic_{C/k}\) (a \(k\)-group scheme locally of finite
+  type by
+  \cref{thm:pic_is_group_scheme} and \cref{thm:fga_pic_representability}),
+  \(\Pic^0_{C/k}\) is an open and closed subgroup scheme of \(\Pic_{C/k}\),
+  of finite type over \(k\), geometrically irreducible, and its
+  formation commutes with extending \(k\). In particular \(\Pic^0_{C/k}\)
+  is separated and locally of finite type as a subscheme of
+  \(\Pic_{C/k}\), and connected.
+
+  (ii) \emph{Quasi-projectivity.} The disjoint-union structure of
+  \(\Pic_{C/k}\) (\cref{thm:fga_pic_representability}: a disjoint union
+  of open quasi-projective \(k\)-subschemes) restricted to \(\Pic^0_{C/k}\)
+  expresses the identity component as a quasi-projective \(k\)-scheme
+  (Kleiman~\S 5, Thm.~5.4: \(X/k\) projective and geometrically
+  integral \(\Longrightarrow\) \(\Pic^0_{X/k}\) is quasi-projective).
+
+  (iii) \emph{Projectivity (properness).} For a smooth proper
+  geometrically integral curve \(C/k\) of genus \(g > 0\), \(C/k\) is
+  also geometrically normal (the smoothness implies geometric
+  regularity, hence geometric normality). Kleiman~\S 5, Thm.~5.4
+  then upgrades the quasi-projective conclusion to projective:
+  \(\Pic^0_{C/k}\) is projective over \(k\), in particular proper.
+  The proof of Theorem~5.4 uses the Chevalley--Rosenlicht structure
+  theorem to reduce to ruling out non-constant maps
+  \(\mathbb G_m \to \Pic^0_{C/k}\), which on a geometrically normal
+  \(X\) becomes a divisor-theoretic computation.
+
+  (iv) \emph{Smoothness.} For a smooth proper curve \(C/k\), the
+  Picard scheme is smooth at \(0\): this is Exercise~5.23 of
+  Kleiman~\S 5, which asserts that for \(X/S\) projective and flat
+  with integral geometric fibres of arithmetic genus \(p_a\), the
+  generalised Jacobians \(\Pic^0_{X_s/k_s}\) form a smooth
+  quasi-projective family of relative dimension \(p_a\); specialising
+  to \(S = \Spec k\) and \(X = C\) a smooth proper curve of (geometric
+  = arithmetic) genus \(g\) gives smoothness of \(\Pic^0_{C/k}\).
+
+  Combining (i)--(iv): \(\Pic^0_{C/k}\) is a smooth, projective,
+  geometrically irreducible \(k\)-group scheme. A proper connected
+  \(k\)-group variety is by definition an \emph{abelian variety}
+  (Milne~\S I.1, p.~8), and is automatically commutative (Milne~\S I.1,
+  Cor.~1.4). This establishes
+  \cref{thm:pic_zero_is_abelian_variety}.
+\end{proof}
+
+\begin{theorem}[Dimension of \(\Pic^0_{C/k}\) equals the genus of \(C\)]\leanok
+  \label{thm:pic_zero_dimension_equals_genus}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.Scheme.Pic0Scheme.finrank_eq_genus}
+  \uses{thm:pic_zero_is_abelian_variety, def:genus}
+
+  % SOURCE: \cite{milne-av}, ``Abelian Varieties'' (course notes, 2008),
+  % \S III.1, Rmk.~1.4(e), p.~86 (read from references/abelian-varieties.pdf,
+  % PDF p.~92).
+  % SOURCE QUOTE:
+  % "(e) The dimension of \(J\) is the genus of \(C\). If \(C\) has genus zero,
+  % then \(\Jac(C) = 0\) (this is obvious, because \(\Pic^0(C) = 0\), even
+  % when one goes to the algebraic closure). If \(C\) has genus 1, then
+  % \(\Jac(C) = C\) (provided \(C\) has a rational point; otherwise it differs
+  % from \(C\) --- because \(\Jac(C)\) always has a point)."
+  \textit{Source: \cite{milne-av}, ``Abelian Varieties'' (course notes, 2008),
+  \S III.1, Rmk.~1.4(e), p.~86; cf.\ \cite{kleiman-picard}, ``The Picard scheme'',
+  \S 5, Cor.~5.13 + Ex.~5.23.}
+  Let \(C/k\) be a smooth proper geometrically integral curve of genus
+  \(g = g(C)\) (\cref{def:genus}) over a field \(k\). The dimension of
+  the abelian variety \(\Pic^0_{C/k}\)
+  (\cref{thm:pic_zero_is_abelian_variety}) equals the genus:
+  \[
+    \dim_k \Pic^0_{C/k} \;=\; g(C).
+  \]
+\end{theorem}
+
+% SOURCE QUOTE PROOF:
+% (from references/kleiman-picard-src/kleiman-picard.tex, L3421-L3426,
+% Cor.~5.13, dimension equals \(h^1(\mathcal O)\) when smooth:)
+% "\\label{cor:sm} Assume \(S\) is the spectrum of a field
+% \(k\). Assume \(\IPic_{X/k}\) exists and represents \(\Pic_{(X/k)\et}\).  Then
+% \(\)\dim \IPic_{X/k}\le \dim\tu H^1(\mc O_{\!X}).\(\)
+%  Equality holds if and only if \(\IPic_{X/k}\) is smooth at \(0;\) if so, then
+% \(\IPic_{X/k}\) is smooth of dimension \(\dim\tu H^1(\mc O_{\!X})\)
+% everywhere."
+\begin{proof}
+  \uses{thm:pic_zero_is_abelian_variety, def:genus}
+  By Kleiman~\S 5,
+  Cor.~5.13, the inequality
+  \(\dim \Pic_{C/k} \le \dim_k H^1(C, \mathcal{O}_C)\) holds, with
+  equality if and only if \(\Pic_{C/k}\) is smooth at \(0\), in which
+  case \(\Pic_{C/k}\) is smooth of dimension \(\dim_k H^1(C,
+  \mathcal{O}_C)\) everywhere. The abelian-variety structure of
+  \cref{thm:pic_zero_is_abelian_variety} (step (iv) of its proof)
+  shows \(\Pic^0_{C/k}\) is smooth at \(0\); equality therefore holds
+  on the open identity component, and
+  \(\dim_k \Pic^0_{C/k} = \dim_k H^1(C, \mathcal{O}_C) = g(C)\)
+  by \cref{def:genus}. This is Milne~\S III.1, Rmk.~1.4(e): ``The
+  dimension of \(J\) is the genus of \(C\)''.
+\end{proof}
+
+\begin{theorem}[The identity component of \(\Pic^{\et}_{C/k}\) is the kernel of degree on \(k\)-points]\notready
+  \label{thm:pic_zero_k_points_iff_degree_zero}
+  \dcref{custom}
+  \uses{thm:identity_component_open_subgroup, def:divisor_degree_pic,
+    def:pic_et_sheaf, thm:fga_pic_representability_etale}
+
+  % SOURCE: \cite{milne-av}, ``Abelian Varieties'' (course notes, 2008),
+  % \S III.1, p.~88; verbatim quote reproduced at
+  % \cref{def:divisor_degree_pic} (read from
+  % references/abelian-varieties.pdf, PDF p.~94).
+  \textit{Source: \cite{milne-av}, ``Abelian Varieties'' (course notes, 2008),
+  \S III.1, p.~88 (``\(\Pic^0(C)\)\dots\ degree zero''); the verbatim
+  source quote is at \cref{def:divisor_degree_pic}.}
+  Let \(C/k\) be a smooth proper geometrically integral curve of genus
+  \(g\) over a field \(k\), and let \(\Pic^{\et}_{C/k}\) represent
+  \(\Pic_{(C/k)\et}\) as in \cref{thm:fga_pic_representability_etale}. A
+  \(k\)-point \(\lambda \in \Pic^{\et}_{C/k}(k)\) lies in the image of the
+  identity-component inclusion
+  \((\Pic^{\et}_{C/k})^0\hookrightarrow\Pic^{\et}_{C/k}\)
+  of \cref{thm:identity_component_open_subgroup}
+  if and only if the degree
+  \(\deg(\lambda) \in \mathbb{Z}\) of \cref{def:divisor_degree_pic}
+  vanishes. Equivalently,
+  \((\Pic^{\et}_{C/k})^0(k)
+    =\ker\bigl(\deg:\Pic^{\et}_{C/k}(k)\to\mathbb Z\bigr)\).
+\end{theorem}
+
+\begin{proof}
+  \uses{thm:identity_component_open_subgroup, def:divisor_degree_pic}
+  A class
+  \(\lambda \in \Pic^{\et}_{C/k}(k)\) lies in the connected component of
+  the identity --- i.e.\ in the image of the open immersion
+  \((\Pic^{\et}_{C/k})^0\hookrightarrow\Pic^{\et}_{C/k}\) --- precisely
+  when its Hilbert-polynomial stratum is the degree-zero stratum.
+  On an \'etale cover carrying a representative \(\mathcal L\), this says
+  fibrewise that
+  \(\chi(C_u,\mathcal L_u)-\chi(C_u,\mathcal O_{C_u})=0\).
+  Hence
+  \((\Pic^{\et}_{C/k})^0(k)
+    =\ker(\deg:\Pic^{\et}_{C/k}(k)\to\mathbb Z)\),
+  which is the content of Milne~\S III.1, p.~88 (the verbatim quote
+  at \cref{def:divisor_degree_pic} explicitly writes ``\(\Pic^0(C)\)
+  for the group of isomorphism classes of invertible sheaves of degree
+  zero on \(C\)'').
+\end{proof}
+
+\section{Lean encoding}
+\label{sec:pic0_lean_encoding}
+
+The Lean target file is
+\texttt{AlgebraicJacobian/Picard/IdentityComponent.lean}, sibling to
+\texttt{AlgebraicJacobian/Picard/FGAPicRepresentability.lean}
+(\cref{chap:Picard_FGAPicRepresentability}). The blueprint declarations
+of this chapter correspond to Lean targets as follows.
+
+\begin{itemize}
+  \item \texttt{AlgebraicGeometry.GroupScheme.IdentityComponent}
+    (\cref{def:identity_component_group_scheme}) is a structural
+    constant naming the open-and-closed identity-component subscheme
+    of a \(k\)-group scheme \(G\) locally of finite type. The construction
+    is the abstract substrate of Kleiman~\S 5 Lem.~5.1,
+    independent of the Picard context; it is new project material
+    (\emph{not} yet in Mathlib).
+  \item \texttt{AlgebraicGeometry.GroupScheme.IdentityComponent.isOpenSubgroupScheme}
+    (\cref{thm:identity_component_open_subgroup}) packages the
+    clopen-subscheme inclusion \(G^0 \hookrightarrow G\) (open immersion
+    \emph{and} closed immersion) --- conclusion (a) of Kleiman~\S 5
+    Lem.~5.1~(3).
+  \item \texttt{AlgebraicGeometry.GroupScheme.IdentityComponent.isSubgroupHomomorphism}
+    (\cref{thm:identity_component_is_subgroup_homomorphism}) packages
+    the group-homomorphism property of the inclusion of
+    \cref{thm:identity_component_open_subgroup}: \(G^0\) inherits a
+    \(k\)-group-scheme structure from \(G\) compatible with the
+    inclusion. Conclusion (b) of Kleiman~\S 5 Lem.~5.1~(3).
+  \item \texttt{AlgebraicGeometry.GroupScheme.IdentityComponent.isFiniteTypeGeometricallyIrreducible}
+    (\cref{thm:identity_component_finite_type_geom_irreducible})
+    packages the finite-type-ness and geometric-irreducibility
+    conclusions of Kleiman~\S 5 Lem.~5.1~(3) (conclusion (c)).
+    In Lean these are the instances
+    \texttt{[LocallyOfFiniteType (IdentityComponent G).hom]},
+    \texttt{[QuasiCompact (IdentityComponent G).hom]}, and
+    \texttt{[GeometricallyIrreducible (IdentityComponent G).hom]}.
+  \item \texttt{AlgebraicGeometry.GroupScheme.IdentityComponent.baseChangeIso}
+    (\cref{thm:identity_component_base_change_commutes}) packages the
+    base-change-commutation conclusion (d) of Kleiman~\S 5
+    Lem.~5.1~(3): for any field extension \(K/k\), the natural
+    map \((G^0)_K \to (G_K)^0\) (in Lean,
+    \texttt{(IdentityComponent G)\_K \(\to\) IdentityComponent (G\_K)})
+    is an isomorphism of \(K\)-schemes.
+  \item \texttt{AlgebraicGeometry.Scheme.Pic0Scheme}
+    (\cref{def:pic_zero_subscheme}) is the open subscheme of
+    \(\Pic_{C/k}\) obtained by applying the
+    \texttt{IdentityComponent} substrate to
+    \(G = \Pic_{C/k}\), inheriting the \(k\)-group-scheme structure from
+    \cref{thm:pic_is_group_scheme}.
+  \item \texttt{AlgebraicGeometry.Scheme.Pic0Scheme.isAbelianVariety}
+    (\cref{thm:pic_zero_is_abelian_variety}) is the bundled
+    abelian-variety structure on \texttt{Pic0Scheme}: the four-conjunct
+    conjunction \texttt{[IsProper]}, \texttt{[Smooth]},
+    \texttt{[GeometricallyIrreducible]} on the structural morphism
+    \texttt{(Pic0Scheme C).hom} together with
+    \texttt{Nonempty (GrpObj (Pic0Scheme C))}.
+  \item \texttt{AlgebraicGeometry.Scheme.Pic0Scheme.finrank\_eq\_genus}
+    (\cref{thm:pic_zero_dimension_equals_genus}) is the dimension
+    formula \(\dim_k \Pic^0_{C/k} = g(C)\) (Milne~\S III.1,
+    Rmk.~1.4(e)). Its exact Lean statement is
+    \texttt{topologicalKrullDim (Pic0Scheme C).left}\(={}\)
+    \texttt{(AlgebraicGeometry.genus C : WithBot}\,
+    \(\mathbb N_\infty\)\texttt{)}.
+\end{itemize}
+
+Neither degree node is Lean-pinned. The existing declarations
+\texttt{PicScheme.ClassDegreePinned}, \texttt{PicScheme.degree}, and
+\texttt{Pic0Scheme.kPoints\_iff\_kerDegree} belong to the conditional legacy
+\(\Pic^\sharp_{C/k}\) specialization. They provide only an additive candidate
+at the trivial test object with an Abel-image compatibility condition, not the
+arbitrary-test locally constant signed degree on \(\Pic_{(C/k)\et}\), and are
+not encodings of \cref{def:divisor_degree_pic} or
+\cref{thm:pic_zero_k_points_iff_degree_zero}.
+
+The abstract identity-component substrate
+(\texttt{GroupScheme.IdentityComponent} and its four
+conclusion-specific theorems
+\texttt{IdentityComponent.isOpenSubgroupScheme},
+\texttt{IdentityComponent.isSubgroupHomomorphism},
+\texttt{IdentityComponent.isFiniteTypeGeometricallyIrreducible},
+\texttt{IdentityComponent.baseChangeIso}) is new project material not
+present in Mathlib; all four theorems are fully proved
+(\texttt{isFiniteTypeGeometricallyIrreducible} closed by Kleiman's
+translation argument over the algebraic closure --- closed-point
+translation, Jacobson density, EGA I 6.1.10, then descent along the
+base-change isomorphism --- with no need for EGA IV\(_2\) 4.6.1-type
+input). The downstream
+\texttt{Pic0Scheme.isAbelianVariety},
+\texttt{Pic0Scheme.finrank\_eq\_genus}, and
+\texttt{Pic0Scheme.kPoints\_iff\_kerDegree} are conditional legacy targets.
+The arbitrary-field degree and degree-zero statements above remain open: they
+need the missing arbitrary-test family degree in addition to the typed-sorry
+\'etale FGA representability foundation
+(\cref{chap:Picard_FGAPicRepresentability}, \texttt{AJC.picrep}).
+
+\section{Out of scope}
+\label{sec:pic0_out_of_scope}
+
+This chapter packages \emph{only} the identity component
+\(\Pic^0_{C/k}\) as an open-and-closed subgroup scheme of \(\Pic_{C/k}\),
+its degree-zero characterisation, and its abelian-variety structure.
+The following downstream constructions live in separate sibling
+chapters and are explicitly out of scope here:
+
+\begin{itemize}
+  \item \textbf{Albanese universal property of \(\Pic^0_{C/k}\)}
+    (A.4.d.ii) --- the universal property of \(f_P : C \to \Pic^0_{C/k}\)
+    is the content of \cref{chap:Albanese_AlbaneseUP}, gated on this
+    chapter via \cref{thm:pic_zero_is_abelian_variety}.
+  \item \textbf{The autoduality \(\Pic^0_{C/k} \cong (\Pic^0_{C/k})^\vee\)}
+    (Milne~\S III.6, Thm.~6.6) --- not needed for the Jacobian's
+    existence as an abelian variety, hence out of scope.
+  \item \textbf{The torsion component \(\Pic^\tau_{C/k}\)}
+    (Kleiman~\S 6) --- for a smooth proper curve
+    \(\Pic^\tau_{C/k} = \Pic^0_{C/k}\), so the finer torsion-component
+    finiteness statements of Kleiman~\S 6 are not load-bearing on
+    Route~A.
+\end{itemize}
+
+\section{Internal-consistency check}
+\label{sec:pic0_consistency_check}
+
+The ten declaration blocks form a connected \texttt{\textbackslash uses} chain rooted in
+the sibling chapters \cref{chap:Picard_FGAPicRepresentability},
+\cref{chap:Picard_QuotScheme}, and \cref{chap:Genus}:
+
+\begin{itemize}
+  \item \cref{def:identity_component_group_scheme} is a structural
+    Archon-internal abstract substrate; no cross-chapter
+    \texttt{\textbackslash uses} pointers.
+  \item \cref{thm:identity_component_open_subgroup},
+    \cref{thm:identity_component_is_subgroup_homomorphism},
+    \cref{thm:identity_component_finite_type_geom_irreducible},
+    \cref{thm:identity_component_base_change_commutes} all use
+    \cref{def:identity_component_group_scheme}.
+    \cref{thm:identity_component_is_subgroup_homomorphism} additionally
+    uses \cref{thm:identity_component_open_subgroup} (the clopen
+    inclusion whose homomorphism status it asserts).
+  \item \cref{def:pic_zero_subscheme} uses
+    \cref{def:identity_component_group_scheme} and
+    \cref{def:pic_scheme} (from
+    \cref{chap:Picard_FGAPicRepresentability}).
+  \item \cref{def:divisor_degree_pic} uses \cref{def:pic_et_sheaf} and
+    \cref{thm:fga_pic_representability_etale} (from
+    \cref{chap:Picard_FGAPicRepresentability}) and
+    \cref{def:hilbert_polynomial} (from \cref{chap:Picard_QuotScheme}).
+  \item \cref{thm:pic_zero_is_abelian_variety} uses
+    \cref{def:pic_zero_subscheme},
+    \cref{thm:identity_component_open_subgroup},
+    \cref{thm:identity_component_is_subgroup_homomorphism},
+    \cref{thm:identity_component_finite_type_geom_irreducible},
+    \cref{thm:identity_component_base_change_commutes}, and
+    \cref{thm:fga_pic_representability} (from
+    \cref{chap:Picard_FGAPicRepresentability}).
+  \item \cref{thm:pic_zero_dimension_equals_genus} uses
+    \cref{thm:pic_zero_is_abelian_variety} and
+    \cref{def:genus} (from \cref{chap:Genus}).
+  \item \cref{thm:pic_zero_k_points_iff_degree_zero} uses
+    \cref{thm:identity_component_open_subgroup},
+    \cref{def:divisor_degree_pic}, \cref{def:pic_et_sheaf}, and
+    \cref{thm:fga_pic_representability_etale}.
+\end{itemize}
+
+The cross-chapter labels \texttt{def:pic\_scheme},
+\texttt{thm:fga\_pic\_representability},
+\texttt{thm:pic\_is\_group\_scheme},
+\texttt{def:hilbert\_polynomial}, and \texttt{def:genus} all exist in
+sibling chapters (verified against
+\texttt{Picard\_FGAPicRepresentability.tex},
+\texttt{Picard\_QuotScheme.tex}, and \texttt{Genus.tex} at writing
+time).

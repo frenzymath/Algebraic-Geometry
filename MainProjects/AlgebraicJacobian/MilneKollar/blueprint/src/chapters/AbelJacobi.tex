@@ -1,0 +1,88 @@
+\chapter{The Abel--Jacobi map}
+\label{chap:AbelJacobi}
+
+Let \(C\) be a smooth proper geometrically irreducible curve over a field \(k\),
+let \(P \in C(k)\), and let \(\Jac(C)\) be the Albanese variety constructed in
+Chapter~\ref{chap:Jacobian}.  This chapter records the universal morphism and its
+two defining properties.
+
+\section{Definition}
+
+\begin{definition}[Abel--Jacobi map]\leanok
+  \label{def:ofCurve}
+  \dcref{custom}
+  \uses{def:Jacobian, def:IsAlbanese, def:IsAlbanese_ofCurve,
+    thm:nonempty_jacobianWitness}
+  \lean{AlgebraicGeometry.Jacobian.ofCurve}
+  The \emph{Abel--Jacobi map at \(P\)} is the universal pointed morphism
+  \[
+    \alpha_P \colon C \longrightarrow \Jac(C)
+  \]
+  supplied by the Albanese property of \(\Jac(C)\).
+\end{definition}
+
+\begin{remark}
+[Picard description]
+  \label{rem:ofCurve_classical}
+  \dcref{custom}
+  Under the identification \(\Jac(C) = \Pic^0_{C/k}\), the morphism is
+  \[
+    \alpha_P(Q) = [\mathcal O_C(Q-P)].
+  \]
+  Equivalently, it is classified by
+  \(\mathcal O_{C\times C}(\Delta-p_1^*P)\), regarded as a family of
+  degree-zero line bundles over the second factor.
+\end{remark}
+
+\section{Pointed property}
+
+\begin{lemma}[\(\alpha_P\) sends \(P\) to the identity]\leanok
+  \label{lem:comp_ofCurve}
+  \dcref{custom}
+  \uses{def:ofCurve, lem:IsAlbanese_comp_ofCurve,
+    thm:nonempty_jacobianWitness}
+  \lean{AlgebraicGeometry.Jacobian.comp_ofCurve}
+  The Abel--Jacobi map is pointed:
+  \[
+    P \circ \alpha_P = \eta_{\Jac(C)}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  This is the pointed condition in the defining Albanese property of
+  \(\Jac(C)\).  In the Picard description it is the equality
+  \([\mathcal O_C(P-P)] = [\mathcal O_C]\).
+\end{proof}
+
+\begin{remark}
+[Restriction of the universal line bundle]
+  \label{rem:comp_ofCurve_classical}
+  \dcref{custom}
+  Restricting \(\mathcal O_{C\times C}(\Delta-p_1^*P)\) along the section
+  \((P,\mathrm{id}_C)\) gives the trivial line bundle on \(C\), which is the
+  identity point of \(\Pic^0_{C/k}\).
+\end{remark}
+
+\section{Universal property}
+
+\begin{theorem}[Albanese property of the Jacobian]\leanok
+  \label{thm:exists_unique_ofCurve_comp}
+  \dcref{custom}
+  \uses{def:ofCurve, def:IsAlbanese, def:Jacobian,
+    lem:IsAlbanese_exists_unique_ofCurve_comp,
+    thm:nonempty_jacobianWitness}
+  \lean{AlgebraicGeometry.Jacobian.exists_unique_ofCurve_comp}
+  Let \(A\) be an abelian variety over \(k\).  For every morphism
+  \(f \colon C \to A\) satisfying \(P \circ f = \eta_A\), there exists a
+  unique morphism of \(k\)-schemes \(g \colon \Jac(C) \to A\) such that
+  \[
+    f = \alpha_P \circ g.
+  \]
+\end{theorem}
+
+\begin{proof}
+  By definition, \(\Jac(C)\) is an Albanese object for \((C,P)\), and
+  \(\alpha_P\) is its universal pointed morphism.  Applying the universal
+  factorisation property to \(f\) gives the required \(g\), while the
+  uniqueness clause gives uniqueness.
+\end{proof}

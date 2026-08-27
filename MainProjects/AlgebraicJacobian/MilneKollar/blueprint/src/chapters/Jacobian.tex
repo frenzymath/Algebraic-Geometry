@@ -1,0 +1,624 @@
+\chapter{The Jacobian as an abelian variety}
+\label{chap:Jacobian}
+
+Let \(C\) be a smooth proper geometrically irreducible curve over a field
+\(k\), with genus \(g(C)\).  The Jacobian is constructed uniformly as the
+identity component \(\Pic^0_{C/k}\) of the Picard scheme.  It is an abelian
+variety of dimension \(g(C)\); when \(g(C)=0\), it is \(\Spec k\).
+
+\section{Albanese objects}
+
+\begin{definition}[Albanese universal property of a pointed curve]\leanok
+  \label{def:IsAlbanese}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.IsAlbanese}
+  Let \(P \in C(k)\).  An abelian variety \(J\) together with a pointed
+  morphism \(\iota_P \colon C \to J\) is an \emph{Albanese object} for
+  \((C,P)\) if every pointed morphism \(f \colon C \to A\) to an abelian
+  variety factors uniquely through \(\iota_P\): there is a unique morphism of
+  \(k\)-schemes \(g \colon J \to A\) such that
+  \[
+    P \circ \iota_P = \eta_J,
+    \qquad
+    f = \iota_P \circ g.
+  \]
+\end{definition}
+
+\begin{remark}
+  \label{rem:IsAlbanese_typeclasses}
+  \dcref{custom}
+  The phrase ``abelian variety'' includes the group structure, properness,
+  smoothness, and geometric irreducibility of both \(J\) and every target
+  \(A\).  These are hypotheses of the universal property, rather than extra
+  conclusions inside it.
+\end{remark}
+
+\subsection{The universal morphism}
+
+\begin{definition}[The Albanese universal morphism]\leanok
+  \label{def:IsAlbanese_ofCurve}
+  \dcref{custom}
+  \uses{def:IsAlbanese}
+  \lean{AlgebraicGeometry.IsAlbanese.ofCurve}
+  An Albanese structure on \((C,P,J)\) determines a distinguished morphism
+  \(\iota_P \colon C \to J\), called its universal morphism.
+\end{definition}
+
+\begin{lemma}[Pointed condition]\leanok
+  \label{lem:IsAlbanese_comp_ofCurve}
+  \dcref{custom}
+  \uses{def:IsAlbanese, def:IsAlbanese_ofCurve}
+  \lean{AlgebraicGeometry.IsAlbanese.comp_ofCurve}
+  The universal morphism satisfies \(P \circ \iota_P = \eta_J\).
+\end{lemma}
+
+\begin{lemma}[Universal factorisation]\leanok
+  \label{lem:IsAlbanese_exists_unique_ofCurve_comp}
+  \dcref{custom}
+  \uses{def:IsAlbanese, def:IsAlbanese_ofCurve}
+  \lean{AlgebraicGeometry.IsAlbanese.exists_unique_ofCurve_comp}
+  Every pointed morphism \(f \colon C \to A\) to an abelian variety factors
+  uniquely as \(f=\iota_P\circ g\) through a morphism of \(k\)-schemes
+  \(g \colon J \to A\).
+\end{lemma}
+
+\begin{theorem}[Uniqueness of the Albanese object]\leanok
+  \label{thm:IsAlbanese_unique}
+  \dcref{custom}
+  \uses{def:IsAlbanese, def:IsAlbanese_ofCurve}
+  \lean{AlgebraicGeometry.IsAlbanese.unique}
+  If \((J_1,\iota_1)\) and \((J_2,\iota_2)\) are Albanese objects for
+  \((C,P)\), there is a unique morphism \(e \colon J_1\to J_2\) satisfying
+  \(\iota_2=\iota_1\circ e\).
+\end{theorem}
+
+\begin{proof}\leanok
+  The universal property of \(J_1\) applied to \(\iota_2\) gives
+  \(e \colon J_1\to J_2\); that of \(J_2\) applied to \(\iota_1\) gives
+  \(e' \colon J_2\to J_1\).  Both \(e\circ e'\) and the identity of \(J_1\)
+  factor \(\iota_1\) through itself, so uniqueness gives
+  \(e\circ e'=\mathrm{id}_{J_1}\); similarly
+  \(e'\circ e=\mathrm{id}_{J_2}\).  The original universal property gives the
+  required uniqueness of \(e\).
+\end{proof}
+
+\begin{remark}
+  \label{rem:IsAlbanese_unique_iso}
+  \dcref{custom}
+  Consequently the Albanese object is unique up to a unique isomorphism
+  compatible with the universal morphism.
+\end{remark}
+
+\section{A uniform Jacobian witness}
+
+\begin{definition}[Jacobian witness]\leanok
+  \label{def:JacobianWitness}
+  \dcref{custom}
+  \uses{def:IsAlbanese, def:genus}
+  \lean{AlgebraicGeometry.JacobianWitness}
+  A \emph{Jacobian witness} for \(C\) consists of a single \(k\)-scheme \(J\),
+  an abelian-variety structure on \(J\), a proof that \(J\) is smooth of
+  relative dimension \(g(C)\), and, for every \(P\in C(k)\), an Albanese
+  structure on \((C,P,J)\).
+\end{definition}
+
+\begin{remark}
+  \label{rem:JacobianWitness_quantifier_order}
+  \dcref{custom}
+  The same \(J\) works for every marked point.  Replacing \(P\) by another
+  rational point translates the universal morphism by an automorphism of
+  \(J\), so it does not change the underlying abelian variety.
+\end{remark}
+
+\begin{remark}
+  \label{rem:JacobianWitness_smooth_redundancy}
+  \dcref{custom}
+  Smoothness is implied by smoothness of relative dimension \(g(C)\).  It is
+  nevertheless useful to record both the abelian-variety property and the
+  dimension assertion as parts of the witness.
+\end{remark}
+
+\subsection{The Picard witness \(J=\Pic^0_{C/k}\)}
+\label{sec:picardJacobianWitness}
+
+\begin{theorem}[A Jacobian witness for a pointed curve]
+  \label{def:picardJacobianWitnessOfHasRationalPoint}
+  \dcref{custom}
+  \uses{def:JacobianWitness, def:genus, thm:fga_pic_representability,
+    thm:pic0_isAbelianVariety, thm:pic_zero_dimension_equals_genus,
+    thm:albanese_universal_property_northstar, def:has_rational_point}
+  \lean{AlgebraicGeometry.picardJacobianWitnessOfHasRationalPoint}
+  Let \(C\) be a smooth proper geometrically irreducible curve over \(k\)
+  possessing a \(k\)-rational point. Then the identity component
+  \(\Pic^0_{C/k}\) carries a Jacobian witness for \(C\).
+\end{theorem}
+
+\begin{proof}
+  \uses{lem:curve_geometrically_integral, def:inst_has_pic_scheme,
+    lem:pic0_relative_dimension_genus, lem:pic0_isAlbanese_all_points}
+  Representability of the relative Picard functor
+  (\cref{def:inst_has_pic_scheme}, whose hypothesis is the rational point) gives
+  \(\Pic_{C/k}\), and its identity component \(\Pic^0_{C/k}\) is a group scheme,
+  smooth, proper and geometrically irreducible by
+  \cref{thm:pic0_isAbelianVariety}. Those four data are the first four fields of
+  the witness; of the four, \cref{thm:pic0_smooth} and \cref{thm:pic0_proper} are
+  the ones whose own proofs are still open.
+
+  Three further steps are needed, and each is isolated as a lemma because it does
+  not follow from the four above.
+
+  First, the hypotheses must be reconciled: \(\Pic^0_{C/k}\) is constructed for a
+  geometrically \emph{integral} curve, whereas a witness is required for a
+  geometrically irreducible one. Geometric integrality is automatic
+  (\cref{lem:curve_geometrically_integral}).
+
+  Second, the smoothness supplied by \cref{thm:pic0_isAbelianVariety} carries no
+  relative dimension, while the witness records smoothness at the specific
+  relative dimension \(g(C)\); the tangent-space identification
+  \(T_0\Pic^0_{C/k}\cong H^1(C,\mathcal O_C)\) of
+  \cref{thm:pic_zero_dimension_equals_genus} supplies the dimension, and
+  \cref{lem:pic0_relative_dimension_genus} is the resulting refinement.
+
+  Third, the Albanese structure is required for \emph{every} \(P\in C(k)\) and for
+  every genus, whereas \cref{thm:albanese_universal_property_northstar} is proved
+  over an algebraically closed base field and for \(g(C) > 0\); the extension is
+  \cref{lem:pic0_isAlbanese_all_points}. Together these seven data form the
+  required witness.
+\end{proof}
+
+\begin{remark}[What the pointed witness settles, and why it is not the headline]
+  \label{rem:pointed_witness_scope}
+  \dcref{custom}
+  \uses{def:picardJacobianWitnessOfHasRationalPoint, lem:curve_hypothesis_gap,
+    def:inst_has_pic_scheme, thm:fga_pic_representability_etale}
+  \Cref{def:picardJacobianWitnessOfHasRationalPoint} is a \emph{conditional
+  milestone}: it constructs the witness for a curve that has a \(k\)-rational point,
+  using the \(\Pic^\sharp\)-shaped representability of
+  \cref{def:inst_has_pic_scheme}. It is true, and it is strictly weaker than the
+  challenge. \Cref{def:picardJacobianWitnessOfIsAlgClosed} is its specialisation to
+  \(\bar k\), where the rational point is a theorem
+  (\cref{lem:curve_rational_point_algClosed}). Neither may be presented as the
+  project's headline.
+
+  The headline \cref{def:picardJacobianWitness} is \emph{not} obtained from either.
+  It is built from the identity component of the scheme representing the \'etale
+  sheafification (\cref{thm:fga_pic_representability_etale}), which is a different
+  representability input for a different functor --- one that replaces
+  \cref{def:inst_has_pic_scheme} rather than supplying its hypothesis. That is why the
+  headline carries no rational point while these two do, and it is the whole content
+  of the decision recorded in \cref{rem:rational_point_scope}.
+\end{remark}
+
+\begin{theorem}[The Picard identity component is a Jacobian witness]
+  \label{def:picardJacobianWitness}
+  \dcref{custom}
+  \uses{def:JacobianWitness, def:genus, thm:fga_pic_representability_etale,
+    thm:pic0_isAbelianVariety, thm:pic_zero_dimension_equals_genus,
+    thm:albanese_universal_property_northstar}
+  \lean{AlgebraicGeometry.picardJacobianWitness}
+  Let \(k\) be an arbitrary field and \(C/k\) a smooth proper geometrically
+  irreducible curve --- with \emph{no} hypothesis on \(C(k)\). Then the identity
+  component \(\Pic^0_{C/k}\) carries a Jacobian witness for \(C\).
+\end{theorem}
+
+\begin{proof}
+  \uses{thm:fga_pic_representability_etale, lem:pic0_relative_dimension_genus,
+    lem:pic0_isAlbanese_all_points, rem:pointed_witness_scope,
+    rem:rational_point_scope}
+  Take \(J = \Pic^0_{C/k}\), the identity component of the scheme representing the
+  \'etale-sheafified relative Picard functor
+  (\cref{thm:fga_pic_representability_etale}). Its group-object structure, geometric
+  irreducibility and local finiteness follow from that representability with no
+  further hypothesis, by Yoneda transport and Kleiman \S 5 Lem.~\texttt{lem:agps};
+  smoothness and properness are \cref{thm:pic0_smooth} and \cref{thm:pic0_proper};
+  the relative dimension is \cref{lem:pic0_relative_dimension_genus}; and the
+  Albanese property for every marked point is
+  \cref{lem:pic0_isAlbanese_all_points}.
+
+  No rational point is used, and none is available in general: see
+  \cref{rem:rational_point_scope} for why this rather than the pointed statement is
+  the theorem being claimed, and \cref{rem:pointed_witness_scope} for the conditional
+  milestones kept beside it.
+\end{proof}
+
+\begin{lemma}[A smooth geometrically irreducible curve is geometrically integral]
+  \label{lem:curve_geometrically_integral}
+  \dcref{custom}
+  \leanok
+  \lean{AlgebraicGeometry.geometricallyIntegral_of_curve}
+  Let \(C\) be a smooth proper geometrically irreducible curve over a field \(k\).
+  Then \(C\) is geometrically integral over \(k\).
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \uses{lem:smooth_geometrically_reduced}
+  A smooth morphism is geometrically reduced
+  (\cref{lem:smooth_geometrically_reduced}), and a morphism that is both
+  geometrically reduced and geometrically irreducible is geometrically integral:
+  for every field extension \(K/k\) the base change \(C_K\) is then both reduced
+  and irreducible, hence integral.
+\end{proof}
+
+\begin{lemma}[A smooth morphism is geometrically reduced]
+  \label{lem:smooth_geometrically_reduced}
+  \dcref{custom}
+  \leanok
+  \lean{AlgebraicGeometry.SmoothOfRelativeDimension.geometricallyReduced}
+  A morphism of schemes \(f\colon X\to Y\) that is smooth of some relative
+  dimension is geometrically reduced: for every field \(K\) and every morphism
+  \(\Spec K\to Y\), the base change \(X\times_Y\Spec K\) is a reduced scheme.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  \uses{lem:standard_smooth_over_domain_reduced}
+  Smoothness is stable under base change, so it suffices to show that a scheme
+  \(X\) smooth over a field \(K\) is reduced. Reducedness is local, and \(X\) is
+  covered by affine opens \(\Spec S\) with \(S\) standard smooth over \(K\); each
+  is reduced by \cref{lem:standard_smooth_over_domain_reduced} applied to the
+  domain \(K\).
+\end{proof}
+
+\begin{lemma}[A standard smooth algebra over a domain is reduced]
+  \label{lem:standard_smooth_over_domain_reduced}
+  \dcref{custom}
+  \leanok
+  \lean{Algebra.IsStandardSmooth.isReduced_of_isDomain}
+  Let \(B\) be a domain and \(S\) a standard smooth \(B\)-algebra. Then \(S\) is
+  reduced.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  By the structure theorem for standard smooth algebras, \(S\) is étale over a
+  polynomial ring \(P=B[x_1,\dots,x_n]\), which is again a domain. So it suffices
+  to prove that a flat, formally unramified \(P\)-algebra \(S\) essentially of
+  finite type over a domain \(P\) is reduced, étale algebras being flat, formally
+  unramified and essentially of finite type.
+
+  Let \(F=\operatorname{Frac}(P)\). The algebra \(F\otimes_P S\) is formally
+  unramified and essentially of finite type over the field \(F\), hence reduced.
+  Since \(S\) is flat over \(P\) and \(P\to F\) is injective, the induced map
+  \(S\cong P\otimes_P S\to F\otimes_P S\) is injective, so \(S\) embeds into a
+  reduced ring and is therefore reduced.
+\end{proof}
+
+\begin{remark}[The rational point is not a hypothesis of the Jacobian]
+  \label{lem:curve_hypothesis_gap}
+  \dcref{custom}
+  \uses{def:has_rational_point, thm:fga_pic_representability_etale}
+  A smooth proper geometrically integral curve \(C/k\) need \emph{not} have a
+  \(k\)-rational point: a conic over \(\mathbb{Q}\) with no rational point is a
+  genus-\(0\) example, and there are genus-\(2\) curves over \(\mathbb{Q}\) with
+  no rational point. Over an algebraically closed field a rational point always
+  exists (\cref{lem:curve_rational_point_algClosed}).
+
+  An earlier revision of this blueprint stated the opposite as a lemma, in order
+  to name the gap between the hypotheses of the Jacobian witness and those of the
+  Picard construction. That statement was false, and the witness built on it
+  therefore rested on an inconsistent hypothesis: its consequences were vacuously
+  true, and no axiom check could distinguish that state from an honest one. The
+  lemma has been \emph{removed}, in the blueprint and in the formalisation, and
+  it must not be reinstated or proved.
+
+  What replaced it is not a proof but a different \emph{statement}. The Jacobian
+  is now built on representability of the \'etale sheafification
+  \(\Pic_{(C/k)\et}\) (\cref{thm:fga_pic_representability_etale}), which needs no
+  section, so the witness of \cref{def:picardJacobianWitness} carries the three
+  challenge hypotheses and nothing else. The rational point survives in this
+  chapter only where it is a theorem
+  (\cref{lem:curve_rational_point_algClosed}, over \(\bar k\)) or an explicit
+  hypothesis (\cref{def:picardJacobianWitnessOfHasRationalPoint}).
+\end{remark}
+
+\begin{lemma}[A curve over an algebraically closed field has a rational point]
+  \label{lem:curve_rational_point_algClosed}
+  \dcref{custom}
+  \leanok
+  \lean{AlgebraicGeometry.hasRationalPoint_of_curve_of_isAlgClosed}
+  \uses{def:has_rational_point}
+  Let \(C\) be a smooth proper geometrically irreducible curve over an algebraically
+  closed field \(\bar k\). Then \(C\) has a \(\bar k\)-rational point.
+\end{lemma}
+
+\begin{proof}
+  \leanok
+  Geometric irreducibility over the one-point base \(\Spec \bar k\) makes the
+  underlying space of \(C\) irreducible, in particular nonempty, and smoothness makes
+  \(C \to \Spec \bar k\) locally of finite type, so that space is a Jacobson space.
+  A nonempty Jacobson space has a closed point \(x\). Over an algebraically closed
+  field the residue field at a closed point of a scheme locally of finite type is
+  \(\bar k\) itself, so \(x\) is the image of a section of \(C \to \Spec \bar k\),
+  which is the required rational point.
+\end{proof}
+
+\begin{remark}[The scope of the headline: an arbitrary base field]
+  \label{rem:rational_point_scope}
+  \dcref{custom}
+  \uses{lem:curve_hypothesis_gap, lem:curve_rational_point_algClosed,
+    thm:fga_pic_representability_etale}
+  The Jacobian of this chapter is constructed over an \emph{arbitrary} base field, with no
+  hypothesis on \(C(k)\), and the functor whose representability it rests on is the
+  \'etale sheafification \(\Pic_{(C/k)\et}\)
+  (\cref{thm:fga_pic_representability_etale}). This is a settled choice, not an open
+  branch, and it is the formulation the challenge asks for: the statement being answered
+  binds \(\Jac(C)\) for a curve with no marked point, and binds a point only where
+  Abel--Jacobi genuinely needs one.
+
+  The alternative --- represent \(\Pic^\sharp_{C/k}\) and carry
+  \(C(k) \neq \emptyset\) as a hypothesis of the Jacobian --- is strictly weaker, since a
+  smooth proper geometrically integral curve need not have a rational point
+  (\cref{lem:curve_hypothesis_gap}). It is retained as
+  \cref{def:picardJacobianWitnessOfHasRationalPoint}, explicitly as a conditional
+  milestone, and may not be presented as the headline. Neither may the \(\bar k\) witness
+  \cref{def:picardJacobianWitnessOfIsAlgClosed}, which is a genuine theorem over an
+  algebraically closed field and nothing more.
+
+  \textbf{Five obligations, and now none of them false.} The witness of
+  \cref{def:picardJacobianWitness} rests on representability
+  (\cref{thm:fga_pic_representability_etale}), \cref{thm:pic0_smooth},
+  \cref{thm:pic0_proper}, \cref{lem:pic0_relative_dimension_genus} and
+  \cref{lem:pic0_isAlbanese_all_points}. The count is the same as before the decision;
+  what changed is the \emph{kind} of the obligations. Previously one of them asserted a
+  rational point over an arbitrary field and was false, so the witness rested on an
+  inconsistent hypothesis and its consequences were vacuously true. Now all five are true
+  statements awaiting proofs. That difference is invisible to an axiom check --- it is a
+  property of the statements, not of the proof terms --- and it is the substance of the
+  change.
+\end{remark}
+
+\begin{theorem}[A Jacobian witness over an algebraically closed field]
+  \label{def:picardJacobianWitnessOfIsAlgClosed}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.picardJacobianWitnessOfIsAlgClosed}
+  \uses{def:JacobianWitness, def:picardJacobianWitness,
+    lem:curve_rational_point_algClosed}
+  Over an algebraically closed field \(\bar k\), the identity component
+  \(\Pic^0_{C/\bar k}\) carries a Jacobian witness for every smooth proper
+  geometrically irreducible curve \(C\), with no rational-point hypothesis.
+\end{theorem}
+
+\begin{proof}
+  \uses{def:picardJacobianWitnessOfHasRationalPoint,
+    lem:curve_rational_point_algClosed,
+    lem:pic0_relative_dimension_genus, lem:pic0_isAlbanese_all_points,
+    rem:rational_point_scope, def:inst_has_pic_scheme}
+  Apply \cref{def:picardJacobianWitnessOfHasRationalPoint}, with the rational point
+  supplied by \cref{lem:curve_rational_point_algClosed} instead of assumed. Every
+  other field of the witness is unchanged, so the open obligations are
+  representability (\cref{def:inst_has_pic_scheme}), \cref{thm:pic0_smooth},
+  \cref{thm:pic0_proper}, \cref{lem:pic0_relative_dimension_genus} and
+  \cref{lem:pic0_isAlbanese_all_points}, all of them true statements
+  (\cref{rem:rational_point_scope}).
+\end{proof}
+
+\begin{lemma}[Relative dimension of the identity component]
+  \label{lem:pic0_relative_dimension_genus}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.smoothOfRelativeDimension_genus_pic0}
+  \uses{def:genus, thm:pic_zero_dimension_equals_genus, thm:pic0_isAbelianVariety}
+  For a smooth proper geometrically integral curve \(C/k\) whose Picard functor is
+  representable, \(\Pic^0_{C/k}\) is smooth over \(k\) of relative dimension
+  \(g(C)\).
+\end{lemma}
+
+\begin{proof}
+  \(\Pic^0_{C/k}\) is a smooth \(k\)-group scheme by
+  \cref{thm:pic0_isAbelianVariety}. For a smooth group scheme over a field the
+  relative dimension is constant and equals the dimension of the tangent space at
+  the identity, which is \(H^1(C,\mathcal O_C)\) by
+  \cref{thm:pic_zero_dimension_equals_genus}. Its \(k\)-dimension is \(g(C)\) by
+  the definition of the genus (\cref{def:genus}).
+\end{proof}
+
+\begin{lemma}[Tangent space of the identity component has dimension the genus]
+  \label{lem:pic0_tangent_dimension_genus}
+  \dcref{custom}
+  \leanok
+  \lean{AlgebraicGeometry.finrank_tangentSpace_pic0_eq_genus}
+  \uses{def:genus, thm:pic_zero_dimension_equals_genus}
+  For a smooth proper geometrically integral curve \(C/k\) whose Picard functor is
+  representable, the Zariski tangent space of \(\Pic^0_{C/k}\) at the identity has
+  dimension \(g(C)\) over the residue field of the identity point.
+\end{lemma}
+
+\begin{proof}
+  \uses{thm:pic_zero_dimension_equals_genus}
+  The tangent space at the identity is \(H^1(C,\mathcal O_C)\)
+  (\cref{thm:pic_zero_dimension_equals_genus}), whose \(k\)-dimension is \(g(C)\) by
+  the definition of the genus (\cref{def:genus}).
+\end{proof}
+
+\begin{remark}[What separates the tangent dimension from the relative dimension]
+  \label{rem:tangent_versus_relative_dimension}
+  \dcref{custom}
+  \uses{lem:pic0_tangent_dimension_genus, lem:pic0_relative_dimension_genus}
+  \Cref{lem:pic0_tangent_dimension_genus} is not
+  \cref{lem:pic0_relative_dimension_genus}. Two further ingredients separate them:
+  smoothness of \(\Pic^0_{C/k}\) over \(k\), and the identification of the
+  tangent-space dimension with the relative dimension of a smooth morphism. For the
+  second, the relative dimension of a smooth morphism is computed by the rank of the
+  module of Kähler differentials \(\Omega\), so the step is the duality, over a field,
+  between that rank and the dimension of the tangent space at a rational point ---
+  together with the passage from that affine-local statement to a cover of
+  \(\Pic^0_{C/k}\). Translation by a rational point makes the dimension independent of
+  the chosen point, which is what lets a computation at the identity determine the
+  relative dimension everywhere.
+\end{remark}
+
+\begin{lemma}[Albanese property at every point, in every genus]
+  \label{lem:pic0_isAlbanese_all_points}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.isAlbanese_pic0}
+  \uses{def:IsAlbanese, thm:albanese_universal_property_northstar}
+  Let \(C/k\) be a smooth proper geometrically integral curve whose Picard functor
+  is representable. Then for every \(P\in C(k)\), the scheme \(\Pic^0_{C/k}\)
+  satisfies the Albanese universal property for the pointed curve \((C,P)\).
+\end{lemma}
+
+\begin{proof}
+  \uses{lem:pic0_isAlbanese_algClosed}
+  For \(g(C) > 0\) and \(k\) algebraically closed this is
+  \cref{lem:pic0_isAlbanese_algClosed}.
+
+  Three extensions are required. Over a general \(k\), apply the algebraically
+  closed case over \(k^s\) and descend: the universal morphism and the factoring
+  homomorphism are unique, so they are Galois-equivariant and descend to \(k\).
+  For \(g(C) = 0\) the tangent space \(H^1(C,\mathcal O_C)\) vanishes, so
+  \(\Pic^0_{C/k}\) is a smooth proper group scheme of dimension \(0\), namely
+  \(\Spec k\); the universal property then asserts that every pointed morphism
+  from \(C\) to an abelian variety is constant, which is the rigidity statement
+  that a morphism from a genus-\(0\) curve to an abelian variety is constant.
+  The third is the basepoint condition \(P \circ \iota_P = \eta\), a hypothesis
+  of \cref{lem:pic0_isAlbanese_algClosed} rather than a restriction on it.
+\end{proof}
+
+\begin{lemma}[Albanese property over an algebraically closed field]
+  \label{lem:pic0_isAlbanese_algClosed}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.isAlbanese_pic0_of_isAlgClosed}
+  \uses{def:IsAlbanese, thm:albanese_universal_property_northstar}
+  Let \(C\) be a smooth proper geometrically integral curve over an
+  algebraically closed field \(\bar k\), with representable Picard functor and
+  genus \(g(C) > 0\), and let \(P \in C(\bar k)\) satisfy
+  \(P \circ \iota_P = \eta\) for the Abel--Jacobi morphism \(\iota_P\) of
+  \((C, P)\). Then \(\Pic^0_{C/\bar k}\) satisfies the Albanese universal
+  property for the pointed curve \((C, P)\).
+\end{lemma}
+
+\begin{proof}
+  \uses{thm:albanese_universal_property_northstar}
+  The universal property of \cref{def:IsAlbanese} has two clauses. The basepoint
+  clause is the hypothesis. The factorisation clause --- every pointed morphism
+  \(\varphi : C \to A\) into an abelian variety factors uniquely through
+  \(\iota_P\) --- is \cref{thm:albanese_universal_property_northstar} at the same
+  object, the Albanese development's Jacobian scheme being \(\Pic^0_{C/\bar k}\).
+\end{proof}
+
+\begin{theorem}[Existence of a Jacobian witness]
+  \label{thm:nonempty_jacobianWitness}
+  \dcref{custom}
+  \uses{def:JacobianWitness, def:picardJacobianWitness}
+  \lean{AlgebraicGeometry.nonempty_jacobianWitness}
+  Every smooth proper geometrically irreducible curve has a Jacobian witness.
+\end{theorem}
+
+\begin{proof}
+  Take the witness on \(\Pic^0_{C/k}\) supplied by
+  Theorem~\ref{def:picardJacobianWitness}.
+\end{proof}
+
+\begin{definition}[Chosen Jacobian witness]
+  \label{def:jacobianWitness}
+  \dcref{custom}
+  \uses{def:JacobianWitness, thm:nonempty_jacobianWitness}
+  \lean{AlgebraicGeometry.jacobianWitness}
+  Fix one Jacobian witness for \(C\).
+\end{definition}
+
+\section{The Jacobian and its structure}
+
+\begin{definition}[Jacobian]
+  \label{def:Jacobian}
+  \dcref{custom}
+  \uses{def:genus, def:JacobianWitness, def:jacobianWitness}
+  \lean{AlgebraicGeometry.Jacobian}
+  The \emph{Jacobian} \(\Jac(C)\) is the underlying \(k\)-scheme of the
+  chosen Jacobian witness.  Equivalently, \(\Jac(C)=\Pic^0_{C/k}\) up to the
+  unique isomorphism of Albanese objects.
+\end{definition}
+
+\begin{theorem}[Group structure]
+  \label{thm:Jacobian_grpObj}
+  \dcref{custom}
+  \uses{def:Jacobian, def:jacobianWitness}
+  \lean{AlgebraicGeometry.Jacobian.instGrpObj}
+  The Jacobian is a group scheme over \(k\).
+\end{theorem}
+
+\begin{proof}
+  This is the group structure carried by the chosen Jacobian witness.
+\end{proof}
+
+\begin{theorem}[Dimension and smoothness]
+  \label{thm:Jacobian_smooth_genus}
+  \dcref{custom}
+  \uses{def:Jacobian, def:genus, def:jacobianWitness}
+  \lean{AlgebraicGeometry.Jacobian.smoothOfRelativeDimension_genus}
+  The structural morphism \(\Jac(C)\to\Spec k\) is smooth of relative
+  dimension \(g(C)\).
+\end{theorem}
+
+\begin{proof}
+  This is the dimension assertion carried by the chosen Jacobian witness.
+\end{proof}
+
+\begin{theorem}[Properness]
+  \label{thm:Jacobian_proper}
+  \dcref{custom}
+  \uses{def:Jacobian, def:jacobianWitness}
+  \lean{AlgebraicGeometry.Jacobian.instIsProper}
+  The structural morphism \(\Jac(C)\to\Spec k\) is proper.
+\end{theorem}
+
+\begin{proof}
+  This is the properness assertion carried by the chosen Jacobian witness.
+\end{proof}
+
+\begin{theorem}[Geometric irreducibility]
+  \label{thm:Jacobian_geomIrred}
+  \dcref{custom}
+  \uses{def:Jacobian, def:jacobianWitness}
+  \lean{AlgebraicGeometry.Jacobian.instGeometricallyIrreducible}
+  The structural morphism \(\Jac(C)\to\Spec k\) is geometrically irreducible.
+\end{theorem}
+
+\begin{proof}
+  This is the geometric-irreducibility assertion carried by the chosen
+  Jacobian witness.
+\end{proof}
+
+\begin{remark}
+  If \(g(C)=0\), then \(\Jac(C)=\Spec k\).  If \(g(C)=1\) and \(C(k)\) is
+  nonempty, the choice of a rational point identifies \(C\) with its
+  Jacobian.  For \(g(C)\geq2\), the Jacobian has dimension \(g(C)\), whereas
+  \(C\) has dimension one.
+\end{remark}
+
+\section{The Albanese property of \(\Pic^0\)}
+\label{sec:Jacobian_routeA4_albaneseUP}
+
+\begin{theorem}
+[Albanese universal property of \(\Pic^0_{C/k}\)]
+  \label{thm:albanese_universal_property_northstar}
+  \dcref{custom}
+  \uses{lem:abel_jacobi_morphism, lem:symmetric_product_av_map,
+    lem:symmetric_product_to_jacobian, lem:descent_through_birational_sigma,
+    lem:albanese_eq_iff_symmetricPower_eq, thm:rational_map_to_av_extends,
+    thm:rigidity_lemma, lem:av_regular_map_is_hom,
+    lem:hom_additivity_over_product}
+  Fix \(P\in C(k)\), put \(J=\Pic^0_{C/k}\), and let
+  \(f^P(Q)=[\mathcal O_C(Q-P)]\).  For every pointed morphism
+  \(\varphi\colon C\to A\) to an abelian variety there is a unique
+  group-scheme homomorphism \(\psi\colon J\to A\) such that
+  \(\varphi=f^P\circ\psi\).
+\end{theorem}
+
+\begin{proof}
+  For \(g=g(C)>0\), the morphism
+  \[
+    (Q_1,\ldots,Q_g)\longmapsto
+      \varphi(Q_1)+\cdots+\varphi(Q_g)
+  \]
+  is symmetric and therefore descends to \(C^{(g)}\).  The Abel map
+  \(C^{(g)}\to J\) is birational onto \(J\), so this descent defines a
+  rational map \(J\dashrightarrow A\).  A rational map from a nonsingular
+  variety to an abelian variety extends uniquely to a regular morphism;
+  denote the extension by \(\psi\).  By construction
+  \(\varphi=f^P\circ\psi\), and \(\psi(0)=0\), so rigidity makes \(\psi\) a
+  homomorphism.  If \(\psi'\) is another such homomorphism, then \(\psi\) and
+  \(\psi'\) agree on the sum of \(g\) copies of \(f^P(C)\), which is all of
+  \(J\); hence \(\psi=\psi'\).  When \(g=0\), \(J=\Spec k\) and the result
+  follows from rigidity.
+\end{proof}

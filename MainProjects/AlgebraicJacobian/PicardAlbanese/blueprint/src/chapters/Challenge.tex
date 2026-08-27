@@ -1,0 +1,120 @@
+\chapter{The Jacobian of a smooth proper curve}
+\label{chap:Challenge}
+
+Throughout, \(k\) is a field and \(C\) a \emph{smooth curve} over \(k\): a geometrically
+irreducible, smooth \(k\)-scheme of relative dimension one, proper over \(k\). We write
+\(C \to \Spec k\) for its structure morphism. This chapter states the goal of the project — the
+genus, the Jacobian, the Abel--Jacobi map, and the universal property that characterizes the
+Jacobian as the Albanese variety of \(C\). It is the mathematical counterpart of the statement file
+\texttt{AlgebraicJacobian/Challenge.lean}.
+
+The Picard-scheme formulation follows \cite{kleiman-picard}, and the Albanese universal
+property follows \cite{milne-av}; the genus-zero scope is recorded below.
+
+The `\dcref` anchors below identify either a precise external source location or a locally
+proved (`custom`) declaration.
+
+\section{Genus}
+
+\begin{definition}[Genus]
+  \label{def:genus}
+  \dcref{custom}
+  \lean{AlgebraicGeometry.genus}
+  \leanok
+  \uses{def:moduleKSheaf, def:HModule}
+  The \emph{genus} of a smooth proper curve \(C\) over \(k\) is
+  \[
+    g(C) \;=\; \dim_k H^1\!\bigl(C, \struct C\bigr),
+  \]
+  the \(k\)-dimension of the first cohomology group of the structure sheaf, viewed as a sheaf
+  of \(k\)-modules on the small Zariski site of \(C\) (Definition~\ref{def:moduleKSheaf}),
+  with cohomology the \(\Ext\)-groups from the constant sheaf
+  (Definition~\ref{def:HModule}).
+\end{definition}
+
+\section{The Jacobian as an abelian variety}
+
+\begin{definition}[Jacobian]
+ \label{def:jacobian}
+ \lean{AlgebraicGeometry.Jacobian}
+ \uses{def:pic0Functor}
+ \dcref{custom}
+  The \emph{Jacobian} \(\Jac(C)\) of a smooth proper curve \(C\) over \(k\) is the identity
+  component \(\Pic^0_{C/k}\) of the relative Picard scheme of \(C\) over \(k\): the \(k\)-scheme
+  representing the degree-zero subfunctor of the \'etale-sheafified relative Picard functor.
+\end{definition}
+
+\begin{proposition}[Group scheme structure]
+  \label{prop:jacobian_grpobj}
+  \dcref{custom}
+  \uses{def:jacobian}
+  \lean{AlgebraicGeometry.Jacobian.instGrpObj}
+  \(\Jac(C)\) is a commutative group scheme over \(k\), with multiplication induced by the tensor
+  product of line bundles.
+\end{proposition}
+
+\begin{theorem}[Smoothness of the Jacobian]
+  \label{thm:jacobian_smooth}
+  \dcref{custom}
+  \uses{def:genus, def:jacobian}
+  \lean{AlgebraicGeometry.Jacobian.smoothOfRelativeDimension_genus}
+  \(\Jac(C)\) is smooth over \(k\) of relative dimension \(g(C)\).
+\end{theorem}
+
+\begin{theorem}[Properness of the Jacobian]
+  \label{thm:jacobian_proper}
+  \dcref{custom}
+  \uses{def:jacobian}
+  \lean{AlgebraicGeometry.Jacobian.instIsProper}
+  \alignmentcheck{TO CHECK: the named Lean target is unresolved; Challenge.lean
+  declares this instance anonymously.}
+  \(\Jac(C)\) is proper over \(k\).
+\end{theorem}
+
+\begin{theorem}[Geometric irreducibility of the Jacobian]
+  \label{thm:jacobian_geomirred}
+  \dcref{custom}
+  \uses{def:jacobian}
+  \lean{AlgebraicGeometry.Jacobian.instGeometricallyIrreducible}
+  \alignmentcheck{TO CHECK: the named Lean target is unresolved; Challenge.lean
+  declares this instance anonymously.}
+  \(\Jac(C)\) is geometrically irreducible over \(k\).
+\end{theorem}
+
+In particular \(\Jac(C)\) is an abelian variety over \(k\) of dimension \(g(C)\).
+
+\section{The Abel--Jacobi map and the universal property}
+
+\begin{definition}[Abel--Jacobi map]
+  \label{def:ofCurve}
+  \dcref{custom}
+  \uses{def:jacobian}
+  \lean{AlgebraicGeometry.Jacobian.ofCurve}
+  For a \(k\)-rational point \(P : \Spec k \to C\), the \emph{Abel--Jacobi map}
+  \(\varphi_P : C \to \Jac(C)\) sends a point \(Q\) to the class of the line bundle
+  \(\struct C(Q - P)\).
+\end{definition}
+
+\begin{lemma}[Base point maps to the origin]
+  \label{lem:comp_ofCurve}
+  \dcref{custom}
+  \uses{def:ofCurve, prop:jacobian_grpobj}
+  \lean{AlgebraicGeometry.Jacobian.comp_ofCurve}
+  The Abel--Jacobi map \(\varphi_P\) sends the base point \(P\) to the neutral element of
+  \(\Jac(C)\): \(\varphi_P \circ P = 0\).
+\end{lemma}
+
+\begin{theorem}[Universal property of the Jacobian]
+  \label{thm:exists_unique_ofCurve_comp}
+  \uses{def:ofCurve, lem:comp_ofCurve, prop:jacobian_grpobj}
+  \lean{AlgebraicGeometry.Jacobian.exists_unique_ofCurve_comp}
+  \dcref{custom}
+  \alignmentcheck{TO CHECK: Milne's Proposition~6.1 assumes \(g(C)>0\), whereas this node and its
+  Lean declaration also quantify over genus zero (source page~0110).}
+  \(\Jac(C)\) is the Albanese variety of \(C\): for every abelian variety \(A\) over \(k\) and every
+  morphism \(f : C \to A\) with \(f \circ P = 0\), there is a unique homomorphism of group schemes
+  \(g : \Jac(C) \to A\) such that \(f = g \circ \varphi_P\).  Milne's Proposition~6.1
+  proves this under the standing hypothesis \(g(C)>0\), with \(P\) a \(k\)-rational point.
+  The statement here includes genus zero; that case requires a separate argument and is not
+  supplied by the cited proposition alone.
+\end{theorem}
