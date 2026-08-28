@@ -9,11 +9,12 @@ Algebraic Jacobian:
 The short names AJC and AJCR are retained only as provenance aliases for the
 upstream projects. The route names use their mathematical constructions so they
 remain clear in the workspace site and in future Lean namespaces. Each route
-contains only the hand-maintained blueprint inputs, shared macros, route-local
-BibTeX bibliography, hgraph configuration, and provenance record. External
-inspiration is cited explicitly with `\\cite{...}`; custom statements use
-`\\dcref{custom}`. Generated graphs, rendered PDFs, declaration snapshots,
-scratch files, and Lean caches are excluded.
+contains a concise, AI-authored mathematical blueprint assembled from its
+route-local BibTeX references. External results are cited with
+`\\cite{...}`, internal statements use `\\ref{...}`, and every node
+records its printed source number with `\\dcref{...}`; custom is appended only
+for a genuine specialization or synthesis. Generated graphs, rendered PDFs,
+declaration snapshots, scratch files, and Lean caches are excluded.
 
 ## Lean library
 
