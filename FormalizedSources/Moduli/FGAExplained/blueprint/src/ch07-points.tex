@@ -21,11 +21,6 @@ $X^n/S_n$.  On a smooth curve, ideals of colength $n$ are uniquely determined
 by their divisor, giving an inverse.  On a smooth surface the locus of distinct
 points is dense and the map is an isomorphism there, so it is birational.
 \end{proof}
-\begin{lemma}\label{fga-lem-7-1-4}\dcref{7.1.4}\source{fga-explained:page-0170}\uses{fga-thm-7-1-2}
-The punctual Hilbert scheme of length $n$ supported at a smooth point of a
-surface is connected and has the expected dimension; its open locus of reduced
-clusters is dense in the global Hilbert scheme.
-\end{lemma}
 \begin{lemma}\label{fga-lem-7-1-7}\dcref{7.1.7}\source{fga-explained:page-0171}\uses{fga-thm-6-1-19}
 For a finite subscheme $Z\subset X$, the Zariski tangent space to $\Hilb^n(X)$
 at $[Z]$ is $\operatorname{Hom}(\mathcal I_Z,\OO_Z)$.
@@ -46,10 +41,6 @@ symmetric power give irreducibility.
 \end{proof}
 
 \section{Examples and stratifications}
-\begin{lemma}\label{fga-lem-7-1-11}\dcref{7.1.11}\source{fga-explained:page-0172}\uses{fga-thm-7-1-2}
-The Hilbert scheme of points on a smooth curve is the symmetric power, and for
-$X=\mathbb A^2$ the fiber over $n[0]$ is the punctual Hilbert scheme.
-\end{lemma}
 \begin{theorem}\label{fga-thm-7-1-14}\dcref{7.1.14}\source{fga-explained:page-0174}\uses{fga-thm-7-1-13,fga-thm-7-1-2}
 The Hilbert--Chow morphism for a smooth surface is a projective resolution of
 the singularities of $X^{(n)}$.
@@ -83,17 +74,47 @@ $\Hilb^n(X)$ is formed over all $n\ge0$.
 Gottsche's formula is
 \[
 \sum_{n\ge0}P_t(\Hilb^n(X))q^n=
-\prod_{m\ge1}\frac{\prod_{i\ \mathrm{odd}}(1+t^iq^m)^{b_i(X)}}
-{\prod_{i\ \mathrm{even}}(1-t^iq^m)^{b_i(X)}}.
+\prod_{m\ge1}
+\frac{(1+t^{2m-1}q^m)^{b_1(X)}(1+t^{2m+1}q^m)^{b_3(X)}}
+{(1-t^{2m-2}q^m)^{b_0(X)}(1-t^{2m}q^m)^{b_2(X)}
+ (1-t^{2m+2}q^m)^{b_4(X)}}.
 \]
 \end{theorem}
-\begin{definition}\label{fga-def-7-6-1}\dcref{7.6.1}\source{fga-explained:page-0185}\uses{fga-def-7-5-1}
-The Nakajima correspondences define creation and annihilation operators on
-$\bigoplus_n H^*(\Hilb^n(X))$; their commutator is the intersection pairing on
-$H^*(X)$.
-\end{definition}
-\begin{theorem}\label{fga-thm-7-6-2}\dcref{7.6.2}\source{fga-explained:page-0187}\uses{fga-def-7-6-1,fga-thm-7-5-5}
-These operators furnish a representation of the Heisenberg algebra, and the
-Fock-space character of the representation is the product in
-\cref{fga-thm-7-5-5}.
+\begin{proof}
+For a partition $\nu=(1^{\alpha_1},\ldots,s^{\alpha_s})$ of $n$, strict
+semismallness of the Hilbert--Chow morphism and
+Lemma~\ref{fga-lem-7-5-3} decompose its direct image into the intersection
+complexes of the closures of the partition strata.  The normalization of such
+a closure is $X^{(\alpha_1)}\times\cdots\times X^{(\alpha_s)}$, so
+Lemma~\ref{fga-lem-7-5-4} expresses the cohomology of $X^{[n]}$ as the sum of
+the shifted cohomologies of these products.  Multiplying Macdonald's generating
+series for the Poincare polynomials of the symmetric powers and collecting the
+terms indexed by all partitions gives the displayed product.
+\end{proof}
+For a smooth projective surface $S$, put
+$\mathbb H_n=H^*(S^{[n]},\mathbb Q)$ and
+$\mathbb H=\bigoplus_{n\ge0}\mathbb H_n$.  The incidence correspondences
+define creation operators
+$p_m(\alpha):\mathbb H_n\to\mathbb H_{n+m}$ for $m>0$ and
+$\alpha\in H^*(S)$; set $p_0(\alpha)=0$ and let
+$p_{-m}(\alpha)$ be the adjoint of $p_m(\alpha)$ for the intersection pairing.
+
+\begin{theorem}[Nakajima--Grojnowski basis]\label{fga-thm-7-6-1}\dcref{7.6.1}\source{fga-explained:page-0185}\uses{fga-def-7-5-1}
+The operators $p_m(\alpha)$ with $m>0$ and $\alpha\in H^*(S)$ commute.  If
+$(\alpha_i)_{i\in L}$ is a basis of $H^*(S)$, then the monomials
+\[
+p_{n_1}(\alpha_{i_1})\cdots p_{n_k}(\alpha_{i_k})\mathbf 1,
+\qquad k\ge0,\quad i_j\in L,\quad n_j>0,\quad\sum_jn_j=n,
+\]
+form a basis of $\mathbb H_n$, where $\mathbf1\in\mathbb H_0=\mathbb Q$ is the
+unit.
+\end{theorem}
+
+\begin{theorem}[Heisenberg commutation relation]\label{fga-thm-7-6-2}\dcref{7.6.2}\source{fga-explained:page-0187}\uses{fga-thm-7-6-1}
+For $n,m\in\mathbb Z$ and $\alpha,\beta\in H^*(S)$,
+\[
+[p_n(\alpha),p_m(\beta)]
+=n\,\delta_{n,-m}\,\langle\alpha,\beta\rangle\,\operatorname{id}_{\mathbb H},
+\]
+where $\langle\alpha,\beta\rangle$ is the intersection pairing on $S$.
 \end{theorem}

@@ -43,8 +43,9 @@ and cross-reference notes; the full visual transcriptions remain private under
 exercises, bibliography, index, and historical/pedagogical prose are omitted
 as authorized by the project prompt.
 
-The explicit inventory in `mcrt-auto-statements.tex` covers the numbered
-statement headings detected in the body, while `mcrt-key-results.tex` gives
+The chapter files `blueprint/src/mcrt-ch01.tex` through
+`blueprint/src/mcrt-ch11.tex` contain the complete numbered statement
+inventory, while the key-result files give
 fully structured statements and separate proof environments for the principal
 regular-sequence, Cohen--Macaulay, Gorenstein, Auslander--Buchsbaum, and Serre
 results.  The appendix files also contain the previously missed printed
@@ -63,16 +64,15 @@ From this project directory:
 /home/axel/.archon-env/bin/hgraph --root . stats
 ```
 
-The final sync reports 529 current TeX nodes and 41 generated dependency edges
-with no synchronizer warnings (19 obsolete generated nodes remain marked stale
-in the ignored local graph after the inventory repair).  A recursive metadata audit is recorded at
+The final sync reports 236 current TeX nodes and 113 generated dependency edges
+with no synchronizer warnings.  A recursive metadata audit is recorded at
 `.blueprint-work/audits/validation.txt`; it checks duplicate labels and
 `\dcref` values, dangling `\uses`, unresolved source references, source-page
 coverage, and proof/statement inventories.
 
 The assembled blueprint was compiled twice with `pdflatex` using a temporary
 driver and `TEXINPUTS=blueprint/src:.blueprint-work/build`.  The successful
-output is `.blueprint-work/build/mcrt.pdf` (216 pages); both compliance-pass
+output is `.blueprint-work/build/mcrt.pdf` (165 pages); both compliance-pass
 logs are retained under `.blueprint-work/build/` and contain no LaTeX errors or
 undefined references.  Source-deferred results remain explicitly marked
 `\notready` only where the book supplies no proof or the page ledger is

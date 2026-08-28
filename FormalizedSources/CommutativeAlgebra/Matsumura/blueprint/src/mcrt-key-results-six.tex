@@ -1,0 +1,256 @@
+% Explicit statement inventory for the principal results in Chapters 6--7.
+
+\section{Regular sequences and the Koszul complex}
+\begin{definition}[Regular sequence]\label{mcrt-def-regular-sequence}\source{matsumura-commutative-ring-theory:page-0138}\uses{}
+For an $A$-module $M$, an element $a$ is $M$-regular if $ax\ne0$ for every
+$0\ne x\in M$.  A sequence $a_1,\ldots,a_r$ is an $M$-sequence when $a_1$
+is $M$-regular and $a_i$ is $M/(a_1,\ldots,a_{i-1})M$-regular for each $i>1$.
+\end{definition}
+
+\begin{theorem}[Powers of a regular sequence]\label{mcrt-thm-16-1}\dcref{16.1}\source{matsumura-commutative-ring-theory:page-0138}\uses{}
+If $a_1,\ldots,a_r$ is an $M$-sequence and $v_1,\ldots,v_r$ are positive
+integers, then $a_1^{v_1},\ldots,a_r^{v_r}$ is an $M$-sequence.
+\end{theorem}
+\begin{proof}
+The proof is by induction on the length and on the exponents.  If
+$b_1,\ldots,b_r$ is an $M$-sequence and $\sum b_i\xi_i=0$, successively using
+regularity modulo $(b_1,\ldots,b_{i-1})M$ shows
+$\xi_i\in(b_1,\ldots,b_r)M$.  Applying this relation to powers gives the
+required non-zero-divisor conditions for each $a_i^{v_i}$.
+\end{proof}
+
+\begin{definition}[Quasi-regular sequence]\label{mcrt-def-quasi-regular}\source{matsumura-commutative-ring-theory:page-0139}\uses{}
+Put $I=(a_1,\ldots,a_r)$ and assume $IM\ne M$.  The sequence is
+$M$-quasi-regular if every homogeneous $F\in M[X_1,\ldots,X_r]$ with
+$F(a)\in I^{v+1}M$ has all coefficients in $IM$.
+\end{definition}
+
+\begin{theorem}[Regular implies quasi-regular]\label{mcrt-thm-16-2}\dcref{16.2}\source{matsumura-commutative-ring-theory:page-0140}\uses{mcrt-def-regular-sequence,mcrt-def-quasi-regular}
+If $a_1,\ldots,a_r$ is an $M$-sequence, it is $M$-quasi-regular.  Conversely,
+if $IM:x=IM$ implies $I^vM:x=I^vM$ for every $v>0$, the quasi-regular
+sequence has the same coefficient criterion.
+\end{theorem}
+\begin{proof}
+Induct on the degree of a homogeneous polynomial.  For the converse, write a
+coefficient relation in degree $v$ as $xF(a)\in I^{v+1}M$ and apply the
+induction hypothesis followed by $IM:x=IM$.  For the forward implication,
+separate the last variable and use regularity modulo the preceding terms;
+the resulting coefficient relation reduces to the induction hypothesis.
+\end{proof}
+
+\begin{theorem}[Quasi-regular implies regular]\label{mcrt-thm-16-3}\dcref{16.3}\source{matsumura-commutative-ring-theory:page-0141}\uses{mcrt-thm-16-2}
+Let $A$ be Noetherian, $M\ne0$, and suppose that $M,M/a_1M,\ldots,
+M/(a_1,\ldots,a_{r-1})M$ are $I$-adically separated.  Then every
+$M$-quasi-regular sequence $a_1,\ldots,a_r$ is an $M$-sequence.
+\end{theorem}
+\begin{proof}
+If $a_1x=0$, separatedness and the quasi-regular coefficient criterion force
+$x\in I^vM$ for all $v$, hence $x=0$.  Apply the same argument to
+$M/a_1M$ and induct on $r$.
+\end{proof}
+
+\begin{definition}[Koszul complex]\label{mcrt-def-koszul}\source{matsumura-commutative-ring-theory:page-0142}\uses{}
+For $x_1,\ldots,x_r\in A$, let $K_p$ be free on symbols
+$e_{i_1}\wedge\cdots\wedge e_{i_p}$ and define
+$d(e_{i_1}\wedge\cdots\wedge e_{i_p})=\sum_j(-1)^{j-1}x_{i_j}
+e_{i_1}\wedge\widehat e_{i_j}\wedge\cdots\wedge e_{i_p}$.  Write
+$K_\bullet(x,M)=K_\bullet(x)\otimes_A M$ and $H_p(x,M)$ for its homology.
+\end{definition}
+
+\begin{theorem}[Koszul homology criterion]\label{mcrt-thm-16-5}\dcref{16.5}\source{matsumura-commutative-ring-theory:page-0143}\uses{mcrt-def-koszul,mcrt-def-regular-sequence}
+If $x_1,\ldots,x_r$ is an $M$-sequence, then $H_p(x,M)=0$ for $p>0$ and
+$H_0(x,M)=M/(x_1,\ldots,x_r)M$.  Under the local finite or positively graded
+hypotheses, the converse holds when $M\ne0$.
+\end{theorem}
+\begin{proof}
+Induct on $r$ using the short exact sequence obtained by tensoring with the
+two-term Koszul complex on the last element.  The long exact homology sequence
+and regularity give vanishing in positive degrees.  Conversely, Nakayama's
+lemma applied to the same sequence gives regularity one element at a time.
+\end{proof}
+
+\begin{theorem}[Ext characterization of depth]\label{mcrt-thm-16-6}\dcref{16.6}\source{matsumura-commutative-ring-theory:page-0144}\uses{mcrt-thm-16-3}
+For a Noetherian ring $A$, finite $M$ with $IM\ne M$, and $n>0$, the following
+are equivalent: $\operatorname{Ext}^i_A(N,M)=0$ for all finite $N$ and $i<n$;
+the same vanishing for $N=A/I$; and the existence of an $M$-sequence of length
+$n$ in $I$.
+\end{theorem}
+\begin{proof}
+The implication from a regular sequence follows by induction on its length and
+the long exact Ext sequence.  For the converse, if every element of $I$ is a
+zero-divisor, an associated prime containing $I$ produces a nonzero
+$\operatorname{Hom}(A/I,M)$, contradicting the vanishing.  Choose a regular
+element and repeat on the quotient.
+\end{proof}
+
+\begin{theorem}[Depth]\label{mcrt-thm-16-7}\dcref{16.7}\source{matsumura-commutative-ring-theory:page-0145}\uses{mcrt-thm-16-6}
+The length of a maximal $M$-sequence in $I$ is a well-determined integer
+$\operatorname{depth}(I,M)$, characterized by
+$\operatorname{Ext}^i_A(A/I,M)=0$ for $i<\operatorname{depth}(I,M)$ and
+nonvanishing in the depth degree.
+\end{theorem}
+\begin{proof}
+Extend any $M$-sequence while the next Ext group vanishes, using the preceding
+theorem.  A maximal sequence therefore stops exactly at the first nonzero Ext
+group, so all maximal sequences have the same length.
+\end{proof}
+
+\begin{theorem}[Koszul depth sensitivity]\label{mcrt-thm-16-8}\dcref{16.8}\source{matsumura-commutative-ring-theory:page-0146}\uses{mcrt-thm-16-5,mcrt-thm-16-7}
+If $I=(y_1,\ldots,y_n)$ and $M\ne IM$, then a maximal $M$-sequence in $I$
+has length $n-q$, where $q=\sup\{i:H_i(y,M)\ne0\}$.
+\end{theorem}
+\begin{proof}
+Induct on the length of a maximal sequence and use the long exact sequence for
+the first regular element.  The Koszul homology of the quotient shifts by one,
+which gives $q=n-s$ when the sequence has length $s$.
+\end{proof}
+
+\begin{theorem}[Grade versus projective dimension]\label{mcrt-thm-16-9}\dcref{16.9}\source{matsumura-commutative-ring-theory:page-0147}\uses{mcrt-thm-16-7}
+If $M,N$ are finite Noetherian modules, $M\ne0$, $\operatorname{grade}M=k$,
+and $\operatorname{projdim}N=\ell\le k$, then
+$\operatorname{Ext}^i_A(M,N)=0$ for $i<k-\ell$.
+\end{theorem}
+\begin{proof}
+Induct on $\ell$.  Resolve $N$ by a finite free module and use the long exact
+Ext sequence; the case $\ell=0$ is the definition of grade.
+\end{proof}
+
+\section{Cohen--Macaulay rings}
+\begin{definition}[Cohen--Macaulay module]\label{mcrt-def-cm}\source{matsumura-commutative-ring-theory:page-0149}\uses{}
+A finite module over a Noetherian local ring is Cohen--Macaulay if it is zero or
+if $\depth M=\dim M$.  The ring is Cohen--Macaulay when it is so as a module.
+\end{definition}
+
+\begin{theorem}[Ischebeck]\label{mcrt-thm-17-1}\dcref{17.1}\source{matsumura-commutative-ring-theory:page-0148}\uses{mcrt-thm-16-6}
+For nonzero finite modules over a Noetherian local ring, if $\depth M=k$ and
+$\dim N=r$, then $\operatorname{Ext}^i_A(N,M)=0$ for $i<k-r$.
+\end{theorem}
+\begin{proof}
+Induct on $r$, filter $N$ by cyclic modules $A/P$, and for $r>0$ choose
+$x\notin P$ to reduce to $A/(P,x)$; the long exact sequence and Nakayama's
+lemma finish the induction.
+\end{proof}
+
+\begin{theorem}[Associated-prime dimension bound]\label{mcrt-thm-17-2}\dcref{17.2}\source{matsumura-commutative-ring-theory:page-0149}\uses{mcrt-thm-17-1}
+If $P\in\operatorname{Ass}(M)$, then $\dim(A/P)\ge\depth M$.
+\end{theorem}
+\begin{proof}
+There is a nonzero map $A/P\to M$.  Apply the preceding Ext vanishing theorem;
+otherwise $\operatorname{Hom}(A/P,M)$ would be forced to vanish.
+\end{proof}
+
+\begin{theorem}[Cohen--Macaulay module properties]\label{mcrt-thm-17-3}\dcref{17.3}\source{matsumura-commutative-ring-theory:page-0149}\uses{mcrt-def-cm,mcrt-thm-17-2,mcrt-thm-16-7}
+For a finite module $M$ over a Noetherian local ring: (i) a CM module has no
+embedded associated primes; (ii) quotienting by an $M$-sequence preserves CM;
+(iii) localization of a CM module is CM.
+\end{theorem}
+\begin{proof}
+Use the dimension inequalities from the associated-prime bound.  Quotienting
+by a regular sequence lowers both depth and dimension by its length; localizing
+and inducting on localized depth gives the third assertion.
+\end{proof}
+
+\begin{theorem}[Cohen--Macaulay criterion]\label{mcrt-thm-17-4}\dcref{17.4}\source{matsumura-commutative-ring-theory:page-0150}\uses{mcrt-thm-17-3,mcrt-thm-16-7}
+For a CM local ring $A$ and a proper ideal $I$,
+$\operatorname{ht}I=\depth(I,A)=\operatorname{grade}I$ and
+$\operatorname{ht}I+\dim A/I=\dim A$.  For $a_1,\ldots,a_r\in\mathfrak m$,
+the conditions that they form an $A$-sequence, have successive height $i$,
+generate height $r$, or form part of a parameter system are equivalent.
+\end{theorem}
+\begin{proof}
+Apply the preceding theorem to parameter systems and localizations.  Induct on
+$\dim A$ to obtain regularity of every parameter system, then compare heights
+of minimal prime divisors to get the dimension formula and the equivalences.
+\end{proof}
+
+\begin{theorem}[Completion and Cohen--Macaulayness]\label{mcrt-thm-17-5}\dcref{17.5}\source{matsumura-commutative-ring-theory:page-0151}\uses{mcrt-thm-16-7}
+For a Noetherian local ring $A$ and its completion $\widehat A$,
+$\depth A=\depth\widehat A$ and $A$ is CM if and only if $\widehat A$ is CM.
+\end{theorem}
+\begin{proof}
+Compare $\operatorname{Ext}^i_A(k,A)$ with the corresponding Ext groups after
+completion and use invariance of dimension under completion.
+\end{proof}
+
+\begin{theorem}[Unmixedness criterion]\label{mcrt-thm-17-6}\dcref{17.6}\source{matsumura-commutative-ring-theory:page-0151}\uses{mcrt-thm-17-4}
+A Noetherian ring is CM if and only if every ideal of height $r$ generated by
+$r$ elements is unmixed.
+\end{theorem}
+\begin{proof}
+Localize an embedded prime and use the CM criterion to contradict embeddedness.
+Conversely, choose elements successively with the required heights; unmixedness
+then makes each next element regular after localization.
+\end{proof}
+
+\begin{theorem}[Polynomial extension]\label{mcrt-thm-17-7}\dcref{17.7}\source{matsumura-commutative-ring-theory:page-0152}\uses{mcrt-thm-17-4}
+If $A$ is a CM ring, then $A[X_1,\ldots,X_n]$ is CM.
+\end{theorem}
+\begin{proof}
+Reduce to one variable and localize at a maximal ideal.  Lift the monic
+irreducible residue polynomial and append it to a parameter sequence; flatness
+preserves the regular sequence and gives the dimension bound.
+\end{proof}
+
+\begin{theorem}[Regular local rings are CM]\label{mcrt-thm-17-8}\dcref{17.8}\source{matsumura-commutative-ring-theory:page-0152}\uses{mcrt-thm-17-4}
+Every regular local ring is Cohen--Macaulay.
+\end{theorem}
+\begin{proof}
+A regular system of parameters generates a strictly increasing chain of prime
+ideals, hence is a regular sequence by the height criterion.
+\end{proof}
+
+\begin{theorem}[Quotients of CM rings are universally catenary]\label{mcrt-thm-17-9}\dcref{17.9}\source{matsumura-commutative-ring-theory:page-0152}\uses{mcrt-thm-17-4}
+Every quotient of a Cohen--Macaulay ring is universally catenary.
+\end{theorem}
+\begin{proof}
+This follows by applying the dimension formula in the CM criterion to all
+localizations and quotients.
+\end{proof}
+
+\begin{theorem}[Graded characterization of regularity]\label{mcrt-thm-17-10}\dcref{17.10}\source{matsumura-commutative-ring-theory:page-0153}\uses{mcrt-thm-16-5,mcrt-thm-17-4}
+A Noetherian local ring $(A,\mathfrak m,k)$ is regular if and only if
+$\operatorname{gr}_{\mathfrak m}(A)$ is a polynomial $k$-algebra.
+\end{theorem}
+\begin{proof}
+For a regular system of parameters, the Koszul/graded calculation identifies
+the associated graded ring with a polynomial ring.  Conversely, compare the
+degree-one and degree-$n$ dimensions to obtain
+$\dim A=\dim_k\mathfrak m/\mathfrak m^2$.
+\end{proof}
+
+\begin{theorem}[Multiplicity criterion]\label{mcrt-thm-17-11}\dcref{17.11}\source{matsumura-commutative-ring-theory:page-0153}\uses{mcrt-thm-17-10,mcrt-thm-17-4}
+For a Noetherian local ring, the following are equivalent: $A$ is CM;
+$\length(A/q)=e(q)$ for every parameter ideal $q$; and this equality holds for
+some parameter ideal.
+\end{theorem}
+\begin{proof}
+For a parameter sequence compute the Hilbert function from the graded free
+polynomial extension.  Equality of multiplicity and length forces the graded
+kernel to vanish, which is equivalent to the CM condition.
+\end{proof}
+
+\section{Gorenstein rings}
+\begin{definition}[Gorenstein local ring]\label{mcrt-def-gorenstein}\source{matsumura-commutative-ring-theory:page-0157}\uses{}
+A Noetherian local ring is Gorenstein when its injective dimension as a module
+over itself is finite (equivalently, its top Bass number is one).
+\end{definition}
+\begin{theorem}[Gorenstein permanence]\label{mcrt-thm-18-1}\dcref{18.1}\source{matsumura-commutative-ring-theory:page-0153}\uses{mcrt-def-gorenstein,mcrt-thm-17-8}
+For a Noetherian local ring, the standard equivalent Gorenstein conditions
+include finite self-injective dimension, one-dimensional socle in the top Ext,
+and the corresponding Bass-number and canonical-module criteria.  Regular local
+rings are Gorenstein, and quotients by regular elements preserve the property.
+\end{theorem}
+\begin{proof}
+Use a minimal injective resolution and the Ext characterization of depth.  The
+long exact sequence for a regular element identifies the shifted Bass numbers,
+and induction gives the quotient and regular-local assertions.
+\end{proof}
+
+\begin{theorem}[Gorenstein localization]\label{mcrt-thm-18-2}\dcref{18.2}\source{matsumura-commutative-ring-theory:page-0159}\uses{mcrt-thm-18-1}\notready
+If $A$ is a Gorenstein local ring and $P\in\operatorname{Spec}A$, then $A_P$
+is Gorenstein.
+\end{theorem}
+\begin{proof}
+Localize the finite injective resolution and compare the resulting Bass numbers
+at $P$.
+\end{proof}
