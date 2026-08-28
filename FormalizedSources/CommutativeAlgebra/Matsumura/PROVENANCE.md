@@ -72,7 +72,7 @@ coverage, and proof/statement inventories.
 
 The assembled blueprint was compiled twice with `pdflatex` using a temporary
 driver and `TEXINPUTS=blueprint/src:.blueprint-work/build`.  The successful
-output is `.blueprint-work/build/mcrt.pdf` (165 pages); both compliance-pass
+output is `.blueprint-work/build/mcrt.pdf` (199 pages); both compliance-pass
 logs are retained under `.blueprint-work/build/` and contain no LaTeX errors or
 undefined references.  Source-deferred results remain explicitly marked
 `\notready` only where the book supplies no proof or the page ledger is
