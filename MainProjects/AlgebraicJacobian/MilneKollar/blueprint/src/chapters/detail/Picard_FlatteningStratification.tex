@@ -1,0 +1,2612 @@
+\section{Flattening Stratification of a Coherent Sheaf}
+\label{mk-chap:Picard_FlatteningStratification}
+
+\section{Coherent flatness over a base}
+\label{mk-sec:coh_flat}
+
+\begin{definition}[Coherent sheaf flat over the base]\label{mk-def:coherent_sheaf_flat}
+  \dcref{00HB,custom}
+
+  Let \(S\) be a noetherian scheme, \(f : X \to S\) a morphism of finite type, and
+  \(\F\) a coherent \(\OO_X\)-module.  We say \(\F\) is \emph{flat over \(S\)}
+  (equivalently, \(\F\) is \emph{\(f\)-flat}, or \emph{\(S\)-flat}) if for every
+  point \(x \in X\) the stalk \(\F_x\) is a flat \(\OO_{S, f(x)}\)-module, where the
+  \(\OO_{S, f(x)}\)-module structure is given by the composite
+  \(\OO_{S, f(x)} \to \OO_{X, x} \to \End(\F_x)\).
+  \textit{Source: cf.\ \cite{stacks-project}, tag 00HB (flat modules); \cite{nitsure-hilbert-quot}, \S4
+  passim.}
+  Equivalently (after pulling back to an affine open \(U = \Spec A \subseteq S\) and
+  an affine open \(V = \Spec B \subseteq f^{-1}(U)\) with \(\F|_V = \widetilde{M}\)
+  for \(M\) a finite \(B\)-module), \(\F|_V\) is \(\OO_U\)-flat in the sense that \(M\) is a
+  flat \(A\)-module (with the \(A\)-module structure coming from the ring map
+  \(A \to B\)).
+\end{definition}
+
+\begin{remark}
+\label{mk-rem:coh_flat_pullback}
+  \dcref{custom}
+  The condition is stable under base change: for any morphism \(g : S' \to S\),
+  pulling back along the cartesian square
+  \[
+    \begin{tikzcd}
+      X' \ar[r, "g'"] \ar[d, "f'"'] & X \ar[d, "f"] \\
+      S' \ar[r, "g"]                & S
+    \end{tikzcd}
+  \]
+  yields a coherent \(\OO_{X'}\)-module \(\F' := (g')^* \F\) which is \(S'\)-flat
+  whenever \(\F\) is \(S\)-flat.  Indeed, at each stalk the pullback is an
+  extension of scalars of the original flat module, and extension of scalars
+  preserves flatness. The converse fails in general.
+\end{remark}
+
+\section{Generic flatness}
+\label{mk-sec:generic_flatness}
+
+The construction of the flattening stratification proceeds by Noetherian
+induction on \(S\). The induction step relies on the following classical
+\emph{generic flatness} theorem of Grothendieck: over a noetherian integral
+base, a coherent sheaf is flat over a non-empty open subscheme. Algebraically,
+this is the assertion that a finitely generated module over a finite-type
+algebra over a noetherian domain is generically free after inverting a single
+non-zero element of the base ring.
+
+\subsection{The dévissage layer}
+\label{mk-sec:generic_freeness_devissage}
+
+The proof of the algebraic generic-freeness theorem has two layers: a
+\emph{dévissage} reducing an arbitrary finite module over the (noetherian)
+finite-type algebra \(B\) to the case of a quotient domain \(B/\pp\), and a
+\emph{normalisation core} handling that case. We first develop the dévissage
+layer as standalone module theory.
+
+\begin{definition}[Generically free module]\label{mk-def:generically_free}
+  \dcref{custom}
+
+  Let \(A\) be a commutative ring and \(M\) an \(A\)-module.  We say \(M\) is
+  \emph{generically free over \(A\)} if there exists \(f \in A\), \(f \ne 0\),
+  such that the localisation \(M_f\) is a free \(A_f\)-module.
+\end{definition}
+
+\begin{lemma}[Transport of generic freeness along further localisation]\label{mk-lem:generically_free_transport}
+  \dcref{custom}
+
+  Let \(A\) be a commutative ring, \(M\) an \(A\)-module, and \(f, g \in A\).
+  If \(M_f\) is a free \(A_f\)-module, then \(M_{fg}\) is a free
+  \(A_{fg}\)-module.
+\end{lemma}
+
+\begin{proof}
+Localisation is base change: \(M_h \cong A_h \otimes_A M\) as
+  \(A_h\)-modules for any \(h \in A\).  Since \(fg\) maps to a unit multiple
+  of \(g\) in \(A_{fg}\), the ring \(A_{fg}\) is canonically an
+  \(A_f\)-algebra, and base-change associativity gives
+  \[
+    M_{fg} \;\cong\; A_{fg} \otimes_A M
+    \;\cong\; A_{fg} \otimes_{A_f} \bigl(A_f \otimes_A M\bigr)
+    \;\cong\; A_{fg} \otimes_{A_f} M_f .
+  \]
+  The base change of a free module along any ring map is free (a basis of
+  \(M_f\) over \(A_f\) tensors to a basis over \(A_{fg}\)), so \(M_{fg}\) is
+  free over \(A_{fg}\).
+\end{proof}
+
+\begin{lemma}[Generic freeness is invariant under isomorphism]\label{mk-lem:generically_free_of_equiv}
+  \dcref{custom}
+
+  \uses{mk-def:generically_free}
+  Let \(A\) be a commutative ring and \(M \cong N\) isomorphic \(A\)-modules.
+  If \(M\) is generically free over \(A\), so is \(N\).
+\end{lemma}
+
+\begin{proof}
+An isomorphism \(e : M \to N\) localises to an isomorphism
+  \(M_f \to N_f\) of \(A_f\)-modules for the witness \(f\), and freeness
+  transports along it.
+\end{proof}
+
+\begin{lemma}[Splicing: generic freeness is stable under extensions]\label{mk-lem:generically_free_splice}
+
+  \uses{mk-def:generically_free}
+  \dcref{custom}
+  Let \(A\) be a domain and \(0 \to M_1 \to M_2 \to M_3 \to 0\) a short exact
+  sequence of \(A\)-modules.  If \(M_1\) and \(M_3\) are generically free over
+  \(A\), then so is \(M_2\).
+\end{lemma}
+
+\begin{proof}
+\uses{mk-lem:generically_free_transport}
+  Let \(f_1, f_3 \ne 0\) be witnesses for \(M_1\), \(M_3\) and set
+  \(f := f_1 f_3 \ne 0\) (here \(A\) is a domain).  Localisation at \(f\) is
+  exact, so \(0 \to (M_1)_f \to (M_2)_f \to (M_3)_f \to 0\) is a short exact
+  sequence of \(A_f\)-modules.  By
+  \ref{mk-lem:generically_free_transport}, \((M_1)_f\) and \((M_3)_f\) are free
+  \(A_f\)-modules.  A short exact sequence with free (hence projective)
+  quotient splits, so \((M_2)_f \cong (M_1)_f \oplus (M_3)_f\) is free.
+\end{proof}
+
+\begin{lemma}[Generic freeness of the zero module]\label{mk-lem:generically_free_subsingleton}
+  \dcref{custom}
+
+  \uses{mk-def:generically_free}
+  Let \(A\) be a non-trivial commutative ring.  The zero \(A\)-module is
+  generically free over \(A\), with witness \(f = 1\).
+\end{lemma}
+
+\begin{proof}
+The localisation of the zero module is zero, which is free (on the empty
+  basis), and \(1 \ne 0\) since \(A\) is non-trivial.
+\end{proof}
+
+\begin{lemma}[Torsion base case]\label{mk-lem:generically_free_torsion}
+
+  \uses{mk-def:generically_free}
+  \dcref{custom}
+  Let \(A\) be a domain and \(M\) a finite \(A\)-module every element of which
+  is annihilated by some non-zero element of \(A\).  Then \(M\) is generically
+  free over \(A\): indeed some localisation \(M_f\) with \(f \ne 0\) vanishes.
+\end{lemma}
+
+\begin{proof}
+Choose a finite generating set \(m_1, \dots, m_r\) of \(M\) and non-zero
+  annihilators \(a_i m_i = 0\).  The product \(f := a_1 \cdots a_r\) is
+  non-zero (\(A\) is a domain) and annihilates every generator (extract the
+  factor \(a_i\) and commute), hence — the annihilator of \(f\) being a
+  submodule containing the generators — annihilates all of \(M\).  Every
+  element of \(M_f\) is then zero, and the zero module is free.
+\end{proof}
+
+\begin{lemma}[Generic freeness: finite modules]\label{mk-lem:generically_free_finite}
+  \dcref{custom}
+
+  \uses{mk-def:generically_free}
+  Let \(A\) be a noetherian domain and \(M\) a finite \(A\)-module.  Then \(M\)
+  is generically free over \(A\).
+\end{lemma}
+
+\begin{proof}
+A finite module over a noetherian ring is finitely presented, and
+  \(M \otimes_A \mathrm{Frac}(A)\) is a finite-dimensional
+  \(\mathrm{Frac}(A)\)-vector space, hence free.  Freeness at the generic
+  point of a finitely presented module spreads out to a basic open: there is
+  \(f \ne 0\) in \(A\) with \(M_f\) free over \(A_f\).
+\end{proof}
+
+\begin{lemma}[Generic flatness: finite modules]\label{mk-lem:generically_flat_finite}
+  \dcref{custom}
+
+  \uses{mk-def:generically_free}
+  Let \(A\) be a noetherian domain and \(M\) a finite \(A\)-module.  Then there
+  is \(f \ne 0\) in \(A\) with \(M_f\) flat over \(A_f\).
+\end{lemma}
+
+\begin{proof}
+\uses{mk-lem:generically_free_finite}
+  Immediate from \ref{mk-lem:generically_free_finite}: free modules are flat.
+\end{proof}
+
+\begin{lemma}[Generic freeness: the module-finite case]\label{mk-lem:generically_free_module_finite}
+  \dcref{custom}
+
+  \uses{mk-def:generically_free}
+  Let \(A\) be a noetherian domain, \(B\) a module-finite \(A\)-algebra, and
+  \(M\) a finite \(B\)-module.  Then \(M\) is generically free over \(A\).
+  (This is the case of \ref{mk-thm:generic_flatness_algebraic} where the
+  morphism \(\Spec B \to \Spec A\) is finite.)
+\end{lemma}
+
+\begin{proof}
+\uses{mk-lem:generically_free_finite}
+  A finite module over a module-finite \(A\)-algebra is a finite
+  \(A\)-module, so \ref{mk-lem:generically_free_finite} applies.
+\end{proof}
+
+\begin{lemma}[Generic-rank comparison for a finite module over a domain]\label{mk-lem:generic_rank_comparison}
+  \dcref{custom}
+
+  Let \(D\) be a domain and \(M\) a finite \(D\)-module.  Then there exist
+  \(r \in \mathbb{N}\), an injective \(D\)-linear map
+  \(\Phi : D^{\oplus r} \to M\),
+  and a non-zero \(d \in D\) annihilating the cokernel
+  \(M / \Phi(D^{\oplus r})\); that is, \(M\) sits in an exact sequence
+  \(0 \to D^{\oplus r} \to M \to T \to 0\) with \(d\,T = 0\).
+\end{lemma}
+
+\begin{proof}
+Localise at \(S := D \setminus \{0\}\): the localisation \(S^{-1}M\) is a
+  finite-dimensional vector space over \(\mathrm{Frac}(D) = S^{-1}D\); let
+  \(r\) be its dimension.  Every element of \(S^{-1}M\) has the form
+  \(m/s\), so scaling each vector of a basis by the (unit) image of its
+  denominator produces a basis \((\bar c_1, \dots, \bar c_r)\) whose members
+  are images of elements \(c_1, \dots, c_r \in M\); let
+  \(\Phi(e_i) := c_i\).  A \(D\)-linear relation among the \(c_i\)
+  localises to a \(\mathrm{Frac}(D)\)-linear relation among the basis
+  vectors \(\bar c_i\), whose coefficients — images of the original ones —
+  must vanish, and \(D \to \mathrm{Frac}(D)\) is injective, so \(\Phi\) is
+  injective.  For the cokernel: given \(y \in M\), expand its image in the
+  basis with coefficients in \(\mathrm{Frac}(D)\) and clear their
+  denominators by a single \(s \in S\); then \(s \cdot y - \Phi(u)\) is in
+  the kernel of \(M \to S^{-1}M\) for some \(u \in D^{\oplus r}\), hence is
+  killed by some \(t \in S\), so \(ts \ne 0\) annihilates the class of
+  \(y\) in the cokernel \(T\).  Finally \(T\) is a finite \(D\)-module, so
+  the product of such annihilators over a finite generating set is a single
+  non-zero uniform annihilator \(d\).
+\end{proof}
+
+\begin{lemma}[Normalisation core: generic freeness of quotient domains]\label{mk-lem:generically_free_domain_core}
+
+  \uses{mk-def:generically_free}
+  \dcref{custom}
+  Let \(A\) be a noetherian domain, \(B\) a finite-type \(A\)-algebra, and
+  \(\pp \subset B\) a prime ideal.  Then the quotient domain \(B/\pp\) is
+  generically free as an \(A\)-module.
+\end{lemma}
+
+\begin{proof}
+\uses{mk-lem:generically_free_torsion, mk-lem:generically_free_transport,
+    mk-lem:generically_free_splice, mk-lem:generic_rank_comparison}
+  Write \(C := B/\pp\), a finite-type \(A\)-algebra which is a domain, and let
+  \(K := \mathrm{Frac}(A)\).  If the kernel of \(A \to C\) is non-zero, every
+  element of \(C\) is annihilated by any non-zero \(a \in \ker(A \to C)\)
+  (as \(a \cdot c = (a \cdot 1)\, c = 0\)), and
+  \ref{mk-lem:generically_free_torsion} concludes.  So assume \(A \subseteq C\).
+  Then \(C_K := K \otimes_A C\) is a non-zero finite-type \(K\)-algebra domain;
+  let \(m\) be its Krull dimension.  We induct on \(m\), the statement for all
+  smaller values (over all noetherian domains \(A\)) being granted.
+
+  By Noether normalisation there are \(b_1, \dots, b_m \in C_K\), algebraically
+  independent over \(K\), with \(C_K\) module-finite over
+  \(K[b_1, \dots, b_m]\); scaling by non-zero elements of \(A\) (which does not
+  affect either property) we may take \(b_i \in C\).  Fix a finite generating
+  set of \(C\) as an \(A\)-algebra; each generator satisfies a monic equation
+  over \(K[b_1, \dots, b_m]\), and clearing the finitely many denominators of
+  all coefficients produces a single \(g \ne 0\) in \(A\) such that each
+  generator of \(C_g\) is integral over \(A_g[b_1, \dots, b_m]\) (multiply the
+  monic equation for \(x\) through by \(g^{\deg}\) and rewrite it as a monic
+  equation for a unit multiple of \(x\)).  A finite-type algebra which is
+  integral is module-finite, so \(C_g\) is a finite module over the polynomial
+  ring \(D := A_g[b_1, \dots, b_m]\).
+
+  Let \(r\) be the dimension of \(C_g \otimes_D \mathrm{Frac}(D)\) as a
+  \(\mathrm{Frac}(D)\)-vector space and choose \(c_1, \dots, c_r \in C_g\)
+  mapping to a basis.  The resulting map \(D^{\oplus r} \to C_g\) is injective
+  (a \(D\)-linear relation among the \(c_i\) becomes a
+  \(\mathrm{Frac}(D)\)-linear relation), and its cokernel \(T\) is a finite
+  \(D\)-module with \(T \otimes_D \mathrm{Frac}(D) = 0\), i.e.\ torsion;
+  this generic-rank packaging, including the uniform annihilator below, is
+  \ref{mk-lem:generic_rank_comparison}.  A
+  non-zero \(d \in D\) annihilating \(T\) exhibits
+  \(T_K := K \otimes_{A_g} T\) as a finite module over
+  \(K[b_1, \dots, b_m]/(d')\) for the non-zero image \(d'\) of \(d\), a ring of
+  Krull dimension \(< m\); presenting that ring as a quotient of a polynomial
+  ring and filtering as in \ref{mk-thm:generic_flatness_algebraic}'s dévissage,
+  the inductive hypothesis (over the noetherian domain \(A_g\)) together with
+  \ref{mk-lem:generically_free_splice} yields \(h \ne 0\) in \(A_g\), which we
+  may take in \(A\), with \(T_h\) free over \((A_g)_h\).  Localising the exact
+  sequence \(0 \to D^{\oplus r} \to C_g \to T \to 0\) at \(h\) and splitting
+  off the free (hence projective) quotient \(T_h\), we get
+  \[
+    C_{gh} \;\cong\; \bigl(A_{gh}[b_1, \dots, b_m]\bigr)^{\oplus r} \oplus T_h ,
+  \]
+  a direct sum of free \(A_{gh}\)-modules (a polynomial ring is free on its
+  monomials), so \(f := gh\) is a generic-freeness witness for \(C\)
+  (\ref{mk-lem:generically_free_transport} normalising the witnesses).
+\end{proof}
+
+\begin{theorem}[Generic flatness, algebraic form]\label{mk-thm:generic_flatness_algebraic}
+
+  \uses{mk-def:generically_free}
+  \dcref{custom}
+  \textit{Source: \cite{nitsure-hilbert-quot}, \S4, ``Lemma on Generic Flatness''.}
+  Let \(A\) be a noetherian domain, \(B\) a finite-type \(A\)-algebra, and \(M\) a finite
+  \(B\)-module. Then \(M\) is generically free over \(A\): there exists
+  \(f \in A\), \(f \ne 0\), such that the localisation
+  \(M_f\) is a free \(A_f\)-module.
+\end{theorem}
+
+\begin{proof}
+\uses{mk-lem:generically_free_subsingleton, mk-lem:generically_free_of_equiv,
+    mk-lem:generically_free_splice, mk-lem:generically_free_domain_core}
+  The ring \(B\) is noetherian (it is of finite type over the noetherian
+  \(A\)), so the finite \(B\)-module \(M\) admits a finite prime filtration
+  \[
+    0 = M_0 \subset M_1 \subset \cdots \subset M_r = M
+  \]
+  with successive quotients \(M_i / M_{i-1} \cong B / \mathfrak{p}_i\) for
+  prime ideals \(\mathfrak{p}_i \subset B\).  By induction on the filtration
+  length it suffices that generic freeness over \(A\) holds for the zero
+  module (\ref{mk-lem:generically_free_subsingleton}), holds for each quotient
+  domain \(B/\mathfrak{p}\) (\ref{mk-lem:generically_free_domain_core},
+  transported along the isomorphism \(M_i/M_{i-1} \cong B/\mathfrak{p}_i\) by
+  \ref{mk-lem:generically_free_of_equiv}), and is stable under extensions
+  (the splicing lemma, \ref{mk-lem:generically_free_splice}, applied to
+  \(0 \to M_{i-1} \to M_i \to M_i/M_{i-1} \to 0\)).
+\end{proof}
+
+\section{Geometric glue: from generic freeness to generic flatness}
+
+The algebraic statement concerns one module over one algebra; the geometric
+statement quantifies over all affine pairs below the witness open. The glue
+consists of a mixed-base stability lemma for flatness under module
+localization, two restriction-compatibility lemmas for the induced module
+structures, and a two-layer basic-open reduction.
+
+\begin{lemma}[Mixed-base stability of flatness under module localization]
+  \label{mk-lem:flat_localizedModule_algebra}
+  \dcref{custom}
+
+  Let \(B\) be an algebra over a commutative ring \(R\), let \(N\) be a
+  \(B\)-module which is flat as an \(R\)-module, and let
+  \(g : N \to N'\) be a localization of \(B\)-modules at a submonoid
+  \(p \subseteq B\). Then \(N'\) is flat as an \(R\)-module.
+\end{lemma}
+\begin{proof}
+  Let \(f : Q \hookrightarrow Q'\) be an injective map of \(R\)-modules. The
+  square
+  \[
+    \begin{array}{ccc}
+      N \otimes_R Q & \longrightarrow & N \otimes_R Q' \\
+      \downarrow & & \downarrow \\
+      N' \otimes_R Q & \longrightarrow & N' \otimes_R Q'
+    \end{array}
+  \]
+  identifies the bottom map \(\mathrm{id}_{N'} \otimes f\) with the
+  localization at \(p\) of the top map \(\mathrm{id}_N \otimes f\): indeed
+  \(N' \otimes_R Q\) is the localization of the \(B\)-module
+  \(N \otimes_R Q\) at \(p\) (localization commutes with \(\, \otimes_R Q\),
+  because \(S^{-1}(N \otimes_R Q) = S^{-1}B \otimes_B (N \otimes_R Q)
+  = (S^{-1}B \otimes_B N) \otimes_R Q\)), and localizing the top map yields
+  the bottom one. The top map is injective by flatness of \(N\) over \(R\),
+  and localization of modules preserves injectivity; hence
+  \(\mathrm{id}_{N'} \otimes f\) is injective.
+\end{proof}
+
+\begin{lemma}[Fibre-side restriction compatibility of \(\mathrm{appLE}\)]
+  \label{mk-lem:appLE_res_apply}
+  \dcref{custom}
+
+  Let \(p : X \to S\) be a morphism of schemes, \(U \subseteq S\) open,
+  \(W' \subseteq W \subseteq p^{-1}(U)\) opens of \(X\), and
+  \(u \in \Gamma(S, U)\). Then restricting
+  \(p^\sharp_{U,W}(u) \in \Gamma(X, W)\) to \(W'\) yields
+  \(p^\sharp_{U,W'}(u)\).
+\end{lemma}
+\begin{proof}
+  Both sides are the composite of \(p^\sharp\) with restriction along
+  \(W' \subseteq W \subseteq p^{-1}(U)\); this is the naturality of
+  \(p^\sharp\) in the target open.
+\end{proof}
+
+\begin{lemma}[Base-side restriction compatibility of \(\mathrm{appLE}\)]
+  \label{mk-lem:appLE_base_res_apply}
+  \dcref{custom}
+
+  Let \(p : X \to S\) be a morphism of schemes, \(U' \subseteq U \subseteq S\)
+  opens, \(W \subseteq p^{-1}(U')\) an open of \(X\), and
+  \(u \in \Gamma(S, U)\). Then
+  \(p^\sharp_{U',W}\bigl(u|_{U'}\bigr) = p^\sharp_{U,W}(u)\).
+\end{lemma}
+\begin{proof}
+  Naturality of \(p^\sharp\) in the source open.
+\end{proof}
+
+\begin{lemma}[Section flatness transports along equal opens]
+  \label{mk-lem:flat_sections_congr}
+  \dcref{custom}
+
+  Let \(p : X \to S\), \(\mathcal F\) a module sheaf on \(X\),
+  \(U_0 \subseteq S\) open, and \(O_1 = O_2 \subseteq p^{-1}(U_0)\) equal
+  opens of \(X\). If \(\Gamma(\mathcal F, O_1)\) is flat over
+  \(\Gamma(S, U_0)\) (via \(p^\sharp\)), then so is
+  \(\Gamma(\mathcal F, O_2)\).
+\end{lemma}
+\begin{proof}
+  Immediate: the two data coincide.
+\end{proof}
+
+\begin{lemma}[Chart-basic core of generic flatness]
+  \label{mk-lem:flat_section_chartBasic}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat}
+  Let \(p : X \to S\), let \(\mathcal F\) be quasi-coherent on \(X\), let
+  \(U_0 \subseteq S\) be open, and let \(W_j \subseteq p^{-1}(U_0)\) be an
+  affine chart. Let \(g \in A := \Gamma(S, U_0)\) be such that the localized
+  section module \(\Gamma(\mathcal F, W_j)_g\) is free over \(A_g\). Then for
+  every \(c \in \Gamma(X, W_j)\) with \(D(c) \subseteq p^{-1}(D(g))\), the
+  module \(\Gamma(\mathcal F, D(c))\) is flat over \(A\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:flat_localizedModule_algebra, mk-lem:appLE_res_apply,
+    mk-lem:flat_sections_congr, mk-lem:qcoh_section_localization_basicOpen}
+  Write \(\beta := p^\sharp_{U_0, W_j}(g) \in B_j := \Gamma(X, W_j)\), so that
+  \(D(\beta) = W_j \cap p^{-1}(D(g))\). By the quasi-compact--quasi-separated
+  section-localization theorem
+  (\ref{mk-lem:qcoh_section_localization_basicOpen}, applied to the affine
+  \(W_j\)), the restriction
+  \(\Gamma(\mathcal F, W_j) \to \Gamma(\mathcal F, D(\beta))\) is the
+  localization of \(B_j\)-modules at the powers of \(\beta\); since
+  \(\beta^k\) acts on these modules as \(g^k\) acts through \(p^\sharp\), it
+  is also the localization of \(A\)-modules at the powers of \(g\). Hence
+  \(\Gamma(\mathcal F, D(\beta)) \cong \Gamma(\mathcal F, W_j)_g\) is free,
+  in particular flat, over \(A_g\), and therefore flat over \(A\) (flatness
+  over \(A\) and over the localization \(A_g\) agree for
+  \(A_g\)-modules).
+
+  Since \(D(c) \subseteq D(\beta)\), the further restriction
+  \(\Gamma(\mathcal F, D(\beta)) \to \Gamma(\mathcal F, D(c))\) is again a
+  section localization (\ref{mk-lem:qcoh_section_localization_basicOpen} on the
+  affine \(D(\beta)\), at the restricted element \(c|_{D(\beta)}\), whose
+  basic open is \(D(c)\)) — a localization of
+  \(\Gamma(X, D(\beta))\)-modules. Mixed-base stability
+  (\ref{mk-lem:flat_localizedModule_algebra}, with base \(A\) and fibre algebra
+  \(\Gamma(X, D(\beta))\)) shows \(\Gamma(\mathcal F, D(c|_{D(\beta)}))\) is
+  flat over \(A\); the induced-structure compatibilities are
+  \ref{mk-lem:appLE_res_apply}, and \ref{mk-lem:flat_sections_congr} transports
+  the conclusion along \(D(c|_{D(\beta)}) = D(c)\).
+\end{proof}
+
+\begin{lemma}[Two-layer basic-open reduction]
+  \label{mk-lem:flat_section_pair}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat}
+  Let \(p : X \to S\), \(\mathcal F\) quasi-coherent on \(X\),
+  \(U_0 \subseteq S\) an affine open with \(A := \Gamma(S, U_0)\), and let
+  \(\{W_c^{(j)}\}_{j}\) be affine charts contained in and covering
+  \(p^{-1}(U_0)\). Let \(f \in A\) be such that each localized section
+  module \(\Gamma(\mathcal F, W_c^{(j)})_f\) is free over \(A_f\). Then for
+  every affine pair \(U \subseteq D(f)\), \(W \subseteq p^{-1}(U)\), the
+  module \(\Gamma(\mathcal F, W)\) is flat over \(\Gamma(S, U)\) via
+  \(p^\sharp\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:flat_section_chartBasic, mk-lem:appLE_base_res_apply,
+    mk-lem:qcoh_section_localization_basicOpen, mk-lem:generically_free_transport}
+  For each \(x \in W\): choose (affine interchange on \(S\), applied to the
+  affines \(U\) and \(U_0\) at the point \(p(x) \in U \cap U_0\)) sections
+  \(a \in \Gamma(S, U)\), \(a' \in A\) with
+  \(D(a) = D(a') \ni p(x)\); choose a chart \(W_c^{(j)} \ni x\); shrink to a
+  basic open of \(W\) inside \(W \cap p^{-1}(D(a)) \cap W_c^{(j)}\)
+  containing \(x\); and apply affine interchange on \(X\) to that basic open
+  and the affine \(W_c^{(j)}\) to obtain \(b \in \Gamma(X, W)\),
+  \(c \in \Gamma(X, W_c^{(j)})\) with
+  \(x \in D(b) = D(c) \subseteq p^{-1}(D(a))\).
+
+  The basic opens \(D(b)\) obtained this way cover \(W\), so the chosen
+  elements \(b\) generate the unit ideal of \(\Gamma(X, W)\). Since each
+  restriction \(\Gamma(\mathcal F, W) \to \Gamma(\mathcal F, D(b))\) is a
+  localization of \(\Gamma(X, W)\)-modules at the powers of \(b\)
+  (\ref{mk-lem:qcoh_section_localization_basicOpen}), flatness of
+  \(\Gamma(\mathcal F, W)\) over \(\Gamma(S, U)\) may be checked on the
+  pieces \(\Gamma(\mathcal F, D(b))\) (flatness over the base is local with
+  respect to a spanning family of the fibre algebra).
+
+  Fix a piece, with its data \(a, a', j, c\). Freeness of
+  \(\Gamma(\mathcal F, W_c^{(j)})_f\) localizes further to
+  \(f a'\) (\ref{mk-lem:generically_free_transport}), and
+  \(D(c) = D(b) \subseteq p^{-1}(D(a)) = p^{-1}(D(a'))
+  \subseteq p^{-1}(D(f a'))\) since \(D(a) \subseteq U \subseteq D(f)\).
+  The chart-basic core (\ref{mk-lem:flat_section_chartBasic}, at the element
+  \(f a'\) and the chart section \(c\)) gives flatness of
+  \(\Gamma(\mathcal F, D(b))\) over \(A\). Finally exchange the base ring
+  twice along the localizations \(A \to \Gamma(S, D(a')) = \Gamma(S, D(a))\)
+  and \(\Gamma(S, U) \to \Gamma(S, D(a))\) (for a module over a localized
+  ring, flatness over the ring and over its localization agree; the
+  compatibility of the induced structures is
+  \ref{mk-lem:appLE_base_res_apply}), obtaining flatness of
+  \(\Gamma(\mathcal F, D(b))\) over \(\Gamma(S, U)\).
+\end{proof}
+
+\begin{theorem}[Generic flatness, geometric form]
+  \label{mk-thm:generic_flatness}
+  \dcref{custom}
+
+  \uses{mk-thm:generic_flatness_algebraic}
+  \textit{Source: \cite{nitsure-hilbert-quot}, \S4, Theorem ``generic flatness''.}
+  Let \(S\) be an integral locally noetherian scheme, \(p : X \to S\) a
+  finite-type morphism (that is, quasi-compact and locally of finite type —
+  quasi-compactness is essential: it bounds the number of denominators to
+  clear, and the statement fails for the locally-of-finite-type morphism
+  \(\coprod_q \Spec \mathbb{F}_q \to \Spec \Z\)), and \(\F\) a coherent
+  \(\OO_X\)-module. Then there exists a non-empty open subscheme
+  \(U \subseteq S\) such that the restriction of \(\F\) to
+  \(X_U = p^{-1}(U)\) is \(\OO_U\)-flat.
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-thm:generic_flatness_algebraic, mk-lem:flat_section_pair,
+    mk-lem:affine_finite_sections_nhds}
+  Choose a non-empty affine open \(U_0 \subseteq S\); its section ring
+  \(A := \Gamma(S, U_0)\) is a noetherian domain because \(S\) is integral and
+  locally noetherian. The preimage \(p^{-1}(U_0)\) is quasi-compact
+  (\(p\) is quasi-compact and \(U_0\) is), and every point of it has an
+  affine open neighbourhood inside \(p^{-1}(U_0)\) on which the sections of
+  \(\F\) are a finite module over the sections of \(\OO_X\)
+  (\ref{mk-lem:affine_finite_sections_nhds}); extract a finite subcover by
+  affine charts \(W^{(1)}, \dots, W^{(r)}\). Each
+  \(B_i := \Gamma(X, W^{(i)})\) is of finite type over \(A\) (as \(p\) is
+  locally of finite type and both opens are affine) and each
+  \(M_i := \Gamma(\F, W^{(i)})\) is a finite \(B_i\)-module, so algebraic
+  generic freeness (\ref{mk-thm:generic_flatness_algebraic}) produces
+  \(f_i \in A \setminus \{0\}\) with \((M_i)_{f_i}\) free over \(A_{f_i}\).
+  Set \(f := f_1 \cdots f_r \ne 0\); freeness localizes from each \(f_i\) to
+  \(f\), so every \((M_i)_f\) is free over \(A_f\). The witness open is
+  \(V := D(f) \subseteq U_0\), non-empty because \(S\) is reduced and
+  \(f \ne 0\). The required flatness on every affine pair
+  \(U \subseteq V\), \(W \subseteq p^{-1}(U)\) is exactly the two-layer
+  basic-open reduction, \ref{mk-lem:flat_section_pair}.
+\end{proof}
+
+\section{Existence of the flattening stratification}
+\label{mk-sec:flatstrat_exists}
+
+\begin{theorem}
+
+[Existence of the flattening stratification]
+  \label{mk-thm:flattening_stratification_exists}
+  \dcref{052H,custom}
+  \uses{mk-def:coherent_sheaf_flat, mk-lem:flat_locus_open, mk-lem:nonflat_locus_proper,
+    mk-lem:noetherian_induction_strata, mk-thm:generic_flatness}
+  \textit{Source: \cite{nitsure-hilbert-quot}, \S4, Theorem ``flattening stratification'';
+  cf.\ \cite{stacks-project}, tag 052H.}
+  Let \(S\) be a noetherian scheme and \(\F\) a coherent sheaf on the relative
+  projective space \(\PP^n_S\) over \(S\).  Then:
+  \begin{enumerate}[label=(\roman*)]
+    \item The set \(I\) of Hilbert polynomials
+      \(P_s(m) = \chi(\PP^n_s, \F_s(m))\) that arise as \(s\) ranges over \(S\) is
+      finite.
+    \item For each \(f \in I\) there exists a locally-closed subscheme
+      \(S_f \hookrightarrow S\) whose underlying set \(|S_f|\) consists of exactly
+      those \(s \in S\) with \(P_s = f\).  The collection \(\{|S_f|\}_{f \in I}\) is
+      pairwise disjoint with set-theoretic union \(|S|\).  Forming the coproduct
+      \(S' := \coprod_{f \in I} S_f\) and the morphism \(i : S' \to S\) assembled
+      from the inclusions \(S_f \hookrightarrow S\), the pullback \(i^* \F\) on
+      \(\PP^n_{S'}\) is flat over \(S'\), and \(i : S' \to S\) is universal with this
+      property: for any morphism \(\varphi : T \to S\) such that \(\varphi^* \F\) on
+      \(\PP^n_T\) is flat over \(T\), \(\varphi\) factors uniquely through \(i\).
+      Each \(S_f\) is uniquely determined by \(f\).
+    \item Order \(I\) by \(f < g \iff f(n) < g(n)\) for all \(n \gg 0\). Then the
+      closure of \(|S_f|\) in \(|S|\) is contained in \(\bigcup_{g \ge f} |S_g|\).
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-def:coherent_sheaf_flat, mk-lem:flat_locus_open, mk-lem:nonflat_locus_proper,
+    mk-lem:noetherian_induction_strata, mk-thm:generic_flatness}
+  Following \cite{nitsure-hilbert-quot}, \S4, reduce to the special case \(n = 0\) and assemble
+  the resulting strata over the relative twists \(\pi_* \F(N+i)\).  The
+  construction is local on \(S\), since the strata glue by their universal
+  property.  We establish the three conclusions in order.
+
+  \emph{Part (i): finiteness of the Hilbert-polynomial set.}
+  By Lemma~\ref{mk-lem:nonflat_locus_proper}, Noetherian induction on \(S\) (whose
+  inductive step invokes generic flatness, Theorem~\ref{mk-thm:generic_flatness},
+  on the integral locally-closed strata cut out by the irreducible-component
+  decomposition of \(S\)) produces finitely many reduced, pairwise disjoint,
+  locally-closed subschemes \(V_i \hookrightarrow S\) set-theoretically covering
+  \(|S|\) on each of which \(\F|_{\PP^n_{V_i}}\) is flat over \(\OO_{V_i}\) in
+  the sense of Definition~\ref{mk-def:coherent_sheaf_flat}.  On a flat family the
+  Hilbert polynomial \(P_s(m) = \chi(\PP^n_s, \F_s(m))\) is locally constant, so
+  it takes finitely many values on each quasi-compact \(V_i\); the finite union
+  over the finitely many \(V_i\) shows that the set \(I\) of Hilbert polynomials
+  occurring on \(S\) is finite.
+
+  \emph{Part (ii): existence of the strata and their universal property.}
+  Working over the flat pieces \(V_i\) of part (i), semicontinuity
+  (cohomology-and-base-change) yields a uniform integer \(N\) such that, for all
+  \(s \in S\) and \(m \ge N\), the higher cohomologies \(H^r(\PP^n_s, \F_s(m))\)
+  vanish for \(r \ge 1\) and the base-change homomorphism
+  \((\pi_* \F(m))|_s \to H^0(\PP^n_s, \F_s(m))\) is an isomorphism.  With this
+  \(N\) fixed, Lemma~\ref{mk-lem:noetherian_induction_strata} applies the \(n = 0\)
+  stratification mechanism (Lemma~\ref{mk-lem:flat_locus_open}) successively to the
+  coherent sheaves \(E_i = \pi_* \F(N+i)\) on \(S\) for \(i = 0, \dots, n\),
+  refining stratum by stratum.  After \(n+1\) steps this produces a finite
+  family of locally-closed subschemes \(W_{e_0, \dots, e_n} \subseteq S\),
+  universal for the property that each \(E_i\) pulls back to a locally-free sheaf
+  of constant rank \(e_i\); re-indexing the tuple \((e_0, \dots, e_n)\) by the
+  unique numerical polynomial \(f\) of degree \(\le n\) with \(f(N+i) = e_i\)
+  gives the family \(\{W_f\}_{f \in I}\).  At any \(s \in W_f\) the base-change
+  isomorphism and the cohomology vanishing force \(P_s = f\) (since \(P_s\) has
+  degree \(\le n\) and is determined by its values at \(N, \dots, N+n\)), so
+  \(|W_f| = \{s : P_s = f\}\); these subsets are disjoint with union \(|S|\).
+  The required locally-closed subscheme \(S_f \subseteq W_f\) is the closed
+  subscheme cut out by the further local-freeness conditions
+  ``\(\pi_* \F(N+i)|_{W_f}\) is locally free of rank \(f(N+i)\) for all
+  \(i \ge 0\)'' (a chain of coherent ideal sheaves that stabilises by
+  Noetherianity), and \(\F|_{\PP^n_{S_f}}\) is flat over \(S_f\)
+  (Definition~\ref{mk-def:coherent_sheaf_flat}) because the graded module
+  \(\bigoplus_{i \gg 0} \pi_* \F(i)|_{S_f}\) is locally free.  Forming
+  \(S' = \coprod_{f \in I} S_f\) and the assembled morphism \(i : S' \to S\),
+  the pullback \(i^* \F\) is \(S'\)-flat; and any \(\varphi : T \to S\) with
+  \(\varphi^* \F\) flat over \(T\) has locally constant Hilbert polynomial, hence
+  decomposes \(T = \coprod_f T_f\) into the open-closed loci where the polynomial
+  is \(f\), each factoring uniquely through the corresponding \(S_f\) by the
+  local-freeness universal property of Lemma~\ref{mk-lem:flat_locus_open}.  This
+  gives the unique factorisation through \(i\), and shows each \(S_f\) is
+  uniquely determined by \(f\).
+
+  \emph{Part (iii): closure of strata.}
+  Order \(I\) by \(f < g \iff f(n) < g(n)\) for all \(n \gg 0\).  Since each
+  \(S_f\) is a stratum of the \(n = 0\) flattening stratification applied to a
+  single direct image \(\pi_* \F(p)\) for \(p \gg 0\) separating all polynomials
+  in \(I\), the closure-of-strata assertion reduces to the upper-semicontinuity
+  statement already established in the \(n = 0\) case
+  (Lemma~\ref{mk-lem:flat_locus_open}): the closure of \(|S_f|\) in \(|S|\) is
+  contained in \(\bigcup_{g \ge f} |S_g|\).
+\end{proof}
+
+The construction begins with the special case \(n = 0\), where
+\(\PP^n_S = S\) and \(\F\) is a coherent sheaf on \(S\).  Its remaining
+ingredients are the Noetherian-induction reduction to the flat case, uniform
+vanishing of the higher cohomology of \(\F(m)\) for \(m \gg 0\) on the flat
+pieces, and base-change isomorphisms for the direct images \(\pi_*\F(m)\).
+
+\begin{lemma}
+[Flat locus on \(S\) for a coherent sheaf is a locally-closed stratification]
+  \label{mk-lem:flat_locus_open}
+  \dcref{custom}
+  \textit{Source: \cite{nitsure-hilbert-quot}, \S4 (special case \(n=0\) of the main theorem).}
+  Let \(S\) be a noetherian scheme and let \(\F\) be a coherent \(\OO_S\)-module.
+  For each integer \(e \ge 0\), there exists a locally-closed subscheme
+  \(S_e \hookrightarrow S\) whose underlying set is
+  \(\{s \in S : \dim_{\kappa(s)} \F|_s = e\}\). The family \(\{S_e\}_e\) is a
+  finite, mutually disjoint, set-theoretically covering stratification of \(S\),
+  and a morphism \(f : T \to S\) pulls back \(\F\) to a locally-free
+  \(\OO_T\)-module of rank \(e\) if and only if \(f\) factors through \(S_e\).  The
+  function \(s \mapsto \dim_{\kappa(s)} \F|_s\) is upper-semicontinuous on \(S\).
+\end{lemma}
+
+\begin{proof}
+  By \cite{nitsure-hilbert-quot}, \S4, for \(s \in S\), Nakayama produces a
+  neighbourhood \(V\) of \(s\) and a right-exact local presentation
+  \(\OO_V^{\oplus m} \xrightarrow{\psi} \OO_V^{\oplus e} \to \F|_V \to 0\) where
+  \(e = \dim_{\kappa(s)} \F|_s\).  The closed subscheme \(V_e \hookrightarrow V\)
+  defined by the ideal sheaf generated by the matrix entries of \(\psi\)
+  represents the locus where \(\F\) becomes locally free of rank \(e\): by
+  right-exactness of tensor product, a base change \(f : T \to V\) has
+  \(f^* \F\) locally free of rank \(e\) iff \(f^* \psi = 0\), iff \(f\) factors
+  through \(V_e\).  Glueing the \(V_e\) over the cover of \(S\) by such
+  neighbourhoods (and intersecting with \(V \setminus \bigcup_{e' > e} V_{e'}\)
+  to get the strictly-equal-to-\(e\) stratum) produces the locally-closed
+  \(S_e\). Upper-semicontinuity of \(e\) follows because the rank of \(\psi\) is
+  lower-semicontinuous.
+\end{proof}
+
+\begin{lemma}
+[Noetherian induction reduction to the flat case]
+  \label{mk-lem:nonflat_locus_proper}
+  \dcref{custom}
+  \uses{mk-thm:generic_flatness}
+  \textit{Source: \cite{nitsure-hilbert-quot}, \S4 (general case, reduction by Noetherian induction).}
+  Let \(S\) be a noetherian scheme, \(\pi : \PP^n_S \to S\) the relative projective
+  space, and \(\F\) a coherent sheaf on \(\PP^n_S\).  Then there exist finitely many
+  reduced, locally-closed, pairwise disjoint subschemes \(V_i \hookrightarrow S\)
+  whose set-theoretic union is \(|S|\) and such that \(\F|_{\PP^n_{V_i}}\) is
+  flat over \(\OO_{V_i}\) for each \(i\). Consequently, only finitely many
+  Hilbert polynomials \(P_s(m) = \chi(\PP^n_s, \F_s(m))\) occur as \(s\) varies
+  over \(S\).
+\end{lemma}
+
+\begin{proof}
+  By \cite{nitsure-hilbert-quot}, \S4: \(S\) being noetherian, decompose \(|S| = \bigcup Y_j\) into
+  finitely many irreducible components, each closed.  For an irreducible
+  component \(Y\), let \(U \subseteq Y\) be the open subset not lying on any other
+  component, given the reduced subscheme structure (an integral, locally-closed
+  subscheme of \(S\)).  By \ref{mk-thm:generic_flatness} applied to
+  \(\F|_{\PP^n_U}\), there is a non-empty open \(V \subseteq U\) over which \(\F\) is
+  flat.  Replace \(S\) by the reduced closed complement \(S \setminus V\) and
+  repeat. Noetherianity of \(S\) terminates the induction in finitely many
+  steps, producing the \(V_i\).  On each \(V_i\) the Hilbert polynomial is locally
+  constant (flat families have locally constant Hilbert polynomial), hence
+  takes finitely many values on the noetherian (hence quasi-compact) scheme
+  \(V_i\); the finite union of finite sets is finite.
+\end{proof}
+
+\begin{lemma}
+[Assembly of the strata by Noetherian induction]
+  \label{mk-lem:noetherian_induction_strata}
+  \dcref{custom}
+  \uses{mk-lem:flat_locus_open, mk-lem:nonflat_locus_proper, mk-thm:flat_base_change_cohomology}
+  \textit{Source: \cite{nitsure-hilbert-quot}, \S4 (assembly step combining the \(n=0\) special case
+  applied to direct images \(\pi_*\F(N+i)\)).}
+  Let \(S\), \(\pi : \PP^n_S \to S\), \(\F\) be as in
+  \ref{mk-thm:flattening_stratification_exists}.  There exists an integer
+  \(N \ge 0\) such that for every \(s \in S\) the higher cohomologies
+  \(H^r(\PP^n_s, \F_s(m))\) vanish for all \(r \ge 1\), \(m \ge N\), and the base-change
+  homomorphism \((\pi_* \F(m))|_s \to H^0(\PP^n_s, \F_s(m))\) is an isomorphism
+  for \(m \ge N\), \(s \in S\).  Iterating the \(n=0\) stratification
+  (\ref{mk-lem:flat_locus_open}) on the coherent sheaves \(E_i := \pi_* \F(N+i)\)
+  for \(i = 0, \dots, n\) produces a finite collection of locally-closed
+  subschemes \(W_{e_0, \dots, e_n} \subseteq S\) indexed by tuples
+  \((e_0, \dots, e_n) \in \Z^{n+1}\). Re-indexing each tuple by the unique
+  numerical polynomial \(f \in \Q[\lambda]\) of degree \(\le n\) with
+  \(f(N+i) = e_i\) gives a finite stratification \(\{W_f\}\) of \(S\), and the
+  locally-closed subschemes \(S_f \subseteq W_f\) of
+  \ref{mk-thm:flattening_stratification_exists} are obtained by further
+  intersecting with the closed-subscheme conditions that
+  \(\pi_* \F(N+i)|_{W_f}\) be locally free of rank \(f(N+i)\) for all \(i \ge 0\)
+  (terminating by Noetherianity).
+\end{lemma}
+
+\begin{proof}
+  By \ref{mk-lem:nonflat_locus_proper}, the family of Hilbert polynomials
+  \(\{P_s\}\) on \(S\) is finite, and there is a finite stratification
+  \(\{V_i\}\) of \(S\) on each of which \(\F\) is flat with locally-constant
+  Hilbert polynomial.  Apply semi-continuity (cohomology and base change,
+  \cite{hartshorne-ag}, III.12 / \cite{stacks-project}, tag 02KH for the \(H^0\)-version) on
+  the noetherian \(V_i\) to obtain a uniform integer \(N_1\) with
+  \(R^r \pi_* \F(m) = 0\) for \(r \ge 1\), \(m \ge N_1\), and \(H^r(\PP^n_s, \F_s(m)) = 0\)
+  for all \(s \in S\), \(r \ge 1\), \(m \ge N_1\) (statement (B) of Nitsure's proof).
+  Choose \(r_i \ge N_1\) on each \(V_i\) such that the base-change comparison
+  \((\pi_* \F(m))|_{V_i} \to (\pi_i)_* \F_{V_i}(m)\) is an isomorphism for
+  \(m \ge r_i\); composing with the cohomology-and-base-change isomorphism
+  \(((\pi_i)_* \F_{V_i}(m))|_s \xrightarrow{\sim} H^0(\PP^n_s, \F_s(m))\) for
+  the flat family on \(V_i\) yields uniform \(N = \max r_i\) such that
+  \((\pi_* \F(m))|_s \to H^0(\PP^n_s, \F_s(m))\) is an isomorphism for \(m \ge N\)
+  and all \(s \in S\) (statement (C)).
+
+  Apply \ref{mk-lem:flat_locus_open} sequentially to the coherent sheaves
+  \(E_i = \pi_* \F(N+i)\) on \(S\) for \(i = 0, \dots, n\): \(E_0\) produces a
+  stratification \(\{W_{e_0}\}\) of \(S\); on each \(W_{e_0}\) apply the lemma to
+  \(E_1|_{W_{e_0}}\) to refine to \(\{W_{e_0, e_1}\}\), and continue. After \(n+1\)
+  steps the \(W_{e_0, \dots, e_n}\) form a finite locally-closed stratification
+  of \(S\) universal for the property ``each \(E_i\) pulls back to a locally-free
+  \(\OO_T\)-module of constant rank \(e_i\)''.  Re-index \((e_0, \dots, e_n)\) by the
+  unique numerical polynomial \(f\) of degree \(\le n\) with \(f(N+i) = e_i\) to get
+  the family \(\{W_f\}\) indexed by polynomials.  At any \(s \in W_f\), statement
+  (C) and vanishing (B) force \(P_s = f\) (since \(P_s\) has degree \(\le n\) and is
+  determined by its values at \(N, N+1, \dots, N+n\)).
+
+  The Hilbert-polynomial-coincidence locus \(|W_f|\) may have non-flat scheme
+  structure; refine to \(S_f \subseteq W_f\) by intersecting with the
+  closed-subscheme conditions ``\(\pi_* \F(N+i)|_{W_f}\) is locally-free of rank
+  \(f(N+i)\)'' for all \(i \ge 0\).  These conditions are cut out by an increasing
+  chain of coherent ideal sheaves \(I_0 \subseteq I_0 + I_1 \subseteq \cdots\) on
+  \(W_f\); Noetherianity terminates the chain in finitely many steps, defining a
+  coherent ideal sheaf \(I\) and a closed subscheme \(S_f \subseteq W_f\) with
+  \(|S_f| = |W_f|\) on which \(\pi_* \F(N+i)\) is locally-free of rank \(f(N+i)\)
+  for all \(i \ge 0\). The base-change-without-flatness lemma (cf.\ \cite{nitsure-hilbert-quot},
+  \S3) yields some \(N' \ge N\) such that for \(i \ge N'\),
+  \((\pi_* \F(i))|_{S_f} \to (\pi_{S_f})_* \F_{S_f}(i)\) is an isomorphism, hence
+  the graded \(A\)-module \(\bigoplus_{i \ge N'} (\pi_{S_f})_* \F_{S_f}(i)\) is
+  locally-free on \(S_f\), hence \(\F_{S_f}\) is flat over \(S_f\). The
+  closure-of-strata property (iii) reduces to the corresponding property in
+  the \(n=0\) case for \(\pi_* \F(p)\) on \(S\) at any \(p \ge N\) separating all
+  Hilbert polynomials.
+\end{proof}
+
+\subsection{Consequences of the flattening construction}
+The flattening construction also yields a countably indexed flat
+stratification.  Further transfer lemmas give a direct Noetherian-induction
+construction for proper morphisms and allow the resulting finite family to
+be indexed injectively by integer-valued functions.
+
+\begin{lemma}[Flat-locus stratification, special case \(n = 0\)]\label{mk-lem:flat_locus_stratification_lean}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat}
+  Let \(S\) be a noetherian scheme and \(\F\) a coherent \(\OO_S\)-module.
+  Then there is a family of immersions \(\iota_e : S_e \to S\) indexed by
+  \(e \in \mathbb{N}\) whose images are pairwise disjoint and set-theoretically
+  cover \(|S|\), and such that for each \(e\) the pullback of \(\F\) along
+  \(\iota_e\) is flat over \(S_e\) in the sense of
+  \ref{mk-def:coherent_sheaf_flat}.  The index \(e\) is merely an enumeration;
+  unlike the canonical strata of \ref{mk-lem:flat_locus_open}, it is not
+  required to equal \(\dim_{\kappa(s)} \F|_s\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-thm:flattening_stratification_exists}
+  Apply the existence theorem \ref{mk-thm:flattening_stratification_exists} to
+  the identity morphism \(\pi = \mathrm{id}_S\) and \(\F\): it yields a
+  finite set \(I\), immersions \(\iota_f : V_f \to S\) with pairwise
+  disjoint images covering \(|S|\), and flatness of the pullback of \(\F\)
+  to \(S \times_S V_f\) over \(V_f\).  The second projection
+  \(p_f : S \times_S V_f \to V_f\) of the fibre product along the identity
+  is an isomorphism, and the first projection factors as
+  \(\mathrm{pr}_1 = p_f \circ \iota_f\); take \(S \times_S V_f\) itself
+  as the stratum with \(\mathrm{pr}_1\) as its immersion, so disjointness
+  and covering of images transfer along the surjection \(p_f\).  Flatness of
+  the pullback over the stratum itself follows because the predicate of
+  \ref{mk-def:coherent_sheaf_flat} is insensitive to composing the base leg
+  with an isomorphism: an affine open of the target corresponds under the
+  isomorphism to an affine open of the source, the two section-ring actions
+  on an unchanged section module differ by composition with a bijective ring
+  map, and flatness passes along such a factorization since the target ring
+  is a free module of rank one over the source.  Finally choose a bijection
+  of \(I\) with an initial segment of \(\mathbb{N}\) and pad the family at
+  the remaining indices by the empty scheme: its section rings are trivial,
+  so every section module over them is flat, and the empty image preserves
+  disjointness and covering.
+\end{proof}
+
+\subsection{Flatness transfer to strata}
+\label{mk-subsec:flat_transfer_strata}
+
+The Noetherian-induction reduction is assembled from four transfer lemmas:
+flatness under pushout base change, the affine-piece analysis of a fibre
+product, affine-locality of flatness over the base, and the existence of a
+flat stratum over one irreducible component.
+
+\begin{lemma}[Flatness under pushout base change]
+
+  \label{mk-lem:flat_pushout_base_change}
+  \dcref{custom}
+
+  Let \(R \to S\) and \(R \to A\) be commutative ring maps with pushout
+  \(B = S \otimes_R A\), let \(M\) be an \(A\)-module which is flat over
+  \(R\), and let \(N\) be a \(B\)-module which is a base change of \(M\)
+  along \(A \to B\), i.e.\ \(N \cong B \otimes_A M\) as \(B\)-modules.  Then
+  \(N\) is flat over \(S\).
+\end{lemma}
+
+\begin{proof}
+  It suffices to prove that \(B \otimes_A M\) is flat over \(S\), and for
+  this we show that the canonical \(R\)-linear map
+  \(\eta : M \to B \otimes_A M\), \(m \mapsto 1 \otimes m\), exhibits
+  \(B \otimes_A M\) as the base change \(S \otimes_R M\); flatness over
+  \(S\) then follows from flatness of \(M\) over \(R\) since base change
+  along \(R \to S\) preserves flatness.  We verify the universal property:
+  let \(Q\) be an \(S\)-module and \(g : M \to Q\) an \(R\)-linear map.  The
+  family \(\beta : A \to \operatorname{Hom}_R(M, Q)\),
+  \(\beta(a)(m) = g(am)\), is \(R\)-linear into an \(S\)-module, so by the
+  universal property of the ring base change \(B = S \otimes_R A\) it lifts
+  to an \(S\)-linear map \(\Lambda : B \to \operatorname{Hom}_R(M, Q)\) with
+  \(\Lambda(1 \otimes a) = \beta(a)\).  The pairing
+  \((b, m) \mapsto \Lambda(b)(m)\) is additive, \(S\)-linear in \(b\), and
+  \(A\)-balanced: on generators \(b = s (1 \otimes a')\) of \(B\) one has
+  \(\Lambda((1 \otimes a) b)(m) = s\, g(a a' m) = \Lambda(b)(a m)\), and the
+  general case follows since such elements generate \(B\) additively.  Hence
+  the pairing descends to an \(S\)-linear map
+  \(h : B \otimes_A M \to Q\) with \(h \circ \eta = g\).  Uniqueness: any
+  \(S\)-linear \(h'\) with \(h' \circ \eta = g\) agrees with \(h\) on
+  elements \((s(1 \otimes a)) \otimes m = s\,(1 \otimes am)\), hence on all
+  of \(B \otimes_A M\).
+\end{proof}
+
+\begin{lemma}[Flat sections on an affine piece of a fibre product]
+
+\label{mk-lem:flat_section_pullback_piece}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat, mk-lem:flat_pushout_base_change,
+    mk-def:pullback_app_isoTensor_sigma}
+  Let
+  \[
+    \begin{array}{ccc}
+      Y & \xrightarrow{\;g\;} & X \\
+      \downarrow{\scriptstyle i_Y} & & \downarrow{\scriptstyle i_X} \\
+      T & \xrightarrow{\;f\;} & S
+    \end{array}
+  \]
+  be a cartesian square of schemes, and let \(U_S \subseteq S\),
+  \(U_X \subseteq i_X^{-1}(U_S)\), \(U_T \subseteq f^{-1}(U_S)\) be affine
+  opens.  Consider the \emph{piece}
+  \(U_Y := g^{-1}(U_X) \cap i_Y^{-1}(U_T) \subseteq Y\).  Then \(U_Y\) is an
+  affine open, the section-ring square
+  \(\Gamma(S, U_S) \to \Gamma(X, U_X),\ \Gamma(S, U_S) \to \Gamma(T, U_T)\)
+  with corner \(\Gamma(Y, U_Y)\) is a pushout of commutative rings, and for
+  every quasi-coherent \(\OO_X\)-module \(\F\) such that
+  \(\Gamma(\F, U_X)\) is flat over \(\Gamma(S, U_S)\), the sections
+  \(\Gamma(g^* \F, U_Y)\) are flat over \(\Gamma(T, U_T)\).  If moreover
+  \(\Gamma(\F, U_X)\) is a finite \(\Gamma(X, U_X)\)-module, then
+  \(\Gamma(g^* \F, U_Y)\) is a finite \(\Gamma(Y, U_Y)\)-module.
+\end{lemma}
+
+\begin{proof}
+  Restricting the cartesian square over the affine cospan
+  \(U_X \to U_S \leftarrow U_T\) exhibits \(U_Y\) as the fibre product
+  \(U_X \times_{U_S} U_T\) of affine schemes, which is affine.  Applying
+  global sections to this pullback and using the anti-equivalence between
+  affine schemes and commutative rings yields the pushout of section rings.
+  Since \(U_Y \subseteq g^{-1}(U_X)\) with \(U_X\), \(U_Y\) affine and
+  \(\F\) quasi-coherent, the base-change section formula
+  (\ref{mk-def:pullback_app_isoTensor_sigma}, Stacks 01HQ/01I8) identifies
+  \(\Gamma(g^* \F, U_Y) \cong
+    \Gamma(Y, U_Y) \otimes_{\Gamma(X, U_X)} \Gamma(\F, U_X)\)
+  as \(\Gamma(Y, U_Y)\)-modules, i.e.\ exhibits \(\Gamma(g^*\F, U_Y)\) as a
+  base change of \(\Gamma(\F, U_X)\) along
+  \(\Gamma(X, U_X) \to \Gamma(Y, U_Y)\).  Flatness over \(\Gamma(T, U_T)\)
+  is now \ref{mk-lem:flat_pushout_base_change} applied to the section-ring
+  pushout square; finiteness is preserved because a base change of a finite
+  module is finite.
+\end{proof}
+
+\begin{lemma}[Flatness over the base is affine-local]
+
+\label{mk-lem:flat_affine_local}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat, mk-lem:appLE_base_res_apply}
+  Let \(q : Y \to T\) be a morphism of schemes and \(\mathcal G\) a quasi-coherent
+  \(\OO_Y\)-module.  Suppose given affine opens
+  \(U_j \subseteq T\) and \(W_j \subseteq q^{-1}(U_j)\) (\(j \in J\)) such
+  that the \(W_j\) cover \(Y\) and each \(\Gamma(\mathcal G, W_j)\) is flat over
+  \(\Gamma(T, U_j)\).  Then for \emph{every} pair of affine opens
+  \(U \subseteq T\), \(W \subseteq q^{-1}(U)\), the sections
+  \(\Gamma(\mathcal G, W)\) are flat over \(\Gamma(T, U)\).
+\end{lemma}
+
+\begin{proof}
+  This is the two-layer basic-open reduction of
+  \ref{mk-lem:flat_section_pair}, with the freeness input replaced by chart
+  flatness.  Fix an affine pair \((U, W)\).  For each \(x \in W\) choose a
+  chart \(W_j \ni x\); since \(q(x) \in U \cap U_j\) and both are affine,
+  there is a basic open \(D(a) = D(a')\) of \(T\) common to \(U\) and
+  \(U_j\) containing \(q(x)\), and then a basic open
+  \(D(b) = D(c) \ni x\) common to \(W\) and \(W_j\) with
+  \(D(b) \subseteq q^{-1}(D(a))\).  The elements \(b\) generate the unit
+  ideal of \(\Gamma(Y, W)\), and each restriction
+  \(\Gamma(\mathcal G, W) \to \Gamma(\mathcal G, D(b))\) is a localization at the powers of
+  \(b\) (\ref{mk-lem:qcoh_section_localization_basicOpen}), so flatness of
+  \(\Gamma(\mathcal G, W)\) over \(\Gamma(T, U)\) may be checked on the pieces
+  \(\Gamma(\mathcal G, D(b))\).  On a piece: flatness of \(\Gamma(\mathcal G, W_j)\) over
+  \(\Gamma(T, U_j)\) passes to the fibre-side localization
+  \(\Gamma(\mathcal G, D(c))\) (mixed-base stability of flatness under localization
+  of the module at a submonoid of the fibre algebra), and then the base ring
+  is exchanged twice along
+  \(\Gamma(T, U_j) \to \Gamma(T, D(a')) = \Gamma(T, D(a))\) and
+  \(\Gamma(T, U) \to \Gamma(T, D(a))\) (for a module over a localized ring,
+  flatness over the ring and over its localization agree; the compatibility
+  of the induced module structures is \ref{mk-lem:appLE_base_res_apply}).
+\end{proof}
+
+\begin{lemma}[Reduced subscheme of an irreducible closed subset is integral]
+
+\label{mk-lem:vanishing_ideal_subscheme_integral}
+  \dcref{custom}
+
+  Let \(S\) be a scheme and \(Z \subseteq S\) a closed subset.  The
+  subscheme cut out by the vanishing ideal sheaf of \(Z\) (the reduced
+  induced structure) is reduced; if \(Z\) is irreducible (in particular
+  non-empty), it is integral.
+\end{lemma}
+
+\begin{proof}
+  The vanishing ideal sheaf is radical: it equals the vanishing ideal of
+  its own support (Galois connection between supports and vanishing
+  ideals), which is the radical.  The subscheme is covered by the affine
+  charts \(\Spec(\Gamma(S, U)/I(U))\) for \(U\) ranging over affine opens
+  of \(S\), and each \(I(U)\) is a radical ideal, so each chart is the
+  spectrum of a reduced ring; hence the subscheme is reduced.  Its
+  underlying space is the subspace \(Z\), which is irreducible by
+  hypothesis, and a reduced scheme with irreducible non-empty underlying
+  space is integral.
+\end{proof}
+
+\begin{lemma}[Flat stratum over an irreducible component]
+
+\label{mk-lem:flat_stratum_component}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat, mk-thm:generic_flatness,
+    mk-lem:vanishing_ideal_subscheme_integral, mk-lem:flat_section_pullback_piece,
+    mk-lem:flat_affine_local}
+  Let \(S\) be a noetherian scheme, \(\pi : X \to S\) proper, \(\F\) a
+  coherent \(\OO_X\)-module, and \(Z_c \subseteq S\) an irreducible closed
+  subset with reduced subscheme \(T \to S\).  Then there is a non-empty open
+  \(\Omega \subseteq T\) such that for \emph{every} open
+  \(\mathit{St} \subseteq \Omega\), regarded as a locally closed subscheme
+  \(\mathit{St} \to S\), the pullback of \(\F\) to
+  \(X \times_S \mathit{St}\) is flat over \(\mathit{St}\) in the sense of
+  \ref{mk-def:coherent_sheaf_flat}.
+\end{lemma}
+
+\begin{proof}
+  \(T\) is integral (\ref{mk-lem:vanishing_ideal_subscheme_integral}) and
+  noetherian (a closed subscheme of a noetherian scheme), and the base
+  change \(p : X \times_S T \to T\) is proper, hence quasi-compact and
+  locally of finite type.  The pullback of \(\F\) to \(X \times_S T\) is
+  quasi-coherent, and it admits affine charts with finite section modules:
+  around any point, choose affine opens \(U_S \subseteq S\),
+  \(U_T \subseteq T\) above it, and an affine chart \(W_X \subseteq X\)
+  with finite sections (Stacks 01PC); the corresponding piece is an affine
+  chart of \(X \times_S T\) whose sections are the base change of
+  \(\Gamma(\F, W_X)\), hence finite (\ref{mk-lem:flat_section_pullback_piece}),
+  and this finiteness localizes to a basic open inside any given
+  neighbourhood.  Generic flatness (\ref{mk-thm:generic_flatness}, in its
+  quasi-coherent form with this chart supply) yields a non-empty open
+  \(\Omega \subseteq T\) with flat sections on all affine pairs below
+  \(\Omega\).
+
+  Now let \(\mathit{St} \subseteq \Omega\) be open.  The stratum family
+  \(X \times_S \mathit{St} \to \mathit{St}\) maps to the component family by
+  the comparison morphism
+  \(\kappa : X \times_S \mathit{St} \to X \times_S T\), and the square
+  formed by \(\kappa\) and the two projections over
+  \(\mathit{St} \hookrightarrow T\) is cartesian (cancellation of pasted
+  pullback squares).  Cover \(X \times_S \mathit{St}\) by pieces
+  \(g^{-1}(W_X) \cap q^{-1}(U')\) with \(U' \subseteq \mathit{St}\) affine
+  lying over an affine \(U_1 \subseteq \Omega\); on each such piece,
+  applying \ref{mk-lem:flat_section_pullback_piece} to the cartesian
+  \(\kappa\)-square with flatness input from the generic-flatness output on
+  the corresponding piece of \(X \times_S T\) (an affine open below
+  \(\Omega\)) yields flat sections over \(U'\).  By affine-locality
+  (\ref{mk-lem:flat_affine_local}) all affine pairs of the stratum family
+  have flat sections; finally the pulled-back sheaf along \(\kappa\)
+  composed with the projection is identified with the pullback of \(\F\)
+  along the projection of the stratum family (functoriality of pullback,
+  \(g \circ \kappa = g'\)), so the flatness predicate transports along this
+  isomorphism of module sheaves.
+\end{proof}
+
+\begin{lemma}[Noetherian-induction reduction to the flat case]\label{mk-lem:flat_locus_reduction_lean}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat, mk-thm:generic_flatness}
+  Let \(S\) be a noetherian scheme, \(\pi : X \to S\) a proper morphism,
+  and \(\F\) a coherent \(\OO_X\)-module. Then there exist finitely many
+  immersions \(\iota_i : V_i \to S\) with pairwise disjoint images
+  set-theoretically covering \(|S|\), such that for each \(i\) the pullback of
+  \(\F\) to \(X \times_S V_i\) is flat over \(V_i\) in the sense of
+  \ref{mk-def:coherent_sheaf_flat}.  The strata are obtained by successively
+  removing non-empty flat open patches supplied by generic flatness
+  (\ref{mk-thm:generic_flatness}).
+
+  Noetherianity of \(S\) (rather than mere local noetherianity) is necessary
+  for the \emph{finiteness} of the family: on
+  \(S = \coprod_{n \ge 1} \mathbb{A}^n\), equip the \(n\)-th component with
+  the coherent sheaf \(\bigoplus_{k \le n} (i_{V_k})_* \OO_{V_k}\) for a
+  strictly nested flag \(V_1 \supset \cdots \supset V_n\) of integral closed
+  subvarieties.  A locally-closed stratum on which this sheaf is flat (hence
+  locally free) meets the flag levels in relatively clopen subsets, so a
+  stratum through the generic point of \(V_k\) cannot also contain the
+  generic point of \(V_{k'}\) for \(k' \neq k\): each neighbourhood of the
+  latter meets the dense lower level.  The \(n\)-th component therefore
+  requires at least \(n + 1\) strata, and no finite family covers all
+  components.
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:nonflat_locus_proper, mk-thm:generic_flatness,
+    mk-lem:flat_stratum_component, mk-lem:vanishing_ideal_subscheme_integral}
+  By well-founded induction on the closed subsets of \(S\) (the noetherian
+  hypothesis makes strict inclusion of closed subsets well-founded), we prove:
+  for every closed \(Z \subseteq S\) there is a finite family of immersions
+  with pairwise disjoint images whose union is exactly \(Z\) and with flat
+  pullback of \(\F\) on each member.  For \(Z = \emptyset\) take the empty
+  family.
+
+  For \(Z \neq \emptyset\), let \(Z_1, \dots, Z_r \subseteq S\) be the images
+  of the (finitely many, by noetherianity) irreducible components of the
+  subspace \(Z\); each \(Z_c\) is an irreducible closed subset of \(S\)
+  contained in \(Z\), and together they cover \(Z\).
+  \ref{mk-lem:flat_stratum_component} applied to the reduced subscheme
+  \(T_c \to S\) of \(Z_c\) yields a non-empty open \(\Omega_c \subseteq T_c\)
+  all of whose open subsets are flat strata.  Let
+  \(E_c \subseteq S\) be the open complement of the union of the other
+  components, and take as stratum the open
+  \(\mathit{St}_c := \Omega_c \cap (T_c \to S)^{-1}(E_c) \subseteq T_c\),
+  a locally closed subscheme of \(S\) via
+  \(\mathit{St}_c \hookrightarrow T_c \to S\), with flat pullback by the
+  choice of \(\Omega_c\).
+
+  The images of the \(\mathit{St}_c\) are pairwise disjoint: the image of
+  \(\mathit{St}_c\) is contained in \(Z_c \setminus \bigcup_{c' \neq c} Z_{c'}\).
+  Their union \(V\) is relatively open in \(Z\): realizing the open image of
+  each \(\mathit{St}_c\) inside \(Z_c\) by an open \(W_c \subseteq S\), one has
+  \(V = Z \cap \bigcup_c (W_c \cap E_c)\), because a point of
+  \(Z \cap W_c \cap E_c\) avoids all components other than \(Z_c\), hence lies
+  in \(Z_c\), hence in the image of \(\mathit{St}_c\).  Moreover \(V\) is
+  non-empty: for any component \(Z_{c}\), irredundancy of the component
+  decomposition shows \(Z_c \not\subseteq \bigcup_{c' \neq c} Z_{c'}\), so the
+  open \((T_c \to S)^{-1}(E_c)\) is non-empty, and two non-empty opens of the
+  irreducible space \(T_c\) intersect, so \(\mathit{St}_c \neq \emptyset\).
+
+  Therefore \(Z' := Z \setminus V\) is a closed subset strictly smaller than
+  \(Z\); the induction hypothesis provides a finite disjoint flat family with
+  union \(Z'\), and adjoining the strata \(\mathit{St}_c\) gives the required
+  family for \(Z\) (disjointness across the two groups holds because the
+  recursive family lies in \(Z'\), which is disjoint from \(V\)).  Applying
+  the statement to \(Z = S\) proves the lemma.
+\end{proof}
+
+\begin{lemma}[Assembly with injectively labelled strata]\label{mk-lem:flat_locus_assembly_lean}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat}
+  Let \(S\) be a noetherian scheme, \(\pi : X \to S\) a proper morphism,
+  and \(\F\) a coherent \(\OO_X\)-module. Then there exist a finite index set
+  \(I\), immersions \(\iota_f : S_f \to S\) (\(f \in I\)) with pairwise disjoint
+  images set-theoretically covering \(|S|\), and an injective label map
+  \(P : I \to (\mathbb{N} \to \Z)\) (so \(f = g \iff P_f = P_g\)), such that for
+  each \(f\) the pullback of \(\F\) to \(X \times_S S_f\) is flat over \(S_f\) in
+  the sense of \ref{mk-def:coherent_sheaf_flat}.
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:flat_locus_reduction_lean}
+  Since the statement requires of \(P\) only injectivity, it follows from the
+  reduction \ref{mk-lem:flat_locus_reduction_lean}: take its stratification and
+  label the finitely many strata by any injection
+  \(I \hookrightarrow \mathbb{N} \to \Z\) (for instance constant functions
+  with pairwise distinct values).  Requiring these labels to be the fibrewise
+  Hilbert polynomials gives the refinement of
+  \ref{mk-lem:noetherian_induction_strata}.
+\end{proof}
+
+\section{The entry ideal of a matrix presentation}
+\label{mk-sec:entry_ideal}
+
+The rank strata of \ref{mk-lem:flat_locus_open} carry a canonical --- in
+general non-reduced --- scheme structure, cut out locally by the ideal of
+entries of the relation matrix of a presentation.  This section develops the
+commutative-algebra substrate: presentations of a module by \(e\)
+generators, the entry ideal, its base-change behaviour, Nitsure's local
+universal property, independence of the chosen presentation, and the
+Nakayama prolongation producing \(e\)-generator presentations near a point
+of fiber rank \(e\).  Throughout, \(R\) is a commutative ring and \(M\) an
+\(R\)-module.
+
+\begin{definition}[Matrix presentation]
+  \label{mk-def:matrix_presentation}
+
+  \dcref{custom}
+  A \emph{matrix presentation} of \(M\) by \(e\) generators and \(m\)
+  relations consists of a matrix
+  \(\psi \in \operatorname{Mat}_{e \times m}(R)\) and a surjection
+  \(\pi : R^{\oplus e} \to M\) making the sequence
+  \[
+    R^{\oplus m} \xrightarrow{\ \psi\ } R^{\oplus e}
+      \xrightarrow{\ \pi\ } M \to 0
+  \]
+  exact.
+\end{definition}
+
+\begin{lemma}[Finite presentation]
+  \label{mk-lem:matrix_presentation_fp}
+  \dcref{custom}
+
+  \uses{mk-def:matrix_presentation}
+  A module admitting a matrix presentation is finitely presented.
+\end{lemma}
+
+\begin{proof}
+  \(\pi\) is a surjection from a finite free module whose kernel, the image
+  of \(\psi\), is generated by the \(m\) columns of \(\psi\), hence finitely
+  generated.
+\end{proof}
+
+\begin{definition}[Entry ideal]
+  \label{mk-def:entry_ideal}
+
+  \uses{mk-def:matrix_presentation}
+  \dcref{custom}
+  The \emph{entry ideal} \(I(\psi) \subseteq R\) of a matrix presentation is
+  the ideal generated by the \(e \cdot m\) entries \(\psi_{ij}\) of the
+  relation matrix.  It is the ideal of \(1 \times 1\) minors of \(\psi\);
+  for an \(e\)-generator presentation this is the Fitting ideal
+  \(\operatorname{Fitt}_{e-1}(M)\).
+\end{definition}
+
+\begin{lemma}[Vanishing criterion]
+  \label{mk-lem:entry_ideal_vanish}
+  \dcref{custom}
+
+  \uses{mk-def:entry_ideal}
+  For an \(R\)-algebra \(A\), the entrywise image matrix
+  \(\psi \otimes A \in \operatorname{Mat}_{e \times m}(A)\) vanishes if and
+  only if \(I(\psi) \subseteq \ker(R \to A)\).
+\end{lemma}
+
+\begin{proof}
+  Both sides assert that every entry of \(\psi\) maps to \(0\) in \(A\).
+\end{proof}
+
+\begin{definition}[Base change of a presentation]
+  \label{mk-def:matrix_presentation_base_change}
+
+  \uses{mk-def:matrix_presentation}
+  \dcref{custom}
+  Let \(A\) be an \(R\)-algebra.  The matrix \(\psi \otimes A\) obtained by
+  applying \(R \to A\) entrywise, together with the tensored projection
+  \(A^{\oplus e} \cong A \otimes_R R^{\oplus e}
+    \xrightarrow{1 \otimes \pi} A \otimes_R M\),
+  is a matrix presentation of \(A \otimes_R M\) by \(e\) generators and
+  \(m\) relations: the tensored sequence
+  \(A^{\oplus m} \to A^{\oplus e} \to A \otimes_R M \to 0\) remains exact by
+  right-exactness of the tensor product.
+\end{definition}
+
+\begin{lemma}[Entry ideal under base change]
+  \label{mk-lem:entry_ideal_base_change}
+  \dcref{custom}
+
+  \uses{mk-def:entry_ideal, mk-def:matrix_presentation_base_change}
+  The entry ideal of the base-changed presentation is the image ideal:
+  \(I(\psi \otimes A) = I(\psi) \cdot A\).
+\end{lemma}
+
+\begin{proof}
+  The generators of \(I(\psi \otimes A)\) are exactly the images of the
+  generators of \(I(\psi)\).
+\end{proof}
+
+\begin{lemma}[Vanishing relations give an isomorphism]
+  \label{mk-lem:presentation_iso_of_vanish}
+  \dcref{custom}
+
+  \uses{mk-def:matrix_presentation}
+  If \(\psi = 0\), then \(\pi : R^{\oplus e} \to M\) is an isomorphism.
+\end{lemma}
+
+\begin{proof}
+  \(\ker \pi = \operatorname{im} \psi = 0\) by exactness, and \(\pi\) is
+  surjective.
+\end{proof}
+
+\begin{lemma}[Vanishing relations give a free module]
+  \label{mk-lem:presentation_free_of_vanish}
+  \dcref{custom}
+
+  \uses{mk-lem:presentation_iso_of_vanish}
+  If \(\psi = 0\), then \(M\) is free.
+\end{lemma}
+
+\begin{proof}
+  Transport freeness along the isomorphism of
+  \ref{mk-lem:presentation_iso_of_vanish}.
+\end{proof}
+
+\begin{lemma}[Vanishing relations give constant rank]
+  \label{mk-lem:presentation_rank_of_vanish}
+  \dcref{custom}
+
+  \uses{mk-lem:presentation_iso_of_vanish}
+  If \(\psi = 0\), then the localization \(M_{\mathfrak p}\) is free of rank
+  \(e\) over \(R_{\mathfrak p}\) for every prime
+  \(\mathfrak p \subseteq R\).
+\end{lemma}
+
+\begin{proof}
+  By \ref{mk-lem:presentation_iso_of_vanish}, \(M \cong R^{\oplus e}\); a ring
+  with a prime ideal is nontrivial, so \(R^{\oplus e}\) has constant rank
+  \(e\) at every prime.
+\end{proof}
+
+\begin{theorem}[Flat everywhere-rank-\(e\) modules have vanishing relation
+  matrix]
+  \label{mk-thm:entry_ideal_flat_vanish}
+
+  \uses{mk-def:matrix_presentation}
+  \dcref{custom}
+  Let \(M\) carry a matrix presentation \((\psi, \pi)\) by \(e\) generators.
+  If \(M\) is flat and \(M_{\mathfrak p}\) has rank \(e\) over
+  \(R_{\mathfrak p}\) for every prime \(\mathfrak p\), then \(\psi = 0\).
+  Equivalently, a surjection \(R^{\oplus e} \twoheadrightarrow M\) onto a
+  locally free module of everywhere-rank \(e\) has zero kernel.
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:matrix_presentation_fp}
+  By \ref{mk-lem:matrix_presentation_fp}, \(M\) is finitely presented, hence
+  --- being flat --- projective.  The surjection \(\pi\) therefore splits:
+  choose \(s : M \to R^{\oplus e}\) with \(\pi \circ s = \mathrm{id}\).
+  The splitting yields an isomorphism
+  \(R^{\oplus e} \cong M \times \ker \pi\), \(x \mapsto
+  (\pi x,\, x - s(\pi x))\), so \(K := \ker \pi\) is a direct summand of a
+  finite free module, hence itself finite projective (in particular flat).
+  Localizing at any prime \(\mathfrak p\) and counting ranks,
+  \(e = \operatorname{rk}_{\mathfrak p} R^{\oplus e}
+     = \operatorname{rk}_{\mathfrak p} M + \operatorname{rk}_{\mathfrak p} K
+     = e + \operatorname{rk}_{\mathfrak p} K\),
+  so \(K\) has rank \(0\) at every prime; a finite flat module of
+  everywhere-rank \(0\) is zero.  Hence
+  \(\operatorname{im} \psi = \ker \pi = 0\) by exactness, and every entry
+  \(\psi_{ij} = (\psi(\delta_j))_i\) vanishes.
+\end{proof}
+
+\begin{lemma}[Comparison of entry ideals]
+  \label{mk-lem:entry_ideal_le}
+  \dcref{custom}
+
+  \uses{mk-def:entry_ideal}
+  If \((\psi, \pi)\) and \((\psi', \pi')\) are two matrix presentations of
+  \(M\) by \(e\) generators (with possibly different numbers of relations),
+  then \(I(\psi') \subseteq I(\psi)\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-def:matrix_presentation_base_change, mk-lem:entry_ideal_vanish,
+    mk-lem:presentation_free_of_vanish, mk-lem:presentation_rank_of_vanish,
+    mk-thm:entry_ideal_flat_vanish}
+  Base change both presentations to \(A := R / I(\psi)\).  The entries of
+  \(\psi \otimes A\) vanish by construction
+  (\ref{mk-lem:entry_ideal_vanish}), so by
+  \ref{mk-lem:presentation_free_of_vanish} and \ref{mk-lem:presentation_rank_of_vanish}
+  the module \(A \otimes_R M\) is free (hence flat) of rank \(e\) at every
+  prime of \(A\).  Applying \ref{mk-thm:entry_ideal_flat_vanish} to the
+  base-changed presentation \((\psi' \otimes A, \pi' \otimes A)\) gives
+  \(\psi' \otimes A = 0\), i.e.\ every entry of \(\psi'\) lies in
+  \(\ker(R \to R/I(\psi)) = I(\psi)\).
+\end{proof}
+
+\begin{theorem}[Presentation-independence of the entry ideal]
+  \label{mk-thm:entry_ideal_presentation_independent}
+
+  \uses{mk-def:entry_ideal}
+  \dcref{custom}
+  Any two matrix presentations of \(M\) by \(e\) generators have the same
+  entry ideal.  (This is the presentation-independence of the Fitting ideal
+  \(\operatorname{Fitt}_{e-1}\), and is what lets the local entry-ideal
+  subschemes of \ref{mk-lem:flat_locus_open} glue.)
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:entry_ideal_le}
+  Apply \ref{mk-lem:entry_ideal_le} in both directions.
+\end{proof}
+
+\begin{definition}[Fiber rank]
+  \label{mk-def:fiber_rank}
+
+  \dcref{custom}
+  For a prime \(\mathfrak p \subseteq R\) with residue field
+  \(\kappa(\mathfrak p)\), the \emph{fiber rank} of \(M\) at
+  \(\mathfrak p\) is
+  \(\dim_{\kappa(\mathfrak p)} \bigl(\kappa(\mathfrak p) \otimes_R M\bigr)\).
+\end{definition}
+
+\begin{theorem}[Point-set of the entry-ideal locus]
+  \label{mk-thm:entry_ideal_prime_iff}
+
+  \uses{mk-def:entry_ideal, mk-def:fiber_rank}
+  \dcref{custom}
+  Let \((\psi, \pi)\) be a matrix presentation of \(M\) by \(e\) generators
+  and \(\mathfrak p \subseteq R\) a prime.  Then
+  \(I(\psi) \subseteq \mathfrak p\) if and only if the fiber rank of \(M\)
+  at \(\mathfrak p\) equals \(e\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-def:matrix_presentation_base_change, mk-lem:entry_ideal_vanish,
+    mk-lem:presentation_iso_of_vanish, mk-thm:entry_ideal_flat_vanish}
+  Base change the presentation to the residue field
+  \(\kappa(\mathfrak p)\), whose structure map has kernel exactly
+  \(\mathfrak p\).  If \(I(\psi) \subseteq \mathfrak p\), the fiber
+  presentation has vanishing relation matrix
+  (\ref{mk-lem:entry_ideal_vanish}), so the fiber is isomorphic to
+  \(\kappa(\mathfrak p)^{\oplus e}\)
+  (\ref{mk-lem:presentation_iso_of_vanish}) and has dimension \(e\).
+  Conversely, if the fiber has dimension \(e\), then --- every module over
+  a field being free, and free modules over a field having rank equal to
+  their dimension at the unique relevant localization --- the fiber
+  presentation satisfies the hypotheses of
+  \ref{mk-thm:entry_ideal_flat_vanish}, so its relation matrix vanishes and
+  every entry of \(\psi\) lies in
+  \(\ker(R \to \kappa(\mathfrak p)) = \mathfrak p\).
+\end{proof}
+
+\begin{theorem}[Nakayama prolongation of a fiber basis]
+  \label{mk-thm:nakayama_prolongation}
+
+  \uses{mk-def:matrix_presentation, mk-def:fiber_rank}
+  \dcref{custom}
+  Let \(M\) be finitely presented over \(R\), let \(\mathfrak p \subseteq R\)
+  be a prime, and let \(e\) be the fiber rank of \(M\) at \(\mathfrak p\).
+  Then there exists \(g \notin \mathfrak p\) such that every localization of
+  \(M\) away from \(g\) --- that is, every module \(N\) over an \(R\)-algebra
+  \(R'\) realizing the localizations of \(R\) and \(M\) at the powers of
+  \(g\) --- admits a matrix presentation by exactly \(e\) generators.
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:matrix_presentation_fp}
+  Every element of the fiber \(\kappa(\mathfrak p) \otimes_R M\) becomes,
+  after scaling by some \(r \notin \mathfrak p\) (a unit of
+  \(\kappa(\mathfrak p)\)), a pure tensor \(1 \otimes s\) with \(s \in M\):
+  this holds for pure tensors \(c \otimes s\) because
+  \(\kappa(\mathfrak p)\) is a localization of \(R/\mathfrak p\)-fractions
+  (clear the denominator of \(c\)), and sums are handled by scaling both
+  summands by the product of their two scalars.  Scaling each vector of a
+  basis of the fiber this way produces \(m_1, \dots, m_e \in M\) whose
+  images \(1 \otimes m_i\) again form a basis of the fiber (they differ from
+  the original basis by unit scalars).
+
+  Let \(\alpha : R^{\oplus e} \to M\) send the standard basis to the
+  \(m_i\), and let \(Q := M / \operatorname{im} \alpha\); it is finitely
+  generated.  Since the \(1 \otimes m_i\) span the fiber and the tensor
+  product is right exact, \(\kappa(\mathfrak p) \otimes_R Q = 0\); as
+  \(\kappa(\mathfrak p) \otimes_R Q\) is the fiber of the finite
+  \(R_{\mathfrak p}\)-module \(Q_{\mathfrak p}\) at the maximal ideal,
+  Nakayama gives \(Q_{\mathfrak p} = 0\).  Hence \(\mathfrak p\) lies
+  outside the support of the finite module \(Q\), which is the zero locus
+  of its annihilator, so there is \(g \in \operatorname{Ann}(Q)\) with
+  \(g \notin \mathfrak p\); thus \(g \cdot M \subseteq
+  \operatorname{im} \alpha\).
+
+  Now let \(R'\) and \(N\) realize the localizations of \(R\) and \(M\)
+  away from \(g\), with structure map \(l : M \to N\).  The images
+  \(l(m_i)\) generate \(N\) over \(R'\): any \(n \in N\) satisfies
+  \(g^k n = l(x)\) for some \(x \in M\) and some \(k\), the element
+  \(g x\) lies in \(\operatorname{im} \alpha\), and \(g\) and \(g^k\) are
+  units in \(R'\).  This gives a surjection
+  \(\alpha' : R'^{\oplus e} \to N\).  Localization is a base change, so
+  \(N\) is finitely presented over \(R'\)
+  (\ref{mk-lem:matrix_presentation_fp} for \(M\), transported along the base
+  change); hence \(\ker \alpha'\) is finitely generated, and any finite
+  generating family of \(\ker \alpha'\), arranged as the columns of a
+  matrix, completes \(\alpha'\) to a matrix presentation of \(N\) by \(e\)
+  generators.
+\end{proof}
+
+\section{Rank strata as closed subschemes}
+\label{mk-sec:flatstrat_rank_stratum}
+
+The entry-ideal commutative algebra of \ref{mk-sec:entry_ideal} is local to an
+affine chart.  This section globalises it: for a quasi-coherent module
+\(\mathcal G\) on a scheme \(X\) it assembles the local entry ideals into a
+quasi-coherent ideal sheaf whose closed subscheme --- the \emph{rank-\(e\)
+stratum} --- has support exactly the locus where the fibre of \(\mathcal G\)
+has dimension \(e\).  This is the geometric substrate of Nitsure's
+\(n = 0\) construction (\ref{mk-lem:flat_locus_open}).  Throughout \(X\) is a
+scheme and \(\mathcal G\) a quasi-coherent \(\OO_X\)-module; \(\Gamma(\mathcal G, U)\)
+denotes its sections over an open \(U\), a module over \(\Gamma(X, U) = \OO_X(U)\).
+
+\subsection{Base change of the fibre rank}
+
+\begin{theorem}[Base-change invariance of the fibre rank]
+  \label{mk-thm:fiber_rank_base_change}
+  \dcref{custom}
+
+  \uses{mk-def:fiber_rank}
+  Let \(A\) be an \(R\)-algebra, \(M\) an \(R\)-module, and \(\mathfrak q\) a
+  prime of \(A\) with contraction \(\mathfrak p = \mathfrak q \cap R\).  Then
+  the fibre rank of \(A \otimes_R M\) at \(\mathfrak q\) equals the fibre rank
+  of \(M\) at \(\mathfrak p\).  No flatness or finiteness hypotheses are
+  needed.
+\end{theorem}
+
+\begin{proof}
+  The residue-field map \(R \to \kappa(\mathfrak p) \to \kappa(\mathfrak q)\)
+  makes \(\kappa(\mathfrak q)\) a \(\kappa(\mathfrak p)\)-algebra.  Cancelling
+  base changes gives \(\kappa(\mathfrak p)\)-linear, then
+  \(\kappa(\mathfrak q)\)-linear, isomorphisms
+  \[
+    \kappa(\mathfrak q) \otimes_A (A \otimes_R M)
+      \;\cong\; \kappa(\mathfrak q) \otimes_R M
+      \;\cong\; \kappa(\mathfrak q) \otimes_{\kappa(\mathfrak p)}
+        \bigl(\kappa(\mathfrak p) \otimes_R M\bigr).
+  \]
+  Extension of scalars along a field extension preserves dimension, so
+  \(\dim_{\kappa(\mathfrak q)}
+    \kappa(\mathfrak q) \otimes_{\kappa(\mathfrak p)}
+    (\kappa(\mathfrak p) \otimes_R M)
+    = \dim_{\kappa(\mathfrak p)}(\kappa(\mathfrak p) \otimes_R M)\),
+  which is the claim.
+\end{proof}
+
+\begin{lemma}[Fibre rank is a linear invariant]
+  \label{mk-lem:fiber_rank_congr}
+  \dcref{custom}
+
+  \uses{mk-def:fiber_rank}
+  If \(\sigma : M \cong N\) is an isomorphism of \(R\)-modules, then \(M\) and
+  \(N\) have the same fibre rank at every prime \(\mathfrak p\).
+\end{lemma}
+
+\begin{proof}
+  Base change \(\sigma\) along \(R \to \kappa(\mathfrak p)\) to obtain a
+  \(\kappa(\mathfrak p)\)-linear isomorphism
+  \(\kappa(\mathfrak p) \otimes_R M \cong \kappa(\mathfrak p) \otimes_R N\);
+  isomorphic vector spaces have equal dimension.
+\end{proof}
+
+\begin{corollary}[Fibre rank of a localized module]
+  \label{mk-cor:fiber_rank_localized}
+  \dcref{custom}
+
+  \uses{mk-thm:fiber_rank_base_change, mk-lem:fiber_rank_congr}
+  Let \(R' = S^{-1}R\) be a localization, \(N = S^{-1}M\) the corresponding
+  localized module, and \(\mathfrak q\) a prime of \(R'\).  Then the fibre
+  rank of \(N\) at \(\mathfrak q\) equals the fibre rank of \(M\) at the
+  contraction \(\mathfrak q \cap R\).
+\end{corollary}
+
+\begin{proof}
+  Localization is a base change: the canonical map \(M \to N\) induces an
+  \(R'\)-linear isomorphism \(R' \otimes_R M \cong N\).  By
+  \ref{mk-lem:fiber_rank_congr} the fibre rank of \(N\) at \(\mathfrak q\)
+  equals that of \(R' \otimes_R M\), which by \ref{mk-thm:fiber_rank_base_change}
+  equals the fibre rank of \(M\) at \(\mathfrak q \cap R\).
+\end{proof}
+
+\subsection{Presentation charts and the point rank}
+
+\begin{definition}[Presentation chart]
+  \label{mk-def:presentation_chart}
+
+  \uses{mk-def:matrix_presentation}
+  \dcref{custom}
+  An affine open \(V \subseteq X\) is an \emph{\(e\)-presentation chart} for
+  \(\mathcal G\) if the section module \(\Gamma(\mathcal G, V)\) admits a
+  matrix presentation by \(e\) generators over \(\Gamma(X, V)\), that is, a
+  right-exact sequence
+  \(\OO_V^{\oplus m} \xrightarrow{\psi} \OO_V^{\oplus e}
+    \to \mathcal G|_V \to 0\).
+\end{definition}
+
+\begin{definition}[Restriction of a presentation to a basic open]
+  \label{mk-def:presentation_basic_open}
+  \dcref{custom}
+
+  \uses{mk-def:matrix_presentation_base_change, mk-def:presentation_chart}
+  Let \(P = (\psi, \pi)\) be a matrix presentation of
+  \(\Gamma(\mathcal G, V)\) by \(e\) generators over an affine open \(V\), and
+  \(f \in \Gamma(X, V)\).  Since \(\mathcal G\) is quasi-coherent, restriction
+  exhibits \(\Gamma(\mathcal G, D(f))\) as the localization
+  \(\Gamma(\mathcal G, V) \otimes_{\Gamma(X, V)} \Gamma(X, D(f))\).  Base
+  change of \(P\) along \(\Gamma(X, V) \to \Gamma(X, D(f))\)
+  (\ref{mk-def:matrix_presentation_base_change}), transported along this
+  localization isomorphism, is a matrix presentation of
+  \(\Gamma(\mathcal G, D(f))\) by \(e\) generators, the \emph{restriction of
+  \(P\) to \(D(f)\)}; its relation matrix is the entrywise restriction
+  \(\psi|_{D(f)}\).
+\end{definition}
+
+\begin{lemma}[Entry ideal of a restricted presentation]
+  \label{mk-lem:entry_ideal_basic_open}
+  \dcref{custom}
+
+  \uses{mk-def:presentation_basic_open, mk-lem:entry_ideal_base_change}
+  With the notation of \ref{mk-def:presentation_basic_open}, the entry ideal of
+  the restricted presentation is the image of \(I(\psi)\) under restriction:
+  \(I(\psi|_{D(f)}) = I(\psi) \cdot \Gamma(X, D(f))\).
+\end{lemma}
+
+\begin{proof}
+  The restricted presentation is a base change of \(P\), so its entry ideal is
+  the image ideal by \ref{mk-lem:entry_ideal_base_change}.
+\end{proof}
+
+\begin{lemma}[Presentation charts pass to basic opens]
+  \label{mk-lem:presentation_chart_basic_open}
+  \dcref{custom}
+
+  \uses{mk-def:presentation_chart, mk-def:presentation_basic_open}
+  If \(V\) is an \(e\)-presentation chart for \(\mathcal G\) and
+  \(f \in \Gamma(X, V)\), then the basic open \(D(f) \subseteq V\) is again an
+  \(e\)-presentation chart.
+\end{lemma}
+
+\begin{proof}
+  Restrict a presentation of \(\Gamma(\mathcal G, V)\) to \(D(f)\) by
+  \ref{mk-def:presentation_basic_open}.
+\end{proof}
+
+\begin{definition}[Chart fibre rank]
+  \label{mk-def:chart_fiber_rank}
+  \dcref{custom}
+
+  \uses{mk-def:fiber_rank}
+  For an affine open chart \(V\) and a point \(x \in V\), the \emph{chart
+  fibre rank} of \(\mathcal G\) at \(x\) computed on \(V\) is the fibre rank
+  of the section module \(\Gamma(\mathcal G, V)\) at the prime
+  \(\mathfrak p_x \subseteq \Gamma(X, V)\) corresponding to \(x\).
+\end{definition}
+
+\begin{lemma}[Chart fibre rank under localization]
+  \label{mk-lem:chart_fiber_rank_basic_open}
+  \dcref{custom}
+
+  \uses{mk-def:chart_fiber_rank, mk-cor:fiber_rank_localized}
+  The chart fibre rank is unchanged by passing to a basic open of the chart:
+  for \(f \in \Gamma(X, V)\) and \(x \in D(f)\), the chart fibre rank computed
+  on \(V\) equals that computed on \(D(f)\).
+\end{lemma}
+
+\begin{proof}
+  \(\Gamma(\mathcal G, D(f))\) is the localization of
+  \(\Gamma(\mathcal G, V)\) at \(f\), and the prime of \(x\) in
+  \(\Gamma(X, D(f))\) contracts to the prime of \(x\) in \(\Gamma(X, V)\).
+  Apply \ref{mk-cor:fiber_rank_localized}.
+\end{proof}
+
+\begin{theorem}[Chart-independence of the fibre rank]
+  \label{mk-thm:chart_fiber_rank_eq}
+  \dcref{custom}
+
+  \uses{mk-def:chart_fiber_rank, mk-lem:chart_fiber_rank_basic_open}
+  Any two affine charts \(V, W\) containing a point \(x\) give the same chart
+  fibre rank of \(\mathcal G\) at \(x\).
+\end{theorem}
+
+\begin{proof}
+  Choose a basic open of \(V\) and a basic open of \(W\) that coincide as an
+  open \(D \ni x\) contained in \(V \cap W\).  By
+  \ref{mk-lem:chart_fiber_rank_basic_open} the chart fibre rank computed on
+  \(V\) and the one computed on \(W\) both equal the chart fibre rank computed
+  on \(D\), hence agree.
+\end{proof}
+
+\begin{definition}[Point rank]
+  \label{mk-def:point_rank}
+  \dcref{custom}
+
+  \uses{mk-def:chart_fiber_rank, mk-thm:chart_fiber_rank_eq}
+  The \emph{point rank} of \(\mathcal G\) at a point \(x \in X\) is the
+  dimension of the fibre of \(\mathcal G\) at \(x\), computed as the chart
+  fibre rank on any affine chart through \(x\); it is well defined by
+  \ref{mk-thm:chart_fiber_rank_eq}.
+\end{definition}
+
+\begin{lemma}[Point rank on a chart]
+  \label{mk-lem:point_rank_eq_chart_fiber_rank}
+  \dcref{custom}
+
+  \uses{mk-def:point_rank, mk-thm:chart_fiber_rank_eq}
+  For any affine chart \(V \ni x\), the point rank of \(\mathcal G\) at \(x\)
+  equals the chart fibre rank computed on \(V\).
+\end{lemma}
+
+\begin{proof}
+  Both are chart fibre ranks at \(x\); apply \ref{mk-thm:chart_fiber_rank_eq}.
+\end{proof}
+
+\subsection{The strata ideal}
+
+\begin{lemma}[Locality of entry-ideal membership]
+  \label{mk-lem:mem_entry_ideal_locally}
+  \dcref{custom}
+
+  \uses{mk-def:entry_ideal, mk-lem:entry_ideal_basic_open}
+  Let \(P = (\psi, \pi)\) be a matrix presentation of
+  \(\Gamma(\mathcal G, V)\) by \(e\) generators over an affine open \(V\), and
+  \(r \in \Gamma(X, V)\).  If every point of \(V\) has a basic open
+  \(D(g) \ni x\) on which the restriction of \(r\) lies in the entry ideal of
+  the restricted presentation \(\psi|_{D(g)}\), then \(r \in I(\psi)\).
+\end{lemma}
+
+\begin{proof}
+  Choose for each point such a \(g\); the basic opens \(D(g)\) cover \(V\), so
+  the corresponding \(g\) generate the unit ideal of \(\Gamma(X, V)\).  By
+  \ref{mk-lem:entry_ideal_basic_open}, membership of \(r|_{D(g)}\) in
+  \(I(\psi|_{D(g)}) = I(\psi) \cdot \Gamma(X, D(g))\) means a power
+  \(g^{n} r\) lies in \(I(\psi)\).  A section that, after multiplication by a
+  power of each member of a family generating the unit ideal, lands in a
+  submodule, already lies in that submodule; hence \(r \in I(\psi)\).
+\end{proof}
+
+\begin{lemma}[Chart-to-chart transfer of the entry-ideal condition]
+  \label{mk-lem:entry_ideal_chart_transfer}
+  \dcref{custom}
+
+  \uses{mk-thm:entry_ideal_presentation_independent, mk-lem:entry_ideal_basic_open}
+  Let \(r \in \Gamma(X, U)\), let \(V, W \subseteq U\) be affine opens with
+  \(e\)-generator presentations \(P_V, P_W\), and suppose the restriction of
+  \(r\) to \(W\) lies in \(I(\psi_W)\).  Then for every point
+  \(x \in V \cap W\) there is a basic open \(D(g) \subseteq V\) with
+  \(x \in D(g)\) on which the restriction of \(r\) lies in
+  \(I(\psi_V|_{D(g)})\).
+\end{lemma}
+
+\begin{proof}
+  Choose a common basic open \(D \ni x\) contained in \(V \cap W\), realised
+  as a basic open \(D(g)\) of \(V\) and a basic open \(D(f)\) of \(W\).  On
+  \(D\) both \(\psi_V|_{D(g)}\) and \(\psi_W|_{D(f)}\) present
+  \(\Gamma(\mathcal G, D)\) by \(e\) generators, so by
+  \ref{mk-thm:entry_ideal_presentation_independent} their entry ideals coincide.
+  By \ref{mk-lem:entry_ideal_basic_open} the restriction of \(r|_W\) to \(D\)
+  lies in \(I(\psi_W|_{D(f)}) = I(\psi_V|_{D(g)})\).
+\end{proof}
+
+\begin{definition}[Strata ideal]
+  \label{mk-def:strata_ideal}
+
+  \uses{mk-def:entry_ideal, mk-def:presentation_chart}
+  \dcref{custom}
+  The rank-\(e\) \emph{strata ideal} of \(\mathcal G\) on an affine open \(U\)
+  is the ideal of \(\Gamma(X, U)\)
+  \[
+    I_e(U) \;=\; \bigcap_{V \le U} \; \bigcap_{P}
+      \; \bigl(\text{restriction } \Gamma(X, U) \to \Gamma(X, V)\bigr)^{-1}
+        \bigl(I(\psi_P)\bigr),
+  \]
+  the intersection over all affine opens \(V \subseteq U\) and all matrix
+  presentations \(P = (\psi_P, \pi_P)\) of \(\Gamma(\mathcal G, V)\) by \(e\)
+  generators, of the preimages of the entry ideals under restriction.
+\end{definition}
+
+\begin{theorem}[Strata ideal on a chart is the entry ideal]
+  \label{mk-thm:strata_ideal_eq_entry_ideal}
+  \dcref{custom}
+
+  \uses{mk-def:strata_ideal, mk-lem:mem_entry_ideal_locally, mk-lem:entry_ideal_chart_transfer}
+  If \(V\) is an \(e\)-presentation chart with presentation \(P\), then the
+  strata ideal on \(V\) is the entry ideal of \(P\): \(I_e(V) = I(\psi_P)\).
+\end{theorem}
+
+\begin{proof}
+  For \(\subseteq\): the pair \((V, P)\) itself occurs in the defining
+  intersection, and restriction along \(V \le V\) is the identity, so every
+  element of \(I_e(V)\) lies in \(I(\psi_P)\).  For \(\supseteq\): let
+  \(r \in I(\psi_P)\) and let \((W, Q)\) be any presentation chart
+  \(W \subseteq V\).  By \ref{mk-lem:mem_entry_ideal_locally} it suffices to
+  show that each point of \(W\) has a basic open on which \(r|_W\) lands in the
+  entry ideal of the restricted \(Q\); this is
+  \ref{mk-lem:entry_ideal_chart_transfer} applied to the two charts \(W\) and
+  \(V\) (using \(r|_V = r \in I(\psi_P)\)).  Hence \(r|_W \in I(\psi_Q)\) for
+  every chart, i.e.\ \(r \in I_e(V)\).
+\end{proof}
+
+\begin{lemma}[Strata membership from a covering family of charts]
+  \label{mk-lem:mem_strata_ideal_of_charts}
+  \dcref{custom}
+
+  \uses{mk-def:strata_ideal, mk-lem:mem_entry_ideal_locally, mk-lem:entry_ideal_chart_transfer}
+  Let \(r \in \Gamma(X, U)\) and let \((V_i)\) be a family of affine
+  presentation charts \(V_i \subseteq U\), with presentations \(P_i\), whose
+  underlying opens cover \(U\).  If the restriction of \(r\) to each \(V_i\)
+  lies in \(I(\psi_{P_i})\), then \(r \in I_e(U)\).
+\end{lemma}
+
+\begin{proof}
+  Let \((W, Q)\) be any presentation chart \(W \subseteq U\).  By
+  \ref{mk-lem:mem_entry_ideal_locally} it suffices to check local membership at
+  each \(x \in W\); choosing an index \(i\) with \(x \in V_i\),
+  \ref{mk-lem:entry_ideal_chart_transfer} applied to \(W\) and \(V_i\) (using
+  \(r|_{V_i} \in I(\psi_{P_i})\)) supplies a basic open of \(W\) on which
+  \(r\) lands in the entry ideal of the restricted \(Q\).  Thus
+  \(r|_W \in I(\psi_Q)\) for every chart, i.e.\ \(r \in I_e(U)\).
+\end{proof}
+
+\begin{definition}[Charts-cover hypothesis]
+  \label{mk-def:charts_cover}
+  \dcref{custom}
+
+  \uses{mk-def:presentation_chart}
+  The module \(\mathcal G\) \emph{admits \(e\)-presentation charts} if every
+  point of \(X\) lies in an \(e\)-presentation chart.  This is the standing
+  hypothesis of the rank-\(e\) stratum construction; it holds on the union of
+  all \(e\)-presentation charts.
+\end{definition}
+
+\begin{lemma}[Finite chart covers]
+  \label{mk-lem:charts_cover_finite}
+  \dcref{custom}
+
+  \uses{mk-def:charts_cover, mk-lem:presentation_chart_basic_open}
+  If \(\mathcal G\) admits \(e\)-presentation charts, then every affine open
+  \(U \subseteq X\) is covered by finitely many \(e\)-presentation charts
+  contained in \(U\).
+\end{lemma}
+
+\begin{proof}
+  Each point of \(U\) lies in some \(e\)-presentation chart; refining to a
+  basic open contained in \(U\) keeps it a presentation chart
+  (\ref{mk-lem:presentation_chart_basic_open}).  These charts cover \(U\), and
+  \(U\) is quasi-compact, being affine, so finitely many of them suffice.
+\end{proof}
+
+\begin{theorem}[The strata ideal is quasi-coherent]
+  \label{mk-thm:map_strata_ideal_basic_open}
+
+  \uses{mk-def:strata_ideal, mk-lem:charts_cover_finite, mk-lem:mem_strata_ideal_of_charts,
+    mk-lem:entry_ideal_basic_open, mk-thm:strata_ideal_eq_entry_ideal}
+  \dcref{custom}
+  Suppose \(\mathcal G\) admits \(e\)-presentation charts.  For an affine open
+  \(U\) and \(f \in \Gamma(X, U)\), restriction along
+  \(\Gamma(X, U) \to \Gamma(X, D(f))\) carries the strata ideal to the strata
+  ideal: the image of \(I_e(U)\) generates \(I_e(D(f))\).  Consequently the
+  assignment \(U \mapsto I_e(U)\) is quasi-coherent.
+\end{theorem}
+
+\begin{proof}
+  For \(\subseteq\): any presentation chart \(W \subseteq D(f)\) is also a
+  chart in \(U\), so a section of \(I_e(U)\) restricts into \(I(\psi_W)\);
+  hence its restriction to \(D(f)\) lies in \(I_e(D(f))\).
+
+  For \(\supseteq\): let \(r' \in I_e(D(f))\) and write
+  \(r' = y / f^{n}\) with \(y \in \Gamma(X, U)\).  By
+  \ref{mk-lem:charts_cover_finite} choose finitely many presentation charts
+  \(V_1, \dots, V_N\) covering \(U\), with presentations \(P_i\).  On each
+  \(V_i\), the basic open \(D(f|_{V_i}) \subseteq D(f)\) is a chart, and the
+  strata condition on \(r'\) there says \(y / f^{n}\) restricts into
+  \(I(\psi_{P_i}|_{D(f|_{V_i})})\), the image ideal
+  (\ref{mk-lem:entry_ideal_basic_open}); clearing the denominator yields an
+  exponent \(m_i\) with \(f^{m_i} y|_{V_i} \in I(\psi_{P_i})\).  Setting
+  \(m = \max_i m_i\), multiplying up gives
+  \(f^{m} y|_{V_i} \in I(\psi_{P_i})\) for all \(i\), so
+  \(f^{m} y \in I_e(U)\) by \ref{mk-lem:mem_strata_ideal_of_charts}.  Therefore
+  \(r' = (f^{m} y) / f^{m + n}\) lies in the image of \(I_e(U)\) under
+  restriction.  (\ref{mk-thm:strata_ideal_eq_entry_ideal} identifies the strata
+  ideal with the entry ideal on each chart, licensing the denominator
+  clearing.)
+\end{proof}
+
+\subsection{The rank stratum}
+
+\begin{definition}[Strata ideal-sheaf datum]
+  \label{mk-def:strata_data}
+  \dcref{custom}
+
+  \uses{mk-def:strata_ideal, mk-thm:map_strata_ideal_basic_open}
+  Suppose \(\mathcal G\) admits \(e\)-presentation charts.  The rank-\(e\)
+  \emph{strata ideal-sheaf datum} on \(X\) is the assignment
+  \(U \mapsto I_e(U)\) of \ref{mk-def:strata_ideal}, which is a quasi-coherent
+  ideal sheaf by \ref{mk-thm:map_strata_ideal_basic_open}.
+\end{definition}
+
+\begin{definition}[Rank-\(e\) stratum]
+  \label{mk-def:stratum}
+
+  \uses{mk-def:strata_data}
+  \dcref{custom}
+  The rank-\(e\) \emph{stratum} of \(\mathcal G\) is the closed subscheme of
+  \(X\) cut out by the strata ideal-sheaf datum of \ref{mk-def:strata_data}.
+\end{definition}
+
+\begin{definition}[Closed immersion of the stratum]
+  \label{mk-def:stratum_immersion}
+  \dcref{custom}
+
+  \uses{mk-def:stratum}
+  The canonical morphism from the rank-\(e\) stratum to \(X\) is a closed
+  immersion.
+\end{definition}
+
+\begin{theorem}[Support of the rank-\(e\) stratum]
+  \label{mk-thm:mem_range_stratum}
+
+  \uses{mk-def:stratum_immersion, mk-thm:strata_ideal_eq_entry_ideal, mk-thm:entry_ideal_prime_iff,
+    mk-def:point_rank, mk-lem:point_rank_eq_chart_fiber_rank}
+  \dcref{custom}
+  A point \(x \in X\) lies in the image of the closed immersion of the
+  rank-\(e\) stratum if and only if the point rank of \(\mathcal G\) at \(x\)
+  equals \(e\); that is, the support of the stratum is exactly the locus where
+  the fibre of \(\mathcal G\) has dimension exactly \(e\).
+\end{theorem}
+
+\begin{proof}
+  Choose an \(e\)-presentation chart \(V \ni x\) with presentation \(P\).  The
+  image of the closed immersion is the support of the ideal sheaf, which meets
+  \(V\) in the zero locus of \(I_e(V)\); and \(I_e(V) = I(\psi_P)\) by
+  \ref{mk-thm:strata_ideal_eq_entry_ideal}.  A point of an affine open lies in
+  the zero locus of an ideal of sections iff its prime contains that ideal, so
+  \(x\) lies in the stratum iff \(I(\psi_P) \subseteq \mathfrak p_x\).  By
+  \ref{mk-thm:entry_ideal_prime_iff} this holds iff the fibre rank of
+  \(\Gamma(\mathcal G, V)\) at \(\mathfrak p_x\) --- the chart fibre rank at
+  \(x\), equal to the point rank by
+  \ref{mk-lem:point_rank_eq_chart_fiber_rank} --- equals \(e\).
+\end{proof}
+
+\section{Representability of the rank strata}
+\label{mk-sec:flatstrat_representability}
+
+The rank-\(e\) stratum of \ref{mk-sec:flatstrat_rank_stratum} is a closed
+subscheme with the correct support.  This section establishes that it also
+has the correct functor of points --- Nitsure's local universal property:
+the pullback of \(\mathcal G\) along a morphism is locally free of rank
+\(e\) exactly when the pulled-back relation matrices vanish, exactly when
+the morphism factors through the stratum --- and assembles the strata over
+the chart loci into the locally closed pieces of the flattening
+stratification of a finitely presented module on a locally noetherian
+scheme.  Throughout, ``flat over \(T\)'' for an \(\OO_T\)-module means flat
+over \(T\) via the identity morphism of \(T\), in the affine-local sense of
+\ref{mk-def:coherent_sheaf_flat}.
+
+\subsection{Pullback presentations and flatness of sections}
+
+\begin{lemma}[Finitely presented modules admit matrix presentations]
+  \label{mk-lem:exists_matrix_presentation}
+  \dcref{custom}
+
+  \uses{mk-def:matrix_presentation}
+  Every finitely presented module \(M\) over a commutative ring \(R\) admits
+  a matrix presentation: there are natural numbers \(e, m\) and a matrix
+  presentation of \(M\) by \(e\) generators and \(m\) relations.
+\end{lemma}
+
+\begin{proof}
+  By finite presentation there is a surjection \(\pi : R^{\oplus e} \to M\)
+  whose kernel \(K\) is finitely generated; choose generators
+  \(t_1, \dots, t_m\) of \(K \subseteq R^{\oplus e}\) and let \(\psi\) be
+  the \(e \times m\) matrix with columns \(t_j\).  The image of
+  \(\psi : R^{\oplus m} \to R^{\oplus e}\) is the submodule generated by
+  the columns, namely \(K = \ker \pi\), so
+  \(R^{\oplus m} \xrightarrow{\psi} R^{\oplus e} \xrightarrow{\pi} M \to 0\)
+  is exact.
+\end{proof}
+
+\begin{lemma}[Pullback of a presentation to section modules]
+  \label{mk-lem:presentation_pullback_sections}
+
+  \uses{mk-def:matrix_presentation}
+  \dcref{custom}
+  Let \(g : Y \to X\) be a morphism of schemes, \(\mathcal G\) a
+  quasi-coherent \(\OO_X\)-module, \(V \subseteq X\) an affine open,
+  \(W \subseteq g^{-1}(V)\) an affine open, and \(P = (\psi, \pi)\) a matrix
+  presentation of \(\Gamma(\mathcal G, V)\) by \(e\) generators and \(m\)
+  relations over \(\Gamma(X, V)\).  Then \(\Gamma(g^*\mathcal G, W)\) admits
+  a matrix presentation by \(e\) generators and \(m\) relations over
+  \(\Gamma(Y, W)\) whose relation matrix is the entrywise image
+  \(g^\sharp(\psi)\) of \(\psi\) under the induced ring map
+  \(g^\sharp : \Gamma(X, V) \to \Gamma(Y, W)\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-def:pullback_app_isoTensor_sigma, mk-def:matrix_presentation_base_change}
+  For the affine pair \((V, W)\) the sections of the pullback module satisfy
+  the base-change formula
+  \(\Gamma(g^*\mathcal G, W) \cong
+    \Gamma(Y, W) \otimes_{\Gamma(X, V)} \Gamma(\mathcal G, V)\)
+  as \(\Gamma(Y, W)\)-modules (\ref{mk-def:pullback_app_isoTensor_sigma}).
+  Base change of \(P\) along \(g^\sharp\)
+  (\ref{mk-def:matrix_presentation_base_change}) is a matrix presentation of
+  the right-hand side --- the pulled-back sequence stays exact by
+  right-exactness of the tensor product --- with relation matrix
+  \(g^\sharp(\psi)\), and transporting it along the base-change isomorphism
+  changes neither the generator count nor the relation matrix.
+\end{proof}
+
+\begin{lemma}[Flat sections from flatness over the identity]
+  \label{mk-lem:flat_sections_of_sheaf_flat}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat}
+  Let \(\mathcal G\) be an \(\OO_T\)-module that is flat over \(T\).  Then
+  for every affine open \(W \subseteq T\) the section module
+  \(\Gamma(\mathcal G, W)\) is flat over \(\Gamma(T, W)\).
+\end{lemma}
+
+\begin{proof}
+  Specialize the affine-local form of flatness over the identity to the pair
+  of affine opens \(U := W\) and \(W \subseteq \mathrm{id}^{-1}(U) = U\):
+  the module \(\Gamma(\mathcal G, W)\) is flat over \(\Gamma(T, W)\) acting
+  through the ring map on sections induced by the identity morphism, which
+  is the identity of \(\Gamma(T, W)\), so the action is the canonical one.
+\end{proof}
+
+\begin{lemma}[Flatness over the identity from an affine cover]
+  \label{mk-lem:sheaf_flat_of_flat_charts}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat}
+  Let \(\mathcal G\) be a quasi-coherent \(\OO_T\)-module and \((W_j)_j\) an
+  affine open cover of \(T\) such that each \(\Gamma(\mathcal G, W_j)\) is
+  flat over \(\Gamma(T, W_j)\).  Then \(\mathcal G\) is flat over \(T\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:flat_affine_local}
+  Apply the affine-locality of flatness over the base
+  (\ref{mk-lem:flat_affine_local}) to the identity morphism of \(T\) with the
+  charts \(U_j := W_j\), \(W_j \subseteq \mathrm{id}^{-1}(U_j)\): flatness
+  of the section modules on the covering charts gives flatness of
+  \(\Gamma(\mathcal G, W)\) over \(\Gamma(T, U)\) for every pair of affine
+  opens \(W \subseteq U\), which is flatness over the identity.
+\end{proof}
+
+\begin{lemma}[Flatness over the base is stable under pullback]
+  \label{mk-lem:sheaf_flat_pullback}
+  \dcref{custom}
+
+  \uses{mk-def:coherent_sheaf_flat, mk-lem:pullback_isQuasicoherent_hom}
+  Let \(\mathcal G\) be a quasi-coherent \(\OO_T\)-module flat over \(T\),
+  and \(g : T' \to T\) a morphism of schemes.  Then \(g^*\mathcal G\) is
+  flat over \(T'\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:flat_sections_of_sheaf_flat, mk-def:pullback_app_isoTensor_sigma,
+    mk-lem:sheaf_flat_of_flat_charts}
+  Cover \(T'\) by affine opens \(W\), each contained in the preimage of some
+  affine open \(V \subseteq T\).  For such a pair the section module
+  \(\Gamma(g^*\mathcal G, W) \cong
+    \Gamma(T', W) \otimes_{\Gamma(T, V)} \Gamma(\mathcal G, V)\)
+  (\ref{mk-def:pullback_app_isoTensor_sigma}) is a base change of the flat
+  module \(\Gamma(\mathcal G, V)\) (\ref{mk-lem:flat_sections_of_sheaf_flat}),
+  hence flat over \(\Gamma(T', W)\).  The pullback \(g^*\mathcal G\) is
+  quasi-coherent, so \ref{mk-lem:sheaf_flat_of_flat_charts} upgrades the cover
+  of flat section modules to flatness over \(T'\).
+\end{proof}
+
+\subsection{The rank dictionary}
+
+\begin{theorem}[Stalk rank of an affine section module]
+  \label{mk-thm:stalk_rank_eq_point_rank}
+  \dcref{custom}
+
+  \uses{mk-def:point_rank}
+  Let \(\mathcal G\) be a quasi-coherent \(\OO_T\)-module and
+  \(W \subseteq T\) an affine open such that \(M := \Gamma(\mathcal G, W)\)
+  is flat and finite over \(R := \Gamma(T, W)\).  Let \(\mathfrak p\) be a
+  prime of \(R\) and \(x \in W\) the corresponding point under the canonical
+  identification of \(W\) with the prime spectrum of \(R\).  Then the
+  localization \(M_{\mathfrak p}\) is a free \(R_{\mathfrak p}\)-module
+  whose rank equals the point rank of \(\mathcal G\) at \(x\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-def:fiber_rank, mk-def:chart_fiber_rank,
+    mk-lem:point_rank_eq_chart_fiber_rank}
+  \(M_{\mathfrak p}\) is finite and flat over the local ring
+  \(R_{\mathfrak p}\), hence free of some rank \(r\) (a finitely generated
+  flat module over a local ring is free).  Reducing modulo the maximal
+  ideal,
+  \(M \otimes_R \kappa(\mathfrak p)
+    \cong M_{\mathfrak p} \otimes_{R_{\mathfrak p}} \kappa(\mathfrak p)\)
+  has dimension \(r\) over \(\kappa(\mathfrak p)\), so \(r\) is the fiber
+  rank of \(M\) at \(\mathfrak p\) (\ref{mk-def:fiber_rank}).  The prime of
+  \(R\) attached to the point \(x\) is \(\mathfrak p\) itself, so this fiber
+  rank is the chart fibre rank of \(\mathcal G\) at \(x\) computed on \(W\)
+  (\ref{mk-def:chart_fiber_rank}), which equals the point rank by
+  \ref{mk-lem:point_rank_eq_chart_fiber_rank}.
+\end{proof}
+
+\begin{theorem}[Point rank of a pullback]
+  \label{mk-thm:point_rank_pullback}
+  \dcref{custom}
+
+  \uses{mk-def:point_rank, mk-lem:pullback_isQuasicoherent_hom}
+  Let \(g : Y \to X\) be a morphism of schemes and \(\mathcal G\) a
+  quasi-coherent \(\OO_X\)-module.  For every \(y \in Y\), the point rank of
+  \(g^*\mathcal G\) at \(y\) equals the point rank of \(\mathcal G\) at
+  \(g(y)\).  No flatness or finiteness hypotheses are needed.
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-def:pullback_app_isoTensor_sigma, mk-thm:fiber_rank_base_change,
+    mk-lem:fiber_rank_congr, mk-lem:point_rank_eq_chart_fiber_rank}
+  Choose an affine open \(V \ni g(y)\) and an affine open \(W \ni y\) with
+  \(W \subseteq g^{-1}(V)\).  By the base-change formula for sections
+  (\ref{mk-def:pullback_app_isoTensor_sigma}),
+  \(\Gamma(g^*\mathcal G, W) \cong
+    \Gamma(Y, W) \otimes_{\Gamma(X, V)} \Gamma(\mathcal G, V)\).  The prime
+  \(\mathfrak q \subseteq \Gamma(Y, W)\) of \(y\) contracts along the
+  induced ring map to the prime \(\mathfrak p \subseteq \Gamma(X, V)\) of
+  \(g(y)\).  By \ref{mk-lem:fiber_rank_congr} and base-change invariance of
+  the fiber rank (\ref{mk-thm:fiber_rank_base_change}), the fiber rank of
+  \(\Gamma(g^*\mathcal G, W)\) at \(\mathfrak q\) equals the fiber rank of
+  \(\Gamma(\mathcal G, V)\) at \(\mathfrak p\).  These are the chart fibre
+  ranks of \(g^*\mathcal G\) at \(y\) on \(W\) and of \(\mathcal G\) at
+  \(g(y)\) on \(V\), i.e.\ the two point ranks
+  (\ref{mk-lem:point_rank_eq_chart_fiber_rank}).
+\end{proof}
+
+\subsection{Factorization through the stratum}
+
+\begin{theorem}[The strata ideal dies under a flat constant-rank pullback]
+  \label{mk-thm:strata_ideal_le_ker}
+
+  \uses{mk-def:strata_data, mk-def:charts_cover, mk-def:coherent_sheaf_flat,
+    mk-def:point_rank, mk-lem:pullback_isQuasicoherent_hom}
+  \dcref{custom}
+  Let \(\mathcal G\) be a quasi-coherent \(\OO_X\)-module admitting
+  \(e\)-presentation charts, and let \(q : T \to X\) be a morphism such that
+  \(q^*\mathcal G\) is flat over \(T\) and has point rank \(e\) at every
+  point of \(T\).  Then the strata ideal sheaf is contained in the kernel of
+  \(q\): for every affine open \(U \subseteq X\), every \(r \in I_e(U)\)
+  pulls back to \(0 \in \Gamma(T, q^{-1}(U))\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:charts_cover_finite, mk-lem:presentation_pullback_sections,
+    mk-lem:flat_sections_of_sheaf_flat, mk-thm:stalk_rank_eq_point_rank,
+    mk-thm:entry_ideal_flat_vanish, mk-lem:entry_ideal_vanish, mk-def:strata_ideal,
+    mk-lem:appLE_base_res_apply}
+  A section of a sheaf vanishes if it vanishes on a cover, so it suffices to
+  find, around each point \(t \in q^{-1}(U)\), an open on which
+  \(q^\sharp(r)\) restricts to \(0\).  Choose finitely many
+  \(e\)-presentation charts \(V_1, \dots, V_N \subseteq U\) covering \(U\),
+  with presentations \(P_i = (\psi_i, \pi_i)\)
+  (\ref{mk-lem:charts_cover_finite}).  Given \(t\), pick \(i\) with
+  \(q(t) \in V_i\), and an affine open \(W \ni t\) with
+  \(W \subseteq q^{-1}(V_i)\).
+
+  By \ref{mk-lem:presentation_pullback_sections} the module
+  \(\Gamma(q^*\mathcal G, W)\) has a matrix presentation by \(e\) generators
+  with relation matrix \(q^\sharp(\psi_i)\); in particular it is finite over
+  \(\Gamma(T, W)\), and it is flat by
+  \ref{mk-lem:flat_sections_of_sheaf_flat}.  At every prime of
+  \(\Gamma(T, W)\) its localization is free of rank equal to the point rank
+  of \(q^*\mathcal G\) at the corresponding point
+  (\ref{mk-thm:stalk_rank_eq_point_rank}), which is \(e\) by hypothesis.  By
+  \ref{mk-thm:entry_ideal_flat_vanish} the relation matrix vanishes:
+  \(q^\sharp(\psi_i) = 0\).  Hence the entry ideal \(I(\psi_i)\) is
+  contained in the kernel of
+  \(q^\sharp : \Gamma(X, V_i) \to \Gamma(T, W)\)
+  (\ref{mk-lem:entry_ideal_vanish}).  The strata-ideal condition
+  (\ref{mk-def:strata_ideal}) gives \(r|_{V_i} \in I(\psi_i)\), and the maps
+  induced by \(q\) on sections commute with restriction
+  (\ref{mk-lem:appLE_base_res_apply}), so
+  \(q^\sharp(r)|_W = q^\sharp(r|_{V_i}) = 0\), as required.
+\end{proof}
+
+\begin{theorem}[Unique factorization through the rank-\(e\) stratum]
+  \label{mk-thm:stratum_lift_unique}
+
+  \uses{mk-def:stratum, mk-def:stratum_immersion, mk-def:charts_cover,
+    mk-def:coherent_sheaf_flat, mk-def:point_rank, mk-lem:pullback_isQuasicoherent_hom}
+  \dcref{custom}
+  Let \(\mathcal G\) be a quasi-coherent \(\OO_X\)-module admitting
+  \(e\)-presentation charts, and let \(q : T \to X\) be a morphism such that
+  \(q^*\mathcal G\) is flat over \(T\) and has point rank \(e\) at every
+  point of \(T\).  Then \(q\) factors uniquely through the closed immersion
+  of the rank-\(e\) stratum \(Z_e \hookrightarrow X\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-thm:strata_ideal_le_ker, mk-def:strata_data}
+  The stratum \(Z_e\) is the closed subscheme cut out by the strata
+  ideal-sheaf datum (\ref{mk-def:strata_data}), and the kernel of its
+  immersion is exactly that ideal sheaf.  A morphism into \(X\) factors
+  through the closed subscheme cut out by a quasi-coherent ideal sheaf if
+  and only if that ideal sheaf is contained in the kernel of the morphism,
+  and then the factorization is unique because a closed immersion is a
+  monomorphism.  By \ref{mk-thm:strata_ideal_le_ker} the strata ideal sheaf is
+  contained in the kernel of \(q\).
+\end{proof}
+
+\begin{theorem}[The rank-\(e\) stratum flattens \(\mathcal G\)]
+  \label{mk-thm:stratum_flattens}
+
+  \uses{mk-def:stratum, mk-def:stratum_immersion, mk-def:charts_cover,
+    mk-def:coherent_sheaf_flat, mk-lem:pullback_isQuasicoherent_hom}
+  \dcref{custom}
+  Let \(\mathcal G\) be a quasi-coherent \(\OO_X\)-module admitting
+  \(e\)-presentation charts, and \(\iota : Z_e \to X\) the closed immersion
+  of the rank-\(e\) stratum.  Then \(\iota^*\mathcal G\) is flat over
+  \(Z_e\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:presentation_pullback_sections, mk-thm:strata_ideal_eq_entry_ideal,
+    mk-def:entry_ideal, mk-lem:presentation_free_of_vanish,
+    mk-lem:sheaf_flat_of_flat_charts, mk-def:strata_data}
+  The preimages \(\iota^{-1}(V)\) of the \(e\)-presentation charts \(V\)
+  form an affine open cover of \(Z_e\) (a closed immersion is an affine
+  morphism, and the charts cover \(X\)).  Fix a chart \(V\) with
+  presentation \(P = (\psi, \pi)\).  By
+  \ref{mk-lem:presentation_pullback_sections} the section module
+  \(\Gamma(\iota^*\mathcal G, \iota^{-1}(V))\) has a matrix presentation
+  with relation matrix \(\iota^\sharp(\psi)\).  Every entry of \(\psi\) lies
+  in the entry ideal \(I(\psi)\) (\ref{mk-def:entry_ideal}), which equals the
+  strata ideal \(I_e(V)\) (\ref{mk-thm:strata_ideal_eq_entry_ideal}); and the
+  kernel of \(\iota^\sharp : \Gamma(X, V) \to \Gamma(Z_e, \iota^{-1}(V))\)
+  is exactly \(I_e(V)\), the ideal cutting out the subscheme.  Hence
+  \(\iota^\sharp(\psi) = 0\), so the section module is free
+  (\ref{mk-lem:presentation_free_of_vanish}), in particular flat, over
+  \(\Gamma(Z_e, \iota^{-1}(V))\).  Conclude by
+  \ref{mk-lem:sheaf_flat_of_flat_charts}.
+\end{proof}
+
+\subsection{The chart locus}
+
+\begin{theorem}[Chart supply on a locally noetherian scheme]
+  \label{mk-thm:presentation_chart_exists}
+
+  \uses{mk-def:presentation_chart, mk-def:point_rank}
+  \dcref{custom}
+  Let \(S\) be a locally noetherian scheme and \(\F\) a finitely presented
+  \(\OO_S\)-module.  Every point \(s \in S\) lies in an \(e\)-presentation
+  chart for \(\F\) with \(e\) the point rank of \(\F\) at \(s\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:affine_finite_sections_nhds, mk-thm:nakayama_prolongation,
+    mk-lem:point_rank_eq_chart_fiber_rank}
+  Choose an affine open \(V \ni s\) on which \(M := \Gamma(\F, V)\) is a
+  finite module over \(R := \Gamma(S, V)\)
+  (\ref{mk-lem:affine_finite_sections_nhds}).  Since \(S\) is locally
+  noetherian, \(R\) is a noetherian ring, so the finite module \(M\) is
+  finitely presented.  Let \(\mathfrak p\) be the prime of \(s\) in \(R\)
+  and \(e\) the fiber rank of \(M\) at \(\mathfrak p\); by
+  \ref{mk-lem:point_rank_eq_chart_fiber_rank}, \(e\) is the point rank of
+  \(\F\) at \(s\).  The Nakayama prolongation
+  (\ref{mk-thm:nakayama_prolongation}) supplies \(g \notin \mathfrak p\) such
+  that every localization of \(M\) away from \(g\) admits a matrix
+  presentation by \(e\) generators; by quasi-coherence
+  \(\Gamma(\F, D(g))\) is such a localization, so the basic open
+  \(D(g) \subseteq V\) is an \(e\)-presentation chart, and it contains
+  \(s\) because \(g \notin \mathfrak p\).
+\end{proof}
+
+\begin{definition}[Chart locus]
+  \label{mk-def:chart_locus}
+
+  \uses{mk-def:presentation_chart}
+  \dcref{custom}
+  The \emph{\(e\)-chart locus} \(W_e \subseteq S\) of an \(\OO_S\)-module
+  \(\F\) is the union of all \(e\)-presentation charts for \(\F\); it is an
+  open subset of \(S\).
+\end{definition}
+
+\begin{lemma}[The chart locus contains the rank-\(e\) locus]
+  \label{mk-lem:chart_locus_contains_rank_locus}
+  \dcref{custom}
+
+  \uses{mk-def:chart_locus, mk-def:point_rank}
+  Let \(S\) be locally noetherian and \(\F\) finitely presented.  Every
+  point of point rank \(e\) lies in \(W_e\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-thm:presentation_chart_exists}
+  \ref{mk-thm:presentation_chart_exists} puts such a point inside an
+  \(e\)-presentation chart.
+\end{proof}
+
+\begin{lemma}[Rank bound on the chart locus]
+  \label{mk-lem:chart_locus_rank_bound}
+  \dcref{custom}
+
+  \uses{mk-def:chart_locus, mk-def:point_rank}
+  Let \(\F\) be a quasi-coherent \(\OO_S\)-module.  Every point of \(W_e\)
+  has point rank at most \(e\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-def:presentation_chart, mk-def:fiber_rank,
+    mk-lem:point_rank_eq_chart_fiber_rank}
+  A point \(s \in W_e\) lies in some \(e\)-presentation chart \(V\), so
+  \(\Gamma(\F, V)\) is generated by \(e\) elements.  Its fiber
+  \(\kappa(\mathfrak p_s) \otimes \Gamma(\F, V)\) at the prime of \(s\) is
+  then spanned by \(e\) vectors, so the fiber rank at \(\mathfrak p_s\)
+  (\ref{mk-def:fiber_rank}) --- the point rank of \(\F\) at \(s\), by
+  \ref{mk-lem:point_rank_eq_chart_fiber_rank} --- is at most \(e\).
+\end{proof}
+
+\begin{lemma}[The restricted module is chart-covered]
+  \label{mk-lem:charts_cover_chart_locus}
+  \dcref{custom}
+
+  \uses{mk-def:chart_locus, mk-def:charts_cover, mk-lem:pullback_isQuasicoherent_hom}
+  Let \(\F\) be a quasi-coherent \(\OO_S\)-module.  The restriction of
+  \(\F\) to the open subscheme \(W_e\) --- its pullback along the open
+  immersion \(W_e \hookrightarrow S\) --- admits \(e\)-presentation charts.
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:presentation_pullback_sections, mk-def:presentation_chart}
+  Every point of \(W_e\) lies in some \(e\)-presentation chart
+  \(V \subseteq W_e\).  The preimage of \(V\) in the open subscheme is an
+  affine open mapped isomorphically onto \(V\), and by
+  \ref{mk-lem:presentation_pullback_sections} the section module of the
+  restricted sheaf over it inherits a matrix presentation by \(e\)
+  generators.
+\end{proof}
+
+\subsection{The rank stratum over the chart locus}
+
+\begin{definition}[Rank-\(e\) stratum over the base]
+  \label{mk-def:rank_stratum}
+
+  \uses{mk-def:stratum, mk-def:chart_locus, mk-lem:charts_cover_chart_locus}
+  \dcref{custom}
+  The \emph{rank-\(e\) stratum} \(S_e\) of a quasi-coherent
+  \(\OO_S\)-module \(\F\) is the rank-\(e\) stratum (\ref{mk-def:stratum}) of
+  the restriction of \(\F\) to the \(e\)-chart locus \(W_e\), which admits
+  \(e\)-presentation charts by \ref{mk-lem:charts_cover_chart_locus}: a
+  closed subscheme of the open subscheme \(W_e\), hence a locally closed
+  subscheme of \(S\).
+\end{definition}
+
+\begin{definition}[Immersion of the rank-\(e\) stratum]
+  \label{mk-def:rank_stratum_immersion}
+
+  \uses{mk-def:rank_stratum, mk-def:stratum_immersion, mk-def:chart_locus}
+  \dcref{custom}
+  The canonical morphism \(\iota_e : S_e \to S\) is the composite of the
+  closed immersion \(S_e \hookrightarrow W_e\)
+  (\ref{mk-def:stratum_immersion}) with the open immersion
+  \(W_e \hookrightarrow S\); it is an immersion.
+\end{definition}
+
+\begin{theorem}[Support of the rank-\(e\) stratum over the base]
+  \label{mk-thm:mem_range_rank_stratum}
+
+  \uses{mk-def:rank_stratum_immersion, mk-def:point_rank}
+  \dcref{custom}
+  Let \(S\) be locally noetherian and \(\F\) finitely presented.  A point
+  \(s \in S\) lies in the image of \(\iota_e : S_e \to S\) if and only if
+  the point rank of \(\F\) at \(s\) equals \(e\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-thm:mem_range_stratum, mk-thm:point_rank_pullback,
+    mk-lem:chart_locus_contains_rank_locus}
+  Write \(\F' := \F|_{W_e}\) for the restriction to the chart locus; by
+  \ref{mk-thm:point_rank_pullback} (applied to the open immersion) the point
+  rank of \(\F'\) at a point of \(W_e\) equals the point rank of \(\F\) at
+  its image in \(S\).
+
+  If \(s = \iota_e(z)\), then \(s \in W_e\) and \(s\), viewed in \(W_e\),
+  lies in the support of the stratum of \(\F'\), so the point rank of
+  \(\F'\) there is \(e\) (\ref{mk-thm:mem_range_stratum}); hence the point
+  rank of \(\F\) at \(s\) is \(e\).  Conversely, if the point rank of
+  \(\F\) at \(s\) is \(e\), then \(s \in W_e\)
+  (\ref{mk-lem:chart_locus_contains_rank_locus}); the point rank of \(\F'\)
+  at \(s\) is \(e\), so \(s\) lies in the support of the stratum
+  (\ref{mk-thm:mem_range_stratum}), i.e.\ in the image of \(\iota_e\).
+\end{proof}
+
+\begin{theorem}[The rank-\(e\) stratum flattens \(\F\)]
+  \label{mk-thm:rank_stratum_flattens}
+
+  \uses{mk-def:rank_stratum, mk-def:rank_stratum_immersion,
+    mk-def:coherent_sheaf_flat}
+  \dcref{custom}
+  Let \(\F\) be a quasi-coherent \(\OO_S\)-module.  The pullback
+  \(\iota_e^*\F\) is flat over \(S_e\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-thm:stratum_flattens, mk-lem:charts_cover_chart_locus}
+  Since \(\iota_e\) is the composite of the closed immersion
+  \(\iota : S_e \to W_e\) with the open immersion \(W_e \to S\), pullback
+  functoriality gives \(\iota_e^*\F \cong \iota^*(\F|_{W_e})\).  The
+  restriction \(\F|_{W_e}\) admits \(e\)-presentation charts
+  (\ref{mk-lem:charts_cover_chart_locus}), so \(\iota^*(\F|_{W_e})\) is flat
+  over \(S_e\) by \ref{mk-thm:stratum_flattens}; flatness is invariant under
+  isomorphism of modules.
+\end{proof}
+
+\subsection{Rank bound, open rank fibers, and the single-stratum
+  factorization}
+
+\begin{lemma}[The point rank is bounded on a noetherian scheme]
+  \label{mk-lem:point_rank_bounded}
+
+  \uses{mk-def:point_rank}
+  \dcref{custom}
+  Let \(S\) be a noetherian scheme and \(\F\) a finitely presented
+  \(\OO_S\)-module.  There is an \(N\) such that the point rank of \(\F\)
+  is at most \(N\) at every point of \(S\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-thm:presentation_chart_exists, mk-def:chart_locus,
+    mk-lem:chart_locus_rank_bound}
+  For each \(s \in S\) choose an \(e(s)\)-presentation chart \(V_s \ni s\)
+  with \(e(s)\) the point rank at \(s\)
+  (\ref{mk-thm:presentation_chart_exists}).  The noetherian space \(S\) is
+  quasi-compact, so finitely many charts \(V_{s_1}, \dots, V_{s_k}\) cover
+  \(S\); set \(N := \max_i e(s_i)\).  Any \(x \in S\) lies in some
+  \(V_{s_i}\), hence in the \(e(s_i)\)-chart locus, so its point rank is at
+  most \(e(s_i) \le N\) (\ref{mk-lem:chart_locus_rank_bound}).
+\end{proof}
+
+\begin{theorem}[Openness of the rank fibers of a flat pullback]
+  \label{mk-thm:rank_fibers_open}
+  \dcref{custom}
+
+  \uses{mk-def:point_rank, mk-def:coherent_sheaf_flat,
+    mk-lem:pullback_isQuasicoherent_hom}
+  Let \(S\) be locally noetherian, \(\F\) a finitely presented
+  \(\OO_S\)-module, and \(\varphi : T \to S\) a morphism with
+  \(\varphi^*\F\) flat over \(T\).  For every \(e\), the locus of points of
+  \(T\) at which the point rank of \(\varphi^*\F\) equals \(e\) is open in
+  \(T\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:affine_finite_sections_nhds, mk-lem:exists_matrix_presentation,
+    mk-lem:presentation_pullback_sections, mk-lem:matrix_presentation_fp,
+    mk-lem:flat_sections_of_sheaf_flat, mk-thm:stalk_rank_eq_point_rank}
+  Let \(t_0\) be a point of the locus.  Choose an affine open
+  \(V \ni \varphi(t_0)\) on which \(\Gamma(\F, V)\) is finite over the
+  noetherian ring \(\Gamma(S, V)\)
+  (\ref{mk-lem:affine_finite_sections_nhds}), hence finitely presented, and
+  an affine open \(W \ni t_0\) with \(W \subseteq \varphi^{-1}(V)\).  Set
+  \(M := \Gamma(\varphi^*\F, W)\) and \(R := \Gamma(T, W)\).  Then \(M\) is
+  flat over \(R\) (\ref{mk-lem:flat_sections_of_sheaf_flat}) and finitely
+  presented: a matrix presentation of \(\Gamma(\F, V)\)
+  (\ref{mk-lem:exists_matrix_presentation}) pulls back to a matrix
+  presentation of \(M\) (\ref{mk-lem:presentation_pullback_sections}), and a
+  module with a matrix presentation is finitely presented
+  (\ref{mk-lem:matrix_presentation_fp}).
+
+  A flat, finitely presented module is locally free, so the function
+  \(\mathfrak p \mapsto \operatorname{rk} M_{\mathfrak p}\) is locally
+  constant on the prime spectrum of \(R\).  Under the canonical
+  identification of \(W\) with that spectrum, this function is the point
+  rank of \(\varphi^*\F\) (\ref{mk-thm:stalk_rank_eq_point_rank}).  Hence the
+  set of points of \(W\) of point rank \(e\) is open in \(W\) and contains
+  \(t_0\); as \(W\) is open in \(T\), the locus is a neighbourhood of each
+  of its points.
+\end{proof}
+
+\begin{theorem}[Unique factorization through the rank-\(e\) stratum of the
+  base]
+  \label{mk-thm:factor_rank_stratum_unique}
+
+  \uses{mk-def:rank_stratum, mk-def:rank_stratum_immersion,
+    mk-def:coherent_sheaf_flat, mk-def:point_rank}
+  \dcref{custom}
+  Let \(S\) be locally noetherian, \(\F\) a finitely presented
+  \(\OO_S\)-module, and \(\varphi : T \to S\) a morphism such that
+  \(\varphi^*\F\) is flat over \(T\) and the point rank of \(\F\) at
+  \(\varphi(t)\) equals \(e\) for every \(t \in T\).  Then \(\varphi\)
+  factors uniquely through \(\iota_e : S_e \to S\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:chart_locus_contains_rank_locus, mk-thm:point_rank_pullback,
+    mk-lem:charts_cover_chart_locus, mk-thm:stratum_lift_unique}
+  Every \(\varphi(t)\) has point rank \(e\), hence lies in the chart locus
+  \(W_e\) (\ref{mk-lem:chart_locus_contains_rank_locus}), so \(\varphi\)
+  factors through the open immersion \(W_e \hookrightarrow S\) as
+  \(\varphi = (W_e \hookrightarrow S) \circ q\) with \(q : T \to W_e\).
+  Write \(\F' := \F|_{W_e}\); it admits \(e\)-presentation charts
+  (\ref{mk-lem:charts_cover_chart_locus}).  By functoriality of pullback,
+  \(q^*\F' \cong \varphi^*\F\) is flat over \(T\), and by
+  \ref{mk-thm:point_rank_pullback} (applied twice, to \(q\) and to the open
+  immersion) its point rank at \(t\) equals the point rank of \(\F\) at
+  \(\varphi(t)\), namely \(e\).  Now \ref{mk-thm:stratum_lift_unique} gives a
+  unique \(l : T \to S_e\) with \(\iota \circ l = q\) for the closed
+  immersion \(\iota : S_e \to W_e\); composing,
+  \(\iota_e \circ l = \varphi\).
+
+  For uniqueness, let \(l' : T \to S_e\) satisfy
+  \(\iota_e \circ l' = \varphi\).  Then \(\iota \circ l'\) and \(q\) are two
+  factorizations of \(\varphi\) through the open immersion
+  \(W_e \hookrightarrow S\), which is a monomorphism, so
+  \(\iota \circ l' = q\); by the uniqueness in
+  \ref{mk-thm:stratum_lift_unique}, \(l' = l\).
+\end{proof}
+
+\section{Universal property of the strata}
+\label{mk-sec:flatstrat_universal}
+
+\begin{theorem}[Universal property of the flat-locus stratification (case
+  \(n = 0\))]
+  \label{mk-thm:flattening_stratification_universal}
+
+  \uses{mk-def:coherent_sheaf_flat}
+  \dcref{custom}
+  Let \(S\) be a noetherian scheme and \(\F\) a coherent \(\OO_S\)-module.
+  Then there exist a finite index set \(I\) and locally-closed immersions
+  \(\iota_f : S_f \to S\) (\(f \in I\)) with pairwise disjoint images
+  set-theoretically covering \(|S|\), such that the pullback of \(\F\)
+  along \(\iota_f\) is flat over \(S_f\) for every \(f\) (in the sense of
+  \ref{mk-def:coherent_sheaf_flat}), and such that, writing
+  \(S' := \coprod_{f \in I} S_f\) and \(i : S' \to S\) for the morphism
+  assembled from the \(\iota_f\), the pair \((S', i)\) has the universal
+  property: every morphism \(\varphi : T \to S\) for which
+  \(\varphi^* \F\) is flat over \(T\) factors \emph{uniquely} through
+  \(i\).
+
+  For a finitely presented module, flatness is locally equivalent to local
+  freeness, and the rank decomposes \(T\) into clopen pieces.  Conversely,
+  every morphism factoring through \(i\) has flat pullback by stability of
+  flatness under base change (\ref{mk-lem:sheaf_flat_pullback}).  For a relative
+  projective family, the analogous universal property additionally uses the
+  cohomology-and-base-change layer of
+  \ref{mk-lem:noetherian_induction_strata}.  Reduced strata alone do not give
+  such a universal property for an arbitrary proper family: over
+  \(S = \Spec k[\varepsilon]\) with the flat module \(\F = \OO_S\), the
+  identity must factor through the flattening stratum, which forces its
+  canonical non-reduced scheme structure.
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:point_rank_bounded, mk-def:rank_stratum, mk-def:rank_stratum_immersion,
+    mk-thm:mem_range_rank_stratum, mk-thm:rank_stratum_flattens,
+    mk-lem:sheaf_flat_pullback, mk-thm:rank_fibers_open, mk-thm:point_rank_pullback,
+    mk-thm:factor_rank_stratum_unique, mk-def:point_rank}
+  \textbf{The strata.}  By \ref{mk-lem:point_rank_bounded} there is an \(N\)
+  bounding the point rank of \(\F\) on \(S\).  Take
+  \(I := \{0, 1, \dots, N\}\) and, for \(e \in I\), the rank-\(e\) stratum
+  \(\iota_e : S_e \to S\)
+  (\ref{mk-def:rank_stratum} and \ref{mk-def:rank_stratum_immersion}); each \(\iota_e\) is
+  an immersion.  By \ref{mk-thm:mem_range_rank_stratum} the image of
+  \(\iota_e\) is exactly the locus of point rank \(e\); every point of
+  \(S\) has a point rank, which is at most \(N\), so the images cover
+  \(|S|\), and they are pairwise disjoint because the point rank is a
+  single natural number.  Flatness of \(\iota_e^*\F\) over \(S_e\) is
+  \ref{mk-thm:rank_stratum_flattens}.
+
+  \textbf{Factorization.}  Let \(\varphi : T \to S\) have \(\varphi^*\F\)
+  flat over \(T\).  For \(e \in I\) let \(T_e \subseteq T\) be the locus
+  where the point rank of \(\varphi^*\F\) equals \(e\).  By
+  \ref{mk-thm:point_rank_pullback} the point rank of \(\varphi^*\F\) at \(t\)
+  is the point rank of \(\F\) at \(\varphi(t)\), hence at most \(N\); so
+  the \(T_e\) cover \(T\), they are pairwise disjoint, and each is open by
+  \ref{mk-thm:rank_fibers_open}.  Thus \(T\) is the disjoint union of the
+  open subschemes \(T_e\), and a morphism out of \(T\) is the same as a
+  family of morphisms out of the \(T_e\).
+
+  On a piece, the composite
+  \(T_e \hookrightarrow T \xrightarrow{\varphi} S\) has flat pullback of
+  \(\F\) --- it is the restriction of \(\varphi^*\F\) to the open subscheme
+  \(T_e\), flat by \ref{mk-lem:sheaf_flat_pullback} --- and, by
+  \ref{mk-thm:point_rank_pullback} again, the point rank of \(\F\) at the
+  image of any \(t \in T_e\) is \(e\).  By
+  \ref{mk-thm:factor_rank_stratum_unique} there is a unique
+  \(l_e : T_e \to S_e\) with \(\iota_e \circ l_e = \varphi|_{T_e}\).
+  Define \(\psi : T \to \coprod_{f \in I} S_f\) on \(T_e\) as \(l_e\)
+  followed by the coprojection of \(S_e\); then \(i \circ \psi = \varphi\),
+  because this holds on each piece of the cover.
+
+  \textbf{Uniqueness.}  Let \(\psi' : T \to \coprod_f S_f\) also satisfy
+  \(i \circ \psi' = \varphi\).  Fix \(e\) and \(t \in T_e\), and let
+  \(e'\) be the index of the summand containing \(\psi'(t)\), say
+  \(\psi'(t) = z \in S_{e'}\).  Then
+  \(\varphi(t) = i(\psi'(t)) = \iota_{e'}(z)\) lies in the image of
+  \(\iota_{e'}\), so the point rank of \(\F\) at \(\varphi(t)\) is \(e'\)
+  (\ref{mk-thm:mem_range_rank_stratum}); it is also \(e\), since
+  \(t \in T_e\) (\ref{mk-thm:point_rank_pullback}).  Hence \(e' = e\): the
+  morphism \(\psi'\) maps \(T_e\) into the open summand \(S_e\) of the
+  coproduct, so \(\psi'|_{T_e}\) factors through the coprojection of
+  \(S_e\) as some \(l'_e : T_e \to S_e\), and
+  \(\iota_e \circ l'_e = i \circ \psi'|_{T_e} = \varphi|_{T_e}\).  The
+  uniqueness in \ref{mk-thm:factor_rank_stratum_unique} forces
+  \(l'_e = l_e\); therefore \(\psi'\) and \(\psi\) agree on every piece
+  \(T_e\), and \(\psi' = \psi\).
+\end{proof}
+
+\section{Application: relative curves}
+\label{mk-sec:flatstrat_curve_application}
+
+Let \(C\) be a smooth proper curve over a field \(k\) and \(T\) a noetherian
+\(k\)-scheme.  To apply \ref{mk-thm:flattening_stratification_exists} to
+\(C \times_k T \to T\), it remains to pass from properness to projectivity.
+
+\begin{lemma}
+[Smooth proper curve over \(k\) is projective]
+  \label{mk-lem:smooth_proper_curve_projective}
+  \dcref{II.6.7,custom}
+  \uses{mk-def:projective_morphism}
+  \textit{Source: classical; cf.\ \cite{hartshorne-ag}, II.6.7 \& II.7.6 (curves).}
+  Let \(C\) be a smooth proper curve over a field \(k\).  Then \(C \to \Spec k\) is
+  projective.  Consequently, for any noetherian \(k\)-scheme \(T\), the relative
+  curve \(C \times_k T \to T\) is projective in the sense of Grothendieck (there
+  exists a relatively very ample line bundle on \(C \times_k T\) over \(T\)).
+\end{lemma}
+
+\begin{proof}
+  Projectivity of a smooth proper curve over a field is classical
+  (\cite{hartshorne-ag}, II.6.7 / II.7.6; alternatively: every divisor of large
+  positive degree on a smooth proper curve \(C\) is very ample, providing the
+  embedding \(C \hookrightarrow \PP^N_k\) for some \(N\)). Pulling the ample line
+  bundle back along \(C \times_k T \to C\) produces a relatively very ample line
+  bundle on \(C \times_k T\) over \(T\).
+\end{proof}
+
+\begin{corollary}
+
+[Flattening stratification for a coherent sheaf on a relative curve]
+  \label{mk-cor:flattening_stratification_curve}
+  \dcref{custom}
+  \uses{mk-lem:smooth_proper_curve_projective, mk-thm:flattening_stratification_exists}
+  Let \(k\) be a field, \(C\) a smooth proper curve over \(k\), and \(T\) a noetherian
+  \(k\)-scheme.  Let \(\F\) be a coherent sheaf on \(C \times_k T\). Then the
+  flattening-stratification conclusion of
+  \ref{mk-thm:flattening_stratification_exists} applies: there is a finite
+  set \(I\) of Hilbert polynomials and locally-closed subschemes
+  \(T_f \hookrightarrow T\) for \(f \in I\), set-theoretically covering \(T\)
+  disjointly, such that (a) \(\F|_{C \times_k T_f}\) is flat over \(T_f\) for
+  each \(f\), and (b), after setting \(T'':=\coprod_{f\in I}T_f\), any
+  morphism \(\varphi : T' \to T\) such that \(\varphi^* \F\) on
+  \(C \times_k T'\) is \(T'\)-flat factors uniquely through the canonical
+  morphism \(T'' \to T\).
+\end{corollary}
+
+\begin{proof}
+  By \ref{mk-lem:smooth_proper_curve_projective}, \(C \times_k T \to T\) is
+  projective, hence factors through a closed immersion into \(\PP^n_T\) for some
+  \(n \ge 0\).  Push \(\F\) forward along the closed immersion (extending by zero
+  outside the image) to a coherent sheaf \(\widetilde{\F}\) on \(\PP^n_T\); this
+  operation preserves \(T\)-flatness in both directions because the closed
+  immersion is a finite morphism.  Apply
+  \ref{mk-thm:flattening_stratification_exists} to \(\widetilde{\F}\) on
+  \(\PP^n_T\) to obtain \(\{T_f\}\) with the stated universal property.
+\end{proof}
+
+\section{Mathematical ingredients}
+\label{mk-sec:flatstrat_mathlib_status}
+
+The construction combines four kinds of input.  First, module flatness is
+stable under localization and arbitrary base change, and flatness of a
+quasi-coherent module over a base may be checked on affine charts.  Second,
+generic freeness over a noetherian domain supplies the dense flat open used
+in the Noetherian induction of \ref{mk-lem:flat_locus_reduction_lean}.  Third,
+entry ideals of finite presentations define the rank strata and their
+universal property, as developed in \ref{mk-sec:entry_ideal}--
+\ref{mk-sec:flatstrat_representability}.  Finally, for a projective family,
+Serre vanishing and cohomology and base change compare the fibre Hilbert
+polynomial with the ranks of the finitely many direct images
+\(\pi_*\F(N),\ldots,\pi_*\F(N+n)\).  These inputs produce the canonical
+Hilbert-polynomial indexing in
+\ref{mk-thm:flattening_stratification_exists}.

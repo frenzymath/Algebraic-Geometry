@@ -1,0 +1,2006 @@
+\section{Adelic Riemann--Roch: the repartition cokernel (RR.A)}
+\label{mk-chap:RiemannRoch_Adelic}
+
+\section{The two-chart model}
+\label{mk-sec:RiemannRoch_Adelic_intro}
+The concrete repartition presentation is inspired by Papaioannou \cite{papaioannou-rr}.
+
+Let \(C\) be a smooth proper geometrically integral curve over a field
+\(k\), and let \(K=k(C)\).  The divisor theory of
+\ref{mk-chap:RiemannRoch_WeilDivisor} assigns to every prime divisor \(P\)
+an order \(v_P\colon K^\times\to\mathbb Z\).  The Mayer--Vietoris theory
+of \ref{mk-chap:Cohomology_MayerVietoris} computes the first cohomology of
+the structure sheaf from two affine charts.
+
+\paragraph{The concrete-repartition idea.}
+Classically (Weil), for the function field \(K = k(C)\) one forms the
+\emph{adele} (repartition) space
+\(\mathbb{A}_K = \{(x_P)_P \in \prod_P K : v_P(x_P) \ge 0 \text{ for
+almost all } P\}\), its bounded subspaces
+\(\mathbb{A}_K(D) = \{(x_P) : v_P(x_P) \ge -D(P)\ \forall P\}\), and the
+two Riemann--Roch spaces
+\[
+  L(D) = K \cap \mathbb{A}_K(D)
+        = \{ f \in K : \operatorname{div} f + D \ge 0\},
+  \qquad
+  H^1(D) = \mathbb{A}_K / (\mathbb{A}_K(D) + K).
+\]
+The genus is \(g=\dim_k H^1(0)\), and the index of speciality is
+\(i(D)=\dim_k H^1(D)\).  A two-affine cover gives a finite presentation
+of the same cohomology without first constructing the restricted product.
+
+\paragraph{The \(2\)-affine-cover cokernel.}
+Fix affine opens \(U_0,U_1\) covering \(C\), with affine intersection, and
+write
+\[
+  A_i = \Gamma(U_i, \struct{C}), \qquad
+  A_{01} = \Gamma(U_0 \cap U_1, \struct{C}).
+\]
+The degree-\(1\) Čech cohomology of the two-element cover is the cokernel
+of the difference map \((f_0, f_1) \mapsto f_0|_{01} - f_1|_{01}\):
+\[
+  \check{H}^1 \;=\; A_{01} \big/ (A_0 + A_1).
+\]
+For a Weil divisor \(D\) the \emph{twisted} version replaces each ring of
+sections by the Riemann--Roch sheaf of sections
+\(\Gamma(U, \struct{C}(D)) = \{ f \in K : v_P(f) \ge -D(P) \text{ for all
+prime divisors } P \in U\}\), giving
+\[
+  L(D) = \Gamma(U_0, \struct{C}(D)) \cap \Gamma(U_1, \struct{C}(D)).
+\]
+\[
+  \check{H}^1(D) = \Gamma(U_0 \cap U_1, \struct{C}(D)) \big/
+    \bigl(\Gamma(U_0, \struct{C}(D)) + \Gamma(U_1, \struct{C}(D))\bigr).
+\]
+The bridge of \ref{mk-sec:RiemannRoch_Adelic_cokernel} identifies
+\(\check H^1(0)\) with \(H^1(C,\struct C)\).
+
+\paragraph{Residue-degree bookkeeping.}
+Because \(k\) need not be algebraically closed, every place carries a
+\emph{residue degree}. For a prime divisor \(P\) with residue field
+\(\kappa(P) = \struct{C, P}/\mathfrak{m}_P\), set
+\[
+  \deg P \;=\; [\kappa(P) : k] \;=\; \dim_k \kappa(P) \;<\; \infty,
+  \qquad
+  \deg_k D \;=\; \sum_P D(P)\,\deg P .
+\]
+Over an algebraically closed field this agrees with the coefficient degree
+of \ref{mk-def:divisor_degree}; over a general field it does not.  In this
+chapter \(\deg D\) always means the residue-weighted degree \(\deg_kD\).
+
+We write \(\ell(D) = \dim_k L(D)\),
+\(i(D) = \dim_k \check{H}^1(D)\), and
+\(\chi(D) = \ell(D) - i(D)\).
+
+\section{Valuations and divisor sections}
+\label{mk-sec:RiemannRoch_Adelic_substrate}
+
+\begin{proposition}
+[Affine chart is a Dedekind domain with fraction field \(K\)]
+  \label{mk-thm:adelic_chartRing_isDedekindDomain}
+  \dcref{custom}
+
+  \uses{mk-def:isRegularInCodimensionOne}
+  Let \(U \subseteq C\) be a nonempty affine open with coordinate ring
+  \(A_U = \Gamma(U, \struct{C})\).  The canonical map
+  \(A_U\hookrightarrow K\) exhibits \(K\) as its fraction field.  Under
+  the hypothesis that every nonempty affine chart of \(C\) is Dedekind,
+  \(A_U\) is a Dedekind domain.
+\end{proposition}
+\begin{proof}
+  The fraction-field assertion is localization at the generic point.
+  The Dedekind assertion is the specialization of the stated chart
+  hypothesis to \(U\).
+\end{proof}
+
+\begin{definition}[Point valuation]
+  \label{mk-def:adelic_pointValuation}
+
+  \uses{mk-def:prime_divisor, mk-def:isRegularInCodimensionOne}
+  \dcref{custom}
+
+  For a prime divisor \(P\), the discrete valuation ring
+  \(\struct{C,P}\) defines its adic valuation
+  \[
+    \nu_P\colon K\longrightarrow\mathbb Z_{\mathrm m}^{0}.
+  \]
+\end{definition}
+
+\begin{lemma}[Order is the additive normalization of the point valuation]
+  \label{mk-lem:adelic_order_eq_neg_log_pointValuation}
+  \dcref{custom}
+
+  \uses{mk-def:adelic_pointValuation, mk-def:order_at_point}
+
+  For every \(f\in K\),
+  \[
+    \operatorname{ord}_P(f)=-\log\bigl(\nu_P(f)\bigr).
+  \]
+\end{lemma}
+\begin{proof}
+  This is the comparison between the height-one-stalk adic valuation and the
+  \(\operatorname{ordFrac}\) normalization used in
+  \ref{mk-def:order_at_point}.
+\end{proof}
+
+\begin{definition}[Residue field and residue degree]
+  \label{mk-def:adelic_residue_degree}
+  \uses{mk-thm:adelic_chartRing_isDedekindDomain, mk-def:adelic_pointValuation}
+  \dcref{custom}
+
+  If \(P\) lies in a nonempty affine open \(U\), it determines a height-one
+  prime \(\mathfrak p_P\) of the Dedekind chart
+  \(A_U=\Gamma(U,\struct C)\).  Its residue field and residue degree are
+  \[
+    \kappa(P)=A_U/\mathfrak p_P
+      =\struct{C,P}/\mathfrak m_P,
+    \qquad
+    \deg P=[\kappa(P):k]=\dim_k\kappa(P).
+  \]
+  The stalk \(\struct{C, P}\) is the localisation \((A_U)_{\mathfrak p_P}\)
+  because \(P\) lies in \(U\).  The definition is independent of the chart,
+  and \(\deg P\) is finite by Zariski's lemma because \(P\) is a closed point
+  of the finite-type \(k\)-scheme \(C\).
+\end{definition}
+
+\begin{definition}[Residue-weighted degree]
+  \label{mk-def:adelic_divisor_degree}
+  \uses{mk-def:adelic_residue_degree, mk-def:codim1_cycles}
+  \dcref{custom}
+
+  For a Weil divisor \(D=\sum_P n_P[P]\) on a curve over \(k\), define its
+  residue-weighted degree by
+  \[
+    \deg_k(D)=\sum_P n_P[\kappa(P):k].
+  \]
+  The sum is finite because a Weil divisor has finite support.  If \(k\) is
+  algebraically closed, every closed point has residue field \(k\), so
+  \(\deg_k\) agrees with the coefficient degree of
+  \ref{mk-def:divisor_degree}.
+\end{definition}
+
+\begin{theorem}[Weighted degree of a principal divisor]
+  \label{mk-thm:adelic_principal_degree_zero}
+  \uses{mk-def:adelic_divisor_degree,
+    mk-thm:adelic_exists_finiteMorphismToP1}
+  \dcref{custom}
+  For every \(f\in K^\times\),
+  \[
+    \deg_k\operatorname{div}(f)=0.
+  \]
+\end{theorem}
+\begin{proof}
+  A constant function has zero order everywhere.  Otherwise \(f\) defines
+  a finite morphism \(\varphi_f\colon C\to\mathbb P^1_k\), and
+  \(\operatorname{div}(f)=\varphi_f^*([0]-[\infty])\).  The
+  residue-weighted degree of a finite pullback is multiplied by
+  \(\deg\varphi_f\); since both \([0]\) and \([\infty]\) have degree one,
+  the displayed divisor has degree zero.
+\end{proof}
+
+\begin{definition}
+[Sections bounded by a divisor; the Riemann--Roch space]
+  \label{mk-def:adelic_sectionOfDivisor}
+
+  \uses{mk-def:adelic_pointValuation, mk-def:codim1_cycles, mk-lem:order_mul_of_ne_zero}
+  \dcref{custom}
+  For an open \(U \subseteq C\) and a Weil divisor \(D\)
+  (\ref{mk-def:codim1_cycles}) define the additive subgroup of \(K\)
+  \[
+    \Gamma(U, \struct{C}(D)) \;=\;
+      \{ f \in K : f = 0 \text{ or } v_P(f) \ge -D(P) \text{ for every
+         prime divisor } P \text{ with point in } U\}
+  \]
+  (the disjunct \(f = 0\) encodes \(v_P(0) = +\infty\)).  This is an
+  additive subgroup of \(K\).  Its global instance gives the
+  \emph{Riemann--Roch space}
+  \(L(D) = \Gamma(U_0, \struct{C}(D)) \cap \Gamma(U_1, \struct{C}(D))\),
+  equal to \(\{ f \in K : \operatorname{div} f + D \ge 0\}\) since
+  \(U_0 \cup U_1 = C\).
+\end{definition}
+\begin{proof}
+  The set contains \(0\)
+  (\(v_P(0) = +\infty \ge -D(P)\)). It is closed under addition by the
+  ultrametric inequality of the discrete valuation
+  \(v_P(f + h) \ge \min(v_P f, v_P h) \ge -D(P)\). It is closed under
+  negation because \(v_P(-f)=v_P(f)\).
+  The intersection identity for \(L(D)\) holds because a prime divisor of
+  \(C\) has its point in \(U_0\) or in \(U_1\); imposing \(v_P(f) \ge
+  -D(P)\) on the union of the two chart conditions is imposing it at
+  every prime divisor, i.e.\ \(\operatorname{div} f + D \ge 0\).
+\end{proof}
+
+\begin{lemma}
+[Finiteness of the non-integral places on a Dedekind chart]
+  \label{mk-thm:adelic_finite_support_order}
+  \dcref{custom}
+
+  \uses{mk-thm:adelic_chartRing_isDedekindDomain}
+  Let \(R\) be a Dedekind domain with fraction field \(K\). For a nonzero
+  \(k \in K\) the set \(\{ v \in \operatorname{Spec}^1 R : v(k) \ne 1\}\) of
+  height-one places at which \(k\) is a zero or a pole is finite.
+
+  This is the affine-chart core of the finite-support statement: a curve is
+  covered by finitely many Dedekind charts, and applying the lemma on each
+  chart shows that for \(f \in K^\times\) only finitely many prime divisors
+  have \(v_P(f) \ne 0\), so \(\operatorname{div} f = \sum_P v_P(f)\,P\) is a
+  well-defined Weil divisor. The general scheme-level assembly (finite affine
+  cover plus the height-one/minimal-primes bound) is
+  \ref{mk-lem:rationalMap_order_finite_support}.
+\end{lemma}
+\begin{proof}
+  Apply the finiteness of the support of a nonzero fractional ideal in a
+  Dedekind domain to both \(k\) and \(k^{-1}\). A place \(v\) with
+  \(v(k) \ne 1\) satisfies either \(v(k) > 1\) (a zero of \(k\)) or
+  \(v(k) < 1\), equivalently \(v(k^{-1}) > 1\) (a pole of \(k\)); each of
+  the two sets of such places is finite, and their union contains every
+  place with \(v(k) \ne 1\).
+\end{proof}
+
+\section{The cover cokernel and first cohomology}
+\label{mk-sec:RiemannRoch_Adelic_cokernel}
+
+\begin{definition}
+[The two-cover cokernel of a sheaf]
+  \label{mk-def:adelic_coverH1}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare}
+  For a sheaf \(F\) of \(k\)-modules and an affine Mayer--Vietoris square,
+  define
+  \[
+    \operatorname{H1Cok}_S(F)
+      =\Gamma(U_0\cap U_1,F)/
+        \operatorname{im}\bigl(\Gamma(U_0,F)\oplus\Gamma(U_1,F)
+          \xrightarrow{\,f_0-f_1\,}\Gamma(U_0\cap U_1,F)\bigr).
+  \]
+\end{definition}
+
+\begin{definition}[The function-field twist cokernel]
+  \label{mk-def:adelic_function_field_H1}
+  \dcref{custom}
+
+  \uses{mk-def:adelic_sectionOfDivisor}
+  Independently of a sheaf structure, the divisor section subgroups define
+  the additive quotient
+  \[
+    \check H^1_{\mathrm{ff}}(D)
+      =\Gamma(U_0\cap U_1,\struct C(D))/
+        \bigl(\Gamma(U_0,\struct C(D))+\Gamma(U_1,\struct C(D))\bigr).
+  \]
+\end{definition}
+
+\begin{proposition}[Comparison at the zero divisor]
+  \label{mk-thm:adelic_function_field_H1_zero_compare}
+  \dcref{custom}
+  \uses{mk-def:adelic_coverH1, mk-def:adelic_function_field_H1}
+  There is a canonical isomorphism
+  \[
+    \check H^1_{\mathrm{ff}}(0)
+      \simeq_k\operatorname{H1Cok}_S(\struct C).
+  \]
+\end{proposition}
+\begin{proof}
+  On every nonempty affine open of the integral normal curve, a rational
+  function is regular exactly when it has nonnegative order at every
+  closed point of that open.  This identifies each term and each
+  restriction map in the two difference complexes, hence their cokernels.
+\end{proof}
+
+\begin{lemma}
+[The unnormalized coface differential is the alternating coface sum]
+  \label{mk-lem:adelic_alternatingCofaceMapComplex_objD}
+  \dcref{custom}
+  For a cosimplicial object \(Y\) in a preadditive category and \(n \ge
+  0\), the degree-\(n\) differential of the associated (unnormalized)
+  alternating coface cochain complex is the alternating sum of coface
+  maps,
+  \[
+    d^n \;=\; \sum_{i = 0}^{n+1} (-1)^i\, Y(\delta_i) \colon Y^n \to
+    Y^{n+1}.
+  \]
+\end{lemma}
+\begin{proof}
+  This is the cosimplicial dual of the standard alternating-face-map
+  formula for the (co)chain complex of a simplicial object: the
+  differential of the alternating coface complex is defined as this
+  alternating sum, so the identity is definitional unfolding.
+\end{proof}
+
+\begin{definition}
+[The Čech cosimplicial object of a cover]
+  \label{mk-def:adelic_cechCosimplicial}
+  \dcref{custom}
+  \uses{mk-def:adelic_coverH1, mk-def:Scheme_cechCohomology}
+  For a family of opens \(\mathcal{U} = (U_i)_{i \in \iota}\) of \(C\)
+  and a sheaf \(F\) of \(k\)-modules, the \emph{Čech cosimplicial object}
+  \(Y_{\mathcal{U}, F}\) is given in degree \(n\) by
+  \[
+    Y_{\mathcal U,F}^n=
+      \prod_{j \colon \mathrm{Fin}(n+1) \to \iota}
+        \Gamma\Bigl(\bigsqcap_a U_{j(a)},F\Bigr).
+  \]
+  Its coface maps \(\delta_{i_0} \colon Y^n \to Y^{n+1}\) are induced by
+  restriction along the shrinking of the
+  intersection when an index is duplicated. The Čech cochain complex is
+  by definition the alternating coface complex of \(Y_{\mathcal{U},
+  F}\):
+  \(\mathrm{cechCochain}\, C\, F\, \mathcal{U} =\) the alternating coface
+  complex of \(Y_{\mathcal{U}, F}\)
+  (\ref{mk-lem:adelic_alternatingCofaceMapComplex_objD}).
+\end{definition}
+\begin{proof}
+  Immediate from the definition of \(\mathrm{cechCochain}\) as the
+  alternating coface complex associated to the cosimplicial object
+  obtained by evaluating the Čech nerve of \(\mathcal{U}\) against \(F\).
+\end{proof}
+
+\begin{lemma}
+[Cofaces are restriction maps]
+  \label{mk-lem:adelic_cech_coface_restriction}
+  \dcref{custom}
+  \uses{mk-def:adelic_cechCosimplicial}
+  For every finite index family \(j \colon \mathrm{Fin}\, m \to \iota\),
+  the categorical product \(\prod_a U_{j(a)}\) equals the intersection
+  \(\bigsqcap_a U_{j(a)}\) of opens of \(C\). Consequently, for
+  \(n \ge 0\), \(i_0 \in \mathrm{Fin}(n+2)\), and
+  \(j \colon \mathrm{Fin}(n+2) \to \iota\), the coface map \(\delta_{i_0}
+  \colon Y_{\mathcal{U},F}^n \to Y_{\mathcal{U},F}^{n+1}\), projected to
+  the \(j\)-indexed factor of the target, is the restriction map
+  \[
+    \Gamma\Bigl(\bigsqcap_a U_{j(\delta_{i_0}(a))}, F\Bigr)
+      \longrightarrow
+    \Gamma\Bigl(\bigsqcap_a U_{j(a)}, F\Bigr)
+  \]
+  along the inclusion
+  \(\bigsqcap_a U_{j(a)} \subseteq \bigsqcap_a U_{j(\delta_{i_0}(a))}\)
+  (dropping the index \(i_0\) enlarges the intersection).
+\end{lemma}
+\begin{proof}
+  The abstract categorical product of a finite family of opens, computed
+  in the poset \(\mathrm{Opens}\, C\), is its infimum, by the universal
+  property of both constructions. Under this identification the coface
+  map's action on the \(j\)-indexed factor --- reindexing the source
+  factor along \(j \circ \delta_{i_0}\) followed by the canonical
+  comparison map between the two products --- is exactly the restriction
+  map along the inclusion of the larger-index intersection into the
+  smaller-index one; since \(\mathrm{Opens}\, C\) is a poset, this
+  comparison map is the unique restriction along that inclusion.
+\end{proof}
+
+\begin{lemma}
+[The degree-\(0\) and degree-\(1\) Čech differentials]
+  \label{mk-lem:adelic_cech_d01_d12_formula}
+  \dcref{custom}
+  \uses{mk-lem:adelic_alternatingCofaceMapComplex_objD,
+    mk-lem:adelic_cech_coface_restriction}
+  In terms of the coface maps of \(Y_{\mathcal{U}, F}\), the Čech
+  differentials in degrees \(0\) and \(1\) are
+  \[
+    d^0 = \delta_0 - \delta_1, \qquad\qquad
+    d^1 = \delta_0 - \delta_1 + \delta_2.
+  \]
+\end{lemma}
+\begin{proof}
+  Immediate from \ref{mk-lem:adelic_alternatingCofaceMapComplex_objD} at
+  \(n = 0\) and \(n = 1\), expanding the alternating sum over
+  \(\mathrm{Fin}\, 2\) and \(\mathrm{Fin}\, 3\) respectively.
+\end{proof}
+
+\begin{proposition}
+[Two-element Čech \(H^1\) is the cokernel]
+  \label{mk-thm:adelic_cechH1_eq_cokernel}
+  \dcref{custom}
+  \uses{mk-def:adelic_coverH1, mk-def:Scheme_cechCohomology, mk-def:Scheme_toModuleKSheaf}
+  For any sheaf \(F\) of \(k\)-modules on \(C\) and any affine
+  Mayer--Vietoris square \(S\) with cover family \(\mathcal U = \{U_0,
+  U_1\}\), there is a \(k\)-linear isomorphism
+  \[
+    \mathrm{cechCohomology}\, C\, F\, \mathcal U\, 1
+    \;\simeq_k\; \Gamma(U_0 \cap U_1, F) \big/
+      \bigl(\Gamma(U_0, F) + \Gamma(U_1, F)\bigr),
+  \]
+  the image of \(\Gamma(U_0, F) \oplus \Gamma(U_1, F)\) under
+  \((f_0, f_1) \mapsto f_0|_{01} - f_1|_{01}\) being identified with the
+  sum \(\Gamma(U_0, F) + \Gamma(U_1, F)\) inside \(\Gamma(U_0 \cap U_1,
+  F)\). Specialising \(F = \toModuleKSheaf C\) gives
+  \[
+    \mathrm{cechCohomology}\, C\, (\toModuleKSheaf C)\, S.\cover\, 1
+      \;\simeq_k\; \check{H}^1 = A_{01}/(A_0 + A_1).
+  \]
+\end{proposition}
+\begin{proof}
+  \uses{mk-lem:adelic_cech_d01_d12_formula, mk-lem:adelic_cech_coface_restriction}
+  Unfold \(\mathrm{cechCohomology}\, C\, F\, \mathcal U\, 1\) as the
+  homology at the middle term of the short complex
+  \(C^0 \xrightarrow{d^0} C^1 \xrightarrow{d^1} C^2\) of the Čech
+  cochain complex, i.e.\ \(\ker d^1 / \operatorname{im}(C^0 \to \ker
+  d^1)\). For the two-element index set \(\mathcal U = \{U_0, U_1\}\)
+  every triple of indices \(x \colon \mathrm{Fin}\,3 \to \{0,1\}\)
+  repeats a value, so by \ref{mk-lem:adelic_cech_d01_d12_formula} the
+  degree-\(1\) differential \(d^1\), evaluated in each of the eight
+  index components of \(C^2 = \prod_x \Gamma(\bigsqcap_a
+  U_{x(a)}, F)\), collapses by the coface-restriction identities of
+  \ref{mk-lem:adelic_cech_coface_restriction} (parallel restrictions
+  cancel and diagonal restrictions round-trip). Consequently
+  \(\ker d^1 \subseteq C^1 = \Gamma(U_0, F) \times \Gamma(U_1, F) \times
+  \Gamma(U_1, F) \times \Gamma(U_0, F)\) (indexed by the four functions
+  \(\mathrm{Fin}\,2 \to \{0,1\}\)) consists exactly of the tuples
+  \((0, q, -q, 0)\) for \(q \in \Gamma(U_0 \cap U_1, F)\), giving a
+  \(k\)-linear isomorphism \(\Gamma(U_0 \cap U_1, F) \xrightarrow{\ \sim\
+  } \ker d^1\), \(q \mapsto (0, q, -q, 0)\). Under this identification
+  the image of \(d^0 \colon \Gamma(U_0, F) \oplus \Gamma(U_1, F) \to
+  \ker d^1\), \((f_0, f_1) \mapsto (0,\, f_0|_{01} - f_1|_{01},\,
+  f_1|_{01} - f_0|_{01},\, 0)\), corresponds to \(\{ f_0|_{01} -
+  f_1|_{01} : f_i \in \Gamma(U_i, F)\} = \Gamma(U_0, F) + \Gamma(U_1,
+  F)\) inside \(\Gamma(U_0 \cap U_1, F)\) (each \(\Gamma(U_i, F)\) being
+  closed under negation). Composing the two identifications gives the
+  claimed \(k\)-linear isomorphism
+  \(\mathrm{cechCohomology}\, C\, F\, \mathcal U\, 1 \simeq_k
+  \Gamma(U_0 \cap U_1, F)/(\Gamma(U_0, F) + \Gamma(U_1, F))\).
+\end{proof}
+
+\begin{proposition}
+[First cohomology vanishes on the affine pieces]
+  \label{mk-thm:adelic_affine_h1_vanishing}
+  \dcref{custom}
+
+  If \(U\subseteq C\) is affine, then
+  \(H^1(U,\struct C|_U)=0\).  In particular this holds for both members
+  of an affine Mayer--Vietoris square.
+\end{proposition}
+\begin{proof}
+  This is affine vanishing for the quasi-coherent structure sheaf.
+\end{proof}
+
+\begin{proposition}
+[The degree-one Mayer--Vietoris quotient]
+  \label{mk-thm:adelic_mv_h1_cokernel_equiv}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_AffineCoverMVSquare_HModule_prime_sequence_exact}
+  Let \(F\) be a sheaf of \(k\)-modules.  If
+  \(H^1(U_0,F)=H^1(U_1,F)=0\), then the connecting homomorphism in the
+  Mayer--Vietoris sequence induces an isomorphism
+  \[
+    \Gamma(U_0\cap U_1,F)/
+      \operatorname{im}\bigl(\Gamma(U_0,F)\oplus\Gamma(U_1,F)\bigr)
+      \simeq_k H^1(U_0\cup U_1,F).
+  \]
+\end{proposition}
+\begin{proof}
+  Exactness identifies the kernel of the connecting map with the image of
+  the difference of restrictions.  Vanishing on the two pieces makes the
+  connecting map surjective, so the first isomorphism theorem gives the
+  displayed quotient.
+\end{proof}
+
+\begin{theorem}
+[The structure-sheaf \(H^1\) is the cover cokernel]
+  \label{mk-thm:adelic_HModuleOne_linearEquiv_cokernel}
+  \dcref{custom}
+
+  \uses{mk-thm:adelic_affine_h1_vanishing,
+    mk-thm:adelic_mv_h1_cokernel_equiv}
+  Every affine Mayer--Vietoris square on \(C\) gives a \(k\)-linear
+  isomorphism
+  \[
+    \HModule\, k\, (\toModuleKSheaf C)\, 1
+    \;\simeq_k\; \check{H}^1 \;=\; A_{01}/(A_0 + A_1).
+  \]
+\end{theorem}
+\begin{proof}
+  Apply \ref{mk-thm:adelic_mv_h1_cokernel_equiv} to the structure sheaf;
+  its two vanishing hypotheses are \ref{mk-thm:adelic_affine_h1_vanishing}.
+  Since \(U_0\cup U_1=C\), its target is the global first cohomology.
+\end{proof}
+
+\section{Finiteness via the projective line}
+\label{mk-sec:RiemannRoch_Adelic_finiteness}
+
+By \ref{mk-thm:adelic_HModuleOne_linearEquiv_cokernel}, it remains to prove
+that \(A_{01}/(A_0+A_1)\) is finite-dimensional.  We pull back the two
+standard charts of \(\mathbb P^1\) along a finite morphism.
+
+\begin{proposition}
+[A nonconstant map to \(\mathbb{P}^1\) is finite]
+  \label{mk-thm:adelic_exists_finiteMorphismToP1}
+  \dcref{custom}
+  \uses{mk-def:adelic_nonconstant_map_gate, mk-thm:adelic_nonconstant_map_isFinite}
+  If a \(k\)-morphism \(\pi\colon C\to\mathbb P^1_k\) takes two distinct
+  values, then \(\pi\) is finite.
+\end{proposition}
+\begin{proof}
+  Let \(\pi \colon C \to \mathbb{P}^1_k\) be a nonconstant \(k\)-morphism
+  (\ref{mk-def:adelic_nonconstant_map_gate}), with \(\pi(x_1) \ne
+  \pi(x_2)\) for some \(x_1, x_2 \in C\). Since \(\mathbb{P}^1_k\) is
+  separated and of finite type over \(k\), \ref{mk-thm:adelic_nonconstant_map_isFinite}
+  applied to \(\pi\) shows \(\pi\) is a finite morphism.
+\end{proof}
+
+\begin{definition}
+[A nonconstant map to \(\mathbb{P}^1\)]
+  \label{mk-def:adelic_nonconstant_map_gate}
+  \dcref{custom}
+
+  \uses{mk-def:projective_space}
+  The class \(\mathrm{ExistsNonconstantMapToP1}\, C\) asserts the
+  existence of a \(k\)-morphism \(\pi \colon C \to \mathbb{P}^1_k\)
+  taking two distinct values.
+\end{definition}
+
+\begin{proposition}
+[A nonconstant map to the integral projective line]
+  \label{mk-thm:adelic_exists_nonconstant_projint}
+  \dcref{custom}
+
+  A smooth proper geometrically integral curve admits a morphism
+  \(f\colon C\to\operatorname{Proj}\mathbb Z[X_0,X_1]\) taking two
+  distinct values.
+\end{proposition}
+\begin{proof}
+  A transcendental element of \(K/k\) defines a rational map to the
+  projective line.  Properness and regularity in dimension one extend it
+  across every closed point, and transcendence makes the map nonconstant.
+\end{proof}
+
+\begin{proposition}
+[Integral-model bridge to \(\mathbb P^1_k\)]
+  \label{mk-lem:adelic_nonconstant_projint_bridge}
+  \dcref{custom}
+  \uses{mk-thm:adelic_exists_nonconstant_projint, mk-def:adelic_nonconstant_map_gate}
+  \(\mathrm{ExistsNonconstantMapToProjInt}\, C\) implies
+  \(\mathrm{ExistsNonconstantMapToP1}\, C\).
+\end{proposition}
+\begin{proof}
+  The concrete \(\mathbb{P}^1_k = \mathbb{P}(\mathrm{ULift}(\mathrm{Fin}\,
+  2); \operatorname{Spec} k)\) is, by construction, the fibre product
+  \(\operatorname{Spec} k \times_{\top} \operatorname{Proj}
+  \mathbb{Z}[X_0, X_1]\) over the \emph{terminal} scheme \(\top\). Since
+  any two morphisms into \(\top\) agree, the compatibility square
+  required by the universal property of this pullback is automatic:
+  given \(f \colon C \to \operatorname{Proj} \mathbb{Z}[X_0, X_1]\) and
+  the ambient structure map \(C \to \operatorname{Spec} k\), the two
+  assemble into a unique \(g \colon C \to \mathbb{P}^1_k\) with
+  \(g\) over \(\operatorname{Spec} k\) and \(g\) composed with the
+  projection \(\mathbb{P}^1_k \to \operatorname{Proj} \mathbb{Z}[X_0,
+  X_1]\) equal to \(f\). If \(f(x_1) \ne f(x_2)\) then, composing with
+  the projection, \(g(x_1) \ne g(x_2)\); hence \(g\) is a nonconstant
+  \(k\)-morphism \(C \to \mathbb{P}^1_k\).
+\end{proof}
+
+\begin{lemma}
+[Quasi-finite algebras do not raise Krull dimension]
+  \label{mk-lem:adelic_quasiFinite_dim_le}
+  \dcref{custom}
+  For a quasi-finite \(R\)-algebra \(A\), \(\operatorname{ringKrullDim}
+  A \le \operatorname{ringKrullDim} R\).
+\end{lemma}
+\begin{proof}
+  Quasi-finiteness gives incomparability of primes over the contraction
+  map \(\operatorname{Spec} A \to \operatorname{Spec} R\): if two primes
+  of \(A\) contract to the same prime of \(R\) and one is contained in
+  the other, they are equal. Hence the contraction map is strictly
+  monotone on chains of primes, so it strictly increases no chain
+  length in the wrong direction and \(\operatorname{ringKrullDim} A \le
+  \operatorname{ringKrullDim} R\).
+\end{proof}
+
+\begin{lemma}
+[Dimension one for standard-smooth curves]
+  \label{mk-lem:adelic_relDimOne_dim_le_one}
+  \dcref{custom}
+  \uses{mk-lem:adelic_quasiFinite_dim_le}
+  Let \(S\) be standard-smooth of relative dimension \(1\) over a field
+  \(k\), and let \(q\) be a prime of \(S\). Every localisation \(S_q\)
+  of \(S\) at \(q\) satisfies \(\operatorname{ringKrullDim} S_q \le 1\).
+\end{lemma}
+\begin{proof}
+  Standard smoothness of relative dimension one makes \(\Omega_{S/k}\)
+  free of rank one; writing the spanning vector as a finite combination
+  of exact differentials, some \(dt\) (for a generator \(t\) of \(S\))
+  has coefficient \(a \notin q\) in this basis. Over \(S_q\) the element
+  \(a\) is a unit, so \(dt\) spans \(\Omega_{S_q/k}\); the \(k\)-algebra
+  map \(k[X] \to S_q\), \(X \mapsto t\), then makes \(S_q\) formally
+  unramified over \(k[X]\) (\(\Omega_{S_q/k[X]} = 0\)) and essentially
+  of finite type, i.e.\ \emph{quasi-finite} over \(k[X]\). Since
+  \(k[X]\) is a PID, \(\operatorname{ringKrullDim} k[X] = 1\), and
+  \ref{mk-lem:adelic_quasiFinite_dim_le} gives
+  \(\operatorname{ringKrullDim} S_q \le 1\).
+\end{proof}
+
+\begin{lemma}
+[Stalks of the curve have dimension \(\le 1\)]
+  \label{mk-lem:adelic_curve_stalk_dim_le_one}
+  \dcref{custom}
+  \uses{mk-lem:adelic_relDimOne_dim_le_one}
+  Every stalk \(\struct{C, z}\) of the curve \(C\) (smooth of relative
+  dimension one over \(\operatorname{Spec} k\)) has
+  \(\operatorname{ringKrullDim} \struct{C, z} \le 1\).
+\end{lemma}
+\begin{proof}
+  As \(\operatorname{Spec} k\) is a single point, \(z\) has a standard
+  smooth chart \(V\) of relative dimension one over all of
+  \(\operatorname{Spec} k\); the stalk \(\struct{C, z}\) is the
+  localisation of \(\Gamma(V, \struct{C})\) at the prime of \(z\), so
+  \ref{mk-lem:adelic_relDimOne_dim_le_one} applies directly.
+\end{proof}
+
+\begin{lemma}
+[Coheight \(\le 1\) on the curve]
+  \label{mk-lem:adelic_curve_coheight_le_one}
+  \dcref{custom}
+  \uses{mk-lem:adelic_curve_stalk_dim_le_one, mk-thm:ringKrullDim_stalk_eq_coheight}
+  Every point \(z\) of \(C\) has topological coheight
+  \(\operatorname{coheight} z \le 1\).
+\end{lemma}
+\begin{proof}
+  Immediate from \ref{mk-lem:adelic_curve_stalk_dim_le_one} and the
+  stalk--coheight bridge \ref{mk-thm:ringKrullDim_stalk_eq_coheight}:
+  \[
+    \operatorname{coheight}z
+      =\operatorname{ringKrullDim}\struct{C,z}.
+  \]
+\end{proof}
+
+\begin{lemma}
+[Non-generic points of the curve are closed]
+  \label{mk-lem:adelic_nongeneric_closed}
+  \dcref{custom}
+  \uses{mk-lem:adelic_curve_coheight_le_one}
+  On an irreducible scheme all of whose points have coheight \(\le 1\),
+  every point \(z\) other than the generic point is closed.
+\end{lemma}
+\begin{proof}
+  If \(\{z\}\) were not closed, its closure would contain a point
+  \(z' \ne z\) with \(z \rightsquigarrow z'\), giving a strict
+  specialisation chain \(z' \prec z \prec \eta\) (\(\eta\) the generic
+  point, since \(z \ne \eta\)); each strict step adds at least one to
+  coheight, so \(\operatorname{coheight} z' \ge 2\), contradicting the
+  hypothesis.
+\end{proof}
+
+\begin{lemma}
+[Proper closed subsets of the curve are finite]
+  \label{mk-lem:adelic_proper_closed_finite}
+  \dcref{custom}
+  \uses{mk-lem:adelic_nongeneric_closed}
+  On an irreducible Noetherian sober scheme all of whose points have
+  coheight \(\le 1\), every closed subset \(F \ne C\) is finite.
+\end{lemma}
+\begin{proof}
+  A Noetherian space has finitely many irreducible components; a proper
+  closed \(F\) does not contain the generic point, so each of its
+  (finitely many) irreducible components has a generic point \(\zeta
+  \ne \eta\), which is closed by \ref{mk-lem:adelic_nongeneric_closed}.
+  A sober irreducible closed set with closed generic point is that
+  singleton, so each component is a single point and \(F\) is finite.
+\end{proof}
+
+\begin{lemma}
+[Fibres of a nonconstant map are finite]
+  \label{mk-lem:adelic_nonconstant_finite_fibres}
+  \dcref{custom}
+  \uses{mk-lem:adelic_proper_closed_finite}
+  Let \(\pi \colon C \to Y\) be a \(k\)-morphism to a
+  locally-of-finite-type \(k\)-scheme \(Y\) taking two distinct values.
+  Every fibre \(\pi^{-1}(y)\) is finite.
+\end{lemma}
+\begin{proof}
+  If \(\{y\}\) is closed, \(\pi^{-1}(y)\) is a closed subset of \(C\)
+  that is not all of \(C\) (since \(\pi\) is nonconstant), hence finite
+  by \ref{mk-lem:adelic_proper_closed_finite}. If \(\{y\}\) is not closed,
+  then \(y\) is not a closed point of the Jacobson scheme \(Y\); since
+  closed points of \(C\) map to closed points of \(Y\), the fibre
+  \(\pi^{-1}(y)\) avoids every closed point of \(C\)
+  (\ref{mk-lem:adelic_nongeneric_closed}: every non-generic point of
+  \(C\) is closed), so \(\pi^{-1}(y) \subseteq \{\eta\}\) is finite.
+\end{proof}
+
+\begin{proposition}
+[Nonconstant morphisms from the curve are finite]
+  \label{mk-thm:adelic_nonconstant_map_isFinite}
+  \dcref{custom}
+  \uses{mk-lem:adelic_nonconstant_finite_fibres}
+  Let \(Y\) be a separated, locally-of-finite-type \(k\)-scheme. Any
+  \(k\)-morphism \(\pi \colon C \to Y\) taking two distinct values is a
+  \emph{finite} morphism.
+\end{proposition}
+\begin{proof}
+  \(\pi\) is proper: \(\pi\) composed with the separated structure map
+  \(Y \to \operatorname{Spec} k\) is the proper structure map
+  \(C \to \operatorname{Spec} k\), and properness cancels along a
+  separated morphism, so \(\pi\) itself is proper.
+  \(\pi\) is locally quasi-finite by finiteness of its fibres
+  (\ref{mk-lem:adelic_nonconstant_finite_fibres}). A proper, locally
+  quasi-finite morphism is finite (Zariski's main theorem), so \(\pi\)
+  is finite.
+\end{proof}
+
+\begin{proposition}
+[Charts are module-finite over the \(\mathbb{P}^1\) charts]
+  \label{mk-thm:adelic_chart_finite_over_P1}
+  \dcref{custom}
+  \uses{mk-thm:adelic_exists_finiteMorphismToP1, mk-thm:adelic_chartRing_isDedekindDomain}
+  Take \(x\) as in \ref{mk-thm:adelic_exists_finiteMorphismToP1} and the
+  cover \(U_0 = \pi^{-1}(\mathbb{A}^1_x)\),
+  \(U_1 = \pi^{-1}(\mathbb{A}^1_{1/x})\); both are affine, since the
+  preimage of an affine open under a finite (hence affine) morphism is
+  affine. Then \(A_0 = \Gamma(U_0, \struct{C})\) is a finite module over
+  \(k[x]\), and \(A_1 = \Gamma(U_1, \struct{C})\) is a finite module over
+  \(k[1/x]\): for a finite morphism \(\rho\) and an affine open \(V\) of
+  its target \(Y\), \(\Gamma(\rho^{-1}V, \struct{X})\) is always a finite
+  module over \(\Gamma(V, \struct{Y})\) (the integral-closure finiteness
+  of a finite morphism, applied to \(\rho = \pi\), \(Y = \mathbb{P}^1_k\)).
+  Packaging \(U_0, U_1\) and their affine overlap as a
+  \(2\)-affine cover of \(C\) is the pulled-back cover square consumed by
+  the keystone (\ref{mk-thm:adelic_finiteDimensional_cokernel_zero}). (The
+  sharper classical description of \(A_0\), \(A_1\), and \(A_{01}\) as
+  integral closures, generically free of rank \(n=[K:k(x)]\), is not
+  needed for this argument.)
+\end{proposition}
+\begin{proof}
+  Affineness of \(U_0\) and \(U_1\) is preimage-stability of affine opens
+  under a finite morphism. Module-finiteness of \(A_0\) over \(k[x]\)
+  (and symmetrically of \(A_1\) over \(k[1/x]\)) is the general fact that
+  for a finite morphism \(\rho \colon X \to Y\) and an affine open \(V\)
+  of \(Y\), the induced ring map \(\Gamma(V, \struct{Y}) \to
+  \Gamma(\rho^{-1}V, \struct{X})\) makes the target a finite module over
+  the source.
+\end{proof}
+\begin{lemma}
+[The \(\mathbb{P}^1\) base cokernel vanishes]
+  \label{mk-thm:adelic_cokernel_P1_zero}
+  \dcref{custom}
+
+  The untwisted cokernel of the standard cover of \(\mathbb{P}^1_k\)
+  vanishes:
+  \[
+    k[x, x^{-1}] \big/ \bigl(k[x] + k[x^{-1}]\bigr) \;=\; 0,
+    \qquad\text{i.e.}\qquad H^1(\mathbb{P}^1_k, \struct{\mathbb{P}^1}) = 0.
+  \]
+\end{lemma}
+\begin{proof}
+  As a \(k\)-vector space \(k[x, x^{-1}]\) has basis the Laurent
+  monomials \(\{x^m : m \in \mathbb{Z}\}\). Every monomial \(x^m\) with
+  \(m \ge 0\) lies in \(k[x]\), and every monomial with \(m \le 0\) lies
+  in \(k[x^{-1}]\); since each integer is \(\ge 0\) or \(\le 0\), the sum
+  \(k[x] + k[x^{-1}]\) contains every basis monomial and hence equals
+  \(k[x, x^{-1}]\). Therefore the quotient is zero. This is the genus-zero
+  statement for \(\mathbb{P}^1_k\).
+\end{proof}
+
+\begin{theorem}
+[The two-cover cokernel of the curve is finite-dimensional]
+  \label{mk-thm:adelic_finiteDimensional_cokernel_zero}
+  \dcref{custom}
+
+  \uses{mk-thm:adelic_exists_finiteMorphismToP1, mk-thm:adelic_chart_finite_over_P1,
+    mk-thm:adelic_cokernel_P1_zero, mk-def:adelic_coverH1}
+  Let \(\pi \colon C \to Y\) be a finite \(k\)-morphism of
+  \(\operatorname{Spec} k\)-schemes whose target carries \emph{Laurent
+  chart data}: affine opens \(V_0 \cup V_1 = Y\), coordinates
+  \(x \in \Gamma(V_0)\), \(y \in \Gamma(V_1)\) with
+  \(V_0 \cap V_1 = D(x) = D(y)\), \(x \cdot y = 1\) on the overlap, and
+  \(\Gamma(V_0) = \sum_n k\, x^n\), \(\Gamma(V_1) = \sum_n k\, y^n\) (for
+  \(Y = \mathbb{P}^1_k\): \(\Gamma(V_0) = k[x]\),
+  \(\Gamma(V_1) = k[x^{-1}]\)). Set \(U_i = \pi^{-1} V_i\),
+  \(A_i = \Gamma(U_i, \struct{C})\),
+  \(M = \Gamma(U_0 \cap U_1, \struct{C})\). Then the two-cover Čech
+  cokernel \(\check{H}^1 = M/(A_0 + A_1)\) is a finite-dimensional
+  \(k\)-vector space. In particular, under the gates
+  \(\mathrm{HasFiniteMapToP1}\, C\) and \(\mathrm{P1HasLaurentChartData}\,
+  k\), some \(2\)-affine cover of \(C\) (the pullback of the standard
+  charts) has finite-dimensional \(\check{H}^1\).
+\end{theorem}
+\begin{proof}
+  Write \(t = \pi^{\sharp} x|_{U_0 \cap U_1}\),
+  \(u = \pi^{\sharp} y|_{U_0 \cap U_1}\); by naturality of \(\pi^{\sharp}\)
+  and \(x \cdot y = 1\) they satisfy \(t \cdot u = 1\) in \(M\) (an
+  abstract Laurent pair). Let \(N_0, N_1 \subseteq M\) be the images of
+  the restrictions \(A_0 \to M\), \(A_1 \to M\); \(N_0\) is stable under
+  multiplication by \(t\) and \(N_1\) under multiplication by \(u\),
+  since restriction is a ring map.
+
+  \emph{Extension.} \(U_0 \cap U_1 = \pi^{-1}(V_0 \cap V_1) =
+  \pi^{-1}(D(x)) = D(\pi^{\sharp} x)\) is the basic open of
+  \(\pi^{\sharp} x\) inside the affine \(U_0\), so \(M\) is the
+  localization \((A_0)_t\); hence for every \(m \in M\) there are \(n\)
+  and \(a \in A_0\) with \(t^n m = a|_{U_0 \cap U_1}\), and symmetrically
+  \(u^n m \in N_1\) for \(n \gg 0\).
+
+  \emph{Ladder spanning.} By finiteness of \(\pi\), \(A_0\) is a finite
+  \(\Gamma(V_0)\)-module; choose generators \(g_1, \dots, g_r\). Since
+  \(\Gamma(V_0)\) is the \(k\)-span of the powers of \(x\) (the geometric
+  source of the Laurent split of \ref{mk-thm:adelic_cokernel_P1_zero}),
+  \(A_0\) is the \(k\)-span of \(\{x_0^j g_i\}\) where
+  \(x_0 = \pi^{\sharp} x\); combining with the extension property and
+  \(tu = 1\), every \(m \in M\) lies in the \(k\)-span of the two-sided
+  ladder \(\{t^j \bar{g}_i\} \cup \{u^j \bar{g}_i\}\), \(j \in
+  \mathbb{N}\), with \(\bar{g}_i \in N_0\) the images of the generators.
+
+  \emph{Middle band.} The rungs \(t^j \bar{g}_i\) lie in \(N_0\)
+  (\(t\)-stability); choosing \(n_i\) with \(u^{n_i} \bar{g}_i \in N_1\)
+  and \(N = \max_i n_i\), all rungs \(u^j \bar{g}_i\) with \(j \ge N\) lie
+  in \(N_1\) (\(u\)-stability). Hence modulo \(N_0 + N_1\) the module
+  \(M\) is spanned by the finitely many middle rungs
+  \(\{u^j \bar{g}_i : i \le r,\ j < N\}\), so
+  \(\check{H}^1 = M/(N_0 + N_1)\) is finite-dimensional over \(k\).
+\end{proof}
+
+\subsection{The projective-line chart rings}
+\label{mk-sec:RiemannRoch_Adelic_P1ChartData}
+
+The two standard charts of \(\mathbb P^1_k\) have coordinate rings
+\(k[x]\) and \(k[x^{-1}]\), and their intersection has coordinate ring
+\(k[x,x^{-1}]\).  The following construction obtains these charts by
+base change from the degree-zero away rings of
+\(\operatorname{Proj}\mathbb Z[X_0,X_1]\).
+
+\begin{definition}
+[The coordinate fraction \(X_j/X_i\)]
+  \label{mk-def:adelic_p1CoordAway}
+  \dcref{custom}
+  \uses{mk-def:projective_space}
+  For \(i, j \in \{0, 1\}\), the coordinate fraction \(X_j/X_i\) is the
+  element of the degree-zero away ring \((\mathbb{Z}[X_0,X_1]_{X_i})_0\)
+  with numerator \(X_j\) and denominator \(X_i\) (both homogeneous of
+  degree \(1\)).
+\end{definition}
+
+\begin{definition}
+[The pulled-back chart coordinates]
+  \label{mk-def:adelic_p1_chart_sections}
+  \dcref{custom}
+  \uses{mk-def:adelic_p1CoordAway}
+  The chart coordinates \(x = X_1/X_0 \in \Gamma(V_0)\) and
+  \(y = X_0/X_1 \in \Gamma(V_1)\) on the standard two-chart cover
+  \(V_0, V_1\) of the concrete model \(\mathbb{P}^1_k\), obtained by
+  pulling back the away-section fractions
+  \(X_1/X_0 \in \mathrm{Away}\,\mathcal A\,X_0\) and
+  \(X_0/X_1 \in \mathrm{Away}\,\mathcal A\,X_1\)
+  (\ref{mk-def:adelic_p1CoordAway}) along the projection
+  \(\mathbb{P}^1_k \to \operatorname{Proj}\mathbb{Z}[X_0,X_1]\).
+\end{definition}
+
+\begin{lemma}
+[The monomial-to-power identity]
+  \label{mk-lem:adelic_p1Monomial_eq_coordPow}
+  \dcref{custom}
+  \uses{mk-def:adelic_p1CoordAway}
+  For \(a, b \in \mathbb{N}\), the degree-\((a+b)\) monomial fraction
+  \(X_0^a X_1^b / X_0^{a+b}\) in \((\mathbb{Z}[X_0,X_1]_{X_0})_0\) equals
+  \((X_1/X_0)^b\).
+\end{lemma}
+\begin{proof}
+  Both sides are the class of \(X_0^a X_1^b\) over the denominator
+  \(X_0^{a+b}\) in the localisation: cross-multiplying,
+  \((X_0)^b \cdot (X_0^a X_1^b) = X_0^{a+b} \cdot X_1^b\), a monomial
+  identity in the commutative monoid of monomials.
+\end{proof}
+
+\begin{theorem}
+[Span of the projective-line chart]
+  \label{mk-thm:adelic_span_p1CoordAway_pow_top}
+  \dcref{custom}
+  \uses{mk-lem:adelic_p1Monomial_eq_coordPow}
+  The degree-zero away ring \((\mathbb{Z}[X_0,X_1]_{X_0})_0\) is spanned,
+  as a module over its constant subring \((\mathbb{Z}[X_0,X_1])_0\), by
+  the powers of the coordinate fraction \(X_1/X_0\).
+\end{theorem}
+\begin{proof}
+  Every element of the away ring is a fraction \(p/X_0^N\) with \(p\)
+  homogeneous of degree \(N\) (\(N \ge 0\)). Expanding \(p\) over its
+  monomial support \(\{c_d X_0^{d_0} X_1^{d_1}\}\), homogeneity forces
+  \(d_0 + d_1 = N\) for every occurring exponent vector \(d\), so each
+  summand is, by \ref{mk-lem:adelic_p1Monomial_eq_coordPow}, the constant
+  \(c_d\) times \((X_1/X_0)^{d_1}\). Summing over the (finite) support
+  writes \(p/X_0^N\) as a \((\mathbb{Z}[X_0,X_1])_0\)-combination of
+  powers of \(X_1/X_0\).
+\end{proof}
+
+\begin{theorem}
+[Laurent chart data on \(\mathbb P^1\)]
+  \label{mk-thm:adelic_P1_laurent_chart_data}
+  \dcref{custom}
+  \uses{mk-def:projective_space, mk-thm:adelic_span_p1CoordAway_pow_top}
+  For every field \(k\), the standard two-chart cover of
+  \(\mathbb P^1_k\) carries Laurent chart data: its chart rings are
+  spanned by nonnegative powers of \(x\) and \(x^{-1}\), the overlap is
+  both \(D(x)\) and \(D(x^{-1})\), and the two coordinates multiply to
+  one there.
+\end{theorem}
+
+\begin{theorem}
+[Finite-dimensionality of \(H^1(C,\struct C)\)]
+  \label{mk-thm:adelic_module_finite_genus}
+  \dcref{custom}
+  \uses{mk-thm:adelic_HModuleOne_linearEquiv_cokernel,
+    mk-thm:adelic_finiteDimensional_cokernel_zero,
+    mk-thm:adelic_exists_finiteMorphismToP1,
+    mk-thm:adelic_P1_laurent_chart_data, mk-def:genus}
+  If \(C\) is smooth and proper with geometrically integral fibres, then
+  \[
+    \Module.\Finite\ k\ \bigl(\HModule\, k\, (\toModuleKSheaf C)\, 1\bigr).
+  \]
+  Thus \(\genus C\) is the dimension of this finite-dimensional vector
+  space.
+\end{theorem}
+\begin{proof}
+  Pull back the standard charts along the finite morphism to
+  \(\mathbb P^1_k\).  Their cokernel is finite-dimensional by
+  \ref{mk-thm:adelic_finiteDimensional_cokernel_zero}, and
+  \ref{mk-thm:adelic_HModuleOne_linearEquiv_cokernel} transports this
+  finiteness to \(H^1(C,\struct C)\).
+\end{proof}
+
+\section{The Euler-characteristic ledger}
+\label{mk-sec:RiemannRoch_Adelic_chi}
+
+Fix the same two-affine cover.  The divisor section groups become
+\(k\)-subspaces of \(K\), and their quotients give a concrete numerical
+Euler-characteristic calculation.
+
+\subsection{The twist sequence}
+
+\begin{lemma}
+[Antitonicity of the section subgroup in the open]
+  \label{mk-lem:adelic_sectionOfDivisor_antitone_open}
+  \dcref{custom}
+  \uses{mk-def:adelic_sectionOfDivisor}
+  For opens \(U \subseteq U'\) of \(C\) and a Weil divisor \(D\),
+  \(\Gamma(U', \struct{C}(D)) \subseteq \Gamma(U, \struct{C}(D))\): a
+  larger open imposes the order bound \(v_P(f) \ge -D(P)\) at more
+  prime divisors, so its section subgroup is smaller.
+\end{lemma}
+\begin{proof}
+  A nonzero \(f \in \Gamma(U', \struct{C}(D))\) satisfies
+  \(v_P(f) \ge -D(P)\) at every prime divisor \(P\) with point in
+  \(U'\), in particular at every such \(P\) with point in the smaller
+  open \(U \subseteq U'\), so \(f \in \Gamma(U, \struct{C}(D))\).
+\end{proof}
+
+\begin{definition}
+[The coboundary subgroup]
+  \label{mk-def:adelic_coboundary}
+  \dcref{custom}
+  \uses{mk-def:adelic_sectionOfDivisor}
+  The \emph{coboundary} is the sum of the two chart section subgroups
+  inside \(K\):
+  \[
+    B(D)=\Gamma(U_0,\struct C(D))+\Gamma(U_1,\struct C(D)).
+  \]
+\end{definition}
+
+\begin{lemma}
+[The coboundary and the linear system land in the overlap]
+  \label{mk-lem:adelic_coboundary_le_overlap}
+  \dcref{custom}
+  \uses{mk-def:adelic_coboundary, mk-def:adelic_sectionOfDivisor,
+    mk-lem:adelic_sectionOfDivisor_antitone_open}
+  \(B(D) \subseteq \Gamma(U_0 \cap U_1, \struct{C}(D))\) and
+  \(L(D) \subseteq \Gamma(U_0 \cap U_1, \struct{C}(D))\): each of the two
+  chart sections, and every global section, restricts to the overlap.
+\end{lemma}
+\begin{proof}
+  Immediate from the antitonicity of \(\Gamma(-, \struct{C}(D))\) in the
+  open (\ref{mk-lem:adelic_sectionOfDivisor_antitone_open}: a larger open
+  imposes more order conditions, hence restricts into a smaller open's
+  section group), applied to \(U_0 \cap U_1 \subseteq U_0\), \(U_0 \cap
+  U_1 \subseteq U_1\), and \(U_0 \cap U_1 \subseteq \top\).
+\end{proof}
+
+\begin{theorem}
+[Exactness at the \(L\)-terms]
+  \label{mk-thm:adelic_linearSystem_inf_overlap_eq}
+  \dcref{custom}
+  \uses{mk-lem:adelic_coboundary_le_overlap}
+  Suppose \(D \le D'\) pointwise and \(D' - D\) is supported on the
+  overlap \(V = U_0 \cap U_1\) (off \(V\), \(D\) and \(D'\) agree). Then
+  \[
+    L(D') \cap \Gamma(V, \struct{C}(D)) \;=\; L(D).
+  \]
+\end{theorem}
+\begin{proof}
+  (\(\supseteq\)) A global section of \(\struct{C}(D)\) is a global
+  section of \(\struct{C}(D')\) (\(D \le D'\)) that trivially restricts
+  into \(\Gamma(V, \struct{C}(D))\). (\(\subseteq\)) Let \(f \in L(D')\)
+  restrict into \(\Gamma(V, \struct{C}(D))\); if \(f = 0\) it lies in
+  \(L(D)\) trivially. Otherwise, to check \(f \in L(D)\) it suffices to
+  bound \(v_P(f) \ge -D(P)\) at every prime divisor \(P\): on \(V\) this
+  is the hypothesis \(f \in \Gamma(V, \struct{C}(D))\), and off \(V\) it
+  is the bound \(v_P(f) \ge -D'(P) = -D(P)\) (using \(D = D'\) off
+  \(V\)) already known from \(f \in L(D')\).
+\end{proof}
+
+\begin{definition}
+[The function-field quotient and the window map]
+  \label{mk-def:adelic_H1_window}
+  \dcref{custom}
+  \uses{mk-def:adelic_function_field_H1, mk-def:adelic_coboundary,
+    mk-lem:adelic_coboundary_le_overlap}
+  The function-field quotient \(\check{H}^1_{\mathrm{ff}}(D) = \Gamma(V,
+  \struct{C}(D))/B(D)\) (\(B(D) \subseteq \Gamma(V, \struct{C}(D))\) by
+  \ref{mk-lem:adelic_coboundary_le_overlap}). For \(D \le D'\), the
+  inclusions \(\Gamma(V, \struct{C}(D)) \subseteq \Gamma(V,
+  \struct{C}(D'))\) and \(B(D) \subseteq B(D')\) induce the twist map
+  \(\check{H}^1_{\mathrm{ff}}(D) \to
+  \check{H}^1_{\mathrm{ff}}(D')\), and the inclusions \(L(D)
+  \subseteq \Gamma(V, \struct{C}(D))\) induce the \emph{window map}
+  \[
+    L(D')/L(D) \longrightarrow \Gamma(V, \struct{C}(D'))\big/
+      \Gamma(V, \struct{C}(D)),
+  \]
+  the left-hand map of the four-term ledger sequence of
+  \ref{mk-thm:adelic_twist_exact_sequence}.
+\end{definition}
+
+\begin{theorem}
+[The window map is injective]
+  \label{mk-thm:adelic_windowMap_injective}
+  \dcref{custom}
+  \uses{mk-def:adelic_H1_window, mk-thm:adelic_linearSystem_inf_overlap_eq}
+  Under the hypotheses of \ref{mk-thm:adelic_linearSystem_inf_overlap_eq}
+  (\(D \le D'\), \(D' - D\) supported on the overlap), the window map
+  \(L(D')/L(D) \to \Gamma(V, \struct{C}(D'))/\Gamma(V, \struct{C}(D))\)
+  is injective: this is the exactness of the ledger sequence at the two
+  \(L\)-terms.
+\end{theorem}
+\begin{proof}
+  A class \([f] \in L(D')/L(D)\) mapping to zero means \(f \in L(D')\)
+  restricts into \(\Gamma(V, \struct{C}(D))\); by
+  \ref{mk-thm:adelic_linearSystem_inf_overlap_eq} this forces \(f \in
+  L(D)\), i.e.\ \([f] = 0\).
+\end{proof}
+
+\begin{definition}[The divisorial sheaf]
+  \label{mk-def:adelic_divisorial_sheaf}
+  \dcref{custom}
+  \uses{mk-def:adelic_sectionOfDivisor}
+  The divisorial sheaf \(\struct C(D)\) is the subsheaf of the constant
+  sheaf \(K\) whose sections on a nonempty open \(U\) are the rational
+  functions satisfying
+  \[
+    v_P(f)+D(P)\geq 0
+    \quad\text{for every prime divisor }P\text{ meeting }U.
+  \]
+  Its section over the empty open is zero.  It is an invertible, hence
+  quasi-coherent, \(\struct C\)-module.
+\end{definition}
+
+\begin{proposition}[Comparison with the divisorial sheaf]
+  \label{mk-thm:adelic_function_field_H1_compare}
+  \dcref{custom}
+  \uses{mk-def:adelic_divisorial_sheaf,
+    mk-def:adelic_function_field_H1,
+    mk-thm:adelic_mv_h1_cokernel_equiv}
+  For every divisor \(D\), the order-bounded function-field quotient is
+  canonically isomorphic to the first cohomology of the divisorial sheaf:
+  \[
+    \check H^1_{\mathrm{ff}}(D)\simeq_k H^1(C,\struct C(D)).
+  \]
+\end{proposition}
+\begin{proof}
+  The valuation description of \(\struct C(D)\) identifies its sections on
+  \(U_0\), \(U_1\), and \(U_0\cap U_1\) with the three divisor section
+  groups.  The resulting difference complex has cokernel
+  \(\check H^1_{\mathrm{ff}}(D)\).  Since \(\struct C(D)\) is
+  quasi-coherent and both charts are affine, Mayer--Vietoris identifies
+  this cokernel with \(H^1(C,\struct C(D))\).
+\end{proof}
+
+\begin{proposition}
+[Twist exact sequence]
+  \label{mk-thm:adelic_twist_exact_sequence}
+  \dcref{custom}
+  \uses{mk-def:adelic_divisorial_sheaf,
+    mk-thm:adelic_function_field_H1_compare}
+  For Weil divisors \(D \le D'\) there is a four-term exact sequence of
+  \(k\)-vector spaces
+  \[
+    0 \longrightarrow L(D')/L(D)
+      \longrightarrow \mathcal{Q}(D, D')
+      \longrightarrow \check{H}^1_{\mathrm{ff}}(D)
+      \longrightarrow \check{H}^1_{\mathrm{ff}}(D')
+      \longrightarrow 0,
+  \]
+  where \(\mathcal{Q}(D, D') = H^0\bigl(C, \struct{C}(D')/\struct{C}(D)\bigr)\)
+  is the space of global sections of the finite-support quotient sheaf.
+\end{proposition}
+\begin{proof}
+  The inclusion of divisorial sheaves has finite-support cokernel
+  \(\mathcal T\):
+  \[
+    0\longrightarrow\struct C(D)\longrightarrow\struct C(D')
+      \longrightarrow\mathcal T\longrightarrow0.
+  \]
+  A finite-support sheaf has no higher cohomology.  The associated long
+  exact sequence therefore ends after \(H^1(C,\struct C(D'))\), and the
+  degree-zero terms identify with \(L(D)\), \(L(D')\), and
+  \(\mathcal Q(D,D')\).  Since the cover is affine and the divisorial
+  sheaves are quasi-coherent, their first sheaf cohomology groups are the
+  displayed cover cokernels.  Quotienting the first two terms gives the
+  stated sequence.
+\end{proof}
+
+\subsection{The one-point step}
+
+\begin{definition}
+[The single-point order-\(\ge m\) subgroup]
+  \label{mk-def:adelic_orderGe}
+  \dcref{custom}
+  \uses{mk-def:adelic_pointValuation}
+  For a prime divisor \(P\) and \(m \in \mathbb{Z}\),
+  \(\mathfrak G_P^{\ge m} = \{ f \in K : f = 0 \text{ or } v_P(f) \ge m
+  \}\), an additive subgroup of \(K\) (for \(m \le 0\) the fractional
+  ideal \(\mathfrak m_P^{-m} \subset \struct{C,P}\) viewed inside \(K\)).
+\end{definition}
+
+\begin{theorem}
+[The local step identity]
+  \label{mk-thm:adelic_local_step_identity}
+  \dcref{custom}
+  \uses{mk-def:adelic_orderGe, mk-def:adelic_sectionOfDivisor}
+  Let \(D \le D'\) agree except at a prime divisor \(P \in U\) with
+  \(D'(P) = D(P) + 1\). Then
+  \[
+    \Gamma(U, \struct{C}(D)) \;=\; \Gamma(U, \struct{C}(D')) \cap
+      \mathfrak G_P^{\ge -D(P)}.
+  \]
+\end{theorem}
+\begin{proof}
+  A nonzero \(f \in \Gamma(U, \struct{C}(D'))\) lies in \(\Gamma(U,
+  \struct{C}(D))\) iff its order bound at \(P\) tightens from \(\ge
+  -D(P)-1\) to \(\ge -D(P)\) (unchanged at every other point of \(U\),
+  where \(D = D'\)), i.e.\ iff \(f \in \mathfrak G_P^{\ge -D(P)}\).
+\end{proof}
+
+\begin{theorem}
+[The local step quotient injects into the valuation quotient]
+  \label{mk-thm:adelic_local_step_injective}
+  \dcref{custom}
+  \uses{mk-thm:adelic_local_step_identity}
+  Under the hypotheses of \ref{mk-thm:adelic_local_step_identity}, the
+  inclusion \(\Gamma(U, \struct{C}(D')) \subseteq \mathfrak G_P^{\ge
+  -D(P)-1}\) induces an injective map on the relative quotients,
+  \[
+    \Gamma(U, \struct{C}(D')) \big/ \Gamma(U, \struct{C}(D))
+      \;\hookrightarrow\;
+      \mathfrak G_P^{\ge -D(P)-1} \big/ \mathfrak G_P^{\ge -D(P)}.
+  \]
+\end{theorem}
+\begin{proof}
+  Injectivity transports \ref{mk-thm:adelic_local_step_identity} (a
+  kernel computation) into the quotient language: a class mapping to
+  zero has a representative \(f \in \Gamma(U, \struct{C}(D')) \cap
+  \mathfrak G_P^{\ge -D(P)} = \Gamma(U, \struct{C}(D))\), hence is zero
+  already in the source quotient.
+\end{proof}
+
+\begin{lemma}
+[Order-nonnegativity is stalk-integrality]
+  \label{mk-lem:adelic_order_stalk_integral}
+  \dcref{custom}
+  \uses{mk-def:adelic_pointValuation}
+  For \(f \in K^\times\) with \(v_P(f) \ge 0\), \(f\) lifts to the
+  discrete valuation ring \(\struct{C, P}\), i.e.\ \(f = a\) for some
+  \(a \in \struct{C, P}\) (viewed in \(K\)).
+\end{lemma}
+\begin{proof}
+  \(v_P(f) \ge 0\) exactly says the normalised valuation of \(f\) at
+  \(P\) satisfies \(|f|_P \le 1\); a discrete valuation ring is
+  precisely the set of elements of its fraction field of valuation
+  \(\le 1\), so \(f\) lifts to \(\struct{C, P}\).
+\end{proof}
+
+\begin{theorem}
+[The ground field has order zero]
+  \label{mk-thm:adelic_constant_field_order_zero}
+  \dcref{custom}
+
+  \uses{mk-def:adelic_pointValuation}
+  The structure morphism embeds \(k\) in \(K\), and every nonzero
+  \(c\in k\) is a unit in every local ring of \(C\).  Hence
+  \(v_P(c)=0\) for every prime divisor \(P\).  Consequently every divisor
+  section group is naturally a \(k\)-subspace of \(K\).
+\end{theorem}
+
+\begin{theorem}
+[The local step is bounded by the residue degree]
+  \label{mk-thm:adelic_local_step_dim_le_residue_degree}
+  \dcref{custom}
+  \uses{mk-thm:adelic_local_step_injective, mk-thm:adelic_constant_field_order_zero,
+    mk-def:adelic_pointValuation}
+  Put
+  \[
+    \deg_P^{\mathrm{val}}
+      =\dim_k\bigl(\mathfrak G_P^{\ge0}/\mathfrak G_P^{\ge1}\bigr).
+  \]
+  Assume this degree-zero valuation step is finite-dimensional over \(k\).
+  Multiplication by an element of prescribed order identifies every
+  quotient \(\mathfrak G_P^{\ge m-1}/\mathfrak G_P^{\ge m}\) with the
+  quotient defining \(\deg_P^{\mathrm{val}}\).  Under the hypotheses of
+  \ref{mk-thm:adelic_local_step_identity},
+  \[
+    \dim_k \bigl(\Gamma(U, \struct{C}(D'))/\Gamma(U, \struct{C}(D))\bigr)
+      \;\le\; \deg_P^{\mathrm{val}}.
+  \]
+\end{theorem}
+\begin{proof}
+  The injection of \ref{mk-thm:adelic_local_step_injective} lands in a
+  one-step valuation quotient.  Shifting by a uniformizer power identifies
+  this target with the degree-zero step, and dimension is monotone under
+  an injective linear map.
+\end{proof}
+
+\begin{theorem}[Residue degree one over an algebraically closed base]
+  \label{mk-thm:adelic_residue_degree_one}
+  \dcref{custom}
+  \uses{mk-def:adelic_residue_degree}
+  Let \(C\) be a smooth curve over an algebraically closed field \(k\). Then
+  every prime divisor \(P\) of \(C\) satisfies
+  \[
+    \deg P = [\kappa(P):k] = 1 .
+  \]
+\end{theorem}
+\begin{proof}
+  \uses{mk-def:adelic_residue_degree}
+  A prime divisor of \(C\) is a closed point, and \(C\) is locally of finite
+  type over \(k\) because it is smooth. The underlying space of a scheme
+  locally of finite type over a field is a Jacobson space, so
+  \(\kappa(P)\) is an algebraic extension of \(k\) by Zariski's lemma; since
+  \(k\) is algebraically closed, the structure map \(k \to \kappa(P)\) is an
+  isomorphism, giving \(\dim_k \kappa(P) = 1\).
+\end{proof}
+
+\begin{corollary}[The weighted degree is the geometric degree]
+  \label{mk-cor:adelic_degK_eq_degree}
+  \dcref{custom}
+  \uses{mk-def:adelic_divisor_degree, mk-thm:adelic_residue_degree_one}
+  For a smooth curve \(C\) over an algebraically closed field \(k\) and every
+  Weil divisor \(D\) on \(C\),
+  \[
+    \deg_k(D) = \deg(D),
+  \]
+  the right-hand side being the unweighted degree of \ref{mk-def:divisor_degree}.
+\end{corollary}
+\begin{proof}
+  \uses{mk-thm:adelic_residue_degree_one}
+  Both degrees are the sum over the (finite) support of \(D\) of its
+  coefficients, weighted by \([\kappa(P):k]\) on the left and by \(1\) on the
+  right. The weights agree by \ref{mk-thm:adelic_residue_degree_one}.
+\end{proof}
+
+\begin{lemma}[The valuation quotient is the residue field]
+  \label{mk-lem:adelic_valuation_quotient_residue_field}
+  \dcref{custom}
+  \uses{mk-def:adelic_residue_degree, mk-def:adelic_orderGe}
+  Reduction modulo the maximal ideal induces a \(k\)-linear isomorphism
+  \[
+    \mathfrak G_P^{\ge0}/\mathfrak G_P^{\ge1}\simeq_k\kappa(P).
+  \]
+  In particular \(\deg_P^{\mathrm{val}}=[\kappa(P):k]=\deg P\).
+\end{lemma}
+\begin{proof}
+  The subgroup \(\mathfrak G_P^{\ge0}\) is the valuation ring
+  \(\struct{C,P}\), while \(\mathfrak G_P^{\ge1}\) is its maximal ideal.
+  Their quotient is therefore the residue field.
+\end{proof}
+
+\begin{theorem}[Approximation on a Dedekind chart]
+  \label{mk-thm:adelic_weak_approximation}
+  \uses{mk-thm:adelic_chartRing_isDedekindDomain,
+    mk-def:adelic_pointValuation}
+  \dcref{custom}
+  Let \(P_1,\ldots,P_r\) be pairwise distinct points in a common affine
+  Dedekind chart.  Given \(a_i\in K\) and integers \(m_i\), there exists
+  \(f\in K\) such that
+  \[
+    v_{P_i}(f-a_i)\geq m_i\qquad(1\leq i\leq r).
+  \]
+\end{theorem}
+\begin{proof}
+  Write the chart as \(\operatorname{Spec}A\), and choose a common
+  denominator \(0\ne d_0\in A\) with \(d_0a_i\in A\) for every \(i\).
+  Choose \(N_i\geq0\) with
+  \(v_{P_i}(d_0)+N_i+m_i\geq0\).  The nonzero ideal
+  \(\prod_i\mathfrak p_i^{N_i}\) contains a nonzero element \(b\); put
+  \(d=d_0b\) and \(e_i=v_{P_i}(d)+m_i\).  Then \(da_i\in A\) and
+  \(e_i\geq0\).  The powers
+  \(\mathfrak p_i^{e_i}\) of the distinct maximal ideals are pairwise
+  comaximal.  By the Chinese remainder theorem there is \(y\in A\) with
+  \(y\equiv da_i\pmod{\mathfrak p_i^{e_i}}\) for every \(i\).  For
+  \(f=y/d\) one has
+  \[
+    v_{P_i}(f-a_i)=v_{P_i}(y-da_i)-v_{P_i}(d)
+      \geq e_i-v_{P_i}(d)=m_i.
+  \]
+\end{proof}
+
+\begin{theorem}
+[The local step has residue degree under approximation]
+  \label{mk-thm:adelic_local_step_dim_eq_residue_degree}
+  \dcref{custom}
+
+  \uses{mk-thm:adelic_local_step_injective,
+    mk-thm:adelic_local_step_dim_le_residue_degree}
+  Suppose every element of \(\mathfrak G_P^{\ge-D(P)-1}\) is congruent,
+  modulo \(\mathfrak G_P^{\ge-D(P)}\), to a member of
+  \(\Gamma(U,\struct C(D+P))\).  Then
+  \[
+    \dim_k\bigl(\Gamma(U,\struct C(D+P))/\Gamma(U,\struct C(D))\bigr)
+      =\deg_P^{\mathrm{val}}.
+  \]
+\end{theorem}
+\begin{proof}
+  The approximation hypothesis makes the local-step map surjective; it is
+  injective by \ref{mk-thm:adelic_local_step_injective}.  Hence it is an
+  isomorphism onto the one-step valuation quotient.
+\end{proof}
+
+\begin{proposition}[Sections of a finite-support quotient]
+  \label{mk-thm:adelic_finite_support_quotient_sections}
+  \dcref{custom}
+  \uses{mk-def:adelic_divisorial_sheaf, mk-def:codim1_cycles}
+  For \(D\le D'\), the quotient
+  \(\mathcal T=\struct C(D')/\struct C(D)\) is supported on the finite set
+  \(\operatorname{supp}(D'-D)\), and restriction to stalks induces
+  \[
+    H^0(C,\mathcal T)\simeq_k
+      \bigoplus_{P\in\operatorname{supp}(D'-D)}\mathcal T_P.
+  \]
+\end{proposition}
+\begin{proof}
+  Divisors are finitely supported.  The coherent quotient is the pushforward
+  of a module on a finite closed subscheme \(Z\subset C\) with this support.
+  The finite scheme \(Z\) is affine, and its Artinian coordinate ring is the
+  product of its local Artinian factors.  The corresponding module therefore
+  decomposes as the direct sum of its localizations at the points of \(Z\),
+  which are precisely the stalks \(\mathcal T_P\).  Taking global sections of
+  the finite pushforward gives the displayed isomorphism.
+\end{proof}
+
+\begin{proposition}[The one-point stalk quotient]
+  \label{mk-thm:adelic_twist_stalk_quotient}
+  \dcref{custom}
+  \uses{mk-def:adelic_divisorial_sheaf,
+    mk-lem:adelic_valuation_quotient_residue_field}
+  If \(D'=D+P\) and
+  \(\mathcal T=\struct C(D')/\struct C(D)\), then
+  \[
+    \mathcal T_P\simeq_k
+      \mathfrak G_P^{\ge-D(P)-1}/\mathfrak G_P^{\ge-D(P)}
+      \simeq_k\kappa(P),
+  \]
+  while \(\mathcal T_Q=0\) for \(Q\ne P\).
+\end{proposition}
+\begin{proof}
+  Localising the two divisorial sheaves at \(P\) gives two consecutive
+  fractional ideals of the DVR \(\struct{C,P}\).  Multiplication by a
+  uniformiser power shifts their quotient to
+  \(\struct{C,P}/\mathfrak m_P=\kappa(P)\).  At every other point the two
+  divisors, and hence the two stalks, agree.
+\end{proof}
+
+\begin{proposition}
+[Dimension of the twist quotient]
+  \label{mk-thm:adelic_dim_adele_quotient_eq_degree}
+  \dcref{custom}
+  \uses{mk-thm:adelic_finite_support_quotient_sections,
+    mk-thm:adelic_twist_stalk_quotient,
+    mk-def:adelic_divisor_degree}
+  For \(D \le D'\) the skyscraper section space is finite-dimensional
+  with
+  \[
+    \dim_k \mathcal{Q}(D, D')
+      \;=\; \deg_k(D' - D)
+      \;=\; \sum_P \bigl(D'(P) - D(P)\bigr)\,\deg P .
+  \]
+\end{proposition}
+\begin{proof}
+  By \ref{mk-thm:adelic_finite_support_quotient_sections}, global sections
+  split into the finitely many stalk quotients.  Filter each stalk by the
+  coefficient difference \(D'(P)-D(P)\).  Every consecutive quotient is
+  \(\kappa(P)\) by \ref{mk-thm:adelic_twist_stalk_quotient}, and therefore has
+  \(k\)-dimension \(\deg P\).  Additivity of dimension along the filtration
+  gives
+  \(\dim_k \mathcal{Q}(D, D') = \sum_P (D'(P) - D(P))\deg P = \deg_k(D' - D)\),
+  the residue-weighted degree of \ref{mk-def:adelic_divisor_degree}.
+\end{proof}
+
+\subsection{Euler characteristic and the Riemann inequality}
+
+\begin{lemma}
+[Alternating dimension identity of a four-term exact sequence]
+  \label{mk-lem:adelic_finrank_alternating_exact4}
+  \dcref{custom}
+  For a four-term exact sequence of finite-dimensional \(k\)-vector
+  spaces \(0 \to A \xrightarrow{i} B \xrightarrow{p} C \xrightarrow{q} E
+  \to 0\) (\(i\) injective, \(\operatorname{im} i = \ker p\),
+  \(\operatorname{im} p = \ker q\), \(q\) surjective),
+  \[
+    \dim A - \dim B + \dim C - \dim E = 0.
+  \]
+\end{lemma}
+\begin{proof}
+  Rank--nullity gives \(\dim(\ker p) = \dim(\operatorname{im} i) = \dim
+  A\) and \(\dim(\operatorname{im} p) + \dim(\ker p) = \dim B\), so
+  \(\dim B - \dim A = \dim(\operatorname{im} p) = \dim(\ker q)\).
+  Rank--nullity for \(q\) gives \(\dim(\ker q) + \dim(\operatorname{im}
+  q) = \dim C\), and surjectivity gives \(\operatorname{im} q = E\), so
+  \(\dim(\ker q) = \dim C - \dim E\). Combining,
+  \(\dim B - \dim A = \dim C - \dim E\).
+\end{proof}
+
+\begin{definition}
+[The \(\chi\)-ledger dimensions]
+  \label{mk-def:adelic_chi_ledger}
+  \dcref{custom}
+  \uses{mk-def:adelic_H1_window, mk-thm:adelic_constant_field_order_zero}
+  Fix a field of constants \(k\). Write \(\ell(D) = \dim_k L(D)\),
+  \(h^1(D) = \dim_k \check{H}^1_{\mathrm{ff}}(D)\), and
+  \(\chi(D) = \ell(D) - h^1(D)\)
+  for the Euler characteristic.
+\end{definition}
+
+\begin{theorem}[Global regular functions are constants]
+  \label{mk-thm:adelic_global_sections_constants}
+  \dcref{custom}
+
+  The structure map induces a \(k\)-algebra equivalence
+  \[
+    \Gamma(C,\struct C)\simeq_k k.
+  \]
+  Equivalently, the zeroth cohomology of the structure sheaf has dimension
+  one on every affine Mayer--Vietoris square.
+\end{theorem}
+\begin{proof}
+  Proper geometric integrality identifies the global section ring with the
+  base field; the cover kernel is the global section space.
+\end{proof}
+
+\begin{corollary}[The base value of the divisor ledger]
+  \label{mk-thm:adelic_ell_zero}
+  \dcref{custom}
+  \uses{mk-thm:adelic_global_sections_constants,
+    mk-def:adelic_divisorial_sheaf, mk-def:adelic_sectionOfDivisor}
+  The zero divisorial sheaf is the structure sheaf, its valuation-defined
+  global sections satisfy \(L(0)=k\), and therefore \(\ell(0)=1\).
+\end{corollary}
+\begin{proof}
+  The local condition \(v_P(f)\ge0\) at every prime divisor says precisely
+  that the rational function \(f\) is regular everywhere on the regular
+  curve.  Thus \(L(0)=\Gamma(C,\struct C)\), and
+  \ref{mk-thm:adelic_global_sections_constants} identifies this space with
+  \(k\).
+\end{proof}
+
+\begin{theorem}
+[Conditional overlap-ledger identity]
+  \label{mk-thm:adelic_ledger_alternating}
+  \dcref{custom}
+  \uses{mk-lem:adelic_finrank_alternating_exact4,
+    mk-thm:adelic_windowMap_injective, mk-def:adelic_chi_ledger}
+  Put \(V=U_0\cap U_1\).  Suppose the four displayed spaces are
+  finite-dimensional and the window, connecting, and twist maps form an
+  exact sequence
+  \[
+    0\longrightarrow L(D')/L(D)
+      \longrightarrow \Gamma(V,\struct C(D'))/\Gamma(V,\struct C(D))
+      \longrightarrow\check H^1_{\mathrm{ff}}(D)
+      \longrightarrow\check H^1_{\mathrm{ff}}(D')\longrightarrow0.
+  \]
+  Then
+  \[
+    \dim_k\bigl(L(D')/L(D)\bigr) - \dim_k\bigl(\Gamma(V,\struct{C}(D'))/
+      \Gamma(V,\struct{C}(D))\bigr) + h^1(D) - h^1(D') = 0.
+  \]
+  For the canonical window map, injectivity follows from
+  \ref{mk-thm:adelic_windowMap_injective} when \(D'-D\) is supported on
+  \(V\); exactness at the other terms remains a separate hypothesis here.
+\end{theorem}
+\begin{proof}
+  \ref{mk-lem:adelic_finrank_alternating_exact4} applied to the four-term
+  sequence, whose injectivity at the left is
+  \ref{mk-thm:adelic_windowMap_injective}.
+\end{proof}
+
+\begin{theorem}
+[One-step \(\chi\)-additivity]
+  \label{mk-thm:adelic_chi_additivity}
+  \dcref{custom}
+  \uses{mk-thm:adelic_ledger_alternating,
+    mk-thm:adelic_local_step_dim_eq_residue_degree}
+  Under the exactness and finite-dimensionality hypotheses of
+  \ref{mk-thm:adelic_ledger_alternating} for \(D\le D'\),
+  \[
+    \chi(D') \;=\; \chi(D) + \dim_k\bigl(\Gamma(V,\struct{C}(D'))/
+      \Gamma(V,\struct{C}(D))\bigr).
+  \]
+  For a one-point bump \(D'=D+P\) with \(P\in V\), the approximation hypothesis of
+  \ref{mk-thm:adelic_local_step_dim_eq_residue_degree} gives
+  \(\chi(D+P)=\chi(D)+\deg_P^{\mathrm{val}}\).
+\end{theorem}
+\begin{proof}
+  Rank--nullity identifies
+  \(\dim_k\bigl(\Gamma(\top,\struct{C}(D'))/\Gamma(\top,\struct{C}(D))\bigr)
+  = \ell(D') - \ell(D)\); substituting into
+  \ref{mk-thm:adelic_ledger_alternating} and rearranging with
+  \(\chi = \ell - h^1\) gives the first claim.  The one-point formula
+  follows from \ref{mk-thm:adelic_local_step_dim_eq_residue_degree}.
+\end{proof}
+
+\begin{theorem}[Telescoping along an effective divisor]
+  \label{mk-thm:adelic_chi_telescope_effective}
+  \dcref{custom}
+
+  \uses{mk-thm:adelic_chi_additivity}
+  Let \(P_1,\ldots,P_r\) be prime divisors and suppose the one-point
+  identity
+  \(\chi(E+P)=\chi(E)+\deg_P^{\mathrm{val}}\) holds at every step.  Then
+  \[
+    \chi(P_1+\cdots+P_r)
+      =\chi(0)+\sum_{j=1}^r\deg_{P_j}^{\mathrm{val}}.
+  \]
+\end{theorem}
+\begin{proof}
+  Induct on \(r\).  The empty sum is immediate; the induction step applies
+  the one-point identity to \(P_1+(P_2+\cdots+P_r)\).
+\end{proof}
+
+\begin{theorem}
+[Euler characteristic of a divisor]
+  \label{mk-thm:adelic_chi_eq_chi_zero_add_degree}
+  \uses{mk-thm:adelic_twist_exact_sequence,
+    mk-thm:adelic_dim_adele_quotient_eq_degree,
+    mk-thm:adelic_module_finite_genus,
+    mk-thm:adelic_function_field_H1_zero_compare,
+    mk-thm:adelic_ell_zero, mk-def:genus}
+  \dcref{custom}
+  The Euler characteristic \(\chi(D) = \ell(D) - i(D)\) is additive in the
+  degree:
+  \[
+    \chi(D') - \chi(D) = \deg(D' - D)
+    \quad\text{for } D \le D',
+    \qquad\text{hence}\qquad
+    \chi(D) = \deg D + 1 - g .
+  \]
+\end{theorem}
+\begin{proof}
+  By \ref{mk-thm:adelic_module_finite_genus} the base cohomology
+  \(\check{H}^1_{\mathrm{ff}}(0)\) is finite-dimensional; the twist sequence
+  bound every \(\ell(D), i(D)\) by finite numbers, so all dimensions
+  occurring are finite and the alternating-sum identity for an exact
+  sequence of finite-dimensional spaces applies. Apply it to the
+  four-term sequence of \ref{mk-thm:adelic_twist_exact_sequence} for
+  \(D \le D'\):
+  \[
+    \dim\!\bigl(L(D')/L(D)\bigr) - \dim \mathcal{Q}(D, D')
+      + \dim \check{H}^1_{\mathrm{ff}}(D)
+      - \dim \check{H}^1_{\mathrm{ff}}(D') = 0 .
+  \]
+  With \(\dim(L(D')/L(D)) = \ell(D') - \ell(D)\),
+  \(\dim \mathcal{Q}(D, D') = \deg(D' - D)\)
+  (\ref{mk-thm:adelic_dim_adele_quotient_eq_degree}), and
+  \(\dim \check{H}^1_{\mathrm{ff}}(D) = i(D)\), this rearranges to
+  \[
+    \bigl(\ell(D') - i(D')\bigr) - \bigl(\ell(D) - i(D)\bigr)
+      = \deg(D' - D),
+    \qquad\text{i.e.}\qquad \chi(D') - \chi(D) = \deg(D' - D).
+  \]
+  Every divisor \(D\) satisfies \(D - D_- \le D \le D_+\) with
+  \(0 \le D_+\); applying the additivity to \(0 \le D_+\) and to
+  \(D \le D + D_-\) and adding, one gets \(\chi(D) = \chi(0) + \deg D\)
+  for all \(D\) (additivity of \(\chi - \deg\) as a function on the free
+  group of divisors, which agrees at \(0\) and is additive on each unit
+  step, hence is \(\chi(0)\) plus the homomorphism \(\deg\)). Finally
+  \(\chi(0) = \ell(0) - i(0) = 1 - g\): the global sections
+  \(L(0)=k\) have dimension \(\ell(0)=1\) by
+  \ref{mk-thm:adelic_ell_zero}.  Moreover,
+  \(i(0)=\dim_k\check H^1_{\mathrm{ff}}(0)=g\) by
+  \ref{mk-thm:adelic_function_field_H1_zero_compare} and
+  \ref{mk-thm:adelic_HModuleOne_linearEquiv_cokernel}. Hence
+  \(\chi(D) = \deg D + 1 - g\).
+\end{proof}
+
+\begin{lemma}
+[Nonnegativity of the index of speciality]
+  \label{mk-lem:adelic_chi_le_ell}
+  \dcref{custom}
+  \uses{mk-def:adelic_chi_ledger}
+  \(\chi(D) \le \ell(D)\), i.e.\ \(h^1(D) = i(D) \ge 0\).
+\end{lemma}
+\begin{proof}
+  Immediate from \(\chi(D) = \ell(D) - h^1(D)\) and \(h^1(D) \ge 0\).
+\end{proof}
+
+\begin{lemma}
+[The Riemann inequality from a telescoped \(\chi\)]
+  \label{mk-lem:adelic_riemann_inequality_conditional}
+  \dcref{custom}
+  \uses{mk-lem:adelic_chi_le_ell}
+  Given \(\chi(D) = \chi(0) + \deg D\),
+  \[
+    \deg D + \chi(0) \;\le\; \ell(D).
+  \]
+\end{lemma}
+\begin{proof}
+  Substitute \(\chi(D) = \chi(0) + \deg D\) into
+  \ref{mk-lem:adelic_chi_le_ell}.
+\end{proof}
+
+\begin{corollary}
+[Riemann inequality and finiteness of the twist cokernel]
+  \label{mk-thm:adelic_riemann_inequality}
+  \uses{mk-thm:adelic_chi_eq_chi_zero_add_degree, mk-thm:adelic_module_finite_genus, mk-thm:adelic_twist_exact_sequence, mk-thm:adelic_dim_adele_quotient_eq_degree, mk-lem:adelic_riemann_inequality_conditional}
+  \dcref{custom}
+  For every Weil divisor \(D\), the space
+  \(\check{H}^1_{\mathrm{ff}}(D)\) is
+  finite-dimensional and
+  \[
+    \deg D + 1 - g \;\le\; \ell(D) .
+  \]
+\end{corollary}
+\begin{proof}
+  Finiteness: for \(0 \le D''\) with \(D \le D''\) and \(0 \le D''\), the
+  last map of the twist sequence
+  (\ref{mk-thm:adelic_twist_exact_sequence}) makes
+  \(\check{H}^1_{\mathrm{ff}}(D) \to
+  \check{H}^1_{\mathrm{ff}}(D'')\) surjective with kernel a
+  quotient of \(\mathcal{Q}(D, D'')\), which is finite
+  (\ref{mk-thm:adelic_dim_adele_quotient_eq_degree}); and
+  \(\check{H}^1_{\mathrm{ff}}(0) \to
+  \check{H}^1_{\mathrm{ff}}(D'')\) is surjective, so
+  \(\dim \check{H}^1_{\mathrm{ff}}(D'')
+    \le \dim \check{H}^1_{\mathrm{ff}}(0) = g\). Hence
+  \(\dim \check{H}^1_{\mathrm{ff}}(D)
+    \le g + \deg(D'' - D) < \infty\). Inequality:
+  \ref{mk-lem:adelic_riemann_inequality_conditional} specialises, with
+  \(\chi(0) = 1-g\)
+  (\ref{mk-thm:adelic_chi_eq_chi_zero_add_degree}), to
+  \(\ell(D) = \deg D + 1 - g + i(D) \ge \deg D + 1 - g\).
+\end{proof}
+
+\section{Weil differentials and duality}
+\label{mk-sec:RiemannRoch_Adelic_duality}
+
+The adelic evaluation pairing identifies the dual of the twist cokernel
+with a space of Weil differentials.  A fixed nonzero differential then
+turns this space into an ordinary Riemann--Roch space.
+
+\begin{proposition}[The principal-parts resolution]
+  \label{mk-thm:adelic_principal_parts_resolution}
+  \dcref{custom}
+  \uses{mk-def:adelic_divisorial_sheaf, mk-def:adelic_orderGe}
+  Let \(\mathcal K\) be the sheaf of rational functions and let
+  \[
+    \mathcal P_D=
+      \bigoplus_P i_{P,*}
+        \bigl(K/\mathfrak G_P^{\ge-D(P)}\bigr).
+  \]
+  There is an exact sequence
+  \[
+    0\longrightarrow\struct C(D)\longrightarrow\mathcal K
+      \longrightarrow\mathcal P_D\longrightarrow0,
+  \]
+  in which \(\mathcal K\) and \(\mathcal P_D\) are flasque, and
+  \(\Gamma(C,\mathcal P_D)\simeq
+    \mathbb A_K/\mathbb A_K(D)\).
+\end{proposition}
+\begin{proof}
+  Exactness is stalkwise.  At the generic point the first arrow is the
+  identity of \(K\).  At a closed point \(P\), its kernel is the
+  fractional ideal \(\mathfrak G_P^{\ge-D(P)}\), and the quotient is the
+  displayed principal-parts module.  The rational-function sheaf is
+  constant on nonempty opens of the integral curve and is flasque; each
+  skyscraper summand is flasque, and a finite-support section of their
+  direct sum extends componentwise.  Finally an adele modulo
+  \(\mathbb A_K(D)\) records exactly its finitely many nonzero principal
+  parts, which gives the global-section isomorphism.
+\end{proof}
+
+\begin{proposition}[Adelic and two-chart cohomology agree]
+  \label{mk-thm:adelic_adele_cover_compare}
+  \dcref{custom}
+  \uses{mk-thm:adelic_principal_parts_resolution,
+    mk-thm:adelic_function_field_H1_compare}
+  For every divisor \(D\),
+  \[
+    H^1_{\mathbb A}(D)
+      =\mathbb A_K/(\mathbb A_K(D)+K)
+      \simeq_k\check H^1_{\mathrm{ff}}(D).
+  \]
+\end{proposition}
+\begin{proof}
+  Taking global sections of
+  \ref{mk-thm:adelic_principal_parts_resolution} identifies its degree-one
+  cohomology with the cokernel of
+  \(K\to\mathbb A_K/\mathbb A_K(D)\), namely
+  \(\mathbb A_K/(\mathbb A_K(D)+K)\).  Thus this quotient is
+  \(H^1(C,\struct C(D))\), which is the two-chart quotient by
+  \ref{mk-thm:adelic_function_field_H1_compare}.
+\end{proof}
+
+\begin{definition}[Weil differentials]
+  \label{mk-def:adelic_weil_differentials}
+  \uses{mk-thm:adelic_adele_cover_compare}
+  \dcref{custom}
+  A Weil differential is a \(k\)-linear form on \(\mathbb A_K\) that
+  vanishes on \(\mathbb A_K(E)+K\) for some divisor \(E\).  Write
+  \(\Omega_K\) for their union and
+  \[
+    \Omega_K(D)=
+      \{\eta\in\Omega_K:\eta(\mathbb A_K(D)+K)=0\}.
+  \]
+  Multiplication by \(x\in K\) is defined by
+  \((x\eta)(\alpha)=\eta(x\alpha)\).
+\end{definition}
+\begin{proof}[Closure under the vector-space operations]
+  If \(\eta\) vanishes on \(\mathbb A_K(E)+K\) and \(\theta\) vanishes
+  on \(\mathbb A_K(F)+K\), then both vanish on
+  \(\mathbb A_K(\min(E,F))+K\), where the minimum is taken
+  coefficientwise.  Hence so does \(\eta+\theta\).  If \(x\ne0\), then
+  \[
+    x\mathbb A_K(E+\operatorname{div}(x))=\mathbb A_K(E)
+    \quad\text{and}\quad xK=K,
+  \]
+  so \((x\eta)(\alpha)=\eta(x\alpha)\) vanishes on
+  \(\mathbb A_K(E+\operatorname{div}(x))+K\).  The zero scalar is
+  immediate.
+  Thus the displayed operation makes \(\Omega_K\) a \(K\)-vector
+  space.
+\end{proof}
+
+\begin{proposition}[The Weil-differential pairing]
+  \label{mk-thm:adelic_residuePairing}
+  \uses{mk-def:adelic_weil_differentials,
+    mk-thm:adelic_adele_cover_compare}
+  \dcref{custom}
+  Evaluation induces a canonical isomorphism
+  \[
+    \Omega_K(D)\simeq_k H^1_{\mathbb A}(D)^*,
+  \]
+  and hence a perfect pairing
+  \[
+    \check H^1_{\mathrm{ff}}(D)\times\Omega_K(D)\longrightarrow k.
+  \]
+\end{proposition}
+\begin{proof}
+  A functional in \(\Omega_K(D)\) factors uniquely through the
+  finite-dimensional quotient
+  \(H^1_{\mathbb A}(D)=\mathbb A_K/(\mathbb A_K(D)+K)\), and every linear
+  functional on that quotient pulls back to such a Weil differential.
+  This gives the first isomorphism; transport it across
+  \ref{mk-thm:adelic_adele_cover_compare} for the displayed pairing.
+\end{proof}
+
+\begin{theorem}[Eventual vanishing of the adelic index]
+  \label{mk-thm:adelic_index_eventually_zero}
+  \dcref{custom}
+  \uses{mk-thm:adelic_module_finite_genus,
+    mk-thm:adelic_adele_cover_compare,
+    mk-thm:adelic_riemann_inequality,
+    mk-thm:adelic_principal_degree_zero}
+  There is an integer \(c\) such that
+  \(H^1_{\mathbb A}(D)=0\) whenever \(\deg D\ge c\).
+\end{theorem}
+\begin{proof}
+  Choose adele representatives of a basis of the finite-dimensional space
+  \(H^1_{\mathbb A}(0)\).  Every representative belongs to
+  \(\mathbb A_K(B_j)\) for some effective divisor \(B_j\); a common upper
+  bound \(B\) therefore kills the basis under the surjection
+  \(H^1_{\mathbb A}(0)\to H^1_{\mathbb A}(B)\), so the latter space is zero.
+  Put \(c=\deg B+g\).  If \(\deg D\ge c\), the Riemann inequality gives
+  \(\ell(D-B)>0\).  For nonzero \(f\in L(D-B)\), the divisor
+  \(E=D+\operatorname{div}(f)\) satisfies \(E\ge B\), hence
+  \(H^1_{\mathbb A}(E)=0\).  Multiplication by \(f^{-1}\) identifies the
+  quotients for \(D\) and \(E\), proving the claim.
+\end{proof}
+
+\begin{theorem}[The divisor of a Weil differential]
+  \label{mk-thm:adelic_weil_differential_divisor}
+  \uses{mk-def:adelic_weil_differentials,
+    mk-thm:adelic_residuePairing,
+    mk-thm:adelic_index_eventually_zero}
+  \dcref{custom}
+  For every nonzero \(\eta\in\Omega_K\) there is a unique divisor
+  \(\operatorname{div}(\eta)\) maximal among the divisors \(D\) for which
+  \(\eta\in\Omega_K(D)\).  Consequently
+  \[
+    \Omega_K(D)=\{0\}\cup
+      \{\eta\ne0:\operatorname{div}(\eta)\ge D\}.
+  \]
+\end{theorem}
+\begin{proof}
+  The set \(M(\eta)=\{D:\eta\in\Omega_K(D)\}\) is nonempty by the
+  definition of a Weil differential.  If \(D\in M(\eta)\), then \(\eta\)
+  gives a nonzero functional on \(H^1_{\mathbb A}(D)\); hence
+  \ref{mk-thm:adelic_index_eventually_zero} bounds the degrees occurring in
+  \(M(\eta)\).  Choose \(W\in M(\eta)\) of maximal degree.  If
+  \(D_0\in M(\eta)\) and \(D_0(Q)>W(Q)\), decompose any
+  \(\alpha\in\mathbb A_K(W+Q)\) into the adele supported away from \(Q\)
+  and the adele supported at \(Q\).  The first lies in \(\mathbb A_K(W)\)
+  and the second in \(\mathbb A_K(D_0)\), so \(\eta(\alpha)=0\).  Thus
+  \(W+Q\in M(\eta)\), contradicting maximality.  Therefore every
+  \(D\in M(\eta)\) satisfies \(D\le W\), which proves existence,
+  uniqueness, and the displayed characterization.
+\end{proof}
+
+\begin{theorem}[Scaling a differential]
+  \label{mk-thm:adelic_weil_differential_divisor_mul}
+  \uses{mk-thm:adelic_weil_differential_divisor}
+  \dcref{custom}
+  For \(x\in K^\times\) and \(0\ne\eta\in\Omega_K\),
+  \[
+    \operatorname{div}(x\eta)
+      =\operatorname{div}(x)+\operatorname{div}(\eta).
+  \]
+\end{theorem}
+\begin{proof}
+  Multiplication by \(x\) carries \(\mathbb A_K(E)\) isomorphically onto
+  \(\mathbb A_K(E-\operatorname{div}(x))\).  Hence
+  \(x\eta\in\Omega_K(E)\) exactly when
+  \(\eta\in\Omega_K(E-\operatorname{div}(x))\).  Comparing the unique
+  maximal divisors on the two sides gives the formula.
+\end{proof}
+
+\begin{theorem}[One-dimensionality of Weil differentials]
+  \label{mk-thm:adelic_weil_differentials_finrank_one}
+  \uses{mk-thm:adelic_residuePairing,
+    mk-thm:adelic_weil_differential_divisor,
+    mk-thm:adelic_weil_differential_divisor_mul,
+    mk-thm:adelic_riemann_inequality,
+    mk-thm:adelic_negative_degree_vanishing,
+    mk-thm:adelic_chi_eq_chi_zero_add_degree}
+  \dcref{custom}
+  The \(K\)-vector space \(\Omega_K\) is one-dimensional.
+\end{theorem}
+\begin{proof}
+  First \(\Omega_K\ne0\): for \(\deg D\ll0\), the identity
+  \(i(D)=\ell(D)-\deg D-1+g\) makes \(i(D)>0\), so
+  \(\Omega_K(D)\simeq H^1_{\mathbb A}(D)^*\) is nonzero.  Choose
+  \(0\ne\eta_i\in\Omega_K(D_i)\) for \(i=1,2\).  For an effective
+  divisor \(B\) of sufficiently large degree, multiplication gives
+  injections
+  \[
+    L(D_i+B)\hookrightarrow\Omega_K(-B),\qquad x\longmapsto x\eta_i.
+  \]
+  The Riemann inequality bounds the two source dimensions below by
+  \(\deg(D_i+B)+1-g\), while negative-degree vanishing and the
+  \(\chi\)-identity give
+  \(\dim_k\Omega_K(-B)=i(-B)=\deg B+g-1\).  For \(\deg B\) large, the
+  two images therefore have positive-dimensional intersection.  Thus
+  \(x_1\eta_1=x_2\eta_2\ne0\) for some \(x_i\in K^\times\), and
+  \(\eta_2=(x_1/x_2)\eta_1\).  Every two nonzero differentials are
+  proportional.
+\end{proof}
+
+\begin{theorem}
+[Serre duality: \(i(D) = \ell(K_C - D)\)]
+  \label{mk-thm:adelic_serreDuality}
+  \uses{mk-thm:adelic_residuePairing,
+    mk-thm:adelic_adele_cover_compare,
+    mk-thm:adelic_weil_differentials_finrank_one,
+    mk-thm:adelic_weil_differential_divisor_mul}
+  \dcref{custom}
+  For a canonical divisor \(K_C = \operatorname{div}\omega\) of a nonzero
+  Weil differential \(\omega\), the map \(x \mapsto x\omega\) induces a
+  \(k\)-linear isomorphism
+  \[
+    \mu \colon L(K_C - D) \;\xrightarrow{\ \sim\ }\; \Omega_K(D)
+      \;\simeq_k\; H^1_{\mathbb A}(D)^*
+      \;\simeq_k\;\check H^1_{\mathrm{ff}}(D)^*,
+  \]
+  so that \(i(D)=\dim_k\check H^1_{\mathrm{ff}}(D)=\ell(K_C-D)\).
+\end{theorem}
+\begin{proof}
+  By \ref{mk-thm:adelic_weil_differentials_finrank_one}, every Weil
+  differential is uniquely \(x\omega\).  By
+  \ref{mk-thm:adelic_weil_differential_divisor_mul},
+  \(\operatorname{div}(x\omega)=\operatorname{div}(x)+K_C\); hence
+  \[
+    x\omega\in\Omega_K(D)
+      \quad\Longleftrightarrow\quad
+    \operatorname{div}(x)+K_C\ge D
+      \quad\Longleftrightarrow\quad x\in L(K_C-D).
+  \]
+  This proves the first isomorphism.  The second is
+  \ref{mk-thm:adelic_residuePairing}, and the third is
+  \ref{mk-thm:adelic_adele_cover_compare}; taking dimensions gives the final
+  equality.
+\end{proof}
+
+\begin{theorem}[Geometric degree of a principal divisor, from the \(\chi\)-ledger]
+  \label{mk-thm:adelic_principal_geometric_degree_zero}
+  \dcref{custom}
+  \uses{mk-cor:adelic_degK_eq_degree, mk-thm:adelic_chi_eq_chi_zero_add_degree}
+  Let \(C\) be a smooth curve over an algebraically closed field \(k\), and
+  suppose the \(\chi\)-ledger
+  \(\chi(D)=\chi(0)+\deg_k(D)\) holds at every Weil divisor \(D\). Then for
+  every \(g\in K^\times\),
+  \[
+    \deg\bigl(\operatorname{div}(g)\bigr)=0 .
+  \]
+\end{theorem}
+\begin{proof}
+  \uses{mk-cor:adelic_degK_eq_degree}
+  The invariant \(\chi\) is unchanged along a linear equivalence, so
+  \(\chi(\operatorname{div}(g))=\chi(0)\); the ledger then forces
+  \(\deg_k(\operatorname{div}(g))=0\). Over an algebraically closed base the
+  weighted and geometric degrees coincide by
+  \ref{mk-cor:adelic_degK_eq_degree}, giving the displayed equality.
+\end{proof}
+
+\begin{lemma}[Negative-degree divisors have no nonzero sections]
+  \label{mk-thm:adelic_negative_degree_vanishing}
+  \uses{mk-thm:adelic_principal_degree_zero,
+    mk-def:adelic_sectionOfDivisor}
+  \dcref{custom}
+  If \(\deg E<0\), then \(L(E)=0\) and \(\ell(E)=0\).
+\end{lemma}
+\begin{proof}
+  A nonzero \(f\in L(E)\) would make
+  \(\operatorname{div}(f)+E\) effective.  Its degree is \(\deg E<0\),
+  because principal divisors have weighted degree zero by
+  \ref{mk-thm:adelic_principal_degree_zero}; an effective divisor cannot
+  have negative degree.
+\end{proof}
+
+\begin{theorem}[Degree of a canonical divisor]
+  \label{mk-thm:adelic_canonical_degree}
+  \uses{mk-thm:adelic_serreDuality,
+    mk-thm:adelic_chi_eq_chi_zero_add_degree,
+    mk-thm:adelic_ell_zero}
+  \dcref{custom}
+  Every canonical divisor \(K_C\) has
+  \[
+    \ell(K_C)=g,
+    \qquad \deg K_C=2g-2.
+  \]
+\end{theorem}
+\begin{proof}
+  At \(D=0\), duality gives \(i(0)=\ell(K_C)\), while
+  \(\ell(0)=1\), \(i(0)=g\), so \(\ell(K_C)=g\).  At \(D=K_C\),
+  duality gives \(i(K_C)=\ell(0)=1\).  Substituting these two dimensions
+  into \(\ell(K_C)-i(K_C)=\deg K_C+1-g\) yields
+  \(\deg K_C=2g-2\).
+\end{proof}
+
+\begin{corollary}
+[Vanishing: \(i(D) = 0\) for \(\deg D > 2g - 2\)]
+  \label{mk-thm:adelic_h1_vanishing}
+  \uses{mk-thm:adelic_serreDuality,
+    mk-thm:adelic_canonical_degree,
+    mk-thm:adelic_negative_degree_vanishing,
+    mk-thm:adelic_function_field_H1_compare}
+  \dcref{custom}
+  If \(\deg D>2g-2\), then
+  \(\check H^1_{\mathrm{ff}}(D)=0\), and consequently
+  \(H^1(C,\struct C(D))=0\).  This is the curve-level replacement for
+  Castelnuovo--Mumford boundedness in the Quot endgame.
+\end{corollary}
+\begin{proof}
+  By \ref{mk-thm:adelic_canonical_degree}, \(\deg(K_C-D)<0\).  Therefore
+  \ref{mk-thm:adelic_negative_degree_vanishing} and duality give
+  \(i(D)=\ell(K_C-D)=0\).  Finally
+  \ref{mk-thm:adelic_function_field_H1_compare} supplies the sheaf-cohomology
+  statement.
+\end{proof}
+
+\begin{theorem}
+[Riemann--Roch]
+  \label{mk-thm:adelic_riemannRoch}
+  \uses{mk-thm:adelic_chi_eq_chi_zero_add_degree, mk-thm:adelic_serreDuality}
+  \dcref{custom}
+  For every Weil divisor \(D\) and canonical divisor \(K_C\),
+  \[
+    \ell(D) - \ell(K_C - D) \;=\; \deg D + 1 - g .
+  \]
+\end{theorem}
+\begin{proof}
+  Immediate from the two keystones: the \(\chi\)-ledger
+  \ref{mk-thm:adelic_chi_eq_chi_zero_add_degree} gives
+  \(\ell(D) - i(D) = \deg D + 1 - g\), and Serre duality
+  \ref{mk-thm:adelic_serreDuality} gives \(i(D) = \ell(K_C - D)\);
+  substituting the second into the first yields the identity.
+\end{proof}

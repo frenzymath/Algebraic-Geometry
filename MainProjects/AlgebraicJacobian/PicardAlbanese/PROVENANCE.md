@@ -1,13 +1,14 @@
 # Provenance
 
-This route is a concise AI-authored mathematical blueprint for the
-etale-Picard and Albanese construction of the Jacobian. It was assembled from
-the references in blueprint/src/refs.bib, principally Kleiman, Milne, Mumford,
-Hartshorne, Nitsure, and the Stacks Project.
+This route is an AI-authored mathematical blueprint for the etale-Picard and
+Albanese construction of the Jacobian. It was assembled from the references in
+blueprint/src/refs.bib and from the source-faithful Horizon blueprint that
+mirrors the associated Lean development.
 
-The reachable content keeps the main definitions and theorems while omitting
-implementation-level lemmas, Lean declarations, and proof bookkeeping.
-Every numbered node records its printed source number with \dcref{...};
-custom is appended only for a specialization or synthesis. Bibliography
-citations use BibTeX keys with \cite{...}, and internal cross-references use
-\ref{...}.
+The tracked chapters retain the original formalization-critical definitions,
+constructions, intermediary lemmas, and proofs, but group them into balanced
+mathematical chapters. Lean declaration markers, run-history comments, and
+purely mechanical presentation scaffolding are removed. Source-backed nodes
+use the printed reference in \dcref; genuinely project-specific adaptations
+may append `custom`. Bibliography citations use BibTeX keys with \cite{...},
+and internal cross-references use \ref{...}.

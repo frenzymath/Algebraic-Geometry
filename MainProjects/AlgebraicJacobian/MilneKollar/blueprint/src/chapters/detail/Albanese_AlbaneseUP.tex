@@ -1,0 +1,626 @@
+\section{The Albanese universal property of \(\Pic^0_{C/k}\)}
+\label{mk-chap:Albanese_AlbaneseUP}
+
+Let \(k\) be an algebraically closed field, let \(C\) be a smooth proper
+geometrically irreducible curve over \(k\), and let \(P_0\in C(k)\).  Write
+\(g\) for the genus of \(C\) and assume \(g>0\).  This chapter proves that
+the Abel--Jacobi map
+\[
+  \iota_{P_0}\colon C\longrightarrow \Pic^0_{C/k}
+\]
+is the Albanese morphism of the pointed curve \((C,P_0)\).  The proof uses
+the canonical map from the \(g\)-th symmetric power of \(C\) to its
+Jacobian.  In positive characteristic, generic injectivity of this map does
+not by itself imply birationality: a purely inseparable map may also have
+one geometric point in its generic fibre.  The differential calculation
+that excludes this possibility is therefore included explicitly.
+Following Milne's Jacobian construction, the universal-property input is
+\cite{milne-av}.
+
+\section{The Jacobian and the Abel--Jacobi map}
+\label{mk-sec:albaneseup_setup}
+
+The construction of the identity component of the Picard scheme gives
+\[
+  J:=\Pic^0_{C/k}.
+\]
+It is a group scheme by \ref{mk-thm:pic0_group_structure}, smooth by
+\ref{mk-thm:pic0_smooth}, proper by \ref{mk-thm:pic0_proper}, and geometrically
+irreducible by \ref{mk-thm:pic0_geom_irred}.
+
+\begin{definition}
+  [The Abel--Jacobi morphism]
+  \label{mk-def:abel_jacobi_morphism}
+  \dcref{custom}
+
+  \uses{mk-def:pic_scheme, mk-thm:pic0_group_structure}
+
+  The relative degree-zero line bundle associated with the rigidified
+  diagonal on \(C\times C\) defines a classifying morphism
+  \(\iota_{P_0}\colon C\to J\), called the \emph{Abel--Jacobi morphism}.
+\end{definition}
+
+\begin{lemma}
+  [Formula and basepoint of the Abel--Jacobi morphism]
+  \label{mk-lem:abel_jacobi_morphism}
+  \dcref{custom}
+  \uses{mk-def:abel_jacobi_morphism}
+
+  There is a regular morphism
+  \[
+    \iota_{P_0}\colon C\longrightarrow J,
+    \qquad Q\longmapsto [\mathcal O_C(Q-P_0)],
+  \]
+  and \(\iota_{P_0}(P_0)=0_J\).
+\end{lemma}
+
+\begin{proof}
+  On \(C\times C\), viewed over the second factor, consider the
+  rigidified relative degree-zero line bundle represented by
+  \[
+    \mathcal O_{C\times C}
+      (\Delta-P_0\times C-C\times P_0).
+  \]
+  Its restriction over \(Q\in C(k)\), modulo a line bundle pulled back
+  from the base, is \(\mathcal O_C(Q-P_0)\).  The moduli property of
+  \(\Pic^0_{C/k}\) therefore gives the displayed morphism.  At \(Q=P_0\)
+  the fibre is the trivial line bundle, whose class is the identity of
+  \(J\).
+\end{proof}
+
+\section{Symmetric powers and their canonical maps}
+\label{mk-sec:albaneseup_symmetric_powers}
+
+\begin{definition}
+  [Symmetric power of a curve]
+  \label{mk-def:symmetric_power_curve}
+  \dcref{custom}
+
+  For \(r\ge 1\), the \emph{\(r\)-th symmetric power} \(C^{(r)}\) is the
+  quotient of \(C^r\) by permutation of the factors, with quotient morphism
+  \(\pi_r\colon C^r\to C^{(r)}\).  Every symmetric morphism from \(C^r\) to a
+  \(k\)-scheme factors uniquely through \(\pi_r\).
+\end{definition}
+
+\begin{lemma}
+  [Properties of the symmetric-power projection]
+  \label{mk-lem:symmetric_power_projection_properties}
+  \dcref{custom}
+  \uses{mk-def:symmetric_power_curve}
+
+  The quotient morphism \(\pi_r\colon C^r\to C^{(r)}\) is finite,
+  surjective, and separable.
+\end{lemma}
+
+\begin{proof}
+  On an invariant affine chart the target ring is the ring of
+  \(S_r\)-invariants.  Every element of the source ring is integral over this
+  invariant ring, so the quotient is finite; the topological quotient
+  description gives surjectivity.  Finally, the induced extension of
+  function fields is the finite invariant-field extension for a group of
+  automorphisms, and is therefore separable.
+\end{proof}
+
+\begin{definition}
+  [The symmetric-power carrier]
+  \label{mk-def:symmetric_power_curve_carrier}
+  \dcref{custom}
+
+  \uses{mk-def:symmetric_power_curve}
+
+  The underlying \(k\)-scheme of \(C^{(r)}\) is denoted
+  \(\operatorname{SymmetricPower}(C,r)\).
+\end{definition}
+
+\begin{lemma}
+  [Nonsingularity of a symmetric power of a curve]
+  \label{mk-lem:symmetric_power_nonsingular}
+  \dcref{custom}
+  \uses{mk-def:symmetric_power_curve}
+
+  If \(C\) is nonsingular, then \(C^{(r)}\) is nonsingular.
+\end{lemma}
+
+\begin{proof}
+  At the image of \((Q,\ldots,Q)\), choose a parameter \(X\) at \(Q\).
+  The completed local ring of \(C^r\) is
+  \(k[[X_1,\ldots,X_r]]\), and the completed local ring of the quotient is
+  its invariant subring.  The fundamental theorem on symmetric functions
+  identifies this with
+  \(k[[\sigma_1,\ldots,\sigma_r]]\), which is regular.  At a divisor with
+  several distinct support points, the completed local ring is the
+  completed tensor product of the corresponding invariant power-series
+  rings, and is again regular.
+\end{proof}
+
+\begin{definition}
+  [The symmetric sum morphism]
+  \label{mk-def:symmetric_product_av_map}
+  \dcref{custom}
+
+  \uses{mk-def:symmetric_power_curve_carrier}
+
+  For a morphism \(\varphi\colon C\to A\) to an abelian variety, denote the
+  induced morphism from the symmetric-power carrier by
+  \(\varphi^{(r)}\colon C^{(r)}\to A\).
+\end{definition}
+
+\begin{lemma}
+  [Symmetrisation of a morphism to an abelian variety]
+  \label{mk-lem:symmetric_product_av_map}
+  \dcref{custom}
+  \uses{mk-def:symmetric_power_curve, mk-def:symmetric_product_av_map}
+
+  Let \(A\) be an abelian variety and let \(\varphi\colon C\to A\) be a
+  morphism.  There is a unique morphism
+  \(\varphi^{(r)}\colon C^{(r)}\to A\) satisfying
+  \[
+    \varphi^{(r)}(P_1+\cdots+P_r)
+      =\varphi(P_1)+\cdots+\varphi(P_r).
+  \]
+\end{lemma}
+
+\begin{proof}
+  The morphism \(C^r\to A\) obtained by applying \(\varphi\) in every
+  coordinate and then adding is invariant under every permutation, because
+  the group law of \(A\) is commutative.  The universal property of
+  \(C^{(r)}\) gives the unique factorisation.
+\end{proof}
+
+\begin{definition}
+  [The canonical symmetric-power morphism to the Jacobian]
+  \label{mk-def:symmetric_product_to_jacobian_morphism}
+  \dcref{custom}
+
+  \uses{mk-def:abel_jacobi_morphism, mk-def:symmetric_product_av_map}
+  \[
+    f^{(r)}\colon C^{(r)}\longrightarrow J.
+  \]
+\end{definition}
+
+\begin{lemma}
+  [Divisor description of the canonical symmetric-power morphism]
+  \label{mk-lem:symmetric_product_to_jacobian_formula}
+  \dcref{custom}
+  \uses{mk-def:symmetric_product_to_jacobian_morphism,
+    mk-lem:abel_jacobi_morphism, mk-lem:symmetric_product_av_map}
+
+  On effective divisors, the canonical morphism is given by
+  \[
+    f^{(r)}(D)=[\mathcal O_C(D-rP_0)].
+  \]
+  Denote its reduced closed image by \(W^r\).  The fibre through an
+  effective divisor \(D\) is its complete linear system \(|D|\), a projective
+  space of dimension \(h^0(D)-1\).
+\end{lemma}
+
+\begin{proof}
+  Pulling back along \(\pi_r\) gives the sum of the \(r\) Abel--Jacobi
+  classes, hence the displayed divisor class.  Two effective divisors have
+  the same class precisely when they are linearly equivalent.  The functor
+  of effective divisors linearly equivalent to \(D\) is represented by the
+  projectivisation of \(H^0(C,\mathcal O_C(D))\), giving the fibre statement.
+\end{proof}
+
+\begin{lemma}
+  [General divisors of degree at most the genus]
+  \label{mk-lem:symmetric_product_general_divisor}
+  \dcref{custom}
+  \uses{mk-lem:symmetric_product_to_jacobian_formula}
+
+  If \(1\le r\le g\), there is a dense open subset of \(C^{(r)}\) on which
+  \(h^0(D)=1\).  Thus the fibres of \(f^{(r)}\) over this open consist of one
+  geometric point.
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:symmetric_power_projection_properties,
+    mk-thm:adelic_serreDuality, mk-thm:adelic_riemannRoch}
+  If \(h^1(D)>0\), Serre duality identifies
+  \[
+    H^1(C,\mathcal O_C(D+Q))^\vee
+  \]
+  with the subspace of \(H^0(C,\Omega_C^1(-D))\) consisting of
+  differentials that vanish at \(Q\).  Outside the common zero locus of a
+  basis of this latter space,
+  adding \(Q\) lowers \(h^1\) by exactly one.  Starting with the zero
+  divisor, for which \(h^1=g\), and repeating this argument \(r\) times
+  gives a dense open subset of \(C^r\) on which
+  \(h^1(P_1+\cdots+P_r)=g-r\).  Riemann--Roch then gives
+  \[
+    h^0(P_1+\cdots+P_r)
+      =r+1-g+(g-r)=1.
+  \]
+  Intersecting its finitely many translates under \(S_r\) gives a dense
+  symmetric open with the same property.  Its image in the finite quotient
+  \(C^{(r)}\) is the complement of the image of its closed invariant
+  complement, hence is open and dense.
+  Since the fibre of \(f^{(r)}\) through \(D\) is \(|D|\), it is a single
+  point there.
+\end{proof}
+
+\begin{lemma}
+  [Invariant one-forms on the Jacobian]
+  \label{mk-lem:jacobian_invariant_one_forms}
+  \dcref{custom}
+
+  Evaluation at the identity is an isomorphism
+  \[
+    H^0(J,\Omega_J^1)\xrightarrow{\sim}T_0J^\vee.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-thm:pic0_smooth, mk-thm:pic0_proper, mk-thm:pic0_geom_irred}
+  A cotangent vector at the identity extends uniquely to a
+  translation-invariant one-form on the smooth group scheme \(J\).
+  Conversely, for a global one-form \(\eta\), the coefficients of
+  \(t_a^*\eta-\eta\), expressed in an invariant frame, vary regularly with
+  \(a\in J\).  They are regular functions on the proper geometrically
+  irreducible variety \(J\), hence constant; at \(a=0\) they vanish.  Thus
+  every global one-form is invariant, and evaluation at the identity gives
+  the asserted inverse pair.
+\end{proof}
+
+\begin{lemma}
+  [Differential of the Abel--Jacobi map]
+  \label{mk-lem:abel_jacobi_differential}
+  \dcref{custom}
+  \uses{mk-def:abel_jacobi_morphism}
+
+  Under the tangent-space identification
+  \(T_0J\simeq H^1(C,\mathcal O_C)\) and Serre duality, the transpose of the
+  translated differential of \(\iota_{P_0}\) at \(Q\) is evaluation
+  \[
+    H^0(C,\Omega_C^1)\longrightarrow T_Q^*C,
+    \qquad \omega\longmapsto\omega(Q).
+  \]
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-thm:pic0_tangent_space_iso, mk-thm:adelic_serreDuality}
+  Moving \(Q\) to first order changes the class
+  \([\mathcal O_C(Q-P_0)]\) by the connecting homomorphism associated with
+  the principal-parts sequence at \(Q\).  The Serre-duality transpose of
+  this connecting homomorphism is the restriction of a differential to its
+  value at \(Q\), which is the displayed evaluation map.
+\end{proof}
+
+\begin{lemma}
+  [One-forms pulled back by the Abel--Jacobi map]
+  \label{mk-lem:abel_jacobi_one_forms}
+  \dcref{custom}
+  \uses{mk-lem:jacobian_invariant_one_forms,
+    mk-lem:abel_jacobi_differential}
+
+  Pullback by \(\iota_{P_0}\) is an isomorphism
+  \[
+    H^0(J,\Omega_J^1)\xrightarrow{\sim}H^0(C,\Omega_C^1).
+  \]
+\end{lemma}
+
+\begin{proof}
+  By \ref{mk-lem:jacobian_invariant_one_forms}, a form on \(J\) is determined
+  by its value at the identity.  Under
+  \ref{mk-lem:abel_jacobi_differential}, pulling it back along
+  \(\iota_{P_0}\) recovers at every \(Q\) the corresponding canonical
+  differential on \(C\).  Under the Serre-duality identification this map
+  is the identity, hence an isomorphism.
+\end{proof}
+
+\begin{lemma}
+  [Dimension of the Jacobian]
+  \label{mk-lem:jacobian_dimension}
+  \dcref{custom}
+
+  The Jacobian has dimension \(g\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:abel_jacobi_one_forms, mk-thm:pic0_smooth}
+  Since \(J\) is smooth, its dimension is the dimension of its cotangent
+  space at the identity.  Translation identifies that cotangent space with
+  the global one-forms on \(J\).  By
+  \ref{mk-lem:abel_jacobi_one_forms}, this space is isomorphic to
+  \(H^0(C,\Omega_C^1)\), whose dimension is the genus \(g\).
+\end{proof}
+
+\begin{proposition}
+  [Differentials on a symmetric power]
+  \label{mk-prop:symmetric_product_differentials}
+  \dcref{custom}
+  \uses{mk-lem:symmetric_product_to_jacobian_formula}
+
+  Pullback by \(f^{(r)}\) is an isomorphism
+  \[
+    H^0(J,\Omega_J^1)\xrightarrow{\sim}
+    H^0(C^{(r)},\Omega_{C^{(r)}}^1).
+  \]
+  Under the canonical identification of either side with
+  \(H^0(C,\Omega_C^1)\), the form corresponding to \(\omega\) vanishes at
+  an effective divisor \(D\) if and only if
+  \(\operatorname{div}(\omega)\ge D\).
+\end{proposition}
+
+\begin{proof}
+  \uses{mk-lem:symmetric_power_projection_properties,
+    mk-lem:abel_jacobi_one_forms}
+  A global one-form on \(C^r\) is a sum of pullbacks from the factors.
+  Hence the invariant forms are exactly
+  \(\sum_i p_i^*\omega\), with \(\omega\in H^0(C,\Omega_C^1)\).
+  The quotient map \(\pi_r\) is separable, so pullback embeds
+  \(H^0(C^{(r)},\Omega^1)\) into this invariant subspace.  The composite
+  \[
+    H^0(J,\Omega_J^1)\longrightarrow H^0(C^{(r)},\Omega^1)
+      \longrightarrow H^0(C^r,\Omega^1)^{S_r}
+  \]
+  is the pullback by the sum of the \(r\) copies of the Abel--Jacobi map.
+  By \ref{mk-lem:abel_jacobi_one_forms}, it sends a form to
+  \(\sum_i p_i^*\omega\) and is an isomorphism.  Consequently both arrows
+  in the display are isomorphisms.
+
+  It remains to identify vanishing at a divisor.  First take \(D=rQ\),
+  choose a parameter \(X\) at \(Q\), and write
+  \(\omega=(a_0+a_1X+\cdots)dX\).  In the completed local ring of
+  \(C^{(r)}\) at \(D\), use the elementary symmetric functions
+  \(\sigma_1,\ldots,\sigma_r\) in local parameters
+  \(X_1,\ldots,X_r\), and put
+  \(\tau_j=\sum_iX_i^j\,dX_i\).  The identities
+  \[
+    \sigma_m\tau_0-\sigma_{m-1}\tau_1+\cdots+(-1)^m\tau_m
+      =d\sigma_{m+1}
+      \qquad(0\le m<r)
+  \]
+  show that \(\tau_0,\ldots,\tau_{r-1}\) form a basis of the cotangent
+  module.  The descended form is \(\sum_{j\ge0}a_j\tau_j\), so it
+  vanishes at \(D\) exactly when
+  \(a_0=\cdots=a_{r-1}=0\), equivalently when
+  \(\operatorname{ord}_Q(\omega)\ge r\).  The same calculation in the
+  completed local product for
+  \(D=\sum_Q n_QQ\) gives the stated criterion.
+\end{proof}
+
+\begin{lemma}
+  [Tangent sequence of the canonical symmetric-power map]
+  \label{mk-lem:symmetric_product_tangent_exact}
+  \dcref{custom}
+  \uses{mk-lem:symmetric_product_to_jacobian_formula}
+
+  Let \(F=|D|\) be the fibre of \(f^{(r)}\) through an effective divisor
+  \(D\), and put \(a=f^{(r)}(D)\).  The sequence
+  \[
+    0\longrightarrow T_DF\longrightarrow T_DC^{(r)}
+      \xrightarrow{\,d f^{(r)}_D\,}T_aJ
+  \]
+  is exact.  In particular, if \(h^0(D)=1\), then
+  \(d f^{(r)}_D\) is injective.
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-prop:symmetric_product_differentials,
+    mk-lem:symmetric_power_nonsingular, mk-thm:adelic_serreDuality,
+    mk-thm:adelic_riemannRoch}
+  The first arrow is injective because the fibre is a closed subscheme, and
+  its image lies in the kernel because \(f^{(r)}\) is constant on the
+  fibre.  By \ref{mk-prop:symmetric_product_differentials}, the annihilator
+  in \(T_aJ^\vee\) of the image of \(d f^{(r)}_D\) is
+  \(H^0(C,\Omega_C^1(-D))\).  Serre duality therefore gives
+  \[
+    \dim\ker(d f^{(r)}_D)=r-g+h^1(D).
+  \]
+  The fibre \(F\) is the projective space of effective divisors in the
+  complete linear system, so it is smooth of dimension \(h^0(D)-1\).
+  Thus \(\dim T_DF=\dim|D|=h^0(D)-1\), and Riemann--Roch says
+  \(h^0(D)-1=r-g+h^1(D)\).  The included subspaces have the same
+  dimension, proving exactness.  When \(h^0(D)=1\), this dimension is zero.
+\end{proof}
+
+\begin{lemma}
+  [Birationality of the canonical map]
+  \label{mk-lem:symmetric_product_to_jacobian}
+  \dcref{custom}
+  \uses{mk-lem:symmetric_product_to_jacobian_formula}
+
+  For \(1\le r\le g\), the morphism
+  \[
+    f^{(r)}\colon C^{(r)}\longrightarrow W^r
+  \]
+  is birational.  In particular, \(W^g=J\), and
+  \(f^{(g)}\colon C^{(g)}\to J\) is a birational surjective morphism.
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:symmetric_power_projection_properties,
+    mk-lem:symmetric_product_general_divisor,
+    mk-lem:symmetric_product_tangent_exact, mk-lem:jacobian_dimension,
+    mk-thm:pic0_geom_irred}
+  The product \(C^r\) has dimension \(r\), and the finite surjective map
+  \(C^r\to C^{(r)}\) shows that \(C^{(r)}\) also has dimension \(r\).
+  By \ref{mk-lem:symmetric_product_general_divisor}, the map is injective on
+  geometric points over a dense open subset.  It is therefore generically
+  quasi-finite, so its image \(W^r\) has dimension \(r\).  Thus the induced
+  extension of function fields has separable degree one.  In positive characteristic
+  this still leaves open the possibility of a nontrivial purely
+  inseparable extension.  Choose \(D\) in that open.  Then \(h^0(D)=1\),
+  so \ref{mk-lem:symmetric_product_tangent_exact} makes
+  \(d f^{(r)}_D\) injective.  Since source and image both have dimension
+  \(r\), the differential has full rank, and the function-field extension
+  is generically separable.  Its inseparable degree is therefore also one.
+  The function fields of \(C^{(r)}\) and \(W^r\) are equal, proving
+  birationality.
+
+  For \(r=g\), the image \(W^g\) is a closed irreducible subvariety of the
+  irreducible variety \(J\) and has dimension \(g=\dim J\), the latter
+  equality being \ref{mk-lem:jacobian_dimension}.  Hence
+  \(W^g=J\).  Surjectivity follows because \(C^{(g)}\) is proper and its
+  image is exactly \(W^g\).
+\end{proof}
+
+\section{Descent and the universal property}
+\label{mk-sec:albaneseup_descent}
+
+\begin{lemma}
+  [Descent through the birational symmetric power]
+  \label{mk-lem:descent_through_birational_sigma}
+  \dcref{custom}
+
+  \uses{mk-def:symmetric_product_av_map,
+    mk-def:symmetric_product_to_jacobian_morphism}
+
+  Let \(A\) be an abelian variety and let
+  \(\varphi\colon C\to A\) be pointed at \(P_0\).  There is a unique
+  regular morphism \(\psi\colon J\to A\) such that
+  \[
+    \varphi^{(g)}=\psi\circ f^{(g)}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:symmetric_product_av_map, mk-lem:symmetric_product_to_jacobian,
+    mk-lem:symmetric_power_nonsingular, mk-thm:pic0_smooth,
+    mk-thm:rational_map_to_av_extends}
+  On dense opens \(U\subseteq C^{(g)}\) and \(V\subseteq J\), the map
+  \(f^{(g)}|_U\colon U\to V\) is an isomorphism.  Thus
+  \(\varphi^{(g)}|_U\circ(f^{(g)}|_U)^{-1}\) defines a rational map
+  \(J\dashrightarrow A\).  The Jacobian is smooth and \(A\) is an abelian
+  variety, so \ref{mk-thm:rational_map_to_av_extends} extends this rational
+  map uniquely to a regular morphism \(\psi\colon J\to A\).  The two
+  morphisms \(\varphi^{(g)}\) and \(\psi\circ f^{(g)}\) agree on the dense
+  open \(U\); since \(C^{(g)}\) is nonsingular by
+  \ref{mk-lem:symmetric_power_nonsingular}, hence reduced, and \(A\) is
+  separated, they agree everywhere.  The same dense-open agreement proves
+  uniqueness.
+\end{proof}
+
+\begin{definition}
+  [The basepoint section of the symmetric power]
+  \label{mk-def:basepoint_section_symmetric_power}
+  \dcref{custom}
+  \uses{mk-def:symmetric_power_curve}
+
+  Define
+  \[
+    s_{P_0}\colon C\longrightarrow C^{(g)},\qquad
+    Q\longmapsto Q+(g-1)P_0.
+  \]
+\end{definition}
+
+\begin{lemma}
+  [The basepoint section followed by the canonical map]
+  \label{mk-lem:basepoint_section_to_jacobian}
+  \dcref{custom}
+  \uses{mk-def:basepoint_section_symmetric_power,
+    mk-lem:symmetric_product_to_jacobian_formula,
+    mk-def:abel_jacobi_morphism}
+
+  One has \(f^{(g)}\circ s_{P_0}=\iota_{P_0}\).
+\end{lemma}
+
+\begin{proof}
+  At \(Q\in C\), the left side represents
+  \[
+    \mathcal O_C(Q+(g-1)P_0-gP_0)=\mathcal O_C(Q-P_0),
+  \]
+  which is the defining class of \(\iota_{P_0}(Q)\).
+\end{proof}
+
+\begin{lemma}
+  [The basepoint section followed by a symmetric sum]
+  \label{mk-lem:basepoint_section_symmetric_map}
+  \dcref{custom}
+  \uses{mk-def:basepoint_section_symmetric_power,
+    mk-lem:symmetric_product_av_map}
+
+  If \(\varphi(P_0)=0_A\), then
+  \(\varphi^{(g)}\circ s_{P_0}=\varphi\).
+\end{lemma}
+
+\begin{proof}
+  At \(Q\in C\), the left side is
+  \(\varphi(Q)+(g-1)\varphi(P_0)=\varphi(Q)\).
+\end{proof}
+
+\begin{lemma}
+  [Equivalence of the two factorisation equations]
+  \label{mk-lem:albanese_eq_iff_symmetricPower_eq}
+  \dcref{custom}
+
+  \uses{mk-def:abel_jacobi_morphism, mk-def:symmetric_product_av_map,
+    mk-def:symmetric_product_to_jacobian_morphism}
+
+  Let \(\varphi\colon C\to A\) satisfy \(\varphi(P_0)=0_A\).  For every
+  regular morphism \(\psi\colon J\to A\),
+  \[
+    \varphi=\psi\circ\iota_{P_0}
+      \quad\Longleftrightarrow\quad
+    \varphi^{(g)}=\psi\circ f^{(g)}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:abel_jacobi_morphism, mk-lem:symmetric_product_av_map,
+    mk-lem:symmetric_product_to_jacobian_formula,
+    mk-lem:av_regular_map_is_hom, mk-lem:basepoint_section_to_jacobian,
+    mk-lem:basepoint_section_symmetric_map}
+  Suppose first that \(\varphi=\psi\circ\iota_{P_0}\).  Evaluating at
+  \(P_0\) gives \(\psi(0_J)=0_A\), so
+  \ref{mk-lem:av_regular_map_is_hom} shows that \(\psi\) is a homomorphism.
+  Pulling both sides of the desired symmetric-power equation back to
+  \(C^g\), both send \((P_1,\ldots,P_g)\) to
+  \(\sum_i\psi(\iota_{P_0}(P_i))\).  The uniqueness clause in the
+  universal property of \(C^{(g)}\) gives the equation on \(C^{(g)}\).
+
+  Conversely, compose the symmetric-power equation with
+  \(s_{P_0}\).  The two basepoint-section identities
+  \ref{mk-lem:basepoint_section_symmetric_map} and
+  \ref{mk-lem:basepoint_section_to_jacobian} identify the resulting equation
+  with \(\varphi=\psi\circ\iota_{P_0}\).  Hence
+  \(\varphi=\psi\circ\iota_{P_0}\).
+\end{proof}
+
+\begin{theorem}
+  [Albanese factorisation through \(\Pic^0_{C/k}\)]
+  \label{mk-thm:albanese_universal_property}
+  \dcref{custom}
+
+  \uses{mk-def:abel_jacobi_morphism}
+
+  For every abelian variety \(A\) and every morphism
+  \(\varphi\colon C\to A\) with \(\varphi(P_0)=0_A\), there exists a unique
+  regular morphism \(\psi\colon J\to A\) such that
+  \[
+    \varphi=\psi\circ\iota_{P_0}.
+  \]
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:descent_through_birational_sigma,
+    mk-lem:albanese_eq_iff_symmetricPower_eq}
+  By \ref{mk-lem:descent_through_birational_sigma}, there is a unique
+  \(\psi\colon J\to A\) satisfying
+  \(\varphi^{(g)}=\psi\circ f^{(g)}\).  The equivalence in
+  \ref{mk-lem:albanese_eq_iff_symmetricPower_eq}, applied to every candidate
+  morphism, transports both existence and uniqueness to the equation
+  \(\varphi=\psi\circ\iota_{P_0}\).
+\end{proof}
+
+\begin{corollary}
+  [Albanese universal property]
+  \label{mk-cor:albanese_universal_property_homomorphism}
+  \dcref{custom}
+  \uses{mk-thm:albanese_universal_property}
+
+  In the situation of \ref{mk-thm:albanese_universal_property}, the unique
+  factor \(\psi\colon J\to A\) is a homomorphism of group schemes.
+  Consequently \(\iota_{P_0}\) is initial among pointed morphisms from
+  \(C\) to abelian varieties.
+\end{corollary}
+
+\begin{proof}
+  \uses{mk-lem:av_regular_map_is_hom, mk-lem:abel_jacobi_morphism}
+  Since \(\iota_{P_0}(P_0)=0_J\) and \(\varphi(P_0)=0_A\), the
+  factorisation gives \(\psi(0_J)=0_A\).  The pointed rigidity theorem
+  \ref{mk-lem:av_regular_map_is_hom} therefore makes \(\psi\) a group
+  homomorphism.  Uniqueness among all regular factors implies uniqueness
+  among homomorphisms.
+\end{proof}

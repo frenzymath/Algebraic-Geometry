@@ -1,0 +1,643 @@
+\section{The Jacobian datum}
+\label{pa-chap:Jacobian}
+
+Throughout this chapter \(k\) is a field and \(C\) is the challenge curve: a
+scheme over \(k\), proper, smooth of relative dimension one, and geometrically
+irreducible. The degree-zero relative Picard functor
+\(\Pic^0_{C/k} : \Over(\Spec k)^{\op} \to \mathrm{CommGrp}\) was constructed in
+\ref{pa-def:pic0Functor}. This chapter introduces the \emph{Jacobian datum} --- a
+representing object for \(\Pic^0_{C/k}\) together with the certificates its
+construction provides --- and develops what follows formally from it: the
+group structure and universal property of the representing object, its
+uniqueness up to canonical isomorphism, separatedness (every group scheme over
+a field is separated), the homogeneity supplied by translations, and, given a
+proper irreducible \emph{Abel source} mapping onto it, properness and geometric
+irreducibility.
+
+\section{The representability datum}
+\label{pa-sec:jacobian_datum}
+
+\begin{definition}[Jacobian datum]
+  \label{pa-def:jacobian_data}
+  \dcref{custom}
+
+  \uses{pa-def:pic0Functor}
+  A \emph{Jacobian datum} for \(C\) consists of:
+  \begin{enumerate}
+    \item a scheme \(J\) over \(k\);
+    \item a representation of the degree-zero relative Picard functor by
+      \(J\): a family of bijections
+      \(\Hom_{\Over(\Spec k)}(T, J) \cong \mathrm{pic}^0(C, T)\), natural in
+      the test object \(T\);
+    \item the certificate that the structure morphism of \(J\) is locally of
+      finite type;
+    \item the certificate that the structure morphism of \(J\) is
+      quasi-compact.
+  \end{enumerate}
+  The two certificates come from the construction of the representing object
+  and are carried as part of the datum rather than re-derived.
+\end{definition}
+
+\begin{definition}[The group structure of the representing object]
+  \label{pa-def:jacobian_data_grp}
+  \dcref{custom}
+
+  \uses{pa-def:jacobian_data, pa-def:pic0Functor}
+  For a Jacobian datum \(d\) with representing object \(J\), the scheme \(J\)
+  is a group object of \(\Over(\Spec k)\), with multiplication, unit and
+  inversion induced by the commutative-group structure of
+  \(\mathrm{pic}^0(C, -)\) through the representation.
+\end{definition}
+\begin{proof}
+  Transport the group structure across the natural bijections of
+  \ref{pa-def:jacobian_data}: each \(\Hom(T, J)\) becomes a group, naturally in
+  \(T\) --- precomposition with any \(T' \to T\) is a group homomorphism
+  because the restriction maps of \(\Pic^0_{C/k}\) are. By the Yoneda lemma the
+  natural transformation
+  \(\Hom(-, J) \times \Hom(-, J) \to \Hom(-, J)\) given by the pointwise
+  products is induced by a unique morphism \(\mu : J \otimes J \to J\), and
+  similarly for the unit \(1 \to J\) and the inversion \(J \to J\); the group
+  axioms hold for these morphisms because they hold pointwise on
+  \(T\)-points.
+\end{proof}
+
+\begin{lemma}[The universal property, consumer form]
+  \label{pa-lem:jacobian_data_homEquiv}
+  \dcref{custom}
+
+  \uses{pa-def:jacobian_data, pa-def:pic0Functor}
+  Let \(d\) be a Jacobian datum with representing object \(J\). For every test
+  object \(T\) there is a bijection
+  \[
+    \theta_T : \Hom_{\Over(\Spec k)}(T, J) \;\cong\; \mathrm{pic}^0(C, T),
+  \]
+  natural against restriction: for \(f : T' \to T\) and \(g : T \to J\),
+  \[
+    \theta_{T'}(g \circ f) \;=\; f^*\bigl(\theta_T(g)\bigr),
+  \]
+  where \(f^*\) is the restriction map of \(\Pic^0_{C/k}\)
+  (\ref{pa-def:pic0Functor}).
+\end{lemma}
+\begin{proof}
+  This is the representation carried by the datum (\ref{pa-def:jacobian_data}),
+  with its naturality read element-wise.
+\end{proof}
+
+\begin{definition}[Uniqueness of the representing object up to canonical
+    isomorphism]
+  \label{pa-def:jacobian_data_unique}
+  \dcref{custom}
+
+  \uses{pa-def:jacobian_data, pa-lem:jacobian_data_homEquiv}
+  Let \(d\), \(d'\) be two Jacobian data for the same curve, with representing
+  objects \(J\), \(J'\) and universal bijections \(\theta\), \(\theta'\). There
+  is a canonical isomorphism \(\sigma : J \cong J'\) in \(\Over(\Spec k)\),
+  characterised by the intertwining property
+  \[
+    \theta'_T\bigl(\sigma \circ f\bigr) = \theta_T(f)
+    \qquad \text{for every } f : T \to J .
+  \]
+\end{definition}
+\begin{proof}
+  Let \(u = \theta_J(\mathrm{id}_J) \in \mathrm{pic}^0(C, J)\) be the universal
+  class of \(d\), and set \(\sigma = \theta'^{-1}_J(u) : J \to J'\).
+  For \(f : T \to J\), naturality of \(\theta'\)
+  (\ref{pa-lem:jacobian_data_homEquiv}) gives
+  \[
+    \theta'_T(\sigma \circ f) = f^*\bigl(\theta'_J(\sigma)\bigr)
+    = f^*(u) = f^*\bigl(\theta_J(\mathrm{id}_J)\bigr)
+    = \theta_T(\mathrm{id}_J \circ f) = \theta_T(f).
+  \]
+  Symmetrically there is \(\sigma' = \theta^{-1}_{J'}(u') : J' \to J\), where
+  \(u' = \theta'_{J'}(\mathrm{id}_{J'})\), with
+  \(\theta_T(\sigma' \circ f') = \theta'_T(f')\) for every \(f' : T \to J'\).
+  The two composites are identities: e.g.\
+  \(\theta_J(\sigma' \circ \sigma) = \theta'_J(\sigma) = u =
+  \theta_J(\mathrm{id}_J)\), and \(\theta_J\) is injective, so
+  \(\sigma' \circ \sigma = \mathrm{id}_J\); likewise the other composite.
+  Uniqueness of an isomorphism with the intertwining property follows from
+  injectivity of \(\theta'\) at \(T = J\).
+\end{proof}
+
+\section{Functoriality of the datum in the curve}
+\label{pa-sec:jacobian_datum_functoriality}
+
+Throughout this section \(X\), \(Y\) and \(Z\) are challenge curves over \(k\)
+(proper, smooth of relative dimension one, geometrically irreducible), with
+Jacobian data \(d_X\), \(d_Y\), \(d_Z\) and representing objects \(J_X\),
+\(J_Y\), \(J_Z\).
+
+\begin{theorem}[The Yoneda embedding for group objects]
+  \label{pa-thm:yonedaGrp}
+  \dcref{custom}
+
+  Let \(\mathcal C\) be a cartesian monoidal category. Sending a group object
+  \(G\) to the presheaf of groups \(\Hom(-, G)\) is a fully faithful embedding
+  of the category of group objects of \(\mathcal C\) into presheaves of groups
+  on \(\mathcal C\). If a presheaf of groups \(F\) is representable, with
+  representing object \(J\), then the transported group structure makes \(J\)
+  a group object and \(\Hom(-, J) \cong F\) as presheaves of groups.
+\end{theorem}
+
+\begin{definition}[Pullback of degree-zero classes as a morphism of group
+    schemes]
+  \label{pa-def:jacobian_data_pullbackHom}
+  \dcref{custom}
+
+  \uses{pa-def:jacobian_data, pa-def:jacobian_data_grp, pa-def:pic0PullbackNat,
+    pa-thm:yonedaGrp}
+  Let \(g \colon X \to Y\) be a morphism of curves. The composite natural
+  transformation
+  \[
+    \Hom(-, J_Y) \;\cong\; \Pic^0_{Y/k}
+    \xrightarrow{\;g^{*}\;} \Pic^0_{X/k} \;\cong\; \Hom(-, J_X)
+  \]
+  of presheaves of groups --- the outer isomorphisms being the universal
+  properties of the two data, as isomorphisms of presheaves of groups
+  (Theorem~\ref{pa-thm:yonedaGrp}), and the middle map the degree-zero curve
+  transport (\ref{pa-def:pic0PullbackNat}) --- is induced, by full faithfulness
+  of the Yoneda embedding for group objects, by a unique morphism of group
+  objects
+  \[
+    g^{*} \colon J_Y \longrightarrow J_X
+  \]
+  in \(\Over(\Spec k)\): the pullback of degree-zero line-bundle classes,
+  realized on the representing objects.
+\end{definition}
+
+\begin{theorem}[Functor laws of the pullback morphism]
+  \label{pa-thm:jacobian_data_pullbackHom_laws}
+  \dcref{custom}
+
+  \uses{pa-def:jacobian_data_pullbackHom}
+  \(\id_X^{*} = \id_{J_X}\) (both slots taken by the same datum \(d_X\)), and
+  for \(g \colon X \to Y\) and \(g' \colon Y \to Z\),
+  \[
+    (g' \circ g)^{*} \;=\; g^{*} \circ g'^{*} \colon J_Z \longrightarrow J_X .
+  \]
+\end{theorem}
+\begin{proof}
+  \uses{pa-def:pic0PullbackNat, pa-thm:yonedaGrp}
+  The Yoneda embedding for group objects is faithful
+  (Theorem~\ref{pa-thm:yonedaGrp}), so it suffices to compare the conjugated
+  transformations of presheaves of groups. For the identity, the middle map is
+  the identity transformation (\ref{pa-def:pic0PullbackNat}) and the universal
+  isomorphism cancels against its inverse. For the composite, the middle map
+  of \((g' \circ g)^{*}\) is the composite of the two middle maps
+  (\ref{pa-def:pic0PullbackNat}), and the inner universal isomorphism of \(d_Y\)
+  cancels against its inverse between the two conjugates.
+\end{proof}
+
+\begin{lemma}[The universal-element characterization]
+  \label{pa-lem:jacobian_data_comp_pullbackHom}
+  \dcref{custom}
+
+  \uses{pa-def:jacobian_data_pullbackHom, pa-lem:jacobian_data_homEquiv,
+    pa-def:pic0Pullback}
+  Let \(g \colon X \to Y\), let \(T\) be a test object and \(f \colon T \to
+  J_Y\). Under the universal bijections \(\theta^X\), \(\theta^Y\) of the two
+  data (\ref{pa-lem:jacobian_data_homEquiv}),
+  \[
+    \theta^X_T\bigl(g^{*} \circ f\bigr)
+      \;=\; g^{*}\bigl(\theta^Y_T(f)\bigr),
+  \]
+  the right-hand transport being the degree-zero pullback of
+  \ref{pa-def:pic0Pullback}: on functor points, \(g^{*} \colon J_Y \to J_X\)
+  \emph{is} pullback of degree-zero classes.
+\end{lemma}
+\begin{proof}
+  Evaluate the defining natural transformation of
+  Definition~\ref{pa-def:jacobian_data_pullbackHom} at \(T\) on the element
+  \(f\): the first isomorphism sends \(f\) to \(\theta^Y_T(f)\), the middle
+  map transports it to \(g^{*}\bigl(\theta^Y_T(f)\bigr)\), and the last
+  isomorphism is \((\theta^X_T)^{-1}\); composing with \(\theta^X_T\) gives
+  the display.
+\end{proof}
+
+\section{Group schemes are separated}
+\label{pa-sec:group_separated}
+
+The diagonal argument below is categorical and uses no finiteness hypothesis.
+In particular, it proves a stronger form than the standard statement for group
+schemes locally of finite type over a field.
+
+\begin{theorem}[The diagonal of a group object is a pullback of the unit]
+  \label{pa-thm:grp_diagonal_pullback}
+  \dcref{custom}
+
+  \uses{pa-def:grp_diff}
+  Let \(G\) be a group object in a cartesian monoidal category, with unit
+  \(e : 1 \to G\) and difference morphism
+  \(\delta = \mathrm{pr}_1 \cdot \mathrm{pr}_2^{-1} : G \otimes G \to G\)
+  (\ref{pa-def:grp_diff}). Then the square
+  \[
+    \begin{array}{ccc}
+      G & \xrightarrow{\ \Delta = \langle \mathrm{id}, \mathrm{id}\rangle\ }
+        & G \otimes G \\
+      \downarrow & & \downarrow \delta \\
+      1 & \xrightarrow{\ e\ } & G
+    \end{array}
+  \]
+  is a pullback: the diagonal of \(G\) is the base change of the unit along
+  the difference map.
+\end{theorem}
+\begin{proof}
+  \emph{Commutativity.} In the hom-group \(\Hom(G, G)\):
+  \(\delta \circ \Delta = (\mathrm{pr}_1 \circ \Delta)\cdot(\mathrm{pr}_2
+  \circ \Delta)^{-1} = \mathrm{id} \cdot \mathrm{id}^{-1} = 1\), the constant
+  unit, which is the composite through the terminal object.
+
+  \emph{Universality.} Let \(s_1 : T \to 1\) and \(s_2 : T \to G \otimes G\)
+  satisfy \(\delta \circ s_2 = e \circ s_1\). The right-hand side is the unit
+  of \(\Hom(T, G)\), and the left-hand side is
+  \((\mathrm{pr}_1 \circ s_2)\cdot(\mathrm{pr}_2 \circ s_2)^{-1}\); hence
+  \(\mathrm{pr}_1 \circ s_2 = \mathrm{pr}_2 \circ s_2 =: h\). The morphism
+  \(h : T \to G\) satisfies \(\Delta \circ h = \langle h, h \rangle = s_2\)
+  (equal components) and \(t_G \circ h = s_1\) (morphisms to the terminal
+  object agree). For uniqueness, any \(m\) with \(\Delta \circ m = s_2\) has
+  \(m = \mathrm{pr}_1 \circ \Delta \circ m = \mathrm{pr}_1 \circ s_2 = h\).
+\end{proof}
+
+\begin{theorem}[A group scheme with closed unit section is separated]
+  \label{pa-thm:separated_of_closed_unit}
+  \dcref{custom}
+
+  \uses{pa-thm:grp_diagonal_pullback}
+  Let \(S\) be a scheme and \(G\) a group object of \(\Over(S)\). If the unit
+  section \(e : S \to G\) is a closed immersion of schemes, then the structure
+  morphism \(G \to S\) is separated. No finiteness hypothesis is required.
+\end{theorem}
+\begin{proof}
+  Apply the forgetful functor \(\Over(S) \to \mathrm{Sch}\) to the pullback
+  square of \ref{pa-thm:grp_diagonal_pullback}; it preserves the square and its
+  pullback property (fibre products in \(\Over(S)\) are computed on underlying
+  schemes), and the monoidal product \(G \otimes G\) becomes the fibre product
+  \(G \times_S G\) with \(\Delta\) the diagonal morphism of \(G\) over \(S\).
+  Thus the diagonal \(\Delta_{G/S}\) is a base change of the closed immersion
+  \(e\), and closed immersions are stable under base change; a morphism whose
+  diagonal is a closed immersion is separated.
+\end{proof}
+
+\begin{theorem}[Group schemes over a field are separated]
+  \label{pa-thm:group_scheme_separated}
+  \dcref{custom}
+
+  \uses{pa-thm:separated_of_closed_unit}
+  Every group scheme \(G\) over a field \(K\) is separated over \(K\).
+\end{theorem}
+\begin{proof}
+  The unit section \(e : \Spec K \to G\) of a group scheme over a field is a
+  closed immersion: its image is a \(K\)-rational point, and a section of a
+  \(K\)-scheme at a rational point is a closed immersion. Apply
+  \ref{pa-thm:separated_of_closed_unit}.
+\end{proof}
+
+\begin{corollary}[The representing object of a Jacobian datum is separated]
+  \label{pa-cor:jacobianData_separated}
+  \dcref{custom}
+
+  \uses{pa-def:jacobian_data_grp, pa-thm:group_scheme_separated}
+  For every Jacobian datum \(d\) with representing object \(J\), the structure
+  morphism of \(J\) is separated.
+\end{corollary}
+\begin{proof}
+  \(J\) is a group scheme over \(k\) (\ref{pa-def:jacobian_data_grp}); apply
+  \ref{pa-thm:group_scheme_separated}.
+\end{proof}
+
+\section{Translations}
+\label{pa-sec:translations}
+
+Group schemes are homogeneous: right translation by a point is an
+automorphism, so a point-local property holding at one rational point spreads
+to every rational point. This section provides the translation isomorphisms
+and the transport statements, first for a group object \(G\) in a cartesian
+monoidal category \(\mathcal C\) (with the hom-group calculus of
+\ref{pa-sec:difference_map}), then on underlying schemes. For a point
+\(g : 1 \to G\), the \emph{right translation} \(\rho_g : G \cong G\) is the
+isomorphism \(\rho_g = \mu \circ \langle \mathrm{id}_G,\ g \circ t_G\rangle\)
+(``multiply on the right by \(g\)''), with inverse the right translation by
+\(g^{-1}\).
+
+\begin{lemma}[Composition with a right translation]
+  \label{pa-lem:comp_mulRight}
+  \dcref{custom}
+
+  For morphisms \(f : X \to G\) and points \(g : 1 \to G\) of a group object
+  \(G\),
+  \[
+    \rho_g \circ f = f \cdot \hat g
+    \qquad\text{and}\qquad
+    \rho_g^{-1} \circ f = f \cdot \hat g^{-1},
+  \]
+  computed in the hom-group \(\Hom(X, G)\), where
+  \(\hat g = g \circ t_X\) is the constant morphism at \(g\).
+\end{lemma}
+\begin{proof}
+  Unfolding \(\rho_g\): \(\rho_g \circ f = \mu \circ \langle \mathrm{id},\ g
+  \circ t_G\rangle \circ f = \mu \circ \langle f,\ g \circ t_X\rangle
+  = f \cdot \hat g\), using \(t_G \circ f = t_X\) (morphisms into the terminal
+  object). The second identity follows from the first applied to
+  \(\rho_g^{-1} = \rho_{g^{-1}}\), or directly: unfolding the inverse
+  translation gives \(\mu \circ \langle f,\ \iota \circ g \circ t_X\rangle =
+  f \cdot \hat g^{-1}\).
+\end{proof}
+
+\begin{definition}[The translation carrying one point to another]
+  \label{pa-def:point_translation}
+
+  \dcref{custom}
+  For points \(x, y : 1 \to G\) of a group object \(G\), the
+  \emph{point translation}
+  \[
+    \tau_{x,y} \;=\; \rho_y \circ \rho_x^{-1} \;:\; G \cong G
+  \]
+  is the automorphism ``multiply on the right by \(x^{-1} y\)''.
+\end{definition}
+
+\begin{lemma}[The point translation carries \(x\) to \(y\)]
+  \label{pa-lem:point_translation_apply}
+  \dcref{custom}
+
+  \uses{pa-def:point_translation, pa-lem:comp_mulRight}
+  For points \(x, y : 1 \to G\),
+  \(\tau_{x,y} \circ x = y\).
+\end{lemma}
+\begin{proof}
+  By \ref{pa-lem:comp_mulRight}, computed in the hom-group \(\Hom(1, G)\), where
+  the constant \(\hat g\) at a point \(g\) is \(g\) itself (\(t_1 =
+  \mathrm{id}\)):
+  \(\rho_x^{-1} \circ x = x \cdot x^{-1} = 1\), and then
+  \(\rho_y \circ (\rho_x^{-1} \circ x) = 1 \cdot y = y\).
+\end{proof}
+
+\begin{definition}[Translations of the underlying scheme]
+  \label{pa-def:point_translation_iso}
+  \dcref{custom}
+
+  \uses{pa-def:point_translation}
+  Let \(S\) be a scheme, \(G\) a group scheme over \(S\), and \(x, y\) two
+  sections \(S \to G\). The \emph{translation isomorphism}
+  \(\tau_{x,y} : G \cong G\) of underlying schemes is the image of the point
+  translation \ref{pa-def:point_translation} under the forgetful functor from
+  schemes over \(S\) to schemes; its inverse is the image of the inverse point
+  translation.
+\end{definition}
+
+\begin{lemma}[Translations commute with the structure morphism]
+  \label{pa-lem:point_translation_iso_over}
+  \dcref{custom}
+
+  \uses{pa-def:point_translation_iso}
+  In the situation of \ref{pa-def:point_translation_iso}, composing
+  \(\tau_{x,y}\) with the structure morphism \(G \to S\) gives the structure
+  morphism: \(\tau_{x,y}\) is an automorphism of \(G\) over \(S\).
+\end{lemma}
+\begin{proof}
+  The point translation is a morphism in the category of schemes over \(S\),
+  and the forgetful functor remembers the commutation with the structure
+  morphisms.
+\end{proof}
+
+\begin{lemma}[Translations act on points as prescribed]
+  \label{pa-lem:point_translation_iso_points}
+  \dcref{custom}
+
+  \uses{pa-def:point_translation_iso, pa-lem:point_translation_apply}
+  In the situation of \ref{pa-def:point_translation_iso}, for every point
+  \(s \in S\),
+  \[
+    \tau_{x,y}\bigl(x(s)\bigr) = y(s)
+  \]
+  on underlying topological spaces.
+\end{lemma}
+\begin{proof}
+  The equation \(\tau_{x,y} \circ x = y\) of \ref{pa-lem:point_translation_apply}
+  holds in \(\Over(S)\), hence on underlying schemes, hence on underlying
+  topological spaces; evaluate at \(s\).
+\end{proof}
+
+\begin{lemma}[Transport of the smooth locus]
+  \label{pa-lem:smooth_locus_transport}
+  \dcref{custom}
+
+  Let \(f : X \to S\) be a morphism locally of finite presentation and
+  \(e : X \to X\) an open immersion with \(f \circ e = f\). Then for every
+  \(z \in X\),
+  \[
+    e(z) \in \operatorname{SmoothLocus}(f)
+    \iff
+    z \in \operatorname{SmoothLocus}(f).
+  \]
+\end{lemma}
+\begin{proof}
+  Smoothness of \(f\) at a point is local on \(X\): composing with the open
+  immersion \(e\), the morphism \(f\) is smooth at \(e(z)\) if and only if
+  \(f \circ e\) is smooth at \(z\) (an open immersion is smooth, identifies
+  local rings, and smoothness is a stalk-local property of the morphism). Now
+  rewrite \(f \circ e = f\).
+\end{proof}
+
+\begin{lemma}[Transport of stalk reducedness]
+  \label{pa-lem:stalk_reduced_transport}
+  \dcref{custom}
+
+  Let \(e : X \to Y\) be an open immersion of schemes and \(z \in X\). Then
+  \(\struct{X,z}\) is reduced if and only if \(\struct{Y, e(z)}\) is reduced.
+\end{lemma}
+\begin{proof}
+  An open immersion induces an isomorphism on stalks, and reducedness is
+  invariant under ring isomorphism.
+\end{proof}
+
+\begin{lemma}[Transport of irreducibility]
+  \label{pa-lem:irreducible_transport}
+  \dcref{custom}
+
+  Let \(e : X \to Y\) be an isomorphism of schemes and \(t \subseteq Y\) a
+  subset. Then \(e^{-1}(t)\) is irreducible if and only if \(t\) is
+  irreducible.
+\end{lemma}
+\begin{proof}
+  An isomorphism of schemes is a homeomorphism of underlying spaces;
+  irreducibility is a topological property, preserved and reflected by
+  homeomorphisms (the image of an irreducible set under a continuous map is
+  irreducible, applied to \(e\) and \(e^{-1}\)).
+\end{proof}
+
+\begin{corollary}[Homogeneity of the representing object]
+  \label{pa-cor:jacobian_translation}
+  \dcref{custom}
+
+  \uses{pa-def:jacobian_data_grp, pa-def:point_translation,
+    pa-lem:point_translation_apply, pa-def:point_translation_iso,
+    pa-lem:point_translation_iso_over, pa-lem:point_translation_iso_points,
+    pa-lem:smooth_locus_transport, pa-lem:stalk_reduced_transport,
+    pa-lem:irreducible_transport}
+  Let \(d\) be a Jacobian datum with representing object \(J\), and let
+  \(x, y : \Spec k \to J\) be two \(k\)-points. With the group structure of
+  \ref{pa-def:jacobian_data_grp}, the translation \(\tau_{x,y}\) is an
+  automorphism of \(J\) over \(k\) with \(\tau_{x,y} \circ x = y\); on the
+  underlying scheme it commutes with the structure morphism and carries the
+  point of \(x\) to the point of \(y\); and it preserves and reflects
+  membership in the smooth locus of the structure morphism (when the latter is
+  locally of finite presentation), reducedness of stalks, and irreducibility
+  of subsets.
+\end{corollary}
+\begin{proof}
+  Instantiate \ref{pa-def:point_translation}--\ref{pa-lem:irreducible_transport} at
+  the group scheme \(J\): the translation exists and carries \(x\) to \(y\)
+  (\ref{pa-def:point_translation}, \ref{pa-lem:point_translation_apply}); its
+  underlying isomorphism commutes with the structure morphism
+  (\ref{pa-lem:point_translation_iso_over}) and acts on points as prescribed
+  (\ref{pa-lem:point_translation_iso_points}); the three transport lemmas
+  (\ref{pa-lem:smooth_locus_transport}, applicable by
+  \ref{pa-lem:point_translation_iso_over}; \ref{pa-lem:stalk_reduced_transport};
+  \ref{pa-lem:irreducible_transport}) give the invariances.
+\end{proof}
+
+\section{The Abel source: properness and geometric irreducibility}
+\label{pa-sec:abel_source}
+
+\begin{definition}[Abel source]
+  \label{pa-def:abel_source}
+  \dcref{custom}
+
+  \uses{pa-def:jacobian_data}
+  Let \(d\) be a Jacobian datum with representing object \(J\). An
+  \emph{Abel source} for \(d\) consists of:
+  \begin{enumerate}
+    \item a scheme \(D\) over \(k\);
+    \item a certificate that \(D\) is proper over \(k\);
+    \item a certificate that \(D\) is geometrically irreducible over \(k\);
+    \item an \emph{Abel morphism} \(a : D \to J\) over \(k\);
+    \item a certificate that \(a\) is surjective on underlying topological
+      spaces.
+  \end{enumerate}
+  This is a conditional interface: its definition asserts neither the
+  existence of \(D\) nor the existence of \(a\). The intended instance takes
+  \(D\) to be a proper scheme of effective divisors of large degree on \(C\)
+  and \(a\) to be the Abel map.
+\end{definition}
+
+\begin{theorem}[The representing object is universally closed]
+  \label{pa-thm:jacobianData_universallyClosed}
+  \dcref{custom}
+
+  \uses{pa-def:abel_source, pa-def:jacobian_data}
+  Let \(d\) be a Jacobian datum admitting an Abel source. Then the structure
+  morphism of the representing object \(J\) is universally closed.
+\end{theorem}
+\begin{proof}
+  Let \(a : D \to J\) be the Abel morphism. Since \(a\) is a morphism over
+  \(k\), the composite of \(a\) with the structure morphism of \(J\) is the
+  structure morphism of \(D\), which is universally closed (\(D\) is proper).
+  Surjectivity and closedness are stable under base change, so it suffices to
+  see: if \(g \circ f\) is universally closed and \(f\) is surjective, then
+  \(g\) is universally closed. Indeed, after any base change, for a closed
+  subset \(Z\) of the source of the (base-changed) \(g'\),
+  \(g'(Z) = (g' \circ f')\bigl(f'^{-1}(Z)\bigr)\) by surjectivity of the
+  base-changed \(f'\), and the right-hand side is closed since
+  \(g' \circ f' = (g \circ f)'\) is a closed map.
+\end{proof}
+
+\begin{theorem}[The representing object is proper]
+  \label{pa-thm:jacobianData_proper}
+  \dcref{custom}
+
+  \uses{pa-def:abel_source, pa-cor:jacobianData_separated,
+    pa-thm:jacobianData_universallyClosed, pa-def:jacobian_data}
+  Let \(d\) be a Jacobian datum admitting an Abel source. Then the structure
+  morphism of the representing object \(J\) is proper.
+\end{theorem}
+\begin{proof}
+  Properness is the conjunction of separatedness, universal closedness and
+  finite type. Separatedness is \ref{pa-cor:jacobianData_separated}; universal
+  closedness is \ref{pa-thm:jacobianData_universallyClosed}; the structure morphism
+  is locally of finite type by the datum's certificate
+  (\ref{pa-def:jacobian_data}), and quasi-compact because universally closed
+  morphisms are quasi-compact; locally of finite type and quasi-compact is
+  finite type.
+\end{proof}
+
+\begin{theorem}[The representing object is geometrically irreducible]
+  \label{pa-thm:jacobianData_geomIrreducible}
+  \dcref{custom}
+
+  \uses{pa-def:abel_source}
+  Let \(d\) be a Jacobian datum admitting an Abel source. Then the structure
+  morphism of the representing object \(J\) is geometrically irreducible: for
+  every field extension \(K/k\), the base change \(J_K\) is irreducible.
+\end{theorem}
+\begin{proof}
+  Fix a field extension \(K/k\) and a fibre product \(Z = J \times_k K\) with
+  projections to \(J\) and \(\Spec K\). The base change
+  \(D_K = D \times_k K\) is irreducible by the Abel source's certificate. The
+  comparison morphism \(D_K \to Z\) induced by the Abel morphism \(a\) is,
+  by pasting of pullback squares, a base change of \(a\) along
+  \(Z \to J\) (the square with legs \(D_K \to Z \to \Spec K\) over
+  \(D \to J \to \Spec k\) decomposes into two pullbacks); surjectivity is
+  stable under base change, so \(D_K \to Z\) is surjective. A continuous
+  surjective image of an irreducible space is irreducible, so \(Z\) is
+  irreducible.
+\end{proof}
+
+\section{Base change of the representability datum}
+\label{pa-sec:jacobian_datum_basechange}
+
+Fix a field extension \(k \to L\), write \(\sigma : \Spec L \to \Spec k\) and
+\(C_L = C \times_{\Spec k} \Spec L\). We transport a Jacobian datum for \(C\) to one for
+\(C_L\) and compare the two group structures on the base-changed representing object; this is the
+datum-level mechanism behind \ref{pa-thm:baseChangeIso}.
+
+\begin{definition}[Base change of a Jacobian datum]
+  \label{pa-def:jacobianData_baseChange}
+  \dcref{custom}
+
+  \uses{pa-def:jacobian_data, pa-def:baseChange, pa-lem:jacobian_data_homEquiv}
+  A Jacobian datum \(d\) for \(C\), with representing object \(J\), base-changes to a Jacobian datum
+  \(d_L\) for \(C_L\) with representing object \(J_L = J \times_{\Spec k} \Spec L\). Its universal
+  bijections are obtained from the pullback--base-change adjunction
+  \(\Hom_{\Over(\Spec L)}(T, J_L) \cong \Hom_{\Over(\Spec k)}(\sigma_! T, J)\) followed by \(d\)'s
+  representation and the base-field comparison of the degree-zero Picard functor
+  \(\mathrm{pic}^0(C_L, T) \cong \mathrm{pic}^0(C, \sigma_! T)\); the locally-of-finite-type and
+  quasi-compactness certificates transport by stability of these properties under base change.
+\end{definition}
+
+\begin{lemma}[Base change respects the group structure]
+  \label{pa-lem:grpObjObj_baseChange_eq}
+  \dcref{custom}
+
+  \uses{pa-def:jacobianData_baseChange, pa-def:jacobian_data_grp}
+  Let \(d\) be a Jacobian datum for \(C\). The group-object structure that base change induces on
+  \(J_L\) --- as the image of the group object \(J\) under the finite-product-preserving base-change
+  functor --- coincides with the group-object structure carried by the base-changed datum \(d_L\)
+  (\ref{pa-def:jacobianData_baseChange}) through its representation.
+\end{lemma}
+\begin{proof}
+  A group-object structure is determined by its multiplication morphism, so it suffices to compare
+  those. The multiplication induced by a finite-product-preserving functor on the image of a group
+  object is, through the pullback--base-change adjunction, exactly the multiplication that the
+  adjunction representation \(\Hom(T, J_L) \cong \Hom(\sigma_! T, J)\) transports from \(J\). The
+  representation carried by \(d_L\) factors that same adjunction through the base-field comparison of
+  \(\mathrm{pic}^0\), which is an isomorphism of presheaves of \emph{groups}; being a homomorphism at
+  each test object it preserves the pointwise products, so the two multiplications agree.
+\end{proof}
+
+\begin{definition}[Datum-level base-change isomorphism]
+  \label{pa-def:baseChangeIsoOfData}
+  \dcref{custom}
+
+  \uses{pa-lem:grpObjObj_baseChange_eq, pa-def:jacobianData_baseChange, pa-def:jacobian_data_unique}
+  Let \(d\) be a Jacobian datum for \(C\) and \(d_L\) a Jacobian datum for \(C_L\). There is a
+  canonical isomorphism of group schemes over \(L\)
+  \[
+    J_L \;\cong\; d_L.J ,
+  \]
+  where the left-hand side carries the group structure induced by base change. It is the canonical
+  isomorphism of representing objects (\ref{pa-def:jacobian_data_unique}) for the two Jacobian data of
+  \(C_L\) --- the base-changed datum of \ref{pa-def:jacobianData_baseChange} and the given \(d_L\) ---
+  which is a homomorphism of group objects by \ref{pa-lem:grpObjObj_baseChange_eq} together with that
+  intertwining property. Specialised to the produced Jacobian data it is the datum-level form of
+  \ref{pa-thm:baseChangeIso}.
+\end{definition}

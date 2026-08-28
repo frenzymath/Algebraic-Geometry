@@ -1,0 +1,255 @@
+\section{Coherence of locally trivial line bundles}
+\label{mk-chap:Picard_LineBundleCoherence}
+
+\section{Site instances for quasi-coherent data}
+\label{mk-sec:lbc_site_instances}
+
+The Mathlib predicates \(\mathtt{SheafOfModules.IsFinitePresentation}\) and
+\(\mathtt{SheafOfModules.QuasicoherentData}\) are stated relative to a
+Grothendieck topology \(J\) on a base category \(C\) and a sheaf of rings
+\(R : \Sheaf(J, \RingCat)\). They require, for every object \(x : C\), three
+instances on the slice topology \(J/x\) (Mathlib \(J.\mathtt{over}\ x\)):
+\[
+  (J/x).\mathtt{HasSheafCompose}(\forget_{\RingCat \to \AddCommGrpCat}),\quad
+  \HasWeakSheafify(J/x, \AddCommGrpCat),\quad
+  (J/x).\mathtt{WEqualsLocallyBijective}(\AddCommGrpCat).
+\]
+For \(X.\mathtt{Modules} = \mathtt{SheafOfModules}\ X.\mathtt{ringCatSheaf}\)
+these are the ambient site instances of the ringed space underlying \(X\). We
+record their availability as a standing assumption for the chapter; verifying it
+for \(X.\mathtt{ringCatSheaf}\) is the single instance-resolution check the
+the construction must clear at entry, and is independent of the mathematical
+content below.
+
+\begin{remark}
+  \label{mk-rem:lbc_site_instances}
+  \dcref{custom}
+  For the ringed-space site underlying \(X\) with sheaf of rings
+  \(R = X.\mathtt{ringCatSheaf}\), every slice topology \(J/x\) carries the
+  three instances \(\mathtt{HasSheafCompose}\), \(\HasWeakSheafify\) and
+  \(\mathtt{WEqualsLocallyBijective}\) (for the forgetful functor
+  \(\RingCat \to \AddCommGrpCat\)) demanded by
+  \(\mathtt{SheafOfModules.QuasicoherentData}\). Under this assumption the
+  predicate \(M.\mathtt{IsFinitePresentation}\) is well-formed for every
+  \(M : X.\mathtt{Modules}\).
+\end{remark}
+
+\section{From pointwise triviality to a trivialising cover}
+\label{mk-sec:lbc_cover}
+
+\begin{lemma}[Trivialising affine cover]\label{mk-lem:lbc_trivializing_cover}
+  \dcref{01CS,custom}
+
+  \uses{mk-def:line_bundle_on_product}
+  \textit{Source: \cite{stacks-project}, Tag~01CS (Modules, Definition~17.25.1).}
+  Let \(M : X.\mathtt{Modules}\) be locally trivial, \(\texttt{IsLocallyTrivial}(M)\).
+  Then there exist an index set \(I\), a family of affine open subschemes
+  \(\{U_i\}_{i \in I}\) of \(X\) covering \(X\) (i.e. \(\bigcup_i U_i = X\)), and
+  for each \(i\) an isomorphism of \(\mathcal{O}_{U_i}\)-modules
+  \[
+    e_i \;:\; M|_{U_i} \;\xrightarrow{\ \sim\ }\; \struct{U_i}
+  \]
+  to the structure sheaf-as-module on \(U_i\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-def:line_bundle_on_product}
+  Apply the hypothesis \(\texttt{IsLocallyTrivial}(M)\) at every point \(x \in X\): it
+  produces an affine open \(U_x \ni x\) and an isomorphism
+  \(e_x : M|_{U_x} \cong \struct{U_x}\). Take the index set \(I := X\) (the
+  underlying set of points), and to the index \(x\) assign the chosen
+  neighbourhood \(U_x\) and the chosen isomorphism \(e_x\). The family
+  \(\{U_x\}_{x \in X}\) covers \(X\) because each \(x\) lies in its own \(U_x\).
+  This is exactly the data the definition supplies, packaged as an indexed
+  family rather than a pointwise existential.
+\end{proof}
+
+\section{The canonical presentation of the unit module}
+\label{mk-sec:lbc_unit_presentation}
+
+The chart presentation of \ref{mk-sec:lbc_chart_presentation} is obtained by
+transporting a fixed canonical presentation of the unit module
+\(\struct{} = \mathtt{SheafOfModules.unit}\,R\) along the trivialising
+isomorphism. We record that canonical presentation here. The unit module is free
+of rank one, so it has a presentation with a single generator and no relations.
+
+\begin{definition}[Free–unit isomorphism]\label{mk-def:lbc_free_unit_iso}
+  \dcref{custom}
+
+  Over a sheaf of rings \(R\) on a site, the free \(R\)-module on a single
+  generator is canonically isomorphic to the unit module:
+  \[
+    \mathtt{free}\,(\mathrm{PUnit}) \;\xrightarrow{\ \sim\ }\; \mathtt{unit}\,R,
+  \]
+  the coproduct of a one-element family of copies of \(\mathtt{unit}\,R\) being
+  \(\mathtt{unit}\,R\) itself.
+\end{definition}
+
+\begin{proof}
+
+
+\end{proof}
+
+\begin{definition}[Unit generating section]\label{mk-def:lbc_unit_generators}
+  \dcref{custom}
+
+  \uses{mk-def:lbc_free_unit_iso}
+  The canonical generating family of the unit module \(\mathtt{unit}\,R\): the
+  single section indexed by \(\mathrm{PUnit}\), namely the image of the free
+  generator under the free–unit isomorphism \ref{mk-def:lbc_free_unit_iso}. The
+  associated map \(\mathtt{unit}\,R^{\oplus 1} \to \mathtt{unit}\,R\) is an
+  epimorphism, so the family generates.
+\end{definition}
+
+\begin{proof}
+
+
+\end{proof}
+
+\begin{definition}[Canonical unit presentation]\label{mk-def:lbc_unit_presentation}
+  \dcref{custom}
+
+  \uses{mk-def:lbc_unit_generators}
+  The canonical finite free presentation of the unit module \(\mathtt{unit}\,R\):
+  one generator (\ref{mk-def:lbc_unit_generators}) and no relations (indexed by the
+  empty type). Since the generating map \(\mathtt{unit}\,R^{\oplus 1} \to
+  \mathtt{unit}\,R\) is an isomorphism, its relation kernel is the zero object,
+  so the empty family of relations suffices. This presentation is finite.
+\end{definition}
+
+\begin{proof}
+
+
+\end{proof}
+
+\section{The trivial presentation on a chart}
+\label{mk-sec:lbc_chart_presentation}
+
+\begin{lemma}[Finite free presentation on a chart]\label{mk-lem:lbc_chart_presentation}
+  \dcref{custom}
+
+  \uses{mk-lem:lbc_trivializing_cover, mk-def:lbc_unit_presentation,
+    mk-def:linebundle_chart_over_iso}
+  \textit{Source: \cite{stacks-project}, Modules, ``Modules of finite
+  presentation''.}
+  On each chart \(U_i\) of the trivialising cover of
+  \ref{mk-lem:lbc_trivializing_cover}, the restriction \(M|_{U_i}\) admits the
+  trivial finite free presentation
+  \[
+    0 \;\longrightarrow\; \struct{U_i} \;\longrightarrow\; M|_{U_i}
+    \;\longrightarrow\; 0,
+  \]
+  i.e. \(M|_{U_i}\) is the cokernel of the zero map
+  \(\bigoplus_{j \in \varnothing} \struct{U_i} \to \struct{U_i}\)
+  (the case \(m = 0\), \(n = 1\) of the finite-presentation pattern). The
+  unit sheaf-as-module \(\struct{U_i}\) (Mathlib's \(\mathtt{SheafOfModules.unit}\))
+  carries a canonical free presentation on one generator with no relations;
+  this presentation is finite.
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:lbc_trivializing_cover}
+  The structure sheaf-as-module \(\struct{U_i} = \mathtt{SheafOfModules.unit}\,
+  (U_i).\mathtt{ringCatSheaf}\) is free of rank one on the single generator
+  \(1\): the identity map \(\struct{U_i} \to \struct{U_i}\) exhibits it as
+  \(\bigoplus_{i \in \{*\}} \struct{U_i}\), so the surjection
+  \(\struct{U_i}^{\oplus 1} \twoheadrightarrow \struct{U_i}\) is an isomorphism
+  and its kernel is zero, generated by the empty family. Thus \(\struct{U_i}\)
+  has the canonical presentation with \(n = 1\) generators and \(m = 0\)
+  relations; this canonical \(\mathtt{unit}\)-presentation is the rank-one free
+  presentation, and Mathlib records it as \emph{finite} (the
+  \(\mathtt{SheafOfModules.unit}\) finite-presentation instance).
+
+  The chart presentation is obtained by transporting the canonical finite
+  presentation of \(\mathtt{unit}\,(U_i).\mathtt{ringCatSheaf}\) along the
+  isomorphism \(e_i\), using \(\mathtt{SheafOfModules.Presentation.ofIsIso}\).
+  This construction carries any finite presentation of a module to a finite
+  presentation of any isomorphic module, so the transported presentation of
+  \(M|_{U_i}\) is again finite.
+\end{proof}
+
+\section{Finite presentation of a locally trivial line bundle}
+\label{mk-sec:lbc_finite_presentation}
+
+\begin{theorem}[Locally trivial \(\Rightarrow\) finitely presented]\label{mk-thm:lbc_isFinitePresentation}
+  \dcref{0B8M,custom}
+
+  \uses{mk-lem:lbc_trivializing_cover, mk-lem:lbc_chart_presentation, mk-rem:lbc_site_instances}
+  \textit{Source: \cite{stacks-project}, Tag~0B8M (Modules, Lemma~17.25.4).}
+  Let \(X\) be a scheme satisfying \ref{mk-rem:lbc_site_instances} and let
+  \(M : X.\mathtt{Modules}\) be locally trivial, \(\texttt{IsLocallyTrivial}(M)\). Then
+  \(M\) is finitely presented: \(M.\mathtt{IsFinitePresentation}\) holds in
+  Mathlib's \(\mathtt{SheafOfModules.IsFinitePresentation}\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-lem:lbc_trivializing_cover, mk-lem:lbc_chart_presentation}
+  By \ref{mk-lem:lbc_trivializing_cover} choose a trivialising affine cover
+  \(\{U_i\}_{i \in I}\) with isomorphisms \(e_i : M|_{U_i} \cong \struct{U_i}\).
+  Assemble these into a \(\mathtt{QuasicoherentData}\) for \(M\): the index type
+  is \(I\), the covering objects are the affine opens \(U_i\) (which cover \(X\)),
+  and the presentation attached to index \(i\) is the finite free presentation of
+  \(M|_{U_i}\) (equivalently, of the restriction \(M.\mathtt{over}\,U_i\))
+  produced in \ref{mk-lem:lbc_chart_presentation}. Each such presentation is
+  finite by \ref{mk-lem:lbc_chart_presentation}; the assembled
+  \(\mathtt{QuasicoherentData}\) therefore satisfies
+  \(\mathtt{QuasicoherentData.IsFinitePresentation}\), and the constructor
+  \(\mathtt{SheafOfModules.IsFinitePresentation.mk}\) yields
+  \(M.\mathtt{IsFinitePresentation}\).
+
+  The only non-formal input is the trivialising cover; everything else is the
+  definitional unwinding of finite presentation as a local property
+  (Stacks, ``Modules of finite presentation''), since a rank-one free module is its own finite
+  presentation. No stalk computation and no neighbourhood-spreading argument is
+  used: the hypothesis already provides the local free models.
+\end{proof}
+
+\begin{corollary}[Locally trivial \(\Rightarrow\) finite type]\label{mk-cor:lbc_isFiniteType}
+  \dcref{custom}
+
+  \uses{mk-thm:lbc_isFinitePresentation}
+  Under the hypotheses of \ref{mk-thm:lbc_isFinitePresentation}, the locally
+  trivial module \(M\) is of finite type (\(M.\mathtt{IsFiniteType}\)). Quasi-coherence
+  (\(M.\mathtt{IsQuasicoherent}\)) follows from finite presentation via
+  \(\mathtt{SheafOfModules.instIsQuasicoherentOfIsFinitePresentation}\).
+\end{corollary}
+
+\begin{proof}
+  \uses{mk-thm:lbc_isFinitePresentation}
+  Finite presentation implies finite type by Mathlib's
+  \(\mathtt{SheafOfModules.instIsFiniteTypeOfIsFinitePresentation}\), immediate
+  from \ref{mk-thm:lbc_isFinitePresentation}. Quasi-coherence is immediate from
+  finite presentation by
+  \(\mathtt{SheafOfModules.instIsQuasicoherentOfIsFinitePresentation}\).
+\end{proof}
+
+\section{Rank one and flatness record}
+\label{mk-sec:lbc_rank_flat}
+
+\begin{lemma}[Chart-local rank one and flatness]\label{mk-lem:lbc_rank_flat}
+  \dcref{custom}
+
+  \uses{mk-lem:lbc_trivializing_cover}
+  \textit{Source: \cite{stacks-project}, Modules, ``Locally free sheaves'' (finite
+  locally free of rank \(r\)).}
+  Let \(M : X.\mathtt{Modules}\) be locally trivial. The lemma records, at each
+  point \(x \in X\), a chart \(U \ni x\) together with the trivialising iso
+  \(M|_U \cong \struct{U}\) (to \(\mathtt{SheafOfModules.unit}\)). This iso is the
+  rank-one free \emph{model}: rank-one freeness and flatness are
+  \emph{consequences} of this iso, because \(\struct{U}\) is the free
+  \(\mathcal{O}_U\)-module of rank one and a flat module over itself (a ring is
+  flat over itself), and both properties transport along \(e\). In the sense of
+  \ref{mk-def:line_bundle_on_product} this exhibits \(M\) as finite locally free
+  of rank one and flat on the cover.
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:lbc_trivializing_cover}
+  Immediate from the trivialisation: on \(U_i\), \(e_i\) identifies \(M|_{U_i}\)
+  with \(\struct{U_i} = \bigoplus_{i \in \{*\}} \struct{U_i}\), the free module
+  of rank one. The structure sheaf-as-module is flat over itself, and an
+  isomorphic module is flat; the index set \(\{*\}\) has cardinality one, so the
+  rank is one. The properties are recorded chart-locally because rank-one
+  freeness and flatness are local conditions, so the chart-local data determine
+  them.
+\end{proof}

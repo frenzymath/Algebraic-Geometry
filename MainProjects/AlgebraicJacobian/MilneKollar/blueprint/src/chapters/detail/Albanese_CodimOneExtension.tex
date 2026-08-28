@@ -1,0 +1,1771 @@
+
+\section{Codimension-1 indeterminacy extension (A.4.a)}
+\label{mk-chap:Albanese_CodimOneExtension}
+
+This chapter isolates two codimension-one inputs to the extension theorem for rational
+maps.  A rational map from a normal variety to a complete variety is defined away from a
+closed subset of codimension at least two, while a map to a group variety has indeterminacy
+that is either empty or purely codimension one.  We also record the equivalent
+Weil-divisor obstruction in terms of orders along prime divisors.
+The depth-\(\geq 2\) reduction uses
+\ref{mk-cor:regular_cohen_macaulay} from
+\ref{mk-chap:Albanese_AuslanderBuchsbaum}, and the two codimension-one outputs
+feed the extension theorem in \ref{mk-chap:Albanese_Thm32RationalMapExtension}.
+
+\section{The indeterminacy locus of a rational map}
+\label{mk-sec:indeterm_locus}
+
+\begin{definition}[Indeterminacy locus of a rational map]\label{mk-def:indeterminacy_locus}
+  \dcref{I.3,custom}
+
+  \textit{Source: Milne, \emph{Abelian Varieties}, \S I.3, p.~16.}
+  Let \(f \colon X \dashrightarrow Y\) be a rational map between varieties over \(\bar k\).
+  The \emph{domain of definition} of \(f\) is the open set
+  \[
+    \mathrm{Dom}(f) \;:=\; \bigcup_{(U, \varphi_U) \in f} U \;\subseteq\; X,
+  \]
+  i.e.\ the union of the dense opens of all representatives of \(f\). The
+  \emph{indeterminacy locus} of \(f\) is the closed complement
+  \[
+    Z(f) \;:=\; X \smallsetminus \mathrm{Dom}(f) \;\subseteq\; X.
+  \]
+  The map \(f\) is regular (i.e.\ defined on all of \(X\)) if and only if \(Z(f) = \emptyset\).
+\end{definition}
+
+\begin{lemma}
+[Indeterminacy locus is closed]
+  \label{mk-lem:isClosed_indeterminacy_locus}
+  \dcref{custom}
+  \uses{mk-def:indeterminacy_locus}
+  For any rational map \(f \colon X \dashrightarrow Y\) of schemes, the
+  indeterminacy locus \(Z(f) = X \smallsetminus \mathrm{Dom}(f)\)
+  (\ref{mk-def:indeterminacy_locus}) is a closed subset of \(X\): it is the
+  complement of the open domain of definition \(\mathrm{Dom}(f)\).
+\end{lemma}
+
+\begin{proof}
+  The domain of definition is open, and the complement of an open subset is closed.
+\end{proof}
+
+\begin{definition}[Codimension-1-indeterminacy-free rational maps]\label{mk-def:codim_one_indeterminacy}
+  \dcref{3.1,custom}
+
+  \uses{mk-def:indeterminacy_locus, mk-def:prime_divisor}
+  \textit{Source: Milne, \emph{Abelian Varieties}, Theorem~3.1, \S I.3, p.~16 (the
+  conclusion).}
+  Let \(f \colon X \dashrightarrow Y\) be a rational map between varieties over \(\bar k\).
+  We say \(f\) is \emph{codim-1-indeterminacy-free} (or has \emph{codimension-\(\geq 2\)
+  indeterminacy}) if every irreducible component of the closed subset \(Z(f) \subseteq X\)
+  has codimension \(\geq 2\) in \(X\). Equivalently, no prime divisor of \(X\) is contained in
+  \(Z(f)\); equivalently, every point \(\eta \in X\) with \(\mathrm{codim}_X \overline{\{\eta\}} = 1\)
+  lies in \(\mathrm{Dom}(f)\).
+
+  \paragraph{Why the abstraction.} Milne's Theorem~3.1 (\ref{mk-thm:codim_one_extension}
+  below) and Lemma~3.3 (\ref{mk-lem:milne_codim1_indeterminacy} below) both produce
+  conclusions about the codimension of \(Z(f)\). Phrasing the codim-\(\geq 2\) condition
+  as a named predicate keeps the cited statements concise and lets the consumer
+  \ref{mk-chap:Albanese_Thm32RationalMapExtension} read off the combination
+  (\(Z(f)\) has codim \(\geq 2\) from \ref{mk-thm:codim_one_extension} \emph{and} \(Z(f)\) is
+  empty or pure codim 1 from \ref{mk-lem:milne_codim1_indeterminacy} \(\Rightarrow\) \(Z(f)\)
+  is empty) as a single line.
+\end{definition}
+
+\section{Smoothness yields a DVR at every codim-1 point}
+\label{mk-sec:smooth_dvr}
+
+The codim-\(1\) extension argument in Milne's proof of Theorem~3.1 hinges on the local
+ring at the generic point of a prime divisor being a discrete valuation ring (so that
+the valuative criterion of properness applies). On a normal variety this is the
+defining property of regularity in codimension one; on a smooth variety it is automatic.
+
+The smooth-implies-regular-local-stalk implication itself is the Jacobian-criterion
+direction of Stacks tag \texttt{00TT}; we package it as a separate sub-lemma so that
+\ref{mk-lem:smooth_codim_one_dvr} below reads cleanly as ``regular local of dimension
+\(1\) is a DVR'', with the regularity prerequisite supplied by the sub-lemma.
+
+\subsection{K\"ahler differentials under localisation}
+\label{mk-subsec:kaehler_localisation_substrate}
+
+The Jacobian criterion for smooth algebras is local.  Near a point of a smooth
+scheme one chooses a standard-smooth affine presentation, identifies the stalk
+with a localisation of its section ring, and localises the module of K\"ahler
+differentials.  The next lemmas record these reductions and the preservation of
+freeness and rank under localisation.  The dimension and cotangent-space
+comparisons needed for regularity are treated in
+\ref{mk-subsec:stage6_subgap_decomposition}.
+
+\begin{lemma}[Smooth implies flatness on stalks]\label{mk-lem:stalkMap_flat_of_smooth}
+  \dcref{custom}
+
+  Let \(X \to \Spec(\bar k)\) be a smooth morphism over an algebraically closed
+  field \(\bar k\). Then for every point \(z \in X\) the induced ring map on
+  stalks is flat.
+\end{lemma}
+
+\begin{proof}
+  Every smooth morphism is flat, and flatness of a morphism is equivalent to
+  flatness of all induced maps on local rings.
+\end{proof}
+
+\begin{lemma}[A smooth morphism is locally standard smooth]\label{mk-lem:exists_standardSmooth_at_of_smooth}
+  \dcref{custom}
+
+  For a smooth morphism \(X \to \Spec(\bar k)\) and a point \(z \in X\), there
+  exist affine open neighbourhoods \(U \subseteq \Spec(\bar k)\) and \(V \ni z\)
+  in \(X\) with \(V \subseteq X^{-1}(U)\) such that the induced ring map
+  \(\Gamma(\Spec \bar k, U) \to \Gamma(X, V)\) is standard smooth (Stacks 00T7).
+\end{lemma}
+
+\begin{proof}
+  This is the local standard-smooth presentation theorem for smooth morphisms
+  (Stacks tag~00T7).
+\end{proof}
+
+\begin{lemma}[A standard-smooth presentation of a smooth stalk]\label{mk-lem:exists_algebra_standardSmooth_stalk_localization}
+  \dcref{custom}
+
+  \uses{mk-lem:exists_standardSmooth_at_of_smooth, mk-lem:isLocalization_atPrime_stalk_of_affineOpen}
+  For a smooth morphism \(X \to \Spec(\bar k)\) and a point \(z \in X\), there is
+  an affine open neighbourhood \(V \ni z\) and an \(\Gamma(\Spec \bar k, U)\)-algebra
+  structure on \(\Gamma(X, V)\) making it a standard-smooth algebra, together with a
+  witness that the stalk \(\mathcal O_{X, z}\) is the localisation of \(\Gamma(X, V)\)
+  at the prime ideal corresponding to \(z\).
+\end{lemma}
+
+\begin{proof}
+  Choose the affine neighbourhoods supplied by
+  \ref{mk-lem:exists_standardSmooth_at_of_smooth}.  Their map on section rings is
+  standard smooth, and
+  \ref{mk-lem:isLocalization_atPrime_stalk_of_affineOpen} identifies the stalk at
+  \(z\) with the localisation of the target section ring at the prime of \(z\).
+\end{proof}
+
+\begin{lemma}[K\"ahler differentials of a standard-smooth algebra are free]\label{mk-lem:module_free_kaehler_standardSmooth}
+  \dcref{custom}
+
+  For a standard-smooth \(R\)-algebra \(S\), the module of K\"ahler differentials
+  \(\Omega_{S/R}\) is free as an \(S\)-module (Stacks 00T7(2)), with basis the family
+  \(\{ds_i\}\) of the standard-smooth presentation.
+\end{lemma}
+
+\begin{proof}
+  The invertible Jacobian minor of a standard-smooth presentation makes the
+  differentials of the free variables a basis of \(\Omega_{S/R}\).
+\end{proof}
+
+\begin{lemma}[K\"ahler-differential freeness is preserved by localisation]\label{mk-lem:module_free_kaehler_localization}
+  \dcref{custom}
+
+  \uses{mk-lem:module_free_kaehler_standardSmooth}
+  Let \(R\) and \(S\) be commutative rings equipped with an \(R\)-algebra
+  structure on \(S\), and assume that the module of K\"ahler differentials
+  \(\Omega_{S/R}\) is free as an \(S\)-module. Let \(M \subseteq S\) be a
+  submonoid and let \(S_M\) be a localisation of \(S\) at \(M\), so that
+  \(R \to S \to S_M\) is a tower of \(R\)-algebras. Then the module of
+  K\"ahler differentials \(\Omega_{S_M / R}\) is free as an
+  \(S_M\)-module.
+\end{lemma}
+
+\begin{proof}
+  The canonical comparison map
+  \(S_M \otimes_S \Omega_{S/R} \to \Omega_{S_M/R}\) is an isomorphism.
+  Localising a basis of \(\Omega_{S/R}\) therefore gives a basis of
+  \(\Omega_{S_M/R}\) over \(S_M\).
+\end{proof}
+
+\begin{lemma}[The rank of localised K\"ahler differentials equals the relative dimension]\label{mk-lem:rank_kaehler_localization_eq_relative_dim}
+  \dcref{custom}
+
+  \uses{mk-lem:module_free_kaehler_localization}
+  With notation as in \ref{mk-lem:module_free_kaehler_localization},
+  assume in addition that the \(R\)-algebra \(S\) is \emph{standard
+  smooth of relative dimension \(n\)} (in the sense of Stacks tag
+  \texttt{00T7}(2)) and that
+  the localisation \(S_M\) is non-trivial as a ring. Then the rank of
+  \(\Omega_{S_M / R}\) over \(S_M\) equals \(n\).
+\end{lemma}
+
+\begin{proof}
+  A standard-smooth presentation of relative dimension \(n\) gives
+  \(\Omega_{S/R}\) a basis indexed by an \(n\)-element set.  By
+  \ref{mk-lem:module_free_kaehler_localization}, localising this basis gives
+  a basis of \(\Omega_{S_M/R}\) with the same index set.  Its rank is
+  therefore \(n\).
+\end{proof}
+
+\subsection{Dimension and cotangent criteria for smooth local rings}
+\label{mk-subsec:stage6_subgap_decomposition}
+
+Let \(k\) be a perfect field and let \(k \to S\) be a standard-smooth
+presentation near a point \(z\),
+and write \(S_{\mathfrak q}=\mathcal O_{X,z}\) for the corresponding
+localisation.  The regularity of this local ring follows by comparing
+three dimensions.  The finite-type dimension formula (Stacks tag~00OE)
+and the cotangent exact sequence (Stacks tag~02JK) give
+\[
+  \dim S_{\mathfrak q}
+  = n-\operatorname{trdeg}_k\kappa(\mathfrak q)
+  = \dim_{\kappa(\mathfrak q)} \mathfrak m / \mathfrak m^2,
+\]
+where \(n=\operatorname{rank}_{S_{\mathfrak q}}
+\Omega_{S_{\mathfrak q}/k}\),
+which is the cotangent-space characterisation of a regular local ring.
+The next three lemmas state the dimension formula, the cotangent
+comparison, and their combination.
+
+\begin{lemma}
+  [Smooth-algebra Krull-dimension formula (Stacks 00OE)]
+  \label{mk-lem:smooth_algebra_krull_dim_formula}
+  \dcref{00OE,custom}
+
+  \uses{mk-lem:rank_kaehler_localization_eq_relative_dim,
+        mk-lem:ringKrullDim_localization_atMaximal_mvPolynomial,
+        mk-lem:ringKrullDim_quotient_localization_mvPolynomial_regular,
+        mk-lem:matsumura_isRegular_of_linearIndependent_cotangent,
+        mk-lem:exists_submersivePresentation_of_standardSmoothReldim,
+        mk-lem:submersive_relation_cotangent_linearIndependent_localized}
+  \textit{Source: \cite{stacks-project}, tag~00OE (\(=\) \texttt{lemma-dimension-at-a-point-finite-type-field}).}
+  Let \(k\) be a field, let \(S\) be a finite-type \(k\)-algebra, and let
+  \(\mathfrak q \subset S\) be a prime ideal corresponding to a point
+  \(x \in \mathrm{Spec}(S)\). Then
+  \[
+    \dim_x(\mathrm{Spec}\,S)
+    \;=\; \dim S_{\mathfrak q} + \mathrm{trdeg}_k\,\kappa(\mathfrak q).
+  \]
+  In particular, if \(\mathfrak q\) is a maximal ideal (so \(x\) is a
+  closed point) and \(k\) is algebraically closed, then
+  \(\kappa(\mathfrak q) = k\) (Nullstellensatz), so
+  \(\mathrm{trdeg}_k\,\kappa(\mathfrak q) = 0\) and
+  \(\dim S_{\mathfrak q} = \dim_x(\mathrm{Spec}\,S)\).
+
+  \paragraph{Geometric application.} Let \(k = \bar k\), let
+  \(S\) be a standard-smooth \(\bar k\)-algebra of relative dimension
+  \(n\), and let \(\mathfrak q\) be the prime defining \(z \in \Spec S\).  The
+  formula yields \(\dim(\mathcal O_{X, z}) = \dim S_{\mathfrak q} = n -
+  \mathrm{trdeg}_{\bar k}\,\kappa(z)\). For \(z\) a closed point this is
+  simply \(n\); for the generic point of a codim-\(1\) subvariety
+  (\(\mathrm{trdeg} = n - 1\)) it is \(1\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:rank_kaehler_localization_eq_relative_dim,
+        mk-lem:ringKrullDim_localization_atMaximal_mvPolynomial,
+        mk-lem:ringKrullDim_quotient_localization_mvPolynomial_regular,
+        mk-lem:matsumura_isRegular_of_linearIndependent_cotangent,
+        mk-lem:exists_submersivePresentation_of_standardSmoothReldim,
+        mk-lem:submersive_relation_cotangent_linearIndependent_localized}
+  This is exactly Stacks tag~\texttt{00OE}
+  (\texttt{lemma-dimension-at-a-point-finite-type-field}); the proof is a
+  citation of the dimension theory of finitely generated algebras over a
+  field. By Noether normalisation the finite-type \(k\)-algebra \(S\) is
+  finite over a polynomial subalgebra, so the going-up / catenary
+  dimension theory of such algebras applies. Write
+  \(r = \mathrm{trdeg}_k\,\kappa(\mathfrak q)\); this transcendence
+  degree is exactly the dimension of the closed subvariety
+  \(\overline{\{x\}} = V(\mathfrak q)\). A maximal chain of primes
+  through \(\mathfrak q\) therefore splits into a
+  length-\(\dim S_{\mathfrak q}\) part below \(\mathfrak q\) (recording
+  the local codimension, i.e.\ the height of \(\mathfrak q\) in the
+  relevant irreducible component) and a length-\(r\) part above it
+  (recording the dimension of \(\overline{\{x\}}\)). Taking the maximum
+  over the minimal primes contained in \(\mathfrak q\) yields
+  \[
+    \dim_x(\mathrm{Spec}\,S) = \dim S_{\mathfrak q} + r
+    = \dim S_{\mathfrak q} + \mathrm{trdeg}_k\,\kappa(\mathfrak q),
+  \]
+  which is the asserted formula.
+
+  For the geometric specialisation, take
+  \(k = \bar k\) algebraically closed and \(S\) standard smooth of
+  relative dimension \(n\), so that \(\dim_x(\mathrm{Spec}\,S) = n\) via
+  \ref{mk-lem:rank_kaehler_localization_eq_relative_dim} (the free
+  K\"ahler module \(\Omega_{S_{\mathfrak q}/R}\) has rank \(n\), which
+  pins the relative dimension). The formula then gives
+  \(\dim S_{\mathfrak q} = n - \mathrm{trdeg}_{\bar k}\,\kappa(\mathfrak
+  q)\). At a closed point \(\mathfrak q\) is maximal, so by the
+  Nullstellensatz \(\kappa(\mathfrak q) = \bar k\) and
+  \(\mathrm{trdeg}_{\bar k}\,\kappa(\mathfrak q) = 0\); hence
+  \(\dim S_{\mathfrak q} = \dim_x(\mathrm{Spec}\,S) = n\).
+\end{proof}
+
+\begin{lemma}
+  [Cotangent and K\"ahler differentials over a field]
+  \label{mk-lem:cotangent_kahler_over_field}
+  \dcref{02JK,custom}
+
+  \uses{mk-lem:smooth_algebra_krull_dim_formula}
+  \textit{Source: \cite{stacks-project}, tag~02JK. The right-exact half is
+  \texttt{lemma-differential-seq}; the separable-residue refinement occurs in
+  \texttt{lemma-separable-smooth}.}
+  Let \(k\) be a field and let \(R\) be a Noetherian local
+  \(k\)-algebra with maximal ideal \(\mathfrak m\) and residue field
+  \(\kappa = R/\mathfrak m\). The canonical exact sequence
+  \[
+    \mathfrak m / \mathfrak m^2
+    \;\longrightarrow\; \Omega_{R/k} \otimes_R \kappa
+    \;\longrightarrow\; \Omega_{\kappa / k}
+    \;\longrightarrow\; 0
+  \]
+  identifies the cotangent space \(\mathfrak m / \mathfrak m^2\) (a
+  \(\kappa\)-vector space) with the kernel of the right map. When
+  \(\kappa / k\) is separable (in particular when \(k\) is
+  algebraically closed and \(\kappa = k\), so \(\Omega_{\kappa / k}
+  = 0\)) the leftmost map is injective and the sequence is short exact
+  --- in fact split short exact when there is a \(k\)-algebra section
+  \(\kappa \to R\) (e.g.\ at a closed point of a \(\bar k\)-variety).
+  In particular, over an algebraically closed field \(k = \bar k\) and
+  at a closed point \(\mathfrak m\),
+  \[
+    \Omega_{R/k} \otimes_R \kappa \;\simeq\; \mathfrak m / \mathfrak m^2
+  \]
+  as \(\kappa\)-vector spaces; hence
+  \(\dim_\kappa(\Omega_{R/k} \otimes_R \kappa)
+   = \dim_\kappa \mathfrak m / \mathfrak m^2\).
+\end{lemma}
+
+The cotangent--K\"ahler comparison can be separated into the following
+finite-dimensional statements.  They compute the dimension after residue-field
+base change and then transfer it across the isomorphism of
+\ref{mk-lem:cotangent_kahler_over_field}.
+
+\begin{lemma}[Residue-field tensor dimension from free rank]\label{mk-lem:finrank_residue_kaehler_of_free_rank}
+  \dcref{custom}
+
+  Let \(R \to S_{\mathfrak q}\) be an algebra with \(S_{\mathfrak q}\) a nontrivial
+  local ring whose K\"ahler differentials \(\Omega_{S_{\mathfrak q}/R}\) are
+  \(S_{\mathfrak q}\)-free of rank \(n\). Then the residue-field base change
+  \(\kappa \otimes_{S_{\mathfrak q}} \Omega_{S_{\mathfrak q}/R}\) has
+  \(\kappa\)-dimension \(n\), where \(\kappa\) is the residue field of \(S_{\mathfrak q}\).
+\end{lemma}
+
+\begin{proof}
+  A basis of the free module \(\Omega_{S_{\mathfrak q}/R}\) base-changes to a
+  basis of \(\kappa \otimes_{S_{\mathfrak q}}\Omega_{S_{\mathfrak q}/R}\)
+  with the same \(n\)-element index set.
+\end{proof}
+
+\begin{lemma}[Residue-tensor dimension for a standard-smooth algebra]
+  \label{mk-lem:finrank_residue_kaehler_of_standardSmooth_reldim}
+  \dcref{custom}
+
+  \uses{mk-lem:finrank_residue_kaehler_of_free_rank}
+  If \(S_{\mathfrak q}\) is a nontrivial local \(R\)-algebra that is standard smooth
+  of relative dimension \(n\), then the residue-field base change of its K\"ahler
+  differentials has \(\kappa\)-dimension \(n\). This is the standard-smooth-tied
+  packaging of \ref{mk-lem:finrank_residue_kaehler_of_free_rank}, discharging the
+  freeness and rank hypotheses directly from the relative-dimension instance.
+\end{lemma}
+
+\begin{proof}
+  Standard smoothness of relative dimension \(n\) makes
+  \(\Omega_{S_{\mathfrak q}/R}\) free of rank \(n\), so apply
+  \ref{mk-lem:finrank_residue_kaehler_of_free_rank}.
+\end{proof}
+
+\begin{lemma}[Cotangent isomorphism in maximal-ideal form]
+  \label{mk-lem:cotangent_iso_maximalIdeal_residue_kaehler}
+  \dcref{custom}
+
+  \uses{mk-lem:cotangent_kahler_over_field}
+  Under the closed-point hypotheses of \ref{mk-lem:cotangent_kahler_over_field}
+  (\(S_{\mathfrak q}\) formally smooth over \(R\), residue field \(\kappa\) formally
+  smooth over \(R\), and \(\Omega_{\kappa/R} = 0\)), there is an
+  \(S_{\mathfrak q}\)-linear isomorphism between the cotangent module of the maximal
+  ideal \(\mathfrak m\) and the residue-field base change
+  \(\kappa \otimes_{S_{\mathfrak q}} \Omega_{S_{\mathfrak q}/R}\). This restates the
+  kernel-side cotangent isomorphism of \ref{mk-lem:cotangent_kahler_over_field} with the
+  canonical maximal-ideal cotangent space as its domain.
+\end{lemma}
+
+\begin{proof}
+  Transport the isomorphism of
+  \ref{mk-lem:cotangent_kahler_over_field} along the canonical equality
+  \(\ker(S_{\mathfrak q} \to \kappa) = \mathfrak m\).
+\end{proof}
+
+\begin{lemma}[Cotangent-space dimension with formally smooth residue field]\label{mk-lem:finrank_cotangentSpace_of_formallySmooth_residue}
+  \dcref{custom}
+
+  \uses{mk-lem:cotangent_iso_maximalIdeal_residue_kaehler, mk-lem:finrank_residue_kaehler_of_free_rank}
+  With the closed-point hypotheses of
+  \ref{mk-lem:cotangent_iso_maximalIdeal_residue_kaehler} and
+  \(\Omega_{S_{\mathfrak q}/R}\) free of \(S_{\mathfrak q}\)-rank \(n\), the cotangent
+  space \(\mathfrak m / \mathfrak m^2\) has \(\kappa\)-dimension \(n\).
+\end{lemma}
+
+\begin{proof}
+  Combine the cotangent isomorphism
+  \ref{mk-lem:cotangent_iso_maximalIdeal_residue_kaehler} with the residue-tensor
+  dimension formula \ref{mk-lem:finrank_residue_kaehler_of_free_rank}.
+\end{proof}
+
+\begin{lemma}[Cotangent-space dimension at a $\bar k$-rational point]\label{mk-lem:finrank_cotangentSpace_of_bijective_residue}
+  \dcref{custom}
+
+  \uses{mk-lem:finrank_cotangentSpace_of_formallySmooth_residue}
+  Bundled closed-point form of
+  \ref{mk-lem:finrank_cotangentSpace_of_formallySmooth_residue}: if \(S_{\mathfrak q}\)
+  is formally smooth over \(R\), \(\Omega_{S_{\mathfrak q}/R}\) is free of rank \(n\),
+  and the structure map \(R \to \kappa\) to the residue field is bijective (as at a
+  \(\bar k\)-rational closed point, by the Nullstellensatz), then
+  \(\dim_\kappa \mathfrak m/\mathfrak m^2 = n\).
+\end{lemma}
+
+\begin{proof}
+  A bijective structure map identifies the residue field with \(R\); it is
+  therefore formally smooth over \(R\), with zero module of relative
+  differentials.  The result follows from
+  \ref{mk-lem:finrank_cotangentSpace_of_formallySmooth_residue}.
+\end{proof}
+
+\begin{lemma}
+  [A standard-smooth stalk is regular local]
+  \label{mk-lem:stage6_regular_stalk_assembly}
+  \dcref{custom}
+
+  \uses{mk-lem:rank_kaehler_localization_eq_relative_dim,
+        mk-lem:smooth_algebra_krull_dim_formula,
+        mk-lem:cotangent_kahler_over_field}
+  Let \(\bar k\) be an algebraically closed field, and let
+  \(\bar k \to S\) be a standard-smooth algebra presentation of
+  relative dimension \(n\) on an affine chart \(\Spec S \subseteq X\),
+  and let \(z \in \Spec S\) be a point corresponding to a prime
+  \(\mathfrak q \subset S\). Then the stalk \(S_{\mathfrak q}\) is a
+  regular local ring of Krull dimension
+  \(n - \mathrm{trdeg}_{\bar k}\,\kappa(\mathfrak q)\). In the
+  closed-point case (\(\kappa(\mathfrak q) = \bar k\),
+  \(\mathrm{trdeg} = 0\)) the dimension equals \(n\); in the
+  codim-\(1\) generic-point case (\(\mathrm{trdeg} = n - 1\)) the
+  dimension equals \(1\).
+\end{lemma}
+
+\begin{proof}
+  Combine the three sub-lemmas:
+  \begin{enumerate}
+    \item By \ref{mk-lem:rank_kaehler_localization_eq_relative_dim},
+      the localised K\"ahler module \(\Omega_{S_{\mathfrak q} / \bar k}\)
+      is free of rank \(n\) over \(S_{\mathfrak q}\).
+    \item By \ref{mk-lem:smooth_algebra_krull_dim_formula}, the Krull dimension of
+      \(S_{\mathfrak q}\) equals
+      \(\dim_z \Spec S - \mathrm{trdeg}_{\bar k}\,\kappa(\mathfrak q)\),
+      which for a standard-smooth presentation of relative dimension
+      \(n\) equals \(n - \mathrm{trdeg}_{\bar k}\,\kappa(\mathfrak q)\).
+      (For the standard-smooth presentation the dimension
+      \(\dim_z \Spec S = n\) follows from the global-complete-intersection
+      structure: \(n\) variables modulo \(n - \dim\) equations, see
+      Stacks \texttt{lemma-relative-global-complete-intersection-smooth}.)
+    \item By \ref{mk-lem:cotangent_kahler_over_field}, the cotangent exact
+      sequence is short exact because \(\bar k\) is perfect and
+      \(\kappa(\mathfrak q)/\bar k\) is separably generated.  Its middle
+      term has dimension \(n\) by (1), while
+      \(\Omega_{\kappa(\mathfrak q)/\bar k}\) has dimension
+      \(\operatorname{trdeg}_{\bar k}\kappa(\mathfrak q)\).  Hence
+      \[
+        \dim_{\kappa(\mathfrak q)}\mathfrak m/\mathfrak m^2
+        =n-\operatorname{trdeg}_{\bar k}\kappa(\mathfrak q).
+      \]
+      At a closed point the transcendence degree is zero, and the
+      cotangent sequence reduces to the displayed isomorphism in
+      \ref{mk-lem:cotangent_kahler_over_field}.
+    \item Compare (2) and (3): both \(\dim S_{\mathfrak q}\) and
+      \(\dim_{\kappa(\mathfrak q)} \mathfrak m / \mathfrak m^2\) equal
+      \(n - \mathrm{trdeg}_{\bar k}\,\kappa(\mathfrak q)\); the
+      regularity criterion for Noetherian local rings then gives \(S_{\mathfrak q}\)
+      regular. The scheme-level transfer
+      \(S_{\mathfrak q} = \mathcal O_{X, z}\) on the affine chart completes
+      the conclusion.
+  \end{enumerate}
+\end{proof}
+
+
+For a prime \(\mathfrak p\) of a Noetherian ring, the Krull dimension
+of \(R_{\mathfrak p}\) is the height of \(\mathfrak p\).  If
+\(R=k[x_i]_{i\in\iota}\) is a polynomial ring in finitely many variables
+over a field and \(\mathfrak m\) is maximal, then
+\(\operatorname{ht}(\mathfrak m)=\#\iota\).  The lower bound follows by
+induction on the number of variables and the principal ideal theorem;
+the upper bound follows from the dimension of the polynomial ring.
+Consequently \(\dim R_{\mathfrak m}=\#\iota\).
+
+If \(f_1,\ldots,f_c\) is a regular sequence in a Noetherian local ring
+\(A\), then
+\[
+  \dim A/(f_1,\ldots,f_c)+c=\dim A.
+\]
+Thus a standard-smooth presentation gives the desired local dimension
+once its defining relations are known to form a regular sequence after
+localisation.
+
+For a submersive presentation, the invertible Jacobian minor makes the
+cotangent classes of the defining relations linearly independent.  This
+independence is preserved after localisation.  Matsumura's criterion then
+shows that the localised relations form a regular sequence.  More explicitly:
+\begin{itemize}
+  \item On a regular local Noetherian ring \((A, \mathfrak m)\), a
+    sequence \(f_1, \dots, f_c \in \mathfrak m\) whose images in
+    \(\mathfrak m / \mathfrak m^2\) are \(\kappa\)-linearly
+    independent forms a regular sequence in \(A\).  Indeed, \(f_1\notin
+    \mathfrak m^2\), so it is a non-zero-divisor and \(A/(f_1)\) is again
+    regular local; the remaining cotangent classes stay independent in
+    the quotient, and induction applies.
+
+  \item The conormal isomorphism
+    \[
+      (I/I^2) \otimes_S S_{\mathfrak m}
+      \simeq (I S_{\mathfrak m})/(I S_{\mathfrak m})^2
+    \]
+    transports linear independence from \(I/I^2\) over \(S\) to
+    \(\mathfrak m_A / \mathfrak m_A^2\) over \(\kappa(\mathfrak m_A)\)
+    on the localisation \(A\).
+  \item Applying the preceding regular-sequence criterion and the
+    dimension-drop formula gives the dimension of the quotient of the
+    localised polynomial ring by the relations.
+\end{itemize}
+
+\subsection{Algebraic ingredients and scheme bridges}
+\label{mk-subsec:codim1_substrate_lemmas}
+
+The following lemmas make the preceding dimension argument explicit. They feed
+the Stacks-00OE Krull-dimension formula
+\ref{mk-lem:smooth_algebra_krull_dim_formula} and the regular-stalk assembly,
+either directly or through the Jacobian regular-sequence witness.
+
+\paragraph{Stacks 00OE Krull-dimension chain.}
+
+\begin{lemma}[Localised Krull dimension equals height]\label{mk-lem:ringKrullDim_localization_eq_height_atPrime}
+  \dcref{custom}
+
+  For a prime ideal \(\mathfrak m\) of a commutative ring \(R\) and any localisation
+  \(A\) of \(R\) at \(\mathfrak m\), the Krull dimension of \(A\) equals the height of
+  \(\mathfrak m\).
+\end{lemma}
+
+\begin{proof}
+  Prime ideals of \(R_{\mathfrak m}\) correspond order-preservingly to
+  prime ideals of \(R\) contained in \(\mathfrak m\).  Thus chains of
+  primes in the localisation have the same maximal lengths as chains
+  ending at \(\mathfrak m\), whose supremum is its height.
+\end{proof}
+
+\begin{lemma}
+[Polynomial-ring maximal ideal height lower bound]
+  \label{mk-lem:mvPolynomial_maximalIdeal_height_ge_card}
+  \dcref{custom}
+  For a field \(k\), every maximal ideal of the polynomial ring
+  \(\mathrm{MvPolynomial}\,(\mathrm{Fin}\,n)\,k\) has height at least \(n\).
+\end{lemma}
+
+\begin{proof}
+  Induct on \(n\), transporting the ideal along the
+  one-variable-splitting isomorphism and using that adjoining a polynomial variable
+  raises height by one, together with the Jacobson contraction of the maximal ideal.
+\end{proof}
+
+\begin{lemma}[Polynomial-ring ideal height upper bound]
+  \label{mk-lem:mvPolynomial_maximalIdeal_height_le_natCard}
+  \dcref{custom}
+
+  For a field \(k\) and a finite index set \(\iota\), every proper ideal of
+  \(\mathrm{MvPolynomial}\,\iota\,k\) has height at most \(\#\iota\).
+\end{lemma}
+
+\begin{proof}
+  The height of a proper ideal is bounded by the Krull dimension of its
+  ring, and the polynomial ring in \(\#\iota\) variables over a field has
+  Krull dimension \(\#\iota\).
+\end{proof}
+
+\begin{lemma}
+[Maximal-ideal height in a polynomial ring indexed by $\mathrm{Fin}\,n$]
+  \label{mk-lem:mvPolynomial_maximalIdeal_height_eq_card}
+  \dcref{custom}
+  \uses{mk-lem:mvPolynomial_maximalIdeal_height_ge_card, mk-lem:mvPolynomial_maximalIdeal_height_le_natCard}
+  For a field \(k\), every maximal ideal of
+  \(\mathrm{MvPolynomial}\,(\mathrm{Fin}\,n)\,k\) has height exactly \(n\).
+\end{lemma}
+
+\begin{proof}
+  Combine the lower bound
+  \ref{mk-lem:mvPolynomial_maximalIdeal_height_ge_card} and the upper bound
+  \ref{mk-lem:mvPolynomial_maximalIdeal_height_le_natCard} by antisymmetry.
+\end{proof}
+
+\begin{lemma}[Maximal-ideal height in a finitely generated polynomial ring]
+  \label{mk-lem:mvPolynomial_maximalIdeal_height_eq_natCard}
+  \dcref{custom}
+
+  \uses{mk-lem:mvPolynomial_maximalIdeal_height_eq_card}
+  For a field \(k\) and a finite index set \(\iota\), every maximal ideal of
+  \(\mathrm{MvPolynomial}\,\iota\,k\) has height exactly \(\#\iota\).
+\end{lemma}
+
+\begin{proof}
+  Choose a bijection \(\iota \simeq \mathrm{Fin}(\#\iota)\) and transport
+  \ref{mk-lem:mvPolynomial_maximalIdeal_height_eq_card} along the renaming isomorphism
+  that it induces. Ring isomorphisms preserve heights of ideals.
+\end{proof}
+
+\begin{lemma}[Krull dimension of a localised polynomial ring]
+  \label{mk-lem:ringKrullDim_localization_atMaximal_mvPolynomial}
+  \dcref{custom}
+
+  \uses{mk-lem:ringKrullDim_localization_eq_height_atPrime, mk-lem:mvPolynomial_maximalIdeal_height_eq_natCard}
+  For a field \(k\), a finite index set \(\iota\), and any localisation \(A\) of
+  \(\mathrm{MvPolynomial}\,\iota\,k\) at a maximal ideal \(\mathfrak m\), the Krull
+  dimension of \(A\) equals \(\#\iota\).
+\end{lemma}
+
+\begin{proof}
+  By
+  \ref{mk-lem:ringKrullDim_localization_eq_height_atPrime} (Krull dimension equals
+  height), the dimension is the height of \(\mathfrak m\), which is
+  \(\#\iota\) by \ref{mk-lem:mvPolynomial_maximalIdeal_height_eq_natCard}.
+\end{proof}
+
+\begin{lemma}
+[Dimension drop by a regular sequence]
+  \label{mk-lem:ringKrullDim_quotient_add_eq_regular_sequence}
+  \dcref{custom}
+  Let \(R'\) be a Noetherian local ring of dimension \(a\), and let
+  \(rs\) be a regular sequence in \(R'\) of length \(b\). Then
+  \(\dim(R'/(rs)) + b = a\).
+\end{lemma}
+
+\begin{proof}
+  Quotienting a Noetherian local ring by one non-zero-divisor lowers its
+  dimension by one.  Apply this successively to the elements of the
+  regular sequence.
+\end{proof}
+
+\begin{lemma}[Dimension of a localised polynomial quotient]
+  \label{mk-lem:ringKrullDim_quotient_localization_mvPolynomial_regular}
+  \dcref{custom}
+
+  \uses{mk-lem:ringKrullDim_localization_atMaximal_mvPolynomial, mk-lem:ringKrullDim_quotient_add_eq_regular_sequence}
+  Let \(A\) be a Noetherian localisation of \(\mathrm{MvPolynomial}\,\iota\,k\) at a
+  maximal ideal, and let \(rs\) be a regular sequence in \(A\) of length \(b\). Then
+  \(\mathrm{ringKrullDim}\,(A/(rs)) + b = \#\iota\).
+\end{lemma}
+
+\begin{proof}
+  The localised polynomial ring has dimension \(\#\iota\) by
+  \ref{mk-lem:ringKrullDim_localization_atMaximal_mvPolynomial}; now apply
+  \ref{mk-lem:ringKrullDim_quotient_add_eq_regular_sequence}.
+\end{proof}
+
+\paragraph{Stacks 00SW submersive-presentation cotangent independence.}
+
+\begin{lemma}
+[00SW --- relations are cotangent-independent]
+  \label{mk-lem:submersive_relation_cotangent_linearIndependent}
+  \dcref{custom}
+  For a submersive presentation \(P\) of an \(R\)-algebra \(S\), the family of
+  cotangent classes of the relations \(i \mapsto [\,P.\mathrm{relation}\,i\,]\) in the
+  cotangent module of \(P\) is \(S\)-linearly independent.
+\end{lemma}
+
+\begin{proof}
+  In a submersive presentation, the cotangent classes of the relations
+  are the distinguished cotangent basis, hence are linearly independent.
+\end{proof}
+
+\begin{lemma}
+[00SW --- cotangent independence transported to a localisation]
+  \label{mk-lem:submersive_relation_cotangent_linearIndependent_localized}
+  \dcref{custom}
+  \uses{mk-lem:submersive_relation_cotangent_linearIndependent}
+  With \(P\) a submersive presentation of \(S\) and \(p\) a prime ideal of \(S\), the
+  image of the cotangent classes of the relations under the canonical localisation map
+  of the cotangent module at \(p\) is \(\mathrm{Localization.AtPrime}\,p\)-linearly
+  independent.
+\end{lemma}
+
+\begin{proof}
+  Transport
+  \ref{mk-lem:submersive_relation_cotangent_linearIndependent} through the localisation
+  map, using that linear independence is preserved by a localised-module map.
+\end{proof}
+
+\paragraph{Relative dimension and scheme-to-algebra bridges.}
+
+\begin{lemma}[Existence of a relative dimension for a standard-smooth algebra]\label{mk-lem:exists_standardSmoothOfRelativeDimension_of_standardSmooth}
+  \dcref{custom}
+
+  Every standard-smooth \(R\)-algebra \(S\) is standard smooth of some specific
+  relative dimension \(n \in \mathbb N\).
+\end{lemma}
+
+\begin{proof}
+  Take the difference between the number of polynomial variables and
+  the number of relations in a submersive presentation of \(S\).
+\end{proof}
+
+\begin{lemma}[Submersive presentation of a relative-dimension-$n$ algebra]\label{mk-lem:exists_submersivePresentation_of_standardSmoothReldim}
+  \dcref{custom}
+
+  \uses{mk-lem:exists_standardSmoothOfRelativeDimension_of_standardSmooth}
+  An \(R\)-algebra \(S\) that is standard smooth of relative dimension \(n\) admits an
+  explicit submersive presentation \(P\) with \(P.\mathrm{dimension} = n\).
+\end{lemma}
+
+\begin{proof}
+  By definition, a standard-smooth algebra of relative dimension \(n\)
+  is equipped with a submersive presentation of dimension \(n\).
+\end{proof}
+
+\begin{lemma}[An affine-open stalk is a localisation]\label{mk-lem:isLocalization_atPrime_stalk_of_affineOpen}
+  \dcref{custom}
+
+  For an affine open \(V \ni z\) of a scheme \(X\), the stalk \(\mathcal O_{X,z}\) is
+  the localisation of the section ring \(\Gamma(X, V)\) at the prime ideal of \(z\).
+\end{lemma}
+
+\begin{proof}
+  Identify \(V\) with \(\Spec\Gamma(X,V)\).  Under this identification,
+  the stalk at \(z\) is the localisation at the corresponding prime ideal.
+\end{proof}
+
+\begin{lemma}[A nonempty open in a one-point space is the whole space]\label{mk-lem:open_eq_top_of_subsingleton}
+  \dcref{custom}
+
+  On a scheme whose underlying space is a subsingleton (at most one point), every
+  nonempty open subset equals the whole space.
+\end{lemma}
+
+\begin{proof}
+  A nonempty open contains the unique point and therefore equals the
+  whole underlying space.
+\end{proof}
+
+\begin{lemma}[Sections of $\Spec \bar k$ over a nonempty open]\label{mk-lem:gammaSpecField_ringEquiv}
+  \dcref{custom}
+
+  \uses{mk-lem:open_eq_top_of_subsingleton}
+  For a field \(\bar k\) and any nonempty open \(U\) of \(\Spec(\bar k)\), the section
+  ring \(\Gamma(\Spec \bar k, U)\) is ring-isomorphic to \(\bar k\). This gives the
+  algebraically-closed base ring of the standard-smooth presentation a clean
+  \(\bar k\)-identification.
+\end{lemma}
+
+\begin{proof}
+  The spectrum of a field has a single point, so
+  \ref{mk-lem:open_eq_top_of_subsingleton} forces \(U = \top\) and the sections collapse
+  to the global sections \(\Gamma(\Spec \bar k, \top) \simeq \bar k\).
+\end{proof}
+
+\paragraph{Matsumura regular-sequence bridge (Stacks 00NQ).}
+
+\begin{lemma}[Module quotient equals ring quotient]\label{mk-lem:quotSMulTop_quotientRing_linearEquiv}
+  \dcref{custom}
+
+  For \(r\) in a commutative ring \(A\), there is a canonical \((A/(r))\)-linear
+  isomorphism between the module quotient \(A/(r \cdot A)\) and the ring quotient
+  \(A/(r)\).
+\end{lemma}
+
+\begin{proof}
+  Both quotients identify elements of \(A\) exactly when their difference
+  lies in the principal ideal \((r)\).  The identity on representatives
+  therefore induces the required linear isomorphism.
+\end{proof}
+
+\begin{lemma}[Ring-quotient cons rule for regular sequences]\label{mk-lem:isRegular_cons_of_quotient_ring}
+  \dcref{custom}
+
+  \uses{mk-lem:quotSMulTop_quotientRing_linearEquiv}
+  Let \(r \in A\) be such that multiplication by \(r\) is injective on \(A\), and
+  suppose the images of a list \(rs\) form a regular sequence over the ring quotient
+  \(A/(r)\). Then \(r :: rs\) is a regular sequence over \(A\).
+\end{lemma}
+
+\begin{proof}
+  Injectivity of multiplication by \(r\) says that \(r\) is a
+  non-zero-divisor.  The regularity of the tail in the module quotient
+  then gives regularity of the full sequence; use
+  \ref{mk-lem:quotSMulTop_quotientRing_linearEquiv} to identify this module
+  quotient with \(A/(r)\).
+\end{proof}
+
+\begin{lemma}[Cotangent independence descends to a quotient]\label{mk-lem:matsumura_descent_cotangent}
+  \dcref{custom}
+
+  Let \((A, \mathfrak m)\) be a local ring and \(f_0,\dots,f_m \in \mathfrak m\) with
+  \(\kappa(A)\)-linearly independent cotangent classes. Then the tail
+  \(f_1,\dots,f_m\), pushed into the quotient \(A' = A/(f_0)\), has
+  \(\kappa(A')\)-linearly independent cotangent classes in
+  \(\mathfrak m'/\mathfrak m'^2\).
+\end{lemma}
+
+\begin{proof}
+  The cotangent map \(A \to A'\) is surjective with kernel
+  spanned by the class of \(f_0\); a kernel-disjointness argument reduces a
+  \(\kappa(A')\)-relation to a \(\kappa(A)\)-relation killed by the full independence
+  hypothesis.
+\end{proof}
+
+\begin{lemma}[Matsumura: cotangent-independent elements form a regular sequence]\label{mk-lem:matsumura_isRegular_of_linearIndependent_cotangent}
+  \dcref{custom}
+
+  \uses{mk-lem:matsumura_descent_cotangent, mk-lem:isRegular_cons_of_quotient_ring}
+  Let \((A, \mathfrak m)\) be a Noetherian regular local ring and \(f_1,\dots,f_n \in
+  \mathfrak m\) whose cotangent classes in \(\mathfrak m/\mathfrak m^2\) are
+  \(\kappa(A)\)-linearly independent. Then \(f_1,\dots,f_n\) form a regular sequence in
+  \(A\) (Matsumura, \emph{Commutative Ring Theory}, Thm.~14.2; Stacks 00NQ).
+\end{lemma}
+
+\begin{proof}
+  Induct on \(n\). The head \(f_1\) is a non-zero-divisor
+  (a regular local ring is a domain), the cotangent independence descends to the
+  quotient \(A/(f_1)\) by \ref{mk-lem:matsumura_descent_cotangent}, and the
+  ring-quotient cons rule \ref{mk-lem:isRegular_cons_of_quotient_ring} reassembles the
+  regular sequence. In the standard-smooth application the linear-independence input is
+  supplied by the relations of a submersive presentation via
+  \ref{mk-lem:submersive_relation_cotangent_linearIndependent_localized}.
+\end{proof}
+
+\begin{lemma}[Smooth over \(\bar k\) \(\Rightarrow\) regular local stalk (Stacks 00TT)]\label{mk-lem:smooth_to_regular_local_ring}
+  \dcref{00TT,custom}
+
+  \uses{mk-lem:module_free_kaehler_localization, mk-lem:cotangent_kahler_over_field,
+        mk-lem:smooth_algebra_krull_dim_formula, mk-lem:stage6_regular_stalk_assembly,
+        mk-lem:stalkMap_flat_of_smooth, mk-lem:exists_algebra_standardSmooth_stalk_localization,
+        mk-lem:finrank_cotangentSpace_of_bijective_residue, mk-lem:gammaSpecField_ringEquiv,
+        mk-lem:exists_standardSmoothOfRelativeDimension_of_standardSmooth}
+  \textit{Source: \cite{stacks-project}, tag 00TT.}
+  Let \(X\) be a variety over an algebraically closed field \(\bar k\) (geometrically
+  integral, separated, locally of finite type) and assume the structure morphism
+  \(X \to \Spec(\bar k)\) is \emph{smooth}. Then for every point \(z \in X\) the
+  stalk \(\mathcal O_{X, z}\) is a regular local ring.
+
+  The algebraic-closure hypothesis ensures that every closed point is
+  \(\bar k\)-rational. Regularity at an arbitrary point may then also be obtained by
+  choosing a closed specialization and localizing its regular local ring. The
+  arbitrary-field form follows directly from the general smooth-implies-regular
+  criterion of tag \texttt{00TT}.
+\end{lemma}
+
+\begin{proof}
+  \textit{Source: \cite{stacks-project}, tag 00TT.} The cited lemma packages the
+  Jacobian-criterion equivalence and concludes ``in this case the local ring
+  \(S_{\mathfrak q}\) is regular''. Translated to the scheme level: a smooth
+  finite-type morphism \(X \to \Spec(\bar k)\) restricted to an affine chart
+  \(\Spec(S) \subseteq X\) gives an affine algebra \(\bar k \to S\) that is
+  smooth at every prime \(\mathfrak q \subset S\); tag 00TT then yields
+  regularity of the localisation \(S_{\mathfrak q} = \mathcal O_{X, z}\) at every
+  point \(z \in X\) lying over \(\mathfrak q\).
+\end{proof}
+
+\begin{lemma}[Smooth at a codim-1 point $\Rightarrow$ principal nonzero maximal ideal]\label{mk-lem:smooth_codim_one_maximalIdeal_principal}
+  \dcref{custom}
+
+  \uses{mk-lem:smooth_to_regular_local_ring, mk-thm:ringKrullDim_stalk_eq_coheight}
+  Let \(X\) be a smooth, geometrically-irreducible, separated, integral variety over an
+  algebraically closed field \(\bar k\), and let \(z \in X\) be a point with
+  \(\mathrm{coheight}\,z = 1\) (a codimension-one point). Then the maximal ideal of the
+  stalk \(\mathcal O_{X,z}\) is principal and nonzero.
+\end{lemma}
+
+\begin{proof}
+  Smoothness gives a regular local stalk via
+  \ref{mk-lem:smooth_to_regular_local_ring}; the coheight bridge
+  \ref{mk-thm:ringKrullDim_stalk_eq_coheight} gives Krull dimension \(1\); the
+  cotangent-space characterisation of regularity then forces
+  \(\dim_\kappa \mathfrak m/\mathfrak m^2 = 1\), i.e.\ a principal maximal ideal, which
+  is nonzero since the stalk is not a field. This is the geometric core consumed by
+  \ref{mk-lem:smooth_codim_one_dvr}.
+\end{proof}
+
+\begin{lemma}[Smooth \(\Rightarrow\) DVR at every codim-\(1\) point]\label{mk-lem:smooth_codim_one_dvr}
+  \dcref{II.6,custom}
+
+  \uses{mk-lem:smooth_to_regular_local_ring, mk-thm:ringKrullDim_stalk_eq_coheight,
+        mk-lem:smooth_codim_one_maximalIdeal_principal}
+  \textit{Source: Hartshorne, II.6, p.~130 (definition of regular in codimension one;
+  the DVR consequence at a codim-1 point).}
+  Let \(X\) be a nonsingular variety over \(\bar k\) and let \(\eta \in X\) be a point with
+  \(\mathrm{codim}_X \overline{\{\eta\}} = 1\). Then the local ring \(\mathcal O_{X, \eta}\) is a
+  discrete valuation ring with fraction field the function field \(K(X)\) of \(X\).
+\end{lemma}
+
+\begin{proof}
+
+  By \ref{mk-lem:smooth_to_regular_local_ring} (Stacks tag \texttt{00TT}, the
+  Jacobian-criterion direction), the stalk \(\mathcal O_{X, x}\) is regular for
+  every point \(x \in X\) --- in particular at every closed point (the case
+  Hartshorne~I.5.1 states classically). Localising a regular local ring at a
+  prime ideal yields a regular local ring; in particular, for \(\eta \in X\) with
+  \(\mathrm{codim}_X \overline{\{\eta\}} = 1\), the local ring
+  \(\mathcal O_{X, \eta}\) is regular of Krull dimension \(1\). A regular local ring of Krull dimension \(1\) is exactly a
+  discrete valuation ring (Atiyah--Macdonald, Proposition 9.2; or Stacks tag
+  \texttt{00PD}). Its fraction field is the function field \(K(X)\) of \(X\) by
+  irreducibility of \(X\) (the unique generic point of \(X\) lies above \(\eta\), and the
+  stalk at the generic point of an integral scheme is the function field).
+\end{proof}
+
+\section{Milne Theorem 3.1: extension across codimension at least two}
+\label{mk-sec:milne_thm31}
+
+Before the extension theorem itself we record the function-field functoriality
+\(K(Y) \to K(X)\) attached to a dominant rational map, which the codim-\(1\) step of
+the extension proof uses to view a representative as a morphism \(\Spec K(X) \to Y\).
+
+\begin{lemma}[Image of the closed point of \(\Spec K(X)\)]\label{mk-lem:fromFunctionField_base_eq_genericPoint}
+  \dcref{custom}
+
+  Let \(X\) be an integral scheme and \(Y\) an irreducible scheme, and let
+  \(f \colon X \dashrightarrow Y\) be a dominant rational map. The induced morphism
+  \(\Spec K(X) \to Y\) (the restriction of \(f\) to the generic point of \(X\))
+  sends the closed point of \(\Spec K(X)\) to the generic point of \(Y\).
+\end{lemma}
+
+\begin{proof}Choose a representative \((U, \varphi_U)\) of \(f\); its underlying morphism
+  \(\varphi_U \colon U \to Y\) is dominant. The morphism \(\Spec K(X) \to Y\) factors as
+  \(\Spec \mathcal O_{X,\eta_X} \to U \xrightarrow{\varphi_U} Y\), where the first map
+  sends the closed point to the generic point \(\eta_U\) of \(U\) (checked after the open
+  immersion \(U \hookrightarrow X\), which identifies \(\eta_U\) with \(\eta_X\)). A
+  dominant morphism carries the generic point of its irreducible source to a generic
+  point of \(Y\); as \(Y\) is a \(T_0\) space its generic point is unique, so the image
+  is \(\eta_Y\).
+\end{proof}
+
+\begin{definition}\label{mk-def:functionFieldPullback}
+  \dcref{custom}
+
+  \uses{mk-lem:fromFunctionField_base_eq_genericPoint}
+  For a dominant rational map \(f \colon X \dashrightarrow Y\) from an integral scheme
+  \(X\) to an irreducible scheme \(Y\), the \textbf{function-field pullback} is the ring
+  homomorphism \(K(Y) \to K(X)\) obtained from the germ pullback
+  \(\mathcal O_{Y, f(\eta_X)} \to K(X)\) of \(f\) at the generic point, identified along
+  \ref{mk-lem:fromFunctionField_base_eq_genericPoint} with the stalk
+  \(\mathcal O_{Y,\eta_Y} = K(Y)\).
+\end{definition}
+
+The difference map of Milne's Lemma~3.3 (\ref{mk-sec:milne_lem33} below) is built by
+precomposing \(f\) with the two projections \(X \times X \to X\) and pairing the results.
+The precomposition operation is the following; it is the left-hand analogue of the
+right-composition of a rational map with a morphism, \(f \mapsto f \circ g\).
+
+\begin{definition}\label{mk-def:rationalMap_precomp}
+  \dcref{custom}
+
+  Let \(p \colon W \to X\) be a morphism of schemes whose underlying continuous map is
+  \emph{open}, and let \(f \colon X \dashrightarrow Y\) be a rational map. The
+  \textbf{precomposition} \(f \circ p \colon W \dashrightarrow Y\) is the rational map
+  represented, for any partial-map representative \((V, \varphi_V)\) of \(f\), by
+  \[
+    \bigl(p^{-1}(V),\; \; p^{-1}(V) \xrightarrow{\;p|_{p^{-1}(V)}\;} V
+    \xrightarrow{\;\varphi_V\;} Y\bigr).
+  \]
+  The domain \(p^{-1}(V)\) is dense because the preimage of a dense open set under an open
+  continuous map is dense; the same fact makes the construction independent of the chosen
+  representative, so it descends to a well-defined rational map.
+\end{definition}
+
+\begin{lemma}\label{mk-lem:rationalMap_precomp_compHom}
+  \dcref{custom}
+
+  \uses{mk-def:rationalMap_precomp}
+  Precomposition on the left commutes with right-composition by a morphism: for
+  \(p \colon W \to X\) open, \(f \colon X \dashrightarrow Y\), and \(g \colon Y \to Z\),
+  \[
+    (f \circ p) \circ g \;=\; (f \circ g) \circ p
+    \qquad\text{in}\qquad W \dashrightarrow Z .
+  \]
+  Furthermore, if \(p\) and \(f\) are defined over a base scheme \(S\), then so is
+  \(f \circ p\).
+\end{lemma}
+\begin{proof}Both sides act on a chosen partial-map representative \((V, \varphi_V)\) of \(f\) by
+  restriction along \(p\) and composition with \(g\); the resulting equality is the
+  associativity of morphism composition,
+  \((p|_{p^{-1}(V)} \circ \varphi_V) \circ g = p|_{p^{-1}(V)} \circ (\varphi_V \circ g)\).
+  For the over-\(S\) claim, \(p|_{p^{-1}(V)}\) is an \(S\)-morphism because it commutes with
+  the structure morphisms via the restriction identity
+  \(p|_{p^{-1}(V)} \circ (V \hookrightarrow X) = (p^{-1}(V) \hookrightarrow W) \circ p\),
+  and a composite of \(S\)-morphisms is an \(S\)-morphism.
+\end{proof}
+
+\begin{lemma}\label{mk-lem:rationalMap_precomp_hom}
+  \dcref{custom}
+
+  \uses{mk-def:rationalMap_precomp}
+  Precomposing the rational map of an honest morphism \(g \colon X \to Y\) with an open
+  morphism \(p \colon W \to X\) is the rational map of the composite:
+  \[
+    (g \text{ as a rational map}) \circ p \;=\; (p \circ g) \text{ as a rational map} .
+  \]
+\end{lemma}
+\begin{proof}Both sides are everywhere-defined; on the whole of \(W\) the left-hand side is
+  \(p \circ g\) by the restriction identity \(p|_{W} \circ (X \hookrightarrow X)_{\mathrm{id}}
+  = p\), i.e.\ the two partial maps have the same (dense, in fact total) domain and equal
+  underlying morphism.
+\end{proof}
+
+To pair the two precompositions \(f \circ \mathrm{pr}_1\) and \(f \circ \mathrm{pr}_2\) into
+a single rational map \(X \times X \dashrightarrow G \times_{\bar k} G\), we use the
+function-field correspondence: for an integral scheme \(X\) over \(S\) and a scheme \(Y\)
+locally of finite type over \(S\), a rational map \(X \dashrightarrow Y\) over \(S\) is the
+same datum as an \(S\)-morphism \(\operatorname{Spec} K(X) \to Y\) (restriction to the generic
+point, spread out again by local finite type). Morphisms out of the single scheme
+\(\operatorname{Spec} K(X)\) pair freely through the universal property of the fibre product.
+
+\begin{definition}\label{mk-def:rationalMap_prod}
+  \dcref{custom}
+
+  Let \(s_X \colon X \to S\), \(s_Y \colon Y \to S\), \(s_Z \colon Z \to S\) be structure
+  morphisms with \(X\) integral and \(s_Y, s_Z\) locally of finite type, and let
+  \(a \colon X \dashrightarrow Y\), \(b \colon X \dashrightarrow Z\) be rational maps over
+  \(S\) (i.e.\ \(a\) restricted to the generic point commutes with the structure morphisms,
+  and likewise for \(b\)). The \textbf{pairing} \(a \times_S b \colon X \dashrightarrow
+  Y \times_S Z\) is the rational map corresponding, under the function-field correspondence,
+  to the morphism
+  \[
+    \operatorname{Spec} K(X)
+    \xrightarrow{\;\langle a_\eta,\, b_\eta \rangle\;}
+    Y \times_S Z
+  \]
+  obtained from the generic-point morphisms \(a_\eta \colon \operatorname{Spec} K(X) \to Y\)
+  and \(b_\eta \colon \operatorname{Spec} K(X) \to Z\) by the universal property of the fibre
+  product (their composites with the structure morphisms both equal
+  \(\operatorname{Spec} K(X) \to \operatorname{Spec}\mathcal O_{X,\eta} \to X \to S\)).
+\end{definition}
+
+\begin{lemma}\label{mk-lem:rationalMap_prod_proj}
+  \dcref{custom}
+
+  \uses{mk-def:rationalMap_prod}
+  The two projections of the pairing recover the factors, and the pairing is again over
+  \(S\):
+  \[
+    (a \times_S b) \circ \mathrm{pr}_1 = a,
+    \qquad
+    (a \times_S b) \circ \mathrm{pr}_2 = b,
+    \qquad
+    (a \times_S b) \circ \bigl(\mathrm{pr}_1 \circ s_Y\bigr) = s_X,
+  \]
+  where \(\mathrm{pr}_1 \colon Y \times_S Z \to Y\), \(\mathrm{pr}_2 \colon Y \times_S Z \to Z\)
+  are the projections (the last equation being the statement that \(a \times_S b\) is over
+  \(S\)).
+\end{lemma}
+\begin{proof}Right-composition with a morphism is functorial on generic-point morphisms:
+  \((\varphi \circ g)_\eta = \varphi_\eta \circ g\) for any rational map \(\varphi\) and
+  morphism \(g\). Hence the generic-point morphism of \((a \times_S b) \circ \mathrm{pr}_1\) is
+  \(\langle a_\eta, b_\eta\rangle \circ \mathrm{pr}_1 = a_\eta\), which is the generic-point
+  morphism of \(a\); since a rational map out of an integral scheme is determined by its
+  generic-point morphism, \((a \times_S b) \circ \mathrm{pr}_1 = a\). The second identity is
+  symmetric. The over-\(S\) identity follows by combining the first identity with
+  associativity of right-composition, \((a \times_S b) \circ (\mathrm{pr}_1 \circ s_Y) =
+  \bigl((a \times_S b) \circ \mathrm{pr}_1\bigr) \circ s_Y = a \circ s_Y = s_X\).
+\end{proof}
+
+The two precompositions and their pairing are assembled into Milne's difference map by
+right-composing with the \emph{difference morphism} of the group object \(G\), the honest
+group law \((g,h) \mapsto g \cdot h^{-1}\).
+
+\begin{definition}\label{mk-def:grpObj_diff}
+  \dcref{custom}
+
+  Let \(G\) be a group object in a cartesian-monoidal category. The \textbf{difference
+  morphism} \(\operatorname{diff}_G \colon G \otimes G \to G\) is
+  \(\operatorname{fst} / \operatorname{snd}\), the division in the group structure on the
+  hom-set \(\operatorname{Hom}(G \otimes G, G)\); pointwise it is
+  \((g,h) \mapsto g \cdot h^{-1}\), i.e.\ the group law composed with inversion on the second
+  factor. Equivalently, it is built from the group structure on the hom-set. When \(G\)
+  lives over \(\operatorname{Spec}\bar k\), its underlying scheme morphism
+  \(\operatorname{diff}_G^{\,\mathrm{left}} \colon G \times_{\bar k} G \to G\) is Milne's
+  \(m \circ (\mathrm{id} \times \mathrm{inv})\).
+\end{definition}
+
+\begin{lemma}\label{mk-lem:grpObjDiffLeft_comp_hom}
+  \dcref{custom}
+
+  \uses{mk-def:grpObj_diff}
+  The difference morphism is over the base: \(\operatorname{diff}_G^{\,\mathrm{left}} \circ
+  (G \to \operatorname{Spec}\bar k) = \mathrm{pr}_1 \circ (G \to \operatorname{Spec}\bar k)\).
+\end{lemma}
+\begin{proof}This is the triangle identity \(\varphi_{\mathrm{left}} \circ g_{\mathrm{hom}} =
+  f_{\mathrm{hom}}\) of the over-category morphism \(\operatorname{diff}_G\), together with the
+  identification of the structure morphism of \(G \times_{\bar k} G\) as
+  \(\mathrm{pr}_1 \circ (G \to \operatorname{Spec}\bar k)\).
+\end{proof}
+
+\begin{definition}\label{mk-def:rationalMap_difference}
+  \dcref{custom}
+
+  \uses{mk-def:rationalMap_precomp, mk-def:rationalMap_prod, mk-def:grpObj_diff}
+  Let \(X\) be smooth over an algebraically closed field \(\bar k\) with \(X \times_{\bar k} X\)
+  integral, let \(G\) be a group variety over \(\bar k\), and let
+  \(f \colon X \dashrightarrow G\) be a rational map over \(\bar k\). Milne's
+  \textbf{difference rational map}
+  \[
+    \Phi \;=\; \bigl((f \circ \mathrm{pr}_1) \times_{\bar k} (f \circ \mathrm{pr}_2)\bigr)
+    \circ \operatorname{diff}_G^{\,\mathrm{left}}
+    \colon\; X \times_{\bar k} X \;\dashrightarrow\; G
+  \]
+  is \((x,y) \mapsto f(x) \cdot f(y)^{-1}\). The projections \(\mathrm{pr}_i\) are open (being
+  base changes of the smooth structure morphism), so the precompositions
+  \(f \circ \mathrm{pr}_i\) are defined; both are over \(\bar k\)
+  (\ref{mk-lem:rationalMap_precomp_compHom}, \ref{mk-lem:rationalMap_precomp_hom}) with common
+  structure composite \(\mathrm{pr}_1 \circ (X \to \operatorname{Spec}\bar k)\), since
+  \(\mathrm{pr}_1\) and \(\mathrm{pr}_2\) agree after \(X \to \operatorname{Spec}\bar k\).
+\end{definition}
+
+\begin{lemma}\label{mk-lem:rationalMap_difference_over}
+  \dcref{custom}
+
+  \uses{mk-def:rationalMap_difference, mk-lem:rationalMap_prod_proj, mk-lem:grpObjDiffLeft_comp_hom}
+  The difference map is a \(\bar k\)-rational map: \(\Phi \circ (G \to \operatorname{Spec}\bar k)
+  = \mathrm{pr}_1 \circ (X \to \operatorname{Spec}\bar k)\), the structure morphism of
+  \(X \times_{\bar k} X\).
+\end{lemma}
+\begin{proof}By associativity of right-composition, \(\Phi \circ (G \to \operatorname{Spec}\bar k) =
+  \bigl((f \circ \mathrm{pr}_1) \times (f \circ \mathrm{pr}_2)\bigr) \circ
+  \bigl(\operatorname{diff}_G^{\,\mathrm{left}} \circ (G \to \operatorname{Spec}\bar k)\bigr)\);
+  by \ref{mk-lem:grpObjDiffLeft_comp_hom} the inner composite is
+  \(\mathrm{pr}_1 \circ (G \to \operatorname{Spec}\bar k)\), and the over-\(S\) identity of the
+  pairing (\ref{mk-lem:rationalMap_prod_proj}) evaluates the result to the structure morphism of
+  \(X \times_{\bar k} X\).
+\end{proof}
+
+The following elementary fact is the workhorse for Milne's ``\(\Phi\) is defined at
+\((x,x)\) if \(f\) is defined at \(x\)'' step: post-composing a rational map with an
+honest morphism never destroys definedness.
+
+\begin{lemma}\label{mk-lem:compHom_domain_monotone}
+  \dcref{custom}
+
+  Right-composition of a rational map \(F \colon X \dashrightarrow Y\) with a morphism
+  \(g \colon Y \to Z\) enlarges the domain of definition:
+  \(\mathrm{Dom}(F) \subseteq \mathrm{Dom}(F \circ g)\).
+\end{lemma}
+\begin{proof}A partial-map representative \((V, F_V)\) of \(F\) yields the representative
+  \((V, F_V \circ g)\) of \(F \circ g\) with the same domain \(V\).
+\end{proof}
+
+\begin{lemma}\label{mk-lem:difference_map_domain_lower_bound}
+  \dcref{3.3,custom}
+
+  \uses{mk-def:rationalMap_difference, mk-def:rationalMap_precomp, mk-def:rationalMap_prod,
+        mk-lem:compHom_domain_monotone}
+  \textbf{(Milne Lemma~3.3, Sub-step~1 domain bound / Sub-step~2 easy direction.)} The
+  difference rational map \(\Phi\) is defined on \(\mathrm{Dom}(f) \times_{\bar k}
+  \mathrm{Dom}(f)\): every point of \(X \times_{\bar k} X\) projecting into
+  \(\mathrm{Dom}(f)\) under both projections lies in \(\mathrm{Dom}(\Phi)\). In
+  particular \(\Phi\) is defined at the diagonal point \((x, x)\) whenever \(f\) is
+  defined at \(x\).
+\end{lemma}
+\begin{proof}Right-composition with \(\operatorname{diff}_G\) only enlarges the domain of
+  definition (\ref{mk-lem:compHom_domain_monotone}), so it suffices to show the pairing
+  \((f \circ \mathrm{pr}_1) \times (f \circ \mathrm{pr}_2)\) is defined on
+  \(\mathrm{Dom}(f) \times_{\bar k} \mathrm{Dom}(f)\). The maximal representative
+  \((U, \varphi_U)\) of \(f\) (on its full domain of definition) is defined on \(U =
+  \mathrm{Dom}(f)\) and over \(\bar k\); pairing \(\varphi_U \circ \mathrm{pr}_i\) into
+  \(G \times_{\bar k} G\) over the common domain
+  \(\mathrm{pr}_1^{-1}U \cap \mathrm{pr}_2^{-1}U\) gives Milne's explicit morphism
+  \(U \times_{\bar k} U \to G \times_{\bar k} G\), a partial map whose induced
+  function-field morphism on the integral source \(X \times_{\bar k} X\) matches that of
+  the pairing (\ref{mk-def:rationalMap_prod}) factor-by-factor. Hence it represents the
+  pairing, and its domain \(\mathrm{pr}_1^{-1}U \cap \mathrm{pr}_2^{-1}U\) lies in the
+  pairing's domain of definition.
+\end{proof}
+
+The converse direction of Milne's slice argument rests on the reconstruction formula
+\(f(x) = \Phi(x,u) \cdot f(u)\). The next four lemmas establish its group-theoretic
+content and the resulting domain bound.  Together with openness of
+\(\mathrm{Dom}(\Phi)\), irreducibility of the fibre \(X_{\kappa(x)}\), and descent of
+definedness along the smooth projection, this proves that definedness of \(\Phi\) at
+\((x,x)\) forces definedness of \(f\) at \(x\).
+
+\begin{lemma}\label{mk-lem:rationalMap_precomp_domain_bound}
+  \dcref{custom}
+
+  \uses{mk-def:rationalMap_precomp}
+  For a rational map \(f \colon X \dashrightarrow Y\) and an open morphism
+  \(p \colon W \to X\), the precomposition is defined on the preimage of the domain:
+  \(p^{-1}(\mathrm{Dom}(f)) \subseteq \mathrm{Dom}(f \circ p)\).
+\end{lemma}
+\begin{proof}If \(p(w) \in \mathrm{Dom}(f)\), choose a partial-map representative \((V, f_V)\) of
+  \(f\) with \(p(w) \in V\). Then \((p^{-1}V, f_V \circ (p \mid_V))\) is a representative
+  of \(f \circ p\) defined at \(w\), so \(w \in \mathrm{Dom}(f \circ p)\).
+\end{proof}
+
+\begin{lemma}\label{mk-lem:rationalMap_prod_domain_bound}
+  \dcref{custom}
+
+  \uses{mk-def:rationalMap_prod}
+  Let \(X\) be integral, let \(S\), \(Y\), \(Z\) be separated schemes with structure
+  morphisms \(s_Y \colon Y \to S\), \(s_Z \colon Z \to S\) locally of finite type, and let
+  \(a \colon X \dashrightarrow Y\), \(b \colon X \dashrightarrow Z\) be rational maps over
+  \(S\). Then the pairing is defined on the intersection of the two domains:
+  \(\mathrm{Dom}(a) \cap \mathrm{Dom}(b) \subseteq \mathrm{Dom}(a \times_S b)\).
+\end{lemma}
+\begin{proof}The maximal representatives of \(a\) and \(b\) are defined on \(\mathrm{Dom}(a)\),
+  resp.\ \(\mathrm{Dom}(b)\), and are \(S\)-morphisms; over the common domain
+  \(\mathrm{Dom}(a) \cap \mathrm{Dom}(b)\) they agree after the structure morphisms to
+  \(S\), hence pair through the fibre product into a partial map defined on
+  \(\mathrm{Dom}(a) \cap \mathrm{Dom}(b)\). Its induced function-field morphism restricts,
+  on each fibre-product factor, to \(a\)'s, resp.\ \(b\)'s; so it represents \(a \times_S
+  b\), and its domain lies in the domain of definition of the pairing.
+\end{proof}
+
+\begin{lemma}\label{mk-lem:grpObj_reconstruction}
+  \dcref{custom}
+
+  \uses{mk-def:grpObj_diff}
+  Let \(G\) be a group object in a cartesian-monoidal category and \(a, b \colon T \to G\)
+  two \(T\)-points. Then
+  \(\bigl\langle \langle a, b\rangle \circ \operatorname{diff}_G,\ b \bigr\rangle \circ m
+  = a\), i.e.\ \((a \cdot b^{-1}) \cdot b = a\).
+\end{lemma}
+\begin{proof}Precomposition by \(\langle a, b\rangle\) is a group homomorphism on \(T\)-points, so
+  \(\langle a, b\rangle \circ \operatorname{diff}_G = \langle a, b\rangle \circ
+  (\operatorname{fst} / \operatorname{snd}) = a / b\). Then \(\langle a/b, b\rangle \circ m
+  = (a/b) \cdot b = a\) by the group cancellation law.
+\end{proof}
+
+\begin{lemma}\label{mk-lem:scheme_reconstruction}
+  \dcref{custom}
+
+  \uses{mk-lem:grpObj_reconstruction, mk-def:grpObj_diff}
+  Let \(G\) be a group variety over \(\bar k\) and \(A, B \colon T \to G\) two
+  \(\bar k\)-morphisms sharing a structure map (\(A \circ (G \to \operatorname{Spec}\bar k)
+  = B \circ (G \to \operatorname{Spec}\bar k)\)). Then the scheme-level reconstruction holds:
+  \[
+    m^{\mathrm{left}} \circ \bigl\langle
+      \operatorname{diff}_G^{\,\mathrm{left}} \circ \langle A, B\rangle,\ B
+    \bigr\rangle \;=\; A .
+  \]
+\end{lemma}
+\begin{proof}The forgetful functor \((-)^{\mathrm{left}} \colon \mathbf{Sch}/\bar k \to \mathbf{Sch}\)
+  sends the cartesian lift, first and second projections, and composition to
+  \(\mathrm{pullback}\)-lift, \(\mathrm{pr}_1, \mathrm{pr}_2\) and composition. Lifting \(A,
+  B\) to \(\bar k\)-morphisms \(T \to G\) in the over-category and applying
+  \((-)^{\mathrm{left}}\) to \ref{mk-lem:grpObj_reconstruction} yields the claim.
+\end{proof}
+
+\begin{lemma}\label{mk-lem:rationalMap_difference_reconstruct}
+  \dcref{custom}
+
+  \uses{mk-def:rationalMap_difference, mk-def:rationalMap_prod, mk-lem:scheme_reconstruction}
+  The reconstruction \(f(x) = \Phi(x,y) \cdot f(y)\) holds as an identity of rational maps
+  on \(X \times_{\bar k} X\):
+  \[
+    f \circ \mathrm{pr}_1 \;=\; m^{\mathrm{left}} \circ
+    \bigl(\Phi \times_{\bar k} (f \circ \mathrm{pr}_2)\bigr).
+  \]
+\end{lemma}
+\begin{proof}Both sides are \(\bar k\)-rational maps out of the integral scheme \(X \times_{\bar k}
+  X\), so it suffices to match their function-field morphisms \(\operatorname{Spec}
+  K(X \times X) \to G\). The left side is \(A = (f \circ \mathrm{pr}_1)^{\mathrm{ff}}\); the
+  right side unfolds, via the function-field formula for the pairing and difference map, to
+  \(m^{\mathrm{left}} \circ \langle \operatorname{diff}_G^{\,\mathrm{left}} \circ \langle A,
+  B\rangle,\ B\rangle\) with \(B = (f \circ \mathrm{pr}_2)^{\mathrm{ff}}\). These agree by
+  \ref{mk-lem:scheme_reconstruction}.
+\end{proof}
+
+\begin{lemma}\label{mk-lem:difference_map_domain_reconstruction}
+  \dcref{3.3,custom}
+
+  \uses{mk-lem:rationalMap_difference_reconstruct, mk-lem:rationalMap_precomp_domain_bound,
+        mk-lem:rationalMap_prod_domain_bound, mk-lem:compHom_domain_monotone}
+  \textbf{(Milne Lemma~3.3, Sub-step~2 hard direction, algebraic content.)}
+  \(f \circ \mathrm{pr}_1\) is defined wherever \(\Phi\) is defined and \(f \circ
+  \mathrm{pr}_2\) is defined:
+  \[
+    \mathrm{Dom}(\Phi) \cap \mathrm{pr}_2^{-1}(\mathrm{Dom}(f)) \;\subseteq\;
+    \mathrm{Dom}(f \circ \mathrm{pr}_1) .
+  \]
+  This is the group-theoretic half of Milne's converse: at a point where \(\Phi\) is
+  defined and \(f\) is defined on the second coordinate, the reconstruction
+  \(f(x) = \Phi(x,u) \cdot f(u)\) exhibits \(f \circ \mathrm{pr}_1\) as regular.
+\end{lemma}
+\begin{proof}Rewriting \(f \circ \mathrm{pr}_1\) by
+  \ref{mk-lem:rationalMap_difference_reconstruct}, it suffices to bound
+  \(\mathrm{Dom}\bigl(m^{\mathrm{left}} \circ (\Phi \times (f \circ \mathrm{pr}_2))\bigr)\).
+  Right-composition only enlarges the domain (\ref{mk-lem:compHom_domain_monotone}), and the
+  pairing is defined on \(\mathrm{Dom}(\Phi) \cap \mathrm{Dom}(f \circ \mathrm{pr}_2)\)
+  (\ref{mk-lem:rationalMap_prod_domain_bound}), which contains \(\mathrm{Dom}(\Phi) \cap
+  \mathrm{pr}_2^{-1}(\mathrm{Dom}(f))\) by \ref{mk-lem:rationalMap_precomp_domain_bound}.
+\end{proof}
+
+The first input to Milne's Theorem~3.2 is the following: a rational map from a normal
+variety to a \emph{complete} variety automatically extends across every codim-\(1\)
+point.
+
+\begin{theorem}[Milne Theorem~3.1: codim-\(\geq 2\) extension to a complete target]\label{mk-thm:codim_one_extension}
+  \dcref{3.1,custom}
+
+  \uses{mk-def:indeterminacy_locus, mk-def:codim_one_indeterminacy,
+        mk-lem:smooth_codim_one_dvr}
+  \textit{Source: Milne, \emph{Abelian Varieties}, Theorem~3.1, \S I.3, p.~16.}
+  Let \(X\) be a nonsingular variety over \(\bar k\), let \(Y\) be a complete variety over
+  \(\bar k\), and let \(f \colon X \dashrightarrow Y\) be a rational map. Then the
+  indeterminacy locus \(Z(f)\) (\ref{mk-def:indeterminacy_locus}) has codimension
+  \(\geq 2\) in \(X\); equivalently, \(f\) is codim-\(1\)-indeterminacy-free
+  (\ref{mk-def:codim_one_indeterminacy}).
+\end{theorem}
+\begin{proof}Fix an indeterminacy point \(z \in Z(f)\); we must show its coheight is \(\geq 2\).
+  Suppose not, so \(\mathrm{coheight}_X(z) \leq 1\), and argue by cases.
+
+  \emph{Coheight \(0\).} Then \(z\) is a maximal point, hence \(z = \eta_X\), the generic
+  point of the irreducible \(X\). But \(\eta_X\) specializes into the dense open
+  \(\mathrm{Dom}(f)\), so \(z \in \mathrm{Dom}(f)\), contradicting \(z \in Z(f)\).
+
+  \emph{Coheight \(1\).} Then \(\overline{\{z\}}\) has codimension \(1\), so by
+  \ref{mk-lem:smooth_codim_one_dvr} the local ring \(\mathcal O_{X, z}\) is a discrete
+  valuation ring with fraction field the function field \(K(X)\). The rational map \(f\)
+  determines a morphism \(\operatorname{Spec} K(X) \to Y\) at the generic point, and the
+  over-\(\operatorname{Spec}\bar k\) condition \(f \circ Y_{\mathrm{hom}} =
+  X_{\mathrm{hom}}\) makes the resulting square commute. Since \(Y\) is proper, the
+  valuative criterion of properness (Milne cites Hartshorne~II.4.7) lifts
+  \(\operatorname{Spec} K(X) \to Y\) across \(\operatorname{Spec} K(X) \to
+  \operatorname{Spec}\mathcal O_{X, z}\) to a morphism \(\operatorname{Spec}
+  \mathcal O_{X, z} \to Y\). This spreads to a regular representative of \(f\) on a
+  neighbourhood of \(z\), so \(z \in \mathrm{Dom}(f)\), again a contradiction.
+
+  Hence every point of \(Z(f)\) has coheight \(\geq 2\); equivalently \(f\) is
+  codim-\(1\)-indeterminacy-free.
+\end{proof}
+
+\begin{remark}
+  \label{mk-rmk:codim1_role_of_ab}
+  \dcref{II.4.7,custom}
+  \textbf{Milne 3.1 is valuative-only; Auslander--Buchsbaum is not used here.} The proof
+  above uses only normality (via the codim-\(1\) DVR of \ref{mk-lem:smooth_codim_one_dvr})
+  and the valuative criterion of properness (Hartshorne~II.4.7), and is
+  characteristic-free. There is \emph{no} ``extend across a codim-\(\geq 2\) point'' step:
+  the theorem asserts only that \(Z(f)\) has codimension \(\geq 2\), and the actual
+  extension of \(f\) to a morphism happens later, once \(Z(f)\) is shown to be empty
+  (\ref{mk-thm:codim_one_extension} together with Milne~3.3 gives
+  \ref{mk-lem:av_indeterminacyLocus_eq_empty}, \(Z(f) = \emptyset\), and then
+  \ref{mk-thm:rational_map_to_av_extends} extends across the empty locus). The
+  depth-\(\geq 2\)/local-cohomology (Stacks \texttt{0AVF}) route for a group-variety-free
+  target is \emph{not} taken and would in any case be false for a general complete target
+  (\emph{cf.}\ \(\mathbb P^2 \dashrightarrow \mathbb P^1\), whose single codim-\(2\)
+  indeterminacy point admits no regular extension).
+
+  Where \ref{mk-cor:regular_cohen_macaulay} and the Auslander--Buchsbaum machinery of
+  \ref{mk-chap:Albanese_AuslanderBuchsbaum} \emph{do} enter is the Milne~3.3 analysis of a
+  group-variety target below (regularity of the diagonal and of local quotients), not
+  this codim-\(\geq 2\) statement.
+\end{remark}
+
+\section{Milne Lemma 3.3: indeterminacy locus of a map to a group variety is codim 1}
+\label{mk-sec:milne_lem33}
+
+The second input to Milne's Theorem~3.2 is structural: when the target \(Y\) is a group
+variety, the indeterminacy locus is either empty or of \emph{pure} codimension \(1\).
+Combined with \ref{mk-thm:codim_one_extension}'s ``codimension \(\geq 2\)'' conclusion,
+this forces the locus to be empty.
+
+The following four lemmas isolate two ingredients of Milne's proof: the
+topological existence statement completing the slice argument and Krull's
+Hauptidealsatz transported to a scheme-theoretic vanishing statement.  The
+first supplies a point where reconstruction applies; the other three show that
+a nonzero local function vanishing at a point also vanishes along a
+codimension-one generisation.
+
+\begin{lemma}[Slice existence for the fibre of the self-product, and its difference-map corollary]\label{mk-lem:milne33_slice_existence}
+  \dcref{3.3,custom}
+
+  \uses{mk-lem:difference_map_domain_lower_bound, mk-lem:difference_map_domain_reconstruction}
+
+  \textbf{(Milne Lemma~3.3, Sub-step~2, topological existence half.)} Let \(X\) be
+  smooth and geometrically irreducible over \(\bar k\), let \(x \in X\), let
+  \(V \subseteq X \times_{\bar k} X\) be an open set meeting the fibre
+  \(\mathrm{pr}_1^{-1}\{x\}\) (at some point \(p_0\)), and let \(D \subseteq X\) be a
+  dense open subset. Then there is a point \(p\) of the fibre
+  \(\mathrm{pr}_1^{-1}\{x\}\) with \(p \in V\) and \(\mathrm{pr}_2(p) \in D\).
+
+  Consequently, if Milne's difference rational map \(\Phi\)
+  (\ref{mk-def:rationalMap_difference}) is defined at a point \(p_0\) lying over
+  \(x\) --- in particular at the diagonal point \((x, x)\) --- then there is a
+  point \(p\) over \(x\), with \(p \in \mathrm{Dom}(\Phi)\), at which the
+  precomposition \(f \circ \mathrm{pr}_1\) is defined.
+\end{lemma}
+\begin{proof}The fibre \(\mathrm{pr}_1^{-1}\{x\}\) is the base change
+  \(X_{\kappa(x)}\), hence is irreducible because \(X\) is geometrically
+  irreducible. The set \(V\) meets the fibre at \(p_0\) by hypothesis;
+  the set \(\mathrm{pr}_2^{-1}(D)\) meets the fibre too. Indeed, for any
+  \(u\in D\), the tensor product \(\kappa(x)\otimes_{\bar k}\kappa(u)\)
+  is nonzero and therefore has a prime ideal, which determines a point of
+  \(X\times_{\bar k}X\) lying over \((x,u)\).
+  Preirreducibility of the fibre forces \(V\) and \(\mathrm{pr}_2^{-1}(D)\) to
+  meet it \emph{simultaneously}, producing the point \(p\).
+
+  For the corollary, apply the existence statement with \(V := \mathrm{Dom}(\Phi)\)
+  (which meets the fibre at \(p_0\)) and \(D := \mathrm{Dom}(f)\), dense since
+  \(f\) is a rational map; the resulting point \(p\) satisfies
+  \(p \in \mathrm{Dom}(\Phi)\) and \(\mathrm{pr}_2(p) \in \mathrm{Dom}(f)\), so
+  \ref{mk-lem:difference_map_domain_reconstruction} places \(p\) in the domain of
+  \(f \circ \mathrm{pr}_1\).
+\end{proof}
+
+\begin{lemma}[Krull's Hauptidealsatz, transported to a height-one prime below a given prime]\label{mk-lem:krull_hauptidealsatz_transport}
+  \dcref{3.3,custom}
+
+
+  \textbf{(Milne Lemma~3.3, Sub-step~4, ring-theoretic core.)} Let \(R\) be a
+  Noetherian domain, let \(t \in R\) be nonzero, and let \(\mathfrak p\) be a
+  prime ideal of \(R\) with \(t \in \mathfrak p\). Then there is a prime ideal
+  \(\mathfrak q\) of height exactly \(1\) with \(\mathfrak q \subseteq
+  \mathfrak p\) and \(t \in \mathfrak q\).
+\end{lemma}
+\begin{proof}The principal ideal \((t)\) is contained in \(\mathfrak p\), so it has a
+  minimal prime \(\mathfrak q\) lying below \(\mathfrak p\); minimality of
+  \(\mathfrak q\) over \((t)\) gives \(t \in \mathfrak q\). Krull's principal
+  ideal theorem bounds the height of a minimal prime over a principal ideal
+  by \(1\). Since \(R\) is a domain and \(t \neq 0\), the unique height-\(0\)
+  prime \((0)\) does not contain \(t\), so \(\mathfrak q \neq (0)\) and hence
+  \(\mathrm{height}(\mathfrak q) \geq 1\). The two bounds give
+  \(\mathrm{height}(\mathfrak q) = 1\).
+\end{proof}
+
+\begin{lemma}[Regularity propagates to a generisation]\label{mk-lem:regular_stalk_propagates_to_generisation}
+  \dcref{custom}
+
+
+  On an irreducible scheme \(X\), a function-field element regular at a point
+  \(P\) is regular at every generisation \(z\) of \(P\) (a point \(z\) with
+  \(z \leadsto P\), i.e.\ \(P\) a specialisation of \(z\)): the germ pullback
+  \(\mathcal O_{X,P} \to K(X)\) factors through the stalk map
+  \(\mathcal O_{X,P} \to \mathcal O_{X,z}\) induced by the specialisation,
+  so its image is contained in the image of \(\mathcal O_{X,z} \to K(X)\).
+\end{lemma}
+\begin{proof}Immediate from functoriality of stalks along the specialisation map: for
+  \(s \in \mathcal O_{X,P}\), the germ of \(s\) in the function field equals
+  the germ, under \(\mathcal O_{X,z} \to K(X)\), of the image of \(s\) under
+  \(\mathcal O_{X,P} \to \mathcal O_{X,z}\).
+\end{proof}
+
+\begin{lemma}[Zero loci of regular functions are pure codimension one: the diagonal transport]\label{mk-lem:milne33_diagonal_vanishing_purity}
+  \dcref{3.3,custom}
+
+  \uses{mk-lem:regular_stalk_propagates_to_generisation}
+
+  \textbf{(Milne Lemma~3.3, Sub-step~4, scheme wrapper.)} Let \(X\) be an
+  integral, locally Noetherian scheme with regular local rings at every point
+  (e.g.\ \(X\) smooth over a field). Let \(P \in X\) and let \(s\) be an
+  element of the maximal ideal of \(\mathcal O_{X,P}\) whose image \(t\) in
+  the function field \(K(X)\) is nonzero. Then there is a generisation
+  \(z \leadsto P\) of coheight \(1\) and an element \(s'\) of the maximal
+  ideal of \(\mathcal O_{X,z}\) whose image in \(K(X)\) is again \(t\).
+
+  Geometrically: the zero locus of a nonzero regular function on \(X\) is of
+  pure codimension \(1\), passing through \(P\).
+\end{lemma}
+\begin{proof}\uses{mk-lem:regular_stalk_propagates_to_generisation}
+  Since \(s\) is a non-unit and \(t \neq 0\), the reciprocal \(t^{-1}\) is not
+  regular at \(P\): if it were the image of a unit \(u \in \mathcal O_{X,P}\),
+  then \(1 - us\) would be a unit mapping to \(0\) in \(K(X)\), which is
+  impossible. Purity of the pole locus of the nonzero rational function
+  \(t^{-1}\) --- the codimension-\(1\) structure of the zero/pole locus of a
+  regular function on a locally Noetherian integral scheme with regular
+  stalks, an instance of \ref{mk-lem:krull_hauptidealsatz_transport} applied to
+  a local equation of the locus at \(P\) --- produces a coheight-\(1\)
+  generisation \(z \leadsto P\) at which \(t^{-1}\) is still not regular. By
+  \ref{mk-lem:regular_stalk_propagates_to_generisation}, \(t\) itself remains
+  regular at \(z\), witnessed by some \(s' \in \mathcal O_{X,z}\) with image
+  \(t\); if \(s'\) were a unit, its inverse would exhibit \(t^{-1}\) as
+  regular at \(z\), a contradiction, so \(s'\) lies in the maximal ideal of
+  \(\mathcal O_{X,z}\).
+\end{proof}
+
+\begin{lemma}[Milne Lemma~3.3: pure-codim-\(1\) structure of the indeterminacy locus into a group variety]\label{mk-lem:milne_codim1_indeterminacy}
+  \dcref{3.3,custom}
+
+  \uses{mk-def:indeterminacy_locus, mk-def:codim1_cycles, mk-def:order_at_point,
+        mk-def:principal_divisor}
+  \textit{Source: Milne, \emph{Abelian Varieties}, Lemma~3.3, \S I.3, p.~17.}
+  Let \(X\) be a nonsingular variety over \(\bar k\), let \(G\) be a group variety over
+  \(\bar k\) (a smooth group scheme of finite type), and let \(f \colon X \dashrightarrow
+  G\) be a rational map. Then either \(f\) is defined on all of \(X\), or the indeterminacy
+  locus \(Z(f) \subseteq X\) is a closed subset of pure codimension \(1\) (i.e.\ a finite
+  union of prime divisors).
+
+  Equivalently: it is \emph{never} the case that \(f\) has a non-empty indeterminacy
+  locus all of whose irreducible components have codimension \(\geq 2\).
+\end{lemma}
+\begin{proof}\uses{mk-def:rationalMap_precomp, mk-lem:rationalMap_precomp_compHom,
+        mk-lem:rationalMap_precomp_hom, mk-def:rationalMap_prod, mk-lem:rationalMap_prod_proj,
+        mk-def:grpObj_diff, mk-lem:grpObjDiffLeft_comp_hom, mk-def:rationalMap_difference,
+        mk-lem:rationalMap_difference_over, mk-lem:compHom_domain_monotone,
+        mk-lem:difference_map_domain_lower_bound, mk-lem:rationalMap_precomp_domain_bound,
+        mk-lem:rationalMap_prod_domain_bound, mk-lem:grpObj_reconstruction,
+        mk-lem:scheme_reconstruction, mk-lem:rationalMap_difference_reconstruct,
+        mk-lem:difference_map_domain_reconstruction, mk-lem:milne33_slice_existence,
+        mk-lem:milne33_diagonal_vanishing_purity}
+  Following Milne's proof of Lemma~3.3. The argument has four sub-steps. Throughout we
+  fix a representative \((U, \varphi_U)\) of \(f\).
+  \(x \in Z(f)\), choose a Noetherian affine window \(W \ni x\), let \(C\) be the
+  irreducible component of \(x\) in \(Z(f) \cap W\), select by Jacobson density a point
+  \(x_0 \in C\) closed in \(X\) and avoiding the other components, transport
+  sub-step~4 at \(x_0\) to obtain \(z \in Z(f)\) with \(z \rightsquigarrow x_0\) and
+  \(\operatorname{coheight} z = 1\), and identify \(z\) with the generic point of \(C\)
+  by strictness of coheight along a specialisation. This yields
+  \(x \in C = \overline{\{z\}}\).
+
+  \emph{Sub-step 1: the difference rational map.} Define
+  \[
+    \Phi \colon X \times X \dashrightarrow G,
+    \qquad
+    \Phi(x, y) \;:=\; \varphi(x) \cdot \varphi(y)^{-1},
+  \]
+  via the composition
+  \[
+    U \times U
+    \;\xrightarrow{\varphi_U \times \varphi_U}\; G \times G
+    \;\xrightarrow{\mathrm{id} \times \mathrm{inv}}\; G \times G
+    \;\xrightarrow{m}\; G,
+  \]
+  where \(\mathrm{inv} \colon G \to G\) is the group-variety inverse and
+  \(m \colon G \times G \to G\) is the group law. The map \(\Phi\) is rational by
+  composition: precomposing \(f\) with each projection
+  \(\mathrm{pr}_i \colon X \times X \to X\) (which is open, being a base change of the
+  flat, locally-finitely-presented structure morphism \(X \to \Spec \bar k\)) yields
+  rational maps \(f \circ \mathrm{pr}_i \colon X \times X \dashrightarrow G\)
+  (\ref{mk-def:rationalMap_precomp}, whose over-\(\bar k\) part is
+  \ref{mk-lem:rationalMap_precomp_compHom}, using \ref{mk-lem:rationalMap_precomp_hom} to
+  identify \((s_X \circ \mathrm{pr}_i)\) with the structure morphism of \(X \times X\));
+  pairing them into \(X \times X \dashrightarrow
+  G \times G\) (\ref{mk-def:rationalMap_prod}, whose projection and over-\(\bar k\) properties
+  are \ref{mk-lem:rationalMap_prod_proj}) and composing on the right with the difference
+  morphism \(\operatorname{diff}_G^{\,\mathrm{left}} = m \circ (\mathrm{id} \times \mathrm{inv})\)
+  (\ref{mk-def:grpObj_diff}) gives the named difference map \(\Phi\)
+  (\ref{mk-def:rationalMap_difference}); it is again over \(\bar k\)
+  (\ref{mk-lem:rationalMap_difference_over}, using \ref{mk-lem:grpObjDiffLeft_comp_hom}). Its
+  domain is at least \(U \times U \subseteq X \times X\)
+  (\ref{mk-lem:difference_map_domain_lower_bound}), which is dense because \(U\) is
+  dense in \(X\).
+
+  \emph{Sub-step 2: \(\Phi\)-defined at \((x, x)\) \(\Leftrightarrow\) \(\varphi\)-defined at
+  \(x\).} If \(\varphi\) is defined at \(x\), then \((x,x) \in U \times U \subseteq
+  \mathrm{Dom}(\Phi)\) (\ref{mk-lem:difference_map_domain_lower_bound}), so \(\Phi\) is
+  defined at \((x, x)\), with value \(\Phi(x, x) = e\) (the identity of \(G\)). Conversely, if \(\Phi\) is
+  defined at \((x, x)\), openness of \(\mathrm{Dom}(\Phi)\) in \(X \times X\) produces an
+  open set \(W \ni (x, x)\) on which \(\Phi\) is defined; by projection (taking the slice
+  \(\{x\} \times W' \subseteq W\) for some open \(W' \subseteq X\), possibly shrinking
+  \(W'\) so \(\varphi\) is defined on \(W'\) as well --- \(W'\) need not contain \(x\)), the
+  identity
+  \[
+    \varphi(x) \;=\; \Phi(x, u) \cdot \varphi(u),
+    \qquad u \in W',
+  \]
+  exhibits a regular representative of \(\varphi\) at \(x\). Hence \(x \in
+  \mathrm{Dom}(\varphi)\) if and only if \((x, x) \in \mathrm{Dom}(\Phi)\).
+
+  The reconstruction identity \(\varphi(x) = \Phi(x,u) \cdot \varphi(u)\) is
+  \ref{mk-lem:rationalMap_difference_reconstruct}, and its domain consequence
+  \(\mathrm{Dom}(\Phi) \cap \mathrm{pr}_2^{-1}(\mathrm{Dom}(\varphi)) \subseteq
+  \mathrm{Dom}(\varphi \circ \mathrm{pr}_1)\) is
+  \ref{mk-lem:difference_map_domain_reconstruction}. A suitable \(u\) exists by openness of
+  \(\mathrm{Dom}(\Phi)\) and irreducibility of the fibre \(X_{\kappa(x)}\), which follows
+  from geometric irreducibility of \(X\); this is
+  \ref{mk-lem:milne33_slice_existence}. Finally, the smooth-descent reflection
+  \(\mathrm{Dom}(\varphi \circ \mathrm{pr}_1) \subseteq
+  \mathrm{pr}_1^{-1}(\mathrm{Dom}(\varphi))\) transports definedness back to \(X\).
+
+  \emph{Sub-step 3: rephrase via pullback of local rings.} The rational map \(\Phi\)
+  pulls \(\mathcal O_{G, e}\) back to a \(\bar k\)-subalgebra of the function field
+  \(K(X \times X)\):
+  \[
+    \Phi^\ast \colon \mathcal O_{G, e} \;\longrightarrow\; K(X \times X).
+  \]
+  Because \(\Phi\) sends \((x, x)\) to \(e\) wherever it is defined, \(\Phi\) is defined at
+  \((x, x)\) if and only if \(\Phi^\ast(\mathcal O_{G, e}) \subseteq \mathcal O_{X
+  \times X, (x, x)}\) (i.e.\ every local function on \(G\) near \(e\) has no pole at
+  \((x, x)\) after pullback).
+
+  \emph{Sub-step 4: pole locus is pure codimension \(1\).} The variety \(X \times X\) is
+  nonsingular (smoothness is stable under products over \(\bar k\)), so the Weil-divisor
+  apparatus of \ref{mk-def:codim1_cycles} and the order map of
+  \ref{mk-def:order_at_point} apply on \(X \times X\). For any nonzero rational function
+  \(f \in K(X \times X)^\ast\) decompose its divisor as
+  \[
+    \mathrm{div}(f) \;=\; \mathrm{div}(f)_0 - \mathrm{div}(f)_\infty,
+  \]
+  with \(\mathrm{div}(f)_0\) and \(\mathrm{div}(f)_\infty\) effective and
+  \(\mathrm{div}(f)_\infty = \mathrm{div}(f^{-1})_0\) (Milne's notation, matching the
+  project's \(\div(f) = \sum \ord_Y(f) \cdot Y\) of
+  \ref{mk-def:principal_divisor}: \(\mathrm{div}(f)_0\) collects the prime divisors with
+  \(\ord_Y(f) > 0\) and \(\mathrm{div}(f)_\infty\) those with \(\ord_Y(f) < 0\)). The local
+  ring at \((x, x)\) can be characterised as
+  \[
+    \mathcal O_{X \times X, (x, x)}
+    \;=\; \bigl\{\, f \in K(X \times X) \;\big|\;
+    \mathrm{div}(f)_\infty \text{ does not contain } (x, x) \,\bigr\} \cup \{0\}.
+  \]
+  Suppose \(f \in K(X \times X)^\ast\) is not in \(\mathcal O_{X \times X, (x, x)}\);
+  equivalently, \((x, x) \in \mathrm{supp}(\mathrm{div}(f)_\infty)\). The pole divisor
+  \(\mathrm{div}(f)_\infty\) is a finite sum of prime divisors of \(X \times X\) (i.e.\ a
+  closed subset of pure codimension \(1\) in \(X \times X\)). Its intersection with the
+  diagonal \(\Delta_X \subseteq X \times X\) is a closed subset of pure codimension \(1\)
+  in \(\Delta_X\) (this is Milne's reference to AG~9.2, the standard fact that a prime
+  divisor of \(X \times X\) either contains \(\Delta_X\) or meets it in pure codimension
+  \(1\); on a nonsingular variety this is an instance of Krull's principal-ideal theorem
+  applied to the local equation of \(\Delta_X\) inside \(X \times X\) --- the
+  scheme-theoretic transport of this purity statement along a generisation of a
+  point of \(\Delta_X\) is recorded as \ref{mk-lem:milne33_diagonal_vanishing_purity},
+  built from the ring-theoretic core \ref{mk-lem:krull_hauptidealsatz_transport}).
+
+  \emph{Conclusion.} Suppose \(f \colon X \dashrightarrow G\) is not defined on all of
+  \(X\). Pick \(x \in Z(f)\). By Sub-steps~2--3, there is some \(f_0 \in
+  \Phi^\ast(\mathcal O_{G, e})\) with \((x, x) \in \mathrm{supp}(\mathrm{div}(f_0)_\infty)\).
+  By Sub-step~4 the intersection \(\mathrm{supp}(\mathrm{div}(f_0)_\infty) \cap
+  \Delta_X\) is pure codimension \(1\) in \(\Delta_X\), passing through \((x, x)\).
+  Identifying \(\Delta_X\) with \(X\) via the diagonal isomorphism, the corresponding
+  closed subset of \(X\) has pure codimension \(1\) and passes through \(x\). By Sub-step~2,
+  every point of this codim-\(1\) subset is a point where \(\Phi\) is undefined on the
+  diagonal, hence where \(\varphi\) is undefined. Thus \(Z(\varphi)\) contains a pure
+  codim-\(1\) closed subset passing through \(x\); since \(x \in Z(\varphi)\) was arbitrary,
+  every irreducible component of \(Z(\varphi)\) has codimension exactly \(1\), i.e.\
+  \(Z(\varphi)\) is of pure codimension \(1\).
+\end{proof}
+
+\begin{remark}
+  \label{mk-rmk:milne_lem33_charfree}
+  \dcref{3.3,custom}
+  \textbf{Characteristic-free.} The above proof uses only: (i) the group law on \(G\)
+  and its inverse (formal smoothness of \(G\) as a group object); (ii) the Weil-divisor
+  apparatus on the nonsingular variety \(X \times X\) (Hartshorne~II.6, or
+  \ref{mk-chap:RiemannRoch_WeilDivisor} in the project's notation); (iii) the
+  decomposition of a divisor on a nonsingular variety into effective pieces, and
+  Krull's principal-ideal theorem on \(X \times X\). None of these has a characteristic
+  restriction, so \ref{mk-lem:milne_codim1_indeterminacy} holds over every
+  algebraically closed base field, in arbitrary characteristic. (Milne states the
+  lemma in this generality at \S I.3, p.~17.)
+\end{remark}
+
+\section{Weil-divisor obstruction to codim-1 extension}
+\label{mk-sec:weil_obstruction}
+
+The proof of \ref{mk-thm:codim_one_extension}'s Step~1 (codim-\(1\) ruling-out) goes
+through the valuative criterion. In the project's Weil-divisor language
+(\ref{mk-chap:RiemannRoch_WeilDivisor}) the same obstruction has a cleaner phrasing:
+the extension fails at a prime divisor \(W\) if and only if some affine coordinate of
+\(f\) around the image \(\overline{f(\eta_W)}\) has a strictly negative order
+\(\ord_W(\cdot) < 0\). This is the valuation-theoretic form of the obstruction
+recorded by \ref{mk-def:order_at_point} and \ref{mk-def:principal_divisor}.
+
+\begin{theorem}
+
+  [Weil-divisor criterion for codimension-one extension]
+  \label{mk-thm:weil_divisor_obstruction}
+  \dcref{II.6,custom}
+
+  \uses{mk-def:codim_one_indeterminacy, mk-def:order_at_point, mk-lem:smooth_codim_one_dvr,
+        mk-lem:mem_domain_partial_map_reshuffle}
+  \textit{Source: Hartshorne, II.6, pp.~130--131 (valuation \(v_Y\) and the order map).}
+  Let \(X\) be a nonsingular variety over \(\bar k\), let \(Y\) be a variety over \(\bar k\),
+  let \(f \colon X \dashrightarrow Y\) be a rational map, and let \(W \subseteq X\) be a
+  prime divisor with generic point \(\eta_W \in W\) (so
+  \(\mathrm{codim}_X \overline{\{\eta_W\}} = 1\)). Let \((U, \varphi_U)\) be any representative of
+  \(f\) with \(U \cap (X \smallsetminus W) \neq \emptyset\). The following are equivalent:
+  \begin{enumerate}
+    \item \(f\) is defined at \(\eta_W\) (i.e.\ \(\eta_W \in \mathrm{Dom}(f)\), equivalently
+      \(W \not\subseteq Z(f)\)).
+    \item For some (equivalently, every) affine open neighbourhood \(V \subseteq Y\) of
+      the generic image of \(f\) near \(W\), every regular function \(g \in
+      \mathcal O_Y(V)\) pulls back to a rational function \(\varphi_U^\ast(g) \in K(X)\)
+      satisfying
+      \[
+        \ord_W\bigl(\varphi_U^\ast(g)\bigr) \;\geq\; 0.
+      \]
+  \end{enumerate}
+
+  Consequently: \(f\) is codim-\(1\)-indeterminacy-free
+  (\ref{mk-def:codim_one_indeterminacy}) if and only if, for every prime divisor
+  \(W \subseteq X\) and every affine open \(V \subseteq Y\) as above, the pullback
+  \(\varphi_U^\ast(g)\) has \(\ord_W \geq 0\) for all \(g \in \mathcal O_Y(V)\).
+\end{theorem}
+
+\begin{proof}
+
+  By \ref{mk-lem:smooth_codim_one_dvr}, the local ring \(\mathcal O_{X, \eta_W}\) is a
+  DVR with fraction field \(K(X)\) and uniformiser determined by \(W\); by
+  \ref{mk-def:order_at_point} its valuation is exactly \(\ord_W\). The local ring at
+  \(\eta_W\) is therefore characterised inside \(K(X)\) as the subring
+  \[
+    \mathcal O_{X, \eta_W} \;=\; \bigl\{\, h \in K(X) \;\big|\; \ord_W(h) \geq 0
+    \,\bigr\} \cup \{0\}.
+  \]
+  The rational map \(f\) is defined at \(\eta_W\) if and only if, for any affine open
+  \(V = \operatorname{Spec} A \subseteq Y\) around the image \(\overline{f(\eta_W)}\),
+  the pullback \(\varphi_U^\ast \colon A \to K(X)\) lands in
+  \(\mathcal O_{X, \eta_W}\): this is the standard local characterisation of where a
+  rational map is regular at a codim-\(1\) point of a smooth variety (it is the
+  ``regular = no pole'' criterion). By the displayed identity, the latter is
+  equivalent to \(\ord_W(\varphi_U^\ast(g)) \geq 0\) for every \(g \in A\), which is
+  condition (2). The equivalence (1)~\(\Leftrightarrow\)~(2) is therefore established.
+
+  For the consequence, \(f\) is codim-\(1\)-indeterminacy-free iff no prime divisor \(W\) is
+  contained in \(Z(f)\), which by the equivalence above is iff the \(\ord_W \geq 0\)
+  condition holds for every prime divisor \(W\).
+\end{proof}
+
+\begin{remark}
+  \label{mk-rmk:weil_obstruction_application}
+  \dcref{custom}
+  \textbf{Role of the valuation form.} In
+  \ref{mk-chap:Albanese_Thm32RationalMapExtension}, the abstract codimension statement
+  \ref{mk-thm:codim_one_extension} suffices and \ref{mk-thm:weil_divisor_obstruction}
+  is not needed. The Weil-divisor form instead isolates an equivalent local
+  criterion for regularity at every prime divisor; this criterion is also useful
+  for the symmetric-product arguments of \ref{mk-chap:Albanese_AlbaneseUP}.
+\end{remark}
+
+\begin{lemma}
+
+
+  [Definedness at a prime divisor, repackaged as a through-the-point partial map]
+  \label{mk-lem:mem_domain_partial_map_reshuffle}
+  \dcref{custom}
+  Let \(X\) and \(Y\) be varieties over \(\bar k\) and let
+  \(f \colon X \dashrightarrow Y\) be a rational map. For a prime divisor
+  \(W \subseteq X\) with generic point \(\eta_W = W.\mathrm{point}\), the
+  following are equivalent:
+  \begin{enumerate}
+    \item \(\eta_W \in \mathrm{Dom}(f)\) (\(f\) is defined at the generic point of
+      \(W\)).
+    \item There exists a partial-map representative \((U, \varphi_U)\) of \(f\) ---
+      i.e.\ a regular morphism \(\varphi_U \colon U \to Y\) on a dense open
+      \(U \subseteq X\) whose induced rational map equals \(f\) --- whose domain
+      \(U\) contains \(\eta_W\).
+  \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+
+  By definition, \(\eta_W\in\mathrm{Dom}(f)\) precisely when some
+  representative of the rational map is defined on an open neighbourhood of
+  \(\eta_W\).  Such a representative gives (2), and conversely the domain of
+  the representative in (2) witnesses membership in \(\mathrm{Dom}(f)\).
+\end{proof}
+
+\begin{remark}
+  \label{mk-rmk:mem_domain_partial_map_reshuffle_scope}
+  \dcref{custom}
+  \textbf{Relationship to \ref{mk-thm:weil_divisor_obstruction}.}
+  \ref{mk-lem:mem_domain_partial_map_reshuffle} captures the definitional half of
+  the equivalence: a partial-map representative exists through the generic point
+  of the prime divisor. The additional mathematical input in
+  \ref{mk-thm:weil_divisor_obstruction} is the identification of the local ring with
+  the nonnegative part of the associated discrete valuation, applied to the
+  pullbacks of regular functions on an affine neighbourhood of the image.
+\end{remark}
+
+\section{The codimension-one method}
+The results above form a short chain of local and global arguments:
+\begin{enumerate}
+  \item Smoothness makes every codimension-one local ring a discrete
+    valuation ring (\ref{mk-lem:smooth_codim_one_dvr}).
+  \item Properness and the valuative criterion then rule out
+    codimension-one indeterminacy (\ref{mk-thm:codim_one_extension}).
+  \item For a group-variety target, the difference map and its pole
+    divisors force every nonempty indeterminacy locus to be pure of
+    codimension one (\ref{mk-lem:milne_codim1_indeterminacy}).
+  \item For a prime divisor, regularity is equivalently the absence of
+    negative order in every pulled-back affine coordinate
+    (\ref{mk-thm:weil_divisor_obstruction}).
+\end{enumerate}
+Thus a rational map from a nonsingular variety to a complete group variety
+has empty indeterminacy locus: it has no codimension-one component by (2),
+whereas (3) says that every nonempty indeterminacy locus has such a component.

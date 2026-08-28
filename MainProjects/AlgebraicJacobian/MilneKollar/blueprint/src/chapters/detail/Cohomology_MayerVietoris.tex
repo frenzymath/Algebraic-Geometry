@@ -1,0 +1,906 @@
+\section{Mayer--Vietoris long exact sequence for sheaf cohomology with \(k\)-module coefficients}
+\label{mk-chap:Cohomology_MayerVietoris}
+
+This chapter constructs the Mayer--Vietoris long exact sequence for sheaf cohomology with \(k\)-module coefficients and relates \v{C}ech acyclicity on affine covers to vanishing of derived cohomology. The groups \(H^n(X,\mathcal F)\) and \(H^{\prime n}(U,\mathcal F)\) are defined in \ref{mk-chap:Cohomology_StructureSheafModuleK}.
+
+\section{Functoriality of cohomology in the open variable}
+\label{mk-sec:hmodule_prime_cohomologyPresheaf}
+
+The cohomology group \(H^{\prime n}(X,\mathcal F)\) is contravariantly functorial in the open variable \(X\). Assembling this functoriality yields a presheaf
+\[
+  X \longmapsto H^{\prime n}(X, \mathcal F),
+\]
+and, varying \(\mathcal F\) as well, a bifunctor from sheaves of \(k\)-modules to presheaves of abelian groups. Each fiber also carries the \(k\)-module structure induced by the \(k\)-linear structure on \(\Ext\).
+
+\begin{definition}[Cohomology presheaf functor, \(H'\) flavor]\label{mk-def:Scheme_HModule_prime_cohomologyPresheafFunctor}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime}
+
+  Let \(k\) be a field, \(C\) a category equipped with a Grothendieck topology \(J\), and assume sheafification and \(\Ext\) exist for sheaves of \(k\)-modules on \(J\). For \(n \in \mathbb N\), define the cohomology presheaf functor
+  \[
+    \mathcal H^{\prime n}(k, J) \;:\; \Sheaf\,J\,(\ModuleCat\,k) \longrightarrow (C^{\op} \longrightarrow \AddCommGrpCat)
+  \]
+  by the standard composition of the Yoneda embedding, the free-\(k\)-module functor, sheafification, and the \(n\)-th \(\Ext\) functor.
+\end{definition}
+
+\begin{proof}
+
+  Each morphism of \(C\) induces, by Yoneda and sheafification, a morphism between the corresponding source sheaves. Contravariance of \(\Ext\) in its first variable gives the restriction maps, and functoriality of these constructions gives the stated bifunctor.
+\end{proof}
+
+\begin{definition}[Cohomology presheaf, \(H'\) flavor]\label{mk-def:Scheme_HModule_prime_cohomologyPresheaf}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_cohomologyPresheafFunctor}
+
+  In the setting of \ref{mk-def:Scheme_HModule_prime_cohomologyPresheafFunctor}, let \(\mathcal F\) be a sheaf of \(k\)-modules. For \(n \in \mathbb N\), define the cohomology presheaf
+  \[
+    \mathcal H^{\prime n}(\mathcal F) \;:\; C^{\op} \longrightarrow \AddCommGrpCat
+  \]
+  to be the evaluation of the bifunctor at \(\mathcal F\).
+\end{definition}
+
+\begin{proof}
+
+  Evaluating the bifunctor of \ref{mk-def:Scheme_HModule_prime_cohomologyPresheafFunctor} at \(\mathcal F\) preserves identities and composition, and therefore gives the asserted presheaf.
+\end{proof}
+
+\begin{remark}
+  For every object \(X\) of \(C\), the value \(\mathcal H^{\prime n}(\mathcal F)(X)\) is canonically the abelian group underlying \(H^{\prime n}(X,\mathcal F)\).
+\end{remark}
+
+\section{Mayer--Vietoris long exact sequence}
+\label{mk-sec:hmodule_prime_mayer_vietoris}
+
+A Mayer--Vietoris square for a Grothendieck topology \(J\) on a category \(C\) is a pullback square
+\[
+  \begin{array}{ccc}
+    X_1 & \longrightarrow & X_2 \\
+    \downarrow & & \downarrow \\
+    X_3 & \longrightarrow & X_4
+  \end{array}
+\]
+that is a \(J\)-cover: the pair of morphisms \(X_2 \to X_4\) and \(X_3 \to X_4\) is a covering family, and \(X_1\) is the pullback. For a sheaf \(\mathcal F\), the cohomology groups of the four corners are linked by a long exact sequence whose building blocks are restriction maps, biproduct maps, and a connecting homomorphism.
+
+\subsection{The restriction maps}
+
+\begin{definition}[Sum of two restriction maps]\label{mk-def:Scheme_HModule_prime_toBiprod}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_cohomologyPresheaf, mk-def:Scheme_HModule_prime}
+
+  Let \(S\) be a Mayer--Vietoris square, \(\mathcal F\) a sheaf of \(k\)-modules, and \(n \in \mathbb N\). Define the morphism
+  \[
+    \toBiprod \;:\; H^{\prime n}(X_4, \mathcal F) \longrightarrow H^{\prime n}(X_2, \mathcal F) \oplus H^{\prime n}(X_3, \mathcal F)
+  \]
+  to be the biproduct lift of the two restriction maps induced by \(X_2 \to X_4\) and \(X_3 \to X_4\).
+\end{definition}
+
+\begin{proof}
+
+  The biproduct exists because the category of abelian groups has finite biproducts. The morphism is built from the contravariant functoriality of the cohomology presheaf.
+\end{proof}
+
+\begin{definition}[Difference of two restriction maps]\label{mk-def:Scheme_HModule_prime_fromBiprod}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_cohomologyPresheaf, mk-def:Scheme_HModule_prime}
+
+  In the same setting, define the morphism
+  \[
+    \fromBiprod \;:\; H^{\prime n}(X_2, \mathcal F) \oplus H^{\prime n}(X_3, \mathcal F) \longrightarrow H^{\prime n}(X_1, \mathcal F)
+  \]
+  to be the biproduct desc of the restriction map \(X_1 \to X_2\) and the additive inverse of the restriction map \(X_1 \to X_3\).
+\end{definition}
+
+\begin{proof}
+
+  The negation is taken in the preadditive morphism group of the codomain category. The sign convention encodes the alternating-sum structure of the \v{C}ech complex.
+\end{proof}
+
+\begin{lemma}[Composition vanishes]\label{mk-lem:Scheme_HModule_prime_toBiprod_fromBiprod}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_toBiprod, mk-def:Scheme_HModule_prime_fromBiprod}
+
+  In the setting above,
+  \[
+    \fromBiprod \circ \toBiprod \;=\; 0.
+  \]
+\end{lemma}
+
+\begin{proof}
+
+  Expanding the two biproduct maps gives the difference of the restrictions along the two composites \(X_1\to X_2\to X_4\) and \(X_1\to X_3\to X_4\). These composites agree because the square commutes, so their difference is zero.
+\end{proof}
+
+\subsection{The short exact sequence of sheaves}
+
+The connecting homomorphism of the Mayer--Vietoris sequence is built from a short exact sequence of sheaves of \(k\)-modules obtained by sheafifying the Yoneda embedding composed with the free-\(k\)-module functor.
+
+\begin{definition}[Free-\(k\)-module functor is left adjoint]\label{mk-def:Scheme_ModuleCat_free_isLeftAdjoint}
+  \dcref{custom}
+
+  Let \(k\) be a field. The free-\(k\)-module functor \(\Type \to \ModuleCat\,k\) is a left adjoint.
+\end{definition}
+
+\begin{proof}
+  The usual natural bijection
+  \[
+    \Hom_k(k^{(S)},M)\cong \Hom_{\mathrm{Set}}(S,|M|)
+  \]
+  exhibits the free-\(k\)-module functor as left adjoint to the forgetful functor.
+\end{proof}
+
+\begin{lemma}[Pushout of free sheaves]\label{mk-lem:Scheme_HModule_prime_isPushoutModuleCatFreeSheaf}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_ModuleCat_free_isLeftAdjoint}
+
+  Let \(S\) be a Mayer--Vietoris square. The image of \(S\) under the composite functor
+  \[
+    \text{Yoneda} \;\circ\; \text{whiskering with }(\ModuleCat.\free\,k) \;\circ\; \presheafToSheaf
+  \]
+  is a pushout square in the category of sheaves of \(k\)-modules.
+\end{lemma}
+
+\begin{proof}
+
+  The original square is a pushout. Post-composition with the sheafify-compose functor preserves pushouts because the free-\(k\)-module functor is a left adjoint. A canonical isomorphism translates the resulting square into the desired shape.
+\end{proof}
+
+\begin{definition}[Short complex of free sheaves]\label{mk-def:Scheme_HModule_prime_shortComplex}
+  \dcref{custom}
+
+  \uses{mk-lem:Scheme_HModule_prime_isPushoutModuleCatFreeSheaf}
+
+  In the setting of \ref{mk-lem:Scheme_HModule_prime_isPushoutModuleCatFreeSheaf}, define the short complex of sheaves of \(k\)-modules
+  \[
+    \mathcal F_1 \xrightarrow{\;f\;} \mathcal F_2 \oplus \mathcal F_3 \xrightarrow{\;g\;} \mathcal F_4,
+  \]
+  where \(f\) is the biproduct lift of the two maps induced by \(X_1 \to X_2\) and \(-X_1 \to X_3\), and \(g\) is the biproduct desc of the two maps induced by \(X_2 \to X_4\) and \(X_3 \to X_4\). The composition \(g \circ f = 0\) follows from the cokernel-cofork condition of the pushout.
+\end{definition}
+
+\begin{proof}
+
+  The commutativity relation in the pushout square says that the two composites from \(\mathcal F_1\) to \(\mathcal F_4\) agree. With the chosen sign on the second component of \(f\), their sum is therefore zero, so \(g\circ f=0\).
+\end{proof}
+
+\begin{definition}[Free-\(k\)-module functor preserves monomorphisms]\label{mk-def:Scheme_ModuleCat_free_preservesMonomorphisms}
+  \dcref{custom}
+
+  Let \(k\) be a field. The free-\(k\)-module functor preserves monomorphisms.
+\end{definition}
+
+\begin{proof}
+  An injection of bases induces an injection of the corresponding free modules: a nonzero finite linear combination remains nonzero after relabeling its basis elements. Since monomorphisms of \(k\)-modules are precisely injective linear maps, the free-module functor preserves monomorphisms.
+\end{proof}
+
+\begin{lemma}[The first map is mono]\label{mk-lem:Scheme_HModule_prime_shortComplex_f_mono}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_shortComplex, mk-def:Scheme_ModuleCat_free_preservesMonomorphisms}
+
+  In the short complex of \ref{mk-def:Scheme_HModule_prime_shortComplex}, the first map \(f\) is a monomorphism.
+\end{lemma}
+
+\begin{proof}
+
+  The map \(f\) followed by the second projection is the free-\(k\)-module functor applied to the monomorphism \(X_1 \to X_3\), which is mono because the free functor preserves monomorphisms. Hence \(f\) itself is mono.
+\end{proof}
+
+\begin{lemma}[The second map is epi]\label{mk-lem:Scheme_HModule_prime_shortComplex_g_epi}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_shortComplex, mk-lem:Scheme_HModule_prime_isPushoutModuleCatFreeSheaf}
+
+  In the short complex of \ref{mk-def:Scheme_HModule_prime_shortComplex}, the second map \(g\) is an epimorphism.
+\end{lemma}
+
+\begin{proof}
+
+  By the pushout lemma, \(g\) is the cokernel of \(f\), and every cokernel is epi.
+\end{proof}
+
+\begin{lemma}[Exactness at the middle term]\label{mk-lem:Scheme_HModule_prime_shortComplex_exact}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_shortComplex, mk-lem:Scheme_HModule_prime_isPushoutModuleCatFreeSheaf}
+
+  In the short complex of \ref{mk-def:Scheme_HModule_prime_shortComplex}, exactness holds at the middle term: the image of \(f\) equals the kernel of \(g\).
+\end{lemma}
+
+\begin{proof}
+
+  By the pushout lemma, \(g\) is a cokernel of \(f\). In an abelian category the kernel of a cokernel is the image of the original morphism, so \(\operatorname{im}(f)=\ker(g)\).
+\end{proof}
+
+\begin{lemma}[The short complex is short exact]\label{mk-lem:Scheme_HModule_prime_shortComplex_shortExact}
+  \dcref{custom}
+
+  \uses{mk-lem:Scheme_HModule_prime_shortComplex_f_mono, mk-lem:Scheme_HModule_prime_shortComplex_g_epi, mk-lem:Scheme_HModule_prime_shortComplex_exact}
+
+  The short complex of \ref{mk-def:Scheme_HModule_prime_shortComplex} is short exact: its first map is mono, its second map is epi, and exactness holds at the middle term.
+\end{lemma}
+
+\begin{proof}
+
+  Combine \ref{mk-lem:Scheme_HModule_prime_shortComplex_f_mono}, \ref{mk-lem:Scheme_HModule_prime_shortComplex_g_epi}, and \ref{mk-lem:Scheme_HModule_prime_shortComplex_exact}.
+\end{proof}
+
+\subsection{The connecting homomorphism and the long exact sequence}
+
+\begin{definition}[Connecting homomorphism]\label{mk-def:Scheme_HModule_prime_delta}
+  \dcref{custom}
+
+  \uses{mk-lem:Scheme_HModule_prime_shortComplex_shortExact, mk-def:Scheme_HModule_prime}
+
+  Let \(S\) be a Mayer--Vietoris square, \(\mathcal F\) a sheaf of \(k\)-modules, and \(n_0, n_1 \in \mathbb N\) with \(n_0 + 1 = n_1\). The connecting homomorphism
+  \[
+    \delta \;:\; H^{\prime n_0}(X_1, \mathcal F) \longrightarrow H^{\prime n_1}(X_4, \mathcal F)
+  \]
+  is obtained by precomposing the extension class of the short exact sequence of \ref{mk-lem:Scheme_HModule_prime_shortComplex_shortExact} with the canonical degree-zero map.
+\end{definition}
+
+\begin{proof}
+
+  The extension class lives in \(\Ext^1\) of the short exact sequence; precomposing with a map of degree zero and transporting through the additive structure yields the connecting homomorphism as a morphism of abelian groups.
+\end{proof}
+
+\begin{definition}[Mayer--Vietoris long exact sequence]\label{mk-def:Scheme_HModule_prime_sequence}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_toBiprod, mk-def:Scheme_HModule_prime_fromBiprod, mk-def:Scheme_HModule_prime_delta}
+
+  In the setting of \ref{mk-def:Scheme_HModule_prime_delta}, define the five-term Mayer--Vietoris sequence
+  \[
+    H^{\prime n_0}(X_4, \mathcal F) \xrightarrow{\;\toBiprod\;} H^{\prime n_0}(X_2, \mathcal F) \oplus H^{\prime n_0}(X_3, \mathcal F) \xrightarrow{\;\fromBiprod\;} H^{\prime n_0}(X_1, \mathcal F) \xrightarrow{\;\delta\;} H^{\prime n_1}(X_4, \mathcal F) \xrightarrow{\;\toBiprod\;} H^{\prime n_1}(X_2, \mathcal F) \oplus H^{\prime n_1}(X_3, \mathcal F).
+  \]
+\end{definition}
+
+\begin{proof}
+
+  The sources and targets of the five displayed morphisms match in succession, so they form the stated sequence of abelian groups.
+\end{proof}
+
+\subsection{Comparison with the \(\Ext\) contravariant sequence}
+
+The following four lemmas bridge the biproduct structure on the abelian-group side with the \(\Ext\) biproduct additivity, preparing the comparison isomorphism.
+
+\begin{lemma}[Elementwise formula for \(\toBiprod\)]\label{mk-lem:Scheme_HModule_prime_toBiprod_apply}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_toBiprod}
+
+  For \(y \in H^{\prime n}(X_4, \mathcal F)\),
+  \[
+    \toBiprod(y) \;=\; \bigl(\mathrm{restriction}_{X_4 \to X_2}(y),\; \mathrm{restriction}_{X_4 \to X_3}(y)\bigr).
+  \]
+\end{lemma}
+
+\begin{proof}
+
+  Follows from the definition of \(\toBiprod\) as a biproduct lift and the naturality of the biproduct isomorphism with the product.
+\end{proof}
+
+\begin{lemma}[Elementwise formula for \(\fromBiprod\)]\label{mk-lem:Scheme_HModule_prime_fromBiprod_biprodIsoProd_inv_apply}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_fromBiprod}
+
+  For \(y_2 \in H^{\prime n}(X_2, \mathcal F)\) and \(y_3 \in H^{\prime n}(X_3, \mathcal F)\),
+  \[
+    \fromBiprod(y_2, y_3) \;=\; \mathrm{restriction}_{X_2 \to X_1}(y_2) \;-\; \mathrm{restriction}_{X_3 \to X_1}(y_3).
+  \]
+\end{lemma}
+
+\begin{proof}
+
+  Follows from the definition of \(\fromBiprod\) as a biproduct desc and the concrete description of the biproduct isomorphism.
+\end{proof}
+
+\begin{lemma}[\(\Ext\) biproduct bridge for \(\toBiprod\)]\label{mk-lem:Scheme_HModule_prime_biprodAddEquiv_symm_biprodIsoProd_hom_toBiprod_apply}
+  \dcref{custom}
+
+  \uses{mk-lem:Scheme_HModule_prime_toBiprod_apply}
+
+  For \(x\in H^{\prime n}(X_4,\mathcal F)\), transport \(\toBiprod(x)\) from the abelian-group biproduct to the \(\Ext\) biproduct. The result is the Yoneda product of \(x\) with the degree-zero class induced by the second map \(g\) of \ref{mk-def:Scheme_HModule_prime_shortComplex}.
+\end{lemma}
+
+\begin{proof}
+
+  Under the \(\Ext\) biproduct isomorphism, the two components of the transported class are the pullbacks of \(x\) along the two components of \(g\). This is also the componentwise description of its Yoneda product with the degree-zero class of \(g\), so the classes agree.
+\end{proof}
+
+\begin{lemma}[\(\Ext\) biproduct bridge for \(\fromBiprod\)]\label{mk-lem:Scheme_HModule_prime_mk_zero_f_comp_biprodAddEquiv_symm_biprodIsoProd_hom}
+  \dcref{custom}
+
+  \uses{mk-lem:Scheme_HModule_prime_fromBiprod_biprodIsoProd_inv_apply, mk-def:Scheme_HModule_prime_shortComplex}
+
+  For a class \(x\) in the biproduct of the \(X_2\)- and \(X_3\)-cohomology groups, its Yoneda product with the degree-zero class induced by the first map \(f\) of \ref{mk-def:Scheme_HModule_prime_shortComplex} equals \(\fromBiprod(x)\).
+\end{lemma}
+
+\begin{proof}
+
+  Write \(x=(x_2,x_3)\) using the biproduct isomorphism. The degree-zero class of \(f\) has components given by the two restriction maps, with a minus sign on the second. Bilinearity of the Yoneda product therefore gives the difference of the restrictions of \(x_2\) and \(x_3\), which is \(\fromBiprod(x)\).
+\end{proof}
+
+\begin{definition}[Comparison isomorphism]\label{mk-def:Scheme_HModule_prime_sequenceIso}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_sequence, mk-lem:Scheme_HModule_prime_shortComplex_shortExact, mk-def:Scheme_HModule_prime_delta, mk-lem:Scheme_HModule_prime_toBiprod_apply, mk-lem:Scheme_HModule_prime_fromBiprod_biprodIsoProd_inv_apply, mk-lem:Scheme_HModule_prime_biprodAddEquiv_symm_biprodIsoProd_hom_toBiprod_apply, mk-lem:Scheme_HModule_prime_mk_zero_f_comp_biprodAddEquiv_symm_biprodIsoProd_hom}
+
+  The Mayer--Vietoris sequence of \ref{mk-def:Scheme_HModule_prime_sequence} is canonically isomorphic to the \(\Ext\) contravariant sequence applied to the short exact sequence of \ref{mk-lem:Scheme_HModule_prime_shortComplex_shortExact}.
+\end{definition}
+
+\begin{proof}
+
+  Use the identity on the non-biproduct terms and the canonical additive isomorphism between a biproduct of \(\Ext\) groups and \(\Ext\) from a biproduct on the other terms. The compatibility squares for the restriction maps are \ref{mk-lem:Scheme_HModule_prime_biprodAddEquiv_symm_biprodIsoProd_hom_toBiprod_apply} and \ref{mk-lem:Scheme_HModule_prime_mk_zero_f_comp_biprodAddEquiv_symm_biprodIsoProd_hom}; the middle square is the definition of the connecting homomorphism.
+\end{proof}
+
+\subsection{Exactness}
+
+\begin{theorem}[Mayer--Vietoris exactness]\label{mk-thm:Scheme_HModule_prime_sequence_exact}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_sequenceIso, mk-def:Scheme_HModule_prime_sequence}
+
+  The Mayer--Vietoris sequence of \ref{mk-def:Scheme_HModule_prime_sequence} is exact.
+\end{theorem}
+
+\begin{proof}
+
+  Transport exactness along the comparison isomorphism of \ref{mk-def:Scheme_HModule_prime_sequenceIso}. The \(\Ext\) contravariant sequence is exact by the general exactness theorem for \(\Ext\) applied to a short exact sequence.
+\end{proof}
+
+\begin{lemma}[Connecting homomorphism annihilates \(\toBiprod\)]\label{mk-lem:Scheme_HModule_prime_delta_toBiprod}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_HModule_prime_sequence_exact}
+
+  In the setting above,
+  \[
+    \delta \circ \toBiprod \;=\; 0.
+  \]
+\end{lemma}
+
+\begin{proof}
+
+  Immediate from exactness at the third term of the sequence.
+\end{proof}
+
+\begin{lemma}[\(\fromBiprod\) annihilates the connecting homomorphism]\label{mk-lem:Scheme_HModule_prime_fromBiprod_delta}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_HModule_prime_sequence_exact}
+
+  In the setting above,
+  \[
+    \fromBiprod \circ \delta \;=\; 0.
+  \]
+\end{lemma}
+
+\begin{proof}
+
+  Immediate from exactness at the second term of the sequence.
+\end{proof}
+
+\section{Two-affine open covers}
+\label{mk-sec:scheme_affineCoverMVSquare}
+
+Let \(X\) be a scheme equipped with two affine opens \(U_1,U_2\) that cover \(X\) and whose intersection is affine. These opens determine a Mayer--Vietoris square and hence a long exact sequence.
+
+\begin{definition}[Two-affine Mayer--Vietoris square]\label{mk-def:Scheme_AffineCoverMVSquare}
+  \dcref{custom}
+
+
+  Let \(X\) be a scheme. A two-affine Mayer--Vietoris square on \(X\) consists of two open subschemes \(U_1, U_2\) of \(X\) such that \(U_1\), \(U_2\), and \(U_1 \cap U_2\) are affine, together with the hypothesis \(U_1 \cup U_2 = X\).
+\end{definition}
+
+\begin{definition}[Underlying Mayer--Vietoris square]\label{mk-def:Scheme_AffineCoverMVSquare_toMayerVietorisSquare}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare}
+
+  Given a two-affine cover \(S\) of \(X\), the underlying abstract Mayer--Vietoris square has corners \(X_1 = U_1 \cap U_2\), \(X_2 = U_1\), \(X_3 = U_2\), \(X_4 = U_1 \cup U_2\).
+\end{definition}
+
+\begin{lemma}[Corner identification, \(X_1\)]\label{mk-lem:Scheme_AffineCoverMVSquare_X1}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_toMayerVietorisSquare}
+
+  \(S.\toMayerVietorisSquare.X_1 = S.U_1 \cap S.U_2\).
+\end{lemma}
+
+\begin{proof}
+
+
+The first corner of the underlying square is defined to be \(U_1\cap U_2\).
+\end{proof}
+
+\begin{lemma}[Corner identification, \(X_2\)]\label{mk-lem:Scheme_AffineCoverMVSquare_X2}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_toMayerVietorisSquare}
+
+  \(S.\toMayerVietorisSquare.X_2 = S.U_1\).
+\end{lemma}
+
+\begin{proof}
+
+
+The second corner of the underlying square is \(U_1\).
+\end{proof}
+
+\begin{lemma}[Corner identification, \(X_3\)]\label{mk-lem:Scheme_AffineCoverMVSquare_X3}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_toMayerVietorisSquare}
+
+  \(S.\toMayerVietorisSquare.X_3 = S.U_2\).
+\end{lemma}
+
+\begin{proof}
+
+
+The third corner of the underlying square is \(U_2\).
+\end{proof}
+
+\begin{lemma}[Cover-totality identification, \(X_4\)]\label{mk-lem:Scheme_AffineCoverMVSquare_X4}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_toMayerVietorisSquare, mk-def:Scheme_AffineCoverMVSquare}
+
+  \(S.\toMayerVietorisSquare.X_4 = \top\).
+\end{lemma}
+
+\begin{proof}
+
+
+The fourth corner equals \(U_1 \cup U_2\) by construction, and \(U_1 \cup U_2 = X = \top\) by the cover hypothesis.
+\end{proof}
+
+\begin{definition}[Mayer--Vietoris sequence on a two-affine cover]\label{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_sequence}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_toMayerVietorisSquare, mk-def:Scheme_HModule_prime_sequence}
+
+  Let \(S\) be a two-affine cover of \(X\) and \(\mathcal F\) a sheaf of \(k\)-modules. The five-term Mayer--Vietoris sequence on \(S\) is the specialisation of the abstract sequence to the underlying Mayer--Vietoris square of \(S\).
+\end{definition}
+
+\begin{theorem}[Exactness on a two-affine cover]\label{mk-thm:Scheme_AffineCoverMVSquare_HModule_prime_sequence_exact}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_sequence, mk-thm:Scheme_HModule_prime_sequence_exact}
+
+  The sequence of \ref{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_sequence} is exact.
+\end{theorem}
+
+\begin{proof}
+
+
+By \ref{mk-thm:Scheme_HModule_prime_sequence_exact} applied to the underlying Mayer--Vietoris square.
+\end{proof}
+
+\begin{definition}[Curve specialisation]\label{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_sequence_curve}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_sequence}
+
+  Let \(C\) be a scheme over \(\Spec k\) and \(S\) a two-affine cover of \(C\). The Mayer--Vietoris sequence on \(S\) for the structure sheaf \(\mathcal O_C\) is the specialisation of the sheaf-parameterised sequence at \(\mathcal F = \mathcal O_C\).
+\end{definition}
+
+\begin{theorem}[Exactness for the structure sheaf on a curve]\label{mk-thm:Scheme_AffineCoverMVSquare_HModule_prime_sequence_curve_exact}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_sequence_curve, mk-thm:Scheme_AffineCoverMVSquare_HModule_prime_sequence_exact}
+
+  The sequence of \ref{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_sequence_curve} is exact.
+\end{theorem}
+
+\begin{proof}
+
+
+By \ref{mk-thm:Scheme_AffineCoverMVSquare_HModule_prime_sequence_exact} applied to the structure sheaf.
+\end{proof}
+
+\subsection{Serre-finiteness consequence}
+
+For a proper geometrically integral curve \(C\) over \(k\), a two-affine cover with affine intersection always exists. Its Mayer--Vietoris sequence gives the following finiteness argument:
+\begin{enumerate}
+  \item The Mayer--Vietoris LES applied to \(S\) and \(\mathcal O_C\) relates \(H^0\) and \(H^1\) of \(C\), \(U_1\), \(U_2\), and \(U_1 \cap U_2\).
+  \item The cover hypothesis identifies the fourth corner with the whole curve.
+  \item Affineness of the pieces collapses \(H^{>0}\) on those pieces, reducing the LES to a three-term sequence.
+  \item Finiteness of each \(H^0\) piece then implies finiteness of \(H^1(C, \mathcal O_C)\).
+\end{enumerate}
+\section{Cohomology of the whole space}
+\label{mk-sec:cover_totality}
+
+At a terminal object \(T\), the sheafified free \(k\)-module on the representable presheaf is the constant sheaf at \(k\). Consequently, cohomology of the open \(T\) agrees with whole-space cohomology.
+
+\subsection{Source-object identification}
+
+\begin{definition}[Source-object isomorphism for a terminal object]\label{mk-def:Scheme_HModule_prime_top_sourceIso}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_ModuleCat_free_isLeftAdjoint}
+
+  Let \(T\) be a terminal object of the site. There is a natural isomorphism in the sheaf category between the sheafified representable at \(T\) (composed with the free-\(k\)-module functor) and the constant sheaf at the one-dimensional \(k\)-module.
+\end{definition}
+
+\begin{proof}
+
+
+Compose three isomorphisms: the terminal-collapse of Yoneda, the constancy isomorphism after whiskering with the free functor, and the identification of the free module on a singleton with \(k\) itself. Then apply sheafification.
+\end{proof}
+
+\subsection{\(\Ext\) transport}
+
+\begin{definition}[\(\Ext\) transport for whole-space cohomology]\label{mk-def:Scheme_HModule_top_linearEquiv}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_top_sourceIso, mk-def:Scheme_HModule}
+
+  Let \(T\) be a terminal object. There is a \(k\)-linear isomorphism
+  \[
+    \Ext^{n}\bigl(\text{sheafified representable at }T,\; \mathcal F\bigr) \;\cong\; H^{n}(X, \mathcal F).
+  \]
+\end{definition}
+
+\begin{proof}
+
+
+Pre- and post-compose with the degree-zero maps induced by the source-object isomorphism and its inverse. The round-trip equations collapse by associativity, composition of degree-zero maps, and the inverse laws of the isomorphism.
+\end{proof}
+
+\begin{definition}[\(\Ext\) transport for cohomology of an open]\label{mk-def:Scheme_HModule_prime_top_linearEquiv}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_top_sourceIso, mk-def:Scheme_HModule_prime}
+
+  Let \(T\) be a terminal object. There is a \(k\)-linear isomorphism
+  \[
+    H^{\prime n}(T, \mathcal F) \;\cong\; \Ext^{n}\bigl(\text{constant sheaf at }k,\; \mathcal F\bigr).
+  \]
+\end{definition}
+
+\begin{proof}
+
+
+Precomposition with the source-object isomorphism of \ref{mk-def:Scheme_HModule_prime_top_sourceIso} gives the displayed map on \(\Ext\); precomposition with its inverse gives the inverse map. Associativity of the Yoneda product and the inverse identities prove that the two composites are identities.
+\end{proof}
+
+\subsection{Change of universe and the full bridge}
+
+Changing the ambient universe does not change an \(\Ext\) group. The canonical change-of-universe equivalence respects both its additive structure and, in an \(R\)-linear category, its \(R\)-module structure.
+
+\begin{lemma}[Universe change is additive on \(\Ext\)]\label{mk-lem:Abelian_Ext_chgUniv_add}
+  \dcref{custom}
+
+  Let \(C\) be an abelian category for which \(\Ext\) exists at two universes \(w\) and \(w'\). For \(a, b \in \Ext^{n}(X, Y)\) computed at universe \(w\), the universe-change map satisfies
+  \[
+    \mathrm{chgUniv}(a + b) \;=\; \mathrm{chgUniv}(a) + \mathrm{chgUniv}(b).
+  \]
+\end{lemma}
+
+\begin{proof}
+
+Identify \(\Ext^n(X,Y)\) with the corresponding morphism group in the derived category. Under this identification, change of universe commutes with the canonical embedding of morphisms, which is additive. Hence it carries the sum of \(a\) and \(b\) to the sum of their images.
+\end{proof}
+
+\begin{lemma}[Universe change is \(R\)-linear on \(\Ext\)]\label{mk-lem:Abelian_Ext_chgUniv_smul}
+  \dcref{custom}
+
+  Let \(R\) be a ring and \(C\) an \(R\)-linear abelian category for which \(\Ext\) exists at two universes \(w\) and \(w'\). For \(r \in R\) and \(a \in \Ext^{n}(X, Y)\) computed at universe \(w\), the universe-change map satisfies
+  \[
+    \mathrm{chgUniv}(r \cdot a) \;=\; r \cdot \mathrm{chgUniv}(a).
+  \]
+\end{lemma}
+
+\begin{proof}
+
+Under the identification of \(\Ext\) with a derived-category morphism group, the \(R\)-action is the usual scalar action on morphisms. Change of universe commutes with this identification and with scalar multiplication, which gives the stated equality.
+\end{proof}
+
+\begin{definition}[Linear change of universe]\label{mk-def:Abelian_Ext_chgUnivLinearEquiv}
+  \dcref{custom}
+
+  \uses{mk-lem:Abelian_Ext_chgUniv_add, mk-lem:Abelian_Ext_chgUniv_smul}
+  Let \(R\) be a ring and \(C\) an \(R\)-linear abelian category. For any two universes at which \(\Ext\) exists, there is an \(R\)-linear isomorphism between the two \(\Ext\) groups, obtained by upgrading the universe-change bijection with its additivity and \(R\)-linearity.
+\end{definition}
+
+\begin{proof}
+
+The underlying bijection is the standard universe-change equivalence. Additivity and \(R\)-linearity follow from the fact that the universe change commutes with the homomorphism equivalence to the derived category, and the additive and \(R\)-linear structures are pulled back through that equivalence.
+\end{proof}
+
+\begin{definition}[Full cover-totality bridge]\label{mk-def:Scheme_HModule_prime_eq_HModule_linearEquiv}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_top_linearEquiv, mk-def:Abelian_Ext_chgUnivLinearEquiv, mk-def:Scheme_HModule_top_linearEquiv}
+
+  Let \(T\) be a terminal object. There is a \(k\)-linear isomorphism
+  \[
+    H^{\prime n}(T, \mathcal F) \;\cong\; H^{n}(X, \mathcal F).
+  \]
+\end{definition}
+
+\begin{proof}
+
+
+Compose the open-cohomology identification of \ref{mk-def:Scheme_HModule_prime_top_linearEquiv}, the change-of-universe linear isomorphism of \ref{mk-def:Abelian_Ext_chgUnivLinearEquiv}, and the whole-space identification of \ref{mk-def:Scheme_HModule_top_linearEquiv}.
+\end{proof}
+
+\subsection{Specialisation to the \(X_4\) corner of a two-affine cover}
+
+\begin{definition}[\(X_4\) corner bridge, abstract sheaf form]\label{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_X4_linearEquiv}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HModule_prime_eq_HModule_linearEquiv, mk-lem:Scheme_AffineCoverMVSquare_X4}
+
+  Let \(S\) be a two-affine cover of \(X\) and \(\mathcal F\) a sheaf of \(k\)-modules. There is a \(k\)-linear isomorphism
+  \[
+    H^{\prime n}(S.\toMayerVietorisSquare.X_4, \mathcal F) \;\cong\; H^{n}(X, \mathcal F).
+  \]
+\end{definition}
+
+\begin{proof}
+
+
+The fourth corner \(X_4\) equals the top open \(\top\), which is terminal; apply the full bridge.
+\end{proof}
+
+\begin{definition}[\(X_4\) corner bridge, curve form]\label{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_X4_linearEquiv_curve}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_X4_linearEquiv}
+
+  Let \(C\) be a scheme over \(\Spec k\) and \(S\) a two-affine cover of \(C\). There is a \(k\)-linear isomorphism
+  \[
+    H^{\prime n}(S.\toMayerVietorisSquare.X_4, \mathcal O_C) \;\cong\; H^{n}(C, \mathcal O_C).
+  \]
+\end{definition}
+
+\begin{proof}
+
+
+Specialize \ref{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_X4_linearEquiv} to the \(k\)-module-valued structure sheaf \(\mathcal O_C\).
+\end{proof}
+
+\subsection{Consequences for finite dimensionality}
+
+\begin{theorem}[Finite rank via the \(X_4\) corner, abstract sheaf form]\label{mk-thm:Scheme_AffineCoverMVSquare_finrank_HModule_eq_HModule_prime_X4}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_X4_linearEquiv}
+
+  Let \(S\) be a two-affine cover of \(X\) and \(\mathcal F\) a sheaf of \(k\)-modules. Then
+  \[
+    \dim_k H^{n}(X, \mathcal F) \;=\; \dim_k H^{\prime n}(S.\toMayerVietorisSquare.X_4, \mathcal F).
+  \]
+\end{theorem}
+
+\begin{proof}
+
+
+A linear isomorphism preserves finite rank.
+\end{proof}
+
+\begin{theorem}[Finite rank via the \(X_4\) corner, curve form]\label{mk-thm:Scheme_AffineCoverMVSquare_finrank_HModule_eq_HModule_prime_X4_curve}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_AffineCoverMVSquare_finrank_HModule_eq_HModule_prime_X4, mk-def:Scheme_AffineCoverMVSquare_HModule_prime_X4_linearEquiv_curve}
+
+  Let \(C\) be a scheme over \(\Spec k\) and \(S\) a two-affine cover of \(C\). Then
+  \[
+    \dim_k H^{n}(C, \mathcal O_C) \;=\; \dim_k H^{\prime n}(S.\toMayerVietorisSquare.X_4, \mathcal O_C).
+  \]
+\end{theorem}
+
+\begin{proof}
+
+
+Apply \ref{mk-thm:Scheme_AffineCoverMVSquare_finrank_HModule_eq_HModule_prime_X4} to \(\mathcal F=\mathcal O_C\).
+\end{proof}
+
+\begin{theorem}[Finite-dimensionality via the \(X_4\) corner, abstract sheaf form]\label{mk-thm:Scheme_AffineCoverMVSquare_module_finite_HModule_of_HModule_prime_X4}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_AffineCoverMVSquare_HModule_prime_X4_linearEquiv}
+
+  Let \(S\) be a two-affine cover of \(X\) and \(\mathcal F\) a sheaf of \(k\)-modules. If \(H^{\prime n}(S.\toMayerVietorisSquare.X_4, \mathcal F)\) is finite-dimensional over \(k\), then so is \(H^{n}(X, \mathcal F)\).
+\end{theorem}
+
+\begin{proof}
+
+
+A linear isomorphism transports the property of being a finite module.
+\end{proof}
+
+\begin{theorem}[Finite-dimensionality via the \(X_4\) corner, curve form]\label{mk-thm:Scheme_AffineCoverMVSquare_module_finite_HModule_of_HModule_prime_X4_curve}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_AffineCoverMVSquare_module_finite_HModule_of_HModule_prime_X4, mk-def:Scheme_AffineCoverMVSquare_HModule_prime_X4_linearEquiv_curve}
+
+  Let \(C\) be a scheme over \(\Spec k\) and \(S\) a two-affine cover of \(C\). If \(H^{\prime n}(S.\toMayerVietorisSquare.X_4, \mathcal O_C)\) is finite-dimensional over \(k\), then so is \(H^{n}(C, \mathcal O_C)\).
+\end{theorem}
+
+\begin{proof}
+
+
+Apply \ref{mk-thm:Scheme_AffineCoverMVSquare_module_finite_HModule_of_HModule_prime_X4} to \(\mathcal F=\mathcal O_C\).
+\end{proof}
+
+\section{\v{C}ech acyclicity and vanishing on affines}
+\label{mk-sec:cech_acyclicity}
+
+A \v{C}ech-acyclic cover whose \v{C}ech cohomology agrees with derived cohomology gives vanishing of \(H^{\prime n}(U,\mathcal F)\) in positive degrees. Applying this to covers of affine opens yields affine cohomology vanishing.
+
+\subsection{Top-supremum transport}
+
+When a cover \(\mathfrak U\) is Čech-acyclic and its supremum is the whole space, the vanishing of Čech cohomology transports to the vanishing of whole-space cohomology.
+
+\begin{theorem}[Top-supremum transport, abstract sheaf form]\label{mk-thm:Scheme_subsingleton_HModule_of_isCechAcyclicCover_top}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_subsingleton_HModule_prime_supr_of_isCechAcyclicCover, mk-def:Scheme_HModule_prime_eq_HModule_linearEquiv, mk-def:Scheme_IsCechAcyclicCover, mk-def:Scheme_HModule}
+
+  Let \(\mathfrak U\) be a Čech-acyclic cover with \(\bigsqcup_i \mathfrak U_i = \top\), and assume a comparison isomorphism between Čech and derived cohomology. For \(n \ge 1\), the type \(H^{n}(X, \mathcal F)\) is a subsingleton.
+\end{theorem}
+
+\begin{proof}
+
+
+Acyclicity and the comparison isomorphism make \(H^{\prime n}(\bigsqcup_i\mathfrak U_i,\mathcal F)\) zero. The cover hypothesis identifies its open with \(\top\), and \ref{mk-def:Scheme_HModule_prime_eq_HModule_linearEquiv} transports this vanishing to \(H^n(X,\mathcal F)\).
+\end{proof}
+
+\begin{theorem}[Top-supremum transport, curve form]\label{mk-thm:Scheme_subsingleton_HModule_of_isCechAcyclicCover_top_curve}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_subsingleton_HModule_of_isCechAcyclicCover_top, mk-thm:Scheme_subsingleton_HModule_prime_supr_of_isCechAcyclicCover_curve}
+
+  Let \(C\) be a scheme over \(\Spec k\) and \(\mathfrak U\) a \v{C}ech-acyclic cover for \(\mathcal O_C\) with \(\bigsqcup_i\mathfrak U_i=\top\). If \v{C}ech and derived cohomology of the cover supremum are \(k\)-linearly isomorphic in every degree, then \(H^n(C,\mathcal O_C)=0\) for every \(n\geq 1\).
+\end{theorem}
+
+\begin{proof}
+
+
+Apply \ref{mk-thm:Scheme_subsingleton_HModule_of_isCechAcyclicCover_top} to the \(k\)-module-valued structure sheaf.
+\end{proof}
+
+\subsection{Comparison data}
+
+A \v{C}ech-to-derived comparison consists of a linear isomorphism in every degree.
+
+\begin{definition}[\v{C}ech-to-derived comparison data]\label{mk-def:Scheme_HasCechToHModuleIso}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_cechCohomology, mk-def:Scheme_HModule_prime}
+
+  Let \(\mathfrak U\) be an indexed open cover. The property \(\HasCechToHModuleIso\) consists of a \(k\)-linear isomorphism between \v{C}ech cohomology and \(H'\) cohomology of the supremum in every degree.
+\end{definition}
+
+\begin{definition}[The comparison isomorphism]\label{mk-def:Scheme_cechToHModuleIso}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HasCechToHModuleIso}
+
+  Given \(\HasCechToHModuleIso\), denote its degree-\(n\) comparison isomorphism by \(\operatorname{comp}_n\).
+\end{definition}
+
+\begin{theorem}[Top-supremum transport from comparison data, abstract sheaf form]\label{mk-thm:Scheme_subsingleton_HModule_of_hasCechToHModuleIso_top}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_subsingleton_HModule_of_isCechAcyclicCover_top, mk-def:Scheme_cechToHModuleIso, mk-def:Scheme_HasCechToHModuleIso, mk-def:Scheme_IsCechAcyclicCover}
+
+  If \(\mathfrak U\) is \v{C}ech-acyclic for \(\mathcal F\), has \v{C}ech-to-derived comparison data, and satisfies \(\bigsqcup_i\mathfrak U_i=\top\), then \(H^n(X,\mathcal F)=0\) for \(n\geq1\).
+\end{theorem}
+
+\begin{proof}
+
+
+Apply \ref{mk-thm:Scheme_subsingleton_HModule_of_isCechAcyclicCover_top} using the comparison isomorphisms of \ref{mk-def:Scheme_cechToHModuleIso}.
+\end{proof}
+
+\begin{theorem}[Top-supremum transport from comparison data, curve form]\label{mk-thm:Scheme_subsingleton_HModule_of_hasCechToHModuleIso_top_curve}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_subsingleton_HModule_of_hasCechToHModuleIso_top, mk-thm:Scheme_subsingleton_HModule_of_isCechAcyclicCover_top_curve}
+
+  Let \(C\) be a scheme over \(\Spec k\) and \(\mathfrak U\) a \v{C}ech-acyclic cover for \(\mathcal O_C\) with comparison data and \(\bigsqcup_i\mathfrak U_i=\top\). Then \(H^n(C,\mathcal O_C)=0\) for \(n\geq1\).
+\end{theorem}
+
+\begin{proof}
+
+
+Apply \ref{mk-thm:Scheme_subsingleton_HModule_of_hasCechToHModuleIso_top} to the \(k\)-module-valued structure sheaf.
+\end{proof}
+
+\begin{theorem}[Supremum transport for \(H'\), abstract sheaf form]\label{mk-thm:Scheme_subsingleton_HModule_prime_supr_of_hasCechToHModuleIso}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_subsingleton_HModule_prime_supr_of_isCechAcyclicCover, mk-def:Scheme_cechToHModuleIso, mk-def:Scheme_HasCechToHModuleIso}
+
+  If \(\mathfrak U\) is \v{C}ech-acyclic for \(\mathcal F\) and has comparison data, then \(H^{\prime n}(\bigsqcup_i\mathfrak U_i,\mathcal F)=0\) for \(n\geq1\).
+\end{theorem}
+
+\begin{proof}
+
+
+Apply \ref{mk-thm:Scheme_subsingleton_HModule_prime_supr_of_isCechAcyclicCover} using the comparison isomorphisms of \ref{mk-def:Scheme_cechToHModuleIso}.
+\end{proof}
+
+\begin{theorem}[Supremum transport for \(H'\), curve form]\label{mk-thm:Scheme_subsingleton_HModule_prime_supr_of_hasCechToHModuleIso_curve}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_subsingleton_HModule_prime_supr_of_hasCechToHModuleIso, mk-thm:Scheme_subsingleton_HModule_prime_supr_of_isCechAcyclicCover_curve}
+
+  Let \(C\) be a scheme over \(\Spec k\) and \(\mathfrak U\) a \v{C}ech-acyclic cover for \(\mathcal O_C\) with comparison data. Then \(H^{\prime n}(\bigsqcup_i\mathfrak U_i,\mathcal O_C)=0\) for \(n\geq1\).
+\end{theorem}
+
+\begin{proof}
+
+
+Apply \ref{mk-thm:Scheme_subsingleton_HModule_prime_supr_of_hasCechToHModuleIso} to the \(k\)-module-valued structure sheaf.
+\end{proof}
+
+\begin{theorem}[Vanishing on the covered open, abstract sheaf form]\label{mk-thm:Scheme_subsingleton_HModule_prime_of_hasCechToHModuleIso}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_subsingleton_HModule_prime_supr_of_hasCechToHModuleIso}
+
+  If \(\mathfrak U\) is \v{C}ech-acyclic for \(\mathcal F\), has comparison data, and satisfies \(\bigsqcup_i\mathfrak U_i=U\), then \(H^{\prime n}(U,\mathcal F)=0\) for \(n\geq1\).
+\end{theorem}
+
+\begin{proof}
+
+
+Identify \(U\) with \(\bigsqcup_i\mathfrak U_i\) and apply \ref{mk-thm:Scheme_subsingleton_HModule_prime_supr_of_hasCechToHModuleIso}.
+\end{proof}
+
+\begin{theorem}[Vanishing on the covered open, curve form]\label{mk-thm:Scheme_subsingleton_HModule_prime_of_hasCechToHModuleIso_curve}
+  \dcref{custom}
+
+  \uses{mk-thm:Scheme_subsingleton_HModule_prime_of_hasCechToHModuleIso, mk-thm:Scheme_subsingleton_HModule_prime_supr_of_hasCechToHModuleIso_curve}
+
+  Let \(C\) be a scheme over \(\Spec k\), let \(U\subseteq C\) be open, and let \(\mathfrak U\) be a \v{C}ech-acyclic cover for \(\mathcal O_C\) with comparison data and \(\bigsqcup_i\mathfrak U_i=U\). Then \(H^{\prime n}(U,\mathcal O_C)=0\) for \(n\geq1\).
+\end{theorem}
+
+\begin{proof}
+
+
+Apply \ref{mk-thm:Scheme_subsingleton_HModule_prime_of_hasCechToHModuleIso} to the \(k\)-module-valued structure sheaf.
+\end{proof}
+
+\subsection{Acyclic covers of affine opens}
+
+Suppose every affine open admits a \v{C}ech-acyclic cover equipped with comparison data. Then positive-degree cohomology vanishes on every affine open.
+
+\begin{definition}[Acyclic covers of affine opens]\label{mk-def:Scheme_HasAffineCechAcyclicCover}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_IsCechAcyclicCover, mk-def:Scheme_HasCechToHModuleIso}
+
+  For every affine open \(U\), there exists an indexed cover \(\mathfrak U\) with \(\bigsqcup \mathfrak U_i = U\) that is Čech-acyclic and carries a comparison isomorphism.
+\end{definition}
+
+\begin{theorem}[Affine vanishing from acyclic covers]\label{mk-thm:Scheme_instIsAffineHModuleVanishing_of_hasAffineCechAcyclicCover}
+  \dcref{custom}
+
+  \uses{mk-def:Scheme_HasAffineCechAcyclicCover, mk-thm:Scheme_subsingleton_HModule_prime_of_hasCechToHModuleIso, mk-thm:Scheme_IsAffineHModuleVanishing}
+
+  If \(\HasAffineCechAcyclicCover\) holds, then \(\IsAffineHModuleVanishing\) holds.
+\end{theorem}
+
+\begin{proof}
+
+
+For an affine open \(U\), choose the cover supplied by \ref{mk-def:Scheme_HasAffineCechAcyclicCover}. Its acyclicity and comparison isomorphisms give \(H^{\prime n}(U,\mathcal F)=0\) for \(n\geq1\) by \ref{mk-thm:Scheme_subsingleton_HModule_prime_of_hasCechToHModuleIso}.
+\end{proof}
+
+\section{Finite-dimensionality consequence}
+\label{mk-sec:mv_use_in_project}
+
+Assume every affine open of \(C\) has a \v{C}ech-acyclic cover with \v{C}ech-to-derived comparison data. Then \ref{mk-thm:Scheme_instIsAffineHModuleVanishing_of_hasAffineCechAcyclicCover} gives positive-degree vanishing on affine opens. For a two-affine cover, the Mayer--Vietoris sequence therefore reduces in degrees zero and one to a short exact segment. If the relevant degree-zero terms are finite-dimensional, exactness implies that \(H^1(C,\mathcal O_C)\) is finite-dimensional over \(k\).

@@ -1,0 +1,32 @@
+\section{Genus of a smooth proper curve}
+\label{mk-chap:Genus}
+
+Throughout this chapter, \(k\) denotes a field and \(C\) a smooth proper geometrically irreducible curve over \(k\) of relative dimension \(1\). In other words, \(C \to \Spec k\) is a morphism of schemes carrying the geometric typeclasses that make it a curve in the modern sense.
+
+\section{Definition}
+\begin{definition}[Genus of a smooth proper curve]\label{mk-def:genus}
+  \dcref{custom}
+  \uses{mk-def:Scheme_HModule, mk-def:Scheme_toModuleKSheaf}
+
+
+  The \emph{genus} of a smooth proper curve \(C\) over \(k\) is the natural number
+  \[
+    g(C) \;=\; \dim_k H^1(C,\, \mathcal O_C),
+  \]
+  the \(k\)-dimension of the first sheaf-cohomology group of the structure sheaf of \(C\).
+\end{definition}
+
+\begin{proof}
+
+  The definition is realised by passing the structure sheaf through the sheaf-of-\(k\)-modules construction and applying the \(k\)-linear sheaf cohomology \(H^1\). The result is a \(k\)-vector space; its dimension is extracted via the standard finiteness rank.
+
+  Mathlib's \(\Module.\mathtt{finrank}\) returns the \(k\)-dimension when the underlying module is finite-dimensional and zero otherwise. For a smooth proper geometrically irreducible curve, Serre's theorem on coherent cohomology of a proper \(k\)-scheme guarantees \(\dim_k H^1(C, \struct C) < \infty\), so \(g(C)\) is the geometric genus on the relevant case. The closure is therefore the one-liner above, confirmed to typecheck against current Mathlib.
+\end{proof}
+
+Equivalent reformulations available once Riemann--Roch and Serre duality are formalised:
+\begin{itemize}
+  \item \(g(C) = \dim_k H^0(C,\, \Omega^1_{C/k})\) (Serre duality).
+  \item \(g(C) = 1 - \chi(\mathcal O_C)\), where \(\chi\) is the Euler characteristic.
+  \item For a smooth projective curve over \(\mathbb C\), \(g(C)\) equals the topological genus of \(C(\mathbb C)\).
+\end{itemize}
+Each of these requires Mathlib infrastructure that is currently absent. The first reformulation in particular requires the sheaf of relative differentials of schemes (Phase~B), and the others require Riemann--Roch / Serre duality / a topological-vs-algebraic geometry comparison.

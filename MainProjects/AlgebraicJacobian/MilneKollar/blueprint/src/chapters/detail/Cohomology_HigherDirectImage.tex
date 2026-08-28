@@ -1,0 +1,190 @@
+\section{Higher direct images of quasi-coherent sheaves in positive degree}
+\label{mk-chap:Cohomology_HigherDirectImage}
+
+\section{Definition of the higher direct images}
+
+\begin{definition}[Higher direct image]\label{mk-def:higher_direct_image}
+
+  \dcref{custom}
+  Let \(f : X \to S\) be a morphism of schemes and let \(\mathcal{F}\) be a
+  quasi-coherent \(\mathcal{O}_X\)-module. For \(i \geq 0\) the \emph{\(i\)-th
+  higher direct image} \(R^i f_*\mathcal{F}\) is the \(i\)-th right derived functor
+  of the pushforward functor \(f_*\) applied to \(\mathcal{F}\). Concretely,
+  \(R^i f_*\mathcal{F}\) is the \(\mathcal{O}_S\)-module obtained as the
+  sheafification of the presheaf
+  \[
+    V \;\longmapsto\; H^i\bigl(f^{-1}(V),\, \mathcal{F}|_{f^{-1}(V)}\bigr),
+    \qquad V \subset S \text{ open},
+  \]
+  where \(H^i(-, -)\) denotes sheaf cohomology. For \(i = 0\) this recovers the
+  ordinary pushforward \(R^0 f_*\mathcal{F} = f_*\mathcal{F}\).
+\end{definition}
+
+\section{Quasi-coherence of the higher direct images}
+
+\begin{lemma}[Quasi-coherence of higher direct images]
+  \label{mk-lem:higher_direct_image_quasi_coherent}
+  \uses{mk-def:higher_direct_image, mk-lem:higher_direct_image_affine_vanishing}
+  \dcref{custom}
+  Let \(f : X \to S\) be a quasi-compact and quasi-separated morphism of schemes.
+  Then for every quasi-coherent \(\mathcal{O}_X\)-module \(\mathcal{F}\) and every
+  \(p \geq 0\), the higher direct image \(R^p f_*\mathcal{F}\) is a quasi-coherent
+  \(\mathcal{O}_S\)-module.
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-def:higher_direct_image, mk-lem:higher_direct_image_affine_vanishing}
+  Quasi-coherence is local on \(S\), and forming higher direct images commutes
+  with restriction to open subschemes, so we may assume \(S\) is affine; then
+  \(X\) is quasi-compact and quasi-separated. We argue by the induction principle
+  for quasi-compact opens of a quasi-compact quasi-separated scheme: for a
+  quasi-compact open \(U \subset X\) with \(a = f|_U\), let \(P(U)\) be the
+  property that \(R^p a_*\mathcal{G}\) is quasi-coherent on \(S\) for every
+  quasi-coherent module \(\mathcal{G}\) on \(U\) and every \(p \geq 0\); the
+  desired statement is \(P(X)\).
+
+  \emph{Affine base.} If \(U\) is affine then \(a\) is an affine morphism, so
+  \(R^p a_*\mathcal{G} = 0\) for \(p \geq 1\) by the relative affine vanishing of
+  Lemma~\ref{mk-lem:higher_direct_image_affine_vanishing}, while
+  \(R^0 a_*\mathcal{G} = a_*\mathcal{G}\) is quasi-coherent because the pushforward
+  of a quasi-coherent sheaf along a quasi-compact quasi-separated morphism is
+  quasi-coherent. Hence \(P(U)\) holds.
+
+  \emph{Inductive step.} Let \(U \subset X\) be quasi-compact open, \(V \subset X\)
+  affine open, and suppose \(P(U)\), \(P(V)\), \(P(U \cap V)\) hold. Writing
+  \(a = f|_U\), \(b = f|_V\), \(c = f|_{U \cap V}\), \(h = f|_{U \cup V}\), the
+  relative Mayer--Vietoris sequence
+  \[
+    0 \to h_*\mathcal{G} \to a_*(\mathcal{G}|_U) \oplus b_*(\mathcal{G}|_V)
+      \to c_*(\mathcal{G}|_{U \cap V}) \to R^1 h_*\mathcal{G} \to \cdots
+  \]
+  exhibits each \(R^p h_*\mathcal{G}\) as an extension built from quasi-coherent
+  sheaves \(R^p a_*(\mathcal{G}|_U)\), \(R^p b_*(\mathcal{G}|_V)\),
+  \(R^p c_*(\mathcal{G}|_{U \cap V})\): it sits between the cokernel of a map of
+  quasi-coherent sheaves and the kernel of a map of quasi-coherent sheaves, hence
+  is quasi-coherent. Thus \(P(U \cup V)\) holds. By the induction principle
+  \(P(X)\) holds, proving the lemma.
+\end{proof}
+
+\section{Vanishing of higher direct images along an affine morphism}
+
+\begin{lemma}[Relative affine vanishing]
+  \label{mk-lem:higher_direct_image_affine_vanishing}
+  \uses{mk-def:higher_direct_image}
+  \dcref{custom}
+  Let \(f : X \to S\) be a morphism of schemes and \(\mathcal{F}\) a
+  quasi-coherent \(\mathcal{O}_X\)-module. If \(f\) is affine, then
+  \(R^i f_*\mathcal{F} = 0\) for all \(i \geq 1\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-def:higher_direct_image}
+  By Definition~\ref{mk-def:higher_direct_image}, \(R^i f_*\mathcal{F}\) is the
+  sheafification of the presheaf \(V \mapsto H^i(f^{-1}(V),
+  \mathcal{F}|_{f^{-1}(V)})\). Since \(f\) is affine, the preimage \(f^{-1}(V)\) of
+  any affine open \(V \subset S\) is affine. The higher cohomology of a
+  quasi-coherent sheaf on an affine scheme vanishes, so
+  \(H^i(f^{-1}(V), \mathcal{F}|_{f^{-1}(V)}) = 0\) for all \(i \geq 1\) and all
+  affine \(V\). As the affine opens form a basis of \(S\), the sheafification of a
+  presheaf that vanishes on a basis is zero; hence \(R^i f_*\mathcal{F} = 0\) for
+  all \(i \geq 1\).
+\end{proof}
+
+\section{Flat base change for the higher direct images}
+
+\begin{theorem}[Flat base change, $i \geq 1$ case]
+  \label{mk-thm:flat_base_change_higher}
+  \uses{mk-def:higher_direct_image, mk-lem:higher_direct_image_quasi_coherent,
+    mk-def:pushforward_base_change_map, mk-lem:cech_computes_cohomology,
+    mk-lem:cech_flat_base_change}
+  \dcref{custom}
+  Consider the cartesian square
+  \[
+    \begin{array}{ccc}
+      X' & \xrightarrow{\;g'\;} & X \\[2pt]
+      {\scriptstyle f'}\big\downarrow & & \big\downarrow{\scriptstyle f} \\[2pt]
+      S' & \xrightarrow{\;g\;} & S
+    \end{array}
+  \]
+  with \(\mathcal{F}\) a quasi-coherent \(\mathcal{O}_X\)-module and
+  \(\mathcal{F}' = (g')^*\mathcal{F}\). Assume that \(g\) is flat and that \(f\) is
+  quasi-compact and quasi-separated. Then for every \(i \geq 1\) the canonical
+  base-change map (the higher-degree analogue of the pushforward base-change map
+  of Definition~\ref{mk-def:pushforward_base_change_map}) is an isomorphism
+  \[
+    g^*\bigl(R^i f_*\mathcal{F}\bigr) \;\xrightarrow{\;\sim\;}\;
+    R^i f'_*\bigl((g')^*\mathcal{F}\bigr) = R^i f'_*\mathcal{F}' .
+  \]
+  Equivalently, in the affine situation \(S = \operatorname{Spec}(A)\),
+  \(S' = \operatorname{Spec}(B)\) with \(A \to B\) flat, the comparison map of
+  \(B\)-modules
+  \[
+    H^i(X, \mathcal{F}) \otimes_A B \;\xrightarrow{\;\sim\;}\;
+    H^i(X_B, \mathcal{F}_B)
+  \]
+  is an isomorphism, where \(X_B = X \times_{\operatorname{Spec}(A)}
+  \operatorname{Spec}(B)\) and \(\mathcal{F}_B\) is the pullback of
+  \(\mathcal{F}\).
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-def:higher_direct_image, mk-lem:higher_direct_image_quasi_coherent,
+    mk-def:pushforward_base_change_map}
+  \emph{Reduction to the affine target.} The assertion is local on \(S'\), so we
+  may assume \(S = \operatorname{Spec}(A)\) and \(S' = \operatorname{Spec}(B)\) with
+  \(A \to B\) flat. By quasi-coherence of the higher direct images
+  (Lemma~\ref{mk-lem:higher_direct_image_quasi_coherent}), \(R^i f_*\mathcal{F}\) is
+  the quasi-coherent \(\mathcal{O}_S\)-module associated to the \(A\)-module
+  \(H^0(S, R^i f_*\mathcal{F}) = H^i(X, \mathcal{F})\), and likewise
+  \(R^i f'_*\mathcal{F}'\) is associated to the \(B\)-module
+  \(H^i(X', \mathcal{F}')\). Since pullback along \(g\) corresponds to
+  \(- \otimes_A B\) on modules, the base-change map is identified with the
+  comparison map of \(B\)-modules
+  \[
+    H^i(X, \mathcal{F}) \otimes_A B \longrightarrow H^i(X_B, \mathcal{F}_B),
+    \qquad X_B = X \times_{\operatorname{Spec}(A)} \operatorname{Spec}(B),
+  \]
+  and it suffices to prove that this map is an isomorphism.
+
+  \medskip
+  \emph{The separated case via {\v C}ech complexes.} Suppose first that \(X\) is
+  separated over \(A\). Choose a finite affine open cover
+  \(\mathcal{U} : X = U_1 \cup \dots \cup U_t\); by separatedness every finite
+  intersection \(U_{i_0 \dots i_p}\) is again affine, so {\v C}ech cohomology
+  computes sheaf cohomology:
+  \(\check{H}^p(\mathcal{U}, \mathcal{F}) = H^p(X, \mathcal{F})\) for all \(p\).
+  Base changing the cover yields an affine open cover
+  \(\mathcal{U}_B : X_B = (U_1)_B \cup \dots \cup (U_t)_B\) of the again-separated
+  \(X_B\), with the same property
+  \(\check{H}^p(\mathcal{U}_B, \mathcal{F}_B) = H^p(X_B, \mathcal{F}_B)\). The
+  affine case identifies each term of the base-changed {\v C}ech complex with the
+  original term tensored over \(A\) with \(B\); that is, there is an isomorphism of
+  cochain complexes
+  \[
+    \check{\mathcal{C}}^\bullet(\mathcal{U}_B, \mathcal{F}_B) \;\cong\;
+    \check{\mathcal{C}}^\bullet(\mathcal{U}, \mathcal{F}) \otimes_A B .
+  \]
+  Because \(A \to B\) is flat, the functor \(- \otimes_A B\) is exact and hence
+  commutes with the formation of cohomology of a complex; taking \(H^i\) in any
+  degree \(i \geq 1\) gives the desired isomorphism
+  \(H^i(X, \mathcal{F}) \otimes_A B \cong H^i(X_B, \mathcal{F}_B)\).
+
+  \medskip
+  \emph{The quasi-separated case.} In general \(X\) need only be quasi-separated.
+  Choose a finite affine open cover \(\mathcal{U} : X = U_1 \cup \dots \cup U_t\).
+  Now the intersections \(U_{i_0 \dots i_p}\) are quasi-compact and separated rather
+  than affine, but they fall under the separated case already treated, so flat base
+  change holds for each of them. Comparing the two {\v C}ech-to-cohomology spectral
+  sequences with \(E_2\)-pages
+  \(\check{H}^p(\mathcal{U}, \underline{H}^q(\mathcal{F}))\) and
+  \(\check{H}^p(\mathcal{U}_B, \underline{H}^q(\mathcal{F}_B))\), converging to
+  \(H^{p+q}(X, \mathcal{F})\) and \(H^{p+q}(X_B, \mathcal{F}_B)\) respectively, the
+  separated case provides the term-by-term identification
+  \(\check{H}^p(\mathcal{U}_B, \underline{H}^q(\mathcal{F}_B)) =
+  \check{H}^p(\mathcal{U}, \underline{H}^q(\mathcal{F})) \otimes_A B\) on the
+  \(E_2\)-pages; flatness of \(A \to B\) propagates this isomorphism through the
+  spectral sequences to the abutment, giving
+  \(H^i(X, \mathcal{F}) \otimes_A B \cong H^i(X_B, \mathcal{F}_B)\) in every degree
+  \(i \geq 1\). Translating back to sheaves on \(S'\) yields the asserted
+  isomorphism \(g^*(R^i f_*\mathcal{F}) \xrightarrow{\sim} R^i f'_*\mathcal{F}'\).
+\end{proof}

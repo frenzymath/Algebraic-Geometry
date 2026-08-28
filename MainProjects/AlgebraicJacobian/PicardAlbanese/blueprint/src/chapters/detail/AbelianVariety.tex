@@ -1,0 +1,408 @@
+\section{The rigidity lemma}
+\label{pa-chap:AbelianVariety}
+
+Throughout this chapter \(K\) is a field; the main results assume it algebraically closed,
+and each statement records the hypothesis where it is needed. We work in the category of
+schemes over \(K\):
+its objects are schemes \(X\) equipped with a structure morphism \(t_X : X \to \Spec K\), its
+morphisms commute with the structure morphisms, \(\Spec K\) is a terminal object, and the
+categorical product of \(X\) and \(Y\) is the fibre product \(X \times_K Y\) with projections
+\(\mathrm{pr}_1\), \(\mathrm{pr}_2\). A \emph{point} of \(X\) is a morphism
+\(x : \Spec K \to X\) over \(K\), that is, a section of \(t_X\); for a point \(y\) of \(Y\) we
+write
+\[
+  \sigma_y \;=\; (\mathrm{id}_X,\, y \circ t_X) : X \longrightarrow X \times_K Y
+\]
+for the \emph{slice embedding} over \(y\), and symmetrically
+\(\tau_x = (x \circ t_Y, \mathrm{id}_Y) : Y \to X \times_K Y\) for a point \(x\) of \(X\).
+
+The subject is the \emph{rigidity lemma} of Mumford and Milne \cite{mumford-av,milne-av}: a morphism from a product
+\(X \times_K Y\), with \(X\) proper, that collapses one slice \(X \times \{y_0\}\) to a point
+factors through the second projection. Its engine application makes every pointed morphism
+from a proper geometrically integral monoid scheme to a group scheme a homomorphism. The
+chapter proves the lemma for schemes over an algebraically closed field, after three
+preparatory sections: slice bookkeeping valid in any category with finite products, a
+constancy theorem for morphisms out of schemes with only constant global functions, and the
+dictionary between closed points and \(K\)-points.
+
+\section{Slices in a category with finite products}
+
+In this section \(\mathcal C\) is any category with a terminal object \(1\) and binary
+products. For an object \(T\) write \(t_T : T \to 1\) for the unique morphism, and call a
+morphism \(1 \to Y\) a \emph{point} of \(Y\); the slice embedding \(\sigma_y : X \to X \times Y\)
+of a point \(y\) of \(Y\) is the morphism with components \(\mathrm{id}_X\) and
+\(y \circ t_X\).
+
+\begin{lemma}[Morphisms with constant second component factor through a slice]
+  \label{pa-lem:slice_factorisation}
+  \dcref{custom}
+
+  Let \(T\), \(X\), \(Y\) be objects of \(\mathcal C\), let \(y\) be a point of \(Y\), and
+  let \(p : T \to X \times Y\) be a morphism whose second component is constant with value
+  \(y\), i.e.\ \(\mathrm{pr}_2 \circ p = y \circ t_T\). Then
+  \[
+    p \;=\; \sigma_y \circ (\mathrm{pr}_1 \circ p).
+  \]
+\end{lemma}
+\begin{proof}
+  Two morphisms into the product \(X \times Y\) are equal as soon as their two components
+  are. The first component of the right-hand side is
+  \(\mathrm{pr}_1 \circ \sigma_y \circ (\mathrm{pr}_1 \circ p)
+    = \mathrm{id}_X \circ \mathrm{pr}_1 \circ p = \mathrm{pr}_1 \circ p\). Its second
+  component is
+  \(\mathrm{pr}_2 \circ \sigma_y \circ (\mathrm{pr}_1 \circ p)
+    = y \circ t_X \circ \mathrm{pr}_1 \circ p = y \circ t_T\), because
+  \(t_X \circ \mathrm{pr}_1 \circ p\) and \(t_T\) are both morphisms \(T \to 1\) and \(1\) is
+  terminal. By hypothesis these are the two components of \(p\).
+\end{proof}
+
+\begin{lemma}[Transfer of slice constancy]
+  \label{pa-lem:slice_constancy_transfer}
+  \dcref{custom}
+
+  In the situation of \ref{pa-lem:slice_factorisation}, let moreover \(f : X \times Y \to Z\) be
+  a morphism which is constant on the slice over \(y\), with value a point \(c\) of \(Z\):
+  \(f \circ \sigma_y = c \circ t_X\). Then
+  \[
+    f \circ p \;=\; c \circ t_T .
+  \]
+\end{lemma}
+\begin{proof}
+  \uses{pa-lem:slice_factorisation}
+  By \ref{pa-lem:slice_factorisation},
+  \(f \circ p = f \circ \sigma_y \circ (\mathrm{pr}_1 \circ p)
+    = c \circ t_X \circ \mathrm{pr}_1 \circ p = c \circ t_T\),
+  the last step again by uniqueness of morphisms into the terminal object.
+\end{proof}
+
+\section{Constancy of morphisms into affine opens}
+
+\begin{lemma}[Constancy]
+  \label{pa-lem:constant_into_affine}
+
+  \dcref{custom}
+  Let \(R\) be a commutative ring and \(s_V : V \to \Spec R\) a morphism of schemes inducing
+  an isomorphism \(\Gamma(\Spec R, \struct{\Spec R}) \to \Gamma(V, \struct V)\) on global
+  sections. Let \(q : V \to W\) be a morphism of schemes whose set-theoretic image is
+  contained in an affine open \(U \subseteq W\). Then \(q\) is \emph{constant}: there is a
+  morphism \(z : \Spec R \to W\) with \(q = z \circ s_V\).
+\end{lemma}
+\begin{proof}
+  Since the image of \(q\) lies in the open subscheme \(U\), the morphism \(q\) factors as
+  \(q = \iota \circ q'\) with \(q' : V \to U\) and \(\iota : U \hookrightarrow W\) the open
+  immersion. Write \(A = \Gamma(U, \struct U)\), so \(U \cong \Spec A\) as \(U\) is affine,
+  and recall the affine adjunction: for every scheme \(T\) there is a bijection
+  \(\Phi_T : \Hom_{\mathrm{Sch}}(T, U) \to \Hom_{\mathrm{Ring}}(A, \Gamma(T, \struct T))\),
+  natural in \(T\), sending a morphism to its action on global sections.
+
+  Let \(\varphi = \Phi_V(q') : A \to \Gamma(V, \struct V)\), let
+  \(\gamma : \Gamma(\Spec R, \struct{\Spec R}) \to \Gamma(V, \struct V)\) be the isomorphism
+  induced by \(s_V\), and set
+  \(z' = \Phi_{\Spec R}^{-1}(\gamma^{-1} \circ \varphi) : \Spec R \to U\). Naturality of
+  \(\Phi\) applied to \(s_V\) gives
+  \[
+    \Phi_V(z' \circ s_V) \;=\; \gamma \circ \Phi_{\Spec R}(z')
+      \;=\; \gamma \circ \gamma^{-1} \circ \varphi \;=\; \varphi \;=\; \Phi_V(q'),
+  \]
+  and since \(\Phi_V\) is a bijection, \(q' = z' \circ s_V\). Take \(z = \iota \circ z'\).
+\end{proof}
+
+\begin{lemma}[Constancy, relative form]
+  \label{pa-lem:constant_into_affine_over}
+  \dcref{custom}
+
+  Let \(R\) be a commutative ring and let \(V\), \(W\) be schemes over \(\Spec R\), with
+  structure morphisms \(v\), \(w\), such that \(v\) induces an isomorphism on global
+  sections. Let \(q : V \to W\) be a morphism over \(\Spec R\) whose set-theoretic image is
+  contained in an affine open \(U \subseteq W\). Then there is a \emph{point}
+  \(c : \Spec R \to W\) over \(\Spec R\) (a section of \(w\)) with \(q = c \circ v\).
+\end{lemma}
+\begin{proof}
+  \uses{pa-lem:constant_into_affine}
+  By \ref{pa-lem:constant_into_affine} there is \(z : \Spec R \to W\), a priori not over
+  \(\Spec R\), with \(q = z \circ v\). It remains to prove \(w \circ z = \mathrm{id}\).
+  Since \(q\) is a morphism over \(\Spec R\),
+  \[
+    (w \circ z) \circ v \;=\; w \circ q \;=\; v .
+  \]
+  Applying the (contravariant) global-sections functor \(\Gamma\),
+  \(\Gamma(v) \circ \Gamma(w \circ z) = \Gamma(v)\); as \(\Gamma(v)\) is an isomorphism, in
+  particular injective, \(\Gamma(w \circ z) = \mathrm{id}\). Finally, a morphism between
+  affine schemes is determined by its action on global sections (the affine adjunction of
+  \ref{pa-lem:constant_into_affine}), so \(w \circ z = \mathrm{id}_{\Spec R}\).
+\end{proof}
+
+\section{Points and products}
+\label{pa-sec:points_products}
+
+The first lemma of this section is where algebraic closure enters; the second holds over an
+arbitrary field.
+
+\begin{lemma}[Points are determined by their underlying points]
+  \label{pa-lem:point_ext}
+  \dcref{custom}
+
+  Let \(T\) be a scheme locally of finite type over the algebraically closed field \(K\), and
+  let \(p, q : \Spec K \to T\) be two points of \(T\) over \(K\). If \(p\) and \(q\) send the
+  unique point \(*\) of \(\Spec K\) to the same point of the topological space of \(T\), then
+  \(p = q\).
+\end{lemma}
+\begin{proof}
+  Let \(t = p(*) = q(*)\). A morphism \(\Spec K \to T\) with set-theoretic image \(\{t\}\) is
+  the same datum as a local ring homomorphism \(\struct{T,t} \to K\) out of the local ring of
+  \(T\) at \(t\), and the morphism lies over \(K\) exactly when this homomorphism is a
+  \(K\)-algebra map. A local homomorphism into a field kills the maximal ideal, hence factors
+  uniquely through the residue field \(\kappa(t)\); so each of \(p\), \(q\) is determined by
+  a \(K\)-algebra homomorphism \(r : \kappa(t) \to K\), where \(\kappa(t)\) is a field
+  extension of \(K\) via a canonical embedding \(\iota : K \to \kappa(t)\), and being a
+  \(K\)-algebra map says \(r \circ \iota = \mathrm{id}_K\).
+
+  Such an \(r\) is unique: it is injective, being a homomorphism of fields, and for any
+  \(x \in \kappa(t)\) we have \(r\bigl(\iota(r(x))\bigr) = r(x)\), whence
+  \(\iota(r(x)) = x\) by injectivity. Thus \(\iota\) is surjective, \(\kappa(t) = K\), and
+  \(r = \iota^{-1}\) is forced. Hence \(p\) and \(q\) induce the same homomorphism
+  \(\struct{T,t} \to K\) and the same image point, so \(p = q\).
+\end{proof}
+
+\begin{lemma}[Products of geometrically integral schemes are integral]
+  \label{pa-lem:product_integral}
+  \dcref{custom}
+
+  Let \(X\) and \(Y\) be schemes over a field \(k\), each geometrically integral and locally
+  of finite type over \(k\). Then the product \(X \times_k Y\) is an integral scheme.
+\end{lemma}
+\begin{proof}
+  Fix an algebraic closure \(\bar k\) of \(k\). Base change commutes with fibre products, so
+  \[
+    (X \times_k Y)_{\bar k} \;\cong\; X_{\bar k} \times_{\bar k} Y_{\bar k},
+  \]
+  and \(X_{\bar k}\), \(Y_{\bar k}\) are integral by geometric integrality. Over the
+  algebraically closed field \(\bar k\), the product of two integral schemes is integral: it
+  is covered by affine opens \(\Spec (A \otimes_{\bar k} B)\) with \(A\), \(B\) reduced
+  \(\bar k\)-algebras, and the tensor product over an algebraically closed field of two
+  reduced algebras is reduced; and it is irreducible, because over a separably closed field
+  every irreducible scheme is geometrically irreducible, and the product of an irreducible
+  scheme with a geometrically irreducible scheme is irreducible.
+
+  It remains to descend integrality along \(k \to \bar k\). The projection
+  \((X \times_k Y)_{\bar k} \to X \times_k Y\) is surjective (a base field extension of
+  schemes is surjective), and the continuous image of an irreducible space is irreducible;
+  so \(X \times_k Y\) is irreducible. On any affine open \(\Spec C \subseteq X \times_k Y\)
+  the base-changed sections are \(C \otimes_k \bar k\), and the canonical map
+  \(C \to C \otimes_k \bar k\) is injective because \(\bar k\) is a faithfully flat
+  \(k\)-module; a subring of a reduced ring is reduced, so \(X \times_k Y\) is reduced.
+  Reduced and irreducible is integral.
+\end{proof}
+
+\section{The rigidity lemma}
+
+\begin{theorem}[Rigidity]
+  \label{pa-thm:rigidity}
+
+  \uses{pa-lem:product_integral}
+  \dcref{custom}
+  Let \(K\) be an algebraically closed field and let \(X\), \(Y\), \(Z\) be schemes over
+  \(K\) such that
+  \begin{enumerate}
+    \item \(X\) is proper and geometrically integral over \(K\);
+    \item \(Y\) is locally of finite type over \(K\) and the product \(X \times_K Y\) is an
+      integral scheme (automatic when \(Y\) is also geometrically integral, by
+      \ref{pa-lem:product_integral});
+    \item \(Z\) is separated and locally of finite type over \(K\).
+  \end{enumerate}
+  Let \(f : X \times_K Y \to Z\) be a morphism over \(K\), let \(y_0\) be a point of \(Y\)
+  and \(z_0\) a point of \(Z\), and suppose \(f\) contracts the slice over \(y_0\) to
+  \(z_0\):
+  \[
+    f \circ \sigma_{y_0} \;=\; z_0 \circ t_X .
+  \]
+  Then there is a \emph{unique} morphism \(g : Y \to Z\) over \(K\) with
+  \(f = g \circ \mathrm{pr}_2\).
+\end{theorem}
+\begin{proof}
+  \uses{pa-lem:constant_into_affine_over, pa-lem:point_ext, pa-lem:slice_constancy_transfer,
+    pa-cor:sections_iso}
+  \emph{Step 0: closed points and \(K\)-points.} The schemes \(X\), \(Y\), \(Z\) and
+  \(X \times_K Y\) are all locally of finite type over \(K\) (\(X\) because properness
+  includes finite type; the product as a fibre product of such). The underlying space of a
+  scheme locally of finite type over a field is Jacobson, so every nonempty locally closed
+  subset contains a point that is closed in the ambient space. By the Nullstellensatz the
+  residue field at a closed point of such a scheme is a finite extension of \(K\), hence
+  equals \(K\) as \(K\) is algebraically closed; therefore every closed point underlies a
+  point over \(K\), unique by \ref{pa-lem:point_ext}, and conversely the underlying point of
+  any point over \(K\) is closed (its residue field is \(K\)). We use this dictionary
+  freely.
+
+  \emph{Step 1: uniqueness.} Since \(X\) is integral it is nonempty, so by Step 0 it has a
+  point \(x_0\) over \(K\). The slice \(\tau_{x_0} : Y \to X \times_K Y\) satisfies
+  \(\mathrm{pr}_2 \circ \tau_{x_0} = \mathrm{id}_Y\). Hence if \(f = g \circ \mathrm{pr}_2\)
+  then \(g = g \circ \mathrm{pr}_2 \circ \tau_{x_0} = f \circ \tau_{x_0}\) is determined by
+  \(f\). Define, accordingly,
+  \[
+    g \;=\; f \circ \tau_{x_0} : Y \longrightarrow Z .
+  \]
+
+  \emph{Step 2: the bad locus.} Let \(z \in Z\) be the underlying point of \(z_0\) and let
+  \(U \subseteq Z\) be an affine open neighbourhood of \(z\) (affine opens form a basis).
+  Set
+  \[
+    A \;=\; f^{-1}(Z \setminus U) \subseteq X \times_K Y,
+    \qquad
+    W \;=\; \mathrm{pr}_2(A) \subseteq Y .
+  \]
+  \(A\) is closed. The projection \(\mathrm{pr}_2 : X \times_K Y \to Y\) is universally
+  closed, being the base change along \(t_Y\) of the universally closed structure morphism
+  \(t_X\) (\(X\) is proper); in particular it is a closed map, so \(W\) is closed in \(Y\).
+
+  \emph{Step 3: slice constancy off the bad locus.} Let \(y\) be any point of \(Y\) over
+  \(K\) whose underlying point lies outside \(W\). The composite
+  \(f \circ \sigma_y : X \to Z\) has set-theoretic image inside \(U\): a point of the slice
+  mapping outside \(U\) would lie in \(A\), and its image under \(\mathrm{pr}_2\) — which is
+  the underlying point of \(y\), since \(\mathrm{pr}_2 \circ \sigma_y = y \circ t_X\) — would
+  lie in \(W\). The scheme \(X\) is proper and geometrically integral over \(K\), so its
+  structure morphism induces an isomorphism on global sections
+  (\ref{pa-cor:sections_iso}); by the relative constancy lemma
+  \ref{pa-lem:constant_into_affine_over} there is a point \(c\) of \(Z\) over \(K\) with
+  \[
+    f \circ \sigma_y \;=\; c \circ t_X .
+  \]
+
+  \emph{Step 4: the distinguished point avoids the bad locus.} Let \(y_0^*\) be the
+  underlying point of \(y_0\); we claim \(y_0^* \notin W\). Suppose otherwise. The point
+  \(y_0^*\) is closed in \(Y\) (Step 0), so
+  \(A \cap \mathrm{pr}_2^{-1}(\{y_0^*\})\) is a nonempty closed subset of \(X \times_K Y\)
+  and therefore contains a closed point \(p\), which underlies a point \(\hat p\) of
+  \(X \times_K Y\) over \(K\) (Step 0). The two points \(\mathrm{pr}_2 \circ \hat p\) and
+  \(y_0\) of \(Y\) have the same underlying point \(y_0^*\), so
+  \(\mathrm{pr}_2 \circ \hat p = y_0\) by \ref{pa-lem:point_ext}; thus the second component of
+  \(\hat p\) is constant with value \(y_0\), and the transfer lemma
+  \ref{pa-lem:slice_constancy_transfer}, applied with the contraction hypothesis
+  \(f \circ \sigma_{y_0} = z_0 \circ t_X\), gives \(f \circ \hat p = z_0\). Taking
+  underlying points, \(f(p) = z \in U\), contradicting \(p \in A = f^{-1}(Z \setminus U)\).
+
+  \emph{Step 5: a dense open of agreement.} Let
+  \(S = \mathrm{pr}_2^{-1}(Y \setminus W)\), an open subset of \(X \times_K Y\). It is
+  nonempty: the point \((x_0, y_0) := \sigma_{y_0} \circ x_0\) of \(X \times_K Y\) over
+  \(K\) has second projection with underlying point \(y_0^* \notin W\) (Step 4). Since
+  \(X \times_K Y\) is integral, its space is irreducible, and the nonempty open \(S\) is
+  dense.
+
+  \emph{Step 6: \(f\) and \(g \circ \mathrm{pr}_2\) agree on closed points of \(S\).} Let
+  \(p \in S\) be a closed point, with associated point \(\hat p\) over \(K\), and let
+  \(y^* = \mathrm{pr}_2(p)\). Then \(\{y^*\} = \mathrm{pr}_2(\{p\})\) is closed
+  (\(\mathrm{pr}_2\) is a closed map), so \(y^*\) underlies a point \(\hat y\) of \(Y\) over
+  \(K\), and \(y^* \notin W\) because \(p \in S\). Step 3 provides a point \(c\) of \(Z\)
+  with \(f \circ \sigma_{\hat y} = c \circ t_X\). The points \(\mathrm{pr}_2 \circ \hat p\)
+  and \(\hat y\) share the underlying point \(y^*\), so
+  \(\mathrm{pr}_2 \circ \hat p = \hat y\) by \ref{pa-lem:point_ext}, and the transfer lemma
+  \ref{pa-lem:slice_constancy_transfer} gives
+  \[
+    f \circ \hat p \;=\; c .
+  \]
+  On the other side, \((g \circ \mathrm{pr}_2) \circ \hat p = f \circ \tau_{x_0} \circ \hat y\),
+  and \(\tau_{x_0} \circ \hat y\) is a morphism \(\Spec K \to X \times_K Y\) whose second
+  component is \(\mathrm{pr}_2 \circ \tau_{x_0} \circ \hat y = \hat y\); the transfer lemma,
+  with the same slice constancy over \(\hat y\), gives
+  \(f \circ (\tau_{x_0} \circ \hat y) = c\) as well. Hence
+  \(f \circ \hat p = (g \circ \mathrm{pr}_2) \circ \hat p\) — the two composites are equal
+  as morphisms \(\Spec K \to Z\).
+
+  \emph{Step 7: conclusion.} Consider the morphism
+  \((f, g \circ \mathrm{pr}_2) : X \times_K Y \to Z \times_K Z\) and the diagonal
+  \(\Delta : Z \to Z \times_K Z\), a closed immersion because \(Z\) is separated over
+  \(K\). Let \(E \subseteq X \times_K Y\) be the preimage of \(\Delta\), i.e.\ the fibre
+  product of \((f, g \circ \mathrm{pr}_2)\) and \(\Delta\); it is a closed subscheme, and a
+  morphism \(T \to X \times_K Y\) factors through \(E\) exactly when its composites with
+  \(f\) and with \(g \circ \mathrm{pr}_2\) coincide. By Step 6 every closed point of \(S\)
+  lies in \(E\): its associated \(K\)-point factors through \(E\). In the Jacobson space
+  \(X \times_K Y\) the closed points of \(S\) are dense in \(S\) (every nonempty open subset
+  of \(S\) is locally closed in \(X \times_K Y\), hence contains a closed point), and \(S\)
+  is dense (Step 5); so the closed set underlying \(E\) is all of \(X \times_K Y\). A closed
+  subscheme of a reduced scheme whose underlying space is everything is the whole scheme:
+  its quasi-coherent ideal sheaf is contained in the nilradical, which vanishes, and
+  \(X \times_K Y\) is reduced because it is integral. Hence \(E = X \times_K Y\) and
+  \(f = g \circ \mathrm{pr}_2\).
+\end{proof}
+
+\section{Pointed morphisms of group schemes}
+
+A \emph{monoid scheme} over \(K\) is a monoid object in the category of schemes over \(K\):
+a scheme \(A\) over \(K\) together with a multiplication \(\mu_A : A \times_K A \to A\) and a
+unit point \(e_A : \Spec K \to A\) satisfying the associativity and two-sided unit laws; a
+\emph{group scheme} is a group object, i.e.\ a monoid object with an inversion morphism. For
+a scheme \(V\) and a group scheme \(B\), the set of morphisms \(V \to B\) over \(K\) is a
+group under the pointwise product \(u \cdot v = \mu_B \circ (u, v)\), with unit the constant
+morphism \(e_B \circ t_V\) and inverse given by postcomposition with the inversion of \(B\);
+precomposition with any morphism \(V' \to V\) is a group homomorphism of such groups. A
+morphism of monoid schemes \(g : A \to B\) is a \emph{homomorphism} if it preserves the unit,
+\(g \circ e_A = e_B\), and the multiplication,
+\(g \circ \mu_A = \mu_B \circ (g \times g)\).
+
+\begin{corollary}[Pointed morphisms are homomorphisms]
+  \label{pa-cor:pointed_hom}
+
+
+  \dcref{custom}
+  Let \(K\) be an algebraically closed field, let \(A\) be a monoid scheme over \(K\) which
+  is proper and geometrically integral over \(K\), and let \(B\) be a group scheme over
+  \(K\) which is separated and locally of finite type over \(K\). Then every morphism
+  \(g : A \to B\) over \(K\) with \(g \circ e_A = e_B\) is a homomorphism of monoid schemes.
+\end{corollary}
+\begin{proof}
+  \uses{pa-thm:rigidity, pa-lem:product_integral}
+  Form the \emph{defect} of \(g\), computed in the group of morphisms
+  \(A \times_K A \to B\):
+  \[
+    \varphi \;=\; \bigl(g \circ \mu_A\bigr) \cdot
+      \Bigl(\bigl(g \circ \mathrm{pr}_1\bigr) \cdot \bigl(g \circ \mathrm{pr}_2\bigr)\Bigr)^{-1}.
+  \]
+  It suffices to prove \(\varphi = 1\) (the constant morphism \(e_B \circ t_{A \times A}\)):
+  this says exactly \(g \circ \mu_A = (g \circ \mathrm{pr}_1) \cdot (g \circ \mathrm{pr}_2)
+  = \mu_B \circ (g \times g)\), and \(g\) preserves units by hypothesis.
+
+  \emph{The slice over \(e_A\) collapses.} Precomposition with the slice embedding
+  \(\sigma_{e_A} : A \to A \times_K A\) is a group homomorphism, so
+  \(\varphi \circ \sigma_{e_A} = (g \circ \mu_A \circ \sigma_{e_A}) \cdot
+  \bigl((g \circ \mathrm{pr}_1 \circ \sigma_{e_A}) \cdot
+  (g \circ \mathrm{pr}_2 \circ \sigma_{e_A})\bigr)^{-1}\). The right unit law of the monoid
+  \(A\) gives \(\mu_A \circ \sigma_{e_A} = \mathrm{id}_A\); moreover
+  \(\mathrm{pr}_1 \circ \sigma_{e_A} = \mathrm{id}_A\) and
+  \(\mathrm{pr}_2 \circ \sigma_{e_A} = e_A \circ t_A\), so, using
+  \(g \circ e_A = e_B\),
+  \[
+    \varphi \circ \sigma_{e_A}
+      \;=\; g \cdot \bigl(g \cdot (e_B \circ t_A)\bigr)^{-1}
+      \;=\; g \cdot g^{-1}
+      \;=\; 1
+      \;=\; e_B \circ t_A .
+  \]
+
+  \emph{Rigidity applies.} In Theorem~\ref{pa-thm:rigidity} take \(X = Y = A\), \(Z = B\),
+  \(f = \varphi\), \(y_0 = e_A\), \(z_0 = e_B\): the scheme \(A\) is proper (hence of finite
+  type) and geometrically integral over \(K\), so the product \(A \times_K A\) is integral by
+  \ref{pa-lem:product_integral}; and \(B\) is separated and locally of finite type. The
+  displayed identity is the contraction hypothesis, so there is a (unique) morphism
+  \(\psi : A \to B\) with \(\varphi = \psi \circ \mathrm{pr}_2\).
+
+  \emph{The other slice identifies the factor.} Precompose with
+  \(\tau_{e_A} = (e_A \circ t_A, \mathrm{id}_A) : A \to A \times_K A\). Since
+  \(\mathrm{pr}_2 \circ \tau_{e_A} = \mathrm{id}_A\), we get
+  \(\psi = \varphi \circ \tau_{e_A}\). Computing as before, with the left unit law
+  \(\mu_A \circ \tau_{e_A} = \mathrm{id}_A\), and
+  \(\mathrm{pr}_1 \circ \tau_{e_A} = e_A \circ t_A\),
+  \(\mathrm{pr}_2 \circ \tau_{e_A} = \mathrm{id}_A\):
+  \[
+    \psi \;=\; g \cdot \bigl((e_B \circ t_A) \cdot g\bigr)^{-1}
+        \;=\; g \cdot g^{-1} \;=\; 1 .
+  \]
+  Hence \(\varphi = 1 \circ \mathrm{pr}_2 = 1\), as required.
+\end{proof}
+
+When \(A\) is itself a group scheme, a homomorphism of monoid schemes between group schemes
+automatically commutes with the inversions, so Corollary~\ref{pa-cor:pointed_hom} says: a
+pointed morphism of group schemes from a proper geometrically integral group scheme to a
+separated, locally finite type group scheme over an algebraically closed field is a
+homomorphism of group schemes. The hypotheses are strictly weaker than in the classical
+statements of Mumford and Milne, which take both source and target to be abelian varieties:
+here the source needs no inversion and no smoothness, and the target no properness,
+connectedness or commutativity.

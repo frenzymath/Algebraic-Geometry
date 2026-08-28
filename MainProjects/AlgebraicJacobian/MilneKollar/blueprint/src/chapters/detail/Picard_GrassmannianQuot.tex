@@ -1,0 +1,1884 @@
+\section{The tautological quotient and the universal property of $\mathrm{Gr}(r,d)$}
+\label{mk-chap:Picard_GrassmannianQuot}
+
+\providecommand{\ShMod}{\mathrm{SheafOfModules}}
+
+The previous chapter constructed the Grassmannian scheme \(\mathrm{Gr}(r,d)\) over
+\(\mathbb{Z}\) by gluing the affine charts \(U^I\)
+(\ref{mk-def:gr_affine_chart}) along the transition isomorphisms
+(\ref{mk-def:gr_transition}) satisfying the cocycle condition
+(\ref{mk-lem:gr_cocycle}), and proved that the structure morphism
+\(\mathrm{Gr}(r,d) \to \Spec \mathbb{Z}\) is separated (\ref{mk-lem:gr_separated})
+and proper (\ref{mk-lem:gr_proper}). This chapter adds the next layer: the
+\emph{tautological rank-\(d\) quotient}
+\(u : \mathcal{O}_{\mathrm{Gr}(r,d)}^{\,r} \twoheadrightarrow \mathcal{U}\) of the
+trivial rank-\(r\) sheaf, and the \emph{universal property} that makes
+\(\mathrm{Gr}(r,d)\) the fine moduli space of rank-\(d\) locally free quotients of
+\(\mathcal{O}^{r}\) -- equivalently, the representing scheme of the Quot functor
+of the trivial sheaf.
+
+Throughout, \(r \ge d \ge 1\) are the fixed integers of the previous chapter, and
+for a size-\(d\) subset \(I \subseteq \{1,\dots,r\}\) we write \(R^I\) for the
+chart ring \(\mathbb{Z}[X^I]\) of \(U^I = \Spec R^I\) and \(R^I_J\) for the
+localisation along \(P^I_J = \det(X^I_J)\) defining the overlap
+\(U^I_J \subseteq U^I\).
+
+\section{Infrastructure: locally free sheaves and module gluing}
+\label{mk-sec:grquot_infra}
+
+The constructions of this chapter -- the universal quotient sheaf
+\(\mathcal{U}\), the tautological quotient \(u\), and the functor of points -- rest
+on two pieces of foundational machinery for sheaves of modules. The first is the
+predicate ``locally free of rank \(d\)'' (\ref{mk-def:is_locally_free_of_rank}),
+which records that a sheaf of modules is, on the members of some open cover,
+isomorphic to the trivial bundle \(\mathcal{O}^{d}\); it is the condition cut out
+in the definition of the Grassmannian functor. That predicate is the project-local
+\(\mathrm{SheafOfModules.IsLocallyFreeOfRank}\) already set up in the Quot-scheme
+chapter (\ref{mk-def:is_locally_free_of_rank}), which this chapter reuses verbatim;
+the only foundational machinery genuinely new to this chapter is the second piece:
+a gluing primitive that descends a sheaf of modules (and a morphism of such
+sheaves) from per-chart data along an open cover, given a transition cocycle
+compatible with the cover's own gluing; it is the vehicle that assembles the
+per-chart free sheaves \(\mathcal{O}^{d}_{U^I}\) and the per-chart quotients
+\(u^I\) into the global \(\mathcal{U}\) and \(u\), and is set up below.
+
+Stating the triple-overlap multiplicativity of the descent datum, however, first
+requires a small piece of base-change machinery for the pullback functor on sheaves
+of modules: the three transition isomorphisms attached to a triple of charts live a
+priori on three different overlaps, and to compare their composite they must be
+transported to a single common overlap. The next two blocks supply exactly this
+transport -- the pseudofunctorial comparison of iterated pullbacks
+(\ref{mk-def:modules_pullbackComp}) and its packaging along the triple-overlap data of a
+scheme glue datum (\ref{mk-lem:modules_pullback_basechange_transport}) -- after which the
+cocycle condition can be expressed cleanly.
+
+\begin{definition}[Comparison of iterated pullbacks of sheaves of modules]
+  \label{mk-def:modules_pullbackComp}
+  \dcref{custom}
+
+  Let \(a : X \to Y\) and \(b : Y \to Z\) be morphisms of schemes. For a sheaf of
+  \(\mathcal{O}_Z\)-modules \(\mathcal{M}\), pulling back first along \(b\) and then
+  along \(a\) agrees with pulling back along the composite \(b \circ a\): there is a
+  natural isomorphism of sheaves of \(\mathcal{O}_X\)-modules
+  \[
+    a^{*}\bigl(b^{*}\mathcal{M}\bigr)
+      \;\xrightarrow{\ \sim\ }\;
+    (b \circ a)^{*}\mathcal{M},
+  \]
+  natural in \(\mathcal{M}\), expressing that \(\mathcal{M} \mapsto \mathcal{M}\)'s
+  pullback is a pseudofunctor on schemes. These comparison isomorphisms satisfy the
+  pentagon (associativity) coherence for a triple of composable morphisms. This is the
+  pullback half of the pseudofunctoriality of sheaves of modules and is supplied by
+  Mathlib.
+\end{definition}
+
+\begin{lemma}[Base-change transport of a transition isomorphism to a triple overlap]\label{mk-lem:modules_pullback_basechange_transport}
+  \dcref{custom}
+
+  \uses{mk-def:modules_pullbackComp, mk-def:gr_the_glue_data}
+  Let \(D\) be a glue datum of schemes (\ref{mk-def:gr_the_glue_data}) with charts
+  \(U_i\), overlaps \(V_{ij}\), overlap immersions \(f_{ij} : V_{ij} \hookrightarrow
+  U_i\), transitions \(t_{ij} : V_{ij} \xrightarrow{\sim} V_{ji}\), and triple-overlap
+  data \(t'_{ijk}\) with its compatibility identity \(t_{\mathrm{fac}}\). For an index
+  triple \((i,j,k)\) write
+  \[
+    V_{ijk} \;=\; V_{ij} \times_{U_i} V_{ik}
+  \]
+  for the common triple overlap, with the two projections
+  \(p^{ij}_{ijk} : V_{ijk} \to V_{ij}\) and \(p^{ik}_{ijk} : V_{ijk} \to V_{ik}\), and
+  let \(t'_{ijk} : V_{ijk} \xrightarrow{\sim} V_{jki}\) be the glue datum's triple
+  transition, satisfying
+  \[
+    t'_{ijk} \,\circ\, p^{jk}_{jki} \;=\; p^{ij}_{ijk} \,\circ\, t_{ij}
+    \qquad (t_{\mathrm{fac}}).
+  \]
+  Given per-chart sheaves of modules \(\mathcal{M}_i\) and a transition isomorphism
+  \[
+    g_{ij} \;:\; f_{ij}^{*}\,\mathcal{M}_i
+      \;\xrightarrow{\ \sim\ }\;
+    (t_{ij} \circ f_{ji})^{*}\,\mathcal{M}_j
+  \]
+  on the overlap \(V_{ij}\) (as in \ref{mk-def:scheme_modules_glue}), the
+  \emph{base-change transport} of \(g_{ij}\) to the triple overlap \(V_{ijk}\) is the
+  isomorphism of sheaves of \(\mathcal{O}_{V_{ijk}}\)-modules
+  \[
+    \widehat{g}_{ij}^{\,k}
+      \;:\;
+    (f_{ij} \circ p^{ij}_{ijk})^{*}\,\mathcal{M}_i
+      \;\xrightarrow{\ \sim\ }\;
+    (t_{ij} \circ f_{ji} \circ p^{ij}_{ijk})^{*}\,\mathcal{M}_j
+  \]
+  obtained by pulling \(g_{ij}\) back along \(p^{ij}_{ijk}\) and reassociating the
+  iterated pullbacks via \ref{mk-def:modules_pullbackComp}. With the analogous transports
+  \(\widehat{g}_{jk}^{\,i}\) and \(\widehat{g}_{ik}^{\,j}\) (the first taken along
+  \(t'_{ijk}\), so that \(t_{\mathrm{fac}}\) identifies its source and target sheaves
+  with those of \(\widehat{g}_{ij}^{\,k}\) and \(\widehat{g}_{ik}^{\,j}\)), all three
+  transported isomorphisms become endomorphism-composable: \(\widehat{g}_{ij}^{\,k}\)
+  and \(\widehat{g}_{jk}^{\,i}\) land on a common sheaf, and their composite is
+  comparable to \(\widehat{g}_{ik}^{\,j}\) on \(V_{ijk}\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-def:modules_pullbackComp, mk-def:gr_the_glue_data}
+  The pullback functor on sheaves of modules is a pseudofunctor: for composable
+  scheme morphisms it carries the comparison isomorphisms of
+  \ref{mk-def:modules_pullbackComp}, natural in the sheaf and coherent for triple
+  composites. Pulling the transition isomorphism \(g_{ij}\) back along the projection
+  \(p^{ij}_{ijk} : V_{ijk} \to V_{ij}\) yields an isomorphism between
+  \((p^{ij}_{ijk})^{*} f_{ij}^{*}\mathcal{M}_i\) and \((p^{ij}_{ijk})^{*}(t_{ij} \circ
+  f_{ji})^{*}\mathcal{M}_j\); applying \ref{mk-def:modules_pullbackComp} to each side
+  reassociates these into the single-pullback form
+  \((f_{ij} \circ p^{ij}_{ijk})^{*}\mathcal{M}_i\) and
+  \((t_{ij} \circ f_{ji} \circ p^{ij}_{ijk})^{*}\mathcal{M}_j\), giving
+  \(\widehat{g}_{ij}^{\,k}\). For the \((j,k)\)-transition the same construction is
+  applied along the triple transition \(t'_{ijk}\) rather than a bare projection; the
+  glue datum's compatibility identity \(t_{\mathrm{fac}}\),
+  \(t'_{ijk} \circ p^{jk}_{jki} = p^{ij}_{ijk} \circ t_{ij}\), guarantees that the
+  source of \(\widehat{g}_{jk}^{\,i}\) coincides with the target of
+  \(\widehat{g}_{ij}^{\,k}\) (both are the pullback of \(\mathcal{M}_j\) along the same
+  morphism \(V_{ijk} \to U_j\)), so the two are composable as endomorphism-style
+  isomorphisms over \(V_{ijk}\). The reassociations introduced by
+  \ref{mk-def:modules_pullbackComp} are coherent (they satisfy the pentagon identity), so
+  the composite \(\widehat{g}_{jk}^{\,i} \circ \widehat{g}_{ij}^{\,k}\) and the third
+  transport \(\widehat{g}_{ik}^{\,j}\) are isomorphisms between the same pair of
+  sheaves on \(V_{ijk}\), and may be compared directly. This is the module-level
+  analogue of the scheme-level triangle \(t'_{ijk}\)/\(t_{\mathrm{fac}}\) and is the
+  shape in which the multiplicative cocycle condition is stated below.
+\end{proof}
+
+\begin{definition}[Gluing a sheaf of modules along an open cover]\label{mk-def:scheme_modules_glue}
+  \dcref{custom}
+
+  \uses{mk-def:gr_the_glue_data, mk-def:modules_pullbackComp,
+    mk-lem:modules_pullback_basechange_transport, mk-lem:gr_glueData_bridges}
+  Let \(D\) be a glue datum of schemes (\ref{mk-def:gr_the_glue_data}), with index set \(J\), charts \(U_i\),
+  pairwise overlaps \(V_{ij}\), open immersions
+  \(f_{ij} : V_{ij} \hookrightarrow U_i\), and transition isomorphisms
+  \(t_{ij} : V_{ij} \xrightarrow{\sim} V_{ji}\) satisfying the glue datum's
+  cocycle conditions; write \(X\) for the glued scheme and
+  \(\iota_i : U_i \hookrightarrow X\) for the canonical open immersions of the
+  charts. Suppose given:
+  \begin{itemize}
+    \item for each \(i \in J\), a sheaf of \(\mathcal{O}_{U_i}\)-modules \(\mathcal{M}_i\) on the chart \(U_i\);
+    \item for each pair \((i,j)\), a \emph{transition isomorphism} of sheaves of
+      modules on the overlap \(V_{ij}\),
+      \[
+        g_{ij} \;:\; f_{ij}^{*}\,\mathcal{M}_i
+          \;\xrightarrow{\ \sim\ }\;
+        (t_{ij} \circ f_{ji})^{*}\,\mathcal{M}_j,
+      \]
+      comparing the two charts' sheaves after restriction (pullback) to the
+      common overlap \(V_{ij}\);
+  \end{itemize}
+  \emph{subject to the following module cocycle conditions}, compatible with the
+  scheme-level cocycle of \(D\) (its triple transition data \(t_{ij}\) and the
+  overlap immersions \(f_{ij}\)), which are required as hypotheses on the family
+  \((g_{ij})\):
+  \begin{enumerate}
+    \item[(C1)] \emph{self-identity:} the self-transition is the identity,
+      \(g_{ii} = \mathrm{id}\) on \(f_{ii}^{*}\mathcal{M}_i\) (with
+      \(V_{ii}\) and \(t_{ii}\) the diagonal data of \(D\));
+    \item[(C2)] \emph{triple-overlap multiplicativity:} over each common triple
+      overlap \(V_{ijk} = V_{ij} \times_{U_i} V_{ik}\) the base-change transports
+      (\ref{mk-lem:modules_pullback_basechange_transport}) of the three transition
+      isomorphisms satisfy
+      \[
+        \widehat{g}_{jk}^{\,i} \circ \widehat{g}_{ij}^{\,k}
+          \;=\; \widehat{g}_{ik}^{\,j},
+      \]
+      where \(\widehat{g}_{ij}^{\,k}\), \(\widehat{g}_{jk}^{\,i}\),
+      \(\widehat{g}_{ik}^{\,j}\) are the transports of \(g_{ij}\), \(g_{jk}\),
+      \(g_{ik}\) to \(V_{ijk}\) through the scheme-level triple transition
+      \(t'_{ijk}\) and its compatibility \(t_{\mathrm{fac}}\), reassociated by the
+      pullback comparison \ref{mk-def:modules_pullbackComp} so that all three land on
+      the same sheaf -- the multiplicative, \(\mathrm{GL}_d\)-valued cocycle
+      condition.
+  \end{enumerate}
+  Conditions (C1) and (C2) are exactly the descent datum for the Zariski cover
+  \(\{\iota_i\}\); it is subject to them that the gluing is well-defined. Out of this
+  data the construction produces a glued sheaf of \(\mathcal{O}_X\)-modules
+  \(\mathcal{M}\) on the glued scheme \(X\).
+
+  \emph{Construction.} The category \(\ShMod(\mathcal{O}_X)\) of sheaves of
+  \(\mathcal{O}_X\)-modules has all limits, and both pushforward along a morphism and
+  these limits preserve the sheaf condition; the glued sheaf \(\mathcal{M}\) is therefore
+  built directly as a limit -- an \emph{equalizer of pushforwards} -- rather than through a
+  hand-built presheaf of compatible families. Concretely, form the two parallel maps of
+  sheaves of \(\mathcal{O}_X\)-modules
+  \[
+    \prod_{i} (\iota_i)_{*}\,\mathcal{M}_i
+      \;\;\underset{b}{\overset{a}{\rightrightarrows}}\;\;
+    \prod_{i,j} (\iota_i \circ f_{ij})_{*}\,\bigl(f_{ij}^{*}\mathcal{M}_i\bigr),
+  \]
+  where, on the \((i,j)\)-component, leg \(a\) pushes the \(i\)-th factor forward along the
+  overlap immersion \(f_{ij}\) using the unit of the pullback--pushforward adjunction
+  together with the pushforward-composition comparison
+  \((\iota_i)_{*} \cong (\iota_i \circ f_{ij})_{*}\circ f_{ij}^{*}\) (the dual of
+  \ref{mk-def:modules_pullbackComp}), and leg \(b\) pushes the \(j\)-th factor forward and
+  additionally transports it across the inverse transition isomorphism \((g_{ij})^{-1}\)
+  and the glue datum's compatibility identity, so that both legs land on the common overlap
+  sheaf \((\iota_i \circ f_{ij})_{*}(f_{ij}^{*}\mathcal{M}_i)\). The glued sheaf is the
+  equalizer
+  \[
+    \mathcal{M} \;=\; \operatorname{eq}(a,b) \;\hookrightarrow\; \prod_{i} (\iota_i)_{*}\,\mathcal{M}_i,
+  \]
+  the sub-sheaf of tuples of pushed-forward chart sections whose two overlap restrictions
+  agree -- precisely the compatible families, now realised as a categorical limit rather than
+  a bespoke presheaf. The cocycle conditions (C1)/(C2) on the family \((g_{ij})\) are
+  \emph{not} consumed in forming this equalizer object: the limit exists for any family of
+  transition maps. They are instead what make the equalizer descend correctly, and are
+  exactly the hypotheses pinned down downstream when the restriction isomorphisms
+  \ref{mk-def:gr_modules_glueRestrictionIso} are produced. This specialises effective descent
+  of sheaves of modules to the concrete open cover \(\{\iota_i : U_i \hookrightarrow X\}\)
+  supplied by a scheme glue datum, and is the form in which the Grassmannian's
+  tautological bundle and quotient are built.
+
+  The glued sheaf comes with three further structures, each recorded as its own block
+  downstream: the \emph{restriction isomorphisms} \(\rho_i : \iota_i^{*}\mathcal{M}
+  \xrightarrow{\sim} \mathcal{M}_i\) compatible with the \(g_{ij}\) over the overlaps
+  \ref{mk-def:gr_modules_glueRestrictionIso}; the \emph{characterisation up to unique
+  isomorphism} by the restriction property \ref{mk-lem:gr_modules_glue_unique}; and the
+  \emph{descent of morphisms} -- a family \(\phi_i : \mathcal{M}_i \to \mathcal{N}_i\)
+  commuting with the transition isomorphisms glues to a unique \(\phi : \mathcal{M} \to
+  \mathcal{N}\) with \(\rho_i^{\mathcal{N}} \circ \iota_i^{*}\phi = \phi_i \circ
+  \rho_i^{\mathcal{M}}\) \ref{mk-def:gr_modules_glueHom}.
+\end{definition}
+
+\begin{definition}[Restriction isomorphisms of the glued sheaf]
+  \label{mk-def:gr_modules_glueRestrictionIso}
+  \dcref{custom}
+  \uses{mk-def:glueRestrictionIso, mk-def:scheme_modules_glue, mk-lem:over_restrict_pullback_iso,
+    mk-lem:modules_pullback_basechange_transport, mk-lem:gr_glueData_bridges}
+  Let \(\mathcal{M}\) be the glued sheaf of \ref{mk-def:scheme_modules_glue}. For each
+  chart index \(i\) there is a \emph{restriction isomorphism} of sheaves of
+  \(\mathcal{O}_{U_i}\)-modules
+  \[
+    \rho_i \;:\; \iota_i^{*}\,\mathcal{M} \;\xrightarrow{\ \sim\ }\; \mathcal{M}_i,
+  \]
+  compatible with the transition isomorphisms: over each overlap \(V_{ij}\) the two
+  restrictions \(\rho_i\) and \(\rho_j\), transported to the common overlap, differ
+  exactly by \(g_{ij}\).
+\end{definition}
+\begin{proof}
+  \uses{mk-def:scheme_modules_glue, mk-lem:over_restrict_pullback_iso,
+    mk-lem:modules_pullback_basechange_transport, mk-lem:gr_glueData_bridges}
+  By the equalizer-of-pushforwards description \ref{mk-def:scheme_modules_glue}, a section of
+  \(\mathcal{M}\) over an open of the form \(\iota_i^{-1}V\), restricted to the chart
+  \(U_i\), is recovered from and recovers its \(i\)-th component
+  \(s_i \in \Gamma(\mathcal{M}_i, \cdot)\) -- the \(i\)-th factor of the product
+  \(\prod_i (\iota_i)_{*}\mathcal{M}_i\) into which the equalizer embeds; the
+  chart-restriction bridge \ref{mk-lem:over_restrict_pullback_iso} identifies the pullback
+  \(\iota_i^{*}\mathcal{M}\) with this restriction, and the \(i\)-th projection
+  \((s_\bullet) \mapsto s_i\) is the isomorphism \(\rho_i\) (with inverse extending a chart
+  section by the overlap relation).
+  The overlap compatibility is the defining relation of the compatible families: over
+  \(V_{ij}\) the components \(s_i, s_j\) are related by \(g_{ij}\), which is precisely the
+  statement that \(\rho_i\) and \(\rho_j\) differ by \(g_{ij}\) after transport to
+  \(V_{ij}\); the triple-overlap coherence needed for this to be consistent is (C2),
+  whose transports are aligned by \ref{mk-lem:modules_pullback_basechange_transport} and
+  \ref{mk-lem:gr_glueData_bridges}.
+\end{proof}
+
+
+\begin{definition}[Descent of morphisms along the cover]
+  \label{mk-def:gr_modules_glueHom}
+  \dcref{custom}
+
+  \uses{mk-def:scheme_modules_glue, mk-def:gr_modules_glueRestrictionIso,
+    mk-lem:sheaf_existsUnique_gluing_mathlib}
+  Let \((\mathcal{M}_i, g_{ij})\) and \((\mathcal{N}_i, h_{ij})\) be two glued data
+  over the same glue datum \(D\), with glued sheaves \(\mathcal{M}, \mathcal{N}\) and
+  restriction isomorphisms \(\rho^{\mathcal{M}}_i, \rho^{\mathcal{N}}_i\). Given a family
+  of \(\mathcal{O}_{U_i}\)-linear morphisms \(\phi_i : \mathcal{M}_i \to \mathcal{N}_i\)
+  commuting with the transition isomorphisms on every overlap (i.e.\ \(h_{ij}\) intertwines
+  the pullbacks of \(\phi_i\) and \(\phi_j\) over \(V_{ij}\)), there is a unique morphism
+  of sheaves of \(\mathcal{O}_X\)-modules \(\phi : \mathcal{M} \to \mathcal{N}\) with
+  \[
+    \rho^{\mathcal{N}}_i \circ \iota_i^{*}\phi \;=\; \phi_i \circ \rho^{\mathcal{M}}_i
+    \qquad \text{for every } i.
+  \]
+\end{definition}
+\begin{proof}
+  \uses{mk-def:gr_modules_glueRestrictionIso, mk-lem:sheaf_existsUnique_gluing_mathlib}
+  On each chart the prescribed identity defines a local morphism
+  \((\rho^{\mathcal{N}}_i)^{-1} \circ \phi_i \circ \rho^{\mathcal{M}}_i :
+  \iota_i^{*}\mathcal{M} \to \iota_i^{*}\mathcal{N}\). The commutation of the \(\phi_i\)
+  with the transition isomorphisms \((g_{ij}, h_{ij})\), together with the overlap
+  compatibility of the \(\rho\)-families (\ref{mk-def:gr_modules_glueRestrictionIso}), makes
+  these local morphisms agree on every overlap \(V_{ij}\). By the locality and gluing of
+  sections (\ref{mk-lem:sheaf_existsUnique_gluing_mathlib}) applied to the internal hom they
+  promote to a unique global morphism \(\phi : \mathcal{M} \to \mathcal{N}\) restricting
+  to each \(\phi_i\) through the \(\rho_i\) -- the descent of \(\mathrm{Hom}\) along the
+  cover.
+\end{proof}
+
+\subsection{Pullback of free sheaves along an arbitrary morphism}
+\label{mk-sec:grquot_pullback_free}
+
+The functor of points (\ref{mk-def:grassmannian_functor}) acts on morphisms by pullback, so
+it needs the pullback of the trivial bundle to be again trivial --
+\(\varphi^{*}\mathcal{O}_T^{\,\oplus I} \cong \mathcal{O}_{T'}^{\,\oplus I}\) -- for an
+\emph{arbitrary} scheme morphism \(\varphi\). Mathlib's pullback-of-free comparison applies
+only when the underlying site functor \(\mathrm{Opens.map}\,\varphi\) is \emph{final}; the
+following three blocks remove that restriction for every morphism, and the resulting
+pullback machinery preserves rank-\(d\) local freeness.
+
+\begin{lemma}[The opens-pullback functor is final]\label{mk-lem:gr_opensMap_final}
+  \dcref{custom}
+
+  For any morphism of schemes \(\varphi : T' \to T\), the inverse-image functor on opens
+  \(\mathrm{Opens.map}\,\varphi : \mathrm{Opens}(T) \to \mathrm{Opens}(T')\),
+  \(U \mapsto \varphi^{-1}U\), is \emph{final}.
+\end{lemma}
+
+\begin{proof}
+
+
+Finality means that for every open \(V \subseteq T'\) the structured-arrow category of
+  opens \(U \subseteq T\) with \(V \le \varphi^{-1}U\) is connected. That category is
+  nonempty and has the terminal object \(U = \top\) -- one always has
+  \(V \le \varphi^{-1}\top = T'\), and every object admits a unique arrow to \(\top\) --
+  and a category with a terminal object is connected.
+\end{proof}
+
+\begin{lemma}[Pullback of a free sheaf is free]\label{mk-lem:gr_pullbackFreeIso}
+  \dcref{custom}
+
+  \uses{mk-lem:gr_opensMap_final}
+  For any scheme morphism \(\varphi : T' \to T\) and index type \(I\), there is a canonical
+  isomorphism of sheaves of \(\mathcal{O}_{T'}\)-modules
+  \[
+    \varphi^{*}\bigl(\mathcal{O}_T^{\,\oplus I}\bigr)
+      \;\xrightarrow{\ \sim\ }\;
+    \mathcal{O}_{T'}^{\,\oplus I}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-lem:gr_opensMap_final}
+  Mathlib's pullback-of-free comparison produces this isomorphism whenever the site functor
+  \(\mathrm{Opens.map}\,\varphi\) is final; that finality is \ref{mk-lem:gr_opensMap_final},
+  which holds for every morphism, so the comparison applies unconditionally.
+\end{proof}
+
+
+\section{The tautological quotient on the charts}
+\label{mk-sec:grquot_chart}
+
+\emph{Infrastructure: scalar endomorphisms.} Realising a matrix of regular
+functions as a morphism of free sheaves of modules has no off-the-shelf primitive
+in Mathlib; it is assembled from two small project-local helpers that turn a global
+function into a scalar endomorphism of the structure sheaf, after which the matrix
+is reconstituted entry-by-entry over a finite biproduct.
+
+\begin{definition}[Global section of the unit module]\label{mk-def:gr_globalUnitSection}
+  \dcref{custom}
+
+  \uses{mk-lem:moduleUnit_mathlib}
+  Let \(X\) be a scheme and \(a \in \Gamma(X, \mathcal{O}_X)\) a global section of
+  the structure sheaf. Viewing \(\mathcal{O}_X\) as the unit module
+  \(\mathbf{1} \in \ShMod(\mathcal{O}_X)\) (\ref{mk-lem:moduleUnit_mathlib}), the
+  section \(a\) determines a global section of \(\mathbf{1}\): on each open
+  \(V \subseteq X\) take the restriction \(a|_V \in \Gamma(V, \mathcal{O}_X)\), the
+  family \((a|_V)_V\) being compatible with the restriction maps because
+  restriction is functorial. This is the section of the unit sheaf attached to a
+  global function.
+\end{definition}
+
+\begin{definition}[Scalar endomorphism of \(\mathcal{O}_X\)]\label{mk-def:gr_scalarEnd}
+  \dcref{custom}
+
+  \uses{mk-def:gr_globalUnitSection, mk-lem:moduleUnit_mathlib}
+  For \(a \in \Gamma(X, \mathcal{O}_X)\) the \emph{scalar endomorphism}
+  \(\mathrm{scalarEnd}(a) : \mathcal{O}_X \to \mathcal{O}_X\) is the
+  \(\mathcal{O}_X\)-linear endomorphism of the unit module given by multiplication
+  by \(a\). It is obtained from the global section of \ref{mk-def:gr_globalUnitSection}
+  under the canonical identification of endomorphisms of the unit module
+  \(\mathbf{1}\) with its global sections, \(\End(\mathbf{1}) \cong
+  \Gamma(X, \mathbf{1})\); concretely, on each open \(V\) it acts as
+  multiplication by \(a|_V\). These scalar endomorphisms are the matrix-entry
+  building blocks of the chart quotient.
+\end{definition}
+
+\begin{lemma}[Scalar endomorphism of the unit is the identity]\label{mk-lem:gr_scalarEnd_one}
+  \dcref{custom}
+
+  \uses{mk-def:gr_scalarEnd}
+  The scalar endomorphism attached to the unit function \(1 \in
+  \Gamma(X, \mathcal{O}_X)\) is the identity of the unit module:
+  \(\mathrm{scalarEnd}(1) = \mathrm{id}_{\mathbf{1}}\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-def:gr_scalarEnd}
+  Multiplication by \(1\) is the identity on every section, so under the
+  identification \(\End(\mathbf{1}) \cong \Gamma(X, \mathbf{1})\) the section \(1\)
+  corresponds to \(\mathrm{id}_{\mathbf{1}}\).
+\end{proof}
+
+\begin{lemma}[Scalar endomorphism of the zero function is zero]\label{mk-lem:gr_scalarEnd_zero}
+  \dcref{custom}
+
+  \uses{mk-def:gr_scalarEnd}
+  The scalar endomorphism attached to the zero function \(0 \in
+  \Gamma(X, \mathcal{O}_X)\) is the zero endomorphism:
+  \(\mathrm{scalarEnd}(0) = 0\).
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-def:gr_scalarEnd}
+  Multiplication by \(0\) sends every section to \(0\), so the corresponding
+  endomorphism of the unit module is the zero map.
+\end{proof}
+
+\begin{lemma}[Composition of scalar endomorphisms is multiplication]\label{mk-lem:gr_scalarEnd_comp}
+  \dcref{custom}
+
+  \uses{mk-def:gr_scalarEnd}
+  For \(a, b \in \Gamma(X, \mathcal{O}_X)\) the scalar endomorphisms compose by
+  multiplication: \(\mathrm{scalarEnd}(a) \circ \mathrm{scalarEnd}(b) =
+  \mathrm{scalarEnd}(a\,b)\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_scalarEnd}
+  Under the identification \(\End(\mathbf{1}) \cong \Gamma(X, \mathbf{1})\) the
+  scalar endomorphisms act as multiplication by \(a\) and by \(b\); their composite
+  is multiplication by \(a\,b\), because the section ring is commutative and
+  restriction maps are ring homomorphisms.
+\end{proof}
+
+\begin{lemma}[Scalar endomorphism is additive]\label{mk-lem:gr_scalarEnd_add}
+  \dcref{custom}
+
+  \uses{mk-def:gr_scalarEnd}
+  For \(a, b \in \Gamma(X, \mathcal{O}_X)\) one has \(\mathrm{scalarEnd}(a + b) =
+  \mathrm{scalarEnd}(a) + \mathrm{scalarEnd}(b)\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_scalarEnd}
+  Multiplication by \(a + b\) equals multiplication by \(a\) plus multiplication by
+  \(b\) on every section, since the restriction maps of \(\mathcal{O}_X\) are additive;
+  under \(\End(\mathbf{1}) \cong \Gamma(X, \mathbf{1})\) this is the stated additivity.
+\end{proof}
+
+
+\emph{Infrastructure: matrix automorphisms of the free sheaf.} To realise the
+\(\mathrm{GL}_d\) bundle transitions one must promote an invertible \(d \times d\)
+matrix of global functions to an \emph{automorphism} of the free rank-\(d\) sheaf
+\(\mathcal{O}_S^{\,d}\), exactly as the chart quotient \ref{mk-def:gr_chart_quotient}
+realises the universal matrix. The next blocks assemble this matrix-to-morphism
+functor and record its two structural identities -- that it carries matrix
+multiplication to composition and the identity matrix to the identity -- which are
+the algebraic heart of the bundle cocycle.
+
+\begin{definition}[Matrix endomorphism of the free sheaf]\label{mk-def:gr_matrixEnd}
+  \dcref{custom}
+
+  \uses{mk-def:gr_scalarEnd}
+  Let \(S\) be a scheme, \(d \in \mathbb{N}\), and
+  \(M \in \operatorname{Mat}_{d \times d}(\Gamma(S, \mathcal{O}_S))\) a matrix of
+  global functions. The \emph{matrix endomorphism} \(\mathrm{matrixEnd}(M)\) is the
+  endomorphism of the free rank-\(d\) sheaf \(\mathcal{O}_S^{\,d}\) whose
+  \((p,q)\)-component, under the presentation of \(\mathcal{O}_S^{\,d}\) as the
+  finite biproduct of \(d\) copies of the unit module \(\mathbf{1}\), is the scalar
+  endomorphism \(\mathrm{scalarEnd}(M_{p,q})\) (\ref{mk-def:gr_scalarEnd}). It is
+  assembled from these components by the universal property of the rank-\(d\)
+  biproduct, exactly as the chart quotient \(u^I\) is assembled
+  (\ref{mk-def:gr_chart_quotient}). This is the substitute for the (non-existent)
+  Mathlib ``matrix \(\mapsto\) endomorphism of a free sheaf'' primitive.
+\end{definition}
+
+\begin{lemma}[Matrix endomorphism carries multiplication to composition]\label{mk-lem:gr_matrixEnd_comp}
+  \dcref{custom}
+
+  \uses{mk-def:gr_matrixEnd, mk-lem:gr_scalarEnd_comp, mk-lem:gr_scalarEnd_add}
+  For \(M, N \in \operatorname{Mat}_{d \times d}(\Gamma(S, \mathcal{O}_S))\) the matrix
+  endomorphisms compose according to the matrix product, with the order reversed by
+  the contravariance of the component indexing:
+  \[
+    \mathrm{matrixEnd}(M) \,\circ\, \mathrm{matrixEnd}(N)
+      \;=\; \mathrm{matrixEnd}(N \cdot M).
+  \]
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_matrixEnd, mk-lem:gr_scalarEnd_comp, mk-lem:gr_scalarEnd_add}
+  The composition of two biproduct-assembled morphisms is again biproduct-assembled,
+  with \((i,q)\)-component the sum over the middle index \(p\) of the composites of
+  components, \(\sum_p \mathrm{component}_{i,p} \circ \mathrm{component}_{p,q}\) (the
+  categorical matrix product over the biproduct). Each composite of scalar
+  endomorphisms is the scalar endomorphism of the product,
+  \(\mathrm{scalarEnd}(a)\circ\mathrm{scalarEnd}(b) = \mathrm{scalarEnd}(ab)\)
+  (\ref{mk-lem:gr_scalarEnd_comp}), and a finite sum of scalar endomorphisms is the
+  scalar endomorphism of the sum (\ref{mk-lem:gr_scalarEnd_add}); hence the \((i,q)\)-component
+  of the composite is \(\mathrm{scalarEnd}\bigl(\sum_p M_{q,p} N_{p,i}\bigr) =
+  \mathrm{scalarEnd}\bigl((N\cdot M)_{q,i}\bigr)\), which is precisely the
+  \((i,q)\)-component of \(\mathrm{matrixEnd}(N\cdot M)\). The reversal of the factor
+  order is the contravariance of the column/component indexing.
+\end{proof}
+
+\begin{lemma}[Matrix endomorphism of the identity is the identity]\label{mk-lem:gr_matrixEnd_one}
+  \dcref{custom}
+
+  \uses{mk-def:gr_matrixEnd, mk-lem:gr_scalarEnd_one, mk-lem:gr_scalarEnd_zero}
+  The matrix endomorphism of the identity matrix is the identity morphism of
+  \(\mathcal{O}_S^{\,d}\): \(\mathrm{matrixEnd}(1_{d\times d}) =
+  \mathrm{id}_{\mathcal{O}_S^{\,d}}\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_matrixEnd, mk-lem:gr_scalarEnd_one, mk-lem:gr_scalarEnd_zero}
+  The diagonal components are \(\mathrm{scalarEnd}(1) = \mathrm{id}\)
+  (\ref{mk-lem:gr_scalarEnd_one}) and the off-diagonal components are
+  \(\mathrm{scalarEnd}(0) = 0\) (\ref{mk-lem:gr_scalarEnd_zero}); the morphism with this
+  component matrix is the identity of the biproduct.
+\end{proof}
+
+\begin{definition}[Free-sheaf automorphism of an invertible matrix]\label{mk-def:gr_matrixToFreeIso}
+  \dcref{custom}
+
+  \uses{mk-def:gr_matrixEnd, mk-lem:gr_matrixEnd_comp, mk-lem:gr_matrixEnd_one}
+  Let \(M, N \in \operatorname{Mat}_{d \times d}(\Gamma(S, \mathcal{O}_S))\) be mutually
+  inverse, \(M N = 1\) and \(N M = 1\). The \emph{matrix automorphism}
+  \(\mathrm{matrixToFreeIso}(M, N)\) is the isomorphism of free sheaves
+  \(\mathcal{O}_S^{\,d} \xrightarrow{\sim} \mathcal{O}_S^{\,d}\) with forward map
+  \(\mathrm{matrixEnd}(M)\) and inverse map \(\mathrm{matrixEnd}(N)\); the two
+  composites are identities by \ref{mk-lem:gr_matrixEnd_comp} (turning the products
+  \(NM\) and \(MN\) into the relevant compositions) and \ref{mk-lem:gr_matrixEnd_one}.
+  Its forward map is \(\mathrm{matrixEnd}(M)\) by construction
+  (\ref{mk-lem:gr_matrixToFreeIso_hom}).
+\end{definition}
+
+\begin{lemma}[Forward map of the matrix automorphism]\label{mk-lem:gr_matrixToFreeIso_hom}
+  \dcref{custom}
+
+  \uses{mk-def:gr_matrixToFreeIso, mk-def:gr_matrixEnd}
+  The forward map of \(\mathrm{matrixToFreeIso}(M, N)\) is \(\mathrm{matrixEnd}(M)\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_matrixToFreeIso, mk-def:gr_matrixEnd}
+  Immediate from the definition \ref{mk-def:gr_matrixToFreeIso}, whose forward field is
+  literally \(\mathrm{matrixEnd}(M)\).
+\end{proof}
+
+\begin{lemma}[Matrix automorphisms compose multiplicatively]\label{mk-lem:gr_matrixToFreeIso_mul}
+  \dcref{custom}
+
+  \uses{mk-def:gr_matrixToFreeIso, mk-lem:gr_matrixToFreeIso_hom, mk-lem:gr_matrixEnd_comp}
+  Let \(A, A', B, B'\) be \(d \times d\) matrices of global functions on \(S\) with
+  \(A A' = A' A = 1\), \(B B' = B' B = 1\), so that \(\mathrm{matrixToFreeIso}(A, A')\)
+  and \(\mathrm{matrixToFreeIso}(B, B')\) are automorphisms of \(\mathcal{O}_S^{\,d}\).
+  Their forward maps compose to the forward map of the product automorphism, with the
+  order reversed by the component contravariance:
+  \[
+    \mathrm{matrixToFreeIso}(A, A')_{\mathrm{hom}}
+      \,\circ\, \mathrm{matrixToFreeIso}(B, B')_{\mathrm{hom}}
+      \;=\; \mathrm{matrixEnd}(B \cdot A).
+  \]
+  Equivalently, composition of matrix automorphisms realises matrix multiplication of
+  the underlying matrices. This is the linkage that turns the matrix-level cocycle
+  identity into a composition identity of sheaf-of-module isomorphisms.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_matrixToFreeIso, mk-lem:gr_matrixToFreeIso_hom, mk-lem:gr_matrixEnd_comp}
+  By \ref{mk-lem:gr_matrixToFreeIso_hom} the two forward maps are
+  \(\mathrm{matrixEnd}(A)\) and \(\mathrm{matrixEnd}(B)\); their composite is
+  \(\mathrm{matrixEnd}(A)\circ\mathrm{matrixEnd}(B) = \mathrm{matrixEnd}(B\cdot A)\) by
+  \ref{mk-lem:gr_matrixEnd_comp}.
+\end{proof}
+
+\begin{definition}[Chart quotient \(u^I\)]\label{mk-def:gr_chart_quotient}
+  \dcref{custom}
+
+  \uses{mk-def:gr_affine_chart, mk-def:gr_universal_matrix, mk-def:gr_scalarEnd}
+  \textit{Source: \cite{nitsure-hilbert-quot}, \S 1.}
+  Let \(I \subseteq \{1,\dots,r\}\) with \(\#(I) = d\). On the affine chart
+  \(U^I = \Spec R^I\) (\ref{mk-def:gr_affine_chart}) define the
+  \(\mathcal{O}_{U^I}\)-linear homomorphism of trivial bundles
+  \[
+    u^I \;:\; \mathcal{O}_{U^I}^{\,r}
+      \;\longrightarrow\; \mathcal{O}_{U^I}^{\,d}
+  \]
+  given by left multiplication by the universal \(d \times r\) matrix \(X^I\)
+  (\ref{mk-def:gr_universal_matrix}): on global sections it is the \(R^I\)-linear
+  map \((R^I)^{r} \to (R^I)^{d}\), \(v \mapsto X^I v\). Since the \(I\)-th minor
+  \(X^I_I\) of \(X^I\) is the identity matrix \(1_{d \times d}\), the composite of
+  \(u^I\) with the inclusion of the \(I\)-indexed coordinates
+  \(\mathcal{O}_{U^I}^{\,d} \hookrightarrow \mathcal{O}_{U^I}^{\,r}\) is the
+  identity; hence \(u^I\) is a split surjection of locally free sheaves, with
+  target the free rank-\(d\) sheaf \(\mathcal{O}_{U^I}^{\,d}\).
+
+  \emph{Realisation.} The free sheaves \(\mathcal{O}_{U^I}^{\,r}\) and
+  \(\mathcal{O}_{U^I}^{\,d}\) are the finite biproducts (coproducts) of copies of
+  the unit module \(\mathbf{1} = \mathcal{O}_{U^I}\), indexed by \(\{1,\dots,r\}\)
+  and \(\{1,\dots,d\}\). Each entry \(X^I_{p,q} \in R^I\) of the universal matrix
+  (\ref{mk-def:gr_universal_matrix}) is a global function on \(U^I = \Spec R^I\),
+  obtained from \(R^I\) through the canonical identification
+  \(\Gamma(\Spec R^I, \mathcal{O}) \cong R^I\); the corresponding scalar
+  endomorphism \(\mathrm{scalarEnd}(X^I_{p,q}) : \mathbf{1} \to \mathbf{1}\)
+  (\ref{mk-def:gr_scalarEnd}) is the \((p,q)\)-component of \(u^I\). Assembling these
+  components over the index biproducts -- the universal property of the biproduct
+  packaging a matrix of component morphisms into a single morphism of the free
+  sheaves -- yields \(u^I\). This entry-by-entry assembly via the finite biproduct
+  is the substitute for a (non-existent) Mathlib ``matrix \(\mapsto\) morphism of
+  free sheaves'' primitive.
+\end{definition}
+
+
+\begin{lemma}[The chart quotient is an epimorphism]\label{mk-lem:gr_chartQuotientMap_epi}
+  \dcref{custom}
+
+  \uses{mk-def:gr_chart_quotient}
+  The chart quotient \(u^I : \mathcal{O}_{U^I}^{\,r} \to \mathcal{O}_{U^I}^{\,d}\)
+  (\ref{mk-def:gr_chart_quotient}) is an epimorphism of sheaves of modules.
+\end{lemma}
+
+\begin{proof}
+  \uses{mk-def:gr_chart_quotient}
+  We exhibit a section, so that \(u^I\) is a \emph{split} epimorphism and hence an
+  epimorphism. Let \(\iota_I : \{1,\dots,d\} \hookrightarrow \{1,\dots,r\}\) be the
+  inclusion of the \(I\)-indexed coordinates, \(k \mapsto \iota_I(k)\), the
+  \(k\)-th element of \(I\) in increasing order. It induces a morphism of free
+  sheaves \(s_I : \mathcal{O}_{U^I}^{\,d} \to \mathcal{O}_{U^I}^{\,r}\), the
+  coordinate inclusion sending the \(k\)-th basis section to the
+  \(\iota_I(k)\)-th. We claim
+  \[
+    u^I \circ s_I \;=\; \mathrm{id}_{\mathcal{O}_{U^I}^{\,d}}.
+  \]
+  Both sides are morphisms out of the free rank-\(d\) sheaf, which is the coproduct
+  of \(d\) copies of the unit module; by the universal property of that coproduct
+  it suffices to check the equality on each coordinate, i.e.\ to compare component
+  matrices. The \((p,k)\)-component of \(u^I \circ s_I\) is the entry
+  \(X^I_{p,\iota_I(k)}\) of the universal matrix at the \(I\)-indexed column, which
+  is precisely the \(I\)-th minor \(X^I_I\) of \(X^I\). Since that minor is the
+  \(d \times d\) identity (the columns of \(X^I\) indexed by \(I\), read through the
+  order isomorphism \(\{1,\dots,d\} \cong I\), form the identity block --
+  \ref{mk-def:gr_universal_matrix}), one has \(X^I_{p,\iota_I(k)} = \delta_{p,k}\),
+  so \(u^I \circ s_I\) has the identity component matrix and equals
+  \(\mathrm{id}\). Hence \(s_I\) splits \(u^I\) and \(u^I\) is a split
+  epimorphism, in particular an epimorphism.
+\end{proof}
+
+\section{The \(\mathrm{GL}_d\) bundle transition cocycle}
+\label{mk-sec:grquot_bundle_cocycle}
+
+The universal quotient sheaf \(\mathcal{U}\) (\ref{mk-def:gr_universal_quotient_sheaf}) is
+obtained by feeding the gluing primitive \ref{mk-def:scheme_modules_glue} the per-chart free
+rank-\(d\) sheaves \(\mathcal{O}_{U^I}^{\,d}\), the bundle transitions
+\(g_{I,J} = (X^I_J)^{-1}\), and the two module cocycle hypotheses (C1)/(C2) that primitive
+requires. The matrix cocycle for the Cramer inverses \((X^I_J)^{-1}\) is already in hand --
+it is the content of the scheme-level cocycle \ref{mk-lem:gr_cocycle} and the minor identities
+\ref{mk-lem:gr_universalMinorInv_identities} -- but the gluing primitive consumes its
+\emph{module-level} incarnation: an honest isomorphism of sheaves of modules together with
+its self-identity and triple-overlap multiplicativity. The three blocks of this section
+package exactly that, decoupling the construction of \(\mathcal{U}\) from the remaining
+matrix-to-module transport bookkeeping. This is the only net-new infrastructure the
+universal quotient requires beyond the gluing primitive itself.
+
+
+\begin{definition}[The bundle transition \(g_{I,J}\)]\label{mk-def:gr_bundleTransition}
+  \dcref{custom}
+
+  \uses{mk-def:gr_universalMinorInv, mk-def:gr_scalarEnd, mk-lem:gr_pullbackFreeIso,
+    mk-lem:gr_minorDet_unit, mk-def:gr_chart_quotient, mk-def:gr_transition}
+  Let \(I, J \subseteq \{1,\dots,r\}\) be size-\(d\) subsets and let
+  \(f_{IJ} : U^I_J \hookrightarrow U^I\) and \(t_{IJ} : U^I_J \xrightarrow{\sim} U^J_I\) be
+  the overlap immersion and transition of the chart cover (\ref{mk-def:gr_transition}). The
+  \emph{bundle transition} \(g_{I,J}\) is the isomorphism of sheaves of modules on the
+  overlap \(U^I_J\)
+  \[
+    g_{I,J} \;:\;
+      f_{IJ}^{*}\bigl(\mathcal{O}_{U^I}^{\,d}\bigr)
+      \;\xrightarrow{\ \sim\ }\;
+      (t_{IJ} \circ f_{JI})^{*}\bigl(\mathcal{O}_{U^J}^{\,d}\bigr)
+  \]
+  induced by the invertible \(d \times d\) matrix
+  \(g_{I,J} = (X^I_J)^{-1} \in \mathrm{GL}_d(R^I_J)\) (\ref{mk-def:gr_universalMinorInv}),
+  the Cramer inverse of the localised \(J\)-minor, which is invertible because
+  \(\det(X^I_J)\) is a unit of \(R^I_J\) (\ref{mk-lem:gr_minorDet_unit}).
+
+  \emph{Realisation.} The transition is built exactly as the chart quotient
+  \ref{mk-def:gr_chart_quotient}: each entry \((X^I_J)^{-1}_{p,q} \in R^I_J\) is a global
+  function on the overlap, its scalar endomorphism
+  \(\mathrm{scalarEnd}\bigl((X^I_J)^{-1}_{p,q}\bigr)\) (\ref{mk-def:gr_scalarEnd}) is the
+  \((p,q)\)-component, and the universal property of the rank-\(d\) biproduct assembles
+  these into an automorphism of the free sheaf \(\mathcal{O}_{U^I_J}^{\,d}\); the
+  source and target pullbacks of free sheaves are identified with this
+  \(\mathcal{O}_{U^I_J}^{\,d}\) through the free-pullback comparisons
+  \ref{mk-lem:gr_pullbackFreeIso} along \(f_{IJ}\) and \(t_{IJ} \circ f_{JI}\), conjugating
+  the matrix automorphism into the displayed isomorphism. Invertibility of the matrix makes
+  \(g_{I,J}\) an isomorphism.
+\end{definition}
+
+\begin{lemma}[Self-identity of the bundle transition (C1)]\label{mk-lem:gr_bundleCocycle_id}
+  \dcref{custom}
+
+  \uses{mk-def:gr_bundleTransition, mk-lem:gr_universalMatrix_submatrix_self,
+    mk-lem:gr_universalMinorInv_identities, mk-lem:gr_scalarEnd_one, mk-lem:gr_scalarEnd_zero,
+    mk-lem:gr_pullbackFreeIso}
+  The self-transition is the identity: \(g_{I,I} = \mathrm{id}\) on
+  \(f_{II}^{*}\mathcal{O}_{U^I}^{\,d}\). This is the module-level form of the descent
+  condition (C1) of \ref{mk-def:scheme_modules_glue} for the bundle data \((g_{I,J})\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_bundleTransition, mk-lem:gr_universalMatrix_submatrix_self,
+    mk-lem:gr_universalMinorInv_identities, mk-lem:gr_scalarEnd_one, mk-lem:gr_scalarEnd_zero}
+  The \(I\)-th minor of the universal matrix is the identity block, \(X^I_I = 1_{d\times d}\)
+  (\ref{mk-lem:gr_universalMatrix_submatrix_self}), so its Cramer inverse is again the
+  identity, \((X^I_I)^{-1} = 1_{d\times d}\) (\ref{mk-lem:gr_universalMinorInv_identities}).
+  Hence in the biproduct presentation of \ref{mk-def:gr_bundleTransition} the diagonal
+  components are \(\mathrm{scalarEnd}(1) = \mathrm{id}\) (\ref{mk-lem:gr_scalarEnd_one}) and the
+  off-diagonal components are \(\mathrm{scalarEnd}(0) = 0\) (\ref{mk-lem:gr_scalarEnd_zero}), so
+  the assembled automorphism is the identity of \(\mathcal{O}_{U^I_I}^{\,d}\); conjugation by
+  the free-pullback comparisons preserves the identity, giving \(g_{I,I} = \mathrm{id}\).
+\end{proof}
+
+
+\begin{lemma}[Cramer-inverse cocycle on the triple overlap]\label{mk-lem:gr_bundleCocycle_matrix}
+  \dcref{custom}
+
+  \uses{mk-def:gr_universalMinorInv, mk-lem:gr_cocycle_imageMatrix_eq,
+    mk-lem:gr_universalMinorInv_identities, mk-lem:gr_mul_submatrix_col,
+    mk-lem:gr_inv_mul_inv_mul_cancel, mk-lem:gr_cocycle}
+  Over the common triple-overlap ring (the localisation carrying the three charts'
+  data to \(V_{IJK}\)) the Cramer inverses of the localised minors satisfy the
+  multiplicative cocycle identity
+  \[
+    (X^J_K)^{-1}\,(X^I_J)^{-1} \;=\; (X^I_K)^{-1}.
+  \]
+  This is the pure matrix-algebra core of (C2), independent of any sheaf data.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_universalMinorInv, mk-lem:gr_cocycle_imageMatrix_eq,
+    mk-lem:gr_universalMinorInv_identities, mk-lem:gr_mul_submatrix_col,
+    mk-lem:gr_inv_mul_inv_mul_cancel, mk-lem:gr_cocycle}
+  Write all matrices over the common triple-overlap ring. The image matrix of the
+  transition \(\theta_{I,J}\) is \(X^J = (X^I_J)^{-1} X^I\), and its \(K\)-minor is
+  computed by restricting to the \(K\)-indexed columns; since taking a column
+  submatrix commutes with left multiplication (\ref{mk-lem:gr_mul_submatrix_col}),
+  \[
+    X^J_K \;=\; \bigl((X^I_J)^{-1} X^I\bigr)_K \;=\; (X^I_J)^{-1}\, X^I_K .
+  \]
+  Both \(X^I_J\) and \(X^I_K\) have unit determinant
+  (\ref{mk-lem:gr_universalMinorInv_identities}), so this product of invertibles inverts
+  by \((AB)^{-1} = B^{-1} A^{-1}\):
+  \[
+    (X^J_K)^{-1} \;=\; (X^I_K)^{-1}\,(X^I_J).
+  \]
+  Multiplying on the right by \((X^I_J)^{-1}\) and cancelling \(X^I_J (X^I_J)^{-1} = 1\)
+  via the two-sided Cramer identity (\ref{mk-lem:gr_universalMinorInv_identities}, the
+  cancellation packaged in \ref{mk-lem:gr_inv_mul_inv_mul_cancel}) gives
+  \((X^J_K)^{-1} (X^I_J)^{-1} = (X^I_K)^{-1}\). The agreement of the three image
+  matrices over the triple overlap that licenses these manipulations is the content of
+  \ref{mk-lem:gr_cocycle_imageMatrix_eq}, the matrix form of the scheme-level cocycle
+  \ref{mk-lem:gr_cocycle}.
+\end{proof}
+
+\begin{lemma}[Scalar endomorphism is natural under pullback]\label{mk-lem:gr_scalarEnd_pullback}
+  \dcref{custom}
+
+  \uses{mk-def:gr_scalarEnd, mk-lem:gr_pullbackFreeIso, mk-def:modules_pullbackComp}
+  Let \(p : T \to S\) be a morphism of schemes and \(a \in \Gamma(S, \mathcal{O}_S)\) a
+  global function, with comorphism on global sections
+  \(p^{\sharp} : \Gamma(S, \mathcal{O}_S) \to \Gamma(T, \mathcal{O}_T)\).
+  Write \(q : p^{*}\mathbf{1} \xrightarrow{\sim} \mathbf{1}\) for the unit-pullback comparison
+  (\ref{mk-lem:gr_pullbackFreeIso} at a one-element index). Then the pullback of the scalar endomorphism
+  \(\mathrm{scalarEnd}(a)\) is conjugate, through \(q\), to the scalar endomorphism of the
+  base-changed function:
+  \[
+    p^{*}\bigl(\mathrm{scalarEnd}(a)\bigr)
+      \;=\; q^{-1} \,\circ\, \mathrm{scalarEnd}\bigl(p^{\sharp} a\bigr) \,\circ\, q
+  \]
+  as endomorphisms of \(p^{*}\mathbf{1}\); equivalently
+  \(q \circ p^{*}(\mathrm{scalarEnd}(a)) = \mathrm{scalarEnd}(p^{\sharp} a) \circ q\). This is the
+  single-entry naturality atom underlying the matrix-level statement
+  \ref{mk-lem:gr_matrixEnd_pullback}.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_scalarEnd, mk-lem:gr_pullbackFreeIso}
+  The scalar endomorphism \(\mathrm{scalarEnd}(a)\) (\ref{mk-def:gr_scalarEnd}) is multiplication
+  by the global section \(a\) on the unit module \(\mathbf 1 = \mathcal{O}_S\). Pulling back
+  along \(p\) sends multiplication by \(a\) to multiplication by its image, and the comorphism
+  \(p^{\sharp}\) is precisely the action of pullback on global functions, so
+  \(p^{*}(\mathrm{scalarEnd}(a))\) is multiplication by \(p^{\sharp}a\) on \(p^{*}\mathbf 1\). The
+  comparison \(q\) is an isomorphism of unit modules intertwining this multiplication on
+  \(p^{*}\mathbf 1\) with multiplication by \(p^{\sharp}a\) on \(\mathbf 1\); conjugating back
+  along \(q\) therefore yields the claimed identity. The verification is a single computation on
+  the unit module, where multiplication by a function commutes with the natural comparison
+  \(q\).
+\end{proof}
+
+\begin{lemma}[Matrix endomorphism is natural under pullback]\label{mk-lem:gr_matrixEnd_pullback}
+  \dcref{custom}
+
+  \uses{mk-def:gr_matrixEnd, mk-def:gr_scalarEnd, mk-lem:gr_scalarEnd_pullback, mk-lem:gr_pullbackFreeIso,
+    mk-def:modules_pullbackComp}
+  Let \(p : T \to S\) be a morphism of schemes, \(d \in \mathbb{N}\), and
+  \(M \in \operatorname{Mat}_{d\times d}(\Gamma(S, \mathcal{O}_S))\). Let
+  \(p^{\sharp}M \in \operatorname{Mat}_{d\times d}(\Gamma(T, \mathcal{O}_T))\) be the entrywise
+  image of \(M\) under the comorphism \(p^{\sharp}\), and let
+  \(Q : p^{*}(\mathcal{O}_S^{\,d}) \xrightarrow{\sim} \mathcal{O}_T^{\,d}\) be the free-pullback
+  comparison \ref{mk-lem:gr_pullbackFreeIso} at the rank-\(d\) index set. Then the
+  pullback of the matrix endomorphism \(\mathrm{matrixEnd}(M)\) is conjugate, through \(Q\), to
+  the matrix endomorphism of the base-changed matrix:
+  \[
+    p^{*}\bigl(\mathrm{matrixEnd}(M)\bigr)
+      \;=\; Q^{-1} \,\circ\, \mathrm{matrixEnd}(p^{\sharp}M) \,\circ\, Q .
+  \]
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_matrixEnd, mk-lem:gr_scalarEnd_pullback, mk-lem:gr_pullbackFreeIso,
+    mk-def:modules_pullbackComp}
+  By \ref{mk-def:gr_matrixEnd}, \(\mathrm{matrixEnd}(M)\) is the biproduct-assembled endomorphism
+  of \(\mathcal{O}_S^{\,d} = \bigoplus_{k} \mathbf 1\) whose \((k,\ell)\)-component is
+  \(\mathrm{scalarEnd}(M_{k,\ell})\). The pullback functor \(p^{*}\) is a left adjoint, hence
+  additive and biproduct-preserving; through the coproduct comparison underlying the
+  free-pullback isomorphism \ref{mk-lem:gr_pullbackFreeIso} it carries the biproduct presentation
+  of \(\mathcal{O}_S^{\,d}\) to that of \(\mathcal{O}_T^{\,d}\) and the assembled morphism to the
+  morphism reassembled from the pulled-back components, the reassociation of the iterated
+  pullbacks being \ref{mk-def:modules_pullbackComp}. On each single \((k,\ell)\)-component the
+  pulled-back scalar endomorphism is, by \ref{mk-lem:gr_scalarEnd_pullback}, the
+  comparison-conjugate of \(\mathrm{scalarEnd}(p^{\sharp}M_{k,\ell}) =
+  \mathrm{scalarEnd}((p^{\sharp}M)_{k,\ell})\). Reassembling over the biproduct, the conjugating
+  one-element comparisons combine into the single free comparison \(Q\), giving
+  \(p^{*}(\mathrm{matrixEnd}(M)) = Q^{-1}\circ\mathrm{matrixEnd}(p^{\sharp}M)\circ Q\).
+\end{proof}
+
+\begin{lemma}[Affine global-sections comorphism is the inducing ring homomorphism]\label{mk-lem:gr_baseChange_bridge_gammaSpec}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glued_scheme}
+  Let \(\varphi : A \to B\) be a homomorphism of commutative rings and
+  \(\Spec\varphi : \Spec B \to \Spec A\) the induced morphism of affine schemes. Under the
+  natural identification of the global sections of an affine scheme with its coordinate ring
+  -- the counit \(\Gamma(\Spec A, \mathcal O) \xrightarrow{\sim} A\) of the
+  \(\Gamma \dashv \Spec\) adjunction, and likewise for \(B\) -- the global-sections base-change
+  comorphism
+  \[
+    (\Spec\varphi)^{\sharp} : \Gamma(\Spec A, \mathcal O) \longrightarrow \Gamma(\Spec B, \mathcal O)
+  \]
+  is identified with \(\varphi\) itself; that is, the square relating
+  \((\Spec\varphi)^{\sharp}\) to \(\varphi\) through the two counit isomorphisms commutes.
+\end{lemma}
+\begin{proof}
+
+  This is the naturality of the counit isomorphism \(\Gamma \circ \Spec \cong \mathrm{id}\) of
+  the global-sections / spectrum adjunction: for any ring homomorphism \(\varphi\) the comorphism
+  of \(\Spec\varphi\) on global sections is, after transport through the natural counit
+  isomorphisms at \(A\) and \(B\), the homomorphism \(\varphi\). No Grassmannian-specific data
+  enters; the statement is the affine-scheme naturality square applied to a single ring map.
+\end{proof}
+
+\begin{lemma}[First-projection bridge to \texorpdfstring{$\mathrm{awayInclLeft}$}{awayInclLeft}]\label{mk-lem:gr_baseChange_bridge_left}
+  \dcref{custom}
+
+  \uses{mk-def:gr_the_glue_data, mk-def:gr_chart_incl, mk-def:gr_away_pullback_iso,
+    mk-lem:gr_awayPullbackIso_inv_fst, mk-def:gr_away_incl_left,
+    mk-lem:gr_baseChange_bridge_gammaSpec}
+  Fix indices \(I, J, K\) with triple overlap \(V_{IJK} = U^I_J \times_{U^I} U^I_K\) of the glue
+  datum (\ref{mk-def:gr_the_glue_data}), and let
+  \(p^{IJ}_{IJK} : V_{IJK} \to U^I_J\) be the first projection (the pullback projection of the
+  chart inclusion \(\mathrm{chartIncl}\), \ref{mk-def:gr_chart_incl}). Through the away-pullback
+  identification \(V_{IJK} \cong \Spec R^I[1/(P^I_J P^I_K)]\) (\ref{mk-def:gr_away_pullback_iso})
+  the projection \(p^{IJ}_{IJK}\) is the \(\Spec\) morphism of the left away-inclusion
+  \(\mathrm{awayInclLeft}(P^I_J, P^I_K)\) (\ref{mk-lem:gr_awayPullbackIso_inv_fst},
+  \ref{mk-def:gr_away_incl_left}). Consequently the global-sections base-change map of
+  \(p^{IJ}_{IJK}\), transported through the affine global-sections identification, equals the
+  ring homomorphism \(\mathrm{awayInclLeft}(P^I_J, P^I_K)\); in particular the entrywise image of
+  the Cramer inverse \((X^I_J)^{-1}\) under the geometric base-change agrees with its image under
+  \(\mathrm{awayInclLeft}\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_awayPullbackIso_inv_fst, mk-def:gr_away_incl_left,
+    mk-lem:gr_baseChange_bridge_gammaSpec}
+  By \ref{mk-lem:gr_awayPullbackIso_inv_fst} the first pullback projection, precomposed with the
+  away-pullback identification \ref{mk-def:gr_away_pullback_iso}, equals
+  \(\Spec(\mathrm{awayInclLeft}(P^I_J, P^I_K))\). The source and overlap charts are affine, so by
+  \ref{mk-lem:gr_baseChange_bridge_gammaSpec} the global-sections comorphism of this \(\Spec\)
+  morphism is, through the affine global-sections identification, the ring homomorphism
+  \(\mathrm{awayInclLeft}(P^I_J, P^I_K)\) (\ref{mk-def:gr_away_incl_left}). Applying the comorphism
+  entrywise to \((X^I_J)^{-1}\) gives the asserted agreement.
+\end{proof}
+
+\begin{lemma}[Second-projection bridge to \texorpdfstring{$\mathrm{awayInclRight}$}{awayInclRight}]\label{mk-lem:gr_baseChange_bridge_right}
+  \dcref{custom}
+
+  \uses{mk-def:gr_the_glue_data, mk-def:gr_chart_incl, mk-def:gr_away_pullback_iso,
+    mk-lem:gr_awayPullbackIso_inv_snd, mk-def:gr_away_incl_right,
+    mk-lem:gr_baseChange_bridge_gammaSpec}
+  With the notation of \ref{mk-lem:gr_baseChange_bridge_left}, let
+  \(p^{IK}_{IJK} : V_{IJK} \to U^I_K\) be the second projection (the pullback projection of the
+  chart inclusion \(\mathrm{chartIncl}\), \ref{mk-def:gr_chart_incl}). Through the away-pullback
+  identification \(V_{IJK} \cong \Spec R^I[1/(P^I_J P^I_K)]\) (\ref{mk-def:gr_away_pullback_iso})
+  the projection \(p^{IK}_{IJK}\) is the \(\Spec\) morphism of the right away-inclusion
+  \(\mathrm{awayInclRight}(P^I_J, P^I_K)\) (\ref{mk-lem:gr_awayPullbackIso_inv_snd},
+  \ref{mk-def:gr_away_incl_right}). Consequently the global-sections base-change map of
+  \(p^{IK}_{IJK}\), transported through the affine global-sections identification, equals the
+  ring homomorphism \(\mathrm{awayInclRight}(P^I_J, P^I_K)\); in particular the entrywise image of
+  the Cramer inverse \((X^I_K)^{-1}\) under the geometric base-change agrees with its image under
+  \(\mathrm{awayInclRight}\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_awayPullbackIso_inv_snd, mk-def:gr_away_incl_right,
+    mk-lem:gr_baseChange_bridge_gammaSpec}
+  Identical to \ref{mk-lem:gr_baseChange_bridge_left} with the second leg in place of the first:
+  by \ref{mk-lem:gr_awayPullbackIso_inv_snd} the second pullback projection, precomposed with the
+  away-pullback identification \ref{mk-def:gr_away_pullback_iso}, equals
+  \(\Spec(\mathrm{awayInclRight}(P^I_J, P^I_K))\). The charts being affine,
+  \ref{mk-lem:gr_baseChange_bridge_gammaSpec} identifies its global-sections comorphism with
+  \(\mathrm{awayInclRight}(P^I_J, P^I_K)\) (\ref{mk-def:gr_away_incl_right}), and the entrywise
+  image of \((X^I_K)^{-1}\) follows.
+\end{proof}
+
+\begin{lemma}[Triple-transition bridge to \texorpdfstring{$\Theta_{IJ}$}{Theta_IJ}]\label{mk-lem:gr_baseChange_bridge_transition}
+  \dcref{custom}
+
+  \uses{mk-def:gr_the_glue_data, mk-def:gr_chart_transition', mk-def:gr_cocycle_theta_ij,
+    mk-def:gr_away_pullback_iso, mk-def:gr_away_mul_comm_equiv,
+    mk-lem:gr_baseChange_bridge_gammaSpec}
+  With the notation of \ref{mk-lem:gr_baseChange_bridge_left}, let
+  \(t'_{IJK} : V_{IJK} \to U^J_K \times_{U^J} U^J_I\) be the triple transition of the glue datum
+  (\ref{mk-def:gr_chart_transition'}). Through the source and target away-pullback identifications
+  (\ref{mk-def:gr_away_pullback_iso}) and the order-swap isomorphism
+  (\ref{mk-def:gr_away_mul_comm_equiv}), \(t'_{IJK}\) is the \(\Spec\) morphism of the localised
+  triple-overlap transition \(\Theta_{IJ} : S_J \to S_I\) (\ref{mk-def:gr_cocycle_theta_ij},
+  composed with the order-swap ring isomorphism). Consequently the global-sections base-change
+  map of \(t'_{IJK}\), transported through the affine global-sections identification, equals the
+  ring homomorphism \(\Theta_{IJ}\) (up to the order-swap); in particular the entrywise image of
+  the Cramer inverse \((X^J_K)^{-1}\) under the geometric base-change agrees with its image under
+  \(\Theta_{IJ}\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_chart_transition', mk-def:gr_cocycle_theta_ij, mk-def:gr_away_mul_comm_equiv,
+    mk-lem:gr_baseChange_bridge_gammaSpec}
+  By \ref{mk-def:gr_chart_transition'} the triple transition \(t'_{IJK}\) is the composite of the
+  source away-pullback identification, \(\Spec\Theta_{IJ}\) (\ref{mk-def:gr_cocycle_theta_ij}), the
+  \(\Spec\) of the order-swap isomorphism (\ref{mk-def:gr_away_mul_comm_equiv}), and the inverse
+  target away-pullback identification. The charts and overlaps being affine, applying
+  \ref{mk-lem:gr_baseChange_bridge_gammaSpec} to each \(\Spec\) factor identifies the global-sections
+  comorphism of \(t'_{IJK}\), through the affine global-sections identifications and the order-swap,
+  with the ring homomorphism \(\Theta_{IJ}\). The entrywise image of \((X^J_K)^{-1}\) under this
+  comorphism therefore agrees with its image under \(\Theta_{IJ}\).
+\end{proof}
+
+\begin{lemma}[Base-change bridge to the localised cocycle ring homomorphisms]\label{mk-lem:gr_baseChange_bridge}
+  \dcref{custom}
+
+  \uses{mk-def:gr_transition, mk-def:gr_glued_scheme, mk-def:gr_the_glue_data,
+    mk-lem:gr_bundleCocycle_matrix, mk-def:gr_cocycle_theta_ij, mk-def:gr_away_incl_left,
+    mk-def:gr_away_incl_right, mk-lem:gr_baseChange_bridge_left,
+    mk-lem:gr_baseChange_bridge_right, mk-lem:gr_baseChange_bridge_transition}
+  Fix indices \(I, J, K\) and the triple overlap \(V_{IJK}\) of the chart cover
+  \(\{U^I\}\) of \(\mathrm{Gr}(r,d)\) (\ref{mk-def:gr_glued_scheme}, \ref{mk-def:gr_the_glue_data}).
+  The scheme-pullback base-change map on global sections
+  \(\Gamma(U^I_J, \mathcal{O}) \to \Gamma(V_{IJK}, \mathcal{O})\) induced by the first projection
+  \(p^{IJ}_{IJK}\), and likewise the maps induced by the second projection and by the triple
+  transition \(t'_{IJK}\) (\ref{mk-def:gr_transition}), are identified -- through the natural identification of global sections of an affine scheme
+  with its coordinate ring and the fact that the projections and triple transition are the
+  \(\Spec\) morphisms of the coordinate-ring homomorphisms by which the Grassmannian glue datum
+  (\ref{mk-def:gr_the_glue_data}) is assembled -- with the ring homomorphisms
+  \(\mathrm{awayInclLeft}\) (\ref{mk-def:gr_away_incl_left}),
+  \(\mathrm{awayInclRight}\) (\ref{mk-def:gr_away_incl_right}) and \(\Theta_{IJ}\)
+  (\ref{mk-def:gr_cocycle_theta_ij}) over which the matrix cocycle
+  \ref{mk-lem:gr_bundleCocycle_matrix} is stated. Consequently the entrywise image of a Cramer
+  inverse \((X^I_J)^{-1}\) under the geometric base-change map agrees with its image under the
+  corresponding coordinate-ring homomorphism, so \ref{mk-lem:gr_bundleCocycle_matrix} applies
+  to the base-changed matrices.
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_baseChange_bridge_left, mk-lem:gr_baseChange_bridge_right,
+    mk-lem:gr_baseChange_bridge_transition}
+  The three identifications are exactly the three projection bridges. The first projection is
+  handled by \ref{mk-lem:gr_baseChange_bridge_left}, identifying its global-sections base-change
+  map with \(\mathrm{awayInclLeft}\); the second projection by
+  \ref{mk-lem:gr_baseChange_bridge_right}, identifying it with \(\mathrm{awayInclRight}\); and the
+  triple transition \(t'_{IJK}\) by \ref{mk-lem:gr_baseChange_bridge_transition}, identifying it
+  with \(\Theta_{IJ}\). Each bridge already records the agreement of the entrywise image of the
+  relevant Cramer inverse under the geometric base-change with its image under the named ring
+  homomorphism over which \ref{mk-lem:gr_bundleCocycle_matrix} is stated, so assembling the three
+  gives the claim.
+\end{proof}
+
+\begin{lemma}[Transport and endpoint alignment of the bundle transitions]\label{mk-lem:gr_bundleCocycle_transport}
+  \dcref{custom}
+
+  \uses{mk-def:gr_bundleTransition, mk-lem:gr_bundleCocycle_matrix, mk-lem:gr_matrixToFreeIso_mul,
+    mk-lem:gr_matrixEnd_pullback, mk-lem:gr_baseChange_bridge,
+    mk-lem:modules_pullback_basechange_transport, mk-lem:gr_glueData_bridges,
+    mk-def:modules_pullbackComp, mk-lem:gr_pullbackFreeIso}
+  Fix indices \(I, J, K\) with triple overlap \(V_{IJK} = U^I_J \times_{U^I} U^I_K\),
+  and let \(\widehat{g}_{IJ}^{\,K}, \widehat{g}_{JK}^{\,I}, \widehat{g}_{IK}^{\,J}\) be
+  the base-change transports (\ref{mk-lem:modules_pullback_basechange_transport}) of the
+  three bundle transitions to \(V_{IJK}\). Under the free-pullback comparisons
+  (\ref{mk-lem:gr_pullbackFreeIso}) and the endpoint bridges
+  (\ref{mk-lem:gr_glueData_bridges}), each transported transition is identified with the
+  matrix automorphism of the corresponding base-changed Cramer inverse on the common
+  free sheaf \(\mathcal{O}_{V_{IJK}}^{\,d}\); granting the matrix identity
+  \ref{mk-lem:gr_bundleCocycle_matrix}, the composite satisfies
+  \[
+    \widehat{g}_{JK}^{\,I} \circ \widehat{g}_{IJ}^{\,K}
+      \;=\; \widehat{g}_{IK}^{\,J}
+  \]
+  as isomorphisms of sheaves of modules on \(V_{IJK}\). This is the substantive
+  transport step: the alignment of the three transports' domains and codomains.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_bundleTransition, mk-lem:gr_bundleCocycle_matrix, mk-lem:gr_matrixToFreeIso_mul,
+    mk-lem:gr_matrixEnd_pullback, mk-lem:gr_baseChange_bridge,
+    mk-lem:modules_pullback_basechange_transport, mk-lem:gr_glueData_bridges,
+    mk-def:modules_pullbackComp, mk-lem:gr_pullbackFreeIso}
+  This is pure assembly of the two infrastructure pieces over the endpoint bridges. Each
+  bundle transition is, by \ref{mk-def:gr_bundleTransition}, \(\mathrm{matrixToFreeIso}\) of a
+  localised Cramer inverse conjugated by the free-pullback comparisons
+  \ref{mk-lem:gr_pullbackFreeIso}; its base-change transport
+  (\ref{mk-lem:modules_pullback_basechange_transport}) reassociates the iterated pullbacks via
+  \ref{mk-def:modules_pullbackComp}, and the three endpoint bridges \ref{mk-lem:gr_glueData_bridges}
+  pin the source, middle and target sheaves to a single \(\mathcal{O}_{V_{IJK}}^{\,d}\). By
+  \ref{mk-lem:gr_matrixEnd_pullback} each transport then equals \(\mathrm{matrixEnd}\) of the
+  base-changed Cramer inverse, and by \ref{mk-lem:gr_baseChange_bridge} those base-changed matrices
+  are exactly \((X^I_J)^{-1}, (X^J_K)^{-1}, (X^I_K)^{-1}\) over the common triple-overlap ring of
+  \ref{mk-lem:gr_bundleCocycle_matrix}. The linkage \ref{mk-lem:gr_matrixToFreeIso_mul} composes the
+  first two to \(\mathrm{matrixEnd}\bigl((X^J_K)^{-1}(X^I_J)^{-1}\bigr)\), and
+  by the matrix cocycle identity \ref{mk-lem:gr_bundleCocycle_matrix} the argument equals
+  \((X^I_K)^{-1}\), so the composite equals \(\widehat{g}_{IK}^{\,J}\); the bridges make both
+  sides isomorphisms between the same pair of sheaves on \(V_{IJK}\).
+\end{proof}
+
+\begin{lemma}[Triple-overlap multiplicativity of the bundle transition (C2)]\label{mk-lem:gr_bundleCocycle_mul}
+  \dcref{custom}
+
+  \uses{mk-def:gr_bundleTransition, mk-lem:gr_bundleCocycle_matrix, mk-lem:gr_matrixToFreeIso_mul,
+    mk-lem:gr_bundleCocycle_transport, mk-lem:modules_pullback_basechange_transport,
+    mk-lem:gr_glueData_bridges, mk-def:modules_pullbackComp}
+  Over each triple overlap \(V_{IJK} = U^I_J \times_{U^I} U^I_K\) the base-change transports
+  (\ref{mk-lem:modules_pullback_basechange_transport}) of the three bundle transitions satisfy
+  \[
+    \widehat{g}_{JK}^{\,I} \circ \widehat{g}_{IJ}^{\,K}
+      \;=\; \widehat{g}_{IK}^{\,J},
+  \]
+  the module-level form of the descent condition (C2) of \ref{mk-def:scheme_modules_glue} for
+  the bundle data \((g_{I,J})\). This is the \(\mathrm{GL}_d\)-valued multiplicative cocycle
+  of \(\mathcal{U}\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_bundleCocycle_matrix, mk-lem:gr_matrixToFreeIso_mul,
+    mk-lem:gr_bundleCocycle_transport}
+  The statement decomposes into three independent steps. First, the matrix-algebra core
+  \ref{mk-lem:gr_bundleCocycle_matrix} establishes the Cramer-inverse cocycle
+  \((X^J_K)^{-1}(X^I_J)^{-1} = (X^I_K)^{-1}\) over the triple overlap. Second, the linkage
+  \ref{mk-lem:gr_matrixToFreeIso_mul} records that composition of matrix automorphisms realises
+  matrix multiplication. Third, the transport step \ref{mk-lem:gr_bundleCocycle_transport}
+  carries the three transitions to the common overlap \(V_{IJK}\), aligns their source,
+  middle, and target sheaves through the base-change transport and the endpoint bridges, and
+  -- feeding it the matrix identity through the linkage -- yields exactly the stated equality
+  \(\widehat{g}_{JK}^{\,I} \circ \widehat{g}_{IJ}^{\,K} = \widehat{g}_{IK}^{\,J}\).
+\end{proof}
+
+\begin{definition}[The universal quotient sheaf \(\mathcal{U}\)]\label{mk-def:gr_universal_quotient_sheaf}
+  \dcref{custom}
+
+  \uses{mk-def:gr_chart_quotient, mk-def:gr_universalMinorInv, mk-def:gr_transition,
+    mk-lem:gr_cocycle, mk-def:gr_glued_scheme, mk-def:scheme_modules_glue,
+    mk-def:gr_modules_glueRestrictionIso, mk-def:gr_bundleTransition,
+    mk-lem:gr_bundleCocycle_id, mk-lem:gr_bundleCocycle_mul,
+    mk-lem:gr_glueData_bridges, mk-def:is_locally_free_of_rank}
+  \textit{Source: \cite{nitsure-hilbert-quot}, \S 1.}
+  Over each overlap \(U^I_J = \Spec R^I_J\) define the bundle-transition matrix
+  \[
+    g_{I,J} \;=\; (X^I_J)^{-1} \;\in\; \mathrm{GL}_d(R^I_J),
+  \]
+  the Cramer inverse of the localised \(J\)-minor (\ref{mk-def:gr_universalMinorInv}),
+  which is invertible because \(\det(X^I_J)\) is a unit of \(R^I_J\). The matrices
+  \((g_{I,J})\) are compatible with the chart-gluing cocycle \((\theta_{I,J})\)
+  (\ref{mk-def:gr_transition}, \ref{mk-lem:gr_cocycle}): over a triple overlap they
+  satisfy \(g_{I,K} = g_{J,K}\, g_{I,J}\) and \(g_{I,I} = 1\), the multiplicative
+  cocycle condition for a vector bundle. Gluing the free rank-\(d\) sheaves
+  \(\mathcal{O}_{U^I}^{\,d}\) along the isomorphisms \(g_{I,J}\) over the cover
+  \(\{U^I\}\) of \(\mathrm{Gr}(r,d)\) (\ref{mk-def:gr_glued_scheme}) therefore
+  produces a locally free \(\mathcal{O}_{\mathrm{Gr}(r,d)}\)-module
+  \(\mathcal{U}\) of rank \(d\). Its determinant line bundle \(\det \mathcal{U}\)
+  has transition functions \(\det(g_{I,J}) = 1/P^I_J\), the data underlying the
+  Pl\"ucker embedding.
+\end{definition}
+
+The tautological quotient \(u\) is assembled from the chart quotients \(u^I\) by the
+section-level descent \ref{mk-def:gr_modules_glueHom}; its one remaining content is the
+\emph{overlap-compatibility} of the family \((u^I)\) with the bundle gluing
+\((g_{I,J})\). The next four blocks isolate that compatibility: a rectangular analogue of
+the square matrix-endomorphism API (\ref{mk-def:gr_matrixEnd},
+\ref{mk-lem:gr_matrixEnd_pullback}, \ref{mk-lem:gr_matrixEnd_comp}) for the
+\(r \to d\) chart quotient (\ref{mk-def:gr_matrixEndRect},
+\ref{mk-lem:gr_matrixEndRect_pullback}, \ref{mk-lem:gr_matrixEndRect_comp}), the
+adjunction transposition that turns the descent condition into a pullback-level identity
+(\ref{mk-lem:gr_tautologicalQuotientComponent_transpose}), and the matrix-core assembly
+that closes it (\ref{mk-lem:gr_tautologicalQuotient_overlap}).
+
+\subsection{Matrix-calculus toolbox}
+
+The chart-cover lemma (\ref{mk-lem:chartLocus_isOpenCover}) and the overlap compatibility of
+\ref{mk-def:grPointOfRankQuotient} both rest on a small calculus of \emph{rectangular} matrix
+homomorphisms of free sheaves, generalising the square API
+(\ref{mk-def:gr_matrixEnd}, \ref{mk-lem:gr_matrixEnd_comp}, \ref{mk-lem:gr_matrixEnd_one}). The
+blocks below collect that toolbox: the bridge to the square case, the identity and
+composition laws, injectivity of the matrix presentation, the column-restriction law, the
+affine splitting of epimorphisms of free sheaves and the resulting matrix right inverse, the
+field-level minor extraction, and the presented-matrix machinery that packages a quotient as
+a matrix along a morphism and proves Nitsure's change-of-basis identity. They are
+project-bespoke infrastructure.
+
+
+\begin{definition}[Rectangular matrix homomorphism of free sheaves]\label{mk-def:gr_matrixEndRect}
+  \dcref{custom}
+
+  \uses{mk-def:gr_scalarEnd}
+  Let \(S\) be a scheme, \(d, r \in \mathbb{N}\), and
+  \(M \in \operatorname{Mat}_{d \times r}(\Gamma(S, \mathcal{O}_S))\) a rectangular matrix
+  of global functions. The \emph{rectangular matrix homomorphism}
+  \(\mathrm{matrixEndRect}(M)\) is the morphism of free sheaves
+  \[
+    \mathrm{matrixEndRect}(M) \;:\; \mathcal{O}_S^{\,r}
+      \;\longrightarrow\; \mathcal{O}_S^{\,d}
+  \]
+  whose \((k,\ell)\)-component -- \(k \in \{1,\dots,d\}\) an output index,
+  \(\ell \in \{1,\dots,r\}\) an input index -- under the presentation of
+  \(\mathcal{O}_S^{\,r}\) and \(\mathcal{O}_S^{\,d}\) as finite biproducts of copies of the
+  unit module \(\mathbf 1\), is the scalar endomorphism \(\mathrm{scalarEnd}(M_{k,\ell})\)
+  (\ref{mk-def:gr_scalarEnd}). It is assembled from these components by the universal property
+  of the two biproducts, exactly as the square \(\mathrm{matrixEnd}\)
+  (\ref{mk-def:gr_matrixEnd}) and the chart quotient (\ref{mk-def:gr_chart_quotient}). When
+  \(r = d\) it specialises to \(\mathrm{matrixEnd}\); and the chart quotient \(u^I\)
+  (\ref{mk-def:gr_chart_quotient}) is by construction \(\mathrm{matrixEndRect}(X^I)\) of the
+  universal \(d \times r\) matrix \(X^I\) (\ref{mk-def:gr_universal_matrix}).
+\end{definition}
+
+\begin{lemma}[Rectangular matrix homomorphism is natural under pullback]\label{mk-lem:gr_matrixEndRect_pullback}
+  \dcref{custom}
+
+  \uses{mk-def:gr_matrixEndRect, mk-def:gr_scalarEnd, mk-lem:gr_scalarEnd_pullback,
+    mk-lem:gr_pullbackFreeIso, mk-def:modules_pullbackComp, mk-lem:gr_matrixEnd_pullback}
+  Let \(p : T \to S\) be a morphism of schemes and
+  \(M \in \operatorname{Mat}_{d\times r}(\Gamma(S,\mathcal{O}_S))\), with entrywise
+  base-changed matrix \(p^{\sharp}M \in \operatorname{Mat}_{d\times r}(\Gamma(T,\mathcal{O}_T))\).
+  Write \(Q_r : p^{*}\mathcal{O}_S^{\,r} \xrightarrow{\sim} \mathcal{O}_T^{\,r}\) and
+  \(Q_d : p^{*}\mathcal{O}_S^{\,d} \xrightarrow{\sim} \mathcal{O}_T^{\,d}\) for the
+  free-pullback comparisons (\ref{mk-lem:gr_pullbackFreeIso}) at the index sets
+  \(\{1,\dots,r\}\) and \(\{1,\dots,d\}\). Then the pullback of
+  \(\mathrm{matrixEndRect}(M)\) is conjugate, through \(Q_r\) and \(Q_d\), to the
+  rectangular homomorphism of the base-changed matrix:
+  \[
+    p^{*}\bigl(\mathrm{matrixEndRect}(M)\bigr)
+      \;=\; Q_d^{-1} \,\circ\, \mathrm{matrixEndRect}(p^{\sharp}M) \,\circ\, Q_r .
+  \]
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_matrixEndRect, mk-lem:gr_scalarEnd_pullback, mk-lem:gr_pullbackFreeIso,
+    mk-def:modules_pullbackComp, mk-lem:gr_matrixEnd_pullback}
+  Identical to the square case \ref{mk-lem:gr_matrixEnd_pullback}, with the source and target
+  biproducts now indexed by \(\{1,\dots,r\}\) and \(\{1,\dots,d\}\) respectively. The
+  pullback functor \(p^{*}\), a left adjoint, is additive and biproduct-preserving; through
+  the coproduct comparisons underlying the free-pullback isomorphisms
+  \ref{mk-lem:gr_pullbackFreeIso} it carries the biproduct presentation of
+  \(\mathcal{O}_S^{\,r}\) (resp. \(\mathcal{O}_S^{\,d}\)) to that of \(\mathcal{O}_T^{\,r}\)
+  (resp. \(\mathcal{O}_T^{\,d}\)), the reassociation of the iterated pullbacks being
+  \ref{mk-def:modules_pullbackComp}. On each single \((k,\ell)\)-component the pulled-back
+  scalar endomorphism is, by \ref{mk-lem:gr_scalarEnd_pullback}, the comparison-conjugate of
+  \(\mathrm{scalarEnd}((p^{\sharp}M)_{k,\ell})\). Reassembling over the two biproducts, the
+  conjugating one-element comparisons combine into \(Q_r\) on the source and \(Q_d\) on the
+  target, giving \(p^{*}(\mathrm{matrixEndRect}(M)) = Q_d^{-1}\circ
+  \mathrm{matrixEndRect}(p^{\sharp}M)\circ Q_r\).
+\end{proof}
+
+\begin{lemma}[Square-after-rectangular composition law]\label{mk-lem:gr_matrixEndRect_comp}
+  \dcref{custom}
+
+  \uses{mk-def:gr_matrixEndRect, mk-def:gr_matrixEnd, mk-lem:gr_scalarEnd_comp, mk-lem:gr_scalarEnd_add,
+    mk-lem:gr_matrixEnd_comp}
+  For \(M \in \operatorname{Mat}_{d\times r}(\Gamma(S,\mathcal{O}_S))\) and
+  \(N \in \operatorname{Mat}_{d\times d}(\Gamma(S,\mathcal{O}_S))\), post-composing the
+  rectangular homomorphism with a square one realises the matrix product, with the order
+  reversed by the contravariance of the component indexing exactly as in
+  \ref{mk-lem:gr_matrixEnd_comp}:
+  \[
+    \mathrm{matrixEndRect}(M) \,\circ\, \mathrm{matrixEnd}(N)
+      \;=\; \mathrm{matrixEndRect}(N \cdot M),
+  \]
+  the composite \(\mathcal{O}_S^{\,r} \xrightarrow{\mathrm{matrixEndRect}(M)}
+  \mathcal{O}_S^{\,d} \xrightarrow{\mathrm{matrixEnd}(N)} \mathcal{O}_S^{\,d}\) (here
+  \(N \cdot M\) is the \(d \times r\) product).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_matrixEndRect, mk-def:gr_matrixEnd, mk-lem:gr_scalarEnd_comp, mk-lem:gr_scalarEnd_add,
+    mk-lem:gr_matrixEnd_comp}
+  The same biproduct-extensionality computation as \ref{mk-lem:gr_matrixEnd_comp}, the only
+  change being that the leftmost (input) biproduct is indexed by \(\{1,\dots,r\}\) rather
+  than \(\{1,\dots,d\}\). The composite of two biproduct-assembled morphisms is again
+  biproduct-assembled, with \((k,\ell)\)-component the sum over the middle index \(m\) of the
+  composites of components, \(\sum_m \mathrm{scalarEnd}(N_{k,m}) \circ
+  \mathrm{scalarEnd}(M_{m,\ell})\). Each composite of scalar endomorphisms is the scalar
+  endomorphism of the product (\ref{mk-lem:gr_scalarEnd_comp}) and a finite sum of scalar
+  endomorphisms is the scalar endomorphism of the sum (\ref{mk-lem:gr_scalarEnd_add}); hence
+  that component is \(\mathrm{scalarEnd}(\sum_m N_{k,m} M_{m,\ell}) =
+  \mathrm{scalarEnd}((N\cdot M)_{k,\ell})\), the \((k,\ell)\)-component of
+  \(\mathrm{matrixEndRect}(N\cdot M)\).
+\end{proof}
+
+\begin{lemma}[Adjunction transpose of the chart-overlap condition]\label{mk-lem:gr_tautologicalQuotientComponent_transpose}
+  \dcref{custom}
+
+  \uses{mk-def:gr_chart_quotient, mk-def:gr_bundleTransition, mk-def:gr_modules_glueHom,
+    mk-lem:modules_pullback_basechange_transport, mk-lem:gr_homEquiv_conjugateEquiv_app,
+    mk-lem:conjugateEquiv_pullbackComp_inv_mathlib, mk-lem:gr_pullbackFreeIso,
+    mk-def:modules_pullbackComp}
+  Fix size-\(d\) subsets \(I, J\) and let \(f_{IJ} : U^I_J \hookrightarrow U^I\),
+  \(t_{IJ} : U^I_J \xrightarrow{\sim} U^J_I\) be the overlap immersion and transition
+  (\ref{mk-def:gr_transition}). The per-chart components \(u^I\) of the tautological quotient
+  are the adjoint transposes, along the chart immersions, of the chart quotients
+  \ref{mk-def:gr_chart_quotient} (precomposed with the free-pullback comparison). Their
+  descent compatibility -- the hypothesis the gluing primitive \ref{mk-def:gr_modules_glueHom}
+  consumes, namely that the bundle transition \(g_{I,J}\) (\ref{mk-def:gr_bundleTransition})
+  intertwines the pullbacks of \(u^I\) and \(u^J\) over \(U^I_J\) -- is equivalent, under the
+  pullback--pushforward adjunction of the overlap immersion, to the pullback-level identity
+  of morphisms \(\mathcal{O}_{U^I_J}^{\,r} \to \mathcal{O}_{U^I_J}^{\,d}\)
+  \[
+    g_{I,J} \,\circ\, f_{IJ}^{*}\,u^I
+      \;=\; (t_{IJ} \circ f_{JI})^{*}\,u^J,
+  \]
+  understood through the free-pullback comparisons (\ref{mk-lem:gr_pullbackFreeIso}) on
+  source and target.
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_homEquiv_conjugateEquiv_app, mk-lem:conjugateEquiv_pullbackComp_inv_mathlib,
+    mk-lem:gr_pullbackFreeIso, mk-def:modules_pullbackComp}
+  The components are produced by applying the adjunction hom-equivalence to the chart
+  quotients; the descent condition of \ref{mk-def:gr_modules_glueHom} is stated on those
+  transposes. Transposing back across the adjunction is the naturality of the conjugate
+  (mate) construction against the hom-equivalences, \ref{mk-lem:gr_homEquiv_conjugateEquiv_app},
+  together with the compatibility of the conjugate with the iterated-pullback comparison
+  \ref{mk-lem:conjugateEquiv_pullbackComp_inv_mathlib} reassociating the two pullbacks
+  \(f_{IJ}^{*}\) and \((t_{IJ}\circ f_{JI})^{*}\) via \ref{mk-def:modules_pullbackComp}. The
+  free-pullback comparisons \ref{mk-lem:gr_pullbackFreeIso} re-present both sides as morphisms
+  of the trivial bundles \(\mathcal{O}_{U^I_J}^{\,r} \to \mathcal{O}_{U^I_J}^{\,d}\), under
+  which the transposed condition becomes the displayed pullback-level identity.
+\end{proof}
+
+\begin{lemma}[Overlap compatibility of the tautological quotient]\label{mk-lem:gr_tautologicalQuotient_overlap}
+  \dcref{custom}
+
+  \uses{mk-lem:gr_tautologicalQuotientComponent_transpose, mk-lem:gr_matrixEndRect_pullback,
+    mk-lem:gr_matrixEndRect_comp, mk-def:gr_bundleTransition, mk-def:gr_chart_quotient,
+    mk-def:gr_universalMinorInv, mk-lem:gr_universalMatrix_map_transitionPreMap,
+    mk-lem:gr_imageMatrix_map_eq, mk-lem:modules_pullback_basechange_transport,
+    mk-lem:gr_baseChange_bridge_left}
+  For every pair of size-\(d\) subsets \(I, J\), the chart quotients \(u^I\)
+  (\ref{mk-def:gr_chart_quotient}) satisfy the overlap-compatibility condition required by the
+  section-level descent \ref{mk-def:gr_modules_glueHom} for the bundle gluing \((g_{I,J})\):
+  the pullback-level identity \(g_{I,J} \circ f_{IJ}^{*} u^I = (t_{IJ}\circ f_{JI})^{*} u^J\)
+  of \ref{mk-lem:gr_tautologicalQuotientComponent_transpose} holds on each overlap \(U^I_J\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_tautologicalQuotientComponent_transpose, mk-lem:gr_matrixEndRect_pullback,
+    mk-lem:gr_matrixEndRect_comp, mk-def:gr_bundleTransition,
+    mk-lem:gr_universalMatrix_map_transitionPreMap, mk-lem:gr_imageMatrix_map_eq,
+    mk-lem:gr_baseChange_bridge_left}
+  By \ref{mk-lem:gr_tautologicalQuotientComponent_transpose} it suffices to prove the
+  pullback-level identity \(g_{I,J} \circ f_{IJ}^{*} u^I = (t_{IJ}\circ f_{JI})^{*} u^J\) on
+  \(U^I_J\). Both sides are morphisms of trivial bundles \(\mathcal{O}_{U^I_J}^{\,r} \to
+  \mathcal{O}_{U^I_J}^{\,d}\); write each as \(\mathrm{matrixEndRect}\) of a \(d \times r\)
+  matrix over the overlap ring \(R^I_J\) and compare matrices.
+
+  Since \(u^I = \mathrm{matrixEndRect}(X^I)\) (\ref{mk-def:gr_chart_quotient}), the
+  base-change naturality \ref{mk-lem:gr_matrixEndRect_pullback} identifies \(f_{IJ}^{*} u^I\),
+  through the free-pullback comparisons, with \(\mathrm{matrixEndRect}\) of the localised
+  matrix \(X^I\) over \(R^I_J\) (the global-sections base change is the away-localisation
+  \ref{mk-lem:gr_baseChange_bridge_left}). The bundle transition \(g_{I,J}\) is
+  \(\mathrm{matrixEnd}\) of the Cramer inverse \((X^I_J)^{-1}\)
+  (\ref{mk-def:gr_bundleTransition}, \ref{mk-def:gr_universalMinorInv}); hence by the
+  square-after-rectangular composition law \ref{mk-lem:gr_matrixEndRect_comp},
+  \[
+    g_{I,J} \circ f_{IJ}^{*} u^I
+      \;=\; \mathrm{matrixEndRect}\bigl((X^I_J)^{-1} \cdot X^I\bigr).
+  \]
+  The transition image matrix identity \(X^J = (X^I_J)^{-1} X^I\)
+  (\ref{mk-lem:gr_universalMatrix_map_transitionPreMap}, transported across the overlap by
+  \ref{mk-lem:gr_imageMatrix_map_eq}) turns the right-hand matrix into \(X^J\). Symmetrically,
+  \(\mathrm{matrixEndRect}_J\) of \(X^J\) is, by \ref{mk-lem:gr_matrixEndRect_pullback} along
+  \(t_{IJ}\circ f_{JI}\), the comparison form of \((t_{IJ}\circ f_{JI})^{*} u^J\). Therefore
+  the two sides agree, which is the required overlap compatibility.
+\end{proof}
+
+\begin{definition}[The tautological quotient \(u : \mathcal{O}^{r} \twoheadrightarrow \mathcal{U}\)]\label{mk-def:tautological_quotient}
+  \dcref{custom}
+
+  \uses{mk-def:gr_universal_quotient_sheaf, mk-def:gr_chart_quotient,
+    mk-def:gr_glued_scheme, mk-def:gr_universalMinorInv, mk-lem:gr_cocycle,
+    mk-def:scheme_modules_glue, mk-def:gr_modules_glueRestrictionIso,
+    mk-def:gr_modules_glueHom, mk-lem:gr_tautologicalQuotient_overlap}
+  \textit{Source: \cite{nitsure-hilbert-quot}, \S 1.}
+  The chart quotients \(u^I : \mathcal{O}_{U^I}^{\,r} \to \mathcal{O}_{U^I}^{\,d}\)
+  (\ref{mk-def:gr_chart_quotient}) are compatible with the bundle gluing
+  \((g_{I,J})\) of \(\mathcal{U}\) (\ref{mk-def:gr_universal_quotient_sheaf}): over
+  each overlap \(U^I_J\) one has the identity of \(d \times r\) matrices
+  \[
+    g_{I,J}\, X^I \;=\; (X^I_J)^{-1} X^I \;=\; X^J \qquad \text{on } U^I_J,
+  \]
+  which is precisely the defining formula of the chart transition
+  \(\theta_{I,J}\) (\ref{mk-def:gr_transition}, \ref{mk-def:gr_universalMinorInv}). At the
+  module level this overlap compatibility -- the equalising condition consumed by the
+  section-level descent \ref{mk-def:gr_modules_glueHom} -- is exactly
+  \ref{mk-lem:gr_tautologicalQuotient_overlap}, whose proof routes the matrix identity above
+  through the rectangular pullback/composition API
+  (\ref{mk-lem:gr_matrixEndRect_pullback}, \ref{mk-lem:gr_matrixEndRect_comp}) and the
+  adjunction transpose \ref{mk-lem:gr_tautologicalQuotientComponent_transpose}.
+  Hence the local maps \(u^I\), transported through the trivialisations of
+  \(\mathcal{U}\), agree on overlaps and glue to a single surjective
+  \(\mathcal{O}_{\mathrm{Gr}(r,d)}\)-linear homomorphism
+  \[
+    u \;:\; \mathcal{O}_{\mathrm{Gr}(r,d)}^{\,r}
+      \;\twoheadrightarrow\; \mathcal{U},
+  \]
+  the \emph{tautological} (or \emph{universal}) rank-\(d\) quotient of the trivial
+  rank-\(r\) sheaf. It is surjective because each \(u^I\) is (split) surjective and
+  surjectivity is local on \(\mathrm{Gr}(r,d)\), and \(\mathcal{U}\) is locally
+  free of rank \(d\) by \ref{mk-def:gr_universal_quotient_sheaf}. The pair
+  \(\langle \mathcal{U}, u \rangle\) is the family of rank-\(d\) quotients carried
+  by \(\mathrm{Gr}(r,d)\) itself.
+\end{definition}
+
+\section{The functor of points}
+\label{mk-sec:grquot_functor}
+
+The Grassmannian functor sends a scheme \(T\) to the set of \emph{equivalence classes} of
+rank-\(d\) quotients of \(\mathcal{O}_T^{\,r}\). The following block packages a single such
+quotient, the equivalence relation on them, and the pullback action through which the
+functor acts on morphisms; the two coherence blocks after it isolate the comparison
+identities that make that action functorial.
+
+\begin{definition}[Rank-\(d\) quotient of \(\mathcal{O}_T^{\,r}\)]\label{mk-def:gr_rankQuotient}
+  \dcref{custom}
+
+  A \emph{rank-\(d\) quotient} of the trivial bundle \(\mathcal{O}_T^{\,r}\) on a scheme
+  \(T\) is the datum \(x = \langle \mathcal{F}, q\rangle\) of a sheaf of
+  \(\mathcal{O}_T\)-modules \(\mathcal{F}\), locally free of rank \(d\), together with an
+  epimorphism \(q : \mathcal{O}_T^{\,r} \twoheadrightarrow \mathcal{F}\). Two such quotients
+  \(\langle \mathcal{F}, q\rangle\) and \(\langle \mathcal{F}', q'\rangle\) are
+  \emph{equivalent} when there is an isomorphism \(f : \mathcal{F} \xrightarrow{\sim}
+  \mathcal{F}'\) with \(f \circ q = q'\) (equivalently, \(\ker q = \ker q'\)); this is the
+  equivalence relation whose classes form the value of the Grassmannian functor.
+\end{definition}
+
+\begin{definition}[The Grassmannian functor \(\mathrm{Grass}(r,d)\)]\label{mk-def:grassmannian_functor}
+  \dcref{custom}
+
+  \uses{mk-def:gr_rankQuotient, mk-lem:gr_pullbackFreeIso, mk-lem:gr_pullbackObjUnitToUnit_id,
+    mk-lem:gr_pullbackObjUnitToUnit_comp}
+  The \emph{Grassmannian functor} \(\mathrm{Grass}(r,d) : \mathbf{Sch}^{\mathrm{op}} \to
+  \mathbf{Set}\) sends a scheme \(T\) to the set of equivalence classes of rank-\(d\)
+  quotients \(\langle \mathcal{F}, q\rangle\) of \(\mathcal{O}_T^{\,r}\)
+  (\ref{mk-def:gr_rankQuotient}), and a morphism \(\psi : T' \to T\) to the \emph{pullback
+  action} \(\langle \mathcal{F}, q\rangle \mapsto \langle \psi^{*}\mathcal{F}, \psi^{*}q\rangle\),
+  the source being re-identified with \(\mathcal{O}_{T'}^{\,r}\) through the free-pullback
+  isomorphism \(\psi^{*}\mathcal{O}_T^{\,r} \cong \mathcal{O}_{T'}^{\,r}\)
+  (\ref{mk-lem:gr_pullbackFreeIso}). Pullback preserves epimorphisms and rank-\(d\) local
+  freeness, so the action is well defined and respects the equivalence relation, hence
+  descends to classes. The identity and composition functoriality laws follow from the
+  pseudofunctor coherences of \(\psi^{*}\), reduced by coproduct extensionality over
+  \(\mathcal{O}^{\,r} = \bigoplus_r \mathbf{1}\) to the unit-level identities
+  \ref{mk-lem:gr_pullbackObjUnitToUnit_id} and \ref{mk-lem:gr_pullbackObjUnitToUnit_comp}.
+\end{definition}
+
+
+The two blocks below record the comparison identities, between the free-pullback isomorphism
+\ref{mk-lem:gr_pullbackFreeIso} and Mathlib's pseudofunctor structure on pullback, that make
+the descended pullback action of \ref{mk-def:gr_rankQuotient} functorial.
+
+
+\begin{lemma}[Mate/conjugate compatibility of the adjunction hom-equivalence]\label{mk-lem:gr_homEquiv_conjugateEquiv_app}
+  \dcref{custom}
+
+  Let \(\mathrm{adj}_1, \mathrm{adj}_2\) be two adjunctions and \(\alpha\) a natural
+  transformation between their left adjoints. For a morphism \(f\) the hom-equivalence of
+  \(\mathrm{adj}_2\) applied to \(\alpha_c \circ f\) equals the hom-equivalence of
+  \(\mathrm{adj}_1\) applied to \(f\), post-composed with the component at \(d\) of the
+  conjugate (mate) of \(\alpha\). This is the general naturality of the conjugate
+  construction against the two hom-equivalences; it is the reusable engine behind
+  \ref{mk-lem:gr_pullbackObjUnitToUnit_comp}.
+\end{lemma}
+
+\begin{proof}
+
+
+Both sides unfold to the same pasting of unit/counit triangles for the two adjunctions;
+  the equality is the standard compatibility of the mate of \(\alpha\) with the
+  hom-set bijections.
+\end{proof}
+
+\begin{lemma}[Free-pullback unit coherence at the identity]\label{mk-lem:gr_pullbackObjUnitToUnit_id}
+  \dcref{custom}
+
+  The free-pullback comparison morphism on the unit sheaf at the identity morphism of \(T\)
+  agrees with the component, at the unit sheaf, of the pseudofunctor identity isomorphism
+  \(\mathrm{id}^{*} \cong \mathrm{id}\) of the pullback of sheaves of modules.
+\end{lemma}
+\begin{proof}
+
+Transpose both sides under the pullback--pushforward adjunction: the comparison becomes the
+  canonical unit-to-pushforward-unit map, and the pseudofunctor identity becomes the conjugate
+  (mate) of the identity adjunction, which acts as the identity on the unit section. The two
+  transposes therefore coincide, so the original maps agree.
+\end{proof}
+
+\begin{lemma}[Free-pullback unit coherence at a composite]\label{mk-lem:gr_pullbackObjUnitToUnit_comp}
+  \dcref{custom}
+
+  \uses{mk-lem:gr_homEquiv_conjugateEquiv_app}
+  For composable \(a : T_y \to T_x\) and \(b : T_z \to T_y\), the free-pullback comparison on
+  the unit sheaf at the composite \(b \circ a\) factors, through the pseudofunctor composition
+  isomorphism \((b\circ a)^{*}\cong b^{*}a^{*}\), as the pulled-back comparison of \(a\)
+  followed by the comparison of \(b\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_homEquiv_conjugateEquiv_app}
+  Transpose under the composite pullback--pushforward adjunction. By
+  \ref{mk-lem:gr_homEquiv_conjugateEquiv_app} the left side collapses to the unit-to-pushforward
+  map of \(b\circ a\) post-composed with the conjugate of the composition isomorphism -- the
+  inverse pushforward-composition comparison -- while the right side collapses, by naturality
+  of the hom-equivalence, to the unit map of \(a\) followed by its pushforward along \(b\).
+  Both reduce to the unit-section identity, so the two sides agree.
+\end{proof}
+
+
+Together \ref{mk-lem:gr_pullbackObjUnitToUnit_id} and \ref{mk-lem:gr_pullbackObjUnitToUnit_comp}
+upgrade to the corresponding free-sheaf coherences -- the free-pullback isomorphism at the
+identity equals the component of the pullback-identity isomorphism, and likewise for the
+composite -- by coproduct extensionality over the decomposition
+\(\mathcal{O}^{\,\oplus I} = \bigoplus_I \mathbf 1\). These coherences discharge both
+functoriality laws (identity and composition) of the Grassmannian
+functor \ref{mk-def:grassmannian_functor}.
+
+
+\section{The universal property}
+\label{mk-sec:grquot_universal}
+
+The representability theorem \ref{mk-thm:grassmannian_universal_property} has two halves:
+the forward map \(\varphi \mapsto \langle \varphi^{*}\mathcal{U}, \varphi^{*}u\rangle\)
+and its inverse, which manufactures a morphism \(T \to \mathrm{Gr}(r,d)\) out of a rank-\(d\)
+quotient \(\langle \mathcal{F}, q\rangle\) on \(T\). The forward map needs the tautological
+quotient to actually be a quotient -- that \(u\) is an epimorphism
+(\ref{mk-lem:tautologicalQuotient_epi}). The inverse is built Zariski-locally and glued: for
+each size-\(d\) subset \(I\) one isolates the open locus \(T_I \subseteq T\) where the
+\(I\)-indexed columns of \(q\) form a basis of \(\mathcal{F}\), classifies \(T_I \to U^I\)
+there, and glues over the cover \(\{T_I\}\). The blocks of this section supply the four
+ingredients of that inverse: the iso-locus of a sheaf morphism (\ref{mk-def:isoLocus}) and
+the fact that a morphism becomes invertible after restriction to its iso-locus
+(\ref{mk-lem:isIso_pullback_isoLocus_map}); the chart locus \(T_I\) (\ref{mk-def:chartLocus})
+and the proof that the chart loci cover \(T\) (\ref{mk-lem:chartLocus_isOpenCover}); and the
+glued classifying morphism itself (\ref{mk-def:grPointOfRankQuotient}).
+
+\begin{lemma}[The tautological quotient is an epimorphism]\label{mk-lem:tautologicalQuotient_epi}
+  \dcref{custom}
+
+  \uses{mk-lem:gr_chartQuotientMap_epi, mk-def:tautological_quotient, mk-lem:gr_modules_glue_unique}
+  The tautological quotient \(u : \mathcal{O}_{\mathrm{Gr}(r,d)}^{\,r}
+  \twoheadrightarrow \mathcal{U}\) (\ref{mk-def:tautological_quotient}) is an epimorphism of
+  sheaves of \(\mathcal{O}_{\mathrm{Gr}(r,d)}\)-modules.
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_chartQuotientMap_epi, mk-def:tautological_quotient, mk-lem:gr_modules_glue_unique}
+  Being an epimorphism of sheaves of modules is local on the base: a morphism is epi
+  precisely when its restriction to every member of an open cover is epi, since the
+  cokernel is computed chartwise and a sheaf vanishing on a cover vanishes
+  (the joint detection of morphisms across the chart cover is
+  \ref{mk-lem:gr_modules_glue_unique}). The charts
+  \(\{U^I\}\) cover \(\mathrm{Gr}(r,d)\), and over \(U^I\) the tautological quotient,
+  transported through the trivialisation \(\mathcal{U}|_{U^I} \cong \mathcal{O}_{U^I}^{\,d}\)
+  of \ref{mk-def:gr_universal_quotient_sheaf}, is the chart quotient \(u^I :
+  \mathcal{O}_{U^I}^{\,r} \to \mathcal{O}_{U^I}^{\,d}\) (\ref{mk-def:tautological_quotient}).
+  Each \(u^I\) is a split epimorphism: its \(I\)-minor is the identity \(1_{d\times d}\),
+  so the coordinate inclusion \(\mathcal{O}_{U^I}^{\,d} \hookrightarrow
+  \mathcal{O}_{U^I}^{\,r}\) on the \(I\)-columns is a section of \(u^I\), whence \(u^I\) is
+  epi (\ref{mk-lem:gr_chartQuotientMap_epi}). As \(u^I\) is epi on every chart, \(u\) is epi.
+\end{proof}
+
+\begin{definition}[Iso-locus of a morphism of module sheaves]\label{mk-def:isoLocus}
+  \dcref{custom}
+
+  For a morphism \(\varphi : \mathcal{M} \to \mathcal{N}\) of sheaves of
+  \(\mathcal{O}_X\)-modules on a scheme \(X\), the \emph{iso-locus}
+  \(\mathrm{Iso}(\varphi) \subseteq X\) is the supremum (union) of all opens
+  \(U \subseteq X\) over which the restriction \(\varphi|_U\) is an isomorphism -- the largest
+  open on which \(\varphi\) is invertible. A point \(t\) lies in \(\mathrm{Iso}(\varphi)\)
+  precisely when some open neighbourhood of \(t\) pulls \(\varphi\) back to an isomorphism.
+\end{definition}
+
+\begin{lemma}[A morphism is invertible over its iso-locus]\label{mk-lem:isIso_pullback_isoLocus_map}
+  \dcref{custom}
+
+  \uses{mk-def:isoLocus}
+  The restriction of \(\varphi : \mathcal{M} \to \mathcal{N}\) to its iso-locus
+  \(\mathrm{Iso}(\varphi)\) (\ref{mk-def:isoLocus}) is an isomorphism of sheaves of modules.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:isoLocus}
+  Being an isomorphism of module sheaves is stalk-local. Each point of the iso-locus has an
+  open neighbourhood on which \(\varphi\) pulls back to an isomorphism, and restriction along
+  an open immersion preserves stalks; hence the stalk of the underlying abelian-sheaf morphism
+  of \(\varphi\) is invertible at every point of the locus. The same stalk comparison for the
+  locus inclusion shows \(\varphi|_{\mathrm{Iso}(\varphi)}\) is stalkwise invertible, so it is
+  an isomorphism of abelian sheaves by the stalk criterion; the forgetful functor to abelian
+  sheaves reflects this back to module sheaves, and the restriction--pullback comparison
+  transports it to the pullback functor.
+\end{proof}
+
+\begin{definition}[Chart locus \(T_I\) of a rank-\(d\) quotient]\label{mk-def:chartLocus}
+  \dcref{custom}
+
+  \uses{mk-def:isoLocus, mk-def:gr_rankQuotient}
+  For a rank-\(d\) quotient \(x = \langle \mathcal{F}, q\rangle\) on \(T\)
+  (\ref{mk-def:gr_rankQuotient}) and a size-\(d\) subset \(I \subseteq \{1,\dots,r\}\), the
+  \emph{chart composite} is \(c_I = q \circ s_I : \mathcal{O}_T^{\,d} \to \mathcal{F}\) -- the
+  \(I\)-indexed coordinate inclusion \(s_I\) of free sheaves followed by the quotient map. The
+  \emph{chart locus} \(T_I \subseteq T\) is the iso-locus \(\mathrm{Iso}(c_I)\)
+  (\ref{mk-def:isoLocus}): the largest open of \(T\) on which \(c_I\) restricts to an
+  isomorphism.
+\end{definition}
+
+\begin{lemma}[The chart loci cover \(T\)]\label{mk-lem:chartLocus_isOpenCover}
+  \dcref{custom}
+
+  \uses{mk-def:chartLocus, mk-def:gr_rankQuotient}
+  For a rank-\(d\) quotient \(x\) on \(T\) the chart loci \(\{T_I\}_{\#I = d}\)
+  (\ref{mk-def:chartLocus}) form an open cover of \(T\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:chartLocus}
+  Fix \(t \in T\). By local freeness of \(\mathcal{F}\), choose an affine open \(W \ni t\) on
+  which \(\mathcal{F}|_W \cong \mathcal{O}_W^{\,d}\); the chart composite then becomes a
+  \(d\times r\) matrix of sections of \(\mathcal{O}_W\). Epimorphy of \(q\) makes this matrix
+  surjective at the residue field \(\kappa(t)\), so some size-\(d\) column minor, indexed by a
+  subset \(I\), has nonzero determinant at \(t\). Shrinking \(W\) to the basic open where that
+  determinant is a unit, the minor is invertible, hence the chart composite \(c_I\) is an
+  isomorphism there; thus \(t \in T_I\). As \(t\) was arbitrary, the \(T_I\) cover \(T\).
+\end{proof}
+
+
+\subsection{Overlap compatibility of the chart morphisms}
+
+On the intersection \(P = T_I \times_T T_J\) of two chart loci both chart composites pull
+back to isomorphisms, so the pulled-back quotient is presented by both chart matrices. The
+blocks below assemble the transports comparing the two presentations and proving the two
+chart morphisms agree into the glued scheme: invertibility along a composite
+(\ref{mk-lem:gr_isIso_pullback_map_comp}), the presented matrix along a composite
+(\ref{mk-lem:gr_presentedMatrix_comp}) and under an equality of base morphisms
+(\ref{mk-lem:gr_presentedMatrix_congr}), the chart matrix as a presented matrix
+(\ref{mk-lem:gr_chartMatrix_eq_presentedMatrix}), its own minor
+(\ref{mk-lem:gr_presentedMatrix_submatrix_self}), the realisation
+\(\mathrm{aeval}(M^I)(X^I) = M^I\) (\ref{mk-lem:gr_universalMatrix_map_presentedMatrix}), the
+image-matrix transport (\ref{mk-lem:gr_imageMatrix_map_ringHom}), chart-morphism naturality
+(\ref{mk-lem:gr_comp_chartMorphism}), the glue-condition identity
+(\ref{mk-lem:gr_chart_point_eq}), and finally the overlap compatibility itself
+(\ref{mk-lem:gr_chartMorphism_glue_compat}).
+
+\begin{definition}[Presented matrix \(M^I\) of a quotient along a morphism]\label{mk-def:gr_presentedMatrix}
+  \dcref{custom}
+
+  \uses{mk-def:gr_rankQuotient, mk-def:gr_matrixEndRect, mk-lem:gr_pullbackFreeIso}
+  Let \(x = \langle \mathcal{F}, q\rangle\) be a rank-\(d\) quotient on \(T\) and \(j : P \to
+  T\) a morphism along which the \(I\)-th chart composite \(c_I\) pulls back to an isomorphism.
+  The \emph{presented matrix} \(M^I = \mathrm{presentedMatrix}(x, j, I)\) is the \(d\times r\)
+  matrix of sections of \(\mathcal{O}_P\) whose rectangular-endomorphism realisation
+  (\ref{mk-def:gr_matrixEndRect}) is the conjugated pullback
+  \(Q_r^{-1}\circ j^{*}q \circ (j^{*}c_I)^{-1}\circ Q_d\), with \(Q_\bullet\) the free-pullback
+  comparisons (\ref{mk-lem:gr_pullbackFreeIso}). It generalises the chart matrix over \(T_I\)
+  (the case \(j = \iota_{T_I}\)); its \(I\)-minor is the identity.
+\end{definition}
+
+\begin{lemma}[Pullback-invertibility along a composite]\label{mk-lem:gr_isIso_pullback_map_comp}
+  \dcref{custom}
+
+  If \(a^{*}c\) is an isomorphism of module sheaves, then so is \((p\circ a)^{*}c\) for any
+  \(p\), via the pseudofunctor comparison \((p\circ a)^{*}\cong p^{*}a^{*}\).
+\end{lemma}
+\begin{proof}
+
+  The functor \(p^{*}\) carries the isomorphism \(a^{*}c\) to an isomorphism; transporting
+  along the composition comparison identifies \(p^{*}(a^{*}c)\) with \((p\circ a)^{*}c\),
+  which is therefore an isomorphism.
+\end{proof}
+
+\begin{lemma}[Presented matrix along a composite]\label{mk-lem:gr_presentedMatrix_comp}
+  \dcref{custom}
+
+  \uses{mk-def:gr_presentedMatrix, mk-def:gr_matrixEndRect}
+  For \(p : W \to V\) and \(a : V \to T\), the matrix presenting \(x\) along \(p\circ a\) is
+  the entrywise \(\Gamma\)-restriction along \(p\) of the matrix presenting \(x\) along \(a\):
+  \(\mathrm{presentedMatrix}(x, p\circ a, I) = p^{\sharp}\bigl(\mathrm{presentedMatrix}(x,
+  a, I)\bigr)\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_presentedMatrix, mk-def:gr_matrixEndRect}
+  Both sides are compared through their rectangular-endomorphism realisations
+  (\ref{mk-def:gr_matrixEndRect}), which are injective on matrices. The realisation of the left
+  side is the conjugated pullback along \(p\circ a\); folding in the composition comparison
+  \((p\circ a)^{*}\cong p^{*}a^{*}\) rewrites it as \(p^{*}\) applied to the realisation of the
+  right side, conjugated by the free-pullback comparisons, which is exactly the realisation of
+  the entrywise restriction \(p^{\sharp}M^I\).
+\end{proof}
+
+\begin{lemma}[Presented matrix depends only on the base morphism]\label{mk-lem:gr_presentedMatrix_congr}
+  \dcref{custom}
+
+  \uses{mk-def:gr_presentedMatrix}
+  If \(j = j'\) as morphisms \(P \to T\), then \(\mathrm{presentedMatrix}(x, j, I) =
+  \mathrm{presentedMatrix}(x, j', I)\); the invertibility hypotheses are propositionally
+  irrelevant.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_presentedMatrix}
+  Substituting \(j' = j\), the two presented matrices coincide by definition.
+\end{proof}
+
+\begin{lemma}[Chart matrix as a presented matrix]\label{mk-lem:gr_chartMatrix_eq_presentedMatrix}
+  \dcref{custom}
+
+  \uses{mk-def:gr_presentedMatrix, mk-def:chartLocus}
+  The chart matrix \(M^I\) of \(x\) over the chart locus \(T_I\) is the presented matrix of
+  \(x\) along the locus inclusion: \(\mathrm{chartMatrix}(x, I) =
+  \mathrm{presentedMatrix}(x, \iota_{T_I}, I)\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_presentedMatrix, mk-def:chartLocus}
+  Immediate from the definitions: the chart matrix is, entrywise, the presented matrix along
+  the inclusion of the chart locus.
+\end{proof}
+
+\begin{lemma}[The own \(I\)-minor of \(M^I\) is the identity]\label{mk-lem:gr_presentedMatrix_submatrix_self}
+  \dcref{custom}
+
+  \uses{mk-def:gr_presentedMatrix, mk-def:gr_matrixEndRect}
+  The \(I\)-indexed column minor of \(\mathrm{presentedMatrix}(x, j, I)\) is the \(d\times d\)
+  identity matrix.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_presentedMatrix, mk-def:gr_matrixEndRect}
+  Through the rectangular-endomorphism realisation, the \(I\)-minor presents the inverted
+  chart composite against itself, i.e. \((j^{*}c_I)^{-1}\circ (j^{*}c_I) = \mathrm{id}\);
+  matching realisations and using injectivity of the realisation gives the identity matrix.
+\end{proof}
+
+\begin{lemma}[The classifying map realises \(X^I\) as \(M^I\)]\label{mk-lem:gr_universalMatrix_map_presentedMatrix}
+  \dcref{custom}
+
+  \uses{mk-def:gr_presentedMatrix, mk-lem:gr_presentedMatrix_submatrix_self}
+  Applying the ring map \(\mathrm{aeval}(M^I)\) -- the substitution sending each free variable
+  \(x^I_{p,q}\) to the corresponding entry of the presented matrix -- entrywise to the
+  universal matrix \(X^I\) returns \(M^I\): \(\mathrm{aeval}(M^I)(X^I) = M^I\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_presentedMatrix, mk-lem:gr_presentedMatrix_submatrix_self}
+  On the free entries \(x^I_{p,q}\) (columns outside \(I\)) the substitution returns the
+  matching entry of \(M^I\) by \(\mathrm{aeval}(x^I_{p,q}) = M^I_{p,q}\). On the \(I\)-columns
+  both \(X^I_I\) and \(M^I_I\) are the identity (\ref{mk-lem:gr_presentedMatrix_submatrix_self}),
+  so the two agree there as well.
+\end{proof}
+
+\begin{lemma}[Transport of the image matrix along the structure map]\label{mk-lem:gr_imageMatrix_map_ringHom}
+  \dcref{custom}
+
+  Let \(I, J\) be size-\(d\) subsets and \(\mathrm{incl} : R^I_J \to D\) a ring map into a
+  commutative ring \(D\) whose restriction along \(R^I \to R^I_J\) is \(g : R^I \to D\). Then
+  the image matrix \((X^I_J)^{-1}X^I\) pushed forward along \(\mathrm{incl}\) equals
+  \((Y_J)^{-1}Y\), where \(Y\) is the universal matrix \(X^I\) base-changed along \(g\) and
+  \(Y_J\) its \(J\)-minor.
+\end{lemma}
+\begin{proof}
+
+  Expand the image matrix as the product of the nonsingular inverse of the \(J\)-minor with
+  \(X^I\). A ring map commutes with matrix multiplication and, since the minor determinant is
+  a unit, with the nonsingular inverse. Rewriting both factors along \(\mathrm{incl}\) and
+  using \(\mathrm{incl}\circ(R^I\to R^I_J) = g\) yields \((Y_J)^{-1}Y\).
+\end{proof}
+
+\begin{lemma}[Naturality of the chart morphism]\label{mk-lem:gr_comp_chartMorphism}
+  \dcref{custom}
+
+  \uses{mk-def:gr_presentedMatrix, mk-lem:gr_presentedMatrix_comp,
+    mk-lem:gr_chartMatrix_eq_presentedMatrix, mk-def:chartLocus}
+  Precomposing the chart morphism \(\varphi_I : T_I \to U^I\) with any \(p : W \to T_I\) is
+  the morphism \(W \to U^I\) classified by the matrix presenting \(x\) along
+  \(p\circ\iota_{T_I}\); i.e. \(p \circ \varphi_I\) is the \(\Gamma\)--\(\Spec\) classifier of
+  \(\mathrm{aeval}\bigl(\mathrm{presentedMatrix}(x, p\circ\iota_{T_I}, I)\bigr)\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_presentedMatrix_comp, mk-lem:gr_chartMatrix_eq_presentedMatrix}
+  By naturality of \(\Gamma\)--\(\Spec\), \(p\circ\varphi_I\) is classified by the \(p\)-image
+  of the ring map classifying \(\varphi_I\), i.e. by \(\mathrm{aeval}(p^{\sharp}M^I)\). By
+  \ref{mk-lem:gr_chartMatrix_eq_presentedMatrix} and \ref{mk-lem:gr_presentedMatrix_comp} one has
+  \(p^{\sharp}M^I = \mathrm{presentedMatrix}(x, p\circ\iota_{T_I}, I)\), giving the claim.
+\end{proof}
+
+\begin{lemma}[Chart-point identity: the glue condition in classifying form]\label{mk-lem:gr_chart_point_eq}
+  \dcref{custom}
+
+  Let \(K\) be a commutative ring and \(f : R^I \to K\) a ring map under which the minor
+  \(P^I_J\) is a unit. Then the transported point
+  \(\mathrm{lift}(f)\circ\tilde\theta_{I,J}\) presents the same \(K\)-point through chart
+  \(J\) as \(f\) does through chart \(I\); that is,
+  \(\Spec(\mathrm{lift}(f)\circ\tilde\theta_{I,J})\circ\iota_J = \Spec(f)\circ\iota_I\) into
+  the glued scheme \(\mathrm{Gr}(r,d)\).
+\end{lemma}
+\begin{proof}
+
+  Factor the \(J\)-classifier through the localization away from \(P^I_J\): the transition map
+  \(\tilde\theta_{I,J}\) composed with the chart inclusion is the chart-transition immersion,
+  so the glue condition \(\theta_{I,J}\circ\iota_{JI} = \iota_{IJ}\) of the glue data
+  transports \(\Spec(\mathrm{lift}(f))\) on chart \(J\) to \(\Spec(f)\) on chart \(I\). The
+  universal property of localization (that \(\mathrm{lift}(f)\) restricts to \(f\)) closes the
+  identity.
+\end{proof}
+
+\begin{lemma}[Overlap compatibility of the chart morphisms]\label{mk-lem:gr_chartMorphism_glue_compat}
+  \dcref{custom}
+
+  \uses{mk-def:chartLocus, mk-lem:gr_isIso_pullback_map_comp, mk-def:gr_presentedMatrix,
+    mk-lem:gr_presentedMatrix_submatrix_self, mk-lem:gr_universalMatrix_map_presentedMatrix,
+    mk-lem:gr_imageMatrix_map_ringHom, mk-lem:gr_chart_point_eq}
+  On the intersection \(P = T_I \times_T T_J\) of two chart loci, the two composite chart
+  morphisms agree into the glued scheme:
+  \(\mathrm{pr}_1 \circ (\varphi_I \circ \iota_I) = \mathrm{pr}_2 \circ (\varphi_J \circ
+  \iota_J)\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_presentedMatrix, mk-lem:gr_presentedMatrix_submatrix_self,
+    mk-lem:gr_universalMatrix_map_presentedMatrix, mk-lem:gr_imageMatrix_map_ringHom,
+    mk-lem:gr_chart_point_eq, mk-lem:gr_isIso_pullback_map_comp}
+  On \(P\) both chart composites \(c_I, c_J\) pull back to isomorphisms
+  (\ref{mk-lem:gr_isIso_pullback_map_comp}), so the pulled-back quotient is presented by both
+  matrices \(M^I_P\) and \(M^J_P\). The \(J\)-minor of \(M^I_P\) is invertible -- it presents
+  \(c_J\) against \(c_I^{-1}\) (\ref{mk-lem:gr_presentedMatrix_submatrix_self}) -- so the
+  \(I\)-classifier sends \(P^I_J\) to a unit
+  (\ref{mk-lem:gr_universalMatrix_map_presentedMatrix}). The change-of-basis identity
+  \(M^J_P = (M^I_{P,J})^{-1} M^I_P\), via \ref{mk-lem:gr_imageMatrix_map_ringHom}, identifies the
+  localization-transport \(\mathrm{lift}(\mathrm{aeval}\,M^I_P)\circ\tilde\theta_{I,J}\) of the
+  \(I\)-classifier with the \(J\)-classifier. Hence by the chart-point identity
+  \ref{mk-lem:gr_chart_point_eq} both composites present the same point into the glued scheme,
+  so they agree.
+\end{proof}
+
+\begin{definition}[The classifying morphism \(T \to \mathrm{Gr}(r,d)\) of a quotient]\label{mk-def:grPointOfRankQuotient}
+  \dcref{custom}
+
+  \uses{mk-def:chartLocus, mk-lem:chartLocus_isOpenCover, mk-lem:gr_chartMorphism_glue_compat}
+  For a rank-\(d\) quotient \(x = \langle \mathcal{F}, q\rangle\) on \(T\), the
+  \emph{classifying morphism} \(\mathrm{gr}(x) : T \to \mathrm{Gr}(r,d)\) is obtained by
+  gluing, over the open cover \(\{T_I\}\) of chart loci (\ref{mk-lem:chartLocus_isOpenCover}),
+  the composites \(T_I \xrightarrow{\varphi_I} U^I \hookrightarrow \mathrm{Gr}(r,d)\) of the
+  chart morphisms with the glue-data immersions; the overlap compatibility making the gluing
+  legitimate is \ref{mk-lem:gr_chartMorphism_glue_compat}. It is the inverse of the forward map
+  of the universal property.
+\end{definition}
+
+
+The two blocks below carry the chart data of a quotient through a base change
+\(\psi : T' \to T\); they are the bridge underlying the two inverse laws of the
+representability theorem.
+
+\begin{lemma}[Presented matrix of a pulled-back quotient]\label{mk-lem:gr_presentedMatrix_rqPullback}
+  \dcref{custom}
+
+  \uses{mk-def:gr_presentedMatrix, mk-def:gr_rankQuotient, mk-def:gr_matrixEndRect}
+  \textit{Source: \cite{nitsure-hilbert-quot}, Construction of Grassmannian.}
+  For \(\psi : T' \to T\), a rank-\(d\) quotient \(y\) on \(T\), and a morphism
+  \(j : W \to T'\), presenting the pulled-back quotient \(\psi^{*}y\) along \(j\) coincides
+  with presenting \(y\) along the composite \(j\circ\psi\):
+  \[
+    \mathrm{presentedMatrix}(\psi^{*}y, j, I)
+      \;=\; \mathrm{presentedMatrix}(y, j\circ\psi, I).
+  \]
+  This is the transport engine of the inverse laws of the universal property: the universal
+  matrix \(X^I\) classifying a point of \(\mathrm{Gr}(r,d)\) is, after base change, given by
+  the same ring homomorphism out of \(\mathbb{Z}[X^I]\) regardless of whether one pulls back
+  first and then presents, or composes the base morphisms.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_presentedMatrix, mk-def:gr_rankQuotient, mk-def:gr_matrixEndRect}
+  Compare the two matrices through their rectangular-endomorphism realisations
+  (\ref{mk-def:gr_matrixEndRect}), which are injective. By definition of the pullback action
+  (\ref{mk-def:gr_rankQuotient}), \(\psi^{*}y\) re-presents the source through the free-pullback
+  comparison, so its pullback along \(j\) reads \(j^{*}(\psi^{*}y).q = j^{*}P_r^{-1}\circ
+  j^{*}\psi^{*}q\) and \(j^{*}c_I(\psi^{*}y) = j^{*}P_d^{-1}\circ j^{*}\psi^{*}c_I(y)\), with
+  \(P_\bullet\) the comparisons for \(\psi\). Fold the pseudofunctor composition comparison
+  \((j\circ\psi)^{*}\cong j^{*}\psi^{*}\) into both the quotient map and the inverted chart
+  composite, using the naturality of its unit and counit: the comparison square moves the
+  conjugating isomorphisms across \(j^{*}\psi^{*}q\) and \((j^{*}\psi^{*}c_I)^{-1}\), and the
+  composite free-pullback comparisons \(P_\bullet, Q_\bullet\) collapse into the single
+  comparison for \(j\circ\psi\). What remains is exactly the conjugated pullback of \(y\)
+  along \(j\circ\psi\), i.e. the realisation of \(\mathrm{presentedMatrix}(y, j\circ\psi, I)\).
+  As the realisations agree, so do the matrices.
+\end{proof}
+
+\begin{lemma}[Left inverse law: the classifier recovers \(\psi\)]\label{mk-lem:gr_grPointOfRankQuotient_rqPullback_tautological}
+  \dcref{custom}
+
+  \uses{mk-def:grPointOfRankQuotient, mk-def:tautological_quotient, mk-def:gr_rankQuotient,
+    mk-lem:gr_presentedMatrix_rqPullback, mk-lem:gr_presentedMatrix_comp,
+    mk-lem:gr_presentedMatrix_congr, mk-lem:gr_comp_chartMorphism, mk-lem:isIso_pullback_isoLocus_map,
+    mk-lem:chartLocus_isOpenCover}
+  \textit{Source: \cite{nitsure-hilbert-quot}, Construction of Grassmannian (properness).}
+  For any morphism \(\psi : T \to \mathrm{Gr}(r,d)\), classifying the pulled-back tautological
+  quotient recovers \(\psi\):
+  \[
+    \mathrm{gr}\bigl(\psi^{*}\langle \mathcal{U}, u\rangle\bigr) \;=\; \psi .
+  \]
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:grPointOfRankQuotient, mk-lem:gr_presentedMatrix_rqPullback,
+    mk-lem:gr_presentedMatrix_comp, mk-lem:gr_presentedMatrix_congr, mk-lem:gr_comp_chartMorphism,
+    mk-lem:isIso_pullback_isoLocus_map}
+  The preimages \(\{\psi^{-1}(\iota_I(U^I))\}\) of the chart-immersion ranges cover \(T\), so
+  it suffices to check the equality after restriction to each member \(W = \psi^{-1}
+  (\iota_I(U^I))\). On \(W\) the composite \(\iota_W\circ\psi\) factors through the chart
+  immersion \(\iota_I\) as \(\rho\circ\iota_I\) for a unique \(\rho : W \to U^I\), and \(W\)
+  lies inside the chart locus \(T_I\) of \(\psi^{*}\langle\mathcal{U},u\rangle\) (the
+  tautological chart composite is invertible over \(\iota_I(U^I)\), and
+  \ref{mk-lem:isIso_pullback_isoLocus_map} transports this), so all relevant chart composites
+  pull back to isomorphisms. The matrix presenting \(\psi^{*}\langle\mathcal{U},u\rangle\)
+  along \(\iota_W\) equals, by \ref{mk-lem:gr_presentedMatrix_rqPullback} and
+  \ref{mk-lem:gr_presentedMatrix_congr}, the matrix presenting the tautological pair along
+  \(\iota_W\circ\psi = \rho\circ\iota_I\), which by \ref{mk-lem:gr_presentedMatrix_comp} is the
+  \(\rho\)-image of the universal matrix \(X^I\) (the tautological presentation over \(U^I\)).
+  Hence by chart-morphism naturality \ref{mk-lem:gr_comp_chartMorphism} the glued morphism
+  \(\mathrm{gr}(\psi^{*}\langle\mathcal{U},u\rangle)\) restricted to \(W\) is the classifier of
+  that matrix, namely \(\rho\circ\iota_I = \iota_W\circ\psi\). As the members \(W\) cover
+  \(T\), the two morphisms agree.
+\end{proof}
+
+\begin{theorem}[\(\mathrm{Gr}(r,d)\) represents the Grassmannian functor]\label{mk-thm:grassmannian_universal_property}
+  \dcref{custom}
+
+  \uses{mk-def:grassmannian_functor, mk-def:tautological_quotient, mk-def:gr_rankQuotient,
+    mk-def:grPointOfRankQuotient, mk-lem:gr_grPointOfRankQuotient_rqPullback_tautological}
+  \textit{Source: \cite{nitsure-hilbert-quot}, Exercises (2).}
+  The scheme \(\mathrm{Gr}(r,d)\), together with the tautological quotient
+  \(\langle \mathcal{U}, u\rangle\), represents the Grassmannian functor
+  \(\mathrm{Grass}(r,d)\) (\ref{mk-def:grassmannian_functor}): for every scheme \(T\) there is a
+  bijection, natural in \(T\),
+  \[
+    \mathrm{Hom}(T, \mathrm{Gr}(r,d)) \;\xrightarrow{\ \sim\ }\; \mathrm{Grass}(r,d)(T),
+    \qquad \psi \longmapsto \langle \psi^{*}\mathcal{U}, \psi^{*}u\rangle .
+  \]
+\end{theorem}
+\begin{proof}
+  \uses{mk-def:grPointOfRankQuotient, mk-lem:gr_grPointOfRankQuotient_rqPullback_tautological,
+    mk-lem:tautologicalQuotient_epi}
+  The forward map sends \(\psi\) to the pullback \(\psi^{*}\langle\mathcal{U},u\rangle\) of the
+  tautological pair; naturality in \(T\) is the pseudofunctoriality of the pullback action
+  (\ref{mk-def:grassmannian_functor}) evaluated at the tautological point. The inverse is the
+  chart-by-chart classifier \(\mathrm{gr}\) of \ref{mk-def:grPointOfRankQuotient}. The two are
+  mutually inverse: the left inverse law
+  \(\mathrm{gr}(\psi^{*}\langle\mathcal{U},u\rangle) = \psi\) is
+  \ref{mk-lem:gr_grPointOfRankQuotient_rqPullback_tautological}, checked over the cover of
+  chart-immersion preimages; the right inverse law
+  \(\langle\mathrm{gr}(x)^{*}\mathcal{U}, \mathrm{gr}(x)^{*}u\rangle \sim x\) holds because over
+  each chart locus of \(x\) both quotients are presented by the same matrix, so the two
+  epimorphism descents are mutually inverse, witnessing the equivalence. Surjectivity of \(u\)
+  (\ref{mk-lem:tautologicalQuotient_epi}) makes the tautological pair an honest quotient, so the
+  forward map indeed lands in \(\mathrm{Grass}(r,d)(T)\).
+\end{proof}

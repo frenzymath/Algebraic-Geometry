@@ -1,0 +1,1136 @@
+\section{FGA representability of the Picard scheme}
+\label{mk-sec:fga_pic_setup}
+\label{mk-chap:Picard_FGAPicRepresentability}
+
+\section{Line bundles and the Quot / Hilbert scheme}
+\label{mk-sec:fga_pic_line_bundle_quot}
+
+The bridge from line bundles on \(C \times_k T\) to the Quot scheme is the
+Abel map: a relative effective divisor \(D \subset C \times_k T\) over \(T\)
+(a \(T\)-flat closed subscheme whose ideal is invertible) determines a closed
+subscheme of \(C \times_k T\) flat over \(T\), hence a \(T\)-point of the Hilbert
+functor \(\Hilb_{C/k}(T)\), which is the special case \(\Quot_{\mathcal{O}_C/C/k}\)
+of the Quot functor of \ref{mk-chap:Picard_QuotScheme}; and it determines an
+invertible sheaf \(\mathcal{O}_{C \times_k T}(D)\) on the relative curve,
+representing a class in \(\Pic^\sharp_{C/k}(T)\).
+
+\begin{definition}[Abel-map witness]\label{mk-def:abel_map_witness}
+  \dcref{custom}
+
+  \uses{mk-def:div_functor_carrier, mk-def:pic_sharp_carrier}
+  Let \(C/k\) be a smooth proper curve. Define a
+  natural transformation
+  \[
+    A^{\mathrm{raw}}_{C/k} \colon \mathrm{Div}_{C/k}
+      \longrightarrow \Pic^\sharp_{C/k}
+  \]
+  as the composite
+  \(
+    \mathrm{abelKernelNatTrans}(C)
+    \mathbin{;} \mathrm{picNeg}(C)
+  \).
+\end{definition}
+
+\begin{proof}The first transformation sends the class represented by
+  \(\langle \mathcal F,q\rangle\) to \([\ker q]\). It is well defined because
+  equivalent divisor families induce isomorphic kernels. It is natural under
+  arbitrary base change because the kernel--pullback comparison is an
+  isomorphism for an epimorphic quotient with finitely presented, base-flat
+  target and invertible kernel. The second transformation is pointwise
+  inversion in the group-valued presheaf \(\Pic^\sharp_{C/k}\). Their composite
+  is therefore natural and sends
+  \(\langle \mathcal F,q\rangle\) to \(-[\ker q]\).
+\end{proof}
+
+\begin{lemma}[Line bundle / Quot correspondence via the Abel map]\label{mk-lem:line_bundle_quot_correspondence}
+  \dcref{3.7,custom}
+
+  \uses{mk-def:abel_map_witness, mk-def:inst_has_abel_map, mk-def:has_abel_map,
+    mk-def:div_functor_carrier, mk-def:pic_sharp_carrier}
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 3,
+  Thm.~3.7 + Def.~4.6 (cf.\ \cite{nitsure-hilbert-quot}, ``Construction of Hilbert
+  and Quot Schemes'', \S 1, where \(\Hilb_{X/S} = \Quot_{\mathcal{O}_X/X/S}\)).}
+  Let \(C/k\) be a smooth proper geometrically integral curve. There is a
+  natural transformation of presheaves on \((\Sch/k)^{op}\)
+  \[
+    A_{C/k} = \mathrm{abelMap} \;\colon\; \mathrm{Div}_{C/k}
+      \;\longrightarrow\; \Pic^\sharp_{C/k}
+  \]
+  (\(\mathrm{Div}_{C/k}\) the relative-divisor functor of
+  \ref{mk-def:div_functor_carrier}, \(\Pic^\sharp_{C/k}\) the relative
+  Picard functor of \ref{mk-def:pic_sharp_carrier}), with the following
+  \emph{defining property}: at a \(T\)-point represented by a family
+  \(\langle \mathcal F, q\rangle\) (\ref{mk-def:div_family}: a finitely
+  presented, \(T\)-flat quotient
+  \(q \colon \mathcal O_{C\times_kT}\twoheadrightarrow\mathcal F\)
+  whose kernel is an invertible ideal sheaf cutting out a relative effective
+  divisor \(D\subseteq C\times_kT\)),
+  \[
+    A_{C/k}(T)\bigl(\langle \mathcal F, q\rangle\bigr)
+      \;=\; -[\ker q] \;=\; [(\ker q)^{-1}]
+      \;=\; \bigl[\mathcal{O}_{C \times_k T}(D)\bigr]
+      \;\in\; \Pic^\sharp_{C/k}(T),
+  \]
+  the class of the associated invertible sheaf \(\mathcal{O}_{C \times_k
+  T}(D)\), i.e.\ the additive inverse of the class of the ideal sheaf
+  \(\ker q\) (Kleiman \S 3, Def.~dfn:Abel). This transformation is the
+  required witness for \(\mathrm{HasAbelMap}(C)\)
+  (\ref{mk-def:has_abel_map}).
+\end{lemma}
+
+\begin{proof}
+  The instance of \ref{mk-def:inst_has_abel_map} identifies
+  \(A_{C/k}\) with the witness of \ref{mk-def:abel_map_witness}. Evaluating its
+  two factors at \(\langle \mathcal F,q\rangle\) first gives the kernel class
+  \([\ker q]\) and then its inverse. Since the kernel is the ideal sheaf of
+  \(D\), its inverse is \(\mathcal O_{C\times_kT}(D)\), which gives the stated
+  formula.
+\end{proof}
+
+\begin{remark}
+[Representability of \(\mathrm{Div}_{C/k}\)]
+  \label{mk-rem:div_functor_representability}
+  \dcref{custom}
+  Kleiman~\S 3, Thm.~th:repDiv, shows that \(\mathrm{Div}_{C/k}\) is
+  representable by an open subscheme \(\mathrm{Div}_{C/k} \subseteq
+  \Hilb_{C/k}\) of the Hilbert scheme (\(\Hilb_{C/k} =
+  \Quot_{\mathcal{O}_C/C/k}\), \ref{mk-chap:Picard_QuotScheme}): letting
+  \(W \subseteq C \times_k \Hilb_{C/k}\) be the universal closed
+  subscheme and \(q \colon W \to \Hilb_{C/k}\) the projection, the locus
+  \(V \subseteq W\) where \(W\) is locally an effective Cartier divisor
+  is open, so \(Z := q(W \setminus V)\) is closed (\(q\) proper) and
+  \(\mathrm{Div}_{C/k} := \Hilb_{C/k} \setminus Z\) is the open
+  subscheme representing relative effective divisors. This is
+  the relative-divisor functor appearing in
+  \ref{mk-def:div_functor_carrier}.
+\end{remark}
+
+\section{The FGA representability theorem}
+\label{mk-sec:fga_pic_representability}
+
+We now state and prove the specialisation of Grothendieck's existence theorem
+for the Picard scheme, in the specialisation needed for the Jacobian:
+\(S = \Spec k\), \(X = C\) a smooth proper geometrically integral
+curve. The general theorem (Kleiman \S 4, Thm.~4.8) covers any
+\(X/S\) projective Zariski-locally over \(S\), flat, with integral geometric
+fibers; we record the general statement and then specialise.
+
+\begin{theorem}[FGA representability of the Picard scheme]
+  \label{mk-thm:fga_pic_representability}
+  \dcref{4.8,custom}
+
+  \uses{mk-lem:line_bundle_quot_correspondence, mk-lem:smooth_proper_quotient,
+        mk-thm:quot_representable, mk-def:rel_pic_sharp, mk-def:has_rational_point,
+        mk-cor:flattening_stratification_curve, mk-def:pic_sharp_representable,
+        mk-def:inst_pic_sharp_representable, mk-lem:cech_flat_base_change}
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 4, Main Thm.~4.8
+  + Cor.~4.18.3.}
+  Let \(k\) be a field and \(C\) a smooth proper geometrically integral curve
+  over \(k\) \emph{with a \(k\)-rational point}
+  (\ref{mk-def:has_rational_point}). Then the relative Picard functor
+  \(\Pic^\sharp_{C/k}\) of \ref{mk-def:rel_pic_sharp} --- which under the
+  rational-point hypothesis coincides with its \'etale sheafification
+  \(\Pic_{(C/k)\et}\), by Kleiman \S 2, Thm.~2.5 --- is representable by a
+  \(k\)-scheme \(\Pic_{C/k}\), separated and locally of finite type over
+  \(k\), which is a disjoint union of open quasi-projective
+  \(k\)-subschemes, each an increasing union of open quasi-projective
+  subschemes. The scheme \(\Pic_{C/k}\) is called the \emph{Picard scheme}
+  of \(C/k\).
+\end{theorem}
+
+\begin{proof}
+
+  We follow Kleiman~\S 4, Thm.~4.8, specialised to \(S = \Spec k\) and
+  \(X = C\). The proof proceeds in four conceptual steps, preceded by a
+  comparison step; the underlying algebraic engine is the Quot scheme of
+  \ref{mk-chap:Picard_QuotScheme} and the relative Picard functor of
+  \ref{mk-chap:Picard_RelPicFunctor}, together with the line-bundle / Quot
+  correspondence of \ref{mk-lem:line_bundle_quot_correspondence}.
+
+  \emph{Step 0: reduce to the \'etale sheaf via the rational point.}
+  By Kleiman \S 2, Thm.~2.5, since \(C \to \Spec k\) has a section
+  (\ref{mk-def:has_rational_point}) and \(\mathcal O_T = \pi_{T*}
+  \mathcal O_{C \times_k T}\) holds for every \(k\)-scheme \(T\) (cohomology
+  and base change for the proper geometrically integral fibers of
+  \(C\times_k T/T\)), the comparison map
+  \(\Pic^\sharp_{C/k}(T) \to \Pic_{(C/k)\et}(T)\) is bijective for all
+  \(T\). It therefore suffices to represent the \'etale sheaf
+  \(\Pic_{(C/k)\et}\), which is what Kleiman's theorem produces; the same
+  scheme then represents \(\Pic^\sharp_{C/k}\).
+
+  \emph{Step 1: stratify by Hilbert polynomial.}
+  For each polynomial \(\phi \in \mathbb{Q}[n]\), let \(P^\phi \subseteq
+  \Pic^\sharp_{(C/k)\et}\) be the \'etale subsheaf whose \(T\)-points are
+  represented by invertible sheaves \(\mathcal{L}\) on \(C \times_k T\) with
+  \(\chi(C_t, \mathcal{L}_t^{-1}(n)) = \phi(n)\) for all \(t \in T\) (the
+  Hilbert polynomial relative to the chosen polarisation
+  \(\mathcal{O}_C(1)\) on the projective curve \(C\)). The \(P^\phi\) form a
+  disjoint open cover of \(\Pic^\sharp_{(C/k)\et}\) (openness via Kleiman's
+  flat-base-change argument, \ref{mk-lem:cech_flat_base_change} / Stacks Tag 02KH;
+  cf.\ EGA III 7.9.11). It suffices to
+  represent each \(P^\phi\) by an increasing union of open quasi-projective
+  \(k\)-schemes.
+
+  \emph{Step 2: bound twists by \(m\)-regularity.}
+  Given \(\phi\), fix \(m\) large enough that the \(T\)-points of \(P^\phi\) are
+  representable by \(\mathcal{L}\) on \(C \times_k T\) satisfying
+  \(R^i \pi_{T*} \mathcal{L}(n) = 0\) for all \(i \ge 1\), \(n \ge m\). Twisting
+  by \(\mathcal{O}_C(m)\) defines an automorphism of \(\Pic^\sharp_{(C/k)\et}\)
+  that carries \(P^\phi\) to \(P^{\phi_0}_0\) for \(\phi_0(n) := \phi(m + n)\).
+  Hence it suffices to represent each \(P^{\phi_0}_0\) by a quasi-projective
+  \(k\)-scheme.
+
+  \emph{Step 3: factor through the Abel map.}
+  Consider the Abel map \(A_{C/k} : \mathrm{Div}_{C/k} \to \Pic^\sharp_{(C/k)\et}\)
+  of \ref{mk-lem:line_bundle_quot_correspondence}. The source \(\mathrm{Div}_{C/k}\)
+  is representable by an open subscheme of \(\Hilb_{C/k}\) (and hence by an
+  open subscheme of the Quot scheme of \ref{mk-thm:quot_representable}), and
+  is quasi-projective over \(k\). Pulling back along
+  \(P^{\phi_0}_0 \hookrightarrow \Pic^\sharp_{(C/k)\et}\) yields an open
+  subscheme \(Z := P^{\phi_0}_0 \times_{\Pic^\sharp_{(C/k)\et}} \mathrm{Div}_{C/k}\)
+  of \(\mathrm{Div}_{C/k}\), which is again quasi-projective. The projection
+  \(\alpha : Z \to P^{\phi_0}_0\) is a surjection of \'etale sheaves:
+  given a \(T\)-point \(\lambda\) of \(P^{\phi_0}_0\) represented by an \'etale
+  cover \(T' \to T\) and an invertible sheaf \(\mathcal{L}'\) on \(C \times_k
+  T'\) with \(H^1(C_{t'}, \mathcal{L}'_{t'}) = 0\), the projective bundle
+  \(\mathbb{P}(\mathcal{Q}) \to T'\) associated to
+  \(\mathcal{Q} := \pi_{T'*}\mathcal{L}'\) is smooth over \(T'\); an \'etale
+  cover \(T_1 \to T'\) admits a \(T'\)-map \(T_1 \to \mathbb{P}(\mathcal{Q})\)
+  (EGA IV 17.16.3 (ii)) whose composition with the universal divisor map
+  \(\mathbb{P}(\mathcal{Q}) \to Z\) produces the required \(T_1\)-point of \(Z\).
+  Moreover, the first projection \(Z \times_{P^{\phi_0}_0} Z \to Z\) is
+  smooth and proper.
+
+  \emph{Step 4: descend by the smooth-proper quotient lemma.}
+  Apply Kleiman~\S 4, Lem.~4.9: given a surjection \(\alpha : Z \to P\)
+  of \'etale sheaves with \(Z\) quasi-projective, \(R := Z \times_P Z\)
+  representable, and the first projection \(R \to Z\) smooth and proper,
+  \(P\) is representable by a quasi-projective scheme. In our case
+  \(P = P^{\phi_0}_0\), \(Z\) and \(R\) as above, so \(P^{\phi_0}_0\) is
+  quasi-projective. Reassembling over \(\phi \in \mathbb{Q}[n]\) and
+  over \(m\), the disjoint union of representable \(P^\phi\) pieces represents
+  \(\Pic^\sharp_{(C/k)\et}\). The total scheme is separated (as a disjoint
+  union of separated quasi-projectives) and locally of finite type. This
+  is Kleiman~\S 4, Cor.~4.18.3 in the \(S = \Spec k\),
+  \(X = C\) complete case.
+\end{proof}
+
+\subsection{The smooth-proper quotient lemma}
+\label{mk-subsec:fga_pic_qt}
+
+The structural lemma underlying step 4 above is recorded separately
+because it is the abstract content allowing descent from
+\(Z = \mathrm{Div}^{\phi_0}_0\) to the representing Picard piece.
+
+\begin{lemma}[Smooth-proper quotient of \'etale sheaves]
+  \label{mk-lem:smooth_proper_quotient}
+  \dcref{4.9,custom}
+
+  \uses{mk-def:has_smooth_proper_quotient}
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 4, Lem.~4.9.}
+  Let \(\alpha : Z \to P\) be a morphism of \'etale sheaves on \((\Sch/k)\).
+  Set \(R := Z \times_P Z\). Suppose:
+  \begin{enumerate}
+    \item \(\alpha\) is a surjection of \'etale sheaves;
+    \item \(Z\) is representable by a quasi-projective \(k\)-scheme;
+    \item \(R\) is representable by a \(k\)-scheme;
+    \item the first projection \(R \to Z\) is representable by a smooth
+      and proper map.
+  \end{enumerate}
+  Then \(P\) is representable by a quasi-projective \(k\)-scheme, and \(\alpha\)
+  is representable by a smooth map.
+\end{lemma}
+
+\begin{proof}
+  By (ii) the structure map \(Z \to \Spec k\) is quasi-projective, hence
+  separated, so the first projection \(Z \times_k Z \to Z\) is separated.
+  By (iv) the first projection \(R \to Z\) is proper; it factors through
+  \(h : R \to Z \times_k Z\) over the diagonal embedding (the second
+  component is the second projection of \(R \to Z \times_P Z\)). The map
+  \(h\) is therefore proper, and a monomorphism (because \(R\) is the graph
+  of an equivalence relation on \(Z\), hence injective on \(T\)-points).
+  By EGA IV 8.11.5, a proper monomorphism is a closed immersion: \(h\) is a
+  closed embedding.
+
+  Hence \(R \hookrightarrow Z \times_k Z\) is a flat (by (iv)) and proper
+  equivalence relation on the quasi-projective \(k\)-scheme \(Z\). By the
+  theory of flat-and-proper effective equivalence relations on
+  quasi-projective schemes (Altman--Kleiman; the construction places
+  the graph \(R \subseteq Z \times_k Z\) inside the universal subscheme of
+  the Hilbert scheme \(\Hilb_{Z/k}\) and descends to a closed subscheme
+  \(Q \subseteq \Hilb_{Z/k}\) representing the quotient), there exist a
+  quasi-projective \(k\)-scheme \(Q\) and a faithfully flat, projective map
+  \(Z \to Q\) with \(R = Z \times_Q Z\).
+
+  The map \(Z \to Q\) is flat and proper; its fibers, up to field
+  extension, coincide with those of \(R \to Z\), which are smooth by
+  hypothesis. Hence \(Z \to Q\) is smooth.
+
+  Finally, \(Z \to Q\) is a surjection of \'etale sheaves (an \'etale
+  cover of any \(T\)-point of \(Q\) pulls back to a \(T'\)-point of \(Z\), by
+  EGA IV 17.16.3 (ii) applied to \(Z \times_Q T \to T\)). In the category
+  of \'etale sheaves, both \(Q\) and \(P\) are coequalisers of the pair
+  \(R \rightrightarrows Z\); the coequaliser is unique up to unique
+  isomorphism, so \(Q\) represents \(P\). Smoothness of \(\alpha : Z \to P\)
+  is the smoothness of \(Z \to Q\) just shown.
+\end{proof}
+
+\begin{remark}[Quasi-projectivity is load-bearing]
+  \label{mk-rem:smooth_proper_quotient_hypothesis}
+  \dcref{custom}
+  \uses{mk-lem:smooth_proper_quotient}
+  Hypothesis (ii) of \ref{mk-lem:smooth_proper_quotient} --- that \(Z\) be
+  representable by a \emph{quasi-projective} \(k\)-scheme --- cannot be weakened
+  to bare representability. A Hironaka-type free \(\mathbb{Z}/2\)-action on a
+  smooth proper non-projective threefold gives a smooth proper equivalence
+  relation satisfying (i), (iii) and (iv) whose quotient \'etale sheaf is an
+  algebraic space and not a scheme.
+
+  This is what separates the two routes of \ref{mk-sec:fga_pic_setup}. The
+  quotient route must supply quasi-projectivity of the Abel-map slice; the
+  Milne--Koll\'ar route quotients only by a finite Galois group, under the
+  hypothesis that every finite orbit lies in an affine open, which is a
+  condition the Hironaka example fails.
+\end{remark}
+
+\section{The Milne--Koll\'ar route}
+\label{mk-sec:fga_pic_milne_kollar}
+
+This section records the route of \ref{mk-sec:fga_pic_setup} that avoids the
+quasi-projectivity obstruction of \ref{mk-rem:smooth_proper_quotient_hypothesis},
+in the three parts it decomposes into, and states the two of its inputs that are
+established.
+
+Over a separably closed field \(k'\) the construction is Milne \S 4. Fix
+\(r \ge 2g+1\) and a degree-\(r\) divisor scheme \(Z\). For a tuple \(\Sigma\) of
+\(r-g\) rational points of \(C' = C \times_k k'\), the locus
+\[
+  C^\Sigma
+    = \{\, t \in Z : h^0\bigl(\mathcal{O}(W - \Sigma)_t\bigr) = 1 \,\}
+\]
+is open, because \(h^0\) is upper semicontinuous and \(h^0 \ge \chi = 1\) in
+degree \(g\); adding \(\Sigma\) back to the canonical divisor family of the
+rigidified pushforward gives a second map \(C^\Sigma \to Z\), and the equaliser
+\(J^\Sigma\) of the two represents the subfunctor of degree-\(r\) classes
+\(\mathcal{L}\) with \(h^0(\mathcal{L}(-\Sigma)_t) = 1\) at every point. These
+subfunctors cover, so gluing them represents \(\Pic^r_{C'/k'}\). Descent to
+\(k\) is a finite Galois quotient, and the degrees assemble as a coproduct over
+\(\mathbb{Z}\) through the translation isomorphisms
+\(\Pic^d \cong \Pic^r\) given by tensoring with \(\mathcal{O}((r-d) x_0)\).
+
+The two inputs the route rests on that the quotient route does not are the
+rigidified pushforward and the finite Galois quotient. The first is local freeness
+of \(q_* \mathcal{L}\) together with its compatibility with base change, and it
+holds for every curve satisfying the hypotheses of this chapter
+(\ref{mk-thm:rigid_pushforward_gate}). The second is Speiser descent together with
+the existence of \(\Gamma\)-stable affine neighbourhoods.
+
+\begin{theorem}[Local freeness of the rigidified pushforward]\label{mk-thm:rigid_pushforward_locally_free}
+
+  \uses{mk-lem:p1_integral}
+  \dcref{II.5,custom}
+  \textit{Source: \cite{mumford-av}, \emph{Abelian Varieties}, II \S 5.}
+  Let \(C\) be a smooth proper geometrically integral curve over a field \(k\),
+  let \(A\) be a finitely generated \(k\)-algebra and \(q : C_A \to \Spec A\) the
+  constant family. Let \(\mathcal{L}\) be an invertible sheaf on \(C_A\) such that
+  for every point \(t\) of \(\Spec A\) some two-chart affine cover of the fibre
+  \(C_t\) has surjective {\v C}ech difference map on \(\mathcal{L}_t\) --- for a
+  separated fibre with affine chart intersection this computes
+  \(H^1(C_t, \mathcal{L}_t) = 0\). Then every point of \(\Spec A\) has an open
+  neighbourhood on which \(q_* \mathcal{L}\) is free of rank
+  \(h^0(C_t, \mathcal{L}_t)\).
+\end{theorem}
+
+\begin{remark}[Why the vanishing hypothesis is stated {\v C}ech-locally]
+  \label{mk-rem:fiber_h1_vanishing_form}
+  \dcref{custom}
+  \uses{mk-thm:rigid_pushforward_locally_free}
+  The hypothesis of \ref{mk-thm:rigid_pushforward_locally_free} asks for
+  \emph{some} two-chart cover of each fibre with surjective difference map,
+  rather than for vanishing of the sheaf cohomology \(H^1(C_t, \mathcal{L}_t)\).
+  On a separated fibre whose two charts have affine intersection the {\v C}ech
+  complex of that cover computes the sheaf cohomology, so the two agree; the
+  existential form is the weaker-looking one and is implied by any form of
+  \(h^1 = 0\), so a consumer supplying sheaf vanishing supplies this. The
+  identification is cover-independent by Mayer--Vietoris, but that
+  independence is not itself established here, which is why the hypothesis is
+  stated in the form that does not presuppose it.
+\end{remark}
+
+\begin{proof}\uses{mk-lem:p1_integral, mk-thm:adelic_exists_finiteMorphismToP1}
+  Choose a finite morphism \(\pi : C \to \mathbb{P}^1_k\)
+  (\ref{mk-thm:adelic_exists_finiteMorphismToP1}) and base change it to
+  \(\pi_A : C_A \to \mathbb{P}^1_A\). Since \(\pi_A\) is finite, it is affine and
+  \(\pi_{A*}\) is exact, so \(q_* \mathcal{L} = p_* (\pi_{A*} \mathcal{L})\) for
+  \(p : \mathbb{P}^1_A \to \Spec A\), and the fibrewise cohomology of
+  \(\pi_{A*}\mathcal{L}\) agrees with that of \(\mathcal{L}\).
+
+  On \(\mathbb{P}^1_A\) the two standard charts form an affine cover with affine
+  intersection, so the {\v C}ech complex of any quasi-coherent module is a
+  two-term complex \(d\) of \(\Gamma(\Spec A, \mathcal{O})\)-modules with
+  \(H^0 = \ker d\) and \(H^1 = \operatorname{coker} d\). Vanishing of \(H^1\) at
+  every point makes \(d\) surjective and \(\ker d\) finitely generated
+  projective, hence flat, and makes the formation of \(\ker d\) commute with
+  arbitrary base change; this is Mumford's two-term finite-free replacement.
+
+  Global sections of the pushforward are \(\ker d\) by the sheaf condition, so
+  \(q_* \mathcal{L}\) is finite locally free, and it remains to identify its
+  rank. Flatness gives
+  \(\operatorname{rank}_t = \dim_{\kappa(t)} \kappa(t) \otimes_A \ker d\), base
+  change moves the residue field inside the kernel, and comparing the
+  \(\kappa(t)\)-base-changed {\v C}ech square with the {\v C}ech square of the
+  fibre identifies that dimension with \(h^0(C_t, \mathcal{L}_t)\). A finite
+  locally free module of locally constant rank is free on a neighbourhood of each
+  point.
+\end{proof}
+
+\begin{lemma}[Global sections of the pushforward commute with base change]\label{mk-lem:gamma_base_change}
+  \dcref{custom}
+
+  \uses{mk-thm:rigid_pushforward_locally_free}
+  In the situation of \ref{mk-thm:rigid_pushforward_locally_free}, for every ring
+  map \(A \to A'\) --- with no finiteness, flatness or noetherian hypothesis on
+  \(A'\) --- the canonical map
+  \[
+    A' \otimes_A \Gamma(C_A, \mathcal{L})
+      \longrightarrow \Gamma(C_{A'}, g'^* \mathcal{L})
+  \]
+  is bijective.
+\end{lemma}
+
+\begin{proof}\uses{mk-thm:rigid_pushforward_locally_free}
+  Push forward along the finite \(\pi_A : C_A \to \mathbb{P}^1_A\) as in
+  \ref{mk-thm:rigid_pushforward_locally_free} and work with the two-term {\v C}ech
+  complex \(d\) of the preimage cover. Fibrewise vanishing of \(H^1\) makes \(d\)
+  surjective, and for a surjective two-term complex the formation of \(\ker d\)
+  is universally exact: base changing the short exact sequence
+  \(0 \to \ker d \to K^0 \to K^1 \to 0\) along \(A \to A'\) stays exact because
+  \(K^1\) is flat, so \(A' \otimes_A \ker d \to \ker(d \otimes A')\) is
+  bijective. Global sections of the pushforward are \(\ker d\) on both sides by
+  the sheaf condition, which gives the claim.
+\end{proof}
+
+\begin{theorem}[The rigidified pushforward exists for every curve]\label{mk-thm:rigid_pushforward_gate}
+  \dcref{custom}
+
+  \uses{mk-thm:rigid_pushforward_locally_free, mk-lem:gamma_base_change}
+  Let \(C\) be a smooth proper geometrically integral curve over a field \(k\).
+  Then \(C\) admits the rigidified pushforward: for every finitely generated
+  \(k\)-algebra \(A\) and every invertible sheaf on \(C_A\) with fibrewise
+  vanishing \(H^1\), the pushforward \(q_* \mathcal{L}\) is locally free of rank
+  \(h^0\) of the fibre and its formation commutes with arbitrary base change.
+\end{theorem}
+
+\begin{proof}\uses{mk-thm:rigid_pushforward_locally_free, mk-lem:gamma_base_change}
+  The two conclusions are \ref{mk-thm:rigid_pushforward_locally_free} and, by
+  affine-target descent from the module-level statement of
+  \ref{mk-lem:gamma_base_change}, the base-change conclusion: over an affine base
+  both ends of the adjunction mate are quasi-coherent, and a morphism of
+  quasi-coherent modules on an affine scheme is an isomorphism as soon as it is
+  bijective on global sections.
+\end{proof}
+
+\begin{lemma}[The projective line over a field is integral]\label{mk-lem:p1_integral}
+  \dcref{custom}
+
+  Let \(k\) be a field. Then \(\mathbb{P}^1_k\) is an integral scheme.
+\end{lemma}
+
+\begin{proof}Each standard chart \(V_i \subseteq \mathbb{P}^1_k\) is affine with section
+  ring the polynomial ring \(k[T]\) in the chart coordinate, hence an integral
+  domain, so each chart is an integral scheme. Reducedness of \(\mathbb{P}^1_k\)
+  follows because the two charts cover and reducedness is local. For
+  irreducibility, the overlap \(W = V_0 \cap V_1\) is a nonempty open subset of
+  the irreducible \(V_0\), hence irreducible and dense in \(V_0\), and
+  symmetrically dense in \(V_1\); as \(V_0 \cup V_1 = \mathbb{P}^1_k\), the set
+  \(W\) is a dense irreducible subset of \(\mathbb{P}^1_k\), which is therefore
+  the closure of an irreducible set and so irreducible.
+\end{proof}
+
+\begin{theorem}[Speiser descent]\label{mk-thm:speiser_descent}
+  \dcref{custom}
+
+  Let \(L/K\) be a finite Galois extension with group \(\Gamma\), and let \(A\)
+  be an \(L\)-algebra carrying an action of \(\Gamma\) by ring automorphisms
+  which is semilinear over the action of \(\Gamma\) on \(L\). Then the canonical
+  map
+  \[
+    L \otimes_K A^\Gamma \longrightarrow A, \qquad a \otimes w \mapsto a w,
+  \]
+  is an isomorphism of \(L\)-algebras: the invariants form a \(K\)-form of
+  \(A\). No finiteness hypothesis on \(A\) is required.
+\end{theorem}
+
+\begin{proof}The same statement for semilinear \(\Gamma\)-modules is the classical
+  normal-basis argument: writing \(L = K[\Gamma] \cdot \theta\) for a normal
+  basis element \(\theta\), the trace \(\sum_{\gamma} \gamma(\theta a) \gamma\)
+  exhibits every element of \(A\) as an \(L\)-combination of invariants, and
+  \(L\)-independence of the invariant part follows from linear independence of
+  the characters \(\gamma\). The map above is the \(L\)-algebra map extending the
+  inclusion \(A^\Gamma \hookrightarrow A\), and its underlying additive map is
+  the module-level descent map, which the module statement shows bijective.
+  Bijectivity of an algebra homomorphism makes it an algebra isomorphism.
+\end{proof}
+
+\begin{theorem}[Points of the finite Galois quotient]\label{mk-thm:galois_quotient_points}
+  \dcref{custom}
+
+  \uses{mk-thm:speiser_descent}
+  In the situation of \ref{mk-thm:speiser_descent}, for every \(K\)-algebra \(B\)
+  the map \(g \mapsto (\mathrm{id}_L \otimes g)\) is a bijection
+  \[
+    \mathrm{Hom}_{K\text{-alg}}(A^\Gamma, B)
+      \;\simeq\;
+    \{\, f \in \mathrm{Hom}_{L\text{-alg}}(A, L \otimes_K B) :
+       f(\gamma \cdot x) = (\gamma \otimes \mathrm{id})(f(x)) \,\}.
+  \]
+  Equivalently, for an affine \(K\)-scheme \(T = \Spec B\), the \(T\)-points of
+  \(\Spec A^\Gamma\) are the \(\Gamma\)-equivariant \(T_L\)-points of
+  \(\Spec A\): the affine scheme \(\Spec A^\Gamma\) is the quotient of
+  \(\Spec A\) by \(\Gamma\).
+\end{theorem}
+
+\begin{proof}\uses{mk-thm:speiser_descent}
+  Given \(g\), transport \(\mathrm{id}_L \otimes g\) through the isomorphism
+  \(A \cong L \otimes_K A^\Gamma\) of \ref{mk-thm:speiser_descent}; equivariance is
+  the identity \(\gamma \otimes \mathrm{id}\) transported along the same
+  isomorphism, which is exactly the compatibility recorded there. Conversely, an
+  equivariant \(f\) carries invariants to \(\Gamma\)-fixed elements of
+  \(L \otimes_K B\), and for the left-factor action on a base change the fixed
+  points are \(1 \otimes B\); so \(f\) restricts to a \(K\)-algebra map
+  \(A^\Gamma \to B\). The two constructions are mutually inverse: one direction
+  is the computation of the restriction on invariants, and the other holds
+  because the invariants span \(A\) over \(L\), so two \(L\)-algebra maps
+  agreeing on them agree.
+\end{proof}
+
+\begin{lemma}[\(\Gamma\)-stable affine neighbourhoods]\label{mk-lem:stable_affine_open}
+  \dcref{custom}
+
+  \uses{mk-thm:galois_quotient_points}
+  Let \(L/K\) be finite Galois with group \(\Gamma\) and let \(X\) be a scheme
+  over \(L\) with a semilinear \(\Gamma\)-action all of whose orbits are
+  contained in affine opens. Then every point of \(X\) has a \(\Gamma\)-stable
+  affine open neighbourhood.
+\end{lemma}
+
+\begin{proof}Let \(x \in X\) and let \(U\) be an affine open containing the orbit of \(x\).
+  The orbit is finite and lies in the open
+  \(W = \bigcap_{\gamma} \gamma^{-1} U\), so by prime avoidance inside the affine
+  \(U\) there is a section \(s \in \Gamma(X, U)\) with the whole orbit contained
+  in \(D(s) \subseteq W\). Put \(N = \prod_{\gamma} \gamma(s)|_W\). Then
+  \(D(N) = \bigcap_{\gamma} \gamma^{-1} D(s)\), which contains \(x\) because the
+  orbit lies in \(D(s)\), and is \(\Gamma\)-stable because translating the
+  intersection permutes its factors. Finally \(D(N) \subseteq D(s)\) by the
+  factor \(\gamma = 1\), so \(D(N)\) is a basic open of the affine \(D(s)\) and
+  hence affine.
+\end{proof}
+
+\begin{remark}[The orbit hypothesis is load-bearing]
+  \label{mk-rem:orbit_in_affine_hypothesis}
+  \dcref{custom}
+  \uses{mk-lem:stable_affine_open, mk-rem:smooth_proper_quotient_hypothesis}
+  The hypothesis of \ref{mk-lem:stable_affine_open} that every orbit lie in an
+  affine open cannot be dropped, and it is the same phenomenon as
+  \ref{mk-rem:smooth_proper_quotient_hypothesis}: the Hironaka free
+  \(\mathbb{Z}/2\)-action on a smooth proper non-projective threefold has an
+  orbit contained in no affine open, and its quotient is an algebraic space
+  rather than a scheme. The difference between the two routes is not that one
+  needs a hypothesis and the other does not, but that this hypothesis is
+  available for the schemes the Milne--Koll\'ar route quotients --- glued from
+  opens carrying locally closed immersions into a Grassmannian --- whereas
+  quasi-projectivity of the Abel-map slice is not currently expressible.
+\end{remark}
+
+\section{Group-scheme structure}
+\label{mk-sec:fga_pic_group_structure}
+
+The Picard scheme \(\Pic_{C/k}\) inherits an abelian group structure from
+the tensor product of invertible sheaves on \(C \times_k T\). The relative
+Picard presheaf \(T \mapsto \Pic(C \times_k T)/H_T\) is already an abelian
+group at every \(T\) (the quotient of an abelian group by a subgroup),
+functorially in \(T\); this lifts to the \'etale sheafification, and then
+to a group-scheme structure on the representing scheme by Yoneda.
+
+\begin{theorem}[\(\Pic_{C/k}\) is a \(k\)-group scheme]\label{mk-thm:pic_is_group_scheme}
+  \dcref{2.2,custom}
+
+  \uses{mk-thm:fga_pic_representability, mk-thm:relative_pic_quotient_well_defined,
+        mk-def:pic_scheme, mk-def:rel_pic_sharp}
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 2, Def.~2.2 +
+  \S 4, Def.~4.1 (the Picard scheme).}
+  Let \(\Pic_{C/k}\) be the Picard scheme of
+  \ref{mk-thm:fga_pic_representability}. Then \(\Pic_{C/k}\) is canonically an
+  abelian group scheme over \(k\): the tensor product
+  \([\mathcal{L}] + [\mathcal{M}] := [\mathcal{L} \otimes \mathcal{M}]\)
+  and inverse \(-[\mathcal{L}] := [\mathcal{L}^{-1}]\) on
+  \(\Pic^\sharp_{C/k}(T)\) (well defined because both operations
+  preserve isomorphism classes and descend through the subgroup
+  \(H_T = \pi_T^*\Pic(T)\) of \ref{mk-thm:relative_pic_quotient_well_defined})
+  are natural in \(T\), hence by Yoneda are represented by morphisms
+  \(m : \Pic_{C/k} \times_k \Pic_{C/k} \to \Pic_{C/k}\),
+  \(i : \Pic_{C/k} \to \Pic_{C/k}\), and
+  \(e : \Spec k \to \Pic_{C/k}\) (the trivial line bundle class) satisfying
+  the abelian-group axioms. In particular, \(\Pic_{C/k}\) is a \(k\)-group
+  scheme locally of finite type.
+\end{theorem}
+
+\begin{proof}
+The relative Picard functor \(\Pic^\sharp_{C/k}\) of
+  \ref{mk-def:rel_pic_sharp} is abelian-group valued, with sum
+  \([\mathcal{L}] + [\mathcal{M}] = [\mathcal{L} \otimes \mathcal{M}]\),
+  inverse \(-[\mathcal{L}] = [\mathcal{L}^{-1}]\), and unit
+  \(0 = [\mathcal{O}_{C \times_k T}]\); these operations descend through
+  the quotient by \(H_T = \pi_T^*\Pic(T)\) because \(\pi_T^*\) is itself a
+  group homomorphism (\ref{mk-thm:rel_pic_addcommgroup_via_tensorobj}).
+
+  By \ref{mk-thm:fga_pic_representability}, \(\Pic^\sharp_{C/k}\) is
+  represented by the scheme \(\Pic_{C/k}\). The Yoneda embedding is fully
+  faithful and preserves limits, so a representing object of a
+  group-valued presheaf is canonically a group object: the natural
+  transformations
+  $\Pic^\sharp_{C/k} \times \Pic^\sharp_{C/k} \to \Pic^\sharp_{C/k}$
+  (multiplication), \(\Pic^\sharp_{C/k} \to \Pic^\sharp_{C/k}\) (inverse),
+  and the unit map \(h_{\Spec k} \to \Pic^\sharp_{C/k}\) pick out unique
+  morphisms of representing schemes \(m\), \(i\), \(e\) as displayed, and
+  the abelian-group axioms hold at the level of \(T\)-points functorially
+  in \(T\), hence on the representing scheme. The local-finite-type
+  property is part of \ref{mk-thm:fga_pic_representability}.
+\end{proof}
+
+\section{The Picard scheme}
+\label{mk-sec:fga_pic_named_definition}
+
+The two preceding theorems determine the following named scheme.
+
+\begin{definition}[The Picard scheme]\label{mk-def:pic_scheme}
+  \dcref{4.1,custom}
+
+  \uses{mk-def:has_pic_scheme, mk-def:inst_has_pic_scheme}
+  \textit{Source: \cite{kleiman-picard}, ``The Picard scheme'', \S 4, Def.~4.1.}
+  Let \(C/k\) be a smooth proper geometrically integral curve over a field
+  \(k\), with a \(k\)-rational point. The \emph{Picard scheme} \(\Pic_{C/k}\)
+  is the \(k\)-scheme representing the relative Picard functor
+  \(\Pic^\sharp_{C/k}\) (equivalently, by Kleiman \S 2 Thm.~2.5 under the
+  rational point, its \'etale sheafification), supplied by
+  \ref{mk-thm:fga_pic_representability}, equipped with the abelian-group-scheme
+  structure of \ref{mk-thm:pic_is_group_scheme}. The scheme is separated,
+  locally of finite type over \(k\), and a disjoint union of open
+  quasi-projective \(k\)-subschemes.
+\end{definition}
+
+\section{Auxiliary existence predicates}
+\label{mk-sec:fga_pic_typeclass_scaffolding}
+
+The public constructions use a small collection of existence predicates. Each
+predicate records one mathematical object or property needed by the preceding
+representability argument, and the associated definitions select the object
+when the predicate is inhabited.
+
+\subsection{Basic functors}
+\label{mk-subsec:fga_pic_functor_carriers}
+
+\begin{definition}[\(k\)-rational point]\label{mk-def:has_rational_point}
+  \dcref{2.5,custom}
+
+  The predicate \(\mathrm{HasRationalPoint}(C)\) asserts that the structural
+  morphism \(C \to \Spec k\) admits a section
+  \(\sigma : \Spec k \to C\), i.e.\ that \(C\) has a \(k\)-rational point.
+  This is the standing hypothesis of the chapter (see
+  \ref{mk-sec:fga_pic_setup}): by Kleiman \S 2, Thm.~2.5, it makes the plain
+  relative Picard functor \(\Pic^\sharp_{C/k}\) coincide with its \'etale
+  (and fppf) sheafification, so representability can be stated against
+  \ref{mk-def:rel_pic_sharp} directly. For a pointed curve \((C,P)\), the
+  pointing \(P\) supplies this section.
+\end{definition}
+
+\begin{proof}This is a definition.
+\end{proof}
+
+\begin{definition}[Set-valued relative Picard functor]\label{mk-def:pic_sharp_carrier}
+  \dcref{custom}
+
+  \uses{mk-def:rel_pic_sharp}
+  The set-valued shadow \(\Pic^\sharp_{C/k} : (\Sch/k)^{op} \to \Set\) of the
+  group-valued relative Picard presheaf of \ref{mk-def:rel_pic_sharp}
+  (composition with the forgetful functor \(\Ab \to \Set\)).
+
+  A representing object therefore carries natural bijections
+  \[
+    (T \to \Pic_{C/k}) \simeq
+    \Pic(C \times_k T)/\pi_T^*\Pic(T).
+  \]
+\end{definition}
+
+\begin{proof}\uses{mk-def:rel_pic_sharp}
+  Immediate from \ref{mk-def:rel_pic_sharp}: apply the forgetful functor to
+  the group-valued presheaf.
+\end{proof}
+
+\begin{definition}[Vacuous carrier, not the existence of \(\Div_{C/k}\)]
+  \label{mk-def:has_div_functor}
+  \dcref{custom}
+
+  The predicate \(\mathrm{HasDivFunctor}(C)\) asserts only that the category of
+  presheaves of types on \((\Sch/k)^{op}\) is \emph{nonempty}. The curve \(C\)
+  does not occur in the assertion, so it is vacuously true --- a constant functor
+  witnesses it --- and it must never be cited as the existence of
+  \(\Div_{C/k}\). Use \ref{mk-def:div_functor_carrier} for that; it is a genuine
+  definition instantiating \ref{mk-def:div_functor} at \(C \to \Spec k\).
+\end{definition}
+
+\begin{proof}
+  This is the defining predicate. It is vacuous, as recorded above.
+\end{proof}
+
+\begin{definition}[The relative-divisor functor]\label{mk-def:div_functor_carrier}
+  \dcref{custom}
+
+  \uses{mk-def:div_functor}
+  The presheaf \(\mathrm{Div}_{C/k} : (\Sch/k)^{op} \to \Set\) is the
+  relative-divisor functor \(\Div_{C/k}\) of \ref{mk-def:div_functor},
+  instantiated at the structural morphism \(C \to \Spec k\): it sends a
+  \(k\)-scheme \(T\) to the set of relative effective Cartier divisors on
+  \(C \times_k T\) flat over \(T\).
+\end{definition}
+
+\begin{proof}\uses{mk-def:div_functor}
+  Immediate from \ref{mk-def:div_functor}: instantiate at
+  \(X = C\), \(S = \Spec k\), \(\pi\) the structural morphism.
+\end{proof}
+
+\begin{definition}[The vacuous carrier is inhabited]\label{mk-def:inst_has_div_functor}
+  \dcref{custom}
+
+  \uses{mk-def:has_div_functor, mk-def:div_functor_carrier}
+  The relative-divisor functor of \ref{mk-def:div_functor_carrier} is supplied as
+  the witness for \ref{mk-def:has_div_functor}. Since that predicate does not
+  mention \(C\), any functor would serve equally well: this instance records a
+  choice of witness, not the existence of \(\Div_{C/k}\).
+\end{definition}
+
+\begin{proof}\uses{mk-def:div_functor_carrier}
+  The functor \(\mathrm{Div}_{C/k}\) of \ref{mk-def:div_functor_carrier} is an
+  object of the presheaf category, witnessing the (vacuous) existential.
+\end{proof}
+
+\subsection{Abel-map predicate}
+\label{mk-subsec:fga_pic_abel_map_carrier}
+
+\begin{definition}[Abel-map data]\label{mk-def:has_abel_map}
+  \dcref{custom}
+
+  \uses{mk-def:div_functor_carrier, mk-def:pic_sharp_carrier}
+  The predicate \(\mathrm{HasAbelMap}(C)\) carries a natural
+  transformation of presheaves \(\mathrm{abel} \colon \mathrm{Div}_{C/k}
+  \to \Pic^\sharp_{C/k}\) between the relative-divisor functor of
+  \ref{mk-def:div_functor_carrier} and the relative Picard functor of
+  \ref{mk-def:pic_sharp_carrier}; \(\mathrm{abelMap} :=
+  \mathrm{HasAbelMap.abel}\) denotes this transformation.
+\end{definition}
+
+\begin{proof}
+  This is a definition.
+\end{proof}
+
+\begin{definition}[Existence of the Abel map]\label{mk-def:inst_has_abel_map}
+  \dcref{custom}
+
+  \uses{mk-def:has_abel_map, mk-def:abel_map_witness}
+  For every such curve \(C/k\), the transformation
+  \(A^{\mathrm{raw}}_{C/k}\) from \ref{mk-def:abel_map_witness} supplies
+  \ref{mk-def:has_abel_map}.
+\end{definition}
+
+\begin{proof}
+\uses{mk-def:abel_map_witness}
+  The natural transformation constructed in \ref{mk-def:abel_map_witness} is a
+  term of the required type
+  \(\mathrm{Div}_{C/k} \to \Pic^\sharp_{C/k}\), and hence supplies the data of
+  \ref{mk-def:has_abel_map}.
+\end{proof}
+
+\subsection{Smooth-proper quotient predicate}
+\label{mk-subsec:fga_pic_quotient_carrier}
+
+\begin{definition}[Representability of the smooth-proper quotient]\label{mk-def:has_smooth_proper_quotient}
+  \dcref{custom}
+
+  For a morphism \(\alpha : Z \to P\) of presheaves of types on
+  \((\Sch/k)^{op}\), the predicate \(\mathrm{HasSmoothProperQuotient}(\alpha)\)
+  asserts that the target \(P\) is representable. It records the conclusion
+  of the Altman--Kleiman lemma \ref{mk-lem:smooth_proper_quotient} for the
+  quotient occurring in the FGA construction.
+\end{definition}
+
+\begin{proof}This is a definition.
+\end{proof}
+
+\subsection{Picard-scheme predicates}
+\label{mk-subsec:fga_pic_scheme_carriers}
+
+\begin{definition}[Existence of the Picard scheme]\label{mk-def:has_pic_scheme}
+  \dcref{custom}
+
+  \uses{mk-def:pic_sharp_carrier}
+  The predicate \(\mathrm{HasPicScheme}(C)\) asserts that there exists a \(k\)-scheme
+  \(X\), \emph{locally of finite type over \(k\)}, carrying a
+  representability witness for the relative Picard functor
+  \(\Pic^\sharp_{C/k}\) of \ref{mk-def:pic_sharp_carrier}; in other words,
+  that the Picard scheme \(\Pic_{C/k}\) exists and is locally of finite
+  type. It is the existence assertion from which \ref{mk-def:pic_scheme}
+  extracts the representing object. The local-finiteness clause belongs to
+  the same existence package as representability: Kleiman \S 4,
+  Thm.~th:main exhibits \(\Pic_{C/k}\) as a disjoint union of open
+  quasi-projective \(k\)-subschemes.
+
+  This predicate concerns the \emph{unsheafified} functor, so its only witness
+  \ref{mk-def:inst_has_pic_scheme} is conditional on the \(k\)-rational point of
+  \ref{mk-def:has_rational_point}. Without a section the predicate is not available
+  in general: Kleiman's pointless real conic (see the chapter introduction) is a
+  curve satisfying these very hypotheses for which \(\Pic_{X/\mathbb{R}}\) is not
+  representable. The unconditional statement, for the \'etale sheafification, is
+  \ref{mk-thm:fga_pic_representability_etale}.
+\end{definition}
+
+\begin{proof}
+  This is the defining existence predicate.
+\end{proof}
+
+\begin{definition}[\'Etale-sheafified relative Picard functor]\label{mk-def:pic_et_sheaf}
+  \dcref{custom}
+
+  \uses{mk-def:rel_pic_sharp}
+  The associated \'etale sheaf \(\Pic_{(C/k)\et}\) of the relative Picard
+  presheaf \(\Pic^\sharp_{C/k}\) of \ref{mk-def:rel_pic_sharp}, on the site
+  \((\Sch/k)\) equipped with the \'etale topology, with its abelian-group
+  structure retained and (for representability) its underlying set-valued
+  functor taken. This is Kleiman's \(\Pic_{(X/S)\et}\) of \S 2 (\texttt{df:Pfs}).
+
+  The \'etale topology on \((\Sch/k)\) is the big \'etale topology on schemes
+  localised at \(\Spec k\) in the sense of SGA 4 III 5.2.1: a sieve on a
+  \(k\)-scheme \(T\) covers exactly when the sieve it generates on the
+  underlying scheme covers \'etale-locally.
+\end{definition}
+
+\begin{proof}\uses{mk-def:rel_pic_sharp}
+  Sheafification of the group-valued presheaf of \ref{mk-def:rel_pic_sharp} for
+  the \'etale topology.
+\end{proof}
+
+\begin{lemma}[\(\Pic_{(C/k)\et}\) is a sheaf]\label{mk-lem:pic_et_is_sheaf}
+  \dcref{custom}
+
+  \uses{mk-def:pic_et_sheaf}
+  \(\Pic_{(C/k)\et}\) satisfies the sheaf axiom for the \'etale topology on
+  \((\Sch/k)\), and so does its underlying set-valued functor.
+\end{lemma}
+
+\begin{proof}\uses{mk-def:pic_et_sheaf}
+  By construction: \ref{mk-def:pic_et_sheaf} is a sheafification. The set-valued
+  claim follows because the forgetful functor \(\Ab \to \Set\) preserves the
+  limits the sheaf condition is expressed by.
+
+  This lemma is what makes \ref{mk-thm:fga_pic_representability_etale} askable with
+  no hypothesis on \(C(k)\): the \'etale sheaf condition holds \emph{by
+  construction} here, whereas for the unsheafified \(\Pic^\sharp_{C/k}\) Kleiman's
+  pointless real conic is a curve on these very hypotheses where representability
+  fails (chapter introduction).
+\end{proof}
+
+\begin{theorem}[FGA representability, \'etale formulation]
+  \label{mk-thm:fga_pic_representability_etale}
+  \dcref{custom}
+
+  \uses{mk-def:pic_et_sheaf, mk-lem:pic_et_is_sheaf, mk-def:rel_pic_sharp}
+  Let \(k\) be a field and \(C/k\) a smooth proper geometrically integral
+  curve --- with \emph{no} hypothesis on \(C(k)\). Then:
+  \begin{enumerate}
+    \item the \'etale-sheafified relative Picard functor \(\Pic_{(C/k)\et}\) of
+      \ref{mk-def:pic_et_sheaf} is representable by a \(k\)-scheme that is
+      separated and locally of finite type over \(k\); and
+    \item if \(C\) has a \(k\)-rational point, the comparison
+      \(\Pic^\sharp_{C/k} \to \Pic_{(C/k)\et}\) is an isomorphism.
+  \end{enumerate}
+
+  These two representability clauses are the inputs used by the Jacobian
+  construction in \ref{mk-chap:Jacobian}.
+\end{theorem}
+
+\begin{proof}
+  \uses{mk-thm:rigid_pushforward_locally_free, mk-thm:galois_quotient_points,
+    mk-lem:smooth_proper_quotient}
+  Clause (1) is Kleiman \S 4, Thm.~\texttt{th:main} together with Cor.\
+  \texttt{cor:algsch}: the Abel map exhibits the sheafified Picard functor as a
+  quotient of a quasi-projective scheme by a smooth proper equivalence
+  relation, and Altman--Kleiman descent (\ref{mk-lem:smooth_proper_quotient})
+  represents the quotient as a disjoint union of open quasi-projective
+  \(k\)-subschemes. Along the Milne--Koll\'ar route the degree pieces
+  \(\Pic^r\) are instead glued from the loci \(J^\Sigma\) over a separably
+  closed field, descended to \(k\) by a finite Galois quotient, and assembled
+  over \(\mathbb{Z}\) as a coproduct, which is locally of finite type because
+  each piece is.
+
+  Clause (2) is Kleiman \S 2, Thm.~2.5, as displayed in
+  \ref{mk-sec:fga_pic_setup}.
+
+  The two clauses are stated together because the later \(\Pic^\sharp\)-statements
+  use clause (2) to identify the rigidified and etale Picard functors.
+\end{proof}
+
+\begin{definition}[Picard scheme of a pointed curve]\label{mk-def:inst_has_pic_scheme}
+  \dcref{custom}
+
+  \uses{mk-def:has_pic_scheme, mk-def:has_rational_point,
+    mk-thm:fga_pic_representability_etale}
+  Let \(C/k\) be a smooth proper geometrically integral curve \emph{with a
+  \(k\)-rational point}. Then the plain relative Picard functor
+  \(\Pic^\sharp_{C/k}\) is represented by a scheme separated and locally of
+  finite type over \(k\), so \ref{mk-def:has_pic_scheme} holds.
+
+  This is a \emph{conditional milestone}, strictly weaker than
+  \ref{mk-thm:fga_pic_representability_etale}, and it may not be presented as the
+  project's headline. It is retained because it is true, because it records
+  exactly what a rational point buys, and because the tangent-space development
+  is written against the \(\Pic^\sharp\) shape.
+\end{definition}
+
+\begin{proof}\uses{mk-thm:fga_pic_representability_etale}
+  Both inputs are clauses of \ref{mk-thm:fga_pic_representability_etale}: clause
+  (1) supplies a scheme representing \(\Pic_{(C/k)\et}\) with the required
+  properties, and clause (2) --- available because \(C\) has a rational point
+  --- identifies \(\Pic^\sharp_{C/k}\) with \(\Pic_{(C/k)\et}\), so the same
+  scheme represents it. Transport the representability witness along that
+  isomorphism.
+\end{proof}
+
+\begin{remark}[What the representability statements of this chapter assert]
+  \label{mk-rem:representability_is_conditional}
+  \dcref{custom}
+  \uses{mk-def:has_pic_scheme, mk-def:inst_has_pic_scheme, mk-def:pic_scheme,
+    mk-thm:fga_pic_representability}
+  Every representability assertion of this chapter is an assertion \emph{about} the
+  existence predicate \(\mathrm{HasPicScheme}\) of \ref{mk-def:has_pic_scheme}, not a
+  construction of the Picard scheme. \ref{mk-def:pic_scheme} extracts a scheme from that
+  predicate, \ref{mk-thm:fga_pic_representability} extracts the representing property, and
+  \ref{mk-thm:pic_is_group_scheme} equips the extracted object with its group structure; each
+  is a theorem about what follows once the predicate holds.
+
+  The distinction is easy to lose because a statement quantifying over the predicate is
+  unconditional as a statement --- its hypothesis is discharged by whoever applies it. It
+  becomes visible one step later, at a curve where the predicate must be supplied: there
+  every consequence above depends on \ref{mk-def:inst_has_pic_scheme}. So the correct reading
+  of this chapter is that the passage \emph{from} representability to the Picard scheme and
+  its group structure is complete, and representability is not.
+
+  Two things sharpen this since the \'etale formulation was adopted. First, the
+  \(\Pic^\sharp\)-shaped predicate is supplied only for a \emph{pointed} curve, so the
+  consequences above are conditional statements in a second and independent way: their
+  hypothesis is not just unproved but unavailable over a general field. Second, the
+  corresponding \'etale predicate \emph{is} supplied unconditionally, and everything said
+  here applies to it verbatim with
+  \ref{mk-thm:fga_pic_representability_etale} in place of
+  \ref{mk-def:inst_has_pic_scheme} --- the passage from representability to the Picard
+  scheme, its group structure, its separatedness and its local finiteness is complete
+  there too, and representability is still the one thing that is not.
+\end{remark}
+
+\begin{definition}[Representability of \(\Pic^\sharp_{C/k}\)]\label{mk-def:pic_sharp_representable}
+  \dcref{custom}
+
+  \uses{mk-def:pic_sharp_carrier, mk-def:pic_scheme}
+  The predicate \(\mathrm{PicSharpRepresentable}(C)\) asserts that the specific scheme
+  \(\Pic_{C/k}\) of \ref{mk-def:pic_scheme} is a representing object for
+  \(\Pic^\sharp_{C/k}\). It is the assertion from which the representability
+  witness \ref{mk-thm:fga_pic_representability} is extracted.
+\end{definition}
+
+\begin{proof}
+  This is a definition.
+\end{proof}
+
+\begin{definition}[Representability identification]\label{mk-def:inst_pic_sharp_representable}
+  \dcref{custom}
+
+  \uses{mk-def:pic_sharp_representable, mk-def:has_pic_scheme}
+  The scheme \(\Pic_{C/k}\) is the chosen witness of
+  \ref{mk-def:has_pic_scheme}; the first component of that witness identifies
+  it as a representing object for \(\Pic^\sharp_{C/k}\).
+
+\end{definition}
+
+\begin{proof}\uses{mk-def:has_pic_scheme}
+  This is the representing component of the existence statement in
+  \ref{mk-def:has_pic_scheme}.
+\end{proof}
+
+\begin{definition}[Local finite type of \(\Pic_{C/k}\)]\label{mk-def:pic_scheme_lft}
+  \dcref{custom}
+
+  \uses{mk-def:pic_scheme, mk-def:has_pic_scheme}
+  The predicate
+  \[
+    \mathrm{PicSchemeLocallyOfFiniteType}(C)
+  \]
+  asserts that the
+  structural morphism of the Picard scheme \(\Pic_{C/k}\) of
+  \ref{mk-def:pic_scheme} is locally of finite type --- part (1) of Kleiman
+  \S 4, Thm.~th:main (\(\Pic_{C/k}\) is a disjoint union of open
+  quasi-projective \(k\)-subschemes). It is the hypothesis the
+  identity-component construction of
+  \ref{mk-chap:Picard_IdentityComponent} uses to specialise
+  \(G^0\) to \(G = \Pic_{C/k}\). It follows from the local-finiteness
+  component of \ref{mk-def:has_pic_scheme}.
+\end{definition}
+
+\begin{proof}This is a definition.
+\end{proof}
+
+\begin{definition}[Local-finiteness assertion]\label{mk-def:inst_pic_scheme_lft}
+  \dcref{custom}
+
+  \uses{mk-def:pic_scheme_lft, mk-def:has_pic_scheme}
+  Whenever \ref{mk-def:has_pic_scheme} holds, the second component of its
+  chosen witness gives local finiteness of \(\Pic_{C/k}\). Thus
+  representability and local finiteness are supplied by one existence
+  package, as in Kleiman \S 4, Thm.~th:main.
+\end{definition}
+
+\begin{proof}\uses{mk-def:has_pic_scheme}
+  This is the local-finiteness component of the existence statement in
+  \ref{mk-def:has_pic_scheme}.
+\end{proof}
+
+\section{Dependencies of the representability theorem}
+\label{mk-sec:fga_pic_sorry_closure_order}
+
+The construction of \(\Pic_{C/k}\) separates into three mathematical inputs:
+the relative-divisor functor, its Abel map to the relative Picard functor, and
+the FGA existence theorem. The first two supply concrete functors and a
+natural transformation. The third combines them with regularity, cohomology
+and base change, and effective descent to produce a scheme locally of finite
+type representing \(\Pic^\sharp_{C/k}\).
+
+\subsection{The Picard-scheme existence theorem}
+\label{mk-subsec:sorry_has_pic_scheme}
+
+For a
+smooth proper geometrically integral curve \(C/k\) with a \(k\)-rational
+point, the relative Picard functor \(\Pic^\sharp_{C/k}\)
+(\ref{mk-def:pic_sharp_carrier}) is representable by a \(k\)-scheme. Either route
+of \ref{mk-sec:fga_pic_setup} establishes it, and they consume different inputs.
+
+Along the Milne--Koll\'ar route of \ref{mk-sec:fga_pic_milne_kollar} --- the one
+being formalised --- the inputs are: the rigidified pushforward
+\ref{mk-thm:rigid_pushforward_gate}, which holds for every curve satisfying this
+chapter's hypotheses and supplies both the canonical divisor family and the
+semicontinuity of \(h^0\) cutting out the loci \(C^\Sigma\); uniform \(H^1\) vanishing in high degree, which makes those loci
+cover; representability of the degree-\(r\) divisor functor, which supplies the
+ambient \(Z\) together with its Grassmannian immersion; and the finite Galois
+quotient \ref{mk-thm:galois_quotient_points} with
+\ref{mk-lem:stable_affine_open}, which descends the result from a separably closed
+field to \(k\). No Hilbert or Quot scheme occurs among them.
+
+Along the quotient route the proof first applies Kleiman \S 2, Thm.~2.5, using
+the section to identify the plain functor with its \'etale sheafification, and
+then uses Kleiman's four steps
+(\ref{mk-thm:fga_pic_representability}): Hilbert-polynomial stratification,
+\(m\)-regularity bound, Abel-map factorisation through
+\(\mathrm{Div}_{C/k}\), and the smooth-proper quotient
+(\ref{mk-lem:smooth_proper_quotient}). Its inputs are the Quot/Hilbert
+construction of \ref{mk-chap:Picard_QuotScheme}, representability of
+\(\mathrm{Div}_{C/k}\) as in \ref{mk-rem:div_functor_representability}, the
+regularity result \ref{mk-cor:flattening_stratification_curve}, the base-change
+result \ref{mk-lem:cech_flat_base_change}, and Altman--Kleiman effective descent.
+Both routes rest on the same divisor and comparison substrate. A section is
+used only for the pointed specialisation, where it identifies the plain
+relative Picard functor with its \'etale sheafification. The arbitrary-field
+\'etale statement has no rational-point hypothesis: in the Milne--Koll\'ar
+construction, rational points are introduced only after base change, and the
+resulting \'etale Picard object is descended to \(k\).
+
+Either way, the resulting representing object gives
+natural bijections
+\[
+  (T\to\Pic_{C/k})\simeq
+  \Pic(C\times_kT)/\pi_T^*\Pic(T),
+\]
+including the dual-number case \(T=\Spec k[\epsilon]\) used in the
+tangent-space calculation.
+
+\subsection{The relative-divisor input}
+\label{mk-subsec:sorry_has_div_functor}
+
+The relative-divisor functor \(\Div_{X/S}\) of
+\ref{mk-def:div_functor} is the subfunctor of the Hilbert functor
+\(\Hilb_{C/k} = \Quot_{\mathcal{O}_C/C/k}\) of relative effective Cartier
+divisors, in the invertible-kernel quotient encoding of
+\ref{mk-def:div_family}. The presheaf \(\mathrm{Div}_{C/k}\) of
+\ref{mk-def:div_functor_carrier} is its instantiation at
+\(C\to\Spec k\). Its divisor condition is stable under base change by
+\ref{mk-lem:relative_divisor_base_change}, while representability of
+\(\Div_{C/k}\) by an open subscheme of the Hilbert scheme (Kleiman \S 3,
+Thm.~th:repDiv) is the content of
+\ref{mk-rem:div_functor_representability}.
+
+\subsection{The Abel-map input}
+\label{mk-subsec:sorry_has_abel_map}
+
+The class \ref{mk-def:has_abel_map} carries the natural transformation whose
+value on a divisor family is
+\[
+  \mathrm{abelMapWitness}(C)\langle\mathcal F,q\rangle=-[\ker q].
+\]
+It is the composite of the kernel-class natural transformation
+\(\mathrm{abelKernelNatTrans}(C)\) (naturality via the kernel--flat-base-change
+comparison isomorphism) with the group-presheaf negation
+\(\mathrm{picNeg}(C)\). Thus the Abel map has the defining property in
+\ref{mk-lem:line_bundle_quot_correspondence}; it is a natural transformation
+of the presheaves in \ref{mk-def:div_functor_carrier} and
+\ref{mk-def:pic_sharp_carrier}.
+
+\subsection{Assembly of the inputs}
+\label{mk-subsec:fga_pic_closure_order_summary}
+
+The FGA construction consumes the relative-divisor functor and Abel map,
+then applies the regularity, base-change, and effective-quotient results of
+\ref{mk-thm:fga_pic_representability}. For the pointed specialisation, a map
+\(P:\mathbf 1\to C\) identifies the plain relative Picard functor with its
+sheafification. The arbitrary-field statement instead represents the \'etale
+sheafification directly and has no rational-point hypothesis. The resulting
+representability and local-finiteness statements feed the group-scheme and
+Jacobian constructions.
+
+\section{Related constructions}
+\label{mk-sec:fga_pic_out_of_scope}
+
+The representable Picard scheme and its group structure interact with the
+following constructions, treated in the indicated companion chapters.
+\begin{itemize}
+  \item \textbf{Identity component \(\Pic^0_{C/k}\)} --- the open and
+    closed subgroup scheme of \(\Pic_{C/k}\) containing the unit and
+    consisting of those classes lying in the connected component of
+    \(\Pic_{C/k}\). Its dimension, smoothness, and abelian-variety
+    structure are treated in \ref{mk-chap:Picard_IdentityComponent} and
+    \ref{mk-chap:Picard_Pic0AbelianVariety}.
+  \item \textbf{Quot scheme representability} --- consumed by
+    \ref{mk-thm:fga_pic_representability} via \texttt{thm:quot\_representable}
+    (\ref{mk-chap:Picard_QuotScheme}), not re-proved here. It is an input of the
+    quotient route only; the Milne--Koll\'ar route of
+    \ref{mk-sec:fga_pic_milne_kollar} does not use it, although it does use the
+    Grassmannian and flattening substrate of the same chapters.
+  \item \textbf{\'Etale sheafification.} The relative Picard presheaf and its
+    topology-parametric sheafification are constructed in
+    \ref{mk-chap:Picard_RelPicFunctor}. Under the
+    standing rational-point hypothesis, Kleiman \S 2, Thm.~2.5 identifies
+    the plain relative functor with the \'etale sheafification.
+  \item \textbf{Universal Poincar\'e sheaf} (Kleiman~\S 4, Ex.~4.3)
+    --- exists when \(\Pic_{C/k}\) represents \(\Pic_{C/k}\) itself and
+    \(C/k\) has a section. Under the chapter's standing rational-point
+    hypothesis both conditions in fact hold (Thm.~2.5 identifies the
+    plain functor with the represented sheaf), so the Poincar\'e sheaf
+    is then available as an associated construction.
+  \item \textbf{Mumford's example} (Kleiman~\S 4, Eg.~4.14), counter-examples
+    to representability for non-integral geometric fibers --- not
+    relevant to a smooth proper geometrically integral curve.
+\end{itemize}

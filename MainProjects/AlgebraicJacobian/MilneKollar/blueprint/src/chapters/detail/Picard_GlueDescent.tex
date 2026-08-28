@@ -1,0 +1,846 @@
+\section{Effective descent: restriction of the glued sheaf to a chart}
+\label{mk-chap:Picard_GlueDescent}
+
+\providecommand{\ShMod}{\mathrm{SheafOfModules}}
+
+The gluing primitive \ref{mk-def:scheme_modules_glue} produces, out of a glue datum
+\(D\) of schemes (index set \(J\), charts \(U_i\), overlaps \(V_{ij}\), overlap
+immersions \(f_{ij} : V_{ij} \hookrightarrow U_i\), transition isomorphisms
+\(t_{ij} : V_{ij} \xrightarrow{\sim} V_{ji}\), glued scheme \(X\) with chart
+immersions \(\iota_i : U_i \hookrightarrow X\)), a sheaf of \(\mathcal{O}_X\)-modules
+\(\mathcal{M}\) as the descent equalizer
+\[
+  \mathcal{M} \;=\; \operatorname{eq}(a, b)
+    \;\hookrightarrow\; \prod_{i} (\iota_i)_{*}\,\mathcal{M}_i
+\]
+of two parallel maps into the overlap product. That construction makes
+\(\mathcal{M}\) but does \emph{not} yet consume the cocycle conditions (C1)/(C2) on
+the transition family \((g_{ij})\). This chapter discharges the remaining content of
+descent: it shows that restricting the glued sheaf back to a chart recovers the
+input sheaf there. Concretely, the canonical \emph{restriction morphism}
+\(\iota_i^{*}\mathcal{M} \to \mathcal{M}_i\) -- the adjoint transpose along the chart
+immersion \(\iota_i\) of the \(i\)-th equalizer projection -- is an isomorphism, and
+it is here that (C1)/(C2) are used. The engine is that pullback along an open
+immersion is, up to natural isomorphism, the site-level restriction functor
+(\ref{mk-lem:modules_restrictFunctorIsoPullback_mathlib}); being a right adjoint it
+preserves the descent equalizer and the pushforward product, so the chart
+restriction of \(\mathcal{M}\) is computed factor by factor. The non-formal input is
+the \emph{overlap base change} \(\beta_{ij}\), which identifies the restricted
+pushforward factor \(\iota_i^{*}(\iota_j)_{*}\mathcal{M}_j\) with a pushforward of a
+restriction of \(\mathcal{M}_j\) to the overlap, using the cartesianness of the
+chart--overlap square.
+
+\section{The descent equalizer and its overlap base change}
+\label{mk-sec:gd_equalizer}
+
+\begin{definition}[The pushforward product carrying the descent equalizer]\label{mk-def:gr_glue_equalizer}
+  \dcref{custom}
+
+  \uses{mk-def:scheme_modules_glue}
+  Let \(D\) be a glue datum and \((\mathcal{M}_i)_{i \in J}\) a family of sheaves of
+  modules with \(\mathcal{M}_i\) on the chart \(U_i\). Write
+  \[
+    P \;=\; \prod_{i} (\iota_i)_{*}\,\mathcal{M}_i
+    \qquad\text{and}\qquad
+    Q \;=\; \prod_{(i,j)} (f_{ij} \circ \iota_i)_{*}\,\bigl(f_{ij}^{*}\mathcal{M}_i\bigr)
+  \]
+  for the \emph{pushforward product} and the \emph{overlap product} of sheaves of
+  \(\mathcal{O}_X\)-modules. The two descent legs of \ref{mk-def:scheme_modules_glue},
+  \[
+    P \;\underset{b}{\overset{a}{\rightrightarrows}}\; Q,
+  \]
+  are: on the \((i,j)\)-component, leg \(a\) restricts the \(i\)-th chart factor to
+  the overlap \(V_{ij}\) using the unit of the pullback--pushforward adjunction along
+  \(f_{ij}\) and the pushforward-composition comparison
+  \((\iota_i)_{*} \cong (f_{ij} \circ \iota_i)_{*} \circ f_{ij}^{*}\); leg \(b\)
+  restricts the \(j\)-th chart factor, transports it across the inverse transition
+  isomorphism \(g_{ij}^{-1}\), and reindexes the immersion via the glue condition
+  \((t_{ij} \circ f_{ji}) \circ \iota_j = f_{ij} \circ \iota_i\). The glued sheaf
+  \(\mathcal{M} = \operatorname{eq}(a,b)\) is the equalizer of this parallel pair;
+  \(P\) is the object it embeds into and \(Q\) the object detecting the overlap
+  agreement. The product \(P\) is the carrier on which the \(i\)-th projection (and,
+  through it, the restriction morphism) is defined.
+\end{definition}
+
+\begin{lemma}[Overlap base change of the chart square (\(\beta_{ij}\))]\label{mk-lem:glueOverlapBaseChangeIso}
+  \dcref{custom}
+
+  \uses{mk-lem:modules_restrictFunctorIsoPullback_mathlib}
+  For chart indices \(i, j \in J\) there is a natural isomorphism of functors
+  \(\ShMod(\mathcal{O}_{U_j}) \to \ShMod(\mathcal{O}_{U_i})\),
+  \[
+    \beta_{ij} \;:\;
+      \iota_i^{*}\,(\iota_j)_{*}
+        \;\xrightarrow{\ \sim\ }\;
+      (f_{ij})_{*}\,(t_{ij} \circ f_{ji})^{*},
+  \]
+  identifying, for any sheaf \(\mathcal{N}\) on the chart \(U_j\), the restriction to
+  the chart \(U_i\) of the pushforward \((\iota_j)_{*}\mathcal{N}\) with the
+  pushforward along \(f_{ij}\) of the restriction of \(\mathcal{N}\) to the overlap
+  \(V_{ij}\) along \(t_{ij} \circ f_{ji}\). Here the chart restriction \(\iota_i^{*}\)
+  and the overlap restriction \((t_{ij} \circ f_{ji})^{*}\) are realised as the
+  site-level restriction functors, isomorphic to the geometric pullbacks by
+  \ref{mk-lem:modules_restrictFunctorIsoPullback_mathlib}.
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:modules_restrictFunctorIsoPullback_mathlib, mk-lem:gr_overlap_appIso_compat}
+    The isomorphism is the cartesianness of the chart--overlap square, made site-level.
+  The square
+  \[
+    \begin{array}{ccc}
+      V_{ij} & \xrightarrow{\ t_{ij} \circ f_{ji}\ } & U_j \\
+      \ \downarrow{\scriptstyle f_{ij}} & & \downarrow{\scriptstyle \iota_j} \\
+      U_i & \xrightarrow{\ \ \iota_i\ \ } & X
+    \end{array}
+  \]
+  is cartesian, and its cartesianness is visible already on underlying opens: for an
+  open \(V \subseteq U_i\),
+  \[
+    \iota_j^{-1}\bigl(\iota_i(V)\bigr)
+      \;=\; (t_{ij} \circ f_{ji})\bigl(f_{ij}^{-1}(V)\bigr),
+  \]
+  a point of \(U_j\) lands in the image of \(V\) under \(\iota_i\) precisely when it
+  comes, via the glue relation, from a point of the overlap lying over \(V\). Hence
+  the two composite opens functors
+  \[
+    (\iota_i)_{!} \circ \iota_j^{-1}
+      \;=\;
+    f_{ij}^{-1} \circ (t_{ij} \circ f_{ji})_{!}
+  \]
+  agree on objects, and -- morphisms of the opens poset being proof-irrelevant -- as
+  functors. Both \(\iota_i^{*}(\iota_j)_{*}\) and \((f_{ij})_{*}(t_{ij}\circ
+  f_{ji})^{*}\) are site-level pushforwards along these two (equal) opens functors, so
+  the comparison is assembled from the pushforward-composition isomorphisms together
+  with the natural isomorphism transporting one opens functor to the other:
+  \[
+    \beta_{ij}
+      \;=\;
+    (\text{pushforwardComp})
+      \;\circ\;
+    (\text{pushforward of the opens-functor equality})
+      \;\circ\;
+    (\text{pushforwardCongr})
+      \;\circ\;
+    (\text{pushforwardComp})^{-1}.
+  \]
+  The one substantive coherence to check is that the comparison glued from the
+  object-level opens equality is natural in the open \(V\): on the section level the
+  two restriction maps induced by the equal composite functors coincide because the
+  connecting morphisms are the unique arrows of the opens poset between the identified
+  opens. This is the pointwise compatibility that completes the \(\mathrm{pushforwardCongr}\)
+  factor.
+\end{proof}
+
+\section{The restriction morphism and effective descent}
+\label{mk-sec:gd_descent}
+
+\begin{lemma}[The chart restriction morphism of the glued sheaf]\label{mk-lem:glueRestrictionHom}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glue_equalizer, mk-def:scheme_modules_glue}
+  Let \(\mathcal{M}\) be the glued sheaf of \ref{mk-def:scheme_modules_glue}. The
+  \(i\)-th \emph{projection} of \(\mathcal{M}\),
+  \[
+    \pi_i \;:\; \mathcal{M} \longrightarrow (\iota_i)_{*}\,\mathcal{M}_i,
+  \]
+  is the equalizer inclusion \(\mathcal{M} \hookrightarrow P\)
+  (\ref{mk-def:gr_glue_equalizer}) followed by the \(i\)-th product projection. Its
+  adjoint transpose along the chart immersion \(\iota_i\), under the
+  pullback--pushforward adjunction \(\iota_i^{*} \dashv (\iota_i)_{*}\), is the
+  \emph{restriction morphism}
+  \[
+    \mathrm{r}_i \;:\; \iota_i^{*}\,\mathcal{M} \longrightarrow \mathcal{M}_i .
+  \]
+  Equivalently, \(\mathrm{r}_i\) is the unique morphism whose pushforward, precomposed
+  with the unit, recovers \(\pi_i\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_glue_equalizer, mk-def:scheme_modules_glue}
+  The projection \(\pi_i\) is well-defined by \ref{mk-def:gr_glue_equalizer}: the glued
+  sheaf is the equalizer \(\operatorname{eq}(a,b) \hookrightarrow P\), and composing
+  the inclusion with the \(i\)-th projection of the product \(P = \prod_i
+  (\iota_i)_{*}\mathcal{M}_i\) gives a map to \((\iota_i)_{*}\mathcal{M}_i\). The
+  restriction morphism is then its image under the natural bijection
+  \[
+    \operatorname{Hom}_{\mathcal{O}_X}\bigl(\mathcal{M}, (\iota_i)_{*}\mathcal{M}_i\bigr)
+      \;\cong\;
+    \operatorname{Hom}_{\mathcal{O}_{U_i}}\bigl(\iota_i^{*}\mathcal{M}, \mathcal{M}_i\bigr)
+  \]
+  supplied by the adjunction \(\iota_i^{*} \dashv (\iota_i)_{*}\). The stated
+  equivalent description is the unit--counit form of this transpose.
+\end{proof}
+
+\begin{theorem}[Effective descent: the chart restriction morphism is an isomorphism]\label{mk-thm:isIso_glueRestrictionHom}
+  \dcref{custom}
+
+  \uses{mk-lem:glueRestrictionHom, mk-lem:glueOverlapBaseChangeIso,
+    mk-lem:isLimitPullbackCone_mathlib, mk-lem:eq_of_locally_eq_mathlib,
+    mk-def:gr_glueRestrictionInv, mk-lem:gr_glueRestrict_hom_ext,
+    mk-lem:gr_glueChartComponent_self_counit,
+    mk-lem:gr_glueRestrictionHom_glueChartComponent,
+    mk-lem:gr_glueRestrictionInv_proj}
+  Assume the transition family \((g_{ij})\) satisfies the cocycle conditions (C1) and
+  (C2) of \ref{mk-def:scheme_modules_glue}. Then for every chart index \(i\) the
+  restriction morphism \(\mathrm{r}_i : \iota_i^{*}\mathcal{M} \to \mathcal{M}_i\)
+  (\ref{mk-lem:glueRestrictionHom}) is an isomorphism of sheaves of
+  \(\mathcal{O}_{U_i}\)-modules.
+\end{theorem}
+\begin{proof}
+  \uses{mk-lem:glueRestrictionHom, mk-lem:glueOverlapBaseChangeIso,
+    mk-lem:isLimitPullbackCone_mathlib, mk-lem:eq_of_locally_eq_mathlib,
+    mk-def:gr_glueRestrictionInv, mk-lem:gr_glueRestrict_hom_ext,
+    mk-lem:gr_glueChartComponent_self_counit,
+    mk-lem:gr_glueRestrictionHom_glueChartComponent,
+    mk-lem:gr_glueRestrictionInv_proj}
+    The chart pullback \(\iota_i^{*}\) is naturally isomorphic to the site-level
+  restriction functor (\ref{mk-lem:modules_restrictFunctorIsoPullback_mathlib}), which
+  is a right adjoint; consequently \(\iota_i^{*}\) \emph{preserves limits}. Applying
+  it to the descent equalizer \(\mathcal{M} = \operatorname{eq}(a,b)\) exhibits
+  \(\iota_i^{*}\mathcal{M}\) as the equalizer of the restricted legs
+  \(\iota_i^{*}a, \iota_i^{*}b\), and applying it to the product
+  \(P = \prod_j (\iota_j)_{*}\mathcal{M}_j\) exhibits \(\iota_i^{*}P\) as the product
+  \(\prod_j \iota_i^{*}(\iota_j)_{*}\mathcal{M}_j\). The overlap base change
+  \(\beta_{ij}\) of \ref{mk-lem:glueOverlapBaseChangeIso} then identifies the \(j\)-th
+  factor \(\iota_i^{*}(\iota_j)_{*}\mathcal{M}_j\) with
+  \((f_{ij})_{*}\bigl((t_{ij} \circ f_{ji})^{*}\mathcal{M}_j\bigr)\). Under these
+  identifications the restricted descent data becomes the data attached to the chart
+  \(U_i\) by the cover \(\{f_{ij}\}\) of \(U_i\), and the \(i\)-th factor (where
+  \(j = i\)) is, by (C1), \(\mathcal{M}_i\) itself.
+
+  We produce an inverse \(\mathrm{s}_i : \mathcal{M}_i \to \iota_i^{*}\mathcal{M}\).
+  Because \(\iota_i^{*}\mathcal{M}\) is the equalizer of the restricted legs, it
+  suffices to give a morphism \(\mathcal{M}_i \to \iota_i^{*}P\) -- equivalently a
+  compatible family of morphisms into the factors -- that equalizes
+  \(\iota_i^{*}a\) and \(\iota_i^{*}b\). The \(j\)-th component is
+  \[
+    \mathcal{M}_i
+      \xrightarrow{\ \eta_{f_{ij}}\ }
+    (f_{ij})_{*}\,f_{ij}^{*}\mathcal{M}_i
+      \xrightarrow{\ (f_{ij})_{*} g_{ij}\ }
+    (f_{ij})_{*}\,(t_{ij} \circ f_{ji})^{*}\mathcal{M}_j
+      \xrightarrow{\ \beta_{ij}^{-1}\ }
+    \iota_i^{*}(\iota_j)_{*}\mathcal{M}_j ,
+  \]
+  the unit of the pullback--pushforward adjunction along \(f_{ij}\), followed by the
+  pushforward of the transition isomorphism \(g_{ij}\), followed by the inverse of the
+  overlap base change. That this family equalizes the two restricted legs is exactly
+  the triple-overlap multiplicativity (C2), transported through \(\beta\); and the
+  composite \(\mathrm{r}_i \circ \mathrm{s}_i = \mathrm{id}_{\mathcal{M}_i}\) reduces,
+  via the \(j = i\) component, to the self-identity (C1) together with the counit
+  triangle identity of the adjunction. The reverse composite
+  \(\mathrm{s}_i \circ \mathrm{r}_i = \mathrm{id}\) holds because both sides are
+  equalizer maps with the same components into \(P\); two such agree once their
+  factors agree, which is the separatedness of the sheaf equalizer over the chart
+  cover. The limit computation underlying these equalities is the sheaf
+  Mayer--Vietoris pullback square (\ref{mk-lem:isLimitPullbackCone_mathlib}), and the
+  final identification of sections is the uniqueness-over-a-cover principle
+  (\ref{mk-lem:eq_of_locally_eq_mathlib}). Hence \(\mathrm{r}_i\) is an isomorphism.
+\end{proof}
+
+\section{Construction of the inverse: the descent obligations}
+\label{mk-sec:gd_inverse}
+
+
+\subsection{Section-level compatibilities of the overlap square}
+
+\begin{lemma}[Transport of \(\mathrm{appLE}\) along equal morphisms]\label{mk-lem:gr_appLE_congr_mor}
+  \dcref{custom}
+
+  Let \(f, g : A \to B\) be morphisms of schemes with \(f = g\), let \(U\) be an open of
+  \(B\) and \(W\) an open of \(A\) with \(W \subseteq f^{-1}(U)\) (equivalently
+  \(W \subseteq g^{-1}(U)\)). Then the two induced section maps
+  \(\Gamma(B, U) \to \Gamma(A, W)\) along \(f\) and along \(g\) coincide:
+  \(f^{\mathrm{LE}}_{U,W} = g^{\mathrm{LE}}_{U,W}\).
+\end{lemma}
+\begin{proof}
+
+Substituting the equality \(f = g\) reduces both sides to the same map; the two
+  open-inclusion witnesses \(W \subseteq f^{-1}(U)\) and \(W \subseteq g^{-1}(U)\) are
+  proof-irrelevant.
+\end{proof}
+
+\begin{lemma}[Structure-sheaf compatibility of the chart--overlap square]\label{mk-lem:gr_overlap_appIso_compat}
+  \dcref{custom}
+
+  \uses{mk-lem:gr_appLE_congr_mor, mk-def:scheme_modules_glue}
+  For chart indices \(i, j\) and an open \(V \subseteq U_i\), the two composite
+  section maps
+  \[
+    \Gamma(U_i, V)\;\longrightarrow\;
+      \Gamma\bigl(U_j,\ (t_{ij}\circ f_{ji})\bigl(f_{ij}^{-1}(V)\bigr)\bigr)
+  \]
+  of the chart--overlap square agree. The first goes ``through the glued scheme'':
+  the inverse of the comparison isomorphism of \(\iota_i\) on \(V\), the section map of
+  \(\iota_j\) over \(\iota_i(V)\), and the restriction along the opens identity
+  \(\iota_j^{-1}(\iota_i(V)) = (t_{ij}\circ f_{ji})(f_{ij}^{-1}(V))\). The second goes
+  ``through the overlap'': the section map of \(f_{ij}\) over \(V\) followed by the
+  inverse comparison isomorphism of \(t_{ij}\circ f_{ji}\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_appLE_congr_mor, mk-def:scheme_modules_glue}
+  Both composites are \(\mathrm{appLE}\)s of the two composite morphisms of the square,
+  which are equal by the glue condition \((t_{ij}\circ f_{ji})\circ \iota_j =
+  f_{ij}\circ \iota_i\) of \ref{mk-def:scheme_modules_glue}. Moving the two comparison
+  isomorphisms to \(\mathrm{appLE}\) form (using \(\mathrm{appIso}\) as an
+  \(\mathrm{appLE}\), the composition law \(g^{\mathrm{LE}}\circ f^{\mathrm{LE}} =
+  (f\circ g)^{\mathrm{LE}}\), and the absorption of presheaf restrictions into the
+  open-inclusion witness) reduces the claim to the equality of the two
+  \(\mathrm{appLE}\)s of the equal composites, which is \ref{mk-lem:gr_appLE_congr_mor}.
+\end{proof}
+
+\begin{lemma}[Sections of the overlap base change, inverse side]\label{mk-lem:gr_overlapBaseChange_inv_app}
+  \dcref{custom}
+
+  \uses{mk-lem:glueOverlapBaseChangeIso}
+  For a sheaf \(\mathcal{N}\) on \(U_j\) and an open \(V \subseteq U_i\), the inverse
+  of the overlap base change \(\beta_{ij}^{-1}\), evaluated on sections over \(V\), is
+  the restriction map of \(\mathcal{N}\) along the opens identity
+  \(\iota_j^{-1}(\iota_i(V)) = (t_{ij}\circ f_{ji})(f_{ij}^{-1}(V))\) of
+  \ref{mk-lem:glueOverlapBaseChangeIso}:
+  \[
+    (\beta_{ij}^{-1})_{\mathcal{N}}\big|_V
+      \;=\;
+    \mathcal{N}\!\left(\,(t_{ij}\circ f_{ji})(f_{ij}^{-1}V) \;=\; \iota_j^{-1}(\iota_i V)\,\right).
+  \]
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:glueOverlapBaseChangeIso}
+  Each of the four functorial factors of \(\beta_{ij}\) (\ref{mk-lem:glueOverlapBaseChangeIso})
+  acts on sections over \(V\) either as the identity or as a single presheaf
+  restriction along the opens identity; composing them leaves exactly the named
+  restriction map. The verification is pointwise on sections.
+\end{proof}
+
+\begin{lemma}[Sections of the overlap base change, forward side]\label{mk-lem:gr_overlapBaseChange_hom_app}
+  \dcref{custom}
+
+  \uses{mk-lem:glueOverlapBaseChangeIso}
+  Symmetrically, the forward overlap base change \(\beta_{ij}\), evaluated on sections
+  over an open \(V \subseteq U_i\), is the restriction map of \(\mathcal{N}\) along the
+  reverse opens identity \(\iota_j^{-1}(\iota_i(V)) = (t_{ij}\circ f_{ji})(f_{ij}^{-1}(V))\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:glueOverlapBaseChangeIso}
+  Identical to \ref{mk-lem:gr_overlapBaseChange_inv_app} with the roles of source and
+  target opens exchanged: pointwise on sections, the composite of the four factors is
+  the single presheaf restriction along the (reversed) opens identity.
+\end{proof}
+
+\subsection{Bridges between the geometric and the site-level adjunction}
+
+The chart pullback \(\iota^{*}\) is built by sheafification and carries the
+\emph{geometric} adjunction \(\iota^{*} \dashv \iota_{*}\); along an open immersion the
+\emph{site-level} restriction functor \(\iota^{\mathrm{res}}\) carries a second
+adjunction with concrete unit and counit. They share the right adjoint \(\iota_{*}\),
+and \ref{mk-lem:modules_restrictFunctorIsoPullback_mathlib} is the uniqueness comparison
+of left adjoints between them. The next blocks transport units, counits and
+congruence casts across that comparison, so that the descent obligations can be
+discharged by section-level computations.
+
+\begin{lemma}[Unit comparison across the adjunctions]\label{mk-lem:gr_restrictAdjunction_unit_iso}
+  \dcref{custom}
+
+  \uses{mk-lem:modules_restrictFunctorIsoPullback_mathlib}
+  For an open immersion \(f\) and a sheaf \(\mathcal{N}\) on the target, the geometric
+  unit is the site-level unit followed by the pushforward of the left-adjoint
+  comparison isomorphism:
+  \[
+    \eta^{\mathrm{res}}_{\mathcal{N}}\ \circ\
+      f_{*}\bigl((\text{comparison})_{\mathcal{N}}\bigr)
+    \;=\; \eta^{\mathrm{geo}}_{\mathcal{N}}.
+  \]
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:modules_restrictFunctorIsoPullback_mathlib}
+  This is the general identity relating the unit of an adjunction to the unit of any
+  other adjunction with the same right adjoint, transported by the uniqueness
+  isomorphism of left adjoints (\ref{mk-lem:modules_restrictFunctorIsoPullback_mathlib}).
+\end{proof}
+
+\begin{lemma}[Counit comparison across the adjunctions]\label{mk-lem:gr_restrictIsoPullback_counit}
+  \dcref{custom}
+
+  \uses{mk-lem:modules_restrictFunctorIsoPullback_mathlib}
+  Dually, the left-adjoint comparison isomorphism on \(f_{*}\mathcal{N}\) followed by
+  the geometric counit equals the site-level counit:
+  \[
+    (\text{comparison})_{f_{*}\mathcal{N}}\ \circ\ \varepsilon^{\mathrm{geo}}_{\mathcal{N}}
+      \;=\; \varepsilon^{\mathrm{res}}_{\mathcal{N}}.
+  \]
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:modules_restrictFunctorIsoPullback_mathlib}
+  The dual of \ref{mk-lem:gr_restrictAdjunction_unit_iso}: the counit of one adjunction
+  is conjugated to the counit of the other by the uniqueness comparison of left
+  adjoints.
+\end{proof}
+
+\begin{lemma}[Congruence cast at the pullback level]\label{mk-lem:gr_pullbackCongr_hom_eqToHom}
+  \dcref{custom}
+
+  For equal morphisms \(\varphi = \psi : X \to Y\) and a sheaf \(\mathcal{N}\) on \(Y\),
+  the congruence isomorphism \(\varphi^{*}\mathcal{N} \cong \psi^{*}\mathcal{N}\)
+  induced by \(\varphi = \psi\) is the canonical transport (the \(\mathrm{eqToHom}\) of
+  the object-level equality \(\varphi^{*}\mathcal{N} = \psi^{*}\mathcal{N}\)).
+\end{lemma}
+\begin{proof}
+
+Substituting \(\varphi = \psi\) reduces the congruence cast to the identity, which is
+  the canonical transport of a reflexivity.
+\end{proof}
+
+\begin{lemma}[Trivial site-level congruence cast]\label{mk-lem:gr_restrictFunctorCongr_rfl}
+  \dcref{custom}
+
+  For an open immersion \(\varphi\) the site-level congruence cast associated to the
+  reflexivity \(\varphi = \varphi\) is the identity natural transformation.
+\end{lemma}
+\begin{proof}
+
+Pointwise on sections the cast is the presheaf restriction along a self-equality of
+  opens, which is the identity by functoriality.
+\end{proof}
+
+\begin{lemma}[Comparison intertwines the two congruence casts]\label{mk-lem:gr_restrictIsoPullback_congr}
+  \dcref{custom}
+
+  \uses{mk-lem:gr_pullbackCongr_hom_eqToHom, mk-lem:gr_restrictFunctorCongr_rfl,
+    mk-lem:modules_restrictFunctorIsoPullback_mathlib}
+  For equal open immersions \(\varphi = \psi : X \to Y\) the left-adjoint comparison
+  isomorphism intertwines the site-level and the pullback-level congruence casts:
+  \[
+    (\text{comparison}_\varphi)_{\mathcal{N}}\ \circ\
+      (\varphi^{*}\!=\psi^{*})_{\mathcal{N}}
+    \;=\;
+    (\varphi^{\mathrm{res}}\!=\psi^{\mathrm{res}})_{\mathcal{N}}\ \circ\
+      (\text{comparison}_\psi)_{\mathcal{N}}.
+  \]
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_pullbackCongr_hom_eqToHom, mk-lem:gr_restrictFunctorCongr_rfl}
+  Substituting \(\varphi = \psi\) collapses both congruence casts to identities
+  (\ref{mk-lem:gr_pullbackCongr_hom_eqToHom}, \ref{mk-lem:gr_restrictFunctorCongr_rfl}),
+  and the two comparison isomorphisms then coincide.
+\end{proof}
+
+\subsection{The candidate inverse}
+
+\begin{definition}[Overlap base change in pullback form]\label{mk-def:gr_glueOverlapFactorIso}
+  \dcref{custom}
+
+  \uses{mk-lem:glueOverlapBaseChangeIso, mk-lem:modules_restrictFunctorIsoPullback_mathlib}
+  Conjugating the overlap base change \(\beta_{ij}\)
+  (\ref{mk-lem:glueOverlapBaseChangeIso}) on both sides by the comparison
+  \ref{mk-lem:modules_restrictFunctorIsoPullback_mathlib} between the site-level
+  restriction and the geometric pullback yields the isomorphism, in geometric form,
+  \[
+    \gamma_{ij} \;:\;
+      \iota_i^{*}\bigl((\iota_j)_{*}\,\mathcal{M}_j\bigr)
+        \;\xrightarrow{\ \sim\ }\;
+      (f_{ij})_{*}\bigl((t_{ij}\circ f_{ji})^{*}\,\mathcal{M}_j\bigr),
+  \]
+  evaluated at the input sheaf \(\mathcal{M}_j\).
+\end{definition}
+
+\begin{definition}[The \(j\)-th component of the candidate inverse]\label{mk-def:gr_glueChartComponent}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glueOverlapFactorIso}
+  Given the transition isomorphisms \(g_{ij} : f_{ij}^{*}\mathcal{M}_i \xrightarrow{\sim}
+  (t_{ij}\circ f_{ji})^{*}\mathcal{M}_j\), the \(j\)-th component of the candidate
+  inverse \(\mathrm{s}_i\) is the composite
+  \[
+    \mathcal{M}_i
+      \xrightarrow{\ \eta_{f_{ij}}\ }
+    (f_{ij})_{*}\,f_{ij}^{*}\mathcal{M}_i
+      \xrightarrow{\ (f_{ij})_{*}g_{ij}\ }
+    (f_{ij})_{*}\,(t_{ij}\circ f_{ji})^{*}\mathcal{M}_j
+      \xrightarrow{\ \gamma_{ij}^{-1}\ }
+    \iota_i^{*}\bigl((\iota_j)_{*}\mathcal{M}_j\bigr),
+  \]
+  i.e. the geometric unit along \(f_{ij}\), the pushforward of the transition
+  \(g_{ij}\), and the inverse of \(\gamma_{ij}\) (\ref{mk-def:gr_glueOverlapFactorIso}).
+\end{definition}
+
+\begin{definition}[The candidate-inverse family]\label{mk-def:gr_glueChartFamily}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glueChartComponent, mk-def:gr_glue_equalizer}
+  Assembling the components \ref{mk-def:gr_glueChartComponent} through the
+  product-preservation comparison of \(\iota_i^{*}\) on the pushforward product
+  \(P = \prod_j (\iota_j)_{*}\mathcal{M}_j\) (\ref{mk-def:gr_glue_equalizer}) gives a
+  single morphism
+  \[
+    \mathcal{M}_i \;\longrightarrow\; \iota_i^{*}P,
+  \]
+  the candidate inverse before it is corrected to land in the equalizer
+  \(\iota_i^{*}\mathcal{M}\).
+\end{definition}
+
+\begin{lemma}[The candidate family recovers each chart component]\label{mk-lem:gr_glueChartFamily_pullback_map_pi}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glueChartComponent, mk-def:gr_glueChartFamily}
+  For chart indices \(i,j\), composing the candidate family with the pullback of the
+  \(j\)-th product projection recovers its \(j\)-th component:
+  \[
+    \mathrm{s}_i^{\mathrm{fam}}\circ
+      \iota_i^*(\pi_j)=\mathrm{s}_i^{(j)}.
+  \]
+  This is the component formula for the product-preservation comparison used to
+  define \ref{mk-def:gr_glueChartFamily}.
+\end{lemma}
+
+\subsection{The triple-overlap toolkit}
+
+The first descent obligation (\ref{mk-lem:gr_glueChartFamily_equalizes}) reduces, factor
+by factor of the restricted overlap product, to a single equation over a \emph{triple
+overlap}. This subsection records that machinery. Fix three chart indices \(i, p, q\)
+and form the triple overlap
+\[
+  V_{ipq} \;=\; V_{ip} \times_{U_i} V_{iq},
+\]
+with first projection \(\mathrm{fst} : V_{ipq} \to V_{ip}\). Two morphisms out of
+\(V_{ipq}\) organise everything: the \emph{chart leg}
+\(q_{pq} = \mathrm{fst}\circ f_{ip} : V_{ipq} \to U_i\) (down to \(U_i\)), and the
+\emph{transport leg} \(\tau = t'_{ipq}\circ \mathrm{fst}_{pq} : V_{ipq} \to V_{pq}\)
+(across to the pair overlap, through the cocycle transport \(t'_{ipq}\)). The square
+\[
+  \begin{array}{ccc}
+    V_{ipq} & \xrightarrow{\ \ \tau\ \ } & V_{pq} \\
+    \ \downarrow{\scriptstyle q_{pq}} & & \downarrow{\scriptstyle f_{pq}\circ \iota_p} \\
+    U_i & \xrightarrow{\ \ \iota_i\ \ } & X
+  \end{array}
+\]
+is the triple analogue of the chart--overlap square of \ref{mk-lem:glueOverlapBaseChangeIso}.
+
+\begin{lemma}[Triple-overlap bridges of the glue datum]\label{mk-lem:gr_glueData_bridges}
+  \dcref{custom}
+
+  On the triple overlap \(V_{ijk} = V_{ij}\times_{U_i} V_{ik}\) the following three
+  identities of morphisms hold, lining up the endpoints of the three base-change
+  transports of the cocycle equation (C2):
+  \begin{enumerate}
+    \item \emph{(source)} the two projections of \(V_{ijk}\) to \(V_{ij}\) and \(V_{ik}\),
+      followed by the overlap immersions \(f_{ij}\) and \(f_{ik}\) into \(U_i\),
+      agree;
+    \item \emph{(middle)} the \(ij\)-transport's target leg
+      \((t_{ij}\circ f_{ji})\) and the \(jk\)-transport's source leg
+      (through the cocycle transport \(t'_{ijk}\) and \(f_{jk}\)) agree as morphisms
+      to \(U_j\);
+    \item \emph{(target)} the composite \(jk\)-after-\(ij\) transport's target leg
+      \((t_{jk}\circ f_{kj})\) and the \(ik\)-transport's target leg
+      \((t_{ik}\circ f_{ki})\) agree as morphisms to \(U_k\).
+  \end{enumerate}
+\end{lemma}
+\begin{proof}The source identity is the universal property (pullback condition) of \(V_{ijk}\).
+  The middle identity follows from the transition factorisation
+  \(t'_{ijk}\) in the glue datum together with the pullback condition.
+  The target identity -- the heart of the cocycle -- combines the same transition
+  factorisation, the pullback condition, the involutivity \(t_{ik}\circ t_{ki}=\mathrm{id}\)
+  and the cocycle condition of the glue datum.
+\end{proof}
+
+\begin{lemma}[Pair component of the equalizing condition]\label{mk-lem:gr_glueChartComponent_leg_compat}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glueChartComponent, mk-def:scheme_modules_glue,
+    mk-lem:gr_glueData_bridges}
+  For chart indices \(i,p,q\), the \(p\)-th candidate component followed by the
+  restricted first descent-leg factor equals the \(q\)-th candidate component followed
+  by the restricted second descent-leg factor.  After transposing to the triple overlap
+  \(V_{ipq}\), this is precisely the cocycle multiplicativity condition (C2), with the
+  endpoint identifications supplied by \ref{mk-lem:gr_glueData_bridges}.
+\end{lemma}
+
+
+\subsection{The first descent obligation}
+
+\begin{lemma}[The candidate-inverse family equalizes the restricted legs (C2 transported)]\label{mk-lem:gr_glueChartFamily_equalizes}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glueChartFamily, mk-def:scheme_modules_glue, mk-lem:gr_glueData_bridges,
+    mk-lem:modules_pullback_basechange_transport, mk-lem:gr_overlap_appIso_compat,
+    mk-lem:gr_glueChartComponent_self_counit, mk-lem:modules_restrictFunctorIsoPullback_mathlib}
+  The family \ref{mk-def:gr_glueChartFamily} equalizes the two restricted descent legs
+  \(\iota_i^{*}a\) and \(\iota_i^{*}b\); equivalently, it lands in the restricted
+  equalizer \(\iota_i^{*}\mathcal{M}\). This is the first descent obligation, where the
+  triple-overlap multiplicativity (C2) of \ref{mk-def:scheme_modules_glue} is consumed.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_glueChartFamily, mk-lem:gr_glueChartFamily_pullback_map_pi,
+    mk-lem:gr_glueChartComponent_leg_compat}
+    It suffices to check equality after projecting to each factor \((p,q)\) of the
+  restricted overlap product, through the product-preservation comparison of
+  \(\iota_i^{*}\) (the same comparison discipline as \ref{mk-lem:gr_glueRestrict_proj_compat}).
+  Folding each restricted leg against the \((p,q)\)-projection -- splitting off the
+  \(p\)- and \(q\)-th chart projections and cancelling the comparison via
+  \ref{mk-lem:gr_glueChartFamily_pullback_map_pi} -- turns the \((p,q)\)-component into the
+  equation
+  \[
+    \mathrm{s}_i^{(p)}\ \circ\ \iota_i^{*}\bigl(a_{(p,q)}\bigr)
+      \;=\;
+    \mathrm{s}_i^{(q)}\ \circ\ \iota_i^{*}\bigl(b_{(p,q)}\bigr),
+  \]
+  which is precisely the pair-component obligation
+  \ref{mk-lem:gr_glueChartComponent_leg_compat}, where the triple-overlap multiplicativity
+  (C2) is consumed. Assembling these componentwise equalities back through the comparison
+  gives the equalizing condition.
+\end{proof}
+
+\begin{definition}[The candidate inverse \(\mathrm{s}_i\)]\label{mk-def:gr_glueRestrictionInv}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glueChartFamily, mk-lem:gr_glueChartFamily_equalizes}
+  Because \(\iota_i^{*}\) preserves the descent equalizer, the equalizing family
+  \ref{mk-def:gr_glueChartFamily} (equalizing by \ref{mk-lem:gr_glueChartFamily_equalizes})
+  lifts uniquely to a morphism
+  \[
+    \mathrm{s}_i \;:\; \mathcal{M}_i \;\longrightarrow\; \iota_i^{*}\mathcal{M},
+  \]
+  the candidate inverse of the chart restriction morphism.
+\end{definition}
+
+\begin{lemma}[Comparison compatibility of the restricted projection]\label{mk-lem:gr_glueRestrict_proj_compat}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glue_equalizer, mk-def:scheme_modules_glue}
+  Through the equalizer- and product-preservation comparisons of \(\iota_i^{*}\), the
+  restricted equalizer inclusion of \(\iota_i^{*}\mathcal{M}\) into \(\iota_i^{*}P\)
+  followed by the \(j\)-th product projection equals the chart pullback
+  \(\iota_i^{*}(\pi_j)\) of the \(j\)-th descent-equalizer projection
+  (\ref{mk-def:gr_glue_equalizer}).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_glue_equalizer}
+  Pure limit bookkeeping: the equalizer- and product-comparison isomorphisms
+  associated to a limit-preserving functor send the restricted inclusion and the
+  restricted projection to the pullbacks of the inclusion and the projection
+  respectively, and the composite of pullbacks is the pullback of the composite, which
+  is \(\iota_i^{*}(\pi_j)\).
+\end{proof}
+
+\begin{lemma}[The candidate inverse recovers the components]\label{mk-lem:gr_glueRestrictionInv_proj}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glueRestrictionInv, mk-lem:gr_glueRestrict_proj_compat,
+    mk-def:gr_glueChartComponent}
+  The candidate inverse \ref{mk-def:gr_glueRestrictionInv} followed by the restricted
+  \(j\)-th projection \(\iota_i^{*}(\pi_j)\) recovers the \(j\)-th component
+  \ref{mk-def:gr_glueChartComponent}:
+  \[
+    \mathrm{s}_i\ \circ\ \iota_i^{*}(\pi_j)
+      \;=\; \mathrm{s}_i^{(j)} .
+  \]
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_glueRestrictionInv, mk-lem:gr_glueRestrict_proj_compat}
+  Unfolding the lift \ref{mk-def:gr_glueRestrictionInv} and applying
+  \ref{mk-lem:gr_glueRestrict_proj_compat}, the equalizer- and product-preservation
+  comparisons cancel against the lift, leaving the defining \(j\)-th projection of the
+  family \ref{mk-def:gr_glueChartFamily}, namely \(\mathrm{s}_i^{(j)}\).
+\end{proof}
+
+\begin{lemma}[Joint detection of morphisms into the restricted glued sheaf]\label{mk-lem:gr_glueRestrict_hom_ext}
+  \dcref{custom}
+
+  \uses{mk-lem:gr_glueRestrict_proj_compat}
+  Two morphisms \(u, v : \mathcal{Z} \to \iota_i^{*}\mathcal{M}\) that agree after every
+  restricted projection \(\iota_i^{*}(\pi_j)\) are equal.
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_glueRestrict_proj_compat}
+  The restricted equalizer inclusion is a monomorphism and the restricted product
+  projections are jointly monic, both through the preservation comparisons; so it
+  suffices to test against \(\iota_i^{*}(\pi_j)\) for every \(j\), which is the
+  hypothesis via \ref{mk-lem:gr_glueRestrict_proj_compat}.
+\end{proof}
+
+\begin{lemma}[Joint faithfulness of the chart restrictions]\label{mk-lem:gr_modules_glue_unique}
+  \dcref{custom}
+
+  \uses{mk-def:scheme_modules_glue}
+  Two morphisms \(u, v : \mathcal{W} \to \mathcal{W}'\) of sheaves of modules on the glued
+  scheme \(X\) of a glue datum (\ref{mk-def:scheme_modules_glue}) that agree after pullback
+  \(\iota_i^{*}u = \iota_i^{*}v\) to every chart are equal. This is the characterisation of a
+  glued sheaf up to unique isomorphism: a morphism out of the glued sheaf is determined by its
+  chart-local restrictions.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:scheme_modules_glue}
+  This is the separation half of the sheaf condition over the chart cover \(\{\iota_i\}\):
+  sections of \(\mathcal{W}'\) are detected on the chart-image opens \(\iota_i''(\iota_i^{-1}O)\),
+  which cover any open \(O\) by the joint surjectivity of the chart immersions of the glue
+  datum. Hence two morphisms agreeing on every chart agree on a covering family of opens, so
+  they agree.
+\end{proof}
+
+\subsection{The three cocycle obligations}
+
+\begin{lemma}[Self-component collapses to the identity (C1 + counit triangle)]\label{mk-lem:gr_glueChartComponent_self_counit}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glueChartComponent, mk-def:scheme_modules_glue,
+    mk-lem:gr_restrictIsoPullback_congr, mk-lem:gr_restrictAdjunction_unit_iso,
+    mk-lem:gr_restrictIsoPullback_counit, mk-lem:gr_overlapBaseChange_inv_app,
+    mk-lem:gr_pullbackCongr_hom_eqToHom}
+  The \((i,i)\)-component \ref{mk-def:gr_glueChartComponent}, transposed back along the
+  chart immersion \(\iota_i\) (post-composed with the geometric counit), is the
+  identity of \(\mathcal{M}_i\):
+  \[
+    \mathrm{s}_i^{(i)}\ \circ\ \varepsilon^{\mathrm{geo}}_{\mathcal{M}_i}
+      \;=\; \mathrm{id}_{\mathcal{M}_i}.
+  \]
+  This is the second descent obligation, consuming the self-identity (C1).
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_glueChartComponent, mk-def:scheme_modules_glue,
+    mk-lem:gr_restrictIsoPullback_congr, mk-lem:gr_restrictAdjunction_unit_iso,
+    mk-lem:gr_restrictIsoPullback_counit, mk-lem:gr_overlapBaseChange_inv_app,
+    mk-lem:gr_pullbackCongr_hom_eqToHom}
+    Since \(f_{ii}\) factors as \(t_{ii}\circ f_{ii}\) (because \(t_{ii} = \mathrm{id}\)),
+  (C1) of \ref{mk-def:scheme_modules_glue} says the transition \(g_{ii}\) is the
+  canonical congruence cast; through \ref{mk-lem:gr_pullbackCongr_hom_eqToHom} and
+  \ref{mk-lem:gr_restrictIsoPullback_congr} the three middle factors of the component
+  collapse to a single site-level congruence cast. Rewriting the geometric unit by
+  \ref{mk-lem:gr_restrictAdjunction_unit_iso} and the geometric counit by
+  \ref{mk-lem:gr_restrictIsoPullback_counit} turns the whole composite into the
+  site-level unit, the congruence cast, the section form of \(\beta_{ii}^{-1}\)
+  (\ref{mk-lem:gr_overlapBaseChange_inv_app}), and the site-level counit. On sections
+  over an open this is a cycle of presheaf restrictions along opens identities whose
+  composite open-inclusion is the identity; folding the restrictions and using
+  proof-irrelevance of the open inclusions gives the identity.
+\end{proof}
+
+\begin{lemma}[Transpose of the overlap base change (mate core)]\label{mk-lem:gr_glueOverlapFactor_transpose}
+  \dcref{custom}
+
+  \uses{mk-def:gr_glueOverlapFactorIso, mk-lem:glueOverlapBaseChangeIso,
+    mk-lem:gr_overlapBaseChange_hom_app, mk-def:scheme_modules_glue}
+  The adjoint transpose along \(\iota_i\) of the pullback-form overlap base change
+  \(\gamma_{ij}\) (\ref{mk-def:gr_glueOverlapFactorIso}) is the canonical four-functor
+  comparison of the glue square:
+  \[
+    \widehat{\gamma_{ij}}
+      \;=\;
+    (\iota_j)_{*}\bigl(\eta_{t_{ij}\circ f_{ji}}\bigr)
+      \ \circ\ \mathrm{pushComp}
+      \ \circ\ \mathrm{pushCongr}
+      \ \circ\ \mathrm{pushComp}^{-1},
+  \]
+  the unit along \(t_{ij}\circ f_{ji}\) pushed forward along \(\iota_j\), regrouped by
+  the pushforward-composition comparison, reindexed by the pushforward-congruence along
+  the glue condition \((t_{ij}\circ f_{ji})\circ \iota_j = f_{ij}\circ \iota_i\), and
+  ungrouped by the inverse pushforward-composition. The identity is free of the
+  cocycle hypotheses: it is pure site-level content.
+\end{lemma}
+\begin{proof}
+  \uses{mk-def:gr_glueOverlapFactorIso, mk-lem:glueOverlapBaseChangeIso,
+    mk-lem:gr_overlapBaseChange_hom_app, mk-def:scheme_modules_glue,
+    mk-lem:modules_restrictFunctorIsoPullback_mathlib}
+    Expand the adjoint transpose of \(\gamma_{ij}\): the left-adjoint comparison
+  isomorphisms (\ref{mk-lem:modules_restrictFunctorIsoPullback_mathlib}) conjugating the
+  chart factor cancel against the unit/counit, leaving the bare site-level overlap base
+  change \(\beta_{ij}\) (\ref{mk-lem:glueOverlapBaseChangeIso}). The unit bridge at
+  \(t_{ij}\circ f_{ji}\) and the three naturality squares of the pushforward-composition
+  and pushforward-congruence comparisons rewrite the transpose into the stated
+  four-factor composite up to whiskering and reassociation. The residual site-level
+  core is checked on sections over an open: by \ref{mk-lem:gr_overlapBaseChange_hom_app}
+  the section form of \(\beta_{ij}\) is a presheaf restriction along an opens identity,
+  and the remaining composite is a cycle of such restrictions whose total open
+  inclusion is the identity, folded by proof-irrelevance exactly as in the closing step
+  of \ref{mk-lem:gr_glueChartComponent_self_counit}.
+\end{proof}
+
+\begin{lemma}[Mate recognition of the factor transpose]\label{mk-lem:gr_glueOverlapFactor_mate}
+  \dcref{custom}
+
+  \uses{mk-lem:gr_glueOverlapFactor_transpose, mk-def:gr_glueOverlapFactorIso,
+    mk-def:scheme_modules_glue}
+  For any morphism \(m : \mathcal{W} \to (\iota_j)_{*}\mathcal{M}_j\) on the glued
+  scheme, the conjugated transport of the inverse transpose of \(m\) along the glue
+  square equals the inverse transpose, along \(f_{ij}\), of \(\iota_i^{*}(m)\) followed
+  by \(\gamma_{ij}\) (\ref{mk-def:gr_glueOverlapFactorIso}). In other words, the factor
+  transpose \ref{mk-lem:gr_glueOverlapFactor_transpose} is the mate of \(\gamma_{ij}\)
+  through the pseudofunctor structure of pullback.
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_glueOverlapFactor_transpose, mk-def:gr_glueOverlapFactorIso,
+    mk-def:scheme_modules_glue}
+    Both sides are computed by transposing twice. By injectivity of the two transpose
+  bijections it suffices to compare the double transposes. Naturality of the transpose
+  in its left argument peels \(m\) off the right-hand side; the conjugate of the
+  pullback-composition isomorphism along the glue condition is the inverse
+  pushforward-composition isomorphism; and folding the unit pair and reindexing along
+  the glue condition of \ref{mk-def:scheme_modules_glue} reduces the identity to the
+  factor transpose \ref{mk-lem:gr_glueOverlapFactor_transpose}.
+\end{proof}
+
+\begin{lemma}[Overlap compatibility of the restriction morphisms]\label{mk-lem:gr_glueRestriction_overlap_compat}
+  \dcref{custom}
+
+  \uses{mk-lem:glueRestrictionHom, mk-def:scheme_modules_glue, mk-def:gr_glue_equalizer}
+  The \((i,j)\)-component of the descent-equalizer condition, transposed to the
+  pullback level, states that over the overlap \(V_{ij}\) the two restriction
+  morphisms \(\mathrm{r}_i\) and \(\mathrm{r}_j\) (\ref{mk-lem:glueRestrictionHom}) differ
+  exactly by the transition isomorphism \(g_{ij}\) (through the pseudofunctor
+  congruence casts).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:glueRestrictionHom, mk-def:scheme_modules_glue, mk-def:gr_glue_equalizer}
+  The glued sheaf is the descent equalizer, so its \(i\)- and \(j\)-projections satisfy
+  the overlap-agreement condition of \ref{mk-def:gr_glue_equalizer}. Transposing that
+  condition along \(\iota_i\) and \(\iota_j\) and folding the transposes back through
+  the adjunction bijection turns it into the stated identity between the overlap
+  pullbacks of \(\mathrm{r}_i\) and \(\mathrm{r}_j\), conjugated by the glue-condition
+  casts of \ref{mk-def:scheme_modules_glue} and corrected by \(g_{ij}\).
+\end{proof}
+
+\begin{lemma}[Pair condition transposed: restriction composed with the component]\label{mk-lem:gr_glueRestrictionHom_glueChartComponent}
+  \dcref{custom}
+
+  \uses{mk-lem:gr_glueRestriction_overlap_compat, mk-lem:gr_glueOverlapFactor_mate,
+    mk-def:gr_glueChartComponent, mk-lem:glueRestrictionHom}
+  The chart restriction morphism \(\mathrm{r}_i\) (\ref{mk-lem:glueRestrictionHom})
+  followed by the \(j\)-th candidate-inverse component \ref{mk-def:gr_glueChartComponent}
+  equals the restricted \(j\)-th projection:
+  \[
+    \mathrm{r}_i\ \circ\ \mathrm{s}_i^{(j)}
+      \;=\; \iota_i^{*}(\pi_j).
+  \]
+  This is the third descent obligation; together with
+  \ref{mk-lem:gr_glueRestrictionInv_proj} and \ref{mk-lem:gr_glueRestrict_hom_ext} it gives
+  \(\mathrm{r}_i \circ \mathrm{s}_i = \mathrm{id}\).
+\end{lemma}
+\begin{proof}
+  \uses{mk-lem:gr_glueRestriction_overlap_compat, mk-lem:gr_glueOverlapFactor_mate,
+    mk-def:gr_glueChartComponent, mk-lem:glueRestrictionHom}
+    Unfold the component \ref{mk-def:gr_glueChartComponent}. By the overlap compatibility
+  \ref{mk-lem:gr_glueRestriction_overlap_compat} the overlap pullback of \(\mathrm{r}_i\)
+  transported across \(g_{ij}\) is the inverse mate transpose of the restricted
+  projection \(\iota_i^{*}(\pi_j)\) through \(\gamma_{ij}\)
+  (\ref{mk-lem:gr_glueOverlapFactor_mate}). Substituting this into the unit-naturality
+  square of \(\mathrm{r}_i\) along \(f_{ij}\) and folding the resulting transpose
+  cancels the factor isomorphism, leaving exactly \(\iota_i^{*}(\pi_j)\).
+\end{proof}
+
+\subsection{Joint faithfulness of chart restrictions}
+
+
+\begin{definition}[The restriction isomorphism of the glued sheaf]\label{mk-def:glueRestrictionIso}
+  \dcref{custom}
+
+  \uses{mk-thm:isIso_glueRestrictionHom}
+  Let \(\mathcal{M}\) be the glued sheaf of \ref{mk-def:scheme_modules_glue}, with the
+  transition family \((g_{ij})\) satisfying (C1)/(C2). For each chart index \(i\) the
+  restriction morphism \(\mathrm{r}_i\) (\ref{mk-lem:glueRestrictionHom}) is promoted to
+  the \emph{restriction isomorphism}
+  \[
+    \rho_i \;:\; \iota_i^{*}\,\mathcal{M} \;\xrightarrow{\ \sim\ }\; \mathcal{M}_i,
+  \]
+  the canonical identification of the chart restriction of the glued sheaf with the
+  \(i\)-th input sheaf, packaged from \ref{mk-thm:isIso_glueRestrictionHom}. Its
+  underlying morphism is the adjoint transpose of the \(i\)-th descent-equalizer
+  projection, and over each overlap \(V_{ij}\) the two restrictions \(\rho_i, \rho_j\)
+  differ exactly by the transition isomorphism \(g_{ij}\).
+\end{definition}

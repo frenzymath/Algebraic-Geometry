@@ -1,35 +1,175 @@
-% Mathematical macros shared by the web and print blueprints.
-\providecommand{\dcref}[1]{}
-\providecommand{\uses}[1]{}
-\providecommand{\source}[1]{}
+% In this file you should put all LaTeX macros and settings to be used both by
+% the pdf version and the web version.
+% This should be most of your macros.
 
+% Source-blueprint metadata consumed by hgraph and hidden in rendered prose.
+\providecommand{\dcref}[1]{}
+\providecommand{\source}[1]{}
+\providecommand{\uses}[1]{}
+\providecommand{\proves}[1]{}
+\providecommand{\lean}[1]{}
+\providecommand{\leanok}{}
+\providecommand{\mathlibok}{}
+\providecommand{\notready}{}
+\providecommand{\sketch}{}
+\providecommand{\level}[1]{}
+
+% The theorem-like environments defined below are those that appear by default
+% in the dependency graph. See the README of leanblueprint if you need help to
+% customize this.
+% The configuration below use the theorem counter for all those environments
+% (this is what the [theorem] arguments mean) and never resets it.
+% If you want for instance to number them within chapters then you can add
+% [chapter] at the end of the next line.
 \newtheorem{theorem}{Theorem}
 \newtheorem{proposition}[theorem]{Proposition}
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{example}[theorem]{Example}
+
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{remark}[theorem]{Remark}
 
+% Custom mathematical operators / macros used in the chapters.
+% KaTeX (used by the dashboard) only recognises standard LaTeX/AMS macros, so
+% non-standard commands must be defined here.
 \DeclareMathOperator{\Spec}{Spec}
-\DeclareMathOperator{\Sch}{Sch}
+\providecommand{\A}{\mathbb{A}}
+\providecommand{\et}{\mathrm{et}}
 \DeclareMathOperator{\Pic}{Pic}
-\DeclareMathOperator{\Div}{Div}
-\DeclareMathOperator{\Hom}{Hom}
 \DeclareMathOperator{\Ext}{Ext}
-\DeclareMathOperator{\Alb}{Alb}
-\DeclareMathOperator{\Sym}{Sym}
-\DeclareMathOperator{\Jac}{Jac}
-\DeclareMathOperator{\genus}{genus}
-\newcommand{\et}{\mathrm{et}}
-\newcommand{\OO}{\mathcal O}
-\newcommand{\PP}{\mathbb P}
-\newcommand{\A}{\mathbb A}
-\newcommand{\Z}{\mathbb Z}
-\newcommand{\Q}{\mathbb Q}
-\newcommand{\N}{\mathbb N}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\Sch}{Sch}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Sheaf}{Sheaf}
+\DeclareMathOperator{\opens}{Op}
+\DeclareMathOperator{\forget}{forget}
+\DeclareMathOperator{\sheafCompose}{sheafCompose}
+\DeclareMathOperator{\toAbSheaf}{toAbSheaf}
+\DeclareMathOperator{\toModuleKSheaf}{toModuleKSheaf}
+\DeclareMathOperator{\PicardFunctor}{PicardFunctor}
+\DeclareMathOperator{\PicardFunctorAb}{PicardFunctorAb}
+\newcommand{\Abelian}{\mathrm{Abelian}}
+\newcommand{\AddCommGrpCat}{\mathrm{AddCommGrpCat}}
+\newcommand{\CommRingCat}{\mathrm{CommRingCat}}
+\newcommand{\RingCat}{\mathrm{RingCat}}
+\newcommand{\ModuleCat}{\mathrm{ModuleCat}}
+\newcommand{\Csp}{C_{\mathrm{top}}}
+\newcommand{\struct}[1]{\mathcal{O}_{#1}}
+\DeclareMathOperator{\finrank}{finrank}
+\newcommand{\Module}{\mathrm{Module}}
+\newcommand{\Linear}{\mathrm{Linear}}
+\newcommand{\Algebra}{\mathrm{Algebra}}
+\newcommand{\Over}{\mathrm{Over}}
+\newcommand{\Opens}{\mathrm{Opens}}
+\newcommand{\HasAffineCechAcyclicCover}{\mathtt{HasAffineCechAcyclicCover}}
+\newcommand{\HasCechToHModuleIso}{\mathtt{HasCechToHModuleIso}}
+\newcommand{\HasSheafify}{\mathtt{HasSheafify}}
+\newcommand{\HasExt}{\mathtt{HasExt}}
+\newcommand{\IsAffineHModuleVanishing}{\mathtt{IsAffineHModuleVanishing}}
+\newcommand{\AddCommGroup}{\mathrm{AddCommGroup}}
+\newcommand{\AlgCat}{\mathrm{AlgCat}}
+\newcommand{\genus}{\mathrm{genus}}
+\newcommand{\Jac}{\mathrm{Jac}}
+\newcommand{\LineBundle}{\mathrm{LineBundle}}
+\newcommand{\MonoidalCategory}{\mathrm{MonoidalCategory}}
+\DeclareMathOperator{\HModule}{HModule}
+\DeclareMathOperator{\HModulePrime}{HModule'}
+\DeclareMathOperator{\HPrime}{H'}
+\DeclareMathOperator{\cohomologyPresheaf}{cohomologyPresheaf}
+\DeclareMathOperator{\extFunctor}{extFunctor}
+\DeclareMathOperator{\presheafToSheaf}{presheafToSheaf}
+\newcommand{\Functor}{\mathrm{Functor}}
+\newcommand{\whiskeringRight}{\mathrm{whiskeringRight}}
+\newcommand{\yoneda}{\mathrm{yoneda}}
+\newcommand{\Category}{\mathrm{Category}}
+\newcommand{\Scheme}{\mathrm{Scheme}}
+\newcommand{\HasWeakSheafify}{\mathtt{HasWeakSheafify}}
+\newcommand{\noncomputable}{\mathtt{noncomputable}}
+\DeclareMathOperator{\free}{free}
+\DeclareMathOperator{\toBiprod}{toBiprod}
+\DeclareMathOperator{\fromBiprod}{fromBiprod}
+\newcommand{\MayerVietorisSquare}{\mathrm{MayerVietorisSquare}}
+\DeclareMathOperator{\shortComplex}{shortComplex}
+\DeclareMathOperator{\isPushout}{IsPushout}
+\DeclareMathOperator{\composeAndSheafify}{composeAndSheafify}
+\DeclareMathOperator{\cokernelCofork}{cokernelCofork}
+\DeclareMathOperator{\Exact}{Exact}
+\DeclareMathOperator{\ShortExact}{ShortExact}
+\newcommand{\PreservesMonomorphisms}{\mathrm{PreservesMonomorphisms}}
+\newcommand{\Finsupp}{\mathrm{Finsupp}}
+\newcommand{\CategoryTheory}{\mathrm{CategoryTheory}}
+\newcommand{\toTopCat}{\mathrm{toTopCat}}
+\newcommand{\IsAffineOpen}{\mathrm{IsAffineOpen}}
+\newcommand{\AffineCoverMVSquare}{\mathrm{AffineCoverMVSquare}}
+\newcommand{\toMayerVietorisSquare}{\mathrm{toMayerVietorisSquare}}
+\newcommand{\mayerVietorisSquare}{\mathrm{mayerVietorisSquare}}
+\newcommand{\grothendieckTopology}{\mathrm{grothendieckTopology}}
+\newcommand{\cover}{\mathrm{cover}}
+\newcommand{\Finite}{\mathrm{Finite}}
+\newcommand{\toSquare}{\mathrm{toSquare}}
+\newcommand{\HModulePrimeSeq}{\mathtt{HModule'\_sequence}}
+\newcommand{\HModulePrimeSeqCurve}{\mathtt{HModule'\_sequence\_curve}}
 \newcommand{\op}{\mathrm{op}}
+\newcommand{\PUnit}{\mathrm{PUnit}}
+\newcommand{\GrothendieckTopology}{\mathrm{GrothendieckTopology}}
+\newcommand{\Type}{\mathrm{Type}}
+\newcommand{\constantSheaf}{\mathrm{constantSheaf}}
+\newcommand{\ULift}{\mathrm{ULift}}
+\newcommand{\HModulePrimeTopSourceIso}{\mathtt{HModule'\_top\_sourceIso}}
+\newcommand{\HModulePrimeTopLinearEquiv}{\mathtt{HModule'\_top\_linearEquiv}}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Div}{Div}
+\DeclareMathOperator{\Alb}{Alb}
+\newcommand{\Cech}{\check{C}}
+\DeclareMathOperator{\rank}{rank}
+% Component selectors used in Lean-flavoured prose (natural-transformation
+% components, underlying morphism, projection arrows, underlying presheaf).
+% \hom is provided rather than newly defined to avoid clashing with the
+% AMS-LaTeX / KaTeX default \hom operator on the pdflatex side.
+\newcommand{\app}{\mathrm{app}}
+\providecommand{\hom}{\mathrm{hom}}
+\newcommand{\pr}{\mathrm{pr}}
+\newcommand{\presheaf}{\mathtt{presheaf}}
 
-% The web renderer does not load cleveref.
+% plasTeX (leanblueprint web renderer) does not know the cleveref
+% package; \cref{...} is otherwise rendered as `??<label>` in the web
+% output. We fall back to \ref so the cross-references resolve. On
+% pdflatex the cleveref package's real \cref is loaded later and takes
+% precedence (this fallback is silently overridden by cleveref via
+% \renewcommand-on-load).
 \providecommand{\cref}[1]{\ref{#1}}
 \providecommand{\Cref}[1]{\ref{#1}}
+\providecommand{\crefrange}[2]{\ref{#1}--\ref{#2}}
+\providecommand{\Crefrange}[2]{\ref{#1}--\ref{#2}}
+% ── Macros referenced by chapters but previously undefined ──────────────
+% (Found by a KaTeX render scan; without these both the dashboard and the
+% plasTeX/leanblueprint build render the raw control sequences.)
+\providecommand{\et}{\mathrm{\acute{e}t}}
+\providecommand{\restriction}{\!\upharpoonright\!}
+\providecommand{\llbracket}{[\![}
+\providecommand{\rrbracket}{]\!]}
+\providecommand{\zar}{\mathrm{Zar}}
+\providecommand{\Set}{\mathrm{Set}}
+\providecommand{\Sets}{\mathrm{Sets}}
+\providecommand{\Ab}{\mathrm{Ab}}
+\providecommand{\Sh}{\mathrm{Sh}}
+\providecommand{\Psh}{\mathrm{PSh}}
+\providecommand{\pp}{\mathfrak{p}}
+\providecommand{\SheafHom}{\mathcal{H}\!om}
+\providecommand{\GrpObj}{\mathrm{GrpObj}}
+\providecommand{\F}{\mathcal{F}}
+\providecommand{\OO}{\mathcal{O}}
+\providecommand{\PP}{\mathbb{P}}
+\providecommand{\Q}{\mathbb{Q}}
+\providecommand{\Hilb}{\operatorname{Hilb}}
+\providecommand{\Quot}{\operatorname{Quot}}
+\providecommand{\Proj}{\operatorname{Proj}}
+\providecommand{\Cl}{\operatorname{Cl}}
+\providecommand{\ord}{\operatorname{ord}}
+\providecommand{\val}{\operatorname{val}}
+\providecommand{\id}{\operatorname{id}}
+\providecommand{\Z}{\mathbb{Z}}
+\providecommand{\fppf}{\mathrm{fppf}}
+\providecommand{\red}{\mathrm{red}}
