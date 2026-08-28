@@ -9,31 +9,47 @@ Algebraic Jacobian:
 The short names AJC and AJCR are retained only as provenance aliases for the
 upstream projects. The route names use their mathematical constructions so they
 remain clear in the workspace site and in future Lean namespaces. Each route
-contains a concise, AI-authored mathematical blueprint assembled from its
-route-local BibTeX references. External results are cited with
-`\\cite{...}`, internal statements use `\\ref{...}`, and every node
-records its printed source number with `\\dcref{...}`; custom is appended only
-for a genuine specialization or synthesis. Generated graphs, rendered PDFs,
-declaration snapshots, scratch files, and Lean caches are excluded.
+has a concise, AI-authored book-style blueprint assembled from its route-local
+BibTeX references, plus a source-faithful formalization companion containing
+the intermediary record. The indexed route keeps the nontrivial mathematics
+and proofs needed for formalization, but does not reproduce standard
+definitions, routine properties, or every Lean declaration. A mathematical
+node may therefore correspond to several Lean declarations. External results
+use BibTeX keys with \\cite{...}, internal statements use \\ref{...}, and
+source-backed nodes use their printed reference in \\dcref; custom is appended
+only for a genuine specialization or synthesis. Generated graphs, rendered
+PDFs, declaration snapshots, scratch files, and Lean caches are excluded.
 
-## Lean library
+## Lean libraries
 
-The package root also contains the compiled AJ implementation under
-`AlgebraicJacobian/`. It is the source AJ library ported from the original
-challenge package, with its pinned `lakefile.toml`, `lake-manifest.json`, and
-`lean-toolchain`. It currently contains 388 library modules and is deliberately
-kept separate from the two blueprint routes so that their source-faithful
-statements do not get confused with compiled declarations.
+Each route owns its Lean package. The two packages intentionally use the same
+`AlgebraicJacobian.*` namespace, but are built from separate directories and
+therefore never mix declarations or build products.
 
-From this directory, run:
+`MilneKollar/` contains the legacy challenge implementation ported from
+`MainProjects/Algebraic-Jacobian-Challenge` (387 library modules plus its root
+module). Its root build is the stable, verified package target:
 
 ```bash
+cd MilneKollar
 lake build AlgebraicJacobian
 ```
 
-The package currently builds successfully. Existing named `sorry` obligations
-and linter warnings remain visible in the build output; this port does not claim
-the open mathematical milestones are proved. The workspace-level `shared/`
-directory remains reserved for genuinely source-independent declarations. No
-AJ module was moved there because this library is still organized around the
-challenge namespace and its source-specific APIs.
+`PicardAlbanese/` contains the newer from-scratch implementation ported from
+`MainProjects/Algebraic-Jacobian-Challenge-Rebuild` (1,174 library modules).
+The full Horizon root remains an active development cone, so the route keeps
+all source modules available for explicit targets; the verified stable target
+is:
+
+```bash
+cd PicardAlbanese
+lake build AlgebraicJacobian.Algebra.TwoLattice
+```
+
+Both packages retain the Horizon declarations and their named `sorry`
+obligations. A successful compile is not a claim that the open mathematical
+milestones are proved.
+
+The workspace-level `shared/` directory remains reserved for genuinely
+source-independent declarations. No Algebraic Jacobian module was moved there
+because these libraries still depend on their challenge-specific APIs.
