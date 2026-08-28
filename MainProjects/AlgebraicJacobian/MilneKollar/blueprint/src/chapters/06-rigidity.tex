@@ -1,15 +1,41 @@
 \chapter{Rigidity}
 \label{mk-ch-rigidity}
 
+\begin{lemma}[Proper projection is closed]
+  \label{mk-lem-proper-projection-closed}
+  \dcref{I.2,custom}
+  \cite{milne-av}
+  If \(X\) is proper over \(k\), the projection \(X\times_kY\to Y\) is
+  universally closed.
+\end{lemma}
+
+\begin{proof}
+  Proper morphisms are stable under base change and are closed; the projection
+  is the base change of \(X\to\Spec k\).
+\end{proof}
+
+\begin{lemma}[Complete connected schemes have constant functions]
+  \label{mk-lem-complete-constant-functions}
+  \dcref{I.2,custom}
+  \cite{milne-av}
+  If \(X\) is proper and geometrically connected over \(k\), every morphism
+  \(X\to\A^1_k\) is constant.
+\end{lemma}
+
+\begin{proof}
+  After extending to an algebraic closure, the image is a complete connected
+  closed subscheme of the affine line, hence a point.  The assertion descends.
+\end{proof}
+
 \begin{theorem}[Rigidity lemma]
   \label{mk-thm-rigidity}
   \dcref{I.2}
   \cite{milne-av,mumford-av}
-  Let \(X\) be proper and geometrically connected over \(k\), \(Y\) a
+  Let \(X\) be proper and geometrically connected over \(k\), \(Y\) a reduced
   \(k\)-scheme, and \(f:X\times_kY\to A\) a morphism to an abelian variety.
-  If \(f|_{X\times\{y_0\}}\) is constant, then \(f\) factors uniquely through
-  \(X\times Y\to Y\).  If \(f(x_0,y_0)=0\) and both coordinate restrictions
-  vanish at the base points, then
+  If \(f|_{\{x_0\}\times Y}\) is constant, then \(f\) factors uniquely through
+  \(X\).  If \(f(x_0,y_0)=0\) and both coordinate restrictions vanish at the
+  base points, then
   \[
     f(x,y)=f(x,y_0)+f(x_0,y).
   \]
@@ -17,23 +43,101 @@
 
 \begin{proof}
   The assertion is unchanged after extending \(k\), so assume it is
-  algebraically closed.  Let \(U\) be an affine neighbourhood of the target
-  value \(f(x_0,y_0)\).  Properness of \(X\) makes the projection
-  \(X\times Y\to Y\) closed, so the set of \(y\) for which
-  \(f(X\times\{y\})\) is not contained in \(U\) is closed.  Its complement is
-  a nonempty open neighbourhood of \(y_0\).  On each fibre over this open,
-  every regular function pulled back from \(U\) is constant because \(X\) is
-  complete and connected.  The value is fixed by the section \(x_0\), hence
-  \(f\) is constant on a dense open subset.  Since the target is separated,
-  the equalizer with the constant map is closed and therefore all of
-  \(X\times Y\).  Applying this to the difference
-  \(f(x,y)-f(x,y_0)-f(x_0,y)\) gives the final identity.
+  algebraically closed.  Choose an affine neighbourhood \(U\) of the common
+  value on \(\{x_0\}\times Y\).  By
+  \ref{mk-lem-proper-projection-closed}, the set of \(x\) for which
+  \(f(\{x\}\times Y)\) leaves \(U\) is closed.  On its complement, regular
+  functions on \(U\) pull back to functions on \(Y\), and their values are
+  fixed by \(x_0\); they are therefore constant.  The equalizer with the
+  resulting map \(X\to A\) is closed because \(A\) is separated and contains
+  a dense open of the reduced scheme \(X\times Y\), so it is all of
+  \(X\times Y\).  Apply this factorisation to
+  \(f(x,y)-f(x,y_0)-f(x_0,y)\) to obtain the displayed identity.
+\end{proof}
+
+\begin{lemma}[Pointed maps of abelian varieties are homomorphisms]
+  \label{mk-lem-pointed-abelian-homomorphism}
+  \dcref{I.2,custom}
+  \uses{mk-thm-rigidity}
+  \cite{milne-av,mumford-av}
+  A morphism \(u:A\to B\) of abelian varieties with \(u(0)=0\) is a group
+  homomorphism.
+\end{lemma}
+
+\begin{proof}
+  Apply the decomposition in the rigidity lemma to
+  \(F(x,y)=u(x+y)-u(x)-u(y)\).  Both coordinate restrictions are zero, so
+  \(F=0\).
+\end{proof}
+
+\begin{lemma}[Graph closure of a rational map]
+  \label{mk-lem-rational-graph-proper}
+  \dcref{3.1,custom}
+  \cite{milne-av}
+  If \(A\) is proper and \(f:X\dashrightarrow A\) is rational, the closure
+  of its graph is proper and birational over \(X\).
+\end{lemma}
+
+\begin{proof}
+  The graph is closed over the domain of \(f\).  Its closure has proper
+  projection to \(X\), being closed in \(X\times A\), and the projection is an
+  isomorphism over the dense domain.
+\end{proof}
+
+\begin{lemma}[Codimension-one points on a nonsingular variety]
+  \label{mk-lem-codim-one-dvr}
+  \dcref{3.2,custom}
+  \cite{milne-av,hartshorne-ag}
+  At a codimension-one point of a nonsingular variety, the local ring is a DVR.
+\end{lemma}
+
+\begin{proof}
+  Nonsingularity means regularity.  A height-one regular local domain has
+  principal maximal ideal and dimension one, hence is a discrete valuation ring.
+\end{proof}
+
+\begin{definition}[Rational map domain]
+  \label{mk-def-rational-map}
+  \dcref{3.1,custom}
+  \cite{milne-av}
+  A rational map \(X\dashrightarrow Y\) is a class of morphisms from dense
+  open subsets of \(X\); its maximal domain is denoted \(\operatorname{Dom}(f)\).
+\end{definition}
+
+\begin{lemma}[Generic agreement]
+  \label{mk-lem-rational-generic-agreement}
+  \dcref{3.1,custom}
+  \uses{mk-def-rational-map}
+  \cite{milne-av}
+  For integral \(X\) and separated \(Y\), rational maps agreeing at the
+  generic point agree as rational maps.
+\end{lemma}
+
+\begin{proof}
+  The equalizer of two representatives is closed and contains the generic
+  point, hence contains a dense open of the integral intersection.
+\end{proof}
+
+\begin{lemma}[Singleton graph fibres imply extension]
+  \label{mk-lem-singleton-graph-extension}
+  \dcref{3.2,custom}
+  \uses{mk-lem-rational-graph-proper,mk-lem-codim-one-dvr}
+  \cite{milne-av}
+  If the graph closure of \(f:X\dashrightarrow A\) has one point over every
+  \(x\in X\), then it is the graph of a unique morphism \(X\to A\).
+\end{lemma}
+
+\begin{proof}
+  The graph projection is proper and quasi-finite, hence finite.  Since \(X\)
+  is nonsingular, a finite birational map to \(X\) is an isomorphism; compose
+  its inverse with the second projection.
 \end{proof}
 
 \begin{theorem}[Extension of rational maps]
   \label{mk-thm-rational-extension}
   \dcref{3.1,3.2,custom}
-  \uses{mk-thm-rigidity}
+  \uses{mk-thm-rigidity,mk-lem-rational-graph-proper,mk-lem-codim-one-dvr,
+    mk-lem-singleton-graph-extension}
   \cite[Thms.~3.1--3.2]{milne-av}
   A rational map from a nonsingular variety to an abelian variety extends to a
   unique morphism.  In particular a rational map from a smooth proper curve to

@@ -1,6 +1,100 @@
 \chapter{The Jacobian}
 \label{pa-ch-jacobian}
 
+\begin{definition}[Jacobian functor of points]
+  \label{pa-def-jacobian-functor}
+  \dcref{5.1,custom}
+  \uses{pa-def-jacobian}
+  \cite{kleiman-picard}
+  For \(T\), the Jacobian functor is the degree-zero subgroup of the etale
+  Picard sheaf:
+  \[
+    \operatorname{Jac}_C(T)=
+    \ker\bigl(\deg:\operatorname{Pic}_{(C/k)\et}(T)\to\underline{\mathbb Z}(T)\bigr).
+  \]
+\end{definition}
+
+\begin{lemma}[The Jacobian functor is a group sheaf]
+  \label{pa-lem-jacobian-group-sheaf}
+  \dcref{5.1,custom}
+  \uses{pa-def-jacobian-functor,pa-lem-etale-sheaf-group}
+  \cite{kleiman-picard}
+  \(\operatorname{Jac}_C\) is a commutative etale sheaf of groups.
+\end{lemma}
+
+\begin{proof}
+  Degree is additive under tensor product and locally constant in families, so
+  its kernel is a subgroup sheaf of the group sheaf in
+  \ref{pa-lem-etale-sheaf-group}.
+\end{proof}
+
+\begin{lemma}[Representability identifies the Jacobian scheme]
+  \label{pa-lem-jacobian-represented}
+  \dcref{4.8,custom}
+  \uses{pa-def-jacobian-functor,pa-thm-picard-representability}
+  \cite{kleiman-picard}
+  The functor \(\operatorname{Jac}_C\) is represented by the open-and-closed
+  identity component \(\operatorname{Pic}^0_{C/k}\).
+\end{lemma}
+
+\begin{proof}
+  By representability, the etale Picard sheaf is represented by
+  \(\operatorname{Pic}_{C/k}\).  The degree-zero kernel is open and closed,
+  and its component containing the identity is exactly
+  \(\operatorname{Pic}^0_{C/k}\).
+\end{proof}
+
+\begin{lemma}[Changing the base point translates Abel--Jacobi]
+  \label{pa-lem-basepoint-translation}
+  \dcref{III.6,custom}
+  \uses{pa-def-abel-jacobi,pa-def-jacobian}
+  \cite{milne-av}
+  For \(P_0,P_1\in C(k)\),
+  \[
+    \iota_{P_1}(Q)=\iota_{P_0}(Q)-\iota_{P_0}(P_1).
+  \]
+\end{lemma}
+
+\begin{proof}
+  Tensor the defining bundles:
+  \(\mathcal O_C(Q-P_1)\cong
+    \mathcal O_C(Q-P_0)\otimes\mathcal O_C(P_0-P_1)\).
+  The second factor is independent of \(Q\), hence is a translation.
+\end{proof}
+
+\begin{proposition}[Jacobian base change]
+  \label{pa-prop-jacobian-base-change}
+  \dcref{III.6,custom}
+  \uses{pa-lem-jacobian-represented,pa-lem-flat-cohomology}
+  \cite{kleiman-picard}
+  For every field extension \(k\subset k'\),
+  \[
+    \operatorname{Jac}(C)_{k'}\cong\operatorname{Jac}(C_{k'}).
+  \]
+\end{proposition}
+
+\begin{proof}
+  Picard representability and flat cohomology base change identify the degree
+  components after extending scalars.  The identity section and tensor law are
+  preserved, so the degree-zero identity components identify canonically.
+\end{proof}
+
+\begin{lemma}[The universal morphism determines the Jacobian map]
+  \label{pa-lem-universal-map-unique}
+  \dcref{III.6,custom}
+  \uses{pa-thm-albanese,pa-lem-symmetric-sum}
+  \cite{milne-av}
+  If two homomorphisms \(u,v:\operatorname{Jac}(C)\to A\) agree after
+  composition with \(\iota_{P_0}\), then \(u=v\).
+\end{lemma}
+
+\begin{proof}
+  For \(n\ge2g(C)-1\), the Abel map \(C^{(n)}\to\operatorname{Pic}^n\) is
+  surjective.  Agreement on \(\iota_{P_0}\) implies agreement on the sum map
+  from \(C^{(n)}\), hence on \(\operatorname{Pic}^n\), and translation
+  identifies this with \(\operatorname{Jac}(C)\).
+\end{proof}
+
 \begin{definition}[Jacobian]
   \label{pa-def-jacobian}
   \dcref{III.6,custom}

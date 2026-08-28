@@ -5,6 +5,105 @@ Let \(k\) be a field and let \(C\to\Spec k\) be a smooth, proper,
 geometrically integral curve.  Write \(K(C)\) for its function field and
 \(\mathcal O_C\) for its structure sheaf.
 
+\begin{lemma}[Smoothness gives geometric reducedness]
+  \label{mk-lem-smooth-geometrically-reduced}
+  \dcref{II.1,custom}
+  \cite{stacks-project}
+  Every base change of \(C\) to a field is reduced.
+\end{lemma}
+
+\begin{proof}
+  Smoothness is preserved by base change.  A scheme smooth over a field is
+  locally the spectrum of a standard smooth algebra; such an algebra is
+  reduced because it is etale over a polynomial algebra after localization.
+\end{proof}
+
+\begin{lemma}[Geometric integrality of the curve]
+  \label{mk-lem-geometrically-integral}
+  \dcref{II.1,custom}
+  \uses{mk-lem-smooth-geometrically-reduced}
+  \cite{stacks-project}
+  The hypotheses on \(C\) imply that every field base change \(C_{k'}\) is
+  integral.
+\end{lemma}
+
+\begin{proof}
+  The base change is irreducible by geometric irreducibility and reduced by
+  \ref{mk-lem-smooth-geometrically-reduced}; a reduced scheme with irreducible
+  underlying space is integral.
+\end{proof}
+
+\begin{lemma}[Local rings of a smooth curve]
+  \label{mk-lem-curve-local-dvr}
+  \dcref{II.6,custom}
+  \uses{mk-lem-geometrically-integral}
+  \cite{hartshorne-ag,stacks-algebra}
+  If \(x\) is a closed point of \(C\), then \(\mathcal O_{C,x}\) is a
+  discrete valuation ring with residue field \(\kappa(x)\).
+\end{lemma}
+
+\begin{proof}
+  A smooth curve is regular of dimension one.  Its local ring at a closed
+  point is therefore a one-dimensional regular local domain, hence a DVR.
+\end{proof}
+
+\begin{definition}[Divisor line bundle]
+  \label{mk-def-divisor-line-bundle}
+  \dcref{II.6,custom}
+  \uses{mk-lem-curve-local-dvr}
+  \cite{hartshorne-ag}
+  For a divisor \(D=\sum n_x[x]\), define
+  \(\mathcal O_C(D)_x=\{f\in K(C):\operatorname{ord}_x(f)+n_x\ge0\}\).
+\end{definition}
+
+\begin{lemma}[Divisor line bundles are invertible]
+  \label{mk-lem-divisor-invertible}
+  \dcref{II.6,custom}
+  \uses{mk-def-divisor-line-bundle}
+  \cite{hartshorne-ag}
+  The sheaf \(\mathcal O_C(D)\) is invertible and
+  \(\mathcal O_C(D+E)\cong\mathcal O_C(D)\otimes\mathcal O_C(E)\).
+\end{lemma}
+
+\begin{proof}
+  At \(x\), a uniformizer \(\pi_x\) identifies the stalk with
+  \(\pi_x^{-n_x}\mathcal O_{C,x}\), a free rank-one module.  Multiplication in
+  \(K(C)\) gives the displayed tensor identification stalkwise, hence globally.
+\end{proof}
+
+\begin{lemma}[Principal divisors have degree zero]
+  \label{mk-lem-principal-degree-zero}
+  \dcref{II.6,custom}
+  \uses{mk-def-divisor}
+  \cite{hartshorne-ag,papaioannou-rr}
+  For \(f\in K(C)^\times\), \(\deg\operatorname{div}(f)=0\).
+\end{lemma}
+
+\begin{proof}
+  Apply the product formula to the finite extension \(K(C)/k(t)\) after
+  choosing a nonconstant \(t\in K(C)\): the sum of valuations of \(f\), each
+  weighted by the residue degree, is zero.  The result is independent of the
+  chosen \(t\), and is exactly the stated degree.
+\end{proof}
+
+\begin{lemma}[The divisor exact sequence]
+  \label{mk-lem-divisor-exact-sequence}
+  \dcref{II.6,custom}
+  \uses{mk-def-divisor-line-bundle}
+  \cite{hartshorne-ag}
+  If \(P\) is a closed point, there is an exact sequence
+  \[
+    0\longrightarrow\mathcal O_C(D-P)\longrightarrow\mathcal O_C(D)
+    \longrightarrow\kappa(P)\longrightarrow0.
+  \]
+\end{lemma}
+
+\begin{proof}
+  Away from \(P\) the first map is an isomorphism.  At \(P\), write both
+  stalks using a uniformizer; the quotient is
+  \(\mathcal O_{C,P}/(\pi_P)\cong\kappa(P)\), proving exactness.
+\end{proof}
+
 \begin{definition}[Divisors]
   \label{mk-def-divisor}
   \dcref{II.6,custom}

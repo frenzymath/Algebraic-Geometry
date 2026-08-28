@@ -1,6 +1,98 @@
 \chapter{The Picard functor}
 \label{mk-ch-picard}
 
+\begin{definition}[Rigidified line bundle]
+  \label{mk-def-rigidified-line-bundle}
+  \dcref{2.2,custom}
+  \cite{kleiman-picard}
+  If \(T\) has a section \(s:T\to C_T\), a rigidified line bundle is a pair
+  \((\mathcal L,\phi)\) with \(\phi:s^*\mathcal L\cong\mathcal O_T\).
+\end{definition}
+
+\begin{lemma}[Rigidification removes the base ambiguity]
+  \label{mk-lem-rigidification-quotient}
+  \dcref{2.2,custom}
+  \uses{mk-def-picard-functor,mk-def-rigidified-line-bundle}
+  \cite{kleiman-picard}
+  Pullback along \(C_T\to T\) identifies the kernel of restriction to the
+  section with \(\operatorname{Pic}(T)\).  Thus rigidified classes represent
+  \(\operatorname{Pic}^{\sharp}_{C/k}(T)\).
+\end{lemma}
+
+\begin{proof}
+  A pullback \(p^*\mathcal M\) has the canonical rigidification
+  \(s^*p^*\mathcal M=\mathcal M\).  Conversely, an isomorphism of two
+  representatives restricts along \(s\) to a line bundle on \(T\); tensoring
+  by its inverse makes the isomorphism rigidified.  The remaining ambiguity is
+  exactly tensoring by a line bundle pulled back from \(T\).
+\end{proof}
+
+\begin{lemma}[Pullback of divisor bundles]
+  \label{mk-lem-divisor-bundle-base-change}
+  \dcref{3.7,custom}
+  \uses{mk-def-relative-divisor}
+  \cite{kleiman-picard}
+  For \(T'\to T\) and a relative effective divisor \(D\subset C_T\),
+  \[
+    \mathcal O_{C_{T'}}(D_{T'})\cong
+    \mathcal O_{C_T}(D)\big|_{C_{T'}}.
+  \]
+\end{lemma}
+
+\begin{proof}
+  The ideal of a relative effective Cartier divisor is invertible and remains
+  invertible after pullback.  Dualising the pulled-back ideal gives the stated
+  identification.
+\end{proof}
+
+\begin{proposition}[The relative Picard sheaf is a sheaf]
+  \label{mk-prop-picard-sheaf}
+  \dcref{2.2,custom}
+  \uses{mk-def-picard-functor,mk-lem-rigidification-quotient}
+  \cite{kleiman-picard}
+  Isomorphism classes of line bundles modulo pullbacks satisfy fppf descent;
+  hence the associated fppf sheaf is computed by locally defined classes with
+  the usual cocycle condition.
+\end{proposition}
+
+\begin{proof}
+  Line bundles form a stack for the fppf topology.  Descent data are
+  effective and two descended bundles differ by a line bundle on the base,
+  which is precisely the quotient relation in the definition.
+\end{proof}
+
+\begin{lemma}[Tensor product respects rigidification]
+  \label{mk-lem-rigidified-tensor}
+  \dcref{2.2,custom}
+  \uses{mk-def-rigidified-line-bundle}
+  \cite{kleiman-picard}
+  Tensor product, duality, and the trivial bundle preserve rigidifications and
+  induce the group operations on rigidified classes.
+\end{lemma}
+
+\begin{proof}
+  Restriction to \(s(T)\) turns tensor product into tensor product of the two
+  trivializations; duality inverts it.  The canonical associativity and
+  symmetry constraints satisfy the group axioms.
+\end{proof}
+
+\begin{proposition}[Relative degree is additive]
+  \label{mk-prop-relative-degree-additive}
+  \dcref{3.7,custom}
+  \uses{mk-def-relative-divisor,mk-lem-divisor-invertible}
+  \cite{kleiman-picard}
+  In a flat family, the degree of a relative effective divisor is locally
+  constant, and
+  \(\deg(\mathcal L\otimes\mathcal M)=\deg\mathcal L+\deg\mathcal M\).
+\end{proposition}
+
+\begin{proof}
+  The degree is the rank of the finite locally free algebra
+  \(\mathcal O_D\) over the base, hence locally constant.  On a geometric
+  fibre, tensor product adds Cartier divisor classes; the assertion follows
+  fibrewise and therefore in the family.
+\end{proof}
+
 \begin{definition}[Relative Picard functor]
   \label{mk-def-picard-functor}
   \dcref{2.2}

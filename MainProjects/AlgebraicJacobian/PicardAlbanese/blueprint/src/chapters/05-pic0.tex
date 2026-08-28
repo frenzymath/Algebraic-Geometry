@@ -1,6 +1,152 @@
 \chapter{The identity component}
 \label{pa-ch-pic0}
 
+\begin{lemma}[Degree is locally constant]
+  \label{pa-lem-degree-locally-constant}
+  \dcref{5.1,custom}
+  \uses{pa-def-picard}
+  \cite{kleiman-picard}
+  The degree of a line bundle in a flat family over \(T\) is locally constant
+  on \(T\).
+\end{lemma}
+
+\begin{proof}
+  The Hilbert polynomial of a flat family is locally constant.  On a curve its
+  linear coefficient is the degree, so the assertion follows.
+\end{proof}
+
+\begin{lemma}[Degree components are open and closed]
+  \label{pa-lem-degree-open-closed}
+  \dcref{5.1,custom}
+  \uses{pa-lem-degree-locally-constant,pa-thm-picard-representability}
+  \cite{kleiman-picard}
+  Each \(\operatorname{Pic}^d_{C/k}\) is an open-and-closed subscheme.
+\end{lemma}
+
+\begin{proof}
+  It is the inverse image of \(d\) under the locally constant degree function
+  of \ref{pa-lem-degree-locally-constant}.
+\end{proof}
+
+\begin{lemma}[Translations between degree components]
+  \label{pa-lem-pic0-translation}
+  \dcref{5.1,custom}
+  \uses{pa-prop-picard-group,pa-lem-degree-open-closed}
+  \cite{kleiman-picard}
+  Tensoring by a degree-\(r\) line bundle is an isomorphism
+  \(\operatorname{Pic}^d_{C/k}\cong\operatorname{Pic}^{d+r}_{C/k}\).
+\end{lemma}
+
+\begin{proof}
+  The tensor law adds degrees, and tensoring by the dual line bundle is the
+  inverse morphism.
+\end{proof}
+
+\begin{lemma}[Large-degree effective representatives]
+  \label{pa-lem-large-degree-effective}
+  \dcref{IV.1,custom}
+  \uses{pa-thm-riemann-roch}
+  \cite{hartshorne-ag,papaioannou-rr}
+  If \(n\ge2g(C)-1\), every degree-\(n\) line bundle has a nonzero section and
+  is \(\mathcal O_C(D)\) for an effective divisor \(D\) of degree \(n\).
+\end{lemma}
+
+\begin{proof}
+  Riemann--Roch and the negative-degree vanishing give
+  \(h^0(C,\mathcal L)=n+1-g(C)>0\).  The zero divisor of a nonzero section
+  has the required degree and line bundle.
+\end{proof}
+
+\begin{lemma}[The Picard obstruction lies in \(H^2\)]
+  \label{pa-lem-picard-obstruction}
+  \dcref{5.11,custom}
+  \uses{pa-lem-h2-vanishing}
+  \cite{kleiman-picard}
+  The obstruction to extending a line bundle across a square-zero thickening
+  is a class in \(H^2(C,\mathcal O_C)\).
+\end{lemma}
+
+\begin{proof}
+  Lift local trivializations and compare their transition functions.  The
+  failure of the lifted transitions to satisfy the cocycle condition is an
+  additive \(2\)-cocycle in \(\mathcal O_C\), whose class is the obstruction.
+\end{proof}
+
+\begin{proposition}[Smoothness of the identity component]
+  \label{pa-prop-pic0-smooth}
+  \dcref{5.11,custom}
+  \uses{pa-lem-picard-obstruction,pa-lem-h2-vanishing,pa-prop-picard-group}
+  \cite{kleiman-picard}
+  \(\operatorname{Pic}^0_{C/k}\) is smooth.
+\end{proposition}
+
+\begin{proof}
+  The obstruction vanishes by \ref{pa-lem-h2-vanishing}, so the infinitesimal
+  lifting criterion gives smoothness at the identity.  Translations carry this
+  point to every point of the identity component.
+\end{proof}
+
+\begin{proposition}[Properness from a symmetric power]
+  \label{pa-prop-pic0-proper}
+  \dcref{5.4,custom}
+  \uses{pa-lem-large-degree-effective,pa-prop-effective-map}
+  \cite{kleiman-picard}
+  \(\operatorname{Pic}^0_{C/k}\) is proper.
+\end{proposition}
+
+\begin{proof}
+  For \(n\ge2g(C)-1\), the proper scheme \(C^{(n)}\) maps surjectively to
+  \(\operatorname{Pic}^n_{C/k}\) by
+  \ref{pa-lem-large-degree-effective}.  Translating by a fixed degree-\(n\)
+  class identifies this component with \(\operatorname{Pic}^0_{C/k}\);
+  properness descends along the proper surjective Abel map.
+\end{proof}
+
+\begin{lemma}[Identity component is a subgroup]
+  \label{pa-lem-identity-component-subgroup}
+  \dcref{5.1,custom}
+  \uses{pa-prop-picard-group,pa-def-pic0}
+  \cite{kleiman-picard}
+  The connected component of the identity in a group scheme locally of finite
+  type is an open-and-closed subgroup scheme.
+\end{lemma}
+
+\begin{proof}
+  Connected components are open in a locally Noetherian group scheme.
+  Multiplication and inversion preserve the component containing the identity,
+  while translations carry it to every other component.
+\end{proof}
+
+\begin{lemma}[Geometric connectedness of the identity component]
+  \label{pa-lem-pic0-geometrically-connected}
+  \dcref{5.1,custom}
+  \uses{pa-lem-identity-component-subgroup}
+  \cite{kleiman-picard}
+  The identity component of \(\operatorname{Pic}_{C/k}\) remains connected
+  after every field extension.
+\end{lemma}
+
+\begin{proof}
+  After base change to an algebraic closure, translations identify all
+  components.  The component containing the rational identity is therefore
+  geometrically connected, and descent gives the assertion.
+\end{proof}
+
+\begin{lemma}[Dimension is the tangent dimension]
+  \label{pa-lem-pic0-dimension-tangent}
+  \dcref{5.11,custom}
+  \uses{pa-prop-picard-tangent,pa-prop-pic0-smooth}
+  \cite{kleiman-picard}
+  For the smooth identity component,
+  \(\dim\operatorname{Pic}^0_{C/k}=\dim_kH^1(C,\mathcal O_C)=g(C)\).
+\end{lemma}
+
+\begin{proof}
+  A smooth finite-type scheme has dimension equal to the dimension of its
+  Zariski tangent space at a rational point.  Use the tangent identification
+  and the definition of \(g(C)\).
+\end{proof}
+
 \begin{definition}[Picard variety]
   \label{pa-def-pic0}
   \dcref{5.1}

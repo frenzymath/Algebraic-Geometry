@@ -1,6 +1,113 @@
 \chapter{The identity component}
 \label{mk-ch-components}
 
+\begin{lemma}[Degree is locally constant in families]
+  \label{mk-lem-degree-locally-constant}
+  \dcref{5.1,custom}
+  \uses{mk-prop-relative-degree-additive}
+  \cite{kleiman-picard}
+  The degree of a line bundle on \(C_T\) is locally constant on \(T\).
+\end{lemma}
+
+\begin{proof}
+  Choose a relatively ample bundle and compute the Hilbert polynomial of the
+  fibres.  Flatness makes this polynomial locally constant, and on a curve its
+  linear coefficient is the degree.
+\end{proof}
+
+\begin{lemma}[Degree components are open and closed]
+  \label{mk-lem-degree-open-closed}
+  \dcref{5.1,custom}
+  \uses{mk-lem-degree-locally-constant,mk-thm-picard-representability}
+  \cite{kleiman-picard}
+  Each \(\operatorname{Pic}^d_{C/k}\) is an open-and-closed subfunctor of
+  \(\operatorname{Pic}_{C/k}\).
+\end{lemma}
+
+\begin{proof}
+  The degree function is locally constant by
+  \ref{mk-lem-degree-locally-constant}; its inverse image of \(d\) is therefore
+  open and closed.  Representability transfers this decomposition to schemes.
+\end{proof}
+
+\begin{lemma}[Translations identify degree components]
+  \label{mk-lem-picard-translation-degree}
+  \dcref{5.1,custom}
+  \uses{mk-prop-picard-group,mk-lem-degree-open-closed}
+  \cite{kleiman-picard}
+  If \(\mathcal M\) has degree \(r\), tensoring by \(\mathcal M\) gives an
+  isomorphism
+  \(\operatorname{Pic}^d_{C/k}\xrightarrow{\sim}
+    \operatorname{Pic}^{d+r}_{C/k}\).
+\end{lemma}
+
+\begin{proof}
+  Tensoring by \(\mathcal M\) is a morphism by the group law and adds degrees.
+  Tensoring by \(\mathcal M^{-1}\) is its inverse.
+\end{proof}
+
+\begin{lemma}[The Abel map is proper]
+  \label{mk-lem-abel-map-proper}
+  \dcref{5.4,custom}
+  \uses{mk-prop-abel-map,mk-prop-divisor-hilbert-open}
+  \cite{kleiman-picard}
+  The morphism \(C^{(n)}\to\operatorname{Pic}^n_{C/k}\) is proper.
+\end{lemma}
+
+\begin{proof}
+  The source is the projective length-\(n\) Hilbert scheme of the projective
+  curve.  The target is separated, so the graph of the Abel map is closed;
+  projection of this closed graph is proper.
+\end{proof}
+
+\begin{proposition}[Large-degree Abel map is surjective]
+  \label{mk-prop-abel-surjective}
+  \dcref{5.4,custom}
+  \uses{mk-cor-large-degree,mk-lem-abel-map-proper}
+  \cite{kleiman-picard}
+  If \(n>2g(C)-2\), then \(C^{(n)}\to\operatorname{Pic}^n_{C/k}\) is
+  surjective.
+\end{proposition}
+
+\begin{proof}
+  For every line bundle \(\mathcal L\) of degree \(n\), large-degree vanishing
+  gives \(H^1(C,\mathcal L)=0\) and hence
+  \(h^0(C,\mathcal L)=n+1-g(C)>0\).  A nonzero section has an effective zero
+  divisor \(D\) with \(\mathcal L\cong\mathcal O_C(D)\).
+\end{proof}
+
+\begin{lemma}[The obstruction space for line bundles]
+  \label{mk-lem-picard-obstruction}
+  \dcref{5.11,custom}
+  \uses{mk-lem-curve-h2-vanishing}
+  \cite{kleiman-picard}
+  The obstruction to lifting a line bundle across a square-zero extension
+  \(T_0\hookrightarrow T\) lies in \(H^2(C_{T_0},\mathcal O_{C_{T_0}})\).
+\end{lemma}
+
+\begin{proof}
+  Choose local trivializations of the line bundle on an affine cover.  Lifts of
+  transition functions differ by additive \(1\)-cochains; the obstruction to
+  satisfying the cocycle condition is their \(2\)-coboundary class in the
+  indicated cohomology group.
+\end{proof}
+
+\begin{proposition}[Smoothness from vanishing obstruction]
+  \label{mk-prop-picard-smooth}
+  \dcref{5.11,custom}
+  \uses{mk-lem-picard-obstruction,mk-lem-curve-h2-vanishing,mk-prop-picard-group}
+  \cite{kleiman-picard}
+  The Picard scheme is smooth at the identity, and therefore smooth on every
+  component.
+\end{proposition}
+
+\begin{proof}
+  The obstruction group in \ref{mk-lem-picard-obstruction} vanishes by
+  \ref{mk-lem-curve-h2-vanishing}, so every infinitesimal lifting problem has a
+  solution.  This is the infinitesimal criterion for smoothness at the identity;
+  translations transport it to all points.
+\end{proof}
+
 \begin{definition}[Degree components]
   \label{mk-def-picard-degree}
   \dcref{2.2,custom}
