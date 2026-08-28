@@ -1,0 +1,340 @@
+% Chapter 6. Source pages PDF 149--178 (printed 141--170).
+\section{Limits via representables and adjoints}
+\begin{proposition}[Limits represented by cones]
+\label{prop:lbc-limit-representable}
+\source{leinster-basic-category-theory:page-0150}
+\dcref{6.1.1}
+For a small $I$, a category $\mathcal A$, and $D:I\to\mathcal A$, limit cones
+on $D$ correspond bijectively to representations of
+$\operatorname{Cone}(-,D):\mathcal A^{\op}\to\Set$; the representing objects are
+the vertices of the limit cones.
+\uses{def:lbc-limit,def:lbc-representable-cov}
+\end{proposition}
+\begin{proof}
+The displayed map sends a mediating arrow to its induced cone. Bijectivity is
+exactly existence and uniqueness in the definition of a limit.
+\end{proof}
+
+\begin{corollary}[Uniqueness of limits]
+\label{cor:lbc-limit-unique}
+\source{leinster-basic-category-theory:page-0151}
+\dcref{6.1.2}
+Limits of a fixed diagram are uniquely isomorphic.
+\uses{prop:lbc-limit-representable,def:lbc-isomorphism}
+\end{corollary}
+\begin{proof}
+Apply the bijection in Proposition~\ref{prop:lbc-limit-representable} to the
+two limiting cones to obtain unique arrows each way; uniqueness forces their
+composites to be identities.
+\end{proof}
+
+\begin{lemma}[Natural transformations induce cone maps]
+\label{lem:lbc-natural-cone-map}
+\source{leinster-basic-category-theory:page-0151}
+\dcref{6.1.3}
+For a natural transformation $\alpha:D\Rightarrow D'$ and a limit cone on $D'$, a
+limit cone on $D$ is obtained by composing its legs with $\alpha$; the induced
+map between limit objects is unique and natural.
+\uses{def:lbc-limit,def:lbc-natural-transformation}
+\end{lemma}
+\begin{proof}
+Compose each leg with the corresponding component of $\alpha$; naturality of
+$\alpha$ gives a cone. The universal property of the target limit gives the
+unique mediating map, and uniqueness proves compatibility with further maps.
+\end{proof}
+
+\begin{proposition}[Limits as right adjoints]
+\label{prop:lbc-limit-right-adjoint}
+\source{leinster-basic-category-theory:page-0152}
+\dcref{6.1.4}
+If $\mathcal A$ has all limits of shape $I$, the diagonal functor
+$\Delta:\mathcal A\to[ I,\mathcal A]$ has a right adjoint $\limx$ sending a diagram
+to its limit. Conversely, existence of this right adjoint gives all such limits.
+\uses{def:lbc-limit,def:lbc-adjunction,con:lbc-functor-category}
+\end{proposition}
+\begin{proof}
+The adjunction bijection is the limit universal property
+$[I,\mathcal A](\Delta A,D)\cong\mathcal A(A,\limx D)$. The converse reads the
+unit/counit of the adjunction as a universal cone.
+\end{proof}
+
+\section{Limits and colimits of presheaves}
+\begin{lemma}[Cones as set-theoretic limits]
+\label{lem:lbc-pointwise-set-limit}
+\source{leinster-basic-category-theory:page-0154}
+\dcref{6.2.1}
+Let $I$ be small, $\mathcal A$ locally small, $D:I\to\mathcal A$ a diagram,
+and $A\in\mathcal A$. Then
+\[\operatorname{Cone}(A,D)\cong\limx_{i\in I}\mathcal A(A,D(i)),\]
+naturally in $A$ and $D$.
+\uses{def:lbc-category,def:lbc-limit,def:lbc-family-product}
+\end{lemma}
+\begin{proof}
+The set-theoretic limit consists of families $(f_i)$ satisfying
+$D(u)f_i=f_j$ for every $u:i\to j$, which is exactly the cone condition.
+\end{proof}
+
+\begin{proposition}[Representables preserve limits]
+\label{prop:lbc-representables-preserve-limits}
+\source{leinster-basic-category-theory:page-0155}
+\dcref{6.2.2}
+For a locally small category, each representable functor preserves all limits
+that exist in its domain.
+\uses{def:lbc-representable-cov,def:lbc-limit}
+\end{proposition}
+\begin{proof}
+Maps into a limit object correspond by its universal property to compatible
+families of maps into the diagram objects, which is exactly the limit of the
+representable set-valued diagram.
+\end{proof}
+
+\begin{remark}[Representable limit interpretation]
+\label{rem:lbc-representable-limit}
+\source{leinster-basic-category-theory:page-0155}
+\dcref{6.2.3}
+Proposition~\ref{prop:lbc-representables-preserve-limits} says that each
+representable turns a limit cone into the corresponding set-theoretic limit.
+\uses{prop:lbc-representables-preserve-limits}
+\end{remark}
+
+\begin{notation}[Evaluation functors]
+\label{not:lbc-evaluation}
+\source{leinster-basic-category-theory:page-0156}
+\dcref{6.2.4}
+For categories $\mathcal A,\mathcal S$ and $A\in\mathcal A$, evaluation is the
+functor $\operatorname{ev}_A:[\mathcal A,\mathcal S]\to\mathcal S$,
+$D\mapsto D(A)$.
+\uses{con:lbc-functor-category}
+\end{notation}
+
+\begin{theorem}[Limits in functor categories]
+\label{thm:lbc-functor-category-limits}
+\source{leinster-basic-category-theory:page-0156}
+\dcref{6.2.5}
+If $\mathcal A$ and $I$ are small and $\mathcal S$ has limits of shape $I$, then
+$[\mathcal A,\mathcal S]$ has limits of shape $I$, computed pointwise.
+\uses{lem:lbc-pointwise-set-limit,def:lbc-limit,con:lbc-functor-category}
+\end{theorem}
+\begin{proof}
+Evaluate a cone at each $A\in\mathcal A$ and take its limit in $\mathcal S$.
+Functoriality follows from uniqueness of mediating maps; the pointwise
+universal maps assemble to the universal map in the functor category.
+\end{proof}
+
+\begin{corollary}[Presheaf categories are complete]
+\label{cor:lbc-presheaf-complete}
+\source{leinster-basic-category-theory:page-0158}
+\dcref{6.2.6}
+Let $I$ and $\mathcal A$ be small and let $\mathcal S$ be locally small. If
+$\mathcal S$ has all limits (respectively colimits) of shape $I$, then so does
+$[\mathcal A,\mathcal S]$, and each evaluation functor preserves them.
+\uses{thm:lbc-functor-category-limits}
+\end{corollary}
+
+\begin{warning}[Pointwise limits require hypotheses]
+\label{warn:lbc-pointwise-hypothesis}
+\source{leinster-basic-category-theory:page-0158}
+\dcref{6.2.7}
+If the target category lacks limits of shape $I$, the functor category need not
+have them.
+\uses{thm:lbc-functor-category-limits}
+\end{warning}
+
+\begin{proposition}[Limits commute with limits]
+\label{prop:lbc-limits-commute}
+\source{leinster-basic-category-theory:page-0158}
+\dcref{6.2.8}
+Let $I,J$ be small and let $\mathcal S$ be locally small with limits of shapes
+$I$ and $J$. For every $D:I\times J\to\mathcal S$,
+\[\limx_J\limx_I D\cong\limx_{I\times J}D\cong\limx_I\limx_J D,\]
+and all these limits exist; in particular $\mathcal S$ has limits of shape
+$I\times J$.
+\uses{def:lbc-limit,thm:lbc-functor-category-limits}
+\end{proposition}
+\begin{proof}
+Both iterated limits represent the same set of compatible doubly indexed
+families, namely the limit over $I\times J$; uniqueness of representing objects
+gives the canonical isomorphism.
+\end{proof}
+
+\begin{warning}[Dual statement]
+\label{warn:lbc-colimits-commute}
+\source{leinster-basic-category-theory:page-0160}
+\dcref{6.2.10}
+The dual of Proposition~\ref{prop:lbc-limits-commute} states that colimits
+commute with colimits when the required colimits exist.
+\uses{prop:lbc-limits-commute,def:lbc-colimit}
+\end{warning}
+
+\begin{corollary}[Presheaf limits]
+\label{cor:lbc-presheaf-all-limits}
+\source{leinster-basic-category-theory:page-0160}
+\dcref{6.2.11}
+For a small category $\mathcal A$, the presheaf category
+$[\mathcal A^{\op},\Set]$ has all limits and colimits, and each evaluation
+functor preserves them.
+\uses{cor:lbc-presheaf-complete}
+\end{corollary}
+
+\begin{corollary}[Yoneda preserves limits]
+\label{cor:lbc-yoneda-preserves-limits}
+\source{leinster-basic-category-theory:page-0160}
+\dcref{6.2.12}
+The Yoneda embedding preserves all limits that exist in a small category.
+\uses{cor:lbc-presheaf-complete,prop:lbc-representables-preserve-limits,def:lbc-yoneda-embedding}
+\end{corollary}
+
+\begin{definition}[Category of elements]
+\label{def:lbc-category-elements}
+\source{leinster-basic-category-theory:page-0162}
+\dcref{6.2.16}
+For a presheaf $X$ on $\mathcal A$, its category of elements $\int X$ has
+objects $(A,x\in X(A))$ and maps $(A,x)\to(B,y)$ given by $f:A\to B$ with
+$X(f)(y)=x$.
+\uses{def:lbc-presheaf}
+\end{definition}
+
+\begin{warning}[Yoneda does not preserve colimits]
+\label{warn:lbc-yoneda-colimits}
+\source{leinster-basic-category-theory:page-0161}
+\dcref{6.2.14}
+Although Yoneda preserves limits, it need not preserve colimits.
+\uses{def:lbc-yoneda-embedding,def:lbc-colimit}
+\end{warning}
+
+\begin{theorem}[Density]
+\label{thm:lbc-density}
+\source{leinster-basic-category-theory:page-0162}
+\dcref{6.2.17}
+For small $\mathcal A$ and presheaf $X$, the canonical cocone from representables
+$H_A$ indexed by $\int X$ has colimit $X$.
+\uses{def:lbc-category-elements,def:lbc-representable-contra,def:lbc-colimit}
+\end{theorem}
+\begin{proof}
+At $B$, the coproduct of pairs $(A,x,f:B\to A)$ modulo the relation induced by
+maps in $\int X$ identifies with $X(B)$ by $(A,x,f)\mapsto X(f)(x)$. The
+relations give exactly equality in $X(B)$, and the identification is natural.
+\end{proof}
+
+\begin{remark}[Category of elements and density]
+\label{rem:lbc-category-elements-density}
+\source{leinster-basic-category-theory:page-0164}
+\dcref{6.2.19}
+Objects of $\int X$ are generalized elements of the presheaf $X$ of
+representable shape. The density theorem says that representables generate
+every presheaf by the displayed colimit; this is the categorical meaning of
+the term ``dense''.
+\uses{def:lbc-category-elements,def:lbc-generalized-element,thm:lbc-density}
+\end{remark}
+
+\section{Adjoints and limits}
+\begin{theorem}[Left adjoints preserve colimits]
+\label{thm:lbc-left-adjoint-colimits}
+\source{leinster-basic-category-theory:page-0166}
+\dcref{6.3.1}
+Every left adjoint preserves all colimits; every right adjoint preserves all
+limits.
+\uses{def:lbc-adjunction,def:lbc-colimit,def:lbc-limit}
+\end{theorem}
+\begin{proof}
+Apply the adjunction hom-set bijection to the universal cocone: maps from
+$F(C)$ correspond to maps from $C$, and the latter are uniquely determined by
+their restrictions to the diagram. The dual argument proves preservation of
+limits by right adjoints.
+\end{proof}
+
+\begin{definition}[Complete category]
+\label{def:lbc-complete}
+\source{leinster-basic-category-theory:page-0167}
+\dcref{6.3.6}
+A category is complete when it has all small limits.
+\uses{def:lbc-limit}
+\end{definition}
+
+\begin{proposition}[Adjoint functor theorem for ordered sets]
+\label{prop:lbc-ordered-aft}
+\source{leinster-basic-category-theory:page-0168}
+\dcref{6.3.7}
+For an order-preserving map $G:B\to A$, a left adjoint exists exactly when for
+each $a\in A$ the set $\{b\mid a\le G(b)\}$ has a least element.
+\uses{def:lbc-adjunction}
+\end{proposition}
+\begin{proof}
+The adjunction condition $F(a)\le b\iff a\le G(b)$ says precisely that $F(a)$
+is least among those $b$ satisfying $a\le G(b)$.
+\end{proof}
+
+\begin{definition}[Weakly initial set]
+\label{def:lbc-weakly-initial-set}
+\source{leinster-basic-category-theory:page-0170}
+\dcref{6.3.9}
+A set $S$ of objects of $\mathcal C$ is weakly initial if every object of
+$\mathcal C$ receives at least one map from some $S\in S$.
+\uses{def:lbc-category}
+\end{definition}
+
+\begin{theorem}[General adjoint functor theorem]
+\label{thm:lbc-gaft}
+\source{leinster-basic-category-theory:page-0170}
+\dcref{6.3.10}
+Let $G:\mathcal B\to\mathcal A$ with $\mathcal B$ complete and locally small.
+If each comma category $(A\downarrow G)$ has a small weakly initial set, then
+$G$ has a left adjoint if and only if $G$ preserves limits.
+\uses{def:lbc-weakly-initial-set,def:lbc-complete,def:lbc-comma,cor:lbc-left-adjoint-criterion}
+\end{theorem}
+\begin{proof}
+The forward implication is Theorem~\ref{thm:lbc-left-adjoint-colimits}. For the
+converse, preservation of limits makes each comma category complete. In each,
+take the limit of the full subcategory on a weakly initial set; the appendix
+shows this limit is initial. The comma-object criterion then yields a left
+adjoint.
+\end{proof}
+
+\begin{theorem}[Special adjoint functor theorem]
+\label{thm:lbc-saft}
+\source{leinster-basic-category-theory:page-0171}
+\dcref{6.3.13}
+Let $\mathcal A,\mathcal B$ be locally small, let $\mathcal B$ be complete and
+satisfy the standard SAFT hypotheses, and let $G:\mathcal B\to\mathcal A$.
+Then $G$ has a left adjoint if and only if $G$ preserves limits.
+\uses{thm:lbc-gaft,def:lbc-complete,def:lbc-preserves-limits}
+\notready
+\end{theorem}
+\begin{proof}
+The source refers to Mac Lane (1971), Section V.8, for the precise supplementary
+hypotheses and proof.
+\end{proof}
+
+\begin{definition}[Cartesian closed category]
+\label{def:lbc-cartesian-closed}
+\source{leinster-basic-category-theory:page-0172}
+\dcref{6.3.15}
+A category is cartesian closed if it has finite products and, for every $B$, the
+functor $(-)\times B$ has a right adjoint, written $(-)^B$.
+\uses{def:lbc-product,def:lbc-adjunction}
+\end{definition}
+
+\begin{remark}[Internal hom in vector spaces]
+\label{rem:lbc-vect-not-closed}
+\source{leinster-basic-category-theory:page-0173}
+\dcref{6.3.19}
+For vector spaces $V,W$, the hom-set is a vector space, but tensoring with a
+fixed vector space has no right adjoint in $\Vect_k$ in general; thus $\Vect_k$
+is not cartesian closed.
+\uses{def:lbc-cartesian-closed}
+\end{remark}
+
+\begin{theorem}[Presheaf categories are cartesian closed]
+\label{thm:lbc-presheaf-cartesian-closed}
+\source{leinster-basic-category-theory:page-0174}
+\dcref{6.3.20}
+For every small category $\mathcal A$, the presheaf category
+$[\mathcal A^{\op},\Set]$ is cartesian closed.
+\uses{cor:lbc-presheaf-complete,def:lbc-cartesian-closed}
+\end{theorem}
+\begin{proof}
+Products are pointwise. For presheaves $X,Y$, define $Y^X(A)$ to be the set of
+natural transformations $H_A\times X\to Y$. Yoneda and pointwise products
+give natural bijections $\operatorname{Nat}(Z\times X,Y)\cong
+\operatorname{Nat}(Z,Y^X)$, so $Y^X$ is the exponential.
+\end{proof}

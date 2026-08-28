@@ -1,0 +1,231 @@
+% Chapter 2. Source pages PDF 49--72 (printed 41--64).
+\section{Definition and examples}
+\begin{definition}[Adjunction]
+\label{def:lbc-adjunction}
+\source{leinster-basic-category-theory:page-0049}
+\dcref{2.1.1}
+An adjunction $F\dashv G$ between $F:\mathcal A\to\mathcal B$ and
+$G:\mathcal B\to\mathcal A$ is a family of bijections
+\[\phi_{A,B}:\mathcal B(F A,B)\cong\mathcal A(A,G B)\]
+natural in $A$ and $B$.
+\uses{def:lbc-functor}
+\end{definition}
+
+\begin{remark}[Adjunction naturality]
+\label{rem:lbc-adjunction-naturality}
+\source{leinster-basic-category-theory:page-0050}
+\dcref{2.1.2}
+The transposition bijections are natural in both variables: postcomposition in
+$\mathcal B$ corresponds to applying $G$, and precomposition in $\mathcal A$
+corresponds to applying $F$. Thus the bijections commute with the two
+naturality equations.
+\uses{def:lbc-adjunction}
+\end{remark}
+
+\begin{remark}[Algebraic theories]
+\label{rem:lbc-algebraic-theory}
+\source{leinster-basic-category-theory:page-0054}
+\dcref{2.1.4}
+An algebraic theory consists of operations of specified finite arities and
+equations. A model is a set $X$ with a map $X^n\to X$ for each operation,
+satisfying the equations. Groups, rings, monoids, and vector spaces over a
+fixed field are algebraic theories because their operations are everywhere
+defined; fields are not, since inversion is partial.
+\uses{def:lbc-category}
+\end{remark}
+
+\begin{definition}[Initial and terminal objects]
+\label{def:lbc-initial-terminal}
+\source{leinster-basic-category-theory:page-0056}
+\dcref{2.1.7}
+An object $I$ is initial if each hom-set $\mathcal A(I,A)$ is a singleton; an
+object $T$ is terminal if each $\mathcal A(A,T)$ is a singleton.
+\uses{def:lbc-category}
+\end{definition}
+
+\begin{lemma}[Uniqueness of initial objects]
+\label{lem:lbc-initial-unique}
+\source{leinster-basic-category-theory:page-0057}
+\dcref{2.1.8}
+Any two initial objects are uniquely isomorphic; dually for terminal objects.
+\uses{def:lbc-initial-terminal,def:lbc-isomorphism}
+\end{lemma}
+\begin{proof}
+For initial $I,I'$, let $f:I\to I'$ and $g:I'\to I$ be the unique maps. Both
+$gf$ and $1_I$ are maps $I\to I$, hence equal; similarly $fg=1_{I'}$.
+The terminal statement is dual.
+\end{proof}
+
+\begin{remark}[Duality of adjunctions]
+\label{rem:lbc-adjunction-duality}
+\source{leinster-basic-category-theory:page-0057}
+\dcref{2.1.10}
+An adjunction $F\dashv G$ dualizes to $G^{\op}\dashv F^{\op}$, and adjunctions
+compose whenever their middle functors agree.
+\uses{def:lbc-adjunction,def:lbc-op-category}
+\end{remark}
+
+\begin{remark}[Composition of adjunctions]
+\label{rem:lbc-adjunction-composition}
+\source{leinster-basic-category-theory:page-0057}
+\dcref{2.1.11}
+If $F_1\dashv G_1$ and $F_2\dashv G_2$, then $F_2F_1\dashv G_1G_2$.
+\uses{def:lbc-adjunction}
+\end{remark}
+
+\section{Adjunctions via units and counits}
+\begin{definition}[Unit and counit]
+\label{def:lbc-unit-counit}
+\source{leinster-basic-category-theory:page-0058}
+For $F\dashv G$, the unit is a natural transformation
+$\eta:1_{\mathcal A}\Rightarrow GF$ and the counit is a natural transformation
+$\varepsilon:FG\Rightarrow1_{\mathcal B}$, corresponding under the adjunction
+to identity maps.
+\uses{def:lbc-adjunction,def:lbc-natural-transformation}
+\end{definition}
+
+\begin{lemma}[Triangle identities]
+\label{lem:lbc-triangle-identities}
+\source{leinster-basic-category-theory:page-0060}
+\dcref{2.2.2}
+For an adjunction with unit $\eta$ and counit $\varepsilon$,
+\[(\varepsilon F)(F\eta)=1_F,\qquad (G\varepsilon)(\eta G)=1_G.\]
+\uses{def:lbc-unit-counit}
+\end{lemma}
+\begin{proof}
+Under the hom-set bijection, the transpose of $1_{FA}$ is $\eta_A$ and that of
+$\varepsilon_B$ is $1_{GB}$. Transposing the two displayed composites and using
+naturality gives the corresponding identity maps; bijectivity reflects equality.
+\end{proof}
+
+\begin{remark}[Triangle identities are necessary]
+\label{rem:lbc-triangle}
+\source{leinster-basic-category-theory:page-0060}
+\dcref{2.2.3}
+The two equations in Lemma~\ref{lem:lbc-triangle-identities} are called the
+triangle identities and are the coherence conditions for unit and counit.
+\uses{lem:lbc-triangle-identities}
+\end{remark}
+
+\begin{lemma}[Recovering an adjunction from unit and counit]
+\label{lem:lbc-adjunction-from-unit-counit}
+\source{leinster-basic-category-theory:page-0060}
+\dcref{2.2.4}
+Suppose $F,G$ and natural transformations $\eta:1\Rightarrow GF$,
+$\varepsilon:FG\Rightarrow1$ satisfy the triangle identities. Then
+\[\phi(f)=G(f)\eta_A,\qquad \phi^{-1}(g)=\varepsilon_BF(g)\]
+define mutually inverse natural hom-set bijections, hence an adjunction.
+\uses{def:lbc-unit-counit,lem:lbc-triangle-identities}
+\end{lemma}
+\begin{proof}
+The composites are reduced by naturality to $G(\varepsilon_B)(\eta_{GB})=1$ and
+$(\varepsilon_{FA})(F\eta_A)=1$. The same calculations in the other variable
+prove naturality.
+\end{proof}
+
+\begin{theorem}[Adjunctions and units/counits]
+\label{thm:lbc-adjunction-unit-counit}
+\source{leinster-basic-category-theory:page-0061}
+\dcref{2.2.5}
+Giving an adjunction $F\dashv G$ is equivalent to giving a unit and counit
+satisfying the triangle identities.
+\uses{def:lbc-adjunction,def:lbc-unit-counit,lem:lbc-adjunction-from-unit-counit}
+\end{theorem}
+\begin{proof}
+An adjunction supplies the unit and counit and Lemma~\ref{lem:lbc-triangle-identities}
+proves the identities. The converse is Lemma~\ref{lem:lbc-adjunction-from-unit-counit}.
+\end{proof}
+
+\begin{corollary}[Uniqueness of adjoints]
+\label{cor:lbc-adjoint-unique}
+\source{leinster-basic-category-theory:page-0062}
+\dcref{2.2.6}
+A left (or right) adjoint to a fixed functor is unique up to a unique natural
+isomorphism.
+\uses{thm:lbc-adjunction-unit-counit,def:lbc-natural-iso}
+\end{corollary}
+\begin{proof}
+Compose the two adjunction bijections to obtain a natural bijection
+$\mathcal A(G_1B,G_2B)\cong\mathcal A(G_1B,G_2B)$; the image of the identity
+defines the component of the comparison. The triangle identities give inverse
+components and uniqueness follows because a map is determined by its transpose.
+\end{proof}
+
+\begin{remark}[Adjunction versus equivalence]
+\label{rem:lbc-adjunction-equivalence}
+\source{leinster-basic-category-theory:page-0063}
+\dcref{2.2.8}
+An adjunction need not be an equivalence: its unit and counit need not be
+isomorphisms.
+\uses{def:lbc-adjunction,def:lbc-equivalence}
+\end{remark}
+
+\begin{remark}[String diagrams]
+\label{rem:lbc-string-diagrams}
+\source{leinster-basic-category-theory:page-0063}
+\dcref{2.2.9}
+Units and counits may be drawn as cups and caps; the triangle identities become
+the two straightening equations in the resulting string diagrams.
+\uses{lem:lbc-triangle-identities}
+\end{remark}
+
+\section{Adjunctions via initial objects}
+\begin{definition}[Comma category]
+\label{def:lbc-comma}
+\source{leinster-basic-category-theory:page-0066}
+\dcref{2.3.1}
+For $F:\mathcal A\to\mathcal C$, $G:\mathcal B\to\mathcal C$, the comma category
+$(F\downarrow G)$ has objects $(A,B,f:FA\to GB)$ and maps $(a,b)$ satisfying
+$G(b)f=f'F(a)$.
+\uses{def:lbc-category,def:lbc-functor}
+\end{definition}
+
+\begin{lemma}[Adjunctions give initial comma objects]
+\label{lem:lbc-adjunction-comma-initial}
+\source{leinster-basic-category-theory:page-0068}
+\dcref{2.3.5}
+If $F\dashv G$, then for each $B$ the object $(G B,B,\varepsilon_B)$ is initial
+in $(F\downarrow\Delta_B)$.
+\uses{def:lbc-adjunction,def:lbc-comma,def:lbc-initial-terminal}
+\end{lemma}
+\begin{proof}
+An object is $(A,!,f:FA\to B)$. The unique map to $(GB,B,\varepsilon_B)$ has
+second component $1_B$ and first component the transpose of $f$; the defining
+comma equation is the counit formula, and uniqueness follows from the hom-set
+bijection.
+\end{proof}
+
+\begin{theorem}[Adjunction from initial objects]
+\label{thm:lbc-adjunction-comma}
+\source{leinster-basic-category-theory:page-0069}
+\dcref{2.3.6}
+If for each $B$ the comma category $(F\downarrow\Delta_B)$ has an initial object
+$(G B,B,\varepsilon_B)$ and these choices are functorial in $B$, then
+$F\dashv G$. Dually, terminal objects in $(\Delta_A\downarrow G)$ determine a
+left adjoint.
+\uses{def:lbc-comma,def:lbc-initial-terminal}
+\end{theorem}
+\begin{proof}
+Map $f:FA\to B$ uniquely to the first component of the comma morphism from
+$(A, f)$ to $(GB,\varepsilon_B)$. The comma equation gives a bijection
+$\mathcal B(FA,B)\cong\mathcal A(A,GB)$; functorial choice makes it natural.
+The dual argument is identical with arrows reversed.
+\end{proof}
+
+\begin{remark}[Comma-category functoriality]
+\label{rem:lbc-comma-functoriality}
+\source{leinster-basic-category-theory:page-0067}
+\dcref{2.3.2}
+Comma categories carry canonical projection functors to their component
+categories, and maps induced by functors are defined componentwise.
+\uses{def:lbc-comma}
+\end{remark}
+
+\begin{corollary}[Existence criterion for left adjoints]
+\label{cor:lbc-left-adjoint-criterion}
+\source{leinster-basic-category-theory:page-0071}
+\dcref{2.3.7}
+A functor $G:\mathcal B\to\mathcal A$ has a left adjoint whenever each comma
+category $(\Delta_A\downarrow G)$ has an initial object, chosen compatibly.
+\uses{thm:lbc-adjunction-comma}
+\end{corollary}

@@ -1,0 +1,436 @@
+
+\medskip
+
+
+
+\centerline{\large\bf Notions of Projectivity}
+
+\medskip
+
+
+\begin{definition}[Projectivity notions]\label{nhq-projectivity-notions}\source{nitsure-hilbert-quot:page-0023}
+Let $S$ be a noetherian scheme. Recall that as defined by Grothendieck,
+a morphism $X\to S$ is called a \textbf{projective morphism}
+if there exists a coherent sheaf $E$ on $S$, together with a
+closed embedding of $X$ into $\PP(E) = \Proj \sym_{{\mathcal O}_S} E $
+over $S$. Equivalently, $X\to S$ is projective when
+it is proper and there exists a relatively very ample
+line bundle $L$ on $X$ over $S$. These conditions are related by
+taking $L$ to be the restriction of ${\mathcal O}_{\PP(E)}(1)$ to $X$, or
+in the reverse direction, taking $E$ to be the direct image of $L$ on $S$.
+A morphism $X\to S$ is called \textbf{quasi-projective} if it factors as
+an open embedding $X\hra Y$ followed by a projective morphism $Y \to S$.
+
+
+A stronger version of projectivity was introduced
+by Altman and Kleiman: a morphism
+$X\to S$ of noetherian schemes is called \textbf{strongly projective}
+(respectively, \textbf{strongly quasi-projective}) if
+there exists a vector bundle $E$ on $S$ together with a closed
+embedding (respectively, a locally closed embedding)
+$X\subset \PP(E)$ over $S$.
+
+
+Finally, the strongest version of (quasi-)projectivity
+is as follows (used for example in
+the textbook [H] by Hartshorne): a morphism
+$X\to S$ of noetherian schemes is projective in the strongest sense
+if $X$ admits a (locally-)closed embedding into $\PP^n_S$ for some $n$.
+
+Note that none of the three versions of projectivity
+is local over the base $S$.
+\end{definition}
+
+\medskip
+
+
+
+
+
+
+
+\bigskip
+
+\newpage
+
+\centerline{\large\bf Main Existence Theorems}
+
+
+\medskip
+
+
+
+Grothendieck's original theorem on Quot schemes,
+whose proof is outlined in [FGA] TDTE-IV, is the following.
+
+\begin{theorem}\label{nhq-grothendieck-quot}\dcref{5.1}\source{nitsure-hilbert-quot:page-0024}\uses{nhq-relative-quot-family,nhq-flattening-stratification,nhq-mumford} {\rm (Grothendieck)}
+Let $S$ be a noetherian scheme, $\pi: X\to S$ a projective morphism,
+and $L$ a relatively very ample line bundle on $X$. Then for any
+coherent ${\mathcal O}_X$-module $E$ and any polynomial $\Phi \in \Q[\lambda]$,
+the functor $\Quot_{E/X/S}^{\Phi,L}$ is representable
+by a projective $S$-scheme $\quot_{E/X/S}^{\Phi,L}$.
+\end{theorem}
+
+\begin{proof}
+The proof is the Grassmannian embedding, flattening-stratification,
+and valuative-criterion argument recorded in the final subsection of this chapter.
+\end{proof}
+
+
+Altman and Kleiman gave a complete and detailed proof of the existence of
+Quot schemes in [A-K 2]. They could remove the noetherian hypothesis,
+by instead assuming strong (quasi-)projectivity of $X\to S$
+together with an assumption about the nature of the coherent
+sheaf $E$, and deduce that the scheme $\quot_{E/X/S}^{\Phi,L}$ is then
+strongly (quasi-)projective over $S$.
+
+For simplicity, in these lecture notes we state and prove the result in [A-K 2]
+in the noetherian context.
+
+\begin{theorem}\label{nhq-altman-kleiman-quot}\dcref{5.2}\source{nitsure-hilbert-quot:page-0024}\uses{nhq-projectivity-notions,nhq-mumford,nhq-castelnuovo,nhq-base-change-flat-sheaves,nhq-flattening-stratification} {\rm (Altman-Kleiman)}
+Let $S$ be a noetherian scheme, $X$ a closed subscheme of
+$\PP(V)$ for some vector bundle $V$ on $S$, $L = {\mathcal O}_{\PP(V)}(1)|_X$,
+$E$ a coherent quotient sheaf of $\pi^*(W)(\nu)$ where
+$W$ is a vector bundle on $S$ and $\nu$ is an integer, and
+$\Phi \in \Q[\lambda]$.
+Then the functor $\Quot_{E/X/S}^{\Phi,L}$ is representable
+by a scheme $\quot_{E/X/S}^{\Phi,L}$ which can be embedded over $S$ as a
+closed subscheme of $\PP(F)$ for some vector bundle $F$ on $S$.
+
+The vector bundle $F$ can be chosen to be an exterior power of
+the tensor product of $W$ with a symmetric powers of $V$.
+\end{theorem}
+
+\begin{proof}
+\notready The source places the detailed construction after the reduction lemma;
+it proceeds
+through regularity, the Grassmannian embedding, flattening stratification,
+and the valuative criterion.
+\end{proof}
+
+Taking both $V$ and $W$ to be trivial in the above, we get the following.
+
+\begin{theorem}\label{nhq-projective-space-special-case}\dcref{5.3}\source{nitsure-hilbert-quot:page-0024}\uses{nhq-altman-kleiman-quot}
+If $S$ is a noetherian scheme, $X$ is a closed subscheme of
+$\PP^n_S$ for some $n\ge 0$, $L = {\mathcal O}_{\PP^n_S}(1)|_X$,
+$E$ is a coherent quotient sheaf of $\oplus^p {\mathcal O}_X(\nu)$
+for some integers $p\ge 0$ and $\nu$, and $\Phi \in \Q[\lambda]$,
+then the the functor $\Quot_{E/X/S}^{\Phi,L}$ is representable
+by a scheme $\quot_{E/X/S}^{\Phi,L}$ which can be embedded over $S$ as a
+closed subscheme of $\PP^r_S$ for some $r\ge 0$.
+\end{theorem}
+
+\begin{proof}
+This is the specialization of Theorem \ref{nhq-altman-kleiman-quot}
+obtained by taking $V$ and $W$ trivial.
+\end{proof}
+
+
+The rest of this section is devoted to proving
+Theorem \ref{nhq-altman-kleiman-quot}, with extra noetherian hypothesis.
+At the end, we will remark on how the proof also
+gives us the original version of Grothendieck.
+
+
+
+
+
+
+\bigskip
+
+\centerline{\large\bf Reduction to the case of
+$\Quot_{\pi^*W/\PP(V)/S}^{\Phi,L}$}
+
+\medskip
+
+
+It is enough to prove Theorem \ref{nhq-altman-kleiman-quot} in the special case
+that $X = \PP(V)$ and
+$E= \pi^*(W)$ where $V$ and $W$ are vector bundles on $S$, as
+a consequence of the next lemma.
+
+\begin{lemma}\label{nhq-quot-reduction-lemma}\dcref{5.4}\source{nitsure-hilbert-quot:page-0025}\uses{nhq-vanishing-scheme}
+(i) Let $\nu$ be any integer.
+Then tensoring by $L^{\nu}$ gives an isomorphism of
+functors from $\Quot_{E/X/S}^{\Phi,L}$ to
+$\Quot_{E(\nu)/X/S}^{\Psi,L}$ where the polynomial
+$\Psi \in \Q[\lambda]$ is defined by $\Psi(\lambda) = \Phi(\lambda + \nu)$.
+
+(ii) Let $\phi : E \to G$ be a surjective homomorphism of
+coherent sheaves on $X$. Then the corresponding natural transformation
+$\Quot_{G/X/S}^{\Phi,L} \to \Quot_{E/X/S}^{\Phi,L}$
+is a closed embedding.
+\end{lemma}
+
+\begin{proof} The statement (i) is obvious. The statement (ii) just says that
+given any locally noetherian scheme $T$ and a family
+$\langle \F,q\rangle \in \Quot_{E/X/S}^{\Phi,L}(T)$, there exists
+a closed subscheme $T' \subset T$ with the following universal property:
+for any locally noetherian scheme $U$ and a morphism $f: U\to T$,
+the pulled back homomorphism of ${\mathcal O}_{X_U}$-modules $q_U : E_U \to \F_U$
+factors via the pulled back homomorphism $\phi_U : E_U \to G_U$
+if and only if $U \to T$ factors via $T'\hra T$.
+This is satisfied by taking $T'$ to be the vanishing scheme
+for the composite homomorphism $\ker(\phi) \hra  E \stackrel{q}{\to} \F$
+of coherent sheaves on $X_T$ (see Remark \ref{nhq-vanishing-scheme}),
+which makes sense here as both $\ker(\phi)$ and $\F$ are coherent
+on $X_T$ and $\F$ is flat over $T$. \end{proof}
+
+
+
+\begin{proof}\proves{nhq-altman-kleiman-quot}
+Therefore if $\Quot_{\pi^*W/\PP(V)/S}^{\Phi,L}$ is
+representable, then for any coherent quotient
+$E$ of $\pi^*W(\nu)|_X$, we can take $\quot_{E/X/S}^{\Phi,L}$
+to be a closed subscheme of $\quot_{\pi^*W/\PP(V)/S}^{\Phi,L}$.
+
+
+
+
+
+
+
+
+
+
+
+
+\bigskip
+
+\centerline{\large\bf Use of $m$-Regularity}
+
+\medskip
+
+We consider the sheaf $E = \pi^*(W)$ on $X=\PP(V)$ where
+$V$ is a vector bundle on $S$,
+and take $L = {\mathcal O}_{\PP(V)}(1)$.
+For any field $k$ and a $k$-valued point
+$s$ of $S$, we have an isomorphism
+$\PP(V)_s \simeq \PP^n_k$ where $n=\rank(V)-1$,
+and the restricted sheaf $E_s$ on $\PP(V)_s$ is isomorphic to
+$\oplus^p{\mathcal O}_{\PP(V)_s}$ where $p=\rank(W)$.
+It follows from Theorem \ref{nhq-mumford}
+that given any $\Phi \in \Q[\lambda]$, there exists an integer
+$m$ which depends only on $\rank(V)$, $\rank(W)$ and $\Phi$,
+such that for any field $k$ and a $k$-valued point $s$ of $S$,
+the sheaf $E_s$ on $\PP(V)_s$ is $m$-regular, and for any
+coherent quotient $q: E_s \to \F$ on $\PP(V)_s$ with
+Hilbert polynomial $\Phi$, the sheaf $\F$ and the kernel sheaf
+$\G\subset E_s$ of $q$ are both $m$-regular.
+In particular, it follows from the Castelnuovo Lemma \ref{nhq-castelnuovo}
+that for $r\ge m$, all cohomologies
+$H^i(X_s,E_s(r))$, $H^i(X_s,\F(r))$, and $H^i(X_s,\G(r))$
+are zero for $i\ge 1$,
+and $H^0(X_s,E_s(r))$, $H^0(X_s,\F(r))$, and $H^0(X_s,\G(r))$
+are generated by their global sections.
+
+From the above it follows by Theorem \ref{nhq-base-change-flat-sheaves}
+that if $T$ is an $S$-scheme and
+$q :E_T \to \F$ is a $T$-flat coherent quotient with Hilbert polynomial
+$\Phi$, then we have the following, where $\G\subset E_T$ is
+the kernel of $q$.
+
+\textbf{(*) } The sheaves ${\pi_T}_*\G(r)$, ${\pi_T}_*E_T(r)$,
+${\pi_T}_*\F(r)$ are locally free of fixed ranks
+determined by the data $n$, $p$, $r$, and $\Phi$,
+the homomorphisms ${\pi_T}^*{\pi_T}_*(\G(r))\to \G(r)$,
+${\pi_T}^*{\pi_T}_*(E_T(r))\to E_T(r)$,
+${\pi_T}^*{\pi_T}_*(\F(r))\to \F(r)$ are
+surjective, and the higher direct images
+$R^i{\pi_T}_*\G(r)$, $R^i{\pi_T}_*E_T(r)$,
+$R^i{\pi_T}_*\F(r)$ are zero, for all $r\ge m$ and $i\ge 1$.
+
+\textbf{(**) }
+In particular we have the following commutative diagram
+of locally sheaves on $X_T$, in which both rows are exact, and all
+three vertical maps are surjective.
+
+%{\footnotesize
+$$\begin{array}{ccccccc}
+0  \to & {\pi_T}^*{\pi_T}_*(\G(r)) & \to
+& {\pi_T}^*{\pi_T}_* (E_T(r)) &
+\to  &{\pi_T}^*{\pi_T}_* (\F(r))& \to   0\\
+       & \dna                &     & \dna                &
+     & \dna               &        \\
+0  \to & \G(r)                  & \to & E(r) &
+\to  & \F(r)                 & \to   0
+\end{array}$$
+%}% end of footnotesize
+
+\bigskip
+
+
+\centerline{\large\bf Embedding Quot into Grassmannian}
+
+\medskip
+
+We now fix a positive integer $r$ such that $r\ge m$.
+Note that the rank of ${\pi_T}_*\F(r)$ is $\Phi(r)$
+and $\pi_*E(r) = W \otimes_{{\mathcal O}_S}\sym^r V$.
+Therefore the surjective homomorphism
+${\pi_T}_*E_T(r) \to {\pi_T}_*\F(r)$
+defines an element of the set
+$\Grass( W \otimes_{{\mathcal O}_S}\sym^r V , \Phi(r))(T)$.
+We thus get a morphism of functors
+$$\alpha : \Quot^{\Phi,L}_{E/X/S} \to
+\Grass( W \otimes_{{\mathcal O}_S}\sym^r V, \Phi(r))$$
+It associates to $q: E_T \to \F$ the quotient
+${\pi_T}_*(q(r)) : {\pi_T}_*E_T(r) \to {\pi_T}_*\F(r)$.
+
+The above morphism $\alpha$ is injective because the quotient
+$q: E_T \to \F$ can be recovered from
+${\pi_T}_*(q(r)) : {\pi_T}_*E_T(r) \to {\pi_T}_*\F(r)$
+as follows.
+
+If $G = \grass( W \otimes_{{\mathcal O}_S}\sym^r V, \Phi(r))$ with
+projection $p_G : G \to S$, and
+$u : {p_G}^*E \to \U$ denotes the universal quotient on $G$
+with kernel $v : \K \to {p_G}^*E$,
+then the homomorphism
+${\pi_T}^*{\pi_T}_*(\G(r))\to {\pi_T}^*{\pi_T}_*E_T(r)$
+can be recovered
+from the morphism $T \to G$ as
+the pull-back of $v : \K \to {p_G}^*E$.
+Let $h$ be  the composite
+${\pi_T}^*{\pi_T}_*(\G(r))\to {\pi_T}^*{\pi_T}_*(E_T(r))\to E_T(r)$.
+As a consequence of the properties of the diagram \textbf{(**)},
+the following is a right exact sequence on $X_T$
+$${\pi_T}^*{\pi_T}_*(\G(r))\stackrel{h}{\to}
+E_T(r) \stackrel{q(r)}{\to} \F \to 0$$
+and so $q(r) : E_T(r) \to \F(r)$ can be recovered as the cokernel of $h$.
+Finally, twisting by $-r$, we recover $q$, proving the desired
+injectivity of the morphism of functors
+$\alpha :\Quot^{\Phi,L}_{E/X/S} \to
+\Grass( W \otimes_{{\mathcal O}_S}\sym^r V, \Phi(r))$.
+
+
+
+\bigskip
+
+\centerline{\large\bf Use of Flattening Stratification}
+\nopagebreak
+\medskip
+\nopagebreak
+We will next prove that
+$\alpha :\Quot^{\Phi,L}_{E/X/S} \to
+\Grass( W \otimes_{{\mathcal O}_S}\sym^r V, \Phi(r))$
+is relatively representable. In fact, we will show that
+given any locally noetherian $S$-scheme $T$ and
+a surjective homomorphism $f :  W_T \otimes_{{\mathcal O}_T}\sym^r V_T \to \J$
+where $\J$ is a locally free ${\mathcal O}_T$-module of rank $\Phi(r)$,
+there exists a locally closed subscheme $T'$ of
+$T$ with the following universal property \textbf{(F)} :
+
+\textbf{(F) } Given any
+locally noetherian $S$-scheme $Y$ and an $S$-morphism $\phi :Y\to T$,
+let $f_Y$ be the pull-back of $f$, and
+let $\K_Y = \ker(f_Y) = \phi^* \ker(f)$. Let
+$\pi_Y : X_Y \to Y$ be the projection, and let
+$h : {\pi_Y}^* \K_Y \to E_Y$ be the composite map
+$${\pi_Y}^* \K_Y \to  {\pi_Y}^* (W \otimes_{{\mathcal O}_S}\sym^r V)
+= {\pi_Y}^*{\pi_Y}_*E_Y \to  E_Y$$
+Let $q:   E_Y \to \F$ be the cokernel of $h$.
+Then $\F$ is flat over $Y$ with its Hilbert polynomial on all fibers
+equal to $\Phi$ if and only if $\phi :Y\to T$
+factors via $Y'\hra Y$.
+
+The existence of such a locally closed subscheme $T'$ of
+$T$ is given by Theorem \ref{nhq-flattening-stratification}, which
+shows that $T'$ is the stratum corresponding to
+Hilbert polynomial $\Phi$ for the
+flattening stratification over $T$ for the sheaf $\F$ on $X_T$.
+
+When we take $T$ to be $\grass( W \otimes_{{\mathcal O}_S}\sym^r V, \Phi(r))$
+with universal quotient $u : {p_G}^*E \to \U$, the corresponding
+locally closed subscheme $T'$ represents
+the functor $\Quot^{\Phi,L}_{E/X/S}$ by its construction.
+
+Hence we have shown that $\Quot^{\Phi,L}_{E/X/S}$ is represented
+by a locally closed subscheme of
+$\grass( W \otimes_{{\mathcal O}_S}\sym^r V, \Phi(r))$. As
+$\grass( W \otimes_{{\mathcal O}_S}\sym^r V, \Phi(r))$ embeds as a
+closed subscheme of $\PP(\bigwedge ^{\Phi(r)} W \otimes_{{\mathcal O}_S}\sym^r V)$,
+we get a locally closed embedding of $S$-schemes
+$$\quot^{\Phi,L}_{E/X/S} \subset
+\PP(\bigwedge ^{\Phi(r)} (W \otimes_{{\mathcal O}_S}\sym^r V))$$
+In particular, the morphism $\quot^{\Phi,L}_{E/X/S}\to S$
+is separated and of finite type.
+
+
+
+\bigskip
+
+
+\centerline{\large\bf Valuative Criterion for Properness}
+
+
+\medskip
+
+The original reference for the following argument is EGA IV (2) 2.8.1.
+
+The functor $\Quot_{E/X/S}^{\Phi,L}$ satisfies the following valuative
+criterion for properness over $S$: given any discrete valuation ring
+$R$ over $S$ with quotient field $K$, the restriction map
+$$\Quot_{E/X/S}^{\Phi,L}(\spec R) \to \Quot_{E/X/S}^{\Phi,L}(\spec K)$$
+is bijective. This can be seen as follows.
+Given any coherent quotient
+$q: E_K \to \F$ on $X_R$ which defines an element $\langle \F, q\rangle$
+of $\Quot_{E/X/S}^{\Phi,L}(\spec K)$.
+Let $\ov{\F}$ be the image of the composite homomorphism
+$E_R \to j_*(E_K) \to j_*\F$ where $j : X_K \hra X_R$ is the open
+inclusion. Let $\ov{q} : E_R\to \ov{\F}$ be the induced surjection.
+Then we leave it to the reader to verify that \notready
+$\langle \F, q\rangle$ is an element of $\Quot_{E/X/S}^{\Phi,L}(\spec R)$
+which maps to $\langle \F, q\rangle$, and is the unique such element.
+(Use the basic fact that being flat over a dvr
+is the same as being torsion-free.)
+
+As $S$ is noetherian and as we have already shown that
+$\quot^{\Phi,L}_{E/X/S}\to S$ is of finite type,
+it follows that $\quot^{\Phi,L}_{E/X/S}\to S$ is a proper morphism.
+Therefore the embedding of
+$\quot^{\Phi,L}_{E/X/S}$ into
+$\PP(\bigwedge ^{\Phi(r)} (W \otimes_{{\mathcal O}_S}\sym^r V))$
+is a closed embedding.
+
+This completes the proof of Theorem \ref{nhq-altman-kleiman-quot}.\hfill$\square$\end{proof}
+
+
+
+
+
+\bigskip
+
+
+\centerline{\large\bf The Version of Grothendieck}
+
+
+\medskip
+
+
+\begin{proof}\proves{nhq-grothendieck-quot}
+We now describe how to get Theorem \ref{nhq-grothendieck-quot}
+from the above proof. As $S$ is noetherian, we can find a common
+$m$ such that given any field-valued point
+$s: \spec k\to S$ and a coherent quotient $q: E_s \to \F$ on $X_s$
+with Hilbert polynomial $\Phi$,
+the sheaves $E_s(r)$, $\F(r)$, $\G(r)$ (where $\G = \ker(q)$) are
+generated by global sections and all their higher cohomologies vanish,
+whenever $r\ge m$.
+This follows from the theory of $m$-regularity, and semi-continuity.
+
+Because we have such a common $m$, we get as before an injective morphism
+from the functor $\Quot_{E/X/S}^{\Phi,L}$ into the Grassmannian functor
+$\Grass(\pi_*E(r), \Phi(r))$. The sheaf
+$\pi_*E(r)$ is coherent, but need not be the quotient of a
+vector bundle on $S$. Consequently, the scheme $\grass(\pi_*E(r), \Phi(r))$
+is projective over the base, but not necessarily strongly projective.
+
+Finally, the use of flattening stratification, which can be
+made over an affine open cover of $S$, gives
+a locally closed subscheme of $\grass(\pi_*E(r), \Phi(r))$ which represents
+$\Quot_{E/X/S}^{\Phi,L}$, which is in fact a
+closed subscheme by the valuative criterion.
+Thus, we get $\quot_{E/X/S}^{\Phi,L}$ as a projective scheme over $S$.
+
+\end{proof}

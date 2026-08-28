@@ -1,0 +1,236 @@
+\chapter{Adeles and Weil differentials}
+\label{par-chap-adeles}
+
+\section{Adeles}
+\begin{definition}[Adele]
+\label{par-def-adele}
+\dcref{1.11}
+\uses{par-def-place,par-def-place-valuation}
+\source{papaioannou-algebraic-rr:page-0009}
+An adele is a map $\alpha:\mathbf P_{\mathbb F}\to\mathbb F$, $P\mapsto\alpha_P$,
+with $\alpha_P\in\mathcal O_P$ for almost all $P$. The adele space
+$A_{\mathbb F}$ is the resulting $\mathbb K$-vector space (indeed a
+$\mathbb K$-algebra) inside $\prod_P\mathbb F$. A principal adele embeds
+$x\in\mathbb F$ as the constant family $(x)_P$; this is an adele by the finite
+zero/pole result. Extend valuations by $v_P(\alpha)=v_P(\alpha_P)$.
+\end{definition}
+
+\begin{definition}[Restricted adele subspace]
+\label{par-def-adele-D}
+\dcref{1.12}
+\uses{par-def-adele,par-def-divisor-degree}
+\source{papaioannou-algebraic-rr:page-0010}
+For $D\in\Div(\mathbb F)$ set
+\[
+A_{\mathbb F}(D)=\{\alpha\in A_{\mathbb F}:v_P(\alpha)\geq-v_P(D)\text{ for all }P\}.
+\]
+The source display uses $v_P(A)$ in place of $v_P(D)$; the divisor parameter
+$D$ is the consistent reading.
+\end{definition}
+
+\begin{definition}[Index of speciality]
+\label{par-def-index-speciality}
+\uses{par-def-adele,par-def-adele-D,par-def-L-space}
+\source{papaioannou-algebraic-rr:page-0010}
+The index of speciality is
+\[
+i(D):=\dim_{\mathbb K}\bigl(A_{\mathbb F}/(A_{\mathbb F}(D)+\mathbb F)\bigr).
+\]
+\end{definition}
+
+\begin{lemma}[Adele quotient for an added place]
+\label{par-lem-adele-quotient}
+\dcref{1.19}
+\uses{par-def-adele-D,par-def-divisor-degree,par-def-place-valuation}
+\source{papaioannou-algebraic-rr:page-0010}
+If $D_1\leq D_2$, then $A_{\mathbb F}(D_1)\subseteq A_{\mathbb F}(D_2)$ and
+\[
+\dim\bigl(A_{\mathbb F}(D_2)/A_{\mathbb F}(D_1)\bigr)=\deg D_2-\deg D_1.
+\]
+\end{lemma}
+\begin{proof}
+Induct on the coefficient difference, reducing to $D_2=D_1+P$. Choose $t$ with
+$v_P(t)=v_P(D_1)+1$. The map
+$A(D_2)\to\mathbb F_P$, $\alpha\mapsto(t\alpha)_P(P)$, is surjective with kernel
+$A(D_1)$, so the quotient has dimension $\deg P$.
+\end{proof}
+
+\begin{lemma}[Adele quotient modulo principal adeles]
+\label{par-lem-adele-mod-F}
+\dcref{1.20}
+\uses{par-lem-adele-quotient,par-def-index-speciality,par-def-L-space}
+\source{papaioannou-algebraic-rr:page-0010}
+For $D_1\leq D_2$,
+\[
+\dim\frac{A(D_2)+\mathbb F}{A(D_1)+\mathbb F}
+=(\deg D_2-\dim D_2)-(\deg D_1-\dim D_1).
+\]
+\end{lemma}
+\begin{proof}
+Use the exact sequence
+\[
+0\to L(D_2)/L(D_1)\to A(D_2)/A(D_1)
+\to\frac{A(D_2)+\mathbb F}{A(D_1)+\mathbb F}\to0.
+\]
+The first quotient has dimension $\dim D_2-\dim D_1$ and the middle quotient
+has dimension $\deg D_2-\deg D_1$ by the preceding lemma; subtracting gives the
+formula. The kernel identification follows from $A(D_2)\cap\mathbb F=L(D_2)$.
+\end{proof}
+
+\begin{lemma}[Stable adele sum]
+\label{par-lem-adele-stable}
+\dcref{1.21}
+\uses{par-lem-L-inclusion-bound,par-lem-riemann-inequality,par-lem-adele-mod-F}
+\source{papaioannou-algebraic-rr:page-0010}
+If $\dim B=\deg B+1-g$, then
+$A_{\mathbb F}=A_{\mathbb F}(B)+\mathbb F$.
+\end{lemma}
+\begin{proof}
+For $B_1\geq B$, Lemma~1.13 and Riemann's inequality force
+$\dim B_1=\deg B_1+1-g$. Given $\alpha\in A$, choose $B_1\geq B$ with
+$\alpha\in A(B_1)$. Lemma~1.20 gives zero dimension for
+$(A(B_1)+\mathbb F)/(A(B)+\mathbb F)$, proving the claim.
+\end{proof}
+
+\begin{theorem}[Adelic preliminary Riemann--Roch formula]
+\label{par-thm-adelic-preliminary}
+\dcref{1.18}
+\uses{par-lem-riemann-inequality,par-lem-adele-mod-F,par-lem-adele-stable,par-def-index-speciality}
+\source{papaioannou-algebraic-rr:page-0010}
+For every divisor $D$,
+\[
+\dim D=\deg D+1-g+i(D)
+=\deg D+1-g+\dim\bigl(A_{\mathbb F}/(A_{\mathbb F}(D)+\mathbb F)\bigr).
+\]
+\end{theorem}
+\begin{proof}
+Choose $D_1\geq D$ with $\dim D_1=\deg D_1+1-g$ (Riemann's inequality).
+Lemma~1.21 gives $A=A(D_1)+\mathbb F$, and Lemma~1.20 yields
+\[
+\dim A/(A(D)+\mathbb F)=(\deg D_1-\dim D_1)-(\deg D-\dim D)
+=(g-1)+\dim D-\deg D.
+\]
+Rearrangement is the asserted formula.
+\end{proof}
+
+\section{Weil differentials}
+\begin{definition}[Weil differential]
+\label{par-def-weil-differential}
+\dcref{1.13}
+\uses{par-def-adele,par-def-adele-D,par-def-divisor}
+\source{papaioannou-algebraic-rr:page-0011}
+A Weil differential is a $\mathbb K$-linear map
+$\omega\in\Hom_{\mathbb K}(A_{\mathbb F},\mathbb K)$ that vanishes on
+$A_{\mathbb F}(D)+\mathbb F$ for some divisor $D$. Let $\Omega_{\mathbb F}$ be
+the set of all differentials and
+\[
+\Omega_{\mathbb F}(D)=\{\omega\in\Omega_{\mathbb F}:\omega|_{A(D)+\mathbb F}=0\}.
+\]
+These are $\mathbb K$-vector spaces. For $x\in\mathbb F$ define
+$(x\omega)(\alpha)=\omega(x\alpha)$; if $\omega$ vanishes on $A(D)+\mathbb F$,
+then $x\omega$ vanishes on $A(D+(x))+\mathbb F$, giving an $\mathbb F$-scalar
+structure on $\Omega_{\mathbb F}$.
+\end{definition}
+
+\begin{lemma}[Differentials and the index of speciality]
+\label{par-lem-differential-dimension}
+\dcref{1.22}
+\uses{par-def-weil-differential,par-thm-adelic-preliminary,par-def-index-speciality}
+\source{papaioannou-algebraic-rr:page-0011}
+For every $D$, $\dim_{\mathbb K}\Omega_{\mathbb F}(D)=i(D)$.
+\end{lemma}
+\begin{proof}
+$\Omega(D)$ is naturally the dual of the finite-dimensional quotient
+$A/(A(D)+\mathbb F)$, whose dimension is $i(D)$ by Theorem~1.18.
+The source says "the space if linear forms"; this is the evident "space of
+linear forms" typo.
+\end{proof}
+
+\begin{remark}[Existence and scalar action]
+\label{par-rem-differentials-nonempty}
+\uses{par-lem-differential-dimension,par-def-weil-differential}
+\source{papaioannou-algebraic-rr:page-0011}
+Choosing $D$ with $\deg D<-1$ gives $\dim\Omega(D)=i(D)\geq1$, so
+\(\Omega_{\mathbb F}\neq\varnothing\). The source's displayed sentence writes
+"$A-\mathbb F(D)+\mathbb F$"; this is the evident $A_{\mathbb F}(D)+\mathbb F$
+condition and is retained in the private ledger.
+\end{remark}
+
+\begin{theorem}[One-dimensionality of differentials]
+\label{par-thm-differentials-one-dimensional}
+\dcref{1.23}
+\uses{par-lem-differential-dimension,par-def-weil-differential,par-lem-riemann-inequality}
+\source{papaioannou-algebraic-rr:page-0011}
+$\dim_{\mathbb F}\Omega_{\mathbb F}=1$.
+\end{theorem}
+\begin{proof}
+Choose $0\neq\omega_1\in\Omega_{\mathbb F}$ and let
+$\omega_2\in\Omega_{\mathbb F}$ be nonzero. Pick $D_1,D_2$ with
+$\omega_i\in\Omega(D_i)$. For a sufficiently large effective $B$, the maps
+\[
+\phi_i:L(D_i+B)\to\Omega(-B),\qquad x\mapsto x\omega_i
+\]
+have images $U_i$. Riemann's inequality gives
+$\dim U_i\geq\deg(D_i+B)+1-g$, while
+$\dim\Omega(-B)=i(-B)=\deg B+1-g$. Hence
+$\dim U_1+\dim U_2-\dim\Omega(-B)>0$ for large $B$, so $U_1\cap U_2\neq0$.
+Choose $x_1,x_2$ with $x_1\omega_1=x_2\omega_2\neq0$; then
+$\omega_2=(x_1x_2^{-1})\omega_1$. The source accidentally writes $\omega_2=\omega_1$
+at the intermediate generation claim; the scalar conclusion is the intended one.
+\end{proof}
+
+\begin{lemma}[Maximal divisor annihilated by a differential]
+\label{par-lem-differential-max-divisor}
+\dcref{1.24}
+\uses{par-thm-adelic-preliminary,par-def-weil-differential,par-def-adele-D}
+\source{papaioannou-algebraic-rr:page-0012}
+For a nontrivial differential $\omega$, let
+\[
+M(\omega)=\{D\in\Div(\mathbb F):\omega|_{A(D)+\mathbb F}=0\}.
+\]
+There is a unique $W\in M(\omega)$ such that $D\leq W$ for every $D\in M(\omega)$.
+\end{lemma}
+\begin{proof}
+Riemann's inequality supplies $c$ with $i(D)=0$ for $\deg D\geq c$, so every
+$D\in M(\omega)$ has degree $<c$. Choose $W$ of maximal degree. If
+$D_0\in M(\omega)$ has $v_Q(D_0)>v_Q(W)$, then $W+Q\in M(\omega)$: for
+$\alpha\in A(W+Q)$ split it into the component away from $Q$ (in $A(W)$) and
+the $Q$ component (in $A(D_0)$). Thus $\omega(\alpha)=0$, contradicting maximality.
+\end{proof}
+
+\begin{definition}[Divisor and regularity of a differential]
+\label{par-def-differential-divisor}
+\dcref{1.14}
+\uses{par-lem-differential-max-divisor,par-def-weil-differential,par-def-place-valuation}
+\source{papaioannou-algebraic-rr:page-0012}
+For $0\neq\omega$, define $(\omega)$ as the unique maximal divisor in
+$M(\omega)$. Put $v_P(\omega)=v_P((\omega))$. A zero has $v_P(\omega)>0$;
+the source prints the same inequality for a pole, which we preserve, while the
+intended pole condition is $v_P(\omega)<0$. Regularity at $P$ means
+$v_P(\omega)\geq0$, and holomorphic means regular at every place. Consequently,
+\[
+\Omega(D)=\{\omega=0\text{ or }(\omega)\geq D\},\qquad
+\Omega(0)=\{\text{regular differentials}\},\qquad\dim\Omega(0)=g.
+\]
+\end{definition}
+
+\begin{theorem}[Divisor scaling and canonical class]
+\label{par-thm-canonical-scaling}
+\dcref{1.25}
+\uses{par-thm-differentials-one-dimensional,par-def-differential-divisor,par-def-principal-divisor}
+\source{papaioannou-algebraic-rr:page-0012}
+For $0\neq x\in\mathbb F$ and $0\neq\omega\in\Omega_{\mathbb F}$,
+\[
+(x\omega)=(x)+(\omega).
+\]
+Any two canonical divisors are equivalent; their class in
+$\Class(\mathbb F)$ is the canonical class.
+\end{theorem}
+\begin{proof}
+If $\omega$ vanishes on $A(D)+\mathbb F$, then $x\omega$ vanishes on
+$A(D+(x))+\mathbb F$, so $(\omega)+(x)\leq(x\omega)$. Applying this to
+$x^{-1}$ gives $(x\omega)+(x^{-1})\leq(\omega)$, and the two inequalities
+force equality. Since $\Omega_{\mathbb F}$ is one-dimensional over $\mathbb F$,
+any two nonzero differentials differ by a scalar $x$, so their divisors differ
+by $(x)$.
+\end{proof}

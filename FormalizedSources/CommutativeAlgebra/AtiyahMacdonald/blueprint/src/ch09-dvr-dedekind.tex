@@ -1,0 +1,171 @@
+\section{One-dimensional Noetherian domains}
+\label{am-ch9-one-dimensional}
+\begin{proposition}[Primary factorization in dimension one]
+\label{am-prop-9-1}
+\dcref{9.1}
+\source{atiyah-macdonald-commutative-algebra:page-0102}
+If $A$ is a Noetherian domain of dimension one, every nonzero ideal has a
+unique expression as a product of primary ideals with distinct radicals.
+\end{proposition}
+\begin{proof}
+Take a minimal primary decomposition.  Every nonzero prime is maximal, so the
+distinct radicals are pairwise coprime; intersections therefore equal products.
+Conversely a product of primary ideals gives the same minimal decomposition,
+and isolated components are unique by Corollary~\ref{am-cor-4-11}.
+\uses{am-thm-7-13,am-prop-1-16,am-prop-1-10,am-cor-4-11}
+\end{proof}
+
+\section{Discrete valuation rings}
+\label{am-ch9-dvr}
+\begin{definition}[Discrete valuation]
+\label{am-def-discrete-valuation}
+\source{atiyah-macdonald-commutative-algebra:page-0103}
+A discrete valuation on a field $K$ is a surjection $v:K^*\to\Z$ with
+$v(xy)=v(x)+v(y)$ and $v(x+y)\ge\min(v(x),v(y))$.  Its valuation ring is
+$\{0\}\cup\{x:v(x)\ge0\}$.  A discrete valuation ring (DVR) is the valuation
+ring of a discrete valuation on its fraction field.
+\end{definition}
+\begin{remark}[DVR ideals]
+\label{am-rem-dvr-ideals}
+\source{atiyah-macdonald-commutative-algebra:page-0103}
+In a DVR, equal-valued elements differ by a unit; every nonzero ideal is
+$\mathfrak m^n=(\pi^n)$ for a uniformizer $\pi$; the maximal ideal is
+$(\pi)$ and is the unique nonzero prime.  Hence a DVR is a Noetherian local
+domain of dimension one.
+\end{remark}
+\begin{proposition}[Characterizations of a DVR]
+\label{am-prop-9-2}
+\dcref{9.2}
+\source{atiyah-macdonald-commutative-algebra:page-0103}
+For a Noetherian local domain $(A,\m)$ of dimension one, the following are
+equivalent: $A$ is a DVR; $A$ is integrally closed; $\m$ is principal;
+$\dim_{A/\m}\m/\m^2=1$; every nonzero ideal is a power of $\m$; and there is
+$x\in A$ with every nonzero ideal $(x^n)$.
+\end{proposition}
+\begin{proof}
+DVRs are integrally closed by Proposition~\ref{am-prop-5-18}.  If $A$ is
+integrally closed, choose $a\in\m$ of minimal valuation and $b\in\m^{n-1}$
+outside $(a)$; the element $a/b$ forces $\m=(a/b)$.  A principal maximal ideal
+gives one-dimensional $\m/\m^2$ by Nakayama, and conversely this dimension
+and Proposition~\ref{am-prop-2-8} make $\m$ principal.  Applying the principal
+ideal argument to $A/\m^n$ shows every ideal is a power of $\m$.  A generator
+of $\m$ then gives all powers, and assigning to each nonzero element the
+exponent of its principal ideal defines a well-defined discrete valuation.
+\uses{am-prop-5-18,am-prop-2-8,am-cor-8-2,am-prop-8-6}
+\end{proof}
+
+\section{Dedekind domains}
+\label{am-ch9-dedekind}
+\begin{theorem}[Characterizations of Dedekind domains]
+\label{am-thm-9-3}
+\dcref{9.3}
+\source{atiyah-macdonald-commutative-algebra:page-0104}
+For a Noetherian domain $A$ of dimension one, the following are equivalent:
+$A$ is integrally closed; every primary ideal is a power of a prime; and every
+localization $A_\p$ at a nonzero prime is a DVR.  A ring with these properties
+is a Dedekind domain.
+\end{theorem}
+\begin{proof}
+The equivalence of the first and third conditions is Proposition~\ref{am-prop-9-2}
+and local integral closedness (Proposition~\ref{am-prop-5-13}).  The second is
+equivalent by localization of primary ideals and powers (Proposition~\ref{am-prop-4-8}
+and Proposition~\ref{am-prop-3-11}).
+\uses{am-prop-9-2,am-prop-5-13,am-prop-4-8,am-prop-3-11}
+\end{proof}
+\begin{corollary}[Unique ideal factorization]
+\label{am-cor-9-4}
+\dcref{9.4}
+\source{atiyah-macdonald-commutative-algebra:page-0104}
+Every nonzero ideal in a Dedekind domain factors uniquely as a product of
+nonzero prime ideals.
+\uses{am-prop-9-1,am-thm-9-3}
+\end{corollary}
+\begin{proof}
+Use Proposition~\ref{am-prop-9-1} and replace each primary factor by its prime
+power using Theorem~\ref{am-thm-9-3}.
+\end{proof}
+\begin{theorem}[Ring of integers]
+\label{am-thm-9-5}
+\dcref{9.5}
+\source{atiyah-macdonald-commutative-algebra:page-0105}
+The integral closure of $\Z$ in a number field is a Dedekind domain.
+\end{theorem}
+\begin{proof}
+The extension is finite separable, so Proposition~\ref{am-prop-5-17} bounds
+the integral closure inside a finite $\Z$-module; it is therefore Noetherian.
+It is integrally closed by Corollary~\ref{am-cor-5-5}.  A nonzero prime
+contracts nontrivially to $\Z$ by incomparability and is maximal by
+Corollary~\ref{am-cor-5-8}; hence the dimension is one.
+\uses{am-prop-5-17,am-cor-5-5,am-cor-5-8,am-cor-5-9}
+\end{proof}
+
+\section{Fractional ideals}
+\label{am-ch9-fractional}
+\begin{definition}[Fractional and invertible ideals]
+\label{am-def-fractional-ideal}
+\source{atiyah-macdonald-commutative-algebra:page-0105}
+For a domain $A$ with fraction field $K$, an $A$-submodule $M\subseteq K$ is a
+fractional ideal if $xM\subseteq A$ for some $0\ne x\in A$.  It is invertible
+if $MN=A$ for some submodule $N$; then $N=(A:M)=\{z:zM\subseteq A\}$ and
+is unique.  Nonzero principal fractional ideals are invertible.
+\end{definition}
+\begin{proposition}[Invertibility is local]
+\label{am-prop-9-6}
+\dcref{9.6}
+\source{atiyah-macdonald-commutative-algebra:page-0106}
+For a fractional ideal $M$, invertibility is equivalent to finite generation
+and invertibility of every $M_\p$, and equivalently finite generation and
+invertibility of every $M_\m$.
+\end{proposition}
+\begin{proof}
+If $MN=A$, localize and use ideal quotients (Corollary~\ref{am-cor-3-15}) to
+obtain $M_\p(A_\p:M_\p)=A_\p$.  Conversely let
+$I=M(A:M)\subseteq A$.  Local invertibility gives $I_\m=A_\m$ for all maximal
+$\m$, hence $I=A$ by local detection (Proposition~\ref{am-prop-3-9}); so
+$M$ is invertible.
+\uses{am-cor-3-15,am-prop-3-9}
+\end{proof}
+\begin{proposition}[Local criterion for a DVR]
+\label{am-prop-9-7}
+\dcref{9.7}
+\source{atiyah-macdonald-commutative-algebra:page-0106}
+For a local domain $A$, $A$ is a DVR iff every nonzero fractional ideal is
+invertible.
+\end{proposition}
+\begin{proof}
+In a DVR every fractional ideal is a power of a uniformizer.  Conversely,
+invertible integral ideals are finite; choose a maximal non-power ideal $\aideal$.
+Then $\m^{-1}\aideal$ is a strictly larger proper ideal unless $\aideal=0$,
+contradicting maximality and Nakayama.  Thus all ideals are powers of $\m$ and
+Proposition~\ref{am-prop-9-2} applies.
+\uses{am-prop-2-6,am-prop-9-2}
+\end{proof}
+\begin{theorem}[Fractional ideal characterization]
+\label{am-thm-9-8}
+\dcref{9.8}
+\source{atiyah-macdonald-commutative-algebra:page-0106}
+For an integral domain $A$, $A$ is Dedekind iff every nonzero fractional ideal
+is invertible.
+\end{theorem}
+\begin{proof}
+In a Dedekind domain, fractional ideals are finite and localize to fractional
+ideals of DVRs; apply Proposition~\ref{am-prop-9-7} and Proposition~\ref{am-prop-9-6}.
+Conversely, invertible integral ideals are finite, so $A$ is Noetherian.  For a
+nonzero prime $\p$, every integral ideal of $A_\p$ is the localization of an
+invertible ideal and is invertible; Proposition~\ref{am-prop-9-7} makes
+$A_\p$ a DVR, hence Theorem~\ref{am-thm-9-3} applies.
+\uses{am-prop-9-6,am-prop-9-7,am-thm-9-3}
+\end{proof}
+\begin{corollary}[Ideal group and class group]
+\label{am-cor-9-9}
+\dcref{9.9}
+\source{atiyah-macdonald-commutative-algebra:page-0107}
+The nonzero fractional ideals of a Dedekind domain form a group under product.
+The principal ideals form a subgroup; the quotient is the ideal class group, and
+$1\to A^*\to K^*\to I\to\operatorname{Cl}(A)\to1$ is exact.
+\uses{am-thm-9-8}
+\end{corollary}
+\begin{proof}
+The inverse of $M$ is $(A:M)$; uniqueness and the exact sequence follow from
+the definitions of principal ideals and units.
+\end{proof}

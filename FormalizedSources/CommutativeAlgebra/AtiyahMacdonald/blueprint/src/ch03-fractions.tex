@@ -1,0 +1,260 @@
+\section{Rings and modules of fractions}
+\label{am-ch3-fractions}
+\begin{definition}[Multiplicative set and ring of fractions]
+\label{am-def-localization}
+\source{atiyah-macdonald-commutative-algebra:page-0045}
+A multiplicatively closed subset $S\subseteq A$ contains $1$ and is closed under
+products.  On $A\times S$ put $(a,s)\sim(b,t)$ iff
+$(at-bs)u=0$ for some $u\in S$.  The classes $a/s$ form $S^{-1}A$ with
+$(a/s)+(b/t)=(at+bs)/(st)$ and $(a/s)(b/t)=ab/(st)$.
+\end{definition}
+\begin{proposition}[Universal property of localization]
+\label{am-prop-3-1}
+\dcref{3.1}
+\source{atiyah-macdonald-commutative-algebra:page-0046}
+If $g:A\to B$ sends every $s\in S$ to a unit, there is a unique homomorphism
+$h:S^{-1}A\to B$ with $g=h\circ f$, given by $h(a/s)=g(a)g(s)^{-1}$.
+\end{proposition}
+\begin{proof}
+The formula is forced because $a/s=(a/1)(1/s)$ and $1/s=(s/1)^{-1}$.
+If $(a,s)\sim(a',s')$, then a $u\in S$ kills $as'-a's$; applying $g$ and
+cancelling the unit $g(u)$ proves the two displayed values equal.  The formula
+then respects addition and multiplication.
+\end{proof}
+\begin{corollary}[Characterization of a localization]
+\label{am-cor-3-2}
+\dcref{3.2}
+\source{atiyah-macdonald-commutative-algebra:page-0047}
+If $g:A\to B$ satisfies (i) $g(s)$ is a unit for $s\in S$, (ii) $g(a)=0$
+implies $as=0$ for some $s\in S$, and (iii) every element of $B$ is
+$g(a)g(s)^{-1}$, then $B\simeq S^{-1}A$ uniquely over $A$.
+\uses{am-prop-3-1}
+\end{corollary}
+\begin{proof}
+The universal map is surjective by (iii).  If $g(a)g(s)^{-1}=0$, then
+$g(a)=0$, so (ii) gives $(a,s)\sim(0,1)$; hence the map is injective.
+\end{proof}
+\begin{remark}[Basic localizations]
+\label{am-rem-basic-localizations}
+\source{atiyah-macdonald-commutative-algebra:page-0047}
+The canonical map $A\to S^{-1}A$ has $s/1$ invertible, has kernel consisting
+of $a$ killed by an element of $S$, and every fraction is $(a/1)(s/1)^{-1}$.
+For a prime $\p$, $S=A\setminus\p$ gives the local ring $A_\p$ with maximal
+ideal $\p A_\p$; $S^{-1}A=0$ iff $0\in S$; $S=\{1,f,f^2,\ldots\}$ gives
+$A_f$; $S=1+\aideal$ is multiplicatively closed.
+\end{remark}
+\begin{definition}[Module of fractions]
+\label{am-def-module-localization}
+\source{atiyah-macdonald-commutative-algebra:page-0047}
+For an $A$-module $M$, define $(m,s)\sim(m',s')$ iff
+$t(s'm-sm')=0$ for some $t\in S$.  The classes form $S^{-1}M$ over
+$S^{-1}A$; an $A$-map $u:M\to N$ induces $S^{-1}u(m/s)=u(m)/s$.
+\end{definition}
+\begin{proposition}[Exactness of localization]
+\label{am-prop-3-3}
+\dcref{3.3}
+\source{atiyah-macdonald-commutative-algebra:page-0048}
+If $M'\xrightarrow fM\xrightarrow gM''$ is exact at $M$, then
+$S^{-1}M'\to S^{-1}M\to S^{-1}M''$ is exact at $S^{-1}M$.
+\end{proposition}
+\begin{proof}
+The composite is zero.  If $m/s$ maps to zero, some $t\in S$ kills $g(m)$;
+then $tm=f(m')$ for some $m'$, and $m/s=f(m')/(st)$ is in the image.
+\end{proof}
+\begin{corollary}[Localization and subquotients]
+\label{am-cor-3-4}
+\dcref{3.4}
+\source{atiyah-macdonald-commutative-algebra:page-0048}
+For submodules $N,P\subseteq M$,
+\[
+S^{-1}(N+P)=S^{-1}N+S^{-1}P,\quad
+S^{-1}(N\cap P)=S^{-1}N\cap S^{-1}P,
+\]
+and $S^{-1}(M/N)\simeq S^{-1}M/S^{-1}N$.
+\uses{am-prop-3-3}
+\end{corollary}
+\begin{proof}
+The sum and quotient assertions follow directly.  For an element common to
+the two localized submodules, clear denominators: if $y/s=z/t$, then some
+$u\in S$ gives $u(ty-sz)=0$, so $uty=usz\in N\cap P$ and the element is a
+fraction from $N\cap P$.
+\end{proof}
+\begin{proposition}[Localization as tensor product]
+\label{am-prop-3-5}
+\dcref{3.5}
+\source{atiyah-macdonald-commutative-algebra:page-0048}
+There is a unique isomorphism
+$S^{-1}A\otimes_A M\simeq S^{-1}M$ sending $(a/s)\otimes m$ to $am/s$.
+\end{proposition}
+\begin{proof}
+The displayed rule is bilinear and hence induces a map.  Every tensor is a
+sum of $(1/s)\otimes m$ after taking a common denominator.  If $m/s=0$,
+some $t\in S$ kills $m$, and $(1/s)\otimes m=(1/st)\otimes tm=0$; thus the
+map is bijective.
+\end{proof}
+\begin{corollary}[Localization is flat]
+\label{am-cor-3-6}
+\dcref{3.6}
+\source{atiyah-macdonald-commutative-algebra:page-0049}
+$S^{-1}A$ is a flat $A$-module.
+\uses{am-prop-3-3,am-prop-3-5}
+\end{corollary}
+\begin{proof}
+Tensoring with $S^{-1}A$ is naturally localization, which is exact by
+Proposition~\ref{am-prop-3-3}.
+\end{proof}
+\begin{proposition}[Tensor products commute with localization]
+\label{am-prop-3-7}
+\dcref{3.7}
+\source{atiyah-macdonald-commutative-algebra:page-0049}
+There is a unique isomorphism
+$S^{-1}M\otimes_{S^{-1}A}S^{-1}N\simeq S^{-1}(M\otimes_A N)$ with
+$(m/s)\otimes(n/t)\mapsto(m\otimes n)/(st)$; in particular
+$M_\p\otimes_{A_\p}N_\p\simeq(M\otimes_A N)_\p$.
+\uses{am-prop-3-5}
+\end{proposition}
+\begin{proof}
+Apply Proposition~\ref{am-prop-3-5} twice and the canonical associativity and
+symmetry isomorphisms of Proposition~\ref{am-prop-2-14}; pure tensors determine
+the result.
+\end{proof}
+
+\section{Local properties}
+\label{am-ch3-local-properties}
+\begin{definition}[Local property]
+\label{am-def-local-property}
+\source{atiyah-macdonald-commutative-algebra:page-0049}
+A property of a ring or module is local if it holds exactly when it holds after
+localizing at every prime (equivalently every maximal) ideal.
+\end{definition}
+\begin{proposition}[Vanishing detected locally]
+\label{am-prop-3-8}
+\dcref{3.8}
+\source{atiyah-macdonald-commutative-algebra:page-0049}
+For an $A$-module $M$, the following are equivalent: $M=0$;
+$M_\p=0$ for every prime $\p$; $M_\m=0$ for every maximal $\m$.
+\end{proposition}
+\begin{proof}
+Only the last implication needs proof.  If $x\ne0$, $\Ann(x)$ is proper and
+lies in a maximal $\m$.  If $x/1=0$ in $M_\m$, some element outside $\m$ kills
+$x$, contradicting $\Ann(x)\subseteq\m$.
+\uses{am-cor-1-4,am-def-module-localization}
+\end{proof}
+\begin{proposition}[Maps detected locally]
+\label{am-prop-3-9}
+\dcref{3.9}
+\source{atiyah-macdonald-commutative-algebra:page-0049}
+An $A$-linear map is injective (respectively surjective) iff all its
+localizations at primes (equivalently maximals) are injective (respectively
+surjective).
+\end{proposition}
+\begin{proof}
+Localization preserves exactness, giving the forward implication.  For
+injectivity apply Proposition~\ref{am-prop-3-8} to the kernel after observing
+that localization is exact.  Surjectivity is the same argument for the cokernel.
+\uses{am-prop-3-3,am-prop-3-8}
+\end{proof}
+\begin{proposition}[Flatness is local]
+\label{am-prop-3-10}
+\dcref{3.10}
+\source{atiyah-macdonald-commutative-algebra:page-0050}
+An $A$-module $M$ is flat iff $M_\p$ is flat over $A_\p$ for all primes,
+equivalently iff $M_\m$ is flat over $A_\m$ for all maximals.
+\end{proposition}
+\begin{proof}
+The forward implication follows from Proposition~\ref{am-prop-3-5} and the
+base-change stability of flatness.  Conversely, localize an injective map
+$N\to P$, tensor with $M$, and use Proposition~\ref{am-prop-3-9} together
+with Proposition~\ref{am-prop-3-7}; all localized maps are injective.
+\uses{am-prop-3-5,am-prop-3-7,am-prop-3-9,am-prop-2-19}
+\end{proof}
+
+\section{Extended and contracted ideals}
+\label{am-ch3-ideals}
+\begin{proposition}[Ideals and primes after localization]
+\label{am-prop-3-11}
+\dcref{3.11}
+\source{atiyah-macdonald-commutative-algebra:page-0050}
+Every ideal of $S^{-1}A$ is extended.  For an ideal $\aideal\subseteq A$,
+\[
+\aideal^{ec}=\bigcup_{s\in S}(\aideal:s),\qquad
+\aideal^e=(1)\Longleftrightarrow\aideal\cap S\ne\varnothing.
+\]
+The ideal is contracted iff no element of $S$ is a zero-divisor in $A/\aideal$.
+Prime ideals of $S^{-1}A$ correspond bijectively to primes of $A$ disjoint
+from $S$, by $\p\leftrightarrow S^{-1}\p$.  Localization commutes with finite
+sums, products, intersections, and radicals.
+\end{proposition}
+\begin{proof}
+If $\mathfrak b\subseteq S^{-1}A$ and $x/s\in\mathfrak b$, then $x/1\in\mathfrak b$,
+so $\mathfrak b=\mathfrak b^{ce}$.  Clearing denominators gives the union
+formula and the criterion for the unit ideal.  The contraction criterion is
+exactly the absence of $s\in S$ killing a nonzero class.  For a prime $\p$,
+$S^{-1}(A/\p)$ is a domain precisely when $\p$ misses $S$, yielding the prime
+correspondence.  The remaining operations follow from the definitions and
+Corollary~\ref{am-cor-3-4}.
+\uses{am-cor-3-4,am-prop-prime-max-quotient}
+\end{proof}
+\begin{corollary}[Nilradical after localization]
+\label{am-cor-3-12}
+\dcref{3.12}
+\source{atiyah-macdonald-commutative-algebra:page-0051}
+The nilradical of $S^{-1}A$ is $S^{-1}\Nil(A)$.
+\uses{am-prop-3-11,am-prop-1-8}
+\end{corollary}
+\begin{proof}
+Use preservation of radicals in Proposition~\ref{am-prop-3-11}.
+\end{proof}
+\begin{corollary}[Primes in a localized ring]
+\label{am-cor-3-13}
+\dcref{3.13}
+\source{atiyah-macdonald-commutative-algebra:page-0051}
+If $\p$ is prime, primes of $A_\p$ correspond to primes of $A$ contained in
+$\p$.
+\uses{am-prop-3-11}
+\end{corollary}
+\begin{proof}
+Apply the prime correspondence in Proposition~\ref{am-prop-3-11} with
+$S=A\setminus\p$.
+\end{proof}
+\begin{proposition}[Annihilators under localization]
+\label{am-prop-3-14}
+\dcref{3.14}
+\source{atiyah-macdonald-commutative-algebra:page-0052}
+If $M$ is finitely generated, then
+$S^{-1}\Ann(M)=\Ann(S^{-1}M)$.
+\end{proposition}
+\begin{proof}
+For a cyclic module $M\simeq A/\aideal$, Corollary~\ref{am-cor-3-4} identifies
+$S^{-1}M$ with $S^{-1}A/S^{-1}\aideal$, whose annihilator is $S^{-1}\aideal$.
+For a finite sum of cyclic submodules use
+$\Ann(M+N)=\Ann(M)\cap\Ann(N)$ and Corollary~\ref{am-cor-3-4}, then induct.
+\uses{am-cor-3-4,am-def-ann-module}
+\end{proof}
+\begin{corollary}[Ideal quotients under localization]
+\label{am-cor-3-15}
+\dcref{3.15}
+\source{atiyah-macdonald-commutative-algebra:page-0052}
+If $P$ is finitely generated, then
+$S^{-1}(N:P)=(S^{-1}N:S^{-1}P)$.
+\uses{am-prop-3-14}
+\end{corollary}
+\begin{proof}
+$(N:P)=\Ann((N+P)/N)$; apply Proposition~\ref{am-prop-3-14} to this finite
+module and use Corollary~\ref{am-cor-3-4}.
+\end{proof}
+\begin{proposition}[Criterion for a prime to be extended]
+\label{am-prop-3-16}
+\dcref{3.16}
+\source{atiyah-macdonald-commutative-algebra:page-0052}
+For $f:A\to B$ and $\p\in\Spec A$, $\p$ is the contraction of a prime of
+$B$ iff $\p^{ec}=\p$.
+\end{proposition}
+\begin{proof}
+If $\p=\q^c$, Proposition~\ref{am-prop-1-17} gives $\p^{ec}=\p$.  Conversely,
+let $S$ be the image of $A\setminus\p$ in $B$.  The equality means
+$\p^e$ misses $S$; its extension to $S^{-1}B$ is proper and lies in a maximal
+ideal.  Contracting that maximal ideal gives a prime of $B$ contracting to
+$\p$.
+\uses{am-prop-1-17,am-prop-3-11,am-thm-1-3}
+\end{proof}

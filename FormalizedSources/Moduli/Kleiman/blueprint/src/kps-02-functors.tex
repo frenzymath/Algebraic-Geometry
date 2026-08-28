@@ -1,0 +1,115 @@
+% Kleiman, The Picard Scheme, Section 2 (printed pp. 16--21).
+\section{The several Picard functors}\label{kps-sec-functors}
+
+\begin{definition}[Absolute Picard functor]\label{kps-def-absolute}
+\dcref{2.1}\source{kleiman-picard:page-0016}
+For an $S$-scheme $X$, the absolute functor is
+\[\Pic_X(T)=\Pic(X_T)\]
+on locally Noetherian $S$-schemes. It preserves disjoint unions by products.
+\end{definition}
+
+The absolute functor is not a separated Zariski presheaf: a line bundle on a
+base can become trivial after an open cover while its pullback to $X$ remains
+nontrivial (take $T=\PP^1_X$ and $\OO_T(1)$). Since representable functors are
+Zariski, etale, and fppf sheaves, $\Pic_X$ is never representable.
+\source{kleiman-picard:page-0016}
+
+\begin{definition}[Relative Picard functors]\label{kps-def-relative}
+\dcref{2.2}\source{kleiman-picard:page-0017}
+Set
+\[\Pic_{X/S}(T)=\Pic(X_T)/\Pic(T).\]
+Its associated Zariski, etale, and fppf sheaves are denoted
+$\Pic_{(X/S)\mathrm{zar}}$, $\Pic_{(X/S)\etale}$, and
+$\Pic_{(X/S)\mathrm{fppf}}$. A point of an associated sheaf is represented
+after the corresponding cover by a line bundle, with isomorphism on a cover
+of overlaps; two representatives agree exactly after a further cover.
+\end{definition}
+
+\begin{remark}[Local comparisons]\label{kps-rmk-local-comparisons}
+\source{kleiman-picard:page-0017}
+The five presheaves (absolute, relative, and the three sheafifications) map
+naturally in succession. The associated sheaves are all sheafifications of
+$\Pic_X$ as well as of $\Pic_{X/S}$.
+\end{remark}
+
+\begin{remark}[Local bases]\label{kps-ex-local-bases}
+\source{kleiman-picard:page-0017}
+For a local ring $A$, the natural maps
+$\Pic_X(A)\to\Pic_{X/S}(A)\to\Pic_{(X/S)\mathrm{zar}}(A)$ are
+isomorphisms. For an Artin local ring with algebraically closed residue field,
+$\Pic_X(A)\risom\Pic_{(X/S)\etale}(A)$, and for an algebraically closed field
+$k$, $\Pic_X(k)\risom\Pic_{(X/S)\mathrm{fppf}}(k)$.
+\end{remark}
+
+\begin{theorem}[Comparison]\label{kps-thm-comparison}
+\dcref{2.5}\source{kleiman-picard:page-0018}
+Assume universally $\OO_S\risom f_*\OO_X$. Then
+\[\Pic_{X/S}\hookrightarrow\Pic_{(X/S)\mathrm{zar}}\hookrightarrow
+\Pic_{(X/S)\etale}\hookrightarrow\Pic_{(X/S)\mathrm{fppf}}.\]
+If $f$ has a section, all maps are isomorphisms; if it has a Zariski-local
+section, the first two are isomorphisms; and an etale-local section makes the
+last map an isomorphism.
+\uses{kps-def-relative}
+\end{theorem}
+\begin{proof}
+Let a relative class be represented by $\LL$ and become trivial fppf-locally.
+After a faithfully flat cover it is $f^*\NN$. The fully faithful pullback lemma
+below gives $f_*\LL\risom\NN$ and $f^*f_*\LL\risom\LL$; faithful flat descent
+then gives the same assertions on the base, proving injectivity. If a section
+$g$ exists, rigidify a representative by replacing $\MM$ with
+$\MM\ox f^*g^*\MM^{-1}$. Rigidified line bundles have no nontrivial
+automorphisms, so the fppf descent datum is effective and gives a global
+relative class. The local-section cases follow by sheaf locality.
+\uses{kps-lem-fully-faithful,kps-lem-rigidification,kps-lem-rigidified-auto}
+\end{proof}
+
+\begin{lemma}[Fully faithful pullback]\label{kps-lem-fully-faithful}
+\dcref{2.7}\source{kleiman-picard:page-0018}
+Under $\OO_S\risom f_*\OO_X$, pullback is fully faithful on finite-rank locally
+free sheaves. Its essential image consists of $\MM$ for which $f_*\MM$ is
+locally free and $f^*f_*\MM\to\MM$ is an isomorphism.
+\end{lemma}
+\begin{proof}
+The projection formula and the universal identity $\OO_S\risom f_*\OO_X$
+give $\NN\risom f_*f^*\NN$. Applying this to $\SHom(\NN,\NN')$ proves
+full faithfulness. The two conditions characterize the essential image by the
+adjunction map.
+\end{proof}
+
+\begin{definition}[Rigidification]\label{kps-def-rigidification}
+\dcref{2.8}\source{kleiman-picard:page-0019}
+If $g$ is a section of $f$, a $g$-rigidification of an invertible sheaf $\LL$
+on $X_T$ is an isomorphism $\OO_T\risom g_T^*\LL$.
+\end{definition}
+
+\begin{lemma}[Rigidified representatives]\label{kps-lem-rigidification}
+\dcref{2.9}\source{kleiman-picard:page-0019}
+The group of isomorphism classes of pairs $(\LL,u)$ consisting of an invertible
+sheaf on $X_T$ and a $g$-rigidification maps isomorphically to
+$\Pic_{X/S}(T)$.
+\end{lemma}
+\begin{proof}
+Given $\MM$, use $\LL=\MM\ox f_T^*g_T^*\MM^{-1}$ and the evident
+trivialization along $g$. Conversely, an isomorphism to $f_T^*\NN$ becomes an
+isomorphism of rigidified pairs after pulling back along $g$, so the kernel is
+trivial.
+\end{proof}
+
+\begin{lemma}[Rigidified automorphisms]\label{kps-lem-rigidified-auto}
+\dcref{2.10}\source{kleiman-picard:page-0019}
+Under the hypotheses of the comparison theorem, every automorphism of a
+rigidified pair is the identity.
+\end{lemma}
+\begin{proof}
+An automorphism is multiplication by a global unit on $X_T$. The universal
+identity identifies this unit with one on $T$, and the rigidification forces it
+to be $1$.
+\end{proof}
+
+\begin{remark}[Cohomological interpretation]\label{kps-rmk-cohomology}
+\source{kleiman-picard:page-0021}
+The identity $\Pic(R)=H^1(R,\OO_R^*)$, the Leray low-degree sequence, and
+Hilbert 90 identify the relative etale and fppf functors. The obstruction to
+lifting a relative etale class to a line bundle is in $\Br'(T)$; smoothness of
+$\Gm$ makes etale and fppf cohomology agree.
+\end{remark}

@@ -1,0 +1,198 @@
+% Section 4, printed pp. 26--35.
+\section{The Picard scheme}\label{kps-sec-scheme}
+
+\begin{definition}[Picard scheme]\label{kps-def-picard-scheme}
+\dcref{4.1}\source{kleiman-picard:page-0026}
+If one of the relative Picard functors is representable, its representing
+scheme is the Picard scheme $\IPic_{X/S}$. Representability of the etale
+sheaf implies representability of the fppf sheaf; any representing functor is
+therefore uniquely the same scheme.
+\end{definition}
+
+\begin{definition}[Abel map]\label{kps-def-abel-map}
+\dcref{4.6}\source{kleiman-picard:page-0027}
+When $\IPic_{X/S}$ exists, the universal line bundle (when available) sends a
+relative effective divisor to its class, defining the Abel map
+$A_{X/S}:\Div_{X/S}\to\IPic_{X/S}$.
+\end{definition}
+
+\begin{theorem}[Main Picard representability theorem]\label{kps-thm-main}
+\dcref{4.8}\source{kleiman-picard:page-0027}
+Assume $f:X\to S$ is projective Zariski locally over $S$, flat, and has
+integral geometric fibers. Then $\IPic_{X/S}$ exists, is separated and locally
+of finite type over $S$, and represents $\Pic_{(X/S)\etale}$. If $S$ is
+Noetherian and $X/S$ is projective, it is a disjoint union of open subschemes,
+each an increasing union of open quasi-projective $S$-schemes.
+\uses{kps-def-picard-scheme,kps-def-relative,kps-def-abel-map,kps-thm-divisor-representability,kps-thm-linear-systems,kps-lem-quotient}
+\end{theorem}
+\begin{proof}
+The assertion is local on $S$, so first reduce to the Noetherian projective
+case. Write $P=\Pic_{(X/S)\etale}$. For a polynomial $\phi$, let $P^\phi$
+be the etale subsheaf of classes represented by $\LL$ with
+\[
+  \chi(X_t,\LL_t^{-1}(n))=\phi(n)\quad\text{for every }t\text{ and }n.
+\]
+This condition is invariant under etale base change by flat base change for
+fiber cohomology. Given $T\to P$ represented by $\LL'$ on an etale cover
+$T'\to T$, the subset
+\[
+ T'^\phi=\{t'\mid \chi(X_{t'},\LL_{t'}'^{-1}(n))=\phi(n)\text{ for all }n\}
+\]
+is open by semicontinuity. Isomorphic pullbacks on an etale cover of
+$T'\times_TT'$ show $T'^\phi$ is the inverse image of an open $T^\phi\subset T$.
+The same descent argument shows that $T^\phi$ represents
+$P^\phi\times_PT$. Thus the $P^\phi$ are disjoint open subfunctors covering
+$P$.
+
+For $m\in\mathbb Z$, let $P_m^\phi$ impose in addition
+\[
+ R^if_{T*}(\LL(n))=0\quad(i\ge1,\ n\ge m).
+\]
+By the cohomology-and-base-change criterion this is equivalent to
+\[
+ H^i(X_t,\LL_t(n))=0\quad(i\ge1,\ n\ge m,\ t\in T).
+\]
+Indeed, fiberwise vanishing implies the direct-image vanishing; conversely,
+descending induction on $i$, starting with Serre vanishing, uses the long exact
+sequence after tensoring by an arbitrary quasi-coherent module and then by
+$k(t)$ to recover the fiber vanishing. Flat base change preserves the latter
+condition, so $P_m^\phi$ is well defined. Serre's finiteness theorem makes the
+vanishing locus open, and the $P_m^\phi$ form a nested cover of $P^\phi$.
+
+Put $\phi_0(n)=\phi(m+n)$. Tensoring by $\mathcal O_X(m)$ gives an isomorphism
+$P_m^\phi\simeq P_0^{\phi_0}$. It remains to represent the latter. After
+replacing $S$ by an open-and-closed piece, assume
+$\psi(n)=\chi(X_s,\mathcal O_{X_s}(n))$ is constant. Form
+\[
+ Z=P_0^{\phi_0}\times_P\Div_{X/S},\qquad
+ \theta(n)=\psi(n)-\phi_0(n).
+\]
+By representability of relative divisors, $Z$ is an open subscheme of
+$\Div_{X/S}$ and lies in the projective Hilbert-polynomial stratum
+$\Hilb_{X/S}^{\theta}$; hence it is quasi-projective.
+
+We check that $\alpha:Z\to P_0^{\phi_0}$ is an etale-sheaf surjection. Take
+$\lambda\in P_0^{\phi_0}(T)$, represented by $\LL'$ on an etale cover
+$T'\to T$. The pullback $T'\times_{P_0^{\phi_0}}Z$ is the linear-system
+functor for $\LL'$, hence is $\PP(\QQ)$ by Theorem~3.13. Here
+$H^1(X_t,\LL'_t)=0$, so the module $\QQ$ is locally free. Therefore
+$\PP(\QQ)\to T'$ is smooth and has an etale-local section, producing an
+etale cover $T_1\to T$ and a lift $T_1\to Z$ of $\lambda$. Thus $\alpha$ is
+surjective. Taking $T=Z$ in the same argument shows that
+$R=Z\times_{P_0^{\phi_0}}Z$ is a scheme and that $R\to Z$ is smooth and
+proper. Lemma~4.9 now represents $P_0^{\phi_0}$ by a quasi-projective scheme.
+Consequently every $P_m^\phi$ is an increasing union of open quasi-projective
+schemes, and their disjoint union represents $P$. The construction also gives
+separatedness and local finite type, proving both assertions.
+\end{proof}
+
+\begin{lemma}[Quotient lemma]\label{kps-lem-quotient}
+\dcref{4.9}\source{kleiman-picard:page-0030}
+Let $\alpha:Z\to P$ be a surjection of etale sheaves and
+$R=Z\times_P Z$. If $Z$ is a quasi-projective $S$-scheme, $R$ is representable,
+and $R\to Z$ is smooth and proper, then $P$ is represented by a
+quasi-projective $S$-scheme and $\alpha$ is smooth.
+\end{lemma}
+\begin{proof}
+The map $R\to Z\times_S Z$ is a proper monomorphism, hence a closed
+immersion, and defines a flat proper equivalence relation. The Hilbert-scheme
+construction of the quotient gives a faithfully flat projective map $Z\to Q$
+with $R=Z\times_QZ$. Fiberwise smoothness of $R\to Z$ implies $Z\to Q$ is
+smooth. It is an etale-sheaf surjection, so both $Q$ and $P$ are the
+coequalizer of $R\rightrightarrows Z$ and are uniquely isomorphic.
+\end{proof}
+
+\begin{remark}[Quotient criterion]\label{kps-ex-quotient-criterion}
+\source{kleiman-picard:page-0031}
+A map of etale sheaves is a surjection exactly when its target is the
+coequalizer of $F\times_G F\rightrightarrows F$.
+\end{remark}
+\begin{remark}[Finite type subschemes]\label{kps-ex-quasi-projective}
+\source{kleiman-picard:page-0031}
+Every finite-type subscheme of $\IPic_{X/S}$ under the hypotheses of Theorem
+4.8 is quasi-projective.
+\end{remark}
+\begin{remark}[Abel map properness]\label{kps-ex-abel-proper}
+\source{kleiman-picard:page-0031}
+If a Poincare sheaf exists, the Abel map is projective Zariski locally; in
+general it is proper after base change and descent.
+\end{remark}
+\begin{remark}[Curve Abel embedding]\label{kps-ex-curve-abel}
+\source{kleiman-picard:page-0031}
+For a flat locally projective family of integral curves of genus at least one,
+the smooth locus embeds naturally as a closed subscheme in the Picard scheme.
+\end{remark}
+
+\begin{example}[Mumford's nonintegral-fiber obstruction]\label{kps-ex-mumford}
+\dcref{4.14}\source{kleiman-picard:page-0031}
+For $S=\Spec\mathbb R[[t]]$ and the conic $x^2+y^2=t$, the special geometric
+fiber splits into conjugate lines. After extending to $\mathbb C[[t]]$, the
+relative Picard functor is a disjoint union of nonseparated schemes obtained by
+gluing copies of the base at the closed point, indexed by multidegrees. The
+conjugate branches cannot lie in one affine open, so descent would contradict
+affineness; consequently the Picard functor over $S$ is not representable.
+\end{example}
+
+\begin{proposition}[Local finite type]\label{kps-prop-lft}
+\dcref{4.17}\source{kleiman-picard:page-0033}
+If $\IPic_{X/S}$ exists and represents the fppf Picard sheaf, then it is locally
+of finite type over $S$.
+\end{proposition}
+\begin{proof}
+The Hilbert-polynomial decomposition in the proof of Theorem 4.8 is locally
+finite type, and the open pieces cover the Picard scheme.
+\end{proof}
+
+\begin{theorem}[Mumford's reduced-fiber representability]\label{kps-thm-mumford}
+\dcref{4.18.1}\source{kleiman-picard:page-0033}
+If $X/S$ is projective and flat with reduced connected geometric fibers, and the
+irreducible components of ordinary fibers are geometrically irreducible, then
+the Picard scheme exists.
+\notready
+\end{theorem}
+
+\begin{theorem}[Generic representability]\label{kps-thm-relative-representability}
+\dcref{4.18.2}\source{kleiman-picard:page-0034}
+If $X/S$ is proper and $S$ is integral, there is a nonempty open $V\subset S$
+such that $\IPic_{X_V/V}$ exists, represents the fppf Picard functor, and is a
+disjoint union of open quasi-projective subschemes.
+\notready
+\end{theorem}
+
+\begin{corollary}[Complete varieties]\label{kps-cor-complete-representability}
+\dcref{4.18.3}\source{kleiman-picard:page-0034}
+If $X$ is complete over a field, then $\IPic_{X/k}$ exists, represents the fppf
+Picard functor, and is a disjoint union of open quasi-projective subschemes.
+\uses{kps-thm-relative-representability}
+\end{corollary}
+
+\begin{theorem}[Flattening stratification]\label{kps-thm-flattening}
+\dcref{4.18.4}\source{kleiman-picard:page-0035}
+For proper $X/S$ and a coherent sheaf $\mathcal F$, the functor of $S$-schemes
+over which $\mathcal F$ becomes flat is represented by an unramified finite-type
+$S$-scheme.
+\notready
+\end{theorem}
+
+\begin{theorem}[Relative representability map]\label{kps-thm-relative-map}
+\dcref{4.18.5}\source{kleiman-picard:page-0035}
+If $S$ is integral and $X'\to X$ is a surjective map of proper $S$-schemes,
+then over a nonempty open $V\subset S$ the induced map of fppf Picard functors
+is representable by quasi-affine maps of finite type.
+\notready
+\end{theorem}
+
+\begin{theorem}[Artin's algebraic-space representability]\label{kps-thm-algebraic-space}
+\dcref{4.18.6}\source{kleiman-picard:page-0036}
+For a flat proper finitely presented map of algebraic spaces with formation of
+$f_*\mathcal O_X$ commuting with base change, the Picard functor exists as an
+algebraic space locally of finite presentation over $S$.
+\notready
+\end{theorem}
+
+\begin{remark}[Flattening and algebraic spaces]\label{kps-rmk-existence}
+\source{kleiman-picard:page-0035}
+The relative representability theorem follows from flattening stratifications
+and Chow's lemma. The algebraic-space version removes projectivity; its proof
+uses the same Hilbert and quotient constructions.
+\end{remark}

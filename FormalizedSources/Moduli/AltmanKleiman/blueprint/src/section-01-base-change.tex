@@ -1,0 +1,216 @@
+\section{Base-change for local Ext}
+
+\begin{definition}[The module $H(\II,\FF)$]
+\label{akcp-1-1-H}
+\dcref{1.1}
+\source{MR0555258-compactifying-picard:page-0005}
+Let $f:X\to S$ be finitely presented and proper, let $\II$ and $\FF$ be
+locally finitely presented $\OO_X$-modules, with $\FF$ flat over $S$.  There
+are a locally finitely presented $\OO_S$-module $H(\II,\FF)$ and a universal
+map $h(\II,\FF):\II\to\FF\otimes f^*H(\II,\FF)$ representing
+$M\mapsto\Hom_X(\II,\FF\otimes f^*M)$ on quasi-coherent $\OO_S$-modules.
+For every $T\to S$ and quasi-coherent $M$ the Yoneda map
+\[
+\Hom_T(H(\II,\FF)_T,M)\longrightarrow
+\Hom_{X_T}(\II_T,\FF_T\otimes M)
+\]
+is an isomorphism, and formation of the pair commutes with base change.
+\end{definition}
+
+\begin{proof}
+The assertion is local on $S$.  After taking $S$ affine, noetherian
+approximation descends $(X,\II,\FF)$ to a noetherian base, where the standard
+coherent representability theorem for proper morphisms gives $H$ and $h$ and
+its arbitrary-base-change compatibility.  Descent back to $S$ proves the
+claim.  Tensoring both arguments by an invertible $\OO_S$-module gives the
+canonical identification
+\[
+H(\II\otimes f^*\LL,\FF\otimes f^*\LL)\simeq H(\II,\FF).
+\]
+The construction is covariant in $\II$, contravariant in $\FF$, and right
+exact in either variable.  Applying right exactness to the variable module
+gives $H(\II,\FF)\otimes M\simeq H(\II\otimes f^*M,\FF)$.
+\end{proof}
+
+\begin{lemma}[Acyclic cover]
+\label{akcp-1-2-acyclic-cover}
+\dcref{1.2}
+\source{MR0555258-compactifying-picard:page-0006}
+For every $\OO_X$-module $\II$ there is a surjection $\JJ\twoheadrightarrow\II$
+such that, for every $g:Y\to X$ and quasi-coherent $\FF$, $g^*\JJ$ is acyclic
+for $\Hom_Y(-,\FF)$.
+\end{lemma}
+\begin{proof}
+Choose affine opens $U$ meeting every stalk of $\II$ and sections generating
+those stalks.  The direct sum of the extensions by zero of the corresponding
+free modules surjects onto $\II$.  Pullback commutes with this direct sum and
+extension by zero.  Since $g^{-1}U$ is affine,
+\[
+\Ext_Y^q(g^*\JJ,\FF)=\prod_U H^q(g^{-1}U,\FF|_{g^{-1}U})=0\quad(q>0).
+\]
+\end{proof}
+
+\begin{theorem}[Local freeness criterion]
+\label{akcp-1-3-local-free}
+\dcref{1.3}
+\source{MR0555258-compactifying-picard:page-0006}
+\uses{akcp-1-1-H,akcp-1-2-acyclic-cover}
+Let $f:X\to S$ be finitely presented and proper and let $\II,\FF$ be locally
+finitely presented and $S$-flat.  If
+$\Ext^1_{X(s)}(\II(s),\FF(s))=0$ at $s\in S$, then some open retrocompact
+neighborhood $U$ of $s$ has $H(\II,\FF)|_U$ locally free of finite rank.
+\end{theorem}
+\begin{proof}
+The assertion is local on $S$ and descends by noetherian approximation, so
+take $S=\Spec A$ with $A$ noetherian local and closed point $s$.  Use the
+acyclic-cover lemma in an exact sequence
+$0\to\KK\to\JJ\to\II\to0$.  Restriction to $X(s)$ remains exact by flatness.
+The diagram of Hom and Ext sequences, together with the assumed vanishing and
+the adjunction isomorphisms, gives
+$\Ext^1_X(\II,\FF\otimes k(s))=0$.  The half-exact functor
+$T(M)=\Ext^1_X(\II,\FF\otimes M)$ therefore vanishes on every finite
+$A$-module.  Hence $M\mapsto\Hom_A(H(\II,\FF),M)$ is exact, so the finitely
+presented module $H(\II,\FF)$ is free at $s$.  Shrinking to the open locus of
+local freeness, which is retrocompact after noetherian approximation, proves
+the result.
+\end{proof}
+
+\begin{lemma}[Free presentation on an affine morphism]
+\label{akcp-1-4-free-presentation}
+\dcref{1.4}
+\source{MR0555258-compactifying-picard:page-0007}
+If $f:X\to S$ is finitely presented and affine and $\II$ is finitely presented
+and $S$-flat, there is an exact sequence
+$0\to\KK\to\JJ\to\II\to0$ with $\KK,\JJ$ finitely presented and $\JJ$
+free.
+\end{lemma}
+\begin{proof}
+Descend to a noetherian affine approximation.  There a finite presentation of
+the module has a finite free middle term; flatness preserves exactness after
+pullback to $S$.
+\end{proof}
+
+\begin{lemma}[Ext and inverse limits]
+\label{akcp-1-5-ext-limits}
+\dcref{1.5}
+\source{MR0555258-compactifying-picard:page-0007}
+Let $X_0\to S_0$ be finitely presented affine, $S=\varprojlim S_\lambda$ a
+projective limit, and let $\II_0,\FF_0$ be finitely presented modules with
+$\II_0$ $S_0$-flat for $q>1$ and $X_0$ $S_0$-flat for $q>2$.  For the induced
+objects on $X$, the canonical map
+\[
+\varinjlim_\lambda\Ext^q_{X_\lambda}(\II_\lambda,\FF_\lambda)
+\;\xrightarrow{\sim}\;\Ext^q_X(\II,\FF)
+\]
+is an isomorphism.
+\end{lemma}
+\begin{proof}
+For $q=0$ this is finite-presentation Hom and limit compatibility.  For $q=1$
+use the free presentation of \cref{akcp-1-4-free-presentation}; the resulting
+Hom diagrams have exact rows because the free term is affine-acyclic, and the
+$q=0$ case identifies the limits.  For $q>1$ use the same presentation and
+induct on $q$; flatness of $X_0$ makes the free term flat, hence the kernel is
+flat and the induction applies.  Homotopy of two free presentations shows that
+the dotted maps are canonical.
+\end{proof}
+
+\begin{lemma}[Affine change of rings]
+\label{akcp-1-6-change-rings}
+\dcref{1.6}
+\source{MR0555258-compactifying-picard:page-0009}
+For a finitely presented $A$-algebra $B$ and finitely presented $B$-modules
+$M,N$, if $M$ is $A$-flat for $q\ge1$ and $B$ is $A$-flat for $q\ge2$, then
+\[
+\Ext_B^q(M,N)\simeq\Ext_A^q(\widetilde M,\widetilde N),
+\]
+canonically, where the tildes denote the underlying $A$-modules.
+\end{lemma}
+\begin{proof}
+The case $q=0$ is the finite-presentation Hom adjunction.  A finite free
+presentation of $M$ and induction on $q$ give the higher cases exactly as in
+\cref{akcp-1-5-ext-limits}.
+\end{proof}
+
+\begin{lemma}[Adjunction for local Ext]
+\label{akcp-1-7-ext-adjunction}
+\dcref{1.7}
+\source{MR0555258-compactifying-picard:page-0009}
+\uses{akcp-1-4-free-presentation,akcp-1-5-ext-limits}
+For $f:X\to S$ finitely presented, $\II,\FF$ locally finitely presented, and
+$g:T\to S$, there is a functorial adjunction isomorphism
+\[
+\Ext^q_X\bigl(\II,(1\times g)_*(\FF_T\otimes M)\bigr)
+\simeq (1\times g)_*\Ext^q_{X_T}(\II_T,\FF_T\otimes M),
+\]
+provided $\II$ is $S$-flat for $q\ge1$ and $f$ is flat for $q\ge2$.
+\end{lemma}
+\begin{proof}
+For $q=0$ this is ordinary adjunction.  Resolve $\II$ by a finite free
+presentation locally and use induction, with the preceding change-of-rings and
+limit compatibilities; all constructions commute with further base changes.
+\end{proof}
+
+\begin{definition}[Base-change map]
+\label{akcp-1-8-base-change-map}
+\dcref{1.8}
+\source{MR0555258-compactifying-picard:page-0009}
+\uses{akcp-1-7-ext-adjunction}
+Under the hypotheses of \cref{akcp-1-7-ext-adjunction}, the canonical map
+$\FF\to(1\times g)_*(1\times g)^*\FF$ and tensor adjunction define
+\[
+b^q(M):\Ext_X^q(\II,\FF)\otimes M\longrightarrow
+\Ext_{X_T}^q(\II_T,\FF_T\otimes M).
+\]
+It is compatible with restrictions, localizations, further base change and the
+limits above; if $g$ is flat it is an isomorphism.
+\end{definition}
+
+\begin{theorem}[Property of exchange]
+\label{akcp-1-9-exchange}
+\dcref{1.9}
+\source{MR0555258-compactifying-picard:page-0010}
+\uses{akcp-1-8-base-change-map}
+Let $\FF$ be $S$-flat and assume the flatness hypotheses of
+\cref{akcp-1-8-base-change-map}.  If the fiber map
+$b^q(k(s))$ is surjective at $x\in X(s)$, then for every $g:T\to S$ and
+quasi-coherent $M$, $b^q(M)$ is an isomorphism at every point over $x$.
+Moreover the following are equivalent: (1) $b^{q-1}(k(s))$ is surjective at
+$x$; (2) all $b^{q-1}(M)$ are isomorphisms over $x$ after arbitrary base change;
+(3) $\Ext_X^{q-1}(\II,\FF)$ is $S$-flat at $x$.
+\end{theorem}
+\begin{proof}
+Approximate by noetherian schemes and descend surjectivity to one stage using
+finite generation.  Localize at $s,x,t$ and put
+$R(N)=\Ext^q_{X_t}(\II_t,\FF_t\otimes N)$.  Surjectivity on the residue
+field and Nakayama's lemma give $R(\OO_{S,s})\otimes N\twoheadrightarrow R(N)$;
+adjunction identifies this map with $b^q(M)$, proving (i).  For (ii), tensor an
+arbitrary short exact sequence and compare its long Ext sequences.  If the
+base-change maps are isomorphisms, the tensor map is injective and the Ext
+module is flat.  Conversely flatness makes the connecting map injective; use
+$M=\OO_S$, $M''=k(s)$ to obtain surjectivity on the fiber.\end{proof}
+
+\begin{theorem}[Open vanishing and exchange loci]
+\label{akcp-1-10-open-ext}
+\dcref{1.10}
+\source{MR0555258-compactifying-picard:page-0012}
+\uses{akcp-1-9-exchange}
+With $f,\II,\FF$ as above, (i) the locus where
+$\Ext^q_{X(s)}(\II(s),\FF(s))=0$ is open and retrocompact, and over it all
+base-changed $\Ext^q(\II,\FF\otimes M)$ vanish.  (ii) For fixed $c$, the locus
+where the fiber Ext groups in degrees $c+1,c-1$ vanish is open and
+retrocompact; $\Ext^c_X(\II,\FF)$ is finitely presented and flat there and all
+$b^c(M)$ are isomorphisms.  (iii) If $N\mapsto\Ext^q_X(\II,\FF\otimes N)$ is
+right exact, all $b^q(M)$ are isomorphisms; if it is exact, the same holds in
+degree $q-1$ and $\Ext^q_X(\II,\FF)$ is $S$-flat.
+\end{theorem}
+\begin{proof}
+The vanishing locus upstairs is open and retrocompact by the local Ext
+semicontinuity theorem; properness carries the complement of its fiberwise
+image to a closed set.  Apply \cref{akcp-1-9-exchange} to obtain (i).  Apply it
+in degrees $c+1$ and $c$ to get (ii), with finite presentation from the standard
+local Ext theorem.  For (iii), pull back to $\Spec k(s)$ and use the exact
+sequence $0\to\OO_S\to g_*\OO_{k(s)}\to\Coker\to0$; right exactness gives
+surjectivity on each fiber, so exchange applies.  Exactness implies right
+exactness in adjacent degree and then flatness by the equivalence in
+\cref{akcp-1-9-exchange}.
+\end{proof}

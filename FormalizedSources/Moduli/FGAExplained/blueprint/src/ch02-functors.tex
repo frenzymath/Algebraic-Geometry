@@ -1,0 +1,248 @@
+\section{Representable functors and the Yoneda lemma}
+\source{fga-explained:page-0023}\source{fga-explained:page-0024}\source{fga-explained:page-0025}\source{fga-explained:page-0026}\source{fga-explained:page-0027}\source{fga-explained:page-0028}\source{fga-explained:page-0029}\source{fga-explained:page-0030}\source{fga-explained:page-0031}\source{fga-explained:page-0032}\source{fga-explained:page-0033}\source{fga-explained:page-0034}\source{fga-explained:page-0035}\source{fga-explained:page-0036}\source{fga-explained:page-0037}\source{fga-explained:page-0038}\source{fga-explained:page-0039}\source{fga-explained:page-0040}
+
+For a category $\mathcal C$ and $X\in\mathcal C$, put
+$h_X(U)=\Hom_{\mathcal C}(U,X)$.  A morphism $X\to Y$ induces a natural
+transformation $h_X\to h_Y$ by composition.
+
+\begin{definition}[representable functor]\label{fga-def-2-1}\dcref{2.1}\source{fga-explained:page-0023}\uses{}
+A contravariant set-valued functor $F$ on $\mathcal C$ is representable if it
+is isomorphic to $h_X$ for some $X$; then $X$ is a representing object.
+\end{definition}\begin{theorem}[Yoneda]\label{fga-thm-2-1}\source{fga-explained:page-0024}\uses{fga-def-2-1}
+For every $X\in\mathcal C$ and contravariant functor $F$ there is a natural
+bijection $\operatorname{Nat}(h_X,F)\simeq F(X)$.  A transformation is sent
+to the image of $\operatorname{id}_X$, and $a\in F(X)$ gives the transformation
+$f:U\to X\mapsto F(f)(a)$.  In particular
+$\Hom_{\mathcal C}(X,Y)\simeq\operatorname{Nat}(h_X,h_Y)$.
+\end{theorem}
+\begin{proof}
+The two constructions are inverse by naturality: evaluating the transformation
+associated to $a$ at $\operatorname{id}_X$ returns $a$, while naturality at
+$f:U\to X$ recovers its value on $f$.
+\end{proof}
+
+\begin{definition}[universal object]\label{fga-def-2-2}\dcref{2.2}\source{fga-explained:page-0025}\uses{fga-thm-2-1}
+A universal object for $F$ is a pair $(X,\xi)$ with $\xi\in F(X)$ such that
+for every $U$ and $a\in F(U)$ there is a unique $f:U\to X$ with
+$F(f)(\xi)=a$.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-3}\dcref{2.3}\source{fga-explained:page-0025}\uses{fga-def-2-2,fga-thm-2-1}
+$F$ is representable if and only if it has a universal object.
+\end{proposition}
+\begin{proof}
+The element corresponding to an isomorphism $h_X\to F$ is universal.  A
+universal element defines the Yoneda isomorphism $h_X\to F$.
+\end{proof}
+
+\begin{remark}[uniqueness of representing objects]\label{fga-rem-2-4}\source{fga-explained:page-0025}\uses{fga-thm-2-1}
+Representing objects are unique up to a unique isomorphism, and the functor
+$X\mapsto h_X$ is fully faithful.
+\end{remark}
+
+The functors of functions, invertible functions, generated invertible quotients,
+relative projective space, and locally free rank-$r$ quotients are represented
+respectively by affine space, $\mathbb G_m$, projective space, $\Proj\operatorname{Sym}
+\mathcal M$, and a relative Grassmannian.  These examples fix the functor-of-
+points interpretation used throughout the volume.
+
+\section{Group objects}
+\source{fga-explained:page-0028}\source{fga-explained:page-0029}\source{fga-explained:page-0030}\source{fga-explained:page-0031}\source{fga-explained:page-0032}\source{fga-explained:page-0033}\source{fga-explained:page-0034}
+
+\begin{definition}[group object]\label{fga-def-2-11}\dcref{2.11}\source{fga-explained:page-0042}\uses{}
+In a category with finite products, a group object $G$ consists of multiplication
+$m:G\times G\to G$, identity $e:1\to G$, and inverse $i:G\to G$ satisfying
+the usual associative, unit, and inverse diagrams.
+\end{definition}\begin{proposition}\label{fga-prop-2-12}\dcref{2.12}\source{fga-explained:page-0042}\uses{fga-def-2-11,fga-thm-2-1}
+For every object $U$, the set $G(U)$ is a group, functorially in $U$; conversely
+a representable group-valued functor gives a unique group-object structure.
+\end{proposition}
+\begin{proof}
+Evaluate the structure diagrams on $U$ and use Yoneda for the converse.
+\end{proof}
+
+\begin{definition}[group-object homomorphism]\label{fga-def-2-13}\dcref{2.13}\source{fga-explained:page-0042}\uses{fga-def-2-11}
+A morphism of group objects is a map commuting with multiplication, identity,
+and inverse (equivalently, it induces group homomorphisms on all functor-of-
+points groups).
+\end{definition}
+
+\begin{definition}[action]\label{fga-def-2-15}\dcref{2.15}\source{fga-explained:page-0044}\uses{fga-def-2-11}
+A left action of a group-valued functor $G$ on a set-valued functor $F$ is a
+natural transformation $G\times F\to F$ whose value at each $U$ is a group
+action.  An action of a group object on $X$ means an action of $h_G$ on $h_X$.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-16}\dcref{2.16}\source{fga-explained:page-0044}\uses{fga-def-2-15,fga-thm-2-1}
+An action of $G$ on $X$ is equivalently a map $a:G\times X\to X$ satisfying
+$a(e,x)=x$ and $a(g_1,a(g_2,x))=a(m(g_1,g_2),x)$.
+\end{proposition}
+\begin{proof}
+The two displayed action diagrams become the ordinary action axioms after
+evaluation on every test object; Yoneda then identifies the natural maps.
+\end{proof}
+
+\begin{definition}\label{fga-def-2-17}\dcref{2.17}\source{fga-explained:page-0045}\uses{fga-def-2-15}
+An arrow between $G$-objects is $G$-equivariant when it commutes with the two
+actions.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-18}\dcref{2.18}\source{fga-explained:page-0046}\uses{fga-def-2-15,fga-thm-2-1}
+Giving an action of a group-valued functor $G$ on $X$ is equivalent to giving a
+natural transformation $G\to\Aut(X)$, where $\Aut(X)(U)$ is the group of
+automorphisms of $U\times X$ over $U$.
+\end{proposition}
+
+\begin{definition}[discrete objects]\label{fga-def-2-19}\dcref{2.19}\source{fga-explained:page-0047}\uses{}
+A category has discrete objects when it has a terminal object and all coproducts
+of copies of it.  The coproduct indexed by a set is the associated discrete
+object.
+\end{definition}\begin{definition}[discrete group objects]\label{fga-def-2-20}\dcref{2.20}\source{fga-explained:page-0047}\uses{fga-def-2-19}
+A category has discrete group objects when it has finite products, coproducts
+$I\times U=\coprod_I U$, and the canonical map $I\times U\to A(I)\times U$
+is an isomorphism for every set $I$ and object $U$.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-21}\dcref{2.21}\source{fga-explained:page-0048}\uses{fga-def-2-20}
+Under these hypotheses the discrete-object functor preserves finite products and
+therefore sends groups to discrete group objects.
+\end{proposition}
+\begin{proposition}\label{fga-prop-2-22}\dcref{2.22}\source{fga-explained:page-0050}\uses{fga-prop-2-21,fga-def-2-15}
+For a category with discrete group objects, an action of a discrete group on an
+object is equivalent to an action of the associated discrete group object.
+\end{proposition}
+
+\section{Sheaves in Grothendieck topologies}
+\source{fga-explained:page-0035}\source{fga-explained:page-0036}\source{fga-explained:page-0037}\source{fga-explained:page-0038}\source{fga-explained:page-0039}\source{fga-explained:page-0040}\source{fga-explained:page-0041}\source{fga-explained:page-0042}\source{fga-explained:page-0043}\source{fga-explained:page-0044}\source{fga-explained:page-0045}\source{fga-explained:page-0046}\source{fga-explained:page-0047}\source{fga-explained:page-0048}\source{fga-explained:page-0049}\source{fga-explained:page-0050}
+
+\begin{definition}[Grothendieck topology]\label{fga-def-2-24}\dcref{2.24}\source{fga-explained:page-0075}\uses{}
+A Grothendieck topology on $\mathcal C$ assigns to every object $U$ a class of
+covering families $\{U_i\to U\}$ containing isomorphisms, stable under base
+change, and stable under composition of coverings.  A category with such data is
+a site.
+\end{definition}The Zariski, etale, fppf and fpqc coverings of schemes are respectively jointly
+surjective families of open immersions, etale maps locally of finite
+presentation, flat maps locally of finite presentation, and families whose
+coproduct map is faithfully flat and quasi-compact.
+
+\begin{proposition}\label{fga-prop-2-33}\dcref{2.33}\source{fga-explained:page-0077}\uses{fga-def-1-3}
+For a surjective morphism $f:X\to Y$, the following are equivalent: every
+quasi-compact open of $Y$ is the image of a quasi-compact open of $X$; this
+holds on an affine-open cover of $Y$; every $x\in X$ has a quasi-compact open
+neighborhood mapping to an open neighborhood of $f(x)$; and every $x$ has such
+a neighborhood with affine image.
+\end{proposition}
+\begin{definition}[fpqc morphism]\label{fga-def-2-34}\dcref{2.34}\source{fga-explained:page-0078}\uses{fga-prop-2-33,fga-def-1-7}
+A faithfully flat morphism satisfying the equivalent conditions of
+\cref{fga-prop-2-33} is fpqc.  An fpqc covering is a family whose coproduct map
+is fpqc.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-35}\dcref{2.35}\source{fga-explained:page-0078}\uses{fga-def-2-34}
+Fpqc morphisms are stable under composition and base change, are local on the
+target, include open faithfully flat maps and faithfully flat locally finitely
+presented maps, and detect openness of subsets.
+\end{proposition}
+\begin{proposition}\label{fga-prop-2-36}\dcref{2.36}\source{fga-explained:page-0079}\uses{fga-prop-2-35}
+Separatedness, quasi-compactness, finite presentation, properness, affineness,
+finiteness, flatness, smoothness, unramifiedness, etaleness, embeddings and
+closed embeddings descend along fpqc coverings.
+\end{proposition}
+
+\begin{definition}[sheaf]\label{fga-def-2-37}\dcref{2.37}\source{fga-explained:page-0080}\uses{fga-def-2-24}
+A presheaf $F$ on a site is separated if sections agreeing after pullback to a
+cover agree.  It is a sheaf if compatible sections $a_i\in F(U_i)$ on a
+covering family glue to a unique $a\in F(U)$; compatibility means equality of
+the two pullbacks to every $U_i\times_UU_j$.
+\end{definition}
+\begin{definition}[sieve]\label{fga-def-2-38}\dcref{2.38}\source{fga-explained:page-0080}\uses{fga-thm-2-1}
+A sieve on $U$ is a subfunctor $S\subseteq h_U$ closed under precomposition.
+The sieve generated by a family $\{U_i\to U\}$ consists of arrows factoring
+through some $U_i$.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-39}\dcref{2.39}\source{fga-explained:page-0081}\uses{fga-def-2-38,fga-thm-2-1}
+For a covering family there is a canonical bijection
+$\operatorname{Nat}(h_{\{U_i\}},F)\simeq F(\{U_i\})$, identifying compatible
+families of sections with maps from the covering sieve.
+\end{proposition}
+\begin{corollary}\label{fga-cor-2-40}\dcref{2.40}\source{fga-explained:page-0081}\uses{fga-def-2-37,fga-prop-2-39}
+$F$ is a sheaf exactly when $F(U)\to\operatorname{Nat}(h_U,F)$ factors through
+every covering sieve by a bijection; it is separated exactly when these maps are
+injective.
+\end{corollary}
+
+\begin{definition}\label{fga-def-2-41}\dcref{2.41}\source{fga-explained:page-0082}\uses{fga-def-2-24,fga-def-2-38}
+A sieve belongs to a topology if it contains a generated covering sieve.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-42}\dcref{2.42}\source{fga-explained:page-0082}\uses{fga-cor-2-40,fga-def-2-41}
+The sheaf condition depends only on the associated Grothendieck topology and
+not on the chosen pretopology.
+\end{proposition}
+\begin{proposition}\label{fga-prop-2-44}\dcref{2.44}\source{fga-explained:page-0083}\uses{fga-def-2-41}
+Pullback of a covering sieve along any arrow is a covering sieve, and coverings
+are stable under refinement.
+\end{proposition}
+\begin{definition}\label{fga-def-2-45}\dcref{2.45}\source{fga-explained:page-0084}\uses{fga-def-2-38}
+The pullback of a family $\{U_i\to U\}$ along $V\to U$ is the family
+$\{U_i\times_UV\to V\}$; two families are equivalent when they generate the
+same sieve.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-46}\dcref{2.46}\source{fga-explained:page-0084}\uses{fga-def-2-45,fga-cor-2-40}
+Equivalent covering families define the same sheaf condition.
+\end{proposition}
+\begin{definition}\label{fga-def-2-47}\dcref{2.47}\source{fga-explained:page-0085}\uses{fga-def-2-41}
+Two Grothendieck topologies are compared by inclusion of their covering sieves;
+the finer topology has at least as many covering sieves.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-48}\dcref{2.48}\source{fga-explained:page-0085}\uses{fga-def-2-47,fga-def-2-37}
+If $T\subseteq T'$ then every $T'$-sheaf is a $T$-sheaf; the converse holds
+exactly when the topologies have the same covering sieves.
+\end{proposition}
+\begin{definition}\label{fga-def-2-52}\dcref{2.52}\source{fga-explained:page-0087}\uses{fga-def-2-41}
+A topology is saturated when a family is covering whenever its generated sieve
+contains a covering sieve.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-53}\dcref{2.53}\source{fga-explained:page-0087}\uses{fga-def-2-52,fga-cor-2-40}
+Saturation does not change the sheaves, and every Grothendieck topology has a
+canonical saturated refinement with the same sheaf category.
+\end{proposition}
+\begin{theorem}\label{fga-thm-2-55}\dcref{2.55}\source{fga-explained:page-0088}\uses{fga-def-2-37,fga-def-2-34,fga-thm-2-1}
+Every representable functor on $(\operatorname{Sch}/S)$ is a sheaf for the
+Zariski, etale, fppf and fpqc topologies.
+\end{theorem}
+\begin{proof}
+For an fpqc cover $\{U_i\to U\}$, morphisms $U\to X$ are determined by their
+pullbacks because the cover is faithfully flat.  Compatible morphisms glue on
+affine charts by the equalizer criterion for rings; the glued maps agree on
+overlaps and hence glue globally.  The other three topologies are finer
+subcases of this argument.
+\end{proof}
+
+\begin{definition}\label{fga-def-2-57}\dcref{2.57}\source{fga-explained:page-0095}\uses{fga-thm-2-55}
+A topology is subcanonical if every representable functor is a sheaf.
+\end{definition}
+\begin{definition}\label{fga-def-2-58}\dcref{2.58}\source{fga-explained:page-0095}\uses{fga-def-2-24}
+The comma site $(\mathcal C/U)$ has coverings obtained by pullback of coverings
+of $U$.
+\end{definition}
+\begin{proposition}\label{fga-prop-2-59}\dcref{2.59}\source{fga-explained:page-0096}\uses{fga-def-2-57,fga-def-2-58}
+On a subcanonical site, the representable functor of an object over $U$ is a
+sheaf on the comma site $(\mathcal C/U)$.
+\end{proposition}
+\begin{lemma}\label{fga-lem-2-60}\dcref{2.60}\source{fga-explained:page-0096}\uses{fga-cor-2-40,fga-def-2-34}
+For a scheme $S$, a functor $F:(\operatorname{Sch}/S)^{\mathrm{op}}\to\operatorname{Set}$
+is an fpqc sheaf if and only if it satisfies the affine equalizer condition and
+is compatible with restriction to affine open covers.
+\end{lemma}
+\begin{lemma}\label{fga-lem-2-62}\dcref{2.62}\source{fga-explained:page-0098}\uses{fga-prop-1-15}
+If $X_1\to Y$ and $X_2\to Y$ are scheme morphisms and their base changes agree
+on a faithfully flat cover of $Y$, then they agree over $Y$.
+\end{lemma}
+\begin{definition}[sheafification]\label{fga-def-2-63}\dcref{2.63}\source{fga-explained:page-0099}\uses{fga-def-2-37}
+The sheafification of a presheaf $F$ is a sheaf $F^\#$ equipped with a map
+$F\to F^\#$ universal among maps from $F$ to sheaves.
+\end{definition}
+\begin{theorem}\label{fga-thm-2-64}\dcref{2.64}\source{fga-explained:page-0099}\uses{fga-def-2-63}
+Every presheaf on a site has a sheafification, unique up to unique isomorphism;
+the construction preserves finite limits needed for group-valued sheaves.
+\end{theorem}
+\begin{proof}
+Iterate the separated-presheaf construction and the plus construction.  The
+second plus is a sheaf, and the universal property follows from the equalizer
+description of compatible sections.
+\end{proof}
