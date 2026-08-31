@@ -27,6 +27,11 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{definition}[The truncated exponential unit]
   \label{pa-def:truncExpUnit}
+  \lean{TruncExpCech.inr_mul_inr_eq_zero, TruncExpCech.truncExpUnit,
+    TruncExpCech.truncExpUnit_val, TruncExpCech.fst_truncExpUnit,
+    TruncExpCech.snd_truncExpUnit, TruncExpCech.truncExpUnit_zero}
+  \leanok
+  \source{kleiman-picard}
 
   \dcref{custom}
   Let \(R\) be a commutative ring and \(b \in R\). Since
@@ -39,6 +44,9 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{lemma}[The truncated exponential is an injective homomorphism]
   \label{pa-lem:truncExp_add}
+  \lean{TruncExpCech.truncExpUnit_add, TruncExpCech.truncExpUnit_injective,
+    TruncExpCech.truncExp, TruncExpCech.truncExp_apply}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:truncExpUnit}
@@ -49,6 +57,7 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
   and it is injective.
 \end{lemma}
 \begin{proof}
+  \leanok
   \((1 + b\varepsilon)(1 + c\varepsilon) = 1 + (b + c)\varepsilon +
   bc\,\varepsilon^2 = 1 + (b+c)\varepsilon\). Injectivity: the second component of
   \(\mathrm{tExp}(b)\) is \(b\).
@@ -56,6 +65,11 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{definition}[Reduction mod \(\varepsilon\) on units, and its section]
   \label{pa-def:unitsFst}
+  \lean{TruncExpCech.fstRingHom, TruncExpCech.fstRingHom_apply,
+    TruncExpCech.inlRingHom, TruncExpCech.inlRingHom_apply,
+    TruncExpCech.unitsFst, TruncExpCech.unitsFst_apply_val,
+    TruncExpCech.unitsInl, TruncExpCech.unitsInl_apply_val}
+  \leanok
   \dcref{custom}
 
   The component projection \(\mathrm{fst} : R[\varepsilon] \to R\),
@@ -71,6 +85,9 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{lemma}[Splitting identities]
   \label{pa-lem:unitsFst_split}
+  \lean{TruncExpCech.unitsFst_unitsInl, TruncExpCech.unitsFst_truncExpUnit,
+    TruncExpCech.fst_inv_mul_fst, TruncExpCech.fst_mul_fst_inv}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:unitsFst, pa-def:truncExpUnit}
@@ -81,6 +98,7 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
   \mathrm{fst}(u^{-1})\).
 \end{lemma}
 \begin{proof}
+  \leanok
   The first two are componentwise computations
   (\(\mathrm{fst}(\mathrm{inl}(a)) = a\), \(\mathrm{fst}(1 + b\varepsilon) = 1\)); the
   third applies the ring homomorphism \(\mathrm{fst}\) to
@@ -89,6 +107,9 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{theorem}[Exactness in the middle]
   \label{pa-thm:truncExp_exact}
+  \lean{TruncExpCech.truncExp_range_eq_ker_unitsFst}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-lem:truncExp_add, pa-lem:unitsFst_split}
   \dcref{custom}
@@ -103,6 +124,7 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
   \]
 \end{theorem}
 \begin{proof}
+  \leanok
   One inclusion is \ref{pa-lem:unitsFst_split}. Conversely, if
   \(\mathrm{fst}^\times(u) = 1\), then \(u = 1 + b\varepsilon\) for
   \(b = \mathrm{snd}(u)\), and \(u = \mathrm{tExp}(b)\); uniqueness is the injectivity
@@ -111,6 +133,8 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{lemma}[The unit decomposition of the dual numbers]
   \label{pa-lem:unit_decomposition}
+  \lean{TruncExpCech.unitsInl_unitsFst_mul_truncExpUnit}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:unitsFst, pa-def:truncExpUnit, pa-lem:unitsFst_split}
@@ -122,6 +146,7 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
   \]
 \end{lemma}
 \begin{proof}
+  \leanok
   Compare components. First components: \(\mathrm{fst}(u) \cdot 1 = \mathrm{fst}(u)\).
   Second components: the product's second component is
   \(\mathrm{fst}(u) \cdot \mathrm{fst}(u^{-1}) \cdot \mathrm{snd}(u) =
@@ -130,6 +155,9 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{definition}[Functoriality of the dual numbers]
   \label{pa-def:dualNumber_map}
+  \lean{TruncExpCech.mapRingHom, TruncExpCech.fst_mapRingHom,
+    TruncExpCech.snd_mapRingHom}
+  \leanok
   \dcref{custom}
 
   A ring homomorphism \(f : R \to S\) induces the ring homomorphism
@@ -142,6 +170,9 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{lemma}[Functoriality identities]
   \label{pa-lem:dualNumber_map_functorial}
+  \lean{TruncExpCech.mapRingHom_id, TruncExpCech.mapRingHom_comp,
+    TruncExpCech.mapRingHom_inl, TruncExpCech.unitsMap_mapRingHom_unitsInl}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:dualNumber_map, pa-def:unitsFst}
@@ -152,11 +183,14 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
   f^\times\).
 \end{lemma}
 \begin{proof}
+  \leanok
   All four are componentwise computations from Definition~\ref{pa-def:dualNumber_map}.
 \end{proof}
 
 \begin{lemma}[Naturality of the truncated exponential and of the reduction]
   \label{pa-lem:truncExp_naturality}
+  \lean{TruncExpCech.map_mapRingHom_truncExpUnit, TruncExpCech.unitsFst_map_mapRingHom}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:dualNumber_map, pa-def:truncExpUnit, pa-def:unitsFst}
@@ -167,12 +201,17 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
   \mathrm{fst}^\times\) on \(R[\varepsilon]^\times\).
 \end{lemma}
 \begin{proof}
+  \leanok
   Componentwise: \(f[\varepsilon](1 + b\varepsilon) = 1 + f(b)\varepsilon\), and
   \(\mathrm{fst}(f[\varepsilon](x)) = f(\mathrm{fst}(x))\).
 \end{proof}
 
 \begin{definition}[The \(\varepsilon \mapsto a\varepsilon\) scaling]
   \label{pa-def:mumford_scaling}
+  \lean{TruncExpCech.scaleRingHom, TruncExpCech.fst_scaleRingHom,
+    TruncExpCech.snd_scaleRingHom}
+  \leanok
+  \source{kleiman-picard}
 
   \dcref{custom}
   For \(a \in R\), the \emph{scaling} \(\mu_a : R[\varepsilon] \to R[\varepsilon]\) is
@@ -184,6 +223,9 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{lemma}[Scaling identities]
   \label{pa-lem:mumford_scaling_props}
+  \lean{TruncExpCech.scaleRingHom_comp_scaleRingHom, TruncExpCech.scaleRingHom_one,
+    TruncExpCech.unitsScale_truncExpUnit, TruncExpCech.mapRingHom_comp_scaleRingHom}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:mumford_scaling, pa-def:truncExpUnit, pa-def:dualNumber_map}
@@ -193,6 +235,7 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
   \(\rho[\varepsilon] \circ \mu_s = \mu_{\rho(s)} \circ \rho[\varepsilon]\).
 \end{lemma}
 \begin{proof}
+  \leanok
   All componentwise computations.
 \end{proof}
 
@@ -200,6 +243,8 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{definition}[The dual-number map over an algebra map]
   \label{pa-def:dualNumber_mapAlgHom}
+  \lean{TruncExpCech.mapAlgHom, TruncExpCech.mapAlgHom_apply}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:dualNumber_map}
@@ -211,6 +256,10 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
 
 \begin{theorem}[Dual numbers under base change]
   \label{pa-thm:dualNumber_baseChange}
+  \lean{TruncExpCech.baseChangeAlgHom, TruncExpCech.baseChangeAlgHom_tmul,
+    TruncExpCech.baseChangeAlgHom_bijective, TruncExpCech.baseChangeAlgEquiv,
+    TruncExpCech.baseChangeAlgEquiv_tmul, TruncExpCech.baseChangeAlgEquiv_symm_apply}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:dualNumber_mapAlgHom}
@@ -225,6 +274,7 @@ for a scheme covered by two affine opens --- the two-cover \v{C}ech form of
   \varepsilon\).
 \end{theorem}
 \begin{proof}
+  \leanok
   The displayed map is the \(A\)-algebra extension of the \(k\)-algebra map of
   \ref{pa-def:dualNumber_mapAlgHom} along the scalar extension \(k \to A\); it is a
   well-defined \(A\)-algebra homomorphism. The candidate inverse
@@ -249,6 +299,10 @@ Everything in this section is elementary commutative algebra over such a datum.
 
 \begin{definition}[The multiplicative \v{C}ech coboundaries]
   \label{pa-def:cech_coboundary_units}
+  \lean{TruncExpCech.cechCoboundaryUnits, TruncExpCech.mem_cechCoboundaryUnits,
+    TruncExpCech.unitsMap_mem_cechCoboundaryUnits_left,
+    TruncExpCech.unitsMap_mem_cechCoboundaryUnits_right}
+  \leanok
   \dcref{custom}
 
   For a two-chart datum \(\rho_1 : A_1 \to B\), \(\rho_2 : A_2 \to B\), the
@@ -263,6 +317,10 @@ Everything in this section is elementary commutative algebra over such a datum.
 
 \begin{definition}[The additive \v{C}ech coboundaries]
   \label{pa-def:cech_coboundary_add}
+  \lean{TruncExpCech.cechCoboundaryAdd, TruncExpCech.mem_cechCoboundaryAdd,
+    TruncExpCech.sub_mem_cechCoboundaryAdd,
+    TruncExpCech.exists_sub_of_mem_cechCoboundaryAdd}
+  \leanok
   \dcref{custom}
 
   For a two-chart datum as above, the \emph{additive coboundary subgroup}
@@ -276,6 +334,9 @@ Everything in this section is elementary commutative algebra over such a datum.
 
 \begin{theorem}[The truncated exponential detects the additive coboundaries]
   \label{pa-thm:truncExp_detects_coboundaries}
+  \lean{TruncExpCech.truncExpUnit_mem_cechCoboundaryUnits_iff}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-def:cech_coboundary_units, pa-def:cech_coboundary_add, pa-lem:unit_decomposition,
     pa-lem:dualNumber_map_functorial, pa-lem:truncExp_naturality, pa-lem:truncExp_add,
@@ -293,6 +354,7 @@ Everything in this section is elementary commutative algebra over such a datum.
   \]
 \end{theorem}
 \begin{proof}
+  \leanok
   (\(\Leftarrow\)) If \(b = \rho_1(a_1) + \rho_2(a_2)\), then by naturality
   (\ref{pa-lem:truncExp_naturality}) and additivity (\ref{pa-lem:truncExp_add}),
   \(\mathrm{tExp}(b) = \mathrm{tExp}(\rho_1(a_1)) \cdot \mathrm{tExp}(\rho_2(a_2)) =
@@ -321,6 +383,9 @@ Everything in this section is elementary commutative algebra over such a datum.
 
 \begin{definition}[The \v{C}ech units reduction]
   \label{pa-def:cech_units_reduction}
+  \lean{TruncExpCech.cechCoboundaryUnits_le_comap_unitsFst,
+    TruncExpCech.cechUnitsReduction}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:cech_coboundary_units, pa-lem:truncExp_naturality,
@@ -348,6 +413,9 @@ Everything in this section is elementary commutative algebra over such a datum.
 \begin{lemma}[Truncated-exponential classes lie in the kernel, and vanish exactly on
   coboundaries]
   \label{pa-lem:cech_kernel_truncExp_class}
+  \lean{TruncExpCech.cechUnitsReduction_mk_truncExpUnit,
+    TruncExpCech.mk_truncExpUnit_eq_one_iff}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:cech_units_reduction, pa-thm:truncExp_detects_coboundaries,
@@ -357,6 +425,7 @@ Everything in this section is elementary commutative algebra over such a datum.
   \(b \in \mathcal B^+(\rho_1, \rho_2)\).
 \end{lemma}
 \begin{proof}
+  \leanok
   \(\pi[\mathrm{tExp}(b)] = [\mathrm{fst}^\times(\mathrm{tExp}(b))] = [1]\)
   (\ref{pa-lem:unitsFst_split}). Vanishing of the class means membership of
   \(\mathrm{tExp}(b)\) in the thickened coboundary subgroup, which is
@@ -365,6 +434,9 @@ Everything in this section is elementary commutative algebra over such a datum.
 
 \begin{theorem}[Every kernel class is a truncated exponential]
   \label{pa-thm:cech_kernel_surjectivity}
+  \lean{TruncExpCech.exists_mk_truncExpUnit_of_cechUnitsReduction_eq_one}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-def:cech_units_reduction, pa-thm:truncExp_exact, pa-lem:dualNumber_map_functorial,
     pa-def:cech_coboundary_units}
@@ -375,6 +447,7 @@ Everything in this section is elementary commutative algebra over such a datum.
   \(x = [\mathrm{tExp}(b)]\) for some \(b \in B\).
 \end{theorem}
 \begin{proof}
+  \leanok
   Let \(u \in B[\varepsilon]^\times\) represent \(x\). Since \(\pi(x) = 1\), the
   reduction \(\mathrm{fst}^\times(u)\) is a coboundary:
   \(\mathrm{fst}^\times(u) = \rho_1^\times(v_1)\,\rho_2^\times(v_2)\) with
@@ -394,6 +467,11 @@ Everything in this section is elementary commutative algebra over such a datum.
 
 \begin{theorem}[The truncated-exponential kernel computation]
   \label{pa-thm:truncExp_cech_kernel_equiv}
+  \lean{TruncExpCech.truncExpCechKernelMonoidHom,
+    TruncExpCech.truncExpCechKernelAddEquiv,
+    TruncExpCech.truncExpCechKernelAddEquiv_apply_mk}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-lem:cech_kernel_truncExp_class, pa-thm:cech_kernel_surjectivity, pa-lem:truncExp_add,
     pa-def:cech_coboundary_add}
@@ -411,6 +489,7 @@ Everything in this section is elementary commutative algebra over such a datum.
   sending the residue class of \(b\) to the class of \(1 + b\varepsilon\).
 \end{theorem}
 \begin{proof}
+  \leanok
   The assignment \(b \mapsto [\mathrm{tExp}(b)]\) is a homomorphism from \((B, +)\) into
   \(\ker \pi\) (\ref{pa-lem:truncExp_add} for additivity,
   \ref{pa-lem:cech_kernel_truncExp_class} for landing in the kernel). It kills exactly
@@ -422,6 +501,9 @@ Everything in this section is elementary commutative algebra over such a datum.
 
 \begin{lemma}[Scaling equivariance of the engine]
   \label{pa-lem:cech_scaling_equivariance}
+  \lean{TruncExpCech.cechCoboundaryUnits_le_comap_unitsScale,
+    TruncExpCech.unitsScale_mk_truncExpUnit}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:mumford_scaling, pa-lem:mumford_scaling_props, pa-def:cech_coboundary_units,
@@ -435,6 +517,7 @@ Everything in this section is elementary commutative algebra over such a datum.
   \([\mathrm{tExp}(b)] \mapsto [\mathrm{tExp}(t \cdot b)]\).
 \end{lemma}
 \begin{proof}
+  \leanok
   For a coboundary \(\rho_1[\varepsilon]^\times(w_1)\,\rho_2[\varepsilon]^\times(w_2)\),
   the compatibility \(\rho_i[\varepsilon] \circ \mu_{s_i} = \mu_{\rho_i(s_i)} \circ
   \rho_i[\varepsilon] = \mu_t \circ \rho_i[\varepsilon]\)
@@ -455,6 +538,9 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
 
 \begin{lemma}[Module quotients are additive-subgroup quotients]
   \label{pa-lem:submodule_quotient_addEquiv}
+  \lean{TruncExpCech.submoduleQuotientAddEquiv,
+    TruncExpCech.submoduleQuotientAddEquiv_mk}
+  \leanok
   \dcref{custom}
 
   For a module \(M\) over a ring \(R\) and a submodule \(p \subseteq M\), the quotient
@@ -462,12 +548,16 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
   underlying additive subgroup of \(p\), compatibly with the two quotient maps.
 \end{lemma}
 \begin{proof}
+  \leanok
   The two quotients are defined by the same equivalence relation
   (\(x \sim y \iff x - y \in p\)), so the identity map is the required isomorphism.
 \end{proof}
 
 \begin{lemma}[Restriction intertwines the structure constants]
   \label{pa-lem:resHom_overAlgebraMap}
+  \lean{AlgebraicGeometry.TwoCover.resHom_overAlgebraMap_left,
+    AlgebraicGeometry.TwoCover.resHom_overAlgebraMap_right}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:overAlgebraMap}
@@ -478,6 +568,7 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
   \(a\) under the structure map of \ref{pa-def:overAlgebraMap}.
 \end{lemma}
 \begin{proof}
+  \leanok
   The structure map of \ref{pa-def:overAlgebraMap} is compatible with restriction: it is
   defined by pulling back the global section \(a\) of the base, and pullback commutes
   with restriction to a smaller open.
@@ -485,6 +576,9 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
 
 \begin{definition}[The two-cover units reduction]
   \label{pa-def:twoCover_unitsReduction}
+  \lean{AlgebraicGeometry.TwoCover.unitsReduction,
+    AlgebraicGeometry.TwoCover.unitsReduction_def}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:cech_units_reduction, pa-def:moduleKSheaf}
@@ -495,6 +589,11 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
 
 \begin{definition}[Truncated-exponential kernel classes of overlap sections]
   \label{pa-def:twoCover_truncExpClass}
+  \lean{AlgebraicGeometry.TwoCover.truncExpClass, AlgebraicGeometry.TwoCover.kerVal,
+    AlgebraicGeometry.TwoCover.kerVal_eq_coe,
+    AlgebraicGeometry.TwoCover.truncExpClass_val,
+    AlgebraicGeometry.TwoCover.truncExpClass_eq_engine}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:twoCover_unitsReduction, pa-lem:cech_kernel_truncExp_class}
@@ -510,6 +609,10 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
 
 \begin{lemma}[Properties of the kernel classes]
   \label{pa-lem:truncExpClass_props}
+  \lean{AlgebraicGeometry.TwoCover.truncExpClass_add,
+    AlgebraicGeometry.TwoCover.truncExpClass_eq_zero_iff,
+    AlgebraicGeometry.TwoCover.truncExpClass_surjective}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:twoCover_truncExpClass, pa-thm:truncExp_cech_kernel_equiv}
@@ -519,6 +622,7 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
   \(\mathrm{tCl}(b)\) for some overlap section \(b\).
 \end{lemma}
 \begin{proof}
+  \leanok
   All three restate \ref{pa-thm:truncExp_cech_kernel_equiv} through the identification of
   \ref{pa-def:twoCover_truncExpClass}: additivity and the vanishing criterion are the
   well-definedness and injectivity of the induced map, and surjectivity is its
@@ -527,6 +631,10 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
 
 \begin{lemma}[The range of the difference map is the additive coboundary subgroup]
   \label{pa-lem:range_diff_coboundaries}
+  \lean{AlgebraicGeometry.TwoCover.range_diff_toAddSubgroup,
+    AlgebraicGeometry.TwoCover.h1CokAddEquivCechQuot,
+    AlgebraicGeometry.TwoCover.h1CokAddEquivCechQuot_mk}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:TwoCover_diff, pa-def:TwoCover_H1Cok, pa-def:cech_coboundary_add,
@@ -541,6 +649,7 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
   the quotient maps.
 \end{lemma}
 \begin{proof}
+  \leanok
   A difference \(\rho_1(a_1) - \rho_2(a_2)\) and a sum \(\rho_1(a_1) + \rho_2(a_2)\)
   span the same additive subgroup (\ref{pa-def:cech_coboundary_add}), so the two subgroups
   coincide elementwise. The quotient statement combines this with
@@ -550,6 +659,9 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
 
 \begin{theorem}[\(H^1\) is the \(\varepsilon\)-kernel of the two-cover]
   \label{pa-thm:h1_truncExp_kernel}
+  \lean{AlgebraicGeometry.TwoCover.h1AddEquivTruncExpCechKernel}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-thm:TwoCover_h1CokEquiv, pa-lem:range_diff_coboundaries,
     pa-thm:truncExp_cech_kernel_equiv, pa-def:twoCover_unitsReduction, pa-def:HModule,
@@ -568,6 +680,7 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
   \(H^1(C, \struct C) \cong \ker(\Pic(C_\varepsilon) \to \Pic(C))\).
 \end{theorem}
 \begin{proof}
+  \leanok
   Compose three identifications: the two-affine-cover cokernel bridge
   \(H^1(X, \struct X) \cong \Gamma(U_0 \cap U_1)/\mathrm{range}(\mathrm{diff})\)
   (\ref{pa-thm:TwoCover_h1CokEquiv}); the carrier translation
@@ -580,6 +693,8 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
 
 \begin{lemma}[Generator formula]
   \label{pa-lem:h1_truncExp_kernel_delta}
+  \lean{AlgebraicGeometry.TwoCover.h1AddEquivTruncExpCechKernel_delta}
+  \leanok
   \dcref{custom}
 
   \uses{pa-thm:h1_truncExp_kernel, pa-def:TwoCover_delta, pa-lem:TwoCover_h1CokEquiv_delta,
@@ -589,6 +704,7 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
   truncated-exponential class \(\mathrm{tCl}(s)\).
 \end{lemma}
 \begin{proof}
+  \leanok
   The cokernel bridge sends \(\mathrm{delta}(s)\) to the residue class of \(s\)
   (\ref{pa-lem:TwoCover_h1CokEquiv_delta}); the carrier translation preserves residue
   classes; and the kernel computation sends the residue class of \(s\) to
@@ -597,6 +713,9 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
 
 \begin{lemma}[Scaled generators]
   \label{pa-lem:smul_delta}
+  \lean{AlgebraicGeometry.TwoCover.smul_delta,
+    AlgebraicGeometry.TwoCover.h1AddEquivTruncExpCechKernel_smul_delta}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:TwoCover_delta, pa-def:overAlgebraMap, pa-lem:h1_truncExp_kernel_delta}
@@ -607,6 +726,7 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
   \(a \cdot \mathrm{delta}(s)\) to \(\mathrm{tCl}\bigl((a \cdot 1) s\bigr)\).
 \end{lemma}
 \begin{proof}
+  \leanok
   The connecting map \(\mathrm{delta}\) is \(k\)-linear
   (\ref{pa-def:TwoCover_delta}), and the \(k\)-action on the overlap sections is
   multiplication by the structure constant \(a \cdot 1\)
@@ -616,6 +736,9 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
 
 \begin{definition}[The Mumford scaling of the thickened \v{C}ech group]
   \label{pa-def:twoCover_mumfordScaling}
+  \lean{AlgebraicGeometry.TwoCover.mumfordScaling,
+    AlgebraicGeometry.TwoCover.mumfordScaling_mk_truncExpUnit}
+  \leanok
   \dcref{custom}
 
   \uses{pa-lem:cech_scaling_equivariance, pa-lem:resHom_overAlgebraMap}
@@ -629,6 +752,9 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
 
 \begin{theorem}[Mumford-scaling equivariance of the keystone]
   \label{pa-thm:mumfordScaling_equivariance}
+  \lean{AlgebraicGeometry.TwoCover.mumfordScaling_h1AddEquivTruncExpCechKernel_delta}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-thm:h1_truncExp_kernel, pa-lem:smul_delta, pa-def:twoCover_mumfordScaling,
     pa-lem:h1_truncExp_kernel_delta}
@@ -643,6 +769,7 @@ is \(B = \Gamma(X, U_0 \cap U_1)\) with the two restrictions
   the correspondence on all of \(H^1\).
 \end{theorem}
 \begin{proof}
+  \leanok
   \uses{pa-thm:TwoCover_delta_surjective}
   By \ref{pa-lem:smul_delta}, the image of \(a \cdot \mathrm{delta}(s)\) is
   \(\mathrm{tCl}((a \cdot 1) s)\), with underlying class

@@ -66,6 +66,9 @@ below identifies exactly those, in one move.
 
 \begin{lemma}[Restriction to a refinement]
   \label{pa-lem:localEquations_restrict}
+  \lean{AlgebraicGeometry.Scheme.LocalEquations.restrict,
+    AlgebraicGeometry.Scheme.LocalEquations.picClass_restrict}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:localEquations, pa-def:localEquations_picClass, pa-lem:localEquations_ratioUnit}
@@ -76,6 +79,7 @@ below identifies exactly those, in one move.
   \(\mathrm{picClass}(d|_{\mathcal V}) = \mathrm{picClass}(d)\).
 \end{lemma}
 \begin{proof}
+  \leanok
   Restriction of sections is a ring homomorphism and germs are unchanged along it, so each
   \(f'_x\) is again regular at every point of \(\mathcal V(x)\); restricting the overlap
   equation \(f_x|_\cap = g_{xy} f_y|_\cap\) of \(d\) (\ref{pa-lem:localEquations_ratioUnit})
@@ -88,6 +92,13 @@ below identifies exactly those, in one move.
 
 \begin{lemma}[Divisor equality]
   \label{pa-lem:localEquations_divEq}
+  \lean{AlgebraicGeometry.Scheme.LocalEquations.DivEq,
+    AlgebraicGeometry.Scheme.LocalEquations.divEq_refl,
+    AlgebraicGeometry.Scheme.LocalEquations.DivEq.symm,
+    AlgebraicGeometry.Scheme.LocalEquations.DivEq.trans,
+    AlgebraicGeometry.Scheme.LocalEquations.picClass_eq_of_divEq}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-def:localEquations, pa-lem:localEquations_restrict, pa-lem:localEquations_rescale,
     pa-def:localEquations_picClass}
@@ -104,6 +115,7 @@ below identifies exactly those, in one move.
   \(d_1 \sim d_2\) implies \(\struct X(D_1) = \struct X(D_2)\) in \(\Pic(X)\).
 \end{lemma}
 \begin{proof}
+  \leanok
   \emph{Reflexivity}: take \(\mathcal W = \mathcal U\) and \(u_x = 1\).
   \emph{Symmetry}: the same \(\mathcal W\) with \(u_x^{-1}\).
   \emph{Transitivity}: given \(d_1 \sim d_2\) on \(\mathcal W\) with units \(u\), and
@@ -140,6 +152,11 @@ analogue of \(R\)-flatness with fibres of degree \(n\) in Kleiman's Definition o
 
 \begin{definition}[Auxiliary finite chart cover data]
   \label{pa-def:finCoverData}
+  \lean{AlgebraicGeometry.FinCoverData, AlgebraicGeometry.FinCoverData.pieces,
+    AlgebraicGeometry.FinCoverData.cover₀, AlgebraicGeometry.FinCoverData.cover₁,
+    AlgebraicGeometry.FinCoverData.isAffineOpen_pieces,
+    AlgebraicGeometry.le_iSup_basicOpen_of_sum_eq_one}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:relCurve, pa-def:relCover, pa-def:fiberTwoCover}
@@ -157,6 +174,7 @@ analogue of \(R\)-flatness with fibres of degree \(n\) in Kleiman's Definition o
   \(V_0^R = \bigcup_j D(h^0_j)\) and \(V_1^R = \bigcup_j D(h^1_j)\).
 \end{definition}
 \begin{proof}
+  \leanok
   A basic open of an affine open is affine, and the pinned charts are affine over the
   base, so each \(P_j\) is affine.
 
@@ -170,6 +188,9 @@ analogue of \(R\)-flatness with fibres of degree \(n\) in Kleiman's Definition o
 
 \begin{definition}[Finite chart adaptation of a local-equation system]
   \label{pa-def:divisorAdaptation}
+  \lean{AlgebraicGeometry.DivisorAdaptation, AlgebraicGeometry.DivisorAdaptation.ofAnchors}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-def:finCoverData, pa-def:localEquations, pa-lem:localEquations_ratioUnit}
   \dcref{custom}
@@ -192,6 +213,7 @@ analogue of \(R\)-flatness with fibres of degree \(n\) in Kleiman's Definition o
   \(g_{p_j y}\) of \(d\) (\ref{pa-lem:localEquations_ratioUnit}).
 \end{definition}
 \begin{proof}
+  \leanok
   Only the last assertion needs an argument. Fix \(j\) and \(y\), and restrict everything
   to \(W := P_j \cap \mathcal U(y)\). Restricting \(f_j = w_j\, d_{p_j}|_{P_j}\) to \(W\)
   gives \(f_j|_W = (w_j|_W)\, d_{p_j}|_W\). Restricting the defining equation of the
@@ -204,6 +226,8 @@ analogue of \(R\)-flatness with fibres of degree \(n\) in Kleiman's Definition o
 
 \begin{lemma}[The adapted equations are regular]
   \label{pa-lem:divisorAdaptation_eqn_regular}
+  \lean{AlgebraicGeometry.DivisorAdaptation.eqn_regular}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:divisorAdaptation, pa-def:localEquations}
@@ -212,6 +236,7 @@ analogue of \(R\)-flatness with fibres of degree \(n\) in Kleiman's Definition o
   \(\struct{C_R,z}\).
 \end{lemma}
 \begin{proof}
+  \leanok
   Apply the refinement clause of \ref{pa-def:divisorAdaptation} at the piece \(j\) and at the
   point \(y := z\) itself. The point \(z\) lies in \(P_j\) and in \(\mathcal U(z)\), hence
   in the overlap \(W := P_j \cap \mathcal U(z)\), so germs at \(z\) may be taken in the
@@ -226,6 +251,11 @@ analogue of \(R\)-flatness with fibres of degree \(n\) in Kleiman's Definition o
 
 \begin{definition}[The chart colength modules and their glued equalizer]
   \label{pa-def:gluedColength}
+  \lean{AlgebraicGeometry.DivisorAdaptation.colength,
+    AlgebraicGeometry.DivisorAdaptation.ovlColength,
+    AlgebraicGeometry.DivisorAdaptation.gluedSubmodule,
+    AlgebraicGeometry.DivisorAdaptation.mem_gluedSubmodule_iff}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:divisorAdaptation, pa-lem:divisorAdaptation_eqn_regular}
@@ -250,6 +280,9 @@ analogue of \(R\)-flatness with fibres of degree \(n\) in Kleiman's Definition o
 
 \begin{definition}[The colength certificate of degree \(n\)]
   \label{pa-def:isCertified}
+  \lean{AlgebraicGeometry.DivisorAdaptation.IsCertified}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-def:gluedColength}
   \dcref{custom}
@@ -275,6 +308,11 @@ analogue of \(R\)-flatness with fibres of degree \(n\) in Kleiman's Definition o
 
 \begin{definition}[Certified divisor families and the divisor functor value]
   \label{pa-def:certifiedDivisorFamily}
+  \lean{AlgebraicGeometry.CertifiedDivisorFamily, AlgebraicGeometry.divFamSetoid,
+    AlgebraicGeometry.DivFam, AlgebraicGeometry.DivFam.mk,
+    AlgebraicGeometry.DivFam.mk_eq_mk_iff, AlgebraicGeometry.DivFam.picClass}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-def:isCertified, pa-lem:localEquations_divEq, pa-def:localEquations_picClass}
   \dcref{custom}
@@ -295,6 +333,7 @@ analogue of \(R\)-flatness with fibres of degree \(n\) in Kleiman's Definition o
   says that every effective flat Cartier divisor admits this pinned certificate.
 \end{definition}
 \begin{proof}
+  \leanok
   The relation is an equivalence relation because divisor equality is
   (\ref{pa-lem:localEquations_divEq}), and it ignores the last two components by definition.
   The Picard class of a certified family depends only on \(d\), and is constant on
@@ -314,6 +353,11 @@ separate from this window engine.
 
 \begin{theorem}[The chart obstruction to a global certificate]
   \label{pa-thm:isCertified_chart_obstruction}
+  \lean{AlgebraicGeometry.DivisorAdaptation.supportLeak_eq_empty_iff_finite_colength,
+    AlgebraicGeometry.DivisorAdaptation.isClosed_supportLocus_inter_chart_of_isCertified,
+    AlgebraicGeometry.DivisorAdaptation.not_isCertified_of_not_isClosed_inter_chart₀,
+    AlgebraicGeometry.DivisorAdaptation.not_isCertified_of_divEq_of_isPreconnected_of_witnesses}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:isCertified, pa-lem:localEquations_divEq, pa-def:relCover}
@@ -333,6 +377,7 @@ separate from this window engine.
   \end{enumerate}
 \end{theorem}
 \begin{proof}
+  \leanok
   Say the \emph{leak} of the piece \(P_j\) is
   \(\overline{\operatorname{Supp}(d) \cap P_j} \setminus P_j\); it is empty exactly when
   \(\operatorname{Supp}(d) \cap P_j\) is closed in \(C_R\) (a set is closed iff it contains
@@ -381,6 +426,9 @@ separate from this window engine.
 
 \begin{definition}[The Zariski-local certificate]
   \label{pa-def:isLocallyCertified}
+  \lean{AlgebraicGeometry.IsLocallyCertified, AlgebraicGeometry.IsLocallyCertified.of_divEq,
+    AlgebraicGeometry.CertifiedDivisorFamily.isLocallyCertified}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:certifiedDivisorFamily, pa-def:relCurveMap, pa-def:localEquations_pullback,
@@ -395,6 +443,7 @@ separate from this window engine.
   is locally certified.
 \end{definition}
 \begin{proof}
+  \leanok
   The comparison \(C_{R_{g}} \to C_R\) of an away localisation is an open immersion, so
   pullback of a local-equation system along it is defined without further hypothesis: the
   regularity required by \ref{pa-def:localEquations_pullback} holds because an open immersion
@@ -415,6 +464,8 @@ separate from this window engine.
 
 \begin{theorem}[Regularity of the pulled equations of a locally certified system]
   \label{pa-thm:isLocallyCertified_pullback_regular}
+  \lean{AlgebraicGeometry.IsLocallyCertified.germ_pullbackEqn_mem_nonZeroDivisors}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:isLocallyCertified, pa-def:localEquations_pullback, pa-def:relCurveMap}
@@ -424,6 +475,7 @@ separate from this window engine.
   system (\ref{pa-def:localEquations_pullback}), with no flatness hypothesis on \(R \to R'\).
 \end{theorem}
 \begin{proof}
+  \leanok
   Regularity of a section is a condition on its germ at each point, hence may be checked on
   any open cover of \(C_{R'}\). Let \(g_1,\dots,g_m\) be the unit-ideal family certifying
   \(d\). Their images \(\varphi(g_i) \in R'\) again generate the unit ideal, so the open
@@ -450,6 +502,10 @@ separate from this window engine.
 
 \begin{definition}[The auxiliary locally certified divisor functor \(\Div^{\,n}_{\mathrm{Zar}}\)]
   \label{pa-def:divFamZar}
+  \lean{AlgebraicGeometry.DivFamZar, AlgebraicGeometry.DivFamZar.mk,
+    AlgebraicGeometry.DivFamZar.mk_eq_mk_iff, AlgebraicGeometry.DivFamZar.picClass,
+    AlgebraicGeometry.DivFam.toZar}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:isLocallyCertified, pa-lem:localEquations_divEq, pa-def:certifiedDivisorFamily}
@@ -472,6 +528,7 @@ separate from this window engine.
   construction.
 \end{definition}
 \begin{proof}
+  \leanok
   Divisor equality is an equivalence relation on all local-equation systems
   (\ref{pa-lem:localEquations_divEq}) and preserves the property of being locally certified
   (\ref{pa-def:isLocallyCertified}), so it restricts to an equivalence relation on the locally
@@ -485,6 +542,12 @@ separate from this window engine.
 
 \begin{definition}[The widened arbitrary-affine divisor functor]
   \label{pa-def:divFamZarAff}
+  \lean{AlgebraicGeometry.CertifiedDivisorFamilyAff,
+    AlgebraicGeometry.IsLocallyCertifiedAff, AlgebraicGeometry.DivFamZarAff,
+    AlgebraicGeometry.DivFamZarAff.mk, AlgebraicGeometry.DivFamZarAff.mk_eq_mk_iff,
+    AlgebraicGeometry.DivFamZarAff.picClass, AlgebraicGeometry.divFunctorAff,
+    AlgebraicGeometry.divFunctorAff_obj, AlgebraicGeometry.divFunctorAff_map}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:relCurve, pa-def:localEquations, pa-lem:localEquations_divEq}
@@ -525,6 +588,10 @@ and the multiplication maps are surjective.
 
 \begin{definition}[The affine Grassmannian functor]
   \label{pa-def:grFunctorAff}
+  \lean{AlgebraicGeometry.Grassmannian.grFunctorAff,
+    AlgebraicGeometry.Grassmannian.grFunctorAffineEquiv}
+  \leanok
+  \source{nitsure-hilbert-quot}
 
   \dcref{custom}
   For a finite-dimensional \(k\)-vector space \(H\) and \(n \in \mathbb{N}\), the
@@ -538,6 +605,11 @@ and the multiplication maps are surjective.
 
 \begin{definition}[The window submodule and the embedding \(\varepsilon\)]
   \label{pa-def:divisorWindow}
+  \lean{AlgebraicGeometry.divisorWindow, AlgebraicGeometry.divisorWindow_eq_of_divEq,
+    AlgebraicGeometry.DivFam.window, AlgebraicGeometry.divFamEps,
+    AlgebraicGeometry.divFamEps_mk}
+  \leanok
+  \source{nitsure-hilbert-quot}
 
   \uses{pa-def:certifiedDivisorFamily, pa-def:divisorSections, pa-def:fiberWeilDivisor,
     pa-def:fiberTwist, pa-lem:localEquations_divEq, pa-def:grFunctorAff}
@@ -565,6 +637,7 @@ and the multiplication maps are surjective.
   \]
 \end{definition}
 \begin{proof}
+  \leanok
   Vanishing along a divisor is a condition on the section, not on its presentation:
   a section \(\sigma\) of \(\OO(aF)\) lies in \(H^0(\OO(aF-D))\) iff on each member of the
   cover of \(d\) the local expression of \(\sigma\) is divisible by the equation of \(d\).
@@ -577,6 +650,9 @@ and the multiplication maps are surjective.
 
 \begin{lemma}[Equal rank at every stalk forces equality]
   \label{pa-lem:rankAtStalk_equal_quotients}
+  \lean{LinearMap.injective_of_surjective_of_rankAtStalk_eq,
+    Submodule.eq_of_le_of_rankAtStalk_quotient_eq}
+  \leanok
   \dcref{custom}
 
   Let \(R\) be a commutative ring.
@@ -591,6 +667,7 @@ and the multiplication maps are surjective.
   \end{enumerate}
 \end{lemma}
 \begin{proof}
+  \leanok
   (i) Since \(N\) is projective, \(\varphi\) splits: there is \(\ell \colon N \to M\) with
   \(\varphi \ell = \id_N\), and \(M \cong \ker\varphi \oplus N\). Hence \(\ker \varphi\) is
   a direct summand of the finite projective module \(M\), so it is itself finite
@@ -609,6 +686,10 @@ and the multiplication maps are surjective.
 
 \begin{theorem}[The window identity]
   \label{pa-thm:divisorWindow_eq_of_le}
+  \lean{AlgebraicGeometry.divisorWindow_eq_of_le,
+    AlgebraicGeometry.divisorWindow_eq_of_le_of_isCertified,
+    AlgebraicGeometry.divFamEps_mk_eq_of_le}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:divisorWindow, pa-def:isCertified, pa-lem:rankAtStalk_equal_quotients,
@@ -630,6 +711,7 @@ and the multiplication maps are surjective.
   pair.
 \end{theorem}
 \begin{proof}
+  \leanok
   (i) By definition \(K_a(d)\) is the kernel of the evaluation map: a section of
   \(\OO(aF)\) vanishes along \(d\) exactly when its image in each chart colength module ---
   hence in their glued equalizer --- is zero. The evaluation is surjective by hypothesis,
@@ -653,6 +735,9 @@ and the multiplication maps are surjective.
 
 \begin{theorem}[\(\varepsilon\) is injective on divisor classes]
   \label{pa-thm:divFam_mono}
+  \lean{AlgebraicGeometry.divFam_divEq_of_stalkIdeal_eq,
+    AlgebraicGeometry.divFam_divEq_of_eps_eq_total}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:divisorWindow, pa-def:certifiedDivisorFamily, pa-lem:localEquations_divEq,
@@ -664,6 +749,7 @@ and the multiplication maps are surjective.
   \(\varepsilon\) is injective on \(\Div^{\,g}(R)\).
 \end{theorem}
 \begin{proof}
+  \leanok
   \emph{Step 1: stalk ideals determine the class.} Two local-equation systems with the same
   ideal \((d_z)\struct{C_R,z}\) in every stalk are divisor-equal. Indeed, fix a point
   \(z\); the two equations generate the same stalk ideal, so each is a unit multiple of the
@@ -690,6 +776,11 @@ and the multiplication maps are surjective.
 
 \begin{definition}[The divisor scheme \(\mathbf{Div}\)]
   \label{pa-def:divScheme}
+  \lean{AlgebraicGeometry.DivScheme, AlgebraicGeometry.divSchemeι,
+    AlgebraicGeometry.divSchemeOver, AlgebraicGeometry.divScheme_hom_ext,
+    AlgebraicGeometry.divCarveMul, AlgebraicGeometry.divCarveIdeal}
+  \leanok
+  \source{nitsure-hilbert-quot, kleiman-picard}
 
   \uses{pa-def:grFunctorAff, pa-def:divisorSections, pa-def:fiberWeilDivisor}
   \dcref{custom}
@@ -716,6 +807,7 @@ and the multiplication maps are surjective.
   \(\mathbf{Div}_{/k}\) of \(\Over(\Spec k)\).
 \end{definition}
 \begin{proof}
+  \leanok
   The description of the \(R\)-points is the standard reading of a determinantal-type carve
   on a Grassmannian chart: on the chart the tautological submodules are free with an
   explicit basis, the composite above is an \(R\)-linear map between free modules, and a map
@@ -744,6 +836,8 @@ morphism. Both directions are proved.
 
 \begin{definition}[The characterizing clause of a classifying morphism]
   \label{pa-def:isDivRepClassify}
+  \lean{AlgebraicGeometry.IsDivRepClassify}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:divFamZar, pa-def:divScheme, pa-def:divisorWindow, pa-def:grFunctorAff}
@@ -766,6 +860,12 @@ morphism. Both directions are proved.
 
 \begin{theorem}[Existence and uniqueness of the classifying morphism]
   \label{pa-thm:divClassifyZar}
+  \lean{AlgebraicGeometry.exists_isDivRepClassify,
+    AlgebraicGeometry.isDivRepClassify_unique, AlgebraicGeometry.divClassifyZar,
+    AlgebraicGeometry.divRepClassifyZar,
+    AlgebraicGeometry.divRepClassifyZar_isDivRepClassify,
+    AlgebraicGeometry.divRepClassifyZar_eq_of_isDivRepClassify}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:isDivRepClassify, pa-def:divFamZar, pa-def:divScheme, pa-thm:divisorWindow_eq_of_le,
@@ -780,6 +880,7 @@ morphism. Both directions are proved.
   morphism classifies \(D\) equals \(\gamma_S(D)\).
 \end{theorem}
 \begin{proof}
+  \leanok
   \emph{Existence.} By \ref{pa-def:isLocallyCertified} there is a finite family
   \(r_1,\dots,r_m \in S\) generating the unit ideal such that over each \(S_{r_p}\) the
   restriction of \(D\) has a certified representative \(G_p\); refining that family further
@@ -815,6 +916,9 @@ morphism. Both directions are proved.
 
 \begin{theorem}[Separation of divisor classes]
   \label{pa-thm:eq_of_isDivRepClassify}
+  \lean{AlgebraicGeometry.eq_of_isDivRepClassify,
+    AlgebraicGeometry.divRepClassifyZar_injective}
+  \leanok
   \dcref{custom}
 
   \uses{pa-thm:divClassifyZar, pa-def:isDivRepClassify, pa-def:divFamZar, pa-thm:divFam_mono,
@@ -824,6 +928,7 @@ morphism. Both directions are proved.
   \(D \mapsto \gamma_S(D)\) is injective.
 \end{theorem}
 \begin{proof}
+  \leanok
   Choose, as in \ref{pa-thm:divClassifyZar}, unit-ideal families \(c^{(0)}\) and \(c^{(1)}\) in
   \(S\) over whose localisations \(D_0\), respectively \(D_1\), have certified
   representatives with chart-presented \(\varepsilon\)-pairs. The products
@@ -862,6 +967,10 @@ records that it has not been constructed.
 
 \begin{definition}[The affine pullback package]
   \label{pa-def:divRepAffinePullback}
+  \lean{AlgebraicGeometry.divRepPullAt, AlgebraicGeometry.divRepPullAt_comp,
+    AlgebraicGeometry.DivRepChartFamily.IsCompatible,
+    AlgebraicGeometry.DivRepAffinePullback}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:divFamZar, pa-def:divScheme, pa-def:isDivRepClassify}
@@ -885,6 +994,11 @@ records that it has not been constructed.
 
 \begin{theorem}[The affine equivalence]
   \label{pa-thm:divRepAffinePullback_equiv}
+  \lean{AlgebraicGeometry.pull_classify_of_isDivRepClassify_pull,
+    AlgebraicGeometry.DivRepAffinePullback.ofPull,
+    AlgebraicGeometry.DivRepAffinePullback.equiv,
+    AlgebraicGeometry.DivRepAffinePullback.equiv_naturality}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:divRepAffinePullback, pa-thm:divClassifyZar, pa-thm:eq_of_isDivRepClassify}
@@ -898,6 +1012,7 @@ records that it has not been constructed.
   natural in \(S\).
 \end{theorem}
 \begin{proof}
+  \leanok
   \(\gamma_S \circ \rho_S = \id\): given \(v\), the class \(\rho_S(v)\) is classified by
   \(v\) by hypothesis, and by the uniqueness clause of \ref{pa-thm:divClassifyZar} any
   morphism classifying a class \emph{is} the classifying morphism of that class; hence
@@ -916,6 +1031,7 @@ records that it has not been constructed.
 
 \begin{theorem}[The auxiliary fixed-window universal family --- unproved]
   \label{pa-thm:divRepUniversalFamily}
+  \notready
   \dcref{custom}
   \uses{pa-def:divRepAffinePullback, pa-def:divScheme, pa-def:certifiedDivisorFamily,
     pa-thm:divisorWindow_eq_of_le, pa-thm:isCertified_chart_obstruction}
@@ -957,6 +1073,9 @@ functor supplies the chart, while the arbitrary-degree construction remains auxi
 
 \begin{definition}[The represented genus-degree divisor source]
   \label{pa-def:genusDivisorRepresentation}
+  \lean{AlgebraicGeometry.divRepAffGenusScheme,
+    AlgebraicGeometry.divFunctorAff_genus_representableBy}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:divFamZarAff}
@@ -968,6 +1087,10 @@ functor supplies the chart, while the arbitrary-degree construction remains auxi
 
 \begin{definition}[The represented admissible divisor source]
   \label{pa-def:admissibleDivisorRepresentation}
+  \lean{AlgebraicGeometry.divRepAffAdmissibleParameter,
+    AlgebraicGeometry.divRepAffAdmissibleScheme,
+    AlgebraicGeometry.divFunctorAff_admissible_representableBy}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:divFamZarAff}
@@ -979,6 +1102,9 @@ functor supplies the chart, while the arbitrary-degree construction remains auxi
 
 \begin{definition}[The represented genus-degree Abel map]
   \label{pa-def:genusAbelMap}
+  \lean{AlgebraicGeometry.abelDivAffTrans, AlgebraicGeometry.abelDivAffSigma,
+    AlgebraicGeometry.abelDivAffGenusSigma}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:genusDivisorRepresentation, pa-def:picDegLayerFunctor}
@@ -993,6 +1119,9 @@ functor supplies the chart, while the arbitrary-degree construction remains auxi
 
 \begin{theorem}[The higher-degree Abel map is not an open chart]
   \label{pa-thm:highDegreeAbel_notOpenImmersion}
+  \lean{AlgebraicGeometry.not_isOpenImmersion_abelSigmaChartAff_of_genus_lt_degree}
+  \leanok
+  \source{abelian-varieties:page-0109}
 
 
   \uses{pa-def:divFamZarAff, pa-thm:riemann_inequality_curve}
@@ -1020,6 +1149,11 @@ existence of a scheme quotient.
 
 \begin{definition}[The concrete admissible Abel map]
   \label{pa-def:admissibleAbelMap}
+  \lean{AlgebraicGeometry.admissibleAbelChartIndex,
+    AlgebraicGeometry.admissibleAbelChartDivisor,
+    AlgebraicGeometry.admissibleAbelTrans,
+    AlgebraicGeometry.abelSigmaChartAffAdmissible_eq_sigmaExtension_admissibleAbelTrans}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:admissibleDivisorRepresentation, pa-def:pic0SigmaFunctor}
@@ -1030,6 +1164,14 @@ existence of a scheme quotient.
 
 \begin{theorem}[The admissible source is project-local]
   \label{pa-thm:admissibleDivisorSource_projectLocal}
+  \lean{AlgebraicGeometry.divRepAffAdmissibleEmbedding,
+    AlgebraicGeometry.isClosedImmersion_divRepAffAdmissibleEmbedding,
+    AlgebraicGeometry.divRepAffAdmissibleGrassmannianCover,
+    AlgebraicGeometry.quasiCompact_divRepAffAdmissibleScheme,
+    AlgebraicGeometry.locallyOfFiniteType_divRepAffAdmissibleScheme,
+    AlgebraicGeometry.isSeparated_divRepAffAdmissibleScheme}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-def:admissibleDivisorRepresentation, pa-def:divScheme}
   The source \(D_{\mathrm{adm}}\) has a closed immersion into a product of two
@@ -1049,6 +1191,9 @@ existence of a scheme quotient.
 
 \begin{theorem}[Kernel of the admissible Abel map]
   \label{pa-thm:admissibleAbel_kernel}
+  \lean{AlgebraicGeometry.admissibleAbelTrans_app_eq_iff_forall_picClass_div_mem_picFromBase}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-def:admissibleAbelMap, pa-def:relPic}
   Two admissible divisor families have the same Abel value exactly when, on every affine open
@@ -1068,6 +1213,11 @@ existence of a scheme quotient.
 
 \begin{theorem}[Fibre dimension at the admissible degree]
   \label{pa-thm:admissibleAbel_fibreRank}
+  \lean{AlgebraicGeometry.subsingleton_h1_of_divRepAffAdmissibleParameter_le_deg,
+    AlgebraicGeometry.h0_divisorSheaf_eq_divRepAffAdmissibleParameter_add_one_sub_genus,
+    AlgebraicGeometry.h0_sub_one_eq_divRepAffAdmissibleParameter_sub_genus}
+  \leanok
+  \source{abelian-varieties:page-0109}
 
 
   \uses{pa-def:admissibleDivisorRepresentation, pa-thm:h0_eq_deg_add_chi,
@@ -1086,6 +1236,11 @@ existence of a scheme quotient.
 
 \begin{definition}[The admissible Abel map after big-etale sheafification]
   \label{pa-def:admissibleAbelEtaleSheafMap}
+  \lean{AlgebraicGeometry.Scheme.subcanonical_etaleTopology,
+    AlgebraicGeometry.pic0SigmaEtaleSheafification,
+    AlgebraicGeometry.admissibleAbelEtaleSourceIso,
+    AlgebraicGeometry.admissibleAbelEtaleSheafMap}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:admissibleDivisorRepresentation, pa-def:admissibleAbelMap}
@@ -1097,6 +1252,9 @@ existence of a scheme quotient.
 
 \begin{theorem}[Kernel after big-etale sheafification]
   \label{pa-thm:admissibleAbel_etaleKernel}
+  \lean{AlgebraicGeometry.admissibleAbelEtaleSheafMap_app_eq_iff_equalizerSieve_mem,
+    AlgebraicGeometry.admissibleAbelEtaleRawKernelSieve_apply_iff_forall_picClass_div_mem_picFromBase}
+  \leanok
   \dcref{custom}
 
   \uses{pa-thm:admissibleAbel_kernel, pa-def:admissibleAbelEtaleSheafMap}
@@ -1113,6 +1271,9 @@ existence of a scheme quotient.
 
 \begin{theorem}[Etale-local surjectivity of the admissible Abel map]
   \label{pa-thm:admissibleAbel_etaleLocallySurjective}
+  \lean{AlgebraicGeometry.isLocallySurjective_abelSigmaChartAffAdmissible}
+  \leanok
+  \source{kleiman-picard}
 
   \uses{pa-def:admissibleAbelMap, pa-def:admissibleAbelEtaleSheafMap,
     pa-thm:admissibleAbel_fibreRank}
@@ -1133,6 +1294,9 @@ existence of a scheme quotient.
 
 \begin{theorem}[The sheafified Abel map is the coequalizer of its kernel pair]
   \label{pa-thm:admissibleAbel_etaleCoequalizer}
+  \lean{AlgebraicGeometry.admissibleAbelEtaleSheafMap_isLocallySurjective,
+    AlgebraicGeometry.admissibleAbelEtaleTargetCoequalizer}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:admissibleAbelEtaleSheafMap,
@@ -1149,6 +1313,9 @@ existence of a scheme quotient.
 
 \begin{theorem}[Geometry of the genus-degree divisor source]
   \label{pa-thm:genusDivisorSource_geometry}
+  \notready
+  \source{kleiman-picard, abelian-varieties:page-0100,
+    abelian-varieties:page-0107}
   \uses{pa-def:genusDivisorRepresentation}
   The scheme \(D_g\) is projective and geometrically irreducible over \(k\).
   \dcref{custom}
@@ -1175,6 +1342,8 @@ properties above.
 
 \begin{definition}[A rank-one local presentation of a Picard class]
   \label{pa-def:picRankOneLocalPresentation}
+  \lean{AlgebraicGeometry.PicRankOneLocalPresentation}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:picDegLayerFunctor}
@@ -1198,6 +1367,7 @@ properties above.
 
 \begin{lemma}[Changing a local representative]
   \label{pa-lem:picRankOnePresentation_change}
+  \notready
   \dcref{custom}
   \uses{pa-def:picRankOneLocalPresentation}
   Suppose \(\mathcal L\) and \(\mathcal L'\) represent the same relative Picard class over a
@@ -1224,6 +1394,7 @@ properties above.
 
 \begin{definition}[The rank-one Picard subfunctor]
   \label{pa-def:picRankOneOpen}
+  \notready
   \dcref{custom}
   \uses{pa-def:picRankOneLocalPresentation,
     pa-lem:picRankOnePresentation_change}
@@ -1237,6 +1408,8 @@ properties above.
 
 \begin{theorem}[Openness of the rank-one Picard locus]
   \label{pa-thm:picRankOneOpen_isOpen}
+  \notready
+  \source{kleiman-picard}
   \uses{pa-def:picRankOneOpen, pa-lem:picRankOnePresentation_change,
     pa-thm:h0_eq_deg_add_chi, pa-thm:chi_moduleKSheaf_curve}
   The inclusion
@@ -1265,6 +1438,7 @@ properties above.
 
 \begin{definition}[The divisor rank-one open]
   \label{pa-def:divRankOneOpen}
+  \notready
   \dcref{custom}
   \uses{pa-def:genusDivisorRepresentation, pa-def:genusAbelMap,
     pa-def:picRankOneOpen, pa-thm:picRankOneOpen_isOpen}
@@ -1281,6 +1455,7 @@ properties above.
 
 \begin{definition}[The restricted rank-one Abel map]
   \label{pa-def:rankOneAbel}
+  \notready
   \dcref{custom}
   \uses{pa-def:divRankOneOpen, pa-def:genusAbelMap}
   Restriction of \(a_g\) to \(W\) gives a natural transformation
@@ -1292,6 +1467,8 @@ properties above.
 
 \begin{definition}[The canonical divisor of a rank-one class]
   \label{pa-def:divisorOfRankOne}
+  \notready
+  \source{kleiman-picard}
   \uses{pa-def:picRankOneLocalPresentation,
     pa-lem:picRankOnePresentation_change, pa-def:divRankOneOpen}
   There is a natural transformation
@@ -1337,6 +1514,9 @@ properties above.
 
 \begin{theorem}[The two rank-one constructions are inverse]
   \label{pa-thm:rankOneAbel_inverse}
+  \lean{AlgebraicGeometry.canonicalRankOneRepresenterTrans_abel,
+    AlgebraicGeometry.canonicalRankOneAbelSliceIso}
+  \leanok
   \dcref{custom}
 
   On the represented rank-one divisor locus, the restricted Abel transformation and the
@@ -1344,6 +1524,7 @@ properties above.
   an isomorphism with the rank-one Picard locus on the slice over \(\Spec k\).
 \end{theorem}
 \begin{proof}
+  \leanok
   The canonical evaluation divisor has Abel class equal to the original rank-one class.
   Injectivity of the restricted represented Abel transformation gives the other composite;
   naturality packages the two identities into the displayed isomorphism.
@@ -1351,6 +1532,8 @@ properties above.
 
 \begin{definition}[The rank-one Abel isomorphism]
   \label{pa-def:rankOneAbelIso}
+  \lean{AlgebraicGeometry.canonicalRankOneAbelIso}
+  \leanok
   \dcref{custom}
 
   \uses{pa-thm:rankOneAbel_inverse}
@@ -1361,6 +1544,7 @@ properties above.
   \]
 \end{definition}
 \begin{proof}
+  \leanok
   Use \(\operatorname{rankOneAbel}\) as the forward map and
   \(\operatorname{divisorOfRankOne}\) as the inverse; the two triangle identities are
   Theorem~\ref{pa-thm:rankOneAbel_inverse}.
@@ -1368,6 +1552,8 @@ properties above.
 
 \begin{theorem}[The rank-one Abel map is an open immersion]
   \label{pa-thm:rankOneAbel_isOpenImmersion}
+  \lean{AlgebraicGeometry.rankOneAbel_isOpenImmersion}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:rankOneAbelIso}
@@ -1380,6 +1566,7 @@ properties above.
   is relatively representable by open immersions.
 \end{theorem}
 \begin{proof}
+  \leanok
   A natural isomorphism is relatively representable by isomorphisms, and the second arrow is
   relatively representable by open immersions by
   Theorem~\ref{pa-thm:picRankOneOpen_isOpen}.  The composite of an isomorphism with an open
@@ -1390,6 +1577,8 @@ properties above.
 
 \begin{definition}[Translated rank-one charts in degree zero]
   \label{pa-def:pic0TranslatedRankOneOpen}
+  \lean{AlgebraicGeometry.picRankOneTranslatedChart}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:picRankOneOpen, pa-def:rankOneAbelIso, pa-def:pic0Functor}
@@ -1401,6 +1590,8 @@ properties above.
 
 \begin{theorem}[Representability of each translated open]
   \label{pa-thm:pic0TranslatedRankOneOpen_representable}
+  \lean{AlgebraicGeometry.picRankOneTranslatedChart_isOpenImmersion}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:pic0TranslatedRankOneOpen, pa-def:rankOneAbelIso,
@@ -1409,6 +1600,7 @@ properties above.
   representable by open immersions.
 \end{theorem}
 \begin{proof}
+  \leanok
   The canonical Abel isomorphism and Picard translation are isomorphisms, and the intervening
   rank-one inclusion is an open immersion by
   Theorem~\ref{pa-thm:rankOneAbel_isOpenImmersion}.  Stability under composition gives the
@@ -1417,6 +1609,8 @@ properties above.
 
 \begin{theorem}[Translated rank-one opens cover over a separably closed field]
   \label{pa-thm:rankOne_translate_cover_sepClosed}
+  \lean{AlgebraicGeometry.picRankOneTranslatedChart_pointwiseCoverage}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:pic0TranslatedRankOneOpen, pa-thm:exists_rationalPoint_mem,
@@ -1428,6 +1622,7 @@ properties above.
   translated charts cover \(\mathrm{pic}^0(C)\) pointwise.
 \end{theorem}
 \begin{proof}
+  \leanok
   Restrict \(\lambda\) to the residue field at \(t\).  The separably closed translated-drop
   theorem supplies a degree-\(g(C)\) base class for which this restriction lies in the
   rank-one locus.  The canonical Abel isomorphism lifts it to the represented divisor open;
@@ -1436,6 +1631,8 @@ properties above.
 
 \begin{definition}[The separably closed degree-zero Picard representer]
   \label{pa-def:pic0_sepClosed_representableBy}
+  \lean{AlgebraicGeometry.pic0_sepClosed_representableBy}
+  \leanok
   \dcref{custom}
 
   \uses{pa-thm:pic0TranslatedRankOneOpen_representable,
@@ -1446,6 +1643,7 @@ properties above.
   \]
 \end{definition}
 \begin{proof}
+  \leanok
   Use the represented opens \(U_{\mathcal M}\), indexed by the degree-\(g(C)\) invertible
   sheaves on \(C\).  Let \(T\) be a test scheme, \(\lambda\in\mathrm{pic}^0(C,T)\), and
   \(t\in T\).  Apply Theorem~\ref{pa-thm:rankOne_translate_cover_sepClosed} to the residue field
@@ -1461,6 +1659,8 @@ properties above.
 
 \begin{theorem}[Local finite type of the separably closed representer]
   \label{pa-thm:pic0SepClosed_lft}
+  \lean{AlgebraicGeometry.locallyOfFiniteType_pic0_sepClosed_representableBy}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:pic0_sepClosed_representableBy}
@@ -1468,35 +1668,44 @@ properties above.
   representative \(J_s\) is locally of finite type.
 \end{theorem}
 \begin{proof}
+  \leanok
   Local finite type holds on each represented divisor chart and therefore on their glued
   target.
 \end{proof}
 
 \begin{theorem}[Finite presentation of the separably closed representer]
   \label{pa-thm:pic0SepClosed_lfp}
+  \lean{AlgebraicGeometry.locallyOfFinitePresentation_pic0_sepClosed_representableBy}
+  \leanok
   \dcref{custom}
 
   \uses{pa-thm:pic0SepClosed_lft}
   The structure morphism \(J_s\to\Spec k\) is locally of finite presentation.
 \end{theorem}
 \begin{proof}
+  \leanok
   Over a field, local finite type is equivalent to local finite presentation.
 \end{proof}
 
 \begin{theorem}[Quasi-compactness of the separably closed representer]
   \label{pa-thm:pic0SepClosed_qc}
+  \lean{AlgebraicGeometry.quasiCompact_pic0SepClosedRepresenter}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:pic0_sepClosed_representableBy, pa-def:genusAbelMap}
   The structure morphism \(J_s\to\Spec k\) is quasi-compact.
 \end{theorem}
 \begin{proof}
+  \leanok
   The admissible Abel source is quasi-compact and maps surjectively to the exact
   separably closed representative; quasi-compactness descends through that surjection.
 \end{proof}
 
 \begin{definition}[The separably closed Picard representation datum]
   \label{pa-def:pic0SepClosedDescentInput}
+  \lean{AlgebraicGeometry.picRepDatumSepClosed}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:pic0_sepClosed_representableBy, pa-thm:pic0SepClosed_lft}
@@ -1509,6 +1718,8 @@ properties above.
 
 \begin{theorem}[The separably closed Jacobian datum]
   \label{pa-thm:pic0SepClosedDescentInput_exists}
+  \lean{AlgebraicGeometry.jacobianDataSepClosed}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:pic0SepClosedDescentInput, pa-thm:pic0SepClosed_qc,
@@ -1517,12 +1728,14 @@ properties above.
   datum after adjoining the quasi-compactness certificate.
 \end{theorem}
 \begin{proof}
+  \leanok
   Apply the canonical handoff from \(\mathrm{PicRepDatum}\) to
   Definition~\ref{pa-def:jacobian_data} using Theorem~\ref{pa-thm:pic0SepClosed_qc}.
 \end{proof}
 
 \begin{theorem}[Finite-stage descent of the universal Picard equivalence]
   \label{pa-thm:pic0DescentCompatibility}
+  \notready
   \dcref{custom}
   \uses{pa-def:pic0SepClosedDescentInput, pa-thm:pic0SepClosed_lfp}
   Let \(k^s/k\) be a separable closure.  There are a finite subextension \(F/k\), an
@@ -1540,6 +1753,7 @@ properties above.
 
 \begin{definition}[The finite-stage glued base-change comparison]
   \label{pa-def:pic0FiniteStageBaseChangeIso}
+  \lean{AlgebraicGeometry.Pic0FiniteStageGluePackage.finiteStageBaseChangeIso}
   \dcref{custom}
 
   \uses{pa-def:pic0_sepClosed_representableBy}
@@ -1550,6 +1764,7 @@ properties above.
 
 \begin{theorem}[A represented finite Galois stage]
   \label{pa-thm:pic0FiniteGaloisStage}
+  \notready
   \dcref{custom}
   \uses{pa-thm:pic0DescentCompatibility, pa-def:pic0FiniteStageBaseChangeIso}
   There is a finite Galois extension \(L/k\) and an \(L\)-scheme \(J_L\), obtained from the
@@ -1567,6 +1782,8 @@ properties above.
 
 \begin{definition}[The canonical semilinear action on a finite-stage representative]
   \label{pa-def:pic0FiniteGaloisAction}
+  \lean{AlgebraicGeometry.pic0SemilinearGalActionOfRepresentableBy}
+  \leanok
   \dcref{custom}
 
   For a finite Galois extension \(L/k\) and any chosen representation
@@ -1577,6 +1794,8 @@ properties above.
 
 \begin{theorem}[Conditional orbit-affineness from projectivity]
   \label{pa-thm:pic0FiniteStage_orbitsInAffine_of_projective}
+  \lean{AlgebraicGeometry.pic0FiniteStageOrbitsInAffineOpen_of_isProjective}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:pic0FiniteGaloisAction}
@@ -1585,12 +1804,14 @@ properties above.
   affine open.
 \end{theorem}
 \begin{proof}
+  \leanok
   Projectivity supplies an immersion into finite-dimensional projective space; finite subsets
   of such a scheme lie in affine opens, and this applies to each finite Galois orbit.
 \end{proof}
 
 \begin{theorem}[Orbit-affineness of the actual finite-stage representative]
   \label{pa-thm:pic0FiniteStage_orbitsInAffine}
+  \notready
   \dcref{custom}
   \uses{pa-thm:pic0FiniteGaloisStage,
     pa-thm:pic0FiniteStage_orbitsInAffine_of_projective}
@@ -1607,6 +1828,8 @@ properties above.
 
 \begin{lemma}[Stable affine neighbourhoods for a finite action]
   \label{pa-lem:finiteGalois_stableAffineCover}
+  \lean{AlgebraicJacobian.GaloisDescent.hasStableAffineCover_of_orbitsInAffineOpen}
+  \leanok
   \dcref{custom}
 
   Let \(L/k\) be finite Galois and let \(X_L\) carry a semilinear Galois action.  If every
@@ -1614,6 +1837,7 @@ properties above.
   open neighbourhood, and these neighbourhoods form a stable affine cover.
 \end{lemma}
 \begin{proof}
+  \leanok
   Starting from an affine containing the orbit, a norm of a suitable basic-open function
   produces a stable basic affine neighbourhood of the chosen point.  This construction does
   not require a separate global separatedness assumption.
@@ -1621,6 +1845,10 @@ properties above.
 
 \begin{theorem}[Finite Galois descent of a scheme]
   \label{pa-thm:finiteGalois_schemeDescent}
+  \lean{AlgebraicJacobian.GaloisDescent.StableAffineOpen.gluedQuotientBaseChangeIso,
+    AlgebraicJacobian.GaloisDescent.StableAffineOpen.isGaloisQuotient_glued,
+    AlgebraicJacobian.GaloisDescent.StableAffineOpen.gluedQuotientOver}
+  \leanok
   \dcref{custom}
 
   \uses{pa-lem:finiteGalois_stableAffineCover}
@@ -1630,6 +1858,7 @@ properties above.
   \(X\times_kL\simeq X_L\), and the corresponding finite-Galois quotient universal property.
 \end{theorem}
 \begin{proof}
+  \leanok
   Lemma~\ref{pa-lem:finiteGalois_stableAffineCover} supplies stable affine charts.  Taking
   invariant rings descends the charts and their overlaps; the descended open immersions glue.
   The affine base-change isomorphisms glue to the displayed equivariant isomorphism, and their
@@ -1638,6 +1867,8 @@ properties above.
 
 \begin{theorem}[Effective finite-Galois descent for Picard-zero classes]
   \label{pa-thm:pic0_finiteGalois_effectiveDescent}
+  \lean{AlgebraicGeometry.pic0GaloisInvariantEquiv}
+  \leanok
   \dcref{custom}
 
   For every \(k\)-test scheme \(T\), restriction along a finite Galois extension \(L/k\)
@@ -1645,12 +1876,15 @@ properties above.
   \(T_L\), naturally in \(T\).
 \end{theorem}
 \begin{proof}
+  \leanok
   Etale sheaf descent gives existence and uniqueness of a class below every invariant class;
   restriction is therefore a bijection onto the invariant subtype.
 \end{proof}
 
 \begin{theorem}[Invariant classes are equivariant maps]
   \label{pa-thm:pic0_invariants_equivariant}
+  \lean{AlgebraicGeometry.pic0GaloisInvariantEquivGaloisEquivariantOver}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:pic0FiniteGaloisAction,
@@ -1660,12 +1894,15 @@ properties above.
   \(T_L\to J_L\) for the canonical semilinear action.
 \end{theorem}
 \begin{proof}
+  \leanok
   Apply the representing equivalence over \(L\); invariance of the class is exactly the
   equivariance equation for the associated morphism.
 \end{proof}
 
 \begin{theorem}[Conditional finite-Galois descent of Picard-zero representability]
   \label{pa-thm:representableBy_of_finiteGalois_baseChange}
+  \lean{AlgebraicGeometry.pic0RepresentableBy_finiteGaloisDescent}
+  \leanok
   \dcref{custom}
 
   \uses{pa-thm:finiteGalois_schemeDescent,
@@ -1678,6 +1915,7 @@ properties above.
   does not produce either one.
 \end{theorem}
 \begin{proof}
+  \leanok
   Equivariant maps into \(J_L\) are maps into its glued quotient by
   Theorem~\ref{pa-thm:finiteGalois_schemeDescent}.  Theorem~\ref{pa-thm:pic0_invariants_equivariant}
   identifies those maps with invariant Picard-zero classes, and
@@ -1687,6 +1925,7 @@ properties above.
 
 \begin{definition}[The arbitrary-field degree-zero Picard representer]
   \label{pa-def:pic0_representableBy}
+  \notready
   \dcref{custom}
   \uses{pa-thm:pic0FiniteGaloisStage,
     pa-thm:pic0FiniteStage_orbitsInAffine,
@@ -1707,6 +1946,8 @@ properties above.
 
 \begin{definition}[Finite-level Picard representation datum]
   \label{pa-def:picRepDatum}
+  \lean{AlgebraicGeometry.PicRepDatum}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:pic0Functor}
@@ -1717,6 +1958,8 @@ properties above.
 
 \begin{definition}[Conditional Picard datum from finite-Galois descent]
   \label{pa-def:picRepDatum_finiteGaloisDescent}
+  \lean{AlgebraicGeometry.picRepDatum_finiteGaloisDescent}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:picRepDatum, pa-thm:representableBy_of_finiteGalois_baseChange}
@@ -1727,6 +1970,8 @@ properties above.
 
 \begin{definition}[Conditional Jacobian datum from finite-Galois descent]
   \label{pa-def:jacobianData_finiteGaloisDescent}
+  \lean{AlgebraicGeometry.jacobianData_finiteGaloisDescent}
+  \leanok
   \dcref{custom}
 
   \uses{pa-def:picRepDatum_finiteGaloisDescent, pa-def:jacobian_data}
@@ -1737,6 +1982,7 @@ properties above.
 
 \begin{definition}[The Jacobian datum from the chosen representation]
   \label{pa-def:jacobianData}
+  \notready
   \dcref{custom}
   \uses{pa-def:pic0_representableBy, pa-def:jacobian_data,
     pa-def:jacobianData_finiteGaloisDescent}
