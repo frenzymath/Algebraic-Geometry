@@ -28,15 +28,19 @@ therefore never mix declarations or build products.
 
 `MilneKollar/` contains the legacy challenge implementation ported from
 `MainProjects/Algebraic-Jacobian-Challenge` (387 library modules plus its root
-module). Its root build is the stable, verified package target:
+module). The source package's root target is:
 
 ```bash
 cd MilneKollar
 lake build AlgebraicJacobian
 ```
 
+The ported route has also been checked with the smaller
+`lake build AlgebraicJacobian.Genus` target; a fresh root build can be much
+slower because it elaborates the entire challenge cone.
+
 `PicardAlbanese/` contains the newer from-scratch implementation ported from
-`MainProjects/Algebraic-Jacobian-Challenge-Rebuild` (1,174 library modules).
+`MainProjects/Algebraic-Jacobian-Challenge-Rebuild` (1,176 library modules).
 The full Horizon root remains an active development cone, so the route keeps
 all source modules available for explicit targets; the verified stable target
 is:

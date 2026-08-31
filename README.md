@@ -45,14 +45,31 @@ overview.html            hgraph landing-page content
 site/algebraic-geometry.css  workspace-wide hgraph style override
 ```
 
+The Lean packages are intentionally independent Lake projects. The two
+Algebraic Jacobian routes each own their library: the legacy challenge package
+is at `MainProjects/AlgebraicJacobian/MilneKollar/`, and the current
+from-scratch package is at `MainProjects/AlgebraicJacobian/PicardAlbanese/`.
+
+Both Algebraic Jacobian packages use the same pinned Lean 4.31/mathlib
+dependency set.
+To reuse the already-built dependency checkout from the Horizon workspace,
+run:
+
+```bash
+./scripts/use-horizon-cache.sh
+```
+
+The helper creates the ignored root `.lake-packages` symlink. Project `.lake/`
+directories remain local because Lake records project source paths in those
+artifacts; they are regenerated per package and are never committed.
+
 ## Formalization projects
 
 | Project | Role |
 |---|---|
 | [`MainProjects/AlgebraicJacobian`](MainProjects/AlgebraicJacobian/) | Flagship algebraic-Jacobian challenge |
-| [`MainProjects/AlgebraicJacobian/AlgebraicJacobian`](MainProjects/AlgebraicJacobian/AlgebraicJacobian/) | Compiled AJ Lean library (388 modules) |
-| [`MainProjects/AlgebraicJacobian/MilneKollar`](MainProjects/AlgebraicJacobian/MilneKollar/) | Milne-Kollar Picard-scheme route |
-| [`MainProjects/AlgebraicJacobian/PicardAlbanese`](MainProjects/AlgebraicJacobian/PicardAlbanese/) | Etale Picard-Albanese route |
+| [`MainProjects/AlgebraicJacobian/MilneKollar`](MainProjects/AlgebraicJacobian/MilneKollar/) | Milne-Kollar route and legacy AJ Lean library (387 modules) |
+| [`MainProjects/AlgebraicJacobian/PicardAlbanese`](MainProjects/AlgebraicJacobian/PicardAlbanese/) | Etale Picard-Albanese route and from-scratch AJ Lean library (1,176 modules) |
 | [`shared/`](shared/) | Source-independent reusable Lean infrastructure |
 | [`FormalizedSources/StacksProject/`](FormalizedSources/StacksProject/) | **8** part-level projects containing all **109** Stacks chapters |
 | [`FormalizedSources/AbelianVarieties/Mumford`](FormalizedSources/AbelianVarieties/Mumford/) | Mumford's geometric treatment of abelian varieties |
@@ -103,7 +120,12 @@ The current workspace provides:
   projects, including eight Stacks part projects and two Algebraic Jacobian
   construction routes;
 - **109** Stacks chapter blueprints covering Parts 1–8 completely;
-- source blueprints for Mumford, Milne, and Hartshorne;
+- source blueprints for Mumford, Milne, and Hartshorne, with ported Lean
+  packages (`MilneLib`, `MumfordLib`, `HartshorneLib`) and matching `\lean`
+  annotations where declarations exist;
+- eight Stacks part-local Lean packages (`StacksPart01Lib` … `StacksPart08Lib`);
+- two Algebraic Jacobian Lean packages under route directories
+  (`MilneKollar`: 387 modules; `PicardAlbanese`: 1,176 modules);
 - a workspace-level visual theme distinct from the default Poincare styling;
 - GFDL provenance tracking for Stacks text and Apache 2.0 for original code.
 

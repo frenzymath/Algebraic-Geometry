@@ -1,5 +1,5 @@
 % Hartshorne, Algebraic Geometry (1977), Chapter II.
-% Mathematical mathematical blueprint of Hartshorne, Algebraic Geometry (1977), Chapter II.
+% Source-faithful mathematical blueprint of Hartshorne, Algebraic Geometry (1977), Chapter II.
 % Authorial exposition, examples, and exercises are omitted; definitions, statements, and proof
 % arguments are retained.
 
@@ -8,6 +8,8 @@
 \begin{definition}[Presheaf and sheaf]
 \label{def:II-1-presheaf}
 \source{hartshorne-algebraic-geometry:II.1}
+\lean{Hartshorne.Presheaf, Hartshorne.Sheaf, Hartshorne.IsSheaf}
+\leanok
 A presheaf $\mathcal F$ on $X$ assigns an object $\mathcal F(U)$ to every open $U$ and restriction maps
 $\mathcal F(U)\to\mathcal F(V)$ for $V\subset U$, functorially, with $\mathcal F(\varnothing)=0$.
 It is a sheaf when sections that agree locally glue uniquely. The definitions apply to sets,
@@ -20,6 +22,8 @@ $s_i|_{U_i\cap U_j}=s_j|_{U_i\cap U_j}$ comes from a unique $s\in\mathcal F(U)$.
 \begin{definition}[Stalks and morphisms]
 \label{def:II-1-stalk}
 \source{hartshorne-algebraic-geometry:II.1}
+\lean{Hartshorne.Stalk, Hartshorne.germ, Hartshorne.stalkMap, Hartshorne.germ_restrict}
+\leanok
 The stalk is $\mathcal F_x=\varinjlim_{x\in U}\mathcal F(U)$. A morphism is a compatible family
 of maps on opens and induces maps on stalks.  A germ is represented by a pair $(U,s)$ with $x\in U$;
 $(U,s)$ and $(V,t)$ define the same germ exactly when $s$ and $t$ agree on some neighborhood of $x$
@@ -31,6 +35,8 @@ contained in $U\cap V$.
 \label{prop:II-1-1}
 \source{hartshorne-algebraic-geometry:II.1.1}
 \dcref{II.1.1}
+\lean{Hartshorne.sheaf_iso_iff_stalkMap_iso}
+\leanok
 A morphism of sheaves is an isomorphism if and only if it induces an isomorphism on every stalk.
 \uses{def:II-1-presheaf,def:II-1-stalk}
 \end{proposition}
@@ -46,6 +52,13 @@ axiom glues them. The glued lift maps to the target section.
 \label{prop:II-1-2}
 \source{hartshorne-algebraic-geometry:II.1.2}
 \dcref{II.1.2}
+\lean{Hartshorne.sheafification, Hartshorne.sheafification_condition,
+Hartshorne.sheafification_stalkIso, Hartshorne.categoricalSheafification,
+Hartshorne.categoricalSheafificationUnit, Hartshorne.categoricalSheafificationLift,
+Hartshorne.categoricalSheafificationUnit_lift,
+Hartshorne.categoricalSheafificationLift_unique,
+Hartshorne.categoricalSheafificationUnit_stalk_isIso}
+\leanok
 Every presheaf $\mathcal F$ admits a sheafification $\mathcal F^a$ and a universal map
 $\mathcal F\to\mathcal F^a$; it is unique up to unique isomorphism and has the same stalks as
 $\mathcal F$.
@@ -60,6 +73,11 @@ restriction; the germ map is universal because any map to a sheaf is determined 
 \begin{definition}[Direct and inverse image]
 \label{def:II-1-direct-inverse}
 \source{hartshorne-algebraic-geometry:II.1}
+\lean{Hartshorne.directImage, Hartshorne.presheafDirectImage,
+Hartshorne.presheafInverseImage, Hartshorne.sheafInverseImage,
+Hartshorne.sheafInverseImageDirectImageAdjunction,
+Hartshorne.directImage_presheaf_isSheaf}
+\leanok
 For a continuous $f:X\to Y$, define $(f_*\mathcal F)(V)=\mathcal F(f^{-1}V)$. The inverse image
 $f^{-1}\mathcal G$ is the sheafification of $U\mapsto\varinjlim_{f(U)\subset V}\mathcal G(V)$.
 Restriction to a subspace is inverse image under its inclusion.
@@ -95,6 +113,9 @@ $(\mathcal F/\mathcal F')_x=\mathcal F_x/\mathcal F'_x$.
 \label{lem:II-2-1}
 \source{hartshorne-algebraic-geometry:II.2.1}
 \dcref{II.2.1}
+\lean{Hartshorne.spectrumZeroLocus_mul, Hartshorne.spectrumZeroLocus_iSup,
+Hartshorne.spectrumZeroLocus_eq_iff}
+\leanok
 For ideals $\mathfrak a,\mathfrak b\subset A$,
 $V(\mathfrak a\mathfrak b)=V(\mathfrak a)\cup V(\mathfrak b)$,
 $V(\sum_i\mathfrak a_i)=\bigcap_iV(\mathfrak a_i)$, and
@@ -108,6 +129,9 @@ the fact that the radical is the intersection of all primes containing an ideal.
 \begin{definition}[Affine spectrum]
 \label{def:II-2-spectrum}
 \source{hartshorne-algebraic-geometry:II.2}
+\lean{Hartshorne.AffineSpectrum, Hartshorne.spectrumZeroLocus,
+Hartshorne.spectrumBasicOpen, Hartshorne.spectrumBasicOpen_isTopologicalBasis,
+Hartshorne.affineSpec, Hartshorne.affineStructureSheaf}
  $\operatorname{Spec}A$ is the set of prime ideals with closed sets $V(\mathfrak a)$. Its structure
 sheaf consists of locally represented fractions in the local rings $A_{\mathfrak p}$; $D(f)$ is a
 basis of opens.
@@ -118,6 +142,14 @@ basis of opens.
 \label{prop:II-2-2}
 \source{hartshorne-algebraic-geometry:II.2.2}
 \dcref{II.2.2}
+\lean{Hartshorne.affineStructureSheaf_stalk_isLocalization,
+Hartshorne.affineStructureSheaf_stalk_iso, Hartshorne.affineSpec_stalk_iso,
+Hartshorne.affineStructureSheaf_basicOpen_isLocalization,
+Hartshorne.affineStructureSheaf_basicOpen_iso,
+Hartshorne.affineStructureSheaf_globalSections_bijective,
+Hartshorne.affineStructureSheaf_globalSectionsIso,
+Hartshorne.affineSpec_globalSectionsIso}
+\leanok
 For $X=\operatorname{Spec}A$,
 $\mathcal O_{X,\mathfrak p}=A_{\mathfrak p},\qquad
 \Gamma(D(f),\mathcal O_X)=A_f,\qquad\Gamma(X,\mathcal O_X)=A$.
@@ -143,6 +175,12 @@ morphisms induce local homomorphisms.
 \label{prop:II-2-3}
 \source{hartshorne-algebraic-geometry:II.2.3}
 \dcref{II.2.3}
+\lean{Hartshorne.affineSpecMap, Hartshorne.affineSpecMap_apply,
+Hartshorne.affineSpecMap_continuous, Hartshorne.affineSpec_homEquiv,
+Hartshorne.affineSpec_homEquiv_map, Hartshorne.affineSpec_map_homEquiv,
+Hartshorne.affineSpec_stalk_isLocalRing,
+Hartshorne.affineSpecMap_stalkMap_isLocalHom}
+\leanok
 $\operatorname{Spec}A$ is locally ringed. A ring map $A\to B$ induces
 $\operatorname{Spec}B\to\operatorname{Spec}A$, and every morphism
 $\operatorname{Spec}B\to\operatorname{Spec}A$ arises uniquely in this way.
@@ -1245,7 +1283,7 @@ For ring maps $A\to B\to C$ there is a natural exact sequence of $C$-modules
 \end{proposition}
 \begin{proof}
 The first map is induced by composition of derivations.  A $B$-derivation is exactly an $A$-derivation
-which kills the image of $B$, so the universal property gives exactness.
+which kills the image of $B$, so the universal property gives exactness; the source cites Matsumura.
 \end{proof}
 
 \begin{proposition}[Second exact sequence]
@@ -1286,7 +1324,7 @@ equality if and only if $K/k$ is separably generated.
 \begin{proof}
 Choose a transcendence basis and apply the exact sequence to the finite algebraic extension over the
 rational function field.  The basis differentials are independent, and the algebraic part contributes
-no additional dimension exactly when it is separable.
+no additional dimension exactly when it is separable; the source cites Matsumura.
 \end{proof}
 
 \begin{proposition}[Residue-field differentials]

@@ -1,0 +1,5 @@
+import AlgebraicJacobian.Picard.Pic0FiniteStageScalarExtendedAtlas
+set_option pp.universes true
+set_option pp.explicit true
+set_option pp.all true
+#check @AlgebraicGeometry.pic0FiniteStageRestrictionBaseChange

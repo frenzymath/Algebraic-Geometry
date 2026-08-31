@@ -15,6 +15,17 @@ field $k$ is fixed unless a section explicitly changes it.
 \label{def:milne-group-variety}
 
 \dcref{MI:ch1:1}
+\lean{MilneLib.GroupVariety.pointsFunctor, MilneLib.GroupVariety.pointsFunctor_representable,
+MilneLib.GroupVariety.comp_mulRight_hom, MilneLib.GroupVariety.comp_mulRight_inv,
+MilneLib.GroupVariety.pointTranslation, MilneLib.GroupVariety.pointTranslation_self,
+MilneLib.GroupVariety.pointTranslation_symm, MilneLib.GroupVariety.pointTranslation_trans,
+MilneLib.GroupVariety.comp_pointTranslation_hom, MilneLib.GroupVariety.pointTranslationIso,
+MilneLib.GroupVariety.pointTranslationIso_hom, MilneLib.GroupVariety.pointTranslationIso_inv,
+MilneLib.GroupVariety.pointTranslationIso_self, MilneLib.GroupVariety.pointTranslationIso_symm,
+MilneLib.GroupVariety.pointTranslationIso_trans,
+MilneLib.GroupVariety.pointTranslationIso_hom_comp, MilneLib.IsAbelianVariety,
+MilneLib.isCommMonObj_of_isAbelianVariety,
+MilneLib.smooth_of_isAbelianVariety}
 A group variety is a variety equipped with regular multiplication, inverse,
 and identity maps satisfying the group diagrams after geometric base change.
 Translations are isomorphisms.  A complete connected group variety is an
@@ -25,6 +36,9 @@ abelian variety; its group law is written additively.
 \label{thm:milne-rigidity}
 
 \dcref{MI:ch1:1.1}
+\lean{MilneLib.GroupVariety.rigidity_constant_of_two_axes}
+\lean{MilneLib.GroupVariety.rigidity_constant_of_two_axes_arbitraryField}
+\leanok
 Consider a regular map $\alpha:V\times W\to U$, and assume that $V$ is
 complete and that $V\times W$ is geometrically irreducible.  If there are
 points $u_0\in U(k)$, $v_0\in V(k)$, and $w_0\in W(k)$ such that
@@ -35,6 +49,8 @@ then $\alpha(V\times W)=\{u_0\}$.
 \end{theorem}
 
 \begin{proof}
+
+\leanok
 
 Since the hypotheses continue to hold after extending scalars from $k$ to
 $k^{\rm al}$, we can assume that $k$ is algebraically closed.  Note that $V$
@@ -63,6 +79,7 @@ with the constant map with value $u_0$ everywhere.
 \label{cor:milne-morphism-translation-homomorphism}
 
 \dcref{MI:ch1:1.2}
+\lean{MilneLib.GroupVariety.exists_hom_comp_pointTranslation_of_isAbelianVariety_arbitraryField}
 \uses{thm:milne-rigidity}
 Every regular map $\alpha:A\to B$ of abelian varieties is the composite of a
 homomorphism with a translation.
@@ -87,6 +104,7 @@ proves the assertion.
 \label{cor:milne-abelian-commutativity}
 
 \dcref{MI:ch1:1.4}
+\lean{MilneLib.GroupVariety.isCommMonObj_of_isAbelianVariety_via_rigidity}
 \uses{cor:milne-morphism-translation-homomorphism,thm:milne-rigidity}
 The group law on an abelian variety is commutative.
 \end{corollary}
@@ -102,6 +120,7 @@ shows that it is a homomorphism.  Hence the group law is commutative.
 \label{cor:milne-abelian-product-decomposition}
 
 \dcref{MI:ch1:1.5}
+\lean{MilneLib.GroupVariety.existsUnique_hom_additive_decomp_of_rigidity}
 \uses{cor:milne-morphism-translation-homomorphism,thm:milne-rigidity}
 Let $V$ and $W$ be complete varieties over $k$ with $k$-rational points
 $v_0$ and $w_0$, and let $p$ and $q$ be the projection maps
@@ -510,7 +529,7 @@ $\mathcal O_V$-module, then the higher direct image sheaves
 $R^if_*\mathcal F$ are coherent $\mathcal O_T$-modules for all $i\ge0$.
 \end{theorem}
 
-\begin{proof}
+\begin{proof}[Source proof]
 When $f$ is projective, this is proved in Hartshorne 1977, III 8.8.  Chow's
 lemma (ibid., II Ex. 4.10) allows one to extend the result to the general case
 (EGA III 3.2.1).
@@ -547,7 +566,7 @@ $f_*\mathcal F$ is locally free, and its formation commutes with base change.
 \end{enumerate}
 \end{theorem}
 
-\begin{proof}
+\begin{proof}[Source proof]
 (a) The statement is local on the base, and so it suffices to prove it over
 $T=\operatorname{Spec}(R)$.  Mumford 1970, \S5, p.46, constructs a complex
 $K^\bullet$ of $R$-modules such that, for every $R$-algebra $R'$,
@@ -586,8 +605,10 @@ restrictions to
 are all trivial.
 \end{theorem}
 
-\begin{proof}
-\notready
+\begin{proof}[Source proof deferred in Milne]
+Milne states the theorem here and explicitly defers its proof to a later
+version of the notes.  The subsequent applications use the theorem as an
+input; no complete proof is supplied in the reference.
 \end{proof}
 
 \begin{corollary}[Cube identities on an abelian variety]
@@ -710,7 +731,7 @@ $P,Q\in V$.  Then there is an irreducible curve on $V$ passing through both
 $P$ and $Q$.
 \end{lemma}
 
-\begin{proof}
+\begin{proof}[Source proof]
 If $V$ is a curve or $P=Q$, there is nothing to prove.  Otherwise, Chow's
 lemma gives a projective variety $W$ and a surjective birational morphism
 $W\to V$, so we may assume that $V$ is projective.  Blow up $V$ at
@@ -782,6 +803,9 @@ to $A$, so a positive multiple gives a projective embedding over $k$.
 \label{def:milne-isogeny}
 
 \dcref{MI:ch1:7}
+\lean{MilneLib.isogenyKernel, MilneLib.isogenyKernelToBase, MilneLib.Isogeny,
+MilneLib.Isogeny.surjective, MilneLib.Isogeny.finite_kernel,
+MilneLib.Isogeny.kernel_baseChange_isFinite}
 The kernel of a homomorphism $\alpha:A\to B$ of abelian varieties is the fibre
 over $0$ in the sense of algebraic spaces.  The homomorphism $\alpha$ is an
 isogeny if it is surjective and has finite kernel.  Its degree is its degree as
@@ -914,7 +938,7 @@ Let $L$ be an invertible sheaf on $A$ such that $h^0(A,L)\ne0$.  Then $L$ is
 ample if and only if $K(L)$ has dimension zero.
 \end{proposition}
 
-\begin{proof}
+\begin{proof}[Source proof partially supplied]
 We may assume that $k$ is algebraically closed.  Suppose that $L$ is ample,
 and let $B$ be the connected component of $K(L)$ passing through $0$.  It is
 an abelian variety (possibly zero), and $L_B=L|_B$ is ample.  Since
@@ -957,7 +981,7 @@ factors.
 \end{enumerate}
 \end{theorem}
 
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Milne calls this result not difficult and refers to Mumford 1970, p.81; no
 proof is included in the reference.
 \end{proof}
@@ -979,7 +1003,7 @@ The pair is unique up to unique isomorphism, $\pi$ is surjective, and $\pi$
 is $\etale$ if $G$ acts freely.
 \end{proposition}
 
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Milne refers to Mumford 1970, p.66, or Serre 1959, p.57, for the quotient
 construction and its properties.
 \end{proof}
@@ -992,7 +1016,7 @@ construction and its properties.
 If $L$ is ample, then $\lambda_L:A\to A^\vee=\Pic^0(A)$ is surjective.
 \end{proposition}
 
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Milne refers to Mumford 1970, \S8, p.77, or Lang 1959, p.99, for this result.
 \end{proof}
 
@@ -1004,7 +1028,7 @@ universal property in Definition~\ref{def:milne-dual-abelian}; it is unique
 up to unique isomorphism.
 \end{theorem}
 
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Milne constructs $A^\vee$ as the quotient of $A$ by the subgroup scheme
 $K(L)$ attached to an ample sheaf $L$ and refers to Mumford, Chapter III, for
 the full universal-property proof.
@@ -1030,7 +1054,7 @@ A^\vee\longrightarrow0.
 \]
 \end{theorem}
 
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Milne refers to Mumford, section 15 (algebraically closed case), and Oort for
 the general case; the proof is not included in these notes.
 \end{proof}
@@ -1050,8 +1074,10 @@ commutative group variety with identity $e$, and
 is an exact sequence.
 \end{proposition}
 
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne states that the theorem of the square supplies the compatible fibrewise
+multiplication and refers to Serre, VII section 3, for the verification of the
+group law and exactness.
 \end{proof}
 
 \begin{proposition}[Picard extensions]\label{prop:milne-pic0-ext-classification}
@@ -1062,8 +1088,9 @@ The assignment $L\mapsto E(L)$ defines an isomorphism
 \]
 \end{proposition}
 
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne refers to Serre, VII section 3, for the identification of extensions
+with algebraically trivial line bundles.
 \end{proof}
 
 \section{Endomorphisms and Tate modules}
@@ -1186,6 +1213,8 @@ so $\alpha=0$.
 \label{lem:milne-index-determinant}
 
 \dcref{MI:ch1:10.8}
+\lean{MilneLib.LinearMap.natCard_quotient_range_eq_natAbs_det_of_baseChange_bijective}
+\leanok
 Let $\alpha$ be an endomorphism of a free $\Z$-module $\Lambda$ of finite
 rank such that $\alpha\otimes1:\Lambda\otimes\Q\to\Lambda\otimes\Q$ is an
 isomorphism.  Then
@@ -1195,6 +1224,7 @@ isomorphism.  Then
 \end{lemma}
 
 \begin{proof}
+\leanok
 Choose bases of $\Lambda$ and use Smith normal form for the integral matrix
 of $\alpha$.  After multiplying on the left and right by unimodular matrices,
 the matrix is diagonal with nonzero entries $d_1,\ldots,d_r$.  The index is
@@ -1452,7 +1482,7 @@ $\alpha\in K$,
 \]
 \end{proposition}
 
-\begin{proof}
+\begin{proof}[Source proof]
 We prove the stronger assertion in which $K$ is replaced by a division
 algebra $D$.  Let $K$ be the centre of $D$, put
 $d=[D:K]^{1/2}$ and $f=[K:\Q]$.  If $D\otimes_\Q\Q_\ell$ is again a division
@@ -1532,6 +1562,7 @@ Tate-module realization theorem.
 \label{lem:milne-5-8}
 
 \dcref{MI:ch1:5.8}
+\lean{MilneLib.LinearMap.bijective_of_surjective_rank_one}
 Let $\alpha:M\to N$ be a homomorphism of free modules of rank one over a
 commutative ring $R$.  If $\alpha$ is surjective, then it is bijective.
 Consequently, a surjective homomorphism of invertible sheaves is an
@@ -1551,6 +1582,9 @@ stalks for invertible sheaves.
 \label{lem:milne-5-9}
 
 \dcref{MI:ch1:5.9}
+\lean{MilneLib.affineModuleSheaf, MilneLib.affineModuleGlobalSectionsIso,
+MilneLib.affineModuleGlobalSectionsIso_naturality, MilneLib.pushforward_globalSections_top,
+MilneLib.affineVectorSpaceSheaf, MilneLib.affineVectorSpaceGlobalSectionsIso}
 Let $V$ be a variety over $k$ and let $\alpha:V\to\operatorname{Specm}k$ be
 the structure map.  A coherent sheaf on $\operatorname{Specm}k$ is a finite
 dimensional $k$-vector space $M$, and $\alpha_*\mathcal M=\Gamma(V,\mathcal
@@ -1569,6 +1603,10 @@ the one-point affine scheme.
 \label{lem:milne-5-10}
 
 \dcref{MI:ch1:5.10}
+\lean{MilneLib.tensorProductEval, MilneLib.tensorProductEval_tmul,
+MilneLib.tensorProductEval_eq_of_tmul, MilneLib.schemeSheafEvaluation,
+MilneLib.schemeSheafEvaluationAt, MilneLib.schemeSheafEvaluation_app}
+\leanok
 For a homomorphism $R\to S$ of commutative rings and an $S$-module $M$, the
 map $S\otimes_RM\to M$, $s\otimes m\mapsto sm$, is canonical.  Likewise,
 for a regular map $\alpha:W\to V$ and a coherent $\mathcal O_W$-module
@@ -1577,6 +1615,7 @@ $\alpha^*\alpha_*\mathcal M\to\mathcal M$.
 \end{lemma}
 
 \begin{proof}
+\leanok
 On an affine open this is the usual multiplication map
 $\mathcal O_W\otimes_R M\to M$.
 \end{proof}
@@ -1585,8 +1624,12 @@ $\mathcal O_W\otimes_R M\to M$.
 \label{lem:milne-5-11}
 
 \dcref{MI:ch1:5.11}
-Let $\alpha:M\to N$ be a homomorphism of $R$-modules.  If for every maximal
-ideal $\mathfrak m$ the induced map
+\lean{MilneLib.moduleFinite_residueFieldTensor,
+MilneLib.moduleFinite_schemeModuleStalk_residueTensor,
+MilneLib.SchemeModule.IsStalkwiseFinite.residueFieldTensor}
+\uses{lem:milne-5-8}
+Let $\alpha:M\to N$ be a homomorphism of $R$-modules, with $N$ finitely
+generated.  If for every maximal ideal $\mathfrak m$ the induced map
 $M/\mathfrak mM\to N/\mathfrak mN$ is surjective, then
 $M_\mathfrak m\to N_\mathfrak m$ is surjective.  For coherent sheaves, if
 the maps on all residue fibres are surjective, then the sheaf map is
@@ -1715,7 +1758,7 @@ $\phi:V\to\PP^n$ defined by $\mathfrak d$ is a closed immersion if and only if
 $\mathfrak d$ separates points and separates tangent directions.
 \end{proposition}
 
-\begin{proof}
+\begin{proof}[Source proof omitted]
 The necessity is immediate from the preceding discussion.  For sufficiency,
 Milne refers to Hartshorne 1977, II 7.8; no proof is included in the notes.
 \end{proof}
@@ -1780,12 +1823,12 @@ $V$, under which locally free sheaves of rank $r$ correspond to locally free
 sheaves of rank $r$.
 \end{proposition}
 
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Milne refers to Mumford, p. 70, for the descent equivalence for coherent
 sheaves under a free finite quotient.
 \end{proof}
 
-% Mathematical blueprint fragment, Milne PDF pp. 53--83 (PDF 59--89).
+% Source-faithful blueprint fragment, Milne PDF pp. 53--83 (PDF 59--89).
 % Pedagogical notes, exercises, and applications are omitted; statements retain
 % the printed numbering and source/dcref metadata.
 
@@ -1798,8 +1841,9 @@ A polarization $\lambda$ of an abelian variety $A$ is an isogeny $\lambda:A\to A
 Let $L$ be an invertible sheaf on $A$, and put $\chi(L)=\sum_i(-1)^i\dim_kH^i(A,L)$. Then (a) $\deg(\lambda_L)=\chi(L)^2$; (b) if $L=L(D)$, then $\chi(L)=(D^g)/g!$; (c) if $\dim K(L)=0$, then $H^r(A,L)$ is nonzero for exactly one integer $r$.
 \end{theorem}
 
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne states this as Mumford's Riemann--Roch theorem and does not prove it in
+these notes; he refers to Mumford for the proof.
 \end{proof}
 
 \begin{theorem}[Finiteness over finite fields]\label{thm:milne-polarization-finiteness}\dcref{MI:ch1:11.2}
@@ -1863,7 +1907,7 @@ algebra on $H^1$.
 If $m,n$ are prime to $\operatorname{char}(k)$, then $e_{mn}(a,a')^n=e_m(na,na')$ for $a\in A_{mn}(k)$ and $a'\in A^\vee_{mn}(k)$.
 \end{lemma}
 
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Milne refers to Milne 1986, 16.1 (or leaves this as an exercise), and does not
 include the proof in these notes.
 \end{proof}
@@ -1871,7 +1915,7 @@ include the proof in these notes.
 For $\alpha:A\to B$, $e_\ell(a,\alpha^\vee b)=e_\ell(\alpha a,b)$; $e_\ell^{\alpha^\vee\lambda\alpha}(a,a')=e_\ell^\lambda(\alpha a,\alpha a')$; and $e_\ell^{\alpha^*L}(a,a')=e_\ell^L(\alpha a,\alpha a')$. Moreover $L\mapsto e_\ell^L$ is a homomorphism $\Pic(A)\to\operatorname{Hom}(\bigwedge^2T_\ell A,\Z_\ell(1))$, so $e_\ell^L$ is skew-symmetric.
 \end{proposition}
 
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Milne refers to Milne 1986, 16.2 (or leaves this as an exercise), and does not
 include the proof in these notes.
 \end{proof}
@@ -1879,8 +1923,9 @@ include the proof in these notes.
 If $\alpha:A\to B$ is an isogeny of degree prime to $\operatorname{char}(k)$ and $\lambda\in\NS(A)$, then $\lambda=\alpha^*(\lambda')$ for some $\lambda'\in\NS(B)$ iff for every $\ell\mid\deg(\alpha)$ there is a skew-symmetric form $e$ on $T_\ell B$ with $e_\ell^\lambda(a,a')=e(\alpha a,\alpha a')$.
 \end{theorem}
 
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne lists this result and refers to Milne 1986, 16.4 (or Mumford, sections
+20 and 23) for its proof.
 \end{proof}
 \begin{corollary}[Divisibility criterion]\label{cor:milne-weil-pairing-divisibility}\dcref{MI:ch1:13.5}
 For $\ell\ne\operatorname{char}(k)$, $\lambda\in\NS(A)$ is divisible by $\ell^n$ iff $e_\ell^\lambda$ is divisible by $\ell^n$ in $\operatorname{Hom}(\bigwedge^2T_\ell A,\Z_\ell(1))$.
@@ -1893,20 +1938,23 @@ Apply Theorem~\ref{thm:milne-weil-pairing-descent} to $\ell^n_A$.
 \begin{proposition}[Polarization from skew pairing]\label{prop:milne-weil-pairing-skew}\dcref{MI:ch1:13.6}
 If $\operatorname{char}(k)\ne2$, a homomorphism $\lambda:A\to A^\vee$ is $\lambda_L$ for some $L\in\Pic(A)$ iff $e_\ell^\lambda$ is skew-symmetric.
 \end{proposition}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne lists this result and refers to the Weil-pairing construction for the
+proof.
 \end{proof}
 \begin{lemma}[Poincare pairing]\label{lem:milne-poincare-pairing}\dcref{MI:ch1:13.7}
 For the Poincare sheaf $P$ on $A\times A^\vee$, $e_\ell^P((a,b),(a',b'))=e_\ell(a,b')e_\ell(a',b)^{-1}$.
 \end{lemma}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne states this formula as part of the Weil-pairing discussion and does not
+include a proof.
 \end{proof}
 \begin{proposition}[Descent of a polarization]\label{prop:milne-polarization-descent}\dcref{MI:ch1:13.8}
 Let $\alpha:A\to B$ be an isogeny of degree prime to $\operatorname{char}(k)$ and $\lambda$ a polarization of $A$. Then $\lambda=\alpha^*\lambda'$ for a polarization $\lambda'$ on $B$ iff $\ker(\alpha)\subset\ker(\lambda)$ and $e^\lambda$ is trivial on $\ker(\alpha)\times\ker(\alpha)$.
 \end{proposition}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne lists this criterion and refers to the preceding descent theorem and the
+standard polarization argument for its proof.
 \end{proof}
 \begin{corollary}[Principal polarization up to isogeny]\label{cor:milne-principal-polarization}\dcref{MI:ch1:13.10}
 An abelian variety with a polarization of degree prime to the characteristic is isogenous to a principally polarized abelian variety.
@@ -1921,8 +1969,9 @@ Choose a prime $\ell$ dividing the degree and a subgroup $N\subset\ker(\lambda)$
 \begin{corollary}[Zarhin auxiliary polarization]\label{cor:milne-zarhin-auxiliary}\dcref{MI:ch1:13.11}
 If $\ker(\lambda)\subset A_m$ with $m$ prime to the characteristic and $\alpha\in\End(A)$ preserves $\ker(\lambda)$ and satisfies $\alpha^\vee\lambda\alpha=\lambda$ on $A_{m^2}$, then $A\times A^\vee$ is principally polarized.
 \end{corollary}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne states this auxiliary result without proof and uses it in the proof of
+Zarhin's trick.
 \end{proof}
 \begin{theorem}[Zarhin's trick]\label{thm:milne-zarhin-trick}\dcref{MI:ch1:13.12}
 For every abelian variety $A$, $(A\times A^\vee)^4$ is principally polarized.
@@ -1977,7 +2026,7 @@ By Proposition~13.6, $\lambda\alpha=\lambda_L$ iff $e_\ell^\lambda(a,\alpha a')=
 \begin{theorem}[Rosati positivity]\label{thm:milne-rosati-positivity}\dcref{MI:ch1:14.3}
 The form $(\alpha,\beta)\mapsto\Tr(\alpha\beta^\dagger)$ on $\End(A)\otimes\Q$ is positive definite. If $D$ defines $\lambda$, then $\Tr(\alpha\alpha^\dagger)=\frac{2g}{(D^g)}(D^{g-1}\cdot\alpha^*D)>0$ for $\alpha\ne0$.
 \end{theorem}
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Milne proves positivity by the displayed intersection calculation but says that
 the calculation is omitted here (see Milne 1986, section 17).
 \end{proof}
@@ -2026,7 +2075,7 @@ Let $A$ be an abelian variety over a field $k$, and let $d$ be an integer.
 Then there are only finitely many isomorphism classes of polarized abelian
 varieties $(A,\lambda)$ with $\deg\lambda=d$.
 \end{theorem}
-\begin{proof}
+\begin{proof}[Source proof]
 Fix a polarization $\lambda_0$ of $A$ and let $\dagger$ be the Rosati
 involution defined by $\lambda_0$.  The map
 \[
@@ -2051,8 +2100,9 @@ turns these into finitely many isomorphism classes.
 \begin{proposition}[Arithmetic orbit finiteness]\label{prop:milne-arithmetic-orbits}\dcref{MI:ch1:15.2}
 Let $E$ be a finite-dimensional semisimple $\Q$-algebra with involution, $R$ an order, and $L$ an $R^\times$-stable lattice under $x\mapsto u^\dagger xu$. For each $N$, the set $\{v\in L:\Norm(v)\le N\}/R^\times$ is finite.
 \end{proposition}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne says that this proposition is proved using the reduction theory of
+arithmetic subgroups and gives the applications below; no proof is included.
 \end{proof}
 \begin{theorem}[Finitely many direct factors]\label{thm:milne-finite-direct-factors}\dcref{MI:ch1:15.3}
 Up to isomorphism, an abelian variety has only finitely many direct factors.
@@ -2084,14 +2134,15 @@ The assertion follows from Proposition~\ref{prop:milne-idempotent-orbits}.
 \begin{proposition}[Integral idempotent orbits]\label{prop:milne-idempotent-orbits}\dcref{MI:ch1:15.4}
 If $E$ is semisimple finite-dimensional over $\Q$ and $R$ an order, then the idempotents in $R$ form finitely many $R^\times$-conjugacy classes.
 \end{proposition}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne says that this proposition is proved by applying the general reduction
+theorem below (see his application 15.8); no proof is included in the notes.
 \end{proof}
 \begin{theorem}[Borel--Harish-Chandra orbit theorem]\label{thm:milne-bhc-orbit}\dcref{MI:ch1:15.5}
 Let $G/\Q$ be reductive, $\Gamma\subset G(\Q)$ arithmetic, $G\to\GL(V)$ a representation, and $L$ a $\Gamma$-stable lattice. If $X$ is a closed $G$-orbit in $V$, then $L\cap X$ is a finite union of $\Gamma$-orbits.
 \end{theorem}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne cites Borel 1969, 9.11 for this theorem and does not include its proof.
 \end{proof}
 \section{Families of abelian varieties}
 \begin{proposition}[Rigidity lemma]\label{prop:milne-rigidity}\dcref{MI:ch1:16.1}
@@ -2101,7 +2152,7 @@ and let $\alpha:V\to V'$ be a morphism over $S$.  If the image of one fibre
 $V_s$ in $V'_s$ is a single point, then $\alpha$ factors through $S$: there is
 a map $\alpha':S\to V'$ with $\alpha=\alpha'\circ\pi$.
 \end{proposition}
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Mumford, D., *Geometric Invariant Theory*, Springer, 1965, 6.1.
 \end{proof}
 \begin{corollary}[Families are group-homomorphic]\label{cor:milne-family-homomorphism}\dcref{MI:ch1:16.2}
@@ -2190,7 +2241,7 @@ has the required universal property, as in Milne's construction.
 \begin{theorem}[Mordell--Weil]\label{thm:milne-mordell-weil}\dcref{MI:ch1:16.7}
 If $K$ is finitely generated over the prime field and $A/K$ is abelian, then $A(K)$ is finitely generated.
 \end{theorem}
-\begin{proof}
+\begin{proof}[Source proof omitted]
 Milne gives the historical attribution (Mordell, Weil, Taniyama, Lang--Neron)
 and refers to Serre 1989, Chapter 4, for a proof over number fields; no proof
 of the general theorem is included here.
@@ -2198,8 +2249,9 @@ of the general theorem is included here.
 \begin{theorem}[Lang--Neron]\label{thm:milne-lang-neron}\dcref{MI:ch1:16.8}
 If $K/k$ is finitely generated with $k$ algebraically closed in $K$, and $(B,\alpha)$ is the $K/k$-trace of $A$, then $A(K)/\alpha(B)(k)$ is finitely generated.
 \end{theorem}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne states this theorem and refers to Conrad 2006, Hindry (Appendix B to
+Kahn 2006), and Kahn 2006 for proofs; no proof is included in the reference.
 \end{proof}
 
 \section{Neron models and semistable reduction}
@@ -2208,8 +2260,9 @@ Let $R$ be a discrete valuation ring with fraction field $K$ and residue field
 $k$, and let $A$ be an abelian variety over $K$.  There is a canonical way
 to attach to $A$ an algebraic group $A^0$ over $k$.
 \end{theorem}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne states the theorem and records the representing Neron model in a
+subsequent remark, but does not prove representability here.
 \end{proof}
 \begin{theorem}[Semistable reduction]\label{thm:milne-semistable-reduction}\dcref{MI:ch1:17.3}
 If $A$ has good reduction, then $A^0$ does not change under a finite field
@@ -2217,16 +2270,18 @@ extension.  If $A$ has semistable reduction, then $(A^0)^0$ does not change
 under a finite field extension.  Every abelian variety acquires semistable
 reduction after a finite extension.
 \end{theorem}
-\begin{proof}
-\notready
+\begin{proof}[Source proof]
+These are the Neron--Ogg--Shafarevich and semistable reduction theorems; their
+proofs are long and difficult, and Milne gives the statements here without a
+proof.
 \end{proof}
 
 \section{Abel and Jacobi}
 \begin{theorem}[Holomorphic differentials]\label{thm:milne-holomorphic-differentials}\dcref{MI:ch1:18.1}
 For a compact Riemann surface $C$ of genus $g$, the holomorphic differentials form a $g$-dimensional complex vector space.
 \end{theorem}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne states this standard theorem without proof.
 \end{proof}
 \begin{theorem}[Independence of periods]\label{thm:milne-period-independence}\dcref{MI:ch1:18.2}
 Let $\omega_1,\ldots,\omega_g$ be a basis of the holomorphic differentials
@@ -2238,8 +2293,8 @@ the standard basis of $H_1(C,\Z)$.  The period vectors
 \]
 are linearly independent over $\R$.
 \end{theorem}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne states the independence of the period vectors without proof.
 \end{proof}
 \begin{theorem}[Jacobi inversion]\label{thm:milne-jacobi-inversion}\dcref{MI:ch1:18.3}
 Let $\ell:\Omega(C)\to\C$ be a linear map.  Then there exist points
@@ -2250,8 +2305,8 @@ $P_i$ such that
 \qquad\text{for all }\omega\in\Omega(C).
 \]
 \end{theorem}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne states Jacobi inversion without proof.
 \end{proof}
 \begin{theorem}[Abel's theorem]\label{thm:milne-abel-theorem}\dcref{MI:ch1:18.4}
 Let $P_1,\ldots,P_r$ and $Q_1,\ldots,Q_r$ be points of $C$, not
@@ -2265,8 +2320,8 @@ $Q_i$, there is a $\gamma\in H_1(C,\Z)$ such that
 \qquad\text{for all }\omega\in\Omega(C).
 \]
 \end{theorem}
-\begin{proof}
-\notready
+\begin{proof}[Source proof omitted]
+Milne states Abel's theorem without proof.
 \end{proof}
 \begin{theorem}[Jacobian from periods]\label{thm:milne-period-jacobian}\dcref{MI:ch1:18.5}
 Put

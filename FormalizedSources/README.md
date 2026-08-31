@@ -1,13 +1,27 @@
 # Formalized Sources
 
-Source-faithful projects are grouped by mathematical area. Each project will
-eventually have its own blueprint and Lean package; Stacks Project chapters
-already ship hgraph blueprints adapted from the upstream LaTeX.
+Source-faithful projects are grouped by mathematical area. Active projects ship
+both an hgraph blueprint and a route-local Lean package; planned projects keep
+scaffold prompts until their sources are transcribed.
 
 The source groups are `StacksProject`, `AbelianVarieties`, `Curves`,
 `Moduli`, `CommutativeAlgebra`, and `CategoryTheory`.
 The Algebraic Jacobian Challenge is a custom flagship project and lives under
-`MainProjects/AlgebraicJacobian`, alongside its future Lean implementation.
+`MainProjects/AlgebraicJacobian`, with Lean libraries under the
+`MilneKollar/` and `PicardAlbanese/` route packages.
+
+## Active Lean packages
+
+| Project | Lean package |
+|---|---|
+| `AbelianVarieties/Milne` | `MilneLib` |
+| `AbelianVarieties/Mumford` | `MumfordLib` |
+| `Curves/Hartshorne` | `HartshorneLib` |
+| `StacksProject/Part01` … `Part08` | `StacksPart01Lib` … `StacksPart08Lib` |
+
+Each package is an independent Lake project pinned to Lean 4.31 / mathlib.
+Reuse the shared Horizon dependency checkout with
+`../scripts/use-horizon-cache.sh` from the repository root.
 
 The shared [blueprint process prompt](BLUEPRINT_PROCESS_PROMPT.md) records the
 page-by-page Luna transcription workflow and the source-fidelity rules agreed

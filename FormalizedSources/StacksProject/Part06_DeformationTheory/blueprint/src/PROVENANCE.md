@@ -37,3 +37,12 @@ Lean-facing clarity, and record the Stacks tag on the statement.
 Stacks permanent tags (four-character codes such as `01HB`) are recorded with
 `\source{stacks:01HB}` on each imported statement when the tag is known. The
 upstream tag list is `tags/tags` in the stacks-project repository.
+
+## Lean library
+
+The part-local Lean package `StacksPart06Lib/` is a port of the corresponding Horizon
+`FormalizedSources/StacksProject/Part06_DeformationTheory` library. Lake metadata lives
+beside the package root. Stacks blueprint chapter text is kept under the GFDL
+adaptation policy above; Lean code remains under the repository Apache 2.0
+license. A successful compile is not a claim that Stacks tags are fully formalized.
+

@@ -1,0 +1,6 @@
+import AlgebraicJacobian.Picard.Pic0FiniteStageRestrictionNaturality
+set_option pp.universes true
+set_option pp.explicit true
+set_option pp.all true
+#check @AlgebraicGeometry.Pic0FiniteStageGluePackage.restrictionBaseChangeAlgHom
+#check @AlgebraicGeometry.Pic0FiniteStageGluePackage.restrictionBaseChangeMap_fst

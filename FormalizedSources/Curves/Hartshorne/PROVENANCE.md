@@ -90,3 +90,12 @@ internal `\ref`, `\cref`, `\Cref`, and named printed result used by a statement
 or its proof is mirrored by a `\uses{...}` edge. Definitions and foundational
 results introduce their terminology without fabricated prerequisites; they gain
 `\uses` edges when they depend on an earlier blueprint node.
+
+## Lean library
+
+The route-local Lean package `HartshorneLib/` is a port of Horizon's
+`FormalizedSources/Curves/Hartshorne` library (Lake metadata beside this file).
+Blueprint nodes with corresponding declarations carry `\lean` / `\leanok`
+annotations; a successful compile is not a claim that every blueprint node is
+proved.
+

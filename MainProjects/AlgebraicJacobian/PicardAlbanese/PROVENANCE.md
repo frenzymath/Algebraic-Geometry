@@ -17,7 +17,7 @@ Source-backed nodes use their printed reference in \dcref; genuinely
 project-specific adaptations may append custom. Bibliography citations use
 BibTeX keys with \cite{...}, and internal dependencies use \ref{...}.
 
-The route-local Lean package is the 1,174-module port of Horizon's
+The route-local Lean package is the 1,176-module port of Horizon's
 `MainProjects/Algebraic-Jacobian-Challenge-Rebuild`. Its pinned Lake metadata
 lives beside this file; Horizon probes, scratch files, generated graphs, and
 build products are not copied. The active root has unfinished cones, so the

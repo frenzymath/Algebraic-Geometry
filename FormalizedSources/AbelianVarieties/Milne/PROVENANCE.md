@@ -46,6 +46,14 @@ the Milne notes and printed section/page evidence.  `\uses` records blueprint
 dependencies.  The obsolete group metadata macro is not used, and page-range anchors
 are not used as `\dcref` values.
 
+## Lean library
+
+The route-local Lean package `MilneLib/` is a port of Horizon's
+`FormalizedSources/AbelianVarieties/Milne` library (Lake metadata beside this
+file). Blueprint nodes with corresponding declarations carry `\lean` /
+`\leanok` annotations; a successful compile is not a claim that every blueprint
+node is proved.
+
 ## Working records and validation
 
 Temporary inventories, source maps, rendered pages, logs, and reports live only
