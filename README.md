@@ -37,8 +37,7 @@ routes follow the eight imported official parts on
 ## Repository structure
 
 ```text
-AGLib/                   mathlib-style unified algebraic geometry library
-shared/                  legacy placeholder (see AGLib/)
+shared/                  source-independent reusable infrastructure
 MainProjects/            flagship formalizations
 FormalizedSources/       source-faithful reference projects
 config.yaml              hgraph workspace and website manifest
@@ -71,8 +70,7 @@ artifacts; they are regenerated per package and are never committed.
 | [`MainProjects/AlgebraicJacobian`](MainProjects/AlgebraicJacobian/) | Flagship algebraic-Jacobian challenge |
 | [`MainProjects/AlgebraicJacobian/MilneKollar`](MainProjects/AlgebraicJacobian/MilneKollar/) | Milne-Kollar route and legacy AJ Lean library (387 modules) |
 | [`MainProjects/AlgebraicJacobian/PicardAlbanese`](MainProjects/AlgebraicJacobian/PicardAlbanese/) | Etale Picard-Albanese route and from-scratch AJ Lean library (1,180 modules) |
-| [`AGLib/`](AGLib/) | Mathlib-style unified algebraic geometry library |
-| [`shared/`](shared/) | Legacy placeholder; use `AGLib/` |
+| [`shared/`](shared/) | Source-independent reusable Lean infrastructure |
 | [`FormalizedSources/StacksProject/`](FormalizedSources/StacksProject/) | **8** part-level projects containing all **109** Stacks chapters |
 | [`FormalizedSources/AbelianVarieties/Mumford`](FormalizedSources/AbelianVarieties/Mumford/) | Mumford's geometric treatment of abelian varieties |
 | [`FormalizedSources/AbelianVarieties/Milne`](FormalizedSources/AbelianVarieties/Milne/) | Milne's geometric and arithmetic treatment |
@@ -100,8 +98,7 @@ Stacks source chapter inventory (aggregated into one hgraph project per part):
 | Group | Role |
 |---|---|
 | `MainProjects/` | Flagship formalizations organized by mathematical dependency |
-| `AGLib/` | Mathlib-style reusable AG library (docstrings, generality, API) |
-| `shared/` | Legacy placeholder; prefer `AGLib/` |
+| `shared/` | Lean declarations independent of one particular source |
 | `Stacks/` | One hgraph group containing the eight Stacks part projects |
 | `AbelianVarieties/` | Mumford, Milne, and related abelian-variety sources |
 | `Curves/` | Curves, divisors, differentials, and Riemann-Roch |
