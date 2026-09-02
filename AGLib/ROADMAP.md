@@ -29,11 +29,13 @@ The module graph grows in this order:
 4. **Universal constructions:** Picard and Albanese objects, abelian varieties,
    and the stable interfaces they consume.
 
-A module may import mathlib and earlier AGLib layers, but not a later layer or a
-flagship route. `AGLib.lean` is the umbrella import for the reviewed public
-surface; downstream code should prefer the narrowest topic module it needs.
-The layers organize dependencies, not the work queue: a maintainer issue must
-still name each extraction or API goal.
+Within each layer, modules are maintained in a topological order: a module may
+import mathlib, any earlier AGLib layer, and earlier modules in its own layer.
+No module may import a later layer or a flagship route, and the within-layer
+dependency graph must remain acyclic. `AGLib.lean` is the umbrella import for
+the reviewed public surface; downstream code should prefer the narrowest topic
+module it needs. The layers organize dependencies, not the work queue: a
+maintainer issue must still name each extraction or API goal.
 
 ## Extraction policy
 

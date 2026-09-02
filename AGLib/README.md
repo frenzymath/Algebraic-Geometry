@@ -2,7 +2,9 @@
 
 AGLib is a mathlib-style algebraic geometry library maintained in the
 [Algebraic Geometry](https://github.com/frenzymath/Algebraic-Geometry)
-repository. It contains general, documented declarations extracted from stable
+repository. The current bootstrap adds no declarations of its own; it exposes
+mathlib's category of schemes as the initial public surface. Future modules are
+intended to contain general, documented declarations extracted from stable
 formalizations in that repository.
 
 AGLib is not a mirror of a book, blueprint, or flagship proof. Its only Lean
