@@ -21,6 +21,15 @@ lake build AGLib
 
 The repository's protected CI status is the authoritative full build.
 
+## Continuous integration
+
+Pull requests and pushes to `palimpsest/aglib` run the repository-owned
+[`Lean CI / lake-build`](../.github/workflows/lean-ci.yml) check in `AGLib/`.
+The workflow restores manifest- and toolchain-keyed dependencies and rotating
+weekly project outputs when a shared cache is available. Pull requests only
+restore these artifacts; protected-branch pushes may publish them. The build
+still runs when no Actions cache endpoint is configured.
+
 ## Layout
 
 ```text
