@@ -1,0 +1,283 @@
+% Source-derived chapter 01: Introduction
+% Original source: chabauty-coleman-bound-surfaces
+\chapter{Introduction}
+\label{chabauty-coleman-bound-surfaces-chapter-01}
+\source{chabauty-coleman-bound-surfaces}
+
+\begin{remark}[Source section]
+\label{chabauty-coleman-bound-surfaces-chapter-01-source}
+\source{chabauty-coleman-bound-surfaces}
+\source{chabauty-coleman-bound-surfaces}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Introduction
+\subsection{The Chabauty-Coleman bound} Let $C$ be a smooth, geometrically irreducible, projective curve of genus $g\ge 2$ defined over a number field $F$, with Jacobian $J$. In the direction of Mordell's conjecture, Chabauty \cite{Chabauty} proved in 1941 that if $\rk J(F)\le g-1$, then the set $C(F)$ of $F$-rational points of $C$ is finite. Let us recall the main ideas for $F=\Q$: After embedding $C$ into $J$, one has $C(\Q)\subseteq C(\Q_p)\cap \Gamma$ where $p$ is an auxiliary prime and $\Gamma$ is the $p$-adic closure of $J(\Q)$ in $J(\Q_p)$. Then $\dim \Gamma \le \rk J(\Q)<g=\dim J(\Q_p)$ which leads to the finiteness of $C(\Q_p)\cap \Gamma$ because $C(\Q_p)$ is not contained in a lower dimensional $p$-adic analytic subgroup of $J(\Q_p)$.
+
+ Coleman \cite{Coleman} proved in 1985 a celebrated explicit version of Chabauty's theorem, which we recall over $\Q$: With the same conditions, if $p>2g$ is a prime of good reduction for $C$, then 
+%%
+\begin{equation}\label{EqnColeman}
+\source{chabauty-coleman-bound-surfaces}
+\#C(\Q)\le  \#C'(\F_p) +2g-2
+\end{equation} 
+%%
+where $C'$ is the reduction of $C$ modulo $p$. While Chabauty's finiteness result was superseded by Faltings's proof of Mordell's conjecture \cite{Faltings1}, the method of Chabauty and Coleman has led to a number of striking developments: Explicit determination of the rational points in suitable curves (see \cite{MPsurvey} for an introduction and references), improvements on \eqref{EqnColeman} such as \cite{LorenziniTucker, MPsurvey, Stollr, KatzZB}, progress towards the Caporaso-Harris-Mazur conjecture  \cite{Stoll, KRZ}, and explicit versions of Kim's non-abelian approach \cite{Kim} such as \cite{BBM, BD1, BDeffChKim, BD2,  BDMTV,  EdixhovenLido}. 
+
+%%%
+%%%
+
+\subsection{Beyond curves} Despite all these remarkable developments over the last few decades, the problem of proving a version of \eqref{EqnColeman} for the rational points of a higher dimensional variety $X$ contained in an abelian variety $A$ has remained out of reach. Our main results provide such an extension of \eqref{EqnColeman} when $X$ is a hyperbolic surface contained in an abelian variety $A$ of dimension $n\ge 3$, both defined over a number field $F$, under the assumption $\rk A(F)\le 1$. Although we work over number fields (see Sections \ref{SecMainResult} and \ref{SecApplications}), let us keep the discussion over $\Q$ in this introduction to simplify the exposition. Our results, when applicable,  will imply
+\begin{equation}\label{EqnRoughly}
+\source{chabauty-coleman-bound-surfaces}
+\# X(\Q) \le \# X'(\F_p) + 4p\cdot c_1^2(X)
+\end{equation}
+where $c_1^2(X)$ is the first Chern number of the surface $X$ (the self-intersection of a canonical divisor),  $p$ is a prime of good reduction satisfying some technical assumptions, and  $X'$ is the reduction of $X$ modulo $p$. The coefficient $4p$ in \eqref{EqnRoughly} is in fact a simplification of a slightly more complicated expression that gives a better estimate. See  Theorem \ref{ThmMainIntro} and Remark \ref{RmkRH4p}. 
+
+We observe that Coleman's bound \eqref{EqnColeman} can be written as
+$$
+\#C(\Q)\le  \#C'(\F_p) +c_1(C)
+$$
+where $c_1(C)=2g-2$ is the first Chern number of $C$, i.e. the degree of a canonical divisor. Also, we recall that hyperbolic projective curves are precisely those of genus $g\ge 2$. We hope that these remarks clarify the analogy between our results for surfaces and Coleman's bound for curves.
+
+ Although the \emph{shape} of our bound \eqref{EqnRoughly} is analogous to \eqref{EqnColeman}, the methods of proof are quite different. Let $X$ be a subvariety of an abelian variety $A$ over $\Q$. Let  $\Gamma$ be the $p$-adic closure of the group $A(\Q)$ in $A(\Q_p)$. Then $X(\Q)$ is contained in  $\Gamma \cap X(\Q_p)$ and one tries to bound the latter.
+ 
+ In the case of curves ($X=C$ embedded in $A=J$) Coleman used his theory of $p$-adic integration to construct $p$-adic analytic functions on $C(\Q_p)$ that vanish on $C(\Q_p)\cap \Gamma$ and then he bounded the number of zeros of the relevant one-variable $p$-adic power series on residue disks. 
+
+On the other hand, when $d=\dim X>1$, the analogous approach using $p$-adic analytic functions on $X(\Q_p)$ quickly encounters difficulties. Such functions are locally given by power series in $d$ variables. To get finiteness of $\Gamma\cap X(\Q_p)$ one needs to consider at least $d$ different $p$-adic analytic functions on $X(\Q_p)$ whose zero sets (usually, $p$-adic analytic sets of dimension $d-1$) meet properly, and then there is the problem of giving an upper bound for the number of common zeros. So far, this approach has not succeeded in proving a version of \eqref{EqnColeman} other than in the case of curves.
+
+We take a different route instead. When $\rk A(\Q)=1$ we can give a $p$-adic analytic parametrization of $\Gamma$ by power series in one variable. Upon composing with suitably chosen local equations for the surface $X$ in $A$ and working on residue disks, the problem of bounding $\# \Gamma\cap X(\Q_p)$ is reduced to bounding the number of zeros of a certain power series $h(z)=\sum_j c_jz^j\in \Q_p[[z]]$ on a disk. The key difficulty in doing so (and in the whole approach) it so prove the existence of a small $N$ such that $|c_N|\ge 1$.  We achieve this by developing a method based on overdetermined $\omega$-integrality, which in our case is essentially a study of overdetermined systems of differential equations in positive characteristic. See Section \ref{SecIntroMethods} for a more detailed description.
+
+
+
+
+
+
+Prior to our work, the efforts on extending \eqref{EqnColeman} to the higher dimensional setting  have focused on the special case when $A=J$ is the Jacobian of a curve $C$  and $X=W_d$ is the image in $J$ of the $d$-th symmetric power of $C$ via the addition map.  Klassen \cite{Klassen} obtained some partial results for the varieties $W_d$, later improved by Siksek \cite{Siksek}. Although Siksek's work does not give an explicit  bound for $\# W_d(\Q)$ such as \eqref{EqnColeman}, it gives a practical method that in many cases computes the set of rational points of $W_d$.  Park \cite{Park} used tropical geometry to obtain a weak analogue of \eqref{EqnColeman} for $W_d$ (at least if $\rk J(\Q)\le 1$),  but the result turns out to be conditional on an unproved technical assumption as explained in \cite{GM}. Uniform extensions of Park's result are studied in \cite{VW} for $W_2$, but these are also conditional due to the same issue discussed in \cite{GM}.
+
+
+
+%%%%%%%%%
+%%%%%%%%%
+%%%%%%%%%
+
+\subsection{Results}\label{SecIntroResults} Our main result is Theorem \ref{ThmMain}, which  proves an analogue of the Chabauty-Coleman bound  \eqref{EqnColeman} for surfaces over finite extensions of $\Q_p$. For simplicity, let us first state here a version just over $\Q_p$ which follows from the more general Theorem \ref{ThmMain}, see Remark \ref{RmkMainToIntro}. As usual, $K_X$ denotes a canonical divisor of a smooth projective variety $X$. We recall that $X$ is said to be  of general type if $K_X$ is big.  For every field $F$, we choose an algebraic closure and denote it by $F^{alg}$.
+\source{chabauty-coleman-bound-surfaces}
+%%
+%%
+\begin{theorem}[Main result, case over $\Q_p$]
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{ThmMainIntro} Let $p$ be a prime. Let $X$ be a smooth, geometrically irreducible, projective surface contained in an abelian variety $A$ of dimension $n\ge 3$, both defined over $\Q_p$ and having good reduction. Let $X'$ and $A'$ be the corresponding reductions modulo $p$. Let $G\le A(\Q_p)$ be a finitely generated group with $\rk G\le 1$ and let $\Gamma$ be its $p$-adic closure in $A(\Q_p)$.  Suppose that either of the following conditions holds:
+\source{chabauty-coleman-bound-surfaces}
+\begin{itemize}
+\item[(i)] $n=3$, $X$ is of general type, $X'$ contains no elliptic curves over $\F_p^{alg}$, and $p>(128/9)c_1^2(X)^2$.  
+\item[(ii)] $A'$ is simple over $\F_p^{alg}$, $p>3c_1^2(X)+2$, and there is an ample divisor $H$ on $A$ such that
+$$
+p> \frac{n!\cdot (3\deg(H^{2}.X) + \deg(H.K_X))^n}{n^n\cdot \deg(H^n)}.
+$$
+\end{itemize}
+Then $X(\Q_p)\cap \Gamma$ is finite and we have
+\begin{equation}\label{EqnMainIntro}
+\source{chabauty-coleman-bound-surfaces}
+ \# X(\Q_p)\cap \Gamma\le \# X'(\F_p) + \frac{p-1}{p-2}\cdot \left(p+4p^{1/2} + 3\right)\cdot c_1^2(X).
+ \end{equation}
+\end{theorem}
+%%
+%%
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{RmkRHbd} By the Riemann Hypothesis for surfaces over finite fields \cite{Deligne} we have the estimate $|\# X'(\F_p) - (p^2+1)|\le b_3p^{3/2} + b_2 p+b_1p^{1/2}$ where $b_j$ is the $j$-th Betti number of $X(\C)$. In particular, one can use $\# X'(\F_p)\le p^2+b_3p^{3/2} + b_2 p+b_1p^{1/2}+1$  in \eqref{EqnMainIntro} to get a more uniform bound.
+\source{chabauty-coleman-bound-surfaces}
+\end{remark}
+%%
+%%
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{RmkRH4p} When Theorem \ref{ThmMainIntro} applies, $p\ge 7$ and \eqref{EqnMainIntro} implies $ \# X(\Q_p)\cap \Gamma< \# X'(\F_p) + 4p\cdot c_1^2(X)$. Also, Remark \ref{RmkRHbd} shows  that $\# X'(\F_p)$ is roughly of size $p^2$, say, for large $p$ and fixed Betti numbers of $X$. In this way, $\# X'(\F_p)$ can be seen as the main term in the upper bound \eqref{EqnMainIntro}.
+\source{chabauty-coleman-bound-surfaces}
+\end{remark}
+%%
+%%
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready As it can be relevant in practical applications, we mention that Proposition \ref{PropKeyU} gives a precise upper bound on the number of points of $\Gamma\cap X(\Q_p)$ in a given residue disk, as well as a criterion for this number to be at most $1$. 
+\end{remark}
+
+The following two results on rational points of surfaces are deduced from Theorem \ref{ThmMainIntro} by base change to $\Q_p$ and choosing $G$ as the group of $\Q$-rational points of the corresponding abelian variety. We also obtain similar results over any number field, not just $\Q$; see Section \ref{SecApp1}.
+%%
+%%
+\begin{theorem}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{ThmIntroA} Let $X$ be a smooth, geometrically irreducible, projective surface of general type contained in an abelian threefold $A$, both defined over $\Q$. Let $p> (128/9)\cdot  c_1^2(X)^2$ be a prime of good reduction for $X$ and $A$, and let $X'$ be the reduction of $X$ modulo $p$.  If $\rk A(\Q)\le 1$ and $X'$ contains no elliptic curves over $\F_p^{alg}$, then $X(\Q)$ is finite and
+\source{chabauty-coleman-bound-surfaces}
+$$
+\#X(\Q) \le \# X'(\F_p) + \frac{p-1}{p-2}\cdot \left(p+4p^{1/2} + 3\right)\cdot c_1^2(X).
+$$ 
+\end{theorem}
+%%
+%%
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{RmkHyp1} A compact complex manifold $M$ is \emph{hyperbolic} if every holomorphic map $f:\C\to M$ is constant. If a complex projective surface is hyperbolic, then it is of general type (see Lemma \ref{LemmaGenTypeHyp}). So, in Theorem \ref{ThmIntroA} we may require that $X(\C)$ be hyperbolic instead of requiring general type ---depending on the application, this might be easier to check. In fact, there is no loss of generality in doing so: Under the assumptions of Theorem \ref{ThmIntroA}, the surface $X$ contains no elliptic curves over $\Q^{alg}$, hence, over  $\C$ (by specialization). Furthermore, $X$ is not an abelian surface because it is of general type. Since $X\subseteq A$, a result of Green \cite{Green} implies that $X(\C)$ is hyperbolic.
+\source{chabauty-coleman-bound-surfaces}
+\end{remark}
+
+%%
+%%
+\begin{theorem}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{ThmIntroB} Let $X$ be a smooth, geometrically irreducible, projective surface contained in an abelian variety $A$ of dimension $n\ge 3$, both defined over $\Q$.  Let $H$ be an ample divisor on $A$ and let $p$ be a prime of good reduction for $X$ and $A$ satisfying
+\source{chabauty-coleman-bound-surfaces}
+$$
+p> \max\left\{3 c_1^2(X)+2,\frac{n!\cdot (3\deg(H^{2}.X) + \deg(H.K_X))^n}{n^n\cdot \deg(H^n)}\right\}.
+$$
+Let $X'$ and $A'$ be the corresponding reductions modulo $p$ of $X$ and $A$.  If $\rk A(\Q)\le 1$ and $A'$ is simple over $\F_p^{alg}$, then $X(\Q)$ is finite and
+$$
+\#X(\Q) \le \# X'(\F_p) + \frac{p-1}{p-2}\cdot \left(p+4p^{1/2} + 3\right)\cdot c_1^2(X).
+$$ 
+\end{theorem}
+%%
+%%
+
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready Since $A'$ is geometrically simple, so is $A$. Thus, $X(\C)$ is hyperbolic  by \cite{Green} as it was in Theorem \ref{ThmIntroA} (see Remark \ref{RmkHyp1}). Deep conjectures by Bombieri and Lang predict that if $V$ is a smooth projective variety over $\Q$ such that $V(\C)$ is hyperbolic, then $V(\Q)$ is finite. For curves this is Faltings's theorem since hyperbolic projective curves are precisely those of genus $g\ge 2$. When $V$ is contained in an abelian variety and $V(\C)$ is hyperbolic, finiteness of $V(\Q)$ was proved by Faltings \cite{Faltings2} extending methods of Vojta \cite{VojtaCompact}.  Hence, hyperbolicity of $X(\C)$ is natural in our context.
+\end{remark}
+
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{RmkRk} It is expected that the rank of abelian varieties over $\Q$ of a fixed positive dimension is $0$ or $1$ a positive proportion of the time each ---ordering the abelian varieties, for instance, by (Faltings or Theta) height--- and this is proved for elliptic curves \cite{BhargavaShankar, BhargavaSkinner}. Thus, one can expect that the rank assumption in Theorems \ref{ThmIntroA} and \ref{ThmIntroB} is often satisfied in examples.
+\source{chabauty-coleman-bound-surfaces}
+\end{remark}
+
+%%
+%%
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready For a variety $X$  contained in an abelian variety $A$ over $\Q$, heuristically, one sees that the limit of applicability of an analogue of Chabauty's classical approach should be $\dim X+ \dim \Gamma \le \dim A$ where $\Gamma$ is the $p$-adic closure of $A(\Q)$ in $A(\Q_p)$. In our results in the case $\dim A=3$, this limit rank condition is in fact reached. 
+\end{remark}
+%%
+%%
+
+A simple case where our results are applicable is given by the following.
+%%
+%%
+\begin{corollary}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{CoroDim3} Let $A$ be an abelian threefold over $\Q$ with $\rk A(\Q)\le 1$ and $\End (A_\C) = \Z$. There is a set of primes $\Pcal$ of density $1$ in the primes  such that the following holds:
+\source{chabauty-coleman-bound-surfaces}
+
+Let $X$ be a smooth, geometrically irreducible, projective surface defined over $\Q$ and contained in $A$, and let $p\in \Pcal$ be a prime of good reduction for $X$ with $p>(128/9) \cdot c_1^2(X)^2$. Let $X'$ be the reduction of $X$ modulo $p$. Then
+$$
+\#X(\Q) \le \# X'(\F_p) + \frac{p-1}{p-2}\cdot \left(p+4p^{1/2} + 3\right)\cdot c_1^2(X).
+$$
+\end{corollary}
+%%
+%%
+
+
+
+This is deduced in Section \ref{SecApp2} from Theorem \ref{ThmIntroA} and results of Chavdarov \cite{Chavdarov} on absolutely simple reduction of abelian varieties. Chavdarov's results together with Theorem \ref{ThmIntroB} imply analogous corollaries when $\dim A\ge 3$ is odd. Further extensions are discussed in Section \ref{SecApp2}.
+
+
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready Given $n\ge 1$, a general abelian variety $B$ over $\C$ of  dimension $n$ satisfies $\End(B)\simeq \Z$. In view of Remark \ref{RmkRk}, abelian threefolds satisfying the conditions in Corollary \ref{CoroDim3} should be rather common. And in fact, they are easy to find; the Jacobian of the genus $3$ hyperelliptic curve $y^2=x^7-x-1$ is such an example with Mordell-Weil rank $1$.
+\end{remark}
+
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready For any abelian threefold as in Corollary \ref{CoroDim3}, our bounds for the number of rational points apply to \emph{any} smooth surface contained in $A$, e.g. by embedding $A$ in a projective space and intersecting with a general hyperplane (by Bertini's theorem). This gives plenty of examples.
+\end{remark}
+
+For a curve $C$ over a field, we let $C^{(n)}$ be its $n$-th symmetric power. If $C$ is defined over $\Q$, the $\Q$-rational points of $C^{(2)}$ are in bijection with Galois orbits of quadratic points and unordered pairs of $\Q$-rational points. If $C$ is a hyperelliptic curve over $\Q$, then we certainly have that $C^{(2)}(\Q)$ is infinite. As a direct application of our results, we can bound $\# C^{(2)}(\Q)$ for non-hyperelliptic curves  whose Jacobian has rank $0$ or  $1$, under some conditions on the reduction type at $p$. 
+
+%%
+%%
+\begin{corollary}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{CoroQuadratic} Let $C$ be a smooth, geometrically irreducible, projective curve over $\Q$ of genus $g\ge 3$ which is not hyperelliptic over $\Q^{alg}$ and such that its Jacobian $J$ has $\rk J(\Q)\le 1$.  Let  $p>(8g-10)^g$ be a prime of good reduction for $C$. Let $C'$ and $J'$ denote the reduction of $C$ and $J$ modulo $p$ respectively. Suppose that $C'$ is not hyperelliptic over $\F_p^{alg}$ and that $J'$ is geometrically simple. Then  $C^{(2)}(\Q)$ is finite and
+\source{chabauty-coleman-bound-surfaces}
+$$
+\# C^{(2)}(\Q)\le \# (C')^{(2)}(\F_p) +  \frac{p-1}{p-2}\cdot \left(p+4p^{1/2} + 3\right)\cdot (4g-9)(g-1).
+$$
+\end{corollary}
+
+This is directly obtained from Theorem \ref{ThmIntroB} in Section \ref{SecApp3} after some computations in intersection theory. In a similar fashion, we will prove the following strengthening of Corollary \ref{CoroQuadratic} for curves of genus $3$, by applying Theorem \ref{ThmIntroA} instead.
+
+%%
+%%
+\begin{corollary}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{CoroQuadratic3} Let $C$ be a smooth, geometrically irreducible, projective curve over $\Q$ of genus $3$ which is not hyperelliptic over $\Q^{alg}$ and such that its Jacobian $J$ has $\rk J(\Q)\le 1$.  Let  $p\ge 521$ be a prime of good reduction for $C$ and denote by $C'$ the reduction of $C$ modulo $p$. Suppose that $C'$ is not hyperelliptic over $\F_p^{alg}$ and that $(C')^{(2)}$ does not contain elliptic curves over $\F_p^{alg}$. Then  $C^{(2)}(\Q)$  is finite and
+\source{chabauty-coleman-bound-surfaces}
+$$
+\# C^{(2)}(\Q)\le \# (C')^{(2)}(\F_p) +  6\cdot \frac{p-1}{p-2}\cdot \left(p+4p^{1/2} + 3\right) <  \# (C')^{(2)}(\F_p) + 7.1\cdot p.
+$$
+\end{corollary}
+%%
+%%
+
+
+Finally, we mention that the finiteness aspect of Theorem \ref{ThmMainIntro} (and more generally, Theorem \ref{ThmMain}) does not follow from Faltings's theorem for subvarieties of abelian varieties \cite{Faltings2}, as $\Gamma$ is not a finite rank group when $\rk(G)=1$.  Regarding bounds for the number of rational points, the Diophantine approximation method of Vojta \cite{VojtaCompact} and Faltings \cite{Faltings2, Faltings3} led to explicit bounds such as \cite{Remond1, Remond2} for subvarieties of abelian varieties over number fields, outside the special set. However, as it is the case for the classical Chabauty-Coleman method on curves compared to Diophantine approximation bounds, our $p$-adic approach for surfaces leads to sharper estimates when it applies. 
+
+%%%%%%%%%
+%%%%%%%%%
+%%%%%%%%%
+
+\subsection{Sketch of the method: overdetermined $\omega$-integrality}\label{SecIntroMethods} We conclude this introduction by presenting an outline of the proof of Theorem \ref{ThmMainIntro} (and more generally, Theorem \ref{ThmMain}). To simplify the notation, let us focus in the case $\dim A=3$ since the key features already appear here. Furthermore, enlarging $G$ we may assume that $\rk G=1$.
+\source{chabauty-coleman-bound-surfaces}
+
+First we note that, at least heuristically, the Chabauty-Coleman $p$-adic approach has a chance to succeed since $\dim X+ \dim \Gamma= 2+1=\dim A$. 
+
+
+
+Consider the reduction map $\red:A(\Q_p)\to A'(\F_p)$ and for each $x\in A'(\F_p)$ let  $U_x=\red^{-1}(x)\subseteq A(\Q_p)$ be the corresponding residue disk. We want to bound $\# \Gamma\cap X(\Q_p)\cap U_x$ and then add these upper bounds as $x$ varies in $X'(\F_p)$. Let us parametrize $\Gamma\cap U_x$ by a $p$-adic analytic map $\gamma : p\Z_p\to U_x\subseteq A(\Q_p)$. If $f$ is a local equation for $X$ in $U_x$, then $\#\Gamma\cap X(\Q_p)\cap U_x$ is the number of zeros of the one-variable $p$-adic analytic function $h=f\circ \gamma$ on $p\Z_p$. We remark that the idea of parametrizing $\Gamma$ can be traced back to work of Flynn \cite{Flyn} and it has been successful in computing the rational points of curves in examples, although it has not previously led to results such as \eqref{EqnColeman}.
+
+
+Writing $h(z)=c_1z+c_2z^2+...\in \Q_p[[z]]$, the number of zeros can be estimated  \emph{provided} that we have some information on the size of the coefficients $c_j$, see Section \ref{SecZeros}. Namely,  we need:
+\begin{itemize} 
+\item[(I)] a good upper bound for $|c_j|$ for all $j$, and 
+\item[(II)] some small $N$ such that $|c_N|$ is not too small, say, $|c_N|\ge 1$.
+\end{itemize}
+To achieve (I) we perform the construction of the $p$-adic analytic map $\gamma$ very carefully. We develop a completely explicit theory of $1$-parameter $p$-adic analytic subgroups in Section \ref{Sec1PS} and, with some care in the choice of the local equation $f$, this allows us to prove the desired upper bound. 
+
+The key difficulty in the whole argument, however, is (II). We take a somewhat indirect approach.
+
+Consider the morphism of $p$-adic analytic groups $\Log:A(\Q_p)\to \Lie(A(\Q_p))\simeq H^0(A,\Omega^1_{A/\Q_p})^\vee$ constructed by Coleman integration or by classical theory of $p$-adic Lie groups \cite{Bourbaki}. As $\rk G=1$,  $\Log(\Gamma)$ is contained in a line of $\Lie(A(\Q_p))$ which determines a hyperplane $\Hcal\subseteq H^0(A,\Omega^1_{A/\Q_p})$. We choose $\omega_1,\omega_2\in \Hcal$ so that they reduce to independent differentials $\omega'_1,\omega'_2$ on $A'$ which we restrict to differentials $u_1,u_2$ on $X'$. For $x\in X'(\F_p)$ let $m(x)$ be the supremum of all integers $m$ such that there is a closed immersion $\phi_m:\Spec \F_p^{alg}[z]/(z^{m+1})\to X'$ supported at $x$ which is $\omega$-integral for both $\omega=u_1,u_2$. Roughly speaking, $\omega$-integrality for a differential $\omega$ means that the morphism $\phi_m$ solves the differential equation determined by $\omega$; see Section \ref{Secwint} for a detailed discussion.
+
+If $u_1$ and $u_2$ are independent over the function field of  $X'$, then the maps $\phi_m$ in the definition of $m(x)$ are jet solutions to an \emph{overdetermined system of differential equations}. So, one expects $m(x)$ to be finite and bounded in terms of $u_1$ and $u_2$. This is indeed correct, but it is far from obvious. Theorem \ref{ThmOver} gives such a bound in terms of the geometry of the divisor $D$ of the $2$-form $u_1\wedge u_2$. Our bound for $m(x)$ is somewhat intricate, but Remark \ref{RmkSharp} shows that in some cases it is sharp. 
+
+
+Bounding $m(x)$ turns out to be crucial, since we will show in Lemma \ref{LemmaBdNm} that $N\le m(x)+1$ with $N$ as in (II). Together with the zero estimates from Section \ref{SecZeros} and our upper bounds for $|c_j|$ (see (I) above) we will prove the following key estimate in Proposition \ref{PropKeyU} 
+\begin{equation}\label{EqnIntroU}
+\source{chabauty-coleman-bound-surfaces}
+\#\Gamma\cap X(\Q_p)\cap U_x\le 1+ m(x)\cdot\frac{p-1}{p-2}.
+\end{equation}
+
+Finally, the geometric bound for $m(x)$ proved in Theorem \ref{ThmOver} is applied to \eqref{EqnIntroU}, and then added over $x\in X'(\F_p)$. When $x$ is not in the support of $D=\divi(u_1\wedge u_2)$ we show $m(x)=0$, thus, $\#\Gamma\cap X(\Q_p)\cap U_x\le 1$.  The contribution for $x$ in the support of $D$ is more complicated and it corresponds to counting $\F_p$-points in the support of  $D$ with suitable weights. The divisor $D$ can be non-reduced and highly singular, so this counting problem does not directly follow from Weil's estimates for points in curves over finite fields. We address this problem by studying certain modified Zeta functions in Section \ref{SecZeta}, which allows us to conclude the argument.
+
+
+
+
+A technical point that requires attention is that we make heavy use of $\omega$-integrality for schemes over  rings or fields of positive characteristic. The classical analytic approach is not useful for us and we need purely algebraic methods. Fortunately such a study was carried out by Garcia-Fritz \cite{GFthesis, GFtams, GFijnt} in the context of her generalization of Vojta's explicit version of Bogomolov's approach to quasi-hyperbolicity, see \cite{VojtaBuchi, Deschamps}. While Garcia-Fritz's work is mostly over $\C$, her algebraic methods easily extend to an arbitrary base. See Section \ref{Secwint}. 
+
+A major technical difficulty is that at various points of the argument we need to restrict differential forms to subvarieties of abelian varieties in a way that preserves non-triviality. For example, while $\omega'_1$ and $\omega'_2$ are independent on $A'$, is is not clear $u_1\wedge u_2$ is not the zero form on $X'$, and this is necessary even to define the divisor $D=\divi(u_1\wedge u_2)$. Part of the difficulties are due to the fact that $X$ does not have a particularly convenient presentation that allows for explicit computations with differentials, unlike the case of symmetric powers of curves. The required non-vanishing results for restriction of forms are not difficult to obtain in characteristic zero by analytic means, but we need them in positive characteristic. This is achieved in Section \ref{SecRestrictions} by means of intersection theory. 
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

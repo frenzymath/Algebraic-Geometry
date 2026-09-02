@@ -1,0 +1,517 @@
+% Source-derived chapter 02: Fourier coefficients of Eisenstein series
+% Original source: higher-siegel-weil-unitary-nonsingular-terms
+\chapter{Fourier coefficients of Eisenstein series}
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-02}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+\begin{remark}[Source section]
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-02-source}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Fourier coefficients of Eisenstein series
+\label{s:Eis}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+In this section we will define the Siegel-Eisenstein series featuring into our main theorem, and explain how to express their non-singular Fourier coefficients in terms of local density polynomials, which will be geometrized in later sections. 
+
+
+\subsection{Siegel--Eisenstein series}\label{ss:Eis} 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+For any one-dimensional $F$-vector space $L$, let $\Herm_{n}(F,L)$ be the $F$-vector space of $F'/F$-Hermitian forms $h: F'^{n}\times F'^{n}\to L\ot_{F}F'$ (with respect to the involution $1\ot\s$ on $L\ot_{F}F'$). For any $F$-algebra $R$, $\Herm_{n}(R, L):=\Herm_{n}(F,L)\ot_{F}R$ is the set of $L\ot_{F}R'$-valued $R'/R$-Hermitian forms on $R'^{n}$, where $R'=R\ot_{F}F'$.  When $L=F$ we write $\Herm_{n}(F)=\Herm_{n}(F,F)$ and $\Herm_{n}(R)=\Herm_{n}(F)\ot_F R$ for any $F$-algebra $R$.
+
+Let $W$ be the standard split $F'/F$-skew-Hermitian space of dimension $2n$. 
+Let $H_n=U(W)$. Write $\BA := \BA_F$ for the ring of adeles of $F$. Let $P_n(\BA)=M_n(\BA)N_n(\BA)$ be the standard Siegel parabolic subgroup of $H_n(\BA)$, where
+\begin{align*}
+  M_n(\BA)&=\left\{m(\alpha)=\begin{pmatrix}\alpha & 0\\0 &{}^t\bar \alpha^{-1}\end{pmatrix}: \alpha\in \GL_n(\BA_{F'})\right\},\\
+  N_n(\BA) &= \left\{n(\beta)=\begin{pmatrix} 1_n & \beta \\0 & 1_n\end{pmatrix}: \beta\in\Herm_n(\BA_F)\right\}.
+\end{align*}
+
+Let $\eta: \BA_{F}^\times/F^\times\rightarrow \mathbb{C}^\times$ be the quadratic character associated to $F'/F$ by class field theory. Fix $\chi: \BA_{F'}^\times/F'^\times\rightarrow \mathbb{C}^\times$ a character such that $\chi|_{\BA_F^\times}=\eta^n$. We may view $\chi$ as a character on $M_n(\BA)$ by $\chi(m(\alpha))=\chi(\det(\alpha))$ and extend it to $P_n(\BA)$ trivially on $N_n(\BA)$. Define the \emph{degenerate principal series} to be the unnormalized smooth induction 
+$$
+I_n(s,\chi)=\Ind_{P_n(\BA)}^{H_n(\BA)}(\chi\cdot |\cdot|_{F'}^{s+n/2}),\quad s\in \mathbb{C}.
+$$
+
+For a standard section $\Phi(-, s)\in I_n(s,\chi)$, define the associated \emph{Siegel--Eisenstein series} 
+$$E(g,s, \Phi)= \sum_{\gamma\in P_n(F)\backslash H_n(F)}\Phi(\gamma g, s),\quad g\in H_n(\BA),
+$$ which converges for $\Re(s)\gg 0$ and admits meromorphic continuation to $s\in \mathbb{C}$. Notice that $E(g,s,\Phi)$ depends on the choice of $\chi$. 
+
+
+\begin{remark}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{rem: chi exists}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+In this paper, we will choose $\chi$ to be unramified everywhere. To see that such $\chi$ exists, observe that since $\CC^{\times}$ is injective (in the category of abelian groups), it suffices to check that $\eta^n$ is trivial on $\ker (\Pic(X) \rightarrow \Pic(X') )$. If $X'/X$ is the trivial double cover or the double cover corresponding to $\F_{q^2}/\F_q$, then then this kernel is trivial so the result is immediate. Otherwise, the cover is geometrically non-trivial. Since $\mrm{char}(k) \neq 2$, the kernel consists of the 2-torsion line bundle whose class in $\cohog{1}{X, \mu_2}$ agrees with $\eta \in H^1(X, \Z/2\Z)$ under the isomorphism $\mu_2 \cong \Z/2\Z$. If $n$ is even then there is nothing to check; if $n$ is odd then the desired vanishing property amounts (when $\mrm{char}(k) \neq 2$) to the alternating property of the cup product pairing $H^1(X_{\ol{\F}_q},\Z/2\Z)\times \cohog{1}{X_{\ol{\F}_q},\Z/2\Z}\to \Z/2$, which follows from the graded commutativity of the cup product and the fact that the geometric $\Z_2$-cohomology of curves in characteristic $\neq 2$ is torsion-free.
+\end{remark}
+
+
+As justified by Remark \ref{rem: chi exists}, we may choose $\chi$ to be everywhere unramified. Then  $I_n(s,\chi)$ is unramified and we fix $\Phi(-, s)\in I_n(s,\chi)$  as the unique $K=H_n(\wh\cO)$-invariant section normalized by
+$$
+\Phi(1_{2n}, s)=1.
+$$
+Similarly we normalize $\Phi_v \in I_n(s,\chi_v)$ for every $v\in|X|$ and we then have a factorization $\Phi=\bigotimes_{v\in|X|}\Phi_v$.
+
+ 
+\subsection{Fourier expansion} 
+Let $\om_{F}$ be the generic fiber of the canonical bundle of $X$, and $\BA_{\om_{F}}=\BA\ot_{F}\om_{F}$. The sum of the residues induces a pairing $\BA_{\om_{F}}\times \BA_{F}\to k$ induces a pairing  
+$$\j{\cdot,\cdot}: \Herm_{n}(\BA, \om_{F})\times \Herm_{n}(\BA)\to k$$
+given by $\j{T,b}=\Res(-\Tr(Tb))$. Composing this pairing with the fixed nontrivial additive character $\psi_{0}: k\to \BC^\times$  exhibits $\Herm_{n}(\BA,\om_{F})$ as the Pontryagin dual of $\Herm_{n}(\BA)$. Moreover, it exhibits $\Herm_{n}(F,\om_{F})$ as the Pontryagin dual of $\Herm_{n}(F)\bs \Herm_{n}(\BA)=N_{n}(F)\bs N_{n}(\BA)$. The global residue pairing is the sum of local residue pairings $\j{\cdot,\cdot}_{v}: \Herm_{n}(F_{v}, \om_{F_v})\times \Herm_{n}(F_{v})\to k$ defined by $\j{T,b}_{v}=\tr_{k_v/k}\Res_{v}(-\Tr(Tb))$.
+
+%\mnote{Y: changed Fourier coefficient $a$ to $T$: $a$ is reserved for Hermitian forms on $\cE$. It has a different nature from $T$. Although this has conflict with the polynomial variable $T$ later. Any suggestion?}
+
+We have a Fourier expansion 
+$$E(g,s,\Phi)=\sum_{T\in\Herm_n(F,\om_{F})}E_T(g,s,\Phi),$$ 
+where
+ $$E_T(g,s,\Phi)=\int_{N_n(F)\backslash N_n(\mathbb{A})} E(n(b)g,s,\Phi)\psi_{0}(\j{T,b})\,\rd n(b),$$ 
+and the Haar measure $\rd n(b)$ is normalized such that $N_{n}(F)\bs N_{n}(\BA)$ has volume $1$. 
+For any $\a\in M_{n}(\BA)$ we have
+\begin{equation}\label{Eis ch base}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+E_{T}(m(\a)g,s,\Phi)=\chi(\det(\bar\alpha))^{-1}|\det(\alpha)|^{-s+n/2}_{F'}E_{{}^{t}\ov\a T \a}(g,s,\Phi).
+\end{equation}
+
+
+Suppose $T$ is \emph{nonsingular}, meaning that for one (equivalently, any) choice of trivialization of $\omega_F$ it has non-vanishing determinant, for a factorizable $\Phi=\bigotimes_{v\in|X|}\Phi_v$ we have a factorization of the Fourier coefficient into a product (cf. \cite[\S 4]{Kudla1997})
+\begin{equation}\label{Eis factor Wh}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+E_T(g,s,\Phi)=|\om_{X}|_{F}^{-n^{2}/2}\prod_v W_{T,v}(g_v, s, \Phi_v),
+\end{equation}
+where the \emph{local (generalized) Whittaker function} is defined by 
+$$W_{T,v}(g_v, s, \Phi_v)=\int_{N_n(F_{v})}\Phi_v(w_n^{-1}n(b)g_v,s) \psi_{0}(\j{T,b}_{v})
+\, \rd_{v} n(b),\quad w_n=
+\begin{pmatrix}
+0  & 1_n\\
+  -1_n & 0\\
+\end{pmatrix}$$ 
+and has analytic continuation to $s\in \mathbb{C}$. Here the local Haar measure $\rd_{v} n(b)$ is the one such that the volume of $N_{n}(\cO_{v})$ is $1$. The factor $|\om_{X}|_{F}^{-n^{2}/2}$ is the ratio between the global measure $\rd n$ and the product of the local measures $\prod_{v}\rd_{v}n$.
+
+Note that for $\a\in M_{n}(F_{v})$,
+\begin{equation}\label{eq:ch base}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+W_{T,v}(m(\alpha), s, \Phi_v)=\chi(\det(\bar\alpha))^{-1}|\det(\alpha)|^{-s+n/2}_{F'_v}W_{^t\bar\alpha\,T\alpha,v}(1, s, \Phi_v).
+\end{equation}
+
+We define the {\em regular} part of the Eisenstein series to be
+\begin{equation}\label{eq:def reg}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+E^{\rm reg}(g,s,\Phi)=\sum_{T\in\Herm_n(F,\om_{F})\atop \rank T=n}E_T(g,s,\Phi).
+\end{equation}
+%\Yundel{This is independent of the choice of $\psi$.} 
+
+
+
+
+
+\subsection{Local densities for Hermitian lattices}\label{ss:loc den}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+The local density for Hermitian lattices in the non-split case has been studied in \cite[\S3]{LZ1} following the strategy of Cho--Yamauchi \cite{CY}. Here we recall the result of \cite{LZ1} and extend the results to the split case.
+ 
+From now on until \S\ref{sec:relation-with-local}, let $F$ be a non-archimedean local field of characteristic not equal to $2$ (but possibly with residue characteristic $2$). Let $F'$ be either an unramified quadratic field extension or  the split quadratic $F$-algebra $F'=F\times F$. Denote by $\cO_F$ (resp. $\cO_{F'}$) the ring of integers in $F$ (resp. $F'$). In the split case we have $\cO_{F'}=\cO_F\times \cO_F$.  Let $\eta=\eta_{F'/F}: F^\times\to\{\pm1\}$ be the quadratic character attached to $F'/F$ by class field theory. Let $\varpi$ be a uniformizer of $F$, $k$ the residue field, $q=\#k$. 
+
+Let $L, M$ be two Hermitian $\cO_{F'}$-lattices. In the split case,  the datum of a \emph{Hermitian $\cO_{F'}$-lattice $L$} is a pair $(L_1,L_2)$ of $\cO_{F}$-lattices together with an $\cO_{F}$-bilinear pairing
+\begin{equation*}
+(\cdot,\cdot): L_{1}\times L_{2} \to \cO_{F}
+\end{equation*}
+that is perfect after base change to $F$.  We will define $L^\vee=(L_1^\vee, L_2^\vee)$ where $L_1^\vee= \{x\in L_{1}\otimes_{\cO_F} F: (x,L_2)\subset \cO_F  \}$ and similarly for $L_2^\vee$. 
+
+
+Let $\Rep_{M,L}$ be the \emph{scheme of integral representations of $M$ by $L$}, an $\cO_F$-scheme such that for any $\cO_F$-algebra $R$, 
+\begin{align*}\label{def: Rep}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\Rep_{M,L}(R)=\Herm(L \otimes_{\cO_F}R, M \otimes_{\cO_F}R),
+\end{align*} 
+where $\Herm$ denotes the set of Hermitian $R$-module homomorphisms. In the split case, if we write $L$ and $M$ in terms of pairs $(L_1,L_2)$ and $(M_1,M_2)$ with their $\cO_{F}$-bilinear pairings, then a  Hermitian module homomorphism consists of a pair of $R$-linear maps $\phi_i:L_i \otimes_{\cO_F}R\to M_i \otimes_{\cO_F}R $ preserving the base change to $R$ of the $\cO_{F}$-bilinear pairings.
+
+The \emph{local density} of integral representations of $M$ by $L$ is defined to be $$\Den(M,L)\colon= \lim_{N\rightarrow +\infty}\frac{\#\Rep_{M,L}(\cO_F/\varpi^N)}{q^{N\cdot\dim (\Rep_{M,L})_{F}}}.$$ Note that if $L, M$ have $\cO_{F'}$-rank $n, m$ respectively and the generic fiber $(\Rep_{M,L})_{F}\ne\varnothing$, then $n\le m$ and
+\begin{equation*}
+%  \label{eq:dimRep}
+\dim (\Rep_{M,L})_{F}=\dim \U_m-\dim \U_{m-n}= n\cdot (2m-n).  
+\end{equation*}
+
+\subsection{Cho--Yamauchi formula for local density}\label{ssec: Cho-Yamauchi}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+
+%\begin{defn}
+%Define the central value of the local density to be $$\Den(L)\colon=\Den(1,L).$$
+%
+%% In particular, if $\val(L)$ is odd, then $\Den(L)=0$. In this case, define the \emph{central derivative of the local density} or \emph{derived local density} by $$\pDen(L)\colon=-\frac{\rd}{\rd X}\bigg|_{X=1}\Den(X,L).$$  
+%\end{defn}
+%
+%Notice that by definition $\Den(M,L)$ only depends on the isometry classes of $M$ and $L$, and hence only depends on the fundamental invariants of $M$ and $L$. In particular, $\Den(X,L)$ and $\pDen(L)$ only depends on the fundamental invariants of $L$.  Moreover, there is an analog of Lemma \ref{lem: cancel}: for any self-dual lattice $M$ of $\rank(M)=m$ and any integral lattice $L^\flat$ of $\rank(L^\flat)=n$, we have
+%$$
+%\Den(\iden^{n +m+k}, L^\flat\obot M)=\Den(\iden^{n+k},  L^\flat)$$
+%and therefore we obtain an cancelation law:
+%\begin{align}
+%\label{eq:cancel den}
+% \Den(X,L^\flat\obot M)= \Den(X,L^\flat).
+%\end{align}
+
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{def:maT}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+For $a\in \Z_{\ge0}$ we define  a polynomial of degree $a$
+\begin{equation*}
+\fm(a; T) := \prod_{i=0}^{a-1}(1-(\y(\varpi)q)^i T) \in \Z[T].
+\end{equation*}
+\end{defn}
+Note that $\fm(a; T)$ depends on $F'/F$. 
+
+In both the non-split and the split cases, for a finite torsion $\cO_{F}$-module $\cT$ we define 
+\begin{eqnarray*}
+\label{def ell}\ell(\cT)&:=&\mbox{ length of $\cT$ as an $\cO_{F}$-module};\\
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\label{def t} t(\cT)&:=&\dim_{k}(\cT\ot_{\cO_{F}}k).
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\end{eqnarray*}
+For an $\cO_{F'}$-Hermitian lattice $L$, we define its type 
+$$
+t(L):=t(L^\vee/L)
+$$
+where we view the finite torsion $\cO_{F'}$-module $L^\vee/L$ as an $\cO_{F}$-module.   
+
+
+When $F'/F$ is non-split, for a finite torsion $\cO_{F'}$-module $\cT$ we define 
+\begin{eqnarray*}
+\label{def ell'}\ell'(\cT)&:=&\mbox{length of $\cT$ as an $\cO_{F'}$-module};\\
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\label{def t'}t'(\cT)&:=&\dim_{k'}(\cT\ot_{\cO_{F'}}k').
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\end{eqnarray*}
+ Then we have 
+\begin{equation}\label{eq:ell&t}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\ell(\cT)=2\ell'(\cT),\quad t(\cT)=2t'(\cT).
+\end{equation}
+When $F'=F\times F$ is split, for a finite torsion $\cO_{F'}$-module $\cT$ we may define $\ell'(\cT)$ and $t'(\cT)$ by \eqref{eq:ell&t}. Moreover, for  $\cO_{F'}$-Hermitian lattices $L=(L_1,L_2)$ and $L'=(L'_1,L'_2)$ such that $L\subset L'$ (meaning that $L_1 \subset L_1'$ and $L_2 \subset L_2'$), we have 
+$$
+\ell(L'/L)=\ell(L'_1/L_1)+\ell(L'_2/L_2)
+$$
+and
+$$
+t'(L^\vee/L)=t(L_2^{\vee}/L_1)=t(L_1^{\vee}/L_2).
+$$
+In both the split and non-split case, we define 
+$$
+t'(L)=t'(L^\vee/L).
+$$
+
+%\end{remark}
+
+We have the following analog of Cho--Yamauchi formula \cite{CY}.
+\begin{thm}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{th:CY} 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Let $j\ge0$ be an integer. Let $\iden^j$ be the self-dual Hermitian $\cO_{F'}$-lattice of rank $j$ with Hermitian form given the identity matrix $\mathbf{1}_j$. Let $L$ be a Hermitian $\cO_{F'}$-lattice of rank $n$. 
+  \begin{enumerate}
+  \item We have
+\begin{equation}
+  \label{eq: iden}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\Den(\iden^{n+j}, \iden^n)=\prod_{i=1}^n(1-(\eta(\varpi)q)^{-i}T)\bigg|_{T= (\eta(\varpi)q)^{-j}}.
+\end{equation}
+\item
+%$\Den(\iden^{n+k}, L)$ is a polynomial in $(-q)^{-k}$ with $\mathbb{Q}$-coefficients (zero if $L$ is not integral). 
+There is  a (unique) polynomial $\Den(T,L)\in \mathbb{Z}[T]$, called  (normalized) \emph{local Siegel series} of $L$,  such that for all $j\geq 0$,
+$$\Den((\eta(\varpi) q)^{-j},L)=\frac{\Den(\iden^{n+j}, L)}{\Den(\iden^{n+j}, \iden^n)}.$$ 
+  \item We have
+\begin{equation}\label{eq:CY}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\Den(T,L) = \sum_{L \subset L '\subset L'^{\vee} \subset L^{\vee}} T^{2\ell'(L'/L)}\fm(  t'(L');T). 
+\end{equation}
+Here the sum is over $\cO_{F'}$-lattices $L'$ (in the $F'$-Hermitian space spanned by $L$) containing $L$ on which the Hermitian form is integral.
+\end{enumerate}
+\end{thm}
+
+
+\begin{proof}
+The non-split case is proved in \cite[Thm.~3.5.1]{LZ1} and here we indicate the necessary change in the split case.  Now suppose $F'=F\times F$ and hence $k'=k\times k$. Let $L_k=L\otimes_{\cO_F} k$ and $\iden^m_{k}=\iden^m\otimes_{\cO_F} k$, which are free $k'$-modules with the induced $k'/k$-Hermitian forms. In particular, $\iden^m_{k}$ is non-degenerate and the radical of $L_k=L\otimes_{\cO_F} k$  has $k'$-rank equal to $t'(L)=t(L_1^\vee/L_1)=t(L_2^\vee/L_2)$. Let $\Isom_{\iden^m_{k}, L_k}$ be the $k$-scheme of ``isometric embeddings" from $L_k$ to  $\iden^m_{k}$, i.e., {\em injective} $k'$-linear maps from $L_k$ to  $\iden^m_{k}$ preserving the Hermitian forms.
+
+Similar to the orthogonal case \cite[\S3.3]{CY},  we have
+  $$
+  \Den(\iden^m,L)= q^{-\dim \Rep(\iden^m,L)_{F}}\sum_{L\subset L'\subset L'^\vee} \# (L'/L)^{-(m-n)} \# \Isom_{\iden^m_{k}, L_k}(k),
+  $$
+  where $\dim \Rep(\iden^m,L)_{F}=m^2-(m-n)^2=2mn-n^2$.
+  
+  
+It remains to show that 
+  \begin{align}\label{eq:k pts}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+   \#\Isom_{\iden^m_{k}, L_k}(k)= q^{m^2-(m-n)^2}\cdot \prod_{i=0}^{n+a-1}(1-q^{i-m})
+  \end{align}
+  where $a=t'(L)$ is the $k'$-rank of the radical of $L_k$. Note that up-to-isomorphism, $L_k$ is determined by its rank and the rank of its radical. Let $U_{n-a,a}$ be a $k'/k$-Hermitian space of rank $n$ with radical of rank $a$. Let $V_m=U_{m,0}$ be a (non-degenerate) $k'/k$-Hermitian space of dimension $m\ge n$. Then it is easy to see that $U_{n-a,a}\simeq U_{n-a,0}\oplus U_{0,a}$ and
+  \begin{equation}\label{eq:k pts1}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+ \# \Isom_{V_m, U_{n-a,a}}(k)= \# \Isom_{V_m, U_{n-a,0}}(k)\cdot\#  \Isom_{V_{m-(n-a)}, U_{0,a}}(k).
+  \end{equation}
+By \eqref{eq:k pts1} (note that $   \#\Isom_{\iden^m_{k}, L_k}(k)= \# \Isom_{V_m, U_{n-a,a}}(k)$), it suffices to show \eqref{eq:k pts} in the two extreme cases: $a=0$ and $a=n$.
+ 
+ First we consider the case $a=n$. Then, to give an isometric embedding from $U=U_{0,n}=k'^n$ to $V=U_{m,0}=k'^m$ is equivalent to give an injective $k$-linear map $\phi:k^n\to k^m$ and then an injective $k$-linear map $\varphi:k^n\to {\rm Im}(\phi)^\perp\subset k^m$. Therefore, denoting  by $\Hom^*_k(k^n,k^m)$ the set of  injective $k$-linear maps $\phi:k^n\to k^m$, we have
+  \begin{align*}
+ \# \Isom_{V_{m}, U_{0,n}}(k)= &\#\Hom^*_k(k^n,k^m)\cdot  \#\Hom^*_k(k^n,k^{m-n})\\
+ =&q^{mn}\prod_{i=0}^{n-1}(1-q^{i-m})\cdot  q^{(m-n)n}\prod_{i=0}^{n-1}(1-q^{i-m+n})
+ \\=&  q^{2mn-n^2}\prod_{i=0}^{2n-1}(1-q^{i-m}).
+  \end{align*}
+  
+It remains to consider the case $a=0$. Then  a similar argument shows
+   \begin{align*}
+ \# \Isom_{V_{m}, U_{n,0}}(k)= &\#\Hom^*_k(k^n,k^m)\cdot  \#\Hom_k(k^n,k^{m-n})\\
+ =&q^{mn}\prod_{i=0}^{n-1}(1-q^{i-m})\cdot  q^{(m-n)n}
+ \\=&  q^{2mn-n^2}\prod_{i=0}^{n-1}(1-q^{i-m}).
+  \end{align*}
+  This completes the proof.
+  
+ \end{proof}
+ 
+ \begin{remark}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{r:Den tor} By Theorem \ref{th:CY}, the polynomial $\Den(T,L)$ depends only on the induced Hermitian form on the torsion module $L^\vee/L$. Indeed, for a Hermitian torsion module\footnote{By this we mean a torsion $\cO_{F'}$-module with an $\cO_{F'}/\cO_F$-Hermitian form.} $Q$ we define $\Den(T,Q)$ by the formula
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\[
+\Den(T,Q) = \sum_{Q'\subset (Q')^{\vee} \subset Q} T^{2\ell'(Q')}\fm(  t'(Q');T). 
+\]
+Then by \eqref{eq:CY}, we have $\Den(T, L) = \Den(T, L^\vee/L)$. 
+\end{remark}
+
+\begin{remark}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready
+%By \eqref{eq:ell&t}, the formula is equivalent to
+%\begin{eqnarray*}
+%\Den(T,L) = \sum_{L \subset L '\subset L'^{\vee} \subset L^{\vee}} T^{2\ell'(L'/L)}\fm(  t'(L');T). 
+%\end{eqnarray*}
+In the split case, write $L=(L_1,L_2)$ and $L'=(L'_1,L'_2)$. Then the formula reads
+\begin{eqnarray*}
+\Den(T,L) = \sum_{L_1 \subset L'_1 \subset L_2^{'\vee} \subset L_2^{\vee}  } T^{\ell(L_1'/L_1)+\ell(L_2'/L_2)}\fm(t({L_2'}^{\vee}/L'_1);T).
+\end{eqnarray*}
+\end{remark}
+
+
+\begin{remark}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready
+The local Siegel series satisfies a functional equation 
+\begin{equation}
+  \label{eq:functionalequation}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+  \Den(T,L)=(\eta(\varpi) T)^{\ell'(L^\vee/L)}\cdot \Den\left(\frac{1}{T},L\right).
+\end{equation}A proof in the inert case can be found in \cite[Theorem 5.3]{Hironaka2012}. By Theorem, \ref{th:CY} the constant term of $  \Den(T,L)$ is $1$. It follows that the degree of the polynomial $\Den(T,L)$ is equal to $\ell'(L^\vee/L)$. We will not use this fact in this paper.
+See Corollary \ref{cor:FE Int} for the (global) geometric analog.
+% {\color{red} reference for the split case? We will not use the functional equation though.}
+\end{remark}
+
+\subsection{Relation with local Whittaker functions}\label{sec:relation-with-local} We continue to let $F$ be a local field. 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Define the local L-function
+\begin{equation*}
+\sL_{n,F'/F}(s) :=\prod_{i=1}^nL(i+2s, \eta^i)=\prod_{i=1}^n\frac{1}{1-\eta^i (\varpi)q^{-i-2s}}.
+\end{equation*}
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{lem:Whi}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Let $L$ be a Hermitian $\cO_{F'}$-lattice of rank $n$. Let $T=((x_i, x_j))_{1\le i,j\le n}$ be the fundamental matrix of an $\cO_{F'}$-basis $\{x_1,\ldots, x_n\}$ of $L$, an $n\times n$ Hermitian matrix over $F$. Let $\th$ be a generator of $\om_{\cO_{F}}$ so that $T\th\in \Herm_{n}(F,\om_{F})$. Then
+  \begin{align*}
+W_{T\th}(1, s, \Phi)=\sL_{n,F'/F}(s)^{-1} \Den(q^{-2s},  L).
+  \end{align*}
+  Here $\Phi$ is the local unramified section normalized by $\Phi(1_{2n},s)=1$.
+\end{lemma}
+\begin{proof}
+Note that by Theorem \ref{th:CY} 
+$$\sL_{n,F'/F}( j)=\Den(\iden^{n+2j},  \iden^{n})^{-1}. $$
+It is known that $W_{T\th}(1, s, \Phi)$ is a rational function in $q^{s}$.
+Therefore the formula is equivalent to
+  \begin{align*}
+W_{T\th}(1, j, \Phi)= \Den(\iden^{n+2j},  L).
+  \end{align*}
+  for all integer $j\geq 0$. 
+In the non-split case this is essentially \cite[Prop.~10.1]{KRII} (cf. \cite[\S3.3]{LZ1}), which can be easily modified to the split case. We note that $W_{T\th}$ is the same as $W_{T}$ in {\em loc. cit.}.
+\end{proof}
+%\subsection{Local densities for Hermitian lattices: the split case}\label{ss:loc den sp} 
+%
+%
+%
+%When  $v$ is split in $X'$, the same formula \eqref{CY inert} works if we rewrite $2\ell_{v'}(-)$ as $\ell_{v}$ and $t_{v'}(-)$ as $\frac{1}{2}t_{v}$. \footnote{quote definition of $\Den_{v}$ in the split case.} 
+%
+%In the split case, if we write $\cO'_{v}=\cO_{v'}\times \cO_{v''}$ (both factors are canonically identified with $\cO_{v}$), then the datum of a Hermitian $\cO'_{v}$ lattice $L_{v}$ is a pair consisting of an  $\cO_{v'}$-lattices $L_{v'}$, an $\cO_{v''}$-lattice $L_{v''}$ together with an $\cO_{v}$-bilinear pairing
+%\begin{equation}
+%(\cdot,\cdot): L_{v'}\times L_{v''} \to \cO_{v}
+%\end{equation}
+%that is perfect after base change to $F_{v}$.  We may write the summation in \eqref{CY inert} as over pairs $(L',L'')$ of $\cO_{v'}$ and $\cO_{v''}$-lattices such that $L_{v'}\subset L'\subset L''^{\vee}\subset L_{v''}^{\vee}$ (the last containment is equivalent to $L_{v''}\subset L''$). The split case of Theorem \ref{th:CY} can be stated as follows.
+
+
+%  
+%  Writing $m=n+k$, this is equal to 
+%  $$
+%  q^{(a+n)(2m-n-a)}\cdot\Den(\langle1\rangle^{n+k},\langle 1\rangle^n)\cdot \mathfrak{m}(a; q^{-k}),
+%  $$ which explains the correct weight factor $\mathfrak{m}(a; X)$ appearing in the theorem.
+
+%  We remark that since $F/F$ is unramified, the analogue of the smoothness theorem \cite[Theorem 3.9]{CY} is valid in the Hermitian case even when the residue characteristic is $p=2$, as \cite[Lemma 5.5.2]{Gan2000} is still valid for $p=2$ by \cite[\S 9]{Gan2000}.
+  
+  
+  
+
+
+
+
+\subsection{Fourier coefficients revisited}\label{ss:FC} Now we return to the global situation. 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+We need the following global L-function to normalize the Eisenstein series
+\begin{equation}\label{eq: L-factor}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\sL_n(s)=\prod_{i=1}^nL(i+2s, \eta^i).
+\end{equation}
+
+%By Iwasawa decomposition, each term in the regular part  $E^{\rm reg}(\cdot,s,\Phi)$ (as a function in $g\in H_n(\BA)$, cf. \eqref{eq:def reg}) is determined by its restriction to the Levi subgroup $M_n(\BA)$. 
+
+We now consider the restriction of the regular part  $E^{\rm reg}(\cdot,s,\Phi)$ (as a function in $g\in H_n(\BA)$, cf. \eqref{eq:def reg}) to the Levi subgroup $M_n(\BA)$. Since the restriction is left $M_n(F)$-invariant and right $K$-invariant, it descends to a function on
+$$M_n(F)\bs M_n(\BA)/M_n(\wh\cO)\simeq \Bun_{M_n}(k)\simeq \Bun_{\GL_n'}(k),
+$$
+via the canonical identifications.
+From now on we will freely switch between $g=m(\alpha)\in M_n(\BA)$ and the corresponding element $\cE\in  \Bun_{\GL_n'}(k)$ and we will write 
+$$
+E^{\rm reg}(m(\cE),s,\Phi)=E^{\rm reg}(m(\alpha),s,\Phi).
+$$
+%\mnote{Y: I suggest to write $m(\cE)$ instead of $\cE$ because $\cE$ is directly related to $M_{n}$ not $H_{n}$.}
+Note that the absolute value on $\BA_{F'}^\times$ is normalized such that $|\det(\alpha)|_{F'}=q^{\deg(\cE)}$. 
+By abuse of notation we also view $\chi$ as a function on $\Bun_{\GL_1'}(k)$. 
+
+Recall that $\cE^\vee=\ul{\Hom}_{\cO_{X'}}(\cE,\omega_{X'})$ denotes the Serre dual of $\cE$. Consider a rational Hermitian map $a:\cE\dashrightarrow \s^{*}\cE^{\vee}$ (i.e., $a$ is a map defined over the generic point of $X'$, such that $\s^* a = a$). Given a pair $(\cE,a)$ as above, we shall define the Fourier coefficient
+\begin{equation*}
+E_{a}(m(\cE), s,\Phi)
+\end{equation*}
+as follows. For any generic trivialization $\t: \cE_{F'}\isom (F')^{n}$, the pair $(\cE,\t)$ gives a point $\a=\a(\cE,\t)\in M_n(\BA)/M_n(\wh\cO)$ such that $\cE$ is glued from $(F')^{n}$ and the lattices $\a_{v}\cO^{n}_{F'_{v}}$. Under $\t$, the restriction of $a$ at the generic point gives an $\om_{F}$-valued Hermitian form on $(F')^{n}$ which we denote by $T=T(a,\t)$. Then we define
+\begin{equation}\label{eq:def Ea cE}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+E_{a}(m(\cE), s,\Phi):=E_{T(a,\t)}(m(\a(\cE,\t)), s,\Phi).
+\end{equation}
+If we change $\t$ to $\g\t$ for some $\g\in M_{n}(F)=\GL_{n}(F')$, then $\a(\cE,\g\t)=\g\a(\cE,\t)$ and $T(a,\g\t)={}^{t}\ov\g^{-1}T(a,\t)\g^{-1}$. By  \eqref{Eis ch base}, we have
+\begin{equation*}
+E_{T(a,\g\t)}(m(\a(\cE,\g\t)), s,\Phi)=E_{T(a,\t)}(m(\a(\cE,\t)), s,\Phi)
+\end{equation*}
+for all $\g\in M_{n}(F)$. Therefore $E_{a}(m(\cE),s,\Phi)$ is well-defined.
+
+
+
+
+Now suppose $a: \cE\inj \s^{*}\cE^\vee$ is an injective Hermitian map.  Let $(\cE_v,a)$ denote the Hermitian $\cO_{v}'$-lattice (valued in $\om_{\cO_{F_v}}:=\om_{X}\otimes_{\cO_{X}} \cO_{F_v}$) induced by $a$ at $v\in|X|$. Choosing a generator of the free $\cO_{F_v}$-module $\om_{\cO_{F_v}}$ of rank one, we obtain a Hermitian lattice $\cE_v$ (valued in  $\cO_{F_v}$) and hence  the density polynomial $\Den(T, \cE_v)$ defined by  \eqref{eq:CY}  relative to $F'_{v}/F_{v}$. We define   
+ the density polynomial for $(\cE_v,a)$ as 
+ \begin{equation}
+ \label{def Den Ev}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+ \Den_{v}(T, (\cE_v,a)):=\Den(T, \cE_v).
+\end{equation} It is easy to see that the result is independent of the choice of the generator of  $\om_{\cO_{F_v}}$. 
+We then define 
+ $$
+\Den(q^{-2s}, (\cE,a))=\prod_{v\in|X|} \Den_{v}(q_v^{-2s}, (\cE_v,a)),
+$$
+Note that the degree of $\Den(q^{-2s}, (\cE,a))$ (as a polynomial of $q^{-s}$) is $$\deg( \s^{*}\cE^\vee )-\deg(\cE)=-2\deg(\cE)+2n\deg\omega_X.$$
+
+
+
+
+\begin{thm}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{th:Eis Den} 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Let $\cE$ be a vector bundle over $X'$ of rank $n$.  
+ %and let $\CHerm^*(\cE)$ denote the set of generically non-degenerate Hermitian forms $a: \cE\incl \s^{*}\cE^{\vee}$. 
+Then 
+\begin{equation}\label{eq:reg}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+E^{\rm reg}(m(\cE),s,\Phi)=\sum_{a: \cE\inj \s^{*}\cE^\vee}E_{a}(m(\cE), s,\Phi)
+\end{equation}
+where the sum runs over all injective Hermitian maps  $a: \cE\to \s^{*}\cE^\vee $. Moreover, we have
+\begin{equation}\label{Ea Den}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+E_{a}(m(\cE),s,\Phi)=\chi(\det(\cE))q^{-\deg(\cE)( s-n/2)-\frac{1}{2}n^2\deg\omega_X }\sL_n(s) ^{-1} \Den(q^{-2s}, (\cE,a)).
+\end{equation}
+%\Yundel{The  bijection between  $a\in Herm(F)$ and $a: \cE\to \s^{*}\cE^\vee$ depends on a trivialization of $\cE_F$ so we only have the equality of the sums. This is sufficient for our use.}
+\end{thm}
+\begin{proof} 
+From the definitions it is clear that
+\begin{equation*}
+E^{\rm reg}(m(\cE),s,\Phi)=\sum_{a:\cE\dashrightarrow\s^{*}\cE^{\vee}}E_{a}(m(\cE),s,\Phi)
+\end{equation*}
+where $a$ runs over {\em rational} Hermitian maps $\cE\dashrightarrow \s^* \cE^{\vee}$ that are generically nonsingular.
+
+
+Now let $a:\cE\dashrightarrow\s^{*}\cE^{\vee}$ be such a rational nonsingular Hermitian map. We continue with the convention defining  \eqref{eq:def Ea cE} 
+% Choose a generic trivialization $\t: \cE_{F'}\isom (F')^{n}$, and use it to identify $\cE$ with $\a\in M_{n}(\BA)/M_{n}(\wh \cO)$ such that $\cE_{v}=\a_{v}L_{v}$, where $L_{v}=\cO'^{\oplus n}_{v}$. Using $\t$, the map $a$ induces $T\in \Herm_{n}(F,\om_{F})$, which gives an $\om_{F} \otimes_F F_v'$-valued  Hermitian form $T_v$ on $(F'_v)^{n}$ for every $v\in |X|$. By definition \eqref{eq:def Ea cE} 
+\begin{equation}\label{EaET}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+E_{a}(m(\cE),s,\Phi)=E_{T}(m(\a), s,\Phi).
+\end{equation}
+By \eqref{Eis factor Wh} and \eqref{eq:ch base}, and noting that the character $\chi$ is trivial on the norm of $\BA_{F'}^\times$, we have 
+\begin{equation}\label{ETWh}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+E_{T}(m(\alpha),s,\Phi)=\chi(\det(\alpha))|\alpha|_{F'}^{-s+n/2} |\om_{X}|^{-\frac{1}{2}n^2} \prod_{v\in |X|}W_{T_{v}}(1,s,\Phi_{v}).
+\end{equation}
+If the ($\omega_{F_v}$-valued) Hermitian form $T_{v}$ does not have integral entries, then $W_{T_{v}}(1,s,\Phi_{v})=0$ (since $\Phi$ is invariant under $N_{n}(\cO_{v})$). Therefore $E_{T}(m(\alpha),s,\Phi)$ is nonzero only when  $T_{v}$ is integral for all $v$, i.e., $a$ is an everywhere regular Hermitian map $\cE\inj\s^{*}\cE^{\vee}$. This proves \eqref{eq:reg}.
+
+For such $a: \cE\inj\s^{*}\cE^{\vee}$, by Lemma \ref{lem:Whi}, the right side of \eqref{ETWh} is
+\begin{equation}\label{WhDen}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\chi(\det(\alpha))|\det (\alpha)|_{F'}^{-s+n/2} |\om_{X}|^{-\frac{1}{2}n^2} \prod_{v\in |X|}\frac{1}{\sL_{n, F_v'/F_v}(s) }  \Den(q_v^{-2s},  \cE_{v}),
+\end{equation}
+where, by choosing a generator of $\om_{\cO_{F_v}}$, the $\cO_{F_v'}$-module $\cE_v$ is endowed with the Hermitian form (valued in $\cO_{F_v}$) induced by the $\om_{X}$-valued Hermitian form $a$.
+
+By $\chi(\det(\alpha))=\chi(\det(\cE))$, $|\det (\alpha)|_{F'}=q^{\deg(\cE)}$, and \eqref{def Den Ev}, we obtain
+\begin{equation*}
+\Den(q^{-2s}, (\cE,a))=\prod_{v\in |X|}\Den(q^{-2s}_{v}, (\cE_{v},a_{v}))=\prod_{v\in |X|}\Den(q_v^{-2s},  \cE_{v}).
+\end{equation*}
+Combining these facts with \eqref{EaET}, \eqref{ETWh} and \eqref{WhDen}, we get \eqref{Ea Den}.
+
+
+%\Yundel{
+%Fix a non-zero meromorphic 1-form $\xi$ on $X$ and let $\psi$ be the corresponding additive character such that the level of $\psi_v$ equals $-\ord_v(\xi)$, i.e., $\psi_{v, t_v^{-1}}$ is unramified for $t_v=\varpi_v^{\ord_v(\xi)}$. Then we have 
+%$$
+%\prod_{v\in|X|}|t_v|_{F_v}=\prod_{v\in |X|}q_v^{-\ord_v(\xi)}=q^{-\deg\omega_X}.
+%$$
+%By \eqref{eq:ch base} and \eqref{eq:ch char} and Lemma \ref{lem:Whi}, for a non-singular $a$ we have 
+%\begin{align*}
+%E_{a}(m(\alpha),s,\Phi)=&\chi(\alpha)|\alpha|_{F'}^{-s+n/2} q^{-\frac{1}{2}n^2\deg\omega_X }
+%\\ &\times \prod_{v\in|X|} \frac{1}{\sL_{n, F_v'/F_v}(s) }  \Den(q_v^{-2s},  (L_{v}, t_v\,^t\bar\alpha _va\alpha_v)),
+%\end{align*}
+%where $(L_{v}, t_v \,^t\bar\alpha_v a\alpha_v)$ denotes the Hermitian lattice $\cO_{v'}^{\oplus n}$ with the fundamental matrix  $t_v \,^t\bar\alpha_v a\alpha_v$ under the standard basis. The $v$-th term is non-zero only if $t_v\,^t\bar\alpha _v a\alpha_v\in \Herm_n(\cO_v)$. 
+%
+%Now let $\cE$ be the associated vector bundle on $X'$ of rank $n$, i.e., given by  the lattices $\cE_v=\alpha_v L_v\subset F_v^{'\oplus n}$ for $v\in |X|$. Then the condition $t_v\,^t\bar\alpha _v a\alpha_v\in \Herm_n(\cO_v)$ for all $v\in |X|$ is equivalent to  $a $ defining a (necessarily generically injective) Hermitian form   $\cE\to \s^{*}\cE^\vee$.\footnote{Note that the line bundle corresponding to the lattices $t_v^{-1}\cO_{v}$ for all $v\in |X|$ is isomorphic to $\omega_X$.}  Then
+%$$
+%E_{a}(m(\alpha),s,\Phi)=\chi(\alpha)q^{-\deg(\cE)(s-n/2)-\frac{1}{2}n^2\deg\omega_X }\sL_{n}(s) ^{-1}  \prod_{v\in|X|} \Den(q_v^{-2s},  (\cE_{v}, a)),
+%$$
+%where $a: \cE_v\to \s^{*}\cE_v^\vee$ is the induced Hermitian map. By \eqref{eq:reg} the proof is complete.
+%}
+
+
+%Let $\cE_{v}=\cE\ot_{\cO_{X}}\cO_{v}$; this is a Hermitian $\cO'_{v}$-lattice of rank $n$. 
+%The formula in \S2 implies
+%\begin{equation}\label{Fourier Eis Den}
+%E_{a}(1,s,\Phi_{\cE}) = (...)\prod_{v}\Den_{v}(q_{v}^{-2s}, \cE_{v}).
+%\end{equation}
+%Let $\cQ=\s^{*}\cE^{\vee}/\cE$. By Theorem \ref{th:CY inert} and  \ref{th:CY split}, we have
+%\begin{equation}
+%\Den_{v}(q_{v}^{-2s}, \cE_{v})=\Den_{v}(q_{v}^{-2s}, \cQ_{v}).
+%\end{equation}
+%Taking products over $v$ we get
+%\begin{equation}
+%\prod_{v}\Den_{v}(q_{v}^{-2s}, \cE_{v})=\prod_{v}\Den_{v}(q_{v}^{-2s}, \cQ_{v})=\Den(q^{-2s}, \cQ).
+%\end{equation}
+%Combined with \eqref{Fourier Eis Den} and \eqref{Den sum} we get the desired formula.
+\end{proof}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

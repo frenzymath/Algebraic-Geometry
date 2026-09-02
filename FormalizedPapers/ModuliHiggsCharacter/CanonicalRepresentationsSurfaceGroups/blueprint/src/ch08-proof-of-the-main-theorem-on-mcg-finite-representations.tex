@@ -1,0 +1,570 @@
+% Source-derived chapter 08: Proof of the main theorem on MCG-finite representations
+% Original source: canonical-representations-surface-groups
+\chapter{Proof of the main theorem on MCG-finite representations}
+\label{canonical-representations-surface-groups-chapter-08}
+\source{canonical-representations-surface-groups}
+
+\begin{remark}[Source section]
+\label{canonical-representations-surface-groups-chapter-08-source}
+\source{canonical-representations-surface-groups}
+\source{canonical-representations-surface-groups}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Proof of the main theorem on MCG-finite representations
+\label{section:main-proof}
+\source{canonical-representations-surface-groups}
+
+We have finally developed the tools to verify our main result, \autoref{theorem:finite-image}: that  MCG-finite representations of rank $r<\sqrt{g+1}$ have finite image.
+The proof is fairly involved, so the reader may find it useful to refer to the sketch in \autoref{subsection:outline-of-proof}. Briefly, we 
+%and so we sketch the idea.
+%At its core, we aim to apply \cite[Theorem 1.2.5]{LL:geometric-local-systems},
+%which states that $\mathscr O_K$ local systems of rank at most $2\sqrt{g+1}$
+%on an analytically very general curve,
+%which underlies a 
+%a complex polarizable variation of Hodge structure
+%has finite monodromy.
+%Starting with a unitary MCG-finite representation, we wish to verify the above
+%mentioned hypotheses.
+%We 
+start by reviewing the notion of cohomological rigidity in
+\autoref{subsection:background-rigidity}
+and prove the necessary rigidity results in
+\autoref{subsection:rigidity}, using our main vanishing result,
+\autoref{theorem:unitary-rigid}.
+We next deduce the integrality of MCG-finite representations of low rank in
+\autoref{subsection:integrality}
+using a result of 
+Klevdal-Patrikis \cite{klevdalP:g-rigid-local-systems-are-integral}, which builds on work of Esnault-Groechenig \cite{esnault2018cohomologically} and ultimately relies on input from the Langlands program and known cases of the companion conjectures.
+We then combine the above ingredients with input from non-abelian Hodge theory to deduce that low rank unitary MCG-finite representations
+have finite image in \autoref{subsection:finiteness}.
+We generalize this to the semisimple but non-unitary case in
+\autoref{subsection:semisimple-case}, again using non-abelian Hodge theory.
+Finally, in \autoref{subsection:non-semisimple} we bootstrap these results to the general, non-semisimple case,
+using \autoref{theorem:asymptotic-putman-wieland} on the Putman-Wieland conjecture.
+
+
+\subsection{Background on Cohomological rigidity}
+\label{subsection:background-rigidity}
+\source{canonical-representations-surface-groups}
+
+We now define the notion of cohomological rigidity, which detects whether a
+representation has any first order deformations.
+
+\begin{definition}[Cohomological rigidity]
+\source{canonical-representations-surface-groups}
+\notready\label{definition:rigidity}
+\source{canonical-representations-surface-groups}
+    Let $\overline{X}$ be a smooth projective variety, $Z\subset \overline{X}$ a
+    strict normal crossings divisor, and $X=\overline{X}\setminus Z$. Let $G$ be
+    a reductive group over $\mathbb{C}$ and $$\rho: \pi_1(X)\to G(\mathbb{C})$$
+    a homomorphism such that the monodromy at infinity is quasi-unipotent.   
+%    The representation $\rho$ is said to be \emph{rigid} if for any homomorphism $$\rho': \pi_1(X)\to G(\mathbb{C}[[t]])$$ with $\rho'|_{t=0}=\rho$ and with quasi-unipotent monodromy at infinity, there exists $g\in G(\mathbb{C}[[t]])$ with $g|_{t=0}=\on{id}$ such that $$g\rho'g^{-1}=\rho\otimes \mathbb{C}[[t]].$$ That is, $\rho$ is an isolated point of the appropriate character variety.
+     The representation $\rho$ is said to be \emph{cohomologically rigid} if
+    $$H^1(\overline{X}, j_{!*}\on{ad}\rho)=0,$$ where $j: X\hookrightarrow
+    \overline{X}$ is the natural inclusion, $j_{!*}$ is the intermediate
+    extension, and $\on{ad}\rho$ is defined as in \autoref{notation:adjoint}.
+    
+    If $\mathbb{V}$ is the local system on $X$ associated to $\rho$, we call $\mathbb{V}$ cohomologically rigid if $\rho$ is.
+\end{definition}
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{remark:}
+\source{canonical-representations-surface-groups}
+	In the case $\rho$ is irreducible, see \cite[Proposition 4.7, Remark
+    4.8]{klevdalP:g-rigid-local-systems-are-integral} for a moduli-theoretic
+    interpretation of cohomological rigidity. 
+    This says that $\rho$ is a smooth isolated point of the appropriate character variety, parametrizing representations with {fixed} local monodromy at infinity. Note that if $\overline{X}$ is a curve, $j_{!*}=j_*.$
+\end{remark}
+
+We will typically prove cohomological rigidity by computing 
+$H^1(X, \on{ad}\rho)$, via the next lemma.
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:vanishing-h1-implies-rigidity}
+\source{canonical-representations-surface-groups}
+		In the setting of \autoref{definition:rigidity}, assume $H^1(X, \on{ad}\rho)
+	= 0$. Then $\rho$ is
+	cohomologically rigid.
+\end{lemma}
+\begin{proof}
+	This follows from the identification 
+	$H^1(\overline{X}, j_{!*}\on{ad}\rho)\simeq H^1(U, a_*\on{ad}\rho)$ for
+	$U \subset \overline{X}$ a certain dense open subscheme containing $X$
+	with $a: X \to U$ the inclusion \cite[Remark
+	2.4]{esnault2018cohomologically} (see also \cite[Remark
+	4.8]{klevdalP:g-rigid-local-systems-are-integral}).
+	The Leray spectral sequence gives an injection 
+	$H^1(U, a_*\on{ad}\rho) \hookrightarrow H^1(X, \on{ad}\rho)$, implying
+	the claim.
+\end{proof}
+\begin{definition}
+\source{canonical-representations-surface-groups}
+\notready
+If $H^1(X, \on{ad}\rho)=0$, we say that $\rho$ is \emph{strongly cohomologically rigid}.	
+\end{definition}
+\subsection{Cohomological rigidity and unitary MCG-finite representations}
+\label{subsection:rigidity}
+\source{canonical-representations-surface-groups}
+
+Let $\rho: \pi_1(\Sigma_{g,n})\to \on{GL}_r(\mathbb{C})$ be a unitary MCG-finite
+representation of rank $<\sqrt{g+1}$. We will study $\rho$ by associating to $\rho$ a certain unitary local system on a well-chosen versal family of curves. Crucially, this unitary local system will be cohomologically rigid.
+This will follow from our main vanishing result
+\autoref{theorem:unitary-rigid}.
+
+Throughout this section, we use notation as in 
+\autoref{notation:versal-family}. In particular, $\pi:\mathscr{C}\to
+\mathscr{M}$ is a versal family of $n$-pointed curves of genus $g$,
+$\pi^\circ: \mathscr{C}^\circ \to \mathscr{M}$ is the associated family of
+punctured curves, $m \in \mathscr M$ is a basepoint, and $C^\circ = \mathscr
+C_m^\circ$.
+
+\begin{proposition}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{proposition:cohomologically-rigid}
+\source{canonical-representations-surface-groups}
+	Let $\mathbb{V}$ be a $\on{GL}_r$ (respectively, ~$\on{PGL}_r$)-local system on
+$\mathscr{C}^\circ$ with $r<\sqrt{g+1}$. Suppose that for $m\in \mathscr{M}$,
+$\mathbb{V}|_{{C}^\circ}$ is (respectively, is the projectivization
+of) an irreducible,
+unitary local system. Then $\mathbb{V}$ is strongly cohomologically rigid. In
+particular, $\mathbb V$ is cohomologically rigid.
+\end{proposition}
+\begin{proof}
+	By \autoref{lemma:vanishing-h1-implies-rigidity}, it is enough to show
+	$\mathbb V$ is strongly cohomologically rigid.
+	We let $\on{ad}\mathbb V$ denote the adjoint local system as in
+	\autoref{notation:adjoint}.
+	We will check 
+	$H^1(\mathscr C^\circ, \on{ad} \mathbb V) = 0$.
+	Using the Leray spectral sequence associated to the map $\pi^\circ$, it suffices to show that  
+	$$H^0(\mathscr M, R^1 \pi^\circ_* \on{ad} \mathbb V) = 
+	H^1(\mathscr M, \pi^\circ_* \on{ad} \mathbb V) = 0.$$
+	We have 
+	$H^0(\mathscr M, R^1 \pi^\circ_* \on{ad} \mathbb V) = 0$
+	by \autoref{theorem:unitary-rigid} (taking $A=\mathbb{C}$), as $\rk \on{ad}\mathbb{V}=r^2-1<g$ and $\on{ad}\mathbb{V}|_{{C}^\circ}$ is unitary by assumption.
+
+	To conclude, it is enough to show $\pi^\circ_* \on{ad} \mathbb V = 0$.
+	This is follows from Schur's lemma because
+	$\mathbb{V}|_{{C}^\circ}$ is (the projectivization of) an
+	irreducible local system, and so $\on{ad}\mathbb{V}|_{{C}^\circ}$ has no $\pi_1({C}^\circ)$-invariants.
+\end{proof}
+%\begin{remark}
+%	\label{remark:tangent-space}
+%	For $\mathbb{V}$ as in \autoref{proposition:cohomologically-rigid},
+%	corresponding to the local systems $\mathbb W$,
+%	we showed in the proof of \autoref{proposition:cohomologically-rigid} that 
+%	$H^1(\mathscr C^\circ, \on{ad} \mathbb{V})$
+%	injects into  $H^0(\mathscr M, R^1 \pi^\circ_* \on{ad}\mathbb{V})$.
+%	This crucially used irreducibility of $\mathbb{V}|_{\mathscr{C}^\circ_m}$.
+%	The group 
+%	$H^1(\mathscr C^\circ, \on{ad} \mathbb V)$
+%	can be identified as the tangent space at $[\mathbb V]$ to the stack of
+%	representations of $\pi_1(\mathscr C^\circ, c)$ up to
+%	conjugacy.
+%	Therefore, at least when we restrict to irreducible local systems
+%	$\mathbb$,
+%	\autoref{proposition:cohomologically-rigid} implies the following: 
+%	suppose $\rho$ is a unitary representation 
+%	whose conjugacy class has finite orbit under $\on{Mod}_{g,n}$
+%	and $\dim \rho < \sqrt {g}$ then $\mathbb W$ is an isolated
+%	reduced periodic point of the action of $\on{Mod}_{g,n}$ on the
+%	above described stack of representations.
+%
+%	We would like to moreover say that $H^0(\mathscr M, R^1 \pi^\circ_* \on{ad}\mathbb W)$ 
+%	describes ``deformations of representations of
+%	$\pi_1(\Sigma_{g,n},x)$ with fixed determinant which are invariant under the $\pi_1(\mathscr
+%	M,m)$ action up to conjugacy.''
+%	This works fine when $\rho$ is irreducible, via the equivalence between
+%	this an the above described algebraic stack of projective
+%	representations of $\pi_1(\mathscr C^\circ,c)$.
+%
+%	However, when $\rho$ is reducible,
+%	we cannot canonically extend it to a projective local
+%	system $\mathbb W$ on $\mathscr C^\circ$ as in
+%	\autoref{lemma:geometric-mcg-rep-construction}, which uses Schur's
+%	lemma.
+%	Indeed, for reducible $\rho$, there is no such canonical extension,
+%	and there may either be
+%	many such extensions or no extensions whatsoever.
+%\begin{proof}[Proof sketch]
+%	Let $\Gamma\subset \on{Mod}_{g,n}$ be a finite index subgroup of
+%	the stabilizer of $[\mathbb{W}]$, and let $\mathscr{M}$ be the
+%	corresponding cover of $\mathscr{M}_{g,n}$ and $\mathscr C^\circ$ the
+%	universal punctured curve over $\mathscr M$. Then 
+%	$H^1(\mathscr C^\circ, \on{ad} \mathbb W)$ is the tangent space to
+%	the stack parameterizing $\pi_1(\mathscr M)$ invariant representations
+%	of $\pi_1(\Sigma_{g,n})$ with fixed determinant.
+%	By \autoref{theorem:unitary-rigid},
+%	this tangent space is trivial, so $[\mathbb W$ is an isolated point.
+%\end{proof}
+%\end{remark}
+\subsection{Verifying integrality}
+\label{subsection:integrality}
+\source{canonical-representations-surface-groups}
+
+The next step of the proof is to use the cohomological rigidity provided by
+\autoref{proposition:cohomologically-rigid} to deduce integrality of MCG-finite unitary representations.
+
+\begin{definition}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{definition:}
+\source{canonical-representations-surface-groups}
+	Let $G$ be a group scheme over $\mathbb{Z}$. We say a representation $\pi_1(X, x) \to G(\mathbb C)$ is {\em integral}
+if it is conjugate to a representation which factors through $G(\mathscr
+O_K)$ for some number field $K$.
+A local system on a connected space $X$ is integral if the corresponding monodromy representation is.
+\end{definition}
+We will primarily be concerned with integrality with respect to the group
+schemes $G = \on{PGL}_r$ and $G = \on{GL}_r$.
+The basic idea to show our local system is integral is to apply the main result of
+\cite{klevdalP:g-rigid-local-systems-are-integral}, which builds on \cite{esnault2018cohomologically} and ultimately relies on Lafforgue's work on the Langlands program for function fields and consequent work on Deligne's companion conjectures.
+To apply this result, we need to know the monodromy of our cohomologically rigid
+local system $\mathbb{V}$ around boundary components of a strict normal crossings compactification of $\mathscr{C}^\circ$
+is quasi-unipotent, which we will verify using the following result.
+
+\begin{proposition}[\protect{~\cite[Proposition 2.4]{aramayona2016rigidity}}]
+\source{canonical-representations-surface-groups}
+\notready
+			\label{proposition:quasi-unipotent-dehn}
+\source{canonical-representations-surface-groups}
+	Suppose that $g \geq 3$, $\gamma \subset \Sigma_{g,n}$ is a simple closed curve, 
+	and $\Gamma\subset \on{Mod}_{g,n}$ is a 
+finite index subgroup. Let $\delta_\gamma\in\on{Mod}_{g,n}$ be the Dehn twist about $\gamma$. Let $\rho: \Gamma\to \on{GL}_r(\mathbb{C})$ be a representation. Then for $m$ such that $\delta_\gamma^m\in \Gamma$, $\rho(\delta_\gamma^m)$ is quasi-unipotent.
+\end{proposition}
+%\begin{proposition}
+%	Suppose $g\geq 2$, $\gamma \subset \Sigma_{g,n+1}$ a simple closed curve, 
+%	$\Sigma_{g,n+1} - \gamma$ has some connected component of genus at least
+%	$2$,
+%	and $\delta_\gamma\in \widetilde{\Gamma}_\rho\subset \on{Mod}_{g,n+1}$ is a 
+%power of a Dehn twist. Then $\tilde\rho(\delta_\gamma)$ is quasi-unipotent.
+%\end{proposition}
+%\begin{proof}
+%The proof is given in the proof of \cite[Proposition 2.4]{aramayona2016rigidity}.
+%Note that the statement of \cite[Proposition 2.4]{aramayona2016rigidity}
+%assumes $g \geq 3$, with $\Gamma$ and simple closed curve, but the proof only
+%assumes that one of the components of $\Sigma_{g,n+1} - \gamma$ has genus at
+%least $2$.
+%\end{proof}
+
+We now verify that the projectivization of a unitary MCG-finite representation is integral.
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:defined-over-number-field}
+\source{canonical-representations-surface-groups}
+	Let $g\geq 3$ be an integer, and let $\rho: \pi_1(\Sigma_{g,n})\to \on{GL}_r(\mathbb{C})$ be an irreducible, unitary, MCG-finite representation, with $r<\sqrt{g+1}$. Then the composition $$\mathbb{P}\rho: \pi_1(\Sigma_{g,n})\overset{\rho}{\to} \on{GL}_r(\mathbb{C})\to \on{PGL}_r(\mathbb{C})$$ is integral.
+\end{lemma}
+\begin{proof}
+By \autoref{lemma:geometric-mcg-rep-construction}, there exists a scheme $\mathscr{M}$ with a finite \'etale map $\mathscr{M}\to \mathscr{M}_{g,n}$, with associated family of punctured curves $\pi^\circ: \mathscr{C}^\circ\to \mathscr{M}$, and a representation $$\widetilde{\rho}: \pi_1(\mathscr{C}^\circ)\to \on{PGL}_r(\mathbb{C})$$ agreeing with $\mathbb{P}\rho$ on restriction to a fiber of $\pi^\circ$. It suffices to show that $\widetilde{\rho}$ is integral.  
+	By \autoref{proposition:cohomologically-rigid},
+	$\widetilde{\rho}$ is cohomologically rigid.
+	Because the abelianization of $\on{PGL}_r(\mathbb C)$ is
+	trivial, it follows from
+\cite[Theorem 1.2]{klevdalP:g-rigid-local-systems-are-integral}	that $\widetilde\rho$
+is integral once we verify that $\widetilde\rho$ has quasi-unipotent local monodromy around the boundary components of
+	a good (i.e.~strict normal crossing) compactification of $\mathscr{C}^\circ$.
+
+One may construct a strict normal crossing compactification as follows.
+$\mathscr{C}^\circ$ is a finite \'etale cover of $\mathscr{M}_{g,n+1}$ by
+construction; let $\overline{\mathscr{M}_{g, n+1}}'$ be a strict normal crossing
+compactification of $\mathscr{M}_{g,n+1}$ obtained by blowing up boundary strata
+of the Deligne-Mumford compactification $\overline{\mathscr{M}_{g,n+1}}$ (which
+is only a normal crossing compactification, and is not in general strict). Let
+$\overline{\mathscr{C}}$ be the normalization of $\overline{\mathscr{M}_{g,
+n+1}}'$ in the function field of $\mathscr{C}^\circ$. By
+\autoref{proposition:quasi-unipotent-dehn}, it suffices to check that the local
+monodromy about the boundary components of $\overline{\mathscr{C}}$ correspond
+to products of commuting Dehn twists about simple closed curves, under the
+identification of $\pi_1(\mathscr{C}^\circ)$ with a subgroup of
+$\on{PMod}_{g,n+1}=\pi_1(\mathscr{M}_{g,n+1})$. 
+This is because a product of
+commuting quasi-unipotent matrices is quasi-unipotent. To check the claim about
+local monodromy about boundary components, it suffices to check the
+corresponding claim for $\overline{\mathscr{M}_{g, n+1}}'$. But this is
+\cite[Lemma 2.1.1]{li2020surface}.
+\end{proof}
+
+The next result shows we can lift integrality from the projectivization of a unitary irreducible MCG-finite representation to the original representation. 
+
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:gl-defined-over-number-field}
+\source{canonical-representations-surface-groups}
+	Let $g\geq 3$ be an integer, and let $\rho: \pi_1(\Sigma_{g,n})\to \on{GL}_r(\mathbb{C})$ be an irreducible, unitary, MCG-finite representation, with $r<\sqrt{g+1}$. Then $\rho$ is integral.
+	\end{lemma}
+\begin{proof}
+By \autoref{proposition:1-dim-finite-image}, $\det\rho$ has finite image, and
+hence $\rho$ factors through $G(\mathbb{C})$, where $G\subset \on{GL}_r$ is a
+flat affine $\mathbb{Z}$-group scheme containing $\on{SL}_r$ with finite index (for
+example, we can take $G=\det^{-1}(\mu_m)$, where $\det\rho$ factors through
+$\mu_m$). Note that the natural morphism $G\to \on{PGL}_r$ is finite. After
+conjugating $\rho$ by some matrix we may assume $\mathbb{P}\rho$ factors through
+$\on{PGL}_r(\mathscr{O}_K)$ for some number field $K$, by \autoref{lemma:defined-over-number-field}.
+
+As $\pi_1(\Sigma_{g,n})$ is finitely generated, it suffices to show that for a generator $\alpha\in \pi_1(\Sigma_{g,n})$, there exists some finite extension $K'/K$ such that the matrix $\rho(\alpha)$ lies in $G(\mathscr{O}_{K'})$. 
+The obstruction to lifting any given $\mathscr O_K$ point of $\on{PGL}_r$ to
+$G$ is a $\ker(G\to \on{PGL}_r)$ torsor, which becomes trivial on some finite
+flat extension, and hence over $\mathscr O_{K'}$ for some finite $K'/K$.
+%%Here is an alternate, longer proof:
+%	The second statement follows from the first, because we verified
+%	$\mathbb P$ is integral in \autoref{lemma:defined-over-number-field}, 
+%	and $\mathbb W$ has finite determinant by the final statement of
+%	\autoref{proposition:gl-lift} that
+%	there is a group $G$ containing
+%	$\on{SL}_r(\mathbb C)$ with finite index so that $\rho'$ factors through
+%	$G$.
+%
+%	Observe that the determinant of $G$ is contained in a finite group
+%	$\mu_m(\mathbb C)$, and so $H := \on{det}^{-1}(\mu_m) \subset \on{GL}_r$
+%	defines an algebraic group with $G \subset H(\mathbb C)$.
+%	Observe that $\mu_{mr} \simeq \ker(H \to \on{PGL}_r)$
+%	After possibly enlarging $K$, we may assume all $mr$th roots of unity
+%	lie in $K$.
+%
+%	Viewing $\mathbb W$ as a representation $\widetilde{\rho} : \pi_1(\mathscr C^\circ,
+%	c) \to \on{PGL}_r(\mathscr O_K)
+%	\subset \on{PGL}_r(K) \subset \on{PGL}_r(\mathbb C)$, we claim there
+%	exists a finite extension $K'$ of $K$ so that
+%	$\mathbb V$, viewed as a representation $\rho': \pi_1(\mathscr C^\circ,
+%	c) \to H(\mathbb C)$
+%	factors through $H(K')$.
+%	Indeed, since we are assuming all $mr$th roots of unity lie in $K$,
+%	every element of $\on{PGL}_r(K)$ lifts to an element of $H(K)$, as the
+%	obstruction lives in $H^1(K, \mu_{mr}) \simeq K^\times/(K^\times)^{mr}$.
+%	Therefore, the image of any generator of $\pi_1(\mathscr C^\circ)$ in
+%	$\on{PGL}_r(K)$ lifts to an element of $H(K)$ after adjoining a
+%	particular $mr$th root of a particular element to $K$.
+%	Note that $\pi_1(\mathscr C^\circ)$ is finitely generated since it
+%	has finite index in $\on{Mod}_{g,n+1}
+%	\simeq \pi_1(\mathscr M_{g,n+1})$, which is finitely generated \cite[Theorem 5.7]{farbM:a-primer}.
+%	Hence, we now take our desired $K'$ to be the finite field extension of
+%	$K$ obtained by adjoining finitely many such $n$th roots of $K$ so that
+%	each generator of $\pi_1(\mathscr C^\circ)$ maps to an element of
+%	$\on{PGL}_r(K)$ which lifts to some element of $H(K')$.
+%	Since each generator maps to an element of
+%	$\on{PGL}_r(K)$ which has some lift in $H(K')$ and the set of possible
+%	lifts is a torsor for $\mu_r(\mathbb C)$, which we are assuming is
+%	contained in $K\subset K'$, every such lift lies in $H(K')$.
+%	Therefore, $\rho'$ indeed factors through $H(K')$.
+%
+%	To conclude, we wish to show that $\rho'$ moreover factors through
+%	$H(\mathscr O_{K'})$.
+%	By assumption, $\widetilde{\rho}$ factors through $\on{PGL}_r(\mathscr
+%	O_{K}) \subset \on{PGL}_r(\mathscr
+%	O_{K'})$.
+%	Since $H \to \on{PGL}_r$ is a finite map, the valuative criterion for
+%	properness implies that for each $g \in \pi_1(\mathscr C^\circ, c)$,
+%	$\rho'(g) \in H(K')$ in fact lies in $H(\mathscr O_{K'})$, as its image
+%	in $\on{PGL}_r(K')$ factors through $\on{PGL}_r(\mathscr O_{K'})$.
+%	This uniqueness then implies the resulting map
+%	$\pi_1(\mathscr C^\circ, c) \to H(\mathscr O_{K'})$ is a group
+%	homomorphism, this produces the desired integral structure on $\mathbb V$.
+\end{proof}
+
+\subsection{Verifying finiteness}
+\label{subsection:finiteness}
+\source{canonical-representations-surface-groups}
+We now show that a unitary MCG-finite representation $\rho$ of low rank has finite image. We have already shown that, in the irreducible setting, such representations are defined over $\mathscr{O}_K$. We will use the techniques of \cite{LL:geometric-local-systems} to deduce that they have finite monodromy. To do so, we will argue that for each embedding $\tau: \mathscr{O}_K\hookrightarrow\mathbb{C}$, $\rho\otimes_{\mathscr{O}_K, \tau}\mathbb{C}$ has unitary monodromy. We know this for one such $\tau$ but not for the rest.  
+To prove unitarity for all such $\tau$, we will use \cite[Theorem
+1.2.12]{LL:geometric-local-systems}, and to verify its hypotheses we will need
+to use non-abelian Hodge theory to construct certain complex PVHS.
+
+\begin{proposition}
+\source{canonical-representations-surface-groups}
+\notready\label{proposition:unitary-implies-finite}
+\source{canonical-representations-surface-groups}
+Let  $$\rho:\pi_1(\Sigma_{g,n})\to
+\on{GL}_r(\mathbb{C})$$ be a unitary MCG-finite representation with $r<\sqrt{g+1}$. Then $\rho$ has finite image.
+\end{proposition}
+\begin{proof}
+As $\rho$ is unitary, it is semisimple. As an irreducible sub-representation of an MCG-finite representation is MCG-finite by \autoref{proposition:basic-properties}, we may without loss of generality assume $\rho$ is irreducible.
+
+If $g< 3$, $r\leq 1$, and so we may conclude by \autoref{proposition:1-dim-finite-image}. Thus we may assume $g\geq 3$. By \autoref{lemma:gl-defined-over-number-field}, we may assume $\rho$ factors through $\on{GL}_r(\mathscr{O}_K)$ for some number field $K$ and some embedding $\iota: \mathscr{O}_K\hookrightarrow \mathbb{C}$.
+We now adjust notation so that $\rho$ denotes this $\mathscr O_K$-representation and $\rho_\iota=\rho\otimes_{\mathscr{O}_K, \iota}\mathbb{C}$
+denotes our original MCG-finite representation. By \autoref{corollary:converse-to-MCG-rep}, there exists a punctured versal family $\mathscr C^\circ \to \mathscr M$
+and a representation $\rho'_\iota: \pi_1(\mathscr C^\circ) \to
+\on{GL}_r(\mathbb{C})$ with finite determinant, restricting to $\rho_\iota$ on
+the fundamental group of a fiber of $\pi^\circ$, i.e.~ for $C^\circ$ a fiber of
+$\pi^\circ$, $\rho'_\iota|_{\pi_1(
+C^\circ)}=\rho_\iota$. Note that $\rho'_\iota$ is irreducible (as $\rho_\iota$
+is irreducible), and strongly cohomologically rigid, by \autoref{proposition:cohomologically-rigid}.
+
+Choose any embedding $\tau: \mathscr O_K \hookrightarrow \mathbb C$ and let
+$\rho_\tau := \rho\otimes_{\mathscr{O}_K, \tau}\mathbb{C}$. Note that $\rho_\tau$ is MCG-finite, as the same is true for $\rho_\iota$. 
+We aim to show $\rho_\tau$ is unitary.
+
+Choose $\sigma: \mathbb{C}\overset{\sim}{\to} \mathbb{C}$ so that $\sigma\circ\iota=\tau$, and set $\rho_\tau'=\rho_{\iota}'\otimes_{\mathbb{C}, \sigma} \mathbb{C}$. Note that $\rho_\tau'|_{\pi_1(
+C^\circ)}=\rho_\tau$.
+Now observe that $\rho_\tau'$ is strongly cohomologically rigid, as the same is true for $\rho_\iota'$, and strong cohomological rigidity (being a cohomological condition) is preserved by automorphisms of $\mathbb{C}$. Moreover $\rho_\tau'$ is irreducible with finite determinant, as the same is true for $\rho_\iota'$.
+
+We next show $\rho_\tau$ is unitary.
+By \cite[Theorem 1.2.12]{LL:geometric-local-systems}, 
+in order to show $\rho_\tau$ is unitary, it is enough to show $\rho'_\tau$ underlies
+a complex PVHS on $\mathscr{C}^\circ$.
+Since $\rho'_\tau$ is strongly cohomologically rigid and irreducible with finite determinant,
+this follows from \autoref{lemma:rigid-reps}.
+
+We are thus in the following situation: $\rho: \pi_1(\Sigma_{g,n})\to \on{GL}_r(\mathscr{O}_K)$ is a representation such that for each $\tau: \mathscr{O}_K\hookrightarrow \mathbb{C}$, $\rho\otimes_{\mathscr{O}_K, \tau} \mathbb{C}$ is unitary. Such a representation has finite image by \cite[Lemma 7.2.1]{LL:geometric-local-systems}.
+\end{proof}
+
+\subsection{Reduction from the semisimple case to the unitary case}
+\label{subsection:semisimple-case}
+\source{canonical-representations-surface-groups}
+In this section we will prove \autoref{theorem:finite-image} for semisimple
+representations.
+The idea is to first deform our representation to a complex PVHS via
+non-abelian Hodge theory. Then we will argue that this complex PVHS is in fact unitary, using the results of \cite{LL:geometric-local-systems}, so that we
+can apply \autoref{proposition:unitary-implies-finite}. Finally we will use the rigidity properties of unitary MCG-finite representations to argue 
+that our deformation was in fact trivial---the deformed representation was in fact the one we started with.
+
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready\label{lemma:infinitesmal-rigidity}
+\source{canonical-representations-surface-groups}
+Let $\pi^\circ: \mathscr{C}^\circ\to \mathscr{M}$ be a punctured versal family
+of curves of genus $g$. Let $c\in \mathscr{C}^\circ$ be a point, set
+$m=\pi^\circ(c)$, and let $C^\circ=\mathscr{C}^\circ_m$. Let $$\rho_\infty: \pi_1(\mathscr{C}^\circ, c)\to GL_r(\mathbb{C}[[t]])$$ be a representation with $r<\sqrt{g+1}$ and constant determinant, and let $\rho_0=\rho_\infty\otimes\mathbb{C}$. Suppose $\rho_0|_{\pi_1(C^\circ, c)}$ is unitary. Then $\rho_\infty|_{\pi_1(C^\circ, c)}$ is conjugate to a constant representation.
+\end{lemma}
+\begin{proof}
+	We apply \autoref{prop:stacky-split-constancy} to the short exact sequence $$1\to \pi_1(C^\circ, c)\to \pi_1(\mathscr{C}^\circ, c)\to \pi_1(\mathscr{M},m)\to 1.$$ We must verify that for any $n$ and any deformation $\gamma: \pi_1(\mathscr{C}^\circ, c)\to GL_r(\mathbb{C}[t]/t^{n+1})$ of $\rho_0$ with $\gamma|_{\pi_1(C^\circ, c)}$ constant, we have $$H^0(\mathscr{M}, R^1\pi_*\on{ad}(\gamma))=0.$$ But this follows from \autoref{theorem:unitary-rigid}. Indeed, $$\rk_{\mathbb{C}[t]/t^{n+1}} \on{ad}(\gamma)=r^2-1<g$$ as $r<\sqrt{g+1}$ by assumption.
+\end{proof}
+
+
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready\label{lemma:global-rigidity}
+\source{canonical-representations-surface-groups}
+Let $\pi^\circ: \mathscr{C}^\circ\to \mathscr{M}$ be a punctured versal family
+of curves of genus $g$. Let $c\in \mathscr{C}^\circ$ be a point, set
+$m=\pi^\circ(c)$, and let $C^\circ=\mathscr{C}^\circ_m$. Let $X$ be a
+finite-type connected $\mathbb{C}$-scheme, and let $$\rho:
+\pi_1(\mathscr{C}^\circ, c)\to \on{GL}_r(\mathscr{O}_X(X))$$ be a representation
+with $r<\sqrt{g+1}$ and constant determinant. For a closed point $x\in X$ with residue field
+$\kappa(x)=\mathbb{C}$, let $\rho_x:=\rho\otimes_{\mathscr{O}_X(X)}\kappa(x)$.
+Suppose there exists a closed point $y\in X$ such that $\rho_y|_{\pi_1(C^\circ,
+c)}$ is unitary. Then for each
+closed point $x\in X$, $\rho_{x}|_{\pi_1(C^\circ, c)}$ is conjugate to $\rho_y|_{\pi_1(C^\circ, c)}$.
+\end{lemma}
+\begin{proof}
+Without loss of generality $X$ is a reduced (not necessarily irreducible) connected curve, as any closed point $x\in X$ is connected to $y$ by such a curve. We claim it suffices to prove the statement if the parameter space $X$ is smooth and irreducible. 
+
+To reduce to this case, suppose $X$ is neither smooth nor irreducible, and let $\tilde Y$ be the normalization of the component $Y$ of $X$ containing $y$, and $\iota:
+\tilde Y\to X$ the natural map. By the case of smooth irreducible curves, $\iota^*\rho|_{\pi_1(C^\circ, c)}\otimes \kappa(y')$ is independent of $y'\in \tilde Y(\mathbb{C})$, and thus $\rho|_{\pi_1(C^\circ, c)}\otimes \kappa(y'')$ is independent of $y''\in Y$ as well, and in particular unitary for all $y''$. Let $Z$ be a connected component of the closure of $X-\on{im}(\iota)$. As $X$ is connected, $Z$ intersects $Y$ non-trivially, say at some point $z\in Y$. But as $z$ is in $Y$, $\rho_z|_{\pi_1(C^\circ, c)}$ is unitary, and hence we are done by induction on the number of components of $X$.
+
+So we now assume $X$ is a smooth connected curve. Let $\on{Hom}(\pi_1(C^\circ, c), \on{GL}_r(\mathbb{C}))$ be the representation variety parametrizing $r$-dimensional complex representations of $\pi_1(C^\circ, c)$. There is a natural $\on{GL}_r(\mathbb{C})$ action on $\on{Hom}(\pi_1(C^\circ, c), \on{GL}_r(\mathbb{C}))$ induced by conjugation. Let $$f: X\to \on{Hom}(\pi_1(C^\circ, c), \on{GL}_r(\mathbb{C}))$$ be the map sending a point $x$ to $\rho_x|_{\pi_1(C^\circ, c)}$. We wish to show that the image of $f$ lies in a single $\on{GL}_r(\mathbb{C})$-orbit, namely that of $\rho_y|_{\pi_1(C^\circ, c)}$.
+
+Choose a local parameter $t$ of $X$ at $y$, so that $\widehat{\mathscr{O}_{X,y}}\simeq \mathbb{C}[[t]]$. Let $$\rho_\infty: \pi_1(\mathscr{C}^\circ, c)\to GL_r(\mathbb{C}[[t]])$$ be the corresponding representation. By \autoref{lemma:infinitesmal-rigidity}, $\rho_\infty|_{\pi_1(C^\circ, c)}$ is conjugate to a constant representation. It follows that there exists a dense open
+subset $U\subset X$ containing $y$ such that $f(U)$ is contained in the
+$\on{GL}_r(\mathbb{C})$-orbit of $\rho_y|_{\pi_1(C^\circ, c)}$.
+
+As $\rho_y|_{\pi_1(C^\circ, c)}$ is unitary, hence semisimple, its $\on{GL}_r(\mathbb{C})$-orbit in $\on{Hom}(\pi_1(C^\circ, c), \on{GL}_r(\mathbb{C}))$ is closed \cite[Theorem 30]{sikora2012character}. Hence the closure $\overline{U}$ of $U$ maps into the $\on{GL}_r(\mathbb{C})$-orbit of $\rho_y|_{\pi_1(C^\circ, c)}$. But as $X$ is irreducible, $\overline{U}=X$, completing the proof.
+\end{proof}
+\begin{theorem}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{theorem:finite-image-semisimple}
+\source{canonical-representations-surface-groups}
+	Let $$\rho: \pi_1(\Sigma_{g,n})\to \on{GL}_r(\mathbb{C})$$ be a semisimple MCG-finite representation, and suppose $r<\sqrt{g+1}$. Then $\rho$ has finite image.
+\end{theorem}
+\begin{proof}
+	Observe that if $\rho$ is a sum of irreducible representations, each of
+	which have finite monodromy, then $\rho$ has finite monodromy as well.
+	As a summand of an MCG-finite representation is MCG-finite by
+	\autoref{proposition:basic-properties}, it suffices to treat the case that $\rho$ is irreducible.
+
+	By \autoref{corollary:converse-to-MCG-rep}, there exists a dominant
+	\'etale map $\mathscr{M}\to \mathscr{M}_{g,n}$, and a local system
+	$\mathbb{V}$ with finite determinant on the total space $\mathscr{C}^\circ$ of the associated
+	family of $n$-times punctured curves of genus $g$, such that for
+	$C^\circ$ a fiber of $\pi^\circ$, $\mathbb{V}|_{{C}^\circ}$ has monodromy representation given by $\rho$. 
+		By \autoref{theorem:deformation-to-pvhs}, $\mathbb V$ admits a deformation with constant determinant to a
+	local system $\mathbb V_0$ underlying a complex PVHS.
+	Since $r < 2\sqrt{g+1}$, it follows from \cite[Theorem
+	1.2.12]{LL:geometric-local-systems} that
+	the local system $\mathbb V_0|_{{C}^\circ}$ is unitary. Moreover, $\mathbb V_0|_{{C}^\circ}$ is MCG-finite by \autoref{proposition:MCG-finite-family-of-curves}.
+	
+	It follows from \autoref{proposition:unitary-implies-finite}
+	that $\mathbb V_0|_{{C}^\circ}$ has finite monodromy.
+	To conclude, it's enough to show that $\mathbb V|_{{C}^\circ} =
+	\mathbb V_0|_{{C}^\circ}$.
+	But this is immediate from \autoref{lemma:global-rigidity}.
+\end{proof}
+
+\subsection{Completion of the non-semisimple case}
+\label{subsection:non-semisimple}
+\source{canonical-representations-surface-groups}
+We come to the final step, where we verify the non-semisimple case of \autoref{theorem:finite-image}.
+The idea is to show that if we do have a non-semisimple MCG-finite representation of $\pi_1(\Sigma_{g,n})$ of low rank, we
+can produce a certain
+ finite cover $\Sigma_{g',n'}$ of $\Sigma_{g,n}$, which violates 
+our results toward the Putman-Wieland conjecture.
+
+If $\rho$ is a $G$-representation and $\rho'\subset \rho$ is a subrepresentation, we say that $\rho'$ is \emph{characteristic} if it is stable under all $G$-automorphisms of $\rho$ (for example, the socle of $\rho$, or an isotypic component thereof).
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:semisimplicity}
+\source{canonical-representations-surface-groups}
+Let $\rho$ be an MCG-finite representation of $\pi_1(\Sigma_{g,n})$, and let $\rho_1\subset\rho$ be a semisimple, characteristic subrepresentation of $\rho$. Let $\rho_2=\rho/\rho_1$, and suppose $\rho_2$ is semisimple as well. If $\rho_1, \rho_2$ have finite image and $\rk\rho<\sqrt{g+1}$, then $\rho$ has finite image as well, i.e.~the extension of $\rho_2$ by $\rho_1$ splits.
+\end{lemma}
+\begin{proof}
+If $g=0$, $\rho$ is the zero representation, so without loss of generality we may assume $g$ is positive.
+
+	Decompose $\rho_2^\vee \otimes \rho_1$ as $\rho_2^\vee \otimes \rho_1 \simeq \oplus_i \sigma_i^{\oplus n_i}$, with the $\sigma_i$ irreducible and pairwise non-isomorphic, and the $n_i$ positive integers.
+	Since $\dim \rho_1 + \dim \rho_2 = \dim \rho < \sqrt{g+1}$, 
+	we obtain from the AM-GM inequality that $\dim \rho_1 \cdot \dim \rho_2
+	< (\sqrt{g+1}/2)^2 = (g+1)/4$. Therefore, for every $i$, $$n_i \cdot \dim
+	\sigma_i < (g+1)/4$$
+	and hence $n_i, \dim\sigma_i < (g+1)/4$. 
+	To put ourselves in the setting of 
+	\autoref{theorem:asymptotic-putman-wieland}, we choose an additional
+	basepoint $v \in \Sigma_{g,n}$ and let $\Sigma_{g,n+1} := \Sigma_{g,n} \setminus\{v\}$. Let $\Gamma\subset \on{Mod}_{g, n+1}$ be a finite index subgroup stabilizing the conjugacy class of each $\sigma_i$.
+
+	Let $\Sigma_{g',n'} \to \Sigma_{g,n}$ be a finite Galois cover, with Galois group $H$, upon which the local
+	systems corresponding to both
+	$\rho_1$ and $\rho_2$ trivialize (for example, the cover defined by $\ker(\rho_1\oplus\rho_2)$).
+	It suffices to show that $\rho|_{\pi_1(\Sigma_{g',n'})}$ is trivial. As
+	$\rho|_{\pi_1(\Sigma_{g',n'})}$ has abelian image, it factors through an
+	$H$-equivariant map $$H_1(\Sigma_{g',n'})\to \rho_2^\vee\otimes
+	\rho_1.$$ Equivalently, this is the extension class corresponding to
+	$\rho$ in $$\on{Ext}^1_{\pi_1(\Sigma_{g', n'})}(\rho_2,
+	\rho_1)=H^1(\pi_1(\Sigma_{g', n'}), \Hom(\rho_2,
+	\rho_1))=\Hom(\pi_1(\Sigma_{g', n'}), \Hom(\rho_2, \rho_1)).$$
+	Projecting onto the $\sigma_i$-isotypic piece of $\rho_2^\vee\otimes
+	\rho_1$ yields a $\Gamma$-stable quotient of
+	$H_1(\Sigma_{g',n'})^{\sigma_i}$, or equivalently a $\Gamma$-stable
+	subspace of $H^1(\Sigma_{g',n'})^{\sigma_i}$, of rank at most $(g+1)/4$.
+	Call this subspace $Q_i$.
+	But by
+	\autoref{theorem:asymptotic-putman-wieland}, we have that any nonzero
+	$\Gamma$-stable subspace of $H^1(\Sigma_{g',n'})^{\sigma_i}$ has rank at
+	least $2g-2\dim \sigma_i$, which satisfies the inequality
+	\begin{align*}
+		2g-2\dim \sigma_i >2g-(g+1)/2=\frac{3g}{2}-\frac{1}{2}>(g+1)/4
+		> n_i \dim \sigma_i.
+	\end{align*}
+	Hence $Q_i$ equals zero. As this holds for all $i$, $\rho|_{\pi_1(\Sigma_{g',n'})}$ is trivial as desired.
+\end{proof}
+
+\subsection{}
+\label{subsection:main-proof}
+\source{canonical-representations-surface-groups}
+We finally complete the proof of our main theorem, that 
+MCG-finite representations $$\rho: \pi_1(\Sigma_{g,n})\to
+\on{GL}_r(\mathbb{C})$$ with $r<\sqrt{g+1}$ have finite image.
+\begin{proof}[Proof of \autoref{theorem:finite-image}]
+The proof is by induction on the length of the socle filtration. The base case is \autoref{theorem:finite-image-semisimple}. Now let $\rho_1$ be the socle of $\rho$.	Because the socle of a representation is characteristic both $\rho_1$
+	and $\rho/\rho_1$ are
+	 MCG-finite. 
+	Therefore, both $\rho_1$ and $\rho/\rho_1$ have finite image by induction.
+	We conclude by \autoref{lemma:semisimplicity}.
+\end{proof}

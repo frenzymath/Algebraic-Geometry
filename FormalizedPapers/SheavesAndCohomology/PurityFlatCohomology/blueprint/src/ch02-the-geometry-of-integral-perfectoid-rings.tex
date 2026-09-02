@@ -1,0 +1,1405 @@
+% Source-derived chapter 02: The geometry of integral perfectoid rings
+% Original source: purity-flat-cohomology
+\chapter{The geometry of integral perfectoid rings}
+\label{purity-flat-cohomology-chapter-02}
+\source{purity-flat-cohomology}
+
+\begin{remark}[Source section]
+\label{purity-flat-cohomology-chapter-02-source}
+\source{purity-flat-cohomology}
+\source{purity-flat-cohomology}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: The geometry of integral perfectoid rings
+\lab{global}
+
+We begin with generalities about perfectoids that will be important in multiple steps of the overall argument of purity for flat cohomology. We review the definitions and expose some basic properties in \S\ref{sec:perfectoid-structure}. We then present an algebraic approach to controlling cohomology under tilting in \S\ref{sec:tilting-cohomology} that avoids adic spaces and the almost purity theorem in favor of arc descent. Finally, in \S\ref{And-lem}, we generalize Andr\'{e}'s lemma: we improve its flatness aspect to ind-syntomicity and we avoid completions.
+
+\bpp[The implicitly fixed prime] \label{fixed-prime}
+\source{purity-flat-cohomology}
+Throughout \S\S\ref{sec:perfectoid-structure}--\ref{And-lem}, to discuss perfectoids, we fix a prime~$p$.
+\epp
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\csub[Structural properties of perfectoid rings] \label{sec:perfectoid-structure}
+\source{purity-flat-cohomology}
+
+
+Perfectoids play a central role in our approach to purity, so we summarize their most relevant basic properties in this section. Our perfectoids are what some authors call ``integral perfectoids'': these appear to be the ones most directly related to commutative algebra. Perfectoid rings generalize perfect $\bF_p$-algebras beyond the setting of positive characteristic, and their definition is intimately related to the properties of the following tilting adjunction. 
+
+
+\bpp[The tilting adjunction] \label{pp:tilt-adj}
+\source{purity-flat-cohomology}
+In positive characteristic, the inclusion of perfect $\bF_p$-algebras into all $\bF_p$-algebras admits a right adjoint given by the inverse limit perfection $B \mapsto B^\flat \ce \varprojlim_{b \mapsto b^p} B$. We define the \emph{tilt} of general ring $A$ as the inverse limit perfection $A^\flat \ce (A/pA)^\flat$ of $A/pA$. When restricted to $p$-adically complete $A$, the tilting functor is the right adjoint of $p$-typical Witt vectors: 
+\[
+\xymatrix{
+\{ \x{perfect $\bF_p$-algebras}\} \ar@<0.5ex>[rr]^-{W(-)} && \ar@<0.5ex>[ll]^-{(-)^\flat} \{\x{$p$-adically complete $\bZ_p$-algebras}\},
+}
+\]
+see \cite{SZ18}*{Proposition 3.12}. The Fontaine functor $\bA_\Inf(-)$ is the following composition of these adjoints:
+\be \label{eqn:map-theta}
+\source{purity-flat-cohomology}
+\bA_\Inf(A) \ce W(A^\flat),
+\ee
+so it comes with the counit of the adjunction $\theta \colon \bA_\Inf(A) \ra A$. 
+The functors $(-)^\flat$ and $W(-)$ commute with limits of rings, so the same holds for $\bA_\Inf(-)$. By \cite{BMS18}*{Lemma~3.2~(i)}, for $p$-adically complete $A$, the reduction modulo $p$ map
+\be \label{monoid-id}
+\source{purity-flat-cohomology}
+\tst \varprojlim_{a \mapsto a^p} A \xra{\sim} \varprojlim_{a \mapsto a^p} A/pA  \cong A^\flat
+\ee
+is a multiplicative isomorphism, and we let $a \mapsto a^\sharp$ denote the resulting multiplicative projection $A^\flat \ra A$ onto the last coordinate. The counit map $\theta$ satisfies $\theta([a]) = a^\sharp$ for $a \in A^\flat$\footnote{The elements $\theta([a]), a^\sharp \in A$ agree modulo $p$, and the same holds for their $p^n$-th roots $\theta([a^{1/p^n}]), (a^{1/p^n})^\sharp \in A$. Thus, the $p$-adic completeness of $A$ gives the middle equality in 
+\[
+\tst \theta([a]) = \lim_{n \ra \infty} (\theta([a^{1/p^n}])^{p^n}) = \lim_{n \ra \infty} (((a^{1/p^n})^\sharp)^{p^n}) = a^\sharp.
+\]} and is uniquely determined by this. By \emph{loc.~cit.},~if $A$ is $\varpi$-adically complete for a $\varpi \in A$ with $\varpi \mid p$, then $A^\flat$ may be defined with $\varpi$ in place of $p$: then
+\be \label{monoid-id-2}
+\source{purity-flat-cohomology}
+\tst A^\flat = \varprojlim_{a \mapsto a^p} A/pA \xra{\sim} \varprojlim_{a \mapsto a^p} A/\varpi A.  %\q \x{are multiplicative isomorphisms;}
+\ee
+
+
+%\be \label{monoid-id}
+%\tst \varprojlim_{a \mapsto a^p} A \xra{\sim} \varprojlim_{a \mapsto a^p} A/pA \xra{\sim} \varprojlim_{a \mapsto a^p} A/\varpi A  \q \x{are multiplicative isomorphisms;}
+%\ee
+
+ %
+%Thus, if a $p$-adically complete $A$ contains a $\pi \in A$ with $p \mid \pi$ such that $A$ contains compatible $p$-power roots $\pi^\flat = (\pi^{1/p^n})_{n \ge 0}$, then $A^\flat$ is $\pi^\flat$-adically complete.
+%for such $A$, 
+ 
+
+\epp
+
+
+
+
+
+\bpp[Perfectoid rings]  \label{perfectoid-def}
+\source{purity-flat-cohomology}
+As in \cite{BMS18}*{Definition~3.5}, we say that a ring $A$ is \emph{perfectoid} if  
+\benumr
+\item \label{PD-i}
+\source{purity-flat-cohomology}
+there is a $\varpi \in A$ with $\varpi^p \mid p$ such that $A$ is $\varpi$-adically (so also $p$-adically) complete, and
+
+\item \label{PD-ii}
+\source{purity-flat-cohomology}
+the counit map $\theta\colon \bA_\Inf(A) \surjects A$ of \eqref{eqn:map-theta} is surjective and its kernel is principal.
+
+
+%the $p$-power map $A/pA \xra{a \, \mapsto\, a^p} A/pA$ is surjective,
+
+%\item \label{PD-iii}
+%the kernel of the surjection  uniquely determined by $\theta([a]) = a^\sharp$ is principal.
+\eenum
+ %; see \S\ref{perfectoid-2} for another possible definition.  
+
+Since $A$ is $p$-adically complete, the surjectivity of $\theta$ is equivalent to the semiperfectness of $A/pA$. 
+
+One may choose $\varpi$ to be the $p$-th root of a unit multiple of $p$, but it is useful to develop the theory relative to a general $\varpi$. More precisely, by \cite{BMS18}*{Lemma~3.9}, the condition \ref{PD-i} and the semiperfectness of $A/pA$ alone ensure that some unit multiples of $\varpi$ and $p$ have compatible $p$-power roots in $A$: there are $\varpi^\flat, p^\flat \in A^\flat$ such that $(\varpi^\flat)^\sharp, (p^\flat)^\sharp \in A$ are unit multiples of $\varpi$ and $p$, respectively. 
+%If they exist for $\varpi$ (resp.,~$p$), then we let $\varpi^\flat$ (resp.,~$p^\flat$) be an element of $A^\flat$ with $(\varpi^\flat)^\sharp = \varpi$ (resp.,~$(p^\flat)^\sharp = p$); 
+
+
+By \cite{Lau18}*{Remark~8.6} or \cite{BS19}*{Theorem~3.10}, the conditions \ref{PD-i}--\ref{PD-ii} may be synthesized: a ring $A$ is perfectoid if and only if there are a perfect $\bF_p$-algebra $B$ and a $\xi = (\xi_0, \xi_1,  \dotsc) \in W(B)$ such that %with Witt coordinates $\xi = $ such that , $$, and
+\be \label{alt-def}
+\source{purity-flat-cohomology}
+A  \simeq W(B)/(\xi) \qxq{and} B \qxq{is $\xi_0$-adically complete with} \xi_1 \in B^\times.
+\ee 
+We necessarily have $B \cong A^\flat$, the displayed identification is induced by $\theta$, and $\xi$ is a nonzerodivisor in $\bA_\Inf(A)$. In fact, $A^\flat$ is $\xi'_0$-adically complete for any $\xi' \in \Ker(\theta)$ with Witt vector coordinates $\xi' = (\xi'_0, \xi'_1, \dotsc)$ and, by \cite{BMS18}*{Remark~3.11}, such a $\xi'$ generates $\Ker(\theta)$ if and only if $\xi'_1 \in (A^\flat)^\times$, in which case $\xi'$ is a  nonzerodivisor in $\bA_\Inf(A)$.  In particular, $\xi$ continues to generate $\Ker(\theta)$ for any perfectoid $A$-algebra, and an $\bF_p$-algebra is perfectoid if and only if it is perfect (choose $\xi' = p$). Explicitly, there is an $x \in \bA_\Inf(A)$ such that $p + [p^\flat]x \in \Ker(\theta)$, and this element is a possible choice for $\xi$: the equality $x = [x \bmod p] + px'$ shows that the first Witt coordinate of $p + [p^\flat]x$ is a unit because subtracting the Teichm\"{u}ller of its zeroth Witt coordinate gives $p(1 + [p^\flat]x')$. More precisely, we may choose this  $x$ in such a way that $\theta(x)$ be a unit in $A$; then \eqref{monoid-id} shows that $x \bmod p$ is a unit in $A^\flat$, to the effect that we may adjust our choice of $p^\flat$ to arrange that even $p^\flat = \xi_0$. 
+
+
+ 
+
+
+By \ref{PD-ii} and the proof of \cite{BMS18}*{Lemma~3.10~(i)}, the map $a \mapsto a^\sharp$ induces isomorphisms
+\be \label{same-mod-pi}
+\source{purity-flat-cohomology}
+%\xymatrix@C=30pt{
+A^\flat/(\varpi^\flat)^p A^\flat \isomto %^-{a\, \mapsto\, a^\sharp} 
+A/\varpi^p A  \qxq{and}  A^\flat/p^\flat A^\flat \isomto %^-{a\, \mapsto\, a^\sharp} 
+A/pA.
+\ee
+Thus, $(\varpi^\flat)^p \mid p^\flat$, and \eqref{monoid-id-2} shows that $A^\flat$ is $\varpi^\flat$-adically complete (every $\varpi^\flat$-adic Cauchy sequence in $A^\flat$ stabilizes in each term of $\varprojlim_{a \mapsto a^p} A/\varpi A$). 
+%the last limit in  agrees with $\varprojlim_{n \ge 0} \p{A^\flat/(\varpi^\flat)^{p^n} A^\flat}$, so . 
+Although $\varpi^\flat$ and $p^\flat$ are noncanonical, \eqref{same-mod-pi} determines the ideals $(\varpi^\flat)$ and $(p^\flat)$ of $A^\flat$, so we will use $\varpi^\flat$ and $p^\flat$ when only $(\varpi^\flat)$ and $(p^\flat)$ matter. 
+
+%In fact, we may choose 
+
+% \eqref{same-mod-pi} shows that 
+
+
+%In fact, by %\eqref{same-mod-pi}, we have $(\varpi^\flat)^p \mid \xi_0$ in $A^\flat$, so $A^\flat$ is also $\xi_0$-adically complete; in fact, by 
+%the proof of \cite{BMS18}*{Lem.~3.10}, one may choose $p^\flat$ to be the zeroth Witt coordinate of a generator  $\xi_0 \in A^\flat$. %The proof of \cite{BMS18}*{3.10~(i)} exhibits a $\xi$: there is a $u \in A^\times$ such that  $\pi \ce pu\i$ has $p$-power roots $\pi^\flat = (\pi^{1/p^n})_{n \ge 0} \in A^\flat$, so lift $u$ to a $\wt{u} \in W(A^\flat)^\times$ and set $\xi \ce p - [\pi^\flat] \cdot \wt{u}$; then $A^\flat$ is $\pi^\flat$-adically complete and the Witt expansion is 
+%\be \label{explicit-xi}
+%\xi = (-\pi^\flat \cdot \wt{u}_0, 1 - (\pi^\flat)^p \cdot \wt{u}_1, \dotsc).
+%\ee
+
+
+%The targets of these maps are insensitive to scaling $p$ or $\varpi$ by a unit, so %the ideal generated by $\varpi^\flat$ is well defined even when $\varpi$ itself does not have $p$-power roots. Thus, 
+%we may abuse notation and continue to use the notation $\varpi^\flat$ and $p^\flat$ in general granted that these elements  
+
+
+By \cite{BMS18}*{Lemma~3.10}, for a perfectoid $A$ that is $\varpi$-adically  complete for a $\varpi \in A$ with $\varpi^p \mid p$, the $p$-power map
+\be \label{p-oid-mod-pi}
+\source{purity-flat-cohomology}
+\xymatrix@C=30pt{A/\varpi A \ar[r]_-{\sim}^-{a\, \mapsto\, a^p}  & A/\varpi^pA} 
+\ee
+is an isomorphism, so if there is a $\varpi^{1/p^n} \in A$, then, by applying this to $\varpi^{1/p^j}$ with $0 \le j \le n$, we get
+\be \label{p-oid-mod-pin}
+\source{purity-flat-cohomology}
+\xymatrix@C=35pt{A/\varpi^{1/p^n}A \ar[r]_-{\sim}^-{a\, \mapsto\, a^p} & A/\varpi^{1/p^{n - 1}}A \ar[r]_-{\sim}^-{a\, \mapsto\, a^p} & \dotsc  \ar[r]_-{\sim}^-{a\, \mapsto\, a^p} & A/\varpi^pA.} 
+\ee
+%We therefore harmlessly  abuse notation by using $\varpi^\flat$ in general in situations where it only matters through the ideal  it generates.
+%, so if $A$ is a perfectoid and $\varpi$ is a nonzerodivisor, then after replacing $\varpi$ by a unit multiple such that , we have
+%Thus, if $A$ is perfectoid and $\varpi$ as above is a nonzerodivisor that admits compatible $p$-power roots in $A$, then, by applying \eqref{p-oid-mod-pi} with $\varpi^{1/p^n}$ in place of $\varpi$ we see that for every $n \ge 0$, 
+%There is a useful converse to \eqref{p-oid-mod-pi}: 
+Conversely, by \cite{BMS18}*{Lemmas~3.9 and~3.10}, if a ring $A$ is $\varpi$-adically complete for a \emph{nonzerodivisor} $\varpi \in A$ with $\varpi^p \mid p$ (the nonzerodivisor condition is automatic if $A$ is $p$-torsion free) and \eqref{p-oid-mod-pi} holds, then $A$ is perfectoid. This gives a very practical criterion for recognizing perfectoid rings.
+%By , the conditions \ref{PD-i}--\ref{PD-ii} alone ensure that 
+%\end{pp}
+
+
+
+
+
+
+%\temp{
+%In particular, we obtain the following special case of \cite{GR18}*{16.3.76} that will be used multiple times.
+
+%\blem \label{lem:complete-more}
+%For a perfectoid ring $A$ and a nonzerodivisor $\varpi \in A$ that divides a $p$-root $\pi \in A$ of a unit multiple of $p$, the $\varpi$-adic completion of $A$ is perfectoid. 
+%\elem
+
+%\bpf
+%By \eqref{p-oid-mod-pi}, we have 
+%\[
+%\xymatrix@C=30pt{A/\pi A \ar[r]_-{\sim}^-{a\, \mapsto\, a^p}  & A/pA,} \qxq{so, by the assumption on $\varpi$, also} \xymatrix@C=30pt{A/\varpi A \ar[r]_-{\sim}^-{a\, \mapsto\, a^p}  & A/\varpi^p A.}
+%\]
+%Thus, due to the nonzerodivisor assumption, the $\varpi$-adic completion of $A$ is perfectoid. 
+%\epf 
+%}
+
+
+
+
+
+%\bpp[Perfectoids as perfect prisms] \label{perfectoid-2}
+%Explicitly, By \cite{Lau18}*{Rem.~8.6} or \cite{BS19}*{Lem.~3.9}, a ring $A$ is perfectoid if and only if there are a perfect $\bF_p$-algebra $B$ and a $\xi = (\xi_0, \xi_1,  \dotsc) \in W(B)$ such that %with Witt coordinates $\xi = $ such that , $$, and
+%\be \label{alt-def}
+%A  \simeq W(B)/(\xi) \qxq{and} B \qxq{is $\xi_0$-adically complete with} \xi_1 \in B^\times.
+%\ee 
+%The appearing $B$ is determined by $A$: it is simply the tilt $A^\flat$; moreover, the identification 
+%From this optic, $A^\flat \cong B$ and 
+%\eqref{alt-def} is induced by $\theta \colon \bA_\Inf(A) \surjects%{[a]\, \mapsto\, a^\sharp} 
+%A$. %; in particular, $A^\flat$ is always $\xi_0$-adically complete. 
+For a perfectoid ring $A$, both $p$ and $\xi$ are nonzerodivisors in $\bA_\Inf(A)$, so the $\bA_\Inf(A)$-module
+\[
+\{(x, y) \in \bA_\Inf(A)^2 \, \vert\, \xi x = p y \}/ \{(pz, \xi z)\, \vert\, z \in \bA_\Inf(A)\}
+\]
+is isomorphic to both $A^\flat\langle p^\flat\rangle$ and $A\langle p\rangle$
+via the maps $(x, y) \mapsto x \bmod p$ and $(x, y) \mapsto y \bmod \xi$, respectively. Consequently, for every $\varpi \in A$ with $\varpi^p \mid p$ such that $A$ is $\varpi$-adically complete, \eqref{same-mod-pi} supplies an $\bA_\Inf(A)$-module isomorphism 
+\be \label{tor-free-transfer}
+\source{purity-flat-cohomology}
+A^\flat\langle \varpi^\flat\rangle \cong A\langle\varpi\rangle, \qx{so $A^\flat$ is $\varpi^\flat$-torsion free iff $A$ is $\varpi$-torsion free.}
+\ee
+After harmlessly replacing $\varpi$ by $(\varpi^\flat)^\sharp$, we apply \eqref{tor-free-transfer} with $\varpi^{1/p^n}$ in place of $\varpi$ and conclude that $A\langle \varpi \rangle$ is killed by the $\varpi^{1/p^n}$, so that 
+\[
+A\langle \varpi^{1/p^\infty}\rangle = A\langle \varpi \rangle = A\langle \varpi^\infty \rangle
+\]
+(see also \eqref{no-big-tor}).
+%If, in addition, $\varpi$ has compatible $p$-power roots $\varpi^{1/p^n} \in A$, then, since $A^\flat$ is reduced, it follows that 
+%\be \label{no-big-tor}
+%A^\flat\langle(\varpi^\flat)^{1/p^n}\rangle = A^\flat\langle\varpi^\flat\rangle = A^\flat\langle(\varpi^\flat)^\infty\rangle \qxq{and} A\langle\varpi^{1/p^n}\rangle = A\langle\varpi\rangle = A\langle\varpi^\infty\rangle \qxq{for} n \ge 0.
+%\ee
+
+%is necessarily a nonzerodivisor (see \S\ref{perfectoid-def}), 
+%In fact, if $A$ is already known to be perfectoid and $B = A^\flat$, then a $\xi\in W(A^\flat)$ killed by $\theta$ generates $\Ker(\theta)$ if and only if $\xi_1 \in (A^\flat)^\times$, in which case $\xi$ is a nonzerodivisor in $W(A^\flat)$ (see \cite{BMS18}*{3.10~(i), 3.11}). In particular, by considering 
+%the equation $px = \xi y$ in $W(A^\flat)$ shows that
+%\be \lab{eqn:torsion-free-crit}
+%\x{$A$ is $p$-torsion free if and only if $\xi_0$ is a nonzerodivisor in $A^\flat$.}
+%\ee
+%Moreover, if $A$ is perfectoid, then the $p$-power map $A/p \ra A/p$ is identified with the quotient map $A^\flat/\xi_0^p \surjects A^\flat/\xi_0$, so $A^\flat$ is automatically $\xi_0$-adically complete. 
+%By \eqref{explicit-xi}, the same $\xi$ %that generates $\Ker(\theta)$ for a perfectoid ring $A$ 
+%works for any perfectoid $A$-algebra $A'$. %This implies the following result.
+%moreover, an $\bF_p$-algebra \up{for instance, an $A^\flat$-algebra} is perfectoid if and only if it is perfect.
+\epp
+
+
+
+It is useful to decompose perfectoids as follows, in the style of \cite{GR18}*{Section 16.4.18, Remark~16.4.19} or \cite{Lau18}*{Remark~8.9}.
+
+\bpp[Canonical decompositions of perfectoids] \label{perfectoid-structure}
+\source{purity-flat-cohomology}
+Let $A$ be a perfectoid ring that is $\varpi$-adically complete for a $\varpi \in A$ with $\varpi^p \mid p$, and set 
+\[
+\ov{A} \ce A/A\langle\varpi^\infty\rangle \qxq{and} \ov{A^\flat} \ce A^\flat/A^\flat\langle(\varpi^\flat)^\infty\rangle.
+\]
+By the end of \S\ref{perfectoid-def}, we have $A\langle \varpi^\infty \rangle \cap (\varpi^{1/p^\infty}) = 0$ in $A$, and analogously for $A^\flat$, so
+\[
+A \isomto \ov{A} \times_{\ov{A}/(\varpi^{1/p^\infty})} A/(\varpi^{1/p^\infty}) \qxq{and} A^\flat \isomto \ov{A^\flat} \times_{\ov{A^\flat}/((\varpi^\flat)^{1/p^\infty})} A^\flat/((\varpi^\flat)^{1/p^\infty}).
+\]
+In particular, $pA \isomto p\ov{A}$, so the ring $\ov{A}$ is $p$-adically complete.\footnote{For a ring $B$ and an ideal $I \subset B$, the property that $B$ be $I$-adically complete only depends on $I$ as a nonunital ring: it amounts to the property that every $I$-adic Cauchy sequence with values in $I$ have a unique limit in $I$.} Moreover, \eqref{same-mod-pi} and \eqref{tor-free-transfer} imply that $\ov{A}/(\varpi^{1/p^\infty}) \cong \ov{A^\flat}/((\varpi^\flat)^{1/p^\infty})$, so this quotient is a perfect $\bF_p$-algebra.  Since the functor $\bA_\Inf(-)$ preserves limits (see \S\ref{pp:tilt-adj}), we obtain the decomposition
+\[
+\bA_\Inf(A) \isomto \bA_\Inf(\ov{A}) \times_{\bA_\Inf(\ov{A}/(\varpi^{1/p^\infty}))} \bA_\Inf(A/(\varpi^{1/p^\infty})).
+\]
+By considering the counit maps $\theta$ (see \S\ref{pp:tilt-adj}) and using \S\ref{perfectoid-def} and the snake lemma, we now conclude that the generator $\xi$ of $\Ker(\theta)$ for $A$ is a nonzerodivisor in $\bA_\Inf(\ov{A})$ and that $\bA_\Inf(\ov{A})/\xi\bA_\Inf(\ov{A}) \cong \ov{A}$. In particular, by \S\ref{perfectoid-def} again, $\ov{A}$ is a perfectoid ring and $\ov{A^\flat}$ is its tilt. Thus, by \eqref{same-mod-pi},
+%th  for $\varpi \ce (\varpi^\flat)^\sharp$ (see \S\ref{perfectoid-2}). Moreover, $\varpi^\flat \mid \xi_0$ implies that $\varpi \mid p$ (see \S\ref{perfectoid-def}), so \eqref{same-mod-pi} shows that 
+\[
+A/(\varpi^{1/p^\infty}) %\cong A/(\varpi^{1/p^\infty}) 
+\cong (A/(\varpi))^\red \qxq{and} \ov{A}/(\varpi^{1/p^\infty}) %\cong \ov{A}/(\varpi^{1/p^\infty}) 
+\cong (\ov{A}/(\varpi))^\red.
+\]
+%Since $A^\flat$ is reduced, the sequence
+%\[ %\label{eqn:decompose-tilt}
+%0 \ra A^\flat \xra{z\,\mapsto\, (z,\, z)} \ov{A^\flat} \times A^\flat/((\varpi^\flat)^{1/p^\infty}) \xra{(x,\, y)\, \mapsto\, x - y} \ov{A^\flat}/((\varpi^\flat)^{1/p^\infty}) \ra 0 %, \qxq{where} \ov{A^\flat} \ce A^\flat/A^\flat[(\varpi^\flat)^\infty]
+%\]
+%is short exact. Thus, for any generator $\xi = (\xi_0, \xi_1, \dotsc) \in \bA_\Inf(A)$ of $\Ker(\theta)$, the perfect $\bF_p$-algebra $\ov{A^\flat}$ is $\xi_0$-adically complete (see \eqref{alt-def}). Since $\xi$ is a nonzerodivisor, the resulting
+%\be \label{eqn:dec-prelim}
+%0 \ra A \ra W(\ov{A^\flat})/(\xi) \times A^\flat/((\varpi^\flat)^{1/p^\infty}) \ra %\xra{(x,\, y)\, \mapsto\, x - y} 
+%\ov{A^\flat}/((\varpi^\flat)^{1/p^\infty}) \ra 0
+%\ee
+%is an exact sequence of perfectoid rings. Moreover, \eqref{tor-free-transfer} ensures that $W(\ov{A^\flat})/(\xi)$ is $\varpi$-torsion free, so $W(\ov{A^\flat})/(\xi) \cong \ov{A}$ and $\ov{A}^\flat \cong \ov{A^\flat}$, while, 
+%with $ \ov{A} \ce A/A[\varpi^\infty] \cong  W(\ov{A^\flat})/(\xi)$. 
+In conclusion, $A$ is a glueing of the $\varpi$-torsion free perfectoid $\ov{A}$ and the $\varpi$-torsion one $(A/(\varpi))^\red$:
+\be \lab{perf-str-eq}
+A \isomto \ov{A} \times_{(\ov{A}/(\varpi))^\red} (A/(\varpi))^\red
+\ee
+and, compatibly,
+\[
+A^\flat \isomto \ov{A}^\flat \times_{(\ov{A}/(\varpi))^\red} (A/(\varpi))^\red.
+\]
+For instance, we may choose $\varpi^p$ to be a unit multiple of $p$, in which case $\ov{A} \cong A/A\langle p^\infty\rangle$. We deduce that every perfectoid ring $A$ is reduced: \eqref{perf-str-eq} allows us to pass to $p$-torsion free $A$, and then we iteratively apply \eqref{p-oid-mod-pi} to argue that the nilradical lies in $\bigcap_{n \ge 0} p^n A = 0$. Reducedness then implies that for every $a \in A$ that has compatible $p$-power roots $a^{1/p^n} \in A$, we have %then, since $A^\flat$ is reduced, it follows that 
+\be \label{no-big-tor}
+\source{purity-flat-cohomology}
+%A^\flat\langle(\varpi^\flat)^{1/p^n}\rangle = A^\flat\langle\varpi^\flat\rangle = A^\flat\langle(\varpi^\flat)^\infty\rangle \qxq{and} 
+A\langle a^{1/p^n}\rangle = A\langle a\rangle = A\langle a^\infty\rangle \qxq{for} n \ge 0.
+\ee
+
+%Fix a perfectoid ring $A$ that is $\varpi$-adically complete for a $\varpi \in A$ with $\varpi^p \mid p$. In addition to the tilt, we consider the direct limit perfection
+%\[
+%\tst  A_\flat \ce \varinjlim_{a \mapsto a^p} A/\varpi A, \qxq{so that, since the Frobenius of $A/\varpi A$ is surjective,}  A_\flat \cong (A/\varpi A)^\red.
+%\]
+%Unlike $A^\flat$, the quotient $A \surjects A_\flat$ does depend on the choice of $\varpi$, as does the ring $\ov{A} \ce A/A[\varpi^\infty]$. Moreover, \eqref{same-mod-pi} gives a canonical isomorphism $(A^\flat)_\flat \isomto A_\flat$, where in the source $(-)_\flat$ is formed with respect to $\varpi^\flat$; explicitly, granted that we replace $\varpi$ by a unit multiple that has $p$-power roots in $A$, by \eqref{p-oid-mod-pin}, we have $A_\flat \cong A/(\varpi^{1/p^\infty})$. Continuing to work with respect to $\varpi^\flat$, since 
+\epp
+
+
+The decomposition \eqref{perf-str-eq} admits the following converse that is useful for recognizing perfectoids. 
+
+\bprop \label{lem:fib-prod}
+\source{purity-flat-cohomology}
+For a surjective morphism $f\colon A \surjects A'$ of perfectoid $\bZ_p$-algebras, the map 
+\[
+\bA_\Inf(f)\colon \bA_\Inf(A) \surjects \bA_\Inf(A')
+\]
+induces a surjection on the kernels of the counit maps $\theta$, more generally, it induces surjections
+\be \label{eqn:Ainf-surjs}
+\source{purity-flat-cohomology}
+\bA_\Inf(A) \surjects \bA_\Inf(A')\times_{A'} A \qxq{and} [p^\flat]\bA_\Inf(A) \surjects [p^\flat]\bA_\Inf(A')\times_{pA'} pA.
+\ee
+Moreover, for any map $B \ra A'$ with $B$ perfectoid, $C \ce A \times_{A'} B$ is perfectoid with tilt $C^\flat \cong A^\flat \times_{A^{\prime\flat}} B^\flat$.
+\eprop
+
+\bpf
+ %For $i=0,1,2$, 
+First of all, the map $\bA_\Inf(f) $ inherits its indicated surjectivity from $A \surjects A'$: by completeness, this may be checked modulo $p$ and then modulo $p^\flat$, where it follows from \eqref{same-mod-pi}. Thus, letting $\xi_1$ be a generator for the kernel of $\theta$ for $A$, we apply the snake lemma and use \S\ref{perfectoid-def} to conclude that 
+\[
+\Ker(\bA_\Inf(f))/\xi_1\Ker(\bA_\Inf(f)) \cong \Ker(f).
+\] 
+The snake lemma then also shows that $\bA_\Inf(f)$ induces a surjection on the kernels of $\theta$.   Since the map $\theta\colon \bA_\Inf(A) \surjects A$ is surjective, the first surjection in \eqref{eqn:Ainf-surjs} follows. The second surjection in \eqref{eqn:Ainf-surjs} follows from the first applied to the quotients of $A$ and $A'$ by their $p$-torsion (see \S\ref{perfectoid-structure}).
+
+As for the ring $C$, it inherits $p$-adic completeness from the $A$, $A'$, and $B$ (the unique limit of a $p$-adic Cauchy sequence is computed componentwise), so \S\ref{pp:tilt-adj} identifies the tilt and shows that 
+\[
+\bA_\Inf(C) \isomto \bA_\Inf(A) \times_{\bA_\Inf(A')} \bA_\Inf(B).
+\] 
+Thus, by \S\ref{perfectoid-def} and the second surjection in \eqref{eqn:Ainf-surjs}, there is a $\xi \in \bA_\Inf(C)$ of the form $p + [p^\flat]x$ that maps to a generator of the kernel of $\theta$ for $A$, $A'$, and $B$. A final application of the snake lemma then shows that $\bA_\Inf(C)/(\xi) \cong C$, so that $C$ is indeed perfectoid by \eqref{alt-def}.
+%By \S\ref{perfectoid-def}, we may choose $x_i\in A_i^\flat$ such that $x_i^\sharp = pu_i$ for units $u_i\in A_i^\times$ (so $x_i$ is a $p^\flat$) and $x_0$ is the image of $x_1$ (and even $u_0$ is the image of $u_1$, see \eqref{monoid-id}). We then choose a 
+%\[
+%\xi_2\in \Ker(\theta\colon W(A_2^\flat)\surjects A_2) \qxq{of the form} \xi_2 = p + [x_2]v_2 \qxq{with} v_2\in W(A_2^\flat).
+%\]
+%Its image $\xi_0\in W(A_0^\flat)$ is of the similar form $p+[x_0]v_0$ because $x_0$ and the image of $x_2$ generate the same ideal in $A_0^\flat$ (see \eqref{same-mod-pi}). Moreover, since $A_1$ and $A_0$ have compatible generators of $\Ker(\theta)$ (see \S\ref{perfectoid-def}), the surjectivity of $W(A_1^\flat) \surjects W(A_0^\flat)$ persists when restricted to $\Ker(\theta)$, to the effect that the map 
+%\[
+%W(A_1^\flat)\to W(A_0^\flat)\times_{A_0} A_1
+%\]
+%is also surjective. By applying this to the quotients of $A_1$ and $A_0$ by their $p$-torsion (see \eqref{perf-str-eq}), we find that the map 
+%\[
+%[x_1]W(A_1^\flat)\to [x_0]W(A_0^\flat)\times_{pA_0} pA_1
+%\]
+%is surjective, too. If follows that we can lift $\xi_0$ to an element 
+%\[
+%\xi_1 = p+[x_1]v_1\in W(A_1^\flat) \qxq{that lies  in} \Ker(\theta\colon W(A_1^\flat)\surjects A_1).
+%\]
+%We see coordinatewise that $W(A_1^\flat \times_{A_0^\flat} A_2^\flat) \isomto W(A_1^\flat) \times_{W(A_0^\flat)} W(A_2^\flat)$. Thus, the elements $\xi_i$ glue to an element $\xi\in W(A_1^\flat\times_{A_0^\flat} A_2^\flat)$ in the kernel of the map $W(A_1^\flat\times_{A_0^\flat} A_2^\flat) \ra A_1 \times_{A_0} A_2$ induced by the $\theta$. The equality $v_i = [v_i \bmod p] + pv_i'$ shows that the first Witt coordinate of any $p + [x_i]v_i$ is a unit, so the $\xi_i$ are nonzerodivisors and generate the respective $\Ker(\theta)$ (see \S\ref{perfectoid-def}). Thus, by snake lemma, $W(A_1^\flat \times_{A_0^\flat} A_2^\flat)/(\xi) \cong A_1 \times_{A_0} A_2$. Finally, by checking the convergence of a Cauchy sequence componentwise, we see that $A_1^\flat\times_{A_0^\flat} A_2^\flat$ is complete with respect to the adic topology defined by the zeroth Witt coordinate of $\xi$. Consequently, \eqref{alt-def} gives the desired claim.
+%The perfect $\bF_p$-algebra $A_1^\flat \times_{A_0^\flat} A_2^\flat$ comes equipped with elements $\xi_n$ for $n \ge 0$ assembled from the Witt vector coordinates of the compatible $\xi$. Moreover, it is $\xi_0$-adically complete 
+% By checking coordinatewise, , so, since $\xi$ is a , 
+%which can also be expressed via the short exactness of the sequence
+%\be \label{W-id}
+%0 \ra W((A \times_{A_\flat} B)^\flat) \xra{x \, \mapsto\, (x,\, x)} W(A^\flat) \oplus W(B) \xra{(x,\, y) \, \mapsto\, x - y} W(A_\flat) \ra 0.
+%\ee
+% Due to \eqref{tilt-id}, this means that $(\xi, p) \in W(A^\flat) \oplus W(B)$ comes from a $\xi' \in W((A \times_{A_\flat} B)^\flat)$ for which $\xi_1'$ is a unit and $(A \times_{A_\flat} B)^\flat$ is $\xi_0'$-adically complete (see \S\ref{perfectoid-2}). By reducing \eqref{W-id} modulo $\xi'$ and using the alternative definition given in \S\ref{perfectoid-2}, we obtain the promised \eqref{fib-prod-perf}.
+\epf
+
+
+
+\beg \label{eg-glue}
+\source{purity-flat-cohomology}
+Consider a perfectoid ring $A$ that is $\varpi$-adically complete for a $\varpi \in A$ with $\varpi \mid p$. \Cref{lem:fib-prod} implies that for any map $B \ra (A/(\varpi))^\red$ from a perfect  $\bF_p$-algebra $B$, the ring
+\[
+ A \times_{(A/(\varpi))^\red} B \qx{is perfectoid.}
+\]
+%The divisibility $\varpi^p\mid p$ continues to hold in $A \times_{(A/(\varpi))^\red} A'$. Moreover, by snake lemma, $A \times_{(A/(\varpi))^\red} A'$ is $\varpi$-adically complete, has a semiperfect reduction modulo $p$, and its tilt is
+%\[
+% (A \times_{(A/(\varpi))^\red} A')^\flat \cong A^\flat \times_{(A/(\varpi))^\red} A'.
+%\]
+%By checking coordinatewise, this identification persists to Witt vectors:
+%\be\label{Ainf-id}
+% W((A \times_{(A/(\varpi))^\red} A')^\flat) \cong W(A^\flat) \times_{W((A/(\varpi))^\red)} W(A').
+%\ee
+%Since $W(A^\flat)^\times \surjects W((A/(\varpi))^\red)^\times$, we may choose a generator $\xi \in W(A^\flat)$ of $\Ker(\theta)$ that maps to $p \in W((A/(\varpi))^\red)$ (see \S\ref{perfectoid-def}). Thus, by \eqref{Ainf-id}, the element $\xi$ glues with $p$ to an element in 
+%\[
+%\Ker\p{W((A \times_{(A/(\varpi))^\red} A')^\flat) \xra{[a] \mapsto a^\sharp} A \times_{(A/(\varpi))^\red} A'}
+%\]
+%that, by checking componentwise via \eqref{Ainf-id}, generates this kernel. It remains to apply \S\ref{perfectoid-def}.
+\eeg
+
+
+
+
+
+\bcor \label{cor:ind-etale}
+\source{purity-flat-cohomology}
+For a perfectoid ring $A$ that is $\varpi$-adically complete for a $\varpi \in A$ with $\varpi^p \mid p$, the $\varpi$-adic \up{for instance, the $p$-adic, see \uS\uref{perfectoid-def}} completion  of every ind-\'{e}tale $A$-algebra is perfectoid.
+\ecor
+
+\bpf
+%For the parenthetical case, one chooses $\varpi$ to be a $p$-th root of a unit multiple of $p$ (see \S\ref{perfectoid-def}). Similarly, we lose no generality by assuming that $\varpi^{1/p^\infty} \in A$ and fixing a corresponding $\varpi^\flat \in A^\flat$. 
+\Cref{eg-glue} and the decomposition $A \isomto \ov{A} \times_{(\ov{A}/(\varpi))^\red} (A/(\varpi))^\red$ supplied by \eqref{perf-str-eq} reduce to $A$ being either $\varpi$-torsion free or an $\bF_p$-algebra. The $\varpi$-torsion free case follows from the criterion \eqref{p-oid-mod-pi} mentioned at the end of \S\ref{perfectoid-def}. The $\bF_p$-algebra case follows from the fact that an ind-\'{e}tale algebra over a perfect $\bF_p$-algebra is again perfect (see \cite{SGA5}*{expos\'{e}~XV, proposition~2~c)~2)}).
+%The formation of the absolute Frobenius of an $\bF_p$-algebra commutes with \'{e}tale base change . Thus, when $A$ is $\varpi$-torsion free   gives the claim. To deduce the general case we use the . Namely, base change to an ind-\'{e}tale $A$-algebra $A'$ and $\varpi$-adic completion gives the decomposition $\wh{A'} \cong \wh{\ov{A'}} \times_{(\ov{A'}/\varpi)^\red} (A'/\varpi)^\red$ where $\ov{A'} \ce A'/A'[\varpi^\infty]$ and $(-)\wh{\ }$ is the $\varpi$-adic completion. Both $(\ov{A'}/\varpi)^\red$ and $(A'/\varpi)^\red$ are perfect and, by the settled $\varpi$-torsion free case, $\wh{\ov{A'}}$ is perfectoid. Thus, $\wh{A'}$ is perfectoid by \Cref{lem:fib-prod}. %(applied with $\varpi$ being the $p$-th root of a unit multiple of $p$). 
+\epf
+
+
+
+
+
+
+
+
+
+The perfectoids $A$ as above are more general than those in the rigid analytic approach to the theory. For instance, in the $p$-torsion free case we do not build the integral closedness of $A$ in $A[\f 1p]$ into the definitions. As we now recall, the $p$-primary aspect of this closedness is nevertheless automatic. 
+
+
+\bpp[$p$-integral closedness of perfectoid rings] \label{p-int-cl}
+\source{purity-flat-cohomology}
+For an inclusion of rings $A \subset A'$, we recall %from \cite{GR18}*{9.8.21} 
+that $A$ is \emph{$p$-integrally closed} in $A'$ if every $a' \in A'$ with $a'^{p} \in A$ lies in $A$. In general, the \emph{$p$-integral closure} of $A$ in $A'$, constructed as $\bigcup_{n \ge 0} A_n$ where $A_0 \ce A$ and $A_{n + 1} \subset A'$ is the $A_n$-subalgebra generated by all the $a' \in A'$ with $a'^p \in A_n$, is the smallest $p$-integrally closed subring of $A'$ containing $A$. Evidently, the $p$-integral closure lies in the integral closure of $A$ in $A'$.
+
+The relevance of $p$-integral closedness to perfectoids was pointed out by Andr\'{e} in \cite{And18a}*{section~2.3}. For instance, %by \cite{GR18}*{9.8.23~(i)}, 
+if $\varpi \in A$ is a nonzerodivisor with $\varpi^p \mid p$ in $A$, then the map % the $p$-power map
+\be \label{p-int-cl-lem}
+\source{purity-flat-cohomology}
+\tst A/\varpi A \xra{a\, \mapsto\, a^p} A/\varpi^pA
+\ee
+is injective if and only if $A$ is $p$-integrally closed in $A[\frac 1\varpi]$.
+% (in particular, if, in addition, $A$ is perfectoid, then $A$ is $p$-integrally closed in $A[\frac 1\varpi]$, see \S\ref{perfectoid-def}~\ref{PD-iii-pr}). 
+Indeed, the `if' direction follows from the definition, and for the `only if' one notes that the injectivity of the map ensures that any $a'=\frac{a}{\varpi^n}\in A[\frac 1\varpi] \setminus A$ with $a'^p \in A$ has its numerator $a$ divisible by $\varpi$. %, which is a contradiction to the existence of such an $a'$.
+
+Thus, by \eqref{p-oid-mod-pi} and \eqref{perf-str-eq}, for every perfectoid $A$ that is $\varpi$-adically complete for a %\emph{nonzerodivisor} 
+$\varpi \in A$ with $\varpi^p \mid p$, the image $\ov{A} \subset A[\f 1\varpi]$ of $A$ is $p$-integrally closed, %in $A[\f 1\varpi]$ 
+so we have compatible multiplicative identifications %. Without the nonzerodivisor assumption, we still have
+%if $A$ is $\varpi$-adically complete with respect to such a $\varpi$ and is perfectoid, so that \eqref{p-int-cl-lem} is even bijective (see ), then the multiplicative bijection  persists after inverting $\varpi$:
+\be \label{monoid-id-pi}
+\source{purity-flat-cohomology}
+\tst \varprojlim_{a \mapsto a^p} (A[\f 1{\varpi}]) \isomto A^\flat[\f 1{\varpi^\flat}] \qxq{and} \xymatrix@C=40pt{\varprojlim_{a \mapsto a^p} A \ar[r]^-{\sim}_-{\eqref{monoid-id}} &A^\flat.}
+\ee
+The $p$-integral closedness of perfectoids has the following converse that is a variant of \cite{GR18}*{Corollary~16.9.15}. 
+% indeed, %one may assume that $\varpi^{1/p^\infty} \in A$, use 
+%\eqref{perf-str-eq} reduces to $\varpi$-torsion free $A$, and then use 
+%\eqref{p-int-cl-lem} expresses every element on the left side as a ``fraction'' with a numerator in $\varprojlim_{a \mapsto a^p} \ov{A}$.}
+\epp
+
+
+
+
+
+%Another useful tool for recognizing perfectoids is the following proposition. %\Cref{p-oid-rec} that uses the following notion. 
+
+
+\bprop \label{p-oid-rec}
+\source{purity-flat-cohomology}
+Let $A$ be a ring and let $\varpi \in A$ be a nonzerodivisor with $\varpi^p \mid p$ that has compatible $p$-power roots $\varpi^{1/p^n} \in A$ and is such that the map 
+\[
+A/\varpi A \xra{a\, \mapsto\, a^p} A/\varpi^pA
+\]
+is surjective. The $\varpi$-adic completion of the $p$-integral closure $\wt{A}$ of $A$ in $A[\frac 1\varpi]$ is perfectoid.
+\eprop
+
+\bpf
+As in \emph{loc.~cit.},~ 
+%Following the proof of ,~
+for each $a \in A$ with $a^p \in \varpi^pA$, we choose a sequence $\{a_n\}_{n \ge 0}$ in $A$ such that
+\[
+a_0 \ce a \q \x{and} \q a_n^p \equiv a_{n - 1} \bmod \varpi^pA \q \x{for} \q n > 0. 
+\]
+By construction, $a_n^{p^{n + 1}} \in \varpi^pA$, so also $\f{a_n}{\varpi^{1/p^{n}}} \in \wt{A}$, %for every $n \ge 0$, 
+where, as in the statement, $\wt{A}$ is the $p$-integral closure of $A$ in $A[\f1\varpi]$. We consider the $A$-subalgebra
+\[
+\tst A_1 \ce A[\f{a_n}{\varpi^{1/p^{n}}}\, \vert \, n \ge 0,\, a \in A \x{ with } a^p \in \varpi^pA] \subset \wt{A}.
+\]
+By construction, the map $A_1/\varpi A_1 \xra{a\,\mapsto\, a^p} A_1/\varpi^pA_1$ is surjective, so we may repeat the construction with $A_1$ in place of $A$ to likewise build an $A_1$-subalgebra $A_2 \subset A$. Proceeding in this way, we obtain an $A$-subalgebra 
+\[
+\tst A_\infty \ce \bigcup_{i \ge 1} A_i  \subset \wt{A}
+\]
+for which the map $A_\infty/\varpi \xra{x\, \mapsto\, x^p} A_\infty/\varpi^p$ is both surjective and, since every $x \in A_i$ with $x^p \in \varpi^pA_i$ is divisible by $\varpi$ in $A_{i + 1}$, also injective. Thus, the observation about \eqref{p-int-cl-lem} ensures that $A_\infty = \wt{A}$, %is $p$-integrally closed in $A[\frac 1\varpi]$ by , 
+and \eqref{p-oid-mod-pi} then ensures that the $\varpi$-adic completion of $\wt{A}$ is perfectoid.
+\epf
+
+
+
+
+
+
+
+
+
+
+
+We turn to categorical properties of tilting that are analogues of their counterparts in the adic theory. %, tilting extends to an equivalence of categories as follows.
+
+\bprop \label{tilt-summary}
+\source{purity-flat-cohomology}
+For a perfectoid ring $A$, there is an equivalence of categories
+\[
+\left\{\x{perfectoid $A$-algebras $A'$} \right\} \isomto \left\{\x{$\xi_0$-adically complete perfect $A^\flat$-algebras $B$} \right\}\!,
+\]
+where $\xi = (\xi_0, \xi_1, \dotsc )$ is a generator of $\Ker(\theta \colon  W(A^\flat) \surjects A)$ and the pair of inverse functors are
+\[
+\ \ A' \mapsto A'^\flat \ \ \x{and}\ \  B \mapsto W(B)/(\xi).
+\]
+Moreover, $A'^\flat$ is $\varpi^\flat$-adically complete for a $\varpi^\flat \in A'^\flat$ with $\varpi^\flat \mid \xi_0$ if and only if $A'$ is $\varpi$-adically complete for $\varpi \ce (\varpi^\flat)^\sharp$, and 
+%$A'$ is $\varpi$-adically complete for a $\varpi \in A'$ with $\varpi^p \mid p$ that has compatible $p$-power roots $\varpi^{1/p^n} \in A'$ iff 
+ $A'$ is a valuation ring \up{resp.,~with an algebraically closed fraction field} if and only if so is $A'^\flat$, in which case the value groups~agree\ucolon
+\[
+\Frac(A'^\flat)^\times/(A'^\flat)^\times \isomto \Frac(A')^\times/(A')^\times \qxq{induced by the map} x \mapsto x^\sharp.
+\]
+\eprop
+
+\bpf
+By \S\ref{perfectoid-def}, the functors are well-defined, inverse, and %, since $(\varpi^{1/p})^p \mid p$, 
+map $\varpi$-adically complete $A'$ to $\varpi^\flat$-adically complete $A'^\flat$. We now assume that $A'^\flat$ is $\varpi^\flat$-adically complete, so that $W(A'^\flat)$ is $[\varpi^\flat]$-adically complete, and seek to show that $\xi W(A'^\flat)$  is closed in $W(A'^\flat)$ for the $[\varpi^\flat]$-adic topology: $A'$ will then be $\varpi$-adically complete by \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/031A}{031A}}. For this, it suffices to show~that 
+\[
+\xi W(A'^\flat) \cap ([\varpi^\flat]^n) = \xi(W(A'^\flat) \cap ([\varpi^\flat]^{n})) \qxq{for every} n \ge 1;
+\]
+indeed, then the limit of every $[\varpi^\flat]$-adic Cauchy series of $W(A'^\flat)$ with terms in $\xi W(A'^\flat)$ would lie in $\xi W(A'^\flat)$. We then fix a $w \ce (w_0, w_1, \dotsc ) \in W(A'^\flat)$ with $\xi w \in ([\varpi^\flat]^n)$ and seek to show that $w \in ([\varpi^\flat]^n)$, that is, that $w_m \in (\varpi^\flat)^{np^m} A'^\flat$ for $m \ge 0$. This is clear when $\varpi^\flat = 0$, %(when also $\xi_0 = 0$), 
+so \eqref{perf-str-eq} (with $A$ there equal to our $A'^\flat$) allows us to replace $A'^\flat$ by $\ov{A'^\flat} \ce A'^\flat/A'^\flat\langle(\varpi^\flat)^\infty\rangle$. %in \eqref{inclusion}. 
+Then $\varpi^\flat$ becomes a nonzerodivisor and induction on $n$ reduces us to $n = 1$. We fix the smallest hypothetical $m$ with 
+\[
+w_m \not \in (\varpi^\flat)^{p^m} \ov{A'^\flat}
+\]
+and, by \cite{BouAC}*{chapitre~IX, section~1, num\'{e}ro~6, lemme~4}, may assume that $w_{m'} = 0$ for $m' < m$. Then 
+\[
+w = V^m((w_m, w_{m + 1}, \dotsc)),
+\]
+so
+\[
+\xi w = V^m((w_m\xi_0^{p^m}, w_{m + 1}\xi_0^{p^{m + 1}} + w_m^p \xi_1^{p^m}, \dotsc)).
+\]
+Since $\varpi^\flat \mid \xi_0$ and $\xi_1 \in (A^\flat)^\times$, the assumption $\xi w \in ([\varpi^\flat])$ then implies that $(\varpi^\flat)^{p^{m + 1}} \mid w_m^p$, so that, by the perfectness of $\ov{A'^\flat}$, also $(\varpi^\flat)^{p^{m}} \mid w_m$, which is a desired contradiction to the existence of $m$.
+
+
+
+If $A'$ is a valuation ring, then \eqref{monoid-id} and \eqref{same-mod-pi} show that $A'^\flat$ is a local domain in which for $a, a' \in A'^\flat$ either $a \mid a'$ or $a' \mid a$, so  $A'^\flat$ is a valuation ring. Conversely, if $A'^\flat$ is a valuation ring, then, by \eqref{same-mod-pi}, \eqref{tor-free-transfer}, and \S\ref{perfectoid-structure}, the $p$-adically complete ring $A'$ is local, $p$-torsion free unless $p = 0$ in $A'$ (in which case $A' \cong A'^\flat$), and reduced. To conclude that $A'$ is a valuation ring and also settle the claim about the value groups, we now show that every $a \in A'$ is of the form $a = ub^\sharp$ for some $u \in A'^\times$ and $b \in A'^\flat$. For this, we follow \cite{GR18}*{Proposition~16.5.50}, namely, by dividing by a power of $(p^\flat)^\sharp$, we may assume that $a$ is nonzero in $A'/pA'$, so that, by \eqref{same-mod-pi}, we have $a = b^\sharp + (p^\flat)^\sharp c$ for a $b \in A'^\flat$ that is nonzero modulo $p^\flat$ and a $c \in A'$. Since $A'^\flat$ is a valuation ring, $b$ strictly divides $p^\flat$, so it remains to set $u \ce 1 + (\frac{p^\flat}b)^\sharp c$. In the case of valuation rings of dimension $\le 1$, the remaining parenthetical assertion follows from \cite{Sch12}*{Theorem~3.7~(ii)}. %(with \cite{BMS18}*{Lem.~3.20} for the compatibility of definitions).
+To then deduce it for any perfectoid valuation ring $A'$ of dimension $\ge 1$, we may assume that $A'$ is of mixed characteristic $(0, p)$ and it suffices to argue that the valuation ring $A'_\fp$ that is the localization of $A'$ at the height $1$ prime $\fp \subset A'$ (concretely, at the intersection of all the primes of $A'$ containing $p$) is still perfectoid and that its tilt is the localization of $A'^\flat$ at its height $1$ prime (concretely, at the intersection of all the primes of $A'^\flat$ containing $p^\flat$).
+
+For this last claim, the $p$-adic (resp.,~$p^\flat$-adic) topology of $A'$ (resp.,~of $A'^\flat$) is the valuation topology, so, due to \eqref{same-mod-pi}, it suffices to argue that for any valuation ring $V$ that is $a$-adically complete for some $a \in V$ and any prime ideal $\fq \subset V$ containing $a$, the localization $V_\fq$  is also $a$-adically complete.\footnote{
+It is also true that if a valuation ring $V$ is complete for its valuation topology, then its localization $V_\fq$ at any prime ideal $\fq \subset V$ is also complete for its valuation topology. To see this, first note that the valuation topology is characterized by every nonzero ideal of $V$ being open, alternatively, since $a^2 V \subset a\fq \subset a V$ for $a \in \fq$, by every principal ideal of the nonunital ring $\fq$ being open. Thus, by considering Cauchy nets, we see that $V$ is complete for its valuation topology if and only if the nonunital ring $\fq$ is complete for its topology in which the principal ideals are all open. It then remains to recall that $\fq \isomto \fq V_\fq$, to the effect that replacing $V$ by $V_\fq$ does not change the nonunital ring $\fq$.
+} However, by the definition of a valuation ring, every element of $V \setminus \fq$ divides every element of $\fq$, so $\fq$ maps isomorphically to $\fq V_\fq$ and kills the quotient $V_\fq/V$. It follows that in the inverse system
+\[
+\{0 \ra V_\fq/V \ra V/(a^n) \ra V_\fq/(a^n) \ra V_\fq/V \ra 0\}_{n > 0}
+\]
+of exact sequences the transition maps at the term that is the left copy of $V_\fq/V$ all vanish because they are induced by multiplication by $a$. Thus, by forming the inverse limit and applying the snake lemma we see that the $a$-adic completeness of $V$ implies that of $V_\fq$.
+\epf
+
+
+\brem
+As the proof shows, any localization of a perfectoid valuation ring is still a perfectoid valuation ring, granted that we exclude the $0$-dimensional localization in mixed characteristic.
+\erem
+
+
+
+
+
+We will use the following further compatibilities that concern tilting. They also complement \Cref{lem:fib-prod} with additional general stability properties of perfectoid rings. 
+%In the following proposition, which summarizes stability properties of perfectoids, if $\varpi$ is a $p$-th root of a unit multiple of $p$ (as may always be chosen, see \S\ref{perfectoid-def}), then the completions are simply $p$-adic. 
+
+\bprop \label{recognize}
+\source{purity-flat-cohomology}
+Let $A$ be a perfectoid ring that is $\varpi$-adically complete for a $\varpi \in A$ with $\varpi^p \mid p$, let $I$ be a set, let $\{A_i \}_{i \in I}$ be  $\varpi$-adically complete perfectoid $A$-algebras, and let $S \subset A$ be a subset.
+\benum
+\item \label{R-0}
+\source{purity-flat-cohomology}
+The $\varpi$-adic completion of $A[X_i^{1/p^\infty}]_{i \in I}$ is perfectoid and its tilt is the $\varpi^\flat$-adic completion of $A^\flat[(X_i^\flat)^{1/p^\infty}]_{i \in I}$, where $X_i^\flat$ corresponds to the $p$-power compatible sequence $(X_i^{1/p^n})_{n \ge 0}$. 
+
+\item \label{R-a} \up{See also \cite{GR18}*{Proposition~16.3.9}}. \!\!The $\varpi$-adically completed tensor product $\wh{\bigotimes}_{i \in I} A_i$ over $A$ is perfectoid and its tilt is the $\varpi^\flat$-adically completed tensor product $\wh{\bigotimes}_{i \in I} A_i^\flat$ over $A^\flat$.
+\source{purity-flat-cohomology}
+
+\item \label{R-b}
+\source{purity-flat-cohomology}
+Suppose that the ideal $(S \bmod \varpi^n) \subset A/(\varpi^n)$ is generated by the $p^n$-th powers of its elements for $n > 0$
+%admits arbitrarily large $p$-power roots that lie in $S \bmod \varpi^n$ 
+\up{for instance, that each $s \in S$ has a root $s^{1/p^N} \in S$ with $N > 0$}. Then the $\varpi$-adic completion of $A/(S)$ is perfectoid and its tilt is the $\varpi^\flat$-adic completion of $A^\flat/(S^\flat)$ where 
+\[
+\tst\qq S^\flat \ce \varprojlim_{a\, \mapsto\, a^p} (S \bmod \varpi) \subset \varprojlim_{a\, \mapsto\, a^p} A/(\varpi) \cong A^\flat.
+\]
+% consists of all inverse systems whose tails lie in $S \bmod \varpi$. 
+%$\ce \{ \{ s_n \}_{n \ge 0} \subset S \, \vert\, s_{n + 1}^p = s_n \} \subset A^\flat$. %, where  consists of the $p$-power compatible systems of elements of $S$ \up{see \eqref{monoid-id}}. 
+
+\m \label{R-c}
+\source{purity-flat-cohomology}
+A product $\prod_{i \in I} B_i$ of $\bZ_p$-algebras is perfectoid iff so is each $B_i$, and then 
+\[
+\tst\qq (\prod_{i \in I} B_i)^\flat \cong \prod_{i \in I} B_i^\flat.
+\]
+ 
+
+\m \label{R-e}\up{See also \cite{GR18}*{Theorem~16.3.76} and \cite{And20}*{Proposition~2.2.1}}.
+\source{purity-flat-cohomology}
+For $a_1^\flat, \dotsc, a_r^\flat \in A^\flat$ and $a_j \ce (a_j^\flat)^\sharp \in A$, the $(a_1, \dotsc, a_r)$-adic completion %$\wh{A}$ 
+of $A$ is perfectoid, agrees with the derived $(a_1, \dotsc, a_r)$-adic completion of $A$, and has the $(a_1^\flat, \dotsc, a_r^\flat)$-adic completion %$\wh{A^\flat}$ 
+of $A^\flat$ as its tilt.
+\eenum
+\eprop
+
+\bpf 
+For \ref{R-0}, we first note that, by \Cref{tilt-summary}, the $A$-algebra 
+\[
+W((A^\flat[(X_i^\flat)^{1/p^\infty}]_{i \in I})\wh{\ }\, )/(\xi),
+\]
+where the completion is $\varpi^\flat$-adic, is perfectoid. It then remains to note that, since $p^n \in (\xi, [\varpi^\flat]^n)$, the map that sends each $X_i^{1/p^m}$ to $((X_i^\flat)^{\sharp})^{1/p^m}$ exhibits it as the $\varpi$-adic completion of $A[X_i^{1/p^\infty}]_{i \in I}$. 
+
+For \ref{R-a}, a tensor product indexed by $I$ is defined as the direct limit of subproducts over the finite subsets of $I$  and is a categorical coproduct. With tensor products over $W_n(A^\flat)$ and $A^\flat$, %respectively, we have
+\be \label{WW-trick-map}
+\source{purity-flat-cohomology}
+\tst \bigotimes_{i \in I} W_n(A_i^\flat) \isomto W_n(\bigotimes_{i \in I} A_i^\flat)
+\ee
+because both the source and the target are initial among the $\bZ/p^n\bZ$-algebras whose reduction modulo $p$ is equipped with a map from $ \bigotimes_{i \in I} A_i^\flat$ (%compare with the proof of \cite{Tsu99}*{A1.5}
+see, for instance, \cite{SZ18}*{Proposition 3.12}). By reducing \eqref{WW-trick-map} modulo 
+\[
+(p^n, p^{n - 1}[\varpi^\flat]^{p}, \dotsc, p [\varpi^\flat]^{p^{n - 1}}, [\varpi^\flat]^{p^{n}}),
+\]
+we obtain
+\[
+\tst \bigotimes_{i \in I} W_n(A_i^\flat/([\varpi^\flat]^{p^{n}})) \isomto W_n(\bigotimes_{i \in I} (A_i^\flat/([\varpi^\flat]^{p^{n}}))),
+\]
+so, since $(p, [\varpi^\flat])^{p^n} \subset (p^n, p^{n - 1}[\varpi^\flat]^{p}, \dotsc, p [\varpi^\flat]^{p^{n - 1}}, [\varpi^\flat]^{p^{n}}) \subset (p, [\varpi^\flat])^n$, also %we deduce the isomorphism
+\be \label{WW-map}
+\source{purity-flat-cohomology}
+\tst  \wh{\bigotimes}_{i \in I} W(A_i^\flat) \isomto W(\wh{\bigotimes}_{i \in I} A_i^\flat)
+\ee
+where the first $\wh{\tensor}$ is $(p, [\varpi^\flat])$-adically completed and over $W(A^\flat)$. %and the second one is $\varpi^\flat$-adically completed and over $A^\flat$ 
+%(reducing \eqref{WW-map} modulo $(p^n, p^{n - 1}[\varpi^\flat]^{p}, \dotsc, p [\varpi^\flat]^{p^{n - 1}}, [\varpi^\flat]^{p^{n}})$ gives \eqref{WW-mod-weird}). 
+Since $\varpi^\flat \mid \xi_0$ in $A^\flat$ for a generator $\xi = (\xi_0, \xi_1, \dotsc)$ of $\Ker(\theta\colon W(A^\flat) \surjects A)$ (see \S\ref{perfectoid-def}), the perfect $A^\flat$-algebra $\wh{\bigotimes}_{i \in I} A_i^\flat$ is $\xi_0$-adically complete. Thus, by \Cref{tilt-summary}, %\S\ref{perfectoid-structure}, 
+the reduction of  \eqref{WW-map} modulo $\xi$ is a map of $\varpi$-adically complete perfectoids, so, since $(\xi, [\varpi^\flat]) = (p, [\varpi^\flat])$ in $W(A^\flat)$ (see \eqref{same-mod-pi}), it is %this reduction is % the $\varpi$-adic completion of  \eqref{WW-map} modulo $\xi$ is 
+the desired
+%we verify modulo powers of $\varpi$ the following isomorphism that gives \ref{R-a}:
+\[
+\tst \wh{\bigotimes}_{i \in I} A_i \isomto (W(\wh{\bigotimes}_{i \in I} A_i^\flat))/(\xi).
+\]
+%where the first (resp.,~second) tensor product is over $W_n(A^\flat/([\varpi^\flat]^{p^{n}}))$ (resp.,~$A^\flat/([\varpi^\flat]^{p^{n}})$).
+For \ref{R-b}, %we let $S^\flat \subset A^\flat$ be the subset consisting of the $p$-power compatible systems of elements of $S$ . 
+%the condition on $S$ ensures that the ideal $(S \mod \varpi)$ 
+by the assumption on $S$ and by construction, $S^\flat$ surjects onto 
+\[
+(S \bmod \varpi) \subset A/(\varpi) \cong A^\flat/(\varpi^\flat)
+\]
+and is stable under $p$-power roots. Moreover, the $p^n$-th power of an element of $A/(\varpi^{n + 1})$ depends only on its residue class modulo $\varpi$, so %the assumption on $S$ ensures the agreement of ideals 
+\[
+(S \bmod \varpi^n) = ((S^\flat)^\sharp \bmod \varpi^n) \qxq{in} A/(\varpi^n).
+\]
+Thus we lose no generality by assuming that $S = (S^\flat)^\sharp$, in other words, that every $s \in S$ admits a $p$-th root $s^{1/p} \in S$. Both $A^\flat/(S^\flat)$ and its $\varpi^\flat$-adic completion $\wh{A^\flat/(S^\flat)}$ are perfect $A^\flat$-algebras, and 
+\[
+W_n(A^\flat)/([S^\flat]) \isomto W_n(A^\flat/(S^\flat)).
+\]
+Thus, by \Cref{tilt-summary}, the $A$-algebra $W(\wh{A^\flat/(S^\flat)})/(\xi)$ is a $\varpi$-adically complete perfectoid. In conclusion, since $p^n \in (\xi, [\varpi^\flat]^n)$ and $S = (S^\flat)^\sharp$, the following map exhibits its perfectoid target as the $\varpi$-adic completion of the source:
+\[%be \label{S-map}
+\source{purity-flat-cohomology}
+A/(S) \cong (W(A^\flat)/(\xi))/(S) \cong (W(A^\flat)/([S^\flat]))/(\xi) 
+\ra W(\wh{A^\flat/(S^\flat)})/(\xi).
+\]%ee
+%identifies its target with the $\varpi$-adic completion of the source, and \ref{R-b} follows.
+Part \ref{R-c} is immediate from the definition of \S\ref{perfectoid-def} because 
+\[
+\tst\bA_\Inf(\prod_{i \in I} B_i) \cong \prod_{i \in I} \bA_\Inf(B_i).
+\] 
+For \ref{R-e}, it suffices to argue that the derived $(a_1, \dotsc, a_r)$-adic completion $\wh{A}$ of $A$ is perfectoid (so, in particular, is a classical ring) and that its tilt is the derived $(a_1^\flat, \dotsc, a_r^\flat)$-adic completion $\wh{A^\flat}$ of $A^\flat$. Indeed, this will imply the claimed agreement with the usual $(a_1, \dotsc, a_r)$-adic completion (and likewise for $A^\flat$): perfectoid rings are reduced (see \S\ref{perfectoid-structure}), so \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0G3I}{0G3I}} will ensure that $\wh{A}$ is $(a_1, \dotsc, a_r)$-adically separated, and hence, by \cite{SP}*{Proposition~\href{https://stacks.math.columbia.edu/tag/091T}{091T}}, even $(a_1, \dotsc, a_r)$-adically complete, so the map $A \ra \wh{A}$ will be initial among maps to $(a_1, \dotsc, a_r)$-adically complete $A$-algebras. 
+
+The derived $(a_1, \dotsc, a_r)$-adic completion of $A$ agrees with the iterated derived $a_i$-adic completion for $i = 1, \dotsc, r$, so we lose no generality by assuming that $r = 1$ and renaming $a \ce a_1$ and $a^\flat \ce a_1^\flat$. Since $A^\flat$ is a perfect $\bF_p$-algebra, $A^\flat[a^\flat] = A^\flat[(a^\flat)^{1/p^\infty}]$, to the effect that the inverse system $\{ A^\flat[(a^\flat)^n]\}_{n > 0}$ is almost zero. Thus, the derived $a^\flat$-adic completion $\wh{A^\flat}$ of $A^\flat$ agrees with the classical $a^\flat$-adic completion of $A^\flat$. In particular, $\wh{A^\flat}$ is a perfect $\bF_p$-algebra that inherits derived $\xi_0$-adic completeness from $A^\flat$. Thus, $\wh{A^\flat}$ is reduced and we conclude as in the previous paragraph that it is $\xi_0$-adically complete. This already settles the positive characteristic case, in which $A = A^\flat$.
+
+
+By arguing via Witt vector coordinates, we see that each $W_n(\wh{A^\flat})$ is $[a^\flat]$-adically complete, so that $W(\wh{A^\flat})$ is also $[a^\flat]$-adically complete. Moreover, the derived $[a^\flat]$-adic completion $\wh{W(A^\flat)}$ of $W(A^\flat)$ inherits derived $p$-adic completeness and its derived reduction modulo $p$ is the derived $[a^\flat]$-adic completion $\wh{A^\flat}$ of $A^\flat$. Thus, we may check on derived reductions modulo $p$ that %the following map is an isomorphism:
+\[
+\wh{W(A^\flat)} \isomto W(\wh{A^\flat}).
+\]
+However, \S\ref{perfectoid-def} ensures that $\xi$ is a nonzerodivisor in $W(\wh{A^\flat})$, so this isomorphism shows that $W(\wh{A^\flat})/(\xi)$ is the derived $a$-adic completion $\wh{A}$ of $A$ and, simultaneously, that $\wh{A}$ is a classical ring. To then conclude that $\wh{A}$ is perfectoid with tilt $\wh{A^\flat}$ it remains to review \S\ref{perfectoid-def}.
+%By arguing inductively on the Witt vector coordinates, we see that for every $n > 0$ the $[a^\flat]^n$-torsion of $W(A^\flat)$ is the ideal $W(A^\flat[(a^\flat)^{1/p^\infty}]) \subset W(A^\flat)$, and hence agrees with the $[a^\flat]^{1/p^\infty}$-torsion of $W(A^\flat)$. Thus, by repeating the above argument we see that the derived $[a^\flat]$-adic completion $\wh{W(A^\flat)}$ of $W(A^\flat)$ agrees with the classical $[a^\flat]$-adic completion of $W(A^\flat)$. 
+\epf
+
+
+%\beg
+%Let $A$ be as in \Cref{recognize}. Then \ref{R-0} and \ref{R-b} imply the following stability under ``Kummer covers'': for every set $I$, elements $a_i \in A$ that have compatible $p$-power roots $a_i^{1/p^n} \in A$, and integers $m_i > 0$, the $\varpi$-adic completion of the following $A$-algebra is perfectoid:
+%\[
+%\tst A[X_i^{1/p^{\infty}}]_{i \in I}/((X_i^{1/p^n})^{m_i} - a_i^{1/p^n})_{i \in I,\, n \ge 0}.
+%\]
+%\eeg
+
+
+
+
+
+%The proof  will use 
+
+%The following further structural result will be used in the proof of the ind-syntomic Andr\'{e}'s lemma.
+
+The following proposition is sometimes useful for reducing to $p$-torsion free perfectoid rings. 
+
+%By the following lemma, every perfectoid ring is a quotient of a  
+
+\bprop \lab{lem:perfectoid-quotient-of-torsion-free}
+Every perfectoid ring $A$ that is $\varpi$-adically complete for a $\varpi \in A$ with $\varpi^p \mid p$ is a quotient of a  perfectoid ring $\wt{A}$ that is \emph{$\wt{\varpi}$-torsion free} and $\wt{\varpi}$-adically complete for a lift $\wt{\varpi} \in \wt{A}$ of $\varpi$ with $\wt{\varpi}^p \mid p$. In addition, every perfectoid ring is a quotient of a $p$-torsion free perfectoid ring. %that lifts $\varpi$. %such that $\wt{A}[\wt{\varpi}] = \wt{A}[p] = 0$.% is both $\wt{\varpi}$-torsion free and $p$-torsion free.
+%. In particular, every perfectoid ring is a quotient of a $p$-torsion free perfectoid ring. 
+\eprop
+
+\bpf
+As in \eqref{alt-def}, we write $A \cong W(A^\flat)/(\xi)$ with $\xi = (\xi_0, \xi_1, \dotsc)$ in Witt coordinates such that $\xi_1 \in (A^\flat)^\times$ and $A^\flat$ is $\xi_0$-adically complete. In fact, $A^\flat$ is even $\varpi^\flat$-adically complete and we fix a choice of $\varpi^\flat \in A^\flat$, so that $\varpi = (\varpi^\flat)^\sharp u $ with $u \in A^\times$ (see \S\ref{perfectoid-def}). 
+%We replace $\varpi$ by a unit multiple 
+We consider the perfect $\bF_p$-algebra 
+\[
+\tst B_0 \ce \bF_p[X_a^{1/p^\infty}\, \vert\, a \in A^\flat] \qxq{and the surjection} B_0 \surjects A^\flat \qxq{given by} %T\mapsto \varpi^\flat,\, 
+X_a\, \mapsto\, a.
+\]
+Since $(\varpi^\flat)^p \mid \xi_0$ in $A^\flat$ (see \S\ref{perfectoid-def}), we may lift the $\xi_i$ to $\wt{\xi}_i \in B_0$ with $(X_{\varpi^\flat})^p \mid \wt{\xi}_0$ 
+%(arranging the latter is the only role of $T$) 
+and let $B$ be the $X_{\varpi^\flat}$-adic completion of $B_0[\f{1}{\wt{\xi}_1}]$. Certainly, $B$ is a $\wt{\xi_0}$-adically complete (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/090T}{090T}}), perfect $\bF_p$-algebra equipped with a surjection $B \surjects A^\flat$. Letting $\wt{\xi} \in W(B)$ be defined by its Witt coordinates $\wt{\xi}_i$ and using \eqref{alt-def}, we obtain a surjection of perfectoid rings %(see \S\ref{perfectoid-2}):
+\[
+\wt{A}' \ce W(B)/(\wt{\xi}) \surjects W(A^\flat)/(\xi) \cong A, \qxq{and we set} \wt{\varpi}' \ce (X_{\varpi^\flat})^\sharp \in \wt{A}'. 
+\]
+Since $(X_{\varpi^\flat})^p \mid \wt{\xi}_0$ in $B$, we have $(\wt{\varpi}')^p \mid p$ in $\wt{A}'$ (see \S\ref{perfectoid-def}), so \Cref{tilt-summary} ensures that $\wt{A}'$ is $\wt{\varpi}'$-adically complete, and \eqref{tor-free-transfer}  then  ensures that $\wt{A}'$ is $\wt{\varpi}'$-torsion free. We lift $u \in A$ to a $\wt{u} \in \wt{A}'$, and we let $\wt{A}$ be the $\wt{\varpi}'$-adic completion  of $\wt{A}'[\f 1{\wt{u}}]$, so that we have the induced surjection $\wt{A} \surjects A$ and the lift $\wt{\varpi} \ce \wt{\varpi}' \wt{u} \in \wt{A}$ of $\varpi$. By \Cref{cor:ind-etale}, the ring $\wt{A}$ is perfectoid and, by construction, it is $\wt{\varpi}$-adically complete and $\wt{\varpi}$-torsion free. The proof of the $p$-torsion free variant %stated as a final assertion %about a $p$-torsion free perfectoid 
+is similar but simpler: it suffices to choose $\wt{\xi}_0 \ce X_{\xi_0}$, replace $X_{\varpi^\flat}$ by $X_{\xi_0}$ in the subsequent argument, and set $\wt{A} \ce \wt{A}'$.
+%, so, since $\wt{\varpi}^p \mid p$, also $p$-torsion free.
+%By construction, $\wt{\varpi}'$ 
+%Since $B$ is $X_{\varpi^\flat}$-torsion free, $\wt{A}'$ is $\wt{\varpi}'$-torsion free 
+%Since $\wt{\xi_0}$ is a nonzerodivisor in $B$, the perfectoid $\wt{A}$ is $p$-torsion free (see ). %and,  \eqref{eqn:torsion-free-crit} ensures that $\wt{A}$ is $p$-torsion free.
+\epf
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\temp{
+
+
+%\blem \label{lem:tilt-same-depth}
+%For a perfectoid ring $A$, a sequence $a_1, \dotsc, a_n \in A^\flat$ is $A^\flat$-regular if and only if the sequence $a_1^\sharp, \dotsc, a_n^\sharp \in A$ is $A$-regular. 
+%\elem
+
+%\bpf
+%\cite{GR18}*{16.4.17} \me{also need the condition that the ideal $(a_1, \dotsc, a_n)$ be open}
+%\epf
+
+%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\csub[Tilting \'{e}tale cohomology algebraically] \label{sec:tilting-cohomology}
+\source{purity-flat-cohomology}
+
+
+Guided by the idea that comparing a perfectoid ring $A$ and its tilt $A^\flat$ is close in spirit to an Elkik-type comparison of a Henselian ring and its completion, in \Cref{baby-tilting} we exhibit ``algebraic'' incarnations of the paradigm that tilting preserves topological information, specifically, idempotents (that is, clopen subschemes) and \'etale cohomology. The idea of the proof is that the  idempotent case is pretty much immediate from \eqref{monoid-id} with \eqref{monoid-id-pi} and, by $p$-complete arc descent, it implies the assertion about the \'{e}tale cohomology. This style of argument bypasses any recourse to adic spaces, although, of course, the conclusion is not as strong as an equivalence of \'{e}tale sites.
+
+
+\bpp[The $I$-complete arc-topology] \label{pp:arc-topology}\label{eg:fflat-is-arc}
+\source{purity-flat-cohomology}
+We recall from \cite{BM20}*{Definition 1.2} that a ring map $A \ra A'$ is an \emph{arc cover} if any $A \ra V$ with $V$ a valuation ring of dimension $\le 1$ fits in a commutative diagram
+\be\label{test-diagram}\ba
+\source{purity-flat-cohomology}
+\xymatrix{
+A \ar[r] \ar[d] & A' \ar@{-->}[d] \\
+V  \ar@{-->}[r] & V' 
+}
+\ea\ee
+in which $V'$ is a valuation ring of dimension $\le 1$ and $V \ra V'$ is faithfully flat (that is, an extension of valuation rings). For a fixed finitely generated ideal $I \subset A$ (example: $I = (p)$), if the same holds whenever $V$ is, in addition, $I$-adically complete, %(resp.,~and $p$-torsion free) with $V'$ required to also be $p$-adically complete, %(resp.,~and $p$-torsion free), 
+then $A \ra A'$ is an \emph{$I$-complete arc cover} (called a \emph{$\varpi$-complete arc cover} when $I = (\varpi)$ is principal). %(resp.,~an \emph{arc$_p$-cover} in the sense of \cite{BM20}*{6.13}). 
+An arc cover is simply a $0$-complete arc cover, and %it is also a $\varpi$-complete arc cover for every $\varpi$; more generally, 
+an $I$-complete arc cover is an $I'$-complete arc cover whenever $I \subset I'$ (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/090T}{090T}}). In particular, for every $I$, an arc cover is an $I$-complete arc cover and the reduction modulo $I$ of an $I$-complete arc cover is an %($0$-complete) 
+arc cover. %, and the latter is always an arc$_p$ cover. 
+
+In fact, there is no need to assume that $V'$ be of dimension $\le 1$: one can arrange $\dim(V) = \dim(V')$ \emph{a posteriori} by the argument of \cite{BM20}*{Proposition~2.1}.
+In addition, by extending $V'$ (of dimension $\le 1$) to a valuation ring of dimension $\le 1$ on the algebraic closure of $\Frac(V')$ (see \cite{BouAC}*{chapitre~VI, section 8, num\'{e}ro~6, proposition~6}) and, in the case of $I$-complete arc covers, $I$-adically completing (which preserves algebraic closedness, see \cite{BGR84}*{Section 3.4, Proposition~3}), we may restrict to those $V'$ of dimension $\le 1$ in  \eqref{test-diagram}  that have an algebraically closed fraction field and, in the case of $I$-complete arc covers, are $I$-adically complete. Similarly, one then loses no generality by assuming that $\Frac(V)$ be algebraically closed. 
+
+For example,
+\benuma
+\m \label{arc-fflat}
+\source{purity-flat-cohomology}
+any faithfully flat $A \ra A'$ is an arc cover: to see this, we may assume that $A = V$, lift the specialization of points in $\Spec(V)$ to $\Spec(A')$ (see \cite{EGAIV2}*{proposition 2.3.4~(i)}), and use the maximality of valuation rings with respect to domination; %, and make $V'$ of rank $1$ as in the proof . 
+
+\m \label{arc-pi-fflat}
+\source{purity-flat-cohomology}
+any $A \ra A'$ that is faithfully flat modulo powers of a finitely generated ideal $I \subset A$ is an $I$-complete arc cover: we may assume that $A = V$ for an $I$-adically complete valuation ring $V$ of rank $\le 1$, assume that $A'$ is $I$-adically complete, and use the resulting injectivity $V \hra A'$ to lift the specialization (due to the $I$-adic completeness of $A'$, the closure of the generic $V$-fiber of $\Spec(A')$ meets the closed $V$-fiber, so one applies \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0903}{0903}} to conclude); 
+
+\m \label{arc-integral}
+\source{purity-flat-cohomology}
+any integral $A \ra A'$ that is surjective on spectra is an arc cover: now one uses going up to lift the specialization (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/00GU}{00GU}}). 
+\eenum
+%These definitions also make sense for simplicial rings; equivalently, a map $S \ra S'$ of simplicial rings is an \emph{arc cover} (resp.,~a \emph{$p$-complete arc cover}; resp.,~an \emph{arc$_p$-cover}) if so is $\pi_0(S) \ra \pi_0(S')$.
+ 
+As the name suggests, finite collections of ring maps $\{A \ra A'_i \}_{i \in I}$ for which $A \ra \prod_{i \in I} A'_i$ an arc cover (resp.,~an $I$-complete arc cover) are the covering maps for a Grothendieck topology on commutative rings (resp.,~on $\bZ[x_1, \dotsc, x_n]$-algebras where $I = (\varpi_1, \dotsc, \varpi_n)$ with $x_i \mapsto \varpi_i$), the \emph{arc topology} (resp.,~the \emph{$I$-complete arc topology}). On perfectoids this topology is insensitive to tilting as follows. 
+\epp
+
+
+
+\blem \label{arc-tilt}
+\source{purity-flat-cohomology}
+Let $A \ra A'$ be a map of perfectoid rings, let $\varpi \in A$ with $\varpi^p \mid p$ be such that $A$ and $A'$ are $\varpi$-adically complete, and let $\varpi^\flat \in A^\flat$ be such that $(\varpi^\flat)^\sharp$ is a unit multiple of $\varpi$ \up{see \uS\uref{perfectoid-def}}. Then $A \ra A'$ is a $\varpi$-complete arc cover if and only if its tilt $A^\flat \ra A'^\flat$ is a $\varpi^\flat$-complete arc cover.
+%For a perfectoid ring $A$ that is $\varpi$-adically complete for a $\varpi \in A$ with , t
+\elem
+
+\bpf
+%By \S\ref{perfectoid-def}, we may assume that $\varpi = (\varpi^\flat)^\sharp$, equivalently, that $\varpi^{1/p^\infty} \in A$. 
+By \S\ref{pp:arc-topology}, the condition of being a $\varpi$-complete (resp.,~$\varpi^\flat$-complete) arc cover may be phrased to only involve maps to $\varpi$-adically (resp.,~$\varpi^\flat$-adically) complete valuation rings of dimension $\le 1$ with algebraically closed fraction fields, and such are perfectoid by \eqref{p-oid-mod-pi}. It then remains to recall from \Cref{tilt-summary} that the tilting equivalence identifies such valuation rings, respects their dimensions, and matches $\varpi$-adic completeness with $\varpi^\flat$-adic completeness. 
+\epf
+
+
+
+
+
+
+
+
+We will exploit the following convenient base of the $\varpi$-complete arc topology. 
+
+\blem \label{lem:arc-base}
+\source{purity-flat-cohomology}
+%Let $A$ be a $\bZ[t]$-algebra, and let $\varpi \in A$ be the image of $t$.
+%\benum
+%\m \label{AB-a}
+Every ring $A$ \up{resp.,~with a $\varpi \in A$} has an arc \up{resp.,~a $\varpi$-complete arc} cover $A \ra \prod_{i \in I} V_i$ whose factors $V_i$ are valuation rings \up{resp.,~$\varpi$-adically complete valuation rings} of dimension $\le 1$ with algebraically closed fraction fields. %\up{resp.,~so that $\prod_{i \in I} V_i$ is perfectoid}.
+%\m \lab{AB-b}
+%If $A$ is perfectoid, $\varpi$-adically complete, and $\varpi^p \mid p$, then the $\varpi$-complete arc covers as in \ref{AB-a} are perfectoid and their category is equivalent to its analogue for $A^\flat$ and $\varpi^\flat$ via tilting. 
+%\eenum
+\elem
+ 
+\bpf %\hfill
+%\benum
+%\m
+%By \S\ref{perfectoid-def}, both $A^\flat$ and $A'^\flat
+For each prime $\fp \subset A$, choose an algebraic closure $\ov{k(\fp)}$ of the residue field at $\fp$. Let $\fp$ vary and let $I$ be the set of valuation subrings $V_i \subset \ov{k(\fp)}$ of dimension $\le 1$ containing the image of $A$ and with $\Frac(V_i) = \ov{k(\fp)}$. To check that the resulting $A \ra \prod_{i \in I} V_i$ is a desired arc cover, we note that, by the choice of $I$, any map $A \ra V$ to a valuation ring of dimension $\le 1$ with an algebraically closed fraction field factors through some $A \ra V_i$ and use \S\ref{pp:arc-topology}.
+%. By \cite{BouAC}*{VI, \S8.6, Prop.~6}, we may extend $V$ to a valuation ring $\ov{V}$ of the same dimension on an algebraic closure of the fraction field of $V$. By the choice of $I$, the resulting composition $A \ra V \ra \ov{V}$ factors through $A \ra \prod_{i \in I} V_i$, as desired. 
+For the $\varpi$-complete arc aspect, it suffices to instead take  $A \ra \prod_{i \in I} \wh{V}_i$ where $\wh{V}_i$ is the $\varpi$-adic completion of $V_i$ (see \S\ref{pp:arc-topology}). %(and, likewise, $\wh{\ov{V}}$ instead of $\ov{V}$): this works because the fraction field of each $\wh{V}_i$ is still algebraically closed.  
+%\m
+%Since the fraction field of each $V_i$ is algebraically closed, every element of $\prod_{i \in I} V_i$ is a $p$-th power. Thus, the covers $\prod_{i \in I} V_i$ in question are perfectoid by the criterion \eqref{p-oid-mod-pi} mentioned at the end of \S\ref{perfectoid-def}. By , their tilt $\prod_{i \in I} V_i^\flat$ is of the same form, in particular, each $V_i^\flat$ is a valuation ring of rank $\le 1$ with an algebraically closed fraction field. 
+%\qedhere
+%\eenum
+\epf
+
+
+
+
+
+As we now verify, the arc covers constructed in the previous lemma have no nonsplit \'{e}tale covers. 
+
+\blem \label{lem:ultrafilters}
+\source{purity-flat-cohomology}
+Let $\{V_i\}_{i \in I}$ be valuation rings. The connected components of $\Spec(\prod_{i \in I} V_i)$ are the 
+\[
+\tst \Spec(\prod_{\sU} V_i) \qxq{for ultrafilters} \sU \qxq{on} I
+\]
+\up{where $\prod_\sU \ce \varinjlim_{I' \in \sU} \prod_{i \in I'}$}. In particular, if all the $\Frac(V_i)$ are algebraically closed, then each quasi-compact open  $U \subset \Spec(\prod_{i \in I} V_i)$ has no nonsplit \'{e}tale covers and its connected components are spectra of valuation rings with algebraically closed fraction fields. %and every faithfully flat, \'{e}tale $(\prod_{i \in I} V_i)[\f 1v]$-algebra has a section. 
+\elem
+
+\bpf
+For $I' \subset I$, let $e_{I'} \in \prod_{i \in I} V_i$ be the idempotent whose coordinates at $I'$ (resp.,~at $I \setminus I'$) are $0$ (resp.,~$1$). Since $e_{I' \cap I''} = e_{I'} + e_{I''} - e_{I' \cup I''}$, for any prime ideal $\fp \subset \prod_{i \in I} V_i$, the set $\sU_\fp \ce \{ I' \, \vert\, e_{I'} \in \fp\}$ is an ultrafilter on $I$. The assignment $\fp \mapsto \sU_\fp$ gives a continuous map 
+\[
+\tst\Spec(\prod_{i \in I} V_i) \ra \gB I
+\] 
+to the Stone--\v{C}ech compactification of $I$: indeed, the sets 
+\[
+U_{I'} \ce \{ \sU \, \vert \, I' \in \sU\} \subset \gB I \qxq{with} I' \subset I
+\]
+are a base of opens for $\gB I$, and the preimage of $U_{I'}$ is the open 
+\[
+\tst\Spec(\prod_{i \in I'} V_i) \subset \Spec(\prod_{i \in I} V_i).
+\] %cut out by the idempotent $e_{I'}$. 
+Any $\sU \in \gB I$ is the intersection of its neighborhoods $U_{I'}$ for $I' \in \sU$, so the preimage of $\sU$ is precisely $\Spec(\prod_{\sU} V_i)$. 
+
+The preceding paragraph works for any rings $\{V_i\}_{i \in I}$; however, if the $V_i$ are valuation rings, then $\prod_{\sU} V_i$ is a valuation ring with the fraction field $\prod_{\sU} \Frac(V_i)$, and the latter is algebraically closed whenever so are all the $\Frac(V_i)$. Thus, since $\gB I$ is totally disconnected and every quasi-compact open of some $\Spec(\prod_{\sU} V_i)$ is the spectrum of a valuation ring (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/088Y}{088Y}}), the connected component aspects of the claim follow. Moreover, if the $\Frac(V_i)$ are all algebraically closed, then, by the above, the local rings of $U$ are strictly Henselian. A limit argument then shows that every \'{e}tale cover of $U$ may be refined by a Zariski cover, and, thanks to \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0968}{0968}}, the latter has a section. 
+%precisely the nonempty $\Spec((\prod_{\sU} V_i)[\f 1v])$, and hence . The fraction field of $\prod_{\sU} V_i$ is the corresponding ultraproduct of the fraction fields of the $V_i$, so it is algebraically closed if so are the latter. If this holds, then all the local rings of $(\prod_{i \in I} V_i)[\f 1v]$, which we already know to be valuation rings, are strictly Henselian. 
+\epf
+
+
+
+Our approach to tilting \'{e}tale cohomology builds on the following arc descent result of Bhatt--Mathew. %Its comparison to the completion aspect \eqref{eqn:etale-arcdescent} is more classical and is due to Gabber.
+
+\begin{theorem}
+\source{purity-flat-cohomology}
+\notready\label{arc-descent}
+\source{purity-flat-cohomology}
+Let $A$ be a ring \up{resp.,~with a finitely generated ideal $I \subset A$} and let $\sF$ be a torsion sheaf on $A_\et$. On the category of $A$-algebras $A'$, the functor
+\[
+\tst A' \mapsto R\Gamma_\et(A', \sF)
+\]
+{\upshape(}resp., 
+\[
+A' \mapsto R\Gamma_\et(\Spec(\wh{A'})\setminus V(I), \sF), \qx{where the completion is $I$-adic})
+\]
+satisfies hyperdescent in the arc \up{resp.,~$I$-complete arc} topology, and the functor 
+\[
+A' \mapsto R\Gamma_\et(A'^h, \sF), \qx{where $(-)^h$ denotes the $I$-Henselization,}
+\]
+satisfies hyperdescent in the $I$-complete arc topology.
+\end{theorem}
+
+\begin{proof} 
+Since the functors in question are bounded below, descent for them implies hyperdescent, so we focus on arguing descent. 
+By \cite{Gab94a}*{Theorem~1}, we have 
+\[
+R\Gamma_\et(A', \sF) \cong R\Gamma_\et(A'/IA', \sF)
+\]
+for $I$-Henselian $A'$, so the last assertion follows from the rest and \S\ref{pp:arc-topology}. Moreover, the descent claims were settled in \cite{BM20}*{Theorem~5.4} and, respectively, \cite{Mat20}*{Remark~5.18} with \cite{BM20}*{Corollary~6.17}, except that for the functor 
+\[
+A' \mapsto R\Gamma_\et(\Spec(\wh{A'})\setminus V(I), \sF)
+\]
+\emph{loc.~cit.}~used the arc$_I$ topology instead. The latter is the variant of the arc topology in which in \eqref{test-diagram} one requires $I$ to map to nonzero subideals of the maximal ideals of the  valuation rings $V$ and $V'$ of dimension $\le 1$. By replacing such $V$ by its $I$-adic completion, we see that every $I$-complete arc cover is an arc$_I$ cover, so our descent claim follows.
+%This, however, is even stronger than what we claim because every , as one sees by first replacing a test $V$ by its $\varpi$-adic completion and only then looking for a $V'$.  
+ %(see, for instance, \cite{CM19}*{2.5}).
+\end{proof}
+
+
+\brem \label{BM-hens-comp}
+\source{purity-flat-cohomology}
+By \cite{BM20}*{Theorem~6.11} (or \cite{ILO14}*{expos\'{e} XX, section 4.4}), we have 
+\[
+\tst %R\Gamma_\et(A[\tfrac 1p],G) \isomto R\Gamma_\et(\pi_0(A)[\tfrac 1p],G) \qxq{and} 
+R\Gamma_\et(\Spec(A'^h)\setminus V(I),\sF) \isomto R\Gamma_\et(\Spec(\widehat{A'}) \setminus V(I),\sF),
+\]
+where $(-)^h$ denotes the $I$-Henselization, so the following functor also satisfies $I$-complete arc hyperdescent on $A$-algebras $A'$:
+\[
+A' \mapsto R\Gamma_\et(\Spec(A'^h)\setminus V(I), \sF).
+\]
+\erem
+
+
+
+
+
+We are ready for the promised algebraic approach to tilting \'{e}tale cohomology of perfectoids. 
+
+\bthm \label{baby-tilting}
+\source{purity-flat-cohomology}
+Let $p$ be a prime, let $A$ be a ring, let $\varpi \in A$ with $\varpi^p \mid p$ be such that $A$ is $\varpi$-Henselian, has bounded $\varpi^\infty$-torsion, and its $\varpi$-adic completion is perfectoid, and let
+%$A[\varpi^\infty] = A[\varpi^N]$ for some $N > 0$, and ,  if $A$ is $\varpi$-Henselian and its $\varpi$-adic completion is perfectoid, then for every open
+\[
+\tst \Spec(A[\f 1\varpi]) \subset U \subset \Spec(A) \qxq{and} \Spec(A^\flat[\f{1}{\varpi^\flat}]) \subset U^\flat \subset \Spec(A^\flat)
+\]
+be opens  whose complements agree via \eqref{same-mod-pi} with $A^\flat \ce \varprojlim_{a \mapsto a^p} (A/\varpi A)$. There are identifications of sets of idempotents
+\[
+\Idem(U) \cong \Idem(U^\flat) \qx{compatibly with orthogonality,}
+\]
+and of \'{e}tale cohomology 
+\[
+R\Gamma_\et(U, G) \cong R\Gamma_\et(U^\flat, G) \qx{for every torsion abelian group $G$,}
+\]
+functorial in $A$, $U$, and $G$. In particular, for a closed $Z \subset \Spec(A/\varpi A)$ and a torsion abelian~group~$G$,
+\be \label{eqn:baby-tilting-supports}
+\source{purity-flat-cohomology}
+R\Gamma_Z(A, G) \cong R\Gamma_Z(A^\flat, G).
+\ee
+\ethm
+
+\bpf
+The claim about \eqref{eqn:baby-tilting-supports} follows from the rest and the cohomology with supports triangle. 
+
+By, for instance, \cite{BC19}*{Theorems 2.3.1 and 2.3.4}, base change to the $\varpi$-adic completion of $A$ changes neither $\Idem(U)$ nor $R\Gamma_\et(U, G)$, so we assume that $A$ is $\varpi$-adically complete and, in particular, perfectoid. The $p$-power map of any ring induces the identity map on the set of idempotents of that ring, so the claim about $\Idem(U)$ when $U$ is either $\Spec(A)$ or $\Spec(A[\f 1\varpi])$ follows from the functorial, compatible, multiplicative isomorphisms \eqref{monoid-id} and \eqref{monoid-id-pi}, namely, from
+\[
+\tst \varprojlim_{a \mapsto a^p} A \cong A^\flat \qxq{and} \varprojlim_{a \mapsto a^p} (A[\f 1\varpi]) \cong A^\flat[\f 1 {\varpi^\flat}].
+\]
+For a general $U$, by glueing and limit arguments, giving an idempotent on $U$ amounts to giving an idempotent $e$ on $A[\f 1\varpi]$ together with a compatible under pullback system of idempotents $e_B$ on the localizations $\wt{B}$ of $A$ along variable principal affine opens $\Spec(B) \subset U_{A/\varpi} \subset \Spec(A/\varpi)$ subject to the condition that after inverting $\varpi$ each $e_B$ agrees with the pullback of $e$. Moreover, by Beauville--Laszlo glueing \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0BNR}{0BNR}},\footnote{In this proof, one may avoid the Beauville--Laszlo glueing by replacing $\wt{B}$ by its $\varpi$-Henselization and using \cite{BC19}*{Theorem~2.3.1} again (resp.,~\cite{BC19}*{Theorem~2.3.4} for $R\Gamma_\et$ in place of $\Idem$), but this comes at the expense of having to consider self-intersections in the limit arguments. The use of the Beauville--Laszlo technique was suggested by Arnab Kundu.} in this description we may replace $\wt{B}$ by its $\varpi$-adic completion. By \Cref{cor:ind-etale}, this completion is perfectoid and, by \eqref{same-mod-pi}, its tilt is the $\varpi^\flat$-adic completion of %the $\varpi^\flat$-Henselization of 
+the localization of $A^\flat$ along $\Spec(B)$. Thus, the analogous description of the idempotents on $U^\flat$ and the settled cases $U = \Spec(A)$ and $U = \Spec(A[\f 1\varpi])$ %(with passage to completions based on \cite{BC19}*{2.3.1} as before, but this time also on the tilted side) 
+give the desired functorial identification $\Idem(U) \cong \Idem(U^\flat)$ that is compatible with orthogonality.  
+
+The analogous glueing (or descent) argument carried out with $R\Gamma_\et$ in place of $\Idem$, % Think about how $H^0(U, -) = \lim H^0(*, -)$ with $*$ ranging over the elements of the cover (same spreading out and glueing argument as for Idem) and then "just derive" this identification to get $R\Gamma_\et(U, -) = R\lim R\Gamma(*, -)$.
+which this time uses formal glueing for \'{e}tale cohomology in place of Beauville--Laszlo glueing to pass to completions, so, concretely, it uses \Cref{arc-descent} and \cite{BM20}*{Theorem~6.4},
+%\cite{BC19}*{2.3.4} 
+ reduces us to exhibiting compatible identifications 
+\[
+R\Gamma_\et(U, G) \cong R\Gamma_\et(U^\flat, G)
+\]
+in the cases when $U = \Spec(A)$ or $U = \Spec(A[\f 1\varpi])$ (functorially in $A$ and $G$). For this, we first treat the case when $A = \prod_{i \in I} V_i$ for $\varpi$-adically complete valuation rings $V_i$ over $A$ with algebraically closed fraction fields  (%as we already saw in the proof of \Cref{arc-tilt}, 
+such $V_i$ are perfectoid by \eqref{p-oid-mod-pi} and hence, by \Cref{recognize}~\ref{R-c}, so is $\prod_{i \in I} V_i$). For such $A$, we have $A^\flat \cong \prod_{i \in I} V_i^\flat$. Thus, \Cref{lem:ultrafilters} implies that $A$ and $A^\flat$, as well as $A[\f 1\varpi]$ and $A^\flat[\f 1{\varpi^\flat}]$, have no nonsplit \'{e}tale covers. In particular, both $R\Gamma_\et(U, G)$ and $R\Gamma_\et(U^\flat, G)$ are concentrated in degree zero where they are given by locally constant $G$-valued functions on $U$ and $U^\flat$, respectively. Due to the functorial identification $\Idem(U) \cong \Idem(U^\flat)$, the clopens of $U$ are in a functorial bijection with those of $U^\flat$, compatibly with the relation of  disjointness (which amounts to orthogonality of the corresponding idempotents). Thus, the spaces of locally constant $G$-valued functions on $U$ and $U^\flat$ are functorially identified, which settles the case when $A = \prod_{i \in I} V_i$ as above. 
+
+By \Cref{lem:arc-base}, the $A$ that are products $\prod_{i \in I} V_i$ as above with each $V_i$ of rank $\le 1$ form a base of the $\varpi$-complete arc topology of $A$. By \Cref{tilt-summary} and \Cref{arc-tilt}, tilting matches this base with its analogue for the $\varpi^\flat$-complete arc topology of $A^\flat$. Thus, to deduce the remaining case of a general $A$, it remains to combine the already functorially settled case $A = \prod_{i \in I} V_i$ with the $\varpi$-complete arc descent supplied by \Cref{arc-descent}.
+\epf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\csub[The ind-syntomic generalization of Andr\'{e}'s lemma] \label{And-lem}
+\source{purity-flat-cohomology}
+
+
+
+
+
+
+%In the proof of the absolute cohomological purity of \Cref{abs-coh-pur}, we have already seen the importance of perfectoid covers of regular rings in the perfectoid approach to purity questions. 
+Andr\'{e}'s lemma, which originated in \cite{And18a,And18b}, says that up to passing to a perfectoid cover elements of a perfectoid admit compatible $p$-power roots. This is useful for constructing perfectoids above a Noetherian local ring $(R, \fm)$ with $\Char(R/\fm) = p$ beyond regular $R$: one writes $\wh{R}$ as a quotient of a regular ring, chooses a faithfully flat perfectoid cover of the latter (as in \Cref{lem:towers} below), uses Andr\'{e}'s lemma to ensure that the equations cutting out $R$ have compatible $p$-power roots, and then kills these roots (the relevance of such roots %for obtaining perfectoids 
+is seen already in \Cref{recognize}~\ref{R-b}). This mechanism is how we will use Andr\'{e}'s lemma in the proof of \Cref{main}.
+
+The goal of this section is to present a generalization of Andr\'{e}'s lemma stated in \Cref{Andre-lem} below. %, that generalizes various versions available in the literature. %\kestutis{Does not seem to generalize \cite{BS19}.} 
+More precisely, in Andr\'{e}'s work the refining perfectoid cover was almost faithfully flat modulo powers of $p$ (see, for instance, \cite{Bha18a}*{Theorem~1.5}), which was improved to actual faithful flatness by Gabber--Ramero in \cite{GR18}*{Theorem~16.9.17}  at the cost of ``decompleting.'' We follow their method to improve further to ind-syntomicity and to eliminate torsion freeness assumptions. Ind-syntomicity modulo powers of $p$ was achieved in \cite{BS19}*{Theorem~7.14, Remark~7.15} by a different %, less elementary 
+argument and, as we explain in the proof of \Cref{main-pf}, %thanks to \Cref{thm:padiclimit} below, 
+suffices for our purposes, so a pragmatic reader could skip this section. %if wanted.
+
+
+%In the complete intersection case, the construction of such covers , which up   Of course, in characteristic $p$ any perfect algebra already has $p$-power roots of any of its elements, so the phenomena of interest are entirely in mixed characteristic.
+
+%Andr\'{e}'s lemma originated in , where $p$-power roots were constructed after replacing $A$ by an almost faithfully flat perfectoid $A$-algebra. The precise statement given in  generalizes the version of this lemma given in  that improved to ---we . Syntomic maps are relative complete intersections, so they are well suited for reductions that go into \Cref{main}. %These aspects will be important in the proof of \Cref{main} given in \S\ref{grand-finale}, where they will be used to pass from quotients of perfectoid rings by regular sequences to perfectoid rings. %(see \Cref{recognize}~\ref{R-b}). 
+
+
+
+
+
+
+%\Cref{main-conj} concerns complete intersection rings, and its perfectoid analogue concerns quotients of perfectoid rings by regular sequences. On the other hand he $p$-adically completed quotient by compatible $p$-power roots of the elements of this sequence, if such roots exist, is perfectoid (see \Cref{recognize}).
+
+
+
+
+
+
+%We turn to specific inputs to the proof of \Cref{Andre-lem}, in particular, to 
+We begin with the following ``integral'' variant of the approximation lemma \cite{Sch12}*{Corollary~6.7~(i)}. %in the ``integral perfectoid'' setting that we are considering goes into the proof of the ind-syntomic Andr\'{e}'s lemma.
+
+\blem \label{approx-lem}
+\source{purity-flat-cohomology}
+Let $A$ be a perfectoid ring, let $\varpi \in A$ with $\varpi^p \mid p$ be such that $A$ is $\varpi$-adically complete, let $a \in A$, and let $m \ge 0$. There is an $a' \in A^\flat$ %that admits compatible $p$-power roots in $A$ 
+such that for every continuous valuation $\abs{\cdot}$ on  $A$  with $\abs{A} \le 1$ we have
+\be \label{eqn:AL-prel}
+\source{purity-flat-cohomology}
+|a| \le | \varpi^{pm}| \qxq{if and only if}  |a'^\sharp| \le |\varpi^{pm}|,
+\ee
+more generally, such that for every $\abs{ \cdot}$ above we have
+\be \label{AL-eq}
+\source{purity-flat-cohomology}
+\tst \abs{a - a'^\sharp} \le \abs{p} \cdot \max(|a'^\sharp|, \abs{\varpi}^{pm}).
+\ee
+%where continuity is for the $\varpi$-adic topology\ucolon $\abs{\cdot}$ is continuous if \uscolon in particular, for $a'$ and $\abs{\cdot}$ as above, .
+\elem
+
+Here continuity means that $\abs{\varpi^n}$ for $n \ge 0$ becomes smaller than any element of the value group. 
+
+\bpf
+For completeness, we give a proof; see \cite{KL15}*{Corollary~3.6.7} and \cite{GR18}*{Corollary~16.6.26} for other variants. We loosely follow the argument from \cite{KL15} whose main inputs are \cite{Ked13}*{Lemmas~5.5 and 5.16}.
+
+We focus on \eqref{AL-eq} because it implies \eqref{eqn:AL-prel} by the nonarchimedean triangle inequality. Also, we assume that $\varpi^p$ is a unit multiple of $p$ (see \S\ref{perfectoid-def}): this change of $\varpi$ does not increase $\abs{\varpi}^p$ and only enlarges the collection of valuations in question. In addition, we %may assume that $\varpi$ has a system of compatible $p$-power roots $\varpi^\flat = (\varpi^{1/p^n})_{n \ge 0} \overset{\eqref{monoid-id}}{\in} A^\flat$ and 
+choose a generator $\xi$ of $\Ker(\theta \colon W(A^\flat) \surjects A)$, so that %$\xi = p - [(\varpi^\flat)^p] \cdot \wt{u} $ with %$\wt{u} \in W(A^\flat)^\times$.
+%The explicit form of the Witt vector expansion $\xi = (\xi_0, \xi_1, \dotsc)$ shows that 
+$\f{\xi - [\ov{\xi}]}{p} \in W(A^\flat)^\times$ where $\ov{\bullet}$ denotes the residue class modulo $p$ (see \S\ref{perfectoid-def}). Let $z_0 \in W(A^\flat)$ be a fixed lift of $a \in A$, %we %We use $\xi$ to  the following sequence $\{ z_n \}_{n \ge 0}$ in $W(A^\flat)$:
+recursively define further lifts
+\[
+\tst z_{n + 1} \ce z_n - \xi  \p{\f{\xi - [\ov{\xi}]}{p}}\i \!\! \p{\f{z_n - [\ov{z}_n]}{p}} = [\ov{z}_n] - [\ov{\xi}] \p{\f{\xi - [\ov{\xi}]}{p}}\i\!\! \p{\f{z_n - [\ov{z}_n]}{p}} \in W(A^\flat), 
+\]
+and set 
+\[
+a' \ce \ov{z}_m.
+\]
+%The sequence has a constant image in $A$, and we set
+%\[
+%a' \ce \theta([\ov{z}_m]) = (\ov{z}_m)^\sharp, \q\x{so that}\q .
+%\]
+To check that $a'$ satisfies \eqref{AL-eq}, we begin by noting that a continuous valuation $\abs{\cdot}$ on $A$ defines a $\varpi^\flat$-adically continuous valuation $\abs{\cdot}_{\flat}$ on $A^\flat$ by\footnote{The triangle inequality follows from the continuity of $\abs{\cdot}$ and the formula 
+\[
+(x + x')^\sharp = \lim_{n \ra \infty} ((x^\sharp)^{\frac{1}{p^n}} + (x'^\sharp)^{\frac{1}{p^n}})^{p^n}
+\]
+that one deduces from \eqref{monoid-id} and the fact that, by induction, $b^{p^{n - 1}} \bmod p^nA$ for $b \in A$ only depends on $b \bmod pA$.} $x \mapsto \abs{x^\sharp}$ (see \eqref{monoid-id}). For $z \in W(A^\flat)$, we set 
+\[
+\tst \abs{z}_{\sup} \ce \max_{j \ge 0} (|z_{(j)}|_\flat) 
+\]
+in terms of the unique expansion
+\[
+\tst  z = \sum_{j \ge 0}\, [z_{(j)}]\cdot p^j \in W(A^\flat);
+\]
+we will only use this in inequalities ``$\le$'' to abbreviate ``every $|z_{(j)}|_\flat$ is $\le$'' (so the attainment of the $\max$ need not concern us). Since $z = (z_{(j)}^{p^j})_{j \ge 0}$ is the Witt vector expansion, the nature of Witt vector addition and multiplication  \cite{BouAC}*{chapitre IX, section 1, num\'{e}ro 3, a) et b)} ensures that the map given by $z \mapsto \abs{z}_{\sup}$ satisfies the nonarchimedean triangle inequality and  is submultiplicative.  Consequently, since
+ \[
+\tst a - a'^\sharp =  \theta(z_m - [\ov{z}_m]) = \sum_{j \ge 1} ((z_m - [\ov{z}_m])_{(j)})^\sharp\cdot p^j, %\qxq{in} A
+\]
+%and $\abs{p} < 1$ for every continuous valuation $\abs{\cdot}$ on $A$, %to conclude \eqref{AL-eq} 
+it suffices to show that
+\be \label{AL-eq-re}
+\source{purity-flat-cohomology}
+\abs{z_m - [\ov{z}_m]}_{\sup} \le \max(|\ov{z}_m|_\flat, |\varpi^\flat|_\flat^{pm}).% \q \x{.}
+\ee
+%Since $\xi \cdot \p{\f{\xi - [\xi_0]}{p}}\i = p + [\xi_0] \cdot \p{\f{\xi - [\xi_0]}{p}}\i$, we have
+By the definition of $z_{n + 1}$ and the fact that $\ov{\xi}$ is a unit multiple of $(\varpi^\flat)^p$ (see \S\ref{perfectoid-def}), we have
+\[%be \label{AL-main-ineq}
+\source{purity-flat-cohomology}
+\tst %z_{n + 1} = [\ov{z}_n] - [\ov{\xi}] \cdot \p{\f{\xi - [\ov{\xi}]}{p}}\i \cdot \p{\f{z_n - [\ov{z}_n]}{p}}, \q \x{so} \q 
+\abs{ z_{n + 1} - [\ov{z}_n]}_{\sup} \le |\varpi^\flat|_\flat^p \cdot |z_n|_{\sup}.
+\]%ee
+%where we used the nature of  
+Thus, for the least $0 \le N \le \infty$ with $\abs{\ov{z}_N}_\flat > |\varpi^\flat|_\flat^{p(N + 1)}$ (so $N$ depends on $\abs{\cdot}$), induction on $n$ gives
+\[
+\abs{z_n}_{\sup} \le |\varpi^\flat|_\flat^{pn} \q \x{for} \q n \le N,
+\]
+which settles \eqref{AL-eq-re} when $m \le N$. %, this already gives  due to the triangle inequality. 
+In the remaining case $m > N$, the preceding displays still give $\abs{ z_{N + 1} - [\ov{z}_N]}_{{\sup}} \le |\varpi^\flat|_\flat^{p(N + 1)}$, so the choice of $N$ %(that is, $\abs{\ov{z}_N}_\flat > |\varpi^\flat|_\flat^{p(N + 1)}$) 
+and the triangle inequality give $\abs{z_{N + 1}}_{\sup} = \abs{\ov{z}_N}_\flat$ and $\abs{\ov{z}_{N + 1}}_\flat = \abs{\ov{z}_N}_\flat$. Thus, by repeating with $N + 1$ in place of $N$ we get $\abs{z_{N + 2} - [\ov{z}_{N + 1}]}_{\sup} < \abs{\ov{z}_{N + 1}}_\flat$, so also $\abs{z_{N + 2}}_{\sup} = \abs{\ov{z}_{N + 1}}_\flat$ and $\abs{\ov{z}_{N + 2}}_\flat = \abs{\ov{z}_{N + 1}}_\flat$. Iteration %this until we reach $m$, 
+gives the sufficient 
+\[
+\abs{z_m}_{\sup} = \abs{\ov{z}_m}_\flat.\qedhere%, and the desired \eqref{AL-eq-re} follows from the triangle inequality.
+\]
+\epf
+
+
+%\brem
+%For some purposes, it is useful to have a graded version of the approximation lemma above. To this end, suppose that $A$ in \Cref{approx-lem} is an algebra over a perfectoid ring $A_0$ and decomposes as $A \simeq A' \oplus A''$ as an $A_0$-module, that $A^\flat$ decom. 
+%\erem
+
+
+
+
+
+We will use the approximation lemma in conjunction with the following standard fact.
+
+\blem[Special case of \cite{GR18}*{Corollary~15.4.27~(ii)}] \label{nilp-lem}
+\source{purity-flat-cohomology}
+Let $A$ be a ring equipped with the $\varpi$-adic topology for a nonzerodivisor $\varpi \in A$. An element $a \in A[\f{1}{\varpi}]$ is topologically nilpotent \up{that is, $a^n \in \varpi A$ for large $n$} if and only if $\abs{a} < 1$ for any continuous valuation $\abs{\cdot}$ on $A[\f{1}{\varpi}]$ with $\abs{A} \le 1$.
+\elem
+
+\bpf
+The `only if' is clear: if $a \in A[\f{1}{\varpi}]$ is topologically nilpotent and $\abs{\cdot}$ is continuous, then any $n > 0$ with $a^n \in \varpi A$ satisfies $|a|^n = |a^n| \le |\varpi| < 1$, so $|a| < 1$. For the `if,' we first use \cite{Hub93a}*{Lemma~3.3~(i)} to see that $a$ lies in the integral closure of $A$ in $A[\f{1}{\varpi}]$, so its powers are bounded in $A[\f{1}{\varpi}]$. We let $A^{\circ\circ} \subset A$ be the ideal of topologically nilpotent elements %of $A$ (not of $A[\f{1}{\varpi}]$) 
+and consider the $A$-subalgebra 
+$A[\f{1}{a}] \subset (A[\f{1}{\varpi}])[\f{1}{a}]$ generated by $\f{1}{a}$. 
+If $A^{\circ\circ}\cdot A[\f{1}{a}]$ is the unit ideal of $A[\f{1}{a}]$, then $a$ satisfies an equation %of integral dependence
+\[
+\tst a^N + \sum_{i = 0}^{N - 1} a_i \cdot a^i = 0 \q \x{in} \q A[\f{1}{\varpi}] \q \x{with} \q a_i \in A^{\circ\circ}.
+\]
+In this case, $a$ is topologically nilpotent because so are the $a_i \cdot a^i$ by the boundedness of $\{a^i\}_{i \ge 0}$. Thus, we are left with the case when $A^{\circ\circ} \cdot A[\f{1}{a}]$ lies in a maximal ideal $\fm \subset A[\f{1}{a}]$. In turn, $\fm$ contains a minimal prime $\fp$ of $A[\f{1}{a}]$, which extends to a minimal prime $\wt{\fp}$ of $(A[\f{1}{\varpi}])[\f{1}{a}]$ (see \cite{SP}*{Lemmas~\href{https://stacks.math.columbia.edu/tag/00E0}{00E0} and~\href{https://stacks.math.columbia.edu/tag/00FK}{00FK}}). The target of the injection 
+\[
+\tst A[\f{1}{a}]/\fp \hra (A[\f{1}{\varpi}])[\f{1}{a}]/\wt{\fp}
+\] 
+is a domain, so it has a valuation subring $V$ that dominates $(A[\f{1}{a}]/\fp)_\fm$ (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/00IA}{00IA}}). The ideal $\bigcap_{n \ge 0} \varpi^n V \subset V$ is prime, so 
+\[
+\tst\overline{V} \ce V/(\bigcap_{n \ge 0} \varpi^n V)
+\]
+is a valuation ring in which the powers of $\varpi$ get arbitrarily close to $0$. Thus, the map $A[\f{1}{\varpi}] \ra \ov{V}[\f{1}{\varpi}]$ gives rise to a continuous valuation $\abs{\cdot}$ with $\abs{A} \le 1$ and $|\f{1}{a} | \le 1$. The latter contradicts $\abs{a} < 1$.
+%and is continuous by \cite{Hub93a}*{3.1} because $|a'| < 1$ for every topologically nilpotent $a' \in A[\f{1}{\varpi}]$ (some power of $a'$ lies in $A^{\circ\circ}$). The contradiction then results from , which gives 
+\epf
+
+
+
+
+
+
+
+As a final preparation for the promised variant of Andr\'{e}'s lemma, we review ind-syntomic ring maps.
+
+
+\bpp[Ind-fppf and ind-syntomic ring maps] \label{ind-fppf-maps}
+\source{purity-flat-cohomology}
+A ring map $A \ra A'$ is \emph{ind-fppf} (resp.,~\emph{ind-syntomic}) if $A'$ is a filtered direct limit of faithfully flat, finitely presented (resp.,~syntomic\footnote{%As in \cite{SP}*{\href{https://stacks.math.columbia.edu/tag/00SL}{00SL}}, 
+A ring map $A \ra A'$ \emph{syntomic} if $\Spec(A')$ is covered by spectra of $A$-algebras of the form $A[x_1, \dotsc, x_n]/(f_1, \dotsc, f_c)$ with each $A[x_1, \dotsc, x_n]/(f_1, \dotsc, f_i)$ flat over $A$ and $f_1, \dotsc, f_c$ a regular sequence in $A[x_1, \dotsc, x_n]_\fp$ for every prime $\fp \supset (f_1, \dotsc, f_c)$ (by \cite{SP}*{Lemmas~\href{https://stacks.math.columbia.edu/tag/00SY}{00SY} and~\href{https://stacks.math.columbia.edu/tag/00SV}{00SV}}, this definition agrees with its counterpart \cite{SP}*{Definition~\href{https://stacks.math.columbia.edu/tag/00SL}{00SL}} used in \emph{op.~cit.}). % The reference justify most clearly that syntomic in the sense there implies syntomic in the sense here. For the other direction one uses the flatness assumption to argue that sequence $f_1, \dotsc, f_c$ remains regular in the stalks of the $A$-fibers.
+%it is finitely presented, flat, and the local rings of the $A$-fibers of $A'$ are complete intersections. Concretely, $A \ra A'$ is syntomic if and only if  (see .
+}) $A$-algebras.\footnote{The distinction between ind-fppf and merely faithfully flat maps is subtle: for instance, if $R$ is a Noetherian local ring and $\wh{R}$ is its completion, then $R \ra \wh{R}$ is flat but, by \cite{Gab96}*{Proposition~1}, not ind-fppf when it has a nonreduced fiber and $R$ is a $\bQ$-algebra (as happens %The latter happens, for instance, for $R$ constructed 
+in \cite{FR70}*{proposition~3.1}). For further examples of maps that are faithfully flat but not ind-fppf, see \cite{SP}*{Section~\href{https://stacks.math.columbia.edu/tag/0ATE}{0ATE}}.}
+ %Such maps are flat but need not be faithfully flat.
+%By a slight abuse of terminology, we call a map $A \ra A'$ of commutative rings is \emph{ind-fppf} if  is a filtered direct limit of finitely presented, flat $A$-algebras.  (hence the abuse). 
+It is useful to note that $A \ra A'$ is ind-fppf if and only if it is faithfully flat and $A'$ is a filtered direct limit of flat, finitely presented $A$-algebras. Concretely, $A \ra A'$ is ind-fppf (resp.,~ind-syntomic) if and only if every $A$-algebra map $B \ra A'$ with $B$ finitely presented over $A$ factors as $B \ra S \ra A'$ with $S$ faithfully flat, finitely presented (resp.,~syntomic) over $A$ (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/07C3}{07C3}}). In particular, ind-fppf and ind-syntomic maps are stable under composition\footnote{For instance, to show that the composition of ind-fppf maps $A \ra A'$ and $A' \ra A''$ is ind-fppf, %to show the same for $A \ra A''$, 
+for a test $B \ra A''$ over $A$ we factorize $A' \ra A' \tensor_A B \ra S \ra A''$ with $A' \ra S$ faithfully flat and finitely presented, express $A'$ as a filtered direct limit of faithfully flat, finitely presented $A$-algebras, and then descend the factorization using limit formalism, faithful flatness of $A \ra A''$, and \cite{EGAIV3}*{corollaire 11.2.6.1} (in the syntomic version, we use \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0C33}{0C33}} instead).} % we also use faithful flatness of $A \ra A''$. 
+and base change. A finite product or a  filtered direct limit of ind-fppf (resp.,~ind-syntomic) $A$-algebras is ind-fppf (resp.,~ind-syntomic). Certainly, faithfully flat ind-syntomic maps are ind-fppf.
+\epp
+
+
+
+\bthm \label{Andre-lem} 
+\source{purity-flat-cohomology}
+Let $A$ be a ring, let $\varpi \in A$ with $\varpi^p \mid p$ be such that it has compatible $p$-power roots $\varpi^{1/p^n} \in A$, and suppose that either %and a set $\{ P\}_{P \in \cP}$ of monic polynomials $P \in A[T]$, if either
+\benumr
+\m \lab{AL-i}
+$A$ is a $\varpi$-adically complete perfectoid\uscolon or
+%with $\varpi^p = p$ \up{for perfectoid $A$ such a $\varpi$ always exists, see \uS\uref{perfectoid-def}}\uscolon or
+
+\m \lab{AL-ii}
+$A$ is $\varpi$-Henselian, its $\varpi$-adic completion is perfectoid, and $\varpi$ is a nonzerodivisor in $A$.
+\eenum
+There are a faithfully flat, ind-syntomic, %\up{see \uS\uref{ind-fppf-maps}}, 
+$\varpi$-Henselian $A$-algebra $A'$ whose $\varpi$-adic completion $\wh{A'}$ is perfectoid and a $\varpi$-divisible ideal $I' \subset A'$ with $A'/I'$ faithfully flat over $A$ such that every monic $P \in A'[T]$ has a root $\gA_P \in A'/I'$ with compatible $\gA_P^{1/p^n} \in A'/I'$, 
+%\[
+%\x{each} \q P \in \cP \q \x{has a root} \q \gA_P \in A'/I' \q \x{that has compatible $p$-power roots} \q \gA_P^{1/p^n} \in A'/I';
+%\]
+in particular, the $\gA_P^{1/p^n}$ exist in %the perfectoid $A$-algebra 
+$\wh{A'}$. %\cong \wh{A'/I'}$. 
+\ethm
+
+
+\brem
+%If $\cP$ consists of a single polynomial $T - a$, then
+The perfectoid $\wh{A'}$ contains compatible $p$-power roots of every $a \in A$, and $\wh{A'}/(\varpi)$ is faithfully flat over $A/(\varpi)$. Thus, the preceding theorem  recovers the original lemma of Andr\'{e} \cite{Bha18a}*{Theorem~1.5}, in which one only required $\wh{A'}/(\varpi)$ to be \emph{almost} faithfully flat over $A/(\varpi)$.
+\erem
+
+
+\bpp[]\bpf[Proof of Theorem \uref{Andre-lem}]
+The final assertion follows from the rest because $\wh{A'} \cong \wh{A'/I'}$ by the $\varpi$-divisibility of $I'$.
+ By \Cref{lem:perfectoid-quotient-of-torsion-free}, the perfectoid $A$ in \ref{AL-i} is a quotient of a perfectoid $\wt{A}$ that is $\wt{\varpi}$-torsion free and $\wt{\varpi}$-adically complete  for a lift $\wt{\varpi} \in \wt{A}$ of $\varpi$ with $\wt{\varpi}^p \mid p$. Once some $\wt{A}'$ with a $\wt{\varpi}$-divisible ideal $\wt{I}' \subset \wt{A}'$ works for $\wt{A}$ with respect to $\wt{\varpi}$, its quotient $A' \ce \wt{A}' \tensor_{\wt{A}} A$ with the image $I' \subset A'$ of $\wt{I}'$ works for $A$ (%: the $\varpi$-adic completion of $A'$ is perfectoid by 
+see \Cref{recognize}~\ref{R-a}). 
+This reduces \ref{AL-i} to \ref{AL-ii}.
+
+%Since $\varpi^p = p$ in \ref{AL-i}, the $\varpi$-adic completion (resp.,~$\varpi$-divisibility) amounts to $p$-adic completion (resp.,~$p$-divisibility). 
+For the rest of the proof, we assume \ref{AL-ii} and build on the argument of \cite{GR18}*{Theorem~16.9.17}, which established a similar result without the ind-syntomic aspect. We may then restrict to those $P$ that belong to the set $\cP$ of all the monic polynomials in $A[T]$: indeed, since $A'$ inherits the assumption \ref{AL-ii}, we may \emph{a posteriori} iterate the construction countably many times to build a tower
+\[
+A \equalscolon A_0' \ra A_1' \ra A_2' \ra \dotsc \qxq{and $\varpi$-divisible ideals} I_n' \subset A_n' \qxq{for} n > 0
+\]
+such that $I_n' \subset A_n'$ satisfy the requirements with respect to the monic polynomials in $A_{n - 1}'[T]$; since 
+\[
+\tst A_n'/(\sum_{1 \le i \le n} I_i'A_n') \qxq{is faithfully flat over} A_{n - 1}'/(\sum_{1\le i \le n - 1} I_i'A_{n -1}')
+\]
+and hence, by induction, also over $A$, the ring $A_\infty' \ce \varinjlim_{n \ge 0} A_n'$ with its $\varpi$-divisible ideal $I_\infty' \ce \sum_{i \ge 1} I_i' A_\infty'$ then satisfies the requirements with respect to the monic polynomials in $A_\infty'[T]$ (see \eqref{p-oid-mod-pi} and the end of \S\ref{perfectoid-def}).  With $\cP$ fixed, we may drop the  requirement that $A'$ be $\varpi$-Henselian---indeed, we may acquire this \emph{a posteriori} by replacing $A'$ by its $\varpi$-Henselization: since $\varpi$ lies in the maximal ideals of $A$, this does not lose faithful flatness (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/00HP}{00HP}}). Thus, dropping $\varpi$-Henselianity and restricting to $P \in \cP$, we first define $A'$ and then, in the rest of the proof, check that it meets the requirements. We let $A_\infty$ be the subring
+\[
+\tst  \p{A\left[T_P^{1/p^n} \, \big\vert\, P \in \cP,\, n \ge 0\right]}\tst [\f{P(T_P)}{\varpi^m} ]_{ P \in \cP,\, m \ge 0} \subset \p{A\left[T_P^{1/p^n} \, \big\vert\, P \in \cP ,\, n \ge 0  \right]}[\tst\f{1}{\varpi}],
+\]
+so that
+\[
+A_\infty[\tst \f{1}{\varpi}] \cong (A[T_P^{1/p^n} \, \big\vert\, P \in \cP ,\, n \ge 0])[\tst\f{1}{\varpi}]
+\]
+and define a $\varpi$-divisible ideal $I_\infty \subset A_\infty$ by 
+\[
+\tst I_\infty \ce (\f{P(T_P)}{\varpi^m} \,  \big\vert\, P \in \cP,\, m \ge 0) \subset A_\infty.
+\]
+Our candidate $A'$ and a $\varpi$-divisible ideal $I' \subset A'$ are (see \S\ref{p-int-cl})
+\[
+\tst A' \ce (\x{$p$-integral closure of $A_\infty$ in $A_\infty[\tst \f{1}{\varpi}]$})
+\]
+and
+\[
+\tst I' \ce (\f{P(T_P)}{\varpi^m} \,  \big\vert\, P \in \cP,\, m \ge 0) \subset A'.
+\]
+Since each $P(T_P)$ vanishes in $A'/I'$, the class of $T_P$ is a desired root $\gA_P$. Moreover, $I_\infty$ is $\varpi$-divisible,~so
+\[
+A_\infty/(\varpi^p) \q \x{is a quotient of} \q (A[T_P^{1/p^n} \, \vert\, P \in \cP, n \ge 0])/(\varpi^p),
+\]
+and hence every element of $A_\infty/(\varpi^p)$ is a $p$-th power (the same holds for $A$ in place of $A_\infty$, see \S\ref{perfectoid-def}~\ref{PD-ii}), to the effect that $\wh{A'}$ is perfectoid by \Cref{p-oid-rec}. Due to the $\varpi$-divisibility of $I_\infty$ and $I'$, the quotients $A_\infty/I_\infty$ and $A'/I'$ are $\varpi$-torsion free, so we have
+\[
+\tst A_\infty/I_\infty \subset A'/I' \subset (A_\infty/I_\infty)[\f{1}{\varpi}] 
+\]
+and
+\[
+\tst (A_\infty/I_\infty)[\f{1}{\varpi}] \cong \p{A\left[T_P^{1/p^n} \, \big\vert\, P \in \cP,\, n \ge 0\right]/(P(T_P)\,  |\,  P \in \cP)}[\f{1}{\varpi}].
+\]
+The $\varpi$-divisibility of $I'$ and the observation about \eqref{p-int-cl-lem} with \eqref{p-oid-mod-pi} then imply that $A'/I'$ is the $p$-integral closure of $A_\infty/I_\infty$ in $(A_\infty/I_\infty)[\f{1}{\varpi}]$. We may describe $A_\infty/I_\infty$ explicitly as follows: each $P$ is monic, so 
+\[
+\tst A[T_P^{1/p^n}]_{P,\, n}/(P(T_P))_P \subset \p{A[T_P^{1/p^n} ]_{P,\, n}/(P(T_P))_P}[\f{1}{\varpi}]
+\]
+and, since  elements of this subring lift to $A_\infty$ (even to $A[T_P^{1/p^n}]_{P,\, n}$), we have 
+\[
+\tst A_\infty/I_\infty = A[T_P^{1/p^n}]_{P,\, n}/(P(T_P))_P \qxq{inside} \p{A[T_P^{1/p^n} ]_{P,\, n}/(P(T_P))_P}[\f{1}{\varpi}].
+\]
+In particular, $A'/I'$ is integral over $A$ %(see \cite{SP}*{\href{https://stacks.math.columbia.edu/tag/00GN}{00GN}}) 
+and $(A'/I')[\f{1}{\varpi}]$ is even ind-(finite, module-free) over $A[\f{1}{\varpi}]$. Thus, since  $\varpi \in A$ is a nonzerodivisor, the closed morphism $\Spec(A'/I') \ra \Spec(A)$ is surjective. Moreover, by glueing of flatness \cite{RG71}*{seconde partie, lemme 1.4.2.1}, the desired $A$-flatness of $A'/I'$ will follow from the $A/(\varpi)$-flatness of $(A'/I')/(\varpi) \cong A'/(\varpi)$. In conclusion, it remains to argue that $A'$ is $A$-ind-syntomic.
+
+For the remaining ind-syntomicity of $A'$ over $A$, due the closedness of ind-syntomic maps under filtered direct limits (see \S\ref{ind-fppf-maps}), we may replace $\cP$ by its variable finite subset. Then, since for finite $\cP$ the $A$-algebra $A'$ can equivalently be built iteratively, we may replace $\cP$ by a singleton $ \{ P \}$. To reduce further, we simplify the notation by setting $T \ce T_P$ and for $m \ge 0$ set
+\[
+A_{m} \ce \p{A[T^{1/p^n} \, \big\vert\, n \ge 0]}\tst [\f{P(T)}{\varpi^m}] \subset \p{A\left[T^{1/p^n} \, \big\vert\, n \ge 0 \right]}[\tst\f{1}{\varpi}] \cong A_{m}[\f{1}{\varpi}] \cong A_{\infty}[\f{1}{\varpi}]
+\]
+and
+\[
+\tst A'_m \ce (\x{$p$-integral closure of $A_{m}$ in $A_{m}[\tst \f{1}{\varpi}]$}).
+\]
+By another passage to a limit, it suffices to show that each $A_m'$ with $m > 0$ is ind-syntomic over $A$. To argue this, we will use the perfectoid nature of $A_0 \cong A\left[T^{1/p^n} \, \big\vert\, n \ge 0 \right]$ and the fact that $\varpi^t, P(T)$ is an $A_0$-regular sequence for any $t \in \bZ[\f{1}{p}]_{\ge 0}$ (since $P$ is monic),  to describe $A_m'$ explicitly. The $A_0$-regularity of $\varpi^m, P$ already implies an explicit description of $A_m$ (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0BIQ}{0BIQ}}%\footnote{\rv{The Noetherian assumption in \emph{loc.~cit.}~is not needed because \cite{SGA6}*{VII, 1.8 i)} reduces to the universal case.}}
+):
+\be \label{exp-blowup}
+\source{purity-flat-cohomology}
+\tst A_m \cong A_0[\f{P}{\varpi^m}] \cong A_0[X]/(\varpi^mX - P)
+\ee 
+and, likewise,
+\[
+\tst\wh{A_0}[\f{P}{\varpi^m}] \cong \wh{A_0}[X]/(\varpi^m X - P),
+\]
+where $\wh{A_0}$ is the $\varpi$-adic completion. 
+
+Since $\wh{A_0}$ is perfectoid (see \S\ref{perfectoid-def}), by \Cref{approx-lem}, there is a $Q \in \wh{A_0}$ that admits compatible $p$-power roots $Q^{1/p^j} \in \wh{A_0}$ such that
+\be \label{PQ-ineq}
+\source{purity-flat-cohomology}
+\tst \abs{P - Q} < \max(|Q|, | \varpi^m |)
+\ee 
+for every continuous valuation $\abs{\cdot}$ on $\wh{A_0}[\f{1}{\varpi}]$ with $| \wh{A_0} | \le 1$. 
+Letting %$A_0^+$ and 
+$\wh{A_0}{}^+$ be the integral closure of %$A_0$ and 
+$\wh{A_0}$ in %$A_0[\f{1}{\varpi}]$ and 
+$\wh{A_0}[\f{1}{\varpi}]$, we then have
+\[
+\tst \{ \abs{\f{P}{\varpi^m}} \le 1 \} = \{ |\f{Q}{\varpi^m}| \le 1 \} \q \x{in} \q \Spa(\wh{A_0}[\f{1}{\varpi}], \wh{A_0}{}^+). %\overset{\x{\cite{Hub93a}*{3.9}}}{\cong} \Spa(A_0[\f{1}{\varpi}], A_0^+).
+\]
+This agreement implies that if we endow $\wh{A_0}[\f{P}{\varpi^m}]$ and $\wh{A_0}[\f{Q}{\varpi^m}]$ with their $\varpi$-adic topologies, then the continuous valuations $\abs{\cdot}$ on $(\wh{A_0}[\f{P}{\varpi^m}])[\f{1}{\varpi}]$ with $ | \wh{A_0}[\f{P}{\varpi^m}] | \le 1$ are identified with the continuous valuations on $(\wh{A_0}[\f{Q}{\varpi^m}])[\f{1}{\varpi}]$ with $ | \wh{A_0}[\f{Q}{\varpi^m}] | \le 1$. Moreover, \eqref{PQ-ineq} implies that every such valuation satisfies $| \f{P}{\varpi^m} - \f{Q}{\varpi^m} | < 1$. Consequently, by \Cref{nilp-lem}, every
+\be \label{PQ-power}
+\source{purity-flat-cohomology}
+\tst \x{large power of} \ \ \f{P}{\varpi^m} - \f{Q}{\varpi^m} \ \ \x{lies in} \ \ \varpi(\wh{A_0}[\f{P}{\varpi^m}]) \ \  \x{and} \ \ \varpi(\wh{A_0}[\f{Q}{\varpi^m}]).
+\ee
+\Cref{nilp-lem} and \eqref{PQ-ineq} also imply that $(P - Q)^{p^t} \in \varpi\wh{A_0}$ for some $t \in \bZ_{\ge 0}$, so that, by \eqref{p-oid-mod-pin}, we have $P - Q \in \varpi^{1/p^t}\wh{A_0}$. In particular, 
+\be \lab{Qpj-monic}
+Q^{1/p^j} \qxq{is monic in} \wh{A_0}/\varpi^{1/p^{j + t}}
+\ee
+(see \eqref{p-oid-mod-pin}), so the sequence 
+\be \label{piQ-regseq}
+\source{purity-flat-cohomology}
+\varpi^{m/p^{j}}, Q^{1/p^j} \q \x{is $\wh{A_0}$-regular for every $j \ge 0$}
+\ee
+(see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/07DV}{07DV}}). Consequently, analogously to \eqref{exp-blowup}, we have 
+\be \label{exp-blowup-2}
+\source{purity-flat-cohomology}
+\tst \wh{A_0}[\f{Q^{1/p^j}}{\varpi^{m/p^{j}}}] \cong \wh{A_0}[X^{1/p^j}]/(\varpi^{m/p^j} X^{1/p^j} - Q^{1/p^j}),
+\ee
+where we chose the label `$X^{1/p^j}$' for the polynomial variable to make evident the resulting identification
+\be \label{hat-id}
+\source{purity-flat-cohomology}
+\tst \wh{A_0}[\f{Q^{1/p^j}}{\varpi^{m/p^{j}}}\, |\, j \ge 0] \cong \wh{A_0}[X^{1/p^j}\, | \, j \ge 0]/(\varpi^{m/p^j} X^{1/p^j} - Q^{1/p^j})_{j \ge 0}.
+\ee
+It then follows from \eqref{p-oid-mod-pi} that the $\varpi$-adic completion of the subalgebra 
+\[
+\tst \wh{A_0}[\f{Q^{1/p^j}}{\varpi^{m/p^{j}}}\, |\, j \ge 0] \subset \wh{A_0}[\f{1}{\varpi}]
+\]
+is perfectoid, and hence, from the observation about \eqref{p-int-cl-lem}, that this subalgebra is $p$-integrally closed. Due to \eqref{PQ-power}, the $p$-integral closure of $\wh{A_0}[\f{P}{\varpi^m}]$ in $\wh{A_0}[\f{1}{\varpi}]$ contains $\f{Q}{\varpi^m}$ and the $p$-integral closure of $\wh{A_0}[\f{Q}{\varpi^m}]$ in $\wh{A_0}[\f{1}{\varpi}]$ contains $\f{P}{\varpi^m}$, so it follows that these two closures agree and both are equal to 
+\[
+\tst \wh{A_0}[\f{Q^{1/p^j}}{\varpi^{m/p^{j}}}\, |\, j \ge 0].
+\]
+To describe the sought $p$-integral closure $A_m'$ of $A_0[\f{P}{\varpi^m}]$ in $A_0[\f{1}{\varpi}]$ for $m > 0$, we now take advantage of the preceding analysis over $\wh{A_0}$. We use \eqref{PQ-power} to fix a $d > 0$ such that 
+\be \label{PQ-power-2}
+\source{purity-flat-cohomology}
+\tst (P - Q)^{p^d} \in \varpi^{mp^d}(\wh{A_0}[\f{P}{\varpi^m}]) \q \x{and} \q (P - Q)^{p^d} \in \varpi^{mp^d}(\wh{A_0}[\f{Q}{\varpi^m}]).
+\ee
+We then fix a 
+\[
+q \in A_0 \qxq{congruent to}  Q \in \wh{A_0} \q \x{modulo $\varpi^{mp^d}$,}
+\]
+so that the image of $q$ in $A_0/\varpi^{1/p^t}$ is monic and $\varpi^m, q$ is an $A_0$-regular sequence (compare with \eqref{piQ-regseq}). Consequently, as in \eqref{exp-blowup}, we have 
+\[
+\tst A_0[\f{q}{\varpi^m}] \cong A_0[X]/(\varpi^mX - q).
+\]
+By combining this with \eqref{exp-blowup} and \eqref{exp-blowup-2}, we see that both maps
+\[
+\tst A_0[\f{P}{\varpi^m}] \ra \wh{A_0}[\f{P}{\varpi^m}]
+\]
+and
+\[
+\tst A_0[\f{q}{\varpi^m}] \cong A_0[X]/(\varpi^mX - q) \xra{X \mapsto X + \f{q - Q}{\varpi^m}} \wh{A_0}[X]/(\varpi^mX - Q) \cong \wh{A_0}[\f{Q}{\varpi^m}]
+\]
+induce isomorphisms on $\varpi$-adic completions. Thus, since these maps are compatible with the $\varpi$-adic completion map $A_0 \ra \wh{A_0}$, we get from \eqref{PQ-power-2} that % the second one is a little tricky but seems ok: the point is that the isomorphisms in the preceding displays commute with the natural map $A_0 \ra \wh{A_0}$.
+\[
+\tst (P - q)^{p^d} \in \varpi^{mp^d}(A_0[\f{P}{\varpi^m}]) \q \x{and} \q (P - q)^{p^d} \in \varpi^{mp^d}(A_0[\f{q}{\varpi^m}]).
+\]
+Consequently, the $p$-integral closures of $A_0[\f{P}{\varpi^m}]$ and $A_0[\f{q}{\varpi^m}]$ in $A_0[\f{1}{\varpi}]$ agree, and hence equal $A_m'$. 
+
+To proceed, we fix $q_j \in A_0$ for $j \ge 0$ such that $q_0 \ce q$ and
+\be \label{qj-def}
+\source{purity-flat-cohomology}
+q_{j} \equiv Q^{1/p^j} \bmod \varpi^{mp} A_0 \q \x{for} \q j > 0.
+\ee
+Since $q_{j + 1}^p \equiv q_j \bmod \varpi^{mp} A_0$, we have $(\f{q_{j + 1}}{\varpi^{m/p^{j + 1}}})^p - \f{q_j}{\varpi^{m/p^j}} \in A_0$ for every $j \ge 0$, so the subalgebras
+\be \label{include-a-lot}
+\source{purity-flat-cohomology}
+\tst A_0[\f{q}{\varpi^{m}}] \subset \dotsc \subset A_0[\f{q_j}{\varpi^{m/p^j}}] \subset A_0[\f{q_{j + 1}}{\varpi^{m/p^{j + 1}}}] \subset \dotsc \q \x{in} \q A_0[\f{1}{\varpi}]
+\ee
+are contained in the $p$-integral closure $A_m'$ of $A_0[\f{q}{\varpi^{m}}]$ in $A_0[\f{1}{\varpi}]$. In fact, their union is $p$-this integral closure: to show this, we first note that, due to \eqref{piQ-regseq} and \eqref{qj-def}, the sequence $\varpi^{m/p^j}, q_j$ is $A_0$-regular, and hence, analogously to \eqref{exp-blowup-2}, that
+\[
+\tst A_0[\f{q_j}{\varpi^{m/p^j}}] \cong A_0[X_j]/(\varpi^{m/p^j} X_j - q_j).
+\]
+In terms of these identifications, the inclusions \eqref{include-a-lot} become the maps
+\[
+%A_0[X_0](\varpi^mX_0 - q) \ra \dotsc 
+A_0[X_j]/(\varpi^{m/p^j} X_j - q_j) \xra{X_j\, \mapsto\, X_{j + 1}^p  + \f{q_j - q_{j + 1}^p}{\varpi^{m/p^j}}} A_0[X_{j + 1}]/(\varpi^{m/p^{j + 1}} X_{j + 1} - q_{j + 1})
+\]
+Since $\varpi^{pm} \mid q_j - q_{j + 1}^p$ and $pm - \f{m}{p^j} \ge 1$, we see from \eqref{hat-id} that the direct limit of these maps modulo $\varpi$ is identified with $(\wh{A_0}[\f{Q^{1/p^j}}{\varpi^{m/p^{j}}}\, |\, j \ge 0])/\varpi$. Since $\wh{A_0}[\f{Q^{1/p^j}}{\varpi^{m/p^{j}}}\, |\, j \ge 0]$ is $p$-integrally closed in $\wh{A_0}[\f{1}{\varpi}]$, it follows from the observation about \eqref{p-int-cl-lem} (applied with $\varpi$ there replaced by $\varpi^{1/p}$) that $A_0[\f{q_j}{\varpi^{m/p^{j}}}\, |\, j \ge 0]$ is $p$-integrally closed in $A_0[\f{1}{\varpi}]$, and hence that it equals $A_m'$.
+
+Thanks to this explicit description of $A_m'$ and the stability of ind-syntomic algebras under filtered direct limits, all that  remains is to show that each $A_0[X_j]/(\varpi^{m/p^j} X_j - q_j)$ is ind-syntomic over $A$. However, $q_j$ comes from  $A[T^{1/p^n}]$ for every large enough $n$ and its image in $(A/\varpi^{1/p^{j + t}})[T^{1/p^n}]$ is monic (see \eqref{qj-def} and \eqref{Qpj-monic}). Thus, the ($(A[T^{1/p^n}])[X_j]$)-regular element $\varpi^{m/p^j} X_j - q_j$ stays regular on every $A$-fiber of $(A[T^{1/p^n}])[X_j]$. Consequently, each $(A[T^{1/p^n}])[X_j]/(\varpi^{m/p^j} X_j - q_j)$ is a syntomic $A$-algebra (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/00SW}{00SW}}), and it remains to form the direct limit in $n$.
+\epf
+\epp
+
+
+
+%\brem
+%As is clear from the proof, the conclusion of \Cref{Andre-lem} continues to hold if instead of assuming that $A$ be perfectoid one assumes that the $\varpi$-adic completion of $A$ is perfectoid for some nonzerodivisor $\varpi \in A$ with $\varpi^p \mid p$ that has compatible $\varpi$-power roots $\varpi^{1/p^n} \in A$. 
+%\erem
+
+
+The following consequence of Andr\'{e}'s lemma gives convenient ``semiperfectoid'' covers of $\bZ_{(p)}$-algebras. 
+
+\bcor \label{cor:semiperfectoid-cover}
+\source{purity-flat-cohomology}
+Every ring $A$ that is $p$-Zariski in the sense that $1 + pA \subset A^\times$ admits a faithfully flat map $A \ra A_\infty$ such that the $p$-adic completion of $A_\infty^\red$ is perfectoid, $A_\infty$ is a quotient of a $p$-torsion free, $p$-Henselian ring $\wt{A}_\infty$ whose $p$-adic completion is perfectoid, and every monic polynomial in $\wt{A}_\infty[T]$ has a root in $\wt{A}_\infty$ \up{so the same also holds with $A_\infty$ or $A_\infty^\red$ in place of $\wt{A}_\infty$}.
+\ecor
+
+\bpf
+The $p$-Zariski condition amounts to $p$ lying in the Jacobson radical, equivalently, in every maximal ideal, of $A$. We recall that the \emph{$p$-Zariskization} of a ring $B$ is the localization $B_{1 + pB}$. By replacing $A$ by the $p$-Zariskization of the countable iteration of the construction 
+\[
+A \mapsto A[X_a^{1/p^\infty}\, \vert\, a \in A]/(X_a - a \, \vert \, a \in A),
+\]
+we lose no generality by assuming that every $a\in A$ admits compatible $p$-power roots $a^{1/p^n}$ in $A$. In turn, such an $A$ is then a quotient of the $p$-torsion free $\bZ_{(p)}$-algebra $\wt{A}$ that is the $p$-Zariskization of 
+\[
+\bZ[p^{1/p^\infty}][X_a^{1/p^{\infty}}\, \vert\, a \in A].
+\]
+By \Cref{recognize}~\ref{R-0}, the $p$-adic completion of $\wt{A}$ is perfectoid, so we apply \Cref{Andre-lem} to the $p$-Henselization of $\wt{A}$ to build a faithfully flat, $p$-Henselian $\wt{A}$-algebra $\wt{A}_\infty$ whose $p$-adic completion is perfectoid such that every monic polynomial in $\wt{A}_\infty[T]$ has a root in $\wt{A}_\infty$. The quotient $A_\infty \ce \wt{A}_\infty \tensor_{\wt{A}} A$ of $\wt{A}_\infty$ is faithfully flat over $A$ and every element of its nilradical admits a $p$-th root. \Cref{recognize}~\ref{R-c} then ensures that the $p$-adic completion of $A_\infty^\red$ is perfectoid.
+\epf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

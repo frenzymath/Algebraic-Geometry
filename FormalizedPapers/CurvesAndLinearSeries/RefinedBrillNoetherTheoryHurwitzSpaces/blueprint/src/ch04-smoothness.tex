@@ -1,0 +1,112 @@
+% Source-derived chapter 04: Smoothness
+% Original source: refined-brill-noether-theory-hurwitz-spaces
+\chapter{Smoothness}
+\label{refined-brill-noether-theory-hurwitz-spaces-chapter-04}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+
+\begin{remark}[Source section]
+\label{refined-brill-noether-theory-hurwitz-spaces-chapter-04-source}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Smoothness
+\label{smoothness}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+
+In this section, we prove that $\Sigma_{\vec{e}}(C, f)$ is smooth for general $f\colon  C \rightarrow \pp^1$. This should be thought of as an analogue of the Gieseker-Petri theorem, which was first proved by Gieseker \cite{G}, and later by Eisenbud-Harris \cite{EH2} using a degeneration with elliptic tails.
+
+For every $L \in \Pic^d(C)$, there is a natural map
+\begin{equation} \label{dmap}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+H^1(\pp^1, f_*\O_C) =H^1(C, \O_C) = \Def^1(L) \rightarrow \Def^1(f_*L) = H^1(\pp^1, End(f_*L)),
+\end{equation}
+sending a first order deformation of $L$ to the induced deformation of the push forward. This map is realized by taking cohomology of the map of sheaves $\eta: f_*\O_C \rightarrow End(f_*L)$ that locally sends a function $z$ on $C$ to the endomorphism ``multiplication by $z$" on $L$, viewed as an $\O_{\pp^1}$ module.
+The kernel of \eqref{dmap} is the tangent space to $\Sigma_{\vec{e}}(C, f)$.
+Thus, our goal is to show that \eqref{dmap} is surjective for all $L \in \Pic^d(C)$. Indeed, this implies that if $\Sigma_{\vec{e}}(C, f)$ is non-empty, 
+\[\dim T_L \Sigma_{\e}(C, f) \leq g - \dim \Def(f_*L) = g - u(\vec{e}) \leq \dim \Sigma_{\vec{e}}(C, f),\]
+so it is smooth.
+
+We proceed by showing that the Serre dual of \eqref{dmap},
+\begin{equation} \label{sd}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\mu: H^0(\pp^1, End(f_*L) \otimes \omega_{\pp^1}) \rightarrow H^0(\pp^1, (f_*\O_C)^\vee \otimes \omega_{\pp^1}),
+\end{equation}
+is injective. The kernel of this map is the ``obstruction to smoothness." We think of $H^0(\pp^1, End(f_*L) \otimes \omega_{\pp^1})$ as the subspace of $H^0(\pp^1, End(f_*L))$ vanishing at two prescribed points. The map $\mu$ is thus a restriction of the map on global sections induced by
+\[\tilde{\mu}: End(f_*L) \cong End(f_*L)^\vee \to (f_* \O_C)^\vee,\]
+which is the composition of the canonical isomorphism $End(f_*L) \cong End(f^*L)^\vee$ with the map dual to $\eta$. For any vector bundle $E$, this isomorphism
+$End(E) \cong End(E)^\vee$
+ is induced by the perfect pairing $End(E) \times End(E) \to \O$ given by $(\phi, \psi) \mapsto \tr(\phi \cdot \psi)$. Therefore, $\tilde{\mu}$ sends
+an endomorphism $\phi \in End(f_*L)(U)$ to the linear functional on $(f_*\O_C)(U)$ given by $z \mapsto \tr(\phi  \cdot \eta(z))$. We will need to know that this map is non-zero on certain elements over components of our degeneration.
+
+\begin{Lemma}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\notready \label{nz}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+Let $f\colon  X \rightarrow \pp^1$ be a degree $k$ map of an elliptic curve to $\pp^1$ and let $L \in \Pic^d(C)$.
+If $\phi \in H^0(\pp^1, End(f_*L))$ is represented by a matrix with a single nonzero entry, then $\tilde{\mu}(\phi) \neq 0$. 
+\end{Lemma}
+\begin{proof}
+For each open subset $U \subset \pp^1$, we have a commutative diagram
+\begin{center}
+\begin{tikzcd}
+& H^0(\pp^1, End(f_*L)) \arrow{d} \arrow{r}{\tilde{\mu}} & \arrow{d} H^0(\pp^1, (f_*\O_C)^\vee) \\
+& H^0(U, End(f_*L)) \arrow{r}[swap]{(\tilde{\mu})|_U} & H^0(U, (f_*\O_C)^\vee).
+\end{tikzcd}
+\end{center}
+It suffices to show that the image of $\phi$ in the lower right is nonzero.
+Choose $U$ small enough that $L$ is trivialized on $f^{-1}(U)$ and $f_*\O_C$ is trivialized on $U$, so
+we have isomorphisms $(f_*L)|_U \cong (f_*\O_C)|_U \cong \O_{U}^{\oplus k}$. By hypothesis, there exists a basis so that, $\phi|_U : \O_U^{\oplus k} \rightarrow \O_U^{\oplus k}$ is represented by a matrix with one non-zero entry, say in the $(i, j)$ slot. These basis vectors of $\O_U^{\oplus k}$ correspond to non-vanishing functions in $\O_C(f^{-1}(U))$. The ratio of the $j$th basis element over the $i$th basis element therefore defines a function $z \in \O_C(f^{-1}(U))$ such that the $(j, i)$ entry of $\eta(z)$ is non-zero.
+Hence, $\tr(\phi|_U \cdot \eta(z)) \neq 0$, showing $\tilde{\mu}(\phi|_U)$ is non-zero.
+\end{proof}
+
+We now deduce the desired injectivity by studying limits on the central fiber of our degeneration from the previous section, continuing all notation developed there.
+Recall that for each $\L_0 \in \Pic^d(\X_0)$, we understood $V_\L \subset H^0(End(\f_*\L_0))$ through its image under the inclusion $\iota$ as compatible tuples $(\phi_1, \ldots, \phi_g)$ in $\bigoplus_{i=1}^g H^0(P_i, End(E_i))$.
+\begin{Lemma}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\notready \label{sm}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+For general $\X_t \rightarrow \P_t $ in our degeneration,
+\[
+\mu_t: H^0(\P_t, End(f_*\L_t) \otimes \omega_{\P_t}) \rightarrow H^0(\P_t, (f_*\O_{\X_t})^\vee \otimes \omega_{\P_t}),
+\]
+is injective for all $\L_t \in \Pic^d(\X_t)$. Hence, if it is non-empty, $\Sigma_{\vec{e}}(C, f)$ is smooth for general degree $k$ covers $f\colon  C \rightarrow \pp^1$.
+\end{Lemma}
+\begin{proof}
+Let $\omega$ be the relative dualizing sheaf of $\P \rightarrow \Delta$. 
+ Recall that $p_0$ and $p_g$ are points of total ramification of $\f|_{\X_0}$ that are distinct from the nodes. We set $\zeta_1 = f(p_0) \in P_1$ and $\zeta_g = f(p_g) \in P_g$, so we have an isomorphism $\omega|_{\P_0} \cong \O_{\P_0}(-\zeta_1 - \zeta_g)$.
+
+Let $\L$ be given and define $V_\L(-\zeta_1-\zeta_g) \subset V_\L$ to be the subspace of sections vanishing at $\zeta_1$ and $\zeta_g$.
+We have a commutative diagram
+\begin{center}
+\begin{tikzcd}
+V_\L(-\zeta_1-\zeta_g) \arrow[swap]{ddr}{\iota} \arrow{r} &H^0(\P_0, End(\f_*\L_0) \otimes \omega|_{\P_0}) \arrow{d} \arrow{r}{\mu} &H^0(\P_0, (\f_*\O_{\X_0})^\vee \otimes \omega|_{\P_0}) \arrow{d} \\
+&H^0(\P_0, End(\f_*\L_0)) \arrow{d} \arrow{r}{\tilde{\mu}} &H^0(\P_0, (\f_*\O_{\X_0})^\vee) \arrow{d}\\
+ &\bigoplus_{i=1}^g H^0(P_i, End(E_i)) \arrow[swap]{r}{\oplus \tilde{\mu}_i} &\bigoplus_{i=1}^g H^0(P_i, ((f_i)_*\O_{X_i})^\vee).
+\end{tikzcd}
+\end{center}
+By uppersemi-continuity, injectivity of $\mu_t$ for general $t$ follows from showing the composition along the top row is injective. We will show that the composition from the upper left to the lower right along the bottom is injective.
+
+For each $i$, 
+let $W_p^i \subset H^0(P_i, End(E_i))$ denote the subspace of endomorphisms on component $i$ that are order preserving at $p$. In addition, let $\diag^i_{p} : W_{p}^i \rightarrow \cc^{\oplus k}$ be defined by $\phi_i \mapsto (d_{p}^{(0)}(\phi_i), \ldots, d_{p}^{(k-1)}(\phi_i))$, which we saw in Lemma \ref{zing} corresponds to taking diagonal entries of a matrix representative for an endomorphism. 
+On $W_{p_{i-1}} \cap W_{p_{i}}$, the maps $\diag^i_{p_i}$ and $\diag^i_{p_{i-1}}$ are both defined  and are related by a permutation (they correspond to taking diagonal entries of a matrix in different orders). Hence,
+\begin{equation} \label{twoeq}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+W_{p_{i-1}} \cap W_{p_{i}} \cap \ker(\diag^i_{p_i}) = W_{p_{i-1}} \cap W_{p_{i}} \cap \ker(\diag^i_{p_{i-1}}).
+\end{equation}
+Lemma \ref{cond} \eqref{d}, implies that in a compatible tuple, if $\phi_{i-1} \in \ker(\diag^{i-1}_{p_i})$ then $\phi_i \in \ker(\diag^i_{p_i})$.
+Note that, taking a matrix representation for $\phi_1$ as in \eqref{mat}, the condition $\phi_1(\zeta_1) = 0$ is that $c_{j, \ell} = 0$ and $\alpha_{\ell, j}  = 0$ for \textit{all} $\ell, j$. Thus, if $\phi_1(\zeta_1) = 0$, then $\phi_1 \in  W_{p_0}^1 \cap \ker(\diag^1_{p_0})$. 
+Similarly, if $\phi_g(\zeta_g) = 0$ then $\phi_g \in W_{p_g} \cap \ker(\diag^g_{p_g})$.
+By Lemma \ref{cond} and \eqref{twoeq}, we therefore have
+\begin{equation*}
+\iota(V_\L(-\zeta_1-\zeta_g)) \subseteq \left\{(\phi_1, \ldots, \phi_g) : 
+\text{ $\phi_i \in W_{p_{i-1}}^i \cap W_{p_i}^i \cap \ker(\diag^{i}_{p_{i}})$ for $1 \leq i \leq g$}
+\right\}.
+\end{equation*}
+If $g > 1$, then we can choose a degree distribution so that $\deg(L_i)$ is never a multiple of $k$, and hence $L_i$ is never $f^*\O(n)$.
+The final sentence of Lemma \ref{zing} then ensures that each $\phi_i$ is represented by a matrix with at most one-nonzero entry. In the case $g = 1$ we need an additional argument if $L_1 = f^*\O(n)$. In this case, choosing any splitting of $f_*L_1$ induces a splitting of $End(f_*L_1)$ where all but one of the matrix entries consist of a constant or linear form, and one entry is quadratic. After imposing vanishing at $\zeta_1$ and $\zeta_g$, only the quadratic entry can be non-zero. In either case, all $\phi_i$ have at most one non-zero entry, so Lemma \ref{nz} now shows that the composition of the inclusion $\iota$ with $\oplus \tilde{\mu}_i$ is injective.
+\end{proof}

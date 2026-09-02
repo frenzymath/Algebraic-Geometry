@@ -1,0 +1,219 @@
+% Source-derived chapter 01: Introduction
+% Original source: higher-siegel-weil-unitary-nonsingular-terms
+\chapter{Introduction}
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-01}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+\begin{remark}[Source section]
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-01-source}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Introduction
+The classical Siegel--Weil formula (\cite{Siegel1951, Weil1965}) relates the special values  of Siegel--Eisenstein series on the symplectic group (resp. the unitary group) to theta functions, which are generating series of representation numbers of quadratic (resp. Hermitian) forms over number fields. In particular, by exploiting the factorization of the non-singular Fourier coefficients into a product of local terms, one arrives at Siegel's formula for representation numbers of global quadratic or Hermitian forms in terms of local representation densities. 
+
+In \cite{Kudla1997} Kudla began to study an arithmetic version of the Siegel--Weil formula and he discovered a relation between an ``arithmetic theta function'' --- a generating series of arithmetic cycles on an integral model of a Shimura curve---and the  first central derivative of a Siegel--Eisenstein series on $\Sp_4$. In a series of papers, Kudla and Rapoport developed this paradigm by defining the non-singular terms of a generating series of special cycles on suitable integral models of Shimura varieties for $\SO(n-1,2)$ with $n\leq 4$ and for all $\U(n-1,1)$. Of particular relevance to our paper, in \cite{KRI, KRII} Kudla and Rapoport defined the sought-after special cycles on integral models of unitary Shimura varieties, now known as \emph{Kudla--Rapoport cycles}, and conjectured a relationship to the non-singular Fourier coefficients  of the central derivative of the Siegel--Eisenstein series.  Their conjecture has been recently proved by Li and one of us \cite{LZ1}; we also refer to the introduction of \cite{LZ1} for a more detailed account of recent advances in some other related directions (see also \cite{LZ2} for the orthogonal analog). With the Kudla--Rapoport  conjecture proved in \cite{LZ1} and its archimedean counterpart proved by Liu \cite{Liu11}  and independently by Garcia and Sankaran \cite{GS19} as some of the key ingredients, Li and Liu \cite{LL1,LL2} have recently proved an arithmetic Rallis inner product formula relating the height pairing of the generating series to the first derivative of L-functions for unitary groups, from which they deduced cases of Beilinson--Bloch conjecture for certain high rank motives.
+
+In this paper we study a function field analogue of the arithmetic Siegel--Weil formula, for unitary groups. 
+In particular, we will construct special cycles on the moduli space of hermitian shtukas with arbitrary number of legs. Then we formulate and prove the analogue of the Kudla-Rapoport conjecture for derivatives of {\em arbitrary order} at the center of the Siegel--Eisenstein series, relating the {\em non-singular} Fourier coefficients of such higher derivatives to the degrees of special cycles. We remark that the proofs here follow a completely different strategy than in \cite{LZ1}.
+
+In the sequel \cite{FYZ2}, we will construct the complete generating series of special cycles (including singular terms) and give evidence for their modularity.
+
+\subsection{Statement of main result}
+
+
+To formulate the result, let $X$ be a smooth, proper and geometrically connected curve over $k=\F_q$ of characteristic $p\ne2$, and $\nu \co X' \rightarrow X$ be an \'{e}tale double cover, with the non-trivial automorphism denoted $\sigma \in \Aut(X'/X)$. Let $F$ be the function field of $X$ and let $F'$ be the ring of rational functions on $X'$ (we allow $X'=X\coprod X$). In \S \ref{sec: unitary shtukas} we recall the definition of the moduli stack $\Sht_{U(n)}^r$ parametrizing rank $n$ ``Hermitian shtukas'' with $r$ legs.  Roughly speaking it classifies chains of vector bundles with Hermitian structures
+\begin{equation}\label{intro Herm Sht}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\cF_{0}\dashrightarrow\cF_{1}\dashrightarrow\cdots \dashrightarrow \cF_{r}\cong {}^{\t}\cF_{0}
+\end{equation}
+related by elementary modifications. It admits a fibration $\Sht_{U(n)}^r \rightarrow (X')^r$, and will play the role of Shimura varieties in the function field context. 
+
+\subsubsection{Special cycles}
+Drawing inspiration from the construction of Kudla-Rapoport cycles on unitary Shimura varieties \cite{KRII}, we introduce in \S \ref{s:int prob} certain stacks $\Cal{Z}_{\cE}^r(a)$ over $\Sht_{U(n)}^{r}$ indexed by $\cE$, a vector bundle of rank $m$ with $1\leq m\leq n$ on $X'$, and a Hermitian map\footnote{A map of vector bundles of the form $a \co \cE \rightarrow \sigma^* \cE^\vee$ is \emph{Hermitian} if $\sigma^* a^\vee = a$.} $a \co \cE \rightarrow \sigma^* \cE^{\vee}$ where $\cE^{\vee}:= \un\Hom(\cE, \omega_{X'})$ is the Serre dual of $\cE$. They classify Hermitian shtukas as in \eqref{intro Herm Sht} together with compatible maps $\cE\to \cF_{i}$ such that $a$ is induced from the Hermitian form on $\cF_{0}$. 
+
+If $\cE$ is a line bundle on $X'$,  $\Cal{Z}_{\cE}^r(a)$ is an analogue of Kudla-Rapoport divisors although they have dimension $r$ less than $\Sht_{U(n)}^{r}$. In general, $\cZ_{\cE}^{r}(a)$ are analogs of special cycles for function fields.
+
+We will be particularly interested in the case $m=n$ and $a \co \cE \rightarrow \sigma^* \cE^{\vee}$ is injective (by this we shall always mean as a map of coherent sheaves). In this case, the ``virtual dimension'' of $\Cal{Z}_{\cE}^r(a)$ is $0$. However, as is already seen in the number field context \cite{KRII}, the literal dimension of $\Cal{Z}_{\cE}^r(a)$ is often significantly larger; this problem is exacerbated as $r$ increases. Nevertheless, under the assumption that $a \co \cE \rightarrow \sigma^* \cE^{\vee}$ is injective (as a map of coherent sheaves), we are able to construct an appropriate ``virtual fundamental cycle'' $[\Cal{Z}_{\cE}^r(a) ] \in \Ch_0(\Cal{Z}_{\cE}^r(a))_{\Q}$. Interestingly, it turns out that there are some new difficulties present in this construction that do \emph{not} appear in the Shimura variety setting. For $a$ injective, it turns out that $\Cal{Z}_{\cE}^r(a)$ is proper over $\F_{q}$, so that $[\Cal{Z}_{\cE}^r(a) ] $ has a well-defined degree $\deg[\Cal{Z}_{\cE}^r(a) ] \in \Q$. 
+
+
+
+\subsubsection{The main result}
+Let $E(g,s, \Phi)$ be the Siegel--Eisenstein series for the standard split $F'/F$-skew-Hermitian space of dimension $2n$, with respect to the unramified standard section $\Phi$. For a rank $n$ vector bundle $\cE$ on $X'$ as above, $E(g,s, \Phi)$ admits a Fourier expansion with respect to $\cE$ indexed by Hermitian maps $a \co \cE \rightarrow \sigma^* \cE^{\vee}$. We let $ \wt{E}_{a}(m(\cE),s,\Phi)$ be the $a^{\mrm{th}}$ Fourier coefficient multiplied by certain normalization factors, explained precisely in \eqref{eq: normalized Eisenstein coefficients}. 
+
+%\WZdel{Actually, it is more elegant for us to work with a normalized version $\wt{E}(g,s, \Phi)$, which is defined precisely in \eqref{eq: normalied Eisenstein series}.  For $\cE$ a rank $n$ vector bundle on $X'$ as above, $\wt{E}(g,s, \Phi)$ admits a Fourier expansion with respect to $\cE$ with Fourier coefficients indexed by maps $a \co \cE \rightarrow \sigma^* \cE^{\vee}$. We denote by $\wt{E}_a(m(\cE), s, \Phi)$ the $a^{\mrm{th}}$ Fourier coefficient in this expansion.} 
+
+
+In our normalization, $s=0$ is the center of the functional equation for $\wt{E}_a(m(\cE), s, \Phi)$. Our main theorem relates the Taylor expansion at this central point to the degrees of special cycle classes. 
+
+\begin{thm}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{th:intro} Let $n \geq 1$ and $r \geq 0$. Let $\cE$ be a rank $n$ vector bundle on $X'$ and $a \co \cE \rightarrow \sigma^*  \cE^{\vee}$ be an injective Hermitian map. Then we have
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{equation}\label{eq: intro higher derivatives}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\frac{1}{(\log q)^r}  \left(\dds \right)^r\Big|_{s=0} \left( q^{ds} \wt{E}_{a}(m(\cE),s,\Phi) \right)  =  \deg [\cZ_{\cE}^r(a)],
+\end{equation}
+where $d=-\deg(\cE)+n\deg\omega_X =-\chi(X',\cE)$.
+\end{thm}
+
+
+
+\sss{Initial comments on the proof} We stress that \eqref{eq: intro higher derivatives} holds for \emph{all} $r$, regardless of the order of vanishing of $\wt{E}_{a}(m(\cE),s,\Phi)$ at $s=0$. This is a distinguishing novelty of Theorem \ref{th:intro} compared to all other works on the Seigel-Weil or arithmetic Siegel-Weil formula. The first results of this nature, giving motivic interpretations of Taylor coefficients of automorphic $L$-functions even ``beyond the leading term'', were proved in \cite{YZ, YZII} for $\PGL_2$. Our results here are the first higher derivative formulas to be proved for groups of \emph{arbitrary} rank. Our proof shares some common ingredients with these earlier works, but also has a number of interesting new ones. For example, a key discovery for us was a connection between the Fourier coefficients of Siegel--Eisenstein series and certain perverse sheaves arising from Springer theory. Another key realization was that the special cycles are governed by certain variants of the Hitchin fibration, whose geometry can also be described in terms of Springer theory. In particular, the geometry behind Theorem \ref{th:intro} is much more complicated than that in \cite{YZ, YZII} as soon as $n>2$. An overview of the proof will be given in \S \ref{ssec: overview of proof}.
+
+Another feature of the proof of Theorem \ref{th:intro} is that it is completely uniform in $r$, and in particular unites the ``Siegel--Weil formula'' and ``arithmetic Siegel--Weil formula'' in the same framework. For this reason, we propose to call \eqref{eq: intro higher derivatives} a {\em higher Siegel--Weil formula}. This formula will serve as the first step to establish a higher order derivative version of the aforementioned recent work of Li and Liu \cite{LL1,LL2} over function fields, which would give a geometric interpretation of higher derivatives of Langlands $L$-functions.
+
+\begin{remark}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notreadyWhen $r=0$, the coarse moduli space of $\Sht_{U(n)}^r$ is just the discrete set of points which form the domain of everywhere unramified automorphic forms for $U(n)$. In that case, Theorem \ref{th:intro} specializes to (the non-singular Fourier coefficients of) the classical Siegel--Weil formula, which can be found in \cite{Weil1965}. 
+
+
+One should imagine that when $r=1$, $\Sht_{U(n)}^r \rightarrow X'$ is analogous to (the integral model of) a unitary Shimura variety. Now, under the technical assumptions of the present paper (namely the everywhere unramifiedness assumptions) this space is always empty, corresponding to the fact that the sign of the functional equation for the Siegel--Eisenstein series is $+1$ (so that all odd order derivatives vanish). However, with a mild modification of the setup, the same methods may be used to prove variants of Theorem \ref{th:intro} in which the sign of the functional equation is $-1$. More precisely, in this paper we consider rank $n$ vector bundles on $X'$ with a Hermitian pairing valued in the canonical bundle $\omega_{X'}\cong \nu^* \omega_X$; if we replace $\omega_{X} $ here by a line bundle on $X$ which is not a norm from $X'$, then the sign of the functional equation is $-1$ when $n$ is odd. The precise formulation is in \cite[\S9]{FYZ2}. We mention also the work \cite{Wei19} over function fields, which should be thought of as being similar to the special case of Theorem \ref{th:intro} for $r=1$ and $n=1$.
+
+%Our proof of Theorem \ref{th:intro} is uniform in $r$, and thus unites the ``Siegel-Weil formula'' and ``arithmetic Siegel-Weil formula'' in a common framework. 
+
+When $r>1$, no analogue of the spaces $\Sht_{U(n)}^r$ is presently known in the number field setting. Consequently, we do not know how to formulate an analogue of the main result for number fields.
+
+\end{remark}
+
+
+%\TFadd{Perhaps we could mention Kudla's program for arithmetic inner product representations of derivatives of L-functions, Beilinson-Bloch conjecture etc. and that our work completes a first step in a ``higher'' version of such a program. This is a superficial comment but it may be beneficial to highlight ``Applications'' (something brought up in the referee reports). }
+
+
+\subsubsection{Construction of virtual fundamental cycles}
+For a vector bundle $\cE$ of rank $m$ on $X'$ and a Hermitian map $a\co \cE\to \s^{*}\cE^{\vee}$,  the dimension of $\Cal{Z}_{\cE}^r(a)$ differs from its ``virtual dimension'', which is $r(n-m)$. The situation gets worse if $a$ is {\em singular} (i.e., not injective, in analogy to the terminology of \cite{KRII}). For example, when $a=0$, $\cZ^{r}_{\cE}(0)$ contains $\Sht^{r}_{U(n)}$ as a substack. It is a nontrivial task to define a cycle class $[\Cal{Z}_{\cE}^r(a)]$ in the expected dimension $r(n-m)$. 
+
+Our companion paper \cite{FYZ2} proposes two solutions to this problem, one using classical intersection theory and the other using derived algebraic geometry. There, we construct cycle classes $[\cZ^{r}_{\cE}(a)]$ for all $\cE$ of rank $\le n$ and \emph{possibly singular} $a \co \cE \rightarrow \sigma^* \cE^{\vee}$. Moreover,  we assemble them into generating series valued in the Chow groups of $\Sht_{U(n)}^r$ and conjecture it to be automorphic, in analogy to known results over number fields \cite{BHKRY1}, which fall under the umbrella of the Kudla program. 
+
+
+In this paper, we use a more elementary method to define the $0$-cycle $[\Cal{Z}_{\cE}^r(a)]$ in the case $m=n$ and $a$ injective. First, we prove that when $\cL$ is a line bundle and $a \co \cL \rightarrow \sigma^* \cL^{\vee}$ is an injective Hermitian map, $\Cal{Z}_{\cL}^r(a)$ has the expected dimension (cf. Proposition \ref{prop: dim Z_L} and Remark \ref{rem: actual dimension}). Next, when $\cE=\oplus_{i=1}^n \cL_i$ is a direct sum of line bundles, the class $[\Cal{Z}_{\cE}^r(a) ] \in \Ch_0(\Cal{Z}_{\cE}^r(a))_{\Q}$ can be defined as (the restriction to $\Cal{Z}_{\cE}^r(a)$ of) the intersection product of $\Cal{Z}_{\cL_i}^r(a_{ii})$ for the diagonal entries $a_{ii}$ of $a$; this is similar to the number field case.  However, compared to the number field case, a new difficulty arises since $\cE$ is not necessarily a direct sum of line bundles. We overcome this difficulty in \S\ref{ssec: intersection problem} by introducing the notion of a \emph{good framing} for $\cE$ to reduce to the case of a sum of line bundles. A nontrivial task is to verify that the cycle class $[\Cal{Z}_{\cE}^r(a) ]$ is independent of the choice of the good framing, which occupies much of the sections \S\ref{sec: hitchin spaces}--\S\ref{s:compare cycles}.
+
+
+%When $a$ is injective (by this we shall always mean as a map of coherent sheaves), it turns out that $\Cal{Z}_{\cE}^r(a)$ is proper, so that $[\Cal{Z}_{\cE}^r(a) ] $ has a well-defined degree $\deg[\Cal{Z}_{\cE}^r(a) ] \in \Q$. 
+
+
+%\subsubsection{Singular coefficients}
+%We say that a Hermitian map $a \co \cE \rightarrow \sigma^*  \cE^{\vee}$ \emph{non-singular} if it is injective, in analogy to the terminology of \cite{KRII}. Theorem \ref{th:intro} only concerns the special cycles for $\cE$ of rank $n$ and $a$ non-singular; indeed, when $a$ is singular it is quite non-trivial even to define an appropriate virtual fundamental class $[\cZ_{\cE}^r(a)]$. 
+%
+%Our companion paper \cite{FYZ2} proposes a solution to this problem. There, we construct cycle classes $[\cZ^{r}_{\cE}(a)]$ for all $\cE$ of rank $\le n$ and \emph{possibly singular} $a \co \cE \rightarrow \sigma^* \cE^{\vee}$. Moreover,  we conjecture that they can be assembled appropriately into generating series valued in the Chow groups of $\Sht_{U(n)}^r$ which are automorphic, in analogy to known results over number fields \cite{BHKRY1}, which fall under the umbrella of the Kudla program. 
+
+
+\subsection{Method of proof}\label{ssec: overview of proof} To summarize, we prove Theorem \ref{th:intro} by constructing two perverse sheaves that encode the two sides of \eqref{eq: intro higher derivatives} in the sense of sheaf-function correspondence, and then identifying these two perverse sheaves using a Hermitian variant of Springer theory, which labels these perverse sheaves by representations of the appropriate Weyl group. In this way, Theorem \ref{th:intro} is eventually unraveled into an elementary identity between representations of the Weyl group for type B/C.
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+
+%To summarize, the main point in the proof of Theorem \ref{th:intro} is to unravel the higher Siegel-Weil formula \eqref{eq: intro higher derivatives} into an elementary identity in Hermitian Springer theory, via the geometry of a moduli stack that resembles the Hitchin moduli.
+
+%To elaborate, consider the stack $\Herm_{2d}(X'/X)$ that parametrizes torsion coherent sheaves on $X'$ of length $2d$ together with a perfect Hermitian pairing (with respect to the double covering $\nu:X'\to X$). Hermitian Springer theory (developed in \S\ref{sec: Herm}, following ideas of Laumon \cite{Lau87}) associates a perverse sheaf on $\Herm_{2d}(X'/X)$ to each irreducible representation of $W_{d}=(\Z/2\Z)^{d}\rtimes S_{d}$.
+
+On the geometric side, the connection between special cycles and Springer theory comes via the geometry of a moduli stack that resembles the Hitchin moduli space. On the other side, the connection between the Fourier coefficients of Siegel-Eisenstein series and Springer theory goes through local density formulas of Cho-Yamauchi.
+
+Let us briefly explain the connection between the higher Siegel-Weil formula and the Hitchin moduli stack and Hermitian Springer theory, and defer details to the later paragraphs.  The degree of the special cycle that appear on the right side of \eqref{eq: intro higher derivatives} is essentially an intersection number of cycles on $\Sht^{r}_{U(n)}$. The ambient space $\Sht^{r}_{U(n)}$ can itself be realized an intersection of a Hecke correspondence with the graph of a Frobenius endomorphism. We use this to ``unfold'' all the intersections, and then redo them in a different order, performing the \emph{linear} intersections (i.e., those not involving the Frobenius map) first, and leaving the Frobenius semi-linear intersection till the last step (cf. \eqref{9 term} --  \eqref{row Hk}). In this process, a Hitchin-type moduli stack $\cM_{d}$ appears naturally as we perform linear intersections (cf. \eqref{Mbar d}). The degree of the special cycle $[\cZ^{r}_{\cE}(a)]$ can be expressed as a weighted counting of $k$-points on the fiber of a map $f_{d}: \cM_{d}\to \cA_{d}$ (analogue of Hitchin fibration) over the point $(\cE,a)\in \cA_d(k)$, where $(\cE,a)$ are as in the statement of Theorem \ref{th:intro}. 
+
+%Let us briefly explain these objects  Hitchin moduli stack and Hermitian Springer theory, and refer more details to the later paragraphs.  The degree of the special cycle that appear on the right side of \eqref{eq: intro higher derivatives} is essentially an intersection number of cycles on $\Sht^{r}_{U(n)}$. We follow the strategy of \cite{YZ} to compute this intersection number : doing linear intersections (those not involving the Frobenius map) first, and leaving the Frobenius semi-linear intersection till the last step (cf. \eqref{9 term} --  \eqref{row Hk}). In this process, a Hitchin-type moduli stack $\cM_{d}$ appears naturally as we perform linear intersections (cf. \eqref{Mbar d}). The degree of the special cycle $[\cZ^{r}_{\cE}(a)]$ can be expressed as a weighted counting of $k$-points on the fiber of a map $f_{d}: \cM_{d}\to \cA_{d}$ (analogue of Hitchin fibartion) over the point $(\cE,a)\in \cA(k)$, where $(\cE,a)$ are as in the statement of Theorem \ref{th:intro}. %It parametrizes triples $(\cE,\cF,t)$ where $\cE$ is a rank $n$ vector bundle on $X'$, $\cF$ a rank $n$ Hermitian vector bundle and $t$ an injective map $\cE\to \cF$. The Hitchin-type stack $\cM$ comes with a map to another moduli stack $\cA$ parametrizing $(\cE,a)$ as in the statement of Theorem \ref{th:intro}. The degree of the special cycle $[\cZ^{r}_{\cE}(a)]$ eventually can be expressed as a weighted counting of $k$-points on the fiber of $\cM$ over $(\cE,a)\in \cA(k)$.
+
+The cokernel $\cQ=\coker(a)$ is a torsion sheaf on $X'$ with a Hermitian structure inherited from $a$. This motivates the introduction of the moduli stack $\Herm_{2d}(X'/X)$ that parametrizes torsion coherent sheaves on $X'$ of length $2d$ together with a Hermitian structure, so that $\cQ$ is a $k$-point of $\Herm_{2d}(X'/X)$ (where $2d=\dim_{k}\Gamma(X',\cQ)$). We show that the fiber of $f_{d}:\cM_{d}\to \cA_{d}$ over $(\cE,a)$ depends only on $\cQ=\coker(a)$, therefore the degree of $[\cZ^{r}_{\cE}(a)]$ depends only on the $k$-point $\cQ$ of $\Herm_{2d}(X'/X)$.
+
+
+%The vector bundle $\cE$ together with the injective Hermitian map $a: \cE\to \sigma^{*}\cE^{\vee}$ give a   equipped with (for the definition see \S \ref{sec: Herm}). This defines a $k$-point of $\Herm_{2d}(X'/X)$ for $2d=\dim_{k}\Gamma(X',\cQ)$. 
+%Moreover, the fiber $\cM_{\cE,a}$ depends only on $\cQ$. 
+
+
+%We then observe that the map $\cM_{d}\to \cA_{d}$ is obtained by base change from a map $\Lagr_{2d}(X'/X)\to \Herm_{2d}(X'/X)$ of semilocal nature. This implies that the degree of $[\cZ^{r}_{\cE}(a)]$ depends only on the $k$-point $\cQ$ of $\Herm_{2d}(X'/X)$ where $\cQ=\coker(a)$,  a torsion sheaf on $X'$ equipped with a Hermitian structure inherited from $a$. 
+
+On the other hand, the Eisenstein series side of \eqref{eq: intro higher derivatives} can be written as a product of local terms -- representation density functions for Hermitian lattices. These density functions again only depend on the torsion sheaf $\cQ$ together with its Hermitian structure, i.e., a $k$-point in $\Herm_{2d}(X'/X)$.
+
+Therefore we reduce to proving that two quantities attached to a $k$-point in $\Herm_{2d}(X'/X)$ are equal. A key realization is that both quantities are of motivic nature: they come by the sheaf-to-function correspondence from two   (graded, virtual) perverse sheaves on $\Herm_{2d}(X'/X)$. This is where Hermitian Springer theory enters.  Classically, starting with a reductive Lie algebra $\frg$, Springer theory outputs a perverse sheaf $\Spr_{\frg}$ on $\frg$, defined as the direct image complex of the Grothendieck-Springer resolution $\pi_{\frg}: \wt\frg\to \frg$,  together with an action of the Weyl group $W$. In our setting, $\Herm_{2d}(X'/X)$ will play the role of $\frg$.  In  \S\ref{sec: Herm}, we construct a perverse sheaf $\Spr^{\Herm}_{2d}$ on $\Herm_{2d}(X'/X)$ together with an action of $W_{d}=(\Z/2\Z)^{d}\rtimes S_{d}$ analogous to the Springer sheaf.  If $\Herm_{2d}(X'/X)$ is replaced by $\Coh_{d}(X)$, the moduli of torsion coherent sheaves on $X$ of length $d$, such a Springer sheaf was constructed by Laumon \cite{Lau87}. The Springer sheaf on $\Coh_{d}(X)$ (resp. $\Herm_{2d}(X'/X)$) can be viewed as a global version of the Springer sheaf for $\gl_{d}$ (resp. $\mathfrak{o}_{2d}$). The perverse sheaves on $\Herm_{2d}(X'/X)$ that govern both sides of \eqref{eq: intro higher derivatives} will be constructed from direct summands of the Hermitian Springer sheaf $\Spr^{\Herm}_{2d}$.
+
+
+Thus, the proof of Theorem \ref{th:intro} is completed in three steps:
+\begin{enumerate}
+\item Construct a graded perverse sheaf on $\Herm_{2d}(X'/X)$
+\begin{equation*}
+\cK^{\Eis}_{d}=\bigoplus_{i=0}^{d}\cK^{\Eis}_{d,i}
+\end{equation*}
+whose Frobenius trace at $\cQ$ is related to the LHS of \eqref{eq: intro higher derivatives}. More precisely, 
+\begin{equation}\label{intro KEis}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\wt{E}_{a}(m(\cE),s, \Phi)= \sum_{i=0}^{d}\Tr(\Frob_{\cQ}, (\cK^{\Eis}_{d,i})_{\cQ})q^{-2is}.
+\end{equation}
+\item Construct a graded perverse sheaf on $\Herm_{2d}(X'/X)$
+\begin{equation*}
+\cK^{\Int}_{d}=\bigoplus_{i=0}^{d}\cK^{\Int}_{d,i}
+\end{equation*}
+whose Frobenius trace at $\cQ$ is relate to the RHS of \eqref{eq: intro higher derivatives}. More precisely,
+\begin{equation}\label{intro KInt}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\deg [\cZ_{\cE}^r(a)]=\sum_{i=0}^{d}\Tr(\Frob_{\cQ}, (\cK^{\Int}_{d,i})_{\cQ})\cdot (d-2i)^{r}.
+\end{equation}
+\item Prove that 
+\begin{equation}\label{KK}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\cK^{\Eis}_{d}\cong \cK^{\Int}_{d}
+\end{equation}
+as graded perverse sheaves on $\Herm_{2d}(X'/X)$.
+\end{enumerate}
+
+These three steps correspond to the three parts of the paper. We elaborate on the main ideas involved in each step. 
+
+\subsubsection{Step (1)} After a standard procedure expressing the nonsingular Fourier coefficients of Eisenstein series in terms of local density of Hermitian lattices, we use the formula of Cho and Yamauchi \cite{CY} for these densities (more precisely, the unitary variant developed in \cite{LZ1}). We also need an extension of their formula in the split case (Theorem \ref{th:CY}). The formula of Cho and Yamauchi depends only on the Hermitian torsion sheaf $\cQ=\coker(a)$, which gives the hope that the local density, as a function on the set of Hermitian torsion sheaves, comes from a sheaf on $\Herm_{2d}(X'/X)$ via Grothendieck's sheaf-to-function dictionary. We do this by developing an analog of Springer theory over  $\Herm_{2d}(X'/X)$ (\S\ref{sec: springer}-\S\ref{sec: Herm}).
+
+%Classically, starting with a reductive Lie algebra $\frg$, Springer theory outputs a perverse sheaf $\Spr_{\frg}$ on $\frg$, defined as the direct image complex of the Grothendieck-Springer resolution $\pi_{\frg}: \wt\frg\to \frg$,  together with an action of the Weyl group $W$. In our setting, $\Herm_{2d}(X'/X)$ will play the role of $\frg$.  There is a perverse sheaf $\Spr^{\Herm}_{2d}$ on $\Herm_{2d}(X'/X)$ together with an action of $W_{d}=(\Z/2\Z)^{d}\rtimes S_{d}$ analogous to the Springer sheaf.  If $\Herm_{2d}(X'/X)$ is replaced by $\Coh_{d}(X)$, moduli of torsion coherent sheaves on $X$ of length $d$, such a Springer sheaf was constructed by Laumon \cite{Lau87}. The Springer sheaf on $\Coh_{d}(X)$ (resp. $\Herm_{2d}(X'/X)$) can be viewed as a global version of the Springer sheaf for $\gl_{d}$ (resp. $\so_{2d}$).
+
+The key observation here is that the term in the Cho--Yamauchi formula resembles the Frobenius trace function for a certain linear combination of Springer sheaves for $\gl_{d}$ or $\Coh_{d}(X)$, except for some signs. To match the signs exactly we consider an analogous linear combination of Springer sheaves on $\Herm_{2d}(X'/X)$, and we compare the Frobenius actions on the cohomology of Springer fibers over $\Coh_{d}(X)$ and over $\Herm_{2d}(X'/X)$, see \S\ref{ss:HSpr stalk} and \S\ref{ss:trace comp Spr}.
+
+\subsubsection{Step (2)} This step consists of three substeps. 
+\begin{itemize}
+\item First, we define special cycles for nonsingular $a$ (\S\ref{sec: unitary shtukas}-\S\ref{s:int prob}). When $\cE$ is a direct sum of line bundles $\cL_{i}$, we define, following Kudla and Rapoport, $[\cZ_{\cE}^{r}(a)]$ as the intersection of cycle classes $[\cZ_{\cL_{i}}^{r}(a_{ii})]$, which, despite not being divisors in our setting, always have the ``expected'' dimension (more precisely, codimension $r$ in $\Sht^{r}_{U(n)}$). The definition of $[\cZ^{r}_{\cE}(a)]$ for general vector bundles $\cE$ requires choosing a ``good framing'' on $\cE$, i.e., an injective map from a direct sum of line bundles $\cE'=\op_{i=1}^{n}\cL_{i}\inj \cE$ satisfying certain conditions.  In any case, the RHS of \eqref{eq: intro higher derivatives} is an intersection number of cycles on $\Sht^{r}_{U(n)}$.  
+\item The well-definedness of $[\cZ^{r}_{\cE}(a)]$ is proved in the second substep (\S\ref{sec: hitchin spaces}-\S\ref{s:compare cycles}), which also gives a different definition of these cycle classes without any choices. The idea is similar to the one used in \cite{YZ}, namely by exchanging the order of intersection, we perform ``linear intersections'' first to form Hitchin-type moduli stacks (denoted $\cM_{d}$, making sense over any base field), and in the last step we perform a shtuka-type construction by intersecting with the graph of Frobenius. 
+\item In the last substep (\S\ref{s:int trace}) we use the Lefschetz trace formula to express the degree of $[\cZ^{r}_{\cE}(a)]$, formulated using the Hitchin-type moduli stack $\cM_{d}$, as the trace of Frobenius composed with the $r^{\mrm{th}}$ power of an endomorphism $C$ on the direct image complex $Rf_{*}\Qlbar$ of the Hitchin map  $f:\cM_{d}\to \cA_{d}$. Now, the ``Hitchin base'' $\cA_d$ has a canonical smooth map to $\Herm_{2d}(X'/X)$, and it turns out that $Rf_{*}\Qlbar$ together with its endomorphism $C$ descends through this map to a perverse sheaf $\cK^{\Int}_{d}$ on $\Herm_{2d}(X'/X)$ with an endomorphism $\ov C$. The decomposition of $\cK^{\Int}_{d}$ into graded pieces $\cK^{\Int}_{d,i}$ is according to the eigenvalues of the $\ov C$-action, which are of the form $(d-2i)$. Combining these facts we get \eqref{intro KInt}.
+\end{itemize}
+
+\subsubsection{Step (3)} Both $\cK^{\Eis}_{d}$ and $\cK^{\Int}_{d}$ are linear combinations of isotypical summands of $\Spr^{\Herm}_{2d}$ under the action of $W_{d}$. The isomorphism \eqref{KK} then comes from an isomorphism of two graded virtual representations of $W_{d}$, which we verify directly.  
+
+
+\subsection*{Acknowledgment}
+
+We thank Michael Harris, Chao Li, Alan Peng, Zhiyu Zhang, and the anonymous referee for comments on a draft. We thank the referee for helpful suggestions and corrections. TF was supported by NSF Postdoctoral Fellowship DMS-1902927, NSF Grant DMS-2302520, and the Friends of the Institute for Advanced Study.  ZY was partially supported by the Packard Fellowship, and the Simons Investigator grant. WZ is partially supported by the NSF grant DMS \#1901642  and the Simons Investigator grant. 
+
+
+\subsection{Notation}\label{ssec: notation}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+Throughout this paper, $k=\F_{q}$ is a finite field of odd characteristic $p$. Let $\ell\ne p$ be a prime.   Let $\psi_{0}: k\to\Qlbar^{\times}$ be a nontrivial character. For a stack $\cY$ over $k$, we write $\Fr$ or $\Fr_{\cY}$ for its $q$-power Frobenius endomorphism. We will use $\gFrob$ or $\gFrob_{y}$ for geometric Frobenius at an $\F_{q}$-point $y$. 
+
+Let $X$ denote a smooth curve over $k$. With the exception of \S\ref{sec: springer} and \S\ref{sec: Herm}, $X$ is assumed to be projective and geometrically connected. Let $\om_{X}$ be the line bundle of $1$-forms on $X$. 
+
+Let $F=k(X)$ denote the function field of $X$.  Let $|X|$ be the set of closed points of $X$. For $v\in |X|$, let $\cO_{v}$ be the completed local ring of $X$ at $v$ with fraction field $F_{v}$ and residue field $k_{v}$.   Let $\BA=\BA_{F}$ denote the ring of ad\`eles of $F$, and $\wh\cO=\prod_{v\in |X|}\cO_{v}$. Let $\deg(v)=[k_{v}:k]$, and $q_{v}=q^{\deg(v)}=\#k_{v}$. A uniformizer of $\cO_{v}$ is typically denoted $\vp_{v}$. Let $|\cdot|_{v}: F^{\times}_{v}\to q^{\Z}_{v}$ be the absolute value such that  $|\vp_{v}|_{v}=q^{-1}_{v}$. Let $|\cdot|_{F}: \BA_{F}^{\times}\to q^{\Z}$ be the absolute value that is $|\cdot|_{v}$ on $F_{v}^{\times}$.
+
+Let $X'$ be another smooth curve over $k$ and $\nu:X'\to X$ be a finite map of degree $2$ that is generically \'etale. We denote by $\sigma$ the non-trivial automorphism of $X'$ over $X$. With the exception of \S\ref{ss:Herm} and \S\ref{ss:Herm Spr}, $\nu$ is assumed to be \'etale. We emphasize that the case $X'=X\coprod X$ is allowed.  Let $F'$ be the ring of rational functions on $X'$, which is either a quadratic extension of $F$ or $F\times F$. We let $k'$ be the ring of constants in $F'$. The notations $\om_{X'}, |X'|, F'_{v'}, \cO_{v'}, k_{v'}, \BA_{F'}, |\cdot|_{v'}, |\cdot|_{F'}, q_{v'}$ and $\deg(v')$ (for $v'\in |X'|$) are defined similarly as their counterparts for $X$. Additionally, for $v\in |X|$, we use $\cO'_{v}$ to denote the completion of $\cO_{X'}$ along $\nu^{-1}(v)$, and define $F'_{v}$ to be its total ring of fractions.
+
+For a vector bundle $\cE$ on $X'$, let $\cE^{\vee}=\un\Hom(\cE, \om_{X'})$ be its Serre dual.  For a torsion sheaf $\cT$ on $X'$, let $\cT^{\vee}=\un\Ext^{1}(\cT, \om_{X'})$.  
+
+When $X$ (hence $X'$) is projective, let $\Bun_{\GL_{n}}$ (resp. $\Bun_{\GL_{n}'}$) be the moduli stack of rank $n$ vector bundles over $X$ (resp. $X'$). Let $g$ be the genus of $X$ and $g'$ be the arithmetic genus of $X'$. Note that whenever $\nu$ is \'{e}tale, we have $g' = 2g-1$. 
+%\mnote{WZ: Is the notation $g'$ used?}
+
+
+For an algebraic stack $\cY$, $\Ch(\cY)$ denotes its \emph{rationalized} Chow group and $D^b(\cY,\Qlbar)$  its bounded derived category of constructible $\Qlbar$-sheaves. 
+
+
+
+
+
+%We fix a finite field $k$ of characteristic $p$. \tony{$p=2$ allowed?} 
+%
+%Let $X$ be a smooth algebraic curve over $k$ and $\nu \co X' \rightarrow X$ a finite \'{e}tale double cover (possibly split) unless otherwise stated. We denote by $\sigma$ the non-trivial automorphism of $X'$ over $X$. We denote the function field of $X$ by $F$, and the ring of rational functions on $X'$ by $F'$ (not necessarily a field). 
+
+
+%For a vector bundle $\cF$ on $X'$, we denote by $\cF^{\vee} = \chom(\cF, \omega_{X'})$ the Serre dual of $\cF$. 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%
+\part{The analytic side}

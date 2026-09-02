@@ -1,0 +1,543 @@
+% Source-derived chapter 01: Introduction
+% Original source: rigid-local-systems-multiplicative-eigenvalue-problem
+\chapter{Introduction}
+\label{rigid-local-systems-multiplicative-eigenvalue-problem-chapter-01}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+
+\begin{remark}[Source section]
+\label{rigid-local-systems-multiplicative-eigenvalue-problem-chapter-01-source}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Introduction
+\subsection{Rigid local systems}
+A rank $\ell$ local system of complex vector spaces on $\Bbb{P}^1_{\Bbb{C}}-S$ where $S=\{p_1,\dots,p_s\}$, a collection of distinct points,  is equivalent to an $s$-tuple $(A_1,\dots,A_s)$ of matrices $A_i\in \op{GL}(\ell,\Bbb{C})$ with product $A_1A_2\cdots A_s= I_{\ell}$, the identity. Such tuples are taken up to conjugacy, i.e.,  $(A_1,\dots,A_s)\sim (CA_1C^{-1}, CA_2C^{-1},\dots, CA_sC^{-1})$ where $C\in  \op{GL}(\ell,\Bbb{C})$.
+
+The connection to local systems arises from the standard description of the fundamental group of an $s$-punctured Riemann sphere $\pi_1=\pi_1(\Bbb{P}^1-\{p_1,\dots,p_s\},b)$ at any base point $b$ as the free group on generators $\gamma_{1},\dots,\gamma_{s}$ given by suitable loops around the punctures, modulo the relation $\gamma_{1}\gamma_{2}\cdots\gamma_s=1$.  Rank $\ell$ local systems can then be identified with $\ell$-dimensional representations $\rho:\pi_1\to \op{GL}(\ell,\Bbb{C})$, with $\rho(\gamma_i)=A_i$. The conjugacy class of $A_i$ is
+called the local monodromy at the point $p_i$ of the local system, and the image of $\rho$ is called  the (global) monodromy group of the local system.
+
+Such a local system is {\em irreducible} if the representation of $\pi_1$ is irreducible. It is called {\em rigid} if any other local system with the same conjugacy classes of  local monodromies is isomorphic to it, i.e., if
+$B_1B_2\cdots B_s=I_{\ell}$ and there exist $C_i\in \op{GL}(\ell,\Bbb{C})$ such that $B_i=C_iA_iC_i^{-1}$ then there exists a $C\in \op{GL}(\ell,\Bbb{C})$ such that $B_i=CA_iC^{-1}$ for $i=1,\dots,s$ \cite{Katz}.
+
+Several classical examples of differential equations have local systems of solutions which are rigid and irreducible, namely the standard generalization of the hypergeometric functions  ${}_{\ell}F_{\ell-1}$ and Pochhammer differential equations (see e.g., \cite{BH} and \cite{Haraoka}).  Katz  \cite{Katz} has given an inductive procedure of constructing all  rigid irreducible local systems on  $\Bbb{P}^1-S$ via two operations, called middle convolution and tensoring. Simpson has classified rigid irreducible local systems with the conjugacy class of at least one of the matrices semisimple with generic distinct eigenvalues \cite{SimOld}. In this paper we produce a new family of rigid irreducible local systems from enumerative geometry (quantum Schubert calculus), see Corollary \ref{existence} and Sections \ref{qSC} and \ref{qSC2}. These local systems are unitary (see below).
+
+Any irreducible rigid local system on $\Bbb{P}^1-\{p_1,\dots,p_s\}$ with quasi-unipotent local monodromies (i.e., the $A_i$ have roots of unity as eigenvalues)  is conjugate to the (usual) dual of its complex conjugate, and hence carries a non-degenerate hermitian form
+\cite[Section 9.5] {Katz}. The signature of this hermitian form  is determined  in the corresponding classical cases in \cite{BH} and \cite{Haraoka}. There is a unique complex variation of Hodge structures that underlies an irreducible rigid local system, and the corresponding Hodge numerical data have been determined by Dettweiler and Sabbah \cite{DS} in a complemented Katz algorithm (which keeps track of additional local and global Hodge data), which then determines the signature of the form in general in an algorithmic procedure.
+
+The case of unitary irreducible rigid local systems, i.e., those for which the form is positive or negative definite, is of special interest because it includes all irreducible rigid local systems with finite global monodromy (with a suitable converse, applied to all Galois conjugates, see e.g., \cite[Theorem 11]{BLocal}). We note here that for an irreducible unitary local system, it is the same to require that it is rigid in the sense of Katz as it is to require that it is rigid as a unitary representation, see Remark \ref{RigidRem} (and these are both equivalent to a numerical condition \eqref{eqRi}).
+
+The problem of listing all rigid local systems with finite  global monodromy groups has classical origins. The global monodromy group of an irreducible local system is finite  if and only if  the corresponding differential equation (with regular singularities) has algebraic solutions. For  Gaussian hypergeometric functions, which correspond to rigid local systems of rank $2$, the finiteness problem was solved in the $19$th century by Schwarz \cite{Schwarz}. More recently \cite{BH} and \cite{Haraoka} solved the finiteness problems for  the hypergeometric functions  ${}_{\ell}F_{\ell-1}$ and Pochhammer differential equations, respectively. For Goursat-II rigid local systems \cite{EGoursat} of rank $4$ the question of when the global monodromy group is finite has been analysed recently in \cite{Goursat}.
+
+Fix a natural number $n$. In Theorem \ref{egregium} (resp. Corollary \ref{egregiumprime}) we show there are only finitely many unitary (resp. finite global monodromy) irreducible rigid local systems (without fixing the ranks) with eigenvalues of local monodromy $n$th roots of unity, and also parametrize them. Answering a question of N. Katz, we are able to rule out the existence of rigid local systems of rank $>1$ with  finite global monodromy when $n$ is prime (Theorem \ref{KatzQ} below). We do this by relating the existence of such local systems via strange duality to the multiplicative eigenvalue problem for the special unitary group $\op{SU}(n)$, and quantum Schubert calculus, which are described in the next section. In Section
+\ref{earlyfeedback}  we discuss what we know about the place of unitary rigid local systems in Katz's algorithm.
+
+
+\subsection{Vertices in the multiplicative eigenvalue problem}\label{partita}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+ Conjugacy classes in the special unitary group $\operatorname{SU}(n)$ are in bijective correspondence with points of the simplex
+\begin{equation}\label{defD}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\Delta_n=\Delta(\operatorname{SU}(n))=\{{a}=(a_1,\dots,a_n)\in \Bbb{R}^n\mid  a_1\geq a_2\geq\dots \geq a_n\geq a_1-1,\  \sum_{i=1}^n a_i=0\}
+\end{equation}
+(The correspondence takes $a$ to the conjugacy class of the diagonal matrix with entries $\exp(2\pi \sqrt{-1}a_i$).
+
+Define $P_n(s)\subset \Delta_n^s$ to be the set of tuples  $\vec{a}=(a^1,a^2,\dots,a^s)$ such that there exist $A_{1}, A_{2}, \dots, A_{s}\in \operatorname{SU}(n)$ with $A_{i}$ in the conjugacy class corresponding to $a^i$ and
+$A_{1}A_{2}\cdots A_{s}=I_n\in  \operatorname{SU}(n).$
+
+It is known that $P_n(s)$ is a compact polytope cut out by a finite set of inequalities controlled by quantum Schubert calculus of Grassmannians (Theorem \ref{ABW} below).  A point $\vec{a}=(a^1,a^2,\dots,a^s)$ is in $P_n(s)$ iff there is a representation of the fundamental group $\rho:\pi_1(\Bbb{P}^1-\{p_1,\dots,p_s\},b)\to\operatorname{SU}(n)$ such that the local monodromy around $p_j$, $A_{j}=\rho(\gamma_{j})$ is conjugate to $a^j$, $j=1,\dots,s$, and hence the problem  of determination of $P_n(s)$ is the same as the following: Does there exist a unitary local system on $\Bbb{P}^1-\{p_1,\dots,p_s\}$ with given local monodromy data $\vec{a}$? The polytope $P_n(s)$ also controls non-zero structure constants in the quantum cohomology of Grassmannians, and in the fusion ring of $\operatorname{SL}(n)$, see e.g., \cite{BHorn}. The rational cone over the polytope $P_n(s)$ is a generalization of the fundamental Littlewood-Richardson cone of algebraic combinatorics \cite{FBull,Z} (also Remark \ref{classicall}).
+
+
+ The problem of determining the vertices of $P_n(s)$ was suggested to the author by Nori in 1996-97. It was noted in the author's PhD thesis (see \cite[Section 7]{BLocal}) that there are vertices of $P_n(s)$ other than the ``trivial'' ones (i,.e,  when $a^1,\dots,a^s$ correspond to $\zeta^{m_i} I_n$ with $\zeta=\zeta_n=\exp(2\pi\sqrt{-1}/n)$  with $n$ dividing $\sum_{i=1}^s m_i$). Thaddeus has  recently given interesting examples of many other non-trivial vertices \cite{thaddy}. The Mehta-Seshadri theorem \cite{MS}  can be used to derive a system of inequalities
+ determining $P_n(s)$ \cite{Biswas,AW,BLocal}, see Theorem \ref{ABW} below.
+
+ Note that if $\vec{a}\in P_n(s)$ is a vertex and $\rho$ any unitary representation of the fundamental group
+ with local monodromies given by $\vec{a}$, then $\rho$ is reducible (see Lemma \ref{pinky}).
+\begin{definition}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{defFprime}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+A  vertex $\vec{a}$ of $P_n(s)$ is called a F-vertex if there is a unique unitary local system with  local monodromies given by $\vec{a}$. In other words the corresponding matrix equation  $A_1A_2\cdots A_s=I_n$, $A_i\in \op{SU}(n)$ has a unique (possibly block diagonal) solution up to conjugacy.
+Not all vertices of $P_n(s)$ have this property (see Section \ref{Rex} for an example).
+\end{definition}
+\subsection{Parametrization of rigid and irreducible unitary local systems}\label{newRigid}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+ Suppose we are given an $s$-tuple of semisimple  conjugacy classes $\mathcal{A}=(\bar{A}_1,\dots,\bar{A}_s)$ in $\op{GL}(\ell,\Bbb{C})$, which are all $n$th roots of the identity (i.e., $\bar{A}_i^n=I_{\ell}$) such that  $\prod_{i=1}^s\det \bar{A}_i=1$. Assume  that  the eigenvalues of $\bar{A}_i$ are $\exp(2\pi\sqrt{-1}\mu_j^i/n)$ with integers $0\leq \mu_j^i<n$, so that the $\mu^i=(\mu^i_1,\dots,\mu^i_{\ell})$ are Young diagrams that fit in an $\ell\times n$ box, i.e.,  for $i\in [s], n> \mu^i_1\geq \mu^i_2\geq \dots \geq \mu^i_{\ell}\geq 0$. We will describe below a construction that assigns to $\mathcal{A}$ a point $v(\mathcal{A})$ of $\Delta_{n}^s$.
+%Here $\Delta_{n,\Bbb{Q}}\subset \Delta_n$ is the subset of points with rational coordinates.
+
+Consider the vector of transpose Young diagrams $\vec{\lambda}=(\lambda^1,\dots,\lambda^s)$ with $\lambda^i=(\mu^i)^T$. These are Young diagrams that fit in an $n\times\ell$ box.  Define points
+${a}^i\in\Delta_{n}$ as follows
+$$a^i=\frac{1}{\ell}\bigl(\lambda^i -\frac{1}{n}|\lambda^i|(1,1,\dots,1)\bigr).$$
+Here $|\lambda^i|$ is the number of boxes in the Young diagram $\lambda^i$, i.e., $|\lambda^i|=\sum_{j=1}^n \lambda^i_j$. Note that the transpose operation is related to strange duality (see Section \ref{etrange}, and Lemma \ref{reprem}) which is an important technique in our work.
+\begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{finiteness}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Define $v(\mathcal{A})=(a^1,\dots,a^s)\in \Delta_{n}^s$.
+\end{defi}
+\begin{theorem}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{egregium}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let $n$ be fixed. Then $\mathcal{A}\mapsto v(\mathcal{A})$  is a bijective correspondence between the following sets
+\begin{enumerate}
+\item The set of all $\ma$ with varying $\ell$, but fixed $n$ (i.e., eigenvalues of $\bar{A}_i$ are $n$th roots of unity) such that there is a rigid, irreducible unitary local system with local monodromy data $\mathcal{A}$.
+\item The set  of F-vertices in $P_n(s)$.
+\end{enumerate}
+Therefore, since there are only finitely many vertices of $P_n(s)$, there are only finitely many unitary irreducible rigid local systems (without fixing the ranks) with eigenvalues of local monodromy $n$th roots of unity. The ranks $\ell$ of such local systems are therefore bounded above by a constant $C(|S|,n)$.
+(Remark \ref{Hilberty} gives a stronger finiteness statement.)
+\end{theorem}
+(We do not know whether the conditions of irreducibility, rigidity, and semisimplicity of local monodromies, but without unitarity, imply an upper bound for $\ell$ in terms of $n$, see Section \ref{afterN}.)
+
+The quantum versions of the saturation theorem \cite{BHorn}, a Fulton conjecture  type scaling result (see \cite[Remark 8.5]{BKq}), as well as  a numerical version of strange duality (see Section \ref{etrange}) are essential ingredients in the proof of the above result.  The mapping $\mathcal{A}\mapsto v(\mathcal{A})$ has the following preliminary  property (see Proposition \ref{schubertt}): There is a unitary representation of $\pi_1$ with  local monodromy data $\mathcal{A}$ if and only if
+ $v(\ma)$ is a point of $P_n(s)$. Theorem \ref{egregium} is a finer comparison of properties under $\mathcal{A}\mapsto v(\mathcal{A})$.
+
+
+% Roughly speaking, under strange duality, the irreducibility on the rigid local system side translates into the property of a being vertex, and rigidity to the property that the vertex is a F-vertex.
+
+For rigid local systems with finite global monodromy there is also an exact parametrization:
+\begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{aliA}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+The simplex  $\Delta_n$ is identified with $\Delta'_n= \{{x}=(x_1,\dots, x_{n-1})\mid x_i\geq 0, \sum x_i=1\}$. The correspondence takes $(a_1,\dots, a_n)$ in Definition \ref{defD} to ${x}$ with $x_i=a_i-a_{i+1}, i\in[n-1]$.  If $\op{gcd}(m,n)=1$, then there is a map $T_m:\Delta'_n \to\Delta'_n$ given by ${x}\mapsto {x}'$ with $x'_{mi \pmod{n}}=x_i$.   We will denote the resulting map $\Delta^s_n\to \Delta^s_n$ also by $T_m$.
+\end{defi}
+\begin{corollary}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{egregiumprime}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let $n$ be fixed. Then  $\mathcal{A}\mapsto v(\mathcal{A})$  is a bijective correspondence between the following sets
+\begin{enumerate}
+\item The set of all $\mathcal{A}$ with varying $\ell$, but fixed $n$ (i.e., eigenvalues of $\bar{A}_i$ are $n$th roots of unity) such that there is a rigid, irreducible  local system with local monodromy data $\mathcal{A}$ with finite global monodromy.
+\item The set  of F-vertices $\vec{a}$ in $P_n(s)$ with the property $T_m(\vec{a})$ is a F-vertex of $P_n(s)$ for all integers $1\leq m\leq n$ relatively prime to $n$.
+\end{enumerate}
+\end{corollary}
+We use Corollary \ref{egregiumprime} to answer a question of Katz (personal communication) in the affirmative:
+\begin{theorem}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{KatzQ}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let $n$ be a prime number. There are no rigid irreducible  local systems $\mt$ of rank $\ell>1$ with finite global monodromy such that the local monodromies of $\mt$ are $n$th roots of unity (i.e., the local monodromies $\bar{A}_i$ satisfy $A_i^n=I_{\ell}$).
+\end{theorem}
+Theorem \ref{KatzQ} is proved  in Section \ref{KatzSection} by establishing the following property (P) true of all unitary irreducible rigid local systems. Let $n$ be arbitrary, and $\mt$ a rank $\ell$ unitary irreducible rigid local system with
+local monodromy data $\ma=(\bar{A}_1,\dots,\bar{A}_s)$ with $\bar{A}_i^n=I_{\ell}$ for each $i\in[s]$.
+Then,
+\begin{itemize}
+\item[(P)] If $1$ is an eigenvalue of $\bar{A}_1$, then $\zeta_n=\exp(2\pi\sqrt{-1}/n)$ is not an eigenvalue of $\bar{A}_1$.
+\end{itemize}
+In the above context if $\mt$ has finite global monodromy, then we can apply  (P) to all Galois conjugates (since they are all unitary), and obtain a stronger property that if  $1$ is an eigenvalue of $\bar{A}_1$, then any primitive $n$th root of unity cannot  be an eigenvalue of $\bar{A}_1$, which immediately gives
+Theorem \ref{KatzQ} (by the action of permutations and $\tau_n(s)$  below, one can show that any local monodromy has to be a scalar when $n$ is prime).
+
+
+In Section \ref{smalln}, we give a complete classification of all unitary rigid irreducible local systems, and those with finite global monodromy,  for $n\leq 6$ and $|S|=3$.
+\iffalse
+\begin{remark}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready
+If we restrict to rigid local systems whose local monodromies (possibly non-semisimple) have eigenvalues  $n$th roots of unity, Katz's algorithm \cite{Katz} produces local systems that continue to have this property. But Katz's middle convolution does not stay inside the set of local systems with semisimple local monodromies.
+\end{remark}
+\fi
+\begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{symmetry}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+ Use the notation $a\mapsto \alpha\cdot a$ to denote the natural action of $n$th roots of unity $\alpha\in\mu_n=Z(\op{SU}(n))$ on a conjugacy class $a\in \Delta_n$. Define a finite group $\tau_n(s)$ as follows. Here $\zeta=\zeta_n=\exp(\frac{2\pi\sqrt{-1}}{n})\in \Bbb{C}^*$,
+$$\tau_n(s)=\{(\zeta^{m_1},\zeta^{m_2},\dots,\zeta^{m_s})\mid \sum_{i=1}^s m_i\equiv 0 \pmod{n}\}.$$
+\end{defi}
+There is a coordinate by coordinate action of $\tau_n(s)$ on $P_n(s)$. The permutation group of $\{1,\dots,s\}$, denoted $S_s$ also acts on $P_n(s)$. The semidirect product $\tau_n(s)\rtimes S_s$ therefore acts on $P_n(s)$ permuting its vertices.
+
+There is a coordinate by coordinate action of $\tau_n(s)$ also on the set of possible $\mathcal{A}$ with product of $\det(\bar{A}_i)$ equal to one. The correspondences above are compatible under the inverse automorphism $\tau_n(s)\to \tau_n(s)$. There is a similar compatibility  with the semidirect product.
+\subsubsection{Determination of vertices}\label{review}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+There is a system of inequalities that cuts out the compact polytope $P_n(s)$ (Theorem \ref{ABW}
+below). But the nature of the vertices of $P_n(s)$, whether they are ``structured'' quantities, is a priori not clear
+from such an approach. Generalising the solution of the classical version of this problem, which is the determination of the extremal rays in the Hermitian eigenvalue problem for arbitrary type \cite{BHermit,BKiers,Kiers}, we approach the problem of determining vertices using the following:
+\begin{enumerate}
+\item The cone over $P_n(s)$ is the effective cone of a moduli stack of parabolic bundles (Theorem \ref{blacktea} and Proposition \ref{b9} below). The main point is that the Mehta-Seshadri theorem
+recasts the description of $P_n(s)$  as existence of semistable points in the moduli stack of parabolic bundles.
+\item One can then construct points of $P_n(s)$ by constructing divisors (suitable degeneracy loci)  on moduli stacks of parabolic bundles.
+\end{enumerate}
+We consider a particular inequality from the system of inequalities given by Theorem \ref{ABW}, and construct some basic vertices (all are F-vertices)  on the corresponding facet  by describing some degeneracy loci on moduli stacks of parabolic bundles (Theorem \ref{Adagio} and \ref{brahms}). An algorithm describing the construction of the corresponding rigid local systems is isolated in Section \ref{qSC}. The local monodromies, and even the ranks, of these local systems are given by Gromov-Witten numbers and quantum Schubert calculus. The set of all F-vertices can be determined without solving the system of inequalities given in Theorem \ref{ABW}, see Proposition \ref{practical}.
+
+The remaining vertices on the facet will arise from a numerically explicit induction process from Levi subgroups (see Section \ref{schumann} below).
+
+\iffalse
+The multiplicative problem considered here has some other complexities  having to do with general position arguments in the theory of  quot schemes over $\Bbb{P}^1$: the problem is of subbundles degenerating into subsheaves (with quotients having torsion), and has an added detail of the ``level of line bundles'', see Definition \ref{levell}.
+\fi
+\iffalse
+\begin{itemize}
+\item  The basic vertices we construct will be given as divisors on  moduli stacks of rank $n$ parabolic bundles, with trivialized determinant.
+\item Some of the vertices come about as simple degeneracy loci on these moduli stacks, see Theorems \ref{Adagio} and \ref{brahms} below.
+\item We will understand the remaining vertices on any regular face by a numerically explicit process of induction from Levi subgroups (see Section \ref{schumann} below).
+\end{itemize}
+
+\begin{remark}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready
+One can consider the problem above more generally, replacing  $\operatorname{SU}(n)$ by the maximal compact subgroup  $K$ in an arbitrary simple complex algebraic group $G$.
+  Although there is a description of the minimal set of inequalities describing the generalization of $P_n(s)$ \cite{BKq} to arbitrary $K$, there are technical difficulties in the problem of describing vertices which we do not know how to overcome (for example, finding replacements for  quot schemes). We have therefore limited ourselves to the case of $\operatorname{SU}(n)$ here.
+  \end{remark}
+ \fi
+\subsection{The inequalities defining $P_n(s)$}\label{ABWin}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Denote the Grassmannian of $r$-dimensional vector subspaces of a vector space $W$ by $\operatorname{Gr}(r,W)$, and  let
+$\Gr(r,n)=\operatorname{Gr}(r,\Bbb{C}^n)$. Also fix a set of  $s$ distinct points $S=\{p_1,\dots,p_s\}$ on $\Bbb{P}^1$.
+\begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{ineffable}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let $$E_{\bull}:E_0=0\subsetneq E_1\subsetneq E_2\subsetneq\dots\subsetneq E_n=W$$  be a complete flag of vector subspaces in an $n$-dimensional vector space $W$. Let $I=\{i_1<\dots< i_r\}\subset [n]=\{1,\dots,n\}$ be a subset of cardinality $r$. The open Schubert variety $\Omega^0_I(E_{\bull})\subseteq \Gr(r,W)$ is defined as follows ($i_0=0$, and $i_{r+1}=n$):
+$$\Omega^0_I(E_{\bull})=\{V\in \Gr(r,W)\mid \rk (V\cap E_j)=a,\text { for } i_a\leq j<i_{a+1}, a=0,\dots,r\}.$$
+The closure, in $\Gr(r,W)$, of $\Omega^0_I(E_{\bull})$ is the closed Schubert variety
+$$\Omega_I(E_{\bull})=\{V\in \Gr(r,W)\mid \rk (V\cap E_{i_a})\geq a, a=1,\dots,r\}.$$
+\end{defi}
+Let $\sigma_I\in H^{2|\sigma_I|}(\Gr(r,W),\Bbb{Z})$ be the cycle class of $\Omega_I(E_{\bull})$. Here
+$|\sigma_I|=\sum_{a=1}^r(n-r+a-i_a)$
+is the complex codimension of $\Omega_I(E_{\bull})$ in $\Gr(r,W)$.
+
+\begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{GW}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let $I^1,\dots ,I^s$ be subsets of $[n]$ each of cardinality $r$ and $d$ an integer $\geq 0$.
+The Gromov-Witten number $\langle\sigma_{I^1}, \sigma_{I^2},\dots,\sigma_{I^s}\rangle_d$
+is the number of maps (count as zero if infinite) $f:\Bbb{P}^1\to \operatorname{Gr}(r,n)$ of degree $d$ such that for $i=1,\dots,s$,
+$f(p_i)\in\Omega_{I^j}(F^j_{\bullet})\subseteq \operatorname{Gr}(r,n)$. Here $F^1_{\bullet},\dots,F^s_{\bullet}$ are complete flags on $\Bbb{C}^n$ in general position. It is known that the number does not depend upon the choice of the distinct points $p_1,\dots,p_s$. If $\sum_{a=1}^n\codim \sigma_{I^s}\neq dn +r(n-r)$, then $\langle\sigma_{I^1}, \sigma_{I^2},\dots,\sigma_{I^s}\rangle_d=0$. 
+
+Since maps $f:\Bbb{P}^1\to \operatorname{Gr}(r,n)$ are in one-one correspondence with rank $r$ subbundles $\mv\subseteq \mathcal{O}^{\oplus n}$ on $\Bbb{P}^1$, we can view Gromov-Witten numbers as  enumerative counts of subbundles of a fixed bundle (see Definition \ref{GWgen}).
+\end{defi}
+
+The system of inequalities that cuts out $P_n(s)$ inside $\Delta_n$ is the following \cite{AW,BLocal}, which is obtained using the theory of parabolic bundles and the Mehta-Seshadri theorem \cite{MS}:
+\begin{theorem}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{ABW}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let $\vec{a}=(a^1,\dots,a^s)\in \Delta_n^s$.
+Then, $\vec{a}\in P_{n}(s)$ if an only if for any collection of data
+$(d,r,n,I^1,\dots,I^s)$ as in Definition \ref{GW}, with $\langle\sigma_{I^1}, \sigma_{I^2},\dots,\sigma_{I^s}\rangle_d= 1$, the inequality
+\begin{equation}\label{wall}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\sum_{j=1}^s\sum_{k\in I^j} a_k^{j}\leq d
+\end{equation}
+holds.
+\end{theorem}
+The system of inequalities in \eqref{wall} is irredundant, see \cite[Remark 8.6]{BKq}, and hence equality in each inequality \eqref{wall} defines a facet of $P_n(s)$. Such facets are called {\em regular}, these are exactly those facets of $P_n(s)$ not contained in one of the alcove walls (i.e., a wall of $\Delta_n^s$).  In Lemma \ref{pinky}, we show that every vertex of $P_n(s)$ lies on  such a facet.
+
+\subsection{Stacks of parabolic bundles}
+As noted in Section \ref{review}, the Mehta-Seshadri approach towards describing $P_n(s)$ relies
+on studying line bundles on moduli of parabolic bundles, which we review in this section.
+\subsubsection{Lie theoretic definitions}\label{loudvoice}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let $\Delta_{n,\Bbb{Q}}\subseteq \Delta_n$ be the subset of points with rational coordinates and $P_{n,\Bbb{Q}}(s)\subseteq\Delta^s_{n,\Bbb{Q}}$, the rational polytope
+ $P_{n}(s)\cap \Delta^s_{n,\Bbb{Q}}$. The convex polytope $P_{n,\Bbb{Q}}(s)\subseteq \frh_{n,\Bbb{Q}}^s$ (which has the same vertex set as $P_n(s)$) is related to the effective cone of a suitable stack, see Proposition \ref{b9}.
+
+Let $\frh_n$ (respectively $\frh_{n,\Bbb{Q}}$)  be the real (resp. rational) vector space of tuples $(a_1,\dots,a_n)$ with $\sum a_i=0$. $\frh_n^*$ is parametrized by tuples $\lambda=(\lambda_1,\dots,\lambda_n)$ with the identification $\lambda=\mu$ if $\lambda_a-\mu_a$ is constant in $a$.  We can normalise the representative by requiring that $\lambda_n=0$.
+
+
+The Killing form gives an identification
+$\kappa:\frh_n^*\to \frh_n$ which takes $\lambda=(\lambda_1,\dots,\lambda_n)$ to $a=(a_1,\dots,a_n)$ where
+$a_k=\lambda_k-|\lambda|/n$ with $|\lambda|=\sum_{b=1}^n \lambda_b$. Also recall the positive Weyl chamber
+$\frh_{+,n}\subseteq  \frh_{n}$ (resp. $\frh_{+,n,\Bbb{Q}}\subseteq  \frh_{n,\Bbb{Q}}$) defined as the subset of  $(a_1,\dots,a_n)$ with $a_1\ge\dots\ge a_n$.
+
+\subsubsection{Moduli stacks}\label{loudvoice2}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+The flag variety $\op{Fl}(T)$ is the variety of complete flags on a vector space $T$. Recall that line bundles on $\op{Fl}(n)=\op{Fl}(\Bbb{C}^n)$ correspond to integral weights $\lambda=(\lambda_1,\dots,\lambda_n)\in \frh_{n,\Bbb{Z}}^*$ (i.e., all $\lambda_i\in\Bbb{Z}$). The fiber of the line bundle $\ml_{\lambda}$ corresponding to $\lambda$ over the full flag $E_{\bull}$ is
+$\bigotimes_{a=1}^{n} ((E^p_a/E^p_{a-1})^{\lambda_a})^*.$ The line bundle $\ml_{\lambda}$
+ is effective iff $\lambda\in \frh_{+}^*$, defined as the set of $\lambda$ with $\lambda_1\ge\dots\ge \lambda_n$.
+
+
+\begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready
+Let  $S=\{p_1,\dots,p_s\}\subseteq \Bbb{P}^1$ be a fixed collection of $s$ distinct points on $\Bbb{P}^1$.
+\begin{enumerate}
+\item For a vector bundle $\mathcal{W}$ on $\Bbb{P}^1$, define $\Fl_S(\mw)=\prod_{p\in S} \Fl(\mw_p)$. If $\me\in \Fl_S(\mw)$, we use the notation $\me=(E^p_{\bull}\mid p\in S)$.
+\item  Let $\op{Bun}_{\mn}(n)$ be the moduli stack of  pairs   $(\mw,\gamma)$ where $\mw$ is a vector bundle on $\Bbb{P}^1$ of rank $n$,  and $\gamma$ is an isomorphism $\gamma:\det \mw\leto{\sim}\mn$ where $\mn\in \op{Pic}(\Bbb{P}^1)$. $\op{Bun}_{\mn}(n)$ is a smooth Artin stack of dimension $1-n^2$.
+\item  Let $\Par_{n,\mn,S}$ be the moduli  stack of triples $(\mw,\me,\gamma)$ where $\mw$ is a vector bundle on $\Bbb{P}^1$ of rank $n$,   $\gamma$ is an isomorphism $\gamma:\det \mw\leto{\sim}\mn$, and $\me\in\Fl_S(\mw)$. The mapping  $\Par_{n,\mn,S}\to\op{Bun}_{\mn}(n)$ is a representable morphism
+with $\op{Fl}(n)^s$ as fibers. $\Par_{n,\mathcal{O},S}$ is called the moduli  stack
+of quasi-parabolic $\op{SL}(n)$ bundles with parabolic structures at the points $p_1,\dots,p_s$. It is a smooth Artin stack of dimension $\dim \Fl(n)^s + 1-n^2$.
+\end{enumerate}
+\end{defi}
+By the shift operations discussed in Section \ref{shifty}, the stacks $\Par_{n,\mn,S}$ can be identified with each other as we vary $\mn$. Although our primary interest is when $\mathcal{N}=\mathcal{O}$, other choices of $\mathcal{N}$ are needed:
+ \begin{itemize}
+ \item[-]  In an enumerative (Gromov-Witten) situation of counting suitable subbundles of degree $-d$ of $\mathcal{O}^{\oplus n}$, the subbundle will not have a trivial determinant if $d\neq 0$. This will be important for induction operations.
+ \item[-] The shift operation is needed in the derivation of the ``level'' of our line bundles. It is also needed in controlling some enumerative complexities.
+ \end{itemize}
+ \begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready
+We review some notation for irreducible Artin stacks $\mathcal{M}$:
+\begin{enumerate}
+\item $\Pic(\mathcal{M})$ denotes the Picard group of line bundles on $\mathcal{M}$.
+\item Set $\Pic_{\Bbb{Q}}(\mathcal{M})=\Pic(\mathcal{M})\tensor\Bbb{Q}$.
+\item Let $\Pic^+(\mathcal{M})\subseteq \Pic(\mathcal{M})$ denote the monoid of line bundles with non-zero global sections.
+\item Let $\Pic^+_{\Bbb{Q}}(\mathcal{M})\subseteq \Pic_{\Bbb{Q}}(\mathcal{M})$ denote the subset of elements such that some multiple has a non-zero global section. $\Pic^+_{\Bbb{Q}}(\mathcal{M})$ is also called the cone of effective $\Bbb{Q}$-divisors on the stack $\mathcal{M}$.
+\end{enumerate}
+\end{defi}
+The Picard group of $\Par_{n,\mn,S}$ is generated by the determinant of cohomology line bundle (defined below), and the line bundles that associate to a parabolic bundle, one of the subquotients of the parabolic bundle at one of the points of $S$:
+\begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{levell}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+There is a mapping
+\begin{equation}\label{canonical}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+(\bigoplus_{p\in S} \Pic(\Fl(n)))\oplus \Bbb{Z}=(\frh_{\Bbb{Z}}^*)^s\oplus\Bbb{Z}\to \Pic (\Par_{n,\mn,S})
+\end{equation}
+which sends $(\vec{\lambda},\ell)$ where  $\vec{\lambda}=(\lambda^1,\dots,\lambda^s)$, to
+\begin{equation}\label{bruckner}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\mathcal{B}(\vec{\lambda},\ell)=\mathcal{D}^{\ell}\otimes \bigotimes_{j=1}^s\ml_{\lambda^j,p_j}
+\end{equation}
+where
+\begin{enumerate}
+\item[(i)] For each $p\in S$ and integral weight $\lambda=(\lambda_1,\lambda_2,\dots, \lambda_n)$, $\ml_{\lambda,p}$ is the line bundle whose fiber over
+ $(\mw,\me,\gamma)$ is
+  $$\ml_{\lambda}(\mw_p,E^p_{\bull})=\bigotimes_{a=1}^{n} ((E^p_a/E^p_{a-1})^{\lambda_a})^*.$$
+\item [(ii)] $\mathcal{D}=\mathcal{D}(\mw)$ is the determinant of cohomology line bundle on $\Par_{n,\mn,S}$, whose fiber over $(\mw,\me,\gamma)$  is
+$$\mathcal{D}(\mw)=\det H^0(\Bbb{P}^1,\mw)^*\otimes \det H^1(\Bbb{P}^1,\mw),$$
+ where $\det T$  is the top exterior power $\wedge^m T$ of a vector space $T$, $m=\rk T$.
+ \end{enumerate}
+
+ Note that the line bundle on $\Par_{n,\mn,S}$ with fiber $\det \mw_p$ over $(\mw,\me,\gamma)$, for any fixed point $p\in\Bbb{P}^1$, is trivial because it is isomorphic to the fixed line $\mn_p$. Hence we may in  any $\lambda^i$ $\vec{\lambda}$ by $\lambda^i+(1,1,\dots,1)$ without changing the isomorphism type of
+     $\mathcal{B}(\vec{\lambda},\ell)$.
+\end{defi}
+
+\begin{remark}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{defL}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+We call $\ell$ the level of $\mathcal{B}(\vec{\lambda},\ell)$.
+\end{remark}
+
+\begin{proposition}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{LaSo}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+The mapping \eqref{canonical} is an isomorphism.
+\end{proposition}
+
+When $\mathcal{N}=\mathcal{O}$, $\Par_{n,\mn,S}$ can be identified with the moduli stack of parabolic $G$-bundles for $G=\op{SL}(n)$, and the result follows from \cite{LS}, and the general case is reduced in Section \ref{shifty2} to this case using the shift operations in Section \ref{shifty}.
+
+
+The following result allows us to rephrase the problem of finding extremal rays of the cone over $P_n(s)$ in terms of the effective cone of $\Par_{n,\mathcal{O},S}$, see e.g., \cite[Theorem 5.2]{BKq} for a proof:
+\begin{theorem}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{blacktea}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Assume $\mn=\mathcal{O}$, and $\ell\neq 0$.
+$H^0(\Par_{n,\mathcal{O},S},\mathcal{B}^m(\vec{\lambda},\ell))\neq 0$
+for some $m>0$ if and only if the following conditions are satisfied:
+\begin{enumerate}
+\item $\ell>0$ and $\lambda^j$ are dominant integral weights  of level $\ell$, $j=1,\dots,s$, i.e.,
+\begin{equation}\label{weyl}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\lambda^{j}_1\geq \lambda^{j}_2\geq \dots\geq \lambda^{j}_n\geq \lambda^{j}_1-\ell.
+\end{equation}
+\item The point $\frac{1}{\ell}(\kappa(\lambda^1),\dots,\kappa(\lambda^s)))$ lies in $\Delta_n^s$ by the first condition.
+The second condition is that this point is in $P_n(s)$.
+\end{enumerate}
+\end{theorem}
+\iffalse\begin{remark}
+Note that we could have combined both conditions into $\ell>0$ and $\frac{1}{\ell}(\kappa(\lambda^1),\dots,\kappa(\lambda^s)))\in P_n(s)$.
+\end{remark}
+\fi
+Theorem \ref{blacktea} implies the following:
+\begin{proposition}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{b9}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\hspace{2em}
+\begin{enumerate}
+\item $\Pic^+_{\Bbb{Q}}(\Par_{n,\mathcal{O},S})\subseteq (\frh_{\Bbb{Q}}^*)^s\times\Bbb{Q}$ is the cone over $P_{n,\Bbb{Q}}(s)\times 1$ in $\frh^s_{n,\Bbb{Q}}\times \Bbb{Q}$ under the Killing form identification $\frh=\frh^*$.
+\item
+The extremal rays of $\Pic^+_{\Bbb{Q}}(\Par_{n,\mathcal{O},S})$ correspond to vertices of $P_{n,\Bbb{Q}}(s)$ (which coincide with those of $P_{n}(s)$).
+\end{enumerate}
+\end{proposition}
+\begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready
+An element $\ml\in \Pic^+_{\Bbb{Q}}(\Par_{n,\mathcal{O},S})$ is said to lie on a regular face if the corresponding point of  $P_{n}(s)$ lies on a regular facet (see the discussion following Theorem \ref{ABW}).
+\end{defi}
+
+
+
+We will henceforth consider the problem of describing the extremal rays of $\Pic^+_{\Bbb{Q}}(\Par_{n,\mathcal{O},S})$. The description follows the methods introduced in  \cite{BHermit,BKiers,Kiers}.
+
+\begin{remark}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{classicall}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+There is a natural open embedding of the quotient stack   $[\op{Fl}(n)^s/\op{SL}(n)]$ in $\Par_{n,\mathcal{O},S}$, with $\op{SL}(n)$ acting diagonally on $\op{Fl}(n)^s$, by considering flags on a trivial vector bundle. The complement is a divisor with associated line bundle $\mathcal{D}$ (see Definition \ref{levell}). This gives a surjection of Picard groups
+$$\Pic(\Par_{n,\mathcal{O},S})\to \Pic([\op{Fl}(n)^s/\op{SL}(n)])$$
+inducing a surjection on the subsets of effective line bundles (using the fact that when the level is large with fixed $\vec{\lambda}$, conformal blocks equal classical invariants).  $\Pic^+([\op{Fl}(n)^s/\op{SL}(n)])$ is the classical Littlewood Richardson cone whose extremal rays (of the corresponding $\Bbb{Q}$-cone) were determined in \cite{BHermit}.
+\end{remark}
+\subsubsection{F-line bundles}\label{Def_F}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+  \begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{defF}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+ An effective line bundle $\ml=\mathcal{O}(E)=\mathcal{B}(\vec{\lambda},\ell)$ on $\Par_{n,\mathcal{N},S}$ is called an F-line bundle if
+ \begin{itemize}
+ \item[-]$h^0(\Par_{n,\mathcal{N},S},\mathcal{L}^m)=1$ for all integers $m\geq 0$ (it is sufficient to verify this condition for $m=1$ by the quantum Fulton conjecture (see Proposition \ref{qTheorems})), and
+ \item[-] $E$ is a non-empty, reduced and irreducible divisor on $\Par_{n,\mathcal{N},S}$.
+ \end{itemize}
+ \end{defi}
+ Note that the scaling properties are reminiscent of a conjecture of Fulton (see Section \ref{FSP}, but note that Fulton's conjecture did not include any irreducibility of the zeroes of sections).
+
+There is a bijective correspondence between  F-vertices of $P_{n}(s)$ and  F-line bundles on $\Par_{n,\mathcal{O},S}$ (see Lemma \ref{corresp}).
+
+\subsection{The extremal rays problem}
+The cone  $\Pic^+_{\Bbb{Q}}(\Par_{n,\mathcal{O},S})$ is cut inside the space of $(\vec{\lambda},\ell)$ by three kinds of inequalities: (1) the ``affine Weyl alcove''  inequalities \eqref{weyl}, (2)
+$\ell\geq 0$ and (3), the eigenvalue inequalities (corresponding to inequalities \eqref{wall}):
+\begin{equation}\label{wallnew}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\sum_{j=1}^s\sum_{k\in I^j} \lambda^j_k\leq d\ell +\sum_{j=1}^s \frac{r|\lambda^j|}{n}
+\end{equation}
+for any collection of data
+$(d,r,n,I^1,\dots,I^s)$ as in Definition \ref{GW}, with $\langle\sigma_{I^1}, \sigma_{I^2},\dots,\sigma_{I^s}\rangle_d= 1$.
+
+By Lemma  \ref{pinky} and Proposition \ref{b9}, any extremal ray of $\Pic^+_{\Bbb{Q}}(\Par_{n,\mathcal{O},S})$ lies on a face given by equality in inequality
+\eqref{wallnew}  for some $(d,r,n,I^1,\dots,I^s)$ with $\langle\sigma_{I^1}, \sigma_{I^2},\dots,\sigma_{I^s}\rangle_d= 1$. Denote this face of $\Pic^+_{\Bbb{Q}}(\Par_{n,\mathcal{O},S})$ by $\mf=\mf_{d,r,I^1,\dots,I^s}$. This leads us to the problem of describing  the extremal rays of  $\mf=\mf_{d,r,I^1,\dots,I^s}$ which we consider next.
+\subsubsection{A description of some extremal rays of $\mf$}\label{basicR}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let $(a,j)$ be a pair with $a\in[n]$ and $1\leq j\leq s$ such that
+\begin{enumerate}
+\item $a>1$, $a\in I^j$, and $a-1\not\in I^j$, or
+\item $a=1$, $1\in I^j$, $n\not\in I^j$.
+\end{enumerate}
+We will produce a divisor $D(a,j)\subseteq \Par_{n,\mathcal{O},S}$, such that $\mathcal{O}(D(a,j))$ is an extremal ray of $\Pic^+_{\Bbb{Q}}(\Par_{n,\mathcal{O},S})$
+which lies on the face $\mf$. We will also write $\mathcal{O}(D(a,j))=\mathcal{B}(\vec{\lambda},\ell)$ (see Definition \ref{levell}) and give formulas for $\ell$ and $\vec{\lambda}$.
+\begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready
+Define subsets $J^1,\dots,J^s$ of $[n]$ each of cardinality $r$ and an integer $d'$ as follows:
+In case (1) let $J^k=I^k$ if $k\neq j$, $J^j=(I^j-\{a\}) \cup \{a-1\}$ and $d'=d$, and in case (2) let  $J^k=I^k$ if $k\neq j$, $J^j=(I^j-\{1\}) \cup \{n\}$ and $d'=d-1$.
+
+Let $D(a,j)$ denote the set  of $(\mw,\me,\gamma)\in \Par_{n,\mathcal{O},S}$ such that there exists a
+coherent subsheaf $\mv\subseteq \mw$ of  rank $r$,  degree $-d'$, and for each $p=p_i\in S$, the map
+ $$\mv_p\to \mw_p/E^p_{j^i_k}$$ has a kernel of rank $\geq k$ for $k=1,\dots,r$. We will consider $D(a,j)$ as a reduced closed substack of $\Par_{n,\mathcal{O},S}$.
+\end{defi}
+\begin{theorem}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{Adagio}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\hspace{2em}
+\begin{enumerate}
+\item  $D(a,j)$ is an irreducible divisor in  $\Par_{n,\mathcal{O},S}$.
+\item $h^0(\Par_{n,\mathcal{O},S}, \mathcal{O}(mD(a,j)))=1$ for all positive integers $m$. Hence  $\mathcal{O}(D(a,j))$ is an F-line bundle on $\Par_{n,\mathcal{O},S}$.
+\item $\Bbb{Q}_{\geq 0}\mathcal{O}(D(a,j))$  is an extremal ray of $\Pic^+_{\Bbb{Q}}(\Par_{n,\mathcal{O},S})$.
+\item The extremal ray $\Bbb{Q}_{\geq 0}\mathcal{O}(D(a,j))$ lies on the face  $\mf=\mf_{d,r,I^1,\dots,I^s}$ of $\Pic^+_{\Bbb{Q}}(\Par_{n,\mathcal{O},S})$.
+\end{enumerate}
+\end{theorem}
+
+Set $$\mathcal{O}(D(a,j))=\mathcal{B}(\vec{\lambda},\ell).$$
+There are formulas (also see Section \ref{concept}) for $\ell$ and $\vec{\lambda}$, and hence for $\mathcal{B}(\vec{\lambda},\ell)$:
+Write $\lambda^i=\sum_{b=1}^{n-1} c_{i}^b\omega_b$, where $\omega_b$ corresponds to $(1,\dots,1,0,\dots,0)$ with $b$ ones and $n-b$ zeros, and is the $b$th fundamental weight.
+\begin{theorem}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{brahms}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\hspace{2em}
+\begin{enumerate}
+\item Let $J^{s+1}=\{1,n-r+1,n-r+2,\dots,n-1\}$. Then
+\begin{equation}\label{formulel}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\ell=\langle\sigma_{J^1}, \sigma_{J^2},\dots,\sigma_{J^s},\sigma_{J^{s+1}}\rangle_{d'+1}.
+\end{equation}
+\item $c_{i}^{b}=0$ if $b\not\in J^i$, or $b+1\in J^i$. If $b\in J^i$ and $b+1\not\in J^i$, define subsets $J'^1,\dots,J'^s$ of $[n]$
+ each of cardinality $r$ as follows: $J'^k=J^k$ if $k\neq i$, and $J'^i=(J^i-\{b\})\cup \{b+1\}$. Then
+$$c_i^{b}= \langle\sigma_{J'^1}, \sigma_{J'^2},\dots,\sigma_{J'^s}\rangle_{d'}.$$
+\end{enumerate}
+\end{theorem}
+We can readily convert the formulas for $c_i^b$ and $\ell$ above into the ranks of suitable conformal blocks for $\mathfrak{sl}_r$  at level $k=n-r$ (by using Witten's theorem, see \cite[Proposition 3.4]{BHorn} and Section \ref{QCB}).
+Let $\mu^i=(\lambda^i)^T$. These are Young diagrams that fit into an $\ell\times n$ box. The following corollary, which is one of the main results of this paper, describes a procedure of producing rigid irreducible local systems from quantum Schubert calculus, and includes all known methods of systematically producing unitary irreducible rigid local systems (including the ones in \cite{BH,Haraoka}). For more
+discussion see Sections \ref{qSC} and \ref{qSC2}.
+\begin{corollary}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{existence}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+There exists a rigid irreducible unitary local system of rank $\ell$ on $\Bbb{P}^1-S$ whose local monodromy at $p_i$ is conjugate to the diagonal matrix with eigenvalues  $\exp(2\pi\sqrt{-1}\mu_j^i/n)$, $j\in[\ell]$ and $i\in[s]$. Furthermore, the following  equality holds:
+  $$\sum_{i=1}^s \bigl((\ell-\sum_{b=1}^{n-1} c^b_i)^2 \ + \ \sum_{b=1}^{n-1}(c^b_i)^2\bigr)=(s-2)\ell^2+2.$$
+\end{corollary}
+\begin{remark}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{brahms2}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Since $\mathcal{O}(D(a,j))$ is on the face $\mf$ (by Theorem \ref{Adagio}), the numbers $\ell$ and $c^i_b$ satisfy a linear equality (equality in the inequality \eqref{wallnew}) in addition to the quadratic equality in the above corollary.
+\end{remark}
+Examples of vertices arising from Theorem \ref{brahms} are given in Section \ref{somemore}. These include a vertex of $P_8(3)$ found by Thaddeus \cite{thaddy} and an infinite series of examples found by Kiers and Orelowitz.
+
+
+
+
+\subsection{Induction}\label{schumann}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+The basic idea behind the induction operation is to take a  ``general'' parabolic bundle $(\mw,\me,\gamma)$ and locate the subbundle $\mv\subseteq \mw$ corresponding to the enumerative problem  defining the face $\mf$, i.e., $\langle\sigma_{I^1}, \sigma_{I^2},\dots,\sigma_{I^s}\rangle_d= 1$ (Definitions \ref{GW}  and \ref{GWgen}). Let $\mq=\mw/\mv$. Clearly  $\mv$ and $\mq$ are vector bundles of ranks $r$ and $n-r$ respectively, and we have a given isomorphism $\delta:\det\mv \tensor\det\mq\to \mathcal{O}$. We also get induced flags on $\mv$ and $\mq$ at points of $S$ i.e., elements of  $ \Fl_S(\mv)$ and $\Fl_S(\mq)$.  Let $\ParL$ (see Definition \ref{parul}) be the moduli stack parametrizing this data.  $\ParL$ can be considered ``a  degree shift"  of  $\Par_{r,\mathcal{O},S}\times\Par_{n-r,\mathcal{O},S}$ (see Property (I3) in Section \ref{noncan}, and Proposition \ref{easily}).
+
+The above construction leads to a rational morphism
+$$\Par_{n,\mathcal{O},S}\to \ParL$$
+which  extends to codimension $2$, and hence allows for a pullback operation of line bundles.
+Effective line bundles on $\ParL$ correspond to  the extremal  ray problem for smaller groups $\SL(r)$ and $SL(n-r)$. This results in the induction morphism described below which has image in a space $\mf^{(2)}$ ``complementary" to the basic extremal rays from Theorem \ref{Adagio}.
+
+
+Let $D_1,\dots,D_q$ be the basic extremal ray generators produced as $[D(a,j)]$ in Section \ref{basicR}. The following three results complete our picture of $\mf$:
+\begin{enumerate}
+\item[(a)]
+ There is a rational cone $\mf^{(2)}$ such that
+there is a natural product structure (Proposition \ref{Br4})
+\begin{equation}\label{productstructure}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\mf\leto{\sim}\prod_{i=1}^q \Bbb{Q}_{\ge 0} D_i \times \mf^{(2)}
+\end{equation}
+\item[(b)] There is a  surjection (called induction), with explicit formulas (see Section \ref{explicitF}),
+\begin{equation}\label{inductiones}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\Pic^+_{\Bbb{Q}}(\Par_{r,\mathcal{O}(-d),S})\times \Pic^+_{\Bbb{Q}}(\Par_{n-r,\mathcal{O}(d),S})\twoheadrightarrow \mf^{(2)}.
+\end{equation}
+Therefore the extremal rays of $\mf$ are either one of the $\Bbb{Q}_{\ge 0} D_i$ for $1\leq i\leq q$, or extremal rays of $\mf^{(2)}$. From the surjection \eqref{inductiones}, the extremal rays of $\mf^{(2)}$ are images of some of the extremal rays of $\Pic^+_{\Bbb{Q}}(\Par_{r,\mathcal{O}(-d),S})$ (which is a shift of the cone for $\SL(r)$) and $\Pic^+_{\Bbb{Q}}(\Par_{n-r,\mathcal{O}(d),S})$ (which is a shift of the cone for $\SL(n-r)$), although not all such images need give extremal rays of $\mf^{(2)}$.
+\item[(c)]
+All F-line bundles on the face $\mf$ can be described as follows: They are one of the line bundles $\mathcal{O}(D_i)$ for $1\leq i\leq q$, or lie on $\mf^{(2)}$.  The F-line bundles on $\mf^{(2)}$ can be put in one-one correspondence  (under induction)  with an explicit subset of the disjoint union of F-line bundles on the Levi factors $\Par_{r,\mathcal{O},S}$ and $\Par_{n-r,\mathcal{O},S}$ (See Proposition \ref{condensed}).
+\end{enumerate}
+\iffalse
+Since F-vertices correspond to unitary rigid local systems (Theorem \ref{egregium} and Lemma \ref{corresp), this gives a good inductive parametrization of unitary rigids.
+\fi
+
+For the non F-line bundle extremal rays of  $\mf^{(2)}$, an exact parametrization as in (c) is not known. This is probably related to general patterns of representation theory (e.g., \cite[Chapter 49]{Bump}) in which induction operations  may not preserve irreducibility. Another technical issue is that we are inducing only from maximal parabolics and not all parabolics. However, the induction procedure still produces a set of generating rays of the face, and this has been used by J. Kiers (in a related context) to prove  the saturation conjecture for $\op{Spin}(12)$  \cite{Kiers1}. In this case, the linear programming problem starting from the defining inequalities was prohibitively slower to solve than the linear programming problem starting from the generating set (basic rays given by degeneracy loci and what is obtained from
+induction).
+
+
+
+\subsection{Strange duality}\label{etrange}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+The numbers $h^0(\Par_{n,\mathcal{O},S},\mathcal{B}(\vec{\lambda},\ell))$ are structure coefficients in the Verlinde algebra (also called the fusion ring)
+for the Lie algebra $\mathfrak{sl}_n$ at level $\ell$.  We will use strange duality, in its numerical form in genus zero,  which asserts that these Verlinde structure coefficients for the Lie algebra $\mathfrak{sl}_n$ at level $\ell$ are equal to suitable structure coefficients for the Lie algebra $\mathfrak{sl}_{\ell}$ at level $n$. See Section \ref{understanding} for a discussion of the basic  geometric ideas underlying this duality.
+
+The data $\vec{\lambda}$ goes over to the transposed data $\vec{\lambda^T}$ with a central  twist (assume here that $\vec{\lambda}$ consists of Young diagrams that fit into an $n\times\ell$ box).
+\begin{itemize}
+\item[-] Strange duality takes $(\vec{\lambda},\ell)$ on $\Par_{n,\mathcal{O},S}$ to $(\vec{\lambda^T},n)$ on $\Par_{\ell,\mathcal{O}(-\tilde{d}),S}$ with $-\tilde{d}= \frac{1}{n}(n\ell-\sum |\lambda^i|)$ (assumed to be an integer). The matter of central twisting tells us how to pass to $\tilde{d}=0$, see Section \ref{shifty}.
+\end{itemize}
+
+This picture is very general, and applies to many other groups: in the physics picture it accompanies conformal embeddings of Lie algebras (see  \cite{BJDG} and the references therein). In the case of special linear groups there is a simple and vivid way of explicating this numerical relation  using the result of  Witten \cite{Witten}  (also Section \ref{QCB} below) that  the fusion structure coefficients for the Lie algebra $\mathfrak{sl}_n$ at level $\ell$ are equal to, up to some cyclic twists, the  structure constants in the quantum cohomology of the space $\Gr(n,n+\ell)$. Since (by ``Grassmann duality'') $\Gr(n,n+\ell)=\Gr(\ell,n+\ell)$, the strange duality follows.
+
+Theorem \ref{egregium} and Corollary \ref{egregiumprime} are proved using strange duality in Section \ref{SD}. Here we use the fact that the non-zeroness of ranks of line bundles on parabolic moduli stacks control existence of unitary local systems with prescribed monodromies (Propositions \ref{qTheorems}, \ref{kappa}, and \ref{sansD}).
+ \subsection{Rigid local systems and KZ equations}
+ The Knizhnik-Zamalodchikov equations from conformal field theory are  differential equations (i.e., vector bundles with flat connections)
+ on the configuration spaces of points in $\Bbb{A}^1$ corresponding to a Lie algebra and certain data of representations, and a level.  These differential equations are special cases of the Wess-Zumino-Witten (WZW) connection on conformal blocks in any genus \cite{tuy} (which includes Hitchin's connection on spaces of non-abelian theta functions as a special case \cite{laszlo}). The WZW formalism allows for a study of the differential equations on the boundary of moduli spaces (i.e., when the marked points coalesce, and the connection is logarithmic over the boundary).
+
+ There is a geometric realization \cite{Ram,BKZ,BM} of the monodromy of KZ equations in genus zero  on conformal blocks, in terms of cohomology of unramified covers of configuration spaces \cite{SV}, providing conformal blocks with a (Hodge theoretic) unitary structure, preserved by the KZ connection (possibly reducible, and not necessarily rigid, also see Remark \ref{hodge}). In Section \ref{chocolate}, we give  a construction that shows that all unitary irreducible rigid local systems with local monodromies  of finite orders come from KZ equations. This can be interpreted as a kind of ``universality'' statement regarding KZ equations.
+
+\iffalse
+ Here is an outline of this construction: Let $\rigid$ be a unitary irreducible  rank $\ell>1$ rigid local system on $\Bbb{P}^1-S$, $S=\{p_1,\dots,p_s\}\subset \Bbb{A}^1$. Suppose the local monodromy of $\rigid$
+at the points $p_i$ is of the form $\exp(2\pi\sqrt{-1}\mu_j^i/n)$ with integers $0\leq \mu_j^i<n$, so that the $\mu^i$ are Young diagrams that fit in an $\ell\times n$ box. Let $\widetilde{\mn}$ be a line bundle on $\Bbb{P}^1$ of degree $-\sum |\mu^i|/n\in \Bbb{Z}$. We therefore get the data of an effective line bundle $\ml'=\mathcal{B}(\vec{\mu},n)$ on the moduli stack  $\Par_{\ell,\widetilde{\mathcal{N}},S}$. Let $\ml=\mathcal{B}(\vec{\lambda},\ell)$ be the strange dual line bundle on $\Par_{n,{\mathcal{O}},S}$ where  $\vec{\lambda}$ is the vector of transposes $\vec{\mu}^T$ (the transposes are taken in an $\ell\times n$  box).
+
+It turns out that $\ml$ and $\ml'$ will have exactly one dimensional  spaces of global sections (on different stacks).
+Theorem \ref{christmas} shows that the rigidity of  $\mathcal{T}$  is equivalent to $\ml$ being  an F-line bundle on $\Par_{n,{\mathcal{N}},S}$. Write it as $\mathcal{O}(E)$ for  an irreducible reduced  divisor $E$. Next $E$ is shown to be the non-semistable-locus of $\ml$. Therefore it has an extra (``Harder-Narasimhan") subbundle that contradicts semistability. Such $E$ are classified (in terms of how the extra subbundle meets the flags) and one has a formula for $\mathcal{O}(E)$ (Proposition \ref{enumerative} and the result of Witten mentioned before). The level in this formula is the dimension of a conformal block. Therefore the rank of $\rigid$ is the rank of a conformal block. This gives us the hint to which KZ system one should match with $\rigid$. It then suffices to verify that the local monodromies are equal (Theorem \ref{KZe}). Therefore all rigid local systems which are irreducible and unitary (e.g., those that have finite global monodromy) with finite order local monodromies come from KZ equations on conformal blocks.
+\fi
+\subsubsection{Acknowledgements}
+I thank N. Fakhruddin, J. Kiers, S. Kumar, M. Nori, S. Mukhopadhyay and A. Wilson for useful discussions and comments/corrections. I thank N. Katz for asking the question answered in Theorem \ref{KatzQ}, and for his comments on an earlier version of this paper. I thank J. Kiers and G. Orelowitz for showing me  the infinite set of examples given here in Section \ref{KO}.

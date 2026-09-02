@@ -1,0 +1,739 @@
+% Source-derived chapter 08: Proof of the main theorem
+% Original source: tates-thesis-de-rham-setting
+\chapter{Proof of the main theorem}
+\label{tates-thesis-de-rham-setting-chapter-08}
+\source{tates-thesis-de-rham-setting}
+
+\begin{remark}[Source section]
+\label{tates-thesis-de-rham-setting-chapter-08-source}
+\source{tates-thesis-de-rham-setting}
+\source{tates-thesis-de-rham-setting}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Proof of the main theorem
+\label{s:main}
+\source{tates-thesis-de-rham-setting}
+
+\subsection{Overview}
+
+In this section we prove Theorem \ref{t:main}. The idea is simple given the
+work we have done so far: bootstrap from the functors $\Delta_n$ constructed
+earlier.
+
+
+\subsection{Arcs}\label{ss:delta-arcs}
+\source{tates-thesis-de-rham-setting}
+
+We begin by constructing a strongly $\fL^+\bG_m$-equivariant functor:
+%
+\[
+\Delta_{\infty}:D^!(\fL^+\bA^1) \to \IndCoh^*(\sY).
+\]
+
+\subsubsection{Notation}
+
+In what follows, we let:
+%
+\[
+p_n:\fL^+ \bA^1 \to \fL_n^+\bA^1
+\]
+
+\noindent denote the structural map.
+For $m \geq n$, we similarly let: 
+%
+\[
+p_{n,m}:\fL_m^+\bA^1 \to \fL_n^+\bA^1 
+\]
+
+\noindent denote the structural map.
+
+\subsubsection{Overview}
+
+First, let us unwind what it means to construct such a functor
+$\Delta_{\infty}$.
+
+Recall from \cite{dmod} that by definition we have: 
+%
+\[
+D^!(\fL^+\bA^1) \coloneqq \colim_{n \geq 0} \, D(\fL_n^+\bA^1)  
+\]
+
+\noindent where the structural functors are the standard 
+$!$-pullback functors of $D$-module theory. We let: 
+%
+\[
+p_n^!: D(\fL_n^+\bA^1) \to 
+D^!(\fL^+\bA^1)
+\]
+
+\noindent denote the structural functor.
+
+The above colimit is a colimit of $D^*(\fL^+\bG_m)$-module categories.
+Moreover, as it is indexed by $\bZ^{\geq 0}$, it suffices to 
+construct functors:
+%
+\begin{equation}\label{eq:term-wise}
+\source{tates-thesis-de-rham-setting}
+D(\fL_n^+\bA^1) \to \IndCoh^*(\sY) \in 
+D^*(\fL^+\bG_m)\mod 
+\end{equation}
+
+\noindent and commutative diagrams:
+%
+\begin{equation}\label{eq:delta-infty-comm}
+\source{tates-thesis-de-rham-setting}
+\vcenter{\xymatrix{
+D(\fL_n^+\bA^1) \ar[drr]\ar[d]_{p_{n,n+1}^!} && \\ 
+D(\fL_{n+1}^+\bA^1) \ar[rr] && \IndCoh^*(\sY) 
+}}
+\end{equation}
+
+\noindent of $D^*(\fL^+\bG_m)$-module categories for each $n$.
+(Here $D^*(\fL^+\bG_m)\mod $ acts on $\IndCoh^*(\sY)$ via
+geometric class field theory, as in \S \ref{s:cft}.)
+
+\subsubsection{}
+
+For us, by definition, the functor \eqref{eq:term-wise}
+is $\Delta_n$. It remains to construct the commutative 
+diagrams \eqref{eq:delta-infty-comm} as above. 
+
+In \S \ref{sss:diff-func}-\ref{sss:diff-compat}, we will formulate 
+a compatibility for these commutative diagrams that 
+characterizes them uniquely. We then turn to proving their existence.
+
+\subsubsection{Preliminary constructions with differential operators}\label{sss:diff-func}
+\source{tates-thesis-de-rham-setting}
+
+We digress to some general constructions with $D$-modules, continuing
+the discussion from \S \ref{ss:diff-1}. 
+
+Suppose $\pi:X \to Y$ is a morphism between smooth varieties. In this
+case, one has a canonical natural isomorphism:
+%
+\[
+\Oblv^{\ell} \pi^! \simeq \pi^*\Oblv^{\ell}
+\]
+
+\noindent of functors:
+%
+\[
+D(Y) \to \QCoh(X).
+\]
+
+\noindent Here $\pi^*$ is the quasi-coherent pullback functor. We refer
+to \cite{crystals} for the construction.
+
+The canonical map:
+%
+\[
+\sO_Y \to \Oblv^{\ell}\ind^{\ell}(\sO_Y) = \Oblv^{\ell}(D_Y)
+\]
+
+\noindent then gives rise to a map:
+%
+\[
+\sO_X \to \Oblv^{\ell}(D_Y) \simeq 
+\Oblv^{\ell}\pi^!(D_Y)
+\]
+
+\noindent so by adjunction a map:
+%
+\begin{equation}\label{eq:can-x-y}
+\source{tates-thesis-de-rham-setting}
+\on{can}:D_X \to \pi^!(D_Y).
+\end{equation}
+
+In the special case where $\pi$ is smooth, the map $\on{can}$
+is between objects concentrated in cohomological degree $-\dim X$, and
+is an epimorphism in that abelian category.
+
+Finally, we note that if an algebraic group $G$ acts on $X$ and $Y$, and the map
+$\pi$ is $G$-equivariant, the map $\on{can}$ upgrades canonically to a map 
+of $G$-weakly equivariant $D$-modules (by functoriality of the above constructions).  
+
+\subsubsection{A compatibility}\label{sss:diff-compat}
+\source{tates-thesis-de-rham-setting}
+
+Let us now return to our setting. For each $n$, the above
+provides canonical morphisms:
+%
+\[
+\on{can}_n:
+D_{\fL_{n+1}^+ \bA^1} \to p_{n,n+1}^! D_{\fL_n^+ \bA^1} \in 
+D(\fL_{n+1}^+ \bA^1)^{\fL_{n+1}^+ \bG_m,w}.
+\]
+
+Suppose we are given a commutative diagram \eqref{eq:delta-infty-comm}.
+We then obtain a morphism:
+%
+\begin{equation}\label{eq:delta-can-n}
+\source{tates-thesis-de-rham-setting}
+\begin{gathered}
+i_{n+1,*}^{\IndCoh}(\sO_{\sZ^{\leq n+1}}) \eqqcolon 
+\Delta_{n+1}(D_{\fL_{n+1}^+ \bA^1}) \xar{\on{\Delta_{n+1}(\on{can}_n)}}
+\Delta_{n+1}(p_{n,n+1}^! D_{\fL_n^+ \bA^1}) 
+\overset{\eqref{eq:delta-infty-comm}}{\simeq} \\
+\Delta_n(D_{\fL_n^+ \bA^1}) 
+\coloneqq
+i_{n,*}^{\IndCoh}(\sO_{\sZ^{\leq n}}) \in \IndCoh^*(\sY)^{\fL^+\bG_m,w} \simeq 
+\IndCoh^*(\sY_{\log}).
+\end{gathered}
+\end{equation}
+
+\noindent (We have omitted terms $\lambda_{-,*}^{\IndCoh}$ to simplify 
+the notation. We are also abusing notation in letting
+e.g. $\Delta_n$ denote the induced functor on 
+weakly equivariant categories.)
+
+On the other hand, there is another such map coming from the embedding
+$\delta_{n+1}:\sZ^{\leq n} \into \sZ^{\leq n+1}$ and the adjunction map:
+%
+\begin{equation}\label{eq:delta-delta}
+\source{tates-thesis-de-rham-setting}
+\sO_{\sZ^{\leq n+1}} \to \delta_{n+1,*}(\sO_{\sZ^{\leq n}}).
+\end{equation}
+
+We will show:
+
+\begin{prop}
+\source{tates-thesis-de-rham-setting}
+\notready\label{p:delta-infty-comm}
+\source{tates-thesis-de-rham-setting}
+
+There exist unique commutative diagrams \eqref{eq:delta-infty-comm}
+so that the resulting map \eqref{eq:delta-can-n} is \eqref{eq:delta-delta}.
+
+\end{prop}
+
+In this remainder of this subsection, we prove Proposition \ref{p:delta-infty-comm}.
+
+\subsubsection{}\label{sss:hc-comm-diags}
+\source{tates-thesis-de-rham-setting}
+
+Let us make a preliminary observation in a general setting. Fix $G$
+an affine algebraic group.
+
+Suppose that $A$ is an associative algebra with a 
+$G$-action and a Harish-Chandra datum as in \S \ref{ss:hc}, so 
+$G$ acts strongly on $A\mod$.
+
+Suppose we are given $\sC,\sD \in G\mod$ and functors:
+%
+\[
+\begin{gathered}
+F_1:A\mod \to \sC \\
+F_2:\sC \to \sD \\
+F_3:A \mod \to \sD.
+\end{gathered}
+\]
+
+We let:
+%
+\[
+\sF_1 \coloneqq F_1(A) \in \sC^{G,w}, \sF_3 \coloneqq F_3(A) \in \sD^{G,w}.
+\]
+
+Moreover, to remove discussion of higher homotopical considerations,
+we assume:
+
+\begin{itemize}
+
+\item $A$ is classical.
+
+\item $\ul{\End}_{\sC}(\sF_1)$ and $\ul{\End}_{\sD}(\sF_3)$ are classical.
+
+\end{itemize}
+
+Then, as in \S \ref{ss:hc}, the 
+functor $F_1$ is completely encoded in the datum of compact
+object $\sF_1 \in \sC^{G,w}$ with its action of $A^{op} \in \Alg(\Rep(G))$ by 
+endomorphisms (the data should satisfy the property that the action of
+$\fg$ through $i:\fg \to A$ coincides with the obstruction to strong equivariance).
+The same applies for $F_3$.
+
+Therefore, we see that (under the homotopically simplifying assumptions
+above), the data of a commutative diagram:
+%
+\[
+\xymatrix{
+A\mod \ar[d]_{F_1} \ar[drr]^{F_3} && \\ 
+\sC \ar[rr]^{F_2} && \sD 
+}
+\]
+
+\noindent is equivalent to giving an isomorphism:
+%
+\[
+F_2(\sF_1) \simeq \sF_3 \in \sD^{G,w}
+\]
+
+\noindent compatible with the actions of $A^{op} \in \Rep(G)$ on both sides.
+(In particular, under these assumptions, it is equivalent to construct
+a commutative diagram of strongly or weakly $G$-equivariant categories.)
+
+\subsubsection{}
+
+We apply this in our setting as follows. 
+
+First, the actions on the source categories factor through the localization 
+$D^*(\fL^+\bG_m) \to D(\fL_{n+1}^+\bG_m)$, and the functors
+factor through the subcategory $\IndCoh^*(\sY^{\leq n+1}) \subset \IndCoh^*(\sY)$,
+through which $D(\fL_n^+\bG_m)$ acts. So the question only concerns the
+action of an affine algebraic group, not an affine group scheme. 
+
+We then see
+it suffices to show that there is a unique isomorphism:
+%
+\begin{equation}\label{eq:comm-iso}
+\source{tates-thesis-de-rham-setting}
+\Delta_{n+1}(p_{n,n+1}^! D_{\fL_n^+ \bA^1}) 
+\simeq 
+\Delta_n(D_{\fL_n^+ \bA^1}) 
+\coloneqq
+i_{n,*}^{\IndCoh}(\sO_{\sZ^{\leq n}})
+\end{equation}
+
+\noindent such that: 
+
+\begin{itemize}
+
+\item The two resulting maps from $i_{n+1,*}^{\IndCoh}(\sO_{\sZ^{\leq n+1}})$
+(one being \eqref{eq:delta-can-n}, the other being the canonical map)
+coincide.
+
+\item The two resulting actions of $W_n^{op}$ on 
+$\Av_!^{\Gr_{\bG_m}^{\leq n}}i_{n,*}^{\IndCoh}(\sO_{\sZ^{\leq n}})$ (coming from 
+the tautological action of 
+$W_n^{op}$ on $D_{\fL_n^+\bA^1} \in D(\fL_n^+\bA^1)$, and functoriality of
+$\Delta_{n+1}p_{n,n+1}^!$ and $\Delta_n$ respectively) coincide
+under the isomorphism.
+
+\end{itemize}
+
+As the canonical map:
+%
+\[
+i_{n+1,*}^{\IndCoh}(\sO_{\sZ^{\leq n+1}}) \to 
+i_{n,*}^{\IndCoh}(\sO_{\sZ^{\leq n}}) \in \Coh(\sY_{\log})^{\heart}
+\]
+
+\noindent is an epimorphism, we see that the first point above 
+implies that such an isomorphism is unique if it exists. 
+
+To see existence, it is convenient to fix a coordinate $t$ on the
+disc. We use the
+notation $\alpha$ notation of \S \ref{sss:ff-induction-strat}. 
+
+We have an evident short exact sequence:
+%
+\[
+0 \to D_{\fL_{n+1}^+ \bA^1}(-1) \xar{-\cdot \partial\alpha_n}
+D_{\fL_{n+1}^+ \bA^1} \xar{\on{can}_n} 
+p_{n,n+1}^! D_{\fL_n^+ \bA^1} \to 0 
+\]
+
+\noindent in the abelian category 
+$D(\fL_{n+1}^+\bA^1)^{\fL_{n+1}^+ \bG_m,w,\heart}[n+1]$.
+Here in the first term, the twist $(-1)$ indicates that we modify the
+weakly equivariant structure by tensoring with the representation 
+$k(-1) \in \Rep(\fL^+\bG_m)$ obtained by restriction along $\ev$ from the
+standard representation of $\bG_m$.
+
+By construction of $\Delta_{n+1}$, on weakly equivariant
+categories, we have:
+%
+\[
+\begin{gathered}
+\Delta_{n+1}(D_{\fL_{n+1}^+ \bA^1}) \simeq i_{n+1,*}^{\IndCoh}(\sO_{\sZ^{\leq n+1}}) \\
+\Delta_{n+1}(D_{\fL_{n+1}^+ \bA^1}(-1)) 
+\simeq i_{n+1,*}^{\IndCoh}\iota_*^{\IndCoh}(\sO_{\sZ^{\leq n+1}}).
+\end{gathered}
+\]
+
+\noindent Moreover, it is easy to see that $\Delta_{n+1}(-\cdot \partial_{\alpha_n})$
+goes to the map induced from:
+%
+\[
+\iota_*^{\IndCoh}(\sO_{\sZ^{\leq n+1}}) \xar{b_{-n}\cdot-} 
+\sO_{\sZ^{\leq n+1}},
+\]
+
+\noindent i.e., the left arrow in \eqref{eq:fund-ses-2}. From 
+\eqref{eq:fund-ses-2}, it follows that there is a unique
+isomorphism \eqref{eq:comm-iso} compatible with the projection from 
+$i_{n+1,*}^{\IndCoh}(\sO_{\sZ^{\leq n+1}})$. It is straightforward
+to check that this isomorphism is compatible with the action of
+$W_n^{op}$, concluding the argument.
+
+\subsection{Compatibility with translation}
+
+We now establish an additional equivariance property 
+for the functor $\Delta_{\infty}$.
+
+Specifically, recall the positive loop space $\fL^{pos} \bG_m \subset \fL \bG_m$ 
+for $\bG_m$, as defined in \S \ref{ss:pos-gr}. 
+This space is an ind-closed submonoid of $\fL \bG_m$ containing
+$\fL^+\bG_m$, so we have 
+a fully-faithful monoidal functor:
+%
+\[
+D^*(\fL^{pos} \bG_m) \subset D^*(\fL \bG_m).
+\]
+
+By construction, $\fL^{pos} \bG_m$ acts on $\fL^+\bA^1$, so 
+$D^*(\fL^{pos} \bG_m)$ acts on $D^!(\fL^+\bA^1)$.
+
+On the other hand, we have the local class field theory isomorphism:
+%
+\[
+D^*(\fL \bG_m) \simeq \QCoh(\LocSys_{\bG_m})
+\]
+
+\noindent defining a (fully faithful, symmetric) monoidal functor:
+%
+\[
+D^*(\fL^{pos} \bG_m) \to \QCoh(\LocSys_{\bG_m})
+\]
+
+\noindent and so an action of $D^*(\fL^{pos} \bG_m)$ on 
+$\IndCoh^*(\sY)$.
+
+Our goal is to canonically upgrade the strong 
+$\fL^+\bG_m$-equivariance of $\Delta_{\infty}$ to make $\Delta_{\infty}$
+into a morphism of $D^*(\fL^{pos} \bG_m)$-module categories.
+
+\subsubsection{}
+
+Before proceeding, we wish to pin down this equivariance property uniquely.
+
+Suppose $\sC$ is a $D^*(\fL^{pos} \bG_m)$-module category. 
+We obtain a canonical functor $T:\sC^{\fL^+\bG_m} \to \sC^{\fL^+\bG_m}$
+given by the action of (the $\delta$ $D$-module at) 
+some (equivalently any) uniformizer $t \in \fL^{pos} \bG_m$.
+
+Our uniqueness property will involve the corresponding functors $T$ on both
+sides. Below, we collect preliminary observations regarding how the
+functor $T$ interacts with the source and target of our functor. 
+
+\subsubsection{} 
+
+Suppose $\sC = D^!(\fL^+\bA^1)$. A choice of uniformizer $t$ defines
+a closed embedding $\mu_t:\fL^+\bA^1 \into \fL^+ \bA^1$ given by multiplication
+by $t$. The corresponding functor $T$ above is given by the left adjoint
+to the pullback functor:
+%
+\[
+\mu_t^!:D^!(\fL^+\bA^1) \to D^!(\fL^+ \bA^1).
+\]
+
+\noindent I.e., in the notation of \cite{dmod}, we have $T = \mu_{t,*,!-dR}$.
+
+By adjunction, we observe that there is a canonical map:
+%
+\begin{equation}\label{eq:can-unit-geom}
+\source{tates-thesis-de-rham-setting}
+\on{can}:T(\omega_{\fL^+\bA^1}) = \mu_{t,*,!-dR}(\omega_{\fL^+\bA^1}) = 
+\mu_{t,*,!-dR}\mu_t^!(\omega_{\fL^+\bA^1}) \to 
+\omega_{\fL^+\bA^1}.
+\end{equation}
+
+\subsubsection{}
+
+Now suppose $\sC = \IndCoh^*(\sY)$. Then we have:
+%
+\[
+\begin{gathered}
+\IndCoh^*(\sY)^{\fL^+\bG_m} \simeq \IndCoh^*(\sY)_{\fL^+\bG_m} \simeq \\
+\QCoh(\LocSys_{\bG_m}^{\leq 0}) \underset{\QCoh(\LocSys_{\bG_m})}{\otimes}
+\IndCoh^*(\sY) \subset 
+\IndCoh^*(\sY \underset{\LocSys_{\bG_m}}{\times} \LocSys_{\bG_m}^{\leq 0}) = 
+\IndCoh^*(\sY_{\log}^{\leq 0}).
+\end{gathered}
+\]
+
+Under the above
+identifications, the functor $T$ is given by tensoring with 
+the \emph{dual}\footnote{Because the Contou-Carr\`ere pairing
+is skew symmetric, one has to fix a convention in setting up geometric
+class field theory. The sign compatibility was implicitly fixed in 
+\S \ref{s:aj}. It is a straightforward check to trace the constructions
+to see that our sign conventions force the appearance of the dual to the
+standard representation; essentially, we are on the ``dual" side of the
+Contou-Carr\`ere duality.}
+to the standard representation of $\bB \bG_m$, i.e., tensoring with the
+bundle $\sO_{\sY^{\leq 0}}(1)$ considered earlier.
+
+Now observe that there is a canonical map:
+%
+\begin{equation}\label{eq:can-unit-spec}
+\source{tates-thesis-de-rham-setting}
+\on{can}:T(\sO_{\sZ^{\leq 0}}) = 
+\sO_{\sZ^{\leq 0}}(1) \to \sO_{\sZ^{\leq 0}}
+\end{equation}
+
+\noindent from \eqref{eq:o(1)}.
+
+\subsubsection{}
+
+We can now formulate our results precisely. 
+
+Observe that by construction, we have
+an isomorphism:
+%
+\[
+\Delta_{\infty}(\omega_{\fL^+\bA^1}) = \Delta_0(\omega_{\fL_0^+\bA^1}) \simeq
+i_{0,*}^{\IndCoh}(\sO_{\sZ^{\leq 0}}) \in \IndCoh^*(\sY_{\log}^{\leq 0}).
+\]
+
+\noindent (Here we consider $\omega_{\fL^+\bA^1}$ as a $\fL^+\bG_m$-equivariant
+object.)
+
+\begin{prop}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+There is a unique structure of 
+$D^*(\fL^{pos}\bG_m)$-equivariance on the functor $\Delta_{\infty}$
+such that:
+
+\begin{itemize}
+
+\item The underlying $D^*(\fL^+\bG_m)$-equivariance is the one
+constructed in \S \ref{ss:delta-arcs}.
+
+\item The map:
+%
+\[
+T(\sO_{\sZ^{\leq 0}}) \to \sO_{\sZ^{\leq 0}} \in \IndCoh^*(\sY_{\log}^{\leq 0})
+\]
+
+\noindent obtained by functoriality from:
+%
+\[
+\Delta_{\infty}(\on{can}:T(\omega_{\fL^+\bA^1}) \xar{\eqref{eq:can-unit-geom}}  
+\omega_{\fL^+\bA^1})
+\]
+
+\noindent coincides with \eqref{eq:can-unit-spec}.
+
+\end{itemize}
+
+\end{prop}
+
+\begin{proof}
+
+We begin with the existence. For this, it is convenient to fix a 
+uniformizer $t$ once and for all. Note that this choice
+induces a morphism $\LocSys_{\bG_m} \to \bB \bG_m$ using 
+Proposition \ref{p:locsys}. We let $\sO_{\LocSys_{\bG_m}}(-1)$ and
+$\sY(-1)$ denote
+the corresponding line bundles, and generally use notation as in
+\S \ref{sss:z-pic}. 
+
+We obtain a splitting:
+%
+\[
+D^*(\fL^{pos} \bG_m) \simeq D^*(\fL^+ \bG_m) \otimes D(\bZ^{\geq 0})
+\]
+
+\noindent of (symmetric) monoidal DG categories. Therefore, we find
+that $D^*(\fL^{pos} \bG_m)$-module categories are equivalent to
+$D^*(\fL^+\bG_m)$-module categories with an endofunctor.
+Therefore, the existence amounts to showing that $\Delta_{\infty}$
+intertwines $\mu_{t,*,!-dR}$ with tensoring with 
+$\sO_{\sY}(1)$.
+
+Unwinding the constructions, this amounts to constructing commutative diagrams
+of strong $\fL^+\bG_m$-module categories:
+%
+\[
+\xymatrix{
+D(\fL_n^+\bA^1) \ar[rr]^{\mu_{t,*,dR}}\ar[d]^{\Delta_n} && D(\fL_{n+1}^+\bA^1) \ar[d]^{\Delta_{n+1}} \\
+\IndCoh^*(\sY) \ar[rr]^{\sO_{\sY}(1) \otimes -} &&  \IndCoh^*(\sY)
+}
+\] 
+
+\noindent compatibly in $n$ (using the $p_{-}^!$ functors and 
+the commutativity data of Proposition \ref{p:delta-infty-comm});
+here we have also let $\mu_t$ denote the induced map
+$\fL_n^+\bA^1 \into \fL_{n+1}^+\bA^1$ given by multiplication with $t$.
+
+Using the logic of \eqref{sss:hc-comm-diags} (as in 
+the proof of Proposition \ref{p:delta-infty-comm}),
+we see that this amounts to constructing
+isomorphisms:
+%
+\[
+\sO_{\sZ^{\leq n}}(1) \simeq \Delta_{n+1}(\mu_{t,*,dR} D_{\fL_n^+\bA^1}) \in 
+\IndCoh^*(\sY_{\log}^{\leq n+1})
+\]
+
+\noindent satisfying some compatibilities (that do not involve higher
+homotopy theory).
+
+For this, we observe that there is a standard short exact sequence:
+%
+\[
+0 \to D_{\fL_{n+1}^+\bA^1} \xar{-\cdot \alpha_0} D_{\fL_{n+1}^+\bA^1}(1) \xar{}
+\mu_{t,*,dR} D_{\fL_n^+\bA^1}[1] \to 0 
+\]
+
+\noindent in the abelian category $D(\fL_{n+1}^+\bA^1)^{\fL_{n+1}\bG_m,w,\heart}[n+1]$
+(with notation as before). 
+The map $-\cdot \alpha_0$ maps under $\Delta_{n+1}$ to the canonical
+map:
+%
+\[
+\sO_{\sZ^{\leq n+1}} \to \iota_*^{\IndCoh}(\sO_{\sZ^{\leq n+1}}).
+\]
+
+Therefore, we obtain an isomorphism:
+%
+\[
+\Delta_{n+1}(\mu_{t,*,dR} D_{\fL_n^+\bA^1}) \simeq 
+\Coker(\sO_{\sZ^{\leq n+1}}[-1] \to \iota_*^{\IndCoh}(\sO_{\sZ^{\leq n+1}}[-1])) 
+\simeq 
+\Ker(\sO_{\sZ^{\leq n+1}} \to \iota_*^{\IndCoh}(\sO_{\sZ^{\leq n+1}})).
+\]
+
+\noindent The latter is canonically isomorphism to 
+$\delta_{n+1,*}^{\IndCoh}\sO_{\sZ^{\leq n}}(1)$ by \eqref{eq:fund-ses}, 
+as desired.
+
+This isomorphism is easily seen to be compatible with the actions of $W_n^{op}$ 
+and with varying $n$, proving existence.
+
+For uniqueness, we observe that $\Delta_{\infty}$ is fully faithful
+(cf. Lemma \ref{l:colim-ff} below), so the observation follows from the 
+observation that:
+%
+\[
+k \isom \End_{\TwoEnd_{\fL^+\bG_m\mod}(D^!(\fL^+\bA^1))}(\mu_{t,!,dR}) \in \Gpd
+\]
+
+\noindent (which e.g. follows by replacing functors with kernels
+on the square $\fL^+\bA^1 \times \fL^+\bA^1$), 
+meaning that any isomorphism we construct is unique up to scalars;
+clearly the second compatibility in the proposition pins down this
+scalar multiple uniquely.
+
+\end{proof}
+
+\subsection{Conclusion of the argument}
+
+We now have the following precise form of our main theorem.
+
+\begin{thm}
+\source{tates-thesis-de-rham-setting}
+\notready\label{t:main-precise}
+\source{tates-thesis-de-rham-setting}
+
+There is a unique equivalence:
+%
+\[
+\Delta:D^!(\fL\bA^1) \isom  \IndCoh^*(\sY) 
+\]
+
+\noindent of $D^*(\fL\bG_m)$-module categories such that the induced morphism:
+%
+\[
+D^!(\fL^+\bA^1) \subset D^!(\fL\bA^1) \to \IndCoh^*(\sY) 
+\]
+
+\noindent of $D^*(\fL^{pos}\bG_m)$-module categories coincides with the functor
+$\Delta_{\infty}$ from above.
+
+\end{thm}
+
+\begin{proof}
+
+There is a natural functor:
+%
+\[
+D^*(\fL\bG_m) \underset{D^*(\fL^{pos}\bG_m)}{\otimes} D^!(\fL^+\bA^1) \to 
+D^!(\fL\bA^1)
+\]
+
+\noindent that we observe is an equivalence. Indeed, this follows
+by choosing a coordinate $t$ on the disc as before, splitting
+$\fL\bG_m$ as $\fL^+\bG_m \times \bZ$, which then implies: 
+%
+\[
+D^*(\fL\bG_m) \underset{D^*(\fL^{pos}\bG_m)}{\otimes} D^!(\fL^+\bA^1) \simeq 
+\colim \, \big(D^!(\fL^+\bA^1) \xar{\mu_{t,*,!-dR}} D^!(\fL^+\bA^1) 
+\xar{\mu_{t,*,!-dR}} \ldots \big).
+\]
+
+\noindent Using $t^{-n}$ to identify the $n$th term here with 
+$t^{-n} \cdot \fL^+ \bA^1 \subset \fL \bA^1$ and applying the
+definition from \cite{dmod}, we see that this 
+colimit canonically identifies with $D^!(\fL\bA^1)$ compatibly with the
+natural functor considered above.
+
+Therefore, there is a unique functor:
+%
+\[
+\Delta:D^!(\fL\bA^1) \isom  \IndCoh^*(\sY) 
+\]
+
+\noindent of $D^*(\fL\bG_m)$-module categories restricting to 
+$\Delta_{\infty}$ (compatibly with the $D^*(\fL^{pos}\bG_m)$-equivariance).
+It remains to show that $\Delta$ is an equivalence.
+
+First, we note that $\Delta_{\infty}$ is fully faithful by 
+Proposition \ref{p:ff} and Lemma \ref{l:colim-ff} below. Next,
+we deduce that $\Delta$ itself is fully faithful by another
+application of Lemma \ref{l:colim-ff}. 
+
+Therefore, it remains to show that $\Delta$ is essentially surjective.
+Clearly its essential image contains each object:
+%
+\[
+\pi_{n,*}^{\IndCoh}(\sO_{\sZ^{\leq n}}(m))
+\]
+
+\noindent for all $n \geq 0$, $m \in \bZ$. Therefore, it suffices
+to show that $\IndCoh^*(\sY)$ is generated under colimits by these objects.
+But this follows immediately from the definitions and Corollary \ref{c:z-gen}.
+
+\end{proof}
+
+Above, we used the following simple categorical lemma.
+
+\begin{lem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{l:colim-ff}
+\source{tates-thesis-de-rham-setting}
+
+Suppose we are given a filtered diagram $i \mapsto \sC_i$ of compactly 
+generated DG categories, and a functor:
+%
+\[
+F:\sC \coloneqq \underset{i}{\colim} \, \sC_i \to \sD \in \DGCat_{cont}
+\]
+
+\noindent preserving compact objects. Suppose each structural functor:
+%
+\[
+\sC_i \to \sC_j
+\]
+
+\noindent and each composition:
+%
+\[
+\sC_i \to \sC \to \sD
+\]
+
+\noindent is fully faithful. Then $F$ is fully faithful.
+
+\end{lem}
+
+
+
+\bibliography{bibtex.bib}{}
+\bibliographystyle{alphanum}

@@ -1,0 +1,905 @@
+% Source-derived chapter 03: Geometric constructions
+% Original source: motivic-invariants-birational-maps
+\chapter{Geometric constructions}
+\label{motivic-invariants-birational-maps-chapter-03}
+\source{motivic-invariants-birational-maps}
+
+\begin{remark}[Source section]
+\label{motivic-invariants-birational-maps-chapter-03-source}
+\source{motivic-invariants-birational-maps}
+\source{motivic-invariants-birational-maps}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Geometric constructions
+\label{sec:geometric-constructions}
+\source{motivic-invariants-birational-maps}
+
+
+
+\subsection{Strong birational isomorphisms}
+\hfill
+
+Recall that two varieties $X$ and $Y$ are isomorphic
+in codimension one if there exists a birational
+map $\gamma: X \dto Y$ such that
+$\Ex(\gamma)$ and $\Ex(\gamma^{-1})$ have codimension $\ge 2$.
+We introduce a motivic version of this notion:
+
+\begin{definition}
+\source{motivic-invariants-birational-maps}
+\notready\label{def:strong-birat}
+\source{motivic-invariants-birational-maps}
+We say that two varieties
+$X$ and $Y$ are {\it strongly
+birational}
+if there exists $\gamma \in \Bir(X,Y)$
+such that 
+$c(\gamma) = 0$.
+We say that $X$ is 
+{\it strongly rational}
+if $X$ is strongly birational to $\P^n$.
+\end{definition}
+
+Note that strong birationality
+is an equivalence relation by the
+additivity of $c$ (Lemma \ref{lem-homc}).
+Furthermore, isomorphism in codimension one
+implies strong birationality.
+
+
+\medskip
+
+When $\k$ is a field of characteristic zero,
+it follows from Proposition
+\ref{prop:Picnb} that strongly birational varieties
+have equal ranks of their
+geometric N\'eron--Severi groups.
+In particular, a strongly rational
+variety has geometric N\'eron--Severi group 
+ of
+rank one. 
+
+The following lemma provides some examples 
+of strongly rational varieties.
+
+\begin{lemma}
+\source{motivic-invariants-birational-maps}
+\notready\label{lem:GP-strongly-rational}
+\source{motivic-invariants-birational-maps}
+If $X$ is a smooth projective variety
+containing an irreducible rational
+divisor $D \subset X$
+such that $U := X \setminus D$
+is isomorphic to $\A^n$,
+then $X$ is strongly rational.
+In particular, if $G$ is a split reductive
+algebraic group over a field $\k$,
+then every 
+homogeneous space
+$X = G/P$
+of Picard rank $\rho(X) = 1$
+is strongly rational.
+\end{lemma}
+\begin{proof}
+Consider the birational map 
+$\phi :  X \dto \P^n$
+induced by the isomorphism $U \simeq \A^n$.
+We have
+\[
+\phi: X \hlto U \simeq \A^n \hto \P^n,
+\]
+so $c(\phi) = [\P^{n-1}] - [D] = 0$.
+Thus $X$ is strongly rational.
+
+Now we prove the second statement. 
+A homogeneous space $X$ admits
+the Bruhat stratification
+into affine spaces \cite[Proposition 1.3]{Kock}. 
+It has a dense open stratum isomorphic to $\A^n$ and 
+the number of codimension one strata 
+$\A^{n-1}$ in the Bruhat stratification
+is equal to the Picard rank $\rho(X) = 1$ by~\cite[Example 1.9.1]{Fulton}.
+The closure of the
+$\A^{n-1}$ stratum  
+is therefore the complement of the dense stratum $\A^n$.
+It follows from the first part of the lemma that $X$
+is strongly rational.
+\end{proof}
+
+
+
+
+
+\subsection{L-links}
+\hfill
+
+
+Let $X$, $Y$ be 
+irreducible geometrically reduced
+varieties.
+
+\begin{Def} 
+An \emph{L-link} with centers $X$ and $Y$
+is a diagram 
+\begin{equation}\label{eq:L-link}
+\source{motivic-invariants-birational-maps}
+ \xymatrix{
+    & & T \ar[dl]_{\Bl_{X}} \ar[dr]^{\Bl_{Y}} & & \\
+    X \ar@{^{(}->}[r]^{\text{closed}} & \XX \ar@{-->}[rr]^\psi &  & \XX' & \ar@{_{(}->}[l]_{\text{closed}} Y\\
+}
+\end{equation}
+of blow ups with centers $X$ and $Y$,
+subject to the following conditions:
+\begin{enumerate}
+    \item[(L1)] $\XX$ and $\XX'$ are 
+ varieties smooth in codimension one,
+ such that $[\XX] = [\XX']$ in $\Kt_0(\Var/\k)$.
+    \item[(L2)] 
+    $\XX$ and $\XX'$ are strongly birational.
+    \item[(L3)]
+    The exceptional divisors of
+    $\Bl_{X}$ and $\Bl_{Y}$ are irreducible.
+\end{enumerate}
+\end{Def}
+
+We say that the L-link $\psi$~\eqref{eq:L-link} is smooth 
+(resp. projective)
+if $X$, $Y$, $\cX$, $\cX'$, $T$
+are smooth (resp. projective).
+An L-link $\psi$
+is called \emph{motivically non-trivial} if $c(\psi) \ne 0$.
+For instance, this is the case when 
+the link is smooth and
+$X$ is not stably birational to $Y$.
+
+
+\begin{example}
+\source{motivic-invariants-birational-maps}
+\notready
+Special Cremona transformations~\cite{Crauder-Katz} give rise
+to examples of L-links with
+$\cX = \cX' = \P^n$
+and $\gamma = \Id$. 
+\end{example}
+
+L-links are closely related to L-equivalence.
+Recall that smooth
+projective connected
+varieties
+$X$, $Y$
+are
+called
+L-equivalent
+if $\L^d([X]-[Y]) = 0$
+in $\Kt_0(\Var/\k)$
+for some $d \ge 0$.
+
+\begin{lemma}
+\source{motivic-invariants-birational-maps}
+\notready\label{lemma:L-link}
+\source{motivic-invariants-birational-maps}
+Given an L-link \eqref{eq:L-link},
+let $m = \codim_X(\XX)$,
+$m' = \codim_Y(\XX')$. 
+\begin{enumerate}
+\item If the link is smooth, we have 
+$\L([\P^{m-2}][X] - [\P^{m'-2}][Y]) = 0$ in $\Kt_0(\Var/\k)$.
+\item Let $\phi = \gamma^{-1} \psi 
+\in \Bir(\XX)$, where $\gamma$ comes from Definition \ref{def:strong-birat}.
+Then 
+$$c(\phi) = c(\psi) = [\P^{m-1} \times X] - [\P^{m'-1} \times Y]$$
+in $\Z[\Bir/\k]$.
+In particular, if the link \eqref{eq:L-link} is motivically non-trivial
+(e.g. if $X$ and $Y$ are not stably
+birational), then $c(\phi) \ne 0$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(1) follows by computing the class
+of $[T]$ in two ways using the two
+blow up morphisms and (L1).
+For (2), we have $c(\phi) = c(\psi)$ by
+(L2). 
+Since $\cX$ is smooth in codimension one
+and $X$ is geometrically reduced,
+there exists a closed subscheme $Z \subset \cX$ of codimension two
+such that both $\cX \bss Z$ and $X \bss Z$ are smooth.
+As the exceptional divisor $E$ of $\Bl_{X}$
+is irreducible by (L3), 
+it follows that $E$ is birational to $\P^{m-1} \times X$.
+Similarly,
+the exceptional divisor of $\Bl_{Y}$
+is birational to $\P^{m'-1} \times Y$.
+Thus by Lemma~\ref{lem-homc}, we have
+$c(\phi) = c(\psi) =  [\P^{m-1} \times X] - [\P^{m'-1} \times Y]$.
+\end{proof}
+
+
+\subsection{Elliptic curves}\label{ssec-dim3}
+\source{motivic-invariants-birational-maps}
+\hfill
+
+Let $C$ be a smooth projective
+connected
+curve and let $k \in \Z$. 
+Let $\Jac^k(C)$ denote
+the Jacobian of divisors of degree $k$ on $C$.
+Each $\Jac^k(C)$ is a torsor under
+the algebraic group
+$\Jac^0(C)$. 
+If $C$ is a curve of genus one,
+then
+$\Jac^k(C)$
+are twisted forms of $C$
+which are not necessarily isomorphic to it.
+We concentrate on curves $C$
+of genus one and degree five for which
+the only interesting Jacobian is $\Jac^2(C)$ \cite{ShinderZhang}.
+
+\begin{proposition}
+\source{motivic-invariants-birational-maps}
+\notready\label{prop:elliptic}
+\source{motivic-invariants-birational-maps}
+Let $C$ be a genus one curve 
+having
+a divisor of degree $5$,
+and let $C' = \Jac^2(C)$.
+We have the following smooth projective L-link:
+\begin{equation}\label{eq:L-link-curves}
+\source{motivic-invariants-birational-maps}
+ \xymatrix{
+    & & T \ar[dl]_{\Bl_{C}} \ar[dr]^{\Bl_{C'}} & & \\
+    C \ar@{^{(}->}[r] & Q^3 \ar@{-->}[rr]^\psi &  & \P^3 & \ar@{_{(}->}[l] C'.\\
+}
+\end{equation}
+Here $Q^3$ is a smooth quadric threefold.
+\end{proposition}
+\begin{proof}
+By Riemann-Roch, the linear
+system of a divisor
+of degree $5$ on $C$ 
+gives rise to a degree $5$ embedding $C \subset \P^4$,
+and it is well-known that 
+$C$ is the scheme-theoretic intersection 
+of the quadrics containing it, see e.g. \cite[Proposition 4.2(ii)]{Fisher-quintics}. 
+Thus the map given by the linear system $|2H - C|$
+is resolved by blowing up $C$, and we obtain
+the Crauder--Katz quadro-cubic transformation \cite[Theorem 2.2(ii)]{Crauder-Katz}
+\begin{equation}\label{eq:L-link-curves-big}
+\source{motivic-invariants-birational-maps}
+ \xymatrix{
+    & & T' \ar[dl]_{\Bl_{C}} \ar[dr]^{\Bl_{S}} & & \\
+    C \ar@{^{(}->}[r] & \P^4 \ar@{-->}[rr]^{\psi'} &  & \P^4 & \ar@{_{(}->}[l] S \\
+}
+\end{equation}
+where $S$ is the surface
+parameterizing the secant lines of $C$. 
+Thus $S$ is isomorphic to $\Sym^2(C)$ 
+(cf Proof of \cite[Theorem 3.3(A)]{Crauder-Katz})
+and
+is embedded as a quintic ruled surface $\Sym^2(C) \to \Jac^2(C)$
+into $\P^4$.
+
+To obtain the L-link 
+\eqref{eq:L-link-curves} we take a hyperplane
+section of $\eqref{eq:L-link-curves-big}$ as follows.
+Take any smooth quadric $Q^3 \subset \P^4$ containing $C$
+and restrict $\psi'$ onto $Q^3$. 
+The image $\psi'(Q^3)$
+is a hyperplane $\P^3$, 
+and we obtain a birational map $\psi: Q^3 \dto \P^3$ and a diagram
+\eqref{eq:L-link-curves} with $C' = S \cap \P^3$.
+This curve is a section of the projection $S \to \Jac^2(C)$,
+hence $C' \simeq \Jac^2(C)$,
+and $C' \subset \P^3$
+is a degree five genus one curve.
+
+We claim that $Q^3$ contains $\k$-lines. 
+If $\k$ is a finite field, then this is true
+for any smooth quadric in $\P^4$, as the quadratic form
+in 5 variables over a finite field is isomorphic to a direct
+sum of two copies of the hyperbolic plane and a one-dimensional
+form, by the Chevalley--Warning theorem. 
+Let us assume that $\k$ is infinite.
+Under the map $\psi$, general lines on $Q^3$ correspond to general
+conics in $\P^3$ which are five-secant to $C'$. Such conics
+are parameterized by planes $\P^2 \subset \P^3$, and taking
+a general 
+plane $\P^2 \subset \P^3$
+defined over $\k$ we get a $\k$-rational line on $Q^3$.
+
+
+Finally \eqref{eq:L-link-curves}
+satisfies the definition of L-link
+because $[Q^3] = [\P^3]$ as $Q^3$ 
+contains a line~\cite[Example 2.8]{KuznetsovShinder},
+and
+$Q^3$ 
+is strongly rational
+(see e.g. Lemma \ref{lem:GP-strongly-rational}).
+\end{proof}
+
+
+\begin{theorem}
+\source{motivic-invariants-birational-maps}
+\notready\label{thm:ell-curves}
+\source{motivic-invariants-birational-maps}
+Let $\k$ be a 
+field
+of one of the following types:
+\begin{itemize}
+    \item a number field,
+    \item a function field over a field $\F$,
+    where $\F$ can be
+    \begin{itemize}
+        \item an algebraically closed field, 
+        \item a number field,
+        \item a finite field. 
+    \end{itemize}
+\end{itemize}
+Then we can choose a curve
+$C$ such that \eqref{eq:L-link-curves} is motivically non-trivial.
+Furthermore, 
+the set $I$ of isomorphism classes of such curves has the cardinality of $\k$.
+\end{theorem}
+
+Here by a function field, we mean
+a function field of a positive-dimensional
+$\F$-variety.
+
+\medskip
+
+Before we prove the theorem, we need a preliminary result 
+on the arithmetic of elliptic curves.
+
+\begin{lemma}
+\source{motivic-invariants-birational-maps}
+\notready\cite{Lang-Tate, ClarkLacy}
+\label{lem:torsors}
+\source{motivic-invariants-birational-maps}
+For a field $\k$ 
+as in Theorem \ref{thm:ell-curves},
+there exist infinitely many 
+genus one
+curves $C$
+without rational
+points but having 
+a divisor of degree $5$,
+and such that $j(\Jac^0(C)) \ne 1728$.
+The set $I$ of isomorphism classes of such curves has the cardinality of $\k$.
+\end{lemma}
+\begin{proof}
+If $\k$ is an infinite 
+finitely generated field over $\Q$ or over a finite field, 
+then infinitely many
+such curves exist by~\cite[Theorem 1.10]{ClarkLacy};
+the condition $j(\Jac^0(C)) \ne 1728$ is not explicitly
+checked in \cite{ClarkLacy}, however the elliptic
+curves they use to produce torsors indeed satisfy this condition \cite[Section 4]{ClarkLacy}.
+
+The remaining case is
+a function field $\k$ over an algebraically
+closed field $\F$. 
+We apply~\cite[Theorem 7]{Lang-Tate}.
+First of all since $\k$ is Hilbertian~\cite[Proposition 12.3.3, Theorem 13.4.2]{MR2445111},
+it has infinitely many cyclic extensions
+of degree $5$ which are
+linearly disjoint in $\ol{\k}$~\cite[Corollary 16.2.7]{MR2445111}. 
+In particular, these cyclic extensions are non-isomorphic.
+Next we take any ordinary elliptic
+curve $E/\F$
+with $j(E) \ne 1728$ in $\F$.
+Since $\F$ is algebraically closed,
+$E(\F)$ has non-trivial $5$-torsion.
+The base change $E_\k$ of $E$ to $\k$
+has also non-trivial $5$-torsion
+and $j(E_\k) \ne 1728$ in $\k$.
+The group $E(\k) / 5E(\k)$
+is finite by~\cite[Remark 1.3, Proposition 1.4]{ClarkLacy}. 
+We thus conclude by~\cite[Theorem 7]{Lang-Tate}
+that there exists infinitely many $E_\k$-torsors of index $5$.
+
+Note that among the fields we consider, $\k$ is uncountable only if $\k$ is the function field over an algebraically closed field $\F$.
+In this case $\F$ and $\k$ have the same cardinality.
+As the set of elliptic curves $E/\F$
+considered above has the same cardinality as $\F$,
+the last statement follows.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm:ell-curves}]
+Take the curve $C$ defined
+by Lemma \ref{lem:torsors}
+and set $C' = \Jac^2(C)$.
+By \cite[Lemma 2.7]{ShinderZhang}
+we have $C \not\simeq C'$
+(the cited result assumes $\chr(\k) = 0$,
+however the proof works without this assumption
+since
+there is no $\gs \in \Aut(E)$ of order $4$ when $j \ne 1728$
+for any field
+\cite[Proposition A.1.2]{SilvermanAEC}).
+As $C$ and $C'$ are non isomorphic smooth curves, they are
+not birational.
+Hence the L-link~\eqref{eq:L-link-curves} is motivically non-trivial.
+\end{proof}
+
+
+\begin{remark}
+\source{motivic-invariants-birational-maps}
+\notready
+The L-link \eqref{eq:L-link-curves} appears in the classification
+of Fano threefolds of rank two by Mori--Mukai \cite[2) on page 117]{Mori-Mukai}.
+It is a very interesting question whether
+there exist other
+nontrivial smooth projective
+L-links between strongly rational varieties in dimension $3$. The ultimate
+question in this direction
+is to fully describe the image $c(\Bir(\P^3))$
+using the Sarkisov link decomposition.
+\end{remark}
+
+\begin{remark}
+\source{motivic-invariants-birational-maps}
+\notready
+Let $X \to B$ be an elliptic surface
+with a multisection of degree five over $\k = \C$.
+Let $Y = \Jac^2(X/B)$ be the relative Jacobian
+of degree two divisors.
+Then spreading out the construction
+of Theorem \ref{thm:ell-curves},
+one can show that
+$[X] - [Y] \in \Image(c_{\P^3 \times B})$.
+See~\cite{ShinderZhang}
+for a detailed analysis when $X$, $Y$
+are not birational in the case
+of elliptic K3 surfaces.
+\end{remark}
+
+
+\subsection{K3 surfaces of degree $12$} 
+\hfill
+
+\begin{theorem}
+\source{motivic-invariants-birational-maps}
+\notready\label{thm:K3}
+\source{motivic-invariants-birational-maps}
+Let $\k \subset \C$.
+There exist motivically 
+non-trivial L-links 
+\begin{equation}\label{eq:L-link-K3}
+\source{motivic-invariants-birational-maps}
+ \xymatrix{
+    & & T \ar[dl]_{\Bl_{S_0}} \ar[dr]^{\Bl_{S'_0}} & & \\
+    S_0 \ar@{^{(}->}[r] & \P^4 \ar@{-->}[rr]^\psi &  & \P^4 & \ar@{_{(}->}[l] S'_0\\
+}
+\end{equation}
+where $S_0$ and $S'_0$ are projective
+surfaces such that the minimal models $S$ and $S'$ of their normalizations
+are non-isomorphic
+K3 surfaces of geometric Picard
+rank one and degree $12$, 
+and $S'_\C$ is the unique Fourier--Mukai partner of $S_\C$.
+Furthermore, 
+the set $I$ of isomorphism classes of the K3 surfaces $S$ occurring in these L-links has the cardinality of $\k$.
+\end{theorem}
+
+Theorem \ref{thm:K3}, over $\C$,
+is the main result of Hassett and Lai~\cite{HassettLai}.
+We start by summarizing their construction,
+and then we explain how to extend it to an arbitrary
+subfield $\k \subset \C$ using Lefschetz pencils.
+
+\begin{theorem}[{\cite[Theorem 2.1, Theorem 3.1]{HassettLai}}]
+\source{motivic-invariants-birational-maps}
+\notready\label{thm-HL}
+\source{motivic-invariants-birational-maps}
+Let $(S,H)$ be a general polarized complex K3 surface with $H^2 = 12$
+and let $\gS = \Set{ x_1,x_2,x_3 } \subset S$ be a general triple of points.
+The linear system $|H|$ defines an embedding $S \hto \P^7$;
+let $S_0 \subset \P^4$ be the proper transform
+of $S$ under the projection $\P^7 \dto \P^4$
+from the plane generated by $\gS$.
+We have the following:
+\begin{enumerate}
+\item $S_0$ has three transverse double points,
+and the normalization of $S_0$ is $\Bl_\gS S$.
+\item The linear system of quartics containing $S_0$ cuts out
+$S_0$ as a scheme, and
+defines a birational map
+$\psi: \P^4 \dto \P^4$.
+\item 
+The inverse
+$\psi^{-1}: \P^4 \dto \P^4$
+is constructed the same way,
+starting from another K3 surface $S'$ of degree $12$
+and three points $\gS' = \Set{ x_1', x_2', x_3' }$ on $S'$.
+\item We have $\Bl_{S_0}\P^4 \simeq \Bl_{S'_0}\P^4$
+and it resolves $\psi$,
+where $S'_0$ the proper transform
+of $S'$ under the projection $\P^7 \dto \P^4$
+from the plane generated by $\gS'$.
+\end{enumerate}
+Furthermore, if $\Pic(S) = \Z \cdot H$, 
+then $S'$ is the unique Fourier--Mukai partner of $S$ such that
+$S \not\simeq S'$.
+Finally, if $S \hto \P^7$ and $\gS \subset S$ are defined over a subfield $\k \subset \C$,
+then both $\psi$ and the pair $(S',\gS')$ are defined over $\k$.
+\end{theorem}
+\begin{proof}
+The main statement follows from~\cite[\S1.1, Theorem 2.1]{HassettLai}.
+The statement about $S \not\simeq S'$ follows from~\cite[Theorem 3.1]{HassettLai},
+together with the derived invariance of Picard number for K3 surfaces 
+and~\cite[Proposition 1.10]{OguisoFM}.
+Finally, if $S \hto \P^7$ and $\gS \subset S$ are defined over $\k$,
+then $\psi$ is defined over $\k$ by construction.
+As $S_0'$ is the fundamental locus of $\psi^{-1}$,
+$S_0'$ is defined over $\k$ as well.
+Since $S'$ is the minimal model of the normalization of $S'_0$,
+and $\gS' \subset S'$ is the image of the $(-1)$-curves,
+we conclude that $(S',\gS')$ is defined over $\k$.
+\end{proof}
+
+Let $\k \subset \C$.
+Let $S \subset \P^7$ be a K3 surface
+of degree $12$ defined over $\k$ 
+and $\Sigma \subset S$
+a smooth subscheme of length three.
+We say that $(S, \Sigma)$ is HL-admissible
+if 
+Theorem \ref{thm-HL}(1-4) holds
+    for $S_\C$ and $\Sigma_\C$.
+
+It is a construction going back to Mukai
+that 
+general 
+K3 surfaces of degree $12$ can be obtained
+as linear sections 
+of a Grassmannian
+$\OG_+(5,10) \subset \P^{15}$, see \cite[2.1]{HassettLai}.
+Consider a general $3$-dimensional
+linear section $V \subset \P^8$ over $\Q$
+of this Grassmannian.
+As $\OG_+(5,10)$, being a rational homogeneous variety, 
+has dense $\Q$-points and since the linear section cutting off $V$ is general,
+we can assume that $V$ is smooth and has a $\Q$-point. 
+This implies that $V$ is $\Q$-rational~\cite[Theorem 1.1]{KuPrRatFano3}. 
+
+Let $\P^6 \subset \P^8$ be a linear subspace
+and
+$\Sigma = \{ x_1, x_2, x_3 \} \subset V \cap \P^6$.
+We call the 
+pair 
+$(\P^6, \gS)$ \emph{HL-admissible}
+if the following conditions are satisfied:
+\begin{enumerate}
+    \item[(a)] The pencil $S_t$, $t \in \P^1$, 
+    defined by intersecting
+    $V$ with hyperplanes containing $\P^6$ is a Lefschetz pencil.
+    \item[(b)] For one (hence for general) $t$, the pair
+    $(S_t, \Sigma)$ is HL-admissible.
+\end{enumerate}
+
+\begin{lemma}
+\source{motivic-invariants-birational-maps}
+\notready\label{lem:HL-admis-pencil}
+\source{motivic-invariants-birational-maps}
+For a general $V$ as above, 
+there exists an HL-admissible pair $(\P^6, \Sigma)$
+defined over $\Q$.
+\end{lemma}
+\begin{proof} 
+As both conditions (a) and (b) are nonempty Zariski open conditions,
+HL-admissible pairs form a Zariski dense 
+open subset $U$
+in the incidence
+variety 
+$$\cX \cnec \Set{(x_1,x_2,x_3; L) \in V^3 \times \Gr(\P^6,\P^8)
+| x_1,x_2,x_3 \in V \cap  L}.$$
+It is easy to see that $\cX$ is a $\Q$-rational variety,
+hence the open subset $U \subset \cX$ has (dense)
+$\Q$-rational points.
+\end{proof}
+
+\begin{proposition}
+\source{motivic-invariants-birational-maps}
+\notready\label{pro-K3HLPic1}
+\source{motivic-invariants-birational-maps}
+There exist infinitely many polarized K3 surfaces $(S,H)$ of degree $12$ over $\Q$
+together with three $\Q$-points $\gS = \Set{x_1,x_2,x_3} \subset S(\Q)$
+such that
+\begin{enumerate}
+    \item $\Pic(S_\C) \simeq \Z $;
+\item $(S; \gS)$ is HL-admissible. 
+\end{enumerate}
+The same conclusion holds if $\Q$ is replaced by any subfield $\k$ of $\C$,
+and the isomorphism classes of such K3 surfaces $S$
+form a set $I$ which has the cardinality of $\k$.
+\end{proposition}
+
+\begin{proof} 
+The Lefschetz pencil $\{S_t\}$ 
+given by the HL-admissible pair from 
+Lemma~\ref{lem:HL-admis-pencil}
+is defined over $\Q$,
+hence Terasoma's argument in~\cite[Step 2 and Step 3 in \S3]{Terasoma}
+proving~\cite[Theorem 1]{Terasoma}
+applies verbatim 
+and shows that there exist infinitely many 
+K3 surfaces among $\{S_t\}$ defined over $\Q$
+(and thus over any subfield $\k \subset \C$) with 
+geometric Picard rank $1$. 
+If $\k$ is uncountable,
+then since ``having geometric Picard rank $1$" is a 
+very general property,
+the set of K3 surfaces over $\k$ 
+among $\{S_t\}$ for which (1) holds
+is also uncountable.
+
+
+We claim that
+the Lefschetz pencil
+$\{S_t\}$ is non-isotrivial.
+This is because the monodromy action on $H^2(S_{t,\C}, \Q)$
+is nontrivial by the invariant cycle theorem,
+and $\Aut(S_{t,\C}) = \{\Id\}$ if $\rho(S_{t,\C}) = 1$~\cite[Corollary 15.2.12]{HuybK3book}, 
+hence
+monodromy does not act by holomorphic transformations.
+Thus $\{S_t\}$ contains infinitely many
+isomorphism classes of K3 surfaces for any $\k \subset \C$,
+uncountably many if $\k$ is uncountable.
+Finally, since 
+the subset of K3 surfaces $S_t$ 
+in $\{S_t\}$
+for which $(S_t; \gS)$ is HL-admissible  
+is open, 
+Proposition~\ref{pro-K3HLPic1} follows.
+\end{proof}
+
+
+\begin{proof}[Proof of Theorem \ref{thm:K3}]
+Let $S$ be a K3 surface over $\Q$ as in Proposition~\ref{pro-K3HLPic1}
+and let $S'$ be as in Theorem \ref{thm-HL}.
+In particular, $S_\C \not\simeq S'_\C$ 
+and $S'_\C$
+is a Fourier-Mukai
+partner of $S_\C$.
+
+Let $\psi \in \Bir(\P^4)$ be the map as in Theorem~\ref{thm-HL}. 
+By Theorem~\ref{thm-HL},
+both $\psi$ and the K3 surface $S'$ are defined over $\Q$.
+Since $S_0$ has at worst transversal double points as singularities,
+the exceptional divisor of $\Bl_{S_0} : T \to \P^4$
+is birational to $S_0 \times \P^1$,
+which is further birational to $S \times \P^1$
+by Theorem~\ref{thm-HL}(1).
+Similarly, 
+the exceptional divisor of $\Bl_{S'_0} : T \to \P^4$
+is birational to $S' \times \P^1$.
+Thus,
+$$c(\psi_\k) = [S_\k \times \P^1_\k] - [S'_\k \times \P^1_\k] \in \Z[\Bir/\k].$$
+Since $S_\k$ and $S_\k'$ are non-isomorphic
+K3 surfaces 
+because $S_\C \not\simeq S'_\C$, 
+they are not stably birational, 
+see e.g. Corollary~\ref{cor-CYnSB}.
+Hence $c(\psi_\k) \ne 0$,
+so $\psi_\k$ is motivically non-trivial.
+\end{proof}
+
+
+
+\subsection{K-trivial
+threefolds}\label{ssec-IMOU}
+\source{motivic-invariants-birational-maps}
+\hfill
+
+\begin{theorem}
+\source{motivic-invariants-birational-maps}
+\notready\label{thm:CY3}
+\source{motivic-invariants-birational-maps}
+Let $\k$ be an infinite field.
+There exist motivically non-trivial smooth projective L-links:
+\begin{equation}\label{eq:L-link-CY3}
+\source{motivic-invariants-birational-maps}
+ \xymatrix{
+    & & T \ar[dl]_{\Bl_{Z}} \ar[dr]^{\Bl_{Z'}} & & \\
+    Z \ar@{^{(}->}[r] & \XX \ar@{-->}[rr]^\psi &  & \XX' & \ar@{_{(}->}[l] Z'\\
+}
+\end{equation}
+where $\XX$ and $\XX'$ are five-dimensional
+$G_2$-Grassmannians, and
+$Z$ and $Z'$ are 
+K-trivial
+threefolds
+of Picard rank $1$.
+\end{theorem}
+
+Here, a K-trivial variety is a smooth projective variety $X$
+with $\go_X \simeq \cO_X$.
+
+\medskip
+
+The construction of Theorem \ref{thm:CY3}
+is given by Ito--Miura--Okawa--Ueda~\cite{IMOUG2} 
+over a field of characteristic zero. 
+We explain that the construction extends
+to an arbitrary infinite field.
+The proof of Theorem \ref{thm:CY3} occupies
+the rest of the section.
+
+Let $G$ be the connected and simply connected 
+split simple group scheme of type $G_2$ over $\Z$.
+Let $B \subset G$
+be the Borel subgroup, and
+$P,P' \subsetneq G$ 
+the two maximal parabolic subgroups of $G$ containing $B$.
+The quotients $G/B$, $G/P$, and $G/P'$ 
+are smooth and projective over $\Z$ 
+by~\cite[Theorem 13.33]{MilneAlgGp} 
+and~\cite[Corollary XXII.5.8.5]{SGA3}.
+The natural projection $p : G/B \to G/P$
+is also smooth. 
+Since $p_\Q : G_\Q/B_\Q \to G_\Q/P_\Q$
+is a $\P^1$-fibration, so is $p : G/B \to G/P$.
+Likewise, the other projection
+$p' : G/B \to G/P'$ is also a smooth $\P^1$-fibration.
+
+Our assumptions on $G$ imply that
+$X^*(G) = 0$ and 
+$\Pic(G) = 0$~\cite[Remark VII.1.7.a)]{RaynaudAmple},
+where $X^*(G)$ is the character group of $G$.
+It follows that
+$$\Pic(G/P) \simeq \X^*(P) \simeq \Z$$
+by~\cite[Proposition VII.1.5]{RaynaudAmple}.
+Similarly, $\Pic(G/P') \simeq \Z$.
+Let $M$ and $M'$ 
+denote the ample generators of $\Pic(G/P)$ and $\Pic(G/P')$
+respectively.
+The tensor product 
+$$L \cnec p^*M \otimes p'^*M'$$
+is then ample as well.
+Since $\deg({L_\k}_{|F_\k}) = 1$ when $\chr(\k) = 0$
+where $F_\k \simeq \P^1_\k$ is a fiber of $p_\k : G_\k/B_\k \to G_\k/P_\k$
+(see e.g.~\cite{IMOUG2}),
+the same holds true for any field $\k$.
+It follows that 
+$E \cnec p_*L$ is locally free of rank $2$ and
+$G/B \simeq \P(E)$ over $G/P$.
+
+Now let $\k$ be an infinite field
+and let $\gs \in H^0(G_\k/B_\k,L_\k)$ be a general section. 
+Let $X_\k = Z(\gs) \subset G_\k/B_\k$ and let
+$Z_\k \cnec Z(p_*\gs) \subset G_\k/P_\k$ 
+with $p_*\gs$
+regarded as a section of $E_\k = (p_*L)_\k$.
+Similarly, let $Z'_\k \cnec Z(p'_*\gs) \subset G_\k/P'_\k$.
+Since $L_\k$ is very ample~\cite[Theorem 3]{RamRam} 
+and $\k$ is infinite,
+$X_\k$ is smooth  
+by Bertini's theorem~\cite[Th\'eor\`eme 6.3]{JouanolouBertini},~\cite[Theorem 1.10]{MukaiK31820}.
+Consider the commutative diagram
+\begin{equation}\label{eq:G-P-diagram}
+\source{motivic-invariants-birational-maps}
+\xymatrix{
+    & & X_\k \ar[ddl]_{\tau} \ar[ddr]^{\tau'}
+    \ar@{->}[d] & & \\
+    &  & G_\k/B_\k \ar[dl]\ar[dr] &  & \\
+    & G_\k/P_\k \ar@{-->}[rr]^{\psi} 
+    & & G_\k/P'_\k & 
+}
+\end{equation}
+which defines the maps $\tau$ and $\tau'$.
+By construction, 
+$\tau$ maps $X_\k \bss \tau^{-1}(Z_\k)$
+isomorphically onto its image
+and $\tau^{-1}(Z_\k) \to Z_\k$ is a $\P^1$-fibration.
+By~\cite[Theorem 2]{DanilovDecomp},
+$\tau$ is thus a sequence of blow ups along smooth centers
+of codimension $2$ lying above $Z_\k$.
+Since $X_{\k}$ has Picard rank
+$\rho(X_\k) = \rho(G_\k/B_\k) = 2$
+by Grothendieck--Lefschetz' theorem,
+necessarily $\tau$ is the blow up of $G_\k/P_\k$ along $Z_\k$
+and $Z_\k$ is connected.
+Similarly, $\tau'$ is the blow up of $G_\k/P'_\k$ along $Z'_\k$,
+and $Z'_\k$ is connected.
+We thus have a birational map 
+$$\psi \cnec \tau' \circ \tau^{-1} : G_\k/P_\k \dto G_\k/P'_\k.$$
+
+By construction, $\psi$ is regular away from $Z_\k$
+and $\psi^{-1}$ is regular away from $Z'_\k$.
+
+\begin{lem}
+\source{motivic-invariants-birational-maps}
+\notready\label{lem-nSBG2}
+\source{motivic-invariants-birational-maps}
+$Z_\k$, $Z'_\k$ are 
+K-trivial threefolds,
+which are not stably birational to each other.
+\end{lem}
+
+\begin{proof}
+When $\chr(\k) = 0$, Lemma~\ref{lem-nSBG2} is proven in~\cite{IMOUG2}.
+Assume that $\chr(\k) = p > 0$.
+Let $R$ be an integral local ring of characteristic zero with residue field $\k$
+(see~\cite[Satz 20]{HasseSchmidt} or~\cite[Theorem 2.10]{HSbis} for the existence).
+Since $H^j(G_\k/B_\k,L_\k)=0$ for all $j > 0$~\cite[Theorem 2]{RamRam} (and for any field $\k$),
+we have
+$$H^0(G_\k/B_\k,L_\k) \simeq H^0(G_R/B_R,L_R) \otimes_R \k$$
+by Grauert's base change.
+Thus the section $\gs \in H^0(G_\k/B_\k,L_\k)$
+defining $Z_\k$
+can be lifted to a section $\gs_K \in H^0(G_K/B_K,L_K)$
+where $K \cnec \Frac (R)$, which is of characteristic zero.
+This defines a lifting of $Z_\k$ to a smooth projective subvariety 
+$Z_K \subset G_K/P_K$.  
+Since $\go_{Z_K}$ is trivial, so is $\go_{Z_\k}$.
+The same argument shows that $\go_{Z'_\k}$
+is trivial.
+
+To show that $Z_\k$, $Z'_\k$ are not stably birational,
+we may assume $\k = \ol{\k}$. First
+we show that $Z_{\k}$ and $Z'_{\k}$
+are not isomorphic.
+We have seen that $\rk\,\NS(X_{\k}) = 2$.
+As $X_{\k} \to Z_{\k}$ and $X_{\k} \to Z'_{\k}$ are $\bP^1$-bundles,
+necessarily $\rk\,\NS(Z_{\k})= \rk\,\NS(Z'_{\k}) = 1$.
+Let $H$ (resp. $H'$) 
+be the ample generator of $\NS(Z_{\k})$ (resp. $\NS(Z'_{\k})$).
+Let $a, a' \in \Z_{>0}$ such that
+$$c_1({M_{\k}}_{|Z_{\k}}) = aH \ \ \ \text{ and } \ \ \
+c_1({M'_{\k}}_{|Z'_{\k}}) = a'H'.$$
+As 
+$$c_1({M_{\k}}_{|Z_{\k}})^3 = c_1(M_{\k})^3 \cdot Z_{\k} 
+= c_1(M_K)^3 \cdot Z_K
+\ \ \
+\text{ and }  \ \ \ c_1({M'_{\k}}_{|Z'_{\k}})^3 = c_1(M'_{\k})^3 \cdot Z'_{\k} = c_1(M'_K)^3 \cdot Z'_K$$
+are distinct and equal to 
+$14$ or $42$ by~\cite{IMOUG2},
+necessarily $a = a' =1$.
+Hence $H^3 \ne H'^3$,
+so $Z_{\k}$ is not isomorphic to $Z'_{\k}$.
+It follows from Corollary~\ref{cor-CYnSB}
+that $Z_\k$ is not stably birational to $Z'_\k$.
+\end{proof}
+
+
+
+
+
+\begin{proof}[Proof of Theorem \ref{thm:CY3}]
+We set $\XX = G_\k/P_\k$
+and $\XX' = G_\k/P'_\k$.
+Both $\XX$ and $\XX'$ have a 
+Bruhat decomposition
+with a single cell in every dimension so that
+$[\XX] = [\P^5] = [\XX']$.
+Furthermore, $\XX$ and $\XX'$ are strongly
+birational, because they are both
+strongly rational by Lemma~\ref{lem:GP-strongly-rational}.
+Thus diagram \eqref{eq:G-P-diagram} gives us the L-link
+\eqref{eq:L-link-CY3}.
+Finally, since  
+$Z_\k$ and $Z'_\k$ are not (stably) birational by Lemma~\ref{lem-nSBG2},
+the L-link~\eqref{eq:L-link-CY3} is motivically non-trivial.
+\end{proof}
+
+
+\begin{remark}
+\source{motivic-invariants-birational-maps}
+\notready
+In the proof of Theorem~\ref{thm:CY3}, 
+the only place where we need the assumption that
+$\k$ is infinite is to guarantee 
+the existence of $\gs \in H^0(G_\k/B_\k,L_\k)$
+such that the vanishing loci $Z_\k \subset G_\k/P_\k$ and $Z'_\k \subset G_\k/P'_\k$
+of $p_*\gs$ and $p'_*\gs$ 
+are smooth. 
+Based on generic smoothness,
+the same conclusion of Theorem~\ref{thm:CY3} thus holds
+for all but finitely many finite fields $\k$.
+\end{remark}

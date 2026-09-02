@@ -1,0 +1,241 @@
+% Source-derived chapter 02: Perverse filtrations and vanishing cycles
+% Original source: pw-conjecture-gl-n
+\chapter{Perverse filtrations and vanishing cycles}
+\label{pw-conjecture-gl-n-chapter-02}
+\source{pw-conjecture-gl-n}
+
+\begin{remark}[Source section]
+\label{pw-conjecture-gl-n-chapter-02-source}
+\source{pw-conjecture-gl-n}
+\source{pw-conjecture-gl-n}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Perverse filtrations and vanishing cycles
+In this section, we introduce the notion of \emph{strong perversity} and show its compatibility with vanishing cycle functors (Proposition \ref{prop1.4}). This plays a crucial role in Section 2 in lifting the $P=W$ conjecture sheaf-theoretically and reduce it to the twisted case.
+
+\subsection{Perverse filtrations}\label{sec1.1}
+\source{pw-conjecture-gl-n}
+Let $f: X \to Y$ be a proper morphism between irreducible nonsingular quasi-projective varieties (or Deligne--Mumford stacks) with $\mathrm{dim}X = a$ and $\mathrm{dim}Y = b$. Let $r$ be the defect of semismallness of $f$:
+\[
+r: = \mathrm{dim} X \times_YX - \mathrm{dim}X.
+\]
+In particular, we have $r = a-b$ when $f$ has equi-dimensional fibers. The perverse filtration 
+\[
+P_0H^m(X, \BQ) \subset P_1H^m(X, \BQ) \subset \dots \subset H^m(X, \BQ)
+\]
+is an increasing filtration on the cohomology of $X$ governed by the topology of the morphism $f$; it is defined to be
+\[
+P_iH^m(X, \BQ) := \mathrm{Im}\left\{ H^{m-a+r}(Y, {^\mathbf{p}\tau_{\leq i}} (Rf_* \BQ_X[a-r])) \to H^m(X, \BQ)\right\}
+\]
+where $^\mathbf{p}\tau_{\leq * }$ is the perverse truncation functor \cite{BBD}. 
+
+\begin{lem}
+\source{pw-conjecture-gl-n}
+\notready\label{lem0}
+\source{pw-conjecture-gl-n}
+If $f$ has equi-dimensional fibers, the perverse filtration on $H^m(X,\BQ)$ terminates at $P_mH^m(X, \BQ)$, \emph{i.e.}
+\[
+P_mH^m(X, \BQ) = H^m(X, \BQ).
+\]
+In particular, we have $1 \in P_0H^0(X, \BQ)$.
+\end{lem}
+
+\begin{proof}
+By definition and the decomposition theorem \cite{BBD}, the dimensions of the graded pieces of the perverse filtration are given by
+\begin{equation}\label{llm0}
+\source{pw-conjecture-gl-n}
+\mathrm{dim} \mathrm{Gr}^P_iH^{m}(X, \BQ) = \mathrm{dim} H^{m-i-(a-r)}\left(Y,{^\mathfrak{p}\CH^i(Rf_* \BQ_X[a-r])}\right).
+\end{equation}
+Since a perverse sheaf, as a complex of constructible sheaves, is concentrated in degrees $[-b, 0]$, it only has non-trivial cohomology in degrees $\geq -b$. In particular, the right-hand side of (\ref{llm0}) is non-trivial only if 
+\[
+m-i-(a-r) \geq -b.
+\]
+Since $r=a-b$, this inequality is equivalent to $m \geq i$.
+\end{proof}
+
+
+A cohomology class $\gamma \in H^l(X, \BQ)$ can be viewed as a morphism $\gamma: \BQ_X \to \BQ_X[l]$, which naturally induces 
+\begin{equation}\label{induced}
+\source{pw-conjecture-gl-n}
+\gamma: Rf_* \BQ_X \to Rf_* \BQ_X [l]
+\end{equation}
+after pushing forward along $f$. For an integer $c\geq 0$, we say that $\gamma \in H^l(X, \BQ)$ has \emph{strong perversity} $c$ with respect to $f$ if its induced morphism (\ref{induced}) satisfies
+\begin{equation}\label{assumption}
+\source{pw-conjecture-gl-n}
+\gamma \left({^\mathbf{p}\tau_{\leq i} Rf_* \BQ_X}\right) \subset {^\mathbf{p}\tau_{\leq i+(c-l)}} \left(Rf_* \BQ_X  [l] \right), \quad \forall i;
+\end{equation}
+more precisely, the condition (\ref{assumption}) says that the composition
+\[
+{^\mathbf{p}\tau_{\leq i} Rf_* \BQ_X} \hookrightarrow Rf_* \BQ_X \xrightarrow{\gamma} Rf_* \BQ_X [l]
+\]
+factors through ${^\mathbf{p}\tau_{\leq i+(c-l)}} \left(Rf_* \BQ_X  [l] \right) \hookrightarrow Rf_* \BQ_X  [l]$ for any $i$.  Notice that $\gamma$ automatically has strong perversity $l$, so this condition is interesting only when $c < l$. Combining Lemma \ref{lem0} and the following lemma, we see that if $f$ has equi-dimensional fibers and $\gamma$ has strong perversity $c$, then $\gamma \in P_cH^*(X, \BQ)$.
+
+\begin{lem}
+\source{pw-conjecture-gl-n}
+\notready\label{lem1.1}
+\source{pw-conjecture-gl-n}
+If $\gamma\in H^l(X, \BQ)$ has strong perversity $c$ with respect to $f$, then taking cup-product with $\gamma$ satisfies
+\[
+\gamma\cup - : H^m(X, \BQ) \to H^{m+l}(X, \BQ), \quad P_iH^m(X, \BQ) \mapsto P_{i+c}H^{m+l}(X, \BQ).
+\]
+\end{lem}
+
+\begin{proof}
+This follows from taking global cohomology for (\ref{assumption}) and noticing that
+\begin{align*}
+    H^{m-a+r}\left(Y, {^\mathbf{p}\tau_{\leq i+(c-l)}} \left(Rf_* \BQ_X  [l+a-r] \right)\right) & \\ = H^{(m-a+r)+l}&\left(Y, {^\mathbf{p}\tau_{\leq i+c}} \left(Rf_* \BQ_X  [a-r] \right)\right). \qedhere
+    \end{align*}
+\end{proof}
+
+In general, the perverse filtration $P_\bullet H^*(X, \BQ)$ may not be multiplicative, \emph{i.e.}, for $\gamma_j \in P_{c_j}H^*(X, \BQ)$ (j=1,2,\dots,s), it may not be true that
+\[
+\gamma_1 \cup \gamma_2 \cup \cdots \cup \gamma_s \in P_{c_1+\cdots+c_s}H^*(X, \BQ);
+\]
+see \cite[Exercise 5.6.8]{Park}. In fact, it was proven in \cite[Theorem 0.6]{dCMS} that Conjecture \ref{conj} is equivalent to the multiplicativity of the perverse filtration associated with the Hitchin system. The following easy observation illustrates the advantage of considering strong perversity in view of the multiplicativity issue.
+
+\begin{lem}
+\source{pw-conjecture-gl-n}
+\notready\label{lem1.2}
+\source{pw-conjecture-gl-n}
+If the class $\gamma_j \in H^{l_j}(X, \BQ)$ ($j=1,2,\dots, s$) has strong perversity $c_j$ with respect to $f$, then the cup product 
+\[
+\gamma_1 \cup \gamma_2 \cup \cdots \cup \gamma_s \in H^{l_1+\cdots+l_s}(X, \BQ)
+\]
+has strong perversity $\sum_jc_j$.
+\end{lem}
+
+
+\subsection{Vanishing cycles}\label{Sec1.2}
+\source{pw-conjecture-gl-n}
+
+Throughout section \ref{Sec1.2}, we let $g: X \to \BA^1$ be a morphism such that $X$ is nonsingular and irreducible with $X_0 = g^{-1}(0)$ the closed fiber over $0 \in \BA^1$. We consider the vanishing cycle functor 
+\[
+\varphi_g: D^b_c(X) \rightarrow D^b_c(X_0)
+\]
+which preserves the perverse $t$-structures,
+\[
+\varphi_g: \mathrm{Perv}(X) \rightarrow \mathrm{Perv}(X_0).
+\]
+Here $\mathrm{Perv}(-)$ stands for the abelian category of perverse sheaves. We denote by 
+\[
+\varphi_g : = \varphi_g(\mathrm{IC}_X) = \varphi_g(\BQ_X[\mathrm{dim}X]) \in \mathrm{Perv}(X_0) \]
+the perverse sheaf of vanishing cycles. We use $X' \subset X$ to denote the support of the vanishing cycle complex $\varphi_g$ so that $\varphi_g \in \mathrm{Perv}(X')$.
+
+Recall that for any bounded constructible object $\CK \in D^b_c(X)$, a class $\gamma \in H^l(X, \BQ)$ induces a morphism
+\[
+\gamma: \CK \to \CK [l] 
+\]
+via taking the tensor product with $\gamma: \BQ_X \to \BQ_X[l]$. The following lemma shows the compatibility between the vanishing cycle functor and restriction of cohomology classes.
+
+\begin{lem}
+\source{pw-conjecture-gl-n}
+\notready\label{lem1.3}
+\source{pw-conjecture-gl-n}
+With the same notation as above, let $i: X'\hookrightarrow X$ be the closed embedding. The morphism \[
+i^*\gamma: \varphi_g \rightarrow \varphi_g[l] \in D^b_c(X')
+\]
+induced by the class $i^*\gamma$ (applied to the object $\CK = \varphi_g$) coincides with 
+\[
+\varphi_g(\gamma): \varphi_g \to \varphi_g[l] \in D_c^b(X')
+\]
+obtained by applying the functor $\varphi_g$ to $\gamma: \BQ_X \to \BQ_X[l]$.
+\end{lem}
+
+\begin{proof}
+Let $\iota: X_0 \hookrightarrow X$ be the closed embedding of the closed fiber over $0$. By \cite[Definition 8.6.2]{KS}, the vanishing cycle functor can be written as
+\begin{equation}\label{vanishing}
+\source{pw-conjecture-gl-n}
+\varphi_g(-) = \iota^* R\CH{om}(\CC, -) \in D^b_c(X_0)
+\end{equation}
+with $\CC$ a fixed complex of sheaves. The morphism obtained
+by applying $R\CH{om}(\CC, -)$ to $\gamma: \BQ_X \to \BQ_X[l]$ 
+is equivalent to the morphism induced by applying $\gamma$ to $R\CH{om}(\CC, \BQ_X)$.
+Similarly, the functor $\iota^*$ sends the morphism induced by $\gamma$
+to the morphism induced by $\iota^*\gamma$.
+
+%by applying (\ref{vanishing}) to $\gamma: \BQ_X \to \BQ_X[l]$ is equivalent to the morphism applied $\iota^*\gamma$ to the object $\iota^* R\CH{om}(\CK, \BQ_X)$:
+%\[
+%\iota^*\gamma: \iota^* R\CH{om}(\CK, \BQ_X) \to \iota^* R\CH{om}(\CK, %\BQ_X)[l] \in \mathrm{Perv}(X_0).
+%\]
+Therefore, if we denote by $\iota': X' \hookrightarrow X_0$ the closed embedding and view $\varphi_g$ as a perverse sheaf on $X'$, we have an equivalent morphism
+\begin{equation}\label{321} 
+\source{pw-conjecture-gl-n}
+\varphi_g(\gamma) = \iota^*\gamma:  \iota'_*\varphi_g \to \iota'_*\varphi_g[l] \in D^b_c(X_0). 
+\end{equation}
+
+
+%We note that Betti moduliy definition, the vanishing cycle complex $\varphi_g$, as an oBetti moduliject on $X_0$, is of the form
+%\[
+%\varphi_g = \iota^* \CF
+%\]
+%with $\CF$ a constructiBetti modulile oBetti moduliject on $X$. The cohomology class $\gamma \in H^l(X, \BQ)$ then induces 
+%\[
+%\gamma: \CF \to \CF [l] \in D^b_c(X),
+%\]
+%whose restriction to $X_0$ induces the vanishing cycle morphism $\varphi_g(\gamma)$ on $X_0$:
+%\[
+%\varphi_g(\gamma) = \iota^*\gamma:  \iota^* \CF \to \iota^*\CF[l] \in D^b_c(X_0). 
+%\]
+%Finally, as the object $\iota^*\CF= \varphi_g$ is supporte on $X'$, for the closed embedding $\iota': X' \hookrightarrow X_0$ we have
+%\[
+%\iota^*\gamma: \iota'_* \varphi_g \to \iota'_* \varphi_g[l] \in D^b_c(X_0).
+%\]
+Finally, after applying $\iota'^*: D^b_c(X_0) \rightarrow D^b_c(X')$ to (\ref{321}) and noticing $\iota'^*\iota'_*= \mathrm{id}$, we obtain that the class $i^*\gamma = \iota'^*\iota^*\gamma$ induces
+\[
+\varphi_g(\gamma): \varphi_g \to \varphi_g[l] \in D_c^b(X').
+\]
+This completes the proof.
+\end{proof}
+
+
+\begin{prop}
+\source{pw-conjecture-gl-n}
+\notready\label{prop1.4}
+\source{pw-conjecture-gl-n}
+Let $g: X \to \BA^1$ and $X'$ be as above. Assume that $X'$ is nonsingular and
+\begin{equation}\label{4.1_0}
+\source{pw-conjecture-gl-n}
+\varphi_g \simeq \mathrm{IC}_{X'} = \BQ_{X'}[\mathrm{dim}X'] \in \mathrm{Perv}(X').
+\end{equation}
+Assume further that we have the commutative diagram
+\begin{equation*}
+\begin{tikzcd}
+X' \arrow[r, "i"] \arrow[d, "f'"]
+& X \arrow[d, "f"] \\
+Y' \arrow[r]
+& Y
+\end{tikzcd}
+\end{equation*}
+such that $f$ is proper and $g =   f\circ \nu$ with $\nu: Y \to \BA^1$. Then if a class $\gamma \in H^l(X, \BQ)$ has strong perversity $c$ with respect to $f$, its restriction $i^*\gamma \in H^l(X', \BQ)$ has strong perversity $c$ with respect to $f'$. 
+\end{prop}
+
+
+\begin{proof}
+By definition, the morphism 
+\begin{equation}\label{1.4_1}
+\source{pw-conjecture-gl-n}
+\gamma: Rf_* \BQ_X \to Rf_* \BQ_X[l] \in D^b_c(Y)
+\end{equation}
+induced by $\gamma$ satisfies
+\begin{equation}\label{1.4_2}
+\source{pw-conjecture-gl-n}
+\gamma \left({^\mathbf{p}\tau_{\leq i} Rf_* \BQ_X}\right) \subset {^\mathbf{p}\tau_{\leq i+(c-l)}} (Rf_* \BQ_X[l]), \quad \forall i.
+\end{equation}
+Now we apply the vanishing cycle functor $\varphi_\nu$ to (\ref{1.4_1}). On one hand, we have the base change $Rf'_* \circ \varphi_g \simeq \varphi_\nu\circ Rf_*$ and the fact that the vanishing cycle functor preserves the perverse $t$-structures. Therefore (\ref{1.4_2}) implies  that the morphism
+\[
+\varphi_g(\gamma): Rf'_* \varphi_g \to Rf'_* \varphi_g[l] \in D^b_c(Y')
+\]
+satisfies
+\[
+\varphi_g(\gamma) \left({^\mathbf{p}\tau_{\leq i}} Rf'_* \varphi_g\right) \subset {^\mathbf{p}\tau_{\leq i+(c-l)}} (Rf'_* \varphi_g[l]), \quad \forall i.
+\]
+On the other hand, using the isomorphism (\ref{4.1_0}) and Lemma \ref{lem1.3}, the above equation means precisely that the morphism $i^*\gamma : \BQ_{X'} \to \BQ_{X'}[l]$ satisfies
+\begin{equation*}
+(i^*\gamma) \left({^\mathbf{p}\tau_{\leq i} Rf'_* \BQ_{X'}}\right) \subset {^\mathbf{p}\tau_{\leq i+(c-l)}} (Rf'_* \BQ_{X'}[l]), \quad \forall i;
+\end{equation*}
+that is, the class $i^*\gamma$ has strong perversity $c$ with respect to $f'$.
+\end{proof}

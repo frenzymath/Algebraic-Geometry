@@ -1,0 +1,548 @@
+% Source-derived chapter 03: Vertex operator algebra
+% Original source: virasoro-constraints-moduli-sheaves-vertex-algebras
+\chapter{Vertex operator algebra}
+\label{virasoro-constraints-moduli-sheaves-vertex-algebras-chapter-03}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+\begin{remark}[Source section]
+\label{virasoro-constraints-moduli-sheaves-vertex-algebras-chapter-03-source}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Vertex operator algebra
+To prove the conjectures from the previous sections, we will apply the wall-crossing machinery introduced by Joyce which relies on his geometric construction of vertex algebras. The resulting vertex algebras have been described in many cases as lattice vertex algebras and as such admit a natural family of conformal elements. This section focuses on developing the necessary vertex operator algebra language, including the definition of lattice vertex operator algebras in the generality that we need, Borcherds Lie algebra associated to a vertex algebra and the notion of primary states.
+
+ %The associated Lie algebra of Borcherds \cite{Borcherds} allows an explicit formulation of the wall-crossing for (virtual) fundamental classes counting semistable sheaves, but the geometric interpretation of the conformal element remained an open question.
+\subsection{Vertex operator algebra}
+\label{sec: voadefinition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+ There are many equivalent formulations of vertex algebras. We will follow the definitions and notation in \cite{Ka98}. In particular, vertex algebra for us means $\BZ$-graded vertex superalgebra over $\BC$.
+ 
+ \begin{definition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+ \label{Def: axioms}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+ A \textit{vertex algebra} is a $\BZ$-graded vector space $V_{\bullet}$ over $\BC$ together with 
+\begin{enumerate}
+\item a \textit{vacuum vector} $\ket{0}\in V_0$, 
+    \item a linear operator 
+    $T\colon V_\bullet\to V_{\bullet+2}$
+   called the \textit{translation operator},
+    \item and a \textit{state-field correspondence} which is a degree 0 linear map
+    $$
+    Y\colon V_\bullet\longrightarrow \End(V_\bullet)\llbracket z,z^{-1} \rrbracket\,,
+    $$
+    denoted by 
+    $$Y(a,z)\coloneqq \sum_{n\in\BZ}{a_{(n)}}z^{-n-1}\,,
+    $$
+   where $a_{(n)}:V_\bullet\rightarrow V_{\bullet+\deg(a)-2n-2}$ and $\deg (z) =-2$.
+\end{enumerate}
+
+They are required to satisfy conditions which can be formulated in many different ways. We choose our favorite version:
+\begin{enumerate}
+    \item \textit{(vacuum)} $T\ket{0} = 0$\,, $Y(|0\rangle, z)=\textnormal{id}$\,, $Y(a,z)|0\rangle\in a+zV_\bullet\llbracket z\rrbracket$\,,
+    \item \textit{(translation covariance)} $[T,Y(a,z)] = \frac{d}{dz} Y(a,z)$ for any $a\in V_\bullet$\,,
+    \item \textit{(locality)} for any $a,b\in V_{\bullet}$, there is an $N\gg 0$ such that 
+    $$
+    (z-w)^N[Y(a,z),Y(b,w)] = 0\,,
+    $$
+    where the supercommutator is defined on $\text{End}(V_\bullet)$ by
+    $$
+    [A,B] =A\circ B -  (-1)^{|A| |B|}B\circ A\,.
+    $$
+\end{enumerate}
+\end{definition}
+For later purposes it is useful to note that these axioms imply the two following identities which were used by Borcherds \cite[Section 4]{Borcherds} to originally define vertex algebras:
+\begin{align}
+\label{Eq: skewsymmetry}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+a_{(n)}b &= \sum_{i\geq 0}(-1)^{|a||b|+i+n+1}\frac{T^i}{i!} b_{(n+i)}a\,,\\
+\label{Eq: skewjacobi}\big(a_{(m)}b\big)\raisebox{0.2 pt}{\ensuremath{_{(n)}}} c
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+&=\sum_{i\geq 0}(-1)^i \binom{m}{i}\Big[a_{(m-i)}\big(b_{(n+i)}c\big) -(-1)^{|a||b|+m}b_{(m+n-i)}\big(a_{(i)}c\big)\Big]\,.
+\end{align}
+They are a refinement of skew-symmetry and the Jacobi identity to the setting of vertex algebras. 
+Additionally, we will also use 
+\begin{equation}
+\label{Eq: translationu}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+(Ta)_{(n)} = -n\cdot a_{(n-1)}
+\end{equation}
+which follows from the more general reconstruction result.
+To understand it, one needs to make sense of a product of two fields $Y(v,z)$ and $Y(w,z)$ which naively could contain infinite sums for each coefficient. For this one uses the following trick.
+\begin{definition}[{\cite[(2.3.5)]{Ka98}}]
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+ A \textit{normal ordering} $:-:$ is defined by 
+$$
+:v_{(k)} w_{(l)}: \,=\begin{cases}(-1)^{|v||w|}w_{(l)}v_{(k)}&\text{if} \quad k\leq 0,l>0\,,\\
+v_{(k)}w_{(l)}& \text{otherwise}\,.\end{cases}
+$$
+In general, this can be extended to any monomial in $v_{(k)}$ by iterating the above operation on the neighboring terms until all terms with non-positive index $k$ are on the right. 
+\end{definition}
+
+
+\begin{theorem}[{\cite[Corollary 4.5]{Ka98}}]
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+    Let $a^1,\cdots, a^n\in V_{\bullet}$ be a finite collection of elements and $k_1,\dots,k_n\in \BZ_{\geq 0}$, then a general field can be described as
+    $$
+    Y\big(a^1_{(-k_1-1)}\cdots a^n_{(-k_n-1)}\ket{0},z\big)
+= \frac{1}{k_1!k_2!\cdots k_n !}:\frac{d^{k_1}}{(dz)^{k_1}}Y(a^1,z)\cdots \frac{d^{k^n}}{(dz)^{k_n}}Y(a^n,z):\,.
+    $$
+\end{theorem}
+To get \eqref{Eq: translationu} simply use $Ta = a_{(-2)}\ket{0}$ and compare the coefficients on both sides.
+
+We now recall the definition of an additional structure on vertex algebras called a conformal element or conformal vector. They induce a homomorphism from the Virasoro vertex algebra to the given vertex algebra. As we will see in Section \ref{sec: VOA from sheaf theory}, conformal element in the setting of Joyce's vertex algebra gives rise to a compact way to summarize all the information contained in the Virasoro constraints.
+\begin{definition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{Def: conformal vertex algebra}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+ A \textit{conformal element} $\omega$ on a vertex algebra $V_\bullet$ is an element of $V_4$ such that its associated fields $L_n=\omega_{(n+1)}$, defined by
+  $$Y(\omega,z) = \sum_{n\in \mathbb{Z}}L_nz^{-n-2}\,,$$
+satisfy
+ \begin{enumerate}
+     \item the Virasoro bracket 
+     \[\big[L_n,L_m\big] = (n-m)L_{m+n} +\frac{n^3-n}{12}\delta_{n+m,0}\cdot C
+     \,,\]
+     where $C\in \BC$ is a constant called the \textit{central charge} of $\omega$,
+     \item $L_{-1}  = T\,,$
+     \item and $L_0$ is diagonalizable. 
+ \end{enumerate}
+
+
+A vertex algebra $V_\bullet$ together with a conformal element $\omega$ is called a \textit{conformal vertex algebra} or \textit{vertex operator algebra}. We denote by $V^\omega_{\bullet}$ the \textit{conformal grading} on the underlying vector space, where $V^\omega_i$ is the $i\in \BC$ eigenspace of $L_0$. We denote the \textit{conformal degree} by
+$$
+\deg_\omega(a) =i\quad \text{if} \quad a\in V^\omega_i\,,
+$$
+to distinguish it from the original degree on $V_\bullet$. 
+\end{definition}
+
+\subsection{Lattice vertex (operator) algebras}
+We next describe a particular construction of a vertex operator algebra which we will be working with, called \textit{lattice vertex algebras}. The following theorem is a summary (and slight generalization, see footnote \ref{footnote: kac}) of the constructions and statements in \cite[Sections 3.5, 3.6 and 5.5]{Ka98}. In the rest of the section we will explain the construction in further detail.
+
+\begin{theorem}[Kac]
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{thm: voaconstruction}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Assume that we have the following data:
+\begin{enumerate}
+    \item A $\BZ_2$-graded $\BC$-vector space $\Lambda=\Lambda_{\overline 0}\oplus \Lambda_{\overline 1}$ with a symmetric bilinear pairing $Q\colon \Lambda\times \Lambda\to \BC$ which is a direct sum of its restrictions $Q_{\overline{i}}:\Lambda_{\overline i}\times \Lambda_{\overline i}\to \BC$.
+\item The pairing $Q$ is obtained as the symmetrization of a not necessarily symmetric pairing $q\colon \Lambda\times \Lambda\to \BC$, i.e.,\footnote{We use symmetrization instead of supersymmetrization as in \cite{Gr19}.}
+\[Q(v, w)=q(v, w)+q(w, v).\] 
+\item An abelian group of a finite rank $\Lambda_{\sst}$ that admits a $\BC$-linear inclusion 
+\[\Lambda_{\sst}\otimes_{\BZ}\BC\hookrightarrow \Lambda_{\overline 0}\]
+such that the restriction of $q$ to $\Lambda_\sst$ is integer valued. This makes $(\Lambda_\sst, Q)$ an even generalized integeral lattice in the sense of \cite[Section 3]{Gr19}. 
+\end{enumerate}
+Then there is a uniquely defined vertex algebra $V_\bullet$ whose underlying vector space is
+\[V_\bullet=\BC[\Lambda_{\sst}]\otimes \BD_{\Lambda},\]
+where
+\[\BD_{\Lambda} = \SSym\big[\text{CH}_{\Lambda}\big]\quad\text{and}\quad \text{CH}_{\Lambda}  =\bigoplus_{k>0} \Lambda \cdot t^{-k}\,.\]
+The state-field correspondence is determined by equations \eqref{Eq: explicitfield}, \eqref{Eq: field2} and \eqref{Eq: reconstruction} and the translation operator is defined by equation \eqref{Eq: translation}. 
+
+Suppose moreover that we have:
+\begin{enumerate}
+\item[(4)] The pairing $Q$ is non-degenerate.
+\item[(5)] A decomposition of $\Lambda_{\overline 1}$ as a sum of two maximal isotropic subspaces, i.e.,
+\[\Lambda_{\overline 1}=I\oplus \hat I.\]
+\end{enumerate}
+Then $V_\bullet$ admits a conformal element $\omega$ defined as \eqref{Eq: omega} whose central charge is
+\[\mathrm{sdim}\, \Lambda\coloneqq\dim \Lambda_{\overline 0}-\dim \Lambda_{\overline{1}}.\]
+\end{theorem}
+
+We will use the notation $v_{-k}=v \cdot t^{-k}\in \BD_\Lambda$ and $e^\alpha\in \BC[\Lambda_{\sst}]$ for the elements associated to $v\in \Lambda$ and $\alpha\in \Lambda_{\sst}$, respectively. The $\BZ$-grading of $V_\bullet$ is defined by the degree assignment
+$$
+\deg \Big(e^{\alpha}\otimes v_{-k_1}^1\cdots v_{-k_n}^n\Big) = \sum_{i=1}^n (2k_i-|v_i|) + Q(\alpha,\alpha)\,.
+$$
+A vacuum vector is defined as $|0\rangle\coloneqq e^0\otimes 1\in V_0$. 
+
+For $v\in \Lambda$ and $k>0$, the \textit{creation operator} $v_{(-k)}$ on $V_\bullet$ is defined as a left multiplication by the element $v_{-k}\in \BD_\Lambda$. This gives $V_\bullet$ the structure of a free $\BD_\Lambda$-module with basis $\{e^\alpha\}_{\alpha\in \Lambda_\sst}$. Thus, specifying an operator $A\colon V_\bullet\to V_\bullet$ is equivalent to describing its commutators with creation operators $[A, v_{(-k)}]$ and its action on the basis $A(e^\alpha)$. The operators that appear are often derivations of the $\BD_\Lambda$-module $V_\bullet$, and we will often define them by describing their action on the generators $v_{-k}$ of $\BD_\Lambda$ and on the basis $e^\alpha$. 
+
+The translation operator $T$ is a $\BC$-linear even derivation of the $\BD_\Lambda$-module $V_{\bullet}$ determined by 
+\begin{equation}
+\label{Eq: translation}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+T(v_{-k}) = kv_{-k-1}\,,\qquad T(e^{\alpha}) = e^\alpha\otimes \alpha_{-1}\,. 
+\end{equation}
+Note that when we write $\alpha_{-1}$ for $\alpha\in \Lambda_{\textup{sst}}$ we are implicitly using the map
+\[\Lambda_{\textup{\sst}}\to \Lambda_{\textup{sst}}\otimes_\BZ\BC\hookrightarrow \Lambda_{\overline 0}\] to regard $\alpha$ as an element of $\Lambda_{\overline 0}$.
+For $k\geq 0$, the \textit{annihilation operator} $v_{(k)}$ is defined as a derivation of the $\BD_{\Lambda}$-module $V_\bullet$ as we explain below, following Kac \cite[Sections 3.6 and 5.4]{Ka98}. The field corresponding to $v_{-1}$ is then obtained as a sum of creation and annihilation operators:
+\begin{align*}
+    \label{Eq: field}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    Y(v_{-1},z) &= \sum_{k\in \BZ}v_{(k)}z^{-k-1}\,.
+    \numberthis
+\end{align*}
+We separate the construction of the fields into two cases. If our lattice $\Lambda$ is concentrated in even degree (i.e., $\Lambda_{\overline 1}=\{0\}$) we use Kac's bosonic construction and if it is concentrated in odd degree (i.e., $\Lambda_{\overline 0}=\{0\}$) we use a fermionic construction. In the general case, we take the tensor product of the two.
+\begin{definition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{Def: latticeVA}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    Suppose that 
+    \begin{enumerate}
+        \item     $\Lambda_{\overline{1}} = \{0\}$, then the resulting vertex algebra $V_{\ovZ,\bullet}=\BC[\Lambda_\sst]\otimes \BD_{\Lambda_{\overline 0}}$ is called a \textit{bosonic} lattice vertex algebra. In this case,  the action of the annihilation operators $\{v_{(k)}\}_{k\geq 0}$ for $v\in \Lambda_{\overline 0}$ is an even derivation on the $\BD_{\Lambda_{\ovZ}}$-module $V_{\ovZ,\bullet}$ determined by
+$$
+v_{(k)}(w_{-l}) = k\,Q(v,w)\,\delta_{k-l,0}\,,\qquad v_{(k)}(e^\alpha) = Q(v,\alpha)\,\delta_{k,0}\,e^\alpha\,, \quad k\geq 0, l>0 \,.
+$$
+Kac \cite[Section 5.5]{Ka98}\footnote{\label{footnote: kac}The construction in \cite[Section 5.4]{Ka98} is only for the case in which $\Lambda_\sst$ is a lattice (i.e., a free abelian group) and $\Lambda_\sst\otimes_\BZ \BC=\Lambda_{\overline 0}$, but everything works just fine in this slightly more general setting. This modification was already considered by Gross in \cite[Definition 3.5]{Gr19}. Note also that the case $\Lambda_\sst=\{0\}$ corresponds to what Kac calls the vertex algebra of free bosons, see \cite[Section 3.5]{Ka98}; this slightly more general construction can be thought of as interpolating the lattice vertex algebra and the bosonic vertex algebra.} endows $V_{\ovZ,\bullet}$ with a vertex algebra structure such that
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\begin{align*}
+    Y(v_{-1},z) &= \sum_{k\in \BZ}v_{(k)}z^{-k-1}\,,
+\end{align*}
+and 
+\begin{align*}
+   \label{Eq: field2}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+ Y(e^{\alpha},z) &= (-1)^{q(\alpha, \beta)}z^{Q(\alpha,\beta)}e^{\alpha} \exp\Big[-\sum_{ k<0}\frac{\alpha_{(k)}}{k}z^{-k}\Big]\exp\Big[-\sum_{k>0}\frac{\alpha_{(k)}}{k}z^{-k}\Big]
+ \numberthis
+\end{align*}
+on $e^\beta\otimes \BD_{\Lambda}$; in the formula, $e^\alpha$ stands for the operator sending $e^\beta\otimes w$ to $e^{\alpha+\beta}\otimes w$. Note that the signs $\varepsilon_{\alpha, \beta}=(-1)^{q(\alpha, \beta)}$ satisfy \cite[Equations 5.4.14]{Ka98}. The general state-field correspondence is set to be
+     \begin{multline}\label{Eq: reconstruction}     
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Y\big(e^\alpha\otimes v^1_{-k_1-1}\cdots v^n_{-k_n-1},z\big)\\
+= \frac{1}{k_1!k_2!\cdots k_n !}:Y(e^\alpha,z)\frac{d^{k_1}}{(dz)^{k_1}}Y(v^1_{-1},z)\cdots \frac{d^{k_n}}{(dz)^{k_n}}Y(v^n_{-1},z): \,.
+\end{multline}
+\item  $\Lambda_{\ovZ} = \{0\}$, then the resulting vertex algebra $V_{\ovO, \bullet}=\BD_{\Lambda_{\overline 1}}$ is called a \textit{fermionic} vertex algebra, see \cite[Section 3.6]{Ka98}. It is determined uniquely by setting the annihilation operators $\{v_{(k)}\}_{k\geq 0}$, for $v\in \Lambda_{\overline 1}$, to be odd derivations on the supercommutative algebra $\BD_{\Lambda_{\overline 1}}$ such that 
+$$
+v_{(k)}(w_{-l}) =Q(v,w)\delta_{k-l+1,0}\,, \quad k\geq 0, l>0 \,.
+$$
+The remaining fields are obtained again by the reconstruction Theorem \cite[Theorem 4.5]{Ka98}, which states the analog of \eqref{Eq: reconstruction} without $e^\alpha$.
+    \end{enumerate}
+  In general, $V_\bullet$ is defined as the tensor product of the two lattice vertex algebras, \[V_\bullet=V_{\overline{0}, \bullet}\otimes V_{\ovO,\bullet} \]
+   which are associated to $\Lambda_{\sst}\otimes_{\BZ}\BC\hookrightarrow \Lambda_{\overline 0}$ and $\Lambda_{\ovO}$, respectively. The resulting fields are determined uniquely by
+$$
+Y({a_{\ovZ}\otimes a_{\ovO}},z) = Y(a_{\ovZ},z)\otimes Y(a_{\ovO},z)
+$$
+whenever $a_{\overline{i}}\in V_{\,\overline{i},\,\bullet}$.
+\end{definition}
+
+We can summarize the above description by formulating the commutation relations of the operators $v_{(k)}$ as
+\begin{equation}\label{lattice VOA commutation}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    [v_{(k)},w_{(\ell)}]=k^{(1-|v|)}Q(v,w)\delta_{k+\ell+|v|,0}\,,
+\end{equation}
+which holds for all $k,\ell\in \BZ$. If we want to obtain a closed formula for \eqref{Eq: field}, we may rewrite the annihilation operators in terms of derivatives to get
+\begin{equation}
+\label{Eq: explicitfield}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Y(v_{-1},z) = \sum_{k\geq0}v_{(-k-1)}z^{k} +\sum_{k\geq 1-|v|}\sum_{w\in B} k^{(1-|v|)} Q(v,w)\frac{\partial}{\partial w_{-k-|v|}}z^{-k-1} + Q(v,\beta)z^{-1}\,,
+\end{equation}
+on $e^\beta\otimes \BD_\Lambda\subseteq V_\bullet$, where $B\subset\Lambda$ is a basis. 
+
+We will later identify Joyce's vertex algebra with a lattice vertex algebra. For that, the following proposition, which is a simple corollary of \cite[Proposition 5.4]{Ka98}, will be useful. 
+
+\begin{proposition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{Cor: calpha}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    Let $V_{\bullet}$ be a vertex algebra with the underlying vector space $\BC[\Lambda_{\sst}]\otimes \BD_{\Lambda}$ such that:
+    \begin{enumerate}
+    \item[(i)] The vacuum vector is $e^0\otimes 1$; 
+    \item[(ii)] The fields $Y(e^0\otimes v_{-1}, z)$ are given by \eqref{Eq: explicitfield};
+    \item[(iii)] We have
+        \begin{equation}
+    \label{Eq: calpha}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    [z^{Q(\alpha,\beta)}] Y(e^{\alpha},z)e^{\beta}=(-1)^{q(\alpha, \beta)}e^{\alpha+\beta}\,.
+    \end{equation}
+    \end{enumerate} 
+Then $V_\bullet$ is isomorphic to the lattice vertex algebra of Theorem \ref{thm: voaconstruction}.
+\end{proposition}
+\begin{proof}
+By \cite[Proposition 5.4]{Ka98}, conditions (1) and (2) imply that $V_\bullet$ is uniquely determined by a choice of operators $c_\alpha\colon V_\bullet\to V_\bullet$ for each $\alpha\in \Lambda_\sst$ satisfying 
+\[c_0=\id\,, \quad c_\alpha\ket{0}=\ket{0}\, , \quad [v_{(k)}, c_\alpha]=0\textup{ for }v\in \Lambda, k\in \BZ.\]
+
+For such a choice of operators, the field $Y(e^\alpha, z)$ is given by 
+\begin{align*}
+ Y(e^{\alpha},z) &=z^{Q(\alpha,\beta)}e^{\alpha} \exp\Big[-\sum_{ k<0}\frac{\alpha_{(k)}}{k}z^{-k}\Big]\exp\Big[-\sum_{k>0}\frac{\alpha_{(k)}}{k}z^{-k}\Big]c_\alpha
+\end{align*}
+To show that $V_\bullet$ is the lattice vertex algebra we need to show that $c_\alpha$ acts as $(-1)^{q(\alpha, \beta)}$ on $e^\beta\otimes \BD_\Lambda$. Since $c_\alpha$ commutes with creation operators, it is enough to show that $c_\alpha(e^\beta)=(-1)^{q(\alpha,\beta)}e^{\beta}$ for all $\beta\in \Lambda_\sst$.  We have
+\begin{align*}
+Y(e^\alpha, z)e^\beta&=z^{Q(\alpha,\beta)}e^{\alpha} \exp\Big[-\sum_{ k<0}\frac{\alpha_{(k)}}{k}z^{-k}\Big]\exp\Big[-\sum_{k>0}\frac{\alpha_{(k)}}{k}z^{-k}\Big]c_\alpha(e^\beta)\\
+&=z^{Q(\alpha,\beta)}e^{\alpha} \exp\Big[-\sum_{ k<0}\frac{\alpha_{(k)}}{k}z^{-k}\Big]c_\alpha\exp\Big[-\sum_{k>0}\frac{\alpha_{(k)}}{k}z^{-k}\Big]e^\beta\\
+&=z^{Q(\alpha,\beta)}e^{\alpha} \exp\Big[-\sum_{ k<0}\frac{\alpha_{(k)}}{k}z^{-k}\Big]c_\alpha e^\beta
+\end{align*}
+Extracting the coefficient of $z^{Q(\alpha, \beta)}$ from both sides and using (3) the result follows. \qedhere
+\end{proof}
+
+\subsection{Kac's conformal element}
+\label{sec: Kacconformal}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+Let $V_\bullet = \BC[\Lambda_\sst]\otimes \BD_\Lambda$ be a lattice vertex algebra associated to a non-degenerate symmetric pairing 
+$$
+Q:\Lambda\times \Lambda\longrightarrow \BZ.
+$$
+Recall that $V_\bullet$ is expressed as a tensor product  $V_\bullet = V_{\ovZ,\,\bullet}\otimes V_{\ovO,\,\bullet}$. This allows us to address the construction of the conformal element as
+$$\omega=\omega_{\ovZ}+\omega_{\ovO},\quad \omega_{\overline{i}}\in V_{\overline{i},4}.
+$$
+
+Let us first fix a basis $B_{\,\ovZ}$ of $\Lambda_{\,\ovZ}$ and its dual $\hat{B}_{\,\ovZ}$ with respect to $Q$; we denote by $\hat{v}\in \hat{B}_{\,\ovZ}$ the dual of $v\in B_{\,\ovZ}$, so that
+\[Q(v, \hat w)=\delta_{v,w}\quad\textup{for}\quad v, w\in B_{\overline 0}\,.\]Then the bosonic part has a natural choice of a conformal element given by
+$$
+\omega_{\ovZ} = e^0\otimes \frac{1}{2}\sum_{v\in B_{\ovZ}}\hat{v}_{-1} v_{-1} \in V_{\ovZ,4}\,.
+$$
+See \cite[Proposition 5.5]{Ka98}. The central charge of $\omega_{\overline 0}$ is $\dim(\Lambda_{\overline 0})$.
+
+We now consider the fermionic part. Recall that we have in the assumptions of Theorem \ref{thm: voaconstruction} a splitting
+\begin{equation}
+\label{Eq: splittingisotropic}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\Lambda_{\ovO} = I\oplus \hat{I}\,.
+\end{equation}
+into maximal isotropic subspaces. Given such a splitting, Kac \cite[3.6.14]{Ka98} constructs a family of conformal elements $\omega^\lambda_{\ovO}$ parameterized by $\lambda\in \BC$. To give its explicit description, pick a basis $B_I\subset I$; then its dual basis is denoted by $B_{\hat{I}}\subset \hat{I}$ with elements $\hat{w}$ satisfying 
+$Q(v,\hat{w}) = \delta_{v,w}\,.$ One then sets
+$$
+\omega^\lambda_{\ovO} = (1-\lambda)\sum_{v\in B_I}\hat{v}_{-2}v_{-1} + \lambda \sum_{v\in B_I}v_{-2}\hat{v}_{-1}\,.
+$$
+Notice that the expression is independent of a choice of bases $B_I,B_{\hat{I}}$ and swapping $I$ and $\hat{I}$ only interchanges $\lambda$ and $(1-\lambda)$. We set $\lambda=0$ and denote\footnote{We suppress the dependence of $\omega_{\ovO}$ on the choice of $I$ and $\hat{I}$ for simplicity of the notation.}
+$$
+\omega_{\ovO} = \sum_{v\in B_I}\hat{v}_{-2}v_{-1}\,.
+$$
+The central charge of $\omega_{\ovO}$ is 
+\[2\,\mathrm{sdim}(I)=\mathrm{sdim}(\Lambda_{\overline 1})=-\dim(\Lambda_{\overline 1})\,,\]
+by \cite[3.6.16]{Ka98} after plugging $\lambda=0$. Therefore,  the central charge of the full conformal element $\omega=\omega_{\ovZ}+\omega_{\ovO}$ is given by
+$$\dim(\Lambda_{\overline{0}})-\dim(\Lambda_{\overline{1}})=\mathrm{sdim}(\Lambda)\,.
+$$
+
+\begin{remark}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+    The choice of the conformal element $\omega$ is equivalent to the choice of a splitting 
+ \eqref{Eq: splittingisotropic}, so we will often denote the latter piece of data also by $\omega$. 
+\end{remark}
+
+The corresponding conformal grading on $e^\alpha\otimes \BD_\Lambda\subset V_\bullet$, depending on the choice of the splitting $\omega$, is determined by the operator
+\begin{align*}
+L_0
+&=[z^{-2}]\big\{Y(\omega,z)\big\}\\ 
+&=[z^{-2}]\Big\{\frac{1}{2}\sum_{v\in B_{\ovZ}}:Y(\hat{v}_{-1},z)Y(v_{-1},z):
++\sum_{v\in B_I}:\frac{\partial}{\partial z}Y(\hat{v}_{-1},z)Y(v_{-1},z):\Big \}\\
+&=\frac{1}{2}\sum_{\begin{subarray} a k\in\BZ\\
+v\in B_{\ovZ}\end{subarray}}:\hat{v}_{(-k)}v_{(k)}:
++\sum_{\begin{subarray} a k\in\BZ\\
+v\in B_I\end{subarray}}k:\hat{v}_{(-k-1)}v_{(k)}:
+\\
+&=\sum_{\begin{subarray} a k> 0\\
+v\in B_{\ovZ}\end{subarray}}k\,v_{(-k)}\frac{\partial}{\partial v_{-k}}
++\sum_{\begin{subarray} a k> 0\\ v\in B_I\end{subarray}}
+\Big[(k-1)\,\hat{v}_{(-k)}\frac{\partial}{\partial \hat{v}_{-k}}+k\,v_{(-k)}\frac{\partial}{\partial v_{-k}}\Big] 
++\frac{1}{2}Q(\alpha,\alpha)
+\,.
+\end{align*}
+The last equality is obtained by separating the sum into $k>0$ or $k<0$ terms and using \eqref{Eq: explicitfield} in the form
+\[v_{(k-1)}=\frac{\partial}{\partial \hat v_{-k}}\,,\quad \hat v_{(k-1)}=\frac{\partial}{\partial v_{-k}} \quad \textup{for}\quad v\in B_I,\ k> 0\,.\]
+Specifically, the induced conformal grading is 
+$$\deg_{\omega}(v_{-k})=\begin{cases}
+k &\textup{if }v\in \Lambda_{\overline 0}\,,\\
+k &\textup{if }v\in I\subseteq \Lambda_{\overline 1}\,,\\
+k-1 &\textup{if }v\in \hat I\subseteq \Lambda_{\overline 1}\,,
+\end{cases}
+$$
+for each $k>0$, while the $\BZ$-grading on $V_\bullet$ that we started with is given by 
+$$\deg(v_{-k})=\begin{cases}
+2k &\textup{if }v\in \Lambda_{\overline 0}\,,\\
+2k-1 &\textup{if }v\in I\subseteq \Lambda_{\overline 1}\,,\\
+2k-1 &\textup{if }v\in \hat I\subseteq \Lambda_{\overline 1}\,.
+\end{cases}
+$$
+
+The conformal grading $V_\bullet^\omega$ is useful when it comes to studying Virasoro operators as we explain now. Starting from the notation for the decomposition  
+$$v=v_I+v_{\hat{I}}\in \Lambda_{\overline{1}} \,,\quad \text{where}\quad  v_{I}\in I, v_{\hat{I}}\in\hat{I}\,,$$
+we label the conformal shift
+$$v^{\omega}_{-1}\coloneqq \begin{cases}
+v_{-1}& \textnormal{if }v\in \Lambda_{\ovZ}\,,\\
+(v_I)_{-1}+(v_{\hat{I}})_{-2}& \textnormal{if }v\in \Lambda_{\ovO}\,.
+\end{cases}
+$$
+We also define a new pairing $Q^\omega(v,w)$ as 
+$$Q^\omega(v,w)\coloneqq 
+\begin{cases}
+Q(v,w)&\textnormal{if }v,w\in \Lambda_{\ovZ}\,,\\
+Q(v_I,w_{\hat{I}})-Q(v_{\hat{I}},w_I)&\textnormal{if }v,w\in \Lambda_{\ovO}\,,\\
+0&\textnormal{otherwise.}
+\end{cases}
+$$
+This pairing is non-degenerate and {\it supersymmetric} because $Q$ is non-degenerate and symmetric. Using the shift notation $v^\omega_{-1}$ and a new pairing $Q^\omega$, we can rewrite the conformal element as
+\begin{align}\label{Eq: omega}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    \omega
+    &=\frac{1}{2}\sum_{v\in B_{\ovZ}}\hat{v}_{-1}v_{-1}+\sum_{v\in B_I}\hat{v}_{-2}v_{-1}\\
+    &=\frac{1}{2}\sum_{v\in B_{\ovZ}}\hat{v}_{-1}v_{-1}
+    +\frac{1}{2}\sum_{v\in B_I}\hat{v}_{-2}v_{-1}-\frac{1}{2}\sum_{\hat{v}\in B_{\hat{I}}}v_{-1}\hat{v}_{-2}\nonumber\\
+    &=\frac{1}{2}\sum_{v\in B} \tilde{v}^\omega_{-1}v^\omega_{-1}\nonumber\,.
+\end{align}
+In the last equality, we use the basis $B=B_{\ovZ}\sqcup B_I\sqcup B_{\hat{I}}$ of $\Lambda$ and $\{\tilde{v}\}$ denotes the dual basis to $B=\{v\}$ with respect to $Q^\omega$, such that $Q^\omega(v,\tilde{w})=\delta_{v,w}$. If we also shift the notation for the creation and annihilation operators defining $v^\omega_{(k)}$ by the formula
+$$Y(v^\omega_{-1},z)\coloneqq \sum_{k\in \BZ}v^\omega_{(k)}\,z^{-k-1}\,,
+$$
+the Virasoro operators can be written as
+\begin{equation}\label{eq: operatorsomegashift}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+L_n=\frac{1}{2}\sum_{\substack{i+j=n\\ v\in B}} :\tilde{v}^\omega_{(i)}\,v^\omega_{(j)}:\,,\quad n\in \BZ\,.
+\end{equation}
+
+We also note that shifted creation and annihilation operators are subject to the bracket relations that are similar to bosonic fields 
+\begin{equation}\label{eq: shifted bracket}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\left[v^{\omega}_{(n)},w^{\omega}_{(m)}\right]= n\, Q^{\omega}(v,w)\delta_{n+m,0}\,.
+\end{equation}
+This can be shown by dividing into three cases;
+$$\textnormal{i) } v, w\in \Lambda_{\overline{0}}\,,\quad 
+\textnormal{ii) } v\in I,\ w\in \hat{I}\,,\quad 
+\textnormal{iii) } v\in \hat{I},\ w\in I\,,
+$$
+and using the translation formula \eqref{Eq: translationu}.
+
+\subsection{Lie algebra of physical states}
+\label{Sec: physical}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+Borcherds \cite{Borcherds} associates to any vertex algebra $V_\bullet$ a graded Lie algebra
+\begin{equation}\label{lie algebra}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\widecheck{V}_\bullet = V_{\bullet+2}\,/\,T(V_\bullet),\quad [\overline{a},\overline{b}]=\overline{a_{(0)}b}\,. 
+\end{equation}
+In this section, we study the Lie subalgebra of {\it primary} states (also known as {\it physical} states) that is closely related to Virasoro constraints. Algebraic statements in this section will translate into a compatibility between wall-crossing and Virasoro constraints for sheaves and pairs in the geometric setting. 
+
+\begin{definition}[{\cite{Borcherds}, \cite[Corollary 4.10]{Ka98}}]
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{Def: physicalstates}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $\big(V_\bullet,\omega\big)$ be a conformal vertex algebra. The space of primary states of conformal weight $i\in \BZ$ is defined as 
+$$P_i\coloneqq \big\{a\in V^\omega_i\,\big|\, \ L_n(a)=0\ \textnormal{for all}\ n\geq 1\big\}\,.
+$$
+\end{definition}
+
+The following assumption is used to construct the Lie subalgebra of primary states.
+\begin{assumption}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{standard assumption}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+We have $\ker(T)\cap V^\omega_i=\{0\}$ for all $i<0$.
+\end{assumption}
+This assumption is satisfied for the lattice vertex algebras with Kac's conformal element because the kernel
+$$\ker(T)=\textnormal{span}_{\BC}\big\{e^{\alpha}\otimes 1\,\big|\,\textnormal{torsion } \alpha\big\}
+$$
+consists only of elements with zero conformal weight.
+
+Primary states yield a smaller Lie subalgebra by the proposition below. To state it, we introduce the Lie subalgebra 
+\[\widecheck{V}_0^\omega\coloneqq V_1^\omega/T(V_0^\omega)\subseteq V_\bullet/T(V_\bullet)\,.\]
+The fact that $\widecheck{V}_0^\omega$ is closed under the Lie bracket on $V_\bullet/T(V_\bullet)$ is a consequence of the fact $V_1^\omega$ is closed with respect to the $0$-th product.
+\begin{proposition}[{\cite{Borcherds}}]
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{prop: wallcrossingcompatibility1}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $\big(V_\bullet,\omega\big)$ be a conformal vertex algebra satisfying Assumption \ref{standard assumption}. Then $\widecheck{P}_0\coloneqq P_1/T(P_0)$ defines a natural Lie subalgebra of $\widecheck{V}_0^\omega$. 
+\end{proposition}
+\begin{proof}
+We record the proof to be self-contained. For any $a\in V_\bullet$ and $n\in \BZ$, we have 
+\begin{align}\label{Ln and T}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    L_n(Ta)
+    &=[L_n, T]a+T(L_n(a))\\
+    &=(n+1)L_{n-1}(a)+T(L_n(a))\,.\nonumber
+\end{align}
+This implies that if $a\in P_0$ then $Ta\in P_1$, hence making sense of the quotient $\widecheck{P}_0=P_1/T(P_0)$. 
+
+In order to show that the natural map $P_1/T(P_0)\rightarrow V_1^\omega/T(V_0^\omega)$ is injective, we need to prove that $a\in V_0^\omega$ with $Ta\in P_1$ implies $a\in P_0$. Suppose that $a\in V_0^\omega$ with $Ta\in P_1$. We use induction on $n$ to prove that $L_n(a)=0$. The base case $n=0$ follows from $a\in V_0^\omega$. If $L_{n-1}(a)=0$ for some $n\geq 1$ by induction hypothesis, then \eqref{Ln and T} implies $T(L_n(a))=0$ since $Ta\in P_1$. Since $L_n(a)\in \ker(T)$ has a negative conformal weight $-n$, Assumption \ref{standard assumption} implies $L_n(a)=0$.\footnote{The operator $L_n$ decreases the conformal grading by $n$ since $[L_0,L_n]=(-n)L_n$. } 
+
+Finally, this defines a Lie subalgebra because if $a, b\in P_1$ then
+\begin{align*}
+    L_n(a_{(0)}b)=[L_n, a_{(0)}]b+u_{(0)}(L_n(b))=0\,,\quad n\geq 1
+\end{align*}
+hence $a_{(0)}b\in P_1$. Here we used the fact that if $a\in P_1$ then the operator $a_{(0)}$ commutes with any Virasoro operators $L_n$ \cite[Section 5]{Borcherds}.
+\end{proof}
+
+We give an alternative way to define a Lie subalgebra of primary states that is related to the weight 0 Virasoro operator. For this new definition, we need a partial lift of the Borcherds' Lie bracket. 
+
+\begin{lemma}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{partial lift}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+There is a well-defined linear map\,\footnote{We abuse the Lie bracket notation that was originally used for $[-,-]:\widecheck{V}_i\times \widecheck{V}_j\rightarrow \widecheck{V}_{i+j}.$}
+\begin{equation}
+\label{Eq: liftofLie}[-,-]\colon \widecheck{V}_{i}\times V_{j}\rightarrow V_{i+j},\quad (\overline{a},b)\mapsto a_{(0)}b\,,
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{equation}
+which makes $V_\bullet$ a representation of a graded Lie algebra $\widecheck{V}_\bullet$. 
+\end{lemma}
+\begin{proof}
+It suffices to check the factoring property of $a_{(0)}b$ in the first coordinate. This follows from \eqref{Eq: translationu} because $(Ta)_{(0)}=0$.
+\end{proof}
+
+\begin{proposition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{prop: wallcrossingcompatibility2}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $\big(V_\bullet,\omega\big)$ be a conformal vertex algebra satisfying Assumption \ref{standard assumption}. Then the linear map in Lemma \ref{partial lift} restricts to 
+$$[-,-]\colon\widecheck{P}_0\times P_i\rightarrow P_i 
+$$
+which makes $P_i$ a subrepresentation of $V_i^\omega$ with respect to the Lie algebra $\widecheck{P}_0$. 
+\end{proposition}
+\begin{proof}
+The proof is similar to that of Proposition \ref{prop: wallcrossingcompatibility1} relying on the fact that if $a\in P_1$ then the operator $a_{(0)}$ commutes with any Virasoro operators $L_n$.
+\end{proof}
+
+\begin{definition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+Let $\big(V_\bullet,\omega\big)$ be a conformal vertex algebra. We define a Lie subalgebra
+$$\widecheck{K}_0\coloneqq \big\{\overline{a}\in \widecheck{V}^\omega_0\,\big|\,[\overline{a},\omega]=0
+\big\}\subset\Big(\widecheck{V}^\omega_{0}\,,\, [-,-]\Big)\,.
+$$
+\end{definition}
+In the definition above, the operator $[-,\omega]$ is a linear map defined in Lemma \ref{partial lift}. The fact that $\widecheck{K}_0$ defines a Lie subalgebra follows from the representation property in Lemma \ref{partial lift}. Connection of $\widecheck{K}_0$ to the formulation of the Virasoro constraints for moduli spaces of sheaves will be explained using the Lemma below; note the similarity between the weight 0 Virasoro operator introduced in Definition \ref{def: Linv} and the formula for $[-, \omega]$.
+\begin{lemma}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{WC with conformal element}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $\big(V_\bullet,\omega\big)$ be a conformal vertex algebra. Then we have 
+$$[-,\omega]=\sum_{n\geq -1}\frac{(-1)^n}{(n+1)!}T^{n+1}\circ L_n:\widecheck{V}_0^\omega\rightarrow V_{2}^\omega\,. 
+$$
+\end{lemma}
+\begin{proof}
+By  \eqref{Eq: skewsymmetry}, we have 
+\begin{align*}
+    [\overline{a},\omega] = a_{(0)}\omega
+   =\sum_{n\geq -1}\frac{(-1)^{n}}{(n+1)!}T^{n+1}\circ L_n(a)\,.\quad\qedhere
+\end{align*}
+\end{proof}
+
+From Lemma \ref{WC with conformal element}, it is clear that $\widecheck{P}_0\subseteq \widecheck{K}_0$. The next lemma states the converse when working with lattice vertex algebras. 
+
+\begin{proposition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{prop: primaryomegabracket}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $(V_\bullet, \omega)$ be a lattice vertex operator algebra as in Theorem \ref{thm: voaconstruction} with $V_\bullet=\BC[\Lambda_{\sst}]\otimes \BD_\Lambda$. Then we have $\widecheck{P}_0=\widecheck{K}_0$ on the summands $e^\alpha\otimes \BD_\Lambda$ such that $\alpha$ is not torsion.
+\end{proposition}
+\begin{proof}
+Let $\overline{a}$ be an element admitting a lift $a\in e^\alpha\otimes \BD_\Lambda$ for some non torsion $\alpha$. Suppose that $\overline{a}\in \widecheck{K}_0$, i.e., $a_{(0)}\omega=0$. We show that $\overline{a}\in \widecheck{P}_0$ by constructing another lift of $\overline{a}$, not necessarily the same as $a$, that lies in $P_1$. Since the pairing $Q$ is non-degenerate, there exists some $b\in \Lambda_{\ovZ}$ such that $Q(\alpha,b)=1$. In the proof of this lemma, we denote $e^0\otimes b_{-1}\subset V_1^\omega$ simply by $b$; note that the creation/annihilation operators associated to $b\in \Lambda_{\ovZ}$ and the fields induced by $b=e^0\otimes b_{-1}\in V_\bullet$ are the same by definition, so the symbol $b_{(k)}$ is unambiguous. We claim that such $b$ provides a desired lift of $\overline{a}$ defined as
+$$\eta_b(\overline{a})\coloneqq -a_{(0)}b\in V^\omega_1\,.
+$$
+
+Since \eqref{lie algebra} defines a Lie bracket, we know that 
+$$
+    \eta_b(\overline{a}) \in b_{(0)}a+T(V_\bullet)\,.
+$$
+Recall that the operator $b_{(0)}$ acts on $e^\alpha\otimes \BD_\Lambda$ as multiplication by $Q(\alpha,b)=1$. Therefore $\eta_b(\overline{a})$ is indeed another lift of $\overline{a}$. 
+
+To show that $\eta_b(\overline{a})\in V^\omega_1$ is a primary state in $P_1$, we must show
+$$\omega_{(n+1)}(a_{(0)}b)=0\quad  \textnormal{for any }  n\geq 1.
+$$
+This follows from the assumption $a_{(0)}\omega=0$ and the identity \eqref{Eq: skewjacobi}
+\begin{align*}
+    \omega_{(n+1)}(a_{(0)}b)
+    =a_{(0)}(\omega_{(n+1)}b)-(a_{(0)}\omega)_{(n+1)}b\,,
+\end{align*}
+together with the basic fact that $b=e^0\otimes b_{-1}\in P_1$ \cite[page 81]{Ka98}. 
+\end{proof}

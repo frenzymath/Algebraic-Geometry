@@ -1,0 +1,143 @@
+% Source-derived chapter 02: Notation, conventions, and the plan
+% Original source: pixtons-formula-abel-jacobi-picard-stack
+\chapter{Notation, conventions, and the plan}
+\label{pixtons-formula-abel-jacobi-picard-stack-chapter-02}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+\begin{remark}[Source section]
+\label{pixtons-formula-abel-jacobi-picard-stack-chapter-02-source}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Notation, conventions, and the plan
+\subsection{Ground field}
+
+
+
+In the Introduction, the ground field
+was the complex numbers $\bb C$. However, for the remainder of the paper,
+we will work more generally over a field ${\field}$ of characteristic zero. 
+We will make essential use of the results of \cite{Janda2018Double-ramifica} which are stated over $\bb C$, 
+but also
+hold over $\bb Q$ by the following
+standard argument:
+\begin{enumerate}
+\item[(i)] Both the $\mathsf{DR}$ cycle  (via the b-Chow approach \cite{Holmes2017Extending-the-d}) and Pixton's class are defined over $\bb Q$. 
+\item[(ii)] Rational equivalence of cycles uses finitely many subschemes and rational functions and  hence descends to a finitely generated 
+$\bb Q$-subalgebra of $\bb C$. A non-empty scheme of finite type over $\bb Q$ has points over some finite extension, hence the rational equivalence descends to a finite extension of $\bb Q$. 
+\item[(iii)]
+The rational equivalence descends (via a Galois argument)
+further to $\bb Q$ since we work in Chow with rational coefficients. 
+\end{enumerate}
+By similar arguments,
+our results are in fact true over $\bb Z[1/N]$ for a positive integer $N$ depending on the ramification data. Understanding what happens at small primes (or integral Chow groups)
+is an interesting question. 
+
+
+\subsection{Basics}\label{sec:prestable_vs_log_curves}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+%For the geometric construction of the operational class $\DRop_{g,A}$ on the Picard stack, 
+Let ${\field}$ be a ground field of characteristic zero. When we work in the logarithmic category, we assume $\on{Spec} {\field}$ to be equipped with the trivial log structure. 
+
+%\Dcomment{Ref complains about (ordered) below saying that being ordered is the most common convention. Sure, but it is not universal, and from log perspective is rather unnatural, so seems to me harmless ot leave it in. }
+We write $\overline{\mathcal M}$ for the stack of all stable (ordered) marked curves over ${\field}$ 
+and $\mathfrak M$ for the stack of all prestable curves with ordered marked points. Both come with natural log structures, and the universal marked curves over these spaces are naturally log curves.
+For $\Mbar$, the log structure is described in \cite{Kato2000Log-smooth-defo}. 
+The same construction applies unchanged to $\frak M$, see
+\cite[Appendix A]{Gross2013Logarithmic-Gro}.
+The natural open immersion $$\overline{\mathcal M} \to \frak M$$ is strict (though, in contrast to  \cite{Gross2013Logarithmic-Gro,Kato2000Log-smooth-defo},
+we order the markings of our log curves). We use subscripts $g$ and $n$ to fix the genus and number of markings when necessary. 
+
+Let $\frak C$ be
+the universal prestable curve over $\frak M$. 
+For efficiency of notation, we will also denote by $\frak C$ the universal curve over the various other moduli stacks
+of curves with additional structure which
+will appear in the paper. 
+These universal curves are always obtained by 
+pulling-back $\frak C$ over $\frak M$.
+
+
+For the convenience of the reader, we provide here a table of the key symbols.
+
+{\renewcommand{\arraystretch}{1.5}
+\begin{table}[htp]
+\caption{Key notation}
+\begin{center}
+\begin{tabular}{|c|l|}
+\hline
+$\frak M_{g,n}$ & stack of prestable marked curves of genus $g$ with $n$ markings\\
+$\Mbar_{g, n}$ & stack of stable marked curves of genus $g$ with $n$ markings\\
+$\frak C$ & universal prestable curve over $\frak M$ \\
+$A = (a_1, \dots, a_n)$ & $A\in \bb Z^n$ with $\sum_{i=1}^n a_i$  denoted by $d$\\
+$\Picabs_{g,n}$ &  Picard stack,  Section \ref{sec:pic_stacks}  \\ 
+$\Picrel_{g,n}$ & relative universal Picard stack,  Section \ref{sec:pic_stacks} \\
+$\CHop$ & operational Chow group, Section \ref{ssec:Chopstacks}    \\
+$\xi_i$ &  tautological class on $\Picabs_{g,n}$, Section \ref{Ssec:PsiXiEta}\\
+$\eta_{a,b}$ &  tautological class on $\Picabs_{g,n}$, Section \ref{Ssec:PsiXiEta}\\
+$\psi_i$ &  tautological class on $\Picabs_{g,n}$, Section \ref{Ssec:PsiXiEta}\\
+$\mathsf{P}_{g,A,d}^{c}$ & Pixton's cycle, Section \ref{Ssec:MainFormula}\\
+$c(\phi)$& homomorphisms $c(\phi): \Chow_*(B) \to \Chow_{*-p}(B)$ given by an operational \\
+~& class $c \in \CHop^p(\frak X)$ and $\phi: B \to \frak X$ with $B$ finite type scheme, \cref{ssec:Chopstacks}\\
+$\DRop_{g,A}$&  operational DR cycle, Section \ref{sec:uni_DR_defs}\\
+\hline
+\end{tabular}
+\end{center}
+\label{default}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\end{table}%
+}
+
+%\todo{D: I'm not sure what our conventions on labelling for markings and genera should be; maybe wait and see what form the final theorems take?}
+
+
+\subsection{Plan of the paper}
+
+
+Section \ref{sec:pic_and_chow}  concerns
+ the treatment
+of several technical issues related to operational Chow groups
+of 
+the Picard stack $\Picabs$.
+In fact,
+we develop a general theory of operational Chow groups of algebraic stacks which are
+locally of finite type over ${\field}$. 
+The theory is certainly known to experts, but for our later results, we will require
+the precise definitions. In particular, to a proper representable morphism of algebraic stacks, we associate an operational class, which will be the key to constructing the operational double ramification cycle. 
+
+The core  of the
+paper starts in Section \ref{sec:uni_DR_defs} where
+we give three equivalent definitions of the universal double ramification cycle on $\Picabs$. Our first definition is by taking a closure in the spirit of \cite{Holmes2017Jacobian-extens}
+which is simple, but rather difficult to work with. The second is via logarithmic geometry following \cite{Marcus2017Logarithmic-com}. The third is a  b-Chow definition along the path of
+\cite{Holmes2017Multiplicativit}. 
+In  Section \ref{sec:image_of_aj}, we give an explicit description of the 
+set-theoretic image of the double ramification cycle in $\Picabs$.
+We prove Theorem \ref{cccc} in Section \ref{proof1111}.
+
+In Section \ref{sec:univeral_pixton}, we discuss properties 
+of Pixton's  cycle $\P_{g,A,d}^{c}$ defined  Section \ref{Ssec:MainFormula}. In particular, 
+formal properties of Pixton's cycle parallel to the invariances of the double ramification cycles
+are proven. Compatibilities with definitions in previously studied
+cases are also proven.
+
+
+\Cref{sec:proof_of_main_theorem} contains the proof of Theorem \ref{Thm:main}, the main
+result of the paper, by an eventual
+reduction to the formula of \cite{Janda2018Double-ramifica} in the case of target $\bb P^n$ for large $n$.  
+A crucial step in the proof is the matching of the double ramification cycle defined in \cite{Janda2018Double-ramifica} via rubber maps with
+ our new universal definition on $\Picabs$ in a suitable sense when the target is $\bb P^n$. 
+ The matching is verified in Section \ref{sec:comparing_stacks} where we follow the pattern of the proof given in \cite{Marcus2017Logarithmic-com} in case the target is a point. 
+
+In Section \ref{Sect:proofInvariance}, we prove the  invariance properties of
+Section \ref{Sect:introinvariance}. Theorems \ref{Thm:mainvan} and \ref{FPA1} are
+proven as a consequence of Theorem \ref{Thm:main} in Section
+ \ref{sec:applications}. The connections between the vanishing result of
+ Theorem \ref{Thm:mainvan} and past (and future) work is discussed in Section \ref{pasfut}.
+ 
+% we deduce various consequences of  Theorem \ref{Thm:main} as described in the Introduction: Theorem \ref{FPA1}  concerning the loci  of meromorphic differentials and  
+%the invariance properties of

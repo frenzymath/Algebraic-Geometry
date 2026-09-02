@@ -1,0 +1,149 @@
+% Source-derived chapter 07: Proof of the main theorems
+% Original source: birational-section-conjecture-strong-birationality
+\chapter{Proof of the main theorems}
+\label{birational-section-conjecture-strong-birationality-chapter-07}
+\source{birational-section-conjecture-strong-birationality}
+
+\begin{remark}[Source section]
+\label{birational-section-conjecture-strong-birationality-chapter-07-source}
+\source{birational-section-conjecture-strong-birationality}
+\source{birational-section-conjecture-strong-birationality}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Proof of the main theorems
+Theorems A, B and C follow rather easily from \autoref{simple}.
+
+\begin{TA}
+\source{birational-section-conjecture-strong-birationality}
+\notready
+	Let $X$ be a smooth curve over a field $k$ finitely generated over $\Q$. A Galois section of $X$ is geometric or cuspidal if and only if it is $t$-birationally liftable.
+	\begin{proof}
+		Thanks to \autoref{nffg}, we may assume that $k$ is a number field. Let $s\in\Pi_{X/k}(k)$ be a $t$-b.l. section, assume by contradiction that $s$ is neither geometric nor cuspidal. By \autoref{nflift} we may assume that $X$ is hyperbolic. By Tamagawa's argument (\autoref{tama}) and \autoref{mortb}, up to passing to an étale neighbourhood of $s$ we may assume that $X$ has genus at least $2$ and $\bar{X}(k)=\emptyset$. Fix $\nu$ any finite place of $k$ and let $x_{\nu}\in \bar{X}(k_{\nu})$ the local point associated with $s$.
+		
+		Choose a projective embedding $j:\bar{X}\s\P^{n}$ such that $j(x_{\nu})\in\A^{n}\s\P^{n}$ and let $U=\A^{n}\cap X$, we have that $s$ lifts to a $t$-b.l. section $s'$ of $U$ thanks to \autoref{nflift}. Since $\bar{X}(k)=\emptyset$ then $j(x_{\nu})\in\A^{n}$ is not $k$-rational, in particular there exists one coordinate $c:\A^{n}\to\A^{1}$ such that $c(j(x_{\nu}))$ is not $k$-rational. Up to shrinking $U$ furthermore we may assume that $c(j(U))\s\A^{1}\setminus\{1,2\}$. Then $c(j(s'))\in\Pi_{\A^{1}_{k}\setminus\{1,2\}/k}(k)$ is a $t$-b.l. section whose base change to $k_{\nu}$ is associated with a non-$k$-rational local point, which is in contradiction with \autoref{simple}.
+	\end{proof}
+\end{TA}
+
+% First, let us show that the cuspidalization conjecture is equivalent to the statement that every Galois section is birationally liftable.
+
+\begin{lemma}
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{cuspbl}
+\source{birational-section-conjecture-strong-birationality}
+    Let $X$ be a curve over a countable field $k$. The following are equivalent.
+    \begin{itemize}
+        \item For every pair of non-empty open subset $V\subset U\subset X$, the map $\mc{S}_{V/k}\to\mc{S}_{U/k}$ is surjective.
+        \item For every non-empty open subset $U\subset X$, every Galois section of $U$ is birationally liftable.
+    \end{itemize}
+\end{lemma}
+
+\begin{proof}
+    The second condition clearly implies the first. Assume that the first holds and let $X'\subset X$ be a non-empty open subset. Since $k$ is countable, then $X'$ has a countable number of open subsets. Since $\mc{S}_{k(X')/k}\simeq\projlim_{U\subset X'}\mc{S}_{U/k}$ \cite[Lemma 259]{sti13}, the projective system $(\mc{S}_{U/k})_{U}$ is countable and the transition maps are surjective, then $\mc{S}_{k(X')/k}\to\mc{S}_{X'/k}$ is surjective as well, i.e. every Galois section of $X'$ is birationally liftable.
+\end{proof}
+
+\begin{corollary}
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{cuspbl2}
+\source{birational-section-conjecture-strong-birationality}
+    The following are equivalent.
+    \begin{itemize}
+        \item The cuspidalization conjecture holds.
+        \item For every smooth, geometrically connected hyperbolic curve $X$ over a field $k$ finitely generated over $\Q$, every Galois section of $X$ is birationally liftable.
+    \end{itemize}
+\end{corollary}
+
+\begin{TB}
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{cuspeq}
+\source{birational-section-conjecture-strong-birationality}
+	Let $X$ be a hyperbolic curve over a field $k$ finitely generated over $\Q$. The following are equivalent.
+	\begin{itemize}
+		\item For every finitely generated extension $K/k$, every Galois section of $X_{K}$ is either geometric or cuspidal.
+		\item For every finitely generated extension $K/k$, every Galois section of $X_{K}$ is birationally liftable.
+	\end{itemize}
+        As a consequence, the section conjecture is equivalent to the cuspidalization conjecture.
+        
+	\begin{proof}
+		Follows directly from \hyperlink{TA}{Theorem A} and \autoref{cuspbl2}.
+	\end{proof}
+\end{TB}
+
+\begin{lemma}
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{hilbsp}
+\source{birational-section-conjecture-strong-birationality}
+	Let $k$ be a Hilbertian field, $V$ an open subset of $\A^{1}$, $X\to V$ a family of curves, $s_{1},s_{2}\in\Pi_{X/V}(V)$ two sections. If $s_{1},s_{2}$ have isomorphic specializations at $k$-rational points of $V$, then $s_{1}\simeq s_{2}$.
+	\begin{proof}
+		For the convenience of the reader, we give proofs in both the language of fundamental gerbes and fundamental groups.
+		 
+		\subsubsection*{With fundamental gerbes} Write $\Pi_{X/V}=\projlim\Phi_{i}$ as in \autoref{limit}, let $W_{i}$ be the fibered product $V\times_{\Phi_{i}}V$ with respect to the two morphisms $s_{1},s_{2}:V\to\Pi_{X/V}\to\Phi_{i}$, we have that $\uisom(s_{1},s_{2})=V\times_{\Pi_{X/V}}V=\projlim_{i}W_{i}$.
+		
+		There is a natural map $W_{i}=V\times_{\Phi_{i}}V\to V\times_{V}V=V$ which coincides with projection on both coordinates, it is a finite étale cover since $\Phi_{i}$ is a proper étale gerbe over $V$. By hypothesis, $\uisom(s_{1},s_{2})(k)\to V(k)$ is surjective, this implies that $W_{i}(k)\to V(k)$ is surjective too. Since $k$ is Hilbertian and $W_{i}\to V$ is finite étale, there is a section $V\to W_{i}$. Let $W_{i}(V)$ be the set of sections, it is finite and non-empty. It follows that $\uisom(s_{1},s_{2})(V)=\projlim_{i}W_{i}(V)$ is non-empty since a projective limit of finite, non-empty sets is non-empty. This gives the desired global isomorphism $s_{1}\simeq s_{2}$.
+		
+		\subsubsection*{With fundamental groups} For every $v\in V(k)$, choose $r_{v}:\gal(\bar{k}/k)\to\pi_{1}(V)$ a representative of the geometric Galois section associated with $V$. If $S\subset V(k)$ is not thin in the sense of Serre, the images of the sections $r_{v}$ for $v\in S$ generate $\pi_{1}(V)$ topologically: if $H\subset\pi_{1}(V)$ is an open subgroup containing all of them, the corresponding finite étale covering $C\to V$ is connected and the image of $C(k)\to V(k)$ contains $S$, hence $C=V$ since $S$ is not thin.
+		
+		Let $F$ be a geometric fiber of the family, we have that $\pi_{1}(X)$ is an extension of $\pi_{1}(V)$ by $\pi_{1}(F)$. We may write $\pi_{1}(X)$ as a projective limit $\projlim_{i}G_{i}$ of pro-finite groups such that $G_{i}$ is an extension of $\pi_{1}(V)$ by a finite group $H_{i}$ and $\pi_{1}(F)=\projlim_{i}H_{i}$; this can be done by writing first $\pi_{1}(X)=\projlim_{i}G_{0,i}=\pi_{1}(X)/N_{i}$ as a projective limit of finite groups and then defining $G_{i}=G_{0,i}\times_{\pi_{1}(V)/N_{i}}\pi_{1}(V)$. Choose representatives $t_{1},t_{2}:\pi_{1}(V)\to\pi_{1}(X)$ of $s_{1},s_{2}$, and let $t_{1,i},t_{2,i}:\pi_{1}(V)\to \pi_{1}(X)\to G_{i}$ be the compositions.
+		
+		For every $v\in V(k)$ and every $i$, by hypothesis there exists $h\in H_{i}$ such that $h^{-1}(t_{1,i}\circ r_{v})h=t_{2,i}\circ r_{v}$. Since $H_{i}$ is finite there exists an $h\in H_{i}$ such that the set $S_{h}\subset V(k)$ of points $v$ for which $h^{-1}(t_{1,i}\circ r_{v})h=t_{2,i}\circ r_{v}$ is not thin. Since the homomorphisms $r_{v}$ for $v\in S_{h}$ generate $\pi_{1}(V)$, this implies that $h^{-1}t_{1,i}h=t_{2,i}$.	Since a projective limit of finite, non-empty subsets is non-empty, we get an element $g\in\pi_{1}(F)=\projlim_{i}H_{i}$ such that $g^{-1}t_{1}g=t_{2}$, i.e. the $\pi_{1}$ sections $s_{1},s_{2}$ are equal.
+	\end{proof}
+\end{lemma}
+
+
+
+%~ \begin{lemma}\label{hilbgen}
+	%~ Let $k$ be a Hilbertian field, $V\s\P^{1}$ an open subset, $s_{v}:\gal(k)\to\pi_{1}(V)$ a choice of a section associated with $v\in V(k)$ for every $v$. The images of the sections $s_{v}$ generate $\pi_{1}(V)$ topologically.
+	%~ \begin{proof}
+		%~ Let $H\s\pi_{1}(V)$ be an open subgroup containing the image of $s_{v}$ for every $v$, it is associated with a finite étale morphism $C\to V$ with $C$ connected. Since $s_{v}$ maps to $H$, then there exists a rational point of $C$ over $v$. Since this is true for every $v\in V(k)$ and $k$ is Hilbertian, it follows that $C=V$ and $H=\pi_{1}(V)$.
+	%~ \end{proof}
+%~ \end{lemma}
+
+Let us prove that the two forms of the birational section conjecture given in the introduction are equivalent.
+
+\begin{lemma}
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{bireq}
+\source{birational-section-conjecture-strong-birationality}
+    The following are equivalent.
+    \begin{itemize}
+        \item The birational section conjecture holds.
+        \item For every curve $X$ over a field $k$ finitely generated over $\Q$, every b.l. Galois section of $X$ is either geometric or cuspidal.
+    \end{itemize}
+\end{lemma}
+
+\begin{proof}
+    The first condition clearly implies the second. Assume that the second holds, let $X$ be a curve over a field $k$ finitely generated over $\Q$ and let $s\in\mc{S}_{k(X)/k}$ be a birational Galois section, we want to show that $s$ is cuspidal. Up to replacing $X$ with an open subset, we can assume that $X$ is hyperbolic.
+    
+    For every open subset $U\subset X$, denote by $\iota_{U}(s)$ the image of $s$ in $\mc{S}_{U/k}$, by hypothesis it is cuspidal. By \cite[Theorem 17 (2)]{sti12}, there exists a unique rational point $x\in\bar{X}(k)$ associated with $\iota_{X}(s)$, where $\bar{X}$ is the smooth completion of $X$. By uniqueness, $x$ is associated with $\iota_{U}(s)$ for every open subset $U$ as well.
+    
+    For every open subset $U\subset X$, denote by $\mc{P}_{U,x}\subset\mc{S}_{U/k}$ the packet of cuspidal sections associated with $x$. We have that $\mc{S}_{k(X)/k}\simeq\projlim_{U}\mc{S}_{U/k}$ by \cite[Lemma 259]{sti13}, and the cuspidal birational sections over $x$ identify naturally with $\projlim_{U}\mc{P}_{U,x}\subset\mc{S}_{k(X)/k}$. Since $\iota_{U}(s)\in\mc{P}_{U,x}$ for every $U\subset X$ and $s$ is the limit of the sections $\iota_{U}(s)$, we get that $s$ is cuspidal associated with $x$ too.
+\end{proof}
+
+\begin{TC}
+\source{birational-section-conjecture-strong-birationality}
+\notready
+	The following are equivalent.
+	\begin{itemize}
+		\item The birational section conjecture holds.
+		\item For every number field $k$, every section $z\in\mc{S}_{k(\P_{1})/k}$ and every open subset $U\s\P^{1}$, there exists an open subset $V\s U$ and a $\pi_{1}$ section $r$ of $U\times V\setminus\Delta \to V$ such that the specialization $r_{v}$ is equal to $\iota_{U\setminus\{v\}}(z)$ for every $v\in V(k)$.
+	\end{itemize}
+	\begin{proof}
+		%~ \autoref{hilbgen} implies that $(iii)$ and $(iv)$ are equivalent. 
+            Thanks to \autoref{bireq}, we may use the alternative formulation of the birational section conjecture.
+    
+		Assume that the birational section conjecture holds and let $z$, $U$ be as in the statement. Up to passing to an open subset, we can assume that $U$ is hyperbolic. By hypothesis, $z$ is associated with a unique rational point $p\in\P^{1}(k)$. If $p\in U$, choose $V=U\setminus\{p\}$, the morphism $(p,\id_{V}):V\to U\times V\setminus\Delta$ defines the desired $\pi_{1}$ section. If $p\not \in U$, choose $V=U$. Since $\iota_{U}(z)_{k(t)}$ is cuspidal then it lifts to a cuspidal section $z'$ of $U_{k(t)}\setminus\{\delta\}$. Let $v\in V(k)$ be a rational point, since $z'$ is cuspidal it is b.l. and its specializations at $v$ are b.l. too by \autoref{spebir}. By hypothesis, this implies that all the specializations of $z'$ at $v$ are cuspidal liftings of $\iota_{U}(z)$, and hence coincide with $\iota_{U\setminus\{v\}}(z)$ since there is only one cuspidal lifting of $\iota_{U}(z)$ by \cite[Theorem 17 (2)]{sti12}. In particular, the specializing loop at $v$ is constant by \autoref{uniqueloop1}. By repeating the argument after base changing to every finite extension of $k$, we get that all the specializing loops of $z'$ at closed points of $U$ are constant. As a consequence, $z'$ extends to the desired section $U\to\Pi_{(U\times U\setminus\Delta)/U}$ by \cite[Corollary A.3]{fed}.
+  
+            Assume that the second condition holds. Thanks to \cite[Theorem C]{saty21}, it is enough to consider number fields. Let $k$ be a number field, $X$ a smooth projective curve over $k$, $s\in\mc{S}_{X/k}$ a b.l. section with lifting $z\in\mc{S}_{k(X)/k}$ and $\nu$ a place of $k$, we want to prove that $s$ is geometric or cuspidal. With an argument analogous to that of \hyperlink{TA}{Theorem A}, we can reduce to the case in which $X=U$ is an open subset of $\P^{1}$ and to proving that $x_{\nu}\in\P^{1}$ is $k$-rational.
+		
+		Let $V\s U$, $r\in\mc{S}_{(U\times V\setminus\Delta)/V}$ be as given by hypothesis. If $U'\s U$ is another open subset and $V',r'$ are given analogously, we can shrink $V'$ and assume that $V'\s V$, then \autoref{hilbsp} implies that $r'=r|_{V'}$. Passing to the limit along open subsets of $\P^{1}$ we get a Galois section of $\spec k(\A^{1})\otimes_{k}k(t)\setminus\{\delta\}$ which lifts $s_{k(t)}$, hence $x_{\nu}$ is $k$-rational by \autoref{simple}.	
+	\end{proof}
+\end{TC}
+
+
+
+%~ \printbibliography{}
+\bibliographystyle{amsalpha}
+\bibliography{tbir}

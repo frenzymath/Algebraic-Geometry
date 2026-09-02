@@ -1,0 +1,223 @@
+% Source-derived chapter 04: Hodge-theoretic preliminaries
+% Original source: geometric-local-systems-general-curves-isomonodromy
+\chapter{Hodge-theoretic preliminaries}
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-04}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+\begin{remark}[Source section]
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-04-source}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\source{geometric-local-systems-general-curves-isomonodromy}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Hodge-theoretic preliminaries
+\label{section:hodge-theoretic-preliminaries}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+We briefly recall the definition of a variation of Hodge structure, and some standard positivity and semistability results for the (parabolic Higgs) bundles associated to such variations.
+In particular, \autoref{lemma:positive-Hodge-bundle}, which shows the first
+filtered piece of the Hodge filtration tends to have positive parabolic degree, is crucial
+to our semistability arguments.
+The properties in \autoref{prop:basic-facts} will also be used repeatedly in this
+paper
+
+\subsection{Complex variations of Hodge structure}
+Let $X$ be a smooth irreducible complex variety.
+\begin{definition}[Polarizable complex variations of Hodge structure]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:complex-variation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	A {\em complex variation of Hodge structure} on $X$ is a triple $(V,
+	V^{p,q}, D)$, where $V$ is a $C^\infty$ complex vector bundle on $X$,
+	$V=\oplus V^{p,q}$ is a direct sum decomposition, and $D$ is a flat
+	connection satisfying Griffiths transversality: $$D(V^{p,q})\subset
+	A^{1,0}(V^{p,q})\oplus A^{0,1}(V^{p,q})\oplus A^{1,0}(V^{p-1,q+1})\oplus
+	A^{0,1}(V^{p+1, q-1}).$$
+	A {\em polarization} on $(V, V^{p,q}, D)$ is a flat Hermitian form $\psi$ on $V$ such that the $V^{p,q}$ are orthogonal to one another under $\psi$, and such that $(-1)^p\psi$ is positive definite on each $V^{p,q}$. 
+	A {\em polarizable complex variation of Hodge structure} is a complex
+	variation of Hodge structure which admits a polarization.
+    
+    We call the holomorphic flat vector bundle $(E,
+    \nabla):=(\ker(D)\otimes_{\mathbb{C}} \mathscr{O}, \on{id}\otimes d)$ the
+    {\em holomorphic flat vector bundle associated to the complex variation of
+    Hodge structure}. The filtration $F^pV:=\oplus_{j\geq p} V^{j,q}$ of $V$ induces a decreasing \emph{Hodge filtration} $F^\bullet V$ by holomorphic sub-bundles, such that \begin{equation}\label{eqn:griffiths-transversality} \nabla(F^p)\subset F^{p-1}\otimes \Omega^1_X.\end{equation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+    
+    If $\mathbb{V}$ is a complex local system on $X$ which is isomorphic to
+    $\ker(D)$ for some polarizable complex variation of Hodge structure $(V, V^{p,q}, D)$, we say that $\mathbb{V}$ \emph{underlies a polarizable complex variation of Hodge structure}.
+\end{definition}
+
+For the next definition, recall that in, in the case of curves, we defined the
+residues of a connection with regular singularities in
+\autoref{subsubsection:residue}.
+In the case of higher dimensional varieties see 
+\cite[p. 53]{deligne:regular-singular}.
+
+\begin{definition}[Deligne canonical extension \protect{\cite[Remarques 5.5(i)]{deligne:regular-singular}}]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	   Let $\overline{X}$ be a smooth projective variety containing $X$ as a dense open subvariety with simple normal crossings complement $Z$.
+   Let $(E, \nabla)$ be a flat holomorphic vector bundle on $X$. The \emph{Deligne canonical extension}
+     $(\overline{E}, \overline{\nabla}: \overline{E}\to \overline{E}\otimes
+     \Omega^1_{\overline{X}}(\log Z))$ of $(E, \nabla)$ to $\overline{X}$ is the
+     unique flat vector bundle on $\overline{X}$ with regular singularities
+     along $Z$, equipped with an isomorphism $(\overline{E},
+     \overline{\nabla})|_X\overset{\sim}{\to}(E, \nabla)$, characterized by the
+     property that all eigenvalues of its residues 
+     along components of $Z$ 
+     have real parts lying in $[0,1)$.
+\end{definition}
+
+\begin{definition}[The associated Higgs bundle]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+    Let $(E, F^\bullet, \nabla)$ be a holomorphic vector bundle $E$ on a smooth variety $\overline{X}$, with a flat connection $\nabla$ with regular singularities along a simple normal crossings divisor $Z\subset\overline{X}$, and a decreasing filtration $F^\bullet$ by holomorphic sub-bundles satisfying the Griffiths transversality condition \begin{equation}\label{eqn:griffiths-transversality-2} \nabla(F^p)\subset F^{p-1}\otimes \Omega^1_{\overline{X}}(\log Z).\end{equation} The \emph{associated Higgs bundle} is the pair $(\oplus_i \on{gr}^i_{F^\bullet}E, \theta)$, where the \emph{Higgs field} $$\theta:=\bigoplus_i (\theta_i: \on{gr}^i_{F^\bullet}E\to \on{gr}^{i-1}_{F^\bullet}E\otimes\Omega^1_{\overline{X}}(\log Z))$$ is the $\mathscr{O}_{\overline{X}}$-linear map induced by $\nabla.$
+\source{geometric-local-systems-general-curves-isomonodromy}
+    
+    The vector bundle $E$ canonically has the structure of a parabolic bundle
+    $E_\star$
+    (if $X$ is a curve, this structure is described in
+    \autoref{definition:associated-parabolic}, and it is
+    described in general in \cite[Proposition 5.4]{arapura2019vanishing}).
+    This structure induces the structure of a parabolic bundle on $\oplus_i
+    \on{gr}^i_{F^\bullet} E_\star$, via
+    \autoref{subsubsection:induced-subbundle} as a direct sum of subquotients of $E$,
+    preserved by $\theta$. We refer to the pair $(\oplus_i
+    \on{gr}^i_{F^\bullet}E_\star, \theta)$ with its parabolic structure as the \emph{parabolic Higgs bundle} associated to the variation of Hodge structure.
+%    More generally, if $E$ is replaced by a parabolic vector bundle $E_\star$,
+%    we define the associated parabolic Higgs bundle as the pair $(\left( \oplus_i
+%    \on{gr}^i_{F^\bullet}E \right)_\star, \theta_\star)$
+%    where $\left( \oplus_i \on{gr}^i_{F^\bullet}E \right)_\alpha := \oplus_i
+%    \on{gr}^i_{F^\bullet}E_\alpha$ and $\theta_\alpha 
+%    $$\theta_\alpha :=\bigoplus_i (\theta_{\alpha,i}:
+%    \on{gr}^i_{F^\bullet}E_\alpha \to \on{gr}^{i-1}_{F^\bullet}E_\alpha \otimes\Omega^1_{\overline{X}}(\log Z))$$
+\end{definition}
+We collect some basic facts about polarizable complex variations of Hodge structure, the canonical extensions thereof, and their associated Higgs bundles:
+\begin{proposition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready\label{prop:basic-facts}
+\source{geometric-local-systems-general-curves-isomonodromy}
+Let $\overline{X}$ be a smooth projective curve, $Z\subset
+\overline{X}$ a reduced divisor, and let
+$X=\overline{X}\setminus Z$. 
+Let $(V, V^{p,q}, D)$ be a polarizable complex variation of Hodge structure on
+$X$, 
+and let $(E, F^\bullet,
+\nabla)$ be the holomorphic flat vector bundle associated to this variation of
+Hodge structure, with its Hodge filtration. Let $(\overline{E}, \overline{\nabla})$ be its Deligne canonical extension.
+Let $\overline{E}_\star$ be the parabolic bundle associated to $(\overline{E}, \nabla)$, as defined in
+\autoref{definition:associated-parabolic}. 
+\begin{enumerate}
+    \item The local system $\mathbb{V}:=\ker(\nabla)$ associated to $(E, \nabla)$ is semisimple.
+    \item The local system $\mathbb{V}$ may be canonically decomposed as $$\mathbb{V}\simeq \bigoplus_i \mathbb{L}_i\otimes
+	    W_i,$$ where the $\mathbb{L}_i$ are pairwise non-isomorphic
+	    irreducible complex local systems on $X$, and each $W_i$ is a complex vector
+	    space. Each $\mathbb{L}_i$ underlies a polarizable complex
+	    variation of Hodge structure, and each $W_i$ carries a complex polarized Hodge structure, both unique up to shifting the grading, and compatible with the variation carried by $\mathbb{V}$.
+    \item $\overline{E}_\star$ has parabolic degree zero.
+    \item There exists a canonical extension of $F^\bullet$ to $\overline{E}$, such that $(\overline{E}, F^\bullet, \overline{\nabla})$ satisfies the Griffiths transversality condition (\ref{eqn:griffiths-transversality-2}).
+    \item The parabolic Higgs bundle $(\oplus_i
+	    \on{gr}^i_{F^\bullet}\overline{E}_\star, \theta)$ associated
+	    to $(\overline{E}_\star, F^\bullet, \overline{\nabla})$ is
+	    parabolically polystable of degree zero. 
+	    That is, there exist a collection of parabolic vector bundles
+	    $E^j_\star$ with
+	    $\deg(E^j_\star) = 0$ and maps
+	    $\theta^j : E^j_\star \to E^j_\star \otimes \Omega^1_{\overline{X}}(\log Z)$ so that
+	    both
+	    $(\oplus_i\on{gr}^i_{F^\bullet}\overline{E}_\star,
+	    \theta)=\oplus_j (E^j_\star, \theta^j)$
+	    and for any
+	    $\theta^j$-stable proper sub-bundle $H_\star \subset
+	    E^j_\star$ with its induced parabolic structure, $\on{par-deg}
+	    H_\star < 0$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+	The proof of 
+(1) is explained in \cite[1.11-1.12]{deligne1987theoreme} and (2) is
+\cite[1.13]{deligne1987theoreme}. The proof of (3) follows from
+\cite[B.3]{esnault1986logarithmic} 
+while (4) is explained in e.g.~\cite[Section 7]{brunebarbe2017semi}. 
+Finally,
+(5) is due to Simpson \cite[Theorem 5]{simpson1990harmonic}. 
+See the discussion in the introduction of \cite{arapura2019vanishing} for a nice summary of this and related topics.
+\end{proof}
+
+The next lemma is crucial in the proof of our main result
+\autoref{theorem:isomonodromic-deformation-CVHS} since the positivity it
+gives for $F^i \overline{E}_\star$ will contradict our later results on
+semistability, unless the Hodge filtration has only a single part.
+The connection to semistability is spelled out below in
+\autoref{corollary:unstable}.
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready\label{lemma:positive-Hodge-bundle}
+\source{geometric-local-systems-general-curves-isomonodromy}
+    Let $C$ be a smooth proper curve, $Z\subset C$ a reduced effective divisor,
+    and $(V, V^{p,q}, D)$ a  a polarizable complex variation of Hodge structure
+    on $C\setminus Z$. Let $(\overline{E}_\star, F^\bullet, \nabla)$ be the Deligne canonical
+    extension of the associated flat holomorphic vector bundle to $C$ with its
+    canonical parabolic structure.  Let $i$ be maximal such that
+    $F^i\overline{E}_\star$ is non-trivial, where $F^\bullet$ is the Hodge
+    filtration, and suppose that the Higgs field $$\theta_i:
+    F^i\overline{E}_\star\to
+    \on{gr}^{i-1}_{F^{\bullet}}\overline{E}_\star\otimes \Omega^1_C(\log Z)$$ is
+    non-zero. Then $F^i\overline{E}_\star$ has positive parabolic degree.
+\end{lemma}
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	\autoref{lemma:positive-Hodge-bundle} is essentially due to Griffiths in the case of real variations of
+	Hodge structure on a
+	smooth proper curve. In that case it follows from the curvature formula \cite[Theorem
+	5.2]{griffiths1970periods}, and is observed there in some special cases
+	\cite[Corollary 7.10]{griffiths1970periods}. For a more precise
+	reference, see \cite[Corollary 2.2]{peters2000arakelov}, which
+	immediately implies the claim for real variations of Hodge structure on a smooth proper curve. 
+	However, as we were unable to find a precise reference in the case of complex
+	variations on a quasi-projective curve, we now give a simple proof.
+	A similar argument is given in the proof of 
+	\cite[Theorem 3.8]{esnaultK:d-modules-and-finite-monodromy}.
+\end{remark}
+\begin{proof}[Proof of \autoref{lemma:positive-Hodge-bundle}]
+The parabolic vector bundle $F^i\overline{E}_\star$ with the zero Higgs field is a quotient of
+the parabolic Higgs bundle  $(\oplus_i \on{gr}^i_{F^\bullet}\overline{E}_\star, \theta)$, and
+hence has non-negative parabolic degree by the fact that the latter is polystable, hence semistable, of
+degree zero, by \autoref{prop:basic-facts}(5). It has degree zero if and only if
+it is a direct summand of $(\oplus_i \on{gr}^i_{F^\bullet}\overline{E}_\star, \theta)$ by polystability; but this is ruled out by the nonvanishing of $\theta_i$.
+\end{proof}
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+    By the construction of the Higgs field $\theta$, the condition that
+    $\theta_i$ is non-zero in \autoref{lemma:positive-Hodge-bundle} is
+    equivalent to the statement that $F^i\overline{E}_\star$ is not preserved by
+    $\overline{\nabla}$. For example, it is automatically nonzero if
+    $(\overline{E}_\star, \overline{\nabla})$ has irreducible monodromy and
+    $F^i\overline{E}_\star$ is a proper sub parabolic bundle of
+    $\overline{E}_\star$.
+\end{remark}
+
+We now spell out how \autoref{lemma:positive-Hodge-bundle}
+relates to semistability.
+\begin{corollary}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready\label{corollary:unstable}
+\source{geometric-local-systems-general-curves-isomonodromy}
+Let $(\overline{E}_\star, F^\bullet, \nabla)$ be as in
+\autoref{lemma:positive-Hodge-bundle}. Then the parabolic bundle
+$\overline{E}_\star$ is not semistable.
+\end{corollary}
+\begin{proof}
+    The parabolic vector bundle $\overline{E}_\star$ has parabolic degree zero
+    by \autoref{prop:basic-facts}(3). But by
+    \autoref{lemma:positive-Hodge-bundle}, $F^i\overline{E}_\star$ has positive degree, and is hence a destabilizing subsheaf.
+\end{proof}

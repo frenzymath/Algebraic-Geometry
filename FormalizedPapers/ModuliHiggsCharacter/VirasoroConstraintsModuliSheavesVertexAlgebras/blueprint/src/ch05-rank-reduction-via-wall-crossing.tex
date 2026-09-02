@@ -1,0 +1,554 @@
+% Source-derived chapter 05: Rank reduction via wall-crossing
+% Original source: virasoro-constraints-moduli-sheaves-vertex-algebras
+\chapter{Rank reduction via wall-crossing}
+\label{virasoro-constraints-moduli-sheaves-vertex-algebras-chapter-05}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+\begin{remark}[Source section]
+\label{virasoro-constraints-moduli-sheaves-vertex-algebras-chapter-05-source}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Rank reduction via wall-crossing
+\label{sec: rankreduction}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+In this section, we will explain the main step in the proof of Theorem \ref{thm: main}, which consists of a rank reduction argument via wall-crossing as described in \cite[Section 8.6]{Jo21} for positive rank and generalized here to include the case (3). The rank-reduction of loc. cit. is stated for slope stability only, so we use additional wall-crossing from slope stability to Gieseker stability to conclude Virasoro constraints for the latter stability condition, see Corollary \ref{cor:slopetogies}.
+
+We will treat the 3 cases (1), (2), (3) in a uniform way by fitting them into the general framework of Joyce \cite{Jo21}.  Then their virtual fundamental classes viewed as elements of $H_{\bullet}(\CM^{\rig}_X)$ are related in terms of the Lie bracket defined on $\widecheck{V}_\bullet$. 
+
+Let $X$ be a smooth projective variety of dimension $m=1$ or $m=2$. In the case of $m=2$, we assume that $h^{0,2}(X)=0$. Let $H$ be a fixed polarization of $X$. Given $1\leq d\leq m$, we consider the moduli spaces of $d$-dimensional slope semistable sheaves $F$ (cf. \cite[Theorem 4.3.4, Definition 8.2.7]{HL})
+$$M_\alpha=M_\alpha^{\textup{ss}}(\mu)$$
+with respect to the slope stability $\mu$, where $\alpha$ is the topological type of the sheaves we consider. In our case, we will work with $\alpha \in K^0(X)$ which can be represented by a non-zero sheaf on $X$, and we label this subset of $K^0(X)$ by $C(X)$. This fits the description of the wall-crossing data given in \cite[Assumption 5.1 (b)]{Jo21}\footnote{This assumption introduces a quotient $K\big(\Coh(X)\big)$ of $K_0\big(\Coh(X)\big)$  with $C\big(\Coh(X)\big)\subset K\big(\Coh(X)\big)$ containing elements represented by non-zero sheaves. The wall-crossing is then expressed in terms of $\alpha$'s contained in $C(X)$. In our case, we directly define $C\big(\Coh(X)\big) =C(X)$.}: there is a morphism 
+$$
+K_{0}\big(\Coh(X)\big)\to K^0(X)
+$$
+from the Grothendieck group of $\Coh(X)$ by smoothness and projectivity of $X$ and only the zero coherent sheaf has trivial topological $K$-theory class. The restriction of this morphism to the semigroup of elements of $K_{0}\big(\Coh(X)\big)$ represented by a non-zero sheaf maps onto $C(X)$ by its definition. We will not mention that $\alpha$ lies in $C(X)$ from now on. 
+
+Recall that $\mu$ is defined by
+\[\mu(F)=\frac{\deg(F)}{r(F)}\in \BQ\sqcup\{+\infty\}\]
+where $\deg(F), r(F)$ are (normalized) coefficients of the Hilbert polynomial $P_F(z)$; denoting by $[z^k]P(z)$ the $z^k$ coefficient of a polynomial $P$,
+\[\deg(F)=(d-1)![z^{d-1}]P_F(z) \quad \textup{ and } r(F)=d![z^{d}]P_F(z).\]
+When $d=m$, the number $r(F)$ is (up to multiplication by a constant) the rank of $F$. In general, we regard the number $r(F)$ as a generalized rank; it is a non-negative integer for every sheaf of dimension at most $d$. The cases (1), (2), (3) in Theorem~\ref{thm: main} correspond, respectively, to $(m,d)=(1,1), (2,2), (2,1)$.
+
+Twisting by $\CO_X(H)$ induces isomorphisms
+\[M_\alpha\cong M_{\alpha(H)}.\]
+It is a standard fact that, given a fixed $\alpha$, for large $n$ all the $\mu$-semistable sheaves with topological type $\alpha(nH)$ are globally generated and have vanishing higher cohomology (e.g. \cite[Corollary 1.7.7]{HL}). Replacing $\alpha$ by $\alpha(nH)$ we shall often assume this to be the case.
+\begin{assumption}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{ass: alphabig}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+All the $\mu$-semistable sheaves $F$ of topological type $\alpha$ are globally generated and have vanishing higher cohomology $H^{>0}(F)=0$. 
+\end{assumption}
+
+
+
+\subsection{Bradlow pairs}
+\label{sec: Bradlowpairs}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+We now describe the notion of Bradlow stability,  depending on a parameter $t\in \BR_{>0}$, on pairs $(F, s)$ where $s\colon \CO_X\to F$ is a section.
+
+\begin{definition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{def: bradlow}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $t> 0$. A pair $s\colon \CO_X\to F$ is $\mu^{t}$-(semi)stable if it is non-zero and:
+\begin{enumerate}
+    \item For every subsheaf $G\hookrightarrow F$ we have 
+    \[\mu(G)(\leq)\mu(F)+\frac{t}{r(F)}.\]
+    \item For every proper subsheaf $G\hookrightarrow F$ through which the section $s$ factors \[s\colon \CO_X\to G\to F\,,\] we have 
+    \[\mu(G)+\frac{t}{r(G)}(\leq) \mu(F)+\frac{t}{r(F)}\,.\]
+\end{enumerate}
+The symbol $(\leq)$ stands for $\leq$ in the semistable case and $<$ in the stable case.
+\end{definition}
+ We denote by $P_\alpha^t$ the moduli space of $\mu^t$-semistable pairs $\CO_X\to F$ with topological type $\llbracket F\rrbracket=\alpha$. These are often called moduli spaces of Bradlow pairs and constructed by \cite[Section 1]{thaddeus} and \cite{LeP,lin} for curves and higher dimensions, respectively.\footnote{Strictly speaking, these moduli spaces are constructed for Gieseker type Bradlow stability as opposed to the slope type Bradlow stability in Definition \ref{def: bradlow}. However, we need the construction of the moduli space only when there are no strictly $\mu^t$-semistable pairs in which case the two stability notions coincide. When there exist strictly $\mu^t$-semistable pairs, Joyce's theory \cite{Jo21} uses only the moduli stacks rather than the moduli spaces.} If $t$ is such that $t\notin \frac{1}{r(\alpha)!}\BZ$ then the moduli spaces $P_{\alpha}^t$ have no strictly semistable objects. When this is the case, $P_\alpha^t$ is a fine moduli space with a universal pair \[\CO_{P_\alpha^t\times X}\to \BF\,,\] admitting a virtual class $[P_\alpha^t]^\vir$ by the standard argument as recorded below.
+
+\begin{lemma}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{Lem:obs}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Assume that there are no strictly $\mu^t$-semistable pairs in $P^t_\alpha$. Then the moduli space $P^t_\alpha$ has a natural 2-term perfect obstruction theory given by $\RHom([\CO_{P^t_\alpha\times X}\to \BF], \BF)$ when $(m,d) = (1,1),(2,2),(2,1)$.
+\end{lemma}
+\begin{proof}
+The construction of a morphism from the dual of $\RHom([\CO_{P^t_\alpha \times X}\to \BF], \BF)$ to the cotangent complex is standard, see for example \cite[Section 5.3]{mochizuki}.
+
+Using the long exact sequence 
+\[\Ext^{i}(F, F)\to H^{i}(F)\to\Ext^{i}([\CO_X\to F], F)\to \Ext^{i+1}(F, F)\to H^{i+1}(F)\,.\]
+Mochizuki \cite[Lemma 6.1.14]{mochizuki} (see also Joyce \cite[Section 8.3.2]{Jo21}) showed the vanishing of $\Ext^i$ for $(m,d) = (1,1),(2,2)$ and $i\neq  0,1$ . When $(m,d)$ is such that $d\leq 1$, then the terms vanish immediately for $i\neq-1,0,1$ because $H^2(F) = 0$. 
+The vanishing for $i=-1$ would follow from the injectivity of
+$$\Ext^0(F,F)\xrightarrow{\,-\,\circ\, s\,} H^0(F)\,.
+$$
+Suppose for the contradiction that there exists a non-zero morphism $\phi\in \Ext^0(F,F)$ such that $\phi\circ s=0$. Consider the induced short exact sequence
+$$0\rightarrow F_1\rightarrow F\rightarrow F_2\rightarrow 0\,,
+$$
+where $F_1=\ker(\phi)$ and $F_2=\coker(\phi)\subsetneq F$. By $\mu^t$-stability of $\CO_X\xrightarrow{s} F$, we have 
+$$\mu(F_1)+\frac{t}{r(F_1)}<\mu(F)+\frac{t}{r(F)}\,,\quad \mu(F_2)<\mu(F)+\frac{t}{r(F)}\,.
+$$
+Using the usual arithmetic of ratios, this gives the contradiction.
+\end{proof}
+
+
+These moduli spaces fit in the framework of Section 8 of \cite{Jo21}. There, Joyce considers the abelian category $\grave{\CA}$ of pairs $U\otimes \CO_X\to F$ where $U$ is a $\BC$-vector space and $F\in \Coh(X)$, and introduces the stability function on such pairs given by
+\[\mu^t(U\otimes \CO_X\to F)=\frac{\deg(F)+t \dim(U)}{r(F)}.\]
+The $\mu^t$-(semi)stable pairs with $U=\BC$ are precisely the $\mu^t$-(semi)stable pairs in Definition \ref{def: bradlow}. Conditions (1) and (2) in Definition \ref{def: bradlow} correspond to looking for destabilizing subpairs of the form $0\to G$ and $\CO_X\to G$, respectively. 
+
+The stack parametrizing objects in the category $\grave \CA$ is the stack $\CN_X$ from Remark~\ref{rem: stackNX}. Hence the moduli spaces $P_\alpha^t$ admit a map
+\[P_\alpha^t\hookrightarrow \CN_X^\rig\rightarrow \CP_X^\rig\,,\]
+and thus define a class $[P_\alpha^t]^\vir$ in the Lie algebras $H_\bullet(\CN_X^\rig)$ or $ H_\bullet(\CP_X^\rig)$ by pushing forward $[P_\alpha^t]^\vir\in H_\bullet(P_\alpha^t)$ along this map. Moreover, since we have a universal pair $\CO\to\BF$ there is actually a lift of this map to the non-rigidified stacks
+\[f_{(\CO,\BF)}\colon P_\alpha^t\to \CN_X \rightarrow \CP_X\,.\]
+This defines a lift of the class $[P_\alpha^t]^\vir$
+\[[P_\alpha^t]^\vir_{(\CO,\BF)}\coloneqq (f_{(\CO,\BF)})_\ast [P_\alpha^t]^\vir\]
+to the vertex algebras $H_\bullet(\CN_X)$ and $ H_\bullet(\CP_X)=V_\bullet^{\pa}$ when $P_\alpha^t$ does not contain strictly semistable pairs. This class is in the connected component $\CP_{(\llbracket \CO_X\rrbracket, \alpha)}$; to alleviate notation, we will write 
+\[\CP_{(1, \alpha)}\coloneqq \CP_{(\llbracket \CO_X\rrbracket, \alpha)}\,.\]
+
+\subsection{Limits $t\rightarrow 0$ and $t\to \infty$}
+\label{sec: limits}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Our rank reduction argument will be based on using the wall-crossing formula to compare the $\mu^t$ Bradlow pairs with $t$ small and $t$ large. We now identify the moduli spaces $P_\alpha^t$ in these two limits.
+
+\begin{proposition}[{\cite[Theorem 8.13, Ex. 5.6]{Jo21}}]
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+
+\label{prop: limitt0}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $0<t<1/r(\alpha)!$ and $F$ be a sheaf of topological type $\alpha$. Then  $s\colon \CO_X\to F$ is $\mu^{t}$-semistable if and only if it is $\mu^{t}$-stable if and only if the following three conditions hold:
+\begin{enumerate}
+    \item $F$ is semistable with respect to $\mu$;
+    \item $s\neq 0$;
+    \item there is no $0\neq G\subsetneq F$ with $\mu(G)=\mu(F)$ such that $\mathrm{im}(s)\subseteq G$.
+\end{enumerate}
+\end{proposition}
+
+Since the stable objects do not change for such small $t$ we denote by $P_\alpha^{0+}=P_\alpha^t$ the moduli of $\mu^t$-stable pairs for $0<t\ll 1$ and by $\mu^{0+}$ the limit stability $\mu^t$ with $t\rightarrow 0$. The limit stability can be explicitly defined by
+\[\mu^{0+}(U\otimes \CO_X\to F)=(\mu(F), \dim(U))\in (-\infty, \infty]\times \BZ_{\geq 0}\]
+where $(-\infty, \infty]\times \BZ_{\geq 0}$ is given the lexicographic order.
+
+Note in particular that if $M_\alpha$ has no strictly semistable sheaves then condition $(3)$ is vacuous, so $P_\alpha^{0+}$ parametrizes stable sheaves $[F]\in M_\alpha$ together with a non-vanishing section $s\in H^0(F)$ (up to scaling of the section). Assuming \ref{ass: alphabig}, 
+\[P_\alpha^{0+}=\BP_{M_\alpha}(p_\ast \BG)\]
+ is a projective bundle over $M_\alpha$ with fiber $\BP(H^0(F))\cong \BP^{\chi(\alpha)-1}$ over $[F]\in M_\alpha$. 
+
+When $M_\alpha$ has strictly semistable sheaves, $P_\alpha^{0+}$ plays a crucial role in Joyce's definition of the classes $[M_\alpha]^{\mathrm{inv}}\in \widecheck{H}_\bullet(\CM_X)$ in \cite[Section $9.1$]{Jo21}, as we will recall next. This idea is also present in Mochizuki's work \cite{mochizuki}. 
+
+\begin{proposition}[{\cite[Lemma 1.3]{PT}}]
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{prop: limittinfty}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $t\gg 0$ be large enough. Then $s\colon \CO_X\to F$ is $\mu^{t}$-semistable if and only if it is $\mu^t$-stable if and only if $F$ is pure of dimension $d$ and $\coker(s)$ is supported in dimension at most $d-1$.
+\end{proposition}
+
+We denote by $P_\alpha^\infty$ the moduli of such pairs and by $\mu^\infty$ the limit stability. We proceed now to identify this moduli space in the three cases of interest to us, $(m,d)=(1,1), (2,2), (2,1)$.
+\begin{enumerate}
+\item Suppose that $(m,d)=(1,1)$ and $\rk(\alpha)>1$. Then $P_\alpha^\infty=\emptyset$ since \[\rk(\coker(s))\geq \rk(F)-\rk(\CO_X)>0\] for any $s\colon \CO_X\to F$ with $\rk(F)>1$.  Suppose now that $\rk(\alpha)=1$; then the elements of $P_\alpha^\infty$ are non-zero pairs $s\colon \CO_X\to F$ such that $F$ is a torsion-free rank 1 sheaf. A torsion-free rank 1 sheaf on a smooth curve $C$ with a non-zero section is given by an effective divisor. When $\ch(\alpha)=1+n \cdot \pt$ for $n\geq 0$ this implies that
+\[P^\infty_{\alpha}=\{\CO_X\to \CO_{X}(E)\textup{ such that }|E|=n\}=C^{[n]}\]
+is the $n$-th symmetric power of $C$.
+
+\item Suppose that $(m,d)=(2,2)$. As before, $P_\alpha^\infty=\emptyset$ whenever $\rk(\alpha)>1$. Given a torsion-free rank 1 sheaf $F$ on a surface $S$, we get an embedding into its double dual $F\hookrightarrow F^{\vee\vee}$, which must be a line bundle $\CO_S(E)$ \cite[Example 1.1.16]{HL}. Twisting by $-E$ gives 
+\begin{center}\begin{tikzcd}
+\CO_S(-E)\arrow[r,"s(-E)"]&
+F(-E)\arrow[r, hookrightarrow]&
+\CO_S
+\end{tikzcd}\end{center}
+so $F(-E)=I_Z$ is the ideal sheaf of a zero-dimensional subscheme $Z\subseteq E$. Thus, the moduli space $P_{\alpha}^\infty$ is isomorphic to the nested Hilbert scheme $S_\beta^{[0,n]}$ in \cite{gsy} parametrizing a pair $(E,Z)$ of a divisor $E$ in class $\beta\in H_2(X, \BZ)$ and a zero-dimensional subscheme $Z\subseteq E$ of length $n$, where 
+\[\ch(\alpha)=1+\beta+\frac{\beta^2}{2}-n\cdot \pt\,.\]
+The isomorphism is given by sending
+\[(E,Z)\mapsto \big(\CO_S\to I_Z(E)\big)\,.\]
+The obstruction theory, and hence virtual fundamental class, of $P_\alpha^\infty$ is easily seen to match the ones defined for $S_\beta^{[0,n]}$ in \cite{gsy}. Indeed, the obstruction theory of the latter at $(E,Z)$ (see Proposition 2.2 and the proof of Proposition 3.1 in loc. cit.) is given by
+\begin{align*}\textrm{Cone}\big(\RHom(\CO_S(-E), I_Z)&\to \RHom(I_Z, I_Z)\big)\\
+&=\RHom(\CO_S\to I_Z(E), I_Z(E))\,.\end{align*}
+
+\item  If $(m,d)=(2,1)$ then $P_{\alpha}^\infty$ is shown in \cite[Proposition 3.1.5]{gsy} to also be isomorphic to the nested Hilbert scheme $S_\beta^{[0,n]}$ with $\ch(\alpha)=\beta-\frac{\beta^2}{2}+n\cdot \pt$. The isomorphism sends 
+\[(E, Z)\mapsto \big(\CO_S\to \CO_E(Z)\big)\,.\] 
+The virtual fundamental classes of $P^\infty_\alpha$ and $S_\beta^{[0,n]}$ are also shown to agree.
+\end{enumerate}
+
+
+
+
+
+
+\subsection{Invariant classes $[M]^\inva$}
+\label{sec: joyceclasses}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+When there are strictly semistable sheaves in $M_\alpha$, we cannot obtain a class in $\widecheck V_\bullet$ by simply pushing forward a virtual fundamental class from $H_\bullet(M_\alpha)$. However, Joyce constructs classes $[M_\alpha]^{\inva}$ for every $\alpha$ such that $[M_\alpha]^{\inva}=[M_\alpha]^\vir$ when there are no strictly semistable sheaves. The classes $[M_\alpha]^{\inva}$ appear when one writes down wall-crossing formulae. We will now summarize -- and slightly reformulate -- the construction of these classes in \cite[Theorem 5.7, Section 9]{Jo21} when $(m,d)$ is one of our three cases. 
+
+
+First, we observe that it is enough to define the classes $[M_\alpha]^{\inva}$ when $\alpha$ satisfies Assumption \ref{ass: alphabig}. The definition extends to all $\alpha$ by requiring that $[M_{\alpha(H)}]^\inva$ is obtained from $[M_{\alpha}]^\inva$ via the map $H_\bullet(\CM_\alpha^\rig)\to H_\bullet(\CM_{\alpha(H)}^\rig)$ induced by tensoring with $\CO_X(H)$. The argument that this definition is consistent is one of the core arguments in Joyce's theory proved in \cite[Proposition 9.12]{Jo21}. 
+
+Let $\Pi\colon \CP_X\to \CM_X^\rig$ be the composition of the projection $\CP_X\to \CM_X$ onto the second component with the rigidification map $\CM_X\to \CM_X^\rig$. We define the $K$-theory class $\T^{\rel}$ in $\CP_X$ by
+\[\T^{\rel}=Rp_\ast \CF-\CO_{\CP_X}\,,\]
+where $p\colon \CP_X\times X\to \CP_X$ is the projection. Then, one defines the class
+\begin{equation}\label{eq: upsilonalpha}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\Upsilon_\alpha=\Pi_\ast\left( c_{\chi(\alpha)-1}(\T^{\rel})\cap [P_\alpha^{0+}]^\vir_{(\CO,\BF)} \right)\in H^\bullet(\M_\alpha^\rig)\subseteq \widecheck V_\bullet\,.
+\end{equation}
+Alternatively, note that if we define $\Pi_\alpha$ as the composition
+\begin{center} \begin{tikzcd}
+\Pi_\alpha\colon P_\alpha^{0+}\arrow[r,"f_{(\CO,\BF)}"]&
+\CP_X\arrow[r, "\Pi"]&
+\CM_X^\rig
+\end{tikzcd}\end{center}
+then by Assumption \ref{ass: alphabig} the relative tangent bundle $\T_{\Pi_\alpha}$, which has fibers 
+\[H^0(F)/\BC\cdot s\textup{ over a pair }[s\colon \CO_X\to F]\in P_\alpha^{0+}\,,\] is a vector bundle of rank $\chi(\alpha)-1$ such that \[\T_{\Pi_\alpha}=f_{(\CO,\BF)}^\ast \T^{\rel}\,\]
+in $K$-theory. Equation \eqref{eq: upsilonalpha} can be rewritten as 
+\begin{equation}\label{eq: upsilonalpha2}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\Upsilon_\alpha=(\Pi_\alpha)_\ast\left( c_{\tp}(T_{\Pi_\alpha})\cap [P_\alpha^{0+}]^\vir \right)\in \widecheck V_\bullet\,,
+\end{equation}
+which is the form in \cite[(5.29)]{Jo21}.
+
+Before we begin discussing wall-crossing, we set some notation. We will use $\underline{\alpha} = (\alpha_1,\cdots,\alpha_l)$ for the vector of $K$-theory classes and denote by $\underline{\alpha}\vdash \alpha$ the fact that it is a partition of $\alpha$, i.e., $\alpha_1+\cdots +\alpha_l = \alpha$, where $l$ always denotes the length of $\alpha$. When we write $\sum_{\underline{\alpha}\vdash \alpha}$ we mean a sum over all $\alpha_1, \ldots, \alpha_l$ such that $\alpha_1+\ldots+ \alpha_l=\alpha$.
+
+The classes $[M_\alpha]^\inva\in \widecheck V^\bullet$ are now defined by
+\begin{equation}
+\Upsilon_\alpha=\sum_{\substack{\underline{\alpha}\vdash \alpha\\\mu(\alpha_i)=\mu(\alpha)}}\frac{(-1)^{l+1}\chi(\alpha_1)}{l!}\big[\big[\ldots  \big[ [M_{\alpha_1}]^\inva,[M_{\alpha_2}]^\inva \big],\ldots \big ],[M_{\alpha_l}]^\inva \big]\label{eq: upsilonwallcrossing}\,.
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{equation}
+Equation \eqref{eq: upsilonwallcrossing} provides an inductive definition of the classes $[M_{\alpha}]^\inva$ by comparing
+\[\Upsilon_\alpha=\chi(\alpha)[M_\alpha]^\inva+\ldots\]
+where $\ldots$ is expressed in terms of classes $[M_{\alpha_i}]^\inva$ such that $r(\alpha_i)<r(\alpha).$ Note that Assumption \ref{ass: alphabig} implies $\chi(\alpha)>0$.
+
+
+\begin{remark}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{rem: projectivebundle}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+When $M_\alpha^{\textup{ss}}=M_\alpha^{\textup{s}}$ there are no decompositions $\alpha=\alpha_1+\ldots+\alpha_l$ with $l>1$, $\mu(\alpha_i)=\mu(\alpha)$ and $M_{\alpha_i}\neq \emptyset$. Hence the right hand side of \eqref{eq: upsilonwallcrossing} has only one non-zero term, so
+\[\Upsilon_\alpha=\chi(\alpha)[M_\alpha]^\inva. \]
+Recall that without strictly semistable sheaves $f\colon P_\alpha^{0+}\to M_\alpha$ is a projective bundle with fibers $\BP(H^0(F))\cong \BP^{\chi(\alpha)-1}$ over $[F]\in M_\alpha$ by Proposition \ref{prop: limitt0} and the discussion following; moreover, $[M_\alpha]^\inva=[M_\alpha]^\vir$ is actually the (pushforward to $H_\bullet(\M_X^\rig)$ of the) virtual fundamental class. Indeed, we have
+\[f_\ast\left(c_\tp(\T_f)\cap [P_\alpha^{0+}]^\vir\right)=\chi(\alpha)[M_\alpha]^\vir\]
+by the virtual pullback formula \cite[Theorem 4.7]{manolache}.
+The following heuristic is useful to keep in mind: the class $\Upsilon_\alpha$ is constructed so that the intersection theories against $[P_\alpha^{0+}]^\vir$ and $\Upsilon_\alpha$ are related in a way similar to a projective bundle; the wall-crossing type formula \eqref{eq: upsilonwallcrossing} defines $[M_\alpha]^\inva$ by ``correcting'' $\Upsilon_\alpha$.
+\end{remark}
+
+Above we only discussed the case of slope stability, but Joyce defines the classes $[M_{\alpha}(\tau)]^{\inva}$ for any stability condition $\tau$ satisfying his list of assumptions \cite[Assumption 5.1 and 5.2]{Jo21}. In particular, this holds when $(m,d) = (2,2)$ and $\tau$ is the Gieseker stability, by \cite[Section 7]{Jo21}; note that Gieseker stability coincides with slope stability when $d=1$, so only the $(2,2)$ case is new. 
+
+It is well-known that slope stability $\mu$ \textit{dominates} Gieseker stability $\tau$ in the sense of \cite[Definition 3.8]{Jo21}.  In other words -- if $p_E(z)\leq p_F(z)$ for any two sheaves $E,F$ and any $z\gg 0$, then $\mu(E)\leq \mu(F)$. The dominant wall-crossing formula stated in \cite[Theorem 5.8, Theorem 7.64]{Jo21} applies precisely to this scenario and takes the form 
+$$
+[M_{\alpha}(\tau)]^\inva=\sum_{\underline{\alpha}\vdash \alpha
+}U(\underline{\alpha};\mu,\tau)
+\big[\big[\ldots  \big[ [M_{\alpha_1}(\mu)]^\inva,[M_{\alpha_2}(\mu)]^\inva \big],\ldots \big ],[M_{\alpha_l}(\mu)]^\inva \big]
+$$
+where $U(\underline{\alpha};\mu,\tau)$ are the coefficients defined in  \cite[Section 3.2]{Jo21}.  Applying the compatibility of Virasoro constraints with the Lie bracket that follows from Theorem \ref{thm: virasorophysical} and Proposition \ref{prop: wallcrossingcompatibility1}, we reduce Virasoro constraints for Gieseker stability to slope stability.
+\begin{corollary}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{cor:slopetogies}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    If Virasoro conjecture holds for $[M_{\alpha}(\mu)]^{\inva}$ for any $\alpha$, i.e., $[M_{\alpha}(\mu)]^{\inva}\in \widecheck{P}_0$, then it is also satisfied by $[M_{\alpha}(\tau)]^{\inva}$ where $\tau$ is the Gieseker stability.
+\end{corollary}
+%\subsection{Relation to Thaddeus wall-crossing}
+
+%Assume that $X=C$ is a curve and take $d=\dim(C)=1$. We'll also consider only rank $2$, i.e. we take $\alpha=(2, \chi)$. This is the situation in \cite{thaddeus}. Instead of writing the entire wall-crossing let's instead just do the simple wall-crossings. I.e. let $t$ be a wall and let $t_-<t<t_+$ define stability conditions on the two chambers on the sides of the wall. 
+
+%The strictly $\mu_{t}$-semistable pairs are ($S$-equivalent to) 
+%\[s\colon \CO_C\to F=G_1\oplus G_2\]
+%where $s$ factors through $G_1$ and
+%\[\mu(\CO_C\to G_1)=\mu(\CO_C\to F)=\mu(G_2)\]
+%i.e.,
+%\[\chi_1+t=\frac{1}{2}\left(\chi+t\right)=\chi_2.\]
+
+%So the wall-crossing formula should be something like
+%\[[P^{t_+}_{(2,\chi)}]^\vir=[P^{t_-}_{(1, \chi)}]^\vir+U[[P^{t_-}_{(1,(\chi-t)/2)}]^\vir, [M_{(1, (\chi+t)/2)}]^\vir].\]
+%If we use this relation iteratively we'll get to a formula comparing $P^{0+}$ and $P^\infty$. 
+%\begin{remark}
+%To prove this formula we should use Theorem 3.11 in \cite{joyce}. The key point is that $\mu^t$ dominates $\mu^{t_\pm}$ and when that's the case the transition coefficients vanish unless $\mu^t(\alpha_1)=\mu^{t}(\alpha_2)$.
+%\end{remark}
+
+
+\subsection{Wall-crossing formula for Bradlow stability}
+\label{sec: WCformula}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\sloppy When working with pair wall-crossing formulae, we will include $\alpha_0$ into the partition $\underline{\alpha}\vdash \alpha$ by $\underline{\alpha}=(\alpha_0,\alpha_1,\cdots,\alpha_l)$ and $\alpha_0+\alpha_1+\cdots +\alpha_l = \alpha$. Joyce's wall-crossing formula (Theorem 5.9 in \cite{Jo21}) between Bradlow stability $\mu^{t_-}$ and $\mu^{t_+}$-stability is
+\begin{align}[P_{\alpha}^{t_{-}}]^\vir=\sum_{\underline{\alpha} \vdash \alpha\label{eq: generalbradlowwc}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+}U(&\underline{\alpha}; \mu^{t_-}, \mu^{t_+})\\\nonumber 
+&\big[[M_{\alpha_1}]^\inva,\big[[M_{\alpha_2}]^\inva,\ldots, \big[[M_{\alpha_l}]^\inva,[P_{\alpha_0}^{t+}]^\vir \big],\ldots \big]\big]\label{eq: generalbradlowwc}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{align}
+where
+\[U(\underline{\alpha}; \mu^{t_-}, \mu^{t_+})=U\big((0,\alpha_1), \ldots, (0, \alpha_l), (1, \alpha_0); \mu^{t_-},  \mu^{t_+}\big)\in \BQ\]
+are combinatorial coefficients defined in \cite[Section 3.2]{Jo21}. In particular we have a wall-crossing formula between the (limit) stability conditions $\mu^{0+}$ and $\mu^\infty$ 
+\begin{equation}
+\label{eq: rankreductionwallcrossing}[P_{\alpha}^{0+}]^\vir=\sum_{\underline{\alpha}\vdash \alpha
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+}U(\underline{\alpha})
+\big[[M_{\alpha_1}]^\inva,\big[[M_{\alpha_2}]^\inva,\ldots, \big[[M_{\alpha_l}]^\inva,[P_{\alpha_0}^\infty]^\vir \big]\ldots \big]\big]
+\end{equation}
+where
+\[U(\underline{\alpha})=U\big((0,\alpha_1), \ldots, (0, \alpha_l), (1, \alpha_0); \mu^{0+}, \mu^\infty\big)\in \BQ\]
+Equations \eqref{eq: generalbradlowwc} and \eqref{eq: rankreductionwallcrossing} are proven as equalities in the Lie algebra $\widecheck H_\bullet(\CN_X)$ under some technical assumptions (Assumptions 5.1-5.3 in loc. cit.) on the category $\grave{\CA}$ and on a set of permissible classes $C_{\textup{pe}}(\grave{\CA})$. The necessary assumptions are all verified in Section 8 of loc. cit. for the cases $(m,d)=(1,1), (2,2)$. The case $(m,d)=(2,1)$ is not treated, but the first author plans to address this in a separate work focusing on proving them for all pair theories relevant to Joyce's wall-crossing. 
+
+\begin{assumption}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{ass:WCpair}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $\grave{\CA}$ be the abelian category of pairs $U\otimes \CO_X\to F$, where $F$ is a sheaf with $\dim(F)\leq 1$ and $U$ a vector space.\footnote{As opposed to $\acute{\CA}$ which was used in \cite{Jo21} to denote the category of all pairs without the restriction on dimension.} 
+Then the assumptions in \cite[Assumption 5.1-5.3]{Jo21} hold for this category and a surface $S$ such that $h^{0,2}(S)=0$ with
+\begin{align*}
+C_{\textup{pe}}(\grave{\CA})&=\{(e,\llbracket F\rrbracket)\colon e=0,1\textup{ and }\dim(F)= 1\}\subseteq \BZ\times K_\sst^0(S)\,,\\
+\mathscr{S}&=\{\mu^t\colon t\in \BR_{>0}\}\,.
+\end{align*}
+\end{assumption}
+\begin{remark}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notreadyNote that the data used in \cite[Assumption 4.4]{Jo21} was constructed in Definition~\ref{def: pairVOA}. Most of the assumptions 5.1 - 5.3 are satisfied by a simple adaptation of the arguments in \cite[Sections 8.2 and 8.3]{Jo21}. New ideas are needed only for the assumptions 5.2(b) and 5.2(h)  where one needs to show that the stacks of semistable pairs are finite type and the moduli spaces of stable quiver-pairs defined in \cite[Def. 5.5]{Jo21} are proper.\end{remark}
+
+An important point in the rank reduction induction that we will use is that there are no contributions of rank 0 objects in the wall-crossing formula above.
+
+\begin{lemma}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{lem: norank0}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $\alpha$ be such that $r(\alpha)>0$. If the coefficient $U(\underline{\alpha})$ is non-zero, then $r(\alpha_i)>0$ for each $i=0, 1, \ldots, l$. 
+\end{lemma}
+\begin{proof}
+Let $t$ be a wall and let $t_-<t<t_+$ define stability conditions on the two chambers adjacent to the wall. We have the wall-crossing formula between $\mu^{t_-}$-stability and $\mu^{t_+}$-stability given by \eqref{eq: generalbradlowwc}. To prove the Lemma it is enough to show that the coefficients $U(\underline{\alpha}; \mu^{t_-}, \mu^{t_+})$ vanish unless $r(\alpha_i)> 0$ for every $i$, since \eqref{eq: rankreductionwallcrossing} can be obtained by putting together the $\mu^{t_-}/\mu^{t_+}$ wall-crossing formulae; in other words, \cite[Theorem 3.11]{Jo21} can be applied iteratively to compute $U(\underline{\alpha})$ in terms of $U(\underline{\alpha}; \mu^{t_-}, \mu^{t_+})$ for $t_-, t_+$ in adjecent chambers. 
+
+Since $\mu^{t_-}$, $\mu^{t_+}$ are in the adjacent chambers to the wall defined by $t$, the stability $\mu^t$ dominates (cf. \cite[Definition 3.8]{Jo21}) both $\mu^{t_-}$ and $\mu^{t_+}$. By \cite[Theorem 3.11]{Jo21}, $U(\underline{\alpha}; \mu^{t_-}, \mu^{t_+})=0$ unless
+\[\mu^t(1, \alpha_0)=\mu(\alpha_1)=\ldots=\mu(\alpha_l)=\mu^t(1, \alpha).\]
+Since $r(\alpha)>0$, $\mu^t(1, \alpha)<\infty$ so it follows that $r(\alpha_i)>0$ for each $i=0, 1, \ldots, l$. \qedhere
+\end{proof}
+
+Formula \eqref{eq: rankreductionwallcrossing} holds a priori in the Lie algebra $\widecheck{H}_\bullet(\CN_X)$. As explained in Remark \ref{rem: stackNX}, we can pushforward this identity to the Lie algebra $\widecheck{H}_\bullet(\CP_X)$ or, equivalently, $\widecheck V_\bullet^{\pa}$ (recall Lemma \ref{Lem: DXinv}). However, our formulation of the Virasoro constraints for the pair moduli spaces $P_\alpha^t$ is not in terms of the class $[P_\alpha^t]^\vir\in \widecheck V_\bullet^{\pa}$, but instead of its lift $[P_\alpha^t]^\vir_{(\CO,\BF)}\in V_\bullet^{\pa}$ to the vertex algebra (see Theorem \ref{thm: virasorophysical}). Hence it is desirable to lift the formula \eqref{eq: rankreductionwallcrossing} to the vertex algebra. We use the following Lemma to do so: 
+
+\begin{lemma}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{lem: liftvertexalgebra}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\begin{enumerate}
+\item[a)]
+Suppose that $\overline{u}\in \widecheck V_\bullet\subseteq \widecheck V_\bullet^{\pa}$ and $v\in V_\bullet^{\pa}$ is such that \[\ch_1^\CV(\pt)\cap v=0\,.\] Then
+\[\ch_1^\CV(\pt)\cap [\overline u, v]=0\]
+where the bracket is the partial lift to the vertex algebra from Lemma \ref{partial lift}.
+\item[b)] Let $u,v\in V_{\bullet, (\alpha_1, \alpha_2)}^{\pa}$ with $\rk(\alpha_1)>0$ be such that 
+\[\ch_1^\CV(\pt)\cap u=0=\ch_1^\CV(\pt)\cap v\,\]
+and $\overline u=\overline v$ in $\widecheck V_\bullet^{\pa}$. Then $u=v$ in $V_\bullet^{\pa}$. 
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+Since $\chi_\sym^{\pa}$ is non-degenerate by Lemma \ref{Lem: nondegenerate}, there is $w\in K^\bullet(X)^{\oplus 2}$ such that \[\chi_\sym^{\pa}(w, -)=\langle \pt^\CV, -\rangle\,.\]
+Comparing \eqref{Eq: explicitfield} and \eqref{eq: capdescendentspairs} it follows that $\ch_1^\CV(\pt)\cap -=w_{(1)}$. Using the identity \eqref{Eq: skewjacobi} we have
+\[\ch_1^\CV(\pt)\cap [\overline u, v]=w_{(1)}(u_{(0)}v)=u_{(0)}(w_{(1)} v)+(w_{(0)} u)_{(1)} v-(w_{(1)} u)_{(0)} v.\]
+By hypothesis $w_{(1)} v=0$. Since $u\in V_\bullet$ both $w_{(0)} u=w_{(1)} u=0$ as the pullbacks of $\ch_1^\CV(\pt), \ch_0^\CV(\pt)$ to $H^\bullet(\CM_X)$ both vanish.
+
+For the second part, suppose that $u-v=T(x)$. Consider the operator
+\[\eta^\dagger=\sum_{j\geq 0}\frac{(-1)^j}{j!\rk(\alpha_1)^j}T^j\circ \left(\ch_1^\CV(\pt)^j\cap -\right)\]
+on $V_{\bullet, (\alpha_1, \alpha_2)}^{\pa}$; note that this is dual to the operator $\eta$ from Remark \ref{rem: rationaldeltanormalized}. It follows from Lemma \ref{lem: translationdualr-1} that
+\[[\ch_1^\CV(\pt)\cap -, T]=\ch_0^\CV(\pt)\cap -=\rk(\alpha_1)\,,\]
+from which it is easy to show that $\eta^\dagger\circ T=0$. Thus, by the assumption,
+\[u-v=\eta^\dagger(u-v)=\eta^\dagger(T(x))=0\,.\qedhere\]
+
+
+%Then 
+%\[0=\ch_1^\CV(\pt)\cap T(x)=(\bR_{-1}\ch_1^\CV(\pt))\cap x+T\big(\ch_1^\CV(\pt)\cap x\big)=\rk(\alpha_1) x\]
+%where we used the hypothesis; so we conclude that $x=0$ and $u=v$. We used Lemma \ref{lem: translationdualr-1} stating that $T$ is dual to $\bR_{-1}$. 
+
+
+\end{proof}
+
+We can use the lemma to lift the previous wall-crossing formula to an equality
+\begin{align}[P_{\alpha}^{0+}]^\vir_{(\CO,\BF)}=\sum_{\underline{\alpha} \vdash \alpha
+}&U(\underline{\alpha})
+&\big[[M_{\alpha_1}]^\inva,\big[[M_{\alpha_2}]^\inva,\ldots, \big[[M_{\alpha_l}]^\inva,[P_{\alpha_0}^\infty]^\vir_{(\CO,\BF)}  \big],\ldots \big]\big]
+\label{eq: wallcrossinglift}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{align}
+holding in $V_\bullet^{\pa}$, where all the brackets on the right hand side are the partial lift of the Lie bracket to the vertex algebra. To deduce this from the lemma we note that
+\[\ch_1^\CV(\pt)\cap [P_{\alpha_0}^t]^\vir_{(\CO,\BF)}=0\]
+since the pullback of $\ch_1^\CV(\pt)$ to $P_{\alpha_0}^t$ is $\xi_\CO(\ch_1(\pt))=0.$ By part a) of the lemma the right hand side is also annihilated by $\ch_1^\CV(\pt)$ and by part b) we must have equality -- both sides live in $V^{\pa}_{\bullet, (1, \alpha)}$ and their classes in $\widecheck V_\bullet^{\pa}$ agree by \eqref{eq: rankreductionwallcrossing}. 
+
+
+\subsection{Rank reduction of Virasoro}
+
+We can now explain the rank reduction argument for proving Virasoro on $M_\alpha$ assuming that it holds for the stable pair moduli space $P_\alpha^\infty$. We described these spaces explicitly in Section \ref{sec: limits}.
+
+\begin{theorem}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{thm: rankreduction}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+Working with $(m,d)= (1,1),(2,2)$, suppose that the pair Virasoro constraints (Conjecture \ref{conj: pairvirasoro}) hold for $P_\alpha^\infty$ for every $\alpha$ with $r(\alpha)> 0$.
+Then the Virasoro conjecture holds for $M_\alpha$, $P^t_{\alpha}$ for every $\alpha$ with $r(\alpha)>0$ and $t\in [0+, \infty]$, i.e.,
+\[[M_\alpha]^\inva \in \widecheck P_0\quad \textup{ and }\quad [P_\alpha^t]^\inva \in P_0^{\pa}\,.\]
+If the Assumption \ref{ass:WCpair} holds, then the above is true also for $(m,d) =(2,1)$. 
+\end{theorem}
+
+The strategy of the proof is quite simple: we will argue by induction on $r(\alpha)$ and we will prove (assuming the induction hypothesis) that
+\[[P_\alpha^\infty]^\vir_{(\CO, \BF)}\in P_0^{\pa}\overset{(\textup{I})}{\Longrightarrow} [P_\alpha^{0+}]^\vir_{(\CO, \BF)}\in P_0^{\pa}\overset{(\textup{II})}{\Longrightarrow} \Upsilon_\alpha\in \widecheck P_0\overset{(\textup{III})}{\Longrightarrow} [M_\alpha]^{\inva}\in  \widecheck P_0\]
+Implications $(\textup{I})$ and $(\textup{III})$ will follow from \eqref{eq: wallcrossinglift}, \eqref{eq: upsilonwallcrossing} and the compatibility between wall-crossing and Virasoro constraints proven in Propositions \ref{prop: wallcrossingcompatibility1} and \ref{prop: wallcrossingcompatibility2}.
+
+The implication $(\textup{II})$ is a projective bundle compatibility. We will postpone its proof until the next section, see Theorem \ref{lem: projectivebundle}, and prove Theorem \ref{thm: rankreduction} assuming it. 
+
+
+\begin{proof}[Proof of Theorem \ref{thm: rankreduction}]
+We argue by induction on $r(\alpha)$. The base case is when $r(\alpha)>0$ is minimal and is dealt essentially in the same way as the induction step. Assume then that $[M_{\alpha'}]^\inva \in \widecheck P_0$ for every $\alpha'$ such that $0<r(\alpha')<r(\alpha)$; note in particular that this holds vacuously if $r(\alpha)$ is minimal. 
+
+To prove implication $(\textup{I})$ we consider the wall-crossing formula \eqref{eq: wallcrossinglift} and we look at each individual summand 
+\[\big[[M_{\alpha_1}]^\inva,\big[[M_{\alpha_2}]^\inva,\ldots, \big[[M_{\alpha_l}]^\inva,[P_{\alpha_0}^\infty]^\vir_{(\CO,\BF)}  \big],\ldots \big]\big]\]
+with $\sum_{i=0}^l \alpha_i=\alpha$ and non-vanishing coefficient $U(\underline{\alpha})\neq 0$. By hypothesis, $[P_{\alpha_0}^\infty]^\vir_{(\CO, \BF)} \in P_{0}^{\pa}$. Moreover by Lemma \ref{lem: norank0} we have for $i=1, \ldots, l$ that
+\[0<r(\alpha_i)<r(\alpha_i)+r(\alpha_0)\leq r(\alpha)\,.\]
+So the induction hypothesis applies and
+\[[M_{\alpha_i}]^{\mathrm{inv}}\in \widecheck P_0\quad \textup{ for}\quad i=1, \ldots, l\,.\]
+By Propositions \ref{prop: wallcrossingcompatibility1} and \ref{prop: wallcrossingcompatibility2} we have 
+\[\big[[M_{\alpha_1}]^\inva,\big[[M_{\alpha_2}]^\inva,\ldots, \big[[M_{\alpha_l}]^\inva,[P_{\alpha_0}^\infty]^\vir_{(\CO,\BF)}  \big],\ldots \big]\big]\in P_{0}^{\pa}\]
+so $[P_\alpha^{0+}]^\vir_{(\CO, \BF)} \in P_{0}^{\pa}$. The exact same argument shows that $[P_\alpha^{t}]^\vir_{(\CO, \BF)} \in P_{0}^{\pa}$ for any $t>0$: just replace the ${0+}/\infty$ wall-crossing formula \eqref{eq: wallcrossinglift} by the $t/\infty$ wall-crossing. 
+%\acomment{Here we should use Example \ref{ex: stablepairI} together with reversing \eqref{eq: rankreductionwallcrossing}
+%\begin{equation}[P_{\alpha}^{\infty}]^\vir=\sum_{\alpha_0+\alpha_1+\ldots+\alpha_l=\alpha}U\big(\alpha_0, \ldots, \alpha_l; \mu^{0+},\mu^{\infty}\big)\big[\big[\ldots  \big[ [P_{\alpha_0}^{0+}]^\vir,[M_{\alpha_1}]^\inv \big],\ldots \big ],[M_{\alpha_l}]^\inv \big]
+%\label{eq: rankreductionwallcrossing}
+%\end{equation}
+%The vanishing then gives an expression of the form 
+%$$
+%[P^{0+}_{v}]^\vir= -\sum_{\begin{subarray}a\alpha_0+\alpha_1+\ldots+\alpha_l=\alpha\\
+%\alpha_0\neq v
+%\end{subarray}}U\big(\alpha_0, \ldots, \alpha_l; \mu^{0+},\mu^{\infty}\big)\big[\big[\ldots  \big[ [P_{\alpha_0}^{0+}]^\vir,[M_{\alpha_1}]^\inv \big],\ldots \big ],[M_{\alpha_l}]^\inv \big]
+%$$
+%This is then the main step in the rank reduction, because everything on the right hand side is expressed in terms of lower rank contributions.
+%}
+
+For both implications $(\textup{II})$ and $(\textup{III})$ we will assume that $\alpha$ satisfies Assumption~\ref{ass: alphabig}. This is enough to prove the result for every $\alpha$ since we may replace $\alpha$ by $\alpha(mH)$ for large enough $m$ so that $\alpha(mH)$ satisfies the assumption. As explained in Section~\ref{sec: joyceclasses}, Joyce classes $[M_\alpha]^\inva, [M_{\alpha(mH)}]^\inva$ are related by the automorphism $H_\bullet(\CM_X)~\to~H_\bullet(\CM_X)$ induced by $-\otimes \CO_X(mH)$. This automorphism preserves physical states by Lemma \ref{lem: twist}. 
+
+The implication $(\textup{II})$ is precisely Theorem \ref{lem: projectivebundle}. So we are left with implication $(\textup{III})$. For that, we use \eqref{eq: upsilonwallcrossing} and induction as in $(\textup{I})$. The left hand side of \eqref{eq: upsilonwallcrossing} is $\Upsilon_\alpha\in \widecheck P_0$. The right hand side is the sum of the leading term $\chi(\alpha)[M_\alpha]^\inva$ with terms of the form
+\[\big[\big[\ldots  \big[ [M_{\alpha_1}]^\inva,[M_{\alpha_2}]^\inva \big],\ldots \big ],[M_{\alpha_l}]^\inva \big]\]
+with $l\geq 2$, $\underline{\alpha}\vdash \alpha$ and $\mu(\alpha_i)=\mu(\alpha)$. The latter condition implies that $r(\alpha_i)>0$, and since $l\geq 2$ it follows that $0<r(\alpha_i)<r(\alpha)$. Thus the induction hypothesis guarantees that $[M_{\alpha_i}]^\inva\in \widecheck P_0$, so by Proposition \ref{prop: wallcrossingcompatibility1} we get 
+\[\big[\big[\ldots  \big[ [M_{\alpha_1}]^\inva,[M_{\alpha_2}]^\inva \big],\ldots \big ],[M_{\alpha_l}]^\inva \big]\in \widecheck P_0\,.\]
+Finally this implies that the leading term also satisfies Virasoro, i.e., \[[M_\alpha]^\inva\in \widecheck P_0\]
+since $\chi(\alpha)>0$ by Assumption \ref{ass: alphabig}. \qedhere
+\end{proof}
+
+
+
+\subsection{Projective bundle compatibility}
+ We recall the reader of the notation $\Pi, \Pi_\alpha, \T^{\rel}, \T_{\Pi_\alpha}$ introduced in Section \ref{sec: joyceclasses}. For ease of notation, we omit the superscript ``pa'' from now on when it is clear from the context that we use the pair Virasoro operators.
+
+
+%\begin{lemma}\label{lem: projectivebundle}
+%Let 
+%\[u\in P^{\pa}_{0, (1, \alpha)}\coloneqq P^{\pa}_{0}\cap V^{\pa}_{\bullet, (1, \alpha)}\]
+%be a class satisfying the pair Virasoro constraints and such that
+%\[\ch_i^\CV(\gamma)\cap u=0\, , \quad\textup{for any }i>0, \gamma\in H^\bullet(X)\,.\]
+%Then 
+%\[\Upsilon=\Pi_\ast\left(c_{\chi(\alpha)-1}(T^{\rel})\cap u\right)\in \widecheck P_0\]
+%satisfies the sheaf Virasoro constraints.
+%\end{lemma}
+
+
+\begin{theorem}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{lem: projectivebundle}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $\alpha$ be a class satisfying Assumption \ref{ass: alphabig}. Suppose that $P^{0+}_\alpha$ satisfies the pair Virasoro constraints (Conjecture~\ref{conj: pairvirasoro}), i.e., $[P^{0+}_\alpha]^\vir_{(\CO, \BF)}\in P^{\pa}_{0}$. Then 
+\[\Upsilon_\alpha=\Pi_\ast\big(c_{\chi(\alpha)-1}(\T^{\rel})\cap [P^{0+}_\alpha]^\vir_{(\CO, \BF)}\big)\in \widecheck P_0\]
+satisfies the sheaf Virasoro constraints.
+\end{theorem}
+
+
+\begin{proof}
+We ought to show that $\int_{\Upsilon_\alpha}\Linv(D)=0$ for any $D\in \BD^X_{\alpha}$ where we use the suggestive integral notation to denote the pairing between a homology class $\Upsilon_\alpha~\in~H_\bullet(\M^\rig_\alpha)$ and a cohomology class $\Linv(D)\in \BD^X_{\inv, \alpha}\cong H^\bullet(\M^\rig_\alpha).$ 
+
+We have the following commutative diagram:
+\begin{center}
+\begin{tikzcd}[row sep=large, column sep=large]
+H^\bullet(P_\alpha^{0+})&
+H^\bullet(\CP_{(1,\alpha)})\arrow[l,swap, "(f_{(\CO,\BF)})^\ast"]&
+H^{\bullet}(\CM_\alpha^{\rig})\arrow[l, swap, "\Pi^\ast"]\arrow[ll, bend right, swap, "\Pi_\alpha^\ast"]\\
+\,&
+\BD_{(1, \alpha)}^{X,\pa}\arrow[u, "\sim"'{rotate=90, above},swap, "\xi_{(\CV,\CF)}"]\arrow[ul, "\xi_{(\CO,\BF)}"] \arrow[r, hookleftarrow]&
+\BD_{\inv, \alpha}^X\arrow[llu, bend left=50, "\xi_\BF"]\arrow[u, "\sim"'{rotate=90, above},swap, "\xi_{\CF}"]
+\end{tikzcd}
+\end{center}
+
+
+
+
+
+
+%Under the identifications between cohomologies of the stacks and the algebras of descendents, the pullback via $\Pi\colon \CP_{(1, \alpha)}\to \CM_\alpha$ can be described as the composition
+%\begin{center}
+%\begin{tikzcd}
+%H^\bullet(\CM_\alpha^\rig)\arrow[r]\arrow[rr, bend left, "\Pi^\ast"] \arrow[d,"\sim"' {rotate=90, above}, "\xi_{\CF}"] &
+%H^\bullet(\CM_\alpha)\arrow[r] \arrow[d,"\sim"' {rotate=90, above}, "\xi_{\CF}"]  &
+%H^\bullet(\CP_{(1,\alpha)}) \arrow[d,"\sim"' {rotate=90, above}, "\xi_{\CV\to \CF}"] \\
+%\BD^X_{\inv, \alpha}\arrow[r, hookrightarrow]&
+%\BD^X_{\alpha}\arrow[r, hookrightarrow]&
+%\BD^{X, \pa}_{(1,\alpha)}
+%\end{tikzcd}
+%\end{center}
+Hence we can compute:
+\begin{align}
+\nonumber \int_{\Upsilon_\alpha}\Linv(D)&=\int_{(\Pi_\alpha)_\ast\left(c_{\tp}(\T_{\Pi_\alpha})\cap [P_\alpha^{0+}]^\vir\right)}\Linv(D)\\
+\nonumber &
+=\int_{[P_\alpha^{0+}]^\vir}\Pi^\ast_\alpha \big(\Linv(D)\big)c_{\tp}(\T_{\Pi_\alpha})\\
+ &=\int_{[P_\alpha^{0+}]^\vir}\xi_\BF \left(\Linv(D)c_{\chi(\alpha)-1}\right)\nonumber\\
+ &=\sum_{j\geq -1}\frac{(-1)^j}{(j+1)!}\int_{[P_\alpha^{0+}]^\vir}\xi_\BF \left(\bL_j(\bR_{-1}^{j+1}D)c_{\chi(\alpha)-1}\right) 
+ \label{eq: integralUpsilon}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{align}
+
+We use $c_{\chi(\alpha)-1}\in \BD_\alpha^X$ to denote the element in the algebra of descendents
+\[c_{\chi(\alpha)-1}\coloneqq c_{\chi(\alpha)-1}(Rp_\ast \CF)\in H^\bullet(\CM_\alpha)\cong \BD_\alpha^X\,.\]
+The penultimate equality is using that 
+\[\T_{\Pi_\alpha}=(f_{(\CO,\BF)})^\ast \T^{\rel} =(f_{(\CO,\BF)})^\ast\big(Rp_\ast \CF-\CO\big)=Rp_\ast \BF-\CO\,.\]
+
+We can calculate $c_{\chi(\alpha)-1}$ more explicitly: by Grothendieck-Riemann-Roch we have
+\[\ch\big(Rp_\ast \CF\big)=p_\ast\big(\ch(\CF)\td(X)\big)=\xi_\CF\big(\ch_\bullet(\td(X))\big)\,;\]
+and by Newton identities it follows that
+\[c(Rp_\ast \CF)=\xi_\CF\left(\exp\left(\sum_{\ell\geq 1}(-1)^{\ell-1}(\ell-1)!\ch_\ell(\td(X))\right)\right).\]
+
+We denote by $c$ the corresponding element in the algebra of descendents and we let $c_i$ be the degree $i$ part of $c$, i.e.,
+\[\sum_{i\geq 0}c_i=c=\exp\left(\sum_{\ell\geq 1}(-1)^{\ell-1}(\ell-1)!\ch_\ell(\td(X))\right)\,.\]
+
+Let $n=\chi(\alpha)-1$. We shall now argue that the integral at the end of \eqref{eq: integralUpsilon} vanishes assuming that $P_\alpha^{0+}$ satisfies the pair Virasoro constraints. For convenience, from now on we leave implicit the geometric realization map $\xi_\BF$ in all the integrals against $[P_\alpha^{0+}]^\vir$.
+
+We start with the $j=-1$ and $j=0$ terms in the last line of \eqref{eq: integralUpsilon}, which we treat together.  Their sum vanishes by simple degree considerations:
+\begin{align}\nonumber \int_{[P^{0+}_\alpha]^\vir} \big(\bL_0 \bR_{-1}(D)-\bR_{-1}(D)\big) c_{n}&= \int_{[P^{0+}_\alpha]^\vir} \big(\bL_0-\id-n\id)(c_n\bR_{-1}(D))\\
+&=\int_{[P^{0+}_\alpha]^\vir} \bL_0^\CO(c_n\bR_{-1}(D))=0\,.\label{eq: j0j-1}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{align}
+Note that we used
+\[\xi_{\BF}(\ch_0^\HH(\td(X)))=\int_X \ch(\alpha)\td(X)=\chi(\alpha)=n+1\,.\]
+
+Consider now $j\geq 1$. By the Virasoro constraints on $P^{0+}_\alpha$ we have
+\begin{align}\nonumber 0=&\int_{[P_\alpha^{0+}]^\vir}\bL_j^{\CO}\big(\bR_{-1}^{j+1}(D)c_{n}\big)=\int_{[P_\alpha^{0+}]^\vir}\bL_j\big(\bR_{-1}^{j+1}(D)\big)c_{n}\\
+&+\int_{[P_\alpha^{0+}]^\vir}\bR_{-1}^{j+1}(D)\bR_j\big(c_{n}\big)-j!\int_{[P_\alpha^{0+}]^\vir} \ch_j(\td(X))\bR_{-1}^{j+1}(D)c_{n}. \label{eq: largejI}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{align}
+We analyze the term where the derivation $\bR_j$ applies to $c_{n}$; we may do so using the interaction between an exponential and a derivation:
+\[\bR_j(c)=\left(\sum_{\ell \geq 1}(-1)^{\ell-1} (\ell+j)! \ch_{\ell+j}(\td(X))\right)c\,,\]
+so
+\[\bR_j(c_{n})=\sum_{\substack{a\geq j+1, b\geq 0\\
+a+b=n+j}} (-1)^{a-j-1} a!\ch_{a}(\td(X))c_{b}.\]
+Using the Newton identities and the fact that $\T_{\Pi_\alpha}$ is a vector bundle of rank $n$, the geometric realization of the above is
+\begin{align}\nonumber \label{eq: Trelvectorbundle}\xi_\BF(\bR_j(c_{n}))&=\sum_{\substack{a\geq j+1, b\geq 0\\a+b=n+j}} (-1)^{a-j-1} a!\ch_{a}(\T_{\Pi_\alpha})c_{b}(\T_{\Pi_\alpha})=j!\ch_{j}(\T_{\Pi_\alpha})c_{n}(\T_{\Pi_\alpha})\\
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+&=\xi_\BF\big(j! \ch_j(\td(X))c_n\big)\,.
+\end{align}
+It follows that the two last terms in \eqref{eq: largejI} cancel out and we are left with 
+\begin{equation}
+\label{eq: largejII} \int_{[P_\alpha^{0+}]^\vir}\bL_j\big(R_{-1}^{j+1}(D)\big)c_{n}=0
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{equation}
+for $j\geq 1$. Using \eqref{eq: j0j-1} and \eqref{eq: largejII} for every $j\geq 1$ we have shown that the last integral in \eqref{eq: integralUpsilon} vanishes, and we are done. \qedhere
+\end{proof}
+
+\begin{remark}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{rem: abstractprojective}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+We can formulate the previous Theorem more abstractly as follows: let $u\in V_{\bullet, (1, \alpha)}^{\pa}$ be such that 
+\begin{enumerate}
+\item $\ch_i^\CV(\gamma)\cap u=0$ for $i>0, \gamma\in H^\bullet(X)$;
+\item $c_{b}(Rp_\ast \CF)\cap u=0$ for $b\geq \chi(\alpha)$.
+\end{enumerate}
+Then
+\[u\in P_0^{\pa}\Rightarrow \Pi_\ast\big(c_{\chi(\alpha)-1}(\T^{\rel})\cap u\big)\in \widecheck P_0\,.\]
+The first condition is used when formulating the pair Virasoro constraints in terms of $\bL_k^\CO$ as in Conjecture \ref{conj: pairvirasoro}. Condition (2) was used in \eqref{eq: Trelvectorbundle}; in the setting of the Lemma, it is a consequence of the fact that $\T_{\Pi_\alpha}$ is a vector bundle of rank $\chi(\alpha)-1$.
+\end{remark}

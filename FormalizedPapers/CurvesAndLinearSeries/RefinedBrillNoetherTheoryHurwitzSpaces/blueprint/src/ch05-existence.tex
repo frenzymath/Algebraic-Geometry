@@ -1,0 +1,168 @@
+% Source-derived chapter 05: Existence
+% Original source: refined-brill-noether-theory-hurwitz-spaces
+\chapter{Existence}
+\label{refined-brill-noether-theory-hurwitz-spaces-chapter-05}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+
+\begin{remark}[Source section]
+\label{refined-brill-noether-theory-hurwitz-spaces-chapter-05-source}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Existence
+\label{existence}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+
+In this section, we exploit the combinatorial structure of splitting loci stratifications to deduce existence from a simple calculation.
+This relies on universal enumerative formulas for splitting loci found in \cite{L}. 
+
+\begin{theorem}[Thm. 1.1 of \cite{L}]
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\notready \label{mine}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+If $E$ is a vector bundle on $\pi: B \times \pp^1 \rightarrow B$ and $\codim \Sigmabar_{\vec{e}}(E) = u(\vec{e})$, then the class $[\Sigmabar_{\vec{e}}(E)]$ is given by a universal formula in terms of Chern classes $\pi_* E(m)$ and $\pi_*E(m-1)$ for suitably large $m$. Moreover, if this expected class is non-zero, then $\Sigmabar_{\vec{e}}(E)$ is non-empty.
+\end{theorem}
+
+To make use of the above theorem, we need the Chern classes of push forwards of twists of the vector bundle $\E$ defined in Section \ref{split}.
+
+\begin{Lemma}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\notready \label{cE}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+Let $f\colon  C \rightarrow \pp^1$ be a curve of genus $g$ with a degree $k$ map to $\pp^1$. 
+Let $\mathcal{L}$ be a Poincar\'e line bundle on $C \times \Pic^d(C)$ and let $\E = (f \times \mathrm{id})_* \mathcal{L}$ on $\pp^1 \times \Pic^d(C)$. Let $\pi: \pp^1 \times \Pic^d(C) \rightarrow \Pic^d(C)$ be the projection.
+Let $\theta$ denote the class of the theta divisor on $\Pic^d(C) = \Jac(C)$.
+Then we have $c_i(\pi_*\E(m)) = (-1)^i\theta^i/i!$ modulo classes supported on $\Supp(R^1\pi_*\E(m))$. The total Chern class is $c(\pi_*\E(m)) = e^{-\theta}$ away from $\Supp(R^1\pi_*\E(m))$.
+\end{Lemma}
+\begin{proof}
+We have a commutative diagram
+\begin{center}
+\begin{tikzcd}
+& C \arrow{r}{f} & \pp^1 \\
+&C \times \Pic^d(C) \arrow{u}{\alpha} \arrow{r}{f \times \mathrm{id}} \arrow{rd}[swap]{\nu} & \arrow{u}[swap]{\beta} \pp^1 \times \Pic^d(C) \arrow{d}{\pi}\\
+& & \Pic^d(C)
+\end{tikzcd}
+\end{center}
+Let $H = f^*(\O_{\pp^1}(1))$.
+By the projection formula, 
+\[\E(m) = ((f\times \mathrm{id})_* \L) \otimes \beta^* \O_{\pp^1}(m) =(f \times \mathrm{id})_*(\L \otimes \alpha^* H^{\otimes m}),\]
+and so $\pi_*\E(m) = \nu_*(\L \otimes \alpha^* H^{\otimes m})$. We have that $\L \otimes \alpha^*H^{\otimes m}$ is the pullback of a Poincar\'e line bundle on $C \times \Pic^{d+mk}(C)$ via the identification $\Pic^d(C) \rightarrow \Pic^{d+mk}(C)$ given by tensoring with $H^{\otimes m}$. The calculation in \cite[p. 336]{ACGH} determines the Chern classes of the push forward of a Poincar\'e line bundle $\nu_*(\L \otimes \alpha^*H^{\otimes m})$ away from $\Supp(R^1\nu_*(\L \otimes \alpha^*H^{\otimes m})) = \Supp(R^1 \pi_*\E(m))$.
+\end{proof}
+
+Given the Chern classes of $\pi_*\E(m)$, the classes of splitting degeneracy loci are (in theory) computable by the techniques of \cite{L}.
+\begin{Example} \label{revisit}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+Continuing Example \ref{Geoff}, the classes of the Brill-Noether splitting degeneracy loci on $\Pic^4(C)$ for $C$ a general trigonal curve of genus $5$ are
+\[[\Sigmabar_{(-2, -1, 0)}(\E)] = \theta, \qquad [\Sigmabar_{(-2, -2, 1)}(\E)] = [\Sigmabar_{(-3, 0, 0)}(\E)] = \frac{\theta^4}{24}, \qquad [\Sigmabar_{(-3, -1, 1)}(\E)] = \frac{\theta^5}{60}.\]
+The first three classes are computed using \cite[Lemma 5.1]{L}. The last class comes from twisting and substituting the Chern classes from Lemma \ref{cE} into the universal formula found in \cite[Example 6.2]{L}. Notice that $[\Sigmabar_{(-3, -1, 1)}(\E)]$ is twice the class of a point, as found in Example \ref{Geoff}.
+Also, $[W^1_4(C)] = [\Sigmabar_{(-2, -2, 1)}(\E)] + [\Sigmabar_{(-3, 0, 0)}(\E)] = \frac{\theta^4}{12}$ is the class computed by Kempf-Kleimann-Laksov \cite{K, KL1, KL2}.
+\end{Example}
+
+The universal formulas guaranteed by Theorem \ref{mine} are difficult to compute in general, but Lemma \ref{cE} implies the following remarkable fact.
+ Given a splitting type $\vec{e}$, let $|\vec{e}| = e_1 + \ldots + e_k$.
+
+
+\begin{Lemma}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\notready \label{hoho}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+Fix $k$ and $\vec{e} = (e_1, \ldots, e_k)$. Given $f\colon  C \rightarrow \pp^1$ a genus $g$ curve with degree $k$ map to $\pp^1$, let $d = g+k+ |\vec{e}| - 1$.
+The expected class of $\overline{\Sigma}_{\vec{e}}(C,f)$ in $\Pic^d(C)$ is $a_{\vec{e}} \cdot \theta^{u(\vec{e})}$ for some constant $a_{\vec{e}} \in \qq$ depending only on $\vec{e}$ (independent of $g$).
+\end{Lemma}
+\begin{proof}
+The loci $\overline{\Sigma}_{\vec{e}}(C,f)$ are splitting loci of the rank $k$, degree $|\vec{e}|$ vector bundle $\E = (f \times \mathrm{id})_* \L$ on $\pp^1 \times \Pic^d(C)$.
+By Theorem \ref{mine}, the expected class of $\overline{\Sigma}_{\vec{e}}(C,f)$ is given by a universal formula, depending only on $\vec{e}$, in terms of the Chern classes of $\pi_* \E(m)$ for suitably large $m$. The $i$th Chern class of this vector bundle is a multiple of $\theta^i$ that does not depend on $g$ by Lemma \ref{cE}.
+\end{proof}
+
+\begin{remark}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\notready
+For a fixed $k$, a choice of $|\vec{e}|$ determines an allowed difference $d - g = k+|\vec{e}| - 1$. The above is therefore akin to the observation that the formula for the class of $W^r_d(C)$ for general $C$ in $\M_g$ computed by Kempf-Kleiman-Laksov \cite{K, KL1, KL2} depends only on $d - g$.
+\end{remark}
+
+Lemma \ref{hoho} allows us to leverage the combinatorics of the partial ordering to deduce existence from calculations for certain special splitting types. Following \cite{L}, let us write $(-n, *, \ldots, *)$ to denote the splitting type of $\O_{\pp^1}(-n) \oplus B(k-1, |\vec{e}|+n)$.
+
+\begin{Lemma}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\notready \label{comp}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+For every $\e$, there exists $n$ such that $(-n, *, \ldots, *)\leq \e$.
+We have $a_{(-n,*,\ldots, *)} = 1/u(-n,*,\ldots,*)!$.
+\end{Lemma}
+\begin{proof}
+We may take $n = -(|\vec{e}| + e_1k)$.
+Notice that $\Supp(R^1\pi_*\E(n-1)) = \Sigmabar_{(-n-1, *, \ldots, *)}$, which has codimension larger than $u(-n, *, \ldots, *)$. Therefore, we may calculate the class of $\Sigmabar_{(-n,*, \ldots, *)}$ on the complement of $\Supp(R^1\pi_*\E(n-1))$. On the complement, Lemma \ref{cE} says that $c((\pi_*\E(n-1))^\vee) = c((\pi_*\E(n))^\vee)  = e^{\theta}$.
+By \cite[Lemma 5.1]{L},
+\[[\Sigmabar_{(-n,*, \ldots, *)}] = \left[\frac{c((\pi_*\E(n-1))^\vee)^2}{c((\pi_* \E(n))^\vee)} \right]_{u(-n,*,\ldots, *)} = \left[\frac{(e^{\theta})^2}{e^\theta}\right]_{u(-n,*,\ldots, *)}=  \frac{\theta^{u(-n,*,\ldots,*)}}{u(-n,*,\ldots,*)!}\]
+as desired.
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{main}]
+We will show that $a_{\vec{e}}$ is non-zero for all $\e$. By the second half of Theorem \ref{mine}, this will imply $\Sigmabar_{\vec{e}}(C, f)$ is non-empty whenever $u(\vec{e}) \leq g$. Then, Lemmas \ref{low} and \ref{dimbound} show that $\Sigmabar_{\vec{e}}(C, f)$ has dimension $g - u(\vec{e})$ and is the closure of $\Sigma_{\vec{e}}(C, f)$. Lemma \ref{sm} shows $\Sigma_{\vec{e}}(C, f)$ is smooth.
+
+Fix $\vec{e}$ and choose $n$ such that $(-n, *, \ldots, *) \leq \e$. Choose any $g' \geq u(-n, *, \ldots, *)$ and let $f': C' \rightarrow \pp^1$ be a general point of $\H_{k,g'}$. Let $d' = g' + k + |\vec{e}| - 1$. By Lemma \ref{comp}, $\overline{\Sigma}_{(-n, *, \ldots, *)}(C',f') \subset \Pic^{d'}(C')$ is non-empty. Thus, $\overline{\Sigma}_{\e}(C', f') \subset \Pic^{d'}(C')$ is non-empty too. By Lemmas \ref{low} and \ref{dimbound}, $\codim \overline{\Sigma}_{\e}(C', f') = u(\e)$. Being non-empty of the expected codimension on a projective variety, $[\overline{\Sigma}_{\e}(C', f') ] = a_{\vec{e}} \theta^{u(\vec{e})} \neq 0$ on $\Pic^{d'}(C')$. Hence $a_{\vec{e}} \neq 0$, as desired.
+\end{proof}
+
+
+
+\begin{thebibliography}{}
+
+\bibitem{ACGH}
+E.~Arbarello, M.~Cornalba, P.~Griffiths, and J.~Harris, \textit{Geometry of Algebraic Curves}, Springer (1985).
+
+\bibitem{CPJ} K.~Cook-Powell and D.~Jensen, \textit{Irreducible Components of Brill-Noether Loci of General Curves with Fixed Gonality}, preprint (2019).
+
+\bibitem{CM1}
+M. Coppens and G. Martens, \textit{Linear series on a general $k$-gonal curve}, Abhandlungen aus dem Mathematischen Seminar der Universitt Hamburg, 69:347, 1999.
+
+\bibitem{CM2}
+M.~Coppens and G.~Martens, \textit{On the varieties of special divisors}, Koninklijke Nederlandse Akademie van Wetenschappen, Indagationes Mathematicae, New Series, 13(1):29, 2002.
+
+\bibitem{EH1} D.~Eisenbud and J.~Harris, \textit{Limit linear series: Basic theory}, Inventiones Math. \textbf{85} (1986), 337-371.
+
+\bibitem{EH2} D.~Eisenbud and J.~Harris, \textit{A simpler proof of the Geiseker-Petri Theorem on special divisors}, Inventiones Math. \textbf{74} (1983), 269-280.
+
+
+\bibitem{EH} D. Eisenbud and J. Harris, \textit{3264 \& All That}, Cambridge University Press, 2016.
+
+\bibitem{ES} D.~Eisenbud, F.-O.~Shreyer, \textit{Relative Beilinson monad and direct image for families of coherent sheaves}, Trans. Amer. Math. Soc. \textbf{360}:10 (2008), 5367--5396.
+
+\bibitem{FL}
+W.~Fulton and R.~Lazarsfeld, \textit{On the connectedness of degeneracy loci and special divisors}, Acta Math. Vol. 146 (1981), 271--283.
+
+\bibitem{G} D.~Gieseker, \textit{Stable curves and special divisors: Petri's conjecture}, Invent. Math. \textbf{66} (1982), 251--275.
+
+\bibitem{GH} P.~Griffiths and J.~Harris, \textit{On the variety of special linear systems on a general algebraic curve}, Duke Math. J, 47 (1980), 233--272.
+
+\bibitem{HM} J.~Harris and I.~Morrison, \textit{Moduli of Curves}, Springer, 1998.
+
+\bibitem{admiss} J.~Harris and D.~Mumford, \textit{On the Kodaira dimension of the moduli space of curves}, Invent. Math. \textbf{67} (1982),
+no. 1, 23?88, With an appendix by William Fulton.
+
+\bibitem{JR}
+D.~Jensen and D.~Ranganathan, \textit{Brill-Noether theory for curves of a fixed gonality}, arXiv:1701.06579, (2017).
+
+\bibitem{K} 
+G.~Kempf, \textit{Schubert methods with an application to algebraic curves}, Publ. Math. Centrum, Amsterdam (1971).
+
+\bibitem{KL1} 
+S.~Kleiman and D.~Laksov, \textit{On the existence of special divisors}, Amer. J. Math., 94 (1972), 431--436.
+
+\bibitem{KL2}
+S.~Kleiman and D.~Laksov, \textit{Another proof of the existence of special divisors}, Acta Math. 132 (1974), 163--176.
+
+\bibitem{L}
+H.~Larson, \textit{Universal degeneracy classes for vector bundles on $\pp^1$ bundles}, arXiv:1906.10290, (2019).
+
+\bibitem{liu} 
+Q.~Liu, \textit{Reduction and lifting of finite covers of curves}, Proceedings of the 2003 Workshop on Cryptography and Related Mathematics, Chuo University, 2003, 161?180.
+
+\bibitem{Pf}
+N.~Pflueger, \textit{Brill-Noether varieties of k-gonal curves}, arXiv:1603.08856, (2016).
+
+\end{thebibliography}

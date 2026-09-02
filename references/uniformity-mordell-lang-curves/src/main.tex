@@ -1,0 +1,173 @@
+\documentclass[12pt,oneside]{amsart}
+\usepackage{amsmath,amssymb,cite,mathrsfs,tikz-cd}
+\usepackage[all]{xy}
+\usepackage{typearea} %%Makes better use of the page, IMHO
+\usepackage{hyperref} %%Clickable reference in PDF
+\usepackage{color} %% For colorful text
+
+\usepackage{pdfcomment} %% For better comments
+
+\input{macros.tex}
+\setcounter{tocdepth}{1}
+
+
+%Uncomment next three lines for better screen legibility
+%% \usepackage{xcolor}
+%% \pagecolor[HTML]{2d2d2d}
+%% \color[HTML]{cccccc}
+
+\newcommand{\pullback}[1][dr]{\save*!/#1-1.2pc/#1:(-1,1)@^{|-}\restore}
+\newcommand{\bigpullback}[1][dr]{\save*!/#1-2.2pc/#1:(-2,2)@^{|-}\restore}
+\newcommand{\leftpullbak}[1][dl]{\save*!/#1-1.2pc/#1:(-1,1)@^{|-}\restore}
+
+
+
+\newcommand{\pushoutcorner}[1][dr]{\save*!/#1+1.7pc/#1:(1,-1)@^{|-}\restore}
+\newcommand{\pullbackcorner}[1][dr]{\save*!/#1-1.7pc/#1:(-1.5,1.5)@^{|-}\restore}
+
+
+\usepackage{color}
+\newcommand{\Pcomment}[1]{\textcolor{red}{(PH)}\marginpar{\tiny\textcolor{red}{#1}}}
+\newcommand{\Pinlinecomment}[1]{\textcolor{red}{(PH)  {#1}}}
+
+\newcommand{\Gcomment}[1]{\textcolor{blue}{(ZG)}\marginpar{\tiny\textcolor{blue}{#1}}}
+\newcommand{\Ginlinecomment}[1]{\textcolor{blue}{(ZG)  {#1}}}
+
+
+\newcommand{\bestlevel}{3} %%% The minimal level structure that makes
+%%% the argument work
+
+%\makeindex  %%% Generates the index. Remove for final version.
+
+\begin{document}
+% \title{Towards uniform Mordell--Lang for curves}
+\title{Uniformity in Mordell--Lang for curves}
+%Alternative: \title{Uniform Mordell--Lang for curves and given rank}
+
+\author{Vesselin Dimitrov, Ziyang Gao and Philipp Habegger}
+
+\address{Department of Mathematics, University of Toronto, 40 St. George Street, Toronto, Ontario, Canada M5S 2E4}
+\email{dimitrov@math.toronto.edu}
+\address{CNRS, IMJ-PRG, 4 place Jussieu, 75005 Paris, France}
+\email{ziyang.gao@imj-prg.fr}
+\address{Department of Mathematics and Computer Science, University of Basel, Spiegelgasse 1, 4051 Basel, Switzerland}
+\email{philipp.habegger@unibas.ch}
+
+\subjclass[2000]{11G30, 11G50, 14G05, 14G25}
+
+% 11G30 Number Theory: Arithmetic algebraic geometry: Curves of
+% arbitrary genus or genus $\ne 1$ over global fields
+
+% 11G50 Number Theory: Arithmetic algebraic geometry: Heights
+
+% 14G05 Algebraic Geometry: Arithmetic problems. Diophantine geometry:
+% Rational points
+
+% 14G25 Algebraic Geometry: Arithmetic problems. Diophantine geometry:
+% Global ground fields
+
+\maketitle
+
+\begin{abstract}
+  Consider a smooth, geometrically irreducible, projective curve of genus
+$g\ge 2$ defined over a number field of degree $d \ge 1$.
+It has at most finitely many rational points by
+the Mordell Conjecture, a theorem of 
+Faltings. 
+We show that the number of rational points is bounded only
+in terms of $g$, $d$, and the Mordell--Weil rank of the curve's
+Jacobian, thereby answering in the affirmative a question of Mazur. 
+%when all objects are defined over an algebraic closure of $\IQ$. 
+In
+addition we obtain uniform bounds, in $g$ and $d$, for the number of
+geometric torsion points of the Jacobian which lie in the image of an
+Abel--Jacobi map. Both estimates generalize our previous work for $1$-parameter families. Our proof uses Vojta's approach to the Mordell Conjecture, and the key new ingredient is the generalization of a height inequality due to the second- and third-named
+authors.% In addition we obtain uniform bounds for the size of torsion packets.
+\end{abstract}
+
+\tableofcontents
+
+%% Section 1
+\section{Introduction}
+\input{intro.tex}
+
+%% Section 2
+\section{Betti map and Betti form}\label{SectionBettiRevisited}
+\input{BettiMapForm.tex}
+
+%% Section 3
+\section{Setup and notation for the height inequality}\label{SectionSettingUpHtIneq}
+\input{SetUpHtIneq.tex}
+
+%% Section 4
+\section{Intersection theory and height inequality on the total space}\label{SectionIntThAndHtIneq}
+\input{HtIneq.tex}
+
+%% Section 5
+\section{Proof of the height inequality Theorem~\ref{ThmHtInequality}}\label{SectionHtIneq}
+\input{NTbase.tex}
+
+%% Section 6
+\section{Preparation for counting points}\label{SectionSettingUp}
+\input{SettingUp.tex}
+
+%% Section 7
+\section{N\'{e}ron--Tate distance between points on curves}\label{SectionDistanceCurve}
+\input{DistanceCurve.tex}
+
+%% Section 8
+\section{Proof of Theorems~\ref{ThmBdRatIntro}, \ref{ThmBdFinRank}, and \ref{thm:BdTorIntroNF}}\label{SectionRatPt}
+\input{RatPt.tex}
+
+%% Section ???
+%\section{Algebraic torsion points on curves}\label{SectionAlgTor}
+%\input{AlgTor.tex}
+
+\appendix
+\renewcommand{\thesection}{\Alph{section}}
+\setcounter{section}{0}
+
+% %% Appendix A
+% \section{Overview on some aspects of Complex Geometry}
+% \input{IntOverCompSp.tex}
+
+% %%Appendix B -- TODO: remove later on 
+% \section{Positivity in Intersection Theory}\label{app:positivity}
+% \input{PositivityIntNb.tex}
+
+%% Appendix C
+\section{The Silverman--Tate Theorem revisited}\label{app:silvermantate}
+\input{silvermantate.tex}
+
+%% Appendix D
+\section{Full version of Theorem~\ref{ThmHtInequality}}\label{AppHtIneqApp}
+\input{HtIneqFinalVer.tex}
+
+
+
+
+
+%\section{Rational points on the generic fiber}
+%\input{RatPtGenFiber.tex}
+
+%\section{Stabilizer of curves}\label{sec:appendixA}
+%\input{Appendix.tex}
+
+
+\bibliographystyle{alpha}
+\bibliography{literature}
+
+%\printindex %%% Generates the index. Remove for final version.
+
+\vfill
+
+
+
+
+%\begin{center}
+%  \today
+%\end{center}
+
+\end{document}
+
+

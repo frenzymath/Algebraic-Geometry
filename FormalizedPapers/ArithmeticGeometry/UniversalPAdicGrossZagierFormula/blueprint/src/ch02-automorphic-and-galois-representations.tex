@@ -1,0 +1,444 @@
+% Source-derived chapter 02: Automorphic and Galois representations
+% Original source: universal-p-adic-gross-zagier-formula
+\chapter{Automorphic and Galois representations}
+\label{universal-p-adic-gross-zagier-formula-chapter-02}
+\source{universal-p-adic-gross-zagier-formula}
+
+\begin{remark}[Source section]
+\label{universal-p-adic-gross-zagier-formula-chapter-02-source}
+\source{universal-p-adic-gross-zagier-formula}
+\source{universal-p-adic-gross-zagier-formula}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Automorphic and Galois representations
+In this section we define the basic set up regarding  ordinary automorphic representations for our groups, and the associated Galois representations.
+
+\subsection{Groups}\label{sec: not} We introduce our notation on groups and related objects.
+\source{universal-p-adic-gross-zagier-formula}
+
+\subsubsection{Incoherent reductive groups} \lb{ssec incoh} 
+Let $F$ be a global field. For the purposes of this discussion, a `coherent' reductive  group over $F$ is just a reductive  algebraic group in the usual sense. The following notion is probably appropriate only in the context of orthogonal or unitary groups, cf. \cite{gross-incoh}; we do not explicitly restrict to that case just for the sake of brevity.
+
+ An \emph{$F$-incoherent reductive group $\G$ over $F$} is a collection of reductive  groups $\G_{v}/F_{v}$, for $v$ a place of $F$, such that for each place $w$ of $F$ there is a coherent reductive  group $\G(w)/F$ that is $w$-nearby to $\G$ in the following sense: for each place $v\neq w$, $\G(w)\ts_{F}F_{v}\cong \G_{v}$, and the groups $\G(w_{})\ts_{F}F_{w}$ and  $\G_{w} $ are non-isomorphic inner forms of each other.  
+
+ Let $F/F_{0}$ be a finite extension of global fields. An \emph{$F$-incoherent reductive  group $\G$ over $F_{0}$} is a collection of reductive groups $\G_{v_{0}}/F_{0, v_{0}}$, indexed by the places $v_{0}$ of $F_{0}$, satisfying the following. For each $v_{0}$, we may write $\G_{v_{0}}=\Res_{F_{v_{0}}/F_{0,v_{0}}}\G_{F, v_{0}}:=\prod_{v\vert v_{0}}\Res_{F_{v}/F_{0, v_{0}}} G_{F, v}$ for a collection of reductive groups $G_{F, v}/F_{v}$ that forms an $F$-incoherent algebraic group $\G_{F}$ over $F$. 
+In this  situation, we write $\G=\Res_{F/{F_{0}}} \G_{F}$. We write just `incoherent' when $F$ is unimportant or understood from context. We also write $\G(F_{v_{0}}):= \G_{v_{0}}(F_{v_{0}})$ for short.
+
+  By definition,  for all but finitely many $v_{0}$, the group $\G_{v_{0}}$ is unramified. In particular, if $S$ is a finite set of places of $F_{0}$, it makes sense to consider the restricted tensor product $\G(\A^{S}):= \prod'_{v_{0}\notin S}\G(F_{v_{0}})$. 
+  
+   It will be convenient to consider a $p$-adic variant in the case where $F=\Q$ and $\G_{F, \infty}$ is anisotropic modulo its centre (so that all its admissible representations are finite-dimensional). In this case we \emph{redefine}, for any finite set of finite places $S$,
+  $$\G(\A^{S}):= \G(\A^{S\infty})\ts G_{\infty},$$
+  where  $ \G_{\infty}:=\G_{p}(\Q_{p}) $ with the Zariski topology.
+ 
+
+
+The  main example of interest to us is the following: $F$ is our totally real number field, $F_{0}=\Q$, and $\G_{F_{v}}=\B_{v}^{\ts}$. The conditions are satisfied since, for each place $w$, there is a quaternion algebra $B(w)$ over $F$ such that $\B_{v}\cong B(w)_{v}$ if and only if $w\neq v$.   Other examples are obtained as follows: if $\G$ is an incoherent group and $\H$ is a coherent group, the product $\G\ts\H$ (whose precise definition is left to the reader) is an incoherent group. 
+
+
+
+
+\subsubsection{Hecke algebras}   Let  ${\G}$ be a coherent or incoherent reductive group over $\Q$, $A$ a ring.
+
+ If  $S$ is a finite set of primes of $\Q$ different from $p$,
+let
+$${\mathscr H}_{{\G, A}}:=C^{\infty}_{\rm c}({\G}(\A^{p\infty}),A), \qquad {\mathscr H}^{S}_{{\G}}:=C^{\infty}_{\rm c}({\G}(\A^{Sp\infty}),A)$$
+be the Hecke algebras. If $U\subset \G(\A^{\infty})$ is a compact open subgroup we let $\cH_{\G,U,A}$ and $\cH_{G, U,
+A}^{S}$ be the respective subalgebras of functions that are bi-$U$-invariant. If $S$ is \emph{$U$-spherical} in the sense  that $U_{v}$ is maximal for all $v\notin S$, we say that $ \cH_{\G,U}^{S}$ is a \emph{spherical} Hecke algebra. 
+
+If $M$ is an $A$-module with a smooth $A$-module action by ${\mathscr H}= \cH_{{\G}}$, $\cH_{{\G}}^{S}$, $\cH_{{\G},U}$, or  $\cH_{{\G},U}^{S}$, we let $\cH({M})\subset \End_{A}(M)$ by the image of $\cH$. We define the \emph{spherical Hecke algebra} acting on $M$ to be 
+$$\cH_{\G}^{\rm sph}:=\varprojlim_{S,U} \cH_{{\G},U}^{S}(M)\subset  \End_{A}(M)$$
+if the limit, taken over pairs $(S,U)$ such that $S$ is $U$-spherical, stabilises. It is equipped with an involution $\iota $ coming from the involution on $\G_{*}(\A)$. 
+
+
+ 
+ \subsubsection{Subgroups of $\G_{*}$} We restrict,  for the rest of this subsection,  to the groups in \eqref{list}, denoted collectively by $\G_{*}$. 
+Assuming that $\B_{p}$ is split, we fix an  identification $G:=\G(\Q_{p})\cong \GL_{2}(F_{p})$ for the rest of the paper, by which we obtain  $\Z_{p}$-models $\G_{*/\Z_{p}}$ for all of the groups $\G_{*/\Q_{p}}$. 
+ 
+  
+ Let $N_{\G}\subset \G(\Q_{p})\cong \GL_{2}(F_{p})$ be the subgroup of unipotent matrices. Let $N_{\H}=\{ 1\}\subset \H(\Q_{p})$, and for  $?=\emptyset$ (respectively $?= {}'$), let $N_{(\G\times \H)^{?}}:=N_{\G}\times \{1\}$ (respectively its image in $(\G\times\H)'(\Q_{p})$). Finally, let $N_{\G_{*},0}:= N_{\G_{*}}\cap \G_{*/\Z_{p}}(\Z_{p})$.  
+
+ 
+Let $T_{\G_{*}}\subset \G_{*}(\Q_{p})$ be the maximal torus consisting of diagonal matrices when $\G_{*}=\G$ and compatible with this choice when $\G_{*}$ is any other group. Let $T_{\G,0}:= T_{\G_{*}}\cap \G_{*}(\Z_{p})$ the integral subgroup.
+Let    $T_{\G_{*}}^{+}\subset T_{\G_{*}}$
+ be the normaliser of $N_{\G_{*}, 0}$ in $T_{\G_{*}}$, so that   $T_{\G}^{+}:=\prod_{v\vert p}T_{\G, v}^{+}$ with 
+ $$T_{\G, v}^{+}:=\{ \smalltwomat {t_{1}}{}{}{t_{2}} \, :\,  v(t_{1})\geq v(t_{2})\} .$$
+
+\subsubsection{Involutions} \lb{ssec invo} We denote by $\iota$ the involutions on 
+ $\cH^{\rm sph}_{\G}$ induced by $g\mapsto g^{\rm T,-1}$, and on $\H$ induced by $h\mapsto h^{-1}$.   %[[maybe edit?]]
+
+We also denote by $\iota$ the involution of $T_{\G_{*}}$  deduced by the involutions 
+\beq 
+\label{involution}
+\source{universal-p-adic-gross-zagier-formula}
+t\mapsto t^{\iota}:= t\nu(t)^{-1},
+\eeq
+where  $\nu$ denotes the reduced norm if $\G_{*}=\G$, the norm $N_{E/F}$ if $\G=\H$. 
+It preserves the sub-semigroups  $T_{\G_{*}}^{+}$.
+
+
+
+
+  
+
+  
+  
+
+
+ 
+\subsubsection{Congruence subgroups}  \lb{ssec cong}
+Let $G=\GL_{2}(F_{p})$, $H=E_{p}^{\times}$, $H'=E_{p}^{\times}/F_{p}^{\times}$,  $(G\times H)':=(G\times H)/F_{p}^{\times}$ where $F_{p}^{\times }$ is identified with the centre of $G\times H$.
+
+For $r\in \N$, define the compact subgroups $U(\vpi_{v}^{r})\subset U^{1}_{1}(\vpi_{v}^{r})\subset \GL_{2}(F_{v})$ by 
+\begin{align*}
+U^{1}_{1}(\vpi_{v}^{r}) &:= \{ \smalltwomat abcd \in \GL_{2}(\OO_{F,v})\, :\,  a-1\equiv d-1 \equiv c\equiv 0 \pmod{\vpi_{v}^{r}}\},\\
+U(\vpi_{v}^{r}) &:= \{ \smalltwomat abcd \in \GL_{2}(\OO_{F,v})\, :\,  a-1\equiv d-1 \equiv b\equiv c\equiv 0 \pmod{\vpi_{v}^{r}}\}.
+\end{align*}
+
+For each place  $v\vert p$  of $F$, we  fix $\epsilon_{v}\in F_{v}^{\times}$ such that  $E_{v}=F_{v}(\sqrt{\epsilon_{v}})$;
+for technical reasons it will be convenient to \emph{assume that $v(\epsilon_{v})\geq 1$.}
+
+
+
+ For $\ur=(r_{v})\in \N^{\{v\vert p\}}$, we define  the   compact open subgroups   $V_{F,v, r_{v}}:=1+\vpi^{r_{v}}_{v}\OO_{F,v}\subset F_{v}^{\times}$ and
+$$V_{p, \ur}=\prod_{v\vert p}V_{v, r_{v}} \subset H=\prod_{v\vert p}E_{v}^{\times},
+ \qquad U_{p,\ur}=\prod_{v\vert p}U_{v, r_{v}} \subset G=\prod_{v\vert p} \GL_{2}(F_{v})$$
+  as follows:
+\beqq\lb{Vr}
+V_{ v, r_{v}}&:=\begin{cases}
+ V_{F,v, r_{v}}(1+\vpi^{r_{v}}\OO_{E,w}) &\text{if $v $  splits in $E$}\\
+ V_{F,v, r_{v}}(1+\sqrt{\epsilon_{v}}\vpi^{r_{v}}\OO_{E,w}) &\text{if $v$ is nonsplit  in $E$}\\
+ \end{cases},\\
+  \qquad U_{ v, r_{v}}&:=
+  U_{1}^{1}(\vpi_{v}^{r_{v}}).
+\eeqq
+We also define  $V_{p, \ur}':= V_{p, \ur}F_{p}^{\times}/F_{p}^{\times}\subset H'$, and  
+$$K_{p, \ur}, K_{p}(p^{\ur})\subset (G\times H)'$$
+ to be the images of $U_{p, \ur}\times V_{p, \ur}$, $U_{p}(p^{\ur})\times V_{p, \ur}$ respectively. 
+ 
+ 
+ We also denote  $$    T_{\G_{*},r}:=T_{\G_{*}}\cap U_{*,p}(p^{r }).$$
+
+
+If $p\OO_{F,p}=\prod_{v}\vpi_{v}^{e_{v}}\OO_{F,v}$, we associate to an integer $r$ the tuple $\ur:= (e_{v}r)_{v\vert p}$. Denoting by $U_{*}$ any of the symbols $U, V, K$, we then let $U_{*,p,r}:=U_{*,p,\ur}$, $U_{*, p}(p^{r}):=U_{*,p}(p^{\ur})$. 
+
+
+
+
+
+
+
+
+
+\subsection{Algebraic representations}
+We set up some notation for algebraic representations of a (coherent or incoherent) reductive group $\G$ over $\Q$,  then  discuss in some more detail the situation for the groups of interest to us.
+Let $L$ be an extension of $\Q_{p}$, $W$ a finite-dimensional irreducible algebraic (left) representation of $\G$ over $L$.  
+Throughout the paper, we tacitly identify left and right algebraic representations of $\G$ via $g.w=w. g^{-1}$. 
+
+
+
+\subsubsection{Highest-weight character} We suppose that $\G=\G_{*}$ is one of the groups of \S~\ref{sec: not}.
+Let  $T_{\G_{*}}\subset G_{*}$ be the fixed  torus and let $N_{\G_{*}}\subset G_{*}$ be the fixed unipotent subgroup. If $W$ is an irreducible left  (respectively right) representation of $\G_{*}$, we denote by $\sigma_{W}$ the character by which $T_{\G_{*}}$ acts on the line  of highest-weight vectors $W^{N_{\G_{*}}}$ (respectively highest-weight covectors $W_{N_{\G_{*}}}$). 
+
+The highest-weight character of $W$ is related to that of its  dual by 
+\beq \label{highest weight}
+\source{universal-p-adic-gross-zagier-formula}
+\sigma_{W^{\vee}}(t)
+=\sigma_{W}(t^{\iota}),
+\eeq
+where ${\iota}$ is the involution \eqref{involution}.
+
+
+
+
+
+\subsubsection{Quaternionic  special case} Suppose that $\G(\A^{\infty})$ is 
+ the group of units of a quaternion algebra  $\B^{\infty}$ over $\A^{\infty}$. 
+Let $L$  be an extension of $\Q_{p}$ splitting $F$ and $B_{p}$.  A \emph{(cohomological)  weight} for $\G$ over $L$ is a list  $\underline{w}=(w; (w_{\sigma})_{\tau\colon F\into L})$ of   $[F:\Q]+1$ integers  of the same parity such that $w_{\sigma}\geq 2$ for all $\sigma\colon F\into L$. Denote by ${\rm Std}_{\sigma}\cong (L^{\oplus 2})^{*}$ (respectively, ${\rm Nm}_{\sigma}\cong L$) the standard (respectively, reduced norm) representation of ${\G}(\Q_{p})=B_{p}^{\times}$ factoring through $(B_{p}\otimes_{F_{p}, \sigma} L)^{\times}\cong \GL_{2}(F_{p}\otimes_{\sigma} L)$. We associate to the weight $\uw$ the algebraic representation 
+\begin{align}\label{Ww}
+\source{universal-p-adic-gross-zagier-formula}
+W_{{\G},\underline{w}}:= \bigotimes_{\sigma\in \Hom(F, L)}{\rm Sym}^{w_{\sigma}-2}{\rm Std}_{\sigma}\otimes {\rm Nm}_{\sigma}^{(w-w_{\sigma}+2)/2}
+\end{align}
+of $\G_{/\Q_{p}}$, whose dual is $W_{\G, \underline{w}^{\vee}}$ with $\underline{w}^{\vee}=(-w; (w_{\sigma}))$. 
+
+ Suppose for a moment  that $L/\Q_{p}$ is Galois, then  $\Gal(L/\Q_{p})$ acts on the set of all weights $\uw$ and,   letting $L(\uw)\subset L$ be the fixed field of the stabiliser of $\uw$, 
+ the representation $W_{\G, \uw}$ descends to a representation 
+ over $L(\uw)$.  It is then  convenient to use the following terminology: if $W$ is an algebraic representation of $\G$ over $L$ and $\uw$ is a cohomological weight over a finite extension $L'/L$, we say that $W$ is of weight $\uw$ (with respect to $L\into L'$) if $W\otimes_{L}L' \cong W_{\G,\uw}$.
+
+ 
+
+Explicitly,  $W_{\G,\uw}$ may be described as  the space of tuples  $p=(p_{\sigma})_{\sigma\colon F\into L}$ such that $p_{\sigma}\in L[x_{\sigma}, y_{\sigma}]$ is a homogeneous polynomial of degree $w_{\sigma}-2$,
+ with action  on each $\sg$-component by
+\beq\lb{ghp}
+g.p_{\sg}(x, y)= \det(\sg g)^{w-w_{\sg}+2\over 2}\cdot  p_{\sg}((x, y)\sg g).
+\eeq
+The representation $W_{\G, \uw}$ admits a natural   $\OO_{L}$-lattice, stable under the action of a maximal order in $\G(\Q_{p})$,
+\beq \label{homog poly lattice}
+\source{universal-p-adic-gross-zagier-formula}
+W_{\G, \uw}^{*,\circ}\subset W_{\G, \uw}^{*}
+\eeq
+consisting of tuples of polynomials with coefficients in $\OO_{L}$.
+
+
+
+  
+If $W=W_{\G, \uw}$, we have   $\sigma_{W}:=\otimes_{v}\sigma_{W,v}\colon T_{v}\to L^{\times}$ with 
+\beq\label{alg char}
+\source{universal-p-adic-gross-zagier-formula}
+\sigma_{W,v}\colon \smalltwomat {t_{1}} {}{}{t_{2}} \mapsto \prod_{\sigma\colon F_{v}\into L} \sigma(t_{1})^{{w+w_{\sigma}-2\over 2}}\sigma(t_{2})^{w-w_{\sigma}+2\over 2}.
+\eeq
+By abuse of notation we still denote by $\sigma_{W}=\otimes \sigma_{W,v}$ the algebraic character of $F_{p}^{\times}$ defined by 
+\beqq
+\sigma_{W, v}(x):=\sigma_{\uw, v}\left(\smalltwomat x{}{}{1}\right).
+\eeqq
+
+
+\subsubsection{Toric special case}\lb{hecke 1} Let $L$ be a finite extension of $\Q_{p}$ splitting $E$. A \emph{cohomological  weight } for $\H$ is a list  $\ul:= (l, (l_{\sigma})_{\sigma\colon F\into L})$ of $[F:\Q]+1$ integers of the same parity.  For each $\sigma\colon F\into L$, fix  an arbitrary extension $\sigma'$ of $\sigma$ to $E$ (this choice will only intervene in the numerical labelling of representations of $\H$).
+We let
+\begin{align}\label{Wl}
+\source{universal-p-adic-gross-zagier-formula}
+W_{{\H},\underline{l}}:= \bigotimes_{\sigma\in \Hom(F, L)}{\sigma'}^{l_{\sigma}}\otimes \sigma\circ{\rm Nm}_{E_{p}/F_{p}}^{{l-l_{\sigma}\over 2}},
+\end{align}
+as a $1$-dimensional vector space over $L$ with action by $\H(\Q_{p})=E_{p}^{\times}$.  After choosing an identification of this space  with $L$, it admits a lattice $W_{\H,\underline{l}}^{\circ}$, stable under the action of $\OO_{E, p}^{\times}$.  If$W$ is an algebraic representation of $\H$ over $L$ and $\ul$ is a cohomological weight over a finite extension $L'/L$, we say that $W$ is of weight $\ul$ (with respect to $L\into L'$) if $W\otimes_{L}L'\cong W_{\H,\ul}$.
+
+
+
+
+\subsection{Shimura varieties and   local systems}
+We  again write $\G_{*}$ to denote any of the groups \eqref{list}. 
+
+
+
+\subsubsection{Shimura varieties}\lb{ssec shi}
+ For $\tau$ an infinite place of $F$,  let $\G_{\tau}=\Res_{F/\Q}\G_{F}(\tau)$ be the $\tau$-nearby group as  in \S~\ref{ssec incoh}.  Consider the  Shimura datum $(\G_{\tau}, \{h_{\G, \tau}\})$, where $h_{\G, \tau}\colon {\rm S}:=\Res_{\bC/\R}{\bf G}_{m}\to \G_{\R}$ the Hodge cocharacter of  \cite[\S0.1]{carayol}.   Let $h_{\H}\colon  {\rm S} \to \H_{\R}$ be the unique cocharacter such that ${\rm e}_{\R}\circ h_{\H}=h_{\G}$. By products and projections we deduce Hodge cocharacters $h_{\G_{*}, \tau}$, hence Shimura data $(\G_{*, \tau}, h_{\G_{*, \tau}})$, for any of the groups \eqref{list}; from $h_{\H, \tau}$ we also obtain an extension of $\tau $ to an embedding $\tau\colon E\into \bC$.  Then we obtain towers of Shimura varieties  $X_{*, \tau}/\tau E_{*}$, where  the reflex field $E_{*}:=E$ unless $\G_{*}=\G$, in which case  $E_{*}=F$.  
+  These data descend to $E_{*}$: there are towers  
+  $$X_{*}/E_{*}$$ such that $X_{*}\ts_{\Spec E_{*}} \Spec \tau E_{*}=X_{*,\tau}$, see \cite[\S~3.1]{yzz}. Throughout this paper, we will also use the notation $\baar{X}_{*}:=X\ts_{\Spec E_{*}}\Spec{\baar{E}_{*}}$.
+ 
+ 
+ 
+ We will use also the specific names \eqref{shlist} for those varieties; an explicit description of some of them is as follows:
+\beq\lb{z quot}
+X_{U, \tau}(\bC)&\cong B(\tau)^{\ts}\bks \mathfrak{h}^{\pm}\ts \B^{\infty\ts}/ U \cup \{\text{cusps}\}, \qquad Y_{V}(E^{\rm ab}) \cong E^{\ts}\bks E_{\A^{\infty}}^{\ts}/V, 
+\\ Z_{K} &\cong X_{U}\ts Y_{V}/\Delta_{U, V}, \qquad \Delta_{U, V}:= F_{\A^{\infty}}^{\ts}/F^{\ts}\cdot ((U\cap  F_{\A^{\infty}}^{\ts})\cap (V\cap  F_{\A^{\infty}}^{\ts})) 
+\eeq
+if $K\subset (\G\ts\H)'(\A^{\infty})$ is the image of $U\ts V$.
+
+\subsubsection{Automorphic local systems}
+ Let $W$ be an irreducible cohomological {right} algebraic representation of $\G_{*}$ over $L$, let $U_{*}\subset \G_{*}(\A^{\infty})$ be a sufficiently small (in the sense of Lemma \ref{free action} below)  compact open subgroup, let $W^{\circ}\subset W $ be a $U_{*,p}$-stable  $\OO_{L}$-lattice, and let $U_{*,p, n}\subset U_{*,p}$ be a subgroup acting trivially on $W^{\circ}/p^{n}W^{\circ}$.
+ 
+\begin{lemm}\label{free action} If $U^p_*$ is sufficiently small (a condition independent of $n$), then:
+\source{universal-p-adic-gross-zagier-formula}
+\begin{enumerate}
+\item The quotient $\baar{\G}_n:=U_{*,p}/U_{*,p, n}({\rm Z}_{\G_*}(\Q) \cap U_*)_p$ acts freely on $X_{U_*^pU_{*,p,n}}$, hence $X_{*,U_*^pU_{*,p,n}}\to X_{*, U_*}$ is an \'etale  cover with Galois group $\baar{\G}_{*,n}$. 
+\item The group ${\rm Z}_{\G_*}(\Q) \cap U_*$ acts trivially on $W^{\circ}$.
+\end{enumerate}
+\end{lemm}
+\begin{proof} The first assertion is \cite[Lemme 1.4.1.1]{carayol}  when $\G_*=\G$ (other cases are similar or easier).
+For the second assertion, we may reduce to the case $\G_*=\G $ or $\G_*=\H$, with centre ${\rm Z}_{\G_*}={\rm Res}_{E_*/\Q}\G_m$. For any $U_*$, the group ${\rm Z}_{\G_*}(\Q) \cap U_*$ has has finite index in $\OO_{E_*}^\times$, therefore  for sufficiently small $U_*^p$ 
+it  is contained in the finite-index subgroup $\OO_{F}^{\times, 1}:=\{z\in \OO_F^\times \, :\, N_{F/\Q}(z)=1\}\subset \OO_{E_*}^\times$. But since $W$ is of cohomological weight, the group $\OO_{F}^{\times, 1}$ acts trivially. 
+\end{proof}
+
+
+ Assume first that $X_{*}$ is compact.   
+  Then, by the lemma,
+ \begin{align}\label{Upn}
+\source{universal-p-adic-gross-zagier-formula}
+ (X_{*,U_{*}^{p}U_{*,p, n}}\times W^{\circ}/p^{n}W^{\circ})/\baar{\G}_{*,n}
+ \end{align}
+ defines a locally constant \'etale $\OO_{L}/p^{n}\OO_{L}$-module  $\cW^{n}$over $X_{*,U_{*}}$. We let 
+ $$ \cW^{\circ}:=  (\varprojlim_{n} \cW^{ n}),$$
+   an $\OO_{L}$-local system on $X_{*, U_{*}}$, and consider 
+   $$\cW:=\cW^{\circ}\otimes_{\OO_{L}}L.$$ The $L$-local system $\cW$  is compatible with pullback in the tower $\{X_{*, U_{*}}\}$ and, up to isomorphism, independent of the choice of lattice $W^{\circ}$.  When $X_{*}$ is the compactification of a noncompact Shimura variety $X_{*}'$ (essentially only when $\G=\GL_{2/\Q}$), we perform the above construction on  $X'_{*}$ and then push the resulting sheaf forward to $X_{*}$. 
+   
+
+\subsection{Ordinary automorphic representations}  Keep the assumption that $\G_{*}$ is one of the groups in \eqref{list}.
+\subsubsection{$p$-adic automorphic representations}
+Let $L$ be an extension of $\Q_{p}$, $W$ a finite-dimensional irreducible algebraic left representation of 
+$G_{*,\infty}=\G_{*}(\Q_{p})$  over $L$. 
+\begin{defi}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\label{aut-def} A (regular algebraic cuspidal) \emph{automorphic representation of $\G_{*}(\A^{})$ over $L$ } of weight $W$
+\source{universal-p-adic-gross-zagier-formula}
+is an irreducible admissible locally algebraic representation $\pi$ of 
+$$\G_{*}(\A^{}):=\G(\A^{\infty})\ts G_{*,\infty}$$
+ that can be factored as $$\pi=\pi^{\infty}\ot W$$
+such that $\G_{*}(\A^{\infty})$ acts smoothly on $\pi^{\infty}$, $\G_{*, \infty}$ acts algebraically, and $\pi$ occurs as a subrepresentation of $$\H^{\bullet}(\baar{X}_{*}, \cW^{\vee})=\varinjlim_{U\subset \G_{*}(\A^{\infty})}H^{\bullet}(\baar{X}_{*, U}, \cW^{\vee})\ot W,$$
+where $X_{*}$ is the compactified Shimura variety attached to $\G_{*}$, and $\cW^{\vee}$ is the local system on $X$ attached to $W^{\vee}$.
+
+
+
+In the quaternionic or toric case, we say that $\pi$ is of weight $\uw$ (a cohomological weight for $\G$ over some finite extension $L'/L$) if $W$ is of weight $\uw$ as defined after \eqref{Ww} (respectively \eqref{Wl}).\footnote{These notions depend of course on $L\into L'$; nevertheless they will only be used to impose conditions on the weights that are invariant under the Galois group of $L$.}
+\end{defi}
+We will use subscripts $p$, respectively $\infty$, respectively $p\infty$, to denote an element of $\G(\A)$ in the copy of $\G(\Q_{p})$ contained in $\G(\A^{\infty})$, respectively in the  `algebraic copy' $G_{\infty}$, respectively the diagonal copy in the product of the previous two. 
+
+\begin{rema}
+\source{universal-p-adic-gross-zagier-formula}
+\notready The previous definition follows the work of Emerton  (\cite{emerton}). It slightly departs from it in  that in \cite{emerton}, one restricts to considering the action of the product of $\G(\A^{p\infty})$ and the diagonal copy of $\G(\Q_{p})$. While this is indeed the part that acts integrally, we do have use for the non-integral action of each individual copy (cf.  \S~\ref{sec: A1}). The corresponding local notions are introduced in Definition \ref{def admiss}.
+\end{rema}
+
+\subsubsection{Quaternionic  special case and ordinarity} \lb{242}
+Suppose that $\G_{*} =\G$ and $\B_{p}$ is split,  or that  $\G_{*}=\G_{0}=\Res_{F/\Q}\GL_{2}$ for a totally real field $F$.  
+ An automorphic representation  $\pi$ over  $L$ of weight $W_{\G_{*}, \uw}$ is also said to be  of weight $\uw$.
+
+
+
+
+\begin{defi}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\label{ord-def} 
+\source{universal-p-adic-gross-zagier-formula}
+We say that an automorphic representation $\pi$ of $\G_{*}(\A^{})$ over $L$ of classical weight $W=W_{\G_{*}, \uw}$ is \emph{ordinary} at $ v$ with unit character $\alpha_{v}^{\circ}$
+if there exists  a  smooth character $\alpha_{v}$ of $T_{v}$ 
+such that  $\pi_{v}$ is 
+the unique irreducible subrepresentation of
+${\rm Ind}(\alpha_{v}\cdot( |\ |_{v} , |\ |_{v}^{-1}))$ and
+the locally algebraic character
+\begin{align}\label{alphacirc}
+\source{universal-p-adic-gross-zagier-formula}
+\alpha_{v}^{\circ}:=\alpha_{v}
+\sigma_{W, v}\colon T_{v}\to L^{\ts}
+\end{align}
+ takes values in $ \OO_{L}^{\times}$.\footnote{This notion agrees with the notion of $\pi$ being \emph{nearly ordinary} as defined in the work of Hida (e.g. \cite{hida-adv}).}
+
+(It follows from  the parity conditions on the weights 
+   that the indicated subrepresentation is always infinite-dimensional; moreover if $\pi_{v}$ is ordinary then the character 
+$\alpha_{v}$ of $T_{v}$    is uniquely determined by $\pi_{v}$.) 
+We  say that $\pi$ is \emph{ordinary} if it  is ordinary at all $v\vert p$. 
+\end{defi}
+
+
+
+
+
+ Let  $v\vert p $ be a prime of $F$ and $\vpi_{v}$ a uniformiser.
+For $t\in T_{v}^{+}$ or $x\in F_{v}^{\times}$ with $v(x)\geq0$, define the double coset operators
+\beq\label{aut-Up}
+\source{universal-p-adic-gross-zagier-formula}
+ \Up_{t}&:=[U_{1}^{1}(\vpi_{v}^{r}) \,  t \, U_{1}^{1}(\vpi_{v}^{r})_{v}], \\
+ \Up_{x}&:= \Up_{\smalltwomat x{}{}1},\\
+ \Up_{v} &:=\Up_{\vpi_{v}},
+\eeq
+which act on the $N_{0}$-fixed vectors of any locally algebraic representation of $\GL_{2}(F_{v})$ (see also \S~\ref{A1} for further details).
+  Then $\pi$ is ordinary at $v$ with  unit character $\alpha_{v}^{\circ}$ if and only if,  for sufficiently large $r$,
+   the space of  $U_{1}^{1}(\vpi_{v}^{r})$-fixed vectors in the  locally algebraic representation
+$$\pi_{v}\otimes_{L} W$$
+of $\GL_{2}(F_{v})$ contains a (necessarily unique) line of   eigenvectors for the diagonal action of the operators   $\Up_{x}$,  $x\in F_{v}^{\times}$,  with eigenvalue $\alpha^{\circ}(x)$. Specifically, if $w_{v}\in \pi_{v}$ is a $\Up_{x}$-eigenvector of eigenvalue $\alpha_{v}(\vpi_{v})$, then such line is 
+  $$\pi_{v}^{\ord}:= L w_{v}\otimes W^{N_{v}} $$
+  %rimosso \vee 9/10/17
+where  $W^{N_{v}}$ is the line of  highest-weight vectors of $W$.
+
+
+If $\pi$ is an automorphic representation that is ordinary at  all $v\vert  p$, extend $\alpha_{v}^{\circ}$ to a character of $T_{v}^{+}$ by the formula \eqref{alphacirc}, and let $\alpha^{\circ}=\prod_{v\vert p}\alpha_{v}^{\circ}\colon T^{+}=\prod T_{v}^{+}\to L^{\times}$; then we define
+\beq\label{piord}
+\source{universal-p-adic-gross-zagier-formula}
+\pi^{\ord}:=\pi^{p\infty} \otimes\otimes_{v\vert p} \pi_{v}^{\ord},
+\eeq
+as a smooth representation of $\G(\A^{p\infty})$ and  a locally algebraic representation of $T^{+}$ on which $ T^{+}$ acts by $\Up_{t}\mapsto \alpha_{v}^{\circ}(t)$. 
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Toric special case}  \lb{hecke 2}
+Suppose now that $E$ is a CM field and that $\G_{*}=\H:={\rm Res}_{E/\Q}\G_{m}$. 
+Then a $p$-adic automorphic representation of $\H$ of weight $W_{\H, \ul}$ is 
+simply the space of scalar multiples of a locally algebraic character $\chi\colon E^{\times}\bks E_{\A^{\infty}}^{\times}\to L^{\times}$ whose restriction to a sufficiently small open subgroup of $E_{p}^{\times}$ coincides with  the character of $W_{\H, \ul}$. 
+
+
+
+\subsubsection{Convention} We use the convention  that all automorphic representations of $\H(\A^{\infty})$ are ordinary, and that a  representation $\pi\otimes \chi$ of $\G\times \H$ of cohomological weight is cuspidal and  ordinary  if $\pi$ and $\chi$ are.
+
+
+
+
+\subsection{Galois representations} Let $\G$ be as in \S~\ref{242}. 
+\subsubsection{Galois representations attached to automorphic representations of $\G(\A^{})$}
+The following notation is used throughout the paper: if $V$ is a representation of $G_{F}$ and $v$ is a prime of $F$, we denote by $V_{v}$ the restriction of $V$ to a decomposition group at $v$. 
+
+\begin{theo}
+[Ohta, Carayol, Saito]\label{galois for hilbert}
+\source{universal-p-adic-gross-zagier-formula}
+ Let $L$ be a finite extension of $\Q_{p}$, let $W$ be an irreducible algebraic representation of $\G$ over $L$, and   let $\pi$ be an automorphic representation of $\G(\A^{\infty})$ of weight $W$ over $L$.   Let $S$ be a finite set of non-archimedean places of $F$ containing all the places at which $\pi$ is ramified and the places above $p$. 
+ There exists a  $2$-dimensional 
+$L$-vector  space $V_{\pi}$ and an absolutely irreducible Galois representation
+$$\rho=\rho_{\pi}\colon G_{F,S}\to{\rm Aut}(V_{\pi})$$
+uniquely determined by the property that for every finite place $v\notin  S$ of $F$, 
+\begin{align}\label{trrho}
+\source{universal-p-adic-gross-zagier-formula}
+{\rm Tr}(\rho({\rm Fr}_{v}))= q_{v}^{-1}\lambda_{\pi_{v}}(T_{v})\end{align}
+where ${\rm Fr}_{v}$ is a geometric Frobenius,   $T_{v}\in \mathscr{H}^{\rm sph}_{\GL_{2}(F_{v})}$ is the element corresponding to the double class $K_{0}(1)\smalltwomat {\vpi_{v}}{}{}1K_{0}(1)$, and $\lambda_{\pi_{v}}\colon \cH_{\GL_{2}(F_{v})}^{\rm sph}\to L$ is the character giving the action  on $\pi_{v}^{K_{0}(1)}$. 
+
+For a prime $v$ of $F$, let $\rho_{v}$ be the restriction of $\rho$ to a decomposition group at $v$. 
+\begin{enumerate}
+\item The representation $\rho_{v}$ is unramified for almost all $v$ and potentially semistable for $v\vert p$. For every finite place $v$,  the Weil--Deligne representation $r_{v}$ attached to $\rho_{v}$ is associated with $\pi_{v}$ via the local Langlands correspondence normalised ``\`a la Hecke'' \cite[\S~ 3.2]{deligne}:
+$$L(s, r_{{v}})=L(s+1/2, \pi_{v}).$$
+\item For  every finite place $v$, $r_{v}$
+ satisfies the weight-monodromy conjecture: its monodromy filtration is pure 
+ of weight $w-1$. The monodromy filtration is trivial if and only if $\pi_{v}$ is not a special representation.
+ \item For any archimedean place $v$, the representation $\rho_{v}$ is odd, that is if  $c_{v}\in G_{F_{v}}$ is the complex conjugation, $\det \rho_{v}(c_{v})=-1$.
+ \item 
+If $W=W_{\G, \uw}$ with  $\uw=(w; (w_{\sigma})_{\sigma\colon F\into \baar{L}})$, then for each $v\vert p$ and $\sigma\colon F_{v}\into  \baar{L}$, 
+\begin{itemize}
+\item 
+ the   $\sigma$-Hodge--Tate weights \footnote{If $V$ is a Hodge--Tate representation of $G_{F_{v}}$ over $\baar{L}$ and $\sigma \colon F_{v}\into \baar{L}$, the $\sigma$-Hodge--Tate weights of $V$ are the degrees in which the graded module  
+$$( \oplus_{n} \bC_{v}(n)\otimes_{\baar{F}_{v},\sigma} V)^{G_{F_{v}}}$$
+is nonzero; here $\bC_{v}$ is a completion of $\baar{F}_{v}$ and, in the tensor product, $\sigma $ is extended to an isomorphism $\baar{F}_{v}\to \baar{L}$.
+In particular our convention is that the Hodge--Tate weight of the cyclotomic character of $\Q_{p}$ is $-1$.}
+of $\rho_{v}\otimes_{L }\baar{L}$ are
+$$-1-{w+w_{\sigma}-2\over 2}, \qquad -{w-w_{\sigma}+2\over 2}.$$
+\item\label{phig} if $\pi$ is ordinary   at $v$ in the sense of Definition \ref{ord-def},
+\source{universal-p-adic-gross-zagier-formula}
+ then there is a unique  exact sequence  in the category of  $G_{F,v}$-representations
+\beq\lb{fil}0\to V^{+}_{\pi, v} \to V_{\pi, v} \to V_{\pi,v}^{-}  \to 0, \eeq
+ such that  $V^{\pm}_{\pi, v}$ is $1$-dimensional.
+ 
+ The Galois group $G_{F, v}$ acts on $V^{+}_{\pi,v}$ by the character
+ $$\alpha_{\pi,v}^{\circ}\chi_{{\rm cyc},v}\colon F_{v}^{\ts}\to L^{\times},$$
+  where $\alpha_{\pi,v}^{\circ}$ is \eqref{alphacirc}.
+\end{itemize}
+\end{enumerate}
+\end{theo}
+\begin{proof}
+The construction and statements 1 and  2 for $v\vert p$ are the main results of  Carayol in \cite{carayol}. Statements  1  and 2 for $v\vert p $  were proved  by T.  Saito \cite[Theorems 2.2, 2.4]{saito}. 
+For the last two statements, we refer to \cite[Proposition 6.7]{TX} and references therein;  note  that  
+in comparison with  the notation of \cite{TX}, our $\rho$ equals their $\rho_{f}(1)$,
+and  our $(w; \underline{w})$ is their  $(w-2, {\underline k})$.
+\end{proof}
+
+
+
+   
+\subsubsection{Realisation in the homology of Shimura varieties} \lb{ssec real}
+Let $\G_{*}$ be again one of the groups of \eqref{list}. 
+We introduce a new piece of notation. Let 
+$$G_{F, E}:=G_{F}\ts G_{E},$$
+and similarly  for a finite set of places $S$, $G_{F, E, S}:=G_{F, S}\ts G_{E,S}$. If $\G_{*}=\G\ts \H$ or $(\G\ts \H)'$, we \emph{redefine}
+$$G_{E_{*}}:= G_{F, E }.$$
+(This is an abuse of notation, as we have not redefined $E_{*}$.)
+This product of Galois groups  acts on the homology $\overline{X}_{*}$: this is clear by the K\"unneth formula in the case of $\G\ts \H$, and follows from that case and the Galois-invariance of the quotient map  for  $(\G\ts \H)'$. 
+
+The following is  the main result of \cite{carayol-h} in the special case $\G_{*}=\G$; the general case may be deduced from the special case together with the case $\G_{*}=\H$ (that is  class field theory).
+
+\begin{prop}[Carayol]
+\source{universal-p-adic-gross-zagier-formula}
+\notready   Let $U_{*}\subset \G_{*}(\A^{\infty})$ be a compact open subgroup, $W$ be an irreducible   right algebraic representation of $
+\G_{*}$ over $L$,  $\cW$ the local system on $X_{*, U_{*}}$ associated with $W$. Let $L'$ be a sufficiently large finite Galois extension of $L$.
+
+
+ Then there is an isomorphism of $\cH_{\G_{*}, U_{*}, L}[G_{E_{*},S}]$-modules
+\beq\label{carayol iso 2}
+\source{universal-p-adic-gross-zagier-formula}
+\H_{d}(\baar{X}_{*, U_{*}}, \cW) \ot_{L}L' \cong \bigoplus_{\pi } \pi^{\vee, U_{*}}\otimes V_{\pi},
+\eeq
+equivariant for the action of $\Gal(L'/L)$, 
+where $\pi$ runs through all   equivalence classes of automorphic representations of $\G_{*}(\A)$ of weight $W$ over $L'$. 
+\end{prop}

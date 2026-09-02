@@ -1,0 +1,537 @@
+% Source-derived chapter 05: Differentials on abelian varieties
+% Original source: chabauty-coleman-bound-surfaces
+\chapter{Differentials on abelian varieties}
+\label{chabauty-coleman-bound-surfaces-chapter-05}
+\source{chabauty-coleman-bound-surfaces}
+
+\begin{remark}[Source section]
+\label{chabauty-coleman-bound-surfaces-chapter-05-source}
+\source{chabauty-coleman-bound-surfaces}
+\source{chabauty-coleman-bound-surfaces}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Differentials on abelian varieties
+\label{SecRestrictions}
+\source{chabauty-coleman-bound-surfaces}
+
+We recall that $k$ is an algebraically closed field. Several results in this section will be stated only for positive characteristic as we just need them in this case and the counterpart for characteristic $0$ is either easier or well-known.  
+
+Let $A$ be an abelian variety over $k$ of dimension $n\ge 1$. The neutral point of $A$ is denoted by $e$. For a point $x\in A(k)$, the map of translation by $x$ is denoted by $\tau_x$. If $Z_1$ and $Z_2$ are algebraic cycles of dimensions $r_1$ and $r_2$, the intersection $Z_1.Z_2$ is an algebraic cycle of dimension $2n-r_1-r_2$ defined up to algebraic equivalence. For $0$-cycles we have a $\Z$-valued degree map denoted by $\deg$.
+
+If $X$ is a subvariety of $A$, the smallest translate $B$ of an abelian subvariety of $A$ with $X\subseteq B$ is denoted by $\langle X\rangle$. If $e\in X$ then $\langle X\rangle$ is an abelian subvariety of $A$.
+
+%%
+%%
+\begin{lemma}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{LemmaAmpleAbVar} Let $D$ be a non-zero effective divisor on $A$. If $\supp(D)$ contains no translate of positive dimensional abelian subvarieties of $A$, then $D$ is ample.
+\source{chabauty-coleman-bound-surfaces}
+\end{lemma}
+\begin{proof} Define $H(D)=\{x\in A(k) : \tau_x^*D=D\}$ where $\tau_x^*D=D$ is an equality of divisors, not just up to equivalence. Then $H(D)$ is the set of $k$-points of a Zariski-closed subgroup of $A$ which we also denote by $H(D)$. Taking any $x_0\in \supp(D)$ we get $H(D)+x_0\subseteq \supp(D)$. Our assumption on $\supp(D)$ implies that $H(D)$ is zero dimensional, hence, finite. By Application 1 in p.60 of \cite{Mumford} we get that $D$ is ample.
+\end{proof}
+%%
+%%
+
+%%%%
+%%%% 
+\subsection{Degrees} Let $D$ be a divisor on $A$. It induces a morphism $\phi_D: A\to A^\vee$ by the rule $\phi_D(x) = [\tau_x(D)-D]$. We have 
+$$
+\deg(\phi_D)= \left(\frac{\deg(D^n)}{n!}\right)^2.
+$$
+See \cite{Mumford} p.150. If $D$ is ample, then $\phi_D$ is an isogeny.
+
+Given $\psi\in \End(A)$ and a prime $\ell$ different from the characteristic of $k$, we consider the polynomial $P_\psi(t)=\det(t\cdot \Id_A-\psi | T_\ell (A))$ where $T_\ell(A)$ is the $\ell$-adic Tate module of $A$. The polynomial $P_\psi(t)$ is in $\Z[t]$, it is monic, independent of $\ell$, and it has degree $2n$. For $r\in \Z$ one has $P_\psi(r)=\deg([r]_A -\psi)$ where $[r]_A\in \End(A)$ is the map of multiplication by $r$. Thus, $P_\psi(0)=\deg(\psi)$. See \cite{Mumford} p.180. 
+
+We define $\tr(\psi)=\tr(\psi| T_\ell A)$, which is the negative of the coefficient of $t^{2n-1}$ in $P_\psi(t)$.
+
+
+Let $\Sbf$ be the addition map from the group of $0$-cycles on $A$ to $A(k)$. For a $1$-cycle $Z$ and a divisor $D$ we define $\alpha_A(Z,D)\in \End(A)$ by $\alpha_A(Z,D)(x)=\Sbf(Z.(\tau_x(D)-D))$, see \cite{Morikawa, Matsusaka}. By \cite{Matsusaka} p.8, 
+%%
+%%
+\begin{equation}\label{EqnTrAlpha}
+\source{chabauty-coleman-bound-surfaces}
+\tr(\alpha_A(Z,D)) = 2\cdot \deg(Z.D).
+\end{equation}
+%%
+%%
+
+For a variety $X$ and an irreducible curve $C\subseteq X$ we let $\nu_{C/X}: \widetilde{C}\to X$ be the composition of the normalization map $\widetilde{C}\to C$ and the inclusion $C\to X$. 
+
+
+Let $C\subseteq A$ an irreducible curve. Fix a point $x\in \widetilde{C}$ and consider the associated jacobian embedding $j_x:\widetilde{C}\to J_{\widetilde{C}}$. By functoriality, we get maps $\nu_{C/A,*} : J_{\widetilde{C}}\to A$ and $\nu_{C/A}^* : A^\vee \to J_{\widetilde{C}}$ where $\nu_{C/A} = \nu_{C/A,*}\circ j_x$. Given a divisor $D$ on $A$, from \cite{Matsusaka} Lemma 3 we get
+%%
+%%
+\begin{equation}\label{EqnDefAlpha}
+\source{chabauty-coleman-bound-surfaces}
+\alpha_A(C,D) = \nu_{C/A,*}\circ \nu_{C/A}^*\circ \phi_D.
+\end{equation}
+%%
+%%
+The following result follows from Lemma 3.6 in \cite{Debarre}.
+%%
+%%
+\begin{lemma}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{LemmaSquare} Let $C$ be an irreducible curve with $\langle C\rangle =A$ and let $D$ be an ample divisor on $A$. There is a monic polynomial $Q_{C,D}(t)\in \Z[t]$ of degree $n$ such that $P_{\alpha_A(C,D)}(t)=Q_{C,D}(t)^2$. The roots of $Q_{C,D}(t)$ are all real and positive.
+\source{chabauty-coleman-bound-surfaces}
+\end{lemma}
+%%
+%%
+If $Z$ is an $r$-cycle on $A$, the degree of $Z$ relative to a divisor $H$ is the intersection number $\deg_H (Z)= \deg(H^r.Z)$. If $X\subseteq A$ is a smooth subvariety of dimension $d\ge 1$, the \emph{canonical degree} of $X$ relative to $H$ is $\cdeg_H(X)=\deg(H^{d-1}.K_X)$, where $K_X$ is a canonical divisor on $X$ considered as an algebraic cycle in $A$. For instance, if $B$ is an abelian subvariety of $A$, then $\cdeg_H(B)=0$.
+
+
+%%
+%%
+\begin{lemma}[Degrees for surfaces in abelian $3$-folds]
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{LemmaDegXA} Let $X$ be a smooth projective surface contained in an abelian threefold $A$. Then $X|_X$ defines a canonical divisor on $X$ and 
+\source{chabauty-coleman-bound-surfaces}
+$$
+\deg_X(X)=\cdeg_X(X)=\deg(X^3)_A=c_1^2(X).
+$$
+\end{lemma}
+\begin{proof} As $A$ has trivial canonical sheaf, $X|_X$ gives a canonical divisor on $X$ by the adjunction formula (\cite{Hartshorne} Proposition II.8.20). Thus,  $\deg(X^3)_A=\deg(X.K_X)_A=\deg(K_X.K_X)_X=c_1^2(X)$.
+\end{proof}
+%%
+%%
+
+%%%% 
+\subsection{Restriction of $1$-forms} We assume that $k$ has positive characteristic $p$.
+
+%%
+%%
+\begin{lemma}[Injectivity for curves]
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{LemmaInjCurves} Let $H$ be an ample divisor on $A$. Let $C$ be an irreducible curve in $A$ with $\langle C\rangle =A$. Suppose that
+\source{chabauty-coleman-bound-surfaces}
+$$
+p>\frac{n!}{n^n}\cdot \frac{\deg_H(C)^n}{\deg(H^n)}.
+$$  
+Then the map $\nu_{C/A}^\bullet : H^0(A,\Omega^1_{A/k})\to H^0(\widetilde{C}, \Omega^1_{\widetilde{C}/k})$ is injective.
+\end{lemma}
+%%
+%%
+\begin{proof} Fix a point $x\in \widetilde{C}$ and consider the associated embedding $j: \widetilde{C}\to J=J_{\widetilde{C}}$. We have an isomorphism $j^\bullet : H^0(J,\Omega^1_{J/k})\to H^0(\widetilde{C}, \Omega^1_{\widetilde{C}/k})$ which is canonical in the sense that it does not depend on the choice of $x$ (because the regular differentials on $J$ are translation invariant).
+
+Let $\alpha =\alpha_A(C,H)$ and $\beta = \nu_{C/A,*}\circ \nu_{C/A}^* : A^\vee \to A$. Thus, $\alpha=\beta\circ \phi_H$ by \eqref{EqnDefAlpha}. 
+
+Since $H$ is ample, Lemma \ref{LemmaSquare} gives $P_\alpha(t)=Q(t)^2$ for a monic polynomial $Q(t)\in \Z[t]$ of degree $n$, whose roots $\gamma_1,...,\gamma_n$ (counting multiplicity) are real and positive. Hence $\deg(\alpha)=P_\alpha(0)=Q(0)^2=(\gamma_1\cdots \gamma_n)^2 >0$. It follows that $\alpha:A\to A$ is an isogeny, and so is $\beta: A^\vee\to A$. Furthermore, $\deg(\phi_H)=\deg(H^n)^2/n!^2$ so we get 
+$$
+\deg(\beta)=\frac{\deg(\alpha)}{\deg(\phi_H)}=\left(\frac{n! Q(0)}{\deg(H^n)}\right)^2.
+$$
+This integer is the square of a rational number, so $M=n! |Q(0)|/\deg(H^n)$ is a positive integer. By the arithmetic-geometric mean inequality we have
+$$
+M = \frac{n!}{\deg(H^n)}\cdot \gamma_1\cdots \gamma_n\le \frac{n!}{\deg(H^n)}\left(\frac{\gamma_1+...+ \gamma_n}{n}\right)^n = \frac{n!}{\deg(H^n)}\left(\frac{\deg(C.H)}{n}\right)^n
+$$
+where the last equality uses $\tr(\alpha)=-2(\gamma_1+... + \gamma_n)$ and \eqref{EqnTrAlpha}. Therefore, $p>M$.
+
+Since $M$ is a positive integer and $\deg(\beta)=M^2$, we conclude that $p$ does not divide $\deg(\beta)$. So, $\beta$ is a separable isogeny, giving that $\beta^\bullet : H^0(A,\Omega^1_{A/k})\to H^0(A^\vee,\Omega^1_{A^\vee/k})$ is an isomorphsm. As $\beta = \nu_{C/A,*}\circ \nu_{C/A}^*$, we get that $(\nu_{C/A,*})^\bullet : H^0(A,\Omega^1_{A/k})\to H^0(J,\Omega^1_{J/k})$ is injective. Since $\nu_{C/A} = \nu_{C/A,*}\circ j$ and $j^\bullet$ is an isomorphism, we conclude that $\nu_{C/A}^\bullet$ is injective.
+\end{proof}
+%%
+%%
+We remark that if $n=3$ and $C$ is smooth, then the condition on $p$ can be dropped by a result of Nakai \cite{NakaiNotes}. However, this is not enough for us because we will consider possibly singular curves.
+
+
+
+
+%%
+%%
+\begin{lemma}[Semi-injectivity on canonical divisors]
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{LemmaSemiInj} Let $X$ be a smooth surface contained in $A$. Let $D$ be an effective canonical divisor of $X$ and let $C\subseteq X$ be an irreducible curve contained in the support of $D$. Consider the map $\nu_{C/A}^\bullet: H^0(A,\Omega^1_{A/k})\to H^0(\widetilde{C},\Omega^1_{\widetilde{C}/k})$. We have the following:
+\source{chabauty-coleman-bound-surfaces}
+\begin{itemize}
+\item[(i)] If $n=3$, $X$ is an ample divisor on $A$ containing no elliptic curves, and %%
+\begin{equation}\label{EqnSemi1}
+\source{chabauty-coleman-bound-surfaces}
+p> c_1^2(X),
+\end{equation} 
+%%
+then $\dim \ker(\nu_{C/A}^\bullet)\le 1$. 
+\item[(ii)] If $A$ is simple and there is an ample divisor $H$ on $A$ satisfying 
+%%
+\begin{equation}\label{EqnSemi2}
+\source{chabauty-coleman-bound-surfaces}
+p>\frac{n!}{n^n}\cdot \frac{\cdeg_H(X)^n}{\deg(H^n)},
+\end{equation} 
+%%
+then $\nu_{C/A}^\bullet$ is injective.
+\end{itemize} 
+\end{lemma}
+%%
+%%
+\begin{proof} If (i) holds we consider the ample divisor $H=X$ and note that Lemma \ref{LemmaDegXA} gives
+$$
+\deg_H(X)=\deg(X^3)_A=\cdeg(X)=c_1^2(X).
+$$
+Thus, condition \eqref{EqnSemi2} in case (i) simplifies to $p>2c_1^2(X)/3$, which is implied by \eqref{EqnSemi1}.
+
+
+Let $B=\langle C\rangle$. If (ii) holds then $B=A$, while if (i) holds then $B=A$ or $\dim B=2$ since $C$ is not an elliptic curve. Thus, there are two cases to consider: 
+\begin{itemize}
+\item[(a)] $A=B$ and either (i) or (ii) holds.
+\item[(b)] $\dim B=2$ and (i) holds.
+\end{itemize}
+
+
+%%%%
+%%%% CASE (a)
+%%%%
+In case (a),  \eqref{EqnSemi1} and \eqref{EqnSemi2} directly allow us to apply Lemma \ref{LemmaInjCurves} to get injectivity of $\nu_{C/A}^\bullet$.
+
+
+
+%%%%
+%%%% CASE (b)
+%%%%
+
+In case (b) we note that $D$ is ample since it is linearly equivalent to $X|_X$ on $X$ (by Lemma \ref{LemmaDegXA}) and $X$ is ample in $A$. In particular, $D$ is numerically effective and non-zero, so Lemma \ref{LemmaCanonicalGenusBd} applies.
+
+
+The curve $C$ is an ample divisor on the abelian surface $B$ because $\langle C\rangle =B$. Hence, the adjunction formula for $C$ in $B$
+$$
+\begin{aligned}
+\frac{2!}{2^2}\cdot \frac{\deg_{C}(C)^2}{\deg(C.C)_B}=\frac{\deg(C.C)_B}{2}=\gfrak_a(C)-1\le c_1^2(X)
+\end{aligned}
+$$
+where the last bound is due to Lemma \ref{LemmaCanonicalGenusBd}. Thus, by \eqref{EqnSemi1}  Lemma \ref{LemmaInjCurves} gives that $\nu_{C/B}^\bullet:H^0(B,\Omega^1_{B/k})\to H^0(\widetilde{C},\Omega^1_{\widetilde{C}/k})$ is injective. Let $i_{B/A}:B\to A$ be the inclusion of $B$ in $A$. Since $B$ is (up to translation) an abelian subvariety of $A$, the map $i_{B/A}^\bullet:H^0(A,\Omega^1_{A/k})\to H^0(B,\Omega^1_{B/k})$ is surjective, hence, its kernel has dimension $1$. This proves $\dim_k \ker(\nu_{C/A}^\bullet)=1$ in case (b).
+\end{proof}
+
+
+
+
+We also need an injectivity result for surfaces. 
+
+%%
+%%
+\begin{lemma}[Injectivity for surfaces]
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{LemmaInjSurfaces} Let $X$ be a smooth surface contained in $A$. Let $\iota:X\to A$ be the inclusion. Assume that either of the following conditions holds:
+\source{chabauty-coleman-bound-surfaces}
+\begin{itemize}
+\item[(i)] $n=3$ and $\langle X \rangle =A$.
+\item[(ii)] $A$ is simple and there is an ample divisor $H$ on $A$ such that 
+$$
+p>\frac{3^n\cdot n!}{n^n}\cdot \frac{\deg_H(X)^n}{\deg(H^n)}.
+$$
+\end{itemize}
+Then the map  $\iota^\bullet : H^0(A,\Omega^1_{A/k})\to H^0(X,\Omega^1_{X/k})$ is injective.
+\end{lemma}
+%%
+%%
+\begin{proof} If (i) holds, the desired injectivity follows from \cite{NakaiOThDifAlgVar} Theorem 5(I), since the latter result covers the case of generating hypersurfaces in abelian varieties. 
+
+Let us assume (ii). By \cite{Mumford} p.163, $3H$ is a very ample divisor on $A$.  By Bertini's theorem (\cite{Hartshorne} II.8.18 and III.7.9.1) we can choose a divisor $D\sim 3H$ on $A$ such that $C=D.X$ is a smooth irreducible curve. Let $\nu : C\to A$ be the inclusion; this is the same as $\nu_{C/A}$ because $C=\widetilde{C}$. Since $\nu$ factors through $\iota:X\to A$, it suffices to show that $\nu^\bullet : H^0(A,\Omega^1_{A/k})\to H^0(C,\Omega^1_{C/k})$ is injective. 
+
+As $A$ is simple, $\langle C\rangle =A$. We note that $\deg_H(C) =\deg(H.C)= \deg(3H.X.H)=3\deg_H(X)$, so the condition on $p$ given by (ii) allows us to conclude by Lemma \ref{LemmaInjCurves}.
+\end{proof}
+%%
+%%
+
+
+%%%% 
+%%%%
+%%%%
+\subsection{Restriction of $2$-forms} We keep the assumption that $k$ has positive characteristic $p$.
+
+\begin{lemma}[Non-vanishing of $2$-forms on surfaces]
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{Lemma2forms} Assume $n\ge 3$. Let $X$ be a smooth surface in $A$, let $\iota:X\to A$ be the inclusion, and let $\omega_1,\omega_2\in H^0(A,\Omega^1_{A/k})$ be differentials satisfying  $\omega_1\wedge\omega_2\ne 0$ in $H^0(A,\Omega^2_{A/k})$. Assume that either of the following conditions holds:
+\source{chabauty-coleman-bound-surfaces}
+\begin{itemize}
+\item[(i)] $n=3$, $X$ is an ample divisor on $A$ containing no elliptic curves,  and 
+\begin{equation}\label{Eqn2formi}
+\source{chabauty-coleman-bound-surfaces}
+p>(128/9)\cdot c_1^2(X)^2.
+\end{equation}
+\item[(ii)] $A$ is simple and there is an ample divisor $H$ on $A$ satisfying 
+\begin{equation}\label{Eqn2formii}
+\source{chabauty-coleman-bound-surfaces}
+p>\frac{ n!}{n^n}\cdot \frac{(3\deg_H(X)+\cdeg_H(X))^n}{\deg(H^n)}.
+\end{equation}
+\end{itemize}
+Then $\iota^\bullet (\omega_1)\wedge \iota^\bullet(\omega_2)\in H^0(X,\Omega^2_{X/k})$ is not the zero section. 
+\end{lemma}
+%%
+%%
+\begin{proof}  Let us write $u_1=\iota^\bullet (\omega_1)$ and $u_2=\iota^\bullet (\omega_2)$, which are elements of $H^0(X,\Omega^1_{X/k})$.  We note that if (i) holds, then $\langle X\rangle=A$ since $X$ is ample. Thus, in cases (i) and (ii) we see that $u_1$ and $u_2$ are linearly independent over $k$, by Lemma \ref{LemmaInjSurfaces}. 
+
+
+For the sake of contradiction, suppose that 
+%%
+\begin{equation}\label{Eqncontr}
+\source{chabauty-coleman-bound-surfaces}
+u_1\wedge u_2=0 \mbox{ in } H^0(X,\Omega^2_{X/k}). 
+\end{equation}
+%%
+Then, there is a rational function $f\in k(X)$ such that $u_1 = f \cdot u_2$ and we have that $f$ is non-constant because $u_1,u_2\in H^0(X,\Omega^1_{X/k})$ are linearly independent over $k$. 
+
+Let $C$ be an irreducible curve in the support of the divisor of zeros of $f$, which is non-trivial because $f$ is non-constant.  As $C$ is in the zero locus of $f$ and $u_1=f\cdot u_2$, we get that $C$ is contained in the zero locus of $u_1$, and in particular 
+%%
+\begin{equation}\label{Eqnw1int}
+\source{chabauty-coleman-bound-surfaces}
+\nu_{C/A}^\bullet(\omega_1)=\nu_{C/X}^\bullet(u_1)=0.
+\end{equation}
+%%
+
+
+If (i) holds, we make the notation more uniform by choosing $H=X$ on $A$.   Lemma \ref{LemmaDegXA} yields  
+%%
+\begin{equation}\label{Eqnci1}
+\source{chabauty-coleman-bound-surfaces}
+\deg_H(X)=\deg(X^3)_A=\cdeg_H(X)=c_1^2(X)
+\end{equation}
+%%
+and since $n=3$ when (i) holds, we see that in this case the conditions \eqref{Eqn2formi} and \eqref{Eqn2formii} are the same.
+
+
+Let us construct an auxiliary curve $D$. Since $H$ is ample, $3H$ is very ample (\cite{Mumford} p.163) and by Bertini (\cite{Hartshorne} Theorem II.8.18) there is a smooth irreducible curve $D\subseteq X$ linearly equivalent to $3H|_X$ as divisors in $X$. Given a non-zero reduced effective divisor $Z$ in $X$ which contains $C$  (possibly $Z=C$) we can require that $D$ meets $Z$ transversely at smooth points of $Z$ and that $D$ does not pass through points in the intersection of $C$ with the divisor of poles of $f$. We remark that the intersection $D.C$ is non-empty because $H$ is ample. A precise choice of $Z$ will be made later, but this free parameter will not affect the computations below.
+
+
+By the adjunction formula we have
+%%
+\begin{equation}\label{Eqn2form0}
+\source{chabauty-coleman-bound-surfaces}
+2\gfrak_g(D)-2 = \deg ((D+K_X).D)_X = \deg (3H.(D+K_X))_A = 9\deg_H(X) + 3\cdeg_H(X).
+\end{equation}
+%%
+
+
+We point out that if (i) holds, then \eqref{Eqnci1}  shows that this expression simplifies to
+%%
+\begin{equation}\label{Eqn2form0bis}
+\source{chabauty-coleman-bound-surfaces}
+2\gfrak_g(D)-2 = 12c_1^2(X).
+\end{equation}
+%%
+
+
+
+
+We claim that $\langle D\rangle =A$. This holds in case (ii) because $A$ is simple. In case (i) note that $\langle D\rangle$ is not an elliptic curve since $D\subseteq X$, so, if $\langle D\rangle \ne A$, then $\langle D\rangle$ is an abelian surface. The latter would imply that $\langle D\rangle . D=0$ in $A$ since we can translate the abelian surface $\langle D\rangle$ so that it does not meet $D\subseteq\langle D\rangle$. But it is not possible that $\langle D\rangle . D=0$ because in case (i) we have $D=3H.X=3X.X$ where $X$ is ample. Thus, $\langle D\rangle =A$ in case (i) and (ii).
+
+We note that by \eqref{Eqn2formi} if (i) holds, and by \eqref{Eqn2formii} if (ii) holds, we have
+$$
+\frac{n!}{n^n}\cdot \frac{\deg_H(D)^n}{\deg (H^n)}=\frac{n!}{n^n}\cdot \frac{\deg(H^{n-2}.3H.X)^n}{\deg (H^n)}=\frac{n! }{n^n}\cdot \frac{3^n\deg_H(X)^n}{\deg (H^n)}<p. 
+$$
+In view of this bound and the fact that $\langle D\rangle =A$, Lemma \ref{LemmaInjCurves} gives injectivity of the map 
+%%
+\begin{equation}\label{Eqn2form1}
+\source{chabauty-coleman-bound-surfaces}
+\nu_{D/A}^\bullet : H^0(A,\Omega^1_{A/k})\to H^0(D,\Omega^1_{D/k}).
+\end{equation}
+%%
+
+
+
+
+
+
+
+
+Since the map $\nu_{D/A}^\bullet$ from \eqref{Eqn2form1} is injective, we see that $0\ne \nu_{D/A}^\bullet(\omega_1) = \nu_{D/X}^\bullet(u_1)$. Since $C$ is contained in the zero locus of $u_1$, we see that $\nu_{D/X}^\bullet(u_1)$ vanishes at each point of $D\cap C\subseteq D$.  As this intersection is transverse and $\nu_{D/X}^\bullet(u_1)\ne 0$, from \eqref{Eqn2form0} we deduce
+%%
+\begin{equation}\label{EqnBdInt1}
+\source{chabauty-coleman-bound-surfaces}
+\deg((D.C)_X)=\# D\cap C\le \deg_D( \nu_{D/X}^\bullet(u_1))=2\gfrak_g(D)-2=9\deg_H(X) + 3\cdeg_H(X).
+\end{equation}
+%%
+Note that if (i) holds, then \eqref{Eqn2form0bis} gives
+%%
+\begin{equation}\label{EqnBdInt2}
+\source{chabauty-coleman-bound-surfaces}
+\deg((D.C)_X)\le 12 c_1^2(X).
+\end{equation}
+%%
+
+
+
+
+
+
+Let $B=\langle C\rangle$. As in the proof of Lemma \ref{LemmaSemiInj}, we note that if (ii) holds then $B=A$, while if (i) holds then $B=A$ or $\dim B=2$ since $C$ is not an elliptic curve. This leaves two cases: 
+\begin{itemize}
+\item[(a)] $A=B$ and either (i) or (ii) holds.
+\item[(b)] $\dim B=2$ and (i) holds.
+\end{itemize}
+
+%%%%
+%%%% CASE (a)
+%%%%
+
+First we consider case (a), and let us recall that if (i) holds then we are choosing $H=X$. Since $(D.C)_X=(3H.C)_A$, the bound \eqref{EqnBdInt1} implies
+$$
+\deg_H(C)=(H.C)_A\le 3\deg_H(X) + \cdeg_H(X).
+$$
+By  \eqref{Eqn2formi} and \eqref{Eqn2formii}, it follows that
+$$
+\frac{n!}{n^n}\cdot \frac{\deg_H(C)^n}{\deg(H^n)} \le  \frac{n!}{n^n}\cdot \frac{(3\deg_H(X) + \cdeg_H(X))^n}{\deg(H^n)}<p. 
+$$
+Since $A=B$ (we are in case (a)), we can apply Lemma \ref{LemmaInjCurves}  to conclude that 
+$$
+\nu_{C/A}^\bullet :H^0(A,\Omega^1_{A/k})\to H^0(\widetilde{C},\Omega^1_{\widetilde{C}/k})
+$$
+is injective. This is a contradiction by \eqref{Eqnw1int}. Therefore we cannot have \eqref{Eqncontr} in case (a).
+
+%%%%
+%%%% CASE (b)
+%%%%
+
+Let us now consider case (b). We begin by applying Lemma \ref{LemmaInjCurves} to $C$ and the abelian surface $B=\langle C\rangle$, choosing the ample divisor in $B$ given by the $1$-cycle $X'=(X.B)_A$.  Using \eqref{EqnBdInt2} we find
+$$
+\deg((X'.C)_B) = \deg((X.C)_A) =\deg((K_X.C)_X)=\frac{1}{3}\deg((D.C)_X)\le 4c_1^2(X).
+$$
+On the other hand, since $C$ is a component of the effective $1$-cycle $X'=(X.B)_A$ we get
+$$
+\deg((X'.X')_B) \ge \deg((X'.C)_B).
+$$
+From  \eqref{Eqn2formi} we deduce
+$$
+\frac{2!}{2^2}\cdot \frac{\deg_{X'}(C)^2}{\deg((X'.X')_B)}=\frac{1}{2}\cdot\frac{\deg((X'.C)_B)^2}{\deg((X'.X')_B)}\le \frac{1}{2}\deg((X'.C)_B)\le 2c_1^2(X)<p.
+$$
+Thus, Lemma \ref{LemmaInjCurves} implies the injectivity of the map
+%%
+\begin{equation}\label{EqnnuCB}
+\source{chabauty-coleman-bound-surfaces}
+\nu^\bullet_{C/B}:H^0(B,\Omega^1_{B/k})\to H^0(\widetilde{C},\Omega^1_{\widetilde{C}/k}).
+\end{equation}
+%%
+
+
+Let $i_{B/A}:B\to A$ be the inclusion. This is a closed immersion, hence it induces a surjection on cotangent spaces at each point. By translation with the group structure of $A$ we see that the map
+$$
+i_{B/A}^\bullet : H^0(A,\Omega^1_{A/k})\to H^0(B,\Omega^1_{B/k})
+$$
+is surjective. Hence, $\dim_k \ker(i_{B/A}^\bullet) = 1$. Moreover, $\omega_1\in\ker (\nu_{C/A}^\bullet)$ by \eqref{Eqnw1int}. This, together with the injectivity of \eqref{EqnnuCB} implies
+%%
+\begin{equation}\label{EqnKerIsw1}
+\source{chabauty-coleman-bound-surfaces}
+\ker \left(i_{B/A}^\bullet:H^0(A,\Omega^1_{A/k})\to H^0(B,\Omega^1_{B/k})\right) =\langle \omega_1\rangle.
+\end{equation}
+%%
+This, together with the injectivity of \eqref{EqnnuCB}, gives
+%%
+\begin{equation}\label{EqnKerCA}
+\source{chabauty-coleman-bound-surfaces}
+\ker \left(\nu_{C/A}^\bullet:H^0(A,\Omega^1_{A/k})\to H^0(\widetilde{C},\Omega^1_{\widetilde{C}/k})\right) =\langle \omega_1\rangle.
+\end{equation}
+%%
+
+
+Let $B_0$ be a translate of $B$ such that $0_A\in B_0$. Then $B_0$ is an abelian subvariety of $A$. Define the elliptic curve $E=A/B_0$ and the quotient map $\pi:A\to E$. Since $\ker(\pi)=B_0$ is smooth over $k$, the quotient map $\pi$ is smooth and we deduce that
+%%
+\begin{equation}\label{Eqnpiinj}
+\source{chabauty-coleman-bound-surfaces}
+\pi^\bullet: H^0(E,\Omega^1_{E/k})\to H^0(A,\Omega^1_{A/k})
+\end{equation}
+%%
+is injective. Let $\omega_E\in H^0(E,\Omega^1_{E/k})$ be a generator. Since $\pi|_B:B\to E$ is constant, we have 
+$$
+i_{B/A}^\bullet(\pi^\bullet(\omega_E))=(\pi|_B)^\bullet(\omega_E)=0.
+$$
+From \eqref{EqnKerIsw1} we deduce  $\pi^\bullet(\omega_E)\in \ker(i_{B/A}^\bullet)=\langle \omega_1\rangle$ and by injectivity of $\pi^\bullet$ (from \eqref{Eqnpiinj}) we get 
+%%
+$$
+\im\left(\pi^\bullet:H^0(E,\Omega^1_{E/k})\to H^0(A,\Omega^1_{A/k})\right)=\langle\omega_1\rangle\subseteq H^0(A,\Omega^1_{A/k}).
+$$
+%%
+Thus, replacing $\omega_E$ by a suitable non-zero multiple we may assume $\pi^\bullet(\omega_E)=\omega_1$ and in particular
+%%
+\begin{equation}\label{EqnwE}
+\source{chabauty-coleman-bound-surfaces}
+(\pi|_X)^\bullet(\omega_E)=\iota^\bullet(\pi^\bullet(\omega_E))=\iota^\bullet(\omega_1)=u_1.
+\end{equation}
+%%
+
+
+%%
+%% 
+%%
+
+We claim that $\nu_{C/X}:\widetilde{C}\to X$ is $u_2$-integral. 
+
+
+Let us choose $Z$  as the (reduced) support of $B\cap X$. Note that $C\subseteq Z$ and that $Z$ has dimension $1$ since $X$ is not contained in $B$ ($X$ is ample in $A$). As explained in the construction of $D$, the intersection $C\cap D$ is non-empty. Let $x\in C\cap D$ and recall from the construction of $D$ that $x$ is a smooth point of $Z$ (in particular, of $C$) and it is not contained in the pole divisor of $f$ in $X$.
+
+
+
+ Let $s_1,s_2\in \Ocal_{X,x}$ be a system of local parameters for $X$ at $x$ such that $s_1$ is a local equation for $C$ at $x$. Then $f=s_1^a\cdot \theta$ for some $a\ge 1$ and $\theta\in \Ocal_{X,x}^\times$ and in particular, $u_1=s_1^a\cdot \theta\cdot u_2$ in $\Omega^1_{X/k,x}$. 
+
+Let $y=\pi(x)\in E$ and let $t\in \Ocal_{E,y}$ be a local parameter for $E$ at $y$. Then $\omega_E=\sigma dt$ for certain $\sigma\in \Ocal_{E,y}^\times$ because the invariant differential $\omega_E$ has no zeros. Let $\varphi=(\pi|_X)^\#_x : \Ocal_{E,y}\to \Ocal_{X,x}$. By \eqref{EqnwE} we have $u_1=\varphi(\sigma)d\varphi(t)$ in $\Omega^1_{X/k, x}$.
+
+Note that $\pi(B)=\{y\}$, so,  $Z$ is the support of $B\cap X=(\pi|_X)^{-1}(y)$. As $x$ is a smooth point of $Z$ and $C$ is a component of $Z$, we get $\varphi(t)=s_1^b\cdot \gamma$ for certain $b\ge 1$ and $\gamma\in \Ocal_{X,x}^\times$. Thus, 
+$$
+s_1^a\cdot \theta\cdot u_2 = u_1 = \varphi(\sigma)d\varphi(t)= \varphi(\sigma)\left( bs_1^{b-1}\gamma d s_1+ s_1^{b}d\gamma \right)
+$$
+where we recall that $a,b\ge 1$. Since $\theta$ and $\sigma$ are units in their respective local rings, we have that $\tau=\theta\cdot \varphi(\sigma^{-1})\in \Ocal_{X,x}^\times$. With this notation,
+%%
+\begin{equation}\label{Eqn2formkey}
+\source{chabauty-coleman-bound-surfaces}
+s_1^a \cdot \tau\cdot u_2 = s_1^{b-1}\cdot \left( b\gamma ds_1 + s_1 d\gamma \right).
+\end{equation} 
+%%
+Let us consider two cases depending on the values of $a$ and $b$:
+%%
+%%
+\begin{itemize}
+\item $a<b$. In this case $s_1^{b-1-a}$ is regular at $x$ and we get
+%%
+\begin{equation}\label{Eqn2formkey1}
+\source{chabauty-coleman-bound-surfaces}
+ u_2 = \tau^{-1}\cdot s_1^{b-1-a}\cdot \left( b\gamma ds_1 + s_1 d\gamma \right).
+\end{equation}
+%%
+Note that $C$ is smooth at $x$ and $\Ocal_{C,x}\simeq \Ocal_{X,x}/(s_1)$. Let $x'\in \widetilde{C}$ be the only preimage of $x$ under $\nu_{C/X}$.  Then $\Omega^1_{\widetilde{C}/k,x'}\simeq \Omega^1_{C/k,x}  \simeq \Omega^1_{X/k,x}/(s_1, ds_1)$ and under this isomorphism the local map $\nu_{C/X,x'}^\bullet:\Omega^1_{X/k,x}\to \Omega^1_{\widetilde{C}/k,x'}$ becomes just the quotient $\Omega^1_{X/k,x}\to \Omega^1_{X/k,x}/(s_1, ds_1)$. The image of $b\gamma ds_1 + s_1 d\gamma$ under this quotient is $0$, so $\nu_{C/X,x'}^\bullet(u_2)=0$ by \eqref{Eqn2formkey1}. By Lemma \ref{LemmaCommLoc} and injectivity of $H^0(\widetilde{C},\Omega^1_{\widetilde{C}/k})\to  \Omega^1_{\widetilde{C}/k,x'}$ we deduce $\nu^\bullet_{C/X}(u_2)=0$.
+
+
+\item $a\ge b$. In this case \eqref{Eqn2formkey} shows that $s_1$ divides $b\gamma ds_1$ in $\Omega^1_{X/k,x}$. As $s_1$ is part of system of local parameters at $x$ and $\gamma$ is invertible in $\Ocal_{X,x}$, this means that $b\equiv 0\bmod p$. In particular, $a\ge b\ge p$ because $a,b\ge 1$. Recall that $D$ is smooth, $C$ is smooth at $x$, and $D,C$ meet transversely at $x$. Let $x_0\in D$ be the only preimage of $x$ under $\nu_{D/X}$. By \eqref{Eqn2form0bis} and recalling that $u_1=s_1^a\cdot \theta\cdot u_2$ we find
+$$
+a = \ord_{x_0}(\nu_{D/X}^*(s_1^a))\le \ord_{x_0}(\nu_{D/X}^\bullet (u_1))\le \deg_D(\nu_{D/X}^\bullet (u_1))= 12c_1^2(X)<p
+$$
+by \eqref{Eqn2formi}. This is not possible, so the case $a\ge b$ cannot occur.
+\end{itemize}
+%%
+%%
+This proves that $a<b$ and $\nu^\bullet_{C/X}(u_2)=0$. Thus, $\nu_{C/X}$ is $u_2$-integral as claimed.
+
+%%
+%%
+
+Finally, we have $u_2\in \ker (\nu_{C/X}^\bullet)$ which implies $\omega_2\in \ker (\nu_{C/A}^\bullet)$. By \eqref{EqnKerCA}, this implies $\omega_2\in \langle \omega_1\rangle$ in $H^0(A,\Omega^1_{A/k})$. This is the desired contradiction in case (b). Therefore, \eqref{Eqncontr} cannot hold.
+\end{proof}
+%%
+%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

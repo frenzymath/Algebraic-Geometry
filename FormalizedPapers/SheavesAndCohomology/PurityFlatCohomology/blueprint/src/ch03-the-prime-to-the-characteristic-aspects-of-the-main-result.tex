@@ -1,0 +1,528 @@
+% Source-derived chapter 03: The prime to the characteristic aspects of the main result
+% Original source: purity-flat-cohomology
+\chapter{The prime to the characteristic aspects of the main result}
+\label{purity-flat-cohomology-chapter-03}
+\source{purity-flat-cohomology}
+
+\begin{remark}[Source section]
+\label{purity-flat-cohomology-chapter-03-source}
+\source{purity-flat-cohomology}
+\source{purity-flat-cohomology}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: The prime to the characteristic aspects of the main result
+For arguing our purity results, the first task is to dispose of the cases when the order of the coefficients is invertible. For this, we first give a new, perfectoid-based proof of the Gabber--Thomason purity for \'{e}tale cohomology of regular rings in \S\ref{Gabber-Thomason}. We then use it in \S\ref{et-depth-geom-depth} to deduce purity for \'{e}tale cohomology in the general singular case via a local Lefschetz style theorem. In \S\ref{nonabelian}, we present a nonabelian analogue of the results of \S\ref{et-depth-geom-depth}: a generalization of the Zariski--Nagata purity theorem.
+
+
+%We accomplish this in  %below %, we deduce the prime to the characteristic aspects of \Cref{ell-semipurity-ann} (and hence also those of \Cref{main}) from 
+%by deducing them form the purity for \'{e}tale cohomology due to Gabber--Thomason. We  for the latter in  %we use the opportunity to deduce the latter from its simpler positive characteristic case via tilting for the \'{e}tale cohomology of perfectoids %strategy used in \cite{brauer-purity} 
+%(a perfectoid argument for this result was also noticed by Fujiwara, \cite{Fuj18}). 
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\csub[The absolute cohomological purity of Gabber--Thomason] \lab{Gabber-Thomason}
+
+
+Purity for \'{e}tale cohomology of regular rings, stated precisely in \Cref{abs-coh-pur} (see also footnote~\ref{foot:semipurity}), was conjectured by Grothendieck and settled by Gabber in \cite{Fuj02}, who built on the strategy initiated by Thomason in \cite{Tho84}. Gabber's alternative later proof given in \cite{ILO14}*{expos\'{e} XVI} eliminated the use of algebraic $K$-theory. We present a proof that uses perfectoids, specifically, \Cref{baby-tilting}, to reduce to the positive characteristic case that had been settled by M. Artin already in \cite{SGA4III}*{expos\'{e}~XVI}. The following standard lemmas facilitate the passage to perfectoids.
+
+
+
+\blem \label{lem:towers}
+\source{purity-flat-cohomology}
+Let $(R, \fm)$ be a complete, regular, local ring with residue field $k$.
+\benum
+\m \label{tower-a}
+\source{purity-flat-cohomology}
+There is a filtered direct system $\{(R_i, \fm_i)\}_{i \in I}$ of regular, local, finite, flat $R$-algebras that are unramified if so is $R$ \up{see \uS\uref{conv}} such that $\fm_i = \fm R_i$ %each $R_i/\fm_i$ is a finite subextension of $\ov{k}/k$, 
+and $(\varinjlim_i R_i, \varinjlim_i \fm_i)$ is a regular local ring whose residue field is an algebraic closure $\ov{k}$ of $k$. 
+
+\m \label{tower-b}
+\source{purity-flat-cohomology}
+If $R$ is of mixed characteristic $(0, p)$ and $k$ is perfect, then there is a tower $\{R_n\}_{n \ge 0}$ of regular, local, finite, flat $R$-algebras of $p$-power rank over $R$ such that the $p$-adic completion of $R_\infty \ce \varinjlim_{n \ge 0} R_n$ is perfectoid\ucolon explicitly, by the Cohen structure theorem, we have
+\[%\be \lab{Rinfty-exp}
+\qq R \simeq W(k)\llb x_1, \dotsc, x_d\rrb/(p - f), 
+\]
+where either $f = x_1$ or $f \in (p, x_1, \dotsc, x_d)^2$ \up{the two cases correspond to whether or not $R$ is unramified}, %in the sense that $p \in \fm \setminus \fm^2$}, \
+and one may choose
+\[
+\qq \tst R_n \ce W(k)\llb x_1^{1/p^n}, \dotsc, x_d^{1/p^n} \rrb/(p - f)
+\]
+with
+\[
+\tst \qq R_\infty \simeq W(k)\llb x_1^{1/p^\infty}, \dotsc, x_d^{1/p^\infty} \rrb/(p - f).
+\]
+\eenum
+\elem
+
+For our somewhat nonstandard use of the notation $\llb \cdot \rrb$ in part \ref{tower-b} above, see \eqref{nst-terminology}.
+
+
+%We recall and stress that we use the (slightly nonstandard) notation
+%\[
+%A\llb x_1^{1/p^\infty}, \dotsc, x_d^{1/p^\infty} \rrb = \varinjlim_m A\llb x_1^{1/p^m}, \dotsc, x_d^{1/p^m} \rrb.
+%\]
+
+\bpf
+In essence, the claims are restatements of \cite{brauer-purity}*{Lemmas 5.1 and 5.2}: part \ref{tower-a} follows from \cite{brauer-purity}*{Lemma 5.1} and its proof, whereas part \ref{tower-b} follows from \cite{brauer-purity}*{Lemma 5.2} and its proof. For a prismatic point of view on the construction of $R_\infty$, see \cite{BS19}*{Remark 3.11}.
+\epf
+
+
+
+
+\blem \label{lem:et-to-hat}
+\source{purity-flat-cohomology}
+Let $A$ be a ring, let $a \in A$ be such that $A$ is $a$-Henselian and has bounded $a^\infty$-torsion, %along the principal ideal generated by an $a \in A$ with $A[a^\infty] = A[a^N]$ for some $N > 0$, 
+let $\wh{A}$ be the $a$-adic completion of $A$, and let $\Spec(A[\f 1a]) \subset U \subset \Spec(A)$ be an open. We have
+\[
+R\Gamma_\et(U, \sF) \isomto R\Gamma_\et(U_{\wh{A}}, \sF)
+\]
+for every torsion abelian sheaf $\sF$ on $U_\et$. In particular, for every closed subset $Z \subset \Spec(A/aA)$ and every torsion abelian sheaf $\sF$ on $A_\et$, we have
+\[
+R\Gamma_Z(A, \sF) \isomto R\Gamma_Z(\wh{A}, \sF),
+\]
+and for a Noetherian ring $R$, an ideal $I \subset R$ such that $R$ is  $I$-Henselian,  and the $I$-adic completion~$\wh{R}$,
+\[
+R\Gamma_I(R, \sF) \isomto R\Gamma_I(\wh{R}, \sF) 
+\]
+for every torsion abelian sheaf $\sF$ on $R_\et$.
+\elem
+
+\bpf
+The claims are special cases of \cite{BC19}*{Theorem 2.3.4, Corollary 2.3.5 (e)}, although we could also use earlier references \cite{Fuj95}*{Corollary~6.6.4} or \cite{ILO14}*{expos\'{e} XX, section 4.4}; %, or \cite{BM20}*{Cor.~1.18}; 
+see also \Cref{cor:excision} below.
+\epf
+
+
+
+
+\bthm \lab{abs-coh-pur}
+For a regular local ring $(R, \fm)$ and a commutative, finite, \'{e}tale $R$-group $G$ whose order is invertible in $R$, 
+\[
+H^i_\fm(R, G) \cong 0 \q \text{for} \q i < 2 \dim(R).
+\]
+\ethm
+
+\bpf
+We use the local-to-global spectral sequence \cite{SGA4II}*{expos\'{e}~V, proposition~6.4} to assume that $R$ is strictly Henselian and then that $G \simeq \bZ/\ell\bZ$ for a prime $\ell$. We then use \Cref{lem:et-to-hat} to assume 
+%\Cref{cor:excision} (or already \eqref{eqn:Fujiwara-Gabber}) then allows us to assume 
+that $R$ is also complete. Thus, by the Cohen structure theorem \cite{Mat89}*{Theorem~29.7}, if $R$ is equicharacteristic, then $R \simeq k\llb x_1, \dotsc, x_d\rrb$ for a field $k$ and, by \Cref{lem:et-to-hat} again, we may assume that $R$ is the Henselization of $\bA^d_k$ at the origin. For this $R$ the claim was settled already in \cite{SGA4III}*{expos\'{e}~XVI, th\'{e}or\`{e}me~3.7}, so from now on we assume that our complete, strictly Henselian $R$ is of mixed characteristic $(0, p)$.
+
+Since multiplication by $p$ is an automorphism of $\bZ/\ell\bZ$, the trace map \cite{SGA4III}*{expos\'{e}~XVII, sections~6.3.13 et 6.3.14, proposition 6.3.15~(iv)} allows us to replace $R$ by any module-finite, flat $R$-algebra $R'$ of $p$-power rank over $R$ such that $R'$ is a regular local ring. Thus, by \Cref{lem:towers}~\ref{tower-a} and a limit argument, we may pass to a tower to reduce to the case  when the residue field $k$ of $R$ is algebraically closed (we use \Cref{lem:et-to-hat} to complete $R$ again). We then likewise use \Cref{lem:towers}~\ref{tower-b} to  reduce to showing that
+\[
+H^{i}_{(p,\, x_1,\, \dotsc,\, x_d)}(R_\infty, \bZ/\ell\bZ) \cong 0 \qxq{for}  i < 2d 
+\]
+with
+\[
+R_\infty \cong W(k)\llb x_1^{1/p^\infty}, \dotsc, x_d^{1/p^\infty} \rrb/(p - f), \ \  f\in \fm^2 \cup \{ x_1 \},
+\]
+knowing that the $p$-adic completion $\wh{R}_\infty$ of $R_\infty$ is perfectoid. The tilt $\wh{R}_\infty^\flat$ of $\wh{R}_\infty$ reviewed in \eqref{monoid-id} is the $\ov{f}$-adic completion of $k\llb (x_1^{\flat})^{1/p^\infty}, \dotsc, (x_d^{\flat})^{1/p^\infty} \rrb$ for some $\ov{f} \in k\llb (x_1^{\flat})^{1/p^\infty}, \dotsc, (x_d^{\flat})^{1/p^\infty} \rrb$: explicitly, 
+\[
+%\xymatrix@C=80pt{ %k\llb x_1^{1/p^\infty}, \dotsc, x_d^{1/p^\infty}\rrb \ce 
+\wh{R}_\infty^\flat \cong \varprojlim\limits_{z \mapsto z^p} \p{k\llb x_1^{1/p^\infty}, \dotsc, x_d^{1/p^\infty}\rrb/(f)},
+\]
+which via the map $(z_n)_{n \ge 0} \mapsto (z_n^{p^n})_{n \ge 0}$ is identified with
+\[
+\tst\invlim\limits_n \p{k\llb (x_1^{\flat})^{1/p^\infty}, \dotsc, (x_d^{\flat})^{1/p^\infty}\rrb /(\ov{f}^{p^n})},  
+\]
+where $x_i^\flat$ corresponds to the $p$-power compatible system $(x_i^{1/p^n})_{n \ge 0}$. Thus, by \eqref{eqn:baby-tilting-supports} with \Cref{lem:et-to-hat} (the latter removes the $\ov{f}$-adic completion), we are reduced to showing 
+\[
+H^{i}_{(x_1^\flat, \dotsc, x_d^\flat)}(k\llb (x_1^{\flat})^{1/p^\infty}, \dotsc, (x_d^{\flat})^{1/p^\infty}\rrb, \bZ/\ell\bZ) \cong 0 \qxq{for} i < 2d.
+\]
+By the perfection-invariance of \'{e}tale cohomology, we may replace 
+\[
+k\llb (x_1^{\flat})^{1/p^\infty}, \dotsc, (x_d^{\flat})^{1/p^\infty}\rrb \qxq{by} k\llb x_1^{\flat}, \dotsc, x_d^{\flat}\rrb,
+\]
+which brings us to the already discussed equal characteristic case.
+%: explicitly, by the Cohen structure theorem, we have
+%\be \lab{Rinfty-exp}
+%R \cong W(k)\llb x_1, \dotsc, x_d\rrb/(p - f), \q \x{where either} \q  f = x_1 \q \x{or} \q f \in (p, x_1, \dotsc, x_d)^2
+%\ee
+%(the two cases correspond to whether or not $p \in \fm \setminus \fm^2$), and
+%\[
+%\tst  \ce  \varinjlim_{m > 0} \p{ W(k)\llb x_1^{1/p^m}, \dotsc, x_d^{1/p^m} \rrb/(p - f)}.
+%\]
+\epf
+
+
+
+
+\brems
+\remi
+As Teruhisa Koshikawa pointed out to us, the above argument also reduces the full absolute cohomological purity for \'{e}tale cohomology, namely, the statement that for all $n \in \bZ_{> 0}$ invertible in $R$ the \'{e}tale-sheafification $\cH^i_\fm$ of the cohomology with supports $H^i_\fm$ satisfies
+\[
+\qq \cH^i_\fm(-, \bZ/n\bZ) \cong \begin{cases} 0, & \x{for $i \neq 2\dim(R)$,} \\ \underline{\bZ/n\bZ}(-\dim(R)), & \x{for $i = 2\dim(R)$,} \end{cases}
+\]
+to positive characteristic. Indeed, the isomorphism in degree $i = 2\dim(R)$ is induced by the cycle class map 
+\[
+\qqq \underline{\bZ/n\bZ}(-\dim(R)) \ra \cH^{2\dim(R)}_\fm(-, \bZ/n\bZ),
+\]
+which one first argues to be injective as in \cite{Fuj02}*{Lemma 2.3.1}. The bijectivity then becomes the matter of bounding the nonzero stalk of the target, which may be done after passing to $\wh{R}^\flat_\infty$. The vanishing in degrees $i \neq 2\dim(R)$ reduces to positive characteristic as in the proof of \Cref{abs-coh-pur}.
+
+\remi
+Another way to pass to the tilt, without using \Cref{baby-tilting}, is to use diamonds developed in \cite{Sch17}. Namely, we consider the ``punctured adic spectrum'' of $R_\infty$ defined as
+\[
+\tst \qqq U^\ad_{R_\infty} \ce \Spa(R_\infty, R_\infty) \setminus \{ x_1 = \dotsc = x_d = 0 \}
+\]
+and isomorphic to
+\[
+\tst \qqq \bigcup_{i = 1}^{d} \Spa\p{R_\infty\langle\f{x_1,\, \dotsc,\, x_d}{x_i}\rangle, R_\infty\langle\f{x_1,\, \dotsc,\, x_d}{x_i}\rangle^+}\!,
+\] 
+where $R_\infty$ is endowed with its $(x_1, \dotsc, x_d)$-adic topology, so that $U^\ad_{R_\infty}$ is an analytic adic space over $\bZ_p$ (to simplify we ignore the issue of showing that the appearing Huber pairs are sheafy).\footnote{In fact, by \cite{Nak20}*{Example~2.1.4}, each $\Spa$ appearing in the union on the right side is even an affinoid perfectoid.} Likewise, we endow $\wh{R}_\infty^\flat$ with the $(x_1^\flat, \dotsc, x_d^\flat)$-adic topology and consider 
+\[
+\tst\qqq U^\ad_{\wh{R}_\infty^\flat} \ce \Spa(\wh{R}_\infty^\flat, \wh{R}_\infty^\flat) \setminus \{ x_1^\flat = \dotsc = x_d^\flat = 0 \},
+\] 
+which is isomorphic to
+\[
+\tst \qqq \bigcup_{i = 1}^{d} \Spa\p{\wh{R}_\infty^\flat\langle\f{x_1^\flat,\, \dotsc,\, x_d^\flat}{x_i^\flat}\rangle, \wh{R}_\infty^\flat\langle\f{x_1^\flat,\, \dotsc,\, x_d^\flat}{x_i^\flat}\rangle^+}\!
+\]
+and is a perfectoid space because the coordinate rings of the appearing affinoids inherit perfectness from $\wh{R}_\infty^\flat$ (see \cite{Sch17}*{Proposition 3.5}). By tilting %establishes an equivalence between perfectoid $\wh{R}_\infty$-algebras $A$ and perfectoid $\wh{R}_\infty^\flat$-algebras $A^\flat$ 
+(see \Cref{tilt-summary} and, for compatibility of definitions, \cite{BMS18}*{Lemma~3.20}), the universal property of adic localization and \eqref{monoid-id-pi} show that giving a map from a perfectoid space to 
+\[
+\tst\qqq \Spa\p{R_\infty\langle\f{x_1,\, \dotsc,\, x_d}{x_i}\rangle, R_\infty\langle\f{x_1,\, \dotsc,\, x_d}{x_i}\rangle^+}
+\]
+amounts to giving a map from its tilt to the perfectoid space 
+\[
+\tst\qqq\Spa\p{\wh{R}_\infty^\flat\langle\f{x_1^\flat,\, \dotsc,\, x_d^\flat}{x_i^\flat}\rangle, \wh{R}_\infty^\flat\langle\f{x_1^\flat,\, \dotsc,\, x_d^\flat}{x_i^\flat}\rangle^+},
+\]
+compatibly with overlaps of such rational subsets. Thus, the perfectoid space $U^\ad_{\wh{R}_\infty^\flat}$ represents the diamond associated  by \cite{Sch17}*{Definition~15.5} to the analytic adic space $U^\ad_{R_\infty}$.  Consequently, since the functor that sends an analytic adic space over $\bZ_p$ to its associated diamond induces an equivalence of \'{e}tale sites \cite{Sch17}*{Lemma~15.6}, we obtain the key
+\[
+\qqq H^i_\et(U_{R_\infty}^\ad, \bZ/\ell\bZ) \cong H^i_\et(U_{\wh{R}_\infty^\flat}^\ad, \bZ/\ell\bZ). %\cong H^i_\et(U_{R_\infty^\flat}, \bZ/\ell\bZ).
+\]
+%To pass to the tilt as promised, 
+It remains to set 
+\[
+\qqq U_{R_\infty} \ce \Spec(R_\infty) \setminus \{ x_1 = \dotsc = x_d = 0\}
+\]
+and
+\[
+\qqq U_{R^\flat_\infty} \ce \Spec(R^\flat_\infty) \setminus \{ x^\flat_1 = \dotsc = x^\flat_d = 0\}
+\]
+and apply \cite{Hub96}*{Theorem~3.2.10}\footnote{Due to the blanket Noetherianity assumption  \cite{Hub96}*{paragraph~1.1.1}, the citation does not apply directly, so one performs a slightly tedious limit argument, similar to the one used in the proof of \cite{brauer-purity}*{Theorem 4.10}. Another way around this is to pass to the adic spectra at the finite levels of the tower and then use \cite{Sch17}*{Proposition 14.9} to pass to the limit of adic spaces.} (for the flanking isomorphisms) to deduce the passage to the tilt:
+\[
+\qq\ \ H^i_\et(U_{R_\infty}, \bZ/\ell\bZ) \cong  H^i_\et(U_{R_\infty}^\ad, \bZ/\ell\bZ) \cong H^i_\et(U_{\wh{R}_\infty^\flat}^\ad, \bZ/\ell\bZ) \cong H^i_\et(U_{R_\infty^\flat}, \bZ/\ell\bZ).
+\]
+%where , and the first and last isomorphisms are supplied by  %(comparison between the algebraic and the analytic \'{e}tale cohomology).
+\erems
+
+
+
+
+
+%\blem \lab{lem:et-GAGA}
+%For a ring $A$ that is Henselian along a finitely generated ideal $I \subset A$ and is endowed with the $I$-adic topology, the opens $U \ce \Spec(A) \setminus V(I)$ and $U^\ad \ce \Spa(A, A) \setminus V(I)$ satisfy\footnote{\rv{\me{There is some hairy issue of how the \'{e}tale site $U^\ad_\et$ is defined. Apparently, one should use the same definition as in \cite{KL15}*{8.2.19}.}}}
+%\[
+%R\Gamma_\et(U, G) \isomto R\Gamma_\et(U^\ad, G) \q \x{for any commutative finite \'{e}tale $U$-group scheme $G$.}
+%\]
+%\elem
+
+%\emph{Proof.} 
+%In the case when $A$ is Noetherian, the claim is a special case of . In general, we \kestutis{unfinished} \QEDD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\csub[The \'{e}tale depth is at least the virtual dimension] \lab{et-depth-geom-depth}
+
+
+
+Purity for \'{e}tale cohomology of possibly singular Noetherian local rings $R$ was settled in the case when $R$ is an excellent $\bQ$-algebra in \cite{SGA2new}*{expos\'{e} XIV, th\'{e}or\`{e}me 5.6} and in the case when $R$ is a complete intersection in \cite{Gab04}*{Theorem~3} (by reduction to \cite{Ill03}*{th\'{e}or\`{e}me~2.6}). In \Cref{ell-semipurity}, we deduce the general case from \Cref{abs-coh-pur}. We begin with the definition of the virtual dimension, which is a numerical invariant of $R$ that has already appeared in the context of purity in \cite{SGA2new}*{expos\'{e} XIV, d\'{e}finition 5.3}.
+%The \'{e}tale case of our desired purity says that the ``\'{e}tale depth'' of a Noetherian local ring $(R, \fm)$, concretely, the smallest $d$ such that the \'{e}tale cohomology $H^i_\fm(R, G)$ with commutative, finite, \'{e}tale $R$-group coefficients $G$ vanishes for $i < d$, is at least the virtual dimension $\vdim(R)$. For $G$ whose order is invertible in $R$, we deduce this from  in \Cref{ell-semipurity} below. 
+
+
+
+
+
+
+
+
+
+\bpp[The virtual dimension of a Noetherian local ring] \lab{geom-depth-def}
+For a Noetherian local ring $(R, \fm)$, by Cohen's theorem \cite{EGAIV1}*{chapitre 0, th\'{e}or\`{e}me 19.8.8 (i)}, the $\fm$-adic completion $\wh{R}$ is of the form
+\[%be \lab{Cohen-pres}
+\wh{R} \cong \wt{R}/I \qq \text{for a complete regular local ring} \q \wt{R} \q \text{and an ideal} \q I \subset \wt{R}.
+\]%ee
+The \emph{virtual dimension} of $R$ is %defined by
+\be \label{eqn:vdim-def}
+\source{purity-flat-cohomology}
+\vdim(R) \ce \dim(\wt{R}) - (\text{minimal number of generators for $I$})
+\ee
+and, by \cite{SGA2new}*{expos\'{e} XIV, proposition 5.2}, does not depend on the presentation $\wt{R}/I$. %\eqref{Cohen-pres} (in \emph{op.~cit.}~this invariant is called the \emph{geometric depth} of $R$). 
+By \cite{SGA2new}*{expos\'{e} XIV, proposition 5.4}, %we have
+%Following \cite{SGA2new}*{XIV, 5.3}, we define the \emph{virtual dimension} of $R$ by
+\be \label{vdim-ineq}
+\source{purity-flat-cohomology}
+\vdim(R) \le \dim(R) \q \text{with equality iff $R$ is a complete intersection.}
+\ee
+By definition, $\vdim(R) = \vdim(\wh{R})$, so also $\vdim(R) = \vdim(R^h)$; %in addition, $\vdim(R) = \vdim(R^\sh)$, in fact,
+%the virtual dimension is invariant under replacing $R$ by its completion, so also by its Henselization. The same holds for the strict Henselization: in fact, 
+more generally, by \cite{Avr77}*{Proposition 3.6 and equations (3.2.1) and (3.2.2)}, for any flat local homomorphism $R \ra R'$ of Noetherian local rings, we have
+\be \label{vdim-add}
+\source{purity-flat-cohomology}
+\vdim(R') = \vdim(R) + \vdim(R'/\fm R'), 
+\ee
+so, in particular,
+\[
+\vdim(R) = \vdim(R^{\sh})
+\]
+(\emph{loc.~cit.}~proves this for the \emph{complete intersection defect} defined as $\dim(*) - \vdim(*)$ but the dimension $\dim(*)$ is likewise additive, see \cite{EGAIV2}*{corollaire~6.1.2}). %, which extends \cite{SGA2new}*{XIV,~5.5}.
+\epp
+
+
+\brem
+Despite the name ``geometric depth'' used for $\vdim(R)$ in \cite{SGA2new}*{expos\'{e}~XIV, d\'{e}finition 5.3}, in general there is no inequality between $\depth_\fm(R)$ and $\vdim(R)$: a Cohen--Macaulay $R$ that is not a complete intersection has $\depth_\fm(R) > \vdim(R) $, whereas, due to \cite{Bur68} (or \cite{Koh72}*{Theorem~A}) and the Auslander--Buchsbaum formula, any regular local ring $\wt{R}$ has an ideal $I$ generated by three elements such that the quotient 
+\[
+R \ce \wt{R}/I \qxq{has} \depth_\fm(R) = 0
+\]
+(and $\vdim(R) \ge \dim(\wt{R}) - 3$). % MO #278191
+\erem
+
+
+
+
+To deduce \Cref{ell-semipurity} from \Cref{abs-coh-pur}, we will use the following Lefschetz hyperplane theorem in local \'{e}tale cohomology. This strategy is close in spirit to the one used by Mich\`{e}le Raynaud in \cite{SGA2new}*{expos\'{e} XIV, th\'{e}or\`{e}me 5.6} in the case when $R$ is an excellent $\bQ$-algebra. %Other methods are possible: for instance, since we first reduce to complete intersection $R$, we could afterwards use a reduction indicated in  to arrive at the case when $R$ is essentially of finite type over a discrete valuation ring that had been settled in .
+
+
+
+
+%The prime to the characteristic aspects of our main result, \Cref{main}, are not new even though their proofs in the stated generality do not seem to appear in the literature. For instance, their complete intersection case was announced in 
+
+% The argument we give here (in the proof of \Cref{ell-semipurity}) is closer to the one for , which is the case of an excellent $\bQ$-algebra: we take advantage of numerous improvements due to Gabber \cite{ILO14} to the more restrictive earlier results from \cite{SGA4III} and \cite{SGA5} in order to eventually deduce the conclusion from the absolute cohomological purity theorem. The statement of \Cref{ell-semipurity} involves the virtual dimension, so we begin with a 
+
+
+\blem \label{lem:local-hyperplane}
+\source{purity-flat-cohomology}
+For a regular local ring $(R, \fm)$, an $f \in \fm$, and an invertible in $R$ prime $\ell$, the map
+\[
+\q H^i_\fm(R, \bZ/\ell\bZ) \ra H^i_\fm(R/(f), \bZ/\ell\bZ) \qxq{is} \begin{cases} \x{bijective for} \q i < \dim(R) - 1, \\ \x{injective for} \q i = \dim(R) - 1. \end{cases}
+\]
+\elem
+
+\bpf
+Letting $j \colon \Spec(R[\f{1}{f}]) \hra \Spec(R)$ be the indicated open immersion, we need to show that
+\be \label{eqn:j!-vanishes}
+\source{purity-flat-cohomology}
+H^i_{\fm}(R, j_!(\bZ/\ell \bZ)) \cong 0 \q \x{for} \q i < \dim(R).
+\ee
+Moreover, by the local-to-global spectral sequence \cite{SGA4II}*{expos\'{e}~V, proposition~6.4}, we may assume that $R$ is strictly Henselian and, by \Cref{lem:et-to-hat}, that $R$ is also complete. We will derive \eqref{eqn:j!-vanishes} from Gabber's affine Lefschetz theorem \cite{ILO14}*{expos\'{e} XV, corollaire 1.2.4}, which gives
+\be \lab{aff-Lef}
+\tst H^i(R[\f{1}{f}], \bZ/\ell\bZ) \cong 0 \q \x{for} \q i > \dim(R).
+\ee
+Namely, by %Gabber's results on dualizing complexes 
+\cite{ILO14}*{expos\'{e} XVII, th\'{e}or\`{e}me 0.2}, the complex of \'{e}tale sheaves $(\mu_\ell^{\tensor \dim(R)})[2\dim(R)]$  on $R$ is dualizing and its $j^!$-pullback is dualizing on $R[\f{1}{f}]$. This pullback is $(\mu_\ell^{\tensor \dim(R)})[2\dim(R)]$ (see \cite{SGA4III}*{expos\'{e}~XVIII, proposition~3.1.8~(iii)}), so, since 
+\[
+\bR j_* \circ \bD \cong \bD \circ j_!
+\]
+(see \cite{SGA5}*{expos\'{e}~I, proposition~1.12~(a)}), the vanishing \eqref{aff-Lef} amounts~to
+\[
+\tst \p{H^{i}\p{\bR\sH om\p{j_!(\bZ/\ell \bZ), (\mu_\ell^{\tensor \dim(R)})[2\dim(R)]}}}_{\fm} \cong 0 \q \text{for} \q i > -\dim(R),
+\]
+where $(-)_{\fm}$ indicates the stalk. To obtain \eqref{eqn:j!-vanishes} it remains to use local duality in \'{e}tale cohomology \cite{SGA5}*{expos\'{e}~I, \'{e}quation~(4.2.2)} (our dualizing complex is normalized %at $\fm$ 
+as there by \cite{ILO14}*{expos\'{e}~XVI, th\'{e}or\`{e}me~3.1.1}). %or \cite{Fuj02}*{2.1.1}). %the vanishing \eqref{inter-van} amounts to the desired .
+\epf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%\temp{
+%The following simple lemma captures a crucial trick that goes into the proofs of Theorems \ref{main} and \ref{ell-semipurity}: roughly, a well-chosen $\varpi$ can play the role of $p$ in the perfectoid parts of the overall argument---this bypasses all complications caused by $p$-torsion in mixed characteristic perfectoids.
+
+%\blem \label{lem:choose-varpi}
+%A Cohen--Macaulay local ring $(R, \fm)$ of residue characteristic $p > 0$ and positive dimension has a regular sequence $\varpi, r_2, \dotsc, r_{\dim(R)} \in \fm$ such that $R/(\varpi)$ is killed by a power of $p$. 
+%\elem
+
+%\bpf
+%Let $N > 0$ be large such that $p^N$ vanishes at the localizations of $R$ at the minimal primes of residue characteristic $p$. 
+%By prime avoidance \cite{SP}*{\href{https://stacks.math.columbia.edu/tag/00DS}{00DS}}, there is an $f \in \fm$ that does not vanish at the minimal primes of residue characteristic $p$ but vanishes at every minimal prime of residue characteristic $0$. We replace $f$ by a large power to ensure that $f$ even maps to $0$ in $R_\fp$ for every minimal prime $\fp \subset R$ of residue characteristic $0$. Then, since Cohen--Macaulay rings have no embedded associated primes, $\varpi \ce p + f$ is a nonzerodivisor whose image in $R_\fq$ for every prime $\fq$ of residue characteristic $0$ is $p$. Consequently, $R/(\varpi)$ is Cohen--Macaulay and all of its primes are of residue characteristic $p$. Thus, $R/(\varpi)$ is killed by a power of $p$, and $\varpi$ may be extended to a desired regular sequence.
+%\epf
+%}
+
+
+
+
+
+\bthm \lab{ell-semipurity}
+For a Noetherian local ring $(R, \fm)$ and a commutative, finite, \'{e}tale $R$-group $G$ whose order is invertible in $R$,
+\[
+H^i_\fm(R, G) \cong 0 \q \text{for} \q i < \vdim(R).
+\]
+\ethm
+
+%We will remove the unnecessary assumption on the order of $G$ in the proof of \Cref{main-etale} (see~\S\ref{main-etale-pf}).
+
+We will remove the assumption on the order of $G$ in \Cref{ell-semipurity-p} below.
+
+\bpf
+\Cref{abs-coh-pur} and \Cref{lem:local-hyperplane} settle the case when $R$ is a hypersurface, that is, a quotient of a regular ring by a principal ideal. Thus, it suffices to show how to reduce from a general $R$ to a hypersurface. This reduction works for any commutative, finite, \'{e}tale $G$, so, to be able to reuse it in the proof of \Cref{ell-semipurity-p}, we drop the assumption on the order of $G$.
+
+By the spectral sequence \cite{SGA4II}*{expos\'{e}~V, proposition~6.4}, we may assume that $R$ is strictly Henselian, and then, by d\'{e}vissage, that $G \simeq \bZ/p\bZ$ for a prime $p$. \Cref{lem:et-to-hat} reduces further to complete $R$, so that %
+\[
+R \simeq \wt{R}/(f_1, \dotsc, f_n)
+\]
+for a complete regular local ring $(\wt{R}, \wt{\fm})$ and $f_1, \dotsc, f_n \in \wt{\fm}$ chosen so that $f_1, \dotsc, f_n$ is a minimal generating set for the ideal $(f_1, \dotsc, f_n) \subset \wt{R}$ (see \S\ref{conv}). Suppose that $n > 1$ and consider the rings 
+\[
+R_1 \ce \wt{R}/(f_1, \dotsc, f_{n - 1}) \qxq{and} R_2 \ce \wt{R}/(f_n),
+\]
+as well as 
+\[
+R_{12} \ce \wt{R}/(f_1f_n, \dotsc, f_{n - 1}f_n).
+\]
+Set theoretically, in $\Spec(\wt{R})$ we have 
+\[
+\Spec(R_1) \cap \Spec(R_2) = \Spec(R) \q \x{and} \q \Spec(R_1) \cup \Spec(R_2) = \Spec(R_{12}).
+\]
+Thus, since the \'{e}tale site is insensitive to nilpotents, we obtain the exact sequence
+\[
+0 \ra \underline{\bZ/p\bZ}_{R_{12}} \xra{z\, \mapsto\, (z|_{R_1},\, z|_{R_2})} \underline{\bZ/p\bZ}_{R_1} \oplus \underline{\bZ/p\bZ}_{R_2} \xra{(x,\, y)\, \mapsto\, x|_R - y|_{R}} \underline{\bZ/p\bZ}_{R} \ra 0
+\]
+of sheaves on $\Spec(\wt{R})_\et$. Since $\vdim(R_*) \ge \vdim(R) + 1$ for $* \in \{1, 2, 12\}$, the associated long exact sequence of cohomology with supports reduces the desired vanishing to its counterpart for the rings $R_*$. This allows us to decrease $n$, so  we arrive at $n = 1$, that is, at $R$ being a hypersurface $\wt{R}/(f)$. %so that $\vdim(R) = \dim(R)$. % applied to $\wt{R}$ then give the case when $p$ is invertible in $R$. 
+\epf
+
+
+%Other ways to conclude: via tilting and \cite{Ill05}*{Thm.~1.3} or via a limit argument and \cite{Ill05}*{Thm.~2.6}.
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+
+
+
+
+\csub[Zariski--Nagata purity for rings of virtual dimension $\ge 3$] \lab{nonabelian}
+
+
+
+The nonabelian analogue of \Cref{ell-semipurity} is the following generalization of the Grothendieck--Zariski--Nagata purity theorem \cite{SGA2new}*{expos\'{e} X, th\'{e}or\`{e}me 3.4} (and of the main result of \cite{Cut95}): for extending finite \'{e}tale covers over a  closed subscheme of a Noetherian scheme, it suffices to assume that the total space have virtual dimension $\ge 3$ at the missing points (instead of even being a complete intersection of dimension $\ge 3$ at these points).
+ %the complete intersections of dimension $\ge 3$ the complete intersection assumption is not needed,  suffices. 
+ We learned from de Jong that his generalizations contained in \cite{SP} of the algebraization theorems from \cite{SGA2new} and \cite{Ray75} could be used to prove this---indeed, as the reader will notice, they are the main inputs to the proof of \Cref{non-ab-et}. This section is purely classical and does not use perfectoid inputs or other sections. 
+
+
+\bthm \lab{non-ab-et}
+Let $(R, \fm)$ be a Noetherian local ring, set $U_R \ce \Spec(R) \setminus \{ \fm\}$, and let $\Spec(R)_\fet$ \up{resp.,~$(U_{R})_\fet$} denote the category of finite \'{e}tale $R$-schemes \up{resp.,~of finite \'{e}tale $U_{R}$-schemes}.
+\benum
+\item \lab{NAE-a}
+If $\vdim(R) \ge 2$, then the pullback $\Spec(R)_\fet \ra (U_{R})_\fet$ is fully faithful, $U_R$ is connected, and 
+\[
+\q \pi_1^\et(U_R) \surjects \pi_1^\et(R).
+\]
+
+\item \lab{NAE-b}
+If $\vdim(R) \ge 3$, then the pullback $\Spec(R)_\fet \ra (U_{R})_\fet$ is an equivalence of categories and
+\[
+\q \pi_1^\et(U_R) \isomto \pi_1^\et(R).
+\]
+\eenum
+\ethm
+
+
+\bpf
+In \ref{NAE-a}, granted the full faithfulness, the connectedness of $U_R$ follows from that of $\Spec(R)$  by considering sections both of the finite \'{e}tale map $\Spec(R) \bigsqcup \Spec(R) \ra \Spec(R)$ and of its base change to $U_R$. Moreover, by \cite{SGA1new}*{V, 6.9, 6.10}, % another reference is \cite{Sza09}*{5.5.4 2. and 5.5.8}, although it does not seem as convenient (no direct relation to full faithfulness)
+%in both \ref{NAE-a} and \ref{NAE-b} 
+the conclusions about the fundamental groups follow from the claims about the functors. For the latter, patching \cite{FR70}*{proposition~4.2} and flat descent allow us to replace $R$ by its $\fm$-adic completion. Then we may write 
+\[
+R \simeq \wt{R}/(f_1, \dotsc, f_n)
+\]
+for a complete regular local ring $(\wt{R}, \wt{\fm})$ and $f_1, \dotsc, f_n \in \wt{\fm}$ chosen so that $f_1, \dotsc, f_n$ is a minimal generating set for the ideal $\ff \ce (f_1, \dotsc, f_n) \subset \wt{R}$ (see \S\ref{conv}). Let $\fU \subset \fX$ be the formal schemes obtained from 
+\[
+U_{\wt{R}} \ce \Spec(\wt{R}) \setminus \{ \wt{\fm}\} \subset  \Spec(\wt{R})
+\]
+ by formal $\ff$-adic completion. %, and consider the Zariski open $\fU \subset \fX$ obtained by formally $\ff$-adically completing . 
+Since  \'{e}tale sites are insensitive to nilpotents, pullback gives equivalences of categories
+\[
+\fX_\fet \isomto \Spec(R)_\fet \qq \x{and} \qq \fU_\fet \isomto (U_{R})_\fet,
+\]
+so we are reduced to considering the pullback functor $\fX_\fet \ra \fU_\fet$. By \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/09ZL}{09ZL}}, %the Grothendieck algebraization theorem \cite{EGAIII1}*{5.1.4}, %to get flatness: finite \'{e}tale maps to a local ring are free as modules and the trivializations may be lifted due to Nakayama, so we are really only algebraizing free modules. 
+the pullback $\Spec(\wt{R})_\fet \isomto \fX_\fet$ is an equivalence, so we only need to consider the pullback $\Spec(\wt{R})_\fet \ra \fU_\fet$.
+
+\benum
+\item
+The assumption $\vdim(R) \ge 2$ allows us to apply the algebraization of formal sections \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0DXR}{0DXR} (with Lemma~\href{https://stacks.math.columbia.edu/tag/0DX9}{0DX9})} %one applies this to Hom sheaves, which are locally free, so their formation commutes with pullback
+(or \cite{Ray75}*{chapitre~I, th\'{e}or\`{e}me~3.9}) to conclude that any morphism between the $\fU$-pullbacks of finite \'{e}tale $\wt{R}$-schemes $Y_1$ and $Y_2$ algebraizes to a morphism between their $U$-pullbacks for some open $U_R \subset U \subset U_{\wt{R}}$, and this algebraization is unique up to shrinking $U$. The complement 
+\[
+\qq Z \ce \Spec(\wt{R}) \setminus U
+\] 
+is at most $n$-dimensional because the $f_i|_Z$ cut out the closed point of $Z$. Thus, since $n \le \dim(\wt{R}) - 2$, the codimension of $Z$ in $\Spec(\wt{R})$ is $\ge 2$, to the effect that the algebraized morphism extends uniquely to an $\wt{R}$-morphism between $Y_1$ and $Y_2$ (see \cite{EGAIV2}*{th\'{e}or\`{e}me 5.10.5}). Consequently, the pullback $\Spec(\wt{R})_\fet \ra \fU_\fet$ is fully faithful.
+
+\item
+The assumption $\vdim(Rd) \ge 3$ allows us to apply the algebraization of coherent formal modules \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0EJP}{0EJP}} to conclude that any finite \'{e}tale $\fU$-scheme algebraizes to a finite \'{e}tale $U$-scheme $Y$ for some open $U_R \subset U \subset U_{\wt{R}}$ (to algebraize the algebra structure maps, we use \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0DXR}{0DXR}} as in \ref{NAE-a}). 
+The complement of $U$ in $\Spec(\wt{R})$ is now of codimension $\ge 3$, %(see the proof of \ref{NAE-a}), 
+so, by the Zariski--Nagata purity for regular rings \cite{SGA2new}*{expos\'{e} X, th\'{e}or\`{e}me 3.4 (i)}, we may extend $Y$ to a finite \'{e}tale $\wt{R}$-scheme. Consequently, the pullback $\Spec(\wt{R})_\fet \ra \fU_\fet$ is essentially surjective.
+\qedhere
+\eenum
+\epf
+
+\brem
+The connectedness of $U_R$ holds more generally, see, for instance, \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0ECR}{0ECR}} or \cite{Var09}*{Theorem~1.6}.
+\erem
+
+
+
+
+
+
+
+%An application in the spirit of \cite{Cut95}*{Thm.~22} should be possible: if $R$ is (R$_2$) and of virtual dimension $\ge 3$, then $\Cl(R)$ has no torsion of order invertible on $R$ (a generalization of \cite{Gri01}*{1.8}). Global version on representing elements of $\Cl(X)$ by line bundles for (R$_2$) $X$ whose local rings of dim $\ge 3$ are of virtual dimension $\ge 3$?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

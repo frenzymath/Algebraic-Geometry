@@ -1,0 +1,1268 @@
+% Source-derived chapter 05: Spectral realization of Weyl algebras
+% Original source: tates-thesis-de-rham-setting
+\chapter{Spectral realization of Weyl algebras}
+\label{tates-thesis-de-rham-setting-chapter-05}
+\source{tates-thesis-de-rham-setting}
+
+\begin{remark}[Source section]
+\label{tates-thesis-de-rham-setting-chapter-05-source}
+\source{tates-thesis-de-rham-setting}
+\source{tates-thesis-de-rham-setting}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Spectral realization of Weyl algebras
+\label{s:weyl}
+\source{tates-thesis-de-rham-setting}
+
+\subsection{Overview}
+
+\subsubsection{}
+
+Let $i_n:\sZ^{\leq n} \into \sY_{\log}^{\leq n}$ denote the 
+canonical embedding, as in \S \ref{ss:y-not}.
+
+We have $i_{n,*}^{\IndCoh}(\sO_{\sZ^{\leq n}}) \in \Coh(\sY_{\log}^{\leq n})$,
+which lies in $\IndCoh^*(\sY_{\log}^{\leq n})^{\heart}$ by
+Proposition \ref{p:zn-cl}.
+
+Let $\sF_n \coloneqq 
+\Av_!^{\Gr_{\bG_m}^{\leq n},w}
+(i_{n,*}(\sO_{\sZ^{\leq n}}))$, which is a compact object in $\IndCoh^*(\sY^{\leq n})$.
+
+In this section, we construct an action of 
+a Weyl algebra in $2n$ generators on $\sF_n$ (considered as an object of 
+$\IndCoh^*(\sY^{\leq n})$).
+
+\subsubsection{}
+
+To formulate our construction more canonically, let
+$W_n$ denote the algebra of global differential operators
+on the scheme $\fL_n^+ \bA^1 = \Spec\Sym(t^{-n}k[[t]]dt/k[[t]]dt)$. 
+
+Let $W_n^{op}$ denote $W_n$ with the reversed multiplication.
+We will construct a canonical homomorphism:
+%
+\begin{equation}\label{eq:action}
+\source{tates-thesis-de-rham-setting}
+W_n^{op} \to \ul{\End}_{\IndCoh^*(\sY^{\leq n})}(\sF_n) \in \Alg = \Alg(\Vect).
+\end{equation}
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+In Proposition \ref{p:ff}, we will show that this map is actually an isomorphism. 
+
+\end{rem}
+
+\subsection{Reduction to generators and relations}\label{ss:coconn-reduction}
+\source{tates-thesis-de-rham-setting}
+
+Note that $\sF_n$ lies in the heart of the $t$-structure constructed
+in Proposition \ref{p:y-t-str} (or rather, its truncated counterpart, as in 
+\S \ref{ss:y-trun-indcoh}).
+
+Therefore, the right hand side of \eqref{eq:action} 
+lies in cohomological degrees $\geq 0$.
+
+As the left hand side of \eqref{eq:action} is certainly in cohomological 
+degree $0$, it suffices to construct a homomorphism:
+%
+\[
+W_n^{op} \to \tau^{\leq 0} \ul{\End}_{\IndCoh^*(\sY^{\leq n})}(\sF_n) = 
+H^0\ul{\End}_{\IndCoh^*(\sY^{\leq n})}(\sF_n) \in \Alg(\Vect^{\heart}).
+\]
+
+As both terms are now in degree $0$ and the left hand side
+has a standard algebra presentation, such a construction 
+may be given by constructing generators and checking relations.
+
+We need to construct maps:
+%
+\begin{equation}\label{eq:fns}
+\source{tates-thesis-de-rham-setting}
+\begin{gathered}
+t^{-n}k[[t]]dt/k[[t]]dt = (k[[t]]/t^n)^{\vee} \to 
+\ul{\End}_{\IndCoh^*(\sY^{\leq n})}(\sF_n) \\
+(\omega \in t^{-n}k[[t]]dt/k[[t]]dt) \mapsto \vph_{\omega}
+\end{gathered}
+\end{equation}
+
+\noindent and:
+%
+\begin{equation}\label{eq:vfs}
+\source{tates-thesis-de-rham-setting}
+\begin{gathered}
+k[[t]]/t^n \to 
+\ul{\End}_{\IndCoh^*(\sY^{\leq n})}(\sF_n) \\
+(f \in k[[t]]/t^n) \mapsto \xi_{f}.
+\end{gathered}
+\end{equation}
+
+\noindent We then need to check that the $\vph_{\omega}$ operators
+mutually commute, that the $\xi_f$ operators mutually commute, and
+the identity:\footnote{The sign on the right hand side reflects working
+with $W_n^{op}$, not $W_n$.}
+
+\begin{equation}\label{eq:uncertainty}
+\source{tates-thesis-de-rham-setting}
+[\xi_f,\vph_{\omega}] = -\Res(f\omega) \cdot \id \in  
+H^0\ul{\End}_{\IndCoh^*(\sY^{\leq n})}(\sF_n).
+\end{equation}
+
+We provide these constructions and check these identities in what follows.
+
+\subsection{Action of functions}\label{ss:fn-intro}
+\source{tates-thesis-de-rham-setting}
+
+First, we construct the map $\omega \mapsto \vph_{\omega}$ 
+from \eqref{eq:fns}.
+
+We assume the reader is familiar with the notation
+from \S \ref{s:aj} below. 
+
+\subsubsection{}\label{ss:fn-concl}
+\source{tates-thesis-de-rham-setting}
+
+We have a commutative diagram:
+%
+\[
+\xymatrix{
+\Gr_{\bG_m}^{pos,\leq n} \times \sZ^{\leq n} \ar[d]^{\alpha}
+ \ar[dr]^{p_1} 
+& \\
+\Gr_{\bG_m}^{pos,\leq n} \times \sZ^{\leq n} \ar[r]^{p_1}
+& \Gr_{\bG_m}^{pos,\leq n}
+}
+\]
+
+\noindent where $\alpha = (p_1,\act)$ for
+$\act:\Gr_{\bG_m}^{pos,\leq n} \times \sZ^{\leq n} \to \sZ^{\leq n}$
+the action morphism from above.
+
+We have an evident isomorphism:\footnote{One can work with
+$\IndCoh^*$ or $\QCoh$ for our purposes here. 
+We chose
+$\IndCoh^*$ for the sake of definiteness. 
+
+We also have
+written $(-)^*$ in place of $(-)^{*,\IndCoh}$ to keep
+the notation simpler. To be clear, this notation refers to
+the left adjoint to the $\IndCoh^*$ pushforward functor.}
+%
+\[
+\omega_{\Gr_{\bG_m}^{pos,\leq n}} \boxtimes 
+\sO_{\sZ^{\leq n}} = 
+p_1^*(\omega_{\Gr_{\bG_m}^{pos,\leq n}}) \simeq
+\alpha^*p_1^*(\omega_{\Gr_{\bG_m}^{pos,\leq n}}) \in 
+\IndCoh^*(\Gr_{\bG_m}^{pos,\leq n} \times \sZ^{\leq n})
+\]
+
+\noindent giving a morphism:
+%
+\[
+\omega_{\Gr_{\bG_m}^{pos,\leq n}} \boxtimes 
+\sO_{\sZ^{\leq n}} \to 
+\alpha_*^{\IndCoh}(\omega_{\Gr_{\bG_m}^{pos,\leq n}} \boxtimes 
+\sO_{\sZ^{\leq n}}).
+\]
+
+\noindent Applying $p_{2,*}^{\IndCoh}$, we obtain a canonical
+morphism:
+%
+\[
+\Gamma^{\IndCoh}(\omega_{\Gr_{\bG_m}^{pos,\leq n}}) \otimes  
+\sO_{\sZ^{\leq n}} \to 
+p_{2,*}^{\IndCoh}
+\alpha_*^{\IndCoh}(\omega_{\Gr_{\bG_m}^{pos,\leq n}} \boxtimes 
+\sO_{\sZ^{\leq n}}) = 
+\act_*^{\IndCoh}(\omega_{\Gr_{\bG_m}^{pos,\leq n}} \boxtimes 
+\sO_{\sZ^{\leq n}}).
+\]
+
+We also have a canonical adjunction morphism
+$\gamma_*^{\IndCoh}(\omega_{\Gr_{\bG_m}^{pos,\leq n}}) \to 
+\omega_{\Gr_{\bG_m}}$ for $\gamma:\Gr_{\bG_m}^{pos,\leq n} \to 
+\Gr_{\bG_m}^{\leq n}$ the (ind-closed) embedding.
+
+Pushing forward along $i_n:\sZ^{\leq n} \to \sY_{\log}^{\leq n}$
+and composing, we obtain a canonical morphism:
+%
+\[
+\Gamma^{\IndCoh}(\omega_{\Gr_{\bG_m}^{pos,\leq n}}) \otimes  
+i_{n,*}^{\IndCoh}(\sO_{\sZ^{\leq n}}) \to 
+\act_*^{\IndCoh}(\omega_{\Gr_{\bG_m}}^{\leq n} \boxtimes 
+i_{n,*}^{\IndCoh}(\sO_{\sZ^{\leq n}}) = 
+\Oblv \Av_!^{\Gr_{\bG_m}^{\leq n},w} 
+i_{n,*}(\sO_{\sZ^{\leq n}}).
+\]
+
+% check notation on Av_!. 
+% And should we emphasize averaging for \Gr_{\bG_m}^{\leq n}?
+
+By Proposition \ref{p:cc-log}, we have a canonical isomorphism:
+%
+\[
+\Gamma^{\IndCoh}(\omega_{\Gr_{\bG_m}^{pos,\leq n}}) \simeq
+\Gamma(\fL_n^+ \bA^1,\sO_{\fL_n^+ \bA^1}).
+\]
+
+\noindent Therefore, by adjunction, the above gives a morphism:
+%
+\[
+\begin{gathered}
+\Gamma(\fL_n^+ \bA^1,\sO_{\fL_n^+ \bA^1}) \to 
+\ul{\Hom}_{\IndCoh^*(\sY_{\log}^{\leq n})}
+\big(i_{n,*}(\sO_{\sZ^{\leq n}}),
+\Oblv\Av_!^{\Gr_{\bG_m}^{\leq n},w}  i_{n,*}(\sO_{\sZ^{\leq n}})\big) = \\
+\ul{\End}_{\IndCoh^*(\sY^{\leq n})}
+\big(\Av_!^{\Gr_{\bG_m}^{\leq n},w}  i_{n,*}(\sO_{\sZ^{\leq n}})\big).
+\end{gathered}
+\]
+
+\noindent By \emph{loc. cit}., this is a morphism
+of algebras. 
+
+For $\omega \in t^{-n}k[[t]]dt/k[[t]]dt = (k[[t]]/t^n)^{\vee}$,
+there is a corresponding linear function on $\fL_n^+ \bA^1$;
+its image under the above map is by definition $\vph_{\omega}$ in 
+\eqref{eq:fns}. As the above map extended to the symmetric
+algebra on this vector space, we have verified that
+the operators $\vph_{\omega}$ commute.
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+More evocatively, but a little less rigorously, we have algebra maps:
+%
+\[
+\Gr_{\bG_m}^{pos,\leq n} \to \Maps_{/\sY^{\leq n}}(\sZ^{\leq n},\sZ^{\leq n}) \to 
+\ul{\End}_{\IndCoh^*(\sY^{\leq n})}(\sF_n)
+\]
+
+\noindent where the first map is given by the action and the second 
+map sends a map $f:\sZ^{\leq n} \to \sZ^{\leq n}$ over $\sY^{\leq n}$ 
+to the map: 
+%
+\[
+\sF_n = \pi_{n,*}^{\IndCoh}(\sO_{\sZ^{\leq n}}) 
+\to \pi_{n,*}^{\IndCoh}f_*^{\IndCoh}(\sO_{\sZ^{\leq n}}) = 
+\pi_{n,*}^{\IndCoh}(\sO_{\sZ^{\leq n}}) = \sF_n
+\]
+
+\noindent where $\pi_n$ is the ind-proper morphism $\sZ^{\leq n} \to \sY^{\leq n}$ 
+and the first map comes by functoriality from the canonical\footnote{This
+map is tautologically equivalent via $\Psi$ to the adjunction morphism
+$\sO_{\sZ} \to f_*^{\IndCoh}(\sO_{\sZ^{\leq n}}) \in \QCoh(\sZ^{\leq n})$.}
+map $\sO_{\sZ^{\leq n}} \to f_*^{\IndCoh}(\sO_{\sZ^{\leq n}})$.
+
+We then obtain an algebra map:
+%
+\[
+\Gamma(\fL_n^+ \bA^1,\sO_{\fL_n^+ \bA^1}) =
+\Gamma^{\IndCoh}(\omega_{\Gr_{\bG_m}^{pos,\leq n}}) \to 
+\ul{\End}_{\IndCoh^*(\sY^{\leq n})}(\sF_n)
+\]
+
+\noindent from \eqref{eq:integration}. The detailed construction articulates
+this idea explicitly.
+
+\end{rem}
+
+\subsection{Action of vector fields}
+
+We now define the map $f \mapsto \xi_f$ from
+\eqref{eq:vfs}.
+
+\subsubsection{}
+
+We begin with an elementary observation
+involving $C = \Spec(k[x,y]/xy)$.
+Let $i:\bA_y^1 \into C$ denote the 
+embedding of the $y$-axis.
+
+The map:
+%
+\[
+x\cdot-:\sO_C \to \sO_C
+\]
+
+\noindent obviously factors through a map: 
+%
+\[
+i_*\sO_{\bA_y^1} \to \sO_C
+\]
+
+\noindent that we also denote $y \cdot -$.
+
+\subsubsection{}\label{ss:c-ind}
+\source{tates-thesis-de-rham-setting}
+
+We now vary to above to incorporate $\bG_m$-actions.
+
+Consider $\bG_m \times \bG_m$ acting on
+$C$ with the first $\bG_m$ scaling the $x$-axis
+and the second $\bG_m$ scaling the $y$-axis.
+
+The map $y\cdot-$ evidently has bidegree
+$(0,1)$.
+Therefore, on the stack $C/\bG_m\times\bG_m$, we obtain
+the following. 
+
+By definition, there are tautological line bundles 
+$\sL_1$ and $\sL_2$ on $C/\bG_m\times \bG_m$
+equipped with sections $x \in \sL_1$ and 
+$y \in \sL_2$ such that
+$xy = 0$ as a section of $\sL_1 \otimes \sL_2$. 
+
+From the above, we obtain a canonical map:
+%
+\begin{equation}\label{eq:sections-ann}
+\source{tates-thesis-de-rham-setting}
+y\cdot -: i_*\sO_{0/\bG_m \times \bA_y^1/\bG_m} \to \sL_2.
+\end{equation}
+
+\subsubsection{}
+
+Before applying the above, we introduce some more
+notation.
+
+Let $\Gr_{\bG_m}^{neg} \subset \Gr_{\bG_m}$ denote
+the image of $\Gr_{\bG_m}^{pos}$ under the inversion
+map $\Gr_{\bG_m} \isom \Gr_{\bG_m}$. 
+We use similar notation for $\Gr_{\bG_m}^{neg,\leq n}$.
+
+Note that $\AJ^{-1}:\widehat{\sD} \to \Gr_{\bG_m}$
+maps into $\Gr_{\bG_m}^{neg}$. Similarly,
+$\AJ^{-1}$ maps $\sD^{\leq n}$ into 
+$\Gr_{\bG_m}^{neg,\leq n}$.
+
+We let $\act_{neg}:\Gr_{\bG_m}^{neg} \times \sY_{\log}
+\to \sY_{\log}$ denote the action map.
+We use evident variants of this as well; crucially,
+we also let $\act_{neg}$ denote the composition:
+%
+\[
+\sD^{\leq n} \times \sZ^{\leq n} 
+\xar{\AJ^{-1} \times i_n} 
+\Gr_{\bG_m}^{neg} \times \sY_{\log} \xar{\act_{neg}}
+\sY_{\log}.
+\] 
+
+\subsubsection{}\label{ss:act-inv}
+\source{tates-thesis-de-rham-setting}
+
+Now recall from Proposition \ref{p:z-flat-axes-var}
+that we have a canonical map:
+%
+\[
+\sD^{\leq n} \times \sZ^{\leq n} \to 
+C/\bG_m \times \bG_m.
+\]
+
+In the notation of \S \ref{ss:c-ind},
+the line bundle $\sL_2$ pulls
+back to 
+$\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}$  
+by construction. The pullback of its section $y$ 
+corresponds to the canonical map:
+%
+\[
+\sZ^{\leq n} \to \LocSys_{\bG_m,\log}^{\leq n}
+\xar{\Pol}
+\fL^{pol,\leq n} \bA^1 dt = 
+\Gamma(\sD^{\leq n},\omega_{\sD^{\leq n}})  
+\] 
+
+\noindent (with the last term really meaning the
+scheme attached to this vector space). We sometimes
+denote this section as $\omega^{univ}$ in what
+follows.
+
+We let 
+$\act_{neg}^{-1}(\sZ^{\leq n}) \subset 
+\sD^{\leq n} \times \sZ^{\leq n}$ denote the fiber
+product:
+%
+\[
+(\sD^{\leq n} \times \sZ^{\leq n})
+\underset{C/\bG_m\times\bG_m}{\times}
+(0/\bG_m \times \bA_y^1/\bG_m).
+\]
+
+\noindent (See \S \ref{ss:act-neg-rems} for
+an explanation of the notation.) 
+By Proposition \ref{p:z-flat-axes-var}, the
+derived fiber product is classical.\footnote{This
+fact is psychologically convenient, but not literally
+necessary in what follows. I.e., a straightforward
+restructuring of the discussion that follows could avoid 
+directly appealing to this fact.} We let
+$\alpha$ denote the embedding of
+$\act_{neg}^{-1}(\sZ^{\leq n})$ into 
+$\sD^{\leq n} \times \sZ^{\leq n}$.
+
+Pulling back \eqref{eq:sections-ann}, we obtain 
+a canonical map:
+%
+\begin{equation}\label{eq:supp}
+\source{tates-thesis-de-rham-setting}
+\alpha_*^{\IndCoh}
+(\sO_{\act_{neg}^{-1}(\sZ^{\leq n})}) \to 
+\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}
+\in \IndCoh^*(\sD^{\leq n} \times \sZ^{\leq n})^{\heart}
+\simeq \QCoh(\sD^{\leq n} \times \sZ^{\leq n})^{\heart}.
+\end{equation}
+
+\noindent (As the notation indicates, the
+superscript $\IndCoh$ on $\alpha_*$ is a matter
+of perspective: it is convenient for us for later 
+purposes to view this morphism occurring in $\IndCoh^*$
+as opposed to $\QCoh$.)
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+In other words, the section $\omega^{univ}$
+is scheme-theoretically supported on 
+$\act_{neg}^{-1}(\sZ^{\leq n})$.
+
+\end{rem}
+
+\subsubsection{}\label{ss:act-neg-rems}
+\source{tates-thesis-de-rham-setting}
+
+We now claim that $\act_{neg}^{-1}(\sZ^{\leq n})$
+is the \emph{classical} (not derived!) fiber
+product:
+%
+\begin{equation}\label{eq:act-neg-rems}
+\source{tates-thesis-de-rham-setting}
+\act_{neg}^{-1}(\sZ^{\leq n}) = 
+\Big(
+(\sD^{\leq n} \times \sZ^{\leq n})
+\underset{\sY_{\log}^{\leq n}}{\times}
+\sZ^{\leq n} 
+\Big)^{cl} \subset \sD^{\leq n} \times \sZ^{\leq n}.
+\end{equation}
+
+\noindent Here the morphism 
+$\sD^{\leq n} \times \sZ^{\leq n} \to \sY_{\log}^{\leq n}$
+is $\act_{neg}$.
+
+Indeed, we have seen that 
+$\act_{neg}^{-1}(\sZ^{\leq n})$
+is a classical stack, so it suffices to check
+the above identity on $A$-points for classical
+commutative rings $A$, i.e., we are free to 
+manipulate our $A$-points in the most naive way.
+
+To calculate $\act_{neg}^{-1}(\sZ^{\leq n})$,
+we need to recall from 
+Proposition \ref{p:z-flat-axes-var} that
+in the notation of \S \ref{ss:c-ind}, the
+pullback of the line bundle $\sL$ comes from
+the evident universal line bundle
+on $\widehat{\sD} \times \sZ$; i.e.,
+its fiber at a point 
+$(\tau,(\sL,\nabla,s)) \in \widehat{\sD} \times \sZ$ 
+is $\sL|_{\tau}$. Its canonical section,
+denoted $x$ in \S \ref{ss:c-ind}, corresponds
+to $s|_{\tau} \in \sL|_{\tau}$. 
+
+Therefore, as a classical prestack,
+$\act_{neg}^{-1}(\sZ^{\leq n}) \subset 
+\sD^{\leq n} \times \sZ^{\leq n}$
+corresponds to those data
+$(\tau,(\sL,\nabla,s))$ with $s \in \sL(-\tau)$.
+
+Clearly this description exactly matches
+\eqref{eq:act-neg-rems}.
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+The derived version of the
+fiber product \eqref{eq:act-neg-rems} is easily
+seen to differ from 
+$\act_{neg}^{-1}(\sZ^{\leq n})$, so our notation
+is a bit abusive from our perspective, which
+emphasizes derived geometry. (However, we do
+not feel so bad about this as we have provided
+another derivedly good definition of the space.)
+
+\end{rem}
+
+\subsubsection{}\label{ss:can-constr}
+\source{tates-thesis-de-rham-setting}
+
+We now construct a canonical map:
+%
+\[
+\on{can}:
+i_{n,*}^{\IndCoh}\sO_{\sZ^{\leq n}} \to 
+\act_{neg,*}^{\IndCoh}
+(\omega_{\sD^{\leq n}} \boxtimes 
+i_{n,*}\sO_{\sZ^{\leq n}}) \in 
+\IndCoh^*(\sY_{\log}^{\leq n})
+\]
+
+\noindent as follows. 
+
+By the above, we have a commutative diagram:
+%
+\[
+\xymatrix{
+\act_{neg}^{-1}(\sZ^{\leq n}) \ar[d]^{\act_{neg}^{\prime}} 
+\ar[rr]^{\alpha} && 
+\sD^{\leq n} \times \sZ^{\leq n} \ar[d]^{\act_{neg}} \\ 
+\sZ^{\leq n} \ar[rr]^{i_n} && \sY_{\log}^{\leq n}.
+}
+\]
+
+Now applying $i_{n,*}^{\IndCoh}$
+to the evident counit map, we obtain:
+%
+\[
+\begin{gathered}
+i_{n,*}^{\IndCoh}\sO_{\sZ^{\leq n}} \to 
+i_{n,*}^{\IndCoh} \act_{neg,*}^{\prime,\IndCoh}
+\act_{neg}^{\prime,*,\IndCoh}(\sO_{\sZ^{\leq n}}) = 
+i_{n,*}^{\IndCoh} \act_{neg,*}^{\prime,\IndCoh}
+\sO_{\act_{neg}^{-1}(\sZ^{\leq n})} = \\
+\act_{neg,*}^{\IndCoh} \alpha_*^{\IndCoh}
+\sO_{\act_{neg}^{-1}(\sZ^{\leq n})}.
+\end{gathered}
+\]
+
+\noindent We then applying $\act_{neg,*}^{\IndCoh}$
+to \eqref{eq:supp} to obtain a map:
+%
+\[
+\act_{neg,*}^{\IndCoh}\alpha_*^{\IndCoh}
+(\sO_{\act_{neg}^{-1}(\sZ^{\leq n})}) \to 
+\act_{neg,*}^{\IndCoh}
+(\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}).
+\]
+
+\noindent Composing these two maps, we obtain
+the desired map $\on{can}$.
+
+\subsubsection{}
+
+More generally, suppose $f \in k[[t]]/t^n$.
+
+There is an associated action map 
+$f\cdot -:\omega_{\sD^{\leq n}} \to 
+\omega_{\sD^{\leq n}} \in \QCoh(\sD^{\leq n})$.
+By functoriality, this gives rise to a morphism:
+%
+\[
+f\cdot-:\act_{neg,*}^{\IndCoh}
+(\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}})
+\to \act_{neg,*}^{\IndCoh}
+(\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}).
+\]
+
+We then define: 
+%
+\[
+\on{can}_f:
+i_{n,*}^{\IndCoh}\sO_{\sZ^{\leq n}} \to 
+\act_{neg,*}^{\IndCoh}
+(\omega_{\sD^{\leq n}} \boxtimes 
+i_{n,*}\sO_{\sZ^{\leq n}})
+\]
+
+\noindent as the composition of $\on{can} (= \on{can}_1)$
+with $f\cdot-$.
+
+\subsubsection{}
+
+We now conclude the construction. 
+Fix $f$ as above.
+
+By adjunction,
+there is a canonical morphism
+$\AJ_*^{-1,\IndCoh}(\omega_{\sD^{\leq n}}) \to 
+\omega_{\Gr_{\bG_m}^{\leq n}}$. 
+
+Therefore, $\on{can}_f$ gives rise to a morphism:
+%
+\[
+i_{n,*}^{\IndCoh}\sO_{\sZ^{\leq n}} \to 
+\act_{neg,*}^{\IndCoh}
+(\omega_{\Gr_{\bG_m}^{\leq n}} \boxtimes 
+i_{n,*}\sO_{\sZ^{\leq n}}) = 
+\Oblv\Av_!^{\Gr_{\bG_m}^{\leq n},w} 
+(i_{n,*}\sO_{\sZ^{\leq n}}).
+\]
+
+\noindent By adjunction, we obtain the desired
+morphism:
+%
+\[
+\xi_f:\sF_n \to \sF_n.
+\]
+
+\subsubsection{}
+
+Next, we show that the endomorphisms
+$\xi_f$ of $\sF_n$ mutually commute.
+
+By construction,\footnote{See \S \ref{ss:sigma-comp} for a much more general
+setup.}
+the assertion immediately reduces to the following one.
+
+\begin{lem}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+The section:
+%
+\[
+p_{13}^*(\omega^{univ}) \otimes p_{23}^*(\omega^{univ}) \in 
+p_1^*(\omega_{\sD^{\leq n}}) \otimes p_2^*(\omega_{\sD^{\leq n}}) =
+\omega_{\sD^{\leq n}} \boxtimes \omega_{\sD^{\leq n}} 
+\boxtimes \sO_{\sZ^{\leq n}}
+\]
+
+\noindent is $\bZ/2$-equivariant (for the natural action
+permuting the first two factors).
+
+\end{lem}
+
+\begin{proof}
+
+There is a canonical morphism:
+%
+\[
+\sD^{\leq n} \times \sD^{\leq n} \times \fL_n^+ \bA^1/\bG_m
+\]
+
+\noindent given as follows. To a point of the left hand side 
+defined by
+$\tau_1 \in \sD^{\leq n}$, $\tau_2 \in \sD^{\leq n}$,
+a line bundle $\sL$ on $\sD^{\leq n}$ and a section 
+$s \in \sL$, our map assigns the line
+$\sL|_{\tau_1} \otimes \sL|_{\tau_2}$ with
+its section $s|_{\tau_1}\otimes s|_{\tau_2}$.
+
+In fact, this map factors through a map:
+%
+\[
+\Sym^2(\sD^{\leq n}) \times \fL_n^+ \bA^1/\bG_m.
+\]
+
+\noindent Indeed, for a point $(D,(\sL,s))$ of the left hand
+side, we may regard $D$ as a finite subscheme of $\sL$.
+The map then sends the datum to 
+$(\Lambda^2(s) \in \Lambda^2(\sL|_D)) \in \bA^1/\bG_m$.
+I.e., this is evident by the usual norm construction.
+
+Unwinding the constructions, this implies the claim.
+
+\end{proof}
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+We could have organized the discussion differently. 
+Instead, we could have generalized our
+construction of $\xi_f$ with $\Gr_{\bG_m}^{neg,\leq n}$ replacing
+$\sD^{\leq n}$ via a suitable use of norms (as in the lemma
+above). Then we would immediately deduce commutativity of the
+operators $\xi_f$ by the same argument and for the operators
+$\vph_{\omega}$.
+
+\end{rem}
+
+\subsection{Uncertainty}
+
+We now check the remaining Weyl algebra relation
+\eqref{eq:uncertainty}.
+
+\subsubsection{}\label{ss:gpd}
+\source{tates-thesis-de-rham-setting}
+
+First, let us put the above constructions a common framework to allow us to 
+compute the relevant compositions.
+
+Let $\sH^{\leq n} \coloneqq \sZ^{\leq n} \times_{\sY^{\leq n}} \sZ^{\leq n}$.
+This stack is a groupoid over $\sZ^{\leq n}$ with its projections
+$p_1,p_2:\sH^{\leq n} \rightrightarrows \sZ^{\leq n}$ ind-proper.
+
+By adjunction and base-change, morphisms $\sF_n \to \sF_n$ are equivalent to
+sections of $p_1^!(\sO_{\sZ^{\leq n}})$. For\footnote{For $V \in \Vect$,
+$v\in V$ means $v \in \Omega^{\infty} V$, i.e., we have a point of the
+underlying $\infty$-groupoid. If we concretely model $V$ as a cochain
+complex, we obtain such data from cycles in degree $0$.}
+$\sigma \in \Gamma^{\IndCoh}(\sH^{\leq n},p_1^!(\sO_{\sZ^{\leq n}}))$, 
+we let $\psi_{\sigma}:\sF_n \to \sF_n$ denote the corresponding morphism.
+
+In particular, suppose we are given a prestack $S$ with an ind-proper morphism
+$\eta:S \to \sH^{\leq n}$. Given a section of 
+$\eta^!p_1^!(\sO_{\sZ^{\leq n}})$, we obtain a section of 
+$p_1^!(\sO_{\sZ^{\leq n}})$ by functoriality, hence a morphism
+as above.
+
+\begin{example}
+\source{tates-thesis-de-rham-setting}
+\notready\label{e:fns}
+\source{tates-thesis-de-rham-setting}
+
+Let $S = \sD^{\leq n} \times \sZ^{\leq n}$ and let
+$\eta:S \to \sH^{\leq n}$
+be the morphism: 
+%
+\[
+(p_2,\act\circ (\AJ \times \id)):
+(\tau,(\sL,\nabla,s) \mapsto ((\sL,\nabla,s),(\sL(\tau),\nabla,s)) \in 
+\sZ^{\leq n} \underset{\sY^{\leq n}}{\times} \sZ^{\leq n} = 
+\sH^{\leq n}.
+\]
+
+For $\omega \in (k[[t]]/t^n)^{\vee} \overset{Prop. \ref{p:cc-log}}{=} 
+\Gamma^{\IndCoh}(\sD^{\leq n},\omega_{\sD^{\leq n}})$, we
+obtain the evident section $p_1^*(\omega)$ of:
+%
+\[
+\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}} = 
+p_2^! \sO_{\sZ^{\leq n}}  = 
+\eta^!p_1^!(\sO_{\sZ^{\leq n}}).
+\]
+
+\noindent The corresponding map $\sF_n \to \sF_n$ is
+\eqref{eq:fns}.
+
+\end{example}
+
+\begin{example}
+\source{tates-thesis-de-rham-setting}
+\notready\label{e:vfs}
+\source{tates-thesis-de-rham-setting}
+
+In the notation of \S \ref{ss:act-inv}, let 
+$S = \act_{neg}^{-1}(\sZ^{\leq n}) \subset \sD^{\leq n} \times \sZ^{\leq n}$.
+Let $\eta$ be the evident morphism defined using \eqref{eq:act-neg-rems}.\footnote{In the notation of \S \ref{ss:can-constr}, this 
+morphism is given by $(p_1\alpha,\act_{neg}^{\prime})$.}
+The construction of $\on{can}$ (resp. $\on{can}_f$) amounted to showing
+that the section $\omega^{univ}$ (hence $p_1^*(f)\cdot \omega^{univ}$) 
+comes from a canonical section of
+$\eta^!p_1^!(\sO_{\sZ^{\leq n}})$ (i.e., these sections are scheme-theoretically
+supported on $\act_{neg}^{-1}(\sZ^{\leq n}) $). By construction,
+the corresponding map $\sF_n \to \sF_n$ is \eqref{eq:vfs}.
+
+\end{example}
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{r:h-cl}
+\source{tates-thesis-de-rham-setting}
+
+Although 
+$\sH^{\leq n}$ is not classical, our constructions
+here are not sensitive to this. The reason is that
+we have a closed embedding $\iota:\sH^{\leq n} \into 
+\Gr_{\bG_m}^{\leq n} \times \sZ^{\leq n}$ 
+(cf. \S \ref{ss:h-embed} below). As 
+$\Gr_{\bG_m}^{\leq n}$ is ind-finite and 
+$\sZ^{\leq n}$ is classical, 
+$\Gamma(p_1^!(\sO_{\sZ^{\leq n}})) = \Gamma(\iota^!(\omega_{\Gr_{\bG_m}^{\leq n}}
+\boxtimes \sO_{\sZ^{\leq n}}))$ is a coconnective complex,
+and its $H^0$ is the same for $\sH^{\leq n}$ and for its
+underlying classical stack (both identify with 
+sections of $\omega_{\Gr_{\bG_m}^{\leq n}}
+\boxtimes \sO_{\sZ^{\leq n}}$ scheme-theoretically supported
+on $\sH^{\leq n,cl}$).
+
+\end{rem}
+
+\subsubsection{}\label{ss:sigma-comp}
+\source{tates-thesis-de-rham-setting}
+
+We now spell out how to concretely compose morphisms of the above type.
+
+We have three morphisms:
+%
+\[
+p_{12},p_{23},p_{13}:
+\sH^{\leq n} \underset{\sZ^{\leq n}}{\times} \sH^{\leq n} = 
+\sZ^{\leq n} \underset{\sY^{\leq n}}{\times}
+\sZ^{\leq n} \underset{\sY^{\leq n}}{\times} \sZ^{\leq n}
+\to 
+\sZ^{\leq n} \underset{\sY^{\leq n}}{\times} \sZ^{\leq n} =
+\sH^{\leq n}.
+\]
+
+\noindent We remark that $p_{13}$ corresponds to the multiplication
+on the groupoid.
+
+%Let $m:\sH^{\leq n} \times_{\sZ^{\leq n}} \sH^{\leq n} \to \sH^{\leq n}$ be the 
+%multiplication for the groupoid (so the maps 
+%$\sH^{\leq n} \to \sZ^{\leq n}$ are $p_2$ and $p_1$ respectively). 
+We begin by claiming that there is a canonical 
+isomorphism: % this is an iso where???
+
+\begin{equation}\label{eq:p13-!}
+\source{tates-thesis-de-rham-setting}
+p_{13}^!p_1^!(\sO_{\sZ^{\leq n}}) \simeq 
+p_{12}^*p_1^!(\sO_{\sZ^{\leq n}}) \otimes 
+p_{23}^*p_1^!(\sO_{\sZ^{\leq n}}). 
+\end{equation}
+
+\noindent To see this, first observe that
+$p_1p_{13} = p_1p_{12}$, so:
+%
+\[
+p_{13}^!p_1^!(\sO_{\sZ^{\leq n}}) = 
+p_{12}^!p_1^!(\sO_{\sZ^{\leq n}}).
+\]
+
+Next, we have evident isomorphisms:
+%
+\[
+\begin{gathered}
+p_{12}^!p_1^! \sO_{\sZ^{\leq n}} = 
+p_{12}^!(p_1^! \sO_{\sZ^{\leq n}}
+\underset{\sO_{\sH^{\leq n}}}{\otimes} 
+\sO_{\sH^{\leq n}}) = 
+p_{12}^*p_1^! \sO_{\sZ^{\leq n}}
+\underset{\sH^{\leq n} \underset{\sZ^{\leq n}} \sH^{\leq n} }
+{\otimes} 
+p_{12}^!\sO_{\sH^{\leq n}}.
+\end{gathered}
+\]
+
+\noindent Then the Cartesian diagram:
+%
+\[
+\xymatrix{
+\sH^{\leq n} \underset{\sZ^{\leq n}}{\times} \sH^{\leq n} \ar[rr]^{p_{12}} 
+\ar[d]_{p_{23}} && \sH^{\leq n} \ar[rr]^{p_1} \ar[d]^{p_2} && 
+\sZ^{\leq n} \\
+\sH^{\leq n} \ar[rr]^{p_1} && \sZ^{\leq n}
+}
+\]
+
+\noindent yields an isomorphism: % reference?
+%
+\[
+p_{12}^!\sO_{\sH^{\leq n}} = 
+p_{12}^!p_2^*\sO_{\sZ^{\leq n}} = 
+p_{23}^*p_1^!\sO_{\sZ^{\leq n}}.
+\]
+
+\noindent Combining the above isomorphims yields \eqref{eq:p13-!}.
+
+Therefore, given $\sigma_1, \sigma_2$ sections of
+$p_1^!(\sO_{\sZ^{\leq n}})$, we obtain a section:
+%
+\[
+p_{12}^*(\sigma_1) \otimes p_{23}^*(\sigma_2)
+\]
+
+\noindent of $p_{13}^!p_1^!(\sO_{\sZ^{\leq n}})$
+(using \eqref{eq:p13-!}). As $p_{13}$ is ind-proper,
+we obtain an induced section $\sigma_1 \star \sigma_2$ 
+of $p_1^!(\sO_{\sZ^{\leq n}})$. 
+
+Then unwinding constructions, we find:
+%
+\[
+\psi_{\sigma_2} \psi_{\sigma_1} = \psi_{\sigma_1 \star \sigma_2}.
+\]
+
+% ordering?
+
+\subsubsection{}\label{ss:h-embed}
+\source{tates-thesis-de-rham-setting}
+
+To analyze the composition above, 
+it is convenient to embed our spaces as follows.
+
+First, define a morphism:
+%
+\[
+\iota:\sH^{\leq n} \into \Gr_{\bG_m}^{\leq n} \times \sZ^{\leq n}
+\]
+
+\noindent as:
+%
+\[
+\sH^{\leq n} = 
+\sZ^{\leq n} \underset{\sY^{\leq n}}{\times} \sZ^{\leq n} 
+\into 
+\sZ^{\leq n} \underset{\sY^{\leq n}}{\times} \sY_{\log}^{\leq n}
+\overset{\simeq}{\leftarrow} \Gr_{\bG_m}^{\leq n} \times \sZ^{\leq n} 
+\]
+
+\noindent where the last arrow is $(p_2,\act)$. Note that
+the composition of $\iota$ with the projection to $\sZ^{\leq n}$
+is the projection $p_1:\sH^{\leq n} \to \sZ^{\leq n}$.
+
+Next, we define a similar morphism:
+%
+\[
+\widetilde{\iota}:
+\sH^{\leq n} \underset{\sZ^{\leq n}}{\times}
+\sH^{\leq n} \into 
+\Gr_{\bG_m}^{\leq n} \times \Gr_{\bG_m}^{\leq n} \times \sZ^{\leq n}
+\]
+
+\noindent as:
+%
+\[
+\sH^{\leq n} \underset{\sZ^{\leq n}}{\times}
+\sH^{\leq n} = 
+\sZ^{\leq n} \underset{\sY^{\leq n}}{\times} \sZ^{\leq n} 
+\underset{\sY^{\leq n}}{\times} \sZ^{\leq n} 
+\into 
+\sZ^{\leq n} \underset{\sY^{\leq n}}{\times} \sY_{\log}^{\leq n}
+\underset{\sY^{\leq n}}{\times} \sY_{\log}^{\leq n}
+\overset{\simeq}{\leftarrow} 
+\Gr_{\bG_m}^{\leq n} \times \Gr_{\bG_m}^{\leq n} \times \sZ^{\leq n} 
+\]
+
+\noindent where this time the last arrow is 
+$(p_3,\act \circ p_{23}, \act \circ (\id \times \act))$. 
+
+As in Remark \ref{r:h-cl}, a section of 
+$\Gamma^{\IndCoh}(\sH^{\leq n},p_1^!(\sO_{\sZ^{\leq n}}))$
+is the same as a section of 
+$\omega_{\Gr_{\bG_m}^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}$
+scheme-theoretically supported on $\sH^{\leq n}$ 
+(equivalently, on the underlying classical stack).
+The same applies for 
+$\widetilde{\iota}$: a section
+of $p_{13}^!p_1^!(\sO_{\sZ^{\leq n}})$ is the same
+as a section of:
+%
+\[
+\omega_{\Gr_{\bG_m}^{\leq n}} \boxtimes \omega_{\Gr_{\bG_m}^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}
+\]
+
+\noindent scheme-theoretically supported on 
+$\sH^{\leq n} \times_{\sZ^{\leq n}} \sH^{\leq n}$ (which is
+equivalent to saying at the 
+classical level).
+
+\subsubsection{}\label{sss:recipe}
+\source{tates-thesis-de-rham-setting}
+
+Now fix $\omega \in (k[[t]]/t^n)^{\vee}$ and $f \in k[[t]]/t^n$.
+In effect, \S \ref{ss:sigma-comp} constructed two sections of
+$p_{13}^!p_1^!(\sO_{\sZ^{\leq n}})$, which
+induce the compositions 
+$\xi_f\vph_{\omega}$ and $\vph_{\omega}\xi_f$ (after 
+pushforward along $p_{13}$).
+
+Let us explicitly describe the resulting sections of 
+$\omega_{\Gr_{\bG_m}^{\leq n}} \boxtimes \omega_{\Gr_{\bG_m}^{\leq n}} 
+\boxtimes \sO_{\sZ^{\leq n}}$ under the
+above dictionary.
+
+For $\vph_{\omega}\xi_f$, the corresponding section
+is supported on:
+%
+\[
+\sD^{\leq n} \times \sD^{\leq n} \times \sZ^{\leq n}
+\overset{\AJ \times \AJ^{-1} \times \id}{\into}
+\Gr_{\bG_m}^{\leq n} \times \Gr_{\bG_m}^{\leq n} 
+\times \sZ^{\leq n}.
+\]
+
+\noindent The corresponding section of:
+%
+\[
+\omega_{\sD^{\leq n}} \boxtimes 
+\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}
+\]
+
+\noindent is $\omega \boxtimes p_2^*(f)\cdot\omega^{univ}$,
+with notation as in Examples \ref{e:fns} and \ref{e:vfs}.\footnote{As
+we have shown, this section is scheme-theoretically supported
+on $\sD^{\leq n} \boxtimes \act_{neg}^{-1}(\sZ^{\leq n})$,
+hence on $(\sH^{\leq n} \times_{\sZ^{\leq n}}\sH^{\leq n})^{cl}$.} It is convenient to 
+rewrite this section as:
+%
+\[
+p_2^*(f) \cdot (p_1^*(\omega) \otimes p_{23}^*(\omega^{univ})) \in 
+p_1^*(\omega_{\sD^{\leq n}}) \otimes 
+p_{23}^*(\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}).
+\]
+
+For $\xi_f\vph_{\omega}$, the corresponding section
+is supported on:
+%
+\[
+\sD^{\leq n} \times \sD^{\leq n} \times \sZ^{\leq n}
+\xar{\AJ^{-1} \times \AJ \times \id}
+\Gr_{\bG_m}^{\leq n} \times \Gr_{\bG_m}^{\leq n} 
+\times \sZ^{\leq n}.
+\]
+
+\noindent The corresponding section of:
+%
+\[
+\omega_{\sD^{\leq n}} \boxtimes 
+\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}
+\]
+
+\noindent is:\footnote{For clarity, we again
+highlight that we have shown
+this section is in fact supported on 
+$(\sH^{\leq n} \times_{\sZ^{\leq n}}\sH^{\leq n})^{cl}$, as
+it should be. Indeed, at the classical level, our previous
+analysis shows that it is
+supported on 
+$(\act_{neg}\circ (\id\times\act))^{-1} (\sZ^{\leq n}) 
+\subset  (\sH^{\leq n} \times_{\sZ^{\leq n}}\sH^{\leq n})^{cl}$.}
+%
+\[
+\begin{gathered}
+p_1^*(f) \cdot 
+(p_2^*(\omega) \otimes (p_1\times \act)^*(\omega^{univ})) \in 
+p_2^*(\omega_{\sD^{\leq n}}) \otimes 
+(p_1\times \act)^*(\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}) = \\
+\omega_{\sD^{\leq n}} \boxtimes \omega_{\sD^{\leq n}} 
+\boxtimes \sO_{\sZ^{\leq n}}.
+\end{gathered}
+\]
+
+Now note that we have a commutative diagram:
+%
+\[
+\xymatrix{
+\sH^{\leq n} \underset{\sZ^{\leq n}}{\times} \sH^{\leq n} 
+\ar[rr]^{\widetilde{\iota}} \ar[d]_{p_{13}} &&
+\Gr_{\bG_m}^{\leq n} \times \Gr_{\bG_m}^{\leq n} \times \sZ^{\leq n} 
+\ar[d]^{m\times \id} \\
+\sH^{\leq n} \ar[rr]^{\iota} && \Gr_{\bG_m}^{\leq n} \times \sZ^{\leq n}
+}
+\]
+
+\noindent for $m$ the multiplication on $\Gr_{\bG_m}^{\leq n}$.
+As this multiplication is commutative, we see that
+$\xi_f\vph_{\omega}$ could as well have been defined
+by the section as above obtained by transposing
+the first two coordinates, i.e.:
+%
+\[
+\begin{gathered}
+p_2^*(f) \cdot 
+(p_1^*(\omega) \otimes (p_2,\act \circ p_{13})^*(\omega^{univ})).
+\end{gathered}
+\]
+
+\noindent This section has the advantage of
+sharing its support with our previous one for 
+$\vph_{\omega}\xi_f$.
+
+\subsubsection{}
+
+We can now conclude the argument. We use the next elementary lemmas.
+
+\begin{lem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{l:cotr-1}
+\source{tates-thesis-de-rham-setting}
+
+Let: 
+%
+\[
+\cotr \in 
+\Gamma(\sD^{\leq n},\sO_{\sD^{\leq n}}) \otimes
+\Gamma(\sD^{\leq n},\sO_{\sD^{\leq n}})^{\vee} = 
+\Gamma^{\IndCoh}(\sD^{\leq n} \times \sD^{\leq n},
+\sO_{\sD^{\leq n}} \boxtimes \omega_{\sD^{\leq n}})
+\]
+
+\noindent denote the canonical vector. 
+
+We then have an equality:
+%
+\[
+p_{23}^*(\omega^{univ}) = 
+(p_2,\act \circ p_{13})^*(\omega^{univ}))
++p_{12}^*(\cotr)
+\in 
+\sO_{\sD^{\leq n}} \boxtimes 
+\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}.
+\]
+
+\end{lem}
+
+\begin{proof}
+
+For convenience, we give the first (resp. second) factor
+of our triple product as 
+$\sD_{\tau_1}^{\leq n}$ (resp. $\sD_{\tau_2}^{\leq n}$), 
+where $\tau_1,\tau_2$ denote the respective coordinates. 
+
+For a prestack $S$, note that a section of 
+$\omega_{\sD_{\tau_2}^{\leq n}} \boxtimes \sO_S$ is equivalent to
+a map $S \to \fL^{pol,\leq n} \bA^1 dt$.
+
+For $S = \sD_{\tau_1}^{\leq n} \times \sZ^{\leq n}$,
+our sections above correspond to maps:
+%
+\[
+\sD_{\tau_1}^{\leq n} \times \sZ^{\leq n} 
+\xar{(\tau_1,(\sL,\nabla,s)) \mapsto ???}
+\fL^{pol,\leq n} \bA^1 dt
+\]
+
+\noindent as follows:
+
+\begin{align*}
+p_{23}^*(\omega^{univ}) & \leftrightsquigarrow 
+%\sD_{\tau_1}^{\leq n} \times \sZ^{\leq n} \xar{p_2} 
+%\sZ^{\leq n} \xar{\Pol} \fL^{pol,\leq n} \bA^1 dt \\
+(\tau_1,(\sL,\nabla,s)) \mapsto 
+\Pol(\nabla) \\
+(p_2,\act \circ p_{13})^*(\omega^{univ})) 
+& \leftrightsquigarrow 
+%\sD_{\tau_1}^{\leq n} \times \sZ^{\leq n} \xar{\act} 
+%\sZ^{\leq n} \xar{\Pol} \fL^{pol,\leq n} \bA^1 dt \\
+(\tau_1,(\sL,\nabla,s)) \mapsto 
+\Pol((\sL(\tau_1),\nabla,s)) = \\ 
+& \hspace{2cm} \Pol(\nabla)+d\log\AJ(\tau_1) \\
+p_{12}^*(\cotr) & \leftrightsquigarrow 
+%\sD_{\tau_1}^{\leq n} \times \sZ^{\leq n} \xar{p_1}
+%\sD_{\tau_1}^{\leq n} \xar{d\log \AJ} \fL^{pol,\leq n} \bA^1 dt
+(\tau_1,(\sL,\nabla,s)) \mapsto 
+-d\log\AJ(\tau_1)
+\end{align*}
+
+\noindent where in the last two lines the map
+$d\log\AJ$ was considered in
+\S \ref{ss:dlog-aj}-\ref{ss:aj-trun}; the last line
+follows from Lemma \ref{l:dlog-aj}.
+
+We clearly obtain the assertion.
+
+\end{proof}
+
+We also use the following observations.
+
+\begin{lem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{l:cotr-2}
+\source{tates-thesis-de-rham-setting}
+
+The above section $\cotr$ of 
+$\sO_{\sD^{\leq n}} \boxtimes \omega_{\sD^{\leq n}}$
+is scheme-theoretically supported on the diagonally embedded
+$\sD^{\leq n} \subset \sD^{\leq n} \times \sD^{\leq n}$.
+
+Moreover, for $f \in k[[t]]/t^n$ and 
+$\omega \in t^{-n}k[[t]]dt/k[[t]]dt$, the section:
+%
+\[
+p_2^*(f) \cdot (p_1^*(\omega) \otimes \cotr) \in 
+\omega_{\sD^{\leq n}} \boxtimes \omega_{\sD^{\leq n}} 
+\]
+
+\noindent maps to $\Res(f\omega) \in k$ under the
+adjunction morphism:
+%
+\[
+\Gamma^{\IndCoh}(\sD^{\leq n} \times \sD^{\leq n},
+\omega_{\sD^{\leq n}} \boxtimes \omega_{\sD^{\leq n}} ) \to k.
+\]
+
+\end{lem}
+
+\begin{proof}
+
+Let $A$ be a commutative, classical, finite $k$-algebra.
+
+As $\id_A:A \to A$ is a morphism of $A$-bimodules,
+the corresponding element $\cotr \in A^{\vee} \otimes A \in 
+A\otimes A\mod^{\heart}$ is scheme-theoretically 
+supported on the diagonal 
+$\Spec(A) \subset \Spec(A) \times \Spec(A)$.
+
+Moreover, for $f \in A$ and $\omega \in A^{\vee}$, we
+have an element $f \otimes \omega \in A \otimes A^{\vee}$.
+Tensoring over $A\otimes A$ with $A^{\vee} \otimes A$,
+we obtain an element:
+%
+\[
+f\otimes \omega \cdot \cotr \in A^{\vee} \otimes A^{\vee}.
+\]
+
+\noindent It is easy to see that when we evaluate this
+tensor on $1 \otimes 1 \in A \otimes A$, we obtain
+$\omega(f) \in k$.
+
+Taking $A = k[[t]]/t^n$, we obtain our claim.
+
+\end{proof}
+
+By our earlier discussion, the endomorphism 
+$\xi_f \vph_{\omega}-\vph_{\omega}\xi_f$ of $\sF_n$
+corresponds to the section:
+%
+\[
+p_2^*(f) \cdot 
+(p_1^*(\omega) \otimes (p_2,\act \circ p_{13})^*(\omega^{univ})) -
+p_2^*(f) \cdot 
+(p_1^*(\omega) \otimes p_{23}^*(\omega^{univ}))
+\]
+
+\noindent of $\omega_{\sD^{\leq n}} \boxtimes 
+\omega_{\sD^{\leq n}} \boxtimes \sO_{\sZ^{\leq n}}$.\footnote{Of 
+course we consider
+$\sD^{\leq n} \times \sD^{\leq n} \times
+\sZ^{\leq n}$ mapping to $\Gr_{\bG_m}^{\leq n} \times \sZ^{\leq n}$
+via $(\tau_1,\tau_2,(\sL,\nabla,s)) \mapsto 
+(\AJ(\tau_1)\cdot\AJ^{-1}(\tau_2),(\sL,\nabla,s))$.}
+
+By Lemma \ref{l:cotr-1}, the above section coincides with:
+%
+\[
+-p_2^*(f) \cdot p_{12}^*(p_1^*(\omega)\otimes\cotr).
+\]
+
+\noindent By Lemma \ref{l:cotr-2}, this section is supported
+on the diagonally embedded:
+%
+\[
+\sD^{\leq n} \times \sZ^{\leq n} 
+\xar{\Delta \times \id} 
+\sD^{\leq n} \times \sD^{\leq n} \times \sZ^{\leq n},
+\]
+ 
+\noindent which evidently
+maps to $1 \times \sZ^{\leq n} \subset \Gr_{\bG_m}^{\leq n} \times \sZ^{\leq n}$
+under $p_{13}$. Moreover, Lemma \ref{l:cotr-2} implies that the
+pushforward of the above section to $\sZ^{\leq n} = 1 \times \sZ^{\leq n}$
+is: 
+%
+\[
+-\Res(f\omega) \in k \subset \Gamma(\sO_{\sZ^{\leq n}}) \subset 
+\Gamma^{\IndCoh}(\Gr_{\bG_m}^{\leq n} \times \sZ^{\leq n}, 
+\omega_{\Gr_{\bG_m}^{\leq n}} \boxtimes \sZ^{\leq n}).
+\]
+
+\noindent This amounts to \eqref{eq:uncertainty}, concluding
+the argument.
+
+
+
+
+%
+%
+%\section{Explicit analysis in the regular singular case}\label{s:rs}
+%
+%\subsection{}

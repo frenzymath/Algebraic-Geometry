@@ -1,0 +1,412 @@
+% Source-derived chapter 03: Lowering the transcendence degree
+% Original source: geometric-bogomolov-conjecture-arbitrary-characteristics
+\chapter{Lowering the transcendence degree}
+\label{geometric-bogomolov-conjecture-arbitrary-characteristics-chapter-03}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+
+\begin{remark}[Source section]
+\label{geometric-bogomolov-conjecture-arbitrary-characteristics-chapter-03-source}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Lowering the transcendence degree
+\label{sec trdeg}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+
+The geometric Bogomolov conjecture concerns a finitely generated extension $K/k$.
+The goal of this section is to lower $\trdeg(K/k)$ to 1 in the conjecture.
+The main result of this section is as follows. 
+
+\begin{pro}\label{changefield} 
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+Let $k$ be an algebraically closed field.
+Let $K/k$ be a finitely generated field extension of transcendence degree at least 2.
+Let $A$ be an abelian variety over $K$. 
+Then there are two intermediate fields $k_1,k_2$ of $K/k$, algebraically closed in $K$ and of transcendence degree $1$ over $k$, such that for any closed subvariety $X$ of $A_{\overline{K}}$,  the geometric Bogomolov conjecture holds for $(A/K/k, X)$ if the geometric Bogomolov conjecture holds for $(A_{K\overline k_1}/K\overline k_1/\overline k_1,X)$ and $(A_{K\overline k_2}/K\overline k_2/\overline k_2,X)$.
+\end{pro}
+
+Note that the intermediate fields $k_1,k_2$ do not depend on the subvariety $X$.
+Applying the theorem repeatedly, we reduce the geometric Bogomolov conjecture to the case $\trdeg(K/k)=1$. 
+
+
+
+\subsection{Field of definition}
+For two abelian schemes $A_1,A_2$ over a base scheme,  denote $A_1\sim A_2$ if $A_1$ is isogenous to $A_2.$
+For an abelian variety over a field $K$ and a subfield $k$ of $K$, we say $A$ is defined over $k$ up to isogeny if there is an abelian variety $A'$ over $k$ such that $A\sim A'\otimes_kK.$
+
+
+\begin{pro}\label{lembasechangediagram}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+Let $k$ be an algebraically closed field. Let $K$ be a field extension of $k$ with $\trdeg(K/k)<\infty.$
+Let $k_1,k_2$ be algebraically closed intermediate fields of $K/k$ with $k_1\cap k_2=k.$
+Let $A_1,A_2$ be abelian varieties over $k_1,k_2$ respectively. 
+ If $A_1\otimes_{k_1}K\sim A_2\otimes_{k_2}K$, then there is an abelian variety
+$A$ over $k$, such that $A_1\sim A\otimes_{k}k_1$ and $A_2\sim A\otimes_{k}k_2.$
+Moreover, the abelian variety $A$ is unique up to isogeny. 
+\end{pro}
+
+For the uniqueness in the proposition, we have the following result. 
+
+\begin{lem}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+\notready\label{lemisobasechange}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+Let $A_1,A_2$ be two abelian varieties over an algebraically closed field $k$.  Let $K$ be any field extension of $k$. If $A_1\otimes_kK\sim A_2\otimes_kK$, then $A_1\sim A_2.$
+\end{lem}
+
+\proof
+There is an isogeny  $\Phi: A_1\otimes_kK\to A_2\otimes_kK$ over $K.$ There is a subfield $K'$ of $K$, finite generated over $k$, such that $\Phi$ is defined over $K'$. After replacing $K$ by $K'$, we may assume that $K$ is a finitely generated extension over $k$.
+There is a $k$-variety $S$ such that $K=k(S).$ After shrinking $S$, we may assume that there is an isogeny $\Phi_S: A_1\times_k S\to A_2\times_k S$ over $S$ such that $\Phi$ is the generic fiber of $\Phi_S.$ Pick a point $b\in S(k)$. The restriction of $\Phi_S$ to the fiber at $b$ induces an isogeny $\Phi_b: A_1\to A_2$, which concludes the proof.
+\endproof
+
+
+\proof[Proof of Propositon \ref{lembasechangediagram}]  
+We have noted that Lemma \ref{lemisobasechange} implies the uniqueness of $A.$
+For the existence, we only need to show that both $A_1$ and $A_2$ are defined over $k$ up to isogeny.
+Indeed, if $A_1\sim A_1'\otimes_kk_1$ and  $A_2\sim A_2'\otimes_kk_2$ for abelian varieties $A_1',A_2'$ over $k$, then $A_1'\otimes_kK\sim A_2'\otimes_kK,$
+which implies $A_1'\sim A_2'$ by Lemma \ref{lemisobasechange} again.
+
+Now we prove that $A_1$ and $A_2$ are defined over $k$ up to isogeny.
+By Lemma \ref{lemisobasechange}, there is an isogeny 
+$A_1\otimes_{k_1}K\sim A_2\otimes_{k_2}K$ defined over the algebraic closure of $k_1k_2$, and thus defined over a finite extension of $k_1k_2$. 
+Thus we may assume that $K/k_1k_2$ is finite.
+
+For $i=1,2$, there is a $k$-variety $S_i$, an abelian scheme $\pi:\sA\to S_i$ such that $\overline{k(S_i)}=k_i$ and $A_i\to \Spec k_i$ is the geometric generic fiber of $\pi:\sA\to S_i.$
+
+Because $A_1\otimes_{k_1}K\sim A_2\otimes_{k_2}K$, there is $k$-variety $U$ satisfying $k(U)=K$, a flat and quasi-finite morphism $\psi: U\to S_1\times S_2$, and an isogeny
+$$\Phi_U:\sA_{1,U}=\sA_1\times_{S_1} U\longrightarrow \sA_{2,U}=\sA_2\times_{S_2} U.$$
+Pick a point $s=(s_1,s_2)\in \psi(U)(k)\subseteq S_1\times S_2.$ 
+Consider $S_1\times s_2 \subseteq S_1\times S_2.$
+Pick an irreducible component $V$  of $\psi^{-1}(S_1\times s_2)\subseteq U.$
+Then $\Phi_U$ induces an isogeny 
+$$\Phi_V=\Phi_U\times_UV: \sA_{1,U}\times_UV\longrightarrow \sA_{2,U}\times_UV.$$
+The isomorphism $S_1\simeq S_1\times s_2$ induces an isomorphism 
+\begin{equation}\label{equDlu}\sA_{1,U}\times_UV\simeq \sA_1\times _{S_1} V.\end{equation}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+On the other hand, 
+\begin{equation}\label{equDmu}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+\sA_{2,U}\times_UV\simeq \sA_{2,s_2}\times V,\end{equation}
+where $\sA_{2,s_2}:=\sA_2\times_{S_2}s_2$ is an abelian variety over $k.$
+Because $k(V)/k(S_1)$ is finite, taking the geometric generic fibers in \eqref{equDlu} and  \eqref{equDmu}, we get $$A_1\sim \sA_{s_2}\otimes_kk_1.$$
+Thus $A_1$ is defined over $k$ up to isogeny.
+By symmetry, $A_2$ is defined over $k$ up to isogeny.
+This concludes the proof.
+\endproof
+
+
+
+
+
+
+
+\medskip
+
+
+\begin{lem}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+\notready\label{lemsubvardef}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+Let $k_1, k_2$ be two intermediate fields of a field extension $K/k$ such that  $k_1\cap k_2=k$.
+Let $Y$ be a variety over $k$. Let $X$ be a closed subvariety of $Y_K=Y\otimes_kK$ over $K$.
+Assume that as a subvariety of $Y_K$, $X$ is defined over $k_1$ and also defined over $k_2$.
+Then $X$ is defined over $k.$
+\end{lem}
+
+\proof
+By taking an open affine cover of $Y$, it suffices to treat the case that $Y=\Spec R_0$ is affine. Denote by $I$ the ideal of $R_{0,K}=R_0\otimes_kK$ associated to $X$.
+We only need to show $I=I_0\otimes_kK$ for $I_0:=I\cap R_0.$ Here we identify $R_0$ with its image in $R_{0,K}=R_0\otimes_kK.$
+
+This converts to a basic result in linear algebra.  
+Namely, let $K,k,k_1,k_2$ be as before, let $V_0$ be a vector space over $k$, and let $V=V_0\otimes_kK$ be the vector space over $K$.
+Let $W$ be a $K$-subspace of $V$. 
+Assume that $W$ can be descended to $k_i$ for $i=1,2$; i.e.,
+$W=W_i\otimes_{k_i}K$ for a $k_i$-subspace $W_i$ of $V_0\otimes_kk_i$. 
+Then $W$ can be descended to $k$. 
+
+If $V_0$ is finite-dimensional, the result is an easy consequence of the existence of the Grassmannian variety, but we give an elementary proof as follows.
+Write $n=\dim_k V_0$ and $m=\dim_K W$. 
+Take a $k$-basis of $V_0$, and use it to identify $V_0=k^n$ and $V=K^n$.
+Then $W$ is represented by a $m\times n$ matrix with coefficients in $K$. 
+In fact, take a basis of $W$, each element of which gives a row of the matrix.
+By row operations, we can convert the matrix to a reduced row echelon form $E$ over $K$. 
+We can also get a reduced row echelon form $E_i$ over $k_i$ for $W_i\subset k_i^n$. 
+By the uniqueness of the reduced row echelon from, we have $E=E_1=E_2$. Then the coefficients of $E$
+are in $k_1\cap k_2=k$.
+It follows that $W$ can be descended to $k$.
+
+If $V_0$ is infinite-dimensional, let $V_0'$ be a finite-dimensional subspace over $k$ and write $V'=V_0'\otimes_kK$.
+Apply the above results to the subspace $W\cap V'$ of $V'$. 
+We see that $W\cap V'$ can be descended to $k$.
+Vary $V_0'$. Note that any vector of $W$ is contained in some $V'$. 
+It follows that $W$ is contained in the $K$-subspace of $V$ spanned by $W\cap V_0$. 
+Then $W$ can be descended to $k$.
+This concludes the proof.
+\endproof
+
+
+
+
+
+\begin{cor}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+\notready\label{cordeffield}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+Let $K/k$ be an extension of algebraically closed fields. 
+\begin{points}
+\item Let $A$ be an abelian variety over $K.$
+Then there is an algebraically closed intermediate field $k_A$ of $K/k$, such that for every algebraically closed intermediate field $k'$ of $K/k$, 
+$A$ is defined over $k'$ up to isogeny if and only if $k_A\subseteq k'.$
+Moreover, we have $\trdeg(k_A/k)<\infty.$
+\item Let $Y$ be a variety over $k$. Let $X$ be a subvariety of $Y_K=Y\otimes_kK.$
+Then there is an algebraically closed intermediate field $k_{X\subseteq Y_K}$ of $K/k$, such that for every algebraically closed intermediate field $k'$ of $K/k$,
+$X\subseteq Y_K$ is defined over $k'$ if and only if $k_{X\subseteq Y_K}\subseteq k'.$
+Moreover, we have $\trdeg(k_{X\subseteq Y_K}/k)<\infty.$
+\end{points}
+\end{cor}
+\proof
+We only prove (i). The proof for (ii) is almost the same, except replacing  Proposition \ref{lembasechangediagram} by Lemma \ref{lemsubvardef}.
+
+Let $I$ be the set of algebraically closed intermediate fields $k'$ of  $K/k$ such that $A$  is defined over  $k'$.
+Because $A$ is of finite type, for every $k'\in I$, there is $k''\in I$ contained in $k'$ and satisfying $\trdeg(k''/k)<\infty.$
+
+So there is $k_A\in I$, such that $\trdeg(k_A/k)$ is the smallest. 
+It is clear that for every algebraically closed intermediate field $k'$ of $K/k$, if $k_A\subseteq k'$, $k'\in I.$
+So we only need to show that  for every $k'\in I$, $k_A\subseteq k'.$ One may assume that $\trdeg(k'/k)<\infty.$
+By Proposition \ref{lembasechangediagram}, $k'\cap k_A\subseteq I.$
+This proves $k_A\subseteq k'$ because $\trdeg(k_A/k)$ is the smallest.
+\endproof
+
+\subsection{Special subvarieties of abelian varieties}\label{subsectionnonspecial}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+%{Traces and non-special subvarieties of abelian varieties}
+
+%\begin{lem}
+%Let $K/k$ be a finitely generated extension of transcendence degree $\trdeg(K/k)>1$
+% such that $k$ is algebraically closed in $K$. 
+%Let $A$ be an abelian variety over $K$.  Let $X$ be a subvariety of $K$ which is non-special  for $A/K/k.$
+%Then there are infinitely many intermediate fields $k'$ of $K/k$, algebraically closed in $K$ and of transcendence degree $1$ over $k$ such that 
+%the canonical map $(A^{K/k})_{k'}\to A^{K/k'}$ is an isomorphism and 
+%$X$ is non-special  for $A/K/k'.$
+%\end{lem}
+%
+%\proof
+%\endproof
+
+Let $K/k$ be a field extension such that $k$ is algebraically closed in $K$. 
+Denote by $I(K/k)$ the set of intermediate fields $k'$ of $K/k$ which is algebraically closed in $K.$
+%and $I_1(K/k)$ the set of $k'\in I(K/k)$ of transcendence degree $1$.
+%Denote by $I_1(K/k)$ the set of intermediate fields $k'$ of $K/k$ which is algebraically closed in $K$ and of transcendence degree $1$.
+If $\trdeg(K/k)>1$, then  $I(K/k)$ is infinite. 
+
+
+Let $A$ be an abelian variety over $K$.   Recall that 
+a subvariety $X$ of $A_{\overline{K}}$ is said to be special in $A/K/k$ if  
+\begin{equation}
+X=\tr(Y{\otimes_{\overline{k}}\overline{K}})+T
+\end{equation}
+for some torsion subvariety $T$ of $A_{\overline{K}}$ and  some subvariety $Y$ of $A^{\overline{K}/\overline{k}}$.
+
+
+
+%We say a property $P$ holds for a \emph{general $k'\in I_1(K/k)$}, if it holds for all but finitely many $k'\in I_1(K/k).$
+
+%\rem 
+%Let $J$ be a finite subset of $K\setminus k$. Then for a general $k'\in I_1(K/k)$, $k'\cap J=\emptyset.$
+% Indeed, for every $k'\in  I_1(K/k)\setminus \{\overline{k(t)}\in I_1(K/k)|\,\, t\in J\}$, $k'\cap J=\emptyset.$
+%\endrem
+
+
+
+\begin{pro}\label{lemnonspecial}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+Let $K/k$ be a field extension such that $k$ is algebraically closed in $K$. 
+Let $A$ be an abelian variety over $K$.  Let $X$ be a subvariety of $A_{\overline{K}}.$
+Then there is $k_{A,X}\in I(K/k)$ such that for every $k'\in I(K/k)$, $X$ is special  for $A/K/k'$  if and only if $k_{A,X}\subseteq k'$.
+%If $X$ is not special  for $A/K/k,$
+%then for general $k'\in I_1(K/k)$,
+%$X$ is not special  for $A/K/k'.$
+\end{pro}
+
+\proof 
+There is an bijection $\phi: I(\overline{K}/\overline{k})\to I(K/k)$ sending $k'$ to $k'\cap K.$ Because $\phi$ preserves the ordering and for $k'\in I(\overline{K}/\overline{k})$, and 
+$X$ is special  for $A_{\overline{K}}/\overline{K}/k'$ if and only if $X$ is special  for $A/K/\phi(k')$, we may assume that $k$ and $K$ are algebraically closed.
+
+
+
+\medskip
+
+
+Let $\Stab^0(X)$ be the identity component of the closed subgroup scheme
+$$\Stab(X):=\{g\in A|\,\, g+X=X\}.$$ 
+We note that, for every $k'\in I(K/k)$,  $X$ is special  for $A/K/k'$ if and only if $X/\Stab^0(X)$ is special  for $(A/\Stab^0(X))/K/k',$
+where  $X/\Stab^0(X)$ is the image of $X$ under the quotient morphism $A\to A/\Stab^0(X).$
+After replacing $(A, X)$ by $(A/\Stab^0(X), X/\Stab^0(X))$, we may assume that $\Stab^0(X)=0.$
+
+
+Let $T_X$ be the minimal torsion subvariety of $A$ containing $X.$ Let $a$ be a torsion point in $T_X$, so that $T_X-a$ is an abelian subvariety of $A$. 
+Then for every $k'\in I(K/k)$,  $X$ is special  for $A/K/k'$ if and only if $X-a$ is special  for $(T_X-a)/K/k'.$ After replacing $(A,X)$ by $(T_X-a, X-a)$, we may assume that $T_X=A.$
+
+
+
+We first assume that $\tr(A^{K/k})_K\neq A$. 
+By Corollary \ref{cordeffield}(i), there is $k_{A,X}:=k_A\in I(K/k)$ such that for any $k'\in I(K/k)$,
+$\tr(A^{K/k'})_K= A$ if and only if $k_{A,X}\subseteq k'.$ 
+Since $\Stab^0(X)=0$ and $T_A(X)=A$, $X$ is special for $A/K/k'$ if and only if $k_{A,X}\subseteq k'.$
+
+
+
+Now we assume that $\tr(A^{K/k})_K= A.$ Pick an isogeny $\Phi: A\to \tr(A^{K/k})_K.$ Then for every $k'\in I(K/k)$,  $X$ is special for $A/K/k'$ if and only if $\Phi(X)$ is special for $\tr(A^{K/k'})_K/K/k'.$
+Moreover, we still have $\Stab^0(\Phi(X))=0$ and $T_{\Phi(X)}=\tr(A^{K/k})_K.$
+After replacing $(A, X)$ by $(\tr(A^{K/k})_K, \Phi(X))$, we may assume that $A$ is defined over $k.$
+In this case, for any $k'\in I(K/k)$, $X$ is special in $A/K/k'$ if and only if  $X$ as a subvariety of $A$ is defined over $k'.$
+By Corollary \ref{cordeffield}(ii), there is $k_{A,X}:=k_{X\subseteq A}\in I(K/k)$ such that for every $k'\in I(K/k)$, $X$ is special in $A/K/k'$
+if and only if $k_{A,X}\subseteq k'$.
+\endproof
+
+
+
+
+\subsection{Proof of Proposition \ref{changefield}}
+
+
+
+We start with the following general result. 
+
+\begin{lem}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+\notready\label{generic hyperplane} 
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+Let $k$ be an algebraically closed field.
+Let $K/k$ be a finitely generated extension of transcendence degree $\trdeg(K/k)>1.$
+Let $(S,\sM)$ be a polarization of $K/k$.
+Assume that $\sM$ is very ample over $S$.
+
+Then there are infinitely many intermediate fields $k'$ of $K/k$, algebraically closed in $K$ and of transcendence degree $1$ over $k$, together with a geometrically integral subvariety $H$ in $S_{k'}$ of codimension 1 satisfying the following properties.
+\begin{itemize}
+\item[(1)]
+the divisor $H$ of $S_{k'}$ is linearly equivalent to $\sM_{k'}$;
+\item[(2)]
+the composition $H\to S_{k'} \to S$ induces an isomorphism between the generic points of $H$ and $S$.
+\end{itemize}
+
+As a consequence of (1) and (2), the pair $(k',H)$ satisfies the following property.
+Let $A$ be any abelian variety over $K$, and let $L$ be any symmetric and ample line bundle over $A$.
+Then under the polarization $(S,\sM)$ of $K/k$ and the polarization of $(H, \sM_{k'}|_H)$ of $K/k'$, we have the inequality 
+$$
+\hat h_L^\sM(X)\geq \hat h_L^{\sM_{k'}|_H}(X)
+$$
+of canonical heights for any subvariety $X$ of $A_{\overline{K}}.$
+\end{lem}
+
+\begin{proof}
+By a Bertini type of theorem (cf. \cite[Theorem 6.10]{Jouanolou}), for a general section 
+$s_0\in \Gamma(S,\sM)$, $H_0=\div(s_0)$ is geometrically integral.
+Set $H_1=\div(s_1)$ for some $s_1\in \Gamma(S,\sM)$ which is not a multiple of $s_0$.
+Then $s_0$ and $s_1$ determine a plane in $\Gamma(S,\sM)$, and thus a pencil in $S$ with base locus $H_0\cap H_1$. 
+This gives a rational map $S\dashrightarrow \P^1_k$ sending $x$ to $(s_0(x),s_1(x))$. 
+Let $\pi:\widetilde S\to S$ be the blowing-up along $H_0\cap H_1$. 
+Then the rational map becomes a flat morphism $\psi:\widetilde S\to \P^1_k$ as in \cite[II, Example 7.17.3]{Hartshorne1977}.
+
+For any point $(a_0,a_1)\in \P^1_k(k)$, the fiber $\psi^{-1}(a_0,a_1)\subset \widetilde S$ is isomorphic to the hyperplane section $\div(a_0s_1-a_1s_0)$ of $S$. In fact, $\psi^{-1}(a_0,a_1)\subset \widetilde S$ is the strict transform of 
+$\div(a_0s_1-a_1s_0)$ in $\widetilde S$, and thus isomorphic to the blowing-up of $\div(a_0s_1-a_1s_0)$ along $H_0\cap H_1$. Note that $H_0\cap H_1$ is a Cartier divisor in $\div(a_0s_1-a_1s_0)$, by  
+$H_0\cap H_1=\div(a_0s_1-a_1s_0)\cap \div(s_0)$ if $a_1\neq 0$ and $H_0\cap H_1=\div(a_0s_1-a_1s_0)\cap \div(s_1)$ if $a_0\neq 0$. 
+Then the blowing-up of $\div(a_0s_1-a_1s_0)$ along $H_0\cap H_1$ does not change $\div(a_0s_1-a_1s_0)$. 
+
+As a consequence, $H_0$ and $H_1$ are closed fibers of $\psi$. 
+As $H_0$ is geometrically integral, the generic fiber $H' \to \Spec k'$ of $\psi:\widetilde S\to \P^1_k$ is geometrically integral.
+Here $k'=k(\P^1_k)$ is set to be the function field of $\P^1_k$, and identified with a subfield of $K$ via $\psi$. 
+Because $H' \to \Spec k'$ is geometrically integral,
+$k'$ is algebraically closed in $K.$ 
+
+Let $H$ be the image of $H'$ under the morphism $\pi\times \psi: \widetilde S \to S\times \P^1_k.$
+Let $\pi_1: S\times \P^1_k\to \P^1_k$ be the projection to the first factor and 
+$\pi_2:S\times \P^1_k\to \P^1_k$ be the projection to the second factor. Then $H\subseteq \pi_2^{-1}(\Spec k')=S_{k'}.$
+The generic point of $H$ is also the generic point of $\widetilde S$, so $H$
+satisfies conditions (2). 
+
+Now we check that $H$ satisfies condition (1). 
+As above, for any field extension $F/k$ and any point $t\in \P^1_k(F)=\P^1_F(F)$, the fiber $\psi^{-1}(t)\subset \widetilde S_F$ is isomorphic to a hyperplane section of $S_F$ corresponding to $\sM_F$. 
+Take $F=k'$ and take
+$t\in \P^1_k(F)$ to be the generic point $\Spec k'\to \P^1_k$.
+This implies that $H'$ is isomorphic to a hyperplane section of $S_{k'}$. 
+The same result holds for $H$, since it is the image of the composition $H'\to S_{k'} \to S\times \P^1_k$.
+%By construction, for any field extension $F/k$ and any
+%$a\in F\subset \P^1_k(F)$, the fiber $\psi^{-1}(a)\subset \widetilde S_F$ is isomorphic to the hyperplane section $\div(s_1-as_0)$ of $S_F$. 
+%Consider the morphism $\pi_k: \P^1_{k'}\to \P^1_k$. The identification $k'=k(\P^1_k)$ defines a point $o\in \P^1_{k'}(k')$ as follows.
+%Pick an affine chart $U=\Spec R$ of $\P^1_k$. Then 
+%$U_{k'}=\Spec R\otimes_kk'$ is an affine chart of $\P^1_{k'}$ and $o\in U_{k'}(k')$ is 
+%defined by the morphism $ R\otimes_kk'\to k'$ sending $a\otimes b$ to $ab.$
+%Now take $F=k'=k(\P^1_k)$ and $a=o\in \P^1_k(k')$ to be the generic point.
+%This realizes $H$ as a hyperplane section of $S_{k'}$. 
+%Let $H \to \Spec k'$ be the generic fiber of $\psi:\widetilde S\to \P^1_k$.
+%The generic point of $H$ is also the generic point of $\widetilde S$, so $H$
+%satisfies conditions (3). 
+%Now we check that $H$ satisfies condition (2). 
+%By construction, for any extension $F/k$ and any
+%$a\in F\subset \P^1_k(F)$, the fiber $\psi^{-1}(a)\subset \widetilde S_F$ corresponds to the hyperplane section $\div(s_1-as_0)$ of $S_F$. 
+%Take $F=k(\P^1_k)$ and $a\in \P^1_k(F)$ to be the generic point.
+%This realizes $H$ as a hyperplane section of $S_F$. 
+
+It remains to check the height inequality. 
+We can assume that $X$ is a closed subvariety of $A$. 
+Let$(\sA,\sL)$ be an integral model of $(A,L)$ over $S$ with structure morphism $\pi:\sA\to S$. 
+We can further assume that $\sL$ is ample, which can be achieved by passing to a tensor power of $L$. 
+Denote by $\sX$ the Zariski closure of $X$ in $A$.
+It suffices to prove that the inequality for the relevant naive heights, which becomes the inequality
+$$
+\sL^{\dim X+1}\cdot (\pi^*\sM)^{\dim S-1} \cdot \sX
+\geq (\sL_H)^{\dim X+1}\cdot (\pi_H^*\sM_H)^{\dim S-2} \cdot \sX_H^*.
+$$
+Here the right-hand side is an intersection in $\sA_H=\sA\times_SH$, and $\pi_H,\sL_H,\sM_H, \sX_H$ denote the base change of $\pi,\sL,\sM, \sX$ via the morphism $H\to S$.
+Moreover, $\sX_H^*$ denotes the Zariski closure of $X$ in $\sA_H$. 
+
+Denote by $\pi_{k'}:\sA_{k'}\to S_{k'},\sL_{k'},\sM_{k'}, \sX_{k'}$ the base change of $\pi:\sA\to S,\sL,\sM, \sX$ via the morphism $\Spec k'\to \Spec k$.
+By base change, the left-hand side of the inequality is equal to 
+$$
+\sL_{k'}^{\dim X+1}\cdot (\pi_{k'}^*\sM_{k'})^{\dim S-1} \cdot \sX_{k'},$$
+which is an intersection in $\sA_{k'}$. 
+Note that $\sM_{k'}$ is linearly equivalent to the hyperplane section $H$ of $S_{k'}$.
+The intersection number is further equal to 
+$$(\sL_H)^{\dim X+1}\cdot (\pi_H^*\sM_H)^{\dim S-2} \cdot (\sX_{k'})_H.$$
+Here $(\sX_{k'})_H= \sX_{k'}\cap \pi_{k'}^{-1}(H)$ is a proper intersection in $\sA_{k'}$, so it is equi-dimensional. 
+
+The Zariski closure $\sX_H^*$ of $X$ in $\sA_H$ is an irreducible component of $(\sX_{k'})_H$.
+Then we have $(\sX_{k'})_H- \sX_H^*$ is an effective cycle. 
+As $\sL$ and $\sM$ are ample, we have 
+$$(\sL_H)^{\dim X+1}\cdot (\pi_H^*\sM_H)^{\dim S-2} \cdot (\sX_{k'})_H
+\geq (\sL_H)^{\dim X+1}\cdot (\pi_H^*\sM_H)^{\dim S-2} \cdot \sX_H^*.$$
+This proves the inequality.
+\end{proof}
+
+
+Now we are ready to prove Proposition \ref{changefield}.
+
+\begin{proof}[Proof of Proposition \ref{changefield}]
+Let $A/K/k$ be as in the proposition.
+Let $L$ be an ample line bundle over $A$, and let $(S,\sM)$ be a polarization of $K/k$.
+We can assume that $\sM$ is very ample by passing to a positive tensor power. 
+
+Choose $(H_1,k_1), (H_2,k_2)$ as in Lemma \ref{generic hyperplane} such that $k_1\neq k_2$. 
+For $i=1,2$, denote by $\sM_i$ the pull-back of $\sM$ via $(H_i)_{{\overline k_i}}\to S$. 
+Note that $K{\overline k_i}={\overline k_i}(H_{{\overline k_i}}).$
+For any $x\in A(\OK)$, we have the height inequality
+$$
+\widehat h_L^{\sM}(x)\geq \widehat h_L^{\sM_i}(x).
+$$
+
+Let $X$ be a subvariety of $A_{\overline{K}}$ which contains a dense set of small points of $A/K/k$.
+Then $X$ contains a dense set of small points of $A_{K{\overline k_i}}/K{\overline k_i}/{\overline k_i}$
+for $i=1,2$ by the height inequality. 
+By assumption, the geometric Bogomolov conjecture holds for $(A_{K{\overline k_i}}/K{\overline k_i}/{\overline k_i}, X)$, so $X$ is special in $A/K/k_i$ for both $i=1,2.$ 
+
+If $X$ is not special for $A/K/k$, let $k_{A,X}$ as in Proposition \ref{lemnonspecial}. We have $k_{A,X}\neq k.$
+By $\trdeg(k_i/k)=1$, we have $k_{A,X}\not\subseteq k_i$ for at least one $i\in \{1,2\}$.
+Then $X$ is special for $A/K/k_i$ for that $i$.
+This is a contradiction. 
+\end{proof}

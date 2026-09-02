@@ -1,0 +1,408 @@
+% Source-derived chapter 06: Universal Heegner class
+% Original source: universal-p-adic-gross-zagier-formula
+\chapter{Universal Heegner class}
+\label{universal-p-adic-gross-zagier-formula-chapter-06}
+\source{universal-p-adic-gross-zagier-formula}
+
+\begin{remark}[Source section]
+\label{universal-p-adic-gross-zagier-formula-chapter-06-source}
+\source{universal-p-adic-gross-zagier-formula}
+\source{universal-p-adic-gross-zagier-formula}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Universal Heegner class
+\subsection{Tate cycles and Abel--Jacobi maps} Let  $X/E$ be an algebraic variety over a number field, and let  $R$ 
+be a finite extension of $\Q_{p}$, or its ring of integers, or a finite quotient of its ring of integers.
+\subsubsection{Tate cycles}
+If $\cW $ is an \'etale local system of  $R[G_{E}]$-modules on $X$,   the $R$-module of  \emph{Tate ($0$)-cycles} is the space 
+$$\mathscr{Z}_{0}(X , \cW):=\bigoplus_{x\in X} H^{0}(x, \cW)$$
+where the sum runs over the closed points of $X$ and, if $x\in X$ and $\baar{x}:= x\times_{\Spec E}\Spec \baar{E}$, we define $H^{0}(x, \cW):= H^{0}(\baar{x}, \cW)^{G_{E}}$.  Elements of the latter space are written $\sum_{\baar{x}'} [\baar{x}' ]\otimes \xi_{\baar{x}'}$, where $\baar{x}'$ runs through the  points of $\baar{x}$.  
+When $\cW=R$, the module $\mathscr{Z}_{0}(X, R)$ is simply the usual $R$-module of $0$-cycles with coefficients in $R$. Its quotient by the relation of rational equivalence is denoted ${\rm CH}_{0}(X, R)$. 
+
+
+When $X$ has dimension $0$, its \emph{fundamental class} is the Tate cycle with trivial coefficients 
+ $$[X]:= \sum_{\baar{x}'\in Z(\baar{E}} [\baar{x}' ]  \otimes 1 \in \mathscr{Z}_{0}(X, \Z_{p}).$$ 
+ If $a=\sum_{\baar{x}'}[\baar{x}'] \otimes \xi_{\baar{x}'}\in \mathscr{Z}_{0}(X, \cW)$ its support $|a|\subset \baar{X}$ is the support of the divisor $\sum [\baar{x}']$, where the sum extends to those $\baar{x}' $ such that $\xi_{\baar{x}'}\neq 0$. 
+
+\subsubsection{Abel--Jacobi map}  A Tate cycle $a\in \mathscr{Z}_{0}(X, \cW)$ yields a map $R\to H^{0}(|a|, \cW)^{G_{E}}$ and, if $X$ has dimension $1$, the latter cohomology group maps to $H^{2}_{|a|}(\baar{X}, \cW(1))
+$. The image of $1\in R$ under the compostion
+$$R\to H^{0}(|a|, \cW)\to H^{2}_{|a|}(\baar{X}, \cW(1))\to H^{2}(\baar{X}, \cW(1)),$$ is denoted by $\baar{\rm cl}(a)$. 
+Consider the exact sequence 
+\beq\label{ex pair}
+\source{universal-p-adic-gross-zagier-formula}
+0\to H^{1}(\baar{X}, \cW(1))\to H^{1}(\baar{X}-|a|, \cW(1))\to H^{2}_{|a|}(\baar{X}, \cW(1))\to H^{2}(\baar{X}, \cW(1)).
+\eeq
+ Let $e$ be a Galois-equivariant idempotent acting on the right on $H^{*}(\baar{X}, \cW(1) )$, such that $\baar{\rm cl}(a)e=0$. Then we may apply the idempotent $e$ to \eqref{ex pair} and pull back the resulting exact sequence via the map $R\to H^{2}_{|a|}(\baar{X}, \cW(1))$ given by $a$, obtaining an extension 
+\beq \label{AJ extn}
+\source{universal-p-adic-gross-zagier-formula}
+0\to H^{1}(\baar{X}, \cW(1))e\to E_{a} \to R\to 0
+\eeq
+in the category of $G_{E}$-representations over $R$.  The map sending $a$ to the class ${\rm AJ}(a)e$ of this extension is called the $e$-Abel--Jacobi map, 
+$${\rm AJ}e\colon \mathscr{Z}_{0}(X, \cW)\to H^{1}(G_{E}, H^{1}(\baar{X}, \cW(1))e)=  H^{1}(G_{E}, H_{1}(\baar{X}, \cW)e),$$
+where the last equality is just a reminder of our notational conventions.  When $e={\rm id}$, it is omitted from the notation.
+When  $\cW=R$ and $e$ acts via correspondences, the map ${\rm AJ}e$ factors through ${\rm CH}_{0}(X, R)e$.
+
+
+  
+
+
+
+
+
+\subsection{Heegner cycles} 
+We use the notation from \S~\ref{sec: not} for compact subgroups $U_{*,p, \ur}\subset  U_{*,p}(p^{\ur})\subset \G_{*}(\Q_{p})$ and let $X_{*, U^{p}_{*}{}',\ur}\rightarrow X_{*, U^{p}{}'}(p^{\ur})$ be the associated Shimura varieties; the level $U_{*}^{p}{}'$ will be fixed 
+ and often omitted from the notation. If $p\OO_{F,p}=\prod_{v\vert p }\vpi_{v}^{e_{v}}\OO_{F, v}$ we use  $r$ as a shorthand for  $\ur=(e_{v}r)_{v\vert p}$. 
+
+
+\subsubsection{Embeddings of Shimura varieties}
+
+For any pair of subgroups $V'\subset \H'(\A^{\infty})$, $K\subset (\G\times\H)'(\A^{\infty})$ such that $K \cap \H'(\A^{\infty}) \supset V$, we define the diagonal embedding
+\beqq {\rm e'}={\rm e}_{V', K}' \colon Y'_{V'} &\to Z_{K}\\
+y& \mapsto [({\rm e}(\tilde{y}), \tilde{y})]
+\eeqq
+if $\tilde{y}$ is any lift of $y$ to $Y_{V}$ for some $V\subset \H(\A^{\infty})$ such that $VF_{\A^{\infty}}^{\times}\subset V'$.  %  and let $\Delta_{r}={\rm e_{r}}\times {\rm id}_{Y}\colon Y\into X_{E}\times Y$ be the (transpose) of the  graph map. 
+   
+Let $W=W_{\G}\otimes W_{\H}$ be an irreducible right  algebraic representation of $(\G\times \H)'$ over $L\supset \Q_{p}$.  If $W$ satisfies (wt), the space $ W^{H'}$ is $1$-dimensional over $L$.
+Let $\cW $ be the \'etale sheaf on the Shimura tower $Z$  associated with $W$;  any $\xi\in W^{H'}$ induces a map $ \Q_{p}\to {\rm e}'^{*}\cW$ of \'etale sheaves on the tower  $Y'$; by adjunction we obtain a canonical map $ \Q_{p}\to {\rm e}'^{*}\cW \ot W^{\vee}_{H'}$ where the second factor is simply an $L$-line. 
+
+We let
+\beqq
+{\rm e'}_{W, K, V',*} &\colon 
+ \mathscr{Z}_{0}(Y_{V'}', \Z_{p}) \to \mathscr{Z}_{0}(Y_{V'}'  ,  {\rm e}'^{*}\cW^{\circ})  \ot W^{\vee}_{H'}
+   \to \mathscr{Z}_{0}(Z_{K}, \cW^{\circ}) \ot W^{\vee}_{H'}
+\\
+{\rm e}'_{W,\ur, *}&\colon
+ \mathscr{Z}_{0}(Y'_{\ur}, \Z_{p})\to \mathscr{Z}_{0}(Y_{\ur}',  {\rm e}'^{*}\cW^{\circ}) \ot W^{\vee}_{H'}
+   \to \mathscr{Z}_{0}(Z(p^{\ur}), \cW^{\circ})  \ot W^{\vee}_{H'} \to \mathscr{Z}_{0}(Z_{\ur}, \cW^{\circ})  \ot W^{\vee}_{H'}
+\eeqq
+be the compositions of the maps described above and, respectively, ${\rm e}'_{W, *}$  or ${\rm e}'_{\ur, *}$.
+
+
+\subsubsection{CM cycles}
+Let  $[Y_{V'}']\in \mathscr{Z}_{0}(Y'_{V'}, \Z_{p})$ be the  fundamental class. 
+For any pair of levels $K, V$  such that ${\rm e}_{W,(K, V')} $ is defined, 
+let
+ \begin{align}
+\nonumber
+\Delta_{W, (K, V')}&:=  {\rm e}_{W,K, V, *}'[Y'_{V'}]  \in  \mathscr{Z}_{0}(Z_{K}, \cW^{\circ}), 
+\end{align}
+
+When $ W\neq\Q_{p}$, we consider the elements
+\beqq \Delta_{W,  (K, V')}^{\circ}:=
+ {1\over |Y'_{V'}(\baar{E})|} \cdot \Delta_{ W,(K, V')}  \in  \mathscr{Z}_{0}(Z_{K}, \cW^{\circ})
+ \eeqq
+ When  $W=\Q_{p}$, we consider the modification
+\beq\label{modif hodge}
+\source{universal-p-adic-gross-zagier-formula}
+\Delta_{ (K, V')}^{\circ}:= {1\over |Y'_{V'}(\baar{E})|} \cdot( \Delta_{(K, V')} -\deg(\Delta_{(K, V')})\cdot\xi_{\text{Hodge}} ) \in {\rm CH}_{0}(Z_{K})_{\Q_{p}}, 
+\eeq
+where $\xi_{\text{Hodge}} $ is the {Hodge class} of  \cite[\S3.1.3]{yzz}, whose introduction is motivated by the following lemma.
+\begin{lemm} The image under pushforward of $\Delta^{\circ}_{W,(K'', V'')} $ in $ \mathscr{Z}_{0}(Z_{K}, \cW)$ (if $W\neq \Q_{p}$) or ${\rm CH}_{0}(Z_{K})_{\Q_{p}}$ (if $W=\Q_{p})$  is independent of $V'', K''$ such that 
+$V''\subset K''\cap \H'(\A^{\infty})  $ and $K'\subset K$. We have 
+$$\baar{\rm cl}(\Delta^{\circ}_{W,(K, V')})=0 \quad \text{in } H^{2}(\baar{Z}_{K}, \cW(1)).$$
+\end{lemm}
+\begin{proof}
+If $W\neq \Q_{p}$, the first assertion is clear; the second one is automatic as  $H^{2}(\baar{Z}_{K}, \cW(1))=0$ (see the argument in \cite[bottom of p. 1089]{saito}). If $W=\Q_{p}$, the  assertions amount, respectively, to the compatibility of the Hodge classes under pushforward and the fact that, by construction,  the $0$-cycle $\Delta_{K, V}^{\circ}$ has degree zero; both facts are explained in \cite[\S3.1.3]{yzz}.
+\end{proof}
+\subsubsection{Cycles, Selmer classes,  and functionals} Let
+\beq \label{PWKV}
+\source{universal-p-adic-gross-zagier-formula}
+P_{W,( K, V')}:= {\rm AJ}(\Delta_{W,  (K, V')}^{\circ})\in H^{1}(G_{E, Sp}, H_{1}(\baar{Z}_{K}, \cW)).
+\eeq
+The classes $P_{W,( K, V')}$ are also compatible under pushforward and yields  elements
+\beqq
+P_{W} &:= \lim_{K \cap \H'(\A^{\infty}) \supset V'} P_{W, (K, V')} \in
+\varprojlim_{K}   H^{1}(G_{E, Sp}, H_{1}(\baar{Z}_{K}, \cW)).
+\eeqq
+The space in the right-hand side has a right  action by $(\G\times\H)'(\A^{\infty})$, and $P_{W}$ is invariant under $\H'(\A^{\infty})$. Via \eqref{carayol iso 2} and the biduality $W^{\vee\vee}=W$, $P_{W}$ yields, for each ordinary  representation $\Pi$ of weight $W$, a map
+$$P_{\Pi}\colon \Pi\to H^{1}(G_{E, Sp}, V_{\Pi}).$$
+
+Using  the map $\gamma_{H'}^{\ord}\colon \Pi^{\ord}\to \Pi_{H'} $ from Proposition \ref{gHo}, we also obtain a  map
+\beq\lb{Pord text}
+P_{\Pi}^{\ord}:=   P_{\Pi} \gamma_{H'}^{\ord}\colon \Pi^{\ord}\to H^{1}(G_{E, Sp}, V_{\Pi}).\eeq
+
+
+\begin{rema}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\lb{rem-P in H1f}  We conjecture that (i) there exist an algebraic variety $N_{W,(K, V')}/E$ of odd dimension $2d_{W}+1$, a homologically trivial cycle $\mathfrak{Z}_{W, (K, V')}\in {\rm CH}_{d_{W}}(N_{W, (K, V')})_{0}$, and a map $$\lm\colon H^{2d_{W}+1}(\baar{N}_{W, (K, V')}, \Q_{p}(d+1)) \to H_{1}(\baar{Z}_{K}, \cW)$$ such that $P_{W, (K, V')} =\lm({\rm AJ}(\mathfrak{Z}_{W, (, V')}))$; (ii) the elements $P_{W, (K, V')}$  belong to  $ H^{1}_{f}(E, H_{1}(\baar{Z}_{K}, \cW))$, so that the maps $P_{\Pi}$ take values in $H^{1}_{f}(E, V_{\Pi})$. 
+
+When $\G=\GL_{2/\Q}$, one can prove (i) with $N_{W, (K, V')}$ a Kuga--Sato variety for $Z_{K}$,  generalising \cite[Proposition II.2.4]{nek-heeg}. 
+The (probably not insurmountable) difficulty  in the general case is that, if $F\neq \Q$, the Shimura variety $Z $ is not of PEL-type.  Part (ii) should essentially be a consequence of either  (a)  part (i),  via \cite{nek-syn, nek-niz}, or (b) granted a generalisation of the theory of \emph{locc. citt.}  to nontrivial coefficients system,  of the  weaker assertion that, for a finite place $w$ of $E$, the image of $\Delta_{W, (K, V')}$ in $H_{0}({Z}_{K, E_{w}},\cW)$  comes from a corresponding  class in  the syntomic cohomology of $Z_{K, E_{w}}$ with coefficients in $\cW$. 
+\end{rema} 
+
+\subsection{Universal Heegner class} \lb{sec: 6.3}
+We use the local construction described in  \S~\ref{ssec tord} to turn the $\H'(\A)$-invariant class $P_{W}$ into  an $\H'(\A^{p\infty})$-invariant  class $\cP_{W}$ with values in the ordinary completed homology.
+Then we show that $\cP_{W}$ is independent of $W$ and it interpolates $P^{\circ}_{\Pi}$ at all representations $\Pi$ satisfying (ord), (n-exc). 
+\subsubsection{Construction}
+Let $d_{\ur}:=|Y'_{\ur}(\baar{E})|$ and let 
+$ d^{\circ} =  d_{\ur}\prod_{v\vert p}q_{v}^{-r_{v}} \in \Z_{\geq 1}$, which is the limit of an eventually constant sequence. 
+Recall that for  the tame level $K^{p}{}'\subset( \G\times \H)'(\A^{p\infty}), $
+ we denote  $M^{\circ}_{K^{p}{}', W}:=  \varprojlim_{r}\H_{1} (\baar{Z}_{W,r}, \cW^{\circ})^{\ord}$. 
+
+\begin{defi}
+\source{universal-p-adic-gross-zagier-formula}
+\notready The \emph{universal Heegner point} of weight $W$ is the element 
+\beq\label{cPW-def}
+\source{universal-p-adic-gross-zagier-formula}
+\cP_{W}:= P_{W}\gamma_{H'}^{\ord}  \in d^{\circ, -1} H^{1}(G_{E, Sp}, M^{\circ}_{ K^{p}, W})
+\eeq
+where we still   denote by $\gamma_{H'}^{\ord}$ the map induced by the map 
+$$\gamma_{H'}^{\ord}\colon \varprojlim_{K_{p}} \H_{1}(\baar{Z}_{K^{p}{}'K_{p}}, \cW)^{\H'(\A)} \to M_{ K^{p}{}', W}$$
+of Proposition \ref{gHo}.
+As usual, we simply write $\cP:= \cP_{\Q_{p}}$. When we want to emphasise the choice of $K^{p}{}'$ we write $\cP_{K^{p}{}', W}$ instead of $\cP_W$.
+\end{defi}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Independence of weight}  The class $\cP_{W}$ does not depend on $W$. 
+\begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\label{indep of wt}
+\source{universal-p-adic-gross-zagier-formula}
+Under the identification 
+\beq 
+\lb{iddd} H^{1}(E, M^{\circ}_{K^{p}{}'}\otimes_{\Z_{p}}\OO_{L})\stackrel{j_{W,*}}\cong H^{1}(E,  M^{\circ}_{K^{p}{}',W})  \eeq
+induced from the isomorphism $j_{W}$ of  Proposition \ref{free indep}.2, we have
+$$j_{W, *}(\cP)= \cP_{W}.$$
+\end{prop}
+\begin{proof}
+We show that the difference $j_{W, *}(\cP)-  \cP_{W}$ is $p$-divisible. Since  $H^{1}(G_{E, Sp},  M^{\circ}_{K^{p}{}',W})  $ is a finitely generated module over the ring $\Lambda^{\circ}_{K^{p}{}'}$ by  Lemma \ref{finite coh}, any $p$-divisible element is zero. We will use some of the notation and results of the appendix, in particular the matrices $\gamma$ defined in \S~\ref{A1}, the involution $\iota=(-)^{\rm T, -1}$ on $\GL_{2}$,  and the operator $\tord$ of Proposition \ref{gHo}. 
+
+We  tacitly multiply both sides by  $d^{\circ}$, so that they belong to the lattices \eqref{iddd}. By the definitions of $\cP_{W}$ and $j_{W}$, we need to show the following. Denote by $[ -]_{r}$ the reduction modulo $p^{r}$, and by $c(W)$ the constant \eqref{cW}; then we should have
+$$[p^{r[F:\Q]}\Delta_{\Q_{p}, \ur} \gamma_{r, p}\Up_{p}^{-r} \gamma^{\iota}_{0,\infty} ]_{r}\mapsto [c(W)^{-1}p^{r[F:\Q]}\Delta_{W, \ur}  \gamma_{r, p}\Up_{p}^{-r} \gamma^{\iota}_{0,\infty} ]_{r},$$
+under the map 
+\beq \lb{opla} j_{W}'\colon H^{1}(G_{E, Sp}, H_{1}(\baar{Z}_{K^{p}K_{p}(p^{r})}, \Z/p^{r})) &\to     H^{1}(G_{E, Sp}, H_{1}(\baar{Z}_{K^{p},K_{p}(p^{r})}, \Z/p^{r}) \ot_{\Z/p^{r}} (W^{\circ}/p^{r})^{N_{0,r}} \ot_{\OO_{L}/p^{r}} (W^{\vee, \circ}/p^{r})_{N_{0,r}}  \\
+c& \mapsto c\ot \zeta_{r}\ot \zeta_{r}^{\vee},
+\eeq
+where $\zeta_{r}\ot\zeta_{r}^{\vee}$ is the unique element pairing to $1$.
+
+As  the local system $\cW^{\circ}/p^{r}\cW^{\circ}$ is trivial on $\baar{Z}_{K^{p}K_{p}(p^{r})}$, we have 
+$$[p^{r[F:\Q]}\Delta_{W, \ur}]_{r} = [p^{r[F:\Q]}\Delta_{\Q_{p}, \ur} \ot \xi \ot \xi^{\vee}]_{r} $$
+in 
+$$
+  H^{1}(G_{E, Sp}, H_{1}(\baar{Z}_{K^{p},K_{p}(p^{r})}, \Z/p^{r})) \ot_{\Z/p^{r}} (W^{\circ}/p^{r}W^{\circ})^{H'} \ot_{\OO_{L}/p^{r}} (W^{\vee, \circ}/p^{r}W^{\vee,\circ})_{H'}  ,$$
+  where $\xi\ot\xi^{\vee}$ is the unique element pairing to $1$.  Note first  that the  image of $  [p^{r[F:\Q]}\Delta_{W, \ur}]_{r}$ under  $\gamma_{r, p}\Up_{p}^{-r}\gamma_{0, \infty}^{\iota}$ belongs to the right-hand side of \eqref{opla}: indeed it  suffices to show that for any $\xi \in W^{\circ}$,  the class $[\xi \gamma_{r}]_{r}$ is fixed by $N_{0, r}$, which follows from the congruence 
+  $$ \gamma_{r} n - \gamma_{r}\equiv 0 \pmod{p^{r} M_{2}(\Z_{p})}$$
+valid    for any  $n\in N_{0, r}$. 
+  
+It remains to see that if $\xi\ot \xi^{\vee}$ pairs to $1$, then so does $c(W)^{-1}\cdot \xi\gamma_{r, p}\ot \xi^{\vee}\gamma_{0, \infty}^{\iota}$ in the limit  $r\to \infty$.  This is proved in Lemma \ref{unitary}.
+\end{proof}
+
+
+
+\subsection{Local properties of the  universal Heegner class}
+\lb{sec: 6.4}
+Recall that $\X$ is an irreducible component of $\cE_{K^{p}}$ hence of the form $\Spec R$ with $R=R^{\circ}[1/p ]$ and  $R^{\circ}= {\bf T}_{(\G\times \H)', K^{p}, \mathfrak{m}}^{{\rm sph}, \ord}/\mathfrak{a}$ for some maximal and minimal ideals $\mathfrak{m}\subset \mathfrak{a}\subset {\bf T}_{(\G\times \H)', K^{p}}$. The ring $R^{\circ}$ satisfies the assumptions of \S~\ref{sec: sel}, hence Greenberg data over open subsets of $\X$ give rise to sheaves of Selmer complexes. 
+
+Let $\X^{(i)}\subset \X\subset \cE_{K^{p}{}'}$ be the open sets defined in \S~\ref{section 3}. 
+Proposition \ref{galois2} provides  a strict Greenberg datum  $(\cV, (\cV_{w}^{+})_{w\vert p}, (0)_{w\in S})$ over $\X$. Via Proposition \ref{cofinal}.2 we obtain  a strict Greenberg datum $(\cM_{K^{p}{}'}^{{H_{\Sg}'}}, (\cM_{K^{p}{}', w}^{{H_{\Sg}'}, +})_{w\vert p}, (0)_{w\in S}) $ over $\X^{(3)}$ with
+$$ \cM_{K^{p}{}', w}^{{H_{\Sg}'},\pm}= \cV_{w}^{\pm} \otimes ( \Pi^{K^{p}{}', \ord}_{{H_{\Sg}'}} )^{\vee} .$$
+
+ We begin the study of the Selmer complexes attached to the above Greenberg data, with the goal to promote $\cP$ to a section  of $\wtil{H}^{1}_{f}({E}, \cM_{K^{p}{}'}^{{H_{\Sg}'}})$ over a suitable open subset of $\X$. 
+
+\subsubsection{Comparison of  Bloch--Kato and Greenberg Selmer groups}
+ Let $z\in \X^{\cl}$ and let $V=\cV_{|z}$. We compare  two notions of Selmer groups for $V$. 
+
+ 
+\begin{lemm}\label{wt-mon} Let $w\nmid p$ be a place of $E$. Then, for all $i$,
+\source{universal-p-adic-gross-zagier-formula}
+$$H^{i}(E_{w},V)=0.$$
+\end{lemm}
+\begin{proof} As observed in \cite[Proposition 2.5]{nek-AJ}, this is implied by the prediction from the weight-monodromy conjecture that the monodromy filtration on $\cV_{z}$ is pure of weight $-1$. Writing $z=(x, y)\in \cE^{\ord, \cl}\subset \cE_{\G}^{\ord ,\cl}\times \cE_{\H}^{\ord, \cl}$, the weight-mondromy conjecture for $\cV_{z}$ follows from the corresponding statement for $\cV_{\G,x}$, that is Theorem \ref{galois for hilbert}.2.
+\end{proof}
+Let $H^{1}_{f, {\rm Gr}}({E}, V)$ be the Greenberg Selmer group.
+  Bloch and Kato \cite{bk} have defined subspaces $H^{1}_{f}(E_{w}, V)\subset H^{1}(E_{w}, V)$ and a Selmer group
+  $$H^{1}_{f, {\rm BK}}(E, V):= \{ s\in H^{1}_{}(E, V)\, :\, \forall w\in Sp, \ {\rm loc}_{w}(s)\in H^{1}_{f}(E_{w}, V)\}.
+  $$
+  \begin{lemm} Suppose that $\Pi_{z}$ satisfies $(\textup{wt})$. We have 
+  $$H^{1}_{f, {\rm BK}}(E, V) = H^{1}_{f, {\rm Gr}}(E, V),$$
+  where the right-hand side  is the Greenberg Selmer group as in \eqref{sel gr}.
+  \end{lemm}
+\begin{proof} We need to show that for all $w\in Sp$, $ H^{1}_{f}(E_{w}, V)= \Ker \left(  H^{1}(E_{w}, V)\to  H^{1}_{f}(E_{w}, V_{w}^{-})\right)$. This is automatic for $w\nmid p$ by Lemma \ref{wt-mon}. For $w\vert p$ this is \cite[(12.5.8)]{nek-selmer}: the context of \emph{loc. cit} is more restricted but the proof still applies, the key point being that (12.5.7)(1)(i) \emph{ibid.} still holds for all $w$ under the weight condition (wt).
+\end{proof}
+
+
+\begin{lemm}\label{sel away from p} Let $w\nmid p$ be a finite place of $E$.  Then  $H^{1}(E_{w},\cV)$ and  $H^{1}(E_{w}, \cM_{K^{p}{}'}^{{H_{\Sg}'}}) $ are supported in a closed subset of $\X$ (respectively $\X^{(3)}$) disjoint from $\X^{ \cl}$. 
+\source{universal-p-adic-gross-zagier-formula}
+\end{lemm}
+\begin{proof}
+This follows from Proposition  \ref{torss} and Lemma \ref{wt-mon}.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Local Selmer properties  of $\cP$}  \lb{6777}
+Let $w\nmid p$ be a place of $E$ as above.
+As $$  \cM_{K^{p}{}'}^{{H_{\Sg}'}}= \cV\otimes ( \Pi^{K^{p}{}', \ord}_{{H_{\Sg}'}} )^{\vee} $$ over $\X^{(3)}$, the support of $H^{1}(E_{w}, \cM_{K^{p}{}'}^{{H_{\Sg}'}}) $ is in fact the intersection of $\X^{(3)}$ and of the support of  $H^{1}(E_{w},\cV)$. 
+We denote by 
+\beq\label{open sel away from p}
+\source{universal-p-adic-gross-zagier-formula}
+\X^{(3, w)}\supset \X^{\cl}
+\eeq the open complement in $\X^{(3)}$ of the support of $H^{1}(E_{w},\cV)$ .
+ 
+
+\begin{lemm}\label{sel at p} Let $w\vert p$ be a place of $E$, with underlying place $v$ of $F$.  The
+\source{universal-p-adic-gross-zagier-formula}
+     image ${\rm loc}_{w}^{-}(\cP)$ of $\cP$ in
+$$H^{1}(E_{w}, \cM_{K^{p}{}', w}^{{H_{\Sg}'}, -})$$
+vanishes over $\X^{(3)}$. 
+\end{lemm}
+\begin{proof} 
+We lighten the notation by dropping form the notation the superscript `$(3)$'  and all decorations from $\cM$, $\cM_{w}^{-}$. Let  $\tilde{\X} := \Spec_{\X} \OO_{\X} [([\sqrt{z}])_{z\in A}]$, where $A$ is a (finite) set of topological generators for $F^{\ts}\bks \A_{F}^{\infty\ts}/(K^{p}{}'\cap {\rm Z}(\A_{F}^{p\infty\ts}))$. As $\tilde{\X}\to \X$ is faithfully flat, we may prove the statement after a base-change to $\tilde{\X}$; we denote base-changed sheaves and sections thereof with a tilde $\tilde{\Box}$.
+
+Let $\chi\colon E^{\ts} \bks \A_{E}^{\infty\ts}\to G_{E}^{\rm ab}\to \OO(\X)^{\ts}$ be the universal character, and let  $\omega =\chi_{|F^{\ts}\bks \A_{F}^{\infty\ts}}$, so that $\det \cV_{\G|\X} (-1)=\omega$. Let $\omega^{1/2} \colon F^{\ts}\bks \A_{F}^{\infty\ts} \to \OO(\tilde{\X})^{\ts}$ be a square root of $\omega$.
+  We may write
+   $$\tilde{\cV} =(\tilde{\cV}_{\G}\ot \omega^{-1/2})_{|G_{E}} \ot \tilde{\chi}' , 
+  \qquad  \tilde{\chi}' :=\tilde{\chi} \ot \omega^{-1/2}_{|G_{E}},$$
+where now   $\tilde{\chi}'\colon G_{E} \to \Gal(E_{\infty}/E)$  is the projection for the abelian extension $E_{\infty}/E$ such that  $\Gal(E_{\infty}/E) $ is the maximal pro-$p$ quotient of $E^{\ts}\A_{F}^{\infty\ts} \bks \A_{E}^{\infty\ts} /V^{p}{}'$.  
+
+
+Write $E_{\infty}=\bigcup_{n\geq0} E_{n}$ as an increasing union of finite extensions, where $E_{0}=E$ and  eventually $E_{n+1}/E_{n}$ is totally ramified at each prime above $p$, and let   
+$\tilde{\chi}'_{n}\colon G_{E}\to \Gal(E_{n}/E)$ be the natural projection. 
+  Let $\alpha^{\circ}_{v}$ be the character giving the $G_{F_{v}}$-action on $\cV_{\G}^{+}(-1)$, 
+  so that $$\tilde{\cV}^{-}_{w}= \omega_{w}\alpha_{w}^{\circ, -1}\ot\tilde{\chi}_{w}= \omega^{1/2}_{w}\alpha^{\circ, -1}_{w} \tilde{\chi}'_{w},$$ 
+where for a character $\omega'_{v}$ of $G_{F_{v}}$, we denote $\omega'_{w}:=\omega'_{v|\G_{E_{w}}}$. Let
+$$\tilde{\cV}^{-}_{n,w} :=\omega_{w}^{1/2}\alpha_{w}^{\circ, -1} \tilde{\chi}'_{n,w}, \qquad 
+\tilde{\cM}^{-}_{n,w}:= \tilde{\cV}^{-}_{n,w}\ot (\Pi^{K^{p}{}', \ord}_{{H_{\Sg}'}} )^{\vee}\subset \tilde\cM_{w}.$$
+
+ Then the same argument as in \cite[proof of Proposition 2.4.5,  primes $v\vert p$]{howbig} shows that
+the image  ${\rm loc}_{w}^{-}(\tilde{\cP})$ vanishes in $H^{1}(E_{w},\cM^{-}_{n,w})= \prod_{w'\vert w} H^{1}(E_{n},\tilde{\cM}^{-}_{0,w})$ for each $n$; here $w'$ runs through the (eventually constant) set of primes of $E_{n}$ above $w$. Since $H^{1}(E_{w},\tilde{\cM}^{-}_{w}) =\varprojlim_{n} H^{1}(E_{w}, \tilde\cM^{-}_{n, w})$ by Proposition \ref{projlim ok},  the lemma is proved. 
+  \end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\begin{coro}\label{X3f} Let $\X^{(3, f)}:=\bigcap_{w\in S} \X^{(3,w)}\supset \X^{\cl}$, where the sets $\X^{(3, w)}$ are as defined  in \eqref{open sel away from p}. Then $\cP$ defines a section
+\source{universal-p-adic-gross-zagier-formula}
+$$
+\cP\in \wtil{H}^{1}_{f}(E,  \cM_{K^{p}{}'}^{{H_{\Sg}'}}) (\X^{(3, f)})=
+H^{1}_{f}({E},  \cM_{K^{p}{}'}^{{H_{\Sg}'}})  (\X^{(3, f)}).$$
+\end{coro}
+
+\begin{proof} This follows from Lemmas \ref{sel away from p} and  \ref{sel at p}. The displayed equality is a consequence of  \eqref{tilde ses}.
+\end{proof}
+
+
+
+
+\subsubsection{Proof of Theorem \ref{theo heeg univ}} \lb{645}
+Via Proposition \ref{cofinal}.2,  we may view the class $\cP=\cP_{K^{p}}=\cP_{K^{p}, \Q_{p}}$  (Definition \ref{cPW-def}) as an $\cH_{K}^{p\Sg}$-equivariant  functional
+\beq \label{cP as functional} \cP_{K^{p}{}'}\colon \Pi^{K^{p}{}',\ord}_{\H_{\Sg'}}\to {H}^{1}_{}(E, \cV)(\X^{(3,f)}).
+\source{universal-p-adic-gross-zagier-formula}
+\eeq
+
+By the  results of \S~\ref{6777},   $\cP$ takes values in  the Selmer group $\wtil{H}^{1}_{f}(E, \cV)(\X^{(3,f)})$.
+  It satisfies the asserted interpolation properties by the definitions of the classes $\cP_{W}$ in \S~\ref{sec: 6.3} and Proposition \ref{indep of wt}. 
+
+
+
+\subsubsection{Exceptional locus of $\X$} \lb{ssec exc}
+  Let $w|v$ be places of $E$ and $F$ above $p$, and let $\mu_{w}^{\pm}\colon E_{w}^{\times}\to \OO(\X)^{\times}$ be the characters giving the Galois action on $\cV^{\pm}$. Let $\X^{{\rm exc},v }\subset \X$ be the closed subset defined by $\mu_{w}^{-}=1$ for some (hence automatically all) places $w\vert v$ of $E$. We let 
+\beq\label{exc sets}
+\source{universal-p-adic-gross-zagier-formula}
+\X^{\exc}:=\bigcup_{v\vert p} \X^{\exc, v}, \quad \X^{\cl, \exc, (v)}:=\X^{\cl}\cap \X^{\exc, (v)}, \quad  \X^{\cl,{\text{n-exc}} , (v)}:=\X^{\cl} - \X^{\cl, \exc, (v)}.
+\eeq
+
+
+We say that an ordinary  automorphic representation of $\Pi=\Pi_{|z}$ over a $p$-adic field  is \emph{exceptional at the place $v\vert p$} if $z\in \X^{\exc, v}$. 
+
+
+
+We may characterise the exceptional representations, and seize the opportunity to collect some useful results; see also Lemma \ref{exc vanishing}.
+
+
+
+
+
+\begin{lemm}\lb{6444} Let $\Pi=\pi\otimes\chi$ be an ordinary automorphic representation of $(\G\ts\H)'(\A)$ over a $p$-adic field $L$,  of numerical weights $\uw$, $\ul$.
+\begin{enumerate}
+\item  Let $v\vert p$ be a place of $F$. The  following are equivalent:
+\begin{enumerate}
+\item
+the representation $\Pi$ is exceptional  at $v$;
+\item $e_{v}(V_{(\pi, \chi)})= \eqref{eVv}=0$;
+\item the following conditions hold:
+\begin{itemize}
+ \item  the smooth representation $\pi_{v}$ of $G_{v}$ is special of the form ${\rm St}\ot\alpha_{v}$;
+ \item for some (equivalently all)  places $w\vert v $ of $E$, we have $\chi_{w} \cdot \alpha_{v}\circ N_{E_{w}/F_{v}}=\one$.
+ \item $w_{\sg}=2$ and $l_{\sg}=0$ for all $\sg\colon F\into \overline{L}$ inducing the place $v$.
+\end{itemize}\end{enumerate}
+\item Let $S_{p}^{\rm exc}= S_{p}^{\rm exc,\, s} \cup S_{p}^{\rm exc, \, ns}$ be the set of places $v\vert p$ (respectively those that  moreover are split, nonsplit in $E$) where $\Pi$ is exceptional.
+\begin{enumerate}
+\item The kernel of the natural surjective map $$\wtil{H}^{1}_{f}(E, V_{\Pi}) \to{H}^{1}_{f}(E, V_{\Pi})$$
+has dimension 
+$2 |S_{p}^{\rm exc, \, s}| + |S_{p}^{\rm exc, \, ns}|$. 
+\item  Assume that $\G$ is associated with a quaternion algebra  $\B$ that is split at all places $v\vert p$.  Then 
+$$\eps_{v}^{\G}(V_{\Pi}) = -1\qquad  \Longleftrightarrow  \qquad v\in S_{p}^{\rm exc, \, ns}.$$
+\end{enumerate}
+\end{enumerate}
+\end{lemm}
+\begin{proof} Consider part 1. We first prove the equivalence of the first two conditions. The adjoint gamma factor in the denominator of each $e_{v}(V_{(\pi, \chi)})$ is always defined and nonzero, whereas the gamma factor in the numerator is never zero and it has a pole if and only if, for some $w\vert v$, $V_{w}^{+}$  is the cyclotomic character of $E_{w}^{\ts}$. This happens precisely when, for some $w\vert v$,  $V_{w}^{-}$ is the trivial character -- that is, when $\Pi$ is exceptional at $v$. 
+
+Now let us prove the equivalence to (c). Let $V=V_{\Pi}=V_{\pi|G_{E}}\ot V_{\chi}$. By the weight-monodromy conjecture (Theorem \ref{galois for hilbert}.2), the $1$-dimensional representations  $V^{\pm}_{\pi,v}$ are both  of motivic weight $-1$, thus have no $G_{E_{w}}$-invariants for any $w\vert v$,  unless $\pi_{ v}$ is a special representation.  In the latter case $V^{+}_{w|z}$ (respectively $V_{w}^{-})$ is of weight $-2$ (respectively $0$).  
+This is compatible with the ordinariness requirement only when the weight $\uw$ is~$2$ at $v$ as in the statement of the lemma.  The second condition in (c) is immediate from the definition of (a). 
+
+Consider now part 2. The first statement follows directly from  \eqref{tilde ses}. Let us prove the second one. By the results recalled in \S~\ref{sec m1} and \cite[Lemme 10]{wald}, the  condition $ \eps_{v}^{\G}(V_{\Pi}) = -1$ is equivalent to the vanishing of  the functional $Q=Q_{\Pi_{v}}=\eqref{Qpair}$ and of the space $\Pi_{v}^{*, H'_{v}}$. These conditions are never met if $v$ splits in $E$ or $\pi_{v}$ is a principal series, and otherwise they are equivalent  to the nonvanishing of $(\Pi_{v}')^{*, H_{v}'}$, where $\Pi'_{v}=\pi_{v}'\otimes \chi_{v}$ and $\pi_{v}'$ denotes the Jacquet--Langlands transfer of $\pi_{v}$ to the nonsplit quaternion algebra $B_{v}'^{\ts}$ over $F_{v}$. 
+
+Assume that $v$ is nonsplit in $E$. If $\pi_{v}$ is exceptional, then by part 1 we have $\pi_{v}' =  \chi_{v}\circ {\rm Nm}$, where ${\rm Nm} $ is the reduced norm of $B_{v}'$, so that obviously $(\Pi_{v}')^{*, H_{v}'}\neq 0$. If $\pi_{v}$ is not exceptional, then by the explicit computation of Proposition \ref{toric period} we have $Q_{\Pi_{v}'}\neq 0$ (see also \cite[Corollary A.2.3]{nonsplit} for a variant of the last argument).
+\end{proof}
+
+
+
+\subsubsection{Heegner classes belong to the Bloch--Kato Selmer group}
+ We can now prove the first assertion of Theorem \ref{GZ thm}.
+
+\begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\lb{in H1f}  If $\Pi$ is not exceptional or has trivial weight,  the map $P_{\Pi}$ of \eqref{cP Pi 0} takes values in $H^{1}_{f}(E, V_{\Pi})\subset H^{1}(G_{E, Sp},V_{\Pi})$.
+\end{prop}
+\begin{proof} If $\Pi$ has trivial weight this is clear. Assume  that $\Pi$ is not exceptional.
+ Let $\partial\colon H^{1}(E, V)/H^{1}_{f}(E , V)\to L$ be any linear map. Then we need to show that the $\H'(\A)$-invariant map $\partial P_{\Pi}\colon \Pi \to L$ is zero.
+By Corollary \ref{X3f} and  Theorem \ref{theo heeg univ}, whose proof we have just completed,  the map $P_{\Pi}^{\ord}$ takes values in $H^{1}_{f}(E, V)$; equivalently, $\partial  P_{\Pi}\tord =0$. Since $\Pi$ is not exceptional,  by Lemma \ref{exc vanishing} this means that $\partial  P_{\Pi}=0$. 
+\end{proof}
+
+\subsubsection{Enhanced ordinary Heegner classes for exceptional representations}\lb{ss 648}
+For any $z=(x, y)\in \X^{\cl}$ corresponding to a representation $\Pi$, define the \emph{enhanced Heegner class}
+\beq \lb{tilPo} \wtil{P}_{\Pi}^{\ord}:= \cP_{|z}\in \wtil{H}^{1}_{f}(E, V_{\Pi}). \eeq
+By the results established so far,  $ \wtil{P}_{\Pi}^{\ord}$ has image $P_{\Pi}^{\ord}$ under the natural map $ \wtil{H}^{1}_{f}(E, V_{\Pi})\to {H}^{1}_{f}(E, V_{\Pi})$; as  noted in Lemma \ref{6444}, this map fails to be an isomorphism precisely when $\Pi $ is exceptional.

@@ -1,0 +1,859 @@
+% Source-derived chapter 04: Compactification of the Zastava model
+% Original source: intersection-complexes-unramified-l-factors
+\chapter{Compactification of the Zastava model}
+\label{intersection-complexes-unramified-l-factors-chapter-04}
+\source{intersection-complexes-unramified-l-factors}
+
+\begin{remark}[Source section]
+\label{intersection-complexes-unramified-l-factors-chapter-04-source}
+\source{intersection-complexes-unramified-l-factors}
+\source{intersection-complexes-unramified-l-factors}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Compactification of the Zastava model
+\label{sect:compactification}
+\source{intersection-complexes-unramified-l-factors}
+
+The map $\pi : \Scr Y \to \Scr A$ defined in \eqref{mappi}
+is in general not proper, so for example
+we cannot apply the decomposition theorem. To rectify this, we introduce
+a compactification.
+
+\subsection{Basic properties} \label{sect:basicproperties-comp}
+\source{intersection-complexes-unramified-l-factors}
+
+Let $\ol{G/N} = \Spec k[G/N]$ denote the canonical affine closure of the 
+quasiaffine variety $G/N$. 
+For an arbitrary connected reductive group $G$, Drinfeld's compactification 
+$\ol\Bun_B$ is defined\footnote{The definition as a closure is only true in characteristic $0$. In positive characteristic, see \cite[\S 4.1]{ABB}, \cite[\S 7.2]{Sch}.}
+ as the closure of $\Bun_B$ inside 
+\[ \Maps_\gen(C, G \bs \ol{G/N}/T \supset \pt/B), \] 
+the stack parametrizing maps $C \to G\bs \ol{G/N}/T$ that generically land in 
+the open substack $G \bs (G/N)/T = \pt/B$.
+(When $[G,G]$ is simply connected, 
+\cite[Proposition 1.2.3]{BG} show that $\Bun_B$ is dense in 
+$\Maps_\gen(C, G\bs \ol{G/N}/T \supset \pt/B)$.) 
+
+
+Consider the \emph{stack} quotient $X \xt^G \ol{G/N} := (X\times \ol{G/N})/G$, where $G$ acts 
+anti-diagonally. Then $X/N = X\times^G G/N$ is an open substack of 
+$X \xt^G \ol{G/N}$, so we also have the open substack 
+$\pt = X^\circ/B \subset X/B \subset X \xt^G \ol{G/N}/T$. 
+Define 
+\begin{equation} \label{e:defbarY}
+\source{intersection-complexes-unramified-l-factors}
+    \barY = (\sM_X \xt_{\Bun_G} \ol \Bun_B)^\circ \subset 
+    \Maps_\gen( C, X \xt^G \ol{G/N}/T \supset \pt)  
+\end{equation}
+where the superscript $^\circ$ denotes the open substack of 
+\[ \sM_X \xt_{\Bun_G} \ol \Bun_B \subset \Maps_\gen( C, X \xt^G \ol{G/N}/T \supset 
+X^\bullet / B) \] 
+parametrizing maps generically landing in $\pt = X^\circ/B$. 
+In particular, $\barY$ is an algebraic stack locally of finite type. 
+We can identify
+$\Scr Y \cong \barY \xt_{\ol\Bun_B} \Bun_B$ as an open substack of $\barY$.
+(If $[G,G]$ is simply connected, the containment in \eqref{e:defbarY} is an 
+equality.)
+
+There is a natural map from $X\xt^G \ol{G/N}$ to 
+\[ (X \times \ol{G/N})/\!\!/G = \Spec k[X \times G]^{G \times N}. \]
+Since $k[X \times G]^G = k[X]$, we deduce that $(X \times \ol{G/N})/\!\!/G = X/\!\!/N$.
+Therefore, we have a map 
+$X \xt^G \ol{G/N} \to X/\!\!/N$ extending the natural map $X/N \to X/\!\!/N$.
+Applying $\Maps(C,?/T)$ to the former, we have constructed a map 
+\begin{equation}
+    \bar\pi : \barY \to \Scr A 
+\end{equation}
+extending $\pi : \Scr Y \to \Scr A$.
+Let $\barY^{\ch\lambda}$ denote the preimage of the subscheme $\Scr A^{\ch\lambda}$. 
+The same proof as in Proposition~\ref{prop:factorization} 
+shows that $\barY$ has the graded factorization property. 
+We will see from Lemma~\ref{lem:barYGr} below that $\barY^{\ch\lambda}$ is 
+representable by a scheme of finite type over $k$.
+
+\medskip
+
+
+First, we show that $\bar\pi$ is indeed a compactification:
+
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{prop:piproper}
+\source{intersection-complexes-unramified-l-factors}
+The map $\bar \pi :\barY\to \Scr A$ is proper.
+\end{prop}
+
+We proceed as in \S\ref{sss:YGr}. 
+Choose $\delta\in \Lambda_X$ lying on the interior of the cone 
+dual to $\Cal C_0(X)$.
+Then $\delta$ defines a map $X/\!\!/N \to \mbb A^1$, which induces a map 
+$\Scr A \to \Sym C$. 
+This allows us to consider $\Scr Y$ as a scheme over $\Sym C$.
+Proposition~\ref{prop:YGr} gives
+a closed embedding $\Scr Y \into \Gr_{B,\Sym C}$ over $\Sym C$. 
+We compose this with the natural map $\Gr_{B,\Sym C} \to \Gr_{G,\Sym C}$
+to get a map $\Scr Y \to \Gr_{G,\Sym C}$. 
+We can extend this to a map 
+\begin{equation} \label{e:barYGr}
+\source{intersection-complexes-unramified-l-factors}
+\barY \to \Gr_{G,\Sym C} 
+\end{equation}
+using the same idea as in the definition of \eqref{e:YGr}. Namely, 
+let $y: C\times S \to X \times^G \ol{G/N} / T$ be an $S$-point of $\barY$
+and let $D\subset C\times S$ denote the divisor it maps to. 
+In particular, $y$ defines a $G$-bundle $\Scr P_G$ on $C\times S$ 
+with a $B$-reduction on $C\times S\sm D$. Since $y(C\times S\sm D) = X^\circ/B =\pt$,
+the $G$-bundle in fact admits a trivialization on $C\times S\sm D$. 
+The data of $D, \Scr P_G$, and the trivialization defines an $S$-point of $\Gr_{G,\Sym C}$.
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{lem:barYGr}
+\source{intersection-complexes-unramified-l-factors}
+The map $\barY \to \Gr_{G,\Sym C} \underset{\Sym C}\times \Scr A$
+is a closed embedding.
+\end{lem}
+
+Since $\Gr_{G,\Sym C}$ is ind-proper over $\Sym C$ (cf.~\cite[Remark 3.1.4]{Xinwen}), 
+Proposition~\ref{prop:piproper} follows from Lemma~\ref{lem:barYGr}.
+We also deduce from the lemma that $\barY$ is representable by a scheme, and 
+each $\barY^{\ch\lambda}$ is of finite type.
+
+
+\begin{proof}
+The discussion above really defines a map 
+\begin{equation} \label{e:biggeremb}
+\source{intersection-complexes-unramified-l-factors}
+    \Maps_\gen(C, X \xt^G \ol{G/N}/T \supset \pt) \to \Gr_{G,\Sym C} \xt_{\Sym C} \sA, 
+\end{equation}
+and $\barY \into \Maps_\gen(C, X\xt^G \ol{G/N}/T \supset \pt)$ is a closed
+embedding. Thus, it suffices to prove that \eqref{e:biggeremb} is a closed
+embedding.  
+Fix a test scheme $S$. 
+Let $\Scr P^0_G,\Scr P^0_B,\Scr P^0_T$ denote the respective trivial bundles on $C\times S$. 
+An $S$-point of $\Gr_{G,\Sym C} \times_{\Sym C} \Scr A$
+consists of the data 
+\[ (\Scr P_G,\Scr P_T,D,\tau,\alpha)  \]
+with $\Scr P_G\in \Bun_G(S),\, \Scr P_T \in \Bun_T(S),\, D\in \Sym C(S)$,
+a trivialization $\tau : \Scr P^0_G|_{C\times S\sm D}\cong \Scr P_G|_{C\times S\sm D}$, 
+and a section
+$\alpha: C\times S \to (X/\!\!/N)\times^T \Scr P_T$ such that 
+$(\Scr P_T,\alpha) \in \Scr A(S)$ maps to $D$. 
+In particular, this means that $\alpha$ induces a trivialization 
+$\Scr P_T^0|_{C\times S\sm D} \cong \Scr P_T|_{C\times S\sm D}$. 
+Using the identification $X^\circ \cong B$, we get a section
+\[ \sigma_0 : C\times S\sm D \to \Scr P^0_B \cong X^\circ \xt^B \Scr P_B^0 
+\into X \xt^B \Scr P_B^0= X \xt^G \Scr P_G^0. \]
+The composition $\sigma := \tau \circ \sigma_0$ then defines a section
+$C\times S \sm D \to X\xt^G \Scr P_G$.
+On the other hand, the trivial $B$-bundle also corresponds to a section
+$\kappa_0 : C\times S \sm D \to \Scr P_G^0 \xt^G (G/N)$.
+Composing $\kappa_0$ with the trivialization $\alpha:\Scr P_T^0|_{C\times S\sm D} \cong \Scr P_T|_{C\times S\sm D}$, we get a section
+\[ \kappa : C\times S \sm D \to \Scr P_G \xt^G \ol{G/N} \xt^T \Scr P_T. \]
+The datum $(\Scr P_G, \Scr P_T, \sigma, \kappa)$ defines an $S$-point 
+of $\Maps(C, X\xt^G \ol{G/N}/T)$ if and only if $\sigma,\kappa$ both extend to regular
+maps on $C\times S$. 
+Therefore, the fiber of our chosen $S$-point over 
+the map \eqref{e:biggeremb}
+parametrizes maps $S' \to S$
+such that the base change of $\sigma,\kappa$ to $S'$ both extend to 
+$C\times S'$. By Lemma~\ref{lem:extendsection}, 
+this fiber is represented by a closed subscheme of $S$ (here the key point 
+is that both $X$ and $\ol{G/N}$ are affine). 
+\end{proof}
+
+\begin{rem}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+We need the extra factor of $\Scr A$ in Lemma~\ref{lem:barYGr} which was
+not present in Proposition~\ref{prop:YGr} because the map $\Gr_B \to \Gr_G$
+is a bijection on $k$-points but far from an isomorphism of ind-schemes. 
+Since $\Scr A$ embeds into $\Gr_{T,\Sym C}$, the lemma is really
+embedding $\barY$ into $\Gr_{G,\Sym C}\times_{\Sym C} \Gr_{T,\Sym C}$. 
+The ind-scheme $\Gr_T$ is highly non-reduced, while $(\Gr_T)_\red$ is a disjoint
+union of points.
+\end{rem}
+
+\begin{eg}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{eg:Heckecompact}
+\source{intersection-complexes-unramified-l-factors}
+Let $X = \mbb G_m \bs \GL_2$ as in Example~\ref{eg:YHecke}. 
+Then $\barY = \Sym C \xt \Sym C$ and $\barY \to \sA$ is the identity morphism. 
+\end{eg}
+
+\subsection{Stratification} 
+\label{sect:strat-compactified}
+\source{intersection-complexes-unramified-l-factors}
+We can uniquely write any $\ch\nu \in \ch\Lambda^\pos_G$ 
+as a sum $\ch\nu = \sum_{\alpha\in \Delta_G} n_\alpha \ch\alpha$ where $\Delta_G$ is the set of 
+simple coroots and $n_\alpha$ are positive integers. 
+Let $C_{\ch\nu} := \prod_{\Delta_G} C^{(n_\alpha)}$ denote the corresponding partially
+symmetrized power of $C$. 
+Recall that Drinfeld's 
+compactification $\ol\Bun_B$ of $\Bun_B$ has a 
+stratification by \emph{defect}, where the strata are given by 
+locally closed embeddings
+\[ \mf i_{\ch\nu}: C_{\ch\nu} \times \Bun^{\ch\mu+\ch\nu}_B \into \ol\Bun^{\ch\mu}_B, \]
+for $\ch\nu\in \ch\Lambda^\pos_G,\, \ch\mu \in \ch\Lambda_G$, cf.~\cite[\S 1.5, p.~7]{BFGM}. 
+Define the substack ${_{\ch\nu}}\ol\Bun_B^{\ch\mu}$ to be the image 
+of the corresponding embedding. 
+We obtain an open substack $_{\le \ch\nu}\ol\Bun_B^{\ch\mu} \subset \ol\Bun^{\ch\mu}_B$ by taking the union of the strata $_{\ch\nu'}\ol\Bun_B^{\ch\mu}$ 
+for all $\ch\nu' \le \ch\nu$. 
+
+Since $\barY^{\ch\lambda}$ maps to $\ol\Bun_B^{-\ch\lambda}$ for $\ch\lambda \in \mathfrak c_X$, by base change we have locally
+closed subschemes 
+\[ {}_{\ch\nu} \barY^{\ch\lambda} := \barY^{\ch\lambda} \xt_{\ol\Bun_B^{-\ch\lambda}} {}_{\ch\nu} \ol\Bun_B^{-\ch\lambda} \into \barY^{\ch\lambda} \]
+and open subschemes ${}_{\le \ch\nu} \barY^{\ch\lambda} \into \barY^{\ch\lambda}$ defined analogously.
+Observe that the identification ${}_{\ch\nu} \ol\Bun_B^{-\ch\lambda} \cong 
+C_{\ch\nu} \times \Bun_B^{\ch\nu-\ch\lambda}$ induces an isomorphism
+\begin{equation} \label{e:barYstrata1}
+\source{intersection-complexes-unramified-l-factors}
+    {}_{\ch\nu} \barY^{\ch\lambda}  \cong C_{\ch\nu} \times \Scr Y^{\ch\lambda-\ch\nu}. 
+\end{equation}
+On the other hand, $\barY^{\ch\lambda}$ also maps to $\Scr M_X$, so 
+we get a locally closed subscheme 
+\[ {}_{\ch\nu}\barY^{\ch\lambda,\ch\Theta} := {}_{\ch\nu}\barY^{\ch\lambda} \xt_{\Scr M_X} \Scr M_X^{\ch\Theta} \into {}_{\ch\nu}\barY^{\ch\lambda} \into \barY^{\ch\lambda} \] 
+for $\ch\Theta$ any partition in $\mathfrak c_X^-$ 
+(by Lemma~\ref{lem:globstrata}). 
+We deduce from \eqref{e:barYstrata1} that there is an isomorphism
+\[ {}_{\ch\nu} \barY^{\ch\lambda,\ch\Theta} \cong C_{\ch\nu} \times \Scr Y^{\ch\lambda-\ch\nu, \ch\Theta}. \] 
+In particular, Proposition~\ref{prop:localstrata} implies that 
+${}_{\ch\nu} \barY^{\ch\lambda,\ch\Theta}$ is smooth. 
+In summary: 
+
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready  \label{prop:barYstrata}
+\source{intersection-complexes-unramified-l-factors}
+The collection of locally closed subschemes 
+${}_{\ch\nu} \barY^{\ch\lambda,\ch\Theta}$, ranging over all $\ch\nu\in \ch\Lambda^\pos_G$ and partitions $\ch\Theta \in \Sym^\infty(\mathfrak c_X^-\sm 0)$, 
+forms a smooth stratification of $\barY^{\ch\lambda}$. 
+\end{prop}
+
+Note that for fixed $\ch\lambda$, many of these strata may be empty.
+
+
+\subsubsection{Changing the curve}
+
+In this subsection we let $C$ be a smooth curve which is not necessarily proper 
+and we define 
+\[ \sA(C) = \Hom( \mf c_X^\vee, \Sym C), \quad 
+\sY(C)=\Maps_\gen(C, X/B\supset \pt) \]
+and $\barY(C)$ to be the closure
+of $\sY(C)$ in $\Maps_\gen(C, X \xt^G \ol{G/N}/T \supset \pt)$ to emphasize
+the curve being used. 
+Here $\Hom$ denotes homomorphisms of monoid objects in the category of schemes.
+Similarly we have $\sA^{\ch\lambda}(C), \sY^{\ch\lambda}(C),\barY^{\ch\lambda}(C)$. 
+The local nature of $\barY(C)$ 
+(in particular Lemma~\ref{lem:barYGr}) ensures that $\barY^{\ch\lambda}(C)$ is still 
+a finite type $k$-scheme. 
+
+\smallskip
+
+Let $p: \wt C \to C$ be an \'etale map of smooth curves. 
+Let $(\Sym \wt C)_\disj \subset \Sym \wt C$
+be the open subset that consists of divisors $\wt D$ on $\wt C$ such that
+any fiber of $p$ contains at most one point of the support of $\wt D$.
+Let $\sA(\wt C)_\disj$ denote the open subset of 
+$\Hom(\mf c_X^\vee, \Sym \wt C)$ consisting of homomorphisms landing in $(\Sym \wt C)_\disj$.
+Then pushforward of divisors defines a map 
+$\sA^{\ch\lambda}(\wt C) \to \sA^{\ch\lambda}(C)$.
+
+\begin{prop}[{\cite[Proposition 2.19]{BFG}}]
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{prop:changecurve}
+\source{intersection-complexes-unramified-l-factors}
+For an \'etale map $\wt C \to C$ we have a canonical isomorphism 
+\[ \barY^{\ch\lambda}(C) \xt_{\sA^{\ch\lambda}(C)} \sA^{\ch\lambda}(\wt C)_\disj 
+\cong \barY^{\ch\lambda}(\wt C) \xt_{\sA^{\ch\lambda}(\wt C)} \sA^{\ch\lambda}(\wt C)_\disj 
+\] 
+which preserves the fine stratification. 
+\end{prop}
+Note that setting $\wt C = C\sqcup C$ recovers the graded factorization property. 
+
+\begin{proof}
+Choose $\delta \in \mf c_X^\vee$ as in \S\ref{sss:YGr}. 
+For $(y,\tilde a) \in \barY^{\ch\lambda}(C) \xt_{\sA^{\ch\lambda}(C)} \sA^{\ch\lambda}(\wt C)_\disj$, let $\wt D$ (resp.~$D$) denote the divisor corresponding to $\delta$ paired with 
+$\tilde a$ (resp.~$\pi(y)\in \sA^{\ch\lambda}(C)$). 
+Then $p_*\wt D = D$ and we deduce that there is an isomorphism 
+$\wh C'_D \cong \wh{\wt C}{}'_{\wt D}$.
+Lemma~\ref{lem:B-L}, applied to
+the affine $G\xt T$-scheme $X \xt \ol{G/N}$, implies that the point 
+$y\in \barY^{\ch\lambda}(C)$ is 
+equivalent to its restriction $y|_{\wh C'_D}$. 
+Applying the same lemma again shows that $y|_{\wh C'_D}$ is equivalent to 
+a point $\tilde y \in \barY^{\ch\lambda}(\wt C)$ such that $\tilde y(\wt C \sm \wt D)=\pt$.
+This defines mutually inverse maps in both directions and the compatibility 
+with strata is clear.
+\end{proof}
+
+Since the diagonal $\delta^{\ch\lambda} : \wt C \into \sA^{\ch\lambda}(\wt C)$ 
+sending $\tilde v \mapsto \ch\lambda\cdot \tilde v$ is contained in $\sA^{\ch\lambda}(\wt C)_\disj$, we deduce from the graded factorization property
+and Proposition~\ref{prop:changecurve} that $\barY^{\ch\lambda}(C)$ 
+is \'etale-locally isomorphic to $\barY^{\ch\lambda}(\bbA^1)$ for any smooth curve $C$.
+
+
+\subsection{The central fiber} \label{def:centralfiber}
+\source{intersection-complexes-unramified-l-factors}
+Let $\ch\lambda \in \mathfrak c_X$. There is a 
+diagonal map $\delta^{\ch\lambda}:C \to \Scr A^{\ch\lambda}$
+sending $v \mapsto \ch\lambda \cdot v$. For a fixed point
+$v\in \abs C$, let us consider 
+$\delta^{\ch\lambda}_v : v \to \Scr A^{\ch\lambda}$. 
+
+\medskip
+
+Define the central fiber $\msf Y^{\ch\lambda}$ of $\Scr Y^{\ch\lambda}$ 
+to be the
+preimage of $\delta^{\ch\lambda}_v$ under 
+$\pi : \Scr Y^{\ch\lambda} \to \Scr A^{\ch\lambda}$. 
+If we take central fibers of the map \eqref{e:YGr}, Proposition~\ref{prop:YGr} implies that we have a closed embedding 
+$\msf Y^{\ch\lambda} \into \Gr_B$.
+In fact, $\ch\lambda \cdot v$ can be considered as a point in 
+$\Gr_T$. If we let $\msf S^{\ch\lambda}$ denote the preimage of this point
+under the projection $\Gr_B \to \Gr_T$, then we get a closed embedding 
+\begin{equation} \label{e:YembedGr}
+\source{intersection-complexes-unramified-l-factors}
+    \msf Y^{\ch\lambda} \into \msf S^{\ch\lambda}.
+\end{equation}
+
+Note that $\msf S^{\ch\lambda}$ identifies with 
+the $\msf L N$-orbit of $t^{\ch\lambda}$ in $\Gr_G$. 
+The orbits $\msf S^{\ch\lambda}$ are commonly known
+as the semi-infinite orbits of $\Gr_G$, and their geometric properties
+were extensively studied by Mirkovi\'c--Vilonen in \cite{MV}. 
+Let $\olsf S^{\ch\lambda}$ denote the scheme-theoretic closure 
+of $\msf S^{\ch\lambda}$ in $\Gr_G$.
+
+We analogously define $\olsf Y^{\ch\lambda}$ as the central fiber\footnote{The open subscheme $\msf Y^{\ch\lambda}$ does not need to be dense in $\olsf Y^{\ch\lambda}$.}
+of $\bar\pi : \barY^{\ch\lambda} \to \sA^{\ch\lambda}$, and 
+we deduce from Lemma~\ref{lem:barYGr} that there is a 
+closed embedding $\olsf Y^{\ch\lambda} \into \Gr_G$. 
+From the moduli-theoretic description of $\olsf S^{\ch\lambda}$ 
+(see \cite[proof of Proposition 5.3.6]{Xinwen}), we see that
+this factors through a closed embedding 
+\begin{equation} \label{e:olYembedGr}
+\source{intersection-complexes-unramified-l-factors}
+    \olsf Y^{\ch\lambda} \into \olsf S^{\ch\lambda}.
+\end{equation}
+
+\subsubsection{Local description of $\msf Y^{\ch\lambda}$} 
+Note that the central fiber $\msf Y^{\ch\lambda}$
+intersects the stratum $\Scr Y^{\ch\lambda,\ch\Theta}$ 
+only if $\ch\Theta =[\ch\theta]$ is the singleton partition corresponding to 
+a single $\ch\theta \in \mathfrak c_X^-$. 
+In this case, let $\msf Y^{\ch\lambda,\ch\theta}$ denote
+the intersection $\msf Y^{\ch\lambda} \cap \Scr Y^{\ch\lambda,\ch\theta} = \msf Y^{\ch\lambda}
+\xt_{\sM_X} \sM_X^{\ch\theta}$.
+Also let $\olsf Y^{\ch\lambda,\ch\theta} = \olsf Y^{\ch\lambda} \xt_{\sM_X} \sM_X^{\ch\theta}$.
+
+The $\msf L G$-action on the base point $x_0 \in \msf L X(k)$
+defines a map $\msf L G \to \msf L X$, which induces a map 
+$\Gr_G \to \msf L X/ \msf L^+G$.  
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{lem:Y=ScapGr}
+\source{intersection-complexes-unramified-l-factors}
+There are natural isomorphisms
+\begin{align} 
+    \msf Y^{\ch\lambda} & 
+        \cong \msf S^{\ch\lambda} \xt_{\msf L X/\msf L^+G} \msf L^+ X/\msf L^+G 
+\label{e:YScapGr} \\
+\source{intersection-complexes-unramified-l-factors}
+    \olsf Y^{\ch\lambda} & 
+        \cong \olsf S^{\ch\lambda} \xt_{\msf L X/\msf L^+G} \msf L^+ X / \msf L^+G 
+\label{e:olYScapGr}
+\source{intersection-complexes-unramified-l-factors}
+\end{align}
+which induce 
+$\displaystyle (\msf Y^{\ch\lambda,\ch\theta})_\red \cong (\msf S^{\ch\lambda} \xt_{\msf L X/\msf L^+G} \msf L^{\ch\theta}X/\msf L^+G)_\red$ 
+and 
+$\displaystyle (\ol{\msf Y}^{\ch\lambda,\ch\theta})_\red \cong (\ol{\msf S}^{\ch\lambda}
+ \xt_{\msf L X/\msf L^+G} \msf L^{\ch\theta}X/\msf L^+G)_\red$.
+\end{lem}
+
+
+\begin{proof}
+Consider the composition $\Gr_B^{\ch\lambda} \to  \Gr_G \to \msf L X/\msf L^+G$. 
+It follows from the definitions that we have an embedding
+\[  \msf Y^{\ch\lambda} \into \Gr^{\ch\lambda}_B \xt_{\msf L X/\msf L^+G} \msf L^+X/\msf L^+G
+\]
+The map in the reverse direction is defined using Beauville--Laszlo's theorem: for a $k$-algebra $R$, an $R$-point of $\Gr^{\ch\lambda}_B$ consists
+of a $B$-bundle $\hat{\Scr P}_B$ on $\Spec R\tbrac t$ and a section 
+$\hat\sigma_0 : \Spec R\lbrac t \to \hat{\Scr P}_B$. Using the
+identification $B \cong X^\circ$, we can identify $\hat\sigma_0$
+with a section $\hat\sigma: \Spec R\lbrac t \to X^\circ \times^B \hat{\Scr P}_B$. 
+If the image of $(\hat{\Scr P}_B, \hat \sigma)$ in $\msf L X/\msf L^+G$ belongs to $\msf L^+X/\msf L^+G$, then 
+$\hat\sigma$ extends to a section $\Spec R\tbrac t \to X\times^B \hat{\Scr P}_B$. 
+By Lemma~\ref{lem:B-L}, the pair $(\hat{\Scr P}_B, \hat \sigma)$ is equivalent to an $R$-point $y\in \Scr Y$. 
+By construction, $y\in \msf Y^{\ch\lambda}$.
+The two maps are mutually inverse, so we get \eqref{e:YScapGr}.
+
+The same argument proves \eqref{e:olYScapGr},
+and the other identifications are by definition.
+\end{proof}
+
+We included the subscript $_\red$ above for clarity, but from now on we 
+consider only the underlying reduced structure on all central fibers 
+and omit the subscript since the \'etale site is insensitive
+to reduced structures.
+
+\begin{eg}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{eg:Yfiber}
+\source{intersection-complexes-unramified-l-factors}
+Resume the setting of Example~\ref{eg:YHecke}.  
+Then $\msf Y^{n_1 \ch\nu_{D^+} + n_2 \ch\nu_{D^-}}$ is empty if both $n_1$ and $n_2$ are nonzero.
+Otherwise it consists of a single point. 
+ If we use the embedding $\mbb G_m \into \GL_2$
+via $a\mapsto \left( \begin{smallmatrix} 1 & 0 \\ 1-a& a \end{smallmatrix}\right)$
+and fix the base point $x_0=1$, then $\msf Y^{\ch\nu_{D^+}}$ 
+corresponds to the point 
+$\left( \begin{smallmatrix} 1 & 1 \\ 0 & 1 \end{smallmatrix} \right) t^{\ch\vareps_1} \in \Gr_B$ 
+while $\msf Y^{\ch\nu_{D^-}}$ corresponds to $t^{-\ch\vareps_2} \in \Gr_B$.
+\end{eg}
+
+
+\subsubsection{} \label{sect:YttimesC}
+\source{intersection-complexes-unramified-l-factors}
+Lemma~\ref{lem:Y=ScapGr} implies that 
+the central fibers $\msf Y^{\ch\lambda}, \olsf Y^{\ch\lambda}$ 
+can be defined purely locally (in particular, independently of 
+the point $v\in \abs C$).
+We also deduce that $\sY^{\ch\lambda} \xt_{\sA^{\ch\lambda},\delta^{\ch\lambda}} C 
+\cong \msf Y^{\ch\lambda} \ttimes C$ and 
+$\barY^{\ch\lambda} \xt_{\sA^{\ch\lambda},\delta^{\ch\lambda}} C \cong \olsf Y^{\ch\lambda} \ttimes C$,
+where $? \ttimes C := {?}\times^{\Aut k\tbrac t} C^\wedge $
+and $C^\wedge \to C$ is the $\Aut k\tbrac t$-torsor classifying $v\in C$
+together with an isomorphism $\mf o_v \cong k\tbrac t$. 
+
+
+\subsection{Dimension of central fibers}
+
+We will now discuss an argument that is critical when estimating dimensions of Zastava spaces and their central fibers. This argument appeared in the proof 
+of \cite[Theorem 3.2]{MV}. The second author thanks M.~Finkelberg for
+explaining this proof to him.
+
+Semi-infinite orbits have a very simple geometric structure, summarized by the following:
+\begin{prop}[{\cite[Proposition 3.1]{MV}, \cite[Proposition 5.3.6, Corollary 5.3.8]{Xinwen}}]
+\source{intersection-complexes-unramified-l-factors}
+\notready  \label{prop:Shyperplane}
+\source{intersection-complexes-unramified-l-factors}
+\ 
+
+\begin{enumerate}
+\item We have a stratification
+$\olsf S^{\ch\lambda} = \bigcup_{\ch\lambda' \le \ch\lambda} \msf S^{\ch\lambda'}$.
+
+\item
+Inside $\olsf S^{\ch\lambda}$, the boundary of $\msf S^{\ch\lambda}$
+is given by a hyperplane section under an embedding of $\Gr_G$ in projective space. 
+\end{enumerate}
+\end{prop}
+
+
+
+In particular, if a projective subvariety meets the semi-infinite orbit $\msf S^{\ch\lambda}$, it also meets its boundary $\bigcup_{\lambda' < \ch\lambda}  \msf S^{\ch\lambda'}$. We will use this simple fact several times, in order to estimate the dimensions of central fibers.
+
+\medskip
+
+For $\ch\lambda \in \mf c_X$, consider
+the central fiber $\olsf Y^{\ch\lambda} \subset \olsf S^{\ch\lambda} \subset \Gr_G$. 
+Observe that the defect stratification of $\barY^{\ch\lambda}$ (\S \ref{sect:strat-compactified}) gives a stratification
+of $\olsf Y^{\ch\lambda} = \bigcup_{\ch\lambda' \le \ch\lambda} \msf Y^{\ch\lambda'}$,
+where $\msf Y^{\ch\lambda'} = \olsf Y^{\ch\lambda}\cap ({_{\ch\lambda-\ch\lambda'}} \barY^{\ch\lambda})$. 
+This is compatible with the stratification of $\olsf S^{\ch\lambda} = \bigcup_{\ch\lambda'\le\ch\lambda}
+\msf S^{\ch\lambda'}$ under the closed embedding $\olsf Y^{\ch\lambda}\subset \olsf S^{\ch\lambda}$.
+From Lemma~\ref{lem:Y=ScapGr} we have $\olsf Y^{\ch\lambda} \cap \msf S^{\ch\lambda'} = \msf Y^{\ch\lambda'}$
+for $\ch\lambda' \le \ch\lambda$.
+
+
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+\label{prop:intersections}
+\source{intersection-complexes-unramified-l-factors}
+ Given an irreducible component $\olsf Y \subset \olsf S^{\ch\lambda}$ of the central fiber $\olsf Y^{\ch\lambda}$ of $\barY^{\ch\lambda}$, there is a $\ch\lambda'\le \ch\lambda$ with $\olsf Y \cap \msf S^{\ch\lambda'}$ nonempty of dimension zero, and $d:=\dim \olsf Y \le \brac{ \rho_G, \ch\lambda-\ch\lambda'}$. 
+
+Moreover, if $d= \brac{ \rho_G, \ch\lambda-\ch\lambda'}$, then there exists a sequence of simple roots $\alpha_1, \dots,\alpha_d$ (possibly with repetitions) 
+and subvarieties $\msf Y_j \subset \msf Y^{\ch\lambda-\ch\alpha_1-\dotsb-\ch\alpha_j}$ for $j=0,\dotsc,d$  such that 
+\begin{itemize}
+\item $\ol{\msf Y_0} = \olsf Y$,
+\item $\msf Y_j$ is an irreducible component of $\ol{\msf Y_{j-1}} \cap \msf S^{\ch\lambda - \ch\alpha_1 - \cdots -\ch\alpha_j}$ of dimension $d-j$ for $j=1,\dotsc, d$.
+\end{itemize}
+\end{prop}
+
+\begin{proof}
+By the stratification $\olsf S^{\ch\lambda} = \bigcup_{\ch\lambda'\le\ch\lambda} \msf S^{\ch\lambda}$,
+there must exist $\ch\lambda_0 \le \ch\lambda$ such that 
+$\msf Y_0 := \olsf Y \cap \msf S^{\ch\lambda_0}$ is dense in $\olsf Y$. 
+Then $\olsf Y \subset \olsf S^{\ch\lambda_0}$ so we may assume $\ch\lambda=\ch\lambda_0$. 
+Write $\partial \olsf S^{\ch\lambda} = \olsf S^{\ch\lambda} \sm \msf S^{\ch\lambda}$ for the hyperplane of Proposition~\ref{prop:Shyperplane}(ii). 
+Since $\olsf Y$ is a projective subvariety of $\olsf S^{\ch\lambda}$, it must
+ meet $\partial \olsf S^{\ch\lambda}$. 
+Hence there exists $\ch\lambda_1 < \ch\lambda$ such that
+$\dim(\olsf Y \cap \msf S^{\ch\lambda_1}) = d-1$. 
+Let $\msf Y_1$ be any irreducible component of $\olsf Y\cap \msf S^{\ch\lambda_1}$ and 
+$\ol{\msf Y_1}$ its closure in $\olsf S^{\ch\lambda_1}$. 
+Continuing in this fashion we produce a sequence of coweights $\ch\lambda_0=\ch\lambda, \ch\lambda_1,\dotsc,\ch\lambda_d$ and irreducible components $\msf Y_j \subset \ol{\msf Y_{j-1}}\cap \msf S^{\ch\lambda_j}$ for $j=1,\dotsc,d$, such that $\ch\lambda_j < \ch\lambda_{j-1}$ and 
+$\dim \msf Y_j = d-j$. 
+Since $\ch\lambda_j < \ch\lambda_{j-1}$ implies $\brac{\rho_G,\ch\lambda_{j-1}-\ch\lambda_j}\ge 1$, 
+we get $\brac{\rho_G,\ch\lambda-\ch\lambda_d} \ge d$ and $\ch\lambda'=\ch\lambda_d$ is the claimed
+coweight in the proposition statement. 
+
+In order for the last inequality to be an equality, we must have $\ch\lambda=\ch\lambda_0$
+and $\ch\lambda_j = \ch\lambda_{j-1} - \ch\alpha_j$ for some simple coroot $\ch\alpha_j,\, j=1,\dotsc,d$. 
+\end{proof}
+
+ 
+
+
+\subsection{Comparison of IC complexes} \label{sect:compareIC}
+\source{intersection-complexes-unramified-l-factors}
+In order to describe the restriction of $\IC_{\barY}$ to strata 
+we will need to introduce several (graded) factorization algebras on the
+collection of $C_{\ch\nu},\, \ch\nu\in\ch\Lambda^\pos_G$. 
+We only state their definitions; we refer the reader to \cite{BG2, G:whatacts} for
+further context.
+
+\smallskip
+
+Let $\ch{\mf n}_C = \ch{\mf n} \ot_{\ol\bbQ_\ell} {\ol\bbQ_\ell}_C$ be the constant sheaf of 
+Lie algebras over $C$. 
+Let $\mf U(\ch{\mf n}_C)^{\ch\nu}$ denote the following sheaf on $C_{\ch\nu}$
+for $\ch\nu \in \ch\Lambda^\pos_G$: its $*$-stalk at a point $\sum \ch\nu_i \cdot v_i$
+with $v_i \in \abs C$ distinct is the tensor product $\bigotimes_i U(\ch{\mf n})^{\ch\nu_i}$
+where the superscript $\ch\nu_i$ refers to the corresponding weight space of 
+the universal enveloping algebra $U(\ch{\mf n})$. 
+These stalks glue to a sheaf by means of the co-multiplication map on $U(\ch{\mf n})$. 
+Let $\mf U^\vee(\ch{\mf n}_C)^{-\ch\nu} = \mbb D (\mf U(\ch{\mf n}_C)^{\ch\nu}) \in \rmD^b_c(C_{\ch\nu})$ denote the Verdier dual. 
+
+We will also need the Chevalley--Cousin complex $\Upsilon(\ch{\mf n}_C)$ 
+of $\ch{\mf n}_C$. 
+Consider the (homological) Chevalley complex $C_\bullet(\ch{\mf n}_C)$
+as a sheaf of co-commutative DG co-algebras on $C$, endowed with a grading by elements of
+$\ch\Lambda^\pos_G$. 
+By the general procedure of \cite[\S 3.4]{BD:chiral}, a sheaf of $\ch\Lambda^\pos_G$-graded
+co-commutative DG co-algebras on $C$ is equivalent to a commutative factorization algebra 
+on $\bigsqcup C_{\ch\nu}$. We let $\Upsilon(\ch{\mf n}_C)^{\ch\nu}$ denote
+the corresponding complex on $C_{\ch\nu}$, which can be explicitly constructed
+via a Cousin complex. 
+Its $*$-stalk at $\sum \ch\nu_i \cdot v_i$ with $v_i$'s disinct is 
+the tensor product $\bigotimes_i C_\bullet(\ch{\mf n})^{\ch\nu_i}$. 
+We remark that $\Upsilon(\ch{\mf n}_C)^{\ch\nu}$ is actually
+a perverse sheaf, and $\Upsilon(\ch{\mf n}_C)$ and $\mf U^\vee(\ch{\mf n}_C)$ are
+related by a certain Koszul duality.
+
+
+\subsubsection{} Let 
+\[ \mf i_{\barY,\ch\nu} : C_{\ch\nu} \times \Scr Y^{\ch\lambda-\ch\nu}
+\into \barY^{\ch\lambda} \]
+denote the locally closed embedding corresponding to \eqref{e:barYstrata1}. 
+
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{prop:ICbarY}
+\source{intersection-complexes-unramified-l-factors}
+For any $\ch\lambda\in \mathfrak c_X,\, \ch\nu\in \ch\Lambda^\pos_G$, 
+there is an equality 
+\[ 
+[\mf i^*_{\barY,\ch\nu}(\IC_{\barY^{\ch\lambda}}) ]
+= [\mfU^\vee(\ch\mfn_C)^{-\ch\nu} \bt \IC_{\Scr Y^{\ch\lambda-\ch\nu}}] 
+\]
+in the Grothendieck group of perverse sheaves on $C_{\ch\nu} \xt \sY^{\ch\lambda-\ch\nu}$.
+\end{prop}
+
+We will prove the proposition in the course of this subsection. It is based on the following result of {\cite[Proposition 4.4]{BG2}, \cite[Theorem 1.12]{BFGM}}. 
+\begin{thm}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+\label{thm:BFGM}
+\source{intersection-complexes-unramified-l-factors}
+There exists a canonical isomorphism 
+\[ \mf i_{\ch\nu}^* (\IC_{\ol\Bun_B^{\ch\mu}}) \cong 
+\mfU^\vee(\ch{\mfn}_C)^{-\ch\nu} \bt \IC_{\Bun_B^{\ch\mu+\ch\nu}} 
+\]
+for any $\ch\nu\in \ch\Lambda^\pos_G,\, \ch\mu\in \ch\Lambda_G$. 
+\end{thm}
+
+
+
+Given a map $f : Y \to S$ between finite type algebraic $k$-stacks, 
+we use the notion of a complex on $Y$ which is 
+\emph{universally locally acyclic} (ULA) with 
+respect to $f$, as in \cite[D\'efinition 2.12]{SGA4h}.
+
+The general lemma we will use is the following:
+
+\begin{lem}[{\cite[Lemma 7.1.3]{BG}}]
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{lem:ULAbox} 
+\source{intersection-complexes-unramified-l-factors}
+Consider a Cartesian diagram of finite type algebraic stacks
+\[
+\begin{tikzcd} 
+Y' \ar[r, "{f'}"] \ar[d, "{g'}", swap] & S' \ar[d, "g"] \\ 
+Y \ar[r, "f"] & S
+\end{tikzcd}
+\]
+where $S$ is smooth.
+Let $j : Y_0 \into Y$ be an open dense substack such that
+the map $f \circ j : Y_0 \to S$ is smooth. 
+In addition, assume that the complexes $\IC_Y$ and $j_!(\IC_{Y_0})$
+are ULA with respect to the map $f$. 
+
+Denote the closure\footnote{In general it is possible for $Y'$ to have more irreducible
+components than $\ol{Y_0\xt_{S} S'}$.} 
+of $Y_0 \xt_S S'$ in $Y'$ by $\ol{Y_0 \xt_S S'}$. 
+Then there is a natural isomorphism 
+\[ 
+\IC_{\ol{Y_0 \xt_S S'}} \cong \IC_{S'}\bt_S \IC_{Y}  := 
+f'^*(\IC_{S'})\ot g'^*(\IC_Y) [-\dim S],
+\]
+where the left hand side is implicitly extended by zero to $Y'$.
+\end{lem}
+For a proof of Lemma~\ref{lem:ULAbox}, see \cite{Wang:ULA}.
+
+\medskip
+
+We would like to apply this lemma with $Y = \ol\Bun_B, \, Y_0 = \Bun_B,\,
+S = \Bun_G$, and $S' = \sM_X$. Unfortunately the stack $\ol\Bun_B$ is
+``too big'' for all of $\IC_{\ol\Bun_B}$ to be ULA over $\Bun_G$. 
+However, we do get the ULA property if we restrict to open substacks
+where the defect is not ``too big'':
+Let $\mf j : \Bun_B \into \ol\Bun_B$ denote the open embedding.
+
+\begin{prop}[{\cite{Campbell, Campbell2}}]
+\source{intersection-complexes-unramified-l-factors}
+\notready
+\label{prop:ULA}
+\source{intersection-complexes-unramified-l-factors}
+Fix $\ch\nu \in \ch\Lambda^\pos_G$. Then for any $\ch\mu \in \ch\Lambda_G$
+large enough:
+\begin{enumerate}
+\item The complexes $\IC_{_{\le \ch\nu}\ol\Bun^{-\ch\mu}_B}$ and 
+$\mf j_! \IC_{\Bun_B}|_{_{\le \ch\nu}\ol\Bun^{-\ch\mu}_B}$ are 
+ULA over $\Bun_G$.
+\item The fiber of $\Bun^{-\ch\mu}_B \to \Bun_G$ is dense in the
+fiber of $_{\le\ch\nu}\ol\Bun^{-\ch\mu}_B \to \Bun_G$ over any $k$-point of $\Bun_G$.
+\end{enumerate}
+\end{prop}
+
+Here ``large enough'' is in the same sense as in Lemma~\ref{lem:BunBtoGsm}, i.e.,
+deep enough in the dominant chamber $\ch\Lambda^+_G$.
+
+\begin{proof}
+The ULA property for $\IC_{_{\le \ch\nu}\ol\Bun^{-\ch\mu}_B}$ 
+is \cite[Corollary 4.1.1.1]{Campbell}. 
+The ULA property for $\mf j_! \IC_{\Bun_B}|_{_{\le \ch\nu}\ol\Bun^{-\ch\mu}_B}$ can be deduced from the former, cf.~\cite[\S 4.3]{Campbell2}. 
+We review the salient features of the proof in \cite{Campbell} to deduce (ii). 
+
+The key object introduced in \cite{Campbell} is Kontsevich's compactification
+$\ol\Bun_B^K$ of $\Bun_B$, which is a resolution of singularities $\ol\Bun_B^K \to \ol\Bun_B$
+of Drinfeld's compactification. For an affine test scheme $S$, 
+an $S$-point of $\ol\Bun_B^K$ is a commutative square
+\[ 
+\begin{tikzcd}
+\wt{\Scr C} \ar[d] \ar[r] & \pt/B \ar[d] \\ C\xt S \ar[r, "\sP_G"] & \pt/G 
+\end{tikzcd} 
+\]
+where $\wt{\Scr C} \to S$ is a flat family of connected nodal projective curves of the
+same arithmetic genus as $C$, the map $\wt{\Scr C} \to C\xt S$ has degree $1$, 
+and the induced section $\wt{\Scr C} \to \sP_G \xt^G G/B$ is \emph{stable} 
+in the sense of \cite{Kontsevich} over every geometric point of $S$.
+Let $\mathscr M_C$ denote the moduli stack of proper connected nodal curves $\wt{\Scr C}$
+equipped with a degree one map to $C$. 
+Then the natural map $\ol\Bun_B^K\to \mathscr M_C$ is smooth, and $\mathscr M_C$ is
+smooth (\cite[Proposition 2.4.1]{Campbell}) and there is a proper map
+$\ol\Bun_B^K \to \ol\Bun_B$ over $\Bun_G$ (\cite[Proposition 3.2.2]{Campbell}). 
+Inside $\mathscr M_C$ we have the open point corresponding to $\mathrm{id} : C\to C$
+and the complement $\partial\mathscr M_C$ is a normal crossings divisor (\cite[Proposition 4.4.1]{Campbell}). Evidently the preimage of the open point in $\ol\Bun_B^K$ identifies
+with $\Bun_B$. 
+Let $_{\le\ch\nu}\ol\Bun_B^{K,-\ch\mu}$ denote the preimage of $_{\le\ch\nu}\ol\Bun_B^{-\ch\mu}$. Then \cite[Proposition 4.1.1]{Campbell} shows that
+for $\ch\nu$ fixed and $\ch\mu$ large enough, the map 
+$_{\le\ch\nu}\ol\Bun_B^{K,-\ch\mu} \to \mathscr M_C \xt \Bun_G$ is smooth. 
+Now for any $\sP_G \in \Bun_G(k)$, the fiber of $\wt{\mf p}^K: {_{\le\ch\nu}}\ol\Bun_B^{K,-\ch\mu} \to \Bun_G$ is smooth over $\mathscr M_C$.
+The preimage over the open point equals $(\wt{\mf p}^K)^{-1}(\sP_G) \cap \Bun_B$, 
+and since $\partial \mathscr M_C$ is a normal crossings divisor, 
+$(\wt{\mf p}^K)^{-1}(\sP_G) \cap \Bun_B$ must be dense in $(\wt{\mf p}^K)^{-1}(\sP_G)$.
+Since $(\wt{\mf p}^K)^{-1}(\sP_G)$ is a resolution of
+the fiber of $_{\le\ch\nu}\ol\Bun_B^{-\ch\mu}\to\Bun_G$, we have proved (ii).
+\end{proof}
+
+\begin{cor}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{cor:barYdense}
+\source{intersection-complexes-unramified-l-factors}
+For any $\ch\lambda\in \mathfrak c_X$,
+the subscheme $\sY^{\ch\lambda}$ is dense in $\barY^{\ch\lambda}$. 
+\end{cor}
+
+\begin{proof}
+The subschemes $_{\le \ch\eta}\barY^{\ch\lambda} = \barY^{\ch\lambda} \xt_{\ol\Bun_B} {_{\le\ch\eta}}\ol\Bun_B$
+for $\ch\eta\in \ch\Lambda^\pos_G$ form an open covering of $\barY^{\ch\lambda}$. 
+Since $\barY^{\ch\lambda}$ is quasicompact, there must exist some 
+$\ch\eta$ such that $_{\le \ch\eta}\barY^{\ch\lambda} = \barY^{\ch\lambda}$.
+Fix $\ch\lambda,\ch\eta$ as above. Then we can choose 
+$\ch\mu \in \ch\Lambda^\pos_G$ such that $\ch\lambda+\ch\mu-\ch\nu$ is 
+large enough, for all $0 \le \ch\nu\le \ch\eta$, for the purposes of
+Proposition~\ref{prop:ULA} and Lemma~\ref{lem:BunBtoGsm}. 
+Now we may consider 
+$_{\le\ch\eta}\barY^{\ch\lambda+\ch\mu}$ as an open subscheme of 
+$Y':=\Scr M_X \underset{\Bun_G}\xt {_{\le \ch\eta}\ol\Bun^{-\ch\lambda-\ch\mu}_B}$.
+Proposition~\ref{prop:ULA}(ii) implies that 
+$\sM_X \underset{\Bun_G}\xt \Bun_B^{-\ch\lambda-\ch\mu}$
+is dense in $Y'$,
+which implies that $\sY^{\ch\lambda+\ch\mu}$ is dense in $\barY^{\ch\lambda+\ch\mu}$.
+The graded factorization property of $\barY$ 
+gives a natural \'etale map 
+\begin{equation} \label{e:barYfactorlarge}
+\source{intersection-complexes-unramified-l-factors}
+ \barY^{\ch\lambda} \oo\xt \Scr Y^{\ch\mu} := (\barY^{\ch\lambda} \xt \Scr Y^{\ch\mu})|_{\Scr A^{\ch\lambda} \oo\xt \Scr A^{\ch\mu}} \to 
+\barY^{\ch\lambda+\ch\mu}, 
+\end{equation}
+where $\Scr Y^{\ch\mu} \into \barY^{\ch\mu}$
+is the open embedding. We deduce that $\sY^{\ch\lambda} \oo\xt \sY^{\ch\mu}$ is
+dense in $\barY^{\ch\lambda} \oo\xt \sY^{\ch\mu}$, which implies 
+$\sY^{\ch\lambda}$ is dense in $\barY^{\ch\lambda}$. 
+
+\end{proof}
+
+\begin{proof}[Proof of Proposition~\ref{prop:ICbarY}]
+
+Applying Lemma~\ref{lem:ULAbox} to the Cartesian square
+\[
+\begin{tikzcd} 
+Y' \ar[r] \ar[d] & \Scr M_X \ar[d] \\ 
+{}_{\le \ch\eta}\ol\Bun_B^{-\ch\lambda-\ch\mu} \ar[r] & \Bun_G,
+\end{tikzcd}
+\]
+we can identify
+\begin{equation} \label{e:ICbar=bt}
+\source{intersection-complexes-unramified-l-factors}
+    \IC_{Y'} \cong \IC_{\Scr M_X} \underset{\Bun_G}\boxtimes 
+\IC_{_{\le\ch\eta} \ol\Bun^{-\ch\lambda-\ch\mu}_B}. 
+\end{equation}
+In particular, this gives us a description of $\IC_{_{\le\ch\eta}\barY^{\ch\lambda+\ch\mu}} = \IC_{Y'}|_{_{\le\ch\eta}\barY^{\ch\lambda+\ch\mu}}$. 
+For $0 \le \ch\nu \le \ch\eta$, we have a Cartesian square
+\[ 
+\begin{tikzcd}
+C_{\ch\nu} \times \Scr Y^{\ch\lambda+\ch\mu-\ch\nu} \ar[r,hook,"\mf i_{\barY,\ch\nu}"] \ar[d] & 
+\barY^{\ch\lambda+\ch\mu} \ar[d] \\ 
+C_{\ch\nu} \times \Bun_B^{-\ch\lambda-\ch\mu+\ch\nu} \ar[r,hook,"\mf i_{\ch\nu}"] &
+\ol\Bun_B^{-\ch\lambda-\ch\mu} 
+\end{tikzcd}
+\]
+
+Theorem \ref{thm:BFGM}, together with the Cartesian square above and 
+\eqref{e:ICbar=bt}, allow us to deduce that there exists an isomorphism 
+\[ \mf i_{\barY,\ch\nu}^*( \IC_{\barY^{\ch\lambda+\ch\mu}} ) 
+\cong \mfU^\vee(\ch{\mfn}_C)^{-\ch\nu} \bt (\IC_{\Scr M_X} \bt_{\Bun_G} \IC_{\Bun_B^{-\ch\lambda-\ch\mu+\ch\nu}})|_{\Scr Y^{\ch\lambda+\ch\mu-\ch\nu}}
+= \mfU^\vee(\ch{\mfn}_C)^{-\ch\nu} \bt (\IC_{\Scr M_X}|^{!*}_{\Scr Y^{\ch\lambda+\ch\mu-\ch\nu}}) \]
+on $C_{\ch\nu} \xt \Scr Y^{\ch\lambda+\ch\mu-\ch\nu}$. 
+In the last equality we have used the fact that $\Bun_B$ is smooth. 
+Since we chose $\ch\lambda+\ch\mu-\ch\nu$ large enough to satisfy
+Lemma~\ref{lem:BunBtoGsm}, the map $\Scr Y^{\ch\lambda+\ch\mu-\ch\nu} \to \Scr M_X$ is smooth. Therefore, $\IC_{\Scr M_X}|^{!*}_{\Scr Y^{\ch\lambda+\ch\mu-\ch\nu}} \cong \IC_{\Scr Y^{\ch\lambda+\ch\mu-\ch\nu}}$ and 
+we get a canonical isomorphism 
+\begin{equation} \label{e:ICbarYrestrict}
+\source{intersection-complexes-unramified-l-factors}
+    \mf i_{\barY,\ch\nu}^*(\IC_{\barY^{\ch\lambda+\ch\mu}}) 
+    \cong \mfU^\vee(\ch\mfn_C)^{\ch\nu} \bt \IC_{\Scr Y^{\ch\lambda+\ch\mu-\ch\nu}}. 
+\end{equation}
+
+Observe that the following diagram is Cartesian:
+\[
+\begin{tikzcd}[column sep=large]
+    (C_{\ch\nu} \xt \Scr Y^{\ch\lambda-\ch\nu}) \oo\xt \Scr Y^{\ch\mu} 
+\ar[r,hook,"\mf i_{\barY,\ch\nu} \times \on{id}"] \ar[d] & 
+    \barY^{\ch\lambda} \oo\xt \Scr Y^{\ch\mu} \ar[d, "\text{\eqref{e:barYfactorlarge}}"] \\ 
+    C_{\ch\nu} \xt \Scr Y^{\ch\lambda+\ch\mu-\ch\nu} \ar[r, hook, "\mf i_{\barY,\ch\nu}"] & 
+    \barY^{\ch\lambda+\ch\mu} 
+\end{tikzcd}
+\]
+where the left vertical arrow is identity on $C_{\ch\nu}$ times 
+the map $\Scr Y^{\ch\lambda-\ch\nu} \oo\xt \Scr Y^{\ch\mu} \to \Scr Y^{\ch\lambda+\ch\mu-\ch\nu}$  coming from graded factorization. 
+Since the restriction of $\IC_{\barY^{\ch\lambda+\ch\mu}}$ to 
+$\barY^{\ch\lambda} \oo\xt \Scr Y^{\ch\mu}$ is 
+$\IC_{\barY^{\ch\lambda}} \mathbin{\oo\bt} \IC_{\Scr Y^{\ch\mu}}$, 
+we deduce from the Cartesian square and \eqref{e:ICbarYrestrict} 
+that there is a canonical isomorphism 
+\[ \mf i^*_{\barY,\ch\nu}(\IC_{\barY^{\ch\lambda}}) \mathbin{\oo\bt} \IC_{\Scr Y^{\ch\mu}}
+\cong (\mfU^\vee(\ch\mfn_C)^{-\ch\nu} \bt \IC_{\Scr Y^{\ch\lambda-\ch\nu}}) 
+\mathbin{\oo\bt} \IC_{\Scr Y^{\ch\mu}} 
+\]
+when restricted to $(C_{\ch\nu} \xt \Scr Y^{\ch\lambda-\ch\nu})\oo\xt \Scr Y^{\ch\mu}$.
+Lastly, let $\mathscr Y$ be a connected component of $\sY^{\ch\mu,0}$ so 
+that the projection $p : (C_{\ch\nu} \xt \sY^{\ch\lambda-\ch\nu}) \oo\xt \mathscr Y \to 
+C_{\ch\nu} \xt \sY^{\ch\lambda-\ch\nu}$ 
+is smooth surjective with irreducible fibers. 
+We have constructed an isomorphism 
+\[ p^*( \mf i^*_{\barY,\ch\nu}(\IC_{\barY^{\ch\lambda}}) )
+\cong p^*(  \mfU^\vee(\ch\mfn_C)^{-\ch\nu} \bt \IC_{\Scr Y^{\ch\lambda-\ch\nu}} ), \]
+which implies Proposition~\ref{prop:ICbarY} because 
+the functor $p^*[\dim \mathscr Y]$ is fully faithful on the category
+of perverse sheaves (\cite[Proposition 4.2.5]{BBDG}).
+% $\mfU^\vee(\ch\mfn_C)^{-\ch\nu}$ is NOT perverse
+\end{proof}
+
+
+\subsubsection{Convolution product}  \label{sect:convolution-product}
+\source{intersection-complexes-unramified-l-factors}
+
+The toric variety $X/\!\!/N$ has the natural structure of a commutative 
+algebraic monoid. The multiplication operator on $X/\!\!/N$ induces
+a finite map 
+\[ m_{\Scr A} : \Scr A^{\ch\lambda_1} \xt \Scr A^{\ch\lambda_2} \to \Scr A^{\ch\lambda_1+\ch\lambda_2}. \]
+If we have sheaves $\Scr F_i \in \rmD^b_c(\Scr A^{\ch\lambda_i}),\, i=1,2$,
+we define their convolution by 
+\[ \Scr F_1 \star \Scr F_2 := m_{\Scr A,!}(\Scr F_1 \bt \Scr F_2) \in 
+\rmD^b_c(\Scr A^{\ch\lambda_1+\ch\lambda_2}). \]
+
+
+
+\subsubsection{}
+We have a closed embedding $\mf i_{\Scr A,\ch\nu} : C_{\ch\nu} \into \Scr A^{\ch\nu}$ corresponding to the partition $\sum_i n_i [\ch\alpha_i]$
+of degree $\ch\nu = \sum_i n_i\ch\alpha_i$. 
+
+
+\begin{cor}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{cor:pibarY}
+\source{intersection-complexes-unramified-l-factors}
+There is an equality 
+\[ [ \pi_!(\IC_{\Scr Y^{\ch\lambda}}) ] = \sum_{\ch\nu\in \ch\Lambda^\pos_G} 
+[ \mf i_{\Scr A,\ch\nu,!}(\Upsilon(\ch\mfn_C)^{\ch\nu}) \star \bar\pi_!(\IC_{\barY^{\ch\lambda-\ch\nu}})] \]
+in the Grothendieck group of perverse sheaves on $\Scr A^{\ch\lambda}$. 
+\end{cor}
+
+\begin{proof}
+Taking the Grothendieck--Cousin complex associated to the stratifications
+$\mf i_{\barY,\ch\nu}$ and applying Proposition~\ref{prop:ICbarY} 
+gives an equality 
+\[ [\IC_{\barY^{\ch\lambda}}] = \sum_{\ch\nu \in \ch\Lambda^\pos_G} 
+[\mf i_{\barY,\ch\nu,!} ( \mf U^\vee(\ch\mfn_C)^{\ch\nu} \bt \IC_{\Scr Y^{\ch\lambda-\ch\nu}} ) ] \]
+in the Grothendieck group of perverse sheaves on $\barY^{\ch\lambda}$.
+Note that $\Scr Y^{\ch\lambda-\ch\nu}$ is nonempty for finitely many
+values of $\ch\nu$. 
+The composition $\bar\pi \circ \mf i_{\barY,\ch\nu} : C_{\ch\nu} \xt \Scr Y^{\ch\lambda-\ch\nu} \to \Scr A^{\ch\lambda}$ coincides with
+the composition $C_{\ch\nu} \xt \Scr Y^{\ch\lambda-\ch\nu} \overset{\mf i_{\Scr A,\ch\nu} \xt \pi}\longrightarrow \Scr A^{\ch\nu} \xt \Scr A^{\ch\lambda-\ch\nu} \overset{m_{\Scr A}}\to \Scr A^{\ch\lambda}$.
+Therefore, applying $\bar\pi_!$ to the equality above, we get
+the equality 
+\[ [\bar\pi_!(\IC_{\barY^{\ch\lambda}})] = \sum_{\ch\nu\in \ch\Lambda^\pos_G} [\mf i_{\Scr A,\ch\nu,!}(\mf U^\vee(\ch\mfn_C)^{\ch\nu}) \star \pi_!(\IC_{\Scr Y^{\ch\lambda-\ch\nu}})]  \]
+in the Grothendieck group of perverse sheaves on $\Scr A^{\ch\lambda}$.
+Applying a further convolution by any $\Scr T \in \rmD^b_c(C_{\ch\nu'}), 
+\ch\nu'\in \ch\Lambda^\pos_G$
+gives 
+\[ [ \mf i_{\Scr A, \ch\nu',!}( \Scr T ) \star \bar\pi_! (\IC_{\barY^{\ch\lambda}}) ] = \sum_{\ch\nu} [ \mf i_{\Scr A,\ch\nu+\ch\nu',!}( \Scr T \star \mf U^\vee(\ch\mfn_C)^{\ch\nu}) \star \pi_!(\IC_{\Scr Y^{\ch\lambda-\ch\nu}}) ] . \]
+It is known (\cite[\S 6.4]{BG2}) that for a fixed nonzero $\ch\nu \in \ch\Lambda^\pos_G$, we have an equality 
+\[ \sum_{\substack{\ch\nu_1,\ch\nu_2 \in \ch\Lambda^\pos_G\\ 
+\ch\nu_1+\ch\nu_2=\ch\nu}} 
+[ \Upsilon(\ch\mfn_C)^{\ch\nu_1} \star \mf U^\vee(\ch\mfn_C)^{-\ch\nu_2}  ] = 0 \]
+in the Grothendieck group of perverse sheaves on $C_{\ch\nu}$. 
+The two preceeding equalities and induction prove the claim.
+\end{proof}

@@ -1,0 +1,803 @@
+% Source-derived chapter 03: Picard stacks and operational Chow
+% Original source: pixtons-formula-abel-jacobi-picard-stack
+\chapter{Picard stacks and operational Chow}
+\label{pixtons-formula-abel-jacobi-picard-stack-chapter-03}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+\begin{remark}[Source section]
+\label{pixtons-formula-abel-jacobi-picard-stack-chapter-03-source}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Picard stacks and operational Chow
+\label{sec:pic_and_chow}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+\subsection{The Picard stack and relative Picard space} \label{sec:pic_stacks}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+%We write $\cat{Sch}_{\frak M_{g,n}}$ for the category of schemes over $\field$ equipped with the 
+Our stacks will be with respect to the fppf topology (\cite[Definition 9.1.1]{OlssonAlgebraic-spaces}). 
+We define the Picard stack $\Picabs_{g,n}$ as the fibred category over $\frak M_{g,n}$ whose fibre over a scheme $T \to \frak M_{g,n}$ is the groupoid of line bundles on $\frak C_{g,n} \times_{\frak M_{g,n}} T$ with morphisms given by isomorphisms of line bundles, see \cite[14.4.7]{Laumon2000Champs-algebriq}. We define the relative Picard space $\Picrel_{g,n}/\frak M_{g,n}$ to be the quotient of $\Picabs_{g,n}$ by its relative inertia over $\frak M_{g,n}$. Equivalently $\Picrel_{g,n}$ is the fppf-sheafification of the fibred category of \emph{isomorphism classes} of line bundles on $\frak C_{g,n} \times_{\frak M_{g,n}} T$,
+see \cite[Chapter 8]{Bosch1990Neron-models} and \cite[Chapter 9]{Fantechi2005Fundamental-alg}. 
+
+Relative representability of $\Picrel_{g,n}/\frak M_{g, n}$ by smooth algebraic spaces can be checked locally on $\frak M_{g,n}$. It then follows from \cite[Appendix]{Artin1974Versal-deform} as the curve $$\frak C_{g,n} \to \frak M_{g,n}$$
+is flat, proper, relatively representable by algebraic spaces, and cohomologically flat in dimension 0 (reduced and connected geometric fibers). The Picard stack $\Picabs_{g,n}$ is a $\bb G_m$-gerbe over $\Picrel_{g,n}$, hence is a (smooth) algebraic stack. In particular, $\Picabs_{g,n}$ is smooth over $\field$ of pure dimension $4g-4 + n$, and $\Picrel_{g,n}$ is smooth over $\field$ of pure dimension $4g - 3 + n$. 
+
+\begin{remark}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready \label{Rmk:genus1n0}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+We will moreover assume  $(g,n) \neq (1,0)$. Then, $\frak M_{g,n}$ and hence $\Picrel$, $\Picabs$, and anything of Deligne-Mumford type over them, has affine stabilisers, and so is therefore stratified by global quotient stacks in the sense of \cite{Kresch1999Cycle-groups-fo}. The latter property 
+will be important for some intersection-theoretic computations, in particular the proof of Proposition \ref{prop:invarianceproperbirat}. 
+\end{remark}
+%\{Removed references to Brochard, Frenkel and Aoki. If we decide to stick with this version we can remove them from the bibliography (after checking not used elsewhere). }
+%We write $\cat{Sch}_{\frak M_{g,n}}$ for the category of schemes over $\field$ equipped with the fppf topology (\cite[Definition 9.1.1]{OlssonAlgebraic-spaces}). In \cite[14.4.7]{Laumon2000Champs-algebriq}, for an algebraic stack $\frak X$ over a scheme $S$, the Picard stack $\cat{Pic} (\frak X/S)$ is defined by letting $\cat{Pic}(\frak X/S)(T)$ be the category with objects invertible sheaves on $\frak X \times_S T$ and 
+%morphisms isomorphisms of $\mathcal{O}_{\frak X \times _S T}$-modules for $T$ an affine noetherian scheme over $S$. 
+
+%Analogously, we define the Picard stack $\Picabs_{g,n}$ as $\cat{Pic}(\frak C_{g,n}/\frak M_{g,n})$. That is, for $T \to \frak M_{g,n}$ in $\cat{Sch}_{\frak M_{g,n}}$, the category $\Picabs_{g,n}(T)$ is the groupoid of invertible sheaves on $\frak C_{g,n} \times_{\frak M_{g,n}} T$. 
+
+%The relative Picard space $\Picrel_{g,n}$ is defined
+%by considering the relative Picard functor as in \cite[Chapter 8]{Bosch1990Neron-models} or \cite[Chapter 9]{Fantechi2005Fundamental-alg}. Define the presheaf
+%\begin{align*}
+%    P_{\frak C_{g,n} / \frak M_{g,n}}\colon \cat{Sch}_{\frak M_{g,n}} &\to \cat{Grp} \\
+%    T &\mapsto \on{Pic}(\frak C_{g,n} \times_{\frak M_{g,n}} T) / p_2^*\on{Pic}(T) .
+%\end{align*}
+%The fppf sheafification of $P_{\frak C_{g,n} / \frak M_{g,n}}$ is the relative Picard functor $\Picrel_{g,n}$. Locally on the base, we can prove that the relative Picard functor is representable by an algebraic space (see \cite[Appendix]{Artin1974Versal-deform}) as the curve $C \to T$ is a flat proper morphism of algebraic spaces and cohomologically flat in dimension 0 (geometrically reduced and connected fibers). 
+%The 
+%This gives the relative Picard space which we denote by $\Picrel_{g,n}$. 
+
+%Proving that the relative Picard functor is representable by an algebraic space and that the Picard stack is actually an algebraic stack are closely related, see  \cite[Chapter 2.3]{Bronchard2007Foncteur}, as $\Picabs_{g,n}$ is a $\mathbb{G}_m$-gerbe over $\Picrel_{g,n}$. This also allows us to deduce properties of $\Picabs_{g,n}$ from $\Picrel_{g,n}$ or vice versa. 
+
+%The Picard stack $\Picabs_{g,n}$ is an algebraic stack of locally finite type over ${\field}$ of dimension $4g-4+n$. It is formally smooth (unobstructed) and of locally finite presentation, so it is a smooth algebraic stack. These facts can be found in \cite[Section 2]{Frenkel2009Gromov-Witten-g} over the complex numbers ${\field}=\mathbb{C}$. To show $\Picabs_{g,n}$ is an algebraic stack, we can work locally over the base and refer to \cite[Theorem 5.1]{Aoki2005Hom-stack} as our curves are flat and proper. The relative Picard space $\Picrel_{g,n}$ is locally of finite type over ${\field}$ and of dimension $4g-3+n$.
+%\Rosacomment{Do we need any (other) properties of $\Picabs$ explained?} \textcolor{brown}{Y. Yes, we need smoothness.}
+
+\subsection{Operational Chow groups of algebraic stacks}\label{ssec:Chopstacks}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Our goal here is to define the operational Chow group of $\Picabs_{g,n}$, following \cite[Chapter 17]{Fulton1984Intersection-th}. 
+% To emphasise that our construction does not depend on any very specific properties of $\Picabs_{g,n}$, we simply construct an operational Chow group for algebraic stacks locally of finite type over a field. 
+In fact, we construct an operational Chow group for any algebraic stack locally of finite type over a field. 
+The definition is a simple generalisation of  \cite{Fulton1984Intersection-th}. 
+%though in the subsequent section we will have to work a %little harder to construct classes. 
+
+\begin{definition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready
+    Let $\frak Y$ be a locally finite type algebraic stack over ${\field}$. Let $p$ be an integer. A bivariant class $c$ in the $p$th operational Chow group $\CHop^p(\frak Y)$ is a collection of  homomorphisms
+\[c(\phi)^{m}\colon \Chow_m(B) \to \Chow_{m-p}(B)\]
+for all maps $\phi \colon B \to \frak Y$ where $B$ is a scheme of finite type over ${\field}$, and for all integers $m$, compatible with proper pushforward, flat pullback, and Gysin homomorphisms for regular embeddings (conditions (C1)-(C3) in \cite[Section 17.1]{Fulton1984Intersection-th}). 
+\end{definition}
+For a class $\alpha \in \Chow_m(B)$, we will sometimes write $c(\alpha)$ in place of $c(\phi)^m(\alpha)$, if the morphism $\phi$ is clear. 
+
+%\Rosacomment{We need to work with algebraic spaces of finite type instead of schemes to make sense of pushing forward an operational Chow class along a representable map that is not necessarily representable by schemes, such as $\pi\colon \frak C_{g,n} \to \Picabs_{g,n}$ for certain $g$ and $n$.   }\{I suggest making this into a remark in the paper, else people will wonder why we do it. }
+
+Such a definition for the operational Chow group of a Deligne-Mumford stack is given in \cite{Edidin2017Towards-an-inter}. To be able to use Chow groups on algebraic stacks as defined in \cite{Kresch1999Cycle-groups-fo} for algebraic stacks of finite type over a field, we will use the following result. 
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:factorisationopenquasi}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let $f\colon \frak A \to \frak B$ be a morphism over a field ${\field}$ where $\frak B$ is an algebraic stack 
+locally of finite type over ${\field}$ and $\frak A$ is an algebraic stack of finite type over ${\field}$. Then there exists a factorisation of $f$ via a commutative diagram
+
+\begin{center}
+\begin{tikzcd}
+\frak A \arrow[dr] \arrow[rr, "f"]
+&~
+& \frak B \\
+~
+&\frak B' \arrow[ur]
+&~
+\end{tikzcd}
+\end{center}
+where $\frak B' \to \frak B$ is an open immersion and $\frak B'$ is quasi-compact (and hence of finite type).  
+\end{lemma}
+
+\begin{proof}
+We cover $\frak B$ by affine flat finite presentation morphisms $\{V_i \to \frak B\}_{i \in I}$.  
+Let $U_i$ be the image of the $V_i$ in $\frak B$. The $U_i$ are open, and the $f^{-1}(U_i)$ cover $\frak A$. As $\frak A$ is quasi-compact, there is a finite subset $J \subset I$ such that $\{f^{-1}(U_i)\}_{i \in J}$ covers $\frak A$. Then $\frak B' = \cup_{i \in J} U_i$ 
+defines the required factorisation.
+\end{proof}
+
+For representable morphisms (representable by algebraic spaces) $f\colon \frak X \to \frak Y$, we can also define the operational Chow group $\CHop^p(\frak X \to \frak Y)$ as a collection of morphisms 
+\[c(\phi)^{m}\colon \Chow_{m}(B) \to  \Chow_{m-p}(B \times_{\frak Y} \frak X)\]
+for all maps $\phi \colon B \to \frak Y$ where $B$ is a scheme of finite type over ${\field}$, and for all integers $m$, compatible with proper pushforward, flat pullback, and Gysin homomorphisms. We have
+$$\CHop^p(\frak X) = \CHop^p(\on{id}\colon \frak X \to \frak X)\,. $$
+%\{Mention relationship to chow cohomology (apply to the identity IIRC)? }
+
+We have products, pullbacks, and proper representable pushforwards on these operational Chow groups of algebraic stacks as described in \cite[chapter 17.2]{Fulton1984Intersection-th} satisfying the properties described there.               
+                              
+                              
+\vspace{8pt}                              
+\begin{remark}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{remark:opclassactonalgspaces}         
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Even for $B$ a scheme and $\pi: \frak X \to \frak Y$ representable, the fibre product $B \times_{\frak Y}\frak X$ can be an algebraic space. Therefore, some care is needed when generalizing classical constructions such as the product
+\[\CHop^{a}(\frak X) \times \CHop^{b}(\pi\colon \frak X \to \frak Y) \to \CHop^{a+b}(\pi\colon \frak X \to \frak Y).\]
+Indeed, for $c \in \CHop^{a}(\frak X)$ and  $d \in \CHop^{b}(\pi\colon \frak X \to \frak Y)$  we want to define $$c \cdot d \in \CHop^{a+b}(\pi\colon \frak X \to \frak Y)\, .$$
+For a map $\phi: B \to \frak Y$ with $B$ a finite type scheme fitting in a pullback diagram
+\[
+\begin{tikzcd}
+B \times_{\frak Y}\arrow[d] \arrow[r,"\phi'"] \frak X  & \frak X \arrow[d,"\pi"]\\
+B \arrow[r,"\phi"] & \frak Y
+\end{tikzcd}
+\]
+we want to define the induced map
+\[(c \cdot d)(\phi)^m : \Chow_m(B) \to \Chow_{m-a-b}(B \times_{\frak Y} \frak X)\]
+% The classical construction tells us it should be given 
+as the composition
+\[\Chow_m(B) \xrightarrow{d(\phi)^m} \Chow_{m-b}(B \times_{\frak Y} \frak X) \xrightarrow{c(\phi')^{m-b}} \Chow_{m-a-b}(B \times_{\frak Y} \frak X)\, .\]
+But, a priori, the map $c(\phi')^{m-b}$ does not make sense since the domain $B \times_{\frak Y} \frak X$ of $\phi'$ is an algebraic space.
+%, so performing operations such as products and pushforwards  in  $$\Chow_{m-p}(B \times_{\frak Y} \frak X)$$ requires care. \Rosacomment{Technically, the problems arise when you want to apply an operational class to something living in the chow group $\Chow_{m-p}(B \times_{\frak Y} \frak X)$ such as happens when you want to do products or pushforwards of operational classes. There is not really a pushforward \'in the Chow group $\Chow_{m-p}(B \times_{\frak Y} \frak X)$... are you sure this is how you want to formulate?} 
+%\jocomment{Just to be sure: if I understand correctly, the intention of \cref{remark:opclassactonalgspaces} is to argue that given an operational class $c(\phi)^m$ for $B \to \frak Y$ with $B$ a scheme, we \emph{also} get corresponding maps for $B$ an algebraic space? I think then the first sentence should indeed be reformulated accordingly. Do we use this in the proofs below? I wasn't able to find a concrete instance, but I also didn't look very carefully.
+%}\Rosacomment{Yes, the intention is to argue that we also get maps $c(\phi)$ for B an algebraic space. This is used, for example in the text just below this remark to construct a pushforward: the product map sends the pair $(c, \pi)$ for $c \in \CHop(\frak X)$ and $\pi^* \in \CHop(\pi: \frak X \to \frak Y)$ to $c \cdot \pi^*$ which is the composition, but then you want to apply $c$ to a (possibly) algebraic space $B \times_{\frak Y} \frak X$ mapping to $\frak X$. }
+However, given a collection 
+$$c= c(\phi')^{n}\colon \Chow_{n}(B') \to  \Chow_{n-a}(B') $$ for all finite type schemes $B'$ with $\phi'\colon B' \to \frak X$, we can construct  a collection of maps $${c}(\phi')^n\colon \Chow_{n}(B') \to \Chow_{n-a}(B')$$ for $\phi'\colon B' \to \frak X$ with $B'$ a finite type algebraic space via \cite[Section 5.1]{Vistoli1989Intersection-th}. Indeed, for each integral closed substack $Z \subset B'$, \cite[Section 5.1]{Vistoli1989Intersection-th} defines an action of $c$ on $[Z]$ which is independent of the chosen cover of the algebraic space by a scheme. This action induces a map 
+$\Chow_{n}(B') \to \Chow_{n-a}(B')$
+which commutes with proper pushforward and flat morphisms via \cite[Lemma 5.3]{Vistoli1989Intersection-th} and is compatible with Gysin homomorphisms. Applying this to $$\phi' : B' = B \times_{\frak Y} \frak X \to \frak X$$
+with $n=m-b$ gives the desired map ${c}(\phi')^{m-b}$.
+% However, given a collection 
+% $$c= c(\phi)^{m}\colon \Chow_{m}(B) \to  \Chow_{m-p}(B \times_{\frak Y} \frak X) $$ for all finite type schemes $B$ with $\phi\colon B \to \frak Y$, one can also construct  a collection of maps $$\hat{c}(\phi)^m\colon \Chow_{m}(B) \to \Chow_{m-p}(B \times_{\frak Y} \frak X)$$ for $\phi\colon B \to \frak Y$ with $B$ a finite type algebraic space via \cite[Section 5.1]{Vistoli1989Intersection-th}. Indeed, for each integral closed substack $Z \subset B$, \cite[Section 5.1]{Vistoli1989Intersection-th} defines an action of $c$ on $[Z]$ which is independent of the chosen cover of the algebraic space by a scheme. This action induces a map 
+% $\Chow_{m}(B) \to \Chow_{m-p}(B \times_{\frak Y} \frak X)$
+% which commutes with proper pushforward and flat morphisms via \cite[Lemma 5.3]{Vistoli1989Intersection-th} and is compatible with Gysin homomorphisms. 
+%This is used for example when defining the product
+\end{remark}
+\vspace{8pt}
+
+For a proper representable morphism $\pi\colon \frak X \to \frak Y$ which is flat of relative dimension $q$, the pushforward 
+\[\CHop^*(\pi\colon \frak X \to \frak Y) \to \CHop^*(\frak Y)\]
+can be extended to a pushforward
+$$\CHop^{p}(\frak X)\to \CHop^{p-q} (\frak Y) $$
+as follows. Because $\pi$ is flat, the pullback $\pi^*$ gives a natural element in $$\CHop^{-q}(\pi\colon \frak X \to \frak Y)$$ %(actually $\pi$ need not be flat, but there only needs to be an orientation, ie. a natural element in this Chow group), 
+and then we can compose
+\[\CHop^{p}(\frak X)\to \CHop^{p}(\frak X) \times \CHop^{-q}(\pi\colon \frak X \to \frak Y) \]
+given by $c \mapsto  (c,\pi^*)$ with the product and the pushforward maps 
+\[\CHop^{p}(\frak X) \times \CHop^{-q}(\pi\colon \frak X \to \frak Y) \to \CHop^{p-q}(\pi\colon \frak X \to \frak Y) \to \CHop^{p-q}(\frak Y),\]
+yielding the desired pushforward map $\pi_*\colon \CHop^{p}(\frak X)\to \CHop^{p-q} (\frak Y)$. This may for example be applied to the universal curve $\pi\colon \frak C_{g,n} \to \Picabs_{g,n}$. A similar construction also works for $\pi$ proper representable and lci. This pushforward map commutes with pullback of operational classes.
+%\{Here the level of generality suddenly changed}For proper representable $\pi\colon \frak C_{g,n} \to \Picabs_{g,n}$ we also need a pushforward 
+%\[\pi_*\colon \CHop^p(\frak C_{g,n}) \to \CHop^{p-1}(\frak \Picabs_{g,n}).\]
+%Because $\pi$ is flat, we have a natural element in $\CHop^{-1}(\pi\colon \frak C_{g,n} \to \Picabs_{g,n})$ given by pullback via $\pi^*$. Then we \{...something missing...}
+%\[\CHop^p(\frak C_{g,n}) \to \CHop^p(\frak C_{g,n})  \times \CHop^{-1}(\pi\colon \frak C_{g,n} \to \frak M_{g,n})\]
+%and composing by the product and then pushforward maps 
+%\[\CHop^p(\frak C_{g,n})  \times \CHop^{-1}(\pi\colon \frak C_{g,n} \to \Picabs_{g,n}) \to \CHop^{p}(\pi:\frak C_{g,n} \to \Picabs_{g,n}) \to \CHop^{p-1}(\frak \Picabs_{g,n})\]
+%gives the desired $\pi_*$. 
+%\subsubsection{Some basic properties}
+%Here we prove to simple results which will be used later in the proof of our main theorem. Let $\frak Y$ be a locally finite type algebraic stack over ${\field}$ and let $c$, $c'$ be two invariant classes in $\CHop^p(\frak Y)$. 
+%
+%\begin{lemma}\label{lem:check_equality_on_integral}
+%Suppose that $c(\phi)^{m} = c'(\phi)^{m}$ for all $m$ and all finite type \emph{integral} schemes $B$ over ${\field}$ and maps $\phi\colon B \to \frak Y$. Then $c = c'$. 
+%\end{lemma}
+%\begin{proof}
+%For any $B$ the union of irreducible components of $B$ maps properly and surjectively to $B$, and thus the pushforward from the Chow groups of the irreducible components to that of $B$ is surjective, so it suffices to test equality on irreducible $B$. The inclusion of the underlying reduced induces an isomorphism on Chow, from which the lemma follows. 
+%\end{proof}
+%
+%\begin{lemma}\label{lem:check_equality_on_cover_of_integral}
+%Suppose that for every scheme $B/{\field}$ of finite type and $\phi\colon B \to \frak Y$ there exists a flat morphism $\pi\colon U \to B$ such that 
+%\begin{enumerate}
+%\item the pullback $\pi^*\colon \Chow(B) \to \Chow(U)$ is injective, and
+%\item we have  $c(\phi\circ \pi)^{m} = c'(\phi\circ \pi)^{m}$ for all $m$. 
+%\end{enumerate}
+%Then $c = c'$. 
+%\end{lemma}
+%\begin{proof}
+%Subtracting, we may assume $c' = 0$. The result is then immediate from \cref{lem:check_equality_on_integral} and the commutative square
+%\begin{equation}
+% \begin{tikzcd}
+%  \Chow(U) \arrow[r, "c(\phi\circ \pi)^{m}"] & \Chow(U)\\
+%  \Chow(B) \arrow[r, "c(\phi)^{m}"] \arrow[u,"\pi^*",hookrightarrow]& \Chow(B) \arrow[u,"\pi^*",hookrightarrow]. \\  
+%\end{tikzcd}
+%\end{equation}
+%\end{proof}
+
+\subsection{Relationship to usual Chow groups}
+%{Relation to the usual Chow groups in the smooth finite-type case}
+
+
+Let $\frak Y$ be a locally finite type algebraic stack over ${\field}$, and $(\frak U_i)_{i \in \bb N}$ an increasing sequence of finite type open substacks of $\mathfrak Y$ with 
+%$(I, \le)$ a directed set (every two elements have an upper bound), and  and consider a net{\footnote{Define net: I guess the open sets are getting bigger, this is used in the
+%proof of the Lemma.}}
+%of open substacks $\frak U_i \sub \frak Y$ indexed by a directed set $I$ such that 
+$$\bigcup_i \frak U_i =  \frak Y\, .$$
+In particular, for a finite type scheme $B/{\field}$, every
+map $B \to \frak Y$ factors via some $\frak U_i$. We have pullback maps 
+\begin{equation}
+\CHop^*(\frak Y) \to \CHop^*(\frak U_i)\, 
+\end{equation}
+which induce a map 
+\begin{equation}\label{eq:chop_lim}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\Phi\colon \CHop^*(\frak Y) \to \lim_i \CHop^*(\frak U_i)
+\end{equation}
+to the inverse limit of the $\CHop^*(\frak U_i)$, with transition maps given by pullback of operational classes along open immersions. 
+
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:chop_and_limits}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+The map $\Phi\colon \CHop^*(\frak Y) \to \lim_i \CHop^*(\frak U_i)$ is an isomorphism of abelian groups. 
+\end{lemma}
+\begin{proof}
+We first show injectivity. Let $c$ in $\CHop^*(\frak Y)$ with $\Phi(c) = 0$. For every $B \to \frak Y$ with $B/{\field}$ of
+finite type, we get a map $$c(B/\frak Y):\Chow_*(B) \to \Chow_*(B)\, . $$
+There exists $i$ such that the map $B \to \frak Y$ factors via $\frak U_i$. Then $\Phi(c) = 0$ implies that
+$$c(B/\frak U_i):\Chow_*(B) \to \Chow_*(B)$$ is the zero map. By definition of the pullback, $c(B/\frak Y) = c(B/\frak U_i)$.
+
+Next we show surjectivity. Suppose we have a compatible collection 
+$$c_i \in \CHop^*(\frak U_i)\, .$$
+We will build $c \in \CHop^*(\frak Y)$ as follows.
+Let $B \to  \frak Y$ with $B/{\field}$ of finite type. There exists $N$ such that for all $i\ge N$,
+the map $B \to \frak Y$ factors via $\frak U_i$. Then for all $i \ge N$,
+we have maps $$c(B/\frak U_i):\Chow_*(B) \to \Chow_*(B)\, ,$$
+and the compatibly means $c_i(B/\frak U_i) = c_j(B/\frak U_i)$ for all $i$, $j \ge N$. 
+We define $c = c_N$, which clearly is sent by $\Phi$ to
+the $c_i$.
+
+To conclude, we must check that $c$ satisfies the axioms of an operational class. This follows easily from the fact that each $B \to \frak Y$ factors via some $\frak U_i$. 
+\end{proof}
+
+
+%We recall the relation between our operational Chow groups and the usual Chow groups of smooth finite-type Deligne-Mumford stacks as defined by Vistoli \cite{Vistoli1989Intersection-th}. 
+\begin{lemma}[Proposition 5.6 of \cite{Vistoli1989Intersection-th}]
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:op_eq_ch_for_smooth}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let $\frak Y$ be a smooth finite type Deligne-Mumford stack over ${\field}$ of pure dimension $d$, and 
+let $\iota\colon \frak Y \to \frak Y$ be the identity. Then for $m \geq 0$ the map 
+\begin{equation}\label{eq_chop_to_chow}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\CHop^m(\frak Y) \to \Chow_{d-m}(\frak Y)\,, \ \ \alpha \mapsto \alpha(\iota)([\frak Y])
+\end{equation}
+is an isomorphism.
+\end{lemma}
+%A similar result can be proven for smooth global quotient stacks using the finite-dimensional approximations of \cite{Edidin1997Characteristic-,Totaro1994The-Chow-ring-o}. %, but we cannot apply the argument to $\frak M$ or $\Picabs$ (which have more subtly defined Chow groups \cite{Kresch1999Cycle-groups-fo}).
+
+%\textcolor{brown}{Y: Edidin-Graham proved this isomorphism for a global quotient stack when it has a representation $[X/G]$, $X$: smooth. Can we always find such representation when the global quotient stack is smooth?  --- no since the stabilizers can be arbitrarily large, but probably can do this up to finite codim.}
+%
+%, as the stack of nodal curves with at most two nodes has no global quotient stack presentation by \cite[Proposition 5.2]{Kresch2013Flattening-stra}. 
+%When $\frak Y$ is a general algebraic stack we do not at present know how to make sense of the expression $\alpha(\iota)([\frak Y])$. %, as our operational classes act a-priori on finite type schemes, and outside the Deligne-Mumford case one cannot in general find a finite cover of a stack by a scheme. 
+%\Rosacomment{For this to make sense, you need $\alpha$ to act on the (Kresch) Chow group of algebraic stack $\frak Y$, the way Vistoli makes this work for DM-stacks in Section 5.1. However, I do not think we can do the similar story with the generic cover by a finite type scheme, so I am not sure how this would work...}
+%\{Yup, I think this is a problem. I don't see a way around it just now. How should we define a map from operational to Kresch chow of an Artin stack? Given that this Section is just for fun, if we don't easily find a solution I suggest we just delete it... }
+%
+%\{P.s. This is just the question of whether `operation chow = chow for smooth finite type Artin stacks'. It appears I still don't know the answer. }
+%
+%\jocomment{Looks great! To put an unnecessary cherry on top of that: in good situations ($\frak Y$ a smooth stack admitting a good filtration by finite-type substacks, stratified by quotient stacks) there exists an intersection product on $\Chow_*(\frak Y)$ and I think it will make the above map into a ring isomorphism. I'm not necessarily saying we should prove it here, but it is very likely true.}
+%
+%\jocomment{As Rosa pointed out to me, in the context of Deligne-Mumford stacks the above results is proved in \cite[Proposition 5.6]{Vistoli1989Intersection-th}.}
+
+
+Combining \cref{lem:chop_and_limits,lem:op_eq_ch_for_smooth}, we immediately obtain the following
+result.
+\begin{corollary}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready
+Let $\frak Y$ be a smooth Deligne-Mumford stack over ${\field}$ of pure dimension $d$, and let $\frak U_i$ be a sequence of finite type open substacks with $\bigcup_I \frak U_i = \frak Y$. Then the natural map 
+\begin{equation}
+\Phi\colon \CHop^m(\frak Y) \to \lim_I \Chow_{d-m}(\frak U_i)
+\end{equation}
+obtained by combining \eqref{eq:chop_lim} and \eqref{eq_chop_to_chow} is an isomorphism. 
+\end{corollary}
+%\textcolor{brown}{Y. Let $\cat{Div}_{g,A,i}$ be the inverse image of $\mathfrak{U}_i$. Can we define $\aj_*[\cat{Div}_{g,A}]\in \lim_I \Chow_*(\frak{U}_i)$ as the limit of $\aj_*[\cat{Div}_{g,A,i}]$? If it works, we have another definition of DR-cycle via the isomorphism $\Phi$...}
+%\{Yes, this works fine. All we need is that forming $\DRop$ is compatible with pullback along open immersions (Which is certainly true, and I guess we prove it). This implies first that the $(\DRop_i)_i$ form a compatibly system and therefore an element of the limit. Then we use that the pullback of $\DRop$ to $\frak U_i$ is $\DRop_i$, hence $\DRop$ maps to that system under $\Phi$. Since $\Phi$ is an iso we are done. But, we can't state this here, as we've not defined $\DRop$ yet (or more precisely, the class associated to a proper representable morphism; there's nothing special about $\DRop$). So we could add this lemma later on if we wanted to. 
+%}
+
+As a final remark{\footnote{We thank A. Kresch for related
+discussion.}}, we note that there exists a map of Chow groups in the opposite direction of \eqref{eq_chop_to_chow} in greater generality. Let $\frak Y$ be a smooth algebraic stack of finite type over $\field$ and of pure dimension $d$
+which has a stratification\footnote{See \cite{Kresch1999Cycle-groups-fo} for the precise definition. The property is always satisfied for Deligne-Mumford stacks.}
+by quotient stacks. Then, there exists a map
+\[\Psi: \Chow_{d-m}(\frak Y) \to \CHop^m(\frak Y)\]
+from the Chow group $\Chow_*(\frak Y)$ constructed in \cite{Kresch1999Cycle-groups-fo} to the operational Chow group of $\frak Y$ 
+defined as follows. Given $\phi : B \to \frak Y$ with $B$ a finite type scheme, let $$\phi_B : B \to B \times \frak Y$$ be 
+the diagonal morphism. Since $\frak Y$ is smooth, $\phi_B$
+is representable and  is a local complete intersection of codimension $d$. For $\beta \in \Chow_{d-m}(\frak Y)$, we define
+\begin{equation*}
+    \Psi(\beta)(\phi) : \Chow_*(B) \to \Chow_{*-m}(B)\, \ \
+    \alpha \mapsto \phi_B^!(\alpha \times \beta)\, ,
+\end{equation*}
+where $\alpha \times \beta \in \Chow_{*+d-m}(B \times \frak Y)$ is the exterior product of $\alpha$ and $\beta$ as defined in \cite[Section 3.2]{Kresch1999Cycle-groups-fo}. The collection of maps $\Psi(\beta)(\phi)$ defines an element $$\Psi(\beta) \in \CHop^m(\frak Y)\, .$$
+For $\frak Y$ a Deligne-Mumford stack, the map $\Psi$ is the inverse of the map \eqref{eq_chop_to_chow}. 
+However, for an arbitrary smooth algebraic stack $\frak Y$,
+we do {\em not} know whether  $\Psi$ is injective or surjective.
+
+\subsection{Constructing an operational Chow class} \label{sec:constructing_chow_class}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\subsubsection{Overview}
+Given a vector $A \in \bb Z^n$ of ramification data satisfying
+$$\sum_{i=1}^n {a_i} =d\, ,$$
+we will construct in \cref{sec:log_def} 
+a stack $\cat{Div}_{g,A}$ together with a proper representable  Abel-Jacobi map 
+$$\cat{Div}_{g,A} \to \Picabs_{g,n,d}\, .$$
+We wish to define the twisted universal double ramification cycle $\DRop_{g,A}$ as the pushforward of the fundamental class of $\cat{Div}_{g,A}$ to $\Picabs_{g,n,d}$. 
+However, two basic issues must be settled
+to carry out the construction:
+\begin{itemize}
+\item[$\bullet$] The stack $\cat{Div}_{g,A}$ is not Deligne-Mumford and is not quasi-compact, so the existence of a well-behaved fundamental class in the operational Chow group is not clear. 
+\item[$\bullet$] The proper representable pushforward of \cite[Appendix B]{BaeSchmitt1} is only defined between finite-type stacks, and so cannot be applied directly. \footnote{Chow theory of non-finite type algebraic stacks will be developed in \cite[Appendix A]{BaeSchmitt1}.}
+\end{itemize}
+
+
+To solve these problems, we provide here a very general construction which associates to a suitable proper morphism $$a\colon \frak X \to \frak Y$$ an operational Chow class on $\frak Y$ which plays the role of the pushforward of the fundamental class of $\frak X$. 
+In \cref{sec:log_def}, we will apply the result to construct the universal twisted double ramification cycle $\DRop_{g,A}$. We also verify certain basic properties such as invariance of the class under proper birational maps which will be important in \cref{sec:comparing_stacks}. 
+
+\subsubsection{Construction}\label{c44c}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let $\frak X$ and $\frak Y$ be algebraic stacks locally of finite type over a field ${\field}$ and suppose we have a proper morphism $$a\colon \frak X \to \frak Y$$
+of Deligne-Mumford type. 
+Suppose further that $\frak Y$ is smooth of pure dimension $\dim \frak Y$ over the field, and $\frak X$ is of pure dimension $\dim \frak X$. Let 
+$$e = \dim \frak Y-  \dim \frak X\, .$$
+We  will construct an operational Chow class associated to $\frak X$ in $\CHop^e(\frak Y)$. 
+
+For all finite type schemes $B$ with a morphism $\phi\colon B \to \frak Y$, and for all integers $m$, we must define maps
+\[c(\phi)^{m}\colon \Chow_m(B) \to \Chow_{m-e}(B) \]
+which are compatible under proper pushforward and flat pullback and satisfy commutativity (properties (C1), (C2), (C3) of \cite[Section 17.1]{Fulton1984Intersection-th}).
+
+
+%\jocomment{Maybe to emphasize the global structure of what follows, you could add a sentence like "Below we construct the maps $c(\phi)^{m}$ and in Lemma .. we show this construction is well-defined and independent of choices. Then we check the properties (C1), (C2), (C3) in Lemmas ...., respectively." }
+
+Let $[V] \in \Chow_m(B)$ be an irreducible cycle, and let $i_V\colon V \to B$ be the inclusion. Let $V \to B \to \frak Y$ be factored as in \cref{lem:factorisationopenquasi} into $V \to \frak Y' \to \frak Y$ where $\frak Y'$ is of finite type and $\frak Y' \to \frak Y$ is an open immersion. 
+
+We form the diagram
+\begin{equation} \label{eq:definingdiagram}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+ \begin{tikzcd}
+  \frak X' \times_{\frak Y'} V \arrow[r] \arrow[d, "\psi_V"] & \frak X' \times V \arrow[d, "a \times \on{id}"]  \\
+  V \arrow[r, "\phi_V"] & \frak Y' \times V 
+\end{tikzcd}
+\end{equation}
+where $\frak X'$ is the inverse image of $\frak Y'$ under $a$. Each stack in this diagram is of finite type, and therefore has a Chow group in the sense of \cite{Kresch1999Cycle-groups-fo}. Since $\frak Y$ is  smooth over ${\field}$, the map $\phi_V$ is a regular embedding of codimension $\dim \frak Y$. Also $\phi_V$ is unramified and hence a regular local embedding, so Kresch's contruction yields a map $$\phi_V^!\colon \Chow_m(\frak X' \times V) \to \Chow_{m-\dim \frak Y}(\frak X' \times_{\frak Y'} V)\, .$$ 
+In particular, $[\frak X' \times V]$ is a class in dimension $\dim \frak X + m$, so the class $\phi_V^! ([\frak X \times V])$ lies in $\Chow_{m-e} (\frak X \times_{\frak Y} V)$. 
+%\textcolor{brown}{Y. We say $\phi_V$ is regular embedding and then say $\phi_V$ is regular local embedding. }\Rosacomment{Wording as in Kresch...}
+The morphism $\psi_V$ is proper and of Deligne-Mumford type, and so by \cite[Appendix B]{BaeSchmitt1} we have a pushforward ${\psi_V}_*$. \begin{definition}\label{defbivariantclass}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+We define a class $a_{\on{op}}[\frak X] \in \CHop(\frak Y)$ 
+via the formula
+\begin{align}
+    c(\phi)^{m}\colon Z_m(B) &\to \Chow_{m-e}(B) \\
+    [V] &\mapsto {i_V}_* {\psi_V}_* \phi_V^! ([\frak X' \times V])\, . \nonumber
+\end{align}
+\end{definition}
+We must verify that this construction passes to rational equivalence, is independent of the choices made, and satisfies the properties (C1), (C2), and (C3). 
+After verifying in Lemma \ref{lem:classindepfact} independence on the choice of factorisation, we follow the logic in \cite{Fulton1984Intersection-th}: we verify in Lemmas \ref{lem:C1proper}, \ref{lem:C2flat}, and \ref{lem:C3regimb} of Section \ref{c45c} that the properties (C1), (C2), and (C3) hold on the level of cycles, and finally in \cref{lem:ratequiv} we use these to show that the construction passes to rational equivalence. 
+
+%and the Gysin homomorphism in \cite{Kresch1999Cycle-groups-fo} 
+
+%\textcolor{brown}{Y. We say $\phi_V$ is regular embedding and then say $\phi_V$ is regular local embedding. }\Rosacomment{Wording as in Kresch...}
+
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:classindepfact}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+The class $c(\phi)^{m}([V])$ defined above is independent of the chosen factorisation $V \to \frak Y' \to \frak Y$. 
+\end{lemma}
+\begin{proof}
+Let $V \to \frak Y' \to \frak Y$ and $V \to \frak Y'' \to \frak Y$ be two such factorisations. By considering $\frak Y' \cap \frak Y''$ inside $\frak Y$, we may restrict to the case where one is contained in the other. So we 
+suppose there is an open immersion $$\iota\colon \frak Y'' \to \frak Y'\, .$$
+Let $j\colon \frak X'' \to \frak X'$ be the induced map. Consider the diagram
+\begin{equation}
+\begin{tikzcd}[column sep=small, row sep = small]
+ ~ & \frak X'' \times_{\frak Y''} V 	\arrow[rr] \arrow[dd, dashed, near start, "j \times \on{id}"] \arrow[dl, swap, "\psi_V''"] & ~ & \frak X'' \times V \arrow[dl, "a \times \on{id}"] \arrow[dd, "j \times \on{id}"]\\
+ V \arrow[rr, near end, swap, "\phi_V''"] \arrow[dd, "\on{id}"]& ~ & \frak Y'' \times V \arrow[dd, near start, "\iota \times \on{id}"] & ~ \\
+~ & \frak X' \times_{\frak Y'} V \arrow[dl, swap, "\psi_V'"] 	\arrow[rr] & ~ & \frak X' \times V \arrow[dl, "a \times \on{id}"] \\
+ V  \arrow[rr, near end, swap, "\phi_V'"] &~ & \frak Y' \times V & ~ 
+\end{tikzcd}
+\end{equation}
+where  $\frak X'' \times_{\frak Y''} V \to \frak X' \times_{\frak Y'} V$ is an isomorphism. 
+We must show 
+$${\psi_V'}_* {\phi_V'}^! 
+([\frak X' \times V]) = {\psi_V''}_* {\phi_V''}^! ([\frak X'' \times V])\, .$$
+
+Because $\phi_V''$ and $\phi_V'$ are both regular embeddings of the same codimension and the front square commutes, by the same proof as for \cite[Theorem 6.2(c)]{Fulton1984Intersection-th}, we obtain  ${\phi_V''}^!([\frak X '' \times V]) = {\phi_V'}^!([\frak X '' \times V])$. Therefore,
+\begin{equation}\label{kk992}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+{\psi_V''}_* {\phi_V''}^! ([\frak X'' \times V]) = {\psi_V''}_* {\phi_V'}^! ([\frak X'' \times V]) = {\psi_V''}_* {\phi_V'}^! ( (j \times \on{id})^*[\frak X' \times V])
+\end{equation}
+as $j \times \on{id}$ is an open immersion so in particular flat, and the flat pullback of the fundamental class is the fundamental class. By the compatibility of the flat pullback and Gysin maps  \cite[Section 3.1]{Kresch1999Cycle-groups-fo}, we obtain 
+that \eqref{kk992} is equal to 
+\[{\psi_V''}_*(j \times \on{id})^* {\phi_V'}^! ([\frak X' \times V])\, .\]
+By commutativity of the left side of the cube and because of the pullback pushforward formula, we obtain  
+\[{\psi_V''}_* {\phi_V''}^! ([\frak X'' \times V]) =  {\psi_V''}_*(j \times \on{id})^* {\phi_V'}^! ([\frak X' \times V]) = {\psi_V'}_* {\phi_V'}^! ([\frak X' \times V])\, \]
+as required.
+\end{proof}
+
+
+\subsubsection{Compatibility} \label{c45c}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+We will now check that the maps $c(\phi)^{m}$ 
+defined in Section \ref{c44c} are
+ compatible under proper pushforward and flat pullback and satisfy commutativity (properties (C1), (C2), (C3) of \cite[Section 17.1]{Fulton1984Intersection-th}).
+%are compatible with proper pushforward, 
+%compatible with flat pullback, 
+%and are commutative in the sense of (C1),(C2),(C3) in \cite[Section %17.1]{Fulton1984Intersection-th}.
+
+
+The proper pushforward along DM-type maps between finite type algebraic stacks over a field which are stratified by global quotient stacks is defined in  \cite[Appendix B]{BaeSchmitt1}.  We cannot use the results of \cite{Kresch1999Cycle-groups-fo} for  compatibility with the proper  pushforward
+since Kresch discusses only projective pushforward. 
+Nevertheless, we now show that the proper pushforward for DM-type maps of finite type algebraic stacks over a field as defined in \cite[Appendix B]{BaeSchmitt1} is compatible with the Gysin maps of \cite{Kresch1999Cycle-groups-fo}.
+
+%\jocomment{Maybe say "proper representable pushforward" from the start?}
+
+\begin{proposition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{prop:Gysinproperpush}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+ For a pullback diagram of algebraic stacks of finite type over $K$,
+ \begin{center}
+ \begin{tikzcd}
+ \frak X'' \arrow[r, "i''"] \arrow[d, "q"]
+ &\frak Y'' \arrow[d, "p"] \\
+ \frak X' \arrow[r, "i'"] \arrow[d, "g"] 
+ &\frak Y' \arrow[d,"f"] \\
+ \frak X \arrow[r, "i"]
+ &\, \, \frak Y\, ,
+ \end{tikzcd}
+ \end{center}
+ where $i$ is a regular local embedding of codimension $d$, $p$ is a proper DM-type morphism, and $\frak Y'$ is stratified by global quotient stacks, we have 
+ \[i^!p_*(\alpha) = q_* (i^! \alpha)\]
+ for all  $\alpha \in \Chow_*(\frak Y'')$.
+\end{proposition}
+
+\begin{proof}
+ A class $\alpha$ on $\frak Y''$ is represented by a projective map $z''\colon Z'' \to \frak Y''$, a vector bundle $E'' \to Z''$ and a class $[V]$
+ in the naive Chow group of $E''$ represented  by $V \subset E$. 
+
+We want to push $\alpha$ forward via the construction of \cite[Appendix B]{BaeSchmitt1}: by \cite[Theorem B.17]{BaeSchmitt1}, it suffices to treat the case where $E'' \to Z'' \to \frak Y''$ fits in a pullback diagram of the form 
+\begin{equation}\label{diagramskowerapushf}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\begin{tikzcd}
+E'' \arrow[r] \arrow[d, "p''"]
+&Z'' \arrow[r, "z''"] \arrow[d, "p'"]
+&\frak Y'' \arrow[d,"p"] \\
+E' \arrow[r] 
+&Z' \arrow[r, "z'"]
+&\frak Y' 
+\end{tikzcd}
+\end{equation}
+where $z'$ is projective. %\jocomment{If I remember correctly, it would be slightly better to say "by the main result of the paper it suffices to treat the case where $E'' \to Z'' \to \frak Y''$ fits in a diagram of the form ..."? The paper does not actually say that any $E''$ is a pullback, just that all classes can be represented on such vector bundles.} 
+Then the pushforward is defined by simply pushing forward on the level of bundles, so 
+$$p_*(z'',[V]) = (z',p''_*([V]))\, .$$
+If $W = p''(V)$, then $p''_*([V]) = \deg(V/W)[W]$.  
+
+Let $N$ be the normal bundle $N_{\frak X} \frak Y$.
+The Gysin maps constructed in \cite[Section 3.1]{Kresch1999Cycle-groups-fo} are described explicitly on level of representatives as follows: $i^!(z',[W])$ is represented by $[C_{W\times_{\frak Y} \frak X} W]$ as a class on the bundle $N_{\mid Z' \times_{\frak Y} \frak X} \oplus E'_{\mid Z' \times_{\frak Y} \frak X}$ with the projective map $\tilde{z}'\colon Z' \times_{\frak Y} \frak X \to \frak X'$ induced by $z'$. Hence, $$i^!p_*(z'',[V]) =(\tilde{z}', \deg(V/W) [C_{W\times_{\frak Y} \frak X} W])\, .$$
+
+
+Next, we study $q_*i^!(z'',[V])$. 
+To start, $i^!(z'',[V])$ is represented by $[C_{V\times_{\frak Y} \frak X} V]$ as class on the bundle $N_{\mid Z'' \times_{\frak Y} \frak X} \oplus E''_{\mid Z'' \times_{\frak Y} \frak X}$   with the projective map $Z'' \times_{\frak Y} \frak X \to \frak X''$ induced by $z''$.
+We push $i^!(z'',[V])$
+forward via the construction of \cite[Appendix B]{BaeSchmitt1}. We complete the diagram
+\begin{center}
+\begin{tikzcd}
+N_{\mid Z'' \times_{\frak Y} \frak X} \oplus E''_{\mid Z'' \times_{\frak Y} \frak X} \arrow[r] 
+&Z'' \times_{\frak Y} \frak X \arrow[r, "\tilde{z}''"]
+&\frak X'' \arrow[d,"q"] \\
+&~
+&~ \frak X'
+\end{tikzcd}
+\end{center}
+to a pullback diagram so that we can pushforward on the levels of bundles: %For the sake of the comparison, it would be nice if we could use \eqref{diagramskowerapushf}.
+%Consider
+\begin{center}
+    \begin{tikzcd}[column sep = small, row sep = small]
+    ~ 
+    &E'' \arrow[rr] \arrow[dd,near start, "p''"]
+    &~ 
+    &Z'' \arrow[rr, near end,"z''"] \arrow[dd,near start, "p'"]
+    &~
+    &\frak Y'' \arrow[dd, near start, "p"]\\
+    N_{\mid Z'' \times_{\frak Y} \frak X} \oplus E''_{\mid Z'' \times_{\frak Y} \frak X} \arrow[rr]
+    &~
+    &Z'' \times_{\frak Y} \frak X \arrow[rr, near end, "\tilde{z}''"]  \arrow[dd,near start, "\tilde{p}'"] \arrow[ur]
+    &~ 
+    &\frak X'' \arrow[ur, "i''"] \arrow[dd,near start, "q"] \\
+    ~
+    &E' \arrow[rr]
+    &~
+    &Z' \arrow[rr, near end, "z'"] 
+    &~
+    &\frak Y' \arrow[dd, "f"] \\
+    N_{\mid Z' \times_{\frak Y} \frak X} \oplus E'_{\mid Z' \times_{\frak Y} \frak X} \arrow[rr]
+    &~ 
+    & Z' \times_{\frak Y} \frak X \arrow[rr, near end, "\tilde{z}'"] \arrow[ur]
+    &~ 
+    &\frak X' \arrow[dd, "g"] \arrow[ur, "i'"]
+    &~ \\
+    ~
+    &~
+    &~
+    &~
+    &~
+    & \frak Y \\
+    ~
+    &~
+    &~
+    &~
+    & \frak X \arrow[ur, "i"]
+    &~ 
+    \end{tikzcd}
+\end{center}
+The map $p'\colon Z'' \to Z'$ induces a map $\tilde{p}'\colon Z'' \times_{\frak Y} \frak X  \to Z' \times_{\frak Y} \frak X $, and the square with $q, \tilde{p}', \tilde{z}'$ and $\tilde{z}''$ is a pullback (as the pullback of a pullback square). 
+
+There is a map $q''\colon N_{\mid Z'' \times_{\frak Y} \frak X} \oplus E''_{\mid Z'' \times_{\frak Y} \frak X} \to  N_{\mid Z' \times_{\frak Y} \frak X} \oplus E'_{\mid Z' \times_{\frak Y} \frak X}$ induced by $p''$ such that it forms a pullback square, and so 
+%\[\iota_q(\tilde{z}',[C_{V\times_{\frak Y} \frak X} V]) = (\tilde{z}'', [C_{V\times_{\frak Y} \frak X} V])\]
+%\{I think the displayed formula just above is incorrect, I think the formula we want to state here is maybe (but maybe not, this already appeared above...keep thinking...:}
+%\jocomment{I think the formula as stated is correct but a bit abstract-nonsensical: the map $\iota_q$ sends a cycle on a pullback vector bundle \emph{remembering the original map} to just a cycle on a bundle. I.e. it sends $q$-adapted cycles to just cycles.}
+%\{Wow, I'm not sure I would have got there... Will read again. }
+%\[i^!(z'', [V]) = (\tilde{z}'', [C_{V\times_{\frak Y} \frak X} V])
+%\]
+%\jocomment{on p. 3 of skowera's paper, read the paragraph starting with "
+%Recall that we only consider vector ..."}
+%\{Yup. But did we define the $\iota_q$ notating in our paper? }
+%\jocomment{No. I guess Rosa wanted to be extra careful, but maybe we should just sweep some things under rugs here?}
+%\{That is probably a good idea! }
+%jocomment{I can write an answer to Rahul.}sounds good. Maybe we can just delete the displayed formula, as the argument then seems clear by putting the existing things together. sounds good to me.
+ the pushforward along $q$ is simply 
+$$q_*(i^!(z'', [V])) = q_*(\tilde{z}'', [C_{V\times_{\frak Y} \frak X} V]) = (\tilde{z}', q''_*([C_{V\times_{\frak Y} \frak X} V]))\, . $$ 
+
+The proof then reduces to comparing $q''_*([C_{V\times_{\frak Y} \frak X} V])$ and $\deg(V/W)([C_{W\times_{\frak Y} \frak X} W])$, which follows from \cite[Lemma 3.15]{Vistoli1989Intersection-th}. The result is a completely local statement and
+therefore extends from the setting of schemes to the setting of Deligne-Mumford stacks which we need here. %\jocomment{I proposed a slight rewording here, old working in comments.}% so even for the algebraic spaces here follows from the schemes lemma there. 
+\end{proof}
+
+
+Let $\phi\colon B \to \frak Y$ and $\phi'\colon B' \to \frak Y$ be morphisms from finite-type schemes, and let 
+$$h\colon B' \to B$$ be a $\frak Y$-morphism. By \cref{defbivariantclass}, we have morphisms
+\[c(\phi)^{m} \colon Z_m(B) \to \Chow_{m-e}(B)
+\ \ \ \
+\text{and}
+\ \ \ \
+c(\phi')^{m} \colon Z_m(B') \to \Chow_{m-e}(B')\, . 
+\]
+If $h$ is proper, we have a pushforward map{\footnote{We use the same notation for the proper pushforward on the Chow groups.}}
+\[h_*\colon Z_m(B') \to Z_m(B)\, \]
+which descends to Chow.
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:C1proper}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+If $h$ is proper, 
+ $$c(\phi)^m\circ h_* = h_*\circ c(\phi h)^m\, . $$
+%Let the morphisms $c(\phi)^{m}$ be given as in \eqref{defbivariantclass} and let $h\colon B' \to B$ be a proper morphism of schemes. Let $\alpha \in \Chow_i(B' )$, then $c(\phi)^{m} (h_*(\alpha)) = h_* c(\phi h)^m(\alpha)$. 
+\end{lemma} 
+\begin{proof}
+Let $[V']\in Z_m(B')$ for 
+an irreducible cycle $V'$. Let $V = h(V')$. By definition, $$h_*([V']) = \deg(V'/V) [V]\, .$$ Let $\frak Y'$ be a factorisation of $V' \to V \to \frak Y$. We have 
+$$(\on{id}\times h)_*([\frak X' \times V']) = \deg(V'/V) [\frak X' \times V]\, . $$ 
+Via the commutative diagram
+\begin{equation}
+\begin{tikzcd}[column sep=small, row sep = small]
+~ & ~ & \frak X' \times_{\frak Y'} V' 	\arrow[rr] \arrow[dd, dashed, near start, "\on{id} \times h"] \arrow[dl, swap, "\psi_{V'}"] & ~ & \frak X' \times V' \arrow[dl] \arrow[dd, dashed, near start, "\on{id} \times h"]\\
+~ & V' \arrow[dl, "i_{V'}"] \arrow[rr, near end,swap, "\phi_{V'}"] \arrow[dd, "h"]& ~ & \frak Y' \times V' \arrow[dd, dashed, near start, "\on{id} \times h"] & ~ \\
+ B' \arrow[dd, "h"] & ~ & \frak X' \times_{\frak Y'} V \arrow[dl, swap,"\psi_V"] 	\arrow[rr] & ~ & \frak X' \times V \arrow[dl] \\
+~ & V \arrow[dl, "i_V"] \arrow[rr, near end, swap, "\phi_V"] &~ & \frak Y' \times V & ~ \\
+B \arrow[d, "\phi"] &~ & ~ &~ & ~ \\
+\frak Y &~ & ~ &~ & ~ 
+\end{tikzcd}
+\end{equation}
+we compute
+\begin{eqnarray*}
+    c(\phi)^{m} (h_*(\alpha)) &=& c(\phi)^{m} (\deg(V'/V) [V])\\
+    &=& {i_V}_* {\psi_V}_* \phi_V^! (\deg(V'/V) [\frak X' \times V]) \\
+    &=& {i_V}_* {\psi_V}_* \phi_V^! ( (\on{id} \times h)_* [\frak X' \times V']) \\
+    &=& h_* {i_{V'}}_* {\psi_{V'}}_* \phi_{V'}^! ( [\frak X' \times V'])    \\
+    &=& h_* c(\phi h)^m(\alpha)\, ,
+\end{eqnarray*}
+where the final line follows from compatibility of the Gysin map with proper representable pushforward (Proposition \ref{prop:Gysinproperpush}). 
+\end{proof}
+
+If $h:B'\to B$  is flat of relative dimension $n$, we have a pullback map
+\[h^*\colon Z_m(B) \to Z_{m+n}(B') \]
+which descends to Chow.
+
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:C2flat}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+If $h$ is flat of relative dimension $n$,
+$$c(\phi h)^{m+n} \circ h^* = h^* \circ c(\phi)^m. $$
+%Let $V \in Z^m(B)$ be a prime cycle and let $W= h^{-1}V$ viewed as an element of $Z^{m}(B')$, so that $h^*[V] = [W]$. Then 
+%$$c(\phi h)^{m+n}(W) = h^*(c(\phi)^m(V)), $$
+%Given the morphisms $c(\phi)^{m}$ as in \eqref{defbivariantclass}, let $h\colon B' \to B$ be a flat morphism of schemes of relative dimension $n$. Let $\alpha \in \Chow_i(B)$, then $c(\phi h)^{m+n} (h^*(\alpha)) = h^* c(\phi)^m(\alpha)$. 
+\end{lemma} 
+
+\begin{proof}
+Let $[V] \in Z_m(B)$ for an
+ irreducible cycle $V$. Let $$V' = h^{-1}(V)\, ,$$ so
+$[V'] = h^*([V])$. Let $\frak Y'$ be a factorisation of $V' \to V \to \frak Y$. We have 
+$$(\on{id}\times h)^*([\frak X' \times V]) = [\frak X' \times V']\, .$$ 
+Via the commutative diagram
+\begin{equation}
+    \begin{tikzcd}[column sep=small, row sep = small]
+~ & ~ & \frak X' \times_{\frak Y'} V' 	\arrow[rr] \arrow[dd, dashed, near start, "\on{id} \times h"] \arrow[dl, swap, "\psi_{V'}"] & ~ & \frak X' \times V' \arrow[dl] \arrow[dd, dashed, near start, "\on{id} \times h"]\\
+~ & V' \arrow[dl, "i_{V'}"] \arrow[rr, near end, , swap, "\phi_{V'}"] \arrow[dd, "h"]& ~ & \frak Y' \times V' \arrow[dd, dashed, near start, "\on{id} \times h"] & ~ \\
+ B' \arrow[dd, "h"] & ~ & \frak X' \times_{\frak Y'} V \arrow[dl, swap, "\psi_V"] 	\arrow[rr] & ~ & \frak X' \times V \arrow[dl] \\
+~ & V \arrow[dl, "i_V"] \arrow[rr,swap, near end, "\phi_V"] &~ & \frak Y' \times V & ~ \\
+B \arrow[d, "\phi"] &~ & ~ &~ & ~ \\
+\frak Y &~ & ~ &~ & ~ 
+\end{tikzcd}
+\end{equation}
+we compute
+\begin{align*}
+     c(\phi h)^{m+n} ([V']) &= {i_{V'}}_* {\psi_{V'}}_* \phi_{V'}^! ([\frak X' \times V']) \\
+    &= {i_{V'}}_* {\psi_{V'}}_* \phi_{V'}^! ( (\on{id} \times h)^* [\frak X' \times V]) \\
+    &= h^* {i_V}_* {\psi_V}_* \phi_V^! ( [\frak X' \times V]) \\
+    &=  h^* c(\phi)^m([V])\, , 
+\end{align*}
+where the final line follows from the compatibility of the Gysin map with flat pullback for a morphism of finite type algebraic stacks (\cite[Section 3.1]{Kresch1999Cycle-groups-fo}) and the pullback and pushforward formulas. %Compatibility of the Gysin map with flat pullback for a map of \emph{finite type} algebraic stacks over a field can be found in \cite[Section 3.1]{Kresch1999Cycle-groups-fo}.
+\end{proof}
+
+
+
+Let $\phi\colon B \to \frak Y$ be a morphism from a finite type scheme
+as above. Let $$g\colon B \to Z$$ be a morphism of finite type schemes, and let $i\colon Z' \to Z$ be a regular embedding of codimension $f$. 
+%Let the morphisms $c(\phi)^{m}$ be given as in \eqref{defbivariantclass} for  $\phi\colon B \to \frak Y$ and let $g\colon B \to Z'$ be a morphism of schemes of finite type and $i\colon Z' \to Z$ a regular embedding of codimension $f$. 
+Form the fiber square 
+\begin{center}
+\begin{tikzcd}
+B' \arrow[r] \arrow[d, "i'"] & Z' \arrow[d,  "i"] \\
+B \arrow[r, "g"] \arrow[d, "\phi"] & Z \\
+\, \frak Y.  &~ 
+\end{tikzcd}
+\end{center} 
+Let $V$ be an irreducible cycle in $B$ with inverse image $V' = (i')^{-1}(V)$. 
+We choose a representative $i^![V] = \sum_j n_j [V'_j]$ in $Z_{m-f}(V')$. 
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:C3regimb}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+We have 
+\[i^! c(\phi)^m ([V]) = c(\phi i')^{m-f}\left(\sum n_j [V'_j]\right). \]
+\end{lemma}
+\begin{remark}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready
+In particular, once we have shown that the maps $c(\phi)^m$ pass to rational equivalence, 
+Lemma \ref{lem:C3regimb} will imply 
+\[i^! c(\phi)^m(\alpha) = c(\phi i')^{m-f}(i^! \alpha) \]
+for  $\alpha \in \Chow_m(B)$. 
+\end{remark}
+\begin{proof}  
+From the equality $i^! [V] = \sum n_j [V'_j]$, we deduce 
+$$i^![\frak X' \times V] = \sum n_j [\frak X' \times V'_j]\, .$$ 
+Via the commutative diagram\footnote{We should also add another layer of the diagram for the $V'_j$. 
+% \Rosacomment{is this a footnote or a serious to do? See the diagram above on how it would look...} 
+}
+
+% \begin{center}
+% \begin{tikzcd}[column sep = small, row sep = small]
+% ~ & ~ & ~  & \frak X' \times_{\frak Y'} {V_j'} 	\arrow[rr] \arrow[dd, dashed] \arrow[dl, swap, "\psi_{V_j'}"] & ~ & \frak X' \times  {V_j'} \arrow[dl] \arrow[dd, dashed]\\
+% ~ & ~ & {V_j'}  \arrow[dddl, swap, "i_{V_j'}"] \arrow[rr, swap,near end, "\phi_{V_j'}"] \arrow[dd]& ~ & \frak Y' \times {V_j'} \arrow[dd, dashed] & ~ \\
+% ~ & ~ & ~  & \frak X' \times_{\frak Y'} {V'} 	\arrow[rr] \arrow[dd, dashed, near start, "\on{id} \times i'"] \arrow[dl, swap, "\psi_{V'}"] & ~ & \frak X' \times  {V'} \arrow[dl] \arrow[dd, dashed, near start, "\on{id} \times i'"]\\
+% ~ & ~ & {V'}  \arrow[dll] \arrow[dl, "i_{V'}"] \arrow[rr, swap,near end, "\phi_{V'}"] \arrow[dd, "i'"]& ~ & \frak Y' \times {V'} \arrow[dd, dashed, near start, "\on{id} \times i'"] & ~ \\
+% Z' \arrow[dd,"i"] & B' \arrow[l] \arrow[dd, "i'"] & ~ & \frak X' \times_{\frak Y'} V \arrow[dl, swap, "\psi_V"] 	\arrow[rr] & ~ & \frak X' \times V \arrow[dl] \\
+% ~ & ~ & V \arrow[dll] \arrow[dl, "i_V"] \arrow[rr, swap, near end, "\phi_V"] &~ & \frak Y' \times V & ~ \\
+%  Z & B \arrow[l, "g"] \arrow[d, "\phi"] &~ & ~ &~ & ~ \\
+% ~ & \frak Y,  &~ & ~ &~ & ~ 
+% \end{tikzcd}
+% \end{center}
+
+
+\begin{equation}
+\begin{tikzcd}[column sep = small, row sep = small]
+~ & ~ & ~  & \frak X' \times_{\frak Y'} {V'} 	\arrow[rr] \arrow[dd, dashed, near start, "\on{id} \times i'"] \arrow[dl, swap, "\psi_{V'}"] & ~ & \frak X' \times  {V'} \arrow[dl] \arrow[dd, dashed, near start, "\on{id} \times i'"]\\
+~ & ~ & {V'}  \arrow[dll] \arrow[dl, "i_{V'}"] \arrow[rr, swap,near end, "\phi_{V'}"] \arrow[dd, "i'"]& ~ & \frak Y' \times {V'} \arrow[dd, dashed, near start, "\on{id} \times i'"] & ~ \\
+Z' \arrow[dd,"i"] & B' \arrow[l] \arrow[dd, "i'"] & ~ & \frak X' \times_{\frak Y'} V \arrow[dl, swap, "\psi_V"] 	\arrow[rr] & ~ & \frak X' \times V \arrow[dl] \\
+~ & ~ & V \arrow[dll] \arrow[dl, "i_V"] \arrow[rr, swap, near end, "\phi_V"] &~ & \frak Y' \times V & ~ \\
+ Z & B \arrow[l, "g"] \arrow[d, "\phi"] &~ & ~ &~ & ~ \\
+~ & \frak Y,  &~ & ~ &~ & ~ 
+\end{tikzcd}
+\end{equation}
+we compute
+\[i^! c(\phi)^m ([V]) = i^! {i_V}_* {\psi_V}_* \phi_V^! ( [\frak X' \times V]) \]
+and
+\[c(\phi i')^{m-f}(\sum n_j [V'_j]) = \sum n_j  {i_{V'_j}}_* {\psi_{V'_j}}_* \phi_{V'_j}^! ( [\frak X' \times V'_j]) =  {i_{V'}}_* {\psi_{V'}}_* \phi_{V'}^! ( i^![\frak X' \times V])\, . \]
+We deduce equality of these expressions by using the compatibility of Gysin maps with proper pushforward (\cref{prop:Gysinproperpush}) and then the commutativity of Gysin maps from \cite{Kresch1999Cycle-groups-fo} to obtain $\phi_{V'}^!  i^! = i^! \phi_V^!$. 
+%Gysin maps as stated in \cite{Kresch1999Cycle-groups-fo}, yielding that $\phi_{V'}^!  i^! = i^! \phi_V^!$
+%follows from commutativity of the Gysin maps as stated in \cite{Kresch1999Cycle-groups-fo}, yielding that $\phi_{V'}^!  i^! = i^! \phi_V^!$. Compatibility of Gysin maps and proper representable pushforward follows from Proposition \ref{prop:Gysinproperpush}, and we compute
+%\[i^! c(\phi)^m ([V]) = i^! {i_V}_* {\psi_V}_* \phi_V^! ( [\frak X' \times V]) \]
+%and
+%\[c(\phi i')^{m-f}(i^![V]) = c(\phi i')^{m-f}(\sum n_j [V'_j]) = \sum n_j  {i_{V'_j}}_* {\psi_{V'_j}}_* \phi_{V'_j}^! ( [\frak X' \times V'_j]) \]
+%\[ =  {i_{V'}}_* {\psi_{V'}}_* \phi_{V'}^! ( i^![\frak X' \times V]).\]
+\end{proof}
+
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:ratequiv}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+The morphisms $c(\phi)^{m}$ from \cref{defbivariantclass} pass to rational equivalence, 
+\[c(\phi)^{m}\colon \Chow_m(B) \to \Chow_{m-e}(B)\, .\]
+\end{lemma}
+
+\begin{proof}
+The proof is now completely analogous to \cite[Theorem 17.1]{Fulton1984Intersection-th}. %\Rosacomment{In the case where $B$ is a finite type scheme.}
+\end{proof}
+
+\subsubsection{Properties}
+The class constructed in \cref{defbivariantclass} is invariant under proper birational maps in the following sense.
+\begin{proposition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{prop:invarianceproperbirat}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let $f\colon \frak W \to \frak X$ be a proper DM-type birational morphism of locally finite type algebraic stacks over ${\field}$ of pure dimension, with $\frak X$ stratified by global quotient stacks. Then,
+\[(a\circ f)_{\on{op}}[\frak W] = a_{\on{op}}[\frak X] \in \CHop^e(\frak Y)\]
+where $(a\circ f)_{\on{op}}[\frak W]$ and $a_{\on{op}}[\frak X]$ are the operational classes constructed in \cref{defbivariantclass} with respect to $a\circ f\colon \frak W \to \frak Y$ and $a\colon \frak X \to \frak Y$.
+\end{proposition}
+
+\begin{proof}
+The proper pushforward of the fundamental class along $f$ is the fundamental class, as the map $f$ is birational and hence of degree 1. 
+
+Choose a factorisation $V \to\frak Y' \to\frak Y$. Denote by $\frak X'$ the pullback of $\frak X$ along $a$ and by $\frak W'$ the the pullback of $\frak X'$ along $f$. As in \eqref{eq:definingdiagram}, we
+form a pullback diagram 
+\begin{equation} 
+ \begin{tikzcd}
+   \frak W' \times_{\frak Y'} V \arrow[r] \arrow[d, "\tilde{f}"] & \frak W' \times V \arrow[d, "f \times \on{id}"]  \\
+  \frak X' \times_{\frak Y'} V \arrow[r] \arrow[d, "\psi_V"] & \frak X' \times V \arrow[d, "\on{a} \times \on{id}"]  \\
+  V \arrow[r, "\phi_V"] & \ \frak Y' \times V\, . 
+\end{tikzcd}
+\end{equation}
+ \cref{prop:Gysinproperpush} then yields
+\begin{eqnarray*}
+{\psi_V}_* \phi_V^!([\frak X' \times V]) &=&  {\psi_V}_* \phi_V^!((f \times \on{id})_*[\frak W' \times V])\\
+&=& {\psi_V}_* \tilde{f}_* \phi_V^! ([\frak W' \times V])\\
+&= &{(\psi_V \tilde{f})}_* \phi_V^! ([\frak W' \times V])\, ,
+\end{eqnarray*}
+which is the required equality. 
+%The operational classes from \cref{defbivariantclass} defined by $\frak W \to \frak Y$ and $\frak X \to \frak Y$ are the same. 
+\end{proof}
+
+We will also require a flat pullback property.
+Let $\frak X, \frak Y, \frak Z$ be pure dimensional algebraic stacks of locally finite type over ${\field}$  with $\frak Y$ and $\frak Z$ smooth. 
+Suppose we have a fibre diagram
+\begin{center}
+\begin{tikzcd}
+\frak X \times_{\frak Y} \frak Z \arrow[r, "\tilde{a}"] \arrow[d, "\tilde{f}"] 
+& \frak Z \arrow[d, "f"] \\
+\frak X \arrow[r, "a"] 
+&\frak Y
+\end{tikzcd}
+\end{center}
+where  $a: \frak X \to \frak Y$ is a proper DM-type morphism and $f: \frak Z \to \frak Y$ is flat {\em and} lci\footnote{A flat and lci map is called {\em syntomic}.}, with $\frak Z$ stratified by global quotient stacks. 
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:pushpullcommutes}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+In $\CHop(\frak Z)$, we have
+$$\tilde{a}_{\on{op}} [\frak X \times_{\frak Y} \frak Z] = f^* a_{\on{op}}[\frak X]\, .$$
+\end{lemma}
+
+\begin{proof}
+Let $\frak X', \frak Y', \frak Z'$ denote appropriate finite-type factorisations as in \cref{defbivariantclass}. Then we compare the two operational classes via the following diagram:
+\begin{center}
+\begin{tikzcd}
+~
+&(\frak X' \times_{\frak Y'} \frak Z') \times_{\frak Z'} V \arrow[d, "\sim" labl] \arrow[r]
+& \frak X' \times_{\frak Y'} \frak Z' \times V \arrow[dr, "\tilde{f} \times \on{id}"] \arrow[dd, near start, "\tilde{a} \times \on{id}"] \\
+~
+&\frak X' \times_{\frak Y'} V \arrow[rr] \arrow[d, "\psi_V"]
+&~
+&\frak X' \times V \arrow[d, "a \times \on{id}"] \\
+~
+&V \arrow[dl, "i_V"] \arrow[r, "\phi_V"] \arrow[rr, bend right, "(f \circ \phi)_V"]
+& \frak Z' \times V \arrow[r, "f \times \on{id}"]
+& \frak Y' \times V \\
+B &~ &~ &~ .
+\end{tikzcd}
+\end{center}
+By definition,
+\[\tilde{a}_{\on{op}} [\frak X \times_{\frak Y} \frak Z] (\phi)([V]) = {i_V}_* {\psi_V}_* \phi_V^! ([\frak X'\times_{\frak Y'} \frak Z' \times V]) \]
+and
+\[f^* a_{\on{op}}[\frak X](\phi)([V]) = a_{\on{op}}[\frak X](f \circ \phi)([V])  = {i_V}_* {\psi_V}_* (f \circ \phi)_V^! ([\frak X'\times V])\, .\]
+Since $f$ is lci, the above expression is equal to 
+\[{i_V}_* {\psi_V}_* \phi_V^! (f \times \on{id})^! ([\frak X'\times V])\, .\]
+Because $f$ is also flat, we see as in  \cite[Prop 6.6(b)]{Fulton1984Intersection-th} that we obtain
+\[{i_V}_* {\psi_V}_* \phi_V^! (\tilde{f} \times \on{id})^* ([\frak X'\times V]) = {i_V}_* {\psi_V}_* \phi_V^! ([\frak X' \times_{\frak Y'} \frak Z' \times V])\, . \]
+which yields the required equality. 
+\end{proof}
+
+%\jocomment{I personally would introduce notation for this pushforward such that it makes sense to write
+%\[(a \circ f)_* [\frak W] = a_* [\frak X] \in \CHop^e(\frak Y)\]
+%}
+%\Rosacomment{Technically, if one writes $a_* [\frak X]$ for an operational class... I would expect that we view $[\frak X]$ as an operational class, because this is the notation introduced at the end of Section \ref{ssec:Chopstacks}. The $[\frak X]$, or actually $[\frak X']$, is a class in $\Chow_*(\frak X')$, not operational Chow... But maybe some notation along this line would be nice. Suggestion for notation:
+%\[a_{\on{op}}[\frak X] \in \CHop^e(\frak Y)\]}
+%\{This notation seems fine to me. I have propogated it in the next section where we define the DR cycle. }

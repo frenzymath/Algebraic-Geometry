@@ -1,0 +1,322 @@
+% Source-derived chapter 06: Virasoro for $P_\alpha^\infty$
+% Original source: virasoro-constraints-moduli-sheaves-vertex-algebras
+\chapter{Virasoro for $P_\alpha^\infty$}
+\label{virasoro-constraints-moduli-sheaves-vertex-algebras-chapter-06}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+\begin{remark}[Source section]
+\label{virasoro-constraints-moduli-sheaves-vertex-algebras-chapter-06-source}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Virasoro for $P_\alpha^\infty$
+\label{sec:lowrank}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+In this section, we finish the proof of the main result of this paper:
+
+\begin{theorem}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{thm: main result of the paper}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    Let $X$ be a curve or a surface with $h^{1,0}=h^{2,0}=0$. Then the moduli space $M$ of slope or Gieseker semistable torsion-free sheaves on $X$ satisfies the Virasoro constraints, i.e., 
+    \[[M]^{\inva}\in \widecheck{P}_0\,.\]
+    Under Assumption \ref{ass:WCpair}, the same statement holds for the moduli spaces of slope semistable one-dimensional sheaves on such surfaces.
+\end{theorem}
+When there are no strictly semistable sheaves, the above statement proves Conjecture \ref{conj: virasorosheaves} in the cases $(m,d) = (1,1), (2,2)$ and $(2,1)$ under Assumption \ref{ass:WCpair} as shown in Section \ref{subsec: virasoroprimary}. More generally, this theorem provides strong evidence for Conjecture \ref{conj:actualinvvir} even when there exist strictly semistable sheaves.
+
+In order to prove Theorem \ref{thm: main result of the paper}, we are left to prove the Virasoro constraints for $P_\alpha^\infty$ by Theorem \ref{thm: rankreduction}. This is what we now proceed to do. Recall that we explained in Section \ref{sec: limits} that these moduli spaces are: 
+\begin{enumerate}
+    \item symmetric powers $C^{[n]}$ for curves,
+    \item nested Hilbert scheme $S_\beta^{[0,n]}$ (both in the torsion-free and torsion cases).
+\end{enumerate}
+In the case of the symmetric power of curves, we give an elementary and direct proof in Proposition \ref{prop: symmetricpowers}.
+
+Recall from Section \ref{sec: limits} that when $\rk(\alpha)=1$, there is an identification $$P_\alpha^\infty=P_\alpha^{0+}$$
+so it is enough to prove Virasoro constraints for the latter moduli space in this case. Under Assumption \ref{ass: alphabig}, the natural map $P_{\alpha}^{0+}\to M_{\alpha}$ is a projective bundle -- see Remark \ref{rem: projectivebundle}. For a general $\alpha$ the map is a virtual projective bundle, see Section~\ref{sec: virtualprojectivebundle}. This structure can be used to show the equivalence between Virasoro constraints on $P_\alpha^{0+}$ and $M_\alpha$. Indeed, the implication from $P_\alpha^{0+}$ to $M_\alpha$ was already used in the general rank reduction argument (Theorem \ref{lem: projectivebundle}). We will prove the implication from $M_\alpha$ to $P_{\alpha}^{0+}$ in Corollary \ref{cor: MimpliesP}. It will follow from the formula \eqref{eq: projectivebundlebracket}, expressing the class of $P_{\alpha}^{0+}$ in terms of $M_\alpha$ using Joyce's Lie bracket. Although this formula can be interpreted as a wall-crossing formula (see Remark \ref{rem: JSprojectivebundle}) we will give a direct proof from the definition of the Lie bracket.
+
+Concretely, for surfaces, this virtual projective bundle is identified with the map
+\[S_\beta^{[0,n]}\to S^{[n]}\]
+that forgets the divisor $E$ and remembers the $0$-dimensional subscheme $Z$. Virasoro constraints were proven for Hilbert schemes of surfaces with $h^{0,1}=0$ in \cite{moreira,moop}. In Section \ref{sec: nestedhilbertscheme} we use this to prove the constraints for nested Hilbert schemes and finish the proof of Theorem \ref{thm: main} $(2),(3)$. 
+
+Finally, we point out that some of the results in this section can alternatively be shown using Joyce-Song wall-crossing, which we discuss in the Appendix. In particular, Proposition \ref{prop: symmetricpowers} is a special case of the more general Theorem \ref{prop: quot}.
+
+
+\subsection{Symmetric powers of curves}
+\label{sec: symmetricpowers}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Symmetric powers $C^{[n]}$ parametrize divisors $E\subseteq C$ of degree $n$ or, equivalently, non-zero maps of the form $\CO_C\to \CO_C(E)$. They come equipped with a universal pair
+\[\CO_{C^{[n]}\times C}\to \CO_{C^{[n]}\times C}( \CE)\]
+where $\CE\subseteq C^{[n]}\times C$ is the universal divisor.
+
+Let 
+\[\{e_j\}_{j=1}^g\subseteq H^{0,1}(C)\,,\quad \{f_j\}_{j=1}^g\subseteq H^{1,0}(C)\]
+be basis such that
+\[\int_X f_je_i=-\int_X e_if_j=\delta_{ij}.\]
+\begin{proposition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{prop: symmetricpowers}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $C$ be a curve and $n\geq 1$. Then the pair Virasoro conjecture (cf. Conjecture \ref{conj: pairvirasoro}) holds for the symmetric powers $C^{[n]}$, i.e., $\big[C^{[n]}\big]_{(\CO, \CO(\CE))}\in V_\bullet^{\pa}$.
+\end{proposition}
+
+
+\begin{proof}
+
+Let $f\colon C^{n}\to C^{[n]}$ be the projection from the $n$-fold product $C^n=C^{\times n}$ to the symmetric product; $f$ is a finite morphism of degree $n!$. The pullback via $f$ of the universal pair \[\CO_{C\times C^{[n]}}\to \CO_{C\times C^{[n]}}(\mathcal E)\]
+to $C\times C^n$ is
+\[\CO_{C^{n}\times C}\to \CO_{C^{n}\times C}( \Delta)\]
+where $\Delta=\sum_{i=1}^n \Delta_i$ and $\Delta_i\subseteq C^n \times C$ is the pullback of the class of the diagonal $C\subseteq C\times C$ via the projection onto coordinates $i$ and~$n+1$. By the push-pull formula we have
+\[\int_{C^n} \xi_{\CO(\Delta)}(D)=n!\int_{C^{[n]}}\xi_{\CO(\mathcal E)}(D).\]
+
+Thus Virasoro for symmetric powers may be formulated entirely as a relation among integrals in $C^n$. Let us denote by $\alpha_i\in H^\bullet(C^n)$ the pullback of a class $\alpha\in H^\bullet(C)$ via projection onto the $i$-th coordinate with $i=1,\ldots, n$. We compute descendents in $H^\bullet(C^n)$; in the formulae below and from now on, we omit the geometric realization morphism $\xi_{\CO(\Delta)}$:
+\begin{align*}
+\ch_k^\HH(\pt)&=\sum_{I\subseteq [n]\,, \,|I|=k}\prod_{i\in I}\pt_i=\frac{1}{k!}\eta^k\\
+\ch_k^\HH(1)&=n\ch_k^\HH(\pt)-\theta \ch_{k-1}^\HH(\pt)=n\frac{ \eta^k}{k!}-\frac{\theta\eta^{k-1}}{(k-1)!}\\
+\ch_k^\HH(e_j)&=\ch_0^\HH(e_j)\ch_k^\HH(\pt)=\ch_0^\HH(e_j)\frac{\eta^k}{k!}\\
+\ch_k^\HH(f_j)&=\ch_1^\HH(f_j)\ch_{k-1}^\HH(\pt)=\ch_1^\HH(f_j)\frac{\eta^{k-1}}{(k-1)!}
+\end{align*}
+where 
+\begin{align*}
+    \ch_0^\HH(e_j)=\sum_{i=1}^n e_{ji}\,&, \quad
+    \ch_1^\HH(f_j)=\sum_{i=1}^n f_{ji}\, , \\
+   \theta=\sum_{j=1}^g\ch_1^\HH(f_j)\ch_0^\HH(e_j)\, &, \quad\eta=\ch_1^\HH(\pt)=\sum_{i=1}^n \pt_i\,. 
+\end{align*}
+
+The formulae above show that the geometric realization map factors through the ring 
+\[\widetilde\BD^C=\BC[\eta, \{\ch_0^\HH(e_j)\}_{j=1}^g, \{\ch_1^\HH(f_j)\}_{j=1}^g],\]
+formally generated by symbols $\eta, \ch_0^\HH(e_j), \ch_1^\HH(f_j)$. Moreover the Virasoro operators are well defined on $\widetilde\BD^C$. Indeed, define
+\[\widetilde \bL_k=\widetilde \bR_k+\widetilde \bT_k^\CO\colon \widetilde\BD^C\to \widetilde\BD^C\]
+as follows:
+\begin{enumerate}
+    \item $\widetilde \bR_k$ is a derivation on $\widetilde \BD^C$ defined on generators by
+\[
+        \widetilde \bR_k(\eta)=\eta^{k+1}\, , \quad     \widetilde \bR_k(\ch_0^\HH(e_j))=0\, , \quad \widetilde \bR_k(\ch_1^\HH(f_j))=(k+1)\eta^k\ch_1^\HH(f_j)\,.
+        \]
+    \item $\widetilde \bT_k^\CO$ is multiplication by the element
+    \[(1-g)k\eta^k-n \eta^k+k \theta \eta^{k-1}\in \widetilde \BD^C\,.\]
+    \end{enumerate}
+    
+    
+    \begin{claim}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+    The following square commutes:
+    \begin{center}
+    \begin{tikzcd}
+    \BD^C\arrow[r]\arrow[d, "\bL_k^\CO"]&
+    \widetilde \BD^C \arrow[d, "\widetilde \bL_k^\CO"]\\
+    \BD^C\arrow[r]&
+    \widetilde \BD^C\arrow[r]&
+    H^\bullet(C^n)
+    \end{tikzcd}
+    \end{center}
+    \end{claim}
+    \begin{proof}
+    The proof is a straightforward computation.\qedhere
+    \end{proof}
+    
+    We now take an element
+    \[D=\eta^\ell \prod_{j=1}^g\ch_1^\HH(f_j)^{a_j} \ch_0^\HH(e_j)^{b_j}\in \widetilde \BD^C\,.\]
+Then we have
+\begin{equation}
+\label{eq: symvirasorooutput}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    \widetilde \bL_k^\CO(D)=(\ell+(k+1)a)\eta^k \nonumber D+(1-g)k \eta^k D-m \eta^k D+k \theta \eta^{k-1}D
+\end{equation}
+where $a=\sum_{j=1}^g a_j$. By degree reasons, the integral of $\bL_k^\CO(D)$ vanishes unless $k+a+\ell=n$; when that is the case, it simplifies to
+\[\widetilde \bL_k^\CO(D)=
+k(a-g)\eta^k D+k \theta\eta^{k-1}D.\]
+To finish the proof we are required to show that 
+\begin{equation}
+(g-a)\int_{C^n} \eta^k D=\int_{C^n} \eta^{k-1}\theta D.    \label{eq: finishsymmetric}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{equation}
+We use the following easy claim:
+\begin{claim}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+The integral 
+\[\int_{C^n} \eta^{k+\ell} \prod_{i=1}^g\ch_1^\HH(f_j)^{a_j} \ch_0^\HH(e_j)^{b_j}\]
+vanishes unless $a_j=b_j\in \{0,1\}$ for every $j=1, \ldots, g$ and $k+\ell+\sum_{j=1}^g a_j=n$. In that case, the integral is equal to 
+\[\int_{C^n}\eta^n=n!\]
+\end{claim}
+By the claim we may assume that $a_j=b_j\in \{0,1\}$, otherwise both sides of \eqref{eq: finishsymmetric} vanish. Letting $J=\{1\leq j\leq g\colon a_j=1\}$ we have
+\begin{align*}
+\int_{C^n}\eta^{k+\ell-1}&\theta \prod_{j\in J}\ch_1^\HH(f_j)\ch_0^\HH(e_j)\\
+&=\sum_{t=1}^g \int_{C^n}\eta^{k+\ell-1}\ch_1^\HH(f_t)\ch_0^\HH(e_t)\prod_{j\in J}\ch_1^\HH(f_j)\ch_0^\HH(e_j)\\
+&=\sum_{t\in [g]\setminus J} \int_{C^n}\eta^{k+\ell-1}\ch_1^\HH(f_t)\ch_0^\HH(e_t)\prod_{j\in J}\ch_1^\HH(f_j)\ch_0^\HH(e_j)\\
+&=(g-|J|)n!=(g-a)\int_{C^n} \eta^{k+\ell} \prod_{j\in J}\ch_1^\HH(f_j)\ch_0^\HH(e_j)
+\end{align*}
+showing \eqref{eq: symvirasorooutput} and concluding the proof.\qedhere
+\end{proof}
+
+%We have opted for giving a direct proof of the constraints in $C^{[n]}$ since this is easy enough and does not rely on wall-crossing or even on the vertex algebra language. However, as explained in the beginning of the section, there are two alternative ways of proving this result. By using Joyce-Song wall-crossing formula \eqref{eq: JSsymmetricpowers} as is done in Proposition \ref{prop: quot} or by using the (virtual) projective bundle $C^{[n]}\to \Jac(C)$ -- the Virasoro constraints on the Jacobian are almost trivial -- and Corollary \ref{cor: MimpliesP}. Note that pair Virasoro constraints of $\big[C^{[n]}\big]_{(\CO, \CO_\CE)}\in V_\bullet^{\pa}$ and $\big[C^{[n]}\big]_{(\CO, \CO(\CE))}\in V_\bullet^{\pa}$ can be shown to be equivalent as in the proof of Proposition~\ref{prop: nestedhilb}.
+
+%\begin{remark}
+%Symmetric powers are a special case of punctual Quot schemes, $C^{[n]}=\textup{Quot}_C(\BC^1, n)$. More generally, Virasoro constraints hold for punctual Quot schemes $\textup{Quot}_X(V, n)$ on a curve or surface $X$ for any torsion-free sheaf $V$. We prove this in Proposition \ref{prop: quot}  using \cite[Theorem 3.5]{Bo21.5} which we state in larger generality in Theorem \ref{Thm:PJS}. 
+%\end{remark}
+
+\subsection{Virtual projective bundle compatibility}
+\label{sec: virtualprojectivebundle}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+Let $M=M_\alpha$ be a moduli space with a universal sheaf $\BG$ as in Section \ref{sec: modulisheavespairs}, without strictly semistable sheaves. If $H^{\geq 1}(G)=0$ for every sheaf $[G]\in M$, then $Rp_\ast \BG=p_\ast \BG$ is a vector bundle of rank~$\chi(\alpha)$ and we may form the projective bundle
+\[f\colon P=\BP_M(Rp_\ast \BG)\to M\,.\]
+This projective bundle is naturally a moduli space of pairs: it parametrizes non-zero pairs of the form $\CO_X\to F$ such that $[F]\in M$. 
+
+More generally, H. Park considers in \cite[Section 4]{park} the situation in which $H^{\geq 2}(G)~=~0$. In this case, we have a \textit{virtual projective bundle} $f\colon P\to M$
+where 
+\[P=\BP_M(Rp_\ast\BG)\coloneqq \textup{Proj Sym}^\bullet h^0((Rp_\ast \BG)^\vee)\,.\]
+The morphism $f$ comes equipped with a natural relative perfect obstruction theory. By \cite{manolache}, there is a virtual pullback $f^!\colon A_\bullet(M)\to A_\bullet(P)$ between Chow groups. It is easily seen that the sheaf obstruction theory on $M$, the pair obstruction theory on $P$ and the relative obstruction theory on $f$ are compatible in the sense of \cite[Corollary 4.9]{manolache}, hence
+\[[P]^\vir=f^![M]^\vir\,.\]
+The moduli space $P$ comes equipped with a unique universal pair
+\[\CO_{P\times X}\to \BF\coloneqq f^\ast\BG(1)\,.\]
+Note that $\BF$ does not depend on the choice of $\BG$.
+
+The virtual pullback relation between the virtual fundamental classes can be translated to Joyce's vertex algebra framework as follows:
+\begin{proposition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{thm: projectivebundleformula}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $f\colon P\to M$ be a virtual projective bundle as described before. Then we have:
+\begin{align}
+\label{eq: projectivebundlebracket}[P]^\vir_{(\CO,\BF)}&=\big[[M]^\vir, e^{(1,0)}\big]\,,\\
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\label{eq: projectivebundleupsilon}\chi(\alpha)[M]^\vir&=\Pi_\ast\left(c_{\chi(\alpha)-1}(\T^{\rel})\cap [P]^\vir_{(\CO,\BF)}\right)\,.
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{align}
+In the first formula, the bracket is the partial lift to the vertex algebra in Lemma \ref{partial lift} and $e^{(1,0)}$ is the class of the point $\{(\CO_X, 0)\}$ in $H_0(\CP_{(1, 0)})\subseteq V_\bullet^{\pa}$.
+\end{proposition}
+\begin{proof}
+The second statement \eqref{eq: projectivebundleupsilon} is a consequence of \cite[Theorem 0.5 (2)]{park}. For the first formul we give a direct proof straight from the definition of the bracket. We do so by evaluating both sides against descendents \[D\in \BD^{X, \pa}_{(1, \alpha)}\cong H^\bullet(\CP_{(1,\alpha)})\,.\] By a similar argument to the one in Lemma \ref{lem: liftvertexalgebra} a) it is enough to consider $D\in \BD^X_\alpha\subseteq \BD^{X, \pa}_{(1, \alpha)}$ since otherwise both sides would vanish. 
+
+We start with the left side:
+\begin{align}\nonumber
+\int_{[P]^\vir_{(\CO,\BF)}}D&=\int_{[P]^\vir}\xi_{\BF}(D)=\int_{f^![M]^\vir}\xi_{f^\ast\BG(1)}(D)=\deg\Big(f_\ast\big(\xi_{f^\ast \BG(1)}(D)\cap f^![M]^\vir)\big)\Big)\,.
+\end{align}
+
+By Lemma \ref{lem: changeuniversalsheaf} we have
+\[\xi_{f^\ast \BG(1)}(D)=\sum_{j\geq 0}\frac{1}{j!}f^\ast\xi_{\BG}(\bR_{-1}^j D)c_1(\CO(1))^j\]
+and the argument in the proof of Proposition 4.2 in \cite{park} shows that
+\[f_\ast\big(c_1(\CO(1))^j \cap f^![M]^\vir\big)=s_{j-\chi(\alpha)+1}(Rp_\ast\BG)\cap [M]^\vir\,,\]
+where $s_{i}(Rp_\ast \BG)=c_i(-Rp_\ast \BG)$ are the Segre classes of $Rp_\ast \BG$. Putting everything together, we find
+\begin{equation} 
+\label{eq: projleft}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\int_{[P]^\vir_{(\CO,\BF)}}D=\sum_{j\geq 0}\frac{1}{j!} \int_{[M]^\vir} \xi_{\BG}(\bR_{-1}^jD)s_{j-\chi(\alpha)+1}(Rp_\ast \BG)\,.
+\end{equation}
+
+
+The analogous formula for the pairing with the right hand side can be deduced directly from Joyce's definition of the fields \eqref{eq: joycefields}. Since $[M]^\vir_\BG$ is a lift of $[M]^\vir$ we can compute the bracket by
+\[\big[[M]^\vir, e^{(1,0)}\big]=\Res_{z=0}Y([M]^\vir_\BG, z)e^{(1,0)}\,.\]
+Recall that $\bR_{-1}$ is dual to $T$ and note that the pullback of $\Theta^{\pa}$ to $M$ via the map 
+\[M\cong  M\times \{(\CO_X, 0)\}\to \CP_{(0,\alpha)}\times \CP_{(1,0)}\]
+is precisely $-Rp_\ast \BG$. Using these two facts one checks that
+\begin{align}\label{eq: projright}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\int_{Y([M]^\vir_\BG, z)e^{(1,0)}}D&=\sum_{j,i\geq 0}\frac{z^{j-i-\chi(\alpha)}}{j!} \int_{[M]^\vir} \xi_{\BG}(\bR_{-1}^jD)c_{i}(-Rp_\ast \BG)\,.
+\end{align}
+Clearly taking the residue in \eqref{eq: projright} gives \eqref{eq: projleft}, finishing the proof of \eqref{eq: projectivebundlebracket}.
+\end{proof}
+
+As a result, we get compatibility of the Virasoro constraints with respect to (virtual) projective bundles.
+
+\begin{corollary}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{cor: MimpliesP}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $f\colon P\to M$ be a virtual projective bundle as described before. Then the sheaf Virasoro constraints on $M$ imply the pair Virasoro constraints on $P$, i.e.,
+\[[M]^\vir\in \widecheck V_0\Rightarrow [P]^\vir_{(\CO,\BF)}\in  V_0^{\pa}\,.\]
+If $f\colon P\to M$ is actually a smooth projective bundle (i.e., $R^1p_\ast \BG=0$) we have the converse implication
+\[ [P]^\vir_{(\CO,\BF)}\in  V_0^{\pa} \Rightarrow[M]^\vir\in \widecheck V_0\,.\]
+\end{corollary}
+\begin{proof}
+The first implication follows from the first formula in Theorem \ref{thm: projectivebundleformula}, Proposition \ref{prop: wallcrossingcompatibility2} and the straightforward fact that $e^{(1,0)}\in P_0^{\pa}$. The converse implication follows from Theorem \ref{lem: projectivebundle}.\qedhere
+\end{proof}
+
+\begin{remark}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+For the second implication, we really need $f$ to be a smooth projective bundle. This is due to the fact that in the proof of Theorem \ref{lem: projectivebundle} we used that $\T_{\Pi_\alpha}$ is a vector bundle of rank $\chi(\alpha)-1$, see Remark \ref{rem: abstractprojective}. Indeed, if the moduli space $M$ is such that $p_\ast \BG=0$ (e.g. if $M=M_{\alpha(mH)}$ for $m$ sufficiently negative) then $P$ is empty but the Virasoro constraints on $M$ are non-trivial.
+\end{remark}
+
+
+
+
+
+
+\subsection{Nested Hilbert scheme}
+\label{sec: nestedhilbertscheme}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+We now treat the base cases for parts (2), (3) of Theorem \ref{thm: main}. Let $S$ be a surface with $h^{0,1}=h^{0,2}=0$. Let $S_{\beta}^{[0,n]}$ be the nested Hilbert scheme as in \cite{gsy}. It parametrizes a pair of subschemes 
+\[Z\subseteq E\subseteq S\]
+where $E$ is a divisor in class $\beta$ and $Z\subseteq E$ is a 0 dimensional subscheme of length~$n$.
+We have universal subschemes
+\[\CZ\subseteq \CE\subseteq\CS\,,\] 
+where we use $\CS=S\times S_\beta^{[0,n]}$. As explained in Section \ref{sec: limits}, the nested Hilbert scheme $S_{\beta}^{[0,n]}$ can be seen as a moduli of Bradlow pairs in 2 ways, by looking at a point $(E, Z)\in S_\beta^{[0,n]}$ either as
+\[\CO_S\to I_Z(E)\quad\textup{ or}\quad\CO_S\to \CO_E(Z)\,.\]
+That is,
+\begin{align*}S_{\beta}^{[0,n]}&\cong P_{\left(1,\beta, -n+\beta^2/2\right)}^\infty\\
+&\cong P_{\left(0,\beta, n-\beta^2/2\right)}^\infty\,.
+\end{align*}
+Each description comes with a natural universal pair, namely
+\[\CO_{\CS}\to I_\CZ(\CE)\quad\textup{and}\quad\CO_{\CS}\to \CO_\CE(\CZ)\,.\]
+The first description allows us to describe $S_\beta^{[0,n]}$ as a virtual projective bundle over the Hilbert scheme of points on $S$. Let $\alpha$ be such that $\ch(\alpha)=(1, \beta, -n+\beta^2/2)$. Since $\alpha$ does not decompose as $\alpha_1+\alpha_2$ with $r(\alpha_i)>0$, a pair $\CO_S\to F$ is $\mu^t$-(semi)stable if and only if $F$ is torsion free if and only if $F$ is stable, so the moduli space $P^t_\alpha$ does not change with $t$ and we have a map
+\[f\colon P_\alpha^\infty=P_\alpha^{0+}\to M_\alpha\,.\]
+Since $h^{0,1}=0$ there exists a unique line bundle $L_\beta$ with $c_1(L_\beta)=\beta$. Hence,
+\[M_\alpha=\{I_Z\otimes L_\beta\colon Z\subseteq X\textup{ is }0\textup{ dimensional of length }n\}\cong M_{(1,0,-n)}=S^{[n]}\,.\]
+
+Note that the deformation theory of $M_{\alpha}$ is smooth (see e.g. \cite[Proposition 2.2]{EGL}), so under the isomorphism above the virtual fundamental class $[M_\alpha]$ coincides with the usual fundamental class $[S^{[n]}]$.
+
+We claim that if $S_{\beta}^{[0,n]}$ is not empty then the map $f$ is a virtual projective bundle as described in the previous section. For this we need to show that if $F=I_Z\otimes L_\beta\in M_\alpha$ then $H^2(F)=0$. If $S_{\beta}^{[0,n]}$ is not empty then there must exist a divisor $E\subseteq S$ in class $\beta$. Considering the long exact sequence on cohomology obtained from
+\[0\to \CO_S\to \CO_S(E)\cong L_\beta\to \CO_E(E)\to 0\]
+and using that $H^2(\CO_S)=0$ it follows that $H^2(L_\beta)=0$. Then the long exact sequence on cohomology associated to 
+\[0\to I_Z\otimes L_\beta\to L_\beta\to \CO_Z\otimes L_\beta\to 0\]
+shows that $H^2(I_Z\otimes L_\beta)=0$. 
+
+
+\begin{proposition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{prop: nestedhilb}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+The nested Hilbert scheme $S_\beta^{[0,n]}$ satisfies the Virasoro constraints with either of the two descriptions as a pair moduli space, that is, 
+\[ \Big[S_\beta^{[0,n]}\Big]^\vir_{(\CO, I_{\CZ}(\CE))}\in P_0^{\pa}\quad\textup{ and } \quad \Big[S_\beta^{[0,n]}\Big]^\vir_{(\CO, \CO_\CE(\CZ))}\in P_0^{\pa}\,.\]
+\end{proposition}
+\begin{proof}
+We begin with the first statement. It was proven in \cite[Theorem 5]{moreira} that the Hilbert scheme $S^{[n]}\cong M_{(1,0, -n)}$ satisfies Virasoro constraints; see Remark \ref{rem: comparingnotation} and Proposition \ref{prop: normalizedvsinv} for a comparison between the formulation in loc. cit. and ours. By Lemma \ref{lem: twist}, it follows that Virasoro constraints hold for $M_\alpha$ for any $\alpha$ of rank~1. By Corollary \ref{cor:  MimpliesP} and the discussion preceeding this Proposition,
+\[\Big[S_\beta^{[0,n]}\Big]^\vir_{(\CO, I_{\CZ}(\CE))}=[P_\alpha^\infty]^\vir_{(\CO,\BF)}=[P_\alpha^{0+}]^\vir_{(\CO,\BF)} \in P_0^{\pa}\,.\]
+We now deduce the second statement from the first. The dual of $\CO_\CE(\CZ)$ in $K$-theory can be computed to be
+\[\CO_\CE(\CZ)^\vee=-\CO_\CE(-\CZ)\otimes \CO_\CS(\CE)=-I_\CZ(\CE)+\CO_\CS\,.\]
+In the first equality we used \cite[Example 3.41]{huyFM} and in the second we used
+\[\CO_\CE(-\CZ)=\CO_\CE-\CO_\CZ=-(\CO_\CS(-\CE)-I_\CZ)\,.\]
+As a consequence,
+\[(\CO_\CE(\CZ)-\CO_\CS)^\vee=-I_\CZ(\CE)\,.\]
+
+Define the involution $\bI\colon \BD^{X, \pa}\to \BD^{X, \pa}$ by
+\begin{align*}
+\bI\big(\ch_i^{\HH, \CF}(\gamma)\big)&=-(-1)^{i-p}\ch_i^{\HH, \CF-\CV}(\gamma)\,,\\
+\bI\big(\ch_i^{\HH, \CF-\CV}(\gamma)\big)&=-(-1)^{i-p}\ch_i^{\HH, \CF}(\gamma)\,.
+\end{align*}
+By the previous computation of duals, we have
+\[\xi_{(\CO, \CO_\CE(\CZ))}=\xi_{(\CO, I_\CZ(\CE))}\circ \bI\,.\]
+We can see straight from the definition of the pair Virasoro operators $\bL_k^{\pa}$ (see Section \ref{sec: virasoropairs}) that
+\[\bI\circ \bL_k^{\pa}=(-1)^k \bL_k^{\pa}\circ \bI\,.\]
+With all these observations, the equivalence between the two statements becomes clear. Indeed,
+\begin{align*}\int_{\big[S_\beta^{[0,n]}\big]^\vir_{(\CO, \CO_\CE(\CZ))}} \bL_k^{\pa}(D)&=\int_{\big[S_\beta^{[0,n]}\big]^\vir} \xi_{(\CO, \CO_\CE(\CZ))}(\bL_k^{\pa}(D))\\
+&=\int_{\big[S_\beta^{[0,n]}\big]^\vir} \xi_{(\CO, I_\CZ(\CE))}( \bI(\bL_k^{\pa}(D)))\\
+&=(-1)^k \int_{\big[S_\beta^{[0,n]}\big]^\vir} \xi_{(\CO, I_\CZ(\CE))}( \bL_k^{\pa}(\bI(D)))\\
+&=(-1)^k \int_{\big[S_\beta^{[0,n]}\big]^\vir_{(\CO, I_\CZ(\CE))}}\bL_k^{\pa}(\bI(D))=0\,.
+\end{align*}
+This shows that $\Big[S_\beta^{[0,n]}\Big]^\vir_{(\CO, \CO_\CE(\CZ))}\in P_0^{\pa}$ as well and finishes the proof.
+\qedhere
+\end{proof}
+
+
+\begin{appendices}

@@ -1,0 +1,210 @@
+% Source-derived chapter 02: Voisin's Theorem in Even Genus
+% Original source: universal-secant-bundles-syzygies-canonical-curves
+\chapter{Voisin's Theorem in Even Genus}
+\label{universal-secant-bundles-syzygies-canonical-curves-chapter-02}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+
+\begin{remark}[Source section]
+\label{universal-secant-bundles-syzygies-canonical-curves-chapter-02-source}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Voisin's Theorem in Even Genus
+\label{sec1}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+Let $X$ be a K3 surface of Picard rank one and even genus $g=2k$. Let $M_L$ denote the bundle defined by the sequence $0 \to M_L \to \mathrm{H}^0(L)\otimes \mathcal{O}_X \to L \to 0.$ 
+By the Kernel Bundle description of Koszul cohomology, see \cite{lazarsfeld-VBT} or \cite[\S 3]{ein-lazarsfeld-asymptotic}, to prove Voisin's Theorem it suffices to show $$\mathrm{H}^1(X, \bigwedge^{k+1} M_L )=0.$$
+Consider the unique rank two, Lazarsfeld--Mukai, bundle $E$ on $X$ as in the introduction. For general $s \in \mathrm{H}^0(E)$, the zero-locus $Z(s)$ corresponds to a $g^1_{k+1}$ on a smooth $C \in |L|$. 
+For \emph{any} $s \in \mathrm{H}^0(E)$, $Z(s) \seq X$ is zero-dimensional and we have an exact sequence $$0 \to \mathcal{O}_X \xrightarrow{s} E \xrightarrow{\wedge s} I_{Z(s)} \otimes L \to 0.$$
+
+Our starting point will be the \emph{Secant Sheaf} approach to the study of syzygies, which was originally utilized by Green and Lazarsfeld to give a simple proof of Petri's Theorem \cite{green-laz-petri}. For any $t \in \mathrm{H}^0(E)$, define the vector space $W_t = \mathrm{H}^0(L)/ \mathrm{H}^0(L \otimes I_{Z(t)}).$
+We define the \emph{secant sheaves} associated to the secant locus $Z(t)$ by
+{\small{\begin{align*}
+\Gamma'_t &:=\mathrm{Ker}\left(W_t \otimes \mathcal{O}_X \to L_{|_{Z(t)}} \right),\\
+\mathcal{S}'_t &:=\mathrm{Ker}\left( \mathrm{H}^0(L \otimes I_{Z(t)}) \otimes \mathcal{O}_X \to L \otimes I_{Z(t)} \right).
+\end{align*}}}
+Since $L \otimes I_{Z(t)}$ is a quotient of the globally generated vector bundle $E$, the map $\mathrm{H}^0(L \otimes I_{Z(t)}) \otimes \mathcal{O}_X \to L \otimes I_{Z(t)}$ is surjective. These sheaves are related to $M_L$ via the commutative diagram
+{\small{$$\begin{tikzcd}
+& 0 \arrow[d] & 0 \arrow[d]  & 0 \arrow[d] \\
+0 \arrow[r] & \mathcal{S}'_t \arrow[r] \arrow[d] & \mathrm{H}^0(L \otimes I_{Z(t)}) \otimes \mathcal{O}_X  \arrow[r] \arrow[d] &  L \otimes I_{Z(t)} \arrow[r] \arrow[d] &0\\
+0 \arrow[r] & M_L \arrow[r] \arrow[d] & \mathrm{H}^0(L) \otimes \mathcal{O}_X  \arrow[r] \arrow[d]  &  L \arrow[r] \arrow[d]& 0\\
+0 \arrow[r] & \Gamma'_t \arrow[r] \arrow[d] & W_t \otimes \mathcal{O}_X  \arrow[r] \arrow[d]  &  L_{|_{Z(t)}}  \arrow[r] \arrow[d] & 0\\
+& 0 & 0 & 0 &
+\end{tikzcd},$$}}
+with exact rows and columns. By considering the first column, 
+$$0 \to \mathcal{S}'_t  \to M_L \to \Gamma'_t \to 0$$
+one can relate syzygies of $X$ to the cohomological properties of the sheaves $\Gamma'_t$ and $\mathcal{S}'_t$. This is a special case of the approach taken in the influential paper \cite{ein-lazarsfeld-asymptotic}. Two problems, however, present themselves. Firstly, since $Z(t)$ is not a divisor, the sheaf $\Gamma'_t$ is not locally free. To resolve this, let $\pi_t : B_t \to X$ be the blow-up in the local complete intersection $Z(t)$, with exceptional divisor $D_t$. Identify $W_t$ with $\mathrm{H}^0(B_t,\pi_t^*L)/ \mathrm{H}^0(B_t, \pi_t^*L\otimes I_{D_t})$ and define \emph{vector bundles}
+{\small{\begin{align*}
+\Gamma_t &:=\mathrm{Ker}\left(W_t \otimes \mathcal{O}_{B_t} \to \pi_t^*L_{|_{D_t}} \right),\\
+\mathcal{S}_t &:=\mathrm{Ker}\left( \mathrm{H}^0(\pi_t^*L \otimes I_{D_t}) \otimes \mathcal{O}_B \to L \otimes I_{D_t} \right).
+\end{align*}}}
+One may now try to work with the sequence $0 \to \mathcal{S}_t  \to \pi_t^*M_L \to \Gamma_t \to 0$. However, each section $t \in \mathrm{H}^0(E)$ comes on an equal footing. It is therefore more natural to work with all of the sections \emph{simultaneously}.\smallskip
+
+We now adapt the above construction with these considerations in mind. Set $\PP:=\PP(\mathrm{H}^0(E))\simeq \PP^{k+1}$. Consider $X \times \PP$ with projections $p: X \times \PP \to X$, $q: X \times \PP \to \PP$. Define $\mathcal{Z} \seq X \times \PP$ as the locus $\left\{ (x,s) \; | \; s(x)=0 \right\}$. Since $E$ is globally generated, $\mathcal{Z}$ is a projective bundle over $X$ and hence smooth. We have an exact sequence
+$$0 \to \mathcal{O}_X \boxtimes \mathcal{O}_{\PP}(-2) \xrightarrow{\mathrm{id}} E \boxtimes \mathcal{O}_{\PP}(-1) \to p^*L \otimes I_{\mathcal{Z}} \to 0,$$
+where the first nonzero map is given by multiplication by $$\mathrm{id} \in \mathrm{H}^0\left(E \boxtimes \mathcal{O}_{\PP}(1)\right) \simeq \mathrm{H}^0(E) \otimes \mathrm{H}^0(E)^{\vee} \simeq \mathrm{Hom}\left(\mathrm{H}^0(E), \mathrm{H}^0(E)\right).$$ 
+Note that $\mathcal{Z} \to \PP$ is finite and flat, by the ``miracle flatness" theorem \cite[Prop.\ 6.1.5]{EGA}.
+
+\begin{rem}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+\notready
+As soon as there exists a nontrivial, effective divisor $C$ on $X$ with $\mathrm{H}^0(E(-C))$ nonzero, then $\mathcal{Z} \to \PP$ cannot be finite and flat. For this reason, it is essential that $\mathrm{Pic}(X) \simeq \mathbb{Z}[L]$.
+\end{rem}
+\smallskip
+
+Let $\mathcal{M}:=p^* M_L$. Note $\mathrm{H}^1(X \times \PP,\bigwedge^{k+1}\mathcal{M}) \simeq \mathrm{H}^1(X, \bigwedge^{k+1}M_L) $ by the K\"unneth formula, as $\mathrm{H}^1(\mathcal{O}_X)=0$. Let $\pi:B \to  X \times \PP $ be the blow-up along $\mathcal{Z}$ with exceptional divisor $D$. Then 
+$\pi_*\mathcal{O}_B \simeq \mathcal{O}_{X \times \PP}, \; \; \pi_* I_{D} \simeq I_{\mathcal{Z}} \; \; \text{and} \; \; \mathrm{R}^i \pi_*\mathcal{O}_B=\mathrm{R}^i\pi_* I_D=0 \; \text{for $i>0$},$
+cf.\ \cite[V, Prop.\ 3.4 and Ex.\ 3.1]{hartshorne}. Set $p':=p \circ \pi$, $q':=q \circ \pi$. We have canonical identifications
+$$q'_*({p'}^*L \otimes I_D) \simeq q_*(p^*L \otimes I_{\mathcal{Z}}), \; \; \; \; \; \; \; q'_*{p'}^*L  \simeq q_* p^*L.$$
+Consider $\mathcal{W}:=\text{Coker}\left(q'_*({p'}^*L \otimes I_D) \to q'_*{p'}^*L\right)\simeq  \text{Coker}\left(q_*({p}^*L \otimes I_{\mathcal{Z}}) \to q_*{p}^*L\right).$
+\begin{lem}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+\notready \label{very-first-lem}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+The sheaf $\mathcal{W}$ is locally free of rank $k$.
+\end{lem}
+\begin{proof}
+Applying $\mathrm{R}q_*$ gives the exact sequence $0 \to \mathcal{W} \to q_*(p^*L_{|_{\mathcal{Z}}}) \to \mathrm{R}^1q_*(p^*L \otimes I_{\mathcal{Z}})\to 0$. For any $s \in \mathrm{H}^0(E)$, we have $\mathrm{H}^1(X,L\otimes I_{Z(s)}) \simeq \mathrm{H}^2(\mathcal{O}_X)$. Thus $q_*(p^*L_{|_{\mathcal{Z}}}) $ and $\mathrm{R}^1q_*(p^*L \otimes I_{\mathcal{Z}})$ are locally free of ranks $k+1$ and $1$, by Grauert's Theorem \cite[III, \S 12]{hartshorne}. The claim follows.
+\end{proof}
+\smallskip
+
+Since $D$ is a divisor, we have a rank $k$ vector bundle 
+$\displaystyle{\Gamma:=\text{Ker}\left({q'}^*\mathcal{W} \twoheadrightarrow {p'}^*L_{|_D} \right).}$
+As $L \otimes I_{Z(s)}$ is globally generated for all $s \in \mathrm{H}^0(E)$, we have a natural surjection ${q}^* q_* ({p}^*L \otimes I_{\mathcal{Z}}) \to {p}^*L \otimes I_{\mathcal{Z}}$. Applying $\pi^*$ and noting that $I_D$ is a quotient of $\pi^*I_{\mathcal{Z}}$, we have a surjection ${q'}^* q'_* ({p'}^*L \otimes I_D) \to {p'}^*L \otimes I_D$.
+Let $\mathcal{S}$ be the vector bundle on $B$ defined by the exact sequence
+$$0 \to \mathcal{S} \to {q'}^* q'_* ({p'}^*L \otimes I_D) \to {p'}^*L \otimes I_D \to 0.$$
+We call $\mathcal{S}$ and $\Gamma$ the \emph{universal secant bundles}.
+We have an exact sequence $$0 \to \mathcal{S} \to \pi^* \mathcal{M} \to \Gamma \to 0$$ which gives the exact sequence
+$$ \ldots \to \bigwedge^{k-1} \pi^* \mathcal{M} \otimes \mathrm{Sym}^2 \mathcal{S} \to  \bigwedge^{k} \pi^* \mathcal{M} \otimes \mathcal{S} \to \bigwedge^{k+1}\pi^* \mathcal{M} \to 0.$$
+%\begin{rem}
+%The Secant Sheaves defined in \cite[\S 3]{ein-lazarsfeld-asymptotic} are only torsion-free in general. To apply \cite{weyman-sym-ext}, we need $\Gamma$ to be locally free and hence we must pass to the blow-up $B$.
+%\end{rem}
+To prove Voisin's Theorem it suffices to show $$\mathrm{H}^i(B, \bigwedge^{k+1-i} \pi^* \mathcal{M} \otimes \mathrm{Sym}^i \mathcal{S})=0 \; \; \text{for $1 \leq i \leq k+1$}.$$
+One readily shows these vanishings for $i <k+1$ (see Theorem \ref{main-thm}). The crucial point is to show $\mathrm{H}^{k+1}(B, \mathrm{Sym}^{k+1} \mathcal{S})=0$. To ease the notation, we set $$\mathcal{G}:=q^*q_*(p^*L \otimes I_{\mathcal{Z}}).$$ Note also that $q_*p^*E \simeq \mathrm{H}^0(E) \otimes \mathcal{O}_{\PP}$.
+\begin{lem}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+\notready \label{first-iso}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+We have $\mathrm{H}^{k+1}(X \times \PP,\mathrm{Sym}^{k+1} \mathcal{G})=0$ as well as a natural isomorphism
+$$\mathrm{H}^k(X \times \PP,\mathrm{Sym}^{k+1} \mathcal{G})\simeq \mathrm{Sym}^k \mathrm{H}^0(E).$$
+\end{lem}
+\begin{proof}
+The sequence $0 \to q^*\mathcal{O}_{\PP}(-2) \to q^*q_*p^*E \otimes q^*\mathcal{O}_{\PP}(-1) \to \mathcal{G}\to 0$
+ gives the exact sequence
+$$0 \to \mathrm{Sym}^k \mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-k-2) \to \mathrm{Sym}^{k+1}\mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-k-1) \to \mathrm{Sym}^{k+1}\mathcal{G} \to 0,$$
+since $q_*p^*E \simeq \mathrm{H}^0(E) \otimes \mathcal{O}_{\PP}$. Thus
+\begin{align*}
+\mathrm{H}^k(\mathrm{Sym}^{k+1}\mathcal{G}) \simeq \mathrm{H}^{k+1}(\mathrm{Sym}^k \mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-k-2))\simeq \mathrm{Sym}^k \mathrm{H}^0(E)
+\end{align*}
+The vanishing $\mathrm{H}^{k+1}(\mathrm{Sym}^{k+1} \mathcal{G})=0$ follows from $$\mathrm{H}^{k+1}(\mathcal{O}_X \boxtimes \mathcal{O}_{\PP}(-k-1))=\mathrm{H}^{k+2}(\mathcal{O}_X \boxtimes \mathcal{O}_{\PP}(-k-2))=0,$$
+using $\mathrm{H}^1(\mathcal{O}_X)=0$.
+\end{proof}
+
+The next lemma is a similar computation to the previous one.
+\begin{lem}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+\notready \label{first-twist-lem}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+We have a natural isomorphism
+$\mathrm{H}^k(\mathrm{Sym}^{k} \mathcal{G} \otimes p^*L \otimes I_{\mathcal{Z}}) \simeq \mathrm{Sym}^k \mathrm{H}^0(E).$
+
+\end{lem}
+\begin{proof}
+We have the short exact sequence
+\begin{align*}
+0 &\to \mathrm{Sym}^{k-1} \mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-k-1) \otimes p^*L \otimes I_{\mathcal{Z}} \to \mathrm{Sym}^{k}\mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-k) \otimes p^*L \otimes I_{\mathcal{Z}} \\
+&\to \mathrm{Sym}^{k}\mathcal{G} \otimes p^*L \otimes I_{\mathcal{Z}}\to 0,
+\end{align*}
+as well as the exact sequence
+$0 \to \mathcal{O}_X \boxtimes \mathcal{O}_{\PP}(-2) \to E \boxtimes \mathcal{O}_{\PP}(-1) \to p^*L \otimes I_{\mathcal{Z}} \to 0.$\\
+%The first nonzero map in this sequence is given by multiplication by the section $$\mathrm{id} \in \mathrm{H}^0(E \boxtimes \mathcal{O}_{\PP}(1)) \simeq \mathrm{H}^0(E) \otimes \mathrm{H}^0(E)^{\vee} \simeq \mathrm{Hom}(\mathrm{H}^0(E), \mathrm{H}^0(E)).$$ \\
+
+%We claim that $\mathrm{H}^{k+1}((L \boxtimes \mathcal{O}_{\PP}(-k-1))\otimes I_{\mathcal{Z}})=0$.
+
+By the K\"unneth formula, $\mathrm{H}^{k+2}(\mathcal{O}_X \boxtimes \mathcal{O}_{\PP}(-k-3))=0$. We have
+$$\mathrm{H}^{k+1}(\mathcal{O}_X \boxtimes \mathcal{O}_{\PP}(-k-3))=\mathrm{H}^{k+1}(\mathrm{K}_{\PP}(-1)) \simeq \mathrm{H}^0(\mathcal{O}_{\PP}(1))^{\vee}\simeq \mathrm{H}^0(E).$$
+Further, $\mathrm{H}^{k+1}(E \boxtimes \mathcal{O}_{\PP}(-k-2)) \simeq \mathrm{H}^{k+1}(E \boxtimes \mathrm{K}_{\PP}) \simeq \mathrm{H}^0(E).$
+The map $$\mathrm{H}^{k+1}(\mathcal{O}_X \boxtimes \mathcal{O}_{\PP}(-k-3)) \to \mathrm{H}^{k+1}(E \boxtimes \mathcal{O}_{\PP}(-k-2)) $$ is identified with $\mathrm{id}: \mathrm{H}^0(E) \to \mathrm{H}^0(E)$. Thus $\mathrm{H}^{k+1}(L \boxtimes \mathcal{O}_{\PP}(-k-1)\otimes I_{\mathcal{Z}})=0.$ We likewise have $\mathrm{H}^{k}(L \boxtimes \mathcal{O}_{\PP}(-k-1)\otimes I_{\mathcal{Z}})=0.$ 
+%For this, combined with the above, it suffices to show $\mathrm{H}^k(E \boxtimes \mathcal{O}_{\PP}(-k-2))=0$, which follows from the K\"unneth formula.\\
+%Using that $q_*p^*E \simeq \mathrm{H}^0(E) \otimes \mathcal{O}_{\PP}$ is trivial, we have
+Thus,
+\begin{align*}
+\mathrm{H}^k(\mathrm{Sym}^{k} \mathcal{G} \otimes p^*L \otimes I_{\mathcal{Z}}) %&\simeq \mathrm{H}^k(\mathrm{Sym}^k \mathrm{H}^0(E) \otimes q^*\mathcal{O}(-k)\otimes p^*L \otimes I_{\mathcal{Z}}) \\
+\simeq \mathrm{Sym}^k\mathrm{H}^0(E)\otimes \mathrm{H}^k(L \boxtimes \mathcal{O}_{\PP}(-k)\otimes I_{\mathcal{Z}}).
+\end{align*}
+To finish the proof, it suffices to show that the boundary map
+$$\mathrm{H}^k(L \boxtimes \mathcal{O}_{\PP}(-k)\otimes I_{\mathcal{Z}}) \to \mathrm{H}^{k+1}(q^*\mathrm{K}_{\PP})$$
+is an isomorphism, which follows from the fact that $\mathrm{H}^i(E \boxtimes \mathcal{O}(-k-1))=0$ for all $i$.
+\end{proof}
+
+
+We now repeat the previous lemma, twisting instead by $\mathcal{G}:=q^*q_*(p^*L \otimes I_{\mathcal{Z}})$.
+\begin{lem}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+\notready \label{second-twist-lem}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+The evaluation morphism $\mathcal{G} \twoheadrightarrow p^*L \otimes I_{\mathcal{Z}}$ induces an isomorphism
+$$\mathrm{H}^k(\mathrm{Sym}^{k} \mathcal{G} \otimes \mathcal{G}) \xrightarrow{\sim} \mathrm{H}^k(\mathrm{Sym}^{k} \mathcal{G} \otimes p^*L \otimes I_{\mathcal{Z}}) .$$
+\end{lem}
+\begin{proof}
+We have the short exact sequences
+\begin{align*}
+0 \to \mathrm{Sym}^{k-1} \mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-k-1) \otimes \mathcal{G} \to \mathrm{Sym}^{k}\mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-k) \otimes \mathcal{G} \to \mathrm{Sym}^{k}\mathcal{G} \otimes \mathcal{G} \to 0,
+\end{align*}
+and $0 \to q^*\mathcal{O}_{\PP}(-2) \to \mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-1) \to \mathcal{G} \to 0.$\smallskip
+
+Using the second sequence, $\mathrm{H}^{k+1}(\mathcal{G} \otimes q^*\mathcal{O}_{\PP}(-k-1))=\mathrm{H}^{k}(\mathcal{G} \otimes q^*\mathcal{O}_{\PP}(-k-1))=0$ and $\mathrm{H}^k(\mathcal{G} \otimes q^*\mathcal{O}_{\PP}(-k))\xrightarrow{\sim} \mathrm{H}^{k+1}(q^*\mathrm{K}_{\PP})$. Thus
+\begin{align*}
+\mathrm{H}^k(\mathrm{Sym}^{k} \mathcal{G} \otimes \mathcal{G}) \simeq \mathrm{H}^k(\mathrm{Sym}^k \mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-k)\otimes \mathcal{G}) \simeq \mathrm{Sym}^k\mathrm{H}^0(E)
+\end{align*}
+and the evaluation map gives an isomorphism $\mathrm{H}^k(\mathrm{Sym}^{k}\mathcal{G} \otimes \mathcal{G}) \xrightarrow{\sim} \mathrm{H}^k(\mathrm{Sym}^{k} \mathcal{G} \otimes p^*L \otimes I_{\mathcal{Z}}).$
+\end{proof}
+As a corollary, we now deduce:
+\begin{prop}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+\notready \label{auto-injectivity}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+We have a natural isomorphism $\mathrm{H}^k(\mathrm{Sym}^{k+1} \mathcal{G}) \xrightarrow{\sim} \mathrm{H}^k(\mathrm{Sym}^{k} \mathcal{G} \otimes p^*L \otimes I_{\mathcal{Z}}).$
+\end{prop}
+\begin{proof}
+By the previous lemmas, it suffices to show that the natural morphism
+$$\mathrm{H}^k(\mathrm{Sym}^{k+1} \mathcal{G}) \to \mathrm{H}^k(\mathrm{Sym}^{k} \mathcal{G} \otimes \mathcal{G})$$
+is injective. For a vector bundle $\mathcal{F}$ the composition $\mathrm{Sym}^i \mathcal{F} \to \mathrm{Sym}^{i-1}\mathcal{F} \otimes \mathcal{F} \to \mathrm{Sym}^i \mathcal{F}$
+of natural maps is just multiplication by $i$. This completes the proof.
+\end{proof}
+We now complete the proof that $\mathrm{K}_{k,1}(X,L)=0$.
+\begin{thm}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+\notready \label{main-thm}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+We have $\mathrm{H}^i(B, \bigwedge^{k+1-i} \pi^* \mathcal{M} \otimes \mathrm{Sym}^i \mathcal{S})=0$ for $1 \leq i \leq k+1$.
+\end{thm}
+\begin{proof}
+Observe $\pi^*\mathcal{G}\simeq {q'}^*q'_*({p'}^*L \otimes I_{D})$. From the defining sequence for $\mathcal{S}$, we have an exact sequence
+\begin{align} \label{ses-S}
+\source{universal-secant-bundles-syzygies-canonical-curves}
+0 \to \mathrm{Sym}^{i}\mathcal{S} \to \mathrm{Sym}^{i} \pi^* \mathcal{G} \to \mathrm{Sym}^{i-1} \pi^*\mathcal{G} \otimes {p'}^*L \otimes I_{D} \to 0.
+\end{align}
+Using the projection formula, and recalling the identities $\pi_*\mathcal{O}_B \simeq \mathcal{O}_{X \times \PP}$, $\pi_* I_{D} \simeq I_{\mathcal{Z}}$ and $\mathrm{R}^j \pi_*\mathcal{O}_B=\mathrm{R}^j\pi_* I_D=0$ for $j>0$,  we may identify
+$$\mathrm{H}^{\ell}(B, \mathrm{Sym}^{i} \pi^* \mathcal{G}) \to \mathrm{H}^{\ell}(B,\mathrm{Sym}^{i-1} \pi^*\mathcal{G} \otimes {p'}^*L \otimes I_{D})$$
+with the natural map $\mathrm{H}^{\ell}(X \times \PP, \mathrm{Sym}^{i} \mathcal{G}) \to \mathrm{H}^{\ell}(X \times \PP,\mathrm{Sym}^{i-1} \mathcal{G} \otimes {p}^*L \otimes I_{\mathcal{Z}})$, for any $\ell$. Taking the long exact sequence of cohomology for the sequence (\ref{ses-S}) for $i=k+1$ and applying the previous lemmas, we immediately see $\displaystyle \mathrm{H}^{k+1}(B,\mathrm{Sym}^{k+1} \mathcal{S})=0.$ Namely, $\mathrm{H}^{k+1}(\mathrm{Sym}^{k+1}\pi^* \mathcal{G})=0$ from Lemma \ref{first-iso} and the map $\mathrm{H}^k(\mathrm{Sym}^{k+1} \pi^* \mathcal{G}) \to \mathrm{H}^k(\mathrm{Sym}^{k}\pi^* \mathcal{G}  \otimes {p'}^*L \otimes I_{D} )$ is an isomorphism by Proposition \ref{auto-injectivity}.
+\smallskip
+
+To complete the proof, it suffices to show
+\begin{align*}
+\mathrm{H}^i (\bigwedge^{k+1-i} \pi^* \mathcal{M} \otimes \mathrm{Sym}^{i} \pi^* \mathcal{G})=\mathrm{H}^{i-1}(\bigwedge^{k+1-i} \pi^* \mathcal{M} \otimes \mathrm{Sym}^{i-1} \pi^* \mathcal{G} \otimes {p'}^*L \otimes I_{D} )=0, \; \; \text{for $1 \leq i \leq k$}.
+\end{align*}
+The first vanishing follows from the exact sequence 
+$$0 \to \mathrm{Sym}^{i-1} \mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-i-1) \to \mathrm{Sym}^{i}\mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-i) \to \mathrm{Sym}^{i}\mathcal{G}\to 0,$$
+together with $\mathrm{H}^i(\bigwedge^{k+1-i} M_L \boxtimes \mathcal{O}_{\PP}(-i))=\mathrm{H}^{i+1}(\bigwedge^{k+1-i}M_L \boxtimes \mathcal{O}_{\PP}(-i-1))=0$ for $1 \leq i \leq k$.\smallskip
+
+Next, from the exact sequence
+\begin{align*}
+0 &\to \mathrm{Sym}^{i-2} \mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-i) \otimes p^*L \otimes I_{\mathcal{Z}} \to \mathrm{Sym}^{i-1}\mathrm{H}^0(E) \otimes q^*\mathcal{O}_{\PP}(-i+1) \otimes p^*L \otimes I_{\mathcal{Z}}\\ &\to \mathrm{Sym}^{i-1}\mathcal{G} \otimes p^*L \otimes I_{\mathcal{Z}}\to 0,
+\end{align*}
+it suffices to show $\mathrm{H}^{i-1}(\bigwedge^{k+1-i} M_L (L)\boxtimes \mathcal{O}_{\PP}(-i+1)\otimes I_{\mathcal{Z}})=\mathrm{H}^{i}(\bigwedge^{k+1-i} M_L(L) \boxtimes \mathcal{O}_{\PP}(-i) \otimes I_{\mathcal{Z}})=0$ for $1 \leq i \leq k.$ This follows from $0 \to \mathcal{O}_X \boxtimes \mathcal{O}_{\PP}(-2) \to E \boxtimes \mathcal{O}_{\PP}(-1) \to L \otimes I_{\mathcal{Z}} \to 0,$ after twisting with $\bigwedge^{k+1-i} M_L \boxtimes \mathcal{O}_{\PP}(q)$ for $q \in \{-i+1,-i \}$, as $\mathrm{H}^0(X,M_L)=0$ if $i=k$. \end{proof}

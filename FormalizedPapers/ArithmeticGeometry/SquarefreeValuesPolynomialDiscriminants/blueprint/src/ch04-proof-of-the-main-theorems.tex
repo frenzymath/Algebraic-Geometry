@@ -1,0 +1,272 @@
+% Source-derived chapter 04: Proof of the main theorems
+% Original source: squarefree-values-polynomial-discriminants
+\chapter{Proof of the main theorems}
+\label{squarefree-values-polynomial-discriminants-chapter-04}
+\source{squarefree-values-polynomial-discriminants}
+
+\begin{remark}[Source section]
+\label{squarefree-values-polynomial-discriminants-chapter-04-source}
+\source{squarefree-values-polynomial-discriminants}
+\source{squarefree-values-polynomial-discriminants}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Proof of the main theorems
+\label{sec:sieve}
+\source{squarefree-values-polynomial-discriminants}
+
+In this section, we prove a result from which Theorems \ref{polydisc2}
+and \ref{polydiscmax2} immediately follow. Let $\Sigma=(\Sigma_v)_v$
+be a collection of sets $\Sigma_v\subset \Vmn(\Z_v)$ indexed by places
+$v$ of $\Q$, such that $\Sigma_p$ is defined by congruence conditions
+modulo some power of $p$ for any finite prime $p$ and $\Sigma_\infty\subset\Vmn(\R)$ consists
+of all degree-$n$ polynomials $f$ such that the number of real roots
+of $f$ lies in some fixed nonempty subset of
+$\{0,\ldots,n\}$. Such a set is called a collection of local specifications. Associate to each collection $\Sigma$ the subset
+$\V(\Sigma)$ of $\Vmn(\Z)$ consisting of all elements $f$ that satisfy
+$f\in\Sigma_v$ for all places $v$.  For any positive integer $\kappa$, we say that a collection
+$\Sigma$ of local specifications is $\kappa$-{\it acceptable} if $\Sigma_p$ is defined by congruence conditions modulo $p^\kappa$ for all primes $p$; and for all
+sufficiently large primes $p$, the sets $\Sigma_p$ contain every
+element $f\in\Vmn(\Z_p)$ with $p^2\nmid\Delta(f)$. The local specifications corresponding to Theorems \ref{polydisc2}
+and \ref{polydiscmax2} are $2$-acceptable. For a set $S\subset \Vmn(\Z)$, let $S_X$
+denote the set of elements in $S$ with height bounded by~$X$. Then we have the
+following theorem:
+
+\begin{theorem}
+\source{squarefree-values-polynomial-discriminants}
+\notready\label{thmaingencong}
+\source{squarefree-values-polynomial-discriminants}
+Let $\kappa$ be a positive integer and let $\Sigma$ be a $\kappa$-acceptable collection of local specifications. Then
+\begin{equation*}
+\#\V(\Sigma)_X=\Vol(\Sigma_{\infty,H<1})\prod_p\Vol(\Sigma_p)\cdot
+X^{n(n+1)/2}+O_\epsilon(X^{n(n+1)/2-\min\{1/5,1/(2\kappa)\}+\epsilon}),
+\end{equation*}
+where $\Sigma_{\infty,H<1}$ is the set of elements in $\Sigma_\infty$
+having height less than $1$, the volumes of sets in $\Vmn(\Z_p)$
+$($resp.\ $\Vmn(\R))$ are computed with respect to the Haar-measures
+normalized so that $\Vmn(\Z_p)$ has volume~$1$ $($resp.\ $\Vmn(\Z)$ has
+covolume~1$)$, and where the implied constant depends only on $n$ and $\Sigma$.
+\end{theorem}
+
+This section is organized as follows. First in \S\ref{sec:sieve}.1 we
+prove some estimates for the number of reducible elements in
+$\Vmn(\Z)$ having bounded height.  Then in \S\ref{sec:sieve}.2, we
+prove a uniformity estimate on polynomials whose discriminants are
+divisible by a large square.  We then prove Theorem~\ref{thmaingencong} by
+using this uniformity estimate and a squarefree sieve, from which we then deduce Theorems \ref{polydisc2} and
+\ref{polydiscmax2}.
+
+
+\subsection{Estimates on reducible forms}
+
+Let $\Vmn(\Z)$ denote the set of monic integer polynomials of
+degree~$n$. Let $\Vmn(\Z)^\red$ denote the subset of polynomials that
+are reducible or when $n\geq 4$, factor as $g(x)\bar{g}(x)$ over some
+quadratic extension of~$\Q$.   We first
+give a power saving bound for the number of polynomials in
+$\Vmn(\Z)^\red$ having bounded height. We start with the following
+lemma.
+
+\begin{lemma}
+\source{squarefree-values-polynomial-discriminants}
+\notready\label{lemlin}
+\source{squarefree-values-polynomial-discriminants}
+The number of elements in $\Vmn(\Z)_X$ that have a rational linear factor
+is bounded by $O(X^{n(n+1)/2-n+1}\log X)$.
+\end{lemma}
+\begin{proof}
+  Consider the polynomial
+\begin{equation*}
+  f(x)=x^n+a_{1}x^{n-1}+\cdots +a_n\in \Vmn(\Z)_X.
+\end{equation*}
+First, note that the number of such polynomials with $a_n=0$ is bounded
+by $O(X^{n(n+1)/2-n})$. Next, we assume that $a_n\neq 0$. There are
+$O(X^{n(n+1)/2-n+1})$ possibilities for the $(n-1)$-tuple
+$(a_1,a_2,\ldots,a_{n-2},a_n)$. If $a_n\neq 0$ is fixed, then there
+are $O(\log X)$ possibilities for the linear factor $x-r$ of $f(x)$,
+since $r\mid a_n$. By setting $f(r)=0$, we see that the
+values of $a_1,a_2,\ldots,a_{n-2},a_n$, and $r$ determine $a_{n-1}$
+uniquely. The lemma follows.
+\end{proof}
+
+Following arguments of Dietmann~\cite{Dietmann}, we now prove that the number of reducible monic
+integer polynomials of bounded height is negligible, with a power-saving error term.
+
+
+\begin{proposition}
+\source{squarefree-values-polynomial-discriminants}
+\notready\label{propredboundall}
+\source{squarefree-values-polynomial-discriminants}
+We have
+  \begin{equation*}
+\#\Vmn(\Z)^\red_X=O(X^{n(n+1)/2-n+1}\log X).
+  \end{equation*}
+\end{proposition}
+\begin{proof}
+  First, by \cite[Lemma~2]{Dietmann}, we have that
+\begin{equation}\label{eqtemppoly}
+\source{squarefree-values-polynomial-discriminants}
+  x^n+a_1x^{n-1}+\cdots +a_{n-1}x+t
+\end{equation}
+has Galois group $S_n$ over $\Q(t)$ for all $(n-1)$-tuples
+$(a_1,\ldots,a_{n-1})$ aside from a set $S$ of cardinality
+$O(X^{(n-1)(n-2)/2})$. Hence, the number of $n$-tuples
+$(a_1,\ldots,a_n)$ with height bounded by $X$ such that the Galois
+group of $x^n+a_1x^{n-1}+\cdots +a_{n-1}x+t$ over $\Q(t)$ is not $S_n$
+is $O(X^{(n-1)(n-2)/2}X^n) = O(X^{n(n+1)/2-n+1})$.
+
+Next, let $H$ be a subgroup of $S_n$ that arises as the Galois group
+of the splitting field of a polynomial in $\Vmn(\Z)$ with no rational
+root. For reducible polynomials, we have from \cite[Lemma~4]{Dietmann} that
+$H$ has index at least $n(n-1)/2$ in $S_n$. When $n\geq4$ is even and
+the polynomial factors as $g(x)\bar{g}(x)$ over a quadratic extension,
+the splitting field has degree at most $2(n/2)!$ and so the index of
+the corresponding Galois group in $S_n$ is again at least $n(n-1)/2$.
+For fixed $a_1,\ldots,a_{n-1}$ such that the polynomial
+\eqref{eqtemppoly} has Galois group $S_n$ over $\Q(t)$, an argument
+identical to the proof of \cite[Theorem~1]{Dietmann} implies that the
+number of $a_n$ with $|a_n|\leq X^n$ such that the Galois group of the
+splitting field of $x^n+a_1x^{n-1}+\cdots a_n$ over $\Q$ is $H$ is
+bounded by
+$$
+O_\epsilon\Bigl(X^\epsilon\exp\Bigl(\frac{n}{[S_n:H]}\log X +O(1)\Bigr)\Bigr)
+=O(X^{2/(n-1)+\epsilon}).
+$$
+In conjunction with Lemma~\ref{lemlin}, we thus obtain the estimate
+  \begin{equation*}
+    \#\Vmn(\Z)^\red_X=O(X^{n(n+1)/2-n+1}\log X)+O(X^{n(n+1)/2-n+1})+
+    O_\epsilon(X^{n(n+1)/2-n+2/(n-1)+\epsilon}),
+  \end{equation*}
+and the proposition follows.
+\end{proof}
+
+
+
+%Also, let $\V_m$ denote the set of all elements $f$ in
+%$\Vmn(\Z)$ such that the corresponding ring $\Z[x]/(f(x))$ is
+%nonmaximal at all primes dividing $m$.
+
+\subsection{Proof of Theorem \ref{thmaingencong}}
+
+Recall that we proved the estimates of Theorem
+\ref{thm:mainestimate}(b) for odd and even $n$ in \S2 and \S3,
+respectively. The estimate of Theorem \ref{thm:mainestimate}(a) is a
+direct consequence of \cite[Theorem 3.5, Lemma 3.6]{geosieve} since
+the discriminant polynomial on $\Vmn$ is irreducible.  For any
+positive squarefree integer $m$, let $\U_m$ denote the set of all
+elements in $\Vmn(\Z)$ whose discriminants are divisible by $m^2$. We
+now prove the following direct consequence of Theorem \ref{thm:mainestimate}.
+
+\begin{theorem}
+\source{squarefree-values-polynomial-discriminants}
+\notready\label{unif}
+\source{squarefree-values-polynomial-discriminants}
+Let $\U_{m,X}$ denote the set of elements in $\U_m$ having height
+bounded by $X$. For any positive real number $M$, we have
+\begin{equation}\label{equ2}
+\source{squarefree-values-polynomial-discriminants}
+\sum_{\substack{m>M\\ m\;\mathrm{ squarefree}}}
+\#\U_{m,X}=O_\epsilon(X^{n(n+1)/2+\epsilon}/\sqrt{M})+O_\epsilon(X^{n(n+1)/2-1/5+\epsilon}).
+\end{equation}
+\end{theorem}
+\begin{proof}
+Note first that an element $f\in \Vmn(\Z)$ belongs to at most
+$O(X^\epsilon)$ different sets $\U_m$, since $m$ is a divisor of
+$\Delta(f)$. Hence it suffices to prove the bound \eqref{equ2} for the
+number of elements in the union of $\U_{m,X}$ over all squarefree
+integers $m>M$. Now suppose $f$ is an element in this union. Let $k_1$
+denote the product of all the primes $p$ where $p^2$ strongly divides
+$\Delta(f)$ and let $k_2$ denote the product of all the primes $p$
+where $p^2$ weakly divides $\Delta(f)$. Then $f\in
+\U_{k_1}^{(1)}\cap\U_{k_2}^{(2)}$ with $k_1k_2>M$. In other words,
+$$\bigcup_{\substack{m>M\\ m\;\mathrm{ squarefree}}} \U_{m,X} \subset \bigcup_{\substack{k_1>\sqrt{M}\\ k_1\;\mathrm{ squarefree}}} \U_{k_1,X}^{(1)} \cup \bigcup_{\substack{k_2>\sqrt{M}\\ k_2\;\mathrm{ squarefree}}} \U_{k,X}^{(2)}.$$
+The theorem now follows from Parts (a) and (b) of Theorem
+\ref{thm:mainestimate}.
+\end{proof}
+
+We remark that the $\sqrt{M}$ in the denominator in \eqref{equ2} can
+be improved to $M$. However we will be using Theorem \ref{unif} for
+$M=X^{1/\kappa}$ (where $\kappa=2$ for the application to Theorems
+\ref{polydisc2} and \ref{polydiscmax2}) in which case the second term
+$O_\epsilon(X^{n(n+1)/2-1/5+\epsilon})$ sometimes dominates. We
+outline here how to improve the denominator to $M$ for the sake of
+completeness. Break up $\U_m$ into sets $\U_{m_1}^\s\cap\U_{m_2}^\w$
+for positive squarefree integers $m_1,m_2$ with $m_1m_2=m$ as
+above. Break the ranges of $m_1$ and $m_2$ into dyadic ranges. For
+each range, we count the number of elements in
+$\U_{m_1}^\s\cap\U_{m_2}^\w$ by embedding each $\U_{m_2}^\w$ into
+$\frac14W(\Z)$ as in Sections \ref{sec:monicodd} and
+\ref{sec:moniceven}. Earlier, we bounded the cardinality of the image
+of $\U_{m_2,X}^\w$ by splitting $\frac14W(\Z)$ up into two pieces:
+$\frac14W_{00}(\Z)$ and $\frac14W(\Z)\setminus\frac14W_{00}(\Z)$. The
+bound on the second piece does not depend on $m_2$ and continues to be
+$O_\epsilon(X^{n(n+1)/2-1/5+\epsilon})$. However for the first piece,
+we now impose the further condition that elements in $\frac14
+W_{00}(\Z)$ are strongly divisible by $p^2$ for all prime factors $p$
+of $m_1$ and apply the quantitative version of the Ekedahl sieve as
+in~\cite{geosieve}. This gives the desired additional $1/m_1$ saving,
+improving the bound to
+\begin{equation*}
+O_\epsilon(X^{n(n+1)/2+\epsilon}/M)+O_\epsilon(X^{n(n+1)/2-1/5+\epsilon}).
+\end{equation*}
+The reason for counting in dyadic ranges of $m_1$ and $m_2$ is
+that for both the strongly and weakly divisible cases, we count
+not for a fixed $m$ but sum over all $m>M$.
+
+
+\vspace{10pt}
+
+Let $(\Sigma_v)_v$ be a $\kappa$-acceptable collection of local
+specifications. Let $N$ denote a positive integer such that for every
+prime $p>N$, the set $\Sigma_p$ contains every element $f\in
+\Vmn(\Z_p)$ with $p^2\nmid \Delta(f)$. Let $P$ denote the product of
+all primes $p\leq N$. For squarefree integers $m$, we let
+$\W_m(\Sigma)$ denote the set of elements $f$ such that
+$f\not\in\Sigma_p$ for all $p\mid m$ and let $m'$ denote the product
+of all the prime factors of $m$ that are larger than $N$. Then $m'\geq
+m/P$ and $\W_m(\Sigma)\subset \W_{m'}.$ Since $P$ depends only on
+$\Sigma$, we may assume that $\log X > P$ in what follows. In other
+words, we have
+\begin{equation}\label{eq:haha}
+\source{squarefree-values-polynomial-discriminants}
+\sum_{\substack{m>X^{1/\kappa}\\ m\;\mathrm{ squarefree}}}\#\W_{m}(\Sigma)_X \leq \sum_{\substack{m'>X^{1/\kappa-\epsilon}\\ m'\;\mathrm{ squarefree}}}\#\W_{m',X}.
+\end{equation}
+
+For each prime $p$, let $\theta(p)$ denote
+$\Vol(\Sigma_p)$, let $\theta(\infty)$ denote
+$\Vol(\Sigma_{\infty,H<1})$, and set
+$\bar{\theta}(p):=1-\theta(p)$. We define
+$\bar{\theta}(m)=\prod_{p\mid m}\bar{\theta}(m)$ for squarefree
+integers $m$.   Let $\mu$ denote the
+M\"obius function. We have
+\begin{equation}\label{eqth1}
+\source{squarefree-values-polynomial-discriminants}
+\begin{array}{rcl}
+\#\V(\Sigma)_X&=&\displaystyle\sum_{m\geq 1}\mu(m)\#\W_m(\Sigma)_X\\[.2in]
+&=&\displaystyle\sum_{m=1}^{X^{1/\kappa}}\mu(m)\theta(\infty)\bar{\theta}(m)X^{n(n+1)/2}
++O\Bigl(\sum_{m=1}^{X^{1/\kappa}}X^{n(n+1)/2-n}\Bigr)
++O\Bigl(\sum_{m>X^{1/\kappa}}\#\W_{m}(\Sigma)_X\Bigr)\\[.2in]
+&=&\displaystyle\theta(\infty)\prod_p\theta(p)\cdot X^{n(n+1)/2}+O_\epsilon(X^{n(n+1)/2-1/(2\kappa)+\epsilon})+O_\epsilon(X^{n(n+1)/2-1/5+\epsilon}),
+\end{array}
+\end{equation}
+where the final equality follows from \eqref{eq:haha} and Theorem \ref{unif}.
+This concludes the proof of Theorem~\ref{thmaingencong}.
+
+%\begin{equation}\label{eqth2}
+%\#\Vmn(\Z)^\max_X=\Bigl(\prod_p\rho_n(p)\Bigr)\cdot\#\Vmn(\Z)_X+O_\epsilon(X^{n(n+1)/2-1/5+\epsilon})
+%\end{equation}
+%by the identical argument.
+
+%Finally, note that we have
+%\begin{equation*}
+%\#\Vmn(\Z)_X= 2^nX^{n(n+1)/2}+O(X^{n(n-1)/2}).
+%\end{equation*}
+
+Finally note that Theorems \ref{polydisc2} and \ref{polydiscmax2}
+follow from Theorem \ref{thmaingencong} since the corresponding
+families are $2$-acceptable, and the constants $\lambda_n$ and
+$\zeta(2)^{-1}$ appearing in these theorems are equal simply to
+$\prod_p\lambda_n(p)$ and $\prod_p\rho_n(p)$, respectively.

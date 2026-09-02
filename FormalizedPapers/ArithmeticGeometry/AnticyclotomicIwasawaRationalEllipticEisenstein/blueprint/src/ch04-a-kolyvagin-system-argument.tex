@@ -1,0 +1,1090 @@
+% Source-derived chapter 04: A Kolyvagin system argument
+% Original source: anticyclotomic-iwasawa-rational-elliptic-eisenstein
+\chapter{A Kolyvagin system argument}
+\label{anticyclotomic-iwasawa-rational-elliptic-eisenstein-chapter-04}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+
+\begin{remark}[Source section]
+\label{anticyclotomic-iwasawa-rational-elliptic-eisenstein-chapter-04-source}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: A Kolyvagin system argument
+\label{IMCIII}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+
+The goal of this section is to prove Theorem~\ref{thm:howard} below, extending \cite[Thm.~2.2.10]{howard} to the residually reducible setting. This result, which assumes the existence of a non-trivial Kolyvagin system, will be applied in $\S\ref{sec:CD}$ to a Kolyvagin system derived from Heegner points to prove one of the divisibilities towards Conjecture~\ref{conj:PR}.
+
+
+\subsection{Selmer structures and Kolyvagin systems}
+
+Let $K$ be an imaginary quadratic field, let $(R,\mathfrak{m})$ be a complete Noetherian local ring with finite residue field of characteristic $p$, and let 
+$M$ be a topological $R[G_K]$-module such that the $G_K$-action is unramified outside a finite set of primes. We define a \emph{Selmer structure} $\mathcal{F}$ on $M$ to be a finite set $\Sigma=\Sigma(\mathcal{F})$ of places of $K$ containing $\infty$, the primes above $p$, and the primes where $M$ is ramified, together with a choice of $R$-submodules (called local conditions) 
+$\rH^1_{\Fcal}(K_w,M)\subset\rH^1(K_w,M)$ for every $w\in\Sigma$. The associated \emph{Selmer group} is then defined by
+\[
+\rH^1_{\Fcal}(K,M):={\rm ker}\biggl\{\rH^1(K^\Sigma/K,M)\rightarrow\prod_{w\in\Sigma}\frac{\rH^1(K_w,M)}{\rH^1_{\Fcal}(K_w,M)}\biggr\},
+\]
+where $K^\Sigma$ is the maximal extension of $K$ unramified outside $\Sigma$. 
+
+Below we shall use the following local conditions. First, the \emph{unramified} local condition is
+\[
+\rH^1_{\rm ur}(K_w,M):={\rm ker}\bigl\{\rH^1(K_w,M)\rightarrow\rH^1(K_w^{\rm ur},M)\bigr\}.
+\]
+If $w\mid p$ is a finite prime where $M$ is unramified, we set $\rH^1_{\rm f}(K_w,M):=\rH^1_{\rm ur}(K_w,M)$, which is sometimes called the \emph{finite} local condition. 
+The \emph{singular quotient} $\rH^1_{\rm s}(K,M)$ is defined by the exactness of the sequence
+\[
+0\rightarrow\rH^1_{\rm f}(K_w,M)\rightarrow\rH^1(K_w,M)\rightarrow\rH^1_{\rm s}(K_w,M)\rightarrow 0.
+\]
+
+Denote by $\cL_0=\cL_0(M)$ the set of rational primes $\ell\neq p$ such that
+\begin{itemize}
+\item $\ell$ is inert in $K$,
+\item $M$ is unramified at $\ell$.
+\end{itemize}
+Letting $K[\ell]$ be the ring class field of $K$ of conductor $\ell$, define the \emph{transverse} local condition at $\lambda\vert\ell\in\cL_0$ by
+\[
+\rH^1_{\rm tr}(K_\lambda,T):={\rm ker}\bigl\{\rH^1(K_\lambda,T)\rightarrow\rH^1(K[\ell]_{\lambda'},T)\bigr\},
+\]
+where $K[\ell]_{\lambda'}$ is the completion of $K[\ell]$ at any prime $\lambda'$ above $\lambda$.
+
+As in \cite{howard}, we call a \emph{Selmer triple} $(M,\mathcal{F},\cL)$ the data of a Selmer structure $\mathcal{F}$ on $M$ and a subset $\cL\subset\cL_0$ with $\cL\cap\Sigma(\mathcal{F})=\emptyset$. Given a Selmer triple $(M,\Fcal,\cL)$ and pairwise
+coprime integers $a,b,c$ divisible only by primes in $\cL_0$, the modified Selmer group $\rH^1_{\Fcal^a_b(c)}(K,M)$ is the one defined by 
+$\Sigma(\Fcal^a_b(c))=\Sigma(\Fcal)\cup\{w\vert abc\}$
+and the local conditions 
+\[
+\rH^1_{\Fcal^a_b(c)}(K_\lambda,T)
+=\begin{cases}
+\rH^1(K_\lambda,T) &\text{if }\lambda\vert a,\\
+0 &\text{if }\lambda\vert b,\\
+\rH^1_{\tr}(K_\lambda,T) &\text{if }\lambda\vert c, \\
+\rH^1_{\Fcal}(K_w,T) & \text{if }\lambda\nmid abc.
+\end{cases}
+\]
+
+Let $T$ be a compact $R$-module equipped with a continuous linear $G_K$-action 
+that is unramified outside a finitely set of primes.
+For each $\lambda\vert\ell\in\cL_0 = \cL_0(T)$, let $I_\ell$ be the smallest ideal containing $\ell+1$ for which the Frobenius element ${\rm Frob}_\lambda\in G_{K_\lambda}$ acts trivially on $T/I_\ell T$. By class field theory, the prime $\lambda$ splits completely in the Hilbert class field of $K$, and the $p$-Sylow subgroups of $G_\ell:={\rm Gal}(K[\ell]/K[1])$ and $k_\lambda^\times/\mathbb{F}_\ell^\times$ are identified via the Artin symbol, where $k_\lambda$ is the residue field of $\lambda$. Hence by \cite[Lem.~1.2.1]{mazrub} there is a \emph{finite-singular comparison isomorphism}
+\begin{equation}\label{eq:f-s}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\phi_\lambda^{\rm fs}:\rH^1_{\rm f}(K_\lambda,T/I_\ell T)\simeq T/I_\ell T\simeq\rH^1_{\rm s}(K_\lambda,T/I_\ell T)\otimes G_\ell.
+\end{equation}
+
+Given a subset $\cL\subset\cL_0$, we let $\cN=\cN(\cL)$ be the set of square-free products of primes $\ell\in\cL$, and for each $n\in\cN$ define
+\[
+I_n=\sum_{\ell\vert n}I_n\subset R,\quad G_n=\bigotimes_{\ell\vert n}G_\ell,
+\]
+with the convention that $1\in\cN$, $I_1=0$, and $G_1=\Z$.
+
+\begin{definition}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready
+A \emph{Kolyvagin system} for a Selmer triple $(T,\Fcal,\cL)$ is a collection of classes
+\[
+\kappa=\{\kappa_n\in\rH^1_{\Fcal(n)}(K,T/I_nT)\otimes G_n\}_{n\in\cN}
+\]
+%with $\kappa_n\in\rH^1_{\Fcal(n)}(K,T/I_nT)\otimes G_n$,
+such that 
+$(\phi_\lambda^{\rm fs}\otimes 1)({\rm loc}_\lambda(\kappa_n))={\rm loc}_\lambda(\kappa_{n\ell})$ for all $n\ell\in\cN$.
+\end{definition}
+
+We denote by $\mathbf{KS}(T,\Fcal,\cL)$ the $R$-module of Kolyvagin systems for $(T,\Fcal,\cL)$.
+
+
+\subsection{Bounding Selmer groups}\label{sec:Zp-twisted} 
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+
+Here we state our main result on bounding Selmer groups of anticyclotomic twists of Tate modules of elliptic curves, whose proof is given in the next section. The reader mostly interested in the Iwasawa-theoretic consequences of this result might wish to proceed to $\S\ref{subsec:Iw-proof}$ after reading the statement of Theorem~\ref{thm:Zp-twisted}.
+
+Let $E/\Q$ be an elliptic curve of conductor $N$, let $p\nmid 2N$ be a prime of good ordinary reduction for $E$, and let $K$ be an imaginary quadratic field of discriminant $D_K$  prime to $Np$. We assume 
+\begin{equation}\label{eq:h1}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+E(K)[p]=0.\tag{h1}
+\end{equation}
+
+As  before, let $\Gamma={\rm Gal}(K_\infty/K)$ be the Galois group of the anticyclotomic $\Z_p$-extension of $K$.
+Let $\alpha:\Gamma\rightarrow R^\times$ be a character with values in the ring of integers $R$ of a finite extension $\Phi/\Q_p$. Let 
+\[
+r=\rank_{\Z_p}R.
+\] 
+Let $\rho_E:G_{\bQ}\rightarrow{\rm Aut}_{\bZ_p}(T_pE)$ give the action of $G_\bQ$ on the $p$-adic Tate module of $E$ and consider the $G_K$-modules
+\begin{equation}
+T_\alpha:=T_pE\otimes_{\bZ_p}R(\alpha),\quad
+V_\alpha:=T_\alpha\otimes_R\Phi,\quad A_\alpha:=T_\alpha\otimes_R\Phi/R\simeq V_\alpha/T_\alpha,\nonumber
+\end{equation}
+where $R(\alpha)$ is the free $R$-module of rank one on which $G_K$ acts the projection $G_K\twoheadrightarrow\Gamma$ composed with $\alpha$, and the $G_K$-action on $T_\alpha$ is via $\rho_\alpha = \rho_E\otimes\alpha$. 
+
+Let $\fm\subset R$ be the maximal ideal, 
+with uniformizer $\pi\in\fm$, 
+and let $\bar{T}:=T_\alpha\otimes_{} R/\fm$ be the residual representation associated to $T_\alpha$. Note that
+\begin{equation}\label{eq:modp}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\bar{T}\simeq E[p]\otimes_{}R/\fm
+\end{equation}
+as $G_K$-modules, since $\alpha\equiv 1\pmod{\fm}$. In particular, (\ref{eq:h1}) implies that $\bar{T}^{G_K}=0$. 
+
+For $w\vert p$ a prime of $K$ above $p$,  set 
+\[
+{\rm Fil}_w^+(T_pE):={\rm ker}\bigl\{T_pE\rightarrow T_p\tilde{E}\bigr\},
+%\quad {\rm Fil}_w^-(T_pE):=T_pE/{\rm Fil}_w^+(T_pE).
+\]
+where $\tilde{E}$ is the reduction of $E$ at $w$, and put
+\[
+{\rm Fil}_w^+(T_\alpha):={\rm Fil}_w^+(T_pE)\otimes_{\bZ_p}R(\alpha),\quad{\rm Fil}_w^+(V_\alpha):={\rm Fil}_w^+(T_\alpha)\otimes_{R}\Phi.
+\]
+Following \cite{coates-greenberg},  define the \emph{ordinary} Selmer structure $\Fcal_{\rm ord}$ on $V_\alpha$ by
+taking $\Sigma(\Fcal_{\rm \ord}) = \{w\mid pN\}$ and  
+\[
+\rH^1_{\Fcal_{\rm ord}}(K_w,V_\alpha):=
+\begin{cases}
+{\rm im}\bigl\{\rH^1(K_w,{\rm Fil}_w^+(V_\alpha))\rightarrow\rH^1(K_w,V_\alpha)\bigr\} & \textrm{if $w\vert p$,}\\
+\rH^1_{\rm ur}(K_w,V_\alpha)& \textrm{else.}
+\end{cases}
+\]
+Let $\Fcal_{\rm ord}$ also denote the Selmer structure on $T_\alpha$ and $A_\alpha$ obtained by propagating $\rH^1_{\Fcal_{\rm ord}}(K_w,V_\alpha)$ under the maps induced by the exact sequence 
+$0\rightarrow T_\alpha\rightarrow V_\alpha\rightarrow A_\alpha\rightarrow 0$.
+
+Let $\gamma\in\Gamma$ be a topological generator, and let 
+\begin{equation}\label{eq:erralpha}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+C_\alpha:=
+\begin{cases}
+v_p(\alpha(\gamma)-\alpha^{-1}(\gamma)) & \alpha\neq \alpha^{-1}, \\
+0 & \alpha = \alpha^{-1},
+\end{cases}
+\end{equation}
+where $v_p$ is the $p$-adic valuation normalized so that $v_p(p)=1$. Finally, let 
+\[
+\cL_E:=\{\ell\in\cL_0(T_pE)\;:\;a_\ell\equiv\ell+1\equiv 0\;({\rm mod}\;p)\},
+\]
+where $a_\ell=\ell+1-\vert\tilde{E}(\mathbb{F}_\ell)\vert$, and $\cN=\cN(\cL_E)$. 
+
+\begin{theorem}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{thm:Zp-twisted}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+Suppose $\alpha\neq 1$ and there is a Kolyvagin system $\kappa_\alpha=\{\kappa_{\alpha,n}\}_{n\in\cN}\in\mathbf{KS}(T_\alpha,\Fcal_{\rm ord},\cL_E)$ with $\kappa_{\alpha,1}\neq 0$. Then $\rH^1_{\Fcal_{\rm ord}}(K,T_\alpha)$ has rank one, and there is a finite $R$-module $M_\alpha$ such that
+\[
+{\rm H}^1_{\Fcal_{\rm ord}}(K,A_\alpha)\simeq(\Phi/R)\oplus M_\alpha\oplus M_\alpha
+\]
+with 
+\[
+{\rm length}_R(M_\alpha)\leqslant {\rm length}_R\bigl({\rm H}^1_{\Fcal_{\rm ord}}(K,T_\alpha)/R\cdot\kappa_{\alpha,1}\bigr)+E_\alpha
+\]
+for some constant $E_\alpha\in\Z_{\geqslant 0}$ depending only on  $C_{\alpha}$, $T_pE$, and ${\rm rank}_{\bZ_p}(R)$.
+\end{theorem}
+
+When $\rho_E\vert_{G_K}:G_K\rightarrow{\rm End}_{\Z_p}(T_pE)$ is surjective, Theorem~\ref{thm:Zp-twisted} (with $E_\alpha=0$) can be deduced from \cite[Thm.~1.6.1]{howard}, but the proof of Theorem~\ref{thm:Zp-twisted} assuming only (\ref{eq:h1}) requires new ideas, some of which were inspired by Nekov\'{a}\v{r}'s work \cite{nekovar}.
+
+
+
+\subsection{Proof of Theorem~\ref{thm:Zp-twisted}}
+
+To ease notation, let $(T,\mathcal{F},\cL)$ denote the Selmer triple $(T_\alpha,\Fcal_{\rm ord},\cL_E)$, and let $\rho=\rho_\alpha$. For any $k\geqslant 0$, let 
+\[
+R^{(k)}=R/\fm^kR,\quad T^{(k)}=T/\fm^kT,\quad\cL^{(k)}=\{\ell\in\cL\colon I_\ell\subset p^k\Z_p\},
+\]
+and let $\mathscr{N}^{(k)}$ be the set of square-free products of primes $\ell\in\cL^{(k)}$. 
+
+We begin by recalling two preliminary results from \cite{mazrub} and \cite{howard}.
+
+\begin{lemma}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{lemmamod} 
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+For every $n\in\cN^{(k)}$ and $0\leqslant i\leqslant k$ there are natural isomorphisms
+\begin{equation}\label{eq2}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\rH^1_{\Fcal(n)}(K,T^{(k)}/\fm^iT^{(k)})\xrightarrow{\sim}\rH^1_{\Fcal(n)}(K,T^{(k)}[\fm^i])\xrightarrow{\sim}{\rm H}_{\Fcal(n)}^1(K,T^{(k)})[\fm^i]\nonumber
+\end{equation}
+induced by the maps $T^{(k)}/\fm^iT^{(k)}\xrightarrow{\pi^{k-i}}T^{(k)}[\fm^i]\rightarrow T^{(k)}$.
+\end{lemma}
+\begin{proof}
+The proof of \cite[Lem.~3.5.4]{mazrub} carries over, since it only requires the vanishing of $\bar{T}^{G_K}$.
+\end{proof}
+
+\begin{prop}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{propstructure}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+For every $n\in\cN^{(k)}$ there is an $R^{(k)}$-module $M^{(k)}(n)$  and an integer $\epsilon$ such that
+\begin{equation}\label{eq1}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\rH^1_{\CF(n)}(K,T^{(k)}) \simeq (R^{(k)})^\epsilon\oplus M^{(k)}(n)\oplus M^{(k)}(n).\nonumber
+\end{equation}
+Moreover, $\epsilon$ can be taken to be $\epsilon\in\{0,1\}$ and is independent of $k$ and $n$.
+\end{prop}
+
+\begin{proof}
+This is shown in \cite[Prop.~1.5.5]{howard}, whose proof makes use of hypothesis (\ref{eq:h1}) and hypotheses (H.3) and (H.4) in \emph{op.\,cit.}, the latter two being satisfied in our setting by \cite[Lem.~3.7.1]{mazrub} and \cite[Lem.~2.2.1]{mazrub}, respectively. We note that the independence of $\epsilon$ follows from the fact that, by Lemma~\ref{lemmamod}, we have
+\[
+\epsilon\equiv{\rm dim}_{R/\mathfrak{m}}\rH^1_{\CF(n)}(K,\bar{T})\pmod{2},
+\]
+and the right dimension is independent of $k$ and $n$ by the ``parity lemma'' of \cite[Lem.~1.5.3]{howard}, whose proof is also given under just the aforementioned hypotheses.
+\end{proof}
+
+
+\subsubsection{The \v{C}ebotarev argument}
+For any finitely-generated torsion $R$-module $M$ and $x\in M$, write 
+\[
+\ord(x):=\min\{m\geqslant 0: \pi^m\cdot x =0\}.
+\]
+
+When $\rho_E$ has large image, a standard application of the \v{C}ebotarev density theorem can be used to show that, given $R$-linearly independent classes $c_1,\dots,c_s\in\rH^1(K,T^{(k)})$, there exist infinitely many primes $\ell\in\cL$ such 
+that ${\rm ord}({\rm loc}_\ell(c_i))={\rm ord}(c_i)$, $i=1,\dots,s$ (see \cite[Cor.~3.2]{mccallum}). 
+Assuming only hypothesis (\ref{eq:h1}), one can obtain a similar result with ``error terms''.  Our version of this is 
+Proposition~\ref{prop:prime2} below, which provides the key technical input for our proof of Theorem~\ref{thm:Zp-twisted}. 
+Before proving this proposition we define the error terms that appear in its statement.
+
+ 
+For any field $F\subset\overline{\Q}$ let $F(E[p^\infty])$ be the fixed field of the kernel of $\rho_E|_{G_F}$. 
+Since $(D_K,Np)=1$, and therefore $E$ does not have CM by $K$, and $p$ is odd by hypothesis, $\Q(E[p^\infty])\cap K_\infty = \Q$, 
+as any subfield of $K_\infty$ that is Galois over $\Q$ is either $\Q$ or contains $K$.
+Hence the natural projection 
+$\Gal(K_\infty(E[p^\infty])/K_\infty)\rightarrow \Gal(\Q(E[p^\infty])/\Q)$ is an isomorphism and 
+so $\rho_E(G_{K_\infty}) = \rho_E(G_\Q)$. 
+
+The first error term comes from the following.
+
+\begin{lemma}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{lem:image1} 
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+The intersection $U = \Z_p^\times\cap \mathrm{im}(\rho_E|_{G_{K_\infty}})$ is an open subgroup of $\Z_p^\times$
+such that $U\subset \mathrm{Im}(\rho)\subset \Aut_R(T)$ for all characters $\alpha$. 
+%\textcolor{red}{This should not depend on whether $E$ has CM or not}
+\end{lemma}
+
+\begin{proof}  
+By %Serre's open image theorem
+\cite[Prop.~(6.1.1)(i)]{nekovar}, $U=\Z_p^\times\cap \mathrm{im}(\rho_E)\subset \Aut_{\Z_p}(T_pE)\simeq \GL_2(\Z_p)$ 
+is an open subgroup of $\Z_p^\times$. Since 
+$\mathrm{im}(\rho_E|_{G_{K_\infty}}) =  \mathrm{im}(\rho_E)$, 
+$U = \Z_p^\times\cap \mathrm{im}(\rho_E|_{G_{K_\infty}})$. 
+As $\alpha$ is trivial on $G_{K_\infty}$ the claim for all characters $\alpha$ follows.
+\end{proof}
+
+For $U = \Z_p^\times\cap \mathrm{im}(\rho_E)$ as in Lemma \ref{lem:image1}, let
+\[
+C_1 := \min\{v_p(u-1)\colon u\in U\}.
+\]
+Since $U$ is an open subgroup of $\Z_p^\times$, $0\leqslant C_1 < \infty$.
+
+To define the second error term, note that $\End_{\Z_p}(T_pE)/\rho_E(\Z_p[G_{\Q}])$ is a torsion $\Z_p$-module, as $\rho_E$ is irreducible. Hence there exists $m\in\Z_{\geq 0}$ such that $p^m (\End_{\Z_p}(T_pE)/\rho_E(\Z_p[G_{\Q}]))=0$. Then
+\[
+C_2:=\min\bigl\{ m\geqslant 0 \colon p^m\End_{\Z_p}(T_pE)\subset\rho_E(\Z_p[G_{\Q}])\bigr\}
+\]
+%As $T_pE\otimes_{\Z_p}\Q_p$ is an irreducible $\Q_p[G_\Q]$-module, 
+is such that $0\leqslant C_2 <\infty$. 
+
+\begin{lemma}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{lem:image2} For any $\alpha$,  $p^{C_2}$ annihilates
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+$\End_R(T)/\rho(R[G_{K_\infty}])$. 
+%\textcolor{red}{as long as $E$ does not have CM by $K$}
+\end{lemma}
+
+\begin{proof}  
+Since $\rho(G_{K_\infty}) = \rho_E(G_{K_\infty}) = \rho_E(G_\Q)$ (using that $E$ does not have CM by $K$), it follows that
+$$
+\End_R(T)/\rho(R[G_{K_\infty}]) = \End_R(T)/\rho_E(R[G_\Q]) = (\End_{\Z_p}(T_pE)/\rho_E(\Z_p[G_\Q]))\otimes_{\Z_p}R
+$$
+is annihilated by $p^{C_2}$.
+\end{proof}
+
+\begin{remark}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{rmkirred} 
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+If $\rho_E$ is surjective, then clearly $C_1 = 0$. Similarly, if $E[p]$ is irreducible, then $C_2=0$. In particular, if $\rho_E$ is surjective, then $C_1 = 0 = C_2$.
+\end{remark}
+
+The third error term is given by the quantity $C_\alpha$ defined before.
+
+
+\begin{prop}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{prop:prime2} Suppose $\alpha\neq 1$.
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+Let $c_1, c_2, c_3 \in \rH^1(K,T^{(k)})$. Suppose $Rc_1 + Rc_2$ contains a submodule isomorphic to 
+$\fm^{d_1}R^{(k)}\oplus \fm^{d_2}R^{(k)}$ for some $d_1,d_2\geqslant 0$.
+Then there exist infinitely many primes $\ell\in \CL^{(k)}$ such that 
+$$
+\ord(\loc_\ell(c_3)) \geqslant \ord(c_3) - r(C_1+C_2+C_\alpha),  
+$$
+and
+$R\loc_\ell(c_1) + R \loc_\ell(c_2) \subset \rH^1(K_\ell,T^{(k)})$ contains a
+submodule isomorphic to 
+$$
+\fm^{d_1+d_2+2r(C_1+C_2+C_\alpha)}(R^{(k)}\oplus R^{(k)}).
+$$
+\end{prop}
+
+\begin{proof} 
+Let $m_i = \max\{0,\ord(c_i) - r(C_1+C_2+C_{\alpha})\}$.
+Note that since $R c_1 + R c_2$ contains a submodule isomorphic to $\fm^{d_1}R^{(k)}\oplus \fm^{d_2}R^{(k)}$,
+it must be that $\max\{\ord(c_1),\ord(c_2)\}\geqslant k-d_1,k-d_2$ and hence 
+if $m_1=m_2=m_3=0$,  
+then the lemma is trivially true. So we suppose $\max\{m_1,m_2,m_3\}>0$.
+
+Let $K_{\alpha}\subset K_{\infty}$ be such that $\alpha|_{G_{K_\alpha}}\equiv 1 \mod \fm^k$.
+Let $L=K_{\alpha}(E[p^k])$ be the fixed field of the kernel of the action of $G_{K_\alpha}$ on 
+$E[p^k]$ (so in particular, $G_L$ acts trivially on $T^{(k)}$). 
+Then $\rho$ induces an injection
+\[
+\rho: \Gal(L/K)\hookrightarrow \Aut(T^{(k)}).
+\] 
+Let $u\in \Z_p^\times\cap\mathrm{im}(\rho_E|_{G_{K_\infty}})$ such that $\ord_p(u-1) = C_1$. 
+Then $u = \rho(g)$ for some $g\in \Gal(L/K)$. Let $T_{E}^{(k)} = T_pE\otimes_{\Z_p} R/\fm^k$. 
+It follows from Sah's lemma that $g-1$ annihilates $\rH^1(\Gal(L/K), T^{(k)})$, and therefore the kernel of the restriction map
+$$
+\rH^1(K,T^{(k)})\rightarrow \rH^1(L,T^{(k)})= \rH^1(L,T_{E}^{(k)})^{(\alpha)}=\Hom(G_L,T_{E}^{(k)})^{(\alpha)}
+$$
+is annihilated by $p^{C_1}$ and hence by $\pi^{rC_1}$ (cf.\cite[Prop.~(6.1.2)]{nekovar}). 
+Here and in the following we denote by $(-)^{(\alpha)}$ the submodule on which $\Gal(L/K)$ acts via the character $\alpha$.
+The restriction of the $c_i$ to $G_L$ therefore yields homomorphisms $f_i \in \Hom(G_L,T_E^{(k)})^{(\alpha)}$ such that 
+$$
+\ord(f_i) \geqslant \ord(c_i) - rC_1, i=1,2,3,
+%\ord(f_i) \geqslant \ord(c_i) - rC_1, \ \ \ R\cdot \operatorname{Im}(f_1)+R\cdot \operatorname{Im}(f_2) \supset (R/\fm^{d-rC_1})^2.
+$$
+and $Rf_1+Rf_2\subset \Hom(G_L,T_E^{(k)})^{(\alpha)}$ contains a submodule isomorphic to 
+$\fm^{d_1+rC_1}R^{(k)}\oplus \fm^{d_2+rC_1}R^{(k)}$.
+
+Note that the complex conjugation $\tau$ acts naturally on $\Hom(G_L,T_E^{(k)})$, 
+and that this action maps an element $f\in\Hom(G_L,T_E^{(k)})^{(\alpha)}$ to an element $\tau\cdot f\in \Hom(G_L,T_E^{(k)})^{(\alpha^{-1})}$. 
+The intersection $\Hom(G_L,T_E^{(k)})^{(\alpha)}\cap \Hom(G_L,T_E^{(k)})^{(\alpha^{-1})}$
+is annihilated by $\gamma-\alpha^{\pm 1}(\gamma)$ and so by $\alpha(\gamma)-\alpha^{-1}(\gamma)$, for all $\gamma\in\Gal(L/K)$.
+Since 
+\[
+\{\alpha(\gamma)-\alpha^{-1}(\gamma)\;{\rm mod}\;\fm^k \ : \ \gamma\in\Gal(L/K)\} = \{\alpha(\gamma)-\alpha^{-1}(\gamma)\;{\rm mod}\;\fm^k \ : \ \gamma\in\Gamma\}
+\] 
+and since
+$\alpha\neq \alpha^{-1}$ (as $\alpha\neq 1$ and $p$ is odd),
+it follows from the definition of $C_\alpha$ that  $\Hom(G_L,T_E^{(k)})^{(\alpha)}\cap \Hom(G_L,T_E^{(k)})^{(\alpha^{-1})}$ is annihilated by $\pi^{rC_\alpha}$. This implies that
+$f_i^\pm = (1\pm \tau)\cdot f_i$ satisfies
+$$
+\ord(f_i^\pm) \geqslant \ord(f_i) - rC_\alpha\geqslant{\ord(c_i)-r(C_1+C_\alpha)}, \ \ i=1,2,3,
+$$
+and that $Rf_1^\pm +R f_2^\pm = (1\pm\tau)\cdot(Rf_1+Rf_2)$ contains a submodule isomorphic to 
+$\fm^{d_1+r(C_1+C_\alpha)}R^{(k)}\oplus \fm^{d_2+r(C_1+C_\alpha)}R^{(k)}$.
+Note that since $\max\{m_1,m_2,m_3\}>0$, it follows that for some $j$ both $f_j^+$ and $f_j^-$ are non-zero.
+
+The $R$-module spanned by the image of $f_i^\pm$ contains $R[G_{K_\infty}]\cdot f_i^\pm(G_L)$. 
+By Lemma \ref{lem:image2}, the latter contains $p^{C_2}(\End_{\Z_p}(T_pE)\otimes_{\Z_p}R)\cdot f_i^\pm(G_L) \subset T_E^{(k)}$. 
+Since $f_i^\pm$ has order at least $\ord(f_i) - rC_\alpha$, $f_i^\pm(G_L)$ contains an element of order at least 
+$\ord(f_i) - rC_\alpha$ and hence $\pi^{k-\ord(f_i) + r(C_2+C_\alpha)} T_E^{(k)}\subset 
+p^{C_2}(\End_{\Z_p}(T_pE)\otimes_{\Z_p}R)\cdot f_i^\pm(G_L)$.
+In particular, the $R$-module spanned by the image of $f_i^\pm$ contains 
+$\fm^{k-m_i} T_E^{(k)}$. 
+
+
+Let $H \subset G_L$ be the intersection of the kernels of the $f_i^\pm$. Since some $f_j^\pm$ is non-zero, $H\neq G_L$
+and $Z = G_L/H$ is a non-zero torsion $\Z_p$-module. The subgroup $H$ is stable under the action of complex conjugation and hence this action descends to $Z$, which then decomposes as $Z = Z^+ \oplus Z^-$ with respect to this action.
+Each $f_i^\pm$ can be viewed as an element of $\Hom(Z,T_E^{(k)})$.
+Let $g_i^\pm$ be the composition of $f_i^\pm$ with the projection of $T_E^{(k)}$ to $(T_E^{(k)})^\pm$.
+Fix an $R^{(k)}$-basis $u_\pm$ of $(T_E^{(k)})^\pm$. Since the $R$-span of the image of $f_i^\pm$ contains
+$\fm^{k-m_i} T_E^{(k)}$, the $R$-span of the image of $g_i^\pm$ contains $\fm^{k-m_i}R^{(k)} u_\pm$.
+Moreover, since $f_i^\pm \in \Hom(Z,T_E^{(k)})^\pm$, $g^\pm_i(Z^-)=0$ and so $g_i^\pm(Z) = g_i^\pm(Z^+)$.
+Since $\max\{m_1,m_2,m_3\}>0$, it follows that $Z^+$ is nontrivial.
+
+Let $W^\pm = \sum_{i=1}^3 Rf_i^\pm \subset \Hom(G_L,T_E^{(k)})^\pm$ and let
+$W = W^+\oplus W^- \subset \Hom(G_L,T_E^{(k)})$. 
+Each $f\in W$ can be viewed as a homomorphism from 
+$Z$ to $T_E^{(k)}$, and evaluation at $z\in Z$ yields an injection
+$$
+Z\hookrightarrow \Hom_R(W,T_E^{(k)}).
+$$
+Furthermore, this injection is equivariant with respect to the action of complex conjugation, so 
+the restriction to $Z^+$ is an injection
+$$
+Z^+ \hookrightarrow \Hom_R(W,T_E^{(k)})^+ = \Hom_R(W^+,(T_E^{(k)})^+)\oplus \Hom_R(W^-,(T_E^{(k)})^-).
+$$
+Let $X^+\subset \Hom_R(W,T_E^{(k)})^+$ be the $R$-span of the image of $Z^+$. It follows
+from \cite[Cor.~(6.3.4)]{nekovar} and Lemma \ref{lem:image2} that 
+\begin{equation}\label{eq:spanimage}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+p^{C_2} \Hom_R(W,T_E^{(k)})^+\subset X^+.
+\end{equation}
+
+Given $(\phi^+,\phi^-) \in \Hom_R(W^+,(T_E^{(k)})^+)\oplus \Hom_R(W^-,(T_E^{(k)})^-)$, define
+$$
+q(\phi^+,\phi^-) = \det\left(\begin{matrix}
+\beta(\phi^+(f_1^+)) & \beta(\phi^-(f_1^-)) \\
+\beta(\phi^+(f_2^+)) & \beta(\phi^-(f_2^-))
+\end{matrix}\right), \ \ 
+\phi^\pm(-) = \beta(\phi^\pm(-))u_{\pm}\in R^{(k)}u_\pm = (T_E^{(k)})^\pm.
+$$
+The restriction of $q$ to $X^+$ defines an $R^{(k)}$-valued quadratic form 
+on $X^+$ that we denote by $q(x)$. 
+Since $W^+$ contains $Rf_1^+ +R f_2^+$, which in turn contains
+a submodule isomorphic to 
+$\fm^{d_1+r(C_1+C_\alpha)}R^{(k)}\oplus \fm^{d_2+r(C_1+C_\alpha)}R^{(k)}$, there exists
+$\psi^+\in \Hom_R(W^+,(T_E^{(k)})^+)$ and $j\in \{1,2\}$ such that 
+$\beta(\psi^+(f_j^+)) \in \pi^{\max{d_1,d_2}+r(C_1+C_\alpha)}(R^{(k)})^\times$.
+Similarly, there exists $\psi^-\in \Hom_R(W^-,(T_E^{(k)})^-)$
+such that $\beta(\psi^-(f_{3-j}^-)) \in \pi^{\min{d_1,d_2}+r(C_1+C_\alpha})(R^{(k)})^\times$
+and $\beta(\psi^-(f_j^-)) = 0$.
+For such a pair $(\psi^+,\psi^-)$, 
+$$
+q(\psi^+,\psi^-) \in \pi^{d_1+d_2+2r(C_1+C_\alpha)}(R^{(k)})^\times.
+$$
+From \eqref{eq:spanimage} it follows that $p^{C_2}(\psi^+,\psi^-) = x_\psi$ for some $x_\psi\in X^+$, and
+$$
+q(x_\psi) = p^{2C_2}q(\psi^+,\psi^-) 
+%= p^{2C_2}\beta(\psi^+(f_1^+))\beta^-(\psi^-(f_2^-)) 
+\in\pi^{d_1+d_2+2r(C_1+C_2+C_\alpha)}(R^{(k)})^\times.
+$$
+It then follows from \cite[Lem.~(6.6.1)(ii)]{nekovar} that 
+\begin{equation}\label{eq:qimage}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+q(Z^+) \not\subset \fm^{d_1+d_2+2r(C_1+C_2+C_\alpha)+1}R^{(k)}.
+\end{equation}
+
+If $m_3>0$, let $Z_3\subset Z^+$ be the submodule such that 
+$g_3^+(Z_3) = \fm^{k-{m_3}+1}R^{(k)} u_+$. Otherwise, let $Z_3 =0$. Then $Z_3$ is a proper $\Z_p$-submodule of $Z^+$.
+It then follows from \cite[Lem.~(6.6.1)(iii)]{nekovar} and \eqref{eq:qimage} that
+\begin{equation}\label{eq:z}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\text{there exists $z\in Z^+$ such that $z\not\in Z_3$ and $q(z) \not\in \fm^{d_1+d_2+2r(C_1+C_2+C_\alpha)+1}R^{(k)}$.}
+\end{equation}
+
+Let $M$ be the fixed field of the subgroup $H\subset G_L$, so $\Gal(M/L) = Z$. 
+Let $g = \tau z \in \Gal(M/\Q)$, and let 
+$\ell\nmid pND_K$ be any prime such that each $c_i$ is unramified at $\ell$ and $\Frob_\ell = g$ in $\Gal(M/\Q)$ 
+(there are infinitely many such $\ell$: this is the application of the \v{C}ebotarev Density Theorem). 
+Since $G_L$ fixes $E[p^k]$ and $K$, 
+$\Frob_\ell$ acts as $\tau$ on $K$ and $E[p^k]$.
+This means that $\ell$ is inert in $K$ and that $a_\ell(E) \equiv \ell +1 \equiv 0 \mod p^k$. 
+That is, $\ell\in \CL^{(k)}$.
+
+Since $\ell$ is inert in $K$, the Frobenius element for $K_\ell$ is $\Frob_\ell^2$. Consider the restriction of
+$c_i$ to $K_\ell$. Since $c_i$ is unramified at $\ell$, $\loc_\ell(c_i)\in \rH^1_{\rm ur}(K_\ell,T^{(k)}$.
+Evaluation at $\Frob_\ell^2$ is an isomorphism
+$$
+\rH^1_{\rm ur}(K_\ell, T^{(k)}) \xrightarrow\sim T^{(k)}/(\Frob_\ell^2-1)T^{(k)} = T^{(k)} = T_E^{(k)},
+$$
+where the last equality is because $\Frob_\ell^2$ acts as $\tau^2 = 1$ on $T^{(k)}$ by the choice of $\ell$.
+This means that $\loc_\ell(c_i)$ is completely determined by $c_i(\Frob_\ell^2)$.
+Furthermore, since $\Frob_\ell^2 = g^2  = z^2 \in \Gal(M/L)$, $c_i(\Frob_\ell^2) = f_i(z^2)$. Hence 
+\begin{equation}\label{eq:ciz}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+c_i(\Frob_\ell^2) = f_i(z^2) = 2f_i(z) = f_i^+(z) + f_i^-(z) = (g_i^+(z),g_i^-(z)) \in T_E^{(k)} = (T_E^{(k)})^+\oplus (T_E^{(k)})^-,
+\end{equation}
+since the projection of $f_i^\pm$ to $(T_E^{(k)})^\mp$ vanishes on $Z^+$.  
+
+From \eqref{eq:ciz} we see that $\ord(\loc_\ell(c_3)) = \ord(c_3(\Frob_\ell^2) = \ord(f_3(z^2)) \geqslant \ord(g_3^+(z))$.
+Since $z\not\in Z_3$ by \eqref{eq:z},
+$$
+\ord(\loc_\ell(c_3)) \geqslant m_3,
+$$
+which shows that $\ell$ satisfies the first condition of the theorem.
+
+From \eqref{eq:ciz} we also see that
+$$
+R\loc_\ell(c_1) + R\loc_\ell(c_2) \xrightarrow\sim R (g_1^+(z),g_1^-(z)) + R(g_2^+(z),g_2^-(z)) \subset T_E^{(k)} = (T_E^{(k)})^+\oplus (T_E^{(k)})^-.
+$$
+Write $g_i^\pm(z) = \beta_i^\pm(z)u_\pm$. Then 
+$$
+q(z) = \det\left(\begin{matrix}
+\beta_1^+(z) & \beta_1^-(z) \\
+\beta_2^+(z) & \beta_2^-(z) 
+\end{matrix}\right).
+$$
+Since $q(z) \not\in \fm^{d_1+d_2+2r(C_1+C_2+C_\alpha)+1}R^{(k)}$ by \eqref{eq:z}, it follows from the above 
+expression for $q(z)$ that the module
+$R (g_1^+(z),g_1^-(z)) + R(g_2^+(z),g_2^-(z))$ contains a submodule isomorphic to 
+$\fm^{d_1+d_2+2r(C_1+C_2+C_\alpha)}(R^{(k)}\oplus R^{(k)})$, which shows that $\ell$ also satisfies the
+second condition of the theorem.
+\end{proof}
+
+\begin{cor}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{cor:prime2} Suppose $\alpha\neq 1$.
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+Let $c_1, c_2 \in \rH^1(K,T^{(k)})$. Suppose $Rc_1 + Rc_2$ contains a submodule isomorphic to 
+$\fm^{d_1} R^{(k)}\oplus \fm^{d_2} R^{(k)}$ for some $d_1,d_2 \geqslant 0$.
+Then there exist infinitely many primes $\ell\in \CL^{(k)}$ such that 
+$\ord(\loc_\ell(c_1)) \geqslant \ord(c_1) - r(C_1+C_2+C_\alpha)$ and 
+$R\loc_\ell(c_1) + R \loc_\ell(c_2) \subset \rH^1(K_\ell,T^{(k)})$ contains a
+submodule isomorphic to 
+$$
+\fm^{k-\ord(c_1)+r(C_1+C_2+C_\alpha)}R^{(k)} \oplus \fm^{d_1+d_2+2r(C_1+C_2+C_\alpha)}R^{(k)}.
+$$
+\end{cor}
+
+\begin{proof} We apply Proposition \ref{prop:prime2}
+with $c_3 = c_1$. Then $R\loc_\ell(c_1) = R\loc_\ell(c_3)$ contains a submodule isomophic 
+to $\fm^{k-\ord(c_3)+r(C_1+C_2+C_\alpha)}R^{(k)} = \fm^{k-\ord(c_1)+r(C_1+C_2+C_\alpha)}R^{(k)}$, and
+$R\loc_\ell(c_1) + R\loc_\ell(c_2)$ contains a submodule isomorphic to 
+$\fm^{d_1+d_2+2r(C_1+C_2+C_\alpha)}(R^{(k)}\oplus R^{(k)})$,
+whence the conclusion of the corollary.
+\end{proof}
+
+
+With Proposition \ref{prop:prime2} -- and especially Corollary \ref{cor:prime2} -- in hand, we next prove the following theorem, which implies the first statement of Theorem~\ref{thm:Zp-twisted} and will be used in the next section to prove the bound on
+the length of $M_\alpha$.
+
+\begin{theorem}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{thm:rank1}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+Suppose $\alpha\neq 1$. 
+If $\kap_{\alpha,1}\in \rH^1(K,T)$ is non-zero, then $\epsilon=1$ and for $k\gg 0$, every element in $M^{(k)}(1)$ has order strictly less than $k$. In particular, $\rH^1_{\CF}(K,T)\simeq R$.
+\end{theorem} 
+
+\begin{proof} 
+Suppose $\kap_1:=\kap_{\alpha,1} \neq 0$.
+The assumption $\bar{T}^{G_K}=0$ implies that $\rH^1_{\CF}(K,T)$ is torsion-free, so $\epsilon \geqslant 1$. 
+
+If $k\gg 0$, then the image of $\kap_1$ in $\rH^1_{\CF}(K,T^{(k)})$, still denoted by $\kap_1$ by abuse of notation, 
+is non-zero and $\ind(\kap_1, \rH^1_{\CF}(K,T))=\ind(\kap_1, \rH^1_{\CF}(K,T^{(k)}))$, where by the index $\ind(c,M)$
+for $M$ a finitely generated $R$-module and $c\in M$ we mean the smallest integer $m\geqslant 0$ such that $c$ has non-zero
+image in $M/\fm^{m+1}M$ (equivalently, $c\in \fm^mM$).  
+Let $s= \ind(\kap_1, \rH^1_{\CF}(K,T))$. Let $e= r(C_1+C_2+C_\alpha)$. Suppose $k$ also satisfies
+\begin{equation}\label{eq:kse}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+k > s + 3e.
+\end{equation}
+
+By the definition of $s$, there exist $c_1\in \rH^1_{\CF}(K,T^{(k)})$ such that  
+the image of $c_1$ in $\rH^1_{\CF}(K,T^{(k)})/\fm \rH^1_{\CF}(K,T^{(k)})$ is non-zero and $\kap_1 = \pi^{s}c_1$.
+The assumption $\bar{T}^{G_K}=0$ implies that $\rH^1_{\CF}(K,T)$ is torsion-free, so $Rc_1 \simeq R^{(k)}$.
+Suppose $c_2\in \rH^1_{\CF}(K,T^{(k)})$ is such that $c_2\not \in R c_1$. We will show that 
+$\pi^{s+3e} c_2 \in Rc_1$. By \eqref{eq:kse} this implies
+that $\rH^1_{\CF}(K,T^{(k)})/Rc_1$ is annihilated by $\pi^{k-1}$ and hence that $\epsilon \leqslant 1$.
+It then follows that $\epsilon  = 1$ and every element in $M^{(k)}(1)$ has order strictly less than $k$.
+This in turn implies $\rH^1_{\CF}(K,T)\simeq R$, since $\rH^1_{\CF}(K,T)$ is torsion-free. 
+
+Let $d$ be the order of the image of $c_2$ in $\rH^1_{\CF}(K,T^{(k)})/Rc_1$. Then
+$Rc_1 + Rc_2$ contains a submodule isomorphic to $R^{(k)} \oplus \fm^{k-d}R^{(k)}$.
+By Corollary \ref{cor:prime2}, there exists $\ell\in \CL^{(k)}$ such that 
+$\ord(\loc_\ell(c_1)) \geqslant k-e$ and 
+\begin{equation}\label{eq:rk1}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\text{$R\loc_\ell(c_1) + R\loc_\ell(c_2)$ contains a submodule isomorphic to $\fm^{e}R^{(k)}\oplus \fm^{k-d+2e}R^{(k)}$.}
+\end{equation}
+
+
+We now make use of the assumption that $\kap_1$ belongs to a Kolyvagin system. 
+The finite-singular relation of the definition of a Kolyvagin system implies that the image of $\kap_\ell:=\kappa_{\alpha,\ell}$ in $\rH^1_{\CF}(K,T^{(k)})$,
+which we also denote by $\kap_\ell$, satisfies
+\begin{equation}\label{eq:rk2}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\ord(\loc_{\ell,{\rm s}}(\kap_\ell)) = \ord(\loc_\ell(\kap_1)) = \ord(\loc_\ell(\pi^{s}c_1)) \geqslant k-s-e,
+\end{equation}
+where by $\loc_{\ell,{\rm s}}$ we mean the composition of $\loc_\ell$ with the projection to 
+$\rH^1_{\rm s}(K_\ell, T^{(k)})$. 
+
+
+
+By global duality, the images of
+$$
+\rH^1_{\CF}(K,T_{\alpha}^{(k)}) \xrightarrow{\loc_\ell} \rH^1_{\rm ur}(K_\ell, T_{\alpha}^{(k)})
+\ \ \text{and} \ \
+\rH^1_{\CF^\ell}(K,T_{\alpha^{-1}}^{(k)}) \xrightarrow{\loc_{\ell,\rm{s}}} \rH^1_{\rm s}(K_\ell, T_{\alpha^{-1}}^{(k)})
+$$
+are mutual annihilators under local duality. 
+Since $\tau\cdot \kap_\ell \in \rH^1_{\CF^\ell}(K,T_{\alpha^{-1}}^{(k)})$, we easily conclude from \eqref{eq:kse}, \eqref{eq:rk1}, 
+and \eqref{eq:rk2} that
+$$
+k-s-e \leqslant k-d+2e.
+$$
+That is, $d \leqslant s+3e$, as claimed.
+\end{proof}
+
+
+\subsubsection{Some simple algebra} Our adaptation of Kolyvagin's arguments 
+relies on the following simple results about finitely-generated torsion $R$-modules. 
+For a finitely-generated torsion $R$-module $M$ we write 
+\begin{displaymath}
+\exp(M):=\min\{n\geqslant 0: \pi^n M=0\} = \max\{\ord(m) : m\in M\}.
+\end{displaymath}
+
+\begin{lemma}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{lem:key0}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+Let $N\subset M$ be finitely-generated torsion $R$-modules. 
+Suppose $N \simeq \oplus_{i=1}^r R/\fm^{d_i(N)}$, $d_1(N)\geqslant \cdots \geqslant d_r(N)$,
+and $M\simeq\oplus_{i=1}^s R/\fm^{d_i(M)}$, $d_1(M)\geqslant \cdots \geqslant d_s(M)$.
+Then $r\leqslant s$ and
+\[
+d_i(N) \leqslant d_i(M), \ \ i=1,\dots,r.
+\]
+\end{lemma}
+
+\begin{proof}
+We have $r = \dim_{R/\fm} N[\pi] \leqslant \dim_{R/\fm} M[\pi] = s$,
+which proves the first claim.
+
+We prove the second claim by induction on $r$.
+Let $d = d_r(N)$. Since $N[\pi^d] = N \cap M[\pi^d]$, the inclusion $N\subset M$
+induces an inclusion 
+$$
+N' = N/N[\pi^d] \subset M/M[\pi^d] = M'.
+$$
+Clearly, $N' \simeq \oplus_{i=1}^{r'} R/\fm^{d_i(N)-d}$, where 
+$r'$ is the smallest integer such that $d_i(N) = d$ for $r'+1\leqslant i \leqslant r$.
+Similarly, $M'\simeq \oplus_{i=1}^{s'} R/\fm^{d_i(M)-d}$. 
+Since $r'<r$, the induction hypothesis implies that
+$d_i(M)\geqslant d_i(N)$ for $i=1,\dots,r'$.
+To complete the induction step we just need to show that at least
+$r$ of the $d_i(M)$'s are $\geqslant d$. But this is clear from the injection
+$N[\pi^d]/N[\pi^{d-1}] \hookrightarrow  M[\pi^d]/M[\pi^{d-1}]$,
+from which it follows that
+$$
+r = \dim_{R/\fm} N[\pi^d]/N[\pi^{d-1}] \leqslant \dim_{R/\fm} M[\pi^d]/M[\pi^{d-1}].
+$$
+\end{proof}
+
+
+
+Next we consider two short exact sequences of finitely-generated torsion $R$-modules
+\begin{equation}\label{ses1}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+0 \rightarrow X \rightarrow R/\fm^k \oplus M \xrightarrow{\alpha} R/\fm^{k-a} \oplus R/\fm^{b} \rightarrow 0
+\end{equation}
+and
+\begin{equation}\label{ses2}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+0 \rightarrow X \rightarrow R/\fm^k \oplus M'\xrightarrow{\beta} R/\fm^{a'} \oplus R/\fm^{k-b'} \rightarrow 0
+\end{equation}
+satisfying:
+\begin{equation}\label{ses-hyp}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+%{\rm (1)} \ k> \exp(M)+2a \ \ \ \text{and} \ \ \ {\rm (2)} \ a'\leqslant a.
+k>\exp(M)+2a \ \ \ \text{and} \ \ \ a'\leqslant a.
+\end{equation}
+We further assume that both $M$ and $M'$ are the direct sum of two isomorphic $R$-modules. Let $2s:= \dim_{R/\fm} M[\pi], 2s':= \dim_{R/\fm} M'[\pi]$ and $d_1(M),\dots,d_{2s}(M)$ be the lengths of the $R$-summands in a decomposition of $M$ as a direct sum of cyclic $R$-modules,
+ordered so that
+$$
+d_1(M) = d_2(M) \geqslant d_3(M)=d_4(M) \geqslant \cdots \geqslant d_{2s-1}(M) = d_{2s}(M).
+$$
+Note that $d_1(M) = \exp(M)$.
+Fix a decomposition 
+$$
+M = \oplus_{i=1}^{2s} M_i, \ \ M_i \simeq R/\fm^{d_i(M)}.
+$$
+Let $d_1(M'),\dots,d_{2s'}(M')$ be similarly defined for $M'$. 
+\begin{lemma}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{lem:key} The following hold:
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\begin{itemize}
+\item[(i)]  $s-1\leqslant s'\leqslant s+1$,
+\item[(ii)] $b\leqslant \exp(M)$,
+\item[(iii)] $\exp(X) \leqslant \exp(M)+a$.
+\end{itemize}
+\end{lemma}
+
+\begin{proof} Let $r(-)$ denote the minimal number of $R$-generators of $(-)$. Then from \eqref{ses1} it follows 
+that $r(M) -1\leqslant r(X) \leqslant r(M)+1$ (see Lemma \ref{lem:key0}). 
+Similarly, it follows from \eqref{ses2} that
+$r(M')-1\leqslant r(X) \leqslant r(M')+1$. From this we conclude that $r(M)-1\leqslant r(M')+1$ and $r(M')-1\leqslant r(M)+1$. 
+Since $r(M) = 2s$ and $r(M') = 2s'$, this implies $2s\leqslant 2s'+2$ and $2s'\leqslant 2s+2$. That is,
+$s-1\leqslant s'\leqslant s+1$, as claimed in part (i).
+
+For part (ii) we note that since $k-a>\exp(M)$ by \eqref{ses-hyp}, the image under $\alpha$ of the summand $R/\fm^k$ in the middle
+of \eqref{ses1} must be isomorphic to $R/\fm^{\max\{k-a,b\}}$ (else $\exp(\mathrm{im}(\alpha))\leqslant \max\{k-a,b\}-1$). 
+It follows that $\alpha$ induces a surjection $M\twoheadrightarrow (R/\fm^ {k-a}\oplus R/\fm^b)/\alpha(R/\fm^k) \simeq R/\fm^{\min\{k-a,b\}}$.
+In particular, $\min\{k-a,b\}\leq \exp(M)$. As $k-a>\exp(M)$, this implies part (ii).
+
+For part (iii) we note that \eqref{ses1} induces an inclusion
+$$
+X/(X\cap R/\fm^k) \hookrightarrow (R/\fm^k\oplus M)/(R/\fm^k) \simeq M.
+$$
+It follows that $\exp(X)\leqslant \exp(M) + \exp(X\cap R/\fm^k)$.  As noted in the proof of part (ii), $\alpha(R/\fm^k) \simeq R/\fm^{k-a}$
+so $X\cap R/\fm^k \simeq R/\fm^a$. Part (iii) follows. 
+\end{proof}
+
+
+
+
+\begin{prop}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{prop:key} The following hold:\hfill
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\begin{itemize}
+\item[(i)] There exists $1\leqslant i_0\leqslant 2s$ such that there is an inclusion
+$\oplus_{i=1, i\neq i_0}^{2s} M_i \hookrightarrow X. $
+\item[(ii)] There exists an inclusion $ X \hookrightarrow M'\oplus R/\fm^{\exp(X)}$.
+\item[(iii)] $d_{i}(M') \geqslant  d_{i+2}(M)$, for $i=1,\dots,2s-2$.
+\end{itemize}
+\end{prop}
+
+\begin{proof} 
+As explained in the proof of Lemma \ref{lem:key}(ii),
+ the image under $\alpha$ of the $R/\fm^k$ summand in the middle of \eqref{ses1} has exponent $k-a$.
+In particular, we may assume that the $R/\fm^{k-a}$ summand on the right in \eqref{ses1} 
+is the image under $\alpha$ of the $R/\fm^k$-summand in the middle.
+
+Let $1\leqslant i_0\leqslant 2s$ be such that $\mathrm{im}(\alpha) = R/\fm^{k-a}+\alpha(M_{i_0})$. 
+It follows from \eqref{ses1} that there is a surjection
+$$
+X\twoheadrightarrow (R/\fm^k\oplus M)/(R/\fm^k\oplus M_{i_0})\simeq \oplus_{i=1, i\neq i_0}^{2s} M_i.
+$$
+Taking duals we deduce the existence of an inclusion
+$\oplus_{i=1, i\neq i_0}^{2s} M_i \hookrightarrow X$,
+proving (i). (Here and in the following we are using that the (Pontryagin) dual of a torsion $R$-module is
+isomorphic to itself as an $R$-module.)
+
+For (ii), we first claim that $\beta(R/\fm^k) \simeq R/\fm^{k-b'}$. Suppose
+that $\beta(R/\fm^k) \simeq R/\fm^{k-b''}$ for some $b''>b'$. This would imply that there exists $m'\in M$ such that
+$\beta(1\oplus m' ) \in R/\fm^{a'}\oplus 0 \subset R/\fm^{a'}\oplus R/\fm^{k-b'}$. In particular, we would have
+ $\pi^{a'}(1\oplus m') \in X$. But since $\ord(\pi^{a'}(1\oplus m')) = k-a'$ this would mean that $X$ contains
+ a submodule isomorphic to $R/\fm^{k-a'}$. 
+ But since $k-a'> \exp(M)+a \geqslant \exp(X)$ by  \eqref{ses-hyp} and Lemma \ref{lem:key}(iii), we reach a contradiction. 
+Thus we may assume that 
+the $R/\fm^{k-b'}$ summand on the right in \eqref{ses2} 
+is the image under $\beta$ of the $R/\fm^k$-summand in the middle. 
+
+Let $M''\subset M'$ be the submodule such that $\beta(M'')\subseteq R/\fm^{k-b'}$. 
+Then \eqref{ses2} implies that there is an exact sequence
+$$
+0\rightarrow X \rightarrow R/\fm^k \oplus M'' \rightarrow \beta(R/\fm^k)\rightarrow 0.
+$$
+From this it follows that there is an exact sequence
+$$
+0\rightarrow X\cap R/\fm^k \rightarrow X \rightarrow M'' \rightarrow 0.
+$$
+Taking duals we conclude that there exists a short exact sequence
+$$
+0 \rightarrow M'' \rightarrow X \xrightarrow{\gamma} X\cap R/\fm^k \rightarrow 0.
+$$
+Note that $X\cap R/\fm^k$ is a cyclic $R$-module. 
+Let $R/\fm^{d} \subset X$ be an $R$-summand that surjects
+onto $X\cap R/\fm^k$ via $\gamma$. Then there is a surjection
+$M''\oplus R/\fm^{d}\twoheadrightarrow X$.
+Taking duals we deduce the existence of inclusions
+$$
+X\hookrightarrow M'' \oplus R/\fm^d \hookrightarrow M'\oplus R/\fm^{\exp(X)}.
+$$
+This proves (ii).
+
+Let 
+$d_1(X) \geqslant d_2(X) \geqslant \cdots \geqslant d_{t}(X)$
+be the lengths of the summands in a decomposition of $X$ as a direct sum of cyclic $R$-modules.
+Note that $d_1(X)=\exp(X)$. From part (i) we see that $t\geqslant 2s-1$.
+From part (i) and Lemma \ref{lem:key0} we also easily conclude that $d_i(X) \geqslant d_{i+1}(M)$.
+Similarly, from part (ii) we conclude that $d_i(M') \geqslant d_{i+1}(X)$. Combining these yields (iii).
+\end{proof}
+
+
+\subsubsection{Finishing the proof of Theorem \ref{thm:Zp-twisted}}
+We now have all the pieces needed to prove Theorem \ref{thm:Zp-twisted}. 
+
+Since the character $\alpha$ is fixed, for the rest of the proof we denote $\kap_{n}:=\kappa_{\alpha,n}$ for all $n\in\cN$. In particular, our assumption is that $\kap_1\neq 0$. Let 
+$$
+\ind(\kap_1) = \max\{m \ : \ \kap_1\in \fm^m\rH^1_\CF(K,T)\}.
+$$
+We can write $\rH^1_\CF(K,A)=(\Phi/R)^n \oplus M$, for $n\geq 0$ and $M$ a finite $R$-module. 
+Since $\rH^1_\CF(K,A) = \varinjlim_k \rH^1_\CF(K,T^{(k)})$, it follows from Lemma \ref{lemmamod} that 
+\begin{displaymath}
+\rH^1_\CF(K,A)[\fm^k] \simeq \rH^1_\CF(K,T^{(k)}).
+\end{displaymath}
+Recall that by Theorem \ref{thm:rank1} (and its proof),
+$\rH^1_\CF(K,T)$ has $R$-rank one and for $k\gg 0$
+\begin{displaymath}
+(R/\fm^k)^n \oplus M[\fm^k]\simeq R/\fm^k \oplus M^{(k)}(1) \oplus M^{(k)}(1),
+\end{displaymath}
+with $\exp(M^{(k)}(1))< k$
+and hence 
+$$
+\rH^1_\CF(K,A) \simeq \Phi/R \oplus M, \ \ M \simeq M_0\oplus M_0,
+$$
+for some finitely-generated torsion $R$-module $M_0$ such that $M_0\simeq M^{(k)}(1)$ for $k\gg 0$.
+
+Let $r(M)$ be the minimal number of $R$-generators of $M$ and let
+\[
+e = (C_1+C_2 + C_\alpha)\rank_{\Z_p}(R).
+\]
+We will show that 
+\begin{equation}\label{eq:main}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\ind(\kap_1)+\frac{3}{2}r(M)e \geqslant \mathrm{length}_R(M_0).
+\end{equation}
+Since by Lemma~\ref{lemmamod} and (\ref{eq:modp}) we have
+\begin{displaymath}
+r(M)+1=\dim_{R/\fm} \rH^1_\CF(K,T^{(k)})[\fm] =\dim_{R/\fm} \rH^1_\CF(K,\bar{T})=\dim_{\mathbb{F}_p} \rH^1_\CF(K,E[p]),
+\end{displaymath}
+it follows that (\ref{eq:main}) yields the inequality in Theorem~\ref{thm:Zp-twisted} with an error term $E_\alpha=r(M)e$ 
+that depends only on $C_{\alpha}$, $T_pE$, and $\rank_{\Z_p}(R)$. 
+
+Let $s=r(M)/2$ and fix an integer $k>0$ such that 
+\begin{equation}\label{eq:kbig}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+k/2 > \mathrm{length}_R(M_0) + \ind(\kap_1) + (r(M)+1)e
+\end{equation}
+and $M_0\simeq M^{(k)}(1)$.
+Our proof of \eqref{eq:main} relies on making a good choice of integers in $\CN^{(k)}$, which in turn relies on a good choice
+of primes in $\CL^{(k)}$. 
+
+Let $n\in \CN^{(k)}$.
+By Proposition \ref{propstructure} and Theorem \ref{thm:rank1}, there exists a finite $R^{(k)}$-module $M(n)_0$ such that 
+$$
+\rH^1_{\CF(n)}(K,T^{(k)}) \simeq R^{(k)}\oplus M(n), \ \ M(n) \simeq M(n)_0\oplus M(n)_0.
+$$
+Let $r(M(n))$ be the minimal number of $R$-generators of $M(n)$ and let
+\[
+d_1(n)= d_2(n)\geqslant d_3(n)= d_4(n)\geqslant\cdots \geqslant d_{r(M(n))-1}(n)= d_{r(M(n))}(n)
+\]
+be the lengths of the cyclic $R$-modules appearing in an expression 
+for $M(n)$ as a direct sum of such modules. 
+Let $s(n) = r(M(n))/2$. In particular, $s(1) = r(M)/2 = s$.  
+In what follows we write, in an abuse of notation, $\kap_n$ to mean its image 
+in $\rH^1(K,T^{(k)})$.
+
+Suppose we have a sequence of integers $1=n_0,n_1,n_2,\dots,n_s\in \CN^{(k)}$ satisfying
+\begin{itemize} 
+\item[(a)] $s(n_j)\geqslant s(n_{j-1})-1$,
+\item[(b)] $d_t(n_j) \geqslant d_{t+2}(n_{j-1})$, $t=1,\dots,s(n_{j-1})-1$,
+\item[(c)] $\mathrm{length}_R(M(n_j)_0) \leqslant \mathrm{length}_R(M(n_{j-1})_0) - 
+d_1(n_{j-1}) + 3e$,
+\item[(d)] $\ord(\kap_{n_j}) \geqslant \ord(\kap_{n_{j-1}}) - e$, and
+\item[(e)] $\ord(\kap_{n_{j-1}}) \leqslant \ord(\kap_{n_{j}}) - d_1(n_{j-1}) + 3e$,
+\end{itemize}
+for all $1\leqslant j\leqslant s$. 
+Since $\rH^1_{\CF}(K,T)$ is torsion free, $\ind(\kap_1) = k - \ord(\kap_1)$, and so
+repeated combination of (b) and (e) yields
+\begin{align*}
+\ind(\kap_1) = k -\ord(\kap_{n_0}) &\geqslant d_1(n_0) + d_3(n_0) + \cdots + d_{2s-1}(n_0) - 3se  
++ (k-\ord(\kap_{n_s}))\\
+& \geqslant \mathrm{length}_R(M(n_0)_0) - 3se.
+\end{align*}
+Since $M(n_0)_0 = M(1)_0 \simeq M^{(k)}(1)_0\simeq M_0$ by the choice of $k$ and $3se = \frac{3}{2}r(M)e$, this means (\ref{eq:main}) holds.  
+So to complete the proof of the theorem it suffices to find such a sequence of $n_j$'s.
+In the following we will define such a sequence by making repeated use of Corollary \ref{cor:prime2}
+to choose suitable primes in $\CL^{(k)}$. Note that if $s=0$ then there is nothing to prove, so we assume $s>0$.
+
+Suppose $1=n_0,n_1,\dots,n_i \in \CN^{(k)}$, $i<s$, are such that (a)--(e) hold for all $1\leqslant j\leqslant i$ (note that if $i=0$, then this is
+vacuously true).  We will explain how to choose a prime $\ell\in \CL^{(k)}$ such that $n_0,\dots,n_i,n_{i+1}=n_i\ell$
+satisfy (a)--(e) for all $1\leqslant j\leqslant i+1$. Repeating this process yields the desired sequence $n_0,\dots,n_s$.
+
+From (a), $s(n_i) \geqslant s - i>0$, so $d_1(n_i)>0$. 
+Let $c_1, c_2 \in \rH^1_{\CF(n_i)}(K,T^{(k)})$ be such that $c_1$ generates an $R^{(k)}$-summand complementary
+to $M(n_i)$  and
+$R c_2 \simeq R/\fm^{d_1(n_i)} = \fm^{k-d_1(n_i)}R^{(k)}$ is a direct summand of 
+$M(n_i) = M(n_i)_0\oplus M(n_i)_0$. Then $Rc_1+R c_2\subset \rH^1_{\CF(n_i)}(K,T^{(k)})$ contains a submodule
+isomorphic to $R^{(k)}\oplus \fm^{k-d_1(n_i)}R^{(k)}$. 
+Let $\ell \in \CL^{(k)}$ be a prime as in Corollary \ref{cor:prime2} that does not divide $n_1\cdots n_i$. 
+In particular,
+$$
+\ord(\loc_\ell(c_1)) \geqslant k-e
+$$
+and
+$$
+\text{$R\loc_\ell(c_1) + R\loc_\ell(c_2)$ contains a submodule isomorphic to 
+$\fm^{e}R^{(k)}\oplus \fm^{k-d_1(n_i)+2e}R^{(k)}$.}
+$$
+It follows that there is a short exact sequence
+\begin{equation}\label{ses3}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+0 \rightarrow \rH^1_{\CF(n_i)_\ell}(K,T^{(k)}) \rightarrow \rH^1_{\CF(n_i)}(K,T^{(k)}) \xrightarrow{\loc_\ell} R/\fm^{k-a} \oplus R/\fm^{b}
+\rightarrow 0, \ \ e \geqslant a, \ b\geqslant d_1(n_i)-2e.
+\end{equation}
+Global duality then implies that there is another exact sequence
+\begin{equation}\label{ses4}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+0 \rightarrow \rH^1_{\CF(n_i)_\ell}(K,T^{(k)}) \rightarrow \rH^1_{\CF(n_i\ell)}(K,T^{(k)}) \xrightarrow{\loc_\ell} R/\fm^{a'} \oplus R/\fm^{k-b'}
+\rightarrow 0, \ \ e\geqslant a\geqslant a', \ b'\geqslant b.
+\end{equation}
+Here we have used that the arithmetic dual of $T^{(k)} = T^{(k)}_\alpha$ is $T^{(k)}_{\alpha^{-1}}$ and that the complex conjugation $\tau$ induces an isomorphism $\rH^1_{\CF(n)}(K,T^{(k)}_{\alpha^{-1}})\simeq \rH^1_{\CF(n)}(K,T^{(k)}_{\alpha})$.
+
+Combining (c) for $1\leqslant j \leqslant i$ yields 
+$$
+\mathrm{length}_R(M(n_{i})_0) \leqslant \mathrm{length}_R(M(n_0)_0) + 3i e.
+$$
+From this, together with $r(M)=2s$, $i< s$, and the assumption (\ref{eq:kbig}), we find
+$$
+k> 2\,\mathrm{length}_R(M(n_0)_0) + 2r(M)e \geqslant 2\,\mathrm{length}_R(M(n_i)_0)+2r(M)e-3ie  
+> \mathrm{length}_R(M(n_i))+2e.
+$$
+It follows that \eqref{ses3} and \eqref{ses4} satisfy the hypotheses \eqref{ses-hyp} for \eqref{ses1} and \eqref{ses2}
+with 
+\[
+X =  \rH^1_{\CF(n_i)_\ell}(K,T^{(k)}),
+\quad 
+M = M(n_i),\quad M' = M(n_i\ell).
+\]
+
+Let $n_{i+1}=n_i\ell$.  Then (a) for $j={i+1}$ follows from Lemma \ref{lem:key}(i)
+while (b) for $j=i+1$ follows from Proposition \ref{prop:key}(iii).
+To see that (c) holds we observe that by \eqref{ses3} and \eqref{ses4}
+$$
+\mathrm{length}_R(M(n_{i+1})) = \mathrm{length}_R(M(n_{i})) - (b+b') + (a+a') 
+\leqslant \mathrm{length}_R(M(n_{i})) - 2d_1(n_{i}) + 6e.
+$$
+
+To verify (d) for $j=i+1$ we first observe that by the Kolyvagin system relations under the finite singular map 
+$$
+\ord(\kap_{n_{i+1}}) = \ord(\kap_{n_{i}\ell}) \geqslant \ord(\loc_{\ell}(\kap_{n_{i}\ell}))= \ord(\loc_\ell(\kap_{n_{i}})).
+$$
+So (d) holds for $j=i+1$ if we can show that $\ord(\loc_\ell(\kap_{n_{i}})) \geqslant \ord(\kap_{n_{i}})-e$.
+To check that this last inequality holds, we first note that
+$\ord(\kap_{n_{i}}) \geqslant \ord(\kap_{n_0}) - ie$ by (d) for $1\leqslant j \leqslant i$. 
+But $\ord(\kap_{n_0}) =\ord(\kap_1)= k-\ind(\kap_1)$ by the choice of $k$ (and the fact that $\rH^1_{\CF}(K,T)$ is torsion-free), 
+and so by (\ref{eq:kbig}) and repeated application of (c) for $1\leqslant j\leqslant i$ we have
+\begin{equation*}\begin{split}
+\ord(\kap_{n_i}) \geqslant k-\ind(\kap_1) - ie & >  4\cdot\mathrm{length}_R(M(n_0)_0)+(4s-i+2)e \\
+& > 3\cdot\mathrm{length}_R(M(n_0)_0) + \mathrm{length}_R(M(n_i)_0) +(4s-4i+2) e  \\
+& > \mathrm{length}_R(M(n_i)_0) + 2e.
+\end{split}\end{equation*}
+Write $\kap_{n_{i}} = x c_1 + m$ with $x\in R^{(k)}$ and $m\in M(n_i)$. 
+Since $\ord(\kap_{n_i}) > \exp(M(n_i)_0)$, it follows that 
+$x = \pi^t u$ for $t = k-\ord(\kap_{n_{i}})$ and some $u\in R^\times$. Let $n = \exp(M(n_{i}))$.
+It follows that
+$$
+\pi^n\loc_\ell(\kap_{n_i}) = \pi^{n+t} u\loc_\ell(c_1).
+$$
+By the choice of $\ell$, $\ord(\loc_\ell(c_1)) \geqslant k - e$. Since $n+t = k - \ord(\kap_{n_i}) + \exp(M(n_i)_0)
+<k - 2e$, it then follows
+that 
+$$
+\ord(\loc_\ell(\kap_{n_i})) = \ord(\loc_\ell(c_1)) - t \geqslant k - e -t = \ord(\kap_{n_i})-e.
+$$
+
+
+
+
+It remains to verify (e) for $j=i+1$. Let $c\in \rH^1_{\CF(n_{i+1})}(K,T^{(k)})$ be a generator of an $R^{(k)}$-summand
+complementary to $M(n_{i+1})$. 
+Write $\kap_{n_i} = u\pi^g c_1 + m$ and $\kap_{n_{i+1}} = v\pi^h c + m'$, where $u,v\in R^\times$, $m\in M(n_{i})$ and $m'\in M(n_{i+1})$. Arguing as in the proof that (d) holds shows that 
+$\ord(\kap_{n_j})> \exp(M(n_j))+2e$ for $1\leqslant j\leqslant i+1$, hence 
+$g = k - \ord(\kap_{n_i})$ and $h = k - \ord(\kap_{n_{i+1}})$.
+Arguing further as in the proof that (d) holds also yields
+$$
+\ord(\loc_\ell(\kap_{n_i}))  = \ord(\loc_\ell(c_1))-g \ \ \text{and} \ \  \ord(\loc_\ell(\kap_{n_{i+1}})) = \ord(\loc_\ell(c))-h.
+$$
+From the Kolyvagin system relations under the finite singular map it then follows that
+$$
+h-g = \ord(\loc_\ell(c))-\ord(\loc_\ell(c_1)).
+$$
+We refer again to the exact sequences \eqref{ses3} and \eqref{ses4}.
+By the choice of $\ell$, 
+$\ord(\loc_\ell(c_1))\geqslant k-e> \exp(M(n_i)_0)\geq b$, the last inequality by Lemma \ref{lem:key}(ii). Hence we must have 
+$\ord(\loc_\ell(c_1))=k-a$. As shown in the proof of Proposition \ref{prop:key} (ii), we also must have $\ord(\loc_\ell(c))=k-b'$. Hence we find
+$$
+h-g =  (k-b')-(k-a) = a-b' \leqslant 3e -d_1(n_{j-1}).
+$$
+Since $h-g = \ord(\kap_{n_i})-\ord(\kap_{n_{i+1}})$, this proves (e) holds for $j=i+1$ and so concludes the proof of 
+Theorem \ref{thm:Zp-twisted}.
+
+
+
+
+
+
+\subsection{Iwasawa theory} 
+\label{subsec:Iw-proof}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+
+Let $E$, $p$, and $K$ be as in $\S\ref{sec:Zp-twisted}$. Let $\Lambda=\Z_p\llbracket\Gamma\rrbracket$ be the anticyclotomic Iwasawa algebra, and consider the $\Lambda$-modules
+\[
+M_E:=(T_pE)\otimes_{\Z_p}\Lambda^\vee,\quad
+\mathbf{T}:=M_E^\vee(1)\simeq(T_pE)\otimes_{\Z_p}\Lambda,
+\]
+where the $G_K$-action on $\Lambda^\vee$ is given by the inverse $\Psi^{-1}$ of the tautological character $\Psi: G_K\twoheadrightarrow\Gamma\hookrightarrow\Lambda^\times$.
+
+For $w$ a prime of $K$ above $p$, put
+\[
+{\rm Fil}_w^+(M_E):={\rm Fil}_w^+(T_pE)\otimes_{\Z_p}\Lambda^\vee,\quad
+{\rm Fil}_w^+\mathbf{T}:={\rm Fil}_w^+(T_pE)\otimes_{\Z_p}\Lambda.
+\]
+Define the \emph{ordinary} Selmer structure $\Fcal_\Lambda$ on $M_E$ and $\mathbf{T}$ by 
+\[
+\rH^1_{\Fcal_\Lambda}(K_w,M_E):=
+\begin{cases}
+{\rm im}\bigl\{\rH^1(K_w,{\rm Fil}_w^+(M_E))\rightarrow\rH^1(K_w,M_E)\bigr\} & \textrm{if $w\vert p$,}\\
+0& \textrm{else,}
+\end{cases}
+\]
+and
+\[
+\rH^1_{\Fcal_\Lambda}(K_w,\mathbf{T}):=
+\begin{cases}
+{\rm im}\bigl\{\rH^1(K_w,{\rm Fil}_w^+(\mathbf{T}))\rightarrow\rH^1(K_w,\mathbf{T})\bigr\} & \textrm{if $w\vert p$,}\\
+\rH^1(K_w,\mathbf{T})& \textrm{else.}
+\end{cases}
+\]
+
+Denote by 
+\[
+\mathcal{X}=\rH^1_{\Fcal_\Lambda}(K,M_E)^\vee={\rm Hom}_{\rm cts}(\rH^1_{\Fcal_\Lambda}(K,M_E),\Q_p/\Z_p) 
+\] 
+the Pontryagin dual of the 
+%resulting 
+associated Selmer group $\rH^1_{\Fcal_\Lambda}(K,M_E)$, and let $\cL_E\subset\cL_0$ be as in $\S\ref{sec:Zp-twisted}$.
+
+Recall that $\gamma\in \Gamma$ is a topological generator. Then $\mathfrak{P}_0:=(\gamma-1)\subset \Lambda$ is a height one prime independent of the choice of $\gamma$.
+
+\begin{theorem}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{thm:howard}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+Suppose there is a Kolyvagin system $\kappa\in\mathbf{KS}(\mathbf{T},\Fcal_\Lambda,\cL_E)$ with $\kappa_1\neq 0$. Then $\rH^1_{\Fcal_\Lambda}(K,\mathbf{T})$ has $\Lambda$-rank one, and there is a finitely generated torsion $\Lambda$-module $M$ such that
+\begin{itemize}
+\item[(i)] $\mathcal{X}\sim\Lambda\oplus M\oplus M$,
+\item[(ii)] ${\rm char}_\Lambda(M)$ divides ${\rm char}_\Lambda\bigl(\rH^1_{\Fcal_\Lambda}(K,\mathbf{T})/\Lambda\kappa_1\bigr)$ in $\Lambda[1/p,1/(\gamma-1)]$.
+\end{itemize}
+\end{theorem}
+
+\begin{proof} 
+This follows by applying Theorem~\ref{thm:Zp-twisted} for the specializations of $\mathbf{T}$ at height one primes of $\Lambda$, similarly as in the proof of \cite[Thm.~2.2.10]{howard}. We only explain how to deduce the divisibility in part (ii), since part (i) is shown exactly as in \cite[Thm.~2.2.10]{howard}.
+
+For any height one prime $\mathfrak{P}\neq p\Lambda$ of $\Lambda$, let $S_{\mathfrak{P}}$ be the integral closure of $\Lambda/\mathfrak{P}$ and consider the $G_K$-module
+\[
+T_\mathfrak{P}:=\mathbf{T}\otimes_\Lambda S_{\mathfrak{P}},
+\]
+where $G_K$ acts on $S_\mathfrak{P}$ via $\alpha_\mathfrak{P}:\Gamma\hookrightarrow\Lambda^\times\rightarrow S_\mathfrak{P}^\times$. Note that $T_\mathfrak{P}$ is a $G_K$-module of the type considered in $\S\ref{sec:Zp-twisted}$.
+In particular, $S_\mathfrak{P}$ is the ring of integers of a finite extension of $\Q_p$, and 
+$T_\mathfrak{P} = T_pE\otimes_{\Z_p}S_\mathfrak{P}(\alpha_\mathfrak{P})$, where 
+$\alpha_\mathfrak{P} = \Psi^{-1} \,\mathrm{mod}\, \mathfrak{P}$.
+
+
+Fix $\mathfrak{P}$ as above, write $\mathfrak{P}=(g)$, and set $\mathfrak{Q}:=(g+p^m)$ for some integer $m$.  
+For $m\gg 0$, $\mathfrak{Q}$ is also a height one prime of $\Lambda$. As explained in \cite[p.~1463]{howard}, there is a specialization map 
+\[
+\mathbf{KS}(\mathbf{T},\Fcal_\Lambda,\cL_E)\rightarrow
+\mathbf{KS}(T_{\mathfrak{Q}},\Fcal_{\rm ord},\cL_E).
+\] 
+Writing $\kappa^{(\mathfrak{Q})}$ for the image of $\kappa$ under this map, the hypothesis $\kappa_1\neq 0$ implies that $\kappa_1^{(\mathfrak{Q})}$ generates an infinite $S_{\mathfrak{Q}}$-submodule of $\rH^1_{\Fcal_{\rm ord}}(K,T_{\mathfrak{Q}})$ for $m\gg 0$. By Theorem~\ref{thm:Zp-twisted}, it follows that $X$ and $\rH^1_{\Fcal_\Lambda}(K,\mathbf{T})$ have both $\Lambda$-rank one, and letting $f_\Lambda$ be a characteristic power series for $\rH^1_{\Fcal_\Lambda}(K,\mathbf{T})/\Lambda\kappa_1$ we see as in \cite[p.~1463]{howard} that the equalities
+\[
+{\rm length}_{\bZ_p}\bigl(\rH^1_{\cF_{\mathfrak{Q}}}(K,T_{\mathfrak{Q}})/S_{\mathfrak{Q}}\kappa_1^{(\mathfrak{Q})}\bigr)=md\;{\rm ord}_{\mathfrak{P}}(f_\Lambda)
+\]
+and
+\[
+2\;{\rm length}_{\bZ_p}(M_{\mathfrak{Q}})=md\;{\rm ord}_{\mathfrak{P}}\bigl({\rm char}_\Lambda(\mathcal{X}_{\rm tors})\bigr)
+\]
+hold up to $O(1)$ as $m$ varies, where $d={\rm rank}_{\Z_p}(\Lambda/\mathfrak{P})$ and  $X_{\rm tors}$ denotes the $\Lambda$-torsion submodule of $X$. 
+
+On the other hand, 
+%writing $\alpha:=\alpha_\mathfrak{Q}$,  
+Theorem~\ref{thm:Zp-twisted} yields the inequality
+\[
+{\rm length}_{\bZ_p}(M_{\alpha_\mathfrak{Q}})\leqslant{\rm length}_{\bZ_p}\bigl(\rH^1_{\cF_{\mathfrak{Q}}}(K,T_{\mathfrak{Q}})/S_{\mathfrak{Q}}\kappa_1^{(\mathfrak{Q})}\bigr)+E_{\alpha_\mathfrak{Q}}.
+\]
+If $\mathfrak{P} \neq \mathfrak{P}_0$, then 
+the error term $E_{\alpha_\mathfrak{Q}}$ is bounded independently of $m$, since 
+${\rm rank}_{\Z_p}(S_{\mathfrak{Q}})={\rm rank}_{\Z_p}(S_{\mathfrak{P}})$ and the term $C_{\alpha_\mathfrak{Q}}$ in (\ref{eq:erralpha}) satisfies $C_{\alpha_\mathfrak{Q}}=C_{\alpha_\mathfrak{P}}$ for $m\gg 0$. Letting $m\to\infty$ we thus deduce
+\[
+{\rm ord}_{\mathfrak{P}}\bigl({\rm char}_\Lambda(\mathcal{X}_{\rm tors}\bigr)\bigr)\leqslant 2\;{\rm ord}_{\mathfrak{P}}(f_\Lambda),
+\]
+for $\mathfrak{P}\neq (p), \mathfrak{P}_0$, yielding the divisibility in part (ii).
+\end{proof}
+
+\begin{cor}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+\notready\label{cor:howard}
+\source{anticyclotomic-iwasawa-rational-elliptic-eisenstein}
+Let the hypotheses be as in Theorem \ref{thm:howard}. Assume also that $\rH^1_{\CF}(K,E[p^\infty])$ has $\Z_p$-corank one (equivalently, $\rH^1_{\CF}(K,T_pE)$ has $\Z_p$-rank one).  Then 
+${\rm char}_\Lambda(M)$ divides ${\rm char}_\Lambda\bigl(\rH^1_{\Fcal_\Lambda}(K,\mathbf{T})/\Lambda\kappa_1\bigr)$ in $\Lambda[1/p]$.
+\end{cor}
+
+\begin{proof} The assumption that $\rH^1_{\CF}(K,E[p^\infty])$ has $\Z_p$-corank one implies that 
+$X_{\rm tors}/\mathfrak{P}_0X_{\rm tors}$ is a torsion $\Z_p$-module and hence that ${\rm ord}_{\mathfrak{P}_0}({\rm char}_\Lambda(X_{\rm tors})) =0$.
+\end{proof}

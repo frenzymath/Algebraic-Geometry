@@ -1,0 +1,331 @@
+% Original source preamble and source-level macro declarations.
+% This archival file is not the blueprint driver preamble.
+
+\documentclass[a4paper,12pt]{article} %{article}
+\title{Pixton's formula and Abel-Jacobi theory \\on the Picard stack}
+%test_edit
+%PACKAGES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath, amssymb, mathrsfs, amsthm, shorttoc, geometry, stmaryrd}% amsfonts, url,, tikz, wrapfig, newclude, }
+\usepackage{mathtools} % for \coloneqq (and presumably other stuff!)
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+colorlinks,
+linkcolor={black},
+citecolor={blue!50!black},
+urlcolor={blue!80!black}
+}
+
+\newcommand{\MWvone}[1]{}%{#1}
+\newcommand{\MWref}[1]{#1}
+
+\newcommand{\mat}[1]{\begin{bmatrix}#1\end{bmatrix}}
+
+\usepackage[all]{xy}
+%\usepackage[top=1.5cm, bottom=1.5cm]{geometry}
+%\usepackage[left=2cm,right=2cm,top=3cm,bottom=3cm]{geometry}
+
+\usepackage{tabularx}
+\usepackage{longtable}
+%\numberwithin{equation}{subsection}
+
+%Enumitem
+\usepackage{enumitem}
+% eg \begin{enumerate}[label={\ref{definition:quasisplit}.\arabic*}]
+% eg. \begin{enumerate}[label={1.\arabic*}]
+
+%CLEVEREF STUFF	
+\usepackage[capitalise]{cleveref}
+%\usepackage{nameref}
+\crefformat{equation}{(#2#1#3)}
+\let\oref\ref
+%\AtBeginDocument{\renewcommand{\ref}[1]{\cref{#1}}}
+
+\usepackage{pgf,tikz}
+\usetikzlibrary{matrix, calc, arrows}
+%\usetikzlibrary{cd}
+\DeclareMathOperator{\coker}{coker}
+
+\usepackage{tikz-cd} %this is the old version, but it also the one the arXiv supports at the moment (2016)
+
+%TODONOTES
+%%%%%%%%
+%\usepackage{todonotes}
+%\setlength{\marginparwidth}{3cm}
+%\reversemarginpar
+
+% Double and triple arrows
+\makeatletter
+\newcommand*{\doublerightarrow}[2]{\mathrel{
+  \settowidth{\@tempdima}{$\scriptstyle#1$}
+  \settowidth{\@tempdimb}{$\scriptstyle#2$}
+  \ifdim\@tempdimb>\@tempdima \@tempdima=\@tempdimb\fi
+  \mathop{\vcenter{
+    \offinterlineskip\ialign{\hbox to\dimexpr\@tempdima+1em{##}\cr
+    \rightarrowfill\cr\noalign{\kern.5ex}
+    \rightarrowfill\cr}}}\limits^{\!#1}_{\!#2}}}
+\newcommand*{\triplerightarrow}[1]{\mathrel{
+  \settowidth{\@tempdima}{$\scriptstyle#1$}
+  \mathop{\vcenter{
+    \offinterlineskip\ialign{\hbox to\dimexpr\@tempdima+1em{##}\cr
+    \rightarrowfill\cr\noalign{\kern.5ex}
+    \rightarrowfill\cr\noalign{\kern.5ex}
+    \rightarrowfill\cr}}}\limits^{\!#1}}}
+\makeatother
+%eg
+%$A\doublerightarrow{a}{bcdefgh}B$
+%$A\triplerightarrow{d_0,d_1,d_2}B$
+
+%MATH OPERATORS
+\newcommand{\on}[1]{\operatorname{#1}}
+\newcommand{\bb}[1]{{\mathbb{#1}}}
+\newcommand{\cl}[1]{{\mathscr{#1}}}
+\newcommand{\ca}[1]{{\mathcal{#1}}}
+\newcommand{\bd}[1]{{\mathbf{#1}}}
+
+\newcommand{\ul}[1]{{\underline{#1}}}
+
+
+%Rahul abbreviations:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\D{\mathrm{D}}
+\def\d{\mathrm{d}}
+\def\tw{\mathrm{tw}}
+\def\red{\mathrm{red}}
+\def\val{\mathrm{val}}
+\def\log{\mathrm{log}}
+\def\ev{\mathrm {ev}}
+\def\vir{\mathrm {vir}}
+\def\ct{\mathrm{ct}}
+\def\virt{\mathrm{vir}}
+\def\P{\mathsf{P}}
+\def\PP{\mathbb{P}}
+\def\DR{\mathsf{DR}}
+\def\mathsff{{\mathcal{L}}}
+\def\CP{{{\mathbb {CP}}}}
+\def\oC{\overline{\mathcal{C}}}
+\def\ooC{{\mathcal{C}}}
+\def\cL{{\mathcal{L}}}
+\def\cC{{\mathcal{C}}}
+\def\cO{\mathcal{O}}
+\def\oM{\overline{\mathcal{M}}}
+\def\cM{{\mathcal{M}}}
+\def\C{{\mathcal{C}}}
+\def\eps{\varepsilon}
+\def\Z{\mathbb{Z}}
+\def\N{\mathbb{N}}
+\def\ZZ{\mathcal{Z}}
+\def\ZZZ{\mathsf{Z}}
+\def\C{\mathbb{C}}
+\def\Q{\mathbb{Q}}
+%\def\d{\partial}
+\def\qed{{\hfill $\Diamond$}}
+\def\cS{{\mathcal S}}
+\def\cg{{\mathcal G}}
+\def\cR{{\mathcal R}}
+\def\Aut{{\rm Aut}}
+\def\F{{\mathsf{F}}}
+\def\E{\mathrm{E}}
+\def\n{\mathrm{n}}
+\def\L{\mathrm{L}}
+\def\V{\mathrm{V}}
+\def\H{\mathrm{H}}
+\def\HH{\mathcal{H}}
+\def\g{\mathrm{g}}
+\def\G{\mathsf{G}}
+\def\rarr{\rightarrow}
+\def\D{\mathsf{D}}
+\def\tP{\widetilde{\mathsf{P}}}
+\def\Klog{\omega_{\rm log}}
+\def\rmW{\mathsf{W}}
+\def\ff{\mathsf{Q}}
+\def\fff{\widehat{\mathsf{Q}}}
+\def\nice{\displaystyle}
+\def\tC{\widetilde{\mathsf{C}}}
+\def\ccoarseC{{\mathsf{C}}}
+\def\coarseC{\overline{\mathsf{C}}}
+\def\coarseL{\mathsf{L}}
+\def\tL{\widetilde{{\mathcal L}}}
+\def\tS{\widetilde{S}}
+\def\tZ{\widetilde{Z}}
+\def\oMM{\overline{\mathfrak{M}}}
+\def\ooMM{{\mathfrak{M}}}
+\def\oCC{\overline{\mathfrak{C}}}
+\def\ooCC{{\mathfrak{C}}}
+\def\oPP{\overline{\mathfrak{P}}}
+\def\Pic{\mathcal{P}ic \,}
+\def\ch{{\rm ch}}
+\def\td{{\rm td}} 
+
+\def\v{\mathsf{v}}
+\def\h{\mathsf{h}}
+\def\hH{\mathsf{h}}
+
+%\def\bb{\mathsf{m}}
+\def\cc{\ell}
+
+\DeclareMathAlphabet{\mymathbb}{U}{BOONDOX-ds}{m}{n}
+\def\zero{\mymathbb{0}}
+\def\one{\mymathbb{1}}
+\def\A{\mathcal{A}}
+
+%SHEAF VERSIONS OF COMMON OPERATORS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\sheaflie{\mathcal{L}ie}
+\def\sheafhom{\mathcal{H}om}
+
+%BRACKETS AND PAIRINGS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\lleft{\left<\!\left<}%{\langle\langle}
+\def\rright{\right>\!\right>}%{\rangle\rangle}
+\newcommand{\Span}[1]{\left<#1\right>}
+\newcommand{\SSpan}[1]{\lleft#1\rright}
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\aabs}[1]{\lvert\lvert#1\rvert\rvert}
+
+%SUB- AND SUPERSCRIPTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\algcl}{^{\textrm{alg}}}
+\newcommand{\sepcl}{{^{\textrm{sep}}}}
+\newcommand{\urcl}{{^{\textrm{ur}}}}
+\newcommand{\ssm}{_{\smooth}}
+
+%FONT ENCODING AND EXOTIC LETTERS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[OT2,OT1]{fontenc}
+%\DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
+%\DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}
+
+\newcommand{\ra}{\rightarrow} %depreciated; use \to
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\hra}{\hookrightarrow}
+\newcommand{\sub}{\subseteq}
+\newcommand{\tra}{\rightarrowtail}
+\newcommand{\iso}{\stackrel{\sim}{\lra}}
+
+
+%THEOREMS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\theoremstyle{definition}
+\newtheorem{definition}{Definition} %[section]
+\newtheorem{condition}[definition]{Condition}
+\newtheorem{problem}[definition]{Problem}
+\newtheorem{situation}[definition]{Situation}
+\newtheorem{construction}[definition]{Construction}
+
+
+\newtheorem{remark}[definition]{Remark}
+\newtheorem{aside}[definition]{Aside}
+\newtheorem{example}[definition]{Example}
+
+\theoremstyle{plain}% default
+\newtheorem{conjecture}[definition]{Conjecture}
+\newtheorem*{conjectureA}{Conjecture A}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{claim}[definition]{Claim}
+\newtheorem{inclaim}{Claim}[definition]
+
+%\theoremstyle{remark}
+
+
+%MISC
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\tam{c_{\tau}} %Tamagawa number
+\def\defeq{\stackrel{\text{\tiny def}}{=}}%depreciated: use coloneqq
+\newcommand{\linequiv}{\sim_{\text{\tiny lin}}}
+\newcommand{\MbarX}{\Mbar_{g,n}(X, \beta)}
+
+%% Some convolutions to redefine \phi as \varphi while storing the original \phi in \phiorig
+\usepackage{letltxmacro}
+\LetLtxMacro{\phiorig}{\phi}
+% \newcommand{\phiorig}{\phi}
+\renewcommand{\phi}{\varphi}
+\newcommand{\aj}{{\scriptstyle \mathsf{AJ}}}
+\newcommand{\vdim}{\mathrm{vdim}}
+
+
+\newcommand{\cecH}{\check{\on H}}
+
+%\newcounter{temp} 
+%\newcommand\interitem[1]{\setcounter{temp}{\value{enumi}}\end{enumerate}{#1}\begin{enumerate}\setcounter{enumi}{\value{temp}}}
+%Then use \interitem{text goes here} between two items in a top-level enumerate environment.  It doesn't work inside nested enumerate environments or if you forget to have another item after your interitem text.
+
+\newcommand{\loz}{\lozenge}
+\newcommand{\bloz}{\blacklozenge}
+\newcommand{\barsigma}{\bar{\sigma}}
+
+\newcommand{\Picabs}{\mathfrak{Pic}}
+\newcommand{\Picrel}{\mathfrak{Pic}^{\mathrm{rel}}}
+\newcommand{\Chow}{\mathsf{CH}}
+\newcommand{\CHop}{\Chow_{\mathsf{op}}}
+
+\newcommand{\tanmap}{\psi}
+
+\newcommand{\invnrI}{I}
+\newcommand{\invnrn}{II}
+\newcommand{\invnrA}{III}
+\newcommand{\invnrII}{IV}
+\newcommand{\invnrIII}{V}
+\newcommand{\invnrIV}{VI}
+
+% \newcommand{\jocomment}[1]{\textcolor{red}{Jo: #1}}
+%\newcommand{\jocomment}[1]{{\color{red}Jo: #1}}
+ \newcommand{\jocomment}[1]{}
+%\newcommand{\Dcomment}[1]{{\color{blue}D: #1}}
+ \newcommand{\Dcomment}[1]{}
+%\newcommand{\Rcomment}[1]{{\textbf{\color{red}RP: #1}}}
+%\newcommand{\Rosacomment}[1]{{\color{violet}Rosa: #1}}
+%\newcommand{\Ycomment}[1]{{\color{brown}Y: #1}}
+%AUTHOR DETAILS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\author{Y. Bae, D. Holmes, R. Pandharipande, J. Schmitt, R. Schwarz}
+\date{May 2021}
+
+
+
+%COMMENTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcounter{nootje}
+\setcounter{nootje}{1}
+\newcommand\todo[1]{[*\thenootje]\marginpar{\tiny\begin{minipage}
+{20mm}\begin{flushleft}\thenootje : 
+#1\end{flushleft}\end{minipage}}\addtocounter{nootje}{1}}
+%\renewcommand{\todo}[1]{}
+
+
+%Longer versions of proofs
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \newcommand{\expanded}[1]{#1}
+% \renewcommand{\expanded}[1]{}
+
+%SHORTCUTS FOR COMMON COMMANDS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\beq}{\begin{equation}}%depreciated
+\newcommand{\eeq}{\end{equation}}%depreciated
+\newcommand{\beqs}{\begin{equation*}}%depreciated
+\newcommand{\eeqs}{\end{equation*}}%depreciated
+
+\renewcommand{\k}{k}
+
+\newcommand{\DRop}{\mathsf{DR}^{\mathsf{op}}}
+
+% For using \subset in tikzcd
+\tikzset{
+  symbol/.style={
+    draw=none,
+    every to/.append style={
+      edge node={node [sloped, allow upside down, auto=false]{$#1$}}}
+  }
+}
+%For rotating labels in tikzcd - added by Rosa 01-04-2020
+\tikzset{
+    labl/.style={anchor=south, rotate=-90, inner sep=.5mm}
+}
+
+

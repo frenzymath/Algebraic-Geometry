@@ -1,0 +1,772 @@
+% Source-derived chapter 02: Representation-theoretic preliminaries
+% Original source: canonical-representations-surface-groups
+\chapter{Representation-theoretic preliminaries}
+\label{canonical-representations-surface-groups-chapter-02}
+\source{canonical-representations-surface-groups}
+
+\begin{remark}[Source section]
+\label{canonical-representations-surface-groups-chapter-02-source}
+\source{canonical-representations-surface-groups}
+\source{canonical-representations-surface-groups}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Representation-theoretic preliminaries
+\label{section:representation-preliminaries}
+\source{canonical-representations-surface-groups}
+
+In this section, we give group-theoretic constructions which we will use to
+analyze representations with finite mapping class group orbit.
+In \autoref{subsection:basic-properties},
+we verify basic properties of MCG-finite representations. 
+%We collect facts about deformations of representations in
+%\autoref{subsection:tangent-space}.
+In \autoref{subsection:mcg-finite-construction}, given an irreducible representation
+$\rho: \pi_1(\Sigma_{g,n},x) \to \on{GL}_r(\mathbb C)$ whose conjugacy class is fixed by a finite-index subgroup $\Gamma\subset\on{PMod}_{g,n+1}$, we construct a representation
+$\widetilde{\rho}:  \Gamma \to \on{PGL}_r(\mathbb C)$,
+which will be analyzed throughout this paper.
+In \autoref{subsection:lifting-projective},
+we show how to lift certain projective representations of the fundamental groups of families of curves to honest representations into
+$\on{GL}_r(\mathbb C)$,
+after passing to a suitable cover. Finally, in
+\autoref{subsection:unitary-on-fibers}, we prove some structural results about the representations we've constructed.
+
+We will use the following lemma throughout, to connect properties of mapping class groups to geometry.
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:mgn-fundamental-group}
+\source{canonical-representations-surface-groups}
+	For $m \in \mathscr M_{g,n}$ a basepoint and $m'\in \mathscr M_{g, n+1}$ a lift of $m$, there are isomorphisms $\pi_1(\mathscr M_{g,n}, m) \simeq \on{PMod}_{g,n}$, $\pi_1(\mathscr M_{g,n+1}, m') \simeq \on{PMod}_{g,n}$ such that the diagram 
+	$$\xymatrix{
+	1 \ar[r] & \pi_1(\Sigma_{g,n}) \ar[r] \ar@{=}[d]& \pi_1(\mathscr{M}_{g,n+1}, m') \ar[r] \ar[d]^\sim & \pi_1(\mathscr{M}_{g,n}, m) \ar[r] \ar[d]^\sim & 1 \\
+	1 \ar[r] & \pi_1(\Sigma_{g,n}) \ar[r] & \on{PMod}_{g,n+1} \ar[r] & \on{PMod}_{g,n}\ar[r] & 1
+	}$$
+	commutes, where the vertical maps are given by these isomorphisms, the top row is the exact sequence of homotopy groups induced by the forgetful map $\mathscr{M}_{g,n+1}\to \mathscr{M}_{g,n}$,  and the bottom row is the Birman exact sequence \cite[p.~98]{farbM:a-primer}. 
+\end{lemma}
+\begin{proof}
+This follows from the contractibility of the universal cover of $\mathscr{M}_{g,
+n}$, and the fact that $\mathscr{M}_{g,n}$ is the quotient of its universal
+cover by the properly discontinuous action of $\on{PMod}_{g,n}$. See
+\cite[\S10.6.3 and p. 353]{farbM:a-primer}. There is a choice involved here, namely: if $C$ is the Riemann surface associated to the point $m\in \mathscr{M}_{g,n}$, one must choose a homeomorphism between $C$ and our reference surface $\Sigma_{g,n}$, and similarly with $m'$. Changing this homeomorphism replaces the vertical isomorphisms by conjugate isomorphisms.
+%The case $n = 0$ is explained in \cite[p. 361]{farbM:a-primer}, where
+%	the real content is that the universal cover of $\mathscr M_{g}$ is
+%	contractible, as shown in \cite[Theorem 10.6]{farbM:a-primer}, and that
+%	the action of $\on{Mod}_g$ on this universal cover is properly
+%	discontinuous \cite[Theorem 12.2]{farbM:a-primer}.
+%	In the general case $n \geq 0$, we can use \cite[\S 10.6.3]{farbM:a-primer}.
+%	in place of \cite[Theorem 10.6]{farbM:a-primer} which shows the
+%	universal cover of $\mathscr M_{g,n}$ is contractible
+%	as well as \cite[p. 353]{farbM:a-primer} to generalize the proper
+%	discontinuity of \cite[Theorem
+%	12.2]{farbM:a-primer}, to the case of punctured surfaces.
+\end{proof}
+The subgroup $ \pi_1(\Sigma_{g,n})\subset \on{PMod}_{g,n+1} $ is often referred to as the \emph{point-pushing subgroup}.
+
+\subsection{Basic properties of MCG-finite representations}\label{subsection:basic-properties}
+\source{canonical-representations-surface-groups}
+
+To acquaint the reader with MCG-finite representation, we now spell out some of
+their basic properties.
+
+\begin{proposition}
+\source{canonical-representations-surface-groups}
+\notready\label{proposition:basic-properties}
+\source{canonical-representations-surface-groups}
+	The direct sum and tensor product of two MCG-finite representations of $\pi_1(\Sigma_{g,n})$ is MCG-finite. Any semisimple subquotient of an MCG-finite representation is MCG-finite.
+\end{proposition}
+\begin{proof}
+The first statement, about direct sums and tensor products, is clear. The second is immediate from \cite[Lemma 2.2.1]{lawrence2019representations}.
+%Letting $\Gamma\subset \on{Mod}_{g,n}$ be the (finite-index) stabilizer of the conjugacy class of $\rho$, observe that $\Gamma$ acts on the set of irreducible subquotients of $\rho$. But this set is finite; hence the stabilizer of $\sigma$ is finite index in $\Gamma$, and hence in $\on{Mod}_{g,n}$.
+\end{proof}
+
+We next show that restrictions of representations of $\on{Mod}_{g,n+1}$ to the
+point-pushing subgroup are MCG-finite. See also \cite[Lemma
+2.2]{kasahara2015visualization} for a related result with analogous proof. 
+
+\begin{proposition}
+\source{canonical-representations-surface-groups}
+\notready\label{proposition:MCG-finite-index-rep}
+\source{canonical-representations-surface-groups}
+	Let $\Gamma\subset \on{Mod}_{g,n+1}$ be a finite index subgroup
+	containing the point-pushing subgroup $\pi_1(\Sigma_{g,n})\subset
+	\on{Mod}_{g,n+1}$. Let $$\rho:\Gamma\to \on{GL}_r(\mathbb{C})$$ be a representation. Then $\rho|_{\pi_1(\Sigma_{g,n})}$ is MCG-finite.
+\end{proposition}
+\begin{proof}
+	By replacing $\Gamma$ with 
+	$\Gamma \cap \on{PMod}_{g,n+1},$
+	we may assume $\Gamma \subset \on{PMod}_{g,n+1}$,
+	the pure mapping class group.  We claim that the image of $\Gamma$ in
+	$\on{PMod}_{g,n}$ (under the map $\on{PMod}_{g,n+1}\to \on{PMod}_{g,n}$
+	arising from the Birman exact sequence) stabilizes the conjugacy class
+	of $\rho$.
+	It suffices to show that for each $\gamma\in \Gamma$, 
+\begin{align*}
+	\rho^\gamma:  \pi_1(\Sigma_{g,n})& \rightarrow \on{GL}_r(\mathbb C) \\
+	g & \mapsto \rho(\gamma g \gamma^{-1})
+\end{align*}
+is conjugate to $\rho$. Indeed, $\rho^\gamma(h) = \rho(\gamma) \rho(h)
+\rho(\gamma)^{-1}$.
+\end{proof}
+
+We later give a partial converse to \autoref{proposition:MCG-finite-index-rep},
+for irreducible representations, in \autoref{corollary:converse-to-MCG-rep}.
+We now give a geometric counterpart to
+\autoref{proposition:MCG-finite-index-rep},
+which is closely related to \cite[Theorem A1]{CH:isomonodromic}.
+\begin{proposition}
+\source{canonical-representations-surface-groups}
+\notready
+\label{proposition:MCG-finite-family-of-curves}
+\source{canonical-representations-surface-groups}
+%	Let $\mathscr{C}\to \mathscr{M}$ be a versal family of $n$-pointed
+%	curves of genus $g$, as in \autoref{notation:versal-family}. 
+Let $\pi^\circ: \mathscr{C}^\circ\to \mathscr{M}$ be a punctured versal family
+of $n$-pointed genus $g$ curves, as in \autoref{notation:versal-family}. In
+particular, $\mathscr M \to \mathscr M_{g,n}$ is dominant and \'etale.
+	Let $C^\circ$ be a fiber of $\pi^\circ$. If
+	$$\rho:\pi_1(\mathscr{C}^\circ)\to \on{GL}_r(\mathbb{C})$$ is a representation, $\rho|_{\pi_1(C^\circ)}$ is MCG-finite.
+\end{proposition}
+We prove \autoref{proposition:MCG-finite-family-of-curves}, in
+\autoref{subsubsection:proof-family-of-curves},
+but we first require some well-known lemmas about families of curves. 
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:finite-index-from-dominant-map}
+\source{canonical-representations-surface-groups}
+	For $\mathscr M$ a scheme and any dominant \'etale map
+	$\mathscr M \to \mathscr M_{g,n}$,
+	$\on{im}(\pi_1(\mathscr M) \to \pi_1(\mathscr M_{g,n}))$
+	has finite index in 
+$\pi_1(\mathscr M_{g,n})\simeq \on{PMod}_{g,n}$.
+\end{lemma}
+\begin{proof}
+	After pulling back to a finite \'etale cover $\mathscr
+	N \to \mathscr M_{g,n}$ which is a scheme (such exists by e.g.~\cite[Proposition 2.3.4]{pikaart-dejong}),
+	we may assume there is a dominant \'etale map of schemes
+	$\alpha: \mathscr M \to \mathscr N$. It is enough to show $\on{im}(\pi_1(\mathscr M) \to \pi_1(\mathscr N))$
+	has finite index in $\pi_1(\mathscr N)$, which follows from \cite[Lemma
+	4.19]{debarre:higher-dimensional}.
+	The basic idea here is to pass to opens over which the map is finite
+	flat, and use that passing to opens will preserve the property that the
+	image of the map of fundamental groups has finite index.
+%By generic finiteness and upper semicontinuity of fiber rank, there exists a
+%dense open subscheme $\mathscr N^\circ \subset \mathscr N$ over which
+%$\alpha: \mathscr M \to \mathscr N$
+%is finite flat.
+%Let $\mathscr M^\circ := \alpha^{-1}(\mathscr N^\circ)$.
+%Since $\mathscr M^\circ \to \mathscr N^\circ$ is finite \'etale,
+%$\pi_1(\mathscr M^\circ) \to \pi_1(\mathscr N^\circ)$ has finite index.
+%
+%Therefore, 
+%since $\pi_1(\mathscr M^\circ) \to \pi_1(\mathscr N^\circ)$ has finite index,
+%in order to show 
+%$\pi_1(\mathscr M) \to \pi_1(\mathscr N)$ has finite index, it is 
+%enough to show
+%$\pi_1(\mathscr M^\circ) \to \pi_1(\mathscr M)$ and
+%$\pi_1(\mathscr N^\circ) \to \pi_1(\mathscr N)$ are surjective.
+%This holds by the following fact:
+%If $X$ is a smooth connected scheme, any dense open subscheme $U \subset X$ 
+%has complement of real codimension $2$, so $\pi_1(U) \to \pi_1(X)$ is
+%surjective, as any loop in
+%$X$ is homotopic to one in $U$. 
+\end{proof}
+
+%We next describe an exact sequence on fundamental groups associated to the
+%fibration $\mathscr C^\circ \to \mathscr M$. 
+%we will use the associated Hochschild-Serre spectral sequence.
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready\label{lemma:SES-pi1-versal-curves}
+\source{canonical-representations-surface-groups}
+If $\mathscr{C} \to \mathscr{M}$ is a versal family of $n$-pointed curves of
+genus $g$, with $3g - 3 + n \geq 0$, as in \autoref{notation:versal-family},
+so that $C^\circ$ is a fiber of $\pi^\circ$,
+the sequence
+\begin{equation}
+	\label{equation:fibration-sequence}
+\source{canonical-representations-surface-groups}
+	\begin{tikzcd}
+		1 \ar {r} & \pi_1({C}^\circ)  \ar {r} &
+		\pi_1(\mathscr{C}^\circ) \ar {r} & \pi_1(\mathscr{M}) \ar {r} &
+		1
+\end{tikzcd}\end{equation}
+is exact.
+\end{lemma}
+\begin{proof}
+Except for injectivity, the result is immediate from the long exact sequence in
+homotopy groups and the fact that ${C}^\circ$ is connected. Injectivity holds in
+the universal case where $\mathscr{M}=\mathscr{M}_{g,n}$ is the Deligne-Mumford
+moduli stack of curves and $\mathscr{C}^\circ = \mathscr{C}^\circ_{g,n}$ is the
+universal punctured curve, as the universal cover of $\mathscr{M}_{g,n}$ is contractible. 
+We next show the map $\pi_1(C^\circ) \to
+\pi_1(\mathscr C^\circ)$ is injective in the general case via pullback.
+The composite map $C^\circ \to \mathscr C \to \mathscr{C}^\circ_{g,n}$
+is the natural inclusion of $C^\circ$ as a fiber of $\mathscr{C}^\circ_{g,n}$
+over $\mathscr M_{g,n}$.
+Hence, the composition $\pi_1(C^\circ) \to \pi_1(\mathscr C^\circ) \to \pi_1(\mathscr
+C^\circ_{g,n})$ is injective, and so the first map is injective.
+\end{proof}
+
+
+\subsubsection{}
+\label{subsubsection:proof-family-of-curves}
+\source{canonical-representations-surface-groups}
+\begin{proof}[Proof of {\autoref{proposition:MCG-finite-family-of-curves}}]
+	The exact sequence \eqref{equation:fibration-sequence}
+induces an outer action of $\pi_1(\mathscr M)$ on
+$\pi_1(C^\circ)$, which factors through the outer action of $\on{PMod}_{g,n}$ on
+$\pi_1(C^\circ)$ induced by the Birman exact sequence.
+Specifically, this outer action sends $\gamma \in \on{PMod}_{g,n}$
+to the action of conjugation by $\widetilde{\gamma}$ on $\pi_1(C^\circ)$, for
+$\widetilde{\gamma}\in \on{PMod}_{g,n+1}$ 
+a lift of $\gamma$.
+By construction, this outer action is compatible with the outer action of $\on{Mod}_{g,n}$ on
+$\pi_1(C^\circ)$ of \autoref{definition:mcg-finite}.
+
+To show $\rho|_{\pi_1(C^\circ)}$ is MCG-finite,
+it therefore suffices to show the conjugacy class of $\rho|_{\pi_1(C^\circ)}$ is stable under
+the image $\Gamma$ of $$\pi_1(\mathscr{C}^\circ)\twoheadrightarrow \pi_1(\mathscr{M})\to \pi_1(\mathscr{M}_{g,n})\simeq \on{PMod}_{g,n}.$$
+This image has finite index by \autoref{lemma:finite-index-from-dominant-map}. 
+The conjugacy class of $\rho|_{\pi_1(C^\circ)}$ is stable under this image because, 
+if $\widetilde{\gamma} \in \pi_1(\mathscr{C}^\circ)$ is any lift of  
+$\gamma \in \Gamma$, then $\rho^{\widetilde{\gamma}}$ is conjugate to $\rho$ by $\rho(\widetilde{\gamma})$, as in the proof of \autoref{proposition:MCG-finite-index-rep}.
+\end{proof}
+\subsection{Projective local systems associated to MCG-finite representations}
+\label{subsection:mcg-finite-construction}
+\source{canonical-representations-surface-groups}
+
+We next give a construction lifting an irreducible MCG-finite representation
+of $\pi_1(\Sigma_{g,n})$ to a projective representation of a finite index subgroup of $\Mod_{g,n+1}$.
+
+\begin{notation}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{notation:finite-orbit}
+\source{canonical-representations-surface-groups}
+	Suppose $\rho$ is an irreducible MCG-finite representation of $\pi_1(\Sigma_{g,n},x)$.
+	Let $\Gamma \subset \on{PMod}_{g,n}$ denote the finite index stabilizer
+	of the conjugacy class of $\rho$ and let $\widetilde{\Gamma} \subset
+	\on{PMod}_{g,n+1}$ denote the preimage of $\Gamma$ under the surjection
+	$\on{PMod}_{g,n+1} \to \on{PMod}_{g,n}$ coming from the Birman exact
+	sequence.
+%	\cite[Theorem 4.6]{farbM:a-primer}.
+\end{notation}
+	
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:mcg-rep-construction}
+\source{canonical-representations-surface-groups}
+	In the setup of \autoref{notation:finite-orbit}, there exists a unique representation $\widetilde{\rho}:
+	\widetilde{\Gamma} \to \on{PGL}_r(\mathbb C)$ so that
+	\begin{equation}
+		\label{equation:mcg-rho-and-tilde-rho-compatibility}
+\source{canonical-representations-surface-groups}
+		\begin{tikzcd} 
+			\pi_1(\Sigma_{g,n},x)  \ar[r, "\rho"] \ar {d} &
+			 \on{GL}_r(\mathbb C) \ar {d} \\
+			 \widetilde{\Gamma}  \ar [r, "\widetilde \rho"] & \on{PGL}_r(\mathbb C)
+	\end{tikzcd}\end{equation}
+	commutes,
+	where $\pi_1(\Sigma_{g,n}, x) \subset\widetilde{\Gamma}\subset \on{PMod}_{g,n+1}$ is the inclusion
+	of the point-pushing subgroup from the Birman exact sequence.
+%	\cite[Theorem 4.6]{farbM:a-primer}.
+\end{lemma}
+\begin{proof}
+	First, we construct the representation $\widetilde{\rho}$. 
+	By identifying 
+	$\on{PMod}_{g,n+1} \subset \on{Aut}(\pi_1(\Sigma_{g,n},x))$, 
+	we obtain an action of 
+	$\on{PMod}_{g,n+1}$ on $r$-dimensional representations of 
+	$\pi_1(\Sigma_{g,n},x)$.
+	Since $\widetilde{\Gamma}$ preserves $\rho$ up to
+	conjugacy, for every $\gamma \in \widetilde{\Gamma}$, there is some matrix $M_\gamma \in \on{GL}_r(\mathbb C)$
+	so that $M_\gamma \rho M_\gamma^{-1} = \gamma(\rho)$.
+	Since $\rho$ is irreducible, $M_\gamma$ is unique up to scaling by
+	Schur's lemma.
+We let $\overline{M}_\gamma$ denote the image of $M_\gamma$ in
+	$\on{PGL}_r(\mathbb C)$; $\overline{M}_\gamma$ is well-defined by the previous sentence.
+	Define $\widetilde{\rho}$ by  
+	\begin{align*}
+		\widetilde{\rho}:  \widetilde{\Gamma} &\rightarrow \on{PGL}_r(\mathbb C) \\
+		\gamma &\mapsto \overline{M}_\gamma.
+	\end{align*}
+
+	Uniqueness of 
+	$\overline{M}_\gamma \in \on{PGL}_r(\mathbb C)$
+	implies that $\widetilde{\rho}$ is a representation, as $\overline{M}_\gamma\overline{M}_{\gamma'}=\overline{M}_{\gamma\gamma'}$. 
+
+	Commutativity of 	
+	\eqref{equation:mcg-rho-and-tilde-rho-compatibility}
+	follows from the definition of the inclusion $\iota: \pi_1(\Sigma_{g,n}, x) \hookrightarrow
+	\on{PMod}_{g,n+1}\subset \on{Aut}(\pi_1(\Sigma_{g,n}, x))$ as the
+	point-pushing subgroup, realizing the set of inner automorphisms.
+  Indeed, for $\eta\in \pi_1(\Sigma_{g,n}, x)$, $\iota$ sends
+	$\eta$ to the automorphism of $\pi_1(\Sigma_{g,n}, x)$ given by $\beta\mapsto \eta \beta
+	\eta^{-1}.$
+	Hence we may take $M_{\iota(\eta)}=\rho(\eta)$, implying 
+	\eqref{equation:mcg-rho-and-tilde-rho-compatibility} commutes.
+	
+	Finally, uniqueness of $\widetilde{\rho}$ follows from commutativity of \eqref{equation:mcg-rho-and-tilde-rho-compatibility} and uniqueness of $\overline{M}_\gamma$. Indeed, for any $\gamma\in \widetilde{\Gamma}$ and for all $\eta\in \pi_1(\Sigma_{g,n}, x)$, we must have $$\widetilde{\rho}(\gamma\eta\gamma^{-1})=\widetilde{\rho}(\gamma)\widetilde{\rho}(\eta)\widetilde{\rho}(\gamma)^{-1},$$ and hence $\widetilde{\rho}(\gamma)$ must equal $\overline{M}_\gamma$.
+\end{proof}
+See e.g.~the proof of \cite[Theorem 4]{simpson1992higgs} for a similar argument.
+
+We will also need a geometric variant of \autoref{lemma:mcg-rep-construction}.
+We give the geometric rephrasing of \autoref{lemma:mcg-rep-construction},
+implicitly using \autoref{lemma:mgn-fundamental-group}. Below $\mathscr{M}$ is
+the finite \'etale cover of $\mathscr{M}_{g,n}$ corresponding to a finite-index subgroup of $\Gamma\subset \on{PMod}_{g,n}$, chosen so that $\mathscr{M}$ is a scheme (as opposed to a Deligne-Mumford stack).
+
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:geometric-mcg-rep-construction}
+\source{canonical-representations-surface-groups}
+	Let
+	$\rho: \pi_1(\Sigma_{g,n},x) \to \on{GL}_r(\mathbb C)$ be an irreducible MCG-finite representation. 
+	There exists a scheme $\mathscr M$ with a finite \'etale map $\mathscr M \to \mathscr
+	M_{g,n}$, with associated family of $n$-times punctured curves $\pi^\circ: \mathscr{C}^\circ\to \mathscr{M}$, a point $c\in \mathscr{C}^\circ$ with $m:=\pi^\circ(c)$,
+	and a representation $\widetilde{\rho}: \pi_1(\mathscr C^\circ, c) \to
+	\on{PGL}_r(\mathbb C)$ so that the following holds. Upon identifying
+	$\pi_1(\Sigma_{g,n},x)  \simeq \pi_1(\mathscr C^\circ_m,c)$, the diagram
+	\begin{equation}
+		\label{equation:geometric-rho-and-tilde-rho}
+\source{canonical-representations-surface-groups}
+		\begin{tikzcd} 
+			\pi_1(\mathscr C^\circ_m,c)  \ar[r, "\rho"] \ar {d} &
+			 \on{GL}_r(\mathbb C) \ar {d} \\
+			 \pi_1(\mathscr C^\circ, c) \ar[r, "\widetilde\rho"]& \on{PGL}_r(\mathbb C)
+	\end{tikzcd}\end{equation}
+	commutes.
+\end{lemma}
+%\begin{proof}
+%	Since $\Gamma \subset \on{Mod}_{g,n}$ is a finite index subgroup,
+%	and $\on{Mod}_{g,n} \simeq\pi_1(\mathscr M_{g,n})$
+%	\autoref{lemma:mgn-fundamental-group}
+%	we obtain a corresponding finite \'etale cover $\mathscr M$ of $\mathscr M_{g,n}$.
+%	It may be that $\mathscr M$ fails to be a scheme, but we can make it a
+%	scheme by passing to a further finite \'etale cover. (For example, the
+%	cover obtained by specifying a basis for the $5$-torsion of the Jacobian
+%	of the universal curve is a scheme).
+%	After possibly passing to this further cover, and taking
+%	$\widetilde{\Gamma}$ to be the preimage of $\Gamma$ in
+%	$\on{Mod}_{g,n+1}$ as in \autoref{lemma:mcg-rep-construction}
+%	We obtain an isomorphism $\widetilde{\Gamma} \simeq \pi_1(\mathscr
+%	C^\circ,c)$.
+%	Under these identifications,
+%	the existence of $\widetilde{\rho}$ and commutativity of
+%	\eqref{equation:geometric-rho-and-tilde-rho} 
+%	follow from \autoref{lemma:mcg-rep-construction}.
+%\end{proof}
+
+
+
+\subsection{Lifting Projective representations}
+\label{subsection:lifting-projective}
+\source{canonical-representations-surface-groups}
+
+The main goal of this section is to prove \autoref{proposition:gl-lift},
+which says that, \'etale locally on the base $\mathscr{M}$, we can lift the representation $\widetilde{\rho}$ into
+$\on{PGL}_r(\mathbb C)$
+constructed in \autoref{lemma:geometric-mcg-rep-construction}
+to a representation $\rho'$ into $\on{GL}_r(\mathbb C)$.
+
+Because the obstruction to lifting is related to $\mathbb C^\times =
+\ker(\on{GL}_r(\mathbb C) \to
+\on{PGL}_r(\mathbb C))$, we will use the following classification when
+$r = 1$.
+
+\begin{proposition}[\protect{~\cite[Lemma 3.2]{biswas2017surface}}]
+\source{canonical-representations-surface-groups}
+\notready
+	\label{proposition:1-dim-finite-image}
+\source{canonical-representations-surface-groups}
+	Let $g\geq 1, n\geq 0$. Then any MCG-finite representation $$\rho: \pi_1(\Sigma_{g,n})\to \mathbb{C}^\times$$ has finite image.
+\end{proposition}
+For the reader's benefit, we recall the idea of the proof of
+\autoref{proposition:1-dim-finite-image}.
+The idea is to show
+that if any standard generator of $\pi_1(\Sigma_{g,n})$ corresponding to a loop
+$\gamma$ in $\Sigma_{g,n}$ has infinite order under $\rho$, then acting on $\rho$ by powers of the
+Dehn twist about $\gamma$ gives an infinite collection of distinct
+representations.
+
+In order to lift 
+$\on{PGL}_r(\mathbb C)$-reps to
+$\on{GL}_r(\mathbb C)$-reps, 
+we will need to know 
+that the image of $\rho$ has finite
+intersection with the center of $\on{GL}_r(\mathbb C)$.
+%as we now verify using \autoref{proposition:1-dim-finite-image}.
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:finite-central-part}
+\source{canonical-representations-surface-groups}
+	Let $g\geq 1$.
+	Suppose $\rho: \pi_1(\Sigma_{g,n}) \to \on{GL}_r(\mathbb C)$ is an MCG-finite representation.
+	Then $\rho$ has finite determinant.
+	Moreover, $\rho$ factors through a subgroup $G$ with $\on{SL}_r(\mathbb C) \subset G
+	\subset \on{GL}_r(\mathbb C)$ and $\mu := G \cap \ker(\on{GL}_r(\mathbb
+	C) \to \on{PGL}_r(\mathbb C))$ a finite group.
+\end{lemma}
+\begin{proof}
+	By \autoref{proposition:1-dim-finite-image}, the composition
+	$\pi_1(\Sigma_{g,n}) \xrightarrow{\rho} \on{GL}_r(\mathbb C) \xrightarrow{\on{det}}
+	\mathbb C^\times$ has finite image $H$.
+	We can take $G := \det^{-1}(H) \subset \on{GL}_r(\mathbb{C})$,
+	which indeed has finite intersection with the center of
+	$\on{GL}_r(\mathbb C)$, and hence finite intersection with
+	$\ker(\on{GL}_r(\mathbb C) \to \on{PGL}_r(\mathbb C))$
+\end{proof}
+
+In order to lift representations from
+$\on{PGL}_r(\mathbb C)$ to
+$\on{GL}_r(\mathbb C)$,
+we will need to kill certain cohomological obstructions using dominant \'etale maps.
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:vanish-on-etale}
+\source{canonical-representations-surface-groups}
+	Let $i > 0$ and $\mathscr{M}$ be a complex variety. Suppose $\mu$ is a finite abelian group and
+	$\sigma \in H^i(\pi_1(\mathscr M, m), \mu)$
+	a cohomology class.
+	Then there is a dominant \'etale map $\mathscr M' \to \mathscr M$
+	so that $\sigma|_{\mathscr M'} =0 \in H^i(\pi_1(\mathscr M'), \mu)$.
+\end{lemma}
+\begin{proof}
+%Alternate proof:
+%	Let us use $X$ for a topological space representing $K(\pi_1(\mathscr
+%	M,m), 1)$.
+%	We obtain an induced map $f: \mathscr M \to X$
+%	and a corresponding spectral sequence with low degree terms
+%\begin{align*}
+%	0 \to H^1(X, f_* \mu) \to H^1(\mathscr M, \mu) \to H^0(X, R^1 f_* \mu)
+%	\to H^2(X, f_* \mu) \to H^2(\mathscr M, \mu).
+%\end{align*}
+%
+%We claim $R^1 f_* \mu = 0$.
+%Indeed, if $\widetilde{X}$ is the universal cover of $X$ and $\widetilde{\mathscr M}$ is the
+%universal cover of $M$,
+%we find $\widetilde{\mathscr M} \to \widetilde{X}$ is the pullback of $\mathscr M \to
+%X$, and so the stalk of $R^1 f_* \mu$ at any point of $\widetilde{X}$ is identified with
+%$H^1(\widetilde{\mathscr M}, \mu) =
+%\Hom(\pi_1(\widetilde{\mathscr M}), \mu) = 0$.  
+
+First, we claim that for any class
+$\alpha \in H^i(\mathscr M, \mu)$,
+there is a dominant \'etale map $\mathscr N \to \mathscr M$ so that
+$\alpha|_{\mathscr N} = 0$.
+Since $\mu$ is finite, we can use the comparison between singular
+and \'etale cohomology to reduce to showing that for any
+$\alpha \in H^i_{\mathrm{\acute et}}(\mathscr M, \mu)$ there is a dominant \'etale map
+$\mathscr N \to \mathscr M$ for which $\alpha|_{\mathscr N}= 0$.
+Choose an injective resolution $I^\bullet$ of $\mu$ and represent
+$\alpha$ by some $\bar\alpha \in \ker(I^i(\mathscr M) \to I^{i+1}(\mathscr M))$.
+Because $I^\bullet$ is exact, there exists for each $x\in \mathscr{M}$ an \'etale neighborhood $U_x$ of $x$  
+so that $\alpha|_{U_x}$ is in the image of $I^{i-1}(U_x)\to I^{i}(U_x)$. Taking $x$ to be the generic point of $\mathscr{M}$ gives the claim.
+
+Now, let $\alpha$ as above denote the image of $\sigma$ under the natural map
+$H^i(\pi_1(\mathscr M, m), \mu) \to H^i(\mathscr M, \mu),$
+and take $\mathscr N$ as above so that $\alpha|_\mathscr N = 0$.
+By
+\cite[Expos\'e XI, 4.6]{SGA4}
+we can find a Zariski open $\mathscr M'
+\subset \mathscr N$ which is a 
+$K(\pi_1(\mathscr M', m'), 1)$ Eilenberg-Maclane space.
+This implies the natural map $H^i(\pi_1(\mathscr M', m'), \mu) \to H^i(\mathscr M', \mu)$
+is an isomorphism.
+Therefore, since $\alpha|_{\mathscr N} = 0$, we also have $\alpha|_{\mathscr M'}
+= 0$, and hence $\sigma|_{\pi_1(\mathscr M')} = 0$, as desired.
+\end{proof}
+
+We now combine the above results to show that the projective representation $\widetilde{\rho}$ constructed in \autoref{lemma:geometric-mcg-rep-construction}
+can be lifted to a linear representation.
+
+\begin{proposition}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{proposition:gl-lift}
+\source{canonical-representations-surface-groups}
+	Suppose $\mathscr C \to \mathscr M$ is a versal family of $n$-pointed
+	curves of genus $g\geq 1$, with associated family of punctured curves 
+	$\pi^\circ: \mathscr{C}^\circ\to \mathscr{M}$. Let $c\in \mathscr{C}^\circ$ be a point and $m=\pi^\circ(c)$.
+	Suppose we have representations $\rho: \pi_1(\mathscr C_m^\circ, c) \to
+	\on{GL}_r(\mathbb C)$
+	and $\widetilde{\rho}: \pi_1(\mathscr C^\circ, c) \to \on{PGL}_r(\mathbb
+	C)$ so that the diagram
+	\begin{equation}
+		\label{equation:rho-and-tilde-rho-compatibility}
+\source{canonical-representations-surface-groups}
+		\begin{tikzcd} 
+			 \pi_1(\mathscr C_m^\circ, c) \ar[r, "\rho"] \ar {d} &
+			 \on{GL}_r(\mathbb C) \ar {d} \\
+			 \pi_1(\mathscr C^\circ, c) \ar[r, "\widetilde\rho"] & \on{PGL}_r(\mathbb C)
+	\end{tikzcd}\end{equation}
+	commutes.
+	Moreover, assume $\rho$ is MCG-finite.
+	Then, there exists 
+	\begin{enumerate}
+		\item a dominant \'etale map $\mathscr M' \to \mathscr M$,
+		\item corresponding relative curve $\mathscr C' := \mathscr M'
+	\times_{\mathscr M} \mathscr C$ with associated family of punctured curves ${\mathscr{C}'}^\circ$,
+	and 
+\item a representation $\rho' : \pi_1(\mathscr C'^\circ, c') \to
+	\on{GL}_r(\mathbb C)$ for some basepoint $c' \in \mathscr C'^\circ$ lying over $c$
+	\end{enumerate}
+so that, 
+	upon choosing some $m'$ over $m$ with $\mathscr C_{m'} \simeq \mathscr C_m$,
+	\begin{equation}
+		\label{equation:cover-rep-compatibility}
+\source{canonical-representations-surface-groups}
+		\begin{tikzcd} 
+			\pi_1(\mathscr C_{m'}^\circ, c') \ar{r} \ar[bend left]{rr}{\rho} &
+			\pi_1(\mathscr C'^\circ, c') \ar {r}{\rho'} \ar {d} &
+			 \on{GL}_r(\mathbb C) \ar {d} \\
+			 & \pi_1(\mathscr C^\circ, c) \ar
+			 {r}{\widetilde{\rho}} & \on{PGL}_r(\mathbb C)
+	\end{tikzcd}\end{equation}
+	commutes.	
+	Moreover, $\on{im} \rho'$ is contained a subgroup $G$ with $\on{SL}_r(\mathbb
+	C) \subset G \subset
+	\on{GL}_r(\mathbb C)$, such that $\on{SL}_r(\mathbb C) \subset G$ has
+	finite index.
+\end{proposition}
+\begin{proof}
+	Taking $G$ and $\mu$ as in \autoref{lemma:finite-central-part},
+	there is a commuting diagram
+\begin{equation}
+	\label{equation:pgl-and-birman}
+\source{canonical-representations-surface-groups}
+	\begin{tikzcd} 
+H^1(\pi_1(\mathscr C^\circ,c), \mu) \ar
+		{r}{\lambda} \ar
+		{d}{\nu} &  H^1(\pi_1(\mathscr
+				C_m^\circ,c),
+		\mu) \ar {d}{\xi} \\
+		\Hom(\pi_1(\mathscr C^\circ,c), G) \ar
+		{r}{\alpha} \ar
+		{d}{\beta} & \Hom(\pi_1(\mathscr
+				C_m^\circ,c),
+			G) \ar {d}{\gamma} \\
+		\Hom(\pi_1(\mathscr C^\circ,c), \on{PGL}_r(\mathbb C)) \ar
+		{r}{\delta}\ar{d}{\varepsilon}
+		&\Hom(\pi_1(\mathscr C_m^\circ,c),
+		\on{PGL}_r(\mathbb C))\ar{d}{\zeta} \\
+			H^2(\pi_1(\mathscr C^\circ,c), \mu) \ar {r}{\eta}
+		& H^2(\pi_1(\mathscr C_m^\circ,c),
+		\mu)
+\end{tikzcd}\end{equation}
+where the columns are exact sequences of sets.
+We start with a representation $\widetilde{\rho} \in \on{Hom}(\pi_1(\mathscr C^\circ,c),
+\on{PGL}_r(\mathbb C))$ 
+and $\rho \in \on{Hom}(\pi_1(\mathscr C_m^\circ, c), G)$.
+The commutativity of \eqref{equation:rho-and-tilde-rho-compatibility} can be equivalently
+expressed as the statement that $\delta(\widetilde{\rho}) = \gamma(\rho)$. 
+We seek to construct $\rho'$ such that \eqref{equation:cover-rep-compatibility} commutes,
+meaning that, after replacing $\mathscr M$ with a dominant \'etale $\mathscr M'$ and $\mathscr{C}$ with $\mathscr{C}'$,
+there is some $\rho'$ with $\beta(\rho') = \widetilde{\rho}$ and $\alpha(\rho')
+= \rho$.
+
+First, we argue we can pass to some $\mathscr M'$ so that $\widetilde{\rho}$
+lies in the image of $\beta$. 
+It is equivalent to arrange that $\varepsilon(\widetilde{\rho}) = 0$.
+As a first step, we claim $\eta(\varepsilon(\widetilde{\rho})) = 0$.
+This holds because $\eta(\varepsilon(\widetilde{\rho})) =
+\zeta(\delta(\widetilde{\rho}))$, and
+$\delta(\widetilde{\rho}) = \gamma(\rho)$ lies in the image of $\gamma$.
+We therefore have that $\varepsilon(\widetilde{\rho}) \in \ker \eta$. 
+The Hochschild-Serre spectral sequence associated to the short exact sequence  $$1\to \pi_1(\mathscr{C}_m^\circ)\to \pi_1(\mathscr{C}^\circ)\to \pi_1(\mathscr{M})\to 1$$ of
+\autoref{lemma:SES-pi1-versal-curves} yields a short exact sequence $$0\to H^{2,0}\to \ker \eta \overset{\iota}{\to} H^{1,1}\to 0,$$ where $H^{i,j}$ is a subquotient of $H^i(\pi_1(\mathscr M, m), H^j(\pi_1(\mathscr C^\circ_m,c),
+\mu))$.
+
+By passing to a finite \'etale cover $\mathscr{M}_1$ of $\mathscr{M}$, we can assume $\pi_1(\mathscr{M}, m)$ acts trivially on the finite group $H^1(\pi_1(\mathscr{C}_m^\circ, c), \mu)$.  Now as $H^i(\pi_1(\mathscr M, m), H^j(\pi_1(\mathscr C^\circ_m,c),
+\mu))$ is finite, we may by \autoref{lemma:vanish-on-etale} pass to a further
+dominant \'etale scheme over $\mathscr{M}$ killing every element of $H^{i,j}$,
+$(i,j)=(2,0) \text{ or } (1,1)$, and hence every element of $\ker \eta$. Thus
+after passing to any component $\mathscr{M}_2$ of this dominant \'etale scheme
+over $\mathscr M_2$, we have $\epsilon(\widetilde\rho)=0$. Let $\mathscr{C}_2^\circ$ be the pullback of $\mathscr{C}^\circ$ to $\mathscr{M}_2$. 
+
+Let $\overline{\rho} \in H^1(\pi_1(\mathscr C_2^\circ, c), G)$
+be an element with $\beta(\overline{\rho}) = \widetilde{\rho}$; such a $\overline{\rho}$ exists as we have arranged $\epsilon(\widetilde{\rho})=0$. 
+We wish to arrange $\alpha(\overline{\rho}) =\rho$. 
+This may not be the case, but it is enough to show that after passing to a further dominant
+\'etale $\mathscr M'$,
+that we can modify $\overline{\rho}$ by an element of $\on{im}\nu$ so that this
+does hold.
+More precisely, note that $\alpha(\overline{\rho})$ differs from $\rho$ by an
+element of $\sigma\in H^1(\pi_1(\mathscr{C}^\circ_m, c), \mu)$, as by
+construction $\gamma(\alpha(\overline{\rho}))=\gamma(\rho)$. It suffices to show
+that, after passing to a dominant \'etale scheme over $\mathscr{M}_2$, $\sigma$ is in the image of $\lambda$. After passing to a finite \'etale cover of $\mathscr{M}_2$, we may assume that $H^1(\pi_1(\mathscr{C}^\circ_m, c), \mu)$ is fixed by $\pi_1(\mathscr{M}, m)$.
+The Hochschild-Serre spectral sequence gives a map
+\begin{align*}
+	H^0(\pi_1(\mathscr M, m), H^1(\pi_1({\mathscr C}_{m}^\circ,c), \mu))
+\xrightarrow{\chi}
+H^2(\pi_1(\mathscr M, m), H^0(\pi_1({\mathscr C}^\circ_{m}, c), \mu))
+\end{align*}
+such that $\chi(\sigma) = 0$ if an only if $\sigma \in \on{im}\lambda$.
+Since $H^0(\pi_1({\mathscr C}^\circ_{m}, c), \mu)=\mu$
+is finite, we can apply
+\autoref{lemma:vanish-on-etale} so as to assume, after replacing $\mathscr M$ by
+a dominant \'etale $\mathscr M'$
+that $\chi(\sigma) = 0$.
+This implies that $\sigma \in \on{im}\lambda$, as desired.
+\end{proof}
+
+We can now give a partial converse to \autoref{proposition:MCG-finite-family-of-curves}.
+\begin{corollary}
+\source{canonical-representations-surface-groups}
+\notready\label{corollary:converse-to-MCG-rep}
+\source{canonical-representations-surface-groups}
+Let $\rho:\pi_1(\Sigma_{g,n})\to \on{GL}_r(\mathbb{C})$ be an irreducible MCG-finite
+representation, with $g\geq 1$. 
+There is a punctured versal family of curves
+$\mathscr{C}^\circ\to \mathscr{M}$, and a representation $\rho'$ of
+$\pi_1(\mathscr{C}^\circ)$ whose determinant has finite order, with the following property: For $C^\circ$ a fiber of
+$\pi^\circ$, there is an identification $\pi_1(\Sigma_{g,n})\simeq
+\pi_1(C^\circ)$ such that, under this identification, $\rho'|_{\pi_1(C^\circ)}=\rho$.
+\end{corollary}
+\begin{proof}
+	This follows by combining \autoref{lemma:geometric-mcg-rep-construction} and \autoref{proposition:gl-lift}.
+\end{proof}
+
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{remark:cousin-heu}
+\source{canonical-representations-surface-groups}
+	Combining \autoref{corollary:converse-to-MCG-rep} with
+	\autoref{proposition:MCG-finite-family-of-curves} gives a proof of
+	\cite[Theorem A]{CH:isomonodromic}
+	in the case that $\rho$ is semisimple and the flat vector bundle $(E, \nabla_0)$
+	of \cite[Theorem A]{CH:isomonodromic} 
+	is taken to be the Deligne canonical extension of
+	$(\rho|_{C^\circ}\otimes \mathscr{O}, \on{id}\otimes d)$ to $C$.
+\end{remark}
+
+
+
+\subsection{Representations that are unitary on fibers}
+\label{subsection:unitary-on-fibers}
+\source{canonical-representations-surface-groups}
+
+The main goal of this section is to verify
+\autoref{lemma:unitary-direct-sum}, which allows us to write local systems on a family of punctured curves $\mathscr{C}^\circ\to \mathscr{M}$ in terms of unitary local systems and local systems pulled back from $\mathscr{M}$, after passing to a dominant \'etale
+map.
+
+The following criterion for unitarity and finiteness will be useful when analyzing the representations produced by \autoref{lemma:mcg-rep-construction} and \autoref{proposition:gl-lift}.
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:finite-rho-implies-finite-lift}
+\source{canonical-representations-surface-groups}
+Let $G$ be a group and $H\trianglelefteq G$ a normal subgroup. Let $$\rho: G\to \on{GL}_r(\mathbb{C})$$ be a representation such that $\det\rho$ has finite order, and suppose $\rho|_H$ is irreducible.
+\begin{enumerate}
+\item If $\rho|_H$ has finite image, then $\rho$ has finite image.
+\item if $\rho|_H$ is unitary, then $\rho$ is unitary.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+	We first prove $(1)$.
+		As $\det\rho$ has finite order, it suffices to show that the
+	projectivization $$\mathbb{P}\rho: G\overset{\rho}{\longrightarrow}
+	\on{GL}_r(\mathbb{C})\to \on{PGL}_r(\mathbb{C})$$ has finite image. Let
+$t=\#\on{im}(\rho|_H)$. For each $g\in G$, $\mathbb{P}\rho(g)$ is the unique
+(by Schur's lemma) element of $\on{PGL}_r(\mathbb{C})$ such that
+$$\mathbb{P}\rho(g)\mathbb{P}\rho(h)\mathbb{P}\rho(g)^{-1}=\mathbb{P}\rho(ghg^{-1})$$ for all $h\in H$.
+Since $\rho(g)$ acts by conjugation on the order $t$ set $\on{im}(\rho|_H)$, its action 
+has order dividing $t!$, so $\rho(h)=\rho(g^{t!})\rho(h)\rho(g^{-t!})$. Hence we have $\mathbb{P}\rho(g^{t!})=\on{id}$ by
+uniqueness. Thus the image of $\mathbb{P}\rho$ has exponent dividing $t!$. But a linear group with finite exponent is finite \cite{burnside1905criteria}.
+
+We now turn to the unitary case and verify $(2)$.
+Let $h$ be a positive-definite Hermitian inner product preserved by $\rho|_H$. 
+We first check $\on{im}\rho$ lies in the general unitary group, i.e.~it preserves $h$ up to scaling.
+	Let $V$ be the underlying vector space of our
+	representation $\rho$. The invariant inner product $h: V \times V \to \mathbb C$ corresponds to a $\mathbb{C}$-linear isomorphism of $H$-representations $\phi: V \to \overline{V}^\vee$.
+	The linear map $\phi$, and hence $h$, is unique up to scaling by Schur's lemma. 
+	For any $g\in G$, $$h^g: (v, w)\mapsto h(\rho(g)v, \rho(g)w)$$ is
+	another $H$-invariant Hermitian form, and hence $h^g=c\cdot h$ for some
+	$c\in\mathbb{C}^\times.$ 
+	Equivalently, $\on{im}(\rho)\subset GU(h)$. 
+	Since $\rho$ has finite determinant, we moreover obtain
+	$\on{im}(\rho)\subset U(h)$.\qedhere
+\end{proof}
+We conclude the section by giving a convenient description of local systems
+$\mathbb V$ on a family of punctured curves $\pi^\circ: \mathscr C^\circ \to
+\mathscr M$, with unitary fibral monodromy. It may be useful for the reader to consider the case $A=\mathbb{C}$.
+
+As in \autoref{notation:versal-family}, let $\pi: \mathscr{C}\to \mathscr{M}$ be a versal family of $n$-pointed curves, and let $\mathscr{C}^\circ\to \mathscr{M}$ be the associated family of punctured curves. Let $m\in\mathscr{M}$ be a point.
+
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{lemma:unitary-direct-sum}
+\source{canonical-representations-surface-groups}
+	Let $A$ be an Artin local $\mathbb{C}$-algebra with residue field $\mathbb{C}$.
+	Suppose $\mathbb V$ is a local system of free $A$-modules on $\mathscr C^\circ$
+	such that $\mathbb V|_{\mathscr C^\circ_m}$ is a constant deformation of a unitary local system, i.e.~there exists a unitary $\mathbb{C}$-local system $\mathbb{V}_0$ on $\mathscr C^\circ_m$ such that $\mathbb V|_{\mathscr C^\circ_m}\simeq \mathbb{V}_0\otimes_\mathbb{C} A$.  
+	
+	There is a dominant \'etale map $\mathscr M' \to \mathscr M$, with $\mathscr{C}'=\mathscr{M}'\times_\mathscr{M}\mathscr{C}$ and ${\pi'}^\circ: {\mathscr{C}'}^\circ\to \mathscr{M}'$  the associated family of punctured curves, over
+	which 
+	\begin{align*}
+	\mathbb V|_{ {\mathscr{C}'}^\circ} \simeq \oplus_{i=1}^s \mathbb U_i
+\otimes ({\pi'}^\circ)^* \mathbb
+W_i,
+	\end{align*}
+where the $\mathbb W_i$ are locally constant sheaves of free $A$-modules on $\mathscr M'$ and
+	the $\mathbb U_i$ are unitary local systems on ${\mathscr{C}'}^\circ$.
+	Moreover, for $C'^\circ$ a fiber of $\mathscr{C}'^\circ \to
+	\mathscr{M}'$, each $\mathbb{U}_i|_{C'^\circ}$ is irreducible, the
+	$\mathbb{U}_i|_{C'^\circ}$ are pairwise non-isomorphic,
+	and $\mathbb W_i \simeq {\pi'}^\circ_*\Hom(\mathbb U_i, \mathbb V|_{ {\mathscr{C}'}^\circ} )$.
+\end{lemma}
+\begin{proof}
+Since $\mathbb V_0$ is unitary, we can express it as
+as a sum of irreducible unitary local systems, 
+$\mathbb V_0 \simeq \oplus_{i=1}^s \mathbb
+S_i^{\oplus n_i}$, with the $\mathbb{S}_i$ pairwise non-isomorphic.
+Let $\rho:\pi_1(\mathscr C_m^\circ) \to \on{GL}_r(\mathbb C)$ be the monodromy representation associated to $\mathbb{V}_0$, and let
+$\rho_i$ be the (irreducible) representation associated to $\mathbb{S}_i$.
+By \autoref{proposition:MCG-finite-family-of-curves}, $\rho$ is MCG-finite. Hence each
+$\rho_i$ is MCG-finite by \autoref{proposition:basic-properties}.
+
+By repeatedly applying \autoref{corollary:converse-to-MCG-rep},
+there is a dominant \'etale map $\mathscr M' \to \mathscr M$ and representations
+$\rho'_i: \pi_1({\mathscr {C}'}^\circ) \to \on{GL}_r(\mathbb C)$ with finite determinant so that for any $m' \in \mathscr
+M'$, $\rho'_i$ restricts to a representation
+$\pi_1({\mathscr{C}'}^\circ_{m'}) \to \on{GL}_r(\mathbb C)$
+identified with $\rho_i$.
+Let $\mathbb U_i$ denote the local system on ${\mathscr{C}'}^\circ$ corresponding to
+$\rho_i'$.
+Each $\mathbb U_i$ is unitary by \autoref{lemma:finite-rho-implies-finite-lift}.
+The $\mathbb{U}_i$ 
+are irreducible and pairwise non-isomorphic
+because the same holds for the $\rho_i$.
+
+Let $\mathbb W_i = \pi'^\circ_*\Hom(\mathbb U_i, \mathbb V|_{\mathscr
+C'^\circ})$, as in the statement. The $\mathbb{W}_i$ are locally constant sheaves of free $A$-modules by the hypothesis that $\mathbb V|_{\mathscr C^\circ_m}\simeq \mathbb{V}_0\otimes_\mathbb{C} A$. There is a natural evaluation map
+\begin{align*}
+	\psi: \oplus_{i=1}^s (\pi'^\circ)^* \mathbb W_i \otimes \mathbb U_i \to \mathbb
+	V|_{{\mathscr{C}'}^\circ}.
+\end{align*}
+It only remains to show $\psi$ is an isomorphism.
+We do so after restriction to any fiber
+of $\mathscr C'^\circ \to \mathscr M'$, where $\psi$ is identified with the
+isomorphism
+\begin{align}
+	\nonumber
+	\oplus_{i=1}^s \Hom(\rho_i, \rho\otimes A) \otimes \rho_i  & \rightarrow \rho\otimes A\\
+	\sum_{i=1}^s \alpha_1 \otimes v_i & \mapsto \sum_{i=1}^s \alpha_i(v_i).
+	\qedhere
+\end{align}
+%This is an isomorphism because $\rho$ is unitary, hence semisimple.
+%Here $\Hom(\rho_i, \rho)$ denotes the vector space of maps from $\rho_i$
+%to $\rho$.
+%This is indeed an isomorphism as the $\rho_i$ account for 
+%all irreducible representations appearing in $\rho$, by definition.
+\end{proof}

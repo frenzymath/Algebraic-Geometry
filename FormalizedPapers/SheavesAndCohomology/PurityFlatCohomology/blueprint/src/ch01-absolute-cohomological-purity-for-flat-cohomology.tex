@@ -1,0 +1,352 @@
+% Source-derived chapter 01: Absolute cohomological purity for flat cohomology
+% Original source: purity-flat-cohomology
+\chapter{Absolute cohomological purity for flat cohomology}
+\label{purity-flat-cohomology-chapter-01}
+\source{purity-flat-cohomology}
+
+\begin{remark}[Source section]
+\label{purity-flat-cohomology-chapter-01-source}
+\source{purity-flat-cohomology}
+\source{purity-flat-cohomology}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Absolute cohomological purity for flat cohomology
+\numberwithin{equation}{subsection}
+
+
+\csub[Purity theorems]
+
+
+
+
+Purity in algebraic and arithmetic geometry is the phenomenon of various invariants of schemes being insensitive to removing closed subsets of large enough codimension, perhaps the most basic instance being the Hartogs' extension principle in complex geometry. Our main goal is to exhibit purity in the context of flat cohomology, more precisely, to show that on Noetherian schemes with complete intersection singularities, flat cohomology classes with coefficients in commutative, finite, flat group schemes extend uniquely over closed subsets of sufficiently large codimension. In its key local case, this  amounts to the following vanishing (see \Cref{P-d-pf} for a general global statement).
+
+\bthm[Theorems~\ref{main-pf} and \ref{thm:main-pf-regular}] \label{main}
+\source{purity-flat-cohomology}
+For a Noetherian local ring $(R, \fm)$ that is a complete intersection\footnote{Recall that $(R, \fm)$ is a \emph{complete intersection} if its %$\fm$-adic 
+completion is a quotient of a regular %local 
+ring by a regular sequence.} and a commutative, finite, flat $R$-group scheme $G$,
+\[
+H^i_\fm(R, G) \cong 0 \q \text{for} \q \begin{cases} i < \dim(R); \\ i \le \dim(R), \qx{if $R$ is regular and not a field.} \end{cases}
+\]
+\ethm
+
+
+
+
+\Cref{main} is the flat cohomology version of absolute cohomological purity\footnote{\label{foot:semipurity}In the terminology of \cite{SGA2new}*{expos\'{e} XIV, th\'{e}or\`{e}me 1.10} or \cite{SGA4.5}*{expos\'{e} Cycle, rappel 2.2.8}, vanishing of cohomology with supports in low cohomological degrees as in \Cref{main,abs-coh-pur-ann} goes by the name \emph{semipurity}, as opposed to \emph{purity} that would also include high cohomological degrees. In this article, for the sake of brevity, we do not make this distinction.} for \'{e}tale cohomology that had been conjectured by Grothendieck. The latter, stated in \Cref{abs-coh-pur-ann}, was proved by Gabber: first in \cite{Fuj02} by building on the $K$-theoretic approach of Thomason \cite{Tho84}, and then again in \cite{ILO14}*{expos\'{e} XVI} in the framework of general structural results on \'{e}tale cohomology of Noetherian schemes. We give a third proof that uses perfectoid techniques to reduce to positive characteristic.\footnote{A proof that uses perfectoids was also discovered by Fujiwara.}
+\source{purity-flat-cohomology}
+
+\bthm[\Cref{abs-coh-pur}] \label{abs-coh-pur-ann}
+\source{purity-flat-cohomology}
+For a regular local ring $(R, \fm)$ and a commutative, finite, \'{e}tale $R$-group $G$ whose order is invertible in $R$, 
+\[
+H^i_\fm(R, G) \cong 0 \qxq{for} i < 2\dim(R). 
+\]
+\ethm
+
+
+
+%The main goal of this article is to exhibit the corresponding purity phenomenon for flat cohomology. 
+
+Gabber used \Cref{abs-coh-pur-ann} to deduce the case of \Cref{main} when the order of $G$ is invertible in $R$ in \cite{Gab04}*{Theorem 3}. We review one such deduction based on the Lefschetz hyperplane theorem in local \'{e}tale cohomology in \S\ref{et-depth-geom-depth}. Since the Lefschetz isomorphism range is roughly in degrees $< \dim(R)$, the weaker condition $i < 2\dim(R)$ is specific to \Cref{abs-coh-pur-ann}. %(see also \Cref{eg:depth-example}).
+
+
+\Cref{main} for regular $R$ was conjectured in \cite{Pop19}*{Conjecture A.1} and desired reductions quickly lead to including complete intersections (see \Cref{finite-cover}).
+%is interesting already---in fact, the result is new even when $R$ is regular and $G = \bZ/p\bZ$ with $p \ce \Char(R/\fm)$---but  
+In unpublished work, Gabber obtained it %\Cref{main} 
+for $G = \bZ/p\bZ$ and  also for $G = \mu_p$ with $i \le 3$ by building on the combination of perfectoid techniques that were used to settle the complete intersection case of the weight monodromy conjecture of Deligne in \cite{Sch12} and the purity for the Brauer group conjecture of Grothendieck in \cite{brauer-purity}.
+
+The following corollary of \Cref{main} settles conjectures of Gabber \cite{Gab04}*{Conjectures~2~and~3}.
+
+\bthm[\Cref{deg-2-case,deg-3-case}] \label{thm:Gabber-conjectures}
+\source{purity-flat-cohomology}
+Let $(R, \fm)$ be a Noetherian local ring  that is a complete intersection and let $U_R \ce \Spec(R) \setminus \{ \fm\}$ be its punctured spectrum.
+\benum
+\item \lab{item:GC-a}
+If $\dim(R) \ge 3$, then 
+\[
+\q\Pic(U_R)_\tors \cong 0
+\]
+\up{recall that if $\dim(R) \ge 4$, then even $\Pic(U_R) \cong 0$}.
+
+\item \lab{item:GC-b}
+If $\dim(R) \ge 4$ or if both $R$ is regular and $\dim(R) \ge 2$, then 
+\[
+\qq\Br(R) \isomto \Br(U_R).
+\]
+\eenum
+\ethm
+
+The parenthetical aspect of \ref{item:GC-a} is the Grothendieck--Lefschetz theorem \cite{SGA2new}*{expos\'{e} XI, th\'{e}or\`{e}me 3.13~(ii)}. Although the statement of \Cref{thm:Gabber-conjectures}~\ref{item:GC-a} is relatively basic, we do not know how to argue it without ideas that go into proving \Cref{main}. Nevertheless, 
+\begin{itemize}
+\m
+its case when $\wh{R}$ is a quotient of a regular local ring by a \emph{principal} ideal (the hypersurface case) was settled by Dao \cite{Dao12}*{Corollary 3.5}, who even found a version for vector bundles; 
+
+\m
+its case when $R$ is an $\bF_p$-algebra was settled in \cite{Gab04}*{Theorem~5~(1)} (also in \cite{DLM10}*{Corollary 2.10});~and 
+
+\m
+its case for torsion of order invertible in $R$ was settled in \cite{Rob76} (also in %purity for $\pi_1^\et$ of 
+\cite{SGA2new}*{expos\'{e}~X, th\'{e}or\`{e}me~3.4}). 
+\end{itemize}
+
+
+\Cref{thm:Gabber-conjectures}~\ref{item:GC-b} reproves the purity for the Brauer group from \cite{brauer-purity} and extends it to schemes with complete intersection singularities. In the cases when $R$ is an $\bF_p$-algebra or when $\dim(R) \ge 5$, this extension was obtained by Gabber in \cite{Gab04}*{Theorem~5}. For regular $R$, even though  the proof is more complex than the one in \cite{brauer-purity}, it does not require treating the case $\dim(R) = 3$ separately (this case was settled in \cite{Gab81}*{Chapter I, Theorem~2$'$} and used in \cite{brauer-purity} as an input).
+
+The global version of \Cref{thm:Gabber-conjectures}~\ref{item:GC-b} may be formulated as follows.
+
+\bthm[\Cref{Brauer-purity}] 
+For a Noetherian scheme $X$ and a closed subset $Z \subset X$ such that each $\sO_{X,\, z}$ with $z \in Z$ is either a complete intersection of dimension $\ge 4$ or regular of dimension $\ge 2$, 
+\[
+H^2(X, \bG_m)_\tors \isomto H^2(X \setminus Z, \bG_m)_\tors.
+\]
+\ethm
+
+%In the case when the $\sO_{X,\, z}$ are regular, this purity was shown by a simpler method in \cite{brauer-purity}. 
+
+
+As for \Cref{main} itself, except for its assertion about the cohomological degree $i = \dim(R)$ that requires further arguments, we exploit a suitable version of Andr\'{e}'s lemma to eventually reduce the key case when $G$ is of $p$-power order with $p = \Char(R/\fm) > 0$ to the following purity for flat cohomology in an (integral) perfectoid setting (for a basic review of perfectoid rings, see \S\ref{perfectoid-def}).
+
+\bthm[\Cref{thm:perfectoid-purity}] \label{thm:perfectoid-purity-ann}
+\source{purity-flat-cohomology}
+For a perfectoid $\bZ_p$-algebra $A$, a commutative, finite, locally free $A$-group $G$ of $p$-power order, and a closed subset $Z \subset \Spec (A/pA)$ such that $\depth_Z(A) \ge d$ in the sense that there is an $A$-regular sequence $a_1, \dotsc, a_d \in A$ that vanishes on $Z$, we have
+\[
+H^i_Z(A, G) \cong 0 \qxq{for} i < d.
+\]
+\ethm
+
+
+For instance, a basic case is when $A$ is a perfect $\bF_p$-algebra. Then, by results of Berthelot \cite{Ber80}, Gabber (unpublished), and Lau \cite{Lau13}, such $A$-groups $G$ are classified by their crystalline Dieudonn\'{e} modules $\bM(G)$, which are $p$-power torsion, finitely presented $W(A)$-modules (that is, $\bA_\Inf(A)$-modules) of projective dimension $\le 1$ equipped with semilinear Frobenius and Verschiebung endomorphisms $F$ and $V$. We use this classification to describe the flat cohomology with coefficients in $G$ in terms of the quasi-coherent cohomology with coefficients in $\bM(G)$: we show in \Cref{KT-input} that
+\be\tag{$1.1.6$} \label{eqn:key-formula}
+\source{purity-flat-cohomology}
+R\Gamma_Z(A, G) \cong R\Gamma_Z(\bA_\Inf(A), \bM(G))^{V - 1}.
+\ee
+Since $p$ is a nonzerodivisor in $\bA_\Inf(A)$, the sequence $p, a_1, \dotsc, a_d$ is regular in $\bA_\Inf(A)$ and vanishes on $Z$. By expressing $\bM(G)$ as the cokernel of a map between finite projective $\bA_\Inf(A)$-modules, we may then deduce the vanishing of the right side of \eqref{eqn:key-formula} in the desired range of degrees from the fact that ``enough depth'' implies the vanishing of quasi-coherent cohomology with supports.
+
+An analogous argument proves \Cref{thm:perfectoid-purity-ann} in general, except that now the key formula \eqref{eqn:key-formula} lies significantly deeper. To make sense of it, we replace crystalline Dieudonn\'{e} theory used to define $\bM(G)$ by its prismatic generalization developed in \cite{ALB20}, which built on the classification of $G$ in terms of $\bM(G)$ over perfectoid rings due to Lau and the second named author \cite{Lau13}, \cite{SW19}*{Appendix to Lecture 17}. Our strategy for settling \eqref{eqn:key-formula} in general is to first show that both of its sides satisfy hyperdescent in the $p$-complete arc topology of Bhatt--Mathew \cite{BM20} (reviewed in \uS\uref{pp:arc-topology}) and to then use the resulting ability to replace $A$ by a $p$-complete arc cover to reduce to the case when $A$ is a product of perfectoid valuation rings with algebraically closed fraction fields, a case that admits a reasonably direct argument. 
+%for the functor that sends a perfectoid $A$ to $R\Gamma_\fppf(A, G)$ (see \Cref{thm:descent-ann}), and  we 
+ With \eqref{eqn:key-formula} in place, the regular sequence $p, a_1, \dotsc, a_d$ gets replaced by $\xi, a_1, \dotsc, a_d$, where $\xi$ is a generator of $\Ker(\theta\colon \bA_\Inf(A) \surjects A)$ (that is, $\xi$ is an orientation of the perfect prism that corresponds to $A$), and the same depth argument gives~\Cref{thm:perfectoid-purity-ann}.
+
+Overall, a critical point of the proof of \Cref{main} is the implication
+\[
+\depth_Z(A) \ge d \q \Ra \q \depth_Z(\bA_\Inf(A)) \ge d + 1,
+\]
+where we understand $\depth_Z$ na\"{i}vely, that is, in terms of regular sequences. Indeed, in the end it seems critical to work over $\bA_\Inf(A)$---direct reductions of \Cref{main} to positive characteristic, in cases in which they are available, seem to always produce a ``one off'' cohomological degree problem, and hence to not give optimal statements. For instance, under the weaker assumption $\dim(R) \ge 5$, Gabber proved \Cref{thm:Gabber-conjectures}~\ref{item:GC-b} in \cite{Gab04}*{Theorem~5}  by first reducing to $p$-torsion free $R$ and then further to the complete intersection $\bF_p$-algebra $R/p$ of dimension $\ge 4$. 
+
+
+
+
+\csub[Flat cohomology of animated rings]
+
+
+
+
+The $p$-complete arc hyperdescent for the flat cohomology side of the key formula \eqref{eqn:key-formula}  is a major portion of the overall argument of \Cref{main}, a portion for which we resort to flat cohomology in the more flexible setting of derived algebraic geometry (as defined in \S\ref{pp:simplicial-coho-def}). For the latter, we use simplicial rings, for which 
+%, the following properties of fppf cohomology with coefficients in commutative, finite, locally free group schemes, stated in \Cref{thm:excision-ann,thm:fppf-fpqc-ann,thm:descent-ann,thm:p-adic-continuity-ann}, play a central role in arguing \Cref{main}. 
+%These properties are new already for usual commutative rings, but their proofs benefit from the more flexible setting of simplicial rings (for which flat cohomology is defined in \S\ref{pp:simplicial-coho-def}). For discussing simplicial rings, 
+we decided to use %slightly 
+different terminology than the usual one because we believe it to be confusing to continue calling  the objects of the resulting $\infty$-category ``simplicial rings''---certainly, we do not think of them as simplicial objects in the category of rings.\footnote{The following standard example explains why we do not like to think in terms of simplicial rings: if $A_\bullet$ is a simplicial ring, then any scheme $X$ gives rise to the simplicial set $X(A_\bullet)$; however, for general $X$ this functor does not preserve weak equivalences. There is another functor $A\mapsto X(A)$ whose input is a simplicial ring up to weak equivalence and whose output is a simplicial set up to weak equivalence. This functor is slightly tricky to define in the simplicial language, but it is the one that will be relevant to us.}
+
+We refer to the $\infty$-category obtained from simplicial rings (resp.,~simplicial abelian groups; resp.,~simplicial sets, etc.)~by inverting weak equivalences as the $\infty$-category of \emph{animated rings} (resp.,~\emph{animated abelian groups}; resp.,~\emph{animated sets}, etc.). In the background there is a general ``free generation by sifted colimits'' procedure described in \S\ref{animation} that from any reasonable category $\sC$ produces an $\infty$-category $\mathrm{Ani}(\sC)$, the \emph{animation} of $\sC$, that contains $\sC$ as full subcategory: $\mathrm{Ani}(\sC)$ is nothing else than a ``nonabelian derived category'' in the sense of Quillen, compare with \cite[Section 5.5.8]{HTT}. The inclusion $\sC\hookrightarrow \mathrm{Ani}(\sC)$ has a left adjoint $\pi_0\colon \mathrm{Ani}(\sC)\to \sC$.
+
+For example, the $\infty$-category of animated sets (the case $\sC = \Set$) is exactly the $\infty$-category of ``spaces'' in the sense of Lurie. We prefer the term ``animated set,'' or ``anima'' for brevity, suggested by the general naming convention: we believe the term ``space,''  whose origins seem to be historical, to be highly nondescriptive---it is arguable whether something as combinatorial as a simplicial set should count as a space, and also note that ``spaces'' in the sense of Lurie do not have an underlying set of points. %\footnote{
+Philosophically, ``anima''  means something like ``soul''---and, indeed, the functor from topological spaces to their homotopy category extracts something like the soul of a space: it only remembers data independent of any worldly representation in terms of physical points.%}
+
+The animation procedure is quite powerful: for example, the $\infty$-category of pairs consisting of an animated ring $A$ and an animated $A$-module (also known as a connective $A$-module) is obtained by animating the usual category of rings equipped with a module. In particular, by passing to the fibre over any given animated ring $A$, we obtain the $\infty$-category of animated $A$-modules. Derived tensor products (of animated modules or animated rings) are obtained by animating the usual functors.\footnote{Taking up the previous footnote: in this language, if $X=\Spec(R)$ is an affine scheme and $A$ is an animated ring, then $X(A)$ refers to the anima of maps $R\to A$ of animated rings (which is now the only option that suggests itself). One can extend to nonaffine schemes by Zariski sheafification.}
+
+We show the following properties of fppf cohomology of animated rings with coefficients in commutative, finite, locally free group schemes. These properties are new already for usual commutative rings but their proofs greatly benefit from the flexibility of the more general setting: intermediate steps, such as passage to derived $p$-adic completions or derived base changes, leave the realm of usual rings. %of simplicial rings. %(for which flat cohomology is defined in \S\ref{pp:simplicial-coho-def})
+
+\bthm[\Cref{cor:excision} with \Cref{comp-explain}] \label{thm:excision-ann}
+\source{purity-flat-cohomology}
+For a ring $R$, a map $f\colon A \ra A'$ of animated $R$-algebras, and a finitely generated ideal 
+\[
+I = (a_1, \dotsc, a_r) \subset \pi_0(A)
+\] %such that $\pi_0(A)/I \isomto (\pi_0(A)/I)\otimes^{\mathbb L}_{A} A'$ \up{equivalently, 
+such that $f$ induces an isomorphism after iteratively forming derived $a_i$-adic completions for $i = 1, \dotsc, r$, %where $I = (a_1, \dotsc, a_r) \subset \pi_0(A)$, see Lemma \uref{comp-explain}}, 
+\[
+R\Gamma_I(A, G) \isomto R\Gamma_I(A', G)
+\]
+for every commutative, finite, locally free $R$-group $G$.
+\ethm
+
+For instance, this excision result allows us to replace $R$ in \Cref{main} by its completion $\wh{R}$.
+
+\bthm[\Cref{thm:strongdescent}] \label{thm:fppf-fpqc-ann}
+\source{purity-flat-cohomology}
+For a ring $R$ and a commutative, finite, locally free $R$-group $G$, the functor $A \mapsto R\Gamma_\fppf(A, G)$ satisfies hyperdescent in the fpqc topology on animated $R$-algebras $A$.
+%an animated $R$-algebra $A$,
+%\[
+% \isomto R\Gamma_\fpqc(A, G) \qx{for .}
+%\]
+\ethm
+
+%Here, to avoid set-theoretic issues, the fpqc cohomology is formed in the site bounded by a sufficiently large cutoff cardinal (that depends on $A$). 
+The following result is the $p$-complete arc hyperdescent for the left side of the key formula \eqref{eqn:key-formula}. An important input to its proof is the analogous $p$-complete arc descent for the structure (pre)sheaf functor $A \mapsto A$ on perfectoids that was exhibited in \cite{BS19}*{Proposition~8.10}.
+
+
+
+%\Cref{thm:fppf-fpqc-ann} facilitates passage to large flat covers by supplying Leray spectral sequences for fppf cohomology with respect to fpqc covers. We build our covers to be ind-fppf (even ind-syntomic) and instead argue more directly using limit formalism and the usual fppf descent for fppf cohomology. However, we cannot similarly bypass the following refinement that plays a central role in the proof of the key formula \eqref{eqn:key-formula}.
+
+
+\bthm[\Cref{thm:strongdescent-perfectoid}] \label{thm:descent-ann}
+\source{purity-flat-cohomology}
+For a $p$-complete arc hypercover $A \ra A^\bullet$  %in the category 
+of perfectoid $\bZ_p$-algebras, a closed $Z \subset \Spec(A/pA)$, and a commutative, finite, locally free $A$-group $G$ of $p$-power order,
+%map of perfectoid rings $A \ra A'$ that is a $p$-complete arc~cover, 
+\[
+\tst R\Gamma_Z(A, G) \isomto R\lim_{\Delta} \p{R\Gamma_Z(A^\bullet, G)}\!, \qx{where $\Delta$ is the simplex category.}
+\]
+%and the $p$-complete arc topology is reviewed in .
+\ethm
+
+
+
+The following continuity formula, among other things, computes the flat cohomology of complete Noetherian local rings with commutative, finite, flat group coefficients and has consequences for invariance of flat cohomology under Henselian pairs, see \Cref{eg:continuity} and \Cref{inv-Hens-pair}.
+
+\bthm[\Cref{adic-continuity}] \label{adic-continuity-ann}
+\source{purity-flat-cohomology}
+For a ring $R$, an animated $R$-algebra $A$, elements $a_1, \dotsc, a_r \in A$ such that $A$ agrees with its iterated derived $a_i$-adic completion for $i = 1, \dotsc, r$, and a commutative, finite, locally free $R$-group $G$,
+\[
+\tst R\Gamma(A, G) \isomto R\lim_{n > 0} (R\Gamma(A/^\bL (a_1^n, \dotsc, a_r^n), G)). 
+\]
+\ethm
+
+
+
+%We recall that a map $A \ra A'$ is a $p$-complete arc cover if for every point of $\Spec(A)$ valued in a $p$-adically complete valuation ring of rank $1$ lifts to $\Spec(A')$ at the expense of extending the valuation ring. 
+
+For the derived quotient notation used above, see \uS\uref{ani-rings}. 
+Roughly speaking, we deduce Theorems~\ref{thm:excision-ann}--\ref{adic-continuity-ann} from the positive characteristic case of the key formula \eqref{eqn:key-formula}, that is, from crystalline Dieudonn\'{e} theory. More precisely, for $G$ of $p$-power order we first analyze $R\Gamma((-)[\f 1p], G)$ by identifying with \'{e}tale cohomology and using arc descent results of \cite{BM20} recalled in \Cref{arc-descent} and \Cref{BM-hens-comp} (animated aspects disappear in this step because the $\infty$-category of \'{e}tale $A$-algebras is equivalent to that of \'{e}tale $\pi_0(A)$-algebras, see \Cref{rem:no-new-etale}). We may then work along $\{p = 0\}$ to assume that $A$ is $p$-Henselian and consequently reduce to $\bF_p$-algebras by combining animated deformation theory with the following general $p$-adic continuity result that we establish by a more or less direct attack.
+
+\bthm[\Cref{thm:padiclimit}] \label{thm:p-adic-continuity-ann}
+\source{purity-flat-cohomology}
+For a prime $p$, a ring $R$, a commutative, finite, locally free $R$-group $G$ of $p$-power order, and an animated $R$-algebra $A$ for which the ring $\pi_0(A)$ is $p$-Henselian,
+\[
+\tst R\Gamma_\fppf(A, G) \isomto R\lim_{n > 0}\p{R\Gamma_\fppf(A/^\bL p^n, G)}\!. 
+\]
+\ethm
+
+For instance, $A$ in \Cref{thm:p-adic-continuity-ann} could be a $p$-adically complete (usual) ring, although even in this case, unless $A$ is $p$-torsion free, the derived reductions appearing in the limit are animated rings. 
+
+
+
+\csub[An overview of the proof of purity for flat cohomology]
+
+
+In summary, the overall proof of the purity for flat cohomology of \Cref{main} proceeds as follows.
+
+\benuma
+\m  
+Use a Lefschetz hyperplane theorem in local \'{e}tale cohomology to deduce the prime to the residue characteristic aspects from the purity for \'{e}tale cohomology of \Cref{abs-coh-pur-ann} 
+(see~\S\ref{et-depth-geom-depth}).
+
+\m
+Use crystalline Dieudonn\'{e} theory to establish the positive characteristic case of the key formula \eqref{eqn:key-formula} %in the case when $A$ is a (perfect) $\bF_p$-algebra 
+(see \S\ref{section:Dieudonne-positive-characteristic}); this already mostly settles \Cref{main} when $R$ is an $\bF_p$-algebra.% positive characteristic case.
+
+\m \label{step-3}
+\source{purity-flat-cohomology}
+Use the positive characteristic case of the key formula \eqref{eqn:key-formula} and animated deformation theory to show the new properties of fppf cohomology stated in Theorems \ref{thm:excision-ann}--\ref{thm:descent-ann} (see \S\S\ref{sec:defthy}--\ref{sec:descent}).
+
+\m
+Combine $p$-complete arc descent of \Cref{thm:descent-ann} with prismatic Dieudonn\'{e} theory to establish the key formula \eqref{eqn:key-formula} in general; deduce the perfectoid purity \Cref{thm:perfectoid-purity-ann} (see \S\ref{perfectoid-version}).
+
+\m \label{step-5}
+\source{purity-flat-cohomology}
+Combine excision obtained in \Cref{thm:excision-ann}, a version of Andr\'{e}'s lemma (see \S\ref{And-lem}), and deformation theory to reduce \Cref{main} to the perfectoid purity \Cref{thm:perfectoid-purity-ann} (see \S\ref{grand-finale}).
+\eenum
+
+
+Andr\'{e}'s lemma says that every element of a perfectoid ring attains compatible $p$-power roots after passing to a flat modulo powers of $p$ perfectoid cover. We build on ideas of Gabber--Ramero to generalize it: in \Cref{Andre-lem} below, the cover is flat, and even ind-syntomic, before reducing modulo powers of $p$. This is well suited for us, although the version of \cite{BS19}*{Theorem~7.14, Remark~7.15} combined with \Cref{thm:p-adic-continuity-ann} suffices as well. % (as would the version of \cite{GR18}*{16.9.17} combined with \Cref{thm:fppf-fpqc-ann}). 
+We apply Andr\'{e}'s lemma to elements $f_i$ that cut out our complete intersection  inside a regular ring:  only regular rings have flat covers by perfectoids (see \cite{BIM19}), so, by \Cref{recognize}~\ref{R-b} below, we need to kill all the $f_i^{1/p^{\infty}}$ to reach a perfectoid.
+
+Deformation theory used in Step \ref{step-5} is where the complete intersection assumption manifests itself. Namely, on flat cohomology the difference between killing $f_i$ and, say, $f_i^{\f{p - 1}{p}}$ amounts to quasi-coherent cohomology, and if the $f_i$ form a regular sequence, then the intervening square-zero ideals are module-free and so of large enough depth (see \Cref{mod-out-by-more} for this argument). In general, \Cref{main} fails for Cohen--Macaulay $R$ (even over $\bC$), see \Cref{no-free-lunch}. 
+
+In contrast, if $G$ is \'{e}tale, then the complete intersection assumption is a red herring: as the following refinement of \Cref{main} shows, then the purity of cohomology is controlled by the \emph{virtual dimension} $\vdim(R)$ of the Noetherian local ring $(R, \fm)$. This numerical invariant is defined in terms of the number of equations that cut $\wh{R}$ out in a regular ring (see \eqref{eqn:vdim-def}) and satisfies $\vdim(R) \le \dim(R)$ with equality precisely for complete intersection $R$. 
+
+
+
+\bthm[\Cref{ell-semipurity-p}] \label{ell-semipurity-ann}
+\source{purity-flat-cohomology}
+For a Noetherian local ring $(R, \fm)$ and a commutative, finite, \'{e}tale $R$-group $G$,
+\[
+H^i_\fm(R, G) \cong 0 \qxq{for} i < \vdim(R).
+\]
+\ethm
+
+
+Informally, this result says that the ``\'{e}tale depth'' of $R$ is at least $\vdim(R)$ (the former was defined in \cite{SGA2new}*{expos\'{e} XIV, d\'{e}finitions 1.2 et 1.7}). In \S\ref{nonabelian}, we exhibit a nonabelian version: by \Cref{non-ab-et}, the purity for the \'{e}tale fundamental group proved in \cite{SGA2new}*{expos\'{e} X, th\'{e}or\`{e}me~3.4} for complete intersections of dimension $\ge 3$ continues to hold for arbitrary Noetherian local rings of virtual dimension $\ge 3$. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\csub[Notation and conventions] \label{conv}
+\source{purity-flat-cohomology}
+All our rings are commutative and unital. We use the definition \cite{EGAIV1}*{chapitre 0, d\'{e}finition~15.1.7, paragraphe 15.2.2} of a regular sequence (so there is no condition on the quotients being nonzero).	 A regular local ring $(R, \fm)$ is \emph{unramified} if it is of mixed characteristic $(0, p)$ and $p \not \in \fm^2$. By the Cohen structure theorem \cite{EGAIV1}*{chapitre 0, th\'{e}or\`{e}me~19.8.8~(i)}, the completion of a Noetherian local ring $(R, \fm)$ is a quotient of a regular ring $\wt{R}$ that may be chosen unramified if  $\Char(R/\fm) = p > 0$. Such an $R$ is a \emph{complete intersection} if the ideal that cuts $\wh{R}$ out in $\wt{R}$ is generated by a regular sequence. We recall that every ideal that cuts out a complete intersection in a regular ring is generated by a regular sequence (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/09Q1}{09Q1}}).  %We let $R^h$ and $R^\sh$ denote the Henselization and the strict Henselization of a local ring $R$.
+
+
+For a module $M$ over a ring $A$, we write $M\langle a \rangle$ for the kernel of the scaling by $a \in A$, and we set 
+\[
+\tst M\langle a^\infty \rangle \ce \bigcup_{n \ge 0} M\langle a^n\rangle;
+\]
+we say that $M$ has \emph{bounded $a^\infty$-torsion} if $M\langle a^\infty\rangle = M\langle a^N\rangle $ for some  $N > 0$. %For a ring $A$ and an element $a \in A$, 
+An $\bF_p$-algebra is \emph{perfect} (resp.,~\emph{semiperfect}) if its absolute Frobenius endomorphism $a \mapsto a^p$ is bijective (resp.,~surjective); these conditions ascend along \'{e}tale maps (see \cite{SGA5}*{expos\'{e}~XV, proposition~2~c)~2)} and \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/04D1}{04D1}}). For an implicit prime $p$, we let $W(-)$ denote the $p$-typical Witt vectors and  indicate Teichm\"{u}ller lifts by $[-]$. We use the (somewhat nonstandard) notation 
+\be \lab{nst-terminology}
+\tst A\llb x_1^{1/p^\infty},\ldots,x_n^{1/p^\infty}\rrb \ce \varinjlim_m \p{A\llb x_1^{1/p^m},\ldots,x_n^{1/p^m}\rrb}
+\ee
+(we do not form an additional $(x_1,\ldots,x_n)$-adic completion). We use the derived quotient notation
+\[
+A/^\bL a \ce A\otimes^\bL_{\mathbb Z[X]} \mathbb Z,
+\]
+where
+\[
+\bZ[X] \ra A \ \ \x{via}\ \ X \mapsto a \qxq{and} \bZ[X] \ra \bZ \ \ \x{via}\ \ X \mapsto 0.
+\]
+%(also when $A$ is merely an animated ring in the sense of \S\ref{sec:defthy}). 
+We let $(-)^*$ indicate the dual of a vector bundle, or of a $p$-divisible group, or of a commutative, finite, locally free group scheme $G$.
+ %For any ring $A$, 
+%  For the latter, %a commutative, finite, locally free group $G$ over a scheme $S$, we let $G^*$ denote its Cartier dual and 
+  We often use the \emph{B\'{e}gueri resolution} of the latter by commutative, smooth, affine $S$-group schemes (see \cite{Beg80}*{proposition 2.2.1} and \cite{SP}*{Lemma~\href{http://stacks.math.columbia.edu/tag/01ZT}{01ZT}}):
+\be \label{Begueri-0}
+\source{purity-flat-cohomology}
+0\to G\to \mathrm{Res}_{G^\ast/S}( \mathbb G_m)\to Q\to 0.
+\ee
+Unless indicated otherwise, we form cohomology in the fppf topology and make the identifications with \'{e}tale (smooth coefficients) or Zariski cohomology (quasi-coherent coefficients) implicitly. 
+
+ We let $\Delta$ be the simplex category, whose opposite indexes simplicial objects. We write $\cD(\bZ)$ for the derived $\infty$-category of~$\bZ$.
+ We say that a functor $F$ defined on some subcategory of rings and, for the sake of concreteness, valued in $\cD(\bZ)$ \emph{satisfies descent} (resp.,~\emph{satisfies hyperdescent}) for a Grothendieck topology $\sT$ if for every $\sT$-cover $A \ra A'$ with its \v{C}ech nerve $A'^\bullet$ (resp.,~for every $\sT$-hypercover $A \ra A'^\bullet$), we have 
+\[
+\tst F(A) \isomto R\lim_{\Delta} (F(A'^\bullet)).
+\]
+We say that an ($\infty$-)category $\sC$ is \emph{complete} (resp.,~\emph{cocomplete}) if it has all small limits (resp.,~colimits). A \emph{strong limit cardinal of uncountable cofinality} is a limit cardinal $\kappa$ such that for every sequence $\kappa_0, \kappa_1, \dotsc$ of cardinals $< \kappa$ we have $2^{\kappa_0} < \kappa$ and $\sup_{n \ge 0} \kappa_n < \kappa$; there exist arbitrarily large such $\kappa$, see \cite{Sch17}*{Lemma 4.1 and its proof}. We use such cardinals $\kappa$ to avoid set-theoretic problems when working with large sites (such as the fpqc site); of course, in such cases we check along the way that our assertions do not depend on the choice of  $\kappa$. We say that a scheme $S$ is of size $<\kappa$ if the cardinality of its underlying topological space is $< \kappa$ and $\abs{\Gamma(U, \sO_S)} < \kappa$ for every affine open $U \subset S$.
+
+
+
+
+\begin{pp-tweak}[\!\!Acknowledgements]
+We thank the referee for helpful comments and suggestions. We thank Johannes Ansch\"{u}tz, Bhargav Bhatt, Alexis Bouthier, Hailong Dao, Aise Johan de Jong, Ofer Gabber, Benjamin Hennion, Luc Illusie, Kazuhiro Ito, Teruhisa Koshikawa, Arnab Kundu, Arthur-C\'{e}sar Le Bras,  Bernard Le Stum, Shang Li, Jacob Lurie, Linquan Ma, Akhil Mathew, Kei Nakazato, Martin Olsson, Burt Totaro, Zijian Yao, and Yifei Zhao for helpful conversations or correspondence. In particular, we thank Jacob Lurie for explaining to us the proof of \Cref{cor:deftheorygroup}. Moreover, we thank Dustin Clausen for the term ``animation.'' We thank the MSRI for support during a part of the preparation period of this article during the Spring semester of 2019 supported by the National Science Foundation under Grant No.~1440140. The first-named author thanks the University of Bonn and Vi\stackon[-9.3pt]{\^{e}$\mkern0.5mu$}{\d{}}n To\'{a}n H\d{o}c for hospitality during visits. This project has received funding from the European Research Council (ERC) under the European Union's Horizon 2020 research and innovation programme (grant agreement No.~851146).
+\end{pp-tweak}
+
+
+\numberwithin{equation}{numberingbase}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,192 @@
+% Source-derived chapter 06: Moduli of hermitian shtukas
+% Original source: higher-siegel-weil-unitary-nonsingular-terms
+\chapter{Moduli of hermitian shtukas}
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-06}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+\begin{remark}[Source section]
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-06-source}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Moduli of hermitian shtukas
+\label{sec: unitary shtukas}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+In this section we introduce some of the fundamental geometric objects in our story, in particular the moduli stacks of unitary (also called Hermitian) shtukas, which play an analogous role to that of unitary Shimura varieties in the work of Kudla-Rapoport. 
+
+\subsection{Hermitian bundles}
+
+%Let $X$ be a smooth projective curve over $k$. Let $\nu \co X' \rightarrow X$ be an \'{e}tale double cover, with the non-trivial automorphism over $X$ denoted $\sigma \co X' \rightarrow X'$. Let $F$ be the function field of $X$ and $F'$ be the ring of rational functions on $X'$. (We permit $X'$ to be disconnected, so that $F'$ may not actually be a field.) 
+
+We adopt the notation of \S \ref{ssec: notation}, and in particular for the remainder of the paper enforce the assumption that $X$ is \emph{proper}, and $\nu \co X' \rightarrow X$ is a finite \'{e}tale double cover (possibly trivial). 
+
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready A rank $n$ \emph{Hermitian} (also called \emph{unitary}) bundle on $X \times S$ with respect to $\nu:X'\to X$ is a vector bundle $\Cal{F}$ of rank $n$ on $X' \times S$, equipped with an isomorphism $h \co \Cal{F} \xrightarrow{\sim} \sigma^* \Cal{F}^{\vee}$ such that $\sigma^* h^{\vee} = h$. We refer to $h$ as the \emph{Hermitian structure} on $\cF$. 
+\end{defn}
+
+We denote by $\Bun_{U(n)}$  the moduli stack of rank $n$ unitary bundles on $X$, which sends a test scheme $S$ to the groupoid of rank $n$ unitary bundles on $X \times S$.  The notation is justified by the following remark.
+
+\begin{remark}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{r:Un} There is an equivalence of categories between the groupoid of Hermitian bundles on $X \times S$, and the groupoid of $G$-torsors for the group scheme $G = U(n)$ over $X$ defined as %\mnote{previously this was defined as a quotient, which I'm worried might not match the above notion of Hermitian bundle in char 2}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\[
+\{ g \in \Res_{X'/X}\GL_n \co \sigma({}^tg^{-1}) = g \}.
+\]
+Indeed, we choose a square root $\om^{1/2}_{X}$ of $\om_{X}$ (which exists over $k = \F_{q}$ by \cite[p.291, Theorem 13]{Weil}). Then $\cF_{1}:=\nu^{*}\om^{1/2}_{X'}$ is equipped with the canonical Hermitian structure $h_{1}: \cF_{1}\cong \s^{*}\cF_{1}\cong  \s^{*}\cF^{\vee}_{1}$, and $(\cF_{n},h_{n}):=(\cF_{1},h_{1})^{\op n}$ is a rank $n$ Hermitian bundle on $X$ whose automorphism group scheme is $U(n)$.  To a Hermitian bundle $(\cF,h)$ on $X \times S$, $\un\Isom_{X\times S}((\cF_{n}\boxtimes\cO_{S},h_{n}\boxtimes\Id), (\cF,h))$ (the scheme of unitary isometries)   is a right torsor for $U(n)$ over $X\times S$. Conversely, for a right $U(n)$-torsor $\cG$ over $X\times S$, the contracted product $\cG\twtimes{U(n)}\cF_{n}$ is a Hermitian bundle on $X \times S$. 
+\end{remark}
+
+
+\subsection{Hecke stacks} We now define some particular Hecke correspondences for $\Bun_{U(n)}$.
+
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{defn: Hk U(n)}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Let $r \geq 0$ be an integer. The \emph{Hecke stack} $\Hk_{U(n)}^{r}$ has as $S$-points the groupoid of the following data: 
+\begin{enumerate}
+\item $x_i' \in X'(S)$ for $i = 1, \ldots, r$, with graphs denoted by $\Gamma_{x'_i} \subset X' \times S$.
+\item A sequence of vector bundles $\Cal{F}_0, \ldots, \Cal{F}_r$ of rank $n$ on $X' \times S$, each equipped with Hermitian structure $h_i \co \Cal{F}_i \xrightarrow{\sim} \sigma^* \Cal{F}_i^{\vee}$. 
+\item Isomorphisms $f_i \co \Cal{F}_{i-1}|_{X' \times S - \Gamma_{x'_i} - \Gamma_{\sigma(x'_i)}} \xrightarrow{\sim} \Cal{F}_i|_{X' \times S - \Gamma_{x'_i}-\Gamma_{\sigma(x'_i)}}$, for $1 \leq i \leq r$, compatible with the Hermitian structures, with the following property: there exists a rank $n$ vector bundle $\Cal{F}^{\flat}_{i-1/2}$ and a diagram of vector bundles
+\begin{equation}\label{eq: modification diagram 1}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{tikzcd}
+&\Cal{F}_{i-1/2}^{\flat} \ar[dl, "f_i^{\leftarrow}"', hook']  \ar[dr, "f_i^{\rightarrow}", hook ]  &  \\
+\Cal{F}_{i-1} & & \Cal{F}_i
+\end{tikzcd}
+\end{equation}
+such that $\coker(f_i^{\leftarrow})$ is locally free of rank $1$ over $\Gamma_{x'_i}$, and $\coker(f_i^{\rightarrow})$ is locally free of rank $1$ over $\Gamma_{\sigma(x'_i)}$. In particular, $f_i^{\leftarrow}$ and $f_i^{\rightarrow}$ are invertible upon restriction to $X' \times S - \Gamma_{x'_i}-\Gamma_{\sigma(x'_i)}$, and the composition 
+\[
+\Cal{F}_{i-1}|_{X' \times S - \Gamma_{x'_i}-\Gamma_{\sigma(x'_i)}} \xrightarrow{(f_i^{\leftarrow})^{-1}} \Cal{F}_{i-1/2}^{\flat}|_{X' \times S - \Gamma_{x'_i}-\Gamma_{\sigma(x'_i)}} \xrightarrow{f_i^{\rightarrow}} \Cal{F}_{i} |_{X' \times S - \Gamma_{x'_i}-\Gamma_{\sigma(x'_i)}} 
+\]
+agrees with $f_i$. 
+\end{enumerate}
+
+
+\end{defn}
+
+\begin{remark}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{rem: formulation of upper/lower}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Condition (3) above is equivalent to asking for the existence of a diagram 
+\[
+\begin{tikzcd}
+\Cal{F}_{i-1}  \ar[dr, "h_i^{\leftarrow}"', hook] & & \Cal{F}_i  \ar[dl, "h_i^{\rightarrow}", hook']  \\
+& \Cal{F}_{i-1/2}^{\sharp} 
+\end{tikzcd}
+\]
+such that $\coker(h_i^{\leftarrow})$ is flat of length $1$ over $\Gamma_{\sigma(x'_i)}$, and $\coker(h_i^{\rightarrow})$ is flat of length $1$ over $\Gamma_{x'_i}$. In particular, $h_i^{\leftarrow}$ and $h_i^{\rightarrow}$ are invertible upon restriction to $X' \times S - \Gamma_{x'_i}-\Gamma_{\sigma(x'_i)}$, and the composition 
+\[
+\Cal{F}_{i-1}|_{X' \times S - \Gamma_{x'_i}-\Gamma_{\sigma(x'_i)}} \xrightarrow{h_i^{\leftarrow}} \Cal{F}_{i-1/2}^{\sharp}|_{X' \times S - \Gamma_{x'_i}-\Gamma_{\sigma(x'_i)}} \xrightarrow{(h_i^{\rightarrow})^{-1}} \Cal{F}_{i} |_{X' \times S - \Gamma_{x'_i}-\Gamma_{\sigma(x'_i)}} 
+\]
+agrees with $f_i$. 
+\end{remark}
+
+
+\begin{defn}[Terminology for modifications of vector bundles]
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready
+Given two vector bundles $\Cal{F}$ and $\Cal{F}'$ on $X' \times S$, we will refer to an isomorphism between $\Cal{F}$ and $\Cal{F}'$ on the complement of a relative Cartier divisor $D\subset X'\times S$ %the union of finitely many graphs of sections $S \rightarrow X'$ 
+as a ``modification'' between $\Cal{F}$ and $\Cal{F}'$, and denote such a modification by $\Cal{F} \dashrightarrow \Cal{F}'$. Given $x,y \in X'(S)$, we say that the modification is \emph{``lower'' of length $1$ at $x$ and ``upper'' of length $1$ at $y$} if it is as in Definition \ref{defn: Hk U(n)} (3), i.e. if there exists a diagram 
+\begin{equation}
+\begin{tikzcd}
+&\Cal{F}^{\flat} \ar[dl, "f^{\leftarrow}"', hook']  \ar[dr, "f^{\rightarrow}", hook ]  &  \\
+\Cal{F} & & \Cal{F}'
+\end{tikzcd}
+\end{equation}
+such that $\coker(f^{\leftarrow})$ is flat of length $1$ over $\Gamma_{x}$, and $\coker(f^{\rightarrow})$ is flat of length $1$ over $\Gamma_{y}$, and $\Cal{F} \dashrightarrow \Cal{F}'$ agrees with the composition 
+\[
+\Cal{F}|_{X' \times S - \Gamma_{x}-\Gamma_{y}} \xrightarrow{(f^{\leftarrow})^{-1}} \Cal{F}^{\flat}|_{X' \times S - \Gamma_x-\Gamma_y} \xrightarrow{f^{\rightarrow}} \Cal{F} |_{X' \times S - \Gamma_x-\Gamma_y} .
+\]
+The condition admits a reformulation as in Remark \ref{rem: formulation of upper/lower}.
+\end{defn}
+
+\subsection{Hermitian shtukas}
+For a vector bundle $\Cal{F}$ on $X' \times S$, we denote by $\ft \Cal{F} := (\Id_{X'} \times \Frob_S)^* \Cal{F}$. If $\Cal{F}$ has a Hermitian structure $h \co \Cal{F} \xrightarrow{\sim} \sigma^* \Cal{F}^{\vee}$, then $\ft \Cal{F}$ is equipped with the Hermitian structure $\ft h$; we may suppress this notation when we speak of the ``Hermitian bundle'' $\ft \Cal{F}$. 
+
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready
+Let $r \geq 0$ be an integer. We define $\Sht_{U(n)}^{r}$ by the Cartesian diagram
+\[
+\begin{tikzcd}
+\Sht_{U(n)}^{r} \ar[r] \ar[d] & \Hk_{U(n)}^{r} \ar[d] \\
+\Bun_{U(n)} \ar[r, "{(\Id, \Frob})"]  & \Bun_{U(n)} \times \Bun_{U(n)}
+\end{tikzcd}
+\]
+A point of $\Sht_{U(n)}^{r}$ will be called a ``$U(n)$-shtuka''. 
+
+Concretely, the $S$-points of $\Sht_{U(n)}^{r}$ are given by the groupoid of the following data: 
+\begin{enumerate}
+\item $x'_i \in X'(S)$ for $i = 1, \ldots, r$, with graphs denoted $\Gamma_{x'_i} \subset X \times S$. These are called the \emph{legs} of the shtuka. 
+\item A sequence of vector bundles $\Cal{F}_0, \ldots, \Cal{F}_n$ of rank $n$ on $X' \times S$, each equipped with a Hermitian structure $h_i \co \Cal{F}_i \xrightarrow{\sim} \sigma^* \Cal{F}_i^{\vee}$. 
+\item Isomorphisms $f_i \co \Cal{F}_{i-1}|_{X' \times S - \Gamma_{x'_i} - \Gamma_{\s(x'_i)}} \xrightarrow{\sim} \Cal{F}_i|_{X' \times S - \Gamma_{x'_i}-\Gamma_{\s(x'_i)}}$ compatible with the Hermitian structure, which as modifications of the underlying vector bundles on $X' \times S$ are lower of length $1$ at $x'_i$ and upper of length $1$ at $\sigma(x'_i)$. 
+
+\item An isomorphism $\varphi \co \Cal{F}_r \cong \ft \Cal{F}_0$ compatible with the Hermitian structure. 
+\end{enumerate}
+\end{defn}
+
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{lem: shtuka empty parity} The stack $\Sht_{U(n)}^r$ is empty if and only if $r$ is odd. 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\end{lemma}
+
+\begin{proof} We first treat the case $n=1$. Let $\Nm_{X'/X}: \Pic_{X'}\to \Pic_{X}$ be the norm map. Then $\Bun_{U(1)}\cong \Nm^{-1}_{X'/X}(\om_{X})$, hence it is a torsor under $\Prym(X'/X)=\ker(\Nm_{X'/X})$. Moreover, $\Sht_{U(1)}^r$ fits into a Cartesian square
+\[
+\begin{tikzcd}
+\Sht_{U(1)}^r \ar[r] \ar[d] & \Bun_{U(1)} \ar[d, "\text{Lang}"] & \cF\ar[d, maps to] \\
+(X')^r \ar[r] & \Prym(X'/X)  & \cF^{-1}\ot {}^{\t}\cF 
+\end{tikzcd}
+\]
+with the bottom horizontal map sending $D \mapsto  \Cal{O}(D - \sigma D )$. If $X'$ is geometrically connected, then the stack $\Prym(X'/X)$ has two connected components, and by a result of Wirtinger, explained in \cite[\S 2]{Mum71}, the bottom horizontal map lands in the identity component if and only if $r$ is even. If $X'$ is geometrically disconnected (i.e. it is either $X \coprod X$ or $X_{k'}$), then we have $\pi_0(\Prym(X'/X)_{\ol{k}}) \cong \Z$, the Lang map lands in (therefore surjects onto, by Lang's Theorem) the identity component, and the bottom horizontal map hits the identity component if and only if $r$ is even. This shows that, in all cases, $\Sht_{U(1)}^r$ is empty if and only if $r$ is odd. 
+
+For general $n$, taking determinant of a hermitian shtuka gives a map $\Sht^{r}_{U(n)}\to \Sht^{r}_{U(1)}$. From this we see that if $r$ is odd, then $\Sht_{U(n)}^r$ is empty for any $n$ since $\Sht^{r}_{U(1)}$ is empty.
+
+On the other hand if $r$ is even, then $\Sht_{U(1)}^r$ is non-empty. If $n>1$, from an $S$ point of $\Sht_{U(1)}^r$, we can produce an $S$-point of $\Sht_{U(n)}^r$ by formation of direct sum with (the base change to $X\times S$ of) a unitary bundle of rank $n-1$ on $X$ (e.g. we can take $(\cF_{n-1},h_{n-1})$ from Remark \ref{r:Un}). 
+\end{proof}
+
+
+
+\subsection{Geometric properties} 
+
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{lem: smooth Bun_G}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+The stack $\Bun_{U(n)}$ is smooth and equidimensional.  
+\end{lemma}
+
+\begin{proof}
+The standard tangent complex argument, cf. \cite[Prop. 1]{Hei10}.
+\end{proof}
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{lem: shtuka geometry} 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+(1) The projection map $(\pr_{X}, \pr_{r}):\Hk_{U(n)}^r \rightarrow (X')^r \times \Bun_{U(n)}$ recording $\{x_{i}\}$ and $(\cF_{r},h_{r})$ is smooth of relative dimension $r(n-1)$. 
+
+(2) $\Sht_{U(n)}^r$ is a Deligne-Mumford stack locally of finite type. The map $\Sht_{U(n)}^r \rightarrow (X')^r$ is smooth, separated, equidimensional of relative dimension $r(n-1)$. 
+\end{lemma}
+
+\begin{proof}
+The statements about $\Sht_{U(n)}^r$ being locally finite type and separated are well-known properties of moduli of $G$-shtukas for general $G$ \cite[Proposition 2.16 and Theorem 2.20]{V04}.\footnote{See also \cite[paragraph after Theorem 5.4]{YZ} for a sketch of the separatedness in a similar situation, which readily adapts here.}
+
+Part (2) follows from (1) by \cite[Lemma 2.13]{Laff18}. 
+
+So it suffices to check (1).  As a self-correspondence of $\Bun_{U(n)}$, $\Hk^{r}_{U(n)}$ is the $r$-fold composition of $\Hk^{1}_{U(n)}$. This allows us to reduce to the case $r=1$.  In this case, the map $(\pr_{X},\pr_{1}): \Hk^{1}_{U(n)}\to X'\times\Bun_{U(n)}$ exhibits $\Hk^{1}_{U(n)}$ as a $\PP^{n-1}$-bundle whose fiber over $(x', \cF_{1},h_{1})$ classifies hyperplanes in $\cF_{1,\s(x')}$. Indeed, a hyperplane in $\cF_{1, \s(x')}$ determines a lower modification at $\s(x')$, and the upper modification at $x'$ is then determined from the lower modification by the Hermitian structure. This shows that $(\pr_{X},\pr_{1})$ is smooth, separated and equidimensional of relative dimension $(n-1)$ in the case $r=1$, and the general case follows.
+
+
+%In the case of $\Hk_{\GL(n)'}^r \rightarrow \Bun_{\GL(n)'}$, the upper modifications are independent of the lower modifications, hence one gets an addition $r(n-1)$ dimensions. 
+\end{proof}

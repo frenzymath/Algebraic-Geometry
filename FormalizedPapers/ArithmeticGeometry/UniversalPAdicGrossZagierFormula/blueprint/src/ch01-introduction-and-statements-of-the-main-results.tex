@@ -1,0 +1,891 @@
+% Source-derived chapter 01: Introduction and statements of the main results
+% Original source: universal-p-adic-gross-zagier-formula
+\chapter{Introduction and statements of the main results}
+\label{universal-p-adic-gross-zagier-formula-chapter-01}
+\source{universal-p-adic-gross-zagier-formula}
+
+\begin{remark}[Source section]
+\label{universal-p-adic-gross-zagier-formula-chapter-01-source}
+\source{universal-p-adic-gross-zagier-formula}
+\source{universal-p-adic-gross-zagier-formula}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Introduction and statements of the main results
+A beautiful construction of Heegner and Birch, based on the modularity of elliptic curves and the theory of complex multiplication,  attaches to an elliptic curve $A/\Q$ and an imaginary quadratic field $E$ a point $P\in A(E)$. The work of Gross--Zagier \cite{GZ} related the height of $P$
+   to   the derivative of the  $L$-function $L'(A_{E}, 1)$, with striking applications to the Birch and Swinnerton-Dyer conjecture. An analogous result in $p$-adic coefficients was proved  by Perrin-Riou \cite{pr} soon thereafter, if $A$ has good ordinary reduction  at the prime~$p$.   
+   
+   \medskip
+
+The decade following those works saw a pair of 
+   similar results, by \nek\ \cite{nek-heeg} and Zhang \cite{zhang-hcycles},  relating   Heegner cycles on Kuga--Sato varieties to ($p$-adic) $L$-functions of higher-weight modular forms.  
+We may single out two  major innovations in the approach to Heegner points and Gross--Zagier formulas since then,\footnote{Two other recent  ideas  that our work does not touch upon are nevertheless too important to be ignored: the conjecture of Darmon and Guitart--Madseu--{\c Seng\"un}  that there should exist Heegner points attached to any quadratic extension of number fields (see \cite{darmon-hhp}, \cite{gms}), and the 
+formulas for the $p$-adic \emph{logarithms} of Heegner points of  \cite{bdp, LZZ}.} both answering the question of what `other' Heegner points there are and how they fit together.
+
+ The first one starts from the observation by Mazur \cite{mazur-icm} and Perrin-Riou \cite{PR2} that Heegner points should vary $p$-adically in anticyclotomic families, in the same way that the $L$-function of the elliptic curve $A_{E}$ does; this observation inspired  Howard \cite{howard} 
+to prove a generalisation to such families of Perrin-Riou's formula. Howard later significantly expanded the scope of Mazur and Perrin-Riou's  idea by proving that the Kummer classes of Heegner points  also vary in Hida families of modular forms \cite{howbig}; the question of the relation of the resulting `big' classes to Heegner cycles was left open.
+
+The second innovation was the observation  by Gross \cite{gross-msri} that Heegner points can be viewed as elements of spaces of $\H'$-invariant linear functionals on an  automorphic representation of $(\G\ts\H)'$ (these reductive groups will be defined below),\footnote{N.B.: the notation $\G$ used in the informal abstract differs from the notation of the paper.}
+ so that the tools of representation theory may be brought in to conceive and prove more  general formulas: a programme whose main achievement, in complex coefficients,  is the work of Yuan--Zhang--Zhang \cite{yzz} on Heegner points on Shimura curves. 
+
+\medskip
+
+In this  work, we combine those two approaches. We construct  Heegner classes for the Galois representation over a Hida family for $(\G\ts\H)'$, show that they specialise to  (cohomological) Heegner cycles at all classical points, and prove a formula for their $p$-adic heights that is universal in the sense that it specialises to all the $p$-adic formulas suggested by the framework of Gross. (The analogous complex Gross--Zagier formulas  are not currently known\footnote{See however the very recent \cite{Qiu}. (Note added during revision.)}  for motives of higher weight.)
+ We obtain various applications to the arithmetic of motives attached to Hilbert modular forms.
+
+
+
+
+
+
+\medskip
+
+In the rest of this first section we state our main theorems, and complete the discussion of their history.
+
+We begin in \S~\ref{sec: BK} by  presenting  the results concerning the $p$-adic  {Be\u\i linson}--Bloch--Kato conjecture   
+(Theorem \ref{BK thm}); they are applications of  the  general $p$-adic Gross--Zagier formula for a fixed representation, stated as 
+ Theorem \ref{GZ thm} in \S~\ref{sec: GZ}.
+ 
+
+In \S~\ref{sec: uH} we outline the construction and properties of the universal  family of Heegner classes (Theorem \ref{theo heeg univ}), referring to the ``Bertolini--Darmon'' conjecture of \S~\ref{sec bd conj} for a further study of its classical specialisations.  In \S~\ref{sec: ugz}  we state the universal  formula  of the title (Theorem \ref{ugz thm}); a complementary `Waldspurger' analogue will be proved in \S~\ref{sec: wald} (Theorem \ref{wald univ}).
+ 
+  Finally, in \S~\ref{sec: appl} we discuss some further applications:  the first non-abelian example of an Iwasawa main conjecture for  derivatives of $p$-adic $L$-functions (Theorem \ref{iw}); and two results on the generic non-vanishing of $p$-adic heights and Heegner cycles: one for CM motives (Theorem \ref{nv CM}), the other for Hida families containing a rank-$0$ elliptic curve with split multiplicative reduction (Theorem \ref{nv exc}).
+   A further application, to a criterion for certain Bloch--Kato Selmer groups to be of rank \emph{zero}, will appear separately.
+   
+
+
+
+\subsection{The $p$-adic {Be\u\i linson}--Bloch--Kato conjecture in analytic rank~$1$} \label{sec: BK}
+\source{universal-p-adic-gross-zagier-formula}
+ The primary  motivation for our work comes from  the generalisations of  the Birch and Swinnerton-Dyer (BSD) conjecture and its $p$-adic analogue, as proposed by {Be\u\i linson}, Bloch--Kato, and Perrin-Riou \cite{bei, bk, PRbook}. Recall that if $A/\Q$ is an elliptic curve, (BSD) is equivalent to the following statements. Denote by   $r_{\rm an}$ and $L^{*}(A, 1)$ the order of vanishing and leading term  of $L(A, s)$ at $s=1$. Then 
+  $L^{*}(A,1) >0$ and for every prime  $p$,
+  \begin{enumerate}[label=(\alph*)]
+  \item
+ the Selmer group ${\rm Sel}(V_{p}A):=(\varprojlim_{n} {\rm Sel}_{p^{n}}(A)) \otimes_{\Z_{p}} \Q_{p}$ has dimension equal to $r_{\rm an}$;
+\item  the divisible part  of $\Sha(A)[p^{\infty}]$ vanishes;
+\item the $p$-adic valuations of $L^{*}(A, 1)/\Omega_{A} R_{A}$ and $|\Sha(A)[p^{\infty}]|\prod_{v\nmid \infty}c_{v}(A)$ are equal.
+  \end{enumerate}
+
+
+\subsubsection{Selmer groups according to Bloch--Kato and \nek} If $E$ is a number field and $V$ is a geometric $p$-adic  representation of its Galois group $G_{E}$, Bloch  and Kato \cite{bk} have proposed an analogue 
+$$H^{1}_{f}(E,V)$$ of the Selmer group of $A$; it is an $L$-vector-subspace (where $L$ is the field of scalars for $V$) of the first Galois cohomology group of $V$, consisting of those classes satisfying certain local conditions. According to the resulting variant of the  conjecture of  {Be\u\i linson} \cite{bei}, the dimension  
+$\dim_{L} H^{1}_{f}(E, V)$ should equal   the    order of vanishing of the $L$-function $L(V^{*}(1), s)$ at $s=0$.\footnote{Provided $V$ contains no copies of the trivial representation. Of course in general the   meromorphic continuation of $L(V,s)$ is itself conjectural. Note that when $V$ is self-dual, or $E$ is a CM field and $V$ is   conjugate-self-dual, we have $L(V,s)=L(V^{*}(1), s)$.}  
+
+Another definition of Selmer groups   was proposed by Greenberg when $V$ satisfies an ordinariness condition at the places above  a prime $p$; specialised to the cases of interest to us,  it recovers the Bloch--Kato Selmer groups. \nek\ observed that a variation of Greenberg's definition works well in $p$-adic families, and developed this observation into the theory of Selmer complexes \cite{nek-selmer},  that provides the foundation for the  present work (\S~\ref{big sec: sel}). For nice $p$-adic families of $G_{E}$-representations, the theory allows to define groups 
+$$\wtil{H}^{i}_{f}(E, V).$$
+ for all $i$.
+ 
+
+
+
+
+\subsubsection{The $p$-adic  {Be\u\i linson}--Bloch--Kato conjecture for Hilbert modular forms}  
+Our main arithmetic results concern the $p$-adic analogue
+of the {Be\u\i linson}--Bloch--Kato conjecture   for the Galois representations attached to Hilbert modular forms and their twists by Hecke characters of CM fields.
+
+ Fix throughout the rest of this paper a rational prime  $p$. Let $F$ be a totally real field,  let $E$ be  a CM quadratic extension of $F$, and  let% In this paper, we are concerned with  the Galois  representations associated with Hilbert modular form for $F$ and their twists by  a Hecke character of a CM quadratic extension of $F$. 
+$$\G_{0}:= \Res_{F/\Q}\GL_{2}, \quad \H:= \Res_{E/\Q}\G_{m}.$$
+  Let $L$ be a finite extension of $\Q_{p}$ splitting $F$.
+A pair of cohomological weights for $\G_{0}$ and $\H$ is a pair of tuples $\uw:=(w; (w_{\sigma})_{\sigma\colon F\into L})$, $\ul=(l;(l_{\sigma})_{\sigma\colon F\into L} )$, each consisting of   $[F:\Q]+1$ integers  of the same parity, such that $w_{\sigma}\geq 2$ for all $\sigma\colon F\into L$.  In this paper we will only consider cohomological weights and therefore omit the adjective `cohomological'. By a ``Hilbert modular form over $L$ of weight $\uw$'' (respectively a  ``Hecke character of $E$ over $L$ of weight $\ul$'') we mean a cuspidal automorphic  representation of $\G_{0}(\A)$ (respectively $\H(\A)$) over $L$ of weight $\uw$ (respectively weight $\ul$) as defined in Definition \ref{aut-def} below.
+
+
+If $\pi_{0}$ is a Hilbert modular form and $\chi$  a Hecke character over $L$, we denote by $\Pi_{0}=\pi_{0}\otimes \chi$ the associated representation of $\G_{0}\times \H$. We denote by  $V_{\pi_{0}}$ and $V_{\chi}$ 
+the corresponding $2$- (respectively $1$-) dimensional representations of $G_{F}$ (respectively $G_{E}$), normalised so that $L(V_{\pi_{0}}, s)= L(s+1/2, {\pi_{0}})$,  and we let 
+$$V:= V_{\Pi_{0}}:=V_{\pi_{0}|G_{E}}\otimes V_{\chi}.$$
+Let  $\omega_{\pi_{0}}$ be the central character of $\pi_{0}$ and let $\omega_{\chi}:=\chi|_{F_{\A^{\infty}}^{\times}}$. If $\omega_{\pi_{0}}\omega_{\chi}=1$, then $V$  is  conjugate-self-dual  and pure of weight $-1$,  and  the  epsilon factor $\eps(V)\in  \{\pm 1\}$.
+
+Let $\Gamma_{F}:= F_{\A^{\infty}}^{\times}/F^{\times}\hat{\OO}^{p, \ts}_{F}$ (identified with the Galois group of the maximal abelian  extension of $F$ unramified outside $p$ by class field theory), and  let 
+$$\cE_{{\rm Z}/L}:=\Spec(\Z_{p}\llb \Gamma_{F}\rrb_{L}).$$ 
+(We will also simply write $\cE_{\rm Z}$ for $\cE_{\rm Z/\Q_{p}}$.)
+ Suppose that $ \pi_{0}$ is \emph{ordinary}  in the sense of Definition \ref{ord-def}; equivalently, for all $v\vert p$ the associated $G_{F_{v}}$-representation $V_{\pi_{0}, v}$ reduces nontrivially as
+$$0\to V_{\pi_{0}, v}^{+}\to V_{\pi_{0, v}}\to V_{\pi_{0}, v}^{-}\to 0,$$
+and $G_{F_{v}}$ acts on $V_{\pi_{0},v}^{+}$ by the product of the cyclotomic character $\chi_{\rm cyc}$ and a character $\alpha_{v}^{\circ}$ valued in $p$-adic units.
+We may attach to $V$ a meromorphic $p$-adic $L$-function
+$$  \calL_{p}(V_{(\pi_{0}, \chi)}, s) \qquad \in \cK(\cE_{{\rm Z}/L})$$
+where the variable  $s\in \cE_{{\rm Z}/L}$ may be thought of as a $p$-adic character of $\Gamma_{F}$; we use the synonym  $\chi_{F, s}$ when we want to emphasise such nature of $s$, and we denote by ``$s=0$'' the trivial character $\chi_{F, 0}=\one$.\footnote{Other authors consider $p$-adic $L$-functions of a variable $s'\in\Z_{p}$. In our language this corresponds to restricting $\calL_{p}(V, s)$ along the embedding $\Z_{p}=\Spec \Z_{p}\llb \Z_{p}\rrb_{\Q_{p}}(\Q_{p})\to \cE_{{\rm Z}/L}(\Q_{p})$,  $s'\mapsto \chi_{{\rm cyc}, F}^{s'}$ where $\chi_{{\rm cyc}, F}=\eqref{chi cyc}$ is the cyclotomic character of $F$.}
+More precisely, working in terms of the multivariable  function $\calL_{p}(\cV^{\sharp})$ of Theorem \ref{conj Lp} below,   we may define  $\calL_{p}(V_{(\pi, \chi)})$ as the restriction
+ \beq \lb{def Lp}
+ \calL_{p}(V_{(\pi, \chi)}, s):= \calL_{p}(\cV^{\sharp})(z_{s})
+ \eeq
+  where  $z_{s}$ corresponds to the family of representations $V_{\pi|G_{E}}\ot\chi \chi_{F, s|G_{E}}$.
+   
+  If $\eps(V)=-1$, then $\calL_{p}(V_{(\pi_{0}, \chi)}, 0)=0 $ and we denote  by $\calL_{p}'(V_{(\pi_{0}, \chi)}, 0)={\rm d}\calL_{p}((V_{(\pi_{0}, \chi)})(0) \in T_{0}\cE_{{\rm Z}/L}= \Gamma_{F}\hat{\ot}L$  its first derivative.
+
+
+
+
+
+\begin{theoA}\label{BK thm} Let $\pi_{0}$ be a Hilbert modular form over $L$ of weight $\uw$, and let $\chi$ be a Hecke character of  $E$ over $L$ of weight $\ul$.
+\source{universal-p-adic-gross-zagier-formula}
+Let $V:=V_{\pi_{0}|G_{E}}\otimes V_{\chi}$ .   Suppose that:
+\begin{itemize}
+\item[$(\textup{wt})$]  $  |  l_{\sg}|<w_{\sg}$ {for all $\sg\colon F\into L$};
+\item[$(\textup{sd})$] 
+$\omega_{\pi_{0}}\omega_{\chi}=1$ (which implies $w+l=0$);
+ \item[$(\eps)$]  $\eps(V)=-1$;
+\item[$(\textup{ord})$] $\pi_{0}$ is ordinary;
+\item[$(\textup{n-exc})$] $V$ is \emph{not exceptional}: for no place $w\vert v\vert p$  of $E$ is $V_{w}^{-}:=V^{-}_{\pi_{0}, v|G_{E_{w}}}\ot \chi_{w}$ the trivial representation. \end{itemize}
+\begin{enumerate}
+\item\lb{dimgeq1}
+We have
+$$\calL_{p}'(V_{(\pi, \chi)}, 0)\neq 0 \   \Longrightarrow  \ \dim_{L} \wtil{H}^{1}_{f}(E, V)\geq 1,$$
+and we can exhibit an explicit  nonzero element of $\wtil{H}^{1}_{f}(E, V)  = {H}^{1}_{f}(E, V)$, whose $p$-adic height (cf. Proposition \ref{prop ht})  is also non-zero.
+\item \lb{2fou}
+Let $T\subset V$ be a stable lattice. If $\calL_{p}'(V_{(\pi, \chi)}, 0)\neq 0$ and moreover the conditions of \cite[Theorem B.(i)]{fouquet} 
+ are satisfied, then:
+  \begin{enumerate}
+\item \lb{2foua}
+ we have
+\beqq%\label{dim 1}
+\source{universal-p-adic-gross-zagier-formula}
+ \dim_{L} \wtil{H}^{1}_{f}(E, V)=1;
+\eeqq
+\item 
+let $R_{T} \in \OO_{L}\hat{\ot}_{\Z_{p}}\Gamma_{F} $ be the regulator of the height pairing \eqref{ht V}  on $\wtil{H}^{1}_{f}(E, T)\ts\wtil{H}^{1}_{f}(E, T^{*}(1))$. Then 
+\beqq
+\calL_{p}'(V_{(\pi, \chi)}, 0) \succeq_{\Z_{p}} R_{T}\cdot | \wtil{H}^{2}_{f}(E, T)_{\rm tors}|
+\eeqq
+in $L\hat{\ot}\Gamma_{F} $.
+\end{enumerate}
+\end{enumerate}
+\end{theoA}
+
+
+In the last formula we have used the following suggestive notation.
+\paragraph{Notation} For a domain $A$ with fraction field $K$  and two $A$-submodules $m_{1}, m_{2}$ of a $K$-vector space $M$   we write $m_{1}\succeq_{A} m_{2}$ if  $m_{1}\subseteq m_{2}$; the notation is extended to the case where some $m_{i}$ is an element of $M$, in which case we interpret it as $Am_{i}$.
+
+ Part 1    will be an immediate consequence of Theorem \ref{GZ thm},  the Jacquet--Langlands correspondence, and the observation following \eqref{eps v} below.
+For a list of previous results in the direction of part 1 we refer to the discussion following Theorem~\ref{GZ thm}. Let us  note, for now, that an analogue of this result in complex coefficients is not known.
+
+Part 2 follows from invoking the results of Fouquet in \cite{fouquet}, that generalise the bounds on Tate--Shafarevich groups of elliptic curves obtained by Kolyvagin using the methods of Euler systems. 
+
+
+\begin{rema}
+\source{universal-p-adic-gross-zagier-formula}
+\notready Condition $(\textup{n-exc})$ guarantees that $\calL_{p}(V_{(\pi, \chi)}, s)$ has no exceptional zeros at $s=0$, and it is equivalent to the identity $\wtil{H}^{1}_{f}(E, V)= {H}^{1}_{f}(E, V)$.  We will also  equivalently say that $\Pi$ is not exceptional.  For a characterisation of this condition, see Lemma \ref{6444}.
+\end{rema} \begin{rema} 
+ In the simplest case  where $F=\Q$, $\pi_{0}$ is a modular form with rational Fourier coefficients of weight $w_{\sg}=2$, and   $\chi=\one$,
+ the representation $V_{\pi_{0}}=V_{\frakp}A$ is  the rational $p$-adic  Tate module of an elliptic curve $A/\Q$. In this case ${H}^{1}_{f}(E, V)={\rm Sel}(V_{p}A_{E})$,
+and letting $T=T_{p}A_{E}$, the group  $\wtil{H}^{2}_{f}(E, T)_{\rm tors}$ equals (\cite[(1.36)]{bu-fl}) the quotient of $\Sha(A_{E})[p^{\infty}]$ by its divisible submodule $\Sha(A_{E})_{p\textup{-div}}$. 
+
+The group $\Sha(A_{E})_{p\textup{-div}}$, conjecturally $0$,  measures the failure of ${\rm Sel}(V_{p}A_{E})$ to be generated by the classes of points in $A(E)$. We do not address in this paper the analogous conjecture from \cite{bk} that ${H}^{1}_{f}(E, V)$ should be generated by the classes of algebraic cycles.
+Nevertheless our construction of a generator is sufficiently geometric to provide a good  starting point to establish this conjecture, cf. Remark \ref{rem-P in H1f}.
+\end{rema}
+
+\subsubsection{A variant for selfdual Hilbert modular forms} Suppose that $\pi_{0}$ is an ordinary  Hilbert modular form,  $\omega_{\pi_{0}}=1$ (so that $w=0$), and $\eps(V_{\pi_{0}})=-1$. Assume that either $[F:\Q]$ is odd or there is a place $v\nmid p\infty$ of $F$ such that $\pi_{0,v}$ is not a principal series. Suppose that for no $v\vert p$ is $\pi_{0,v}$ the Steinberg representation. Let $L_{p}(V_{\pi_{0}}, s)$ be the $p$-adic $L$-function of $V_{\pi_{0}}$ constructed in \cite{dimitrov}.
+ If   $L'_{p}(V_{\pi_{0}},0)\neq 0$, then  the conclusions \eqref{dimgeq1} and  \eqref{2foua} of the previous theorem hold with $(E, V)$ replaced by $(F, V_{\pi_{0}})$. (This is proved by a standard argument based on the choice of a suitable auxiliary $E$ to reduce to the previous theorem.) A similar remark (at least for part  \eqref{dimgeq1}) applies when $\pi_{0}$ has CM by $E$, cf. the proof of Theorem \ref{nv CM} in \S~\ref{sec: nvCM}
+
+
+
+\subsubsection{Addendum to the historical overview: higher-rank cases}
+The general  overview sketched in our opening page ignored a third important theme:
+ Gross's framework has been generalised in \cite{ggp} to study  special cycles attached to other pairs of groups $(\G, \H)$. Several works have explored the  consequences towards the Be\u\i linson--Bloch--Kato conjecture of the possible non-vanishing of those cycles, most notably \cite{five}. On the other hand, non-vanishing \emph{criteria} in terms of  $L$-functions have been obtained in a considerably more limited set of cases, mostly related to  triple-product $L$-functions  \cite{YZZ3, xue, dr, bsv, bcf}.\footnote{In a related context,  see also  the very recent breakthrough of Li--Liu \cite{LL}. (Note added during revision.)}  The relation with cyclotomic $p$-adic $L$-functions has not been studied beyond Heegner cycles.
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+\subsection{The $p$-adic Gross--Zagier formula for arbitrary weight} \label{sec: GZ}
+\source{universal-p-adic-gross-zagier-formula}
+Theorem \ref{BK thm}, like analogous previous results \cite{pr, nek-heeg, dd-ant, shnidman, dd-pyzz, nonsplit}, is an application of an explicit formula for the $p$-adic heights of a certain Selmer class (here rather a collection of classes). When the weights are \emph{trivial}, that is $\uw=(0; (2,\ldots, 2))$ and $\ul=(0; (0, \ldots, 0))$, this is the class of a \emph{Heegner} $0$-cycle coming from   CM points on quaternionic   Shimura curves; this is the case studied in \cite{dd-pyzz, nonsplit}, and earlier  in complex coefficients by Yuan--Zhang--Zhang \cite{yzz}.
+ In general, it is the class of a   $0$-cycle supported at CM points,  with coefficients in a local system corresponding to the weight of the representation. The specific choice of the (tower of) Shimura curves is dictated by the local root numbers of $V$, see the discussion preceding Definition \ref{loc dist}. 
+
+
+
+\subsubsection{Algebraic groups and Shimura varieties} 
+Let $\B$ be a quaternion algebra over $F_{\A}$ (where $\A$ denotes the ad\`eles of $\Q$) with ramification set $\Sigma\sqcup \{v\vert \infty\} $ satisfying $|\Sigma| \equiv [F:\Q] -1\pmod{2}$.  Then $\G(\A):= \B^{\ts}$ is   \emph{not} the points of an algebraic group `$\G$' over $\Q$, but we will still find convenient to   use this  suggestive notation and   refer to  $\G$ as an \emph{incoherent} algebraic group over $\Q$ (see \S~\ref{ssec incoh} for a more formal treatment).
+ Let $\H=\Res_{E/\Q}{\bf G}_{m}$ as above, and let  ${\rm Z}:= \Res_{F/\Q}{\bf G}_{m}$, that admits natural central embeddings in $\G$ and $\H$. 
+
+
+The list of (coherent or incoherent) groups of interest in this paper, often denoted collectively by $\G_{*}$, is
+\beq \label{list}
+\source{universal-p-adic-gross-zagier-formula}
+\G, \qquad  \H, \qquad \G\times \H, \qquad (\G\times \H)':= (\G\times \H)/{\rm Z}, \qquad\H':=\H/{\rm Z},
+\eeq
+where ${\rm Z}$ is embedded diagonally in the product group.\footnote{In fact, the (incoherent) group that truly underlies our constructions is $(\G\ts_{\rm Z}\H)' = \{(g, h)\, | \, \nu_{\G}(g)=\nu_{\H}(h)\}$ (where $\nu_{?}\colon ?\to {\rm Z}$  arises from  the reduced norm map of $\B$ (for $?=\G$) or from the norm of $E/F$ (for $?=\H$). That is, the universal Heegner class and the other associated objects described below descend to the ordinary eigenvariety for $(\G\ts_{\rm Z}\H)'$ (a quotient of the one for $(\G\ts\H)'$). Nevertheless, for the sake of simplicity we will content ourselves with working with $(\G\ts\H)'$.} 
+ We suppose that for every $v\in \Sg$, $E_{v}/F_{v}$ is nonsplit. Then  there is unique $\B^{\times}$-conjugacy class of $F_{\A}$-embeddings $E_{\A}\into \B$, of which we fix one. It induces an embedding ${\rm e}\colon \H\into \G$. 
+
+
+To the above groups and suitable Shimura data (\S~\ref{ssec shi}), we associate
+corresponding towers of   compactified Shimura varieties $X_{*}$, respectively denoted 
+\beq \lb{shlist}X_{/F}, \qquad Y_{/E}, \qquad X\times_{F} Y_{/E}, \qquad Z_{/E}, \qquad Y'_{/E}.
+\eeq
+  They are curves except for $Y$, $Y'$ that have dimension~$0$. The embedding ${\rm e}$ induces a diagonal embedding $\H'\into (\G\times \H)'$, hence a morphism of Shimura varieties 
+$${\rm e}' \colon  Y' \to Z.$$
+
+
+\subsubsection{$p$-adic automorphic representations}
+It is  more natural to parametrise ``cohomological automorphic representations over a $p$-adic field $L$'' of a group $\G_{*}$ by irreducible  algebraic representations $W$  of $\G_{*}$.\footnote{See Definition \ref{aut-def}: the  $W/L$ of interest to us are in bijection with (finite) $G_{L}$-orbits of cohomological `numerical'  weights as defined above. From now on all numerical or representation-theoretic weights will be tacitly understood to be cohomological.} 
+
+Let $G_{*, \infty}$ be $\G_{*}(\Q_{p})$ with the Zariski topology (and for later purposes let $G_{*, p}:=\G_{*}(\Q_{p})$ with the $p$-adic topology, $G_{*}:=G_{* , p} \ts G_{*,\infty}$).  We \emph{redefine} throughout this work
+$$\G_{*}(\A):= \G_{*}(\A^{\infty})\ts G_{*, \infty}.$$
+ Let $W$ be an (algebraic) representation of $G_{*, \infty}$ over $L$, and let $\cW $ be the corresponding  \'etale local system on the tower $X_{*}$. Then we define  a (cuspidal, cohomological)  \emph{automorphic representation of $\G_{*}(\A)$ over $L$ of weight $W$} to be a representation  $$\Pi=\Pi^{\infty}\ot W$$
+of $\G_{*}(\A)$  occurring in $H^{\bullet}(X_{*, \baar{E}}, \cW^{\vee})\ot W$.\footnote{This approach is inspired by the work of Emerton \cite{emerton}.}
+  (Here and in the rest of the paper, groups and Hecke algebras act on Shimura varieties and their homology on the \emph{right}, on cohomology and  on automorphic forms on the \emph{left}. Left and right algebraic representations $W$ are identified via $w.g:=g^{-1}.w$.)
+
+
+
+
+
+\subsubsection{Automorphic and Galois representations}
+Let $\Pi=\pi\otimes \chi$ be a cuspidal automorphic representation of $(\G\times \H)'(\A^{})$ over $L$ of weight $W=W_{\G}\ot W_{\H}$.
+    Let $V=V_{\Pi}=V_{\pi|G_{E}}\otimes V_{\chi}$ be the associated $G_{E}$-representation.
+    
+    
+For a smooth proper variety $Z'$ of dimension $d$ over a characteristic-zero field $F'$ and a $p$-adic local system $\cW'$, define $$H_{i}(Z', \cW') := H^{2d-i}_{\text{\'et}}(Z', \cW'(d))$$
+ for all $0\leq i\leq 2d$.       For each level $K\subset (\G\ts\H)'(\A^{\infty}) $, let  $\baar{Z}_{K}:=Z_{K}\ts_{\Spec E}\Spec{\baar E}$.  
+ We use the notation
+$$\H_{i}(\baar{Z}_{K}, \cW):=H_{i}(\baar{Z}_{K}, \cW)\ot W^{\vee}$$
+and similarly for the other Shimura varieties over $F$, $E$, $\baar{E}$ under consideration.
+Thanks to work of Carayol we can construct an injection (an isomorphism unless $V$ is decomposable) of $(\G\ts\H)'(\A^{})$-representations
+\beq
+\label{cara Z}
+\source{universal-p-adic-gross-zagier-formula}
+\Pi \into \varinjlim_{K} \Hom_{L[G_{E}]}(\H_{1}(\baar{Z}_{K}, \cW), V_{\Pi}) .
+\eeq
+
+
+\subsubsection{Heegner cycles}   
+ Suppose that $W$ satisfies (wt), then $W^{H'_{\infty}}\cong W_{H'_{\infty}}$ is $1$-dimensional, and ${\rm e'}$ induces   a canonical system of maps  
+ $$\H_{0}(Y'_{V'}, L)\to \H_{0}(Z_{K}, \cW)$$
+  for all $V'\subset \H'(\A^{\infty})\cap K$. The  image $\Delta^{\circ}_{W, f_{\infty}}\in  \H_{0}(Z_{K}, \cW)$  of the normalised fundamental class 
+$$[Y'_{V'}]= |Y'(\baar{E})|^{-1}\cdot \sum_{y\in Y'(\baar{E})} [y] \quad \in \varprojlim_{V'} \H_{0}(Y'_{V}, L)$$
+is well-defined and (after a modification if $W$ is trivial) belongs to the kernel  $\H_{0}(Z_{K}, \cW)_{0}$ of 
+$  \H_{0}(Z_{K}, \cW)\to \H_{0}(\baar{Z}_{K}, \cW)$.
+ The images of $\Delta^{\circ}_{W, f_{\infty}}$ under the Abel--Jacobi maps ${\rm AJ}\colon \H_{0}(Z_{K}, \cW)_{0} \to H^{1}(E, \H_{1}( \baar{Z}_{K}, \cW)) $ are compatible under pushforward along the tower $Z_{K}$ and invariant under the $\H'(\A^{})$-action,  hence they define an element 
+ $$P_{W}:= \lim {\rm AJ}(\Delta_{W, -}^{\circ})\in \varprojlim_{K} H^{1}(E, \H_{1}(\baar{Z}_{K}, \cW)^{H'(\A^{})})$$
+Via  \eqref{cara Z},  $P_{W}$ defines  an $\H'(\A)$-invariant functional
+\beq \lb{cP Pi 0} 
+P_{\Pi}\colon \Pi_{H'_{\infty}}
+ \to H^{1}(G_{E}, V_{\Pi}),
+  \eeq
+whose  image should   lie in $H^{1}_{f}(E, V_{\Pi})\subset H^{1}(E, V_{\Pi})$ (see Remark \ref{rem-P in H1f} for a stronger conjecture). We show in Proposition \ref{in H1f} that this is the case if  $\B_{p}$ is split and $\Pi$ is \emph{ordinary} and not exceptional, which we define to mean that $\B_{p}$  is split and the Jacquet--Langlands transfer $\Pi_{0}$ of $\Pi$  to $\G_{0}\ts \H$ (which  is thus the `identity' at $p$) satisfies those properties. 
+
+Our formula will give a criterion for the nonvanishing of  $P_{\Pi}$.
+
+
+  
+
+
+\subsubsection{Multiplicity one}\lb{sec m1} Representation theory provides a necessary condition.  The space 
+$$(\Pi)^{*,\H'(\A)}=\Hom_{\H'(\A)} (\Pi, L)$$
+ is known, by a theorem of Waldspurger,  Tunnell, and H. Saito \cite{tunnell, saito-h}, to be nonzero if and  only if 
+the following condition is satisfied for all $v$:
+\begin{itemize}
+\item[($\eps_{v}$)]  Define $ \eps(\B_{v}):=+1 $ (respectively $-1$) if $\B_{v}$ is split (respectively nonsplit).  Let
+$\eps(V_{v}):= \prod_{w\vert v}\eps(V_{w})$, $\chi_{v}(-1):=\prod_{w\vert v}\chi_{w}(-1)$; then 
+\beq \label{eps v}
+\source{universal-p-adic-gross-zagier-formula}
+\eps_{v}^{\G}(V):= \eps(V_{v})\chi_{v}(-1)\eta_{v}(-1)\eps(\B_{v}) =+1.
+\eeq
+\end{itemize}
+If this is the  case, $(\Pi)^{*,\H'(\A)}$ is $1$-dimensional and moreover the global root number $\eps(V)=-1$.  Conversely, if $V$ is as in Theorem \ref{BK thm} and in particular  satisfies $\eps(V)=-1$, there exists a unique incoherent totally definite quaternion algebra $\B$ verifying $(\eps_{v})$.
+ 
+ The conditions ($\eps_{v}$) for a finite $v$ generalise the classical ``Heegner condition''. For $v\vert p$, if $\pi$ is ordinary the condition $(\eps_{v})$  is satisfied  unless   $v$ is nonsplit in $E$ and $\pi$ is  exceptional at $v$ (Lemma \ref{6444}). 
+The condition ($\eps_{\infty}$)   is equivalent to (wt). 
+ \begin{defi}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\lb{loc dist} 
+ We say that $\Pi$ is \emph{locally distinguished by $\H'$}, or simply \emph{locally distinguished}, if it satisfies conditions $(\eps_{v}) $ for all $v$.
+ \end{defi}
+
+
+\subsubsection{Local toric periods}\lb{ssec loc tp} Assume that $\Pi$ is locally distinguished, and let $\Pi^{\vee}$ denote the contragredient representation of $\Pi$.  Then we know an explicit a generator of 
+\beq\label{pi*h}  
+\source{universal-p-adic-gross-zagier-formula}
+\Pi^{*,\H'(\A)}\ot (\Pi^{\vee})^{*,\H'(\A)}
+\eeq
+as a product of local pairings, which we now define. 
+The  pair $P_{\Pi}\ot P_{\Pi^{\vee}}$ will be measured against this generator.
+
+
+
+For $v$  a finite  place of $F$, let $\Pi_{v}$ be the local component of $\Pi$, a representation of $(\B_{v}^{\ts}\ts E^{\ts}_{v})/F_{v}^{\ts}\supset H'_{v}:= E_{v}^{\ts}/F_{v}^{\ts}$; let   $dt_{v}$ be a Haar measure on $H_{v}'$.
+For $v=\infty$, let $\Pi_{\infty}=W$ and let $dt_{\infty}$ be a formal symbol  synonymous with a constant $\vol(H'_{\infty}, dt_{\infty})\in L$. In all cases, let $\Pi_{v}^{*, H'_{v}}:=\Hom_{H_{v}'}(\Pi_{v}, L)$ and let $(\ , \ )_{v}$ be an invariant pairing on $\Pi_{v}\ot \Pi_{v}^{\vee}$. 
+ % if $v$ is finite, a Haar measure on $(\bC^{\ts}/\R^{\ts})^{[F:\Q]}$ if $v=\infty$ dqdqd. 
+
+
+
+Let $V_{v}$ (respectively $V_{\pi, v}$) be the  restriction to $G_{E_{v}}:=\prod_{w\vert v}G_{E,w}$ (respectively $G_{F_{v}}$) of the Galois representation 
+ associated with $\Pi$ (respectively  $\pi$)
+   if $v$ is finite, and the Hodge structure associated with $W$ (reps. $W_{\G}$) if $v=\infty$. Let us also introduce the convenient notation 
+$$\text{``$V_{(\pi, \chi), v}:= (V_{\pi, v}\ot{\rm Ind}_{F_{v}}^{E_{v}}\chi_{v})\ominus \ad(V_{\pi})(1)$''}$$
+(to be thought of as referring to a `virtual motive').
+
+Let  $\eta\colon F^{\ts}_{\A}/F^{\ts}\to \{\pm 1\}$ be the character associated with $E/F$, and let
+\beq\lb{calLv}
+\calL(V_{(\pi, \chi), v},0):= {\zeta_{F,v}(2) L(V_{v}, 0) \over {L(1, \eta_{v})L(\ad(V_{\pi, v}) , 1)}}
+\cdot  \begin{cases} 1 \quad &\text{if $v$ is finite}\\ \pi^{-[F:\Q]}  &\text{if
+ $v=\infty$}\end{cases}
+\quad \in L.
+\eeq
+Then 
+\beqq
+ \label{Qpair intro} 
+\source{universal-p-adic-gross-zagier-formula}
+ Q_{v,(, )_{v}, dt_{v}}(f_{1, v}, f_{2,v})&:=
+\calL(V_{(\pi, \chi),v},0)^{-1}\
+ \int_{H_{v}'} (\Pi_{v}(t)f_{1,v}, f_{2, v})_{v}\, dt_{v} 
+  %\calL(V_{v})^{-1}\cdot \begin{cases} 
+\eeqq
+is an explicit generator of $\Pi_{v}^{*, H'_{v}}\ot_{L} (\Pi_{v}^{\vee})^{*, H'_{v}}$. Here for $v\nmid \infty$ the integral is absolutely convergent (after making any choice of $L\into\bC$), and  for $v =\infty$ we understand $$\int_{H'_{\infty}}\Pi_{\infty}(t)dt_{\infty}:={\vol(H'_{\infty}, dt_{\infty})} \cdot {\rm p}_{H'_{\infty}} \colon W\to W_{H'_{\infty}} =W^{H'_{\infty}},$$ where ${\rm p}_{H'_{\infty}}$ is  the natural projection.
+
+
+Given $f_{3,v}, f_{4,v}\in \Pi_{v}\ot\Pi_{v}^{\vee}$ such that $(f_{3,v}, f_{4,v})_{v}\neq 0$, the quantity
+\beq\label{Qv intro} 
+\source{universal-p-adic-gross-zagier-formula}
+Q^{}_{v, dt_{v}}\left( {  f_{1, v} \ot  f_{2, v}\over f_{3,v}\ot f_{4, v}}\right) := {Q_{v,( , )_{v}, dt_{v}}(f_{1,v}, f_{2,v})\over ( f_{3,v}, f_{4,v})_{v}}
+\eeq
+ is independent of the choice of $(\ ,  \ )_{v}$; it equals $\vol(\OO_{E,v}^{\ts}/\OO_{F, v}^{\ts}, dt_{v})$ if all the data are unramified.
+
+
+Fix a choice of   measures $dt_{v}$ such that for $dt=\prod_{v }dt_{v}$,
+\beq \lb{dt norm}\textstyle\vol(\H'(\Q)\bks \H'(\A), dt):= \vol(\H'(\Q)\bks \H'(\A^{\infty}), \prod_{v\nmid \infty} dt_{v}) \cdot \vol(H'_{\infty}, dt_{\infty})=1.\eeq
+Then we define  for $f_{1}\in \Pi_{H'_{}}$, $f_{2}\in \Pi^{\vee}_{H'_{}}$, $f_{3}\in \Pi$, $ f_{4}\in \Pi^{\vee}$
+such that  $\prod_{v}(f_{3,v}, f_{4,v})_{v}\neq 0$:
+\beqq 
+Q \left( {  f_{1} \ot  f_{2}\over f_{3}\ot f_{4}}\right)
+&:= 
+\prod_{v}Q_{v, dt_{v}}\left( {  f_{1, v} \ot  f_{2, v}\over f_{3,v}\ot f_{4, v}}\right).
+\eeqq
+
+
+
+
+
+
+\subsubsection{Global pairings and $p$-adic heights} Let $V^{\iota}:=V_{\Pi^{\vee}}$. Fix a Galois-equivariant  pairing 
+\beq\label{pair V}
+\source{universal-p-adic-gross-zagier-formula}
+V\ot V^{\iota }\to L(1).\eeq
+ Poincar\'e duality provides a canonical Galois-  and Hecke- equivariant pairing 
+ $ \H_{1}(\baar{Z}_{K},\cW) \ot  \H_{1}(\baar{Z}_{K}, {\cW}^{\vee})\to L(1)$.
+  Via \eqref{cara Z} and \eqref{pair V}, it induces  dual  pairings $(\ , \ )_{\Pi}^{K}\colon \Pi^{K}  \ot \Pi^{\vee, K}
+  \to L $ for all $K$. Letting $L_{K}$ be the Hodge bundle on $Z_{K}$, the following pairing (\eqref{pair pi} in the text) is well defined:
+  $$(\ , \ )_{\Pi}:= \lim_{K} \ (\dim W\cdot \deg(L_{K}))^{-1}\cdot (\ ,\ )_{\Pi^{K}} \colon \Pi
+  \ot \Pi^{\vee}
+  \to L .$$
+ 
+
+On the other hand, if $\pi$ is ordinary  the restriction $V_{w}$ of $V$ to $G_{E_{w}}$, $w\vert p$,  is reducible
+\beq\label{ord w}
+\source{universal-p-adic-gross-zagier-formula}
+0\to V^{+}_{w}\to V_{w}\to V_{w}^{-}\to 0,
+\eeq
+and there is an analogous reduction  for $V^{\iota}$ such that $V^{+}_{w}$ and $V^{\iota, +}_{w}$ are exact orthogonal of each other under \eqref{pair V}.  These data
+allow 
+  to define a height  pairing
+\beq \label{ht V}
+\source{universal-p-adic-gross-zagier-formula}
+ h_{V}\colon \wtil{H}^{1}_{f}(E, V)\ot \wtil{H}^{1}_{f}(E, V^{\iota})\to L\hat{\ot}\Gamma_{F} 
+ \eeq
+on \nek's Selmer groups as in Proposition \ref{prop ht}.
+When  $W$ is trivial,  the representation  $V=V_{\frakp}A_{E}\ot\chi$ is a factor of the Tate module of an abelian variety, and (under   (n-exc))  the pairing $h_{V}$ coincides with all other $p$-adic height pairings on abelian varieties defined in the literature: see \cite{dd-pyzz} for a review.
+\subsubsection{The formula}   We can now state the $p$-adic Gross--Zagier formula for $V$. 
+\begin{theoA}\label{GZ thm} Let $\Pi=\pi\ot \chi$ be an ordinary, locally distinguished, non-exceptional automorphic  representation of $(\G\ts\H)'(\A^{})$ over $L$.
+\source{universal-p-adic-gross-zagier-formula}
+ Let $V=V_{\Pi}$.
+ 
+ 
+  The image of $P_{\Pi}$ lies in $H^{1}_{f}(E, V)$, and 
+for all $f_{1}\in \Pi_{H'_{\infty}}$, $f_{2}\in\Pi^{\vee}_{H'_{{\infty}}}$, $f_{3}\in \Pi$, $f_{4}\in\Pi^{\vee}$
+such that $(f_{3}, f_{4})_{\Pi}\neq 0$, we have
+$$   {  h_{V}(P_{\Pi}(f_{1}), P_{\Pi^{\vee}}(f_{2}))    \over   (f_{3}, f_{4})_{\Pi} }  
+= 
+e_{p\infty}(V_{(\pi, \chi)})^{-1}
+ \cdot \calL_{p}'(V_{(\pi, \chi)}, 0)
+\cdot
+Q\left( {  f_{1} \ot  f_{2}\over f_{3}\ot f_{4}}\right),
+$$
+where $e_{p\infty}(V_{(\pi, \chi)}) \in L^{\ts}$ is  the $p$-interpolation factor  for  $\calL_{p}(V_{(\pi ,\chi)}, s)$ defined in \eqref{epinf L} below. 
+\end{theoA} 
+ When $\G=\GL_{2/\Q}$, $V$ is crystalline at $p$, $p$ splits in $E$,   $\chi$ is unramified  and the $f_{i}$  are newforms, a version of this result was proved by Perrin-Riou \cite{pr} when $W$ is trivial, and by   \nek\ \cite{nek-heeg} and Shnidman \cite{shnidman} when $W$ has even weights. The general case with trivial $W$ was proved in \cite{dd-pyzz, nonsplit}. 
+\begin{rema}
+\source{universal-p-adic-gross-zagier-formula}
+\notready Establishing Gross--Zagier formulas in this generality has proven useful for arithmetic applications, such as those in  \cite{tian, bur-d, BuTian} and Theorem \ref{nv CM} below. 
+
+
+Explicit versions of the formula can be obtained by evaluating the functional $Q$  at well-chosen $f_{i}$. This is a local problem, solved in  \cite{cst}.
+\end{rema}
+
+
+\begin{rema}
+\source{universal-p-adic-gross-zagier-formula}
+\notready For a variant of Theorem \ref{GZ thm} that is valid  in the exceptional case as well, see Theorem \ref{GZ thm'}. That variant is often trivially  $0=0$ in the exceptional case, but not always, and indeed Remark \ref{rmk GS} sketches a new proof of the Greenberg--Stevens theorem \cite{GS} based on it. For a further discussion going beyond any trivial or non-trivial vanishing, see Remark \ref{go to bd} and \S~\ref{sec bd conj}.
+\end{rema}
+
+\subsection{The universal Heegner classes}\label{sec: uH} We explain the interpolation of the Heegner cycles $P_{\Pi}$ as $\Pi$ varies over a Hida family for $(\G\ts \H)'$. 
+\source{universal-p-adic-gross-zagier-formula}
+
+
+Suppose from now on that $\B_{p}$ is split and  fix an isomorphism $\G_{\Q_{p}}\cong \Res_{F_{p}/\Q_{p}}\GL_{2}$, giving a model of $\G$ (hence $(\G\ts\H)'$) over $\Z_{(p)}$. We let $N_{\G, 0}:=\smalltwomat 1{\OO_{F, p}}{}1\subset \G(\Q_{p})$ and $N_{0}$ be the image of $N_{\G, 0}$ in $(G\ts H)'_{p}$. Finally we denote by $\Up_{p}$ the usual operator in the Iwahori--Hecke algebra of $(G\ts H)'_{p}$, and by $\Up_{p\infty}$ its product with $ (\smalltwomat p{}{}1, 1)\in (G\ts H)'_{\infty}$. 
+
+
+For a localisation ${\rm M}$ of a finite $\Z_{p}$-module ${\rm M}^{\circ}$ on which the operator $\Up_{p\infty}$ acts (on the left or the right), we denote by ${\rm M}^{\ord}$ the image of ${\rm M}$ under  Hida's ordinary projector 
+$$e^{\ord}=\lim \Up_{p\infty}^{n!}.$$
+  
+
+
+
+
+
+  
+  
+  
+  
+ 
+\subsubsection{Hida families for $(\G\ts\H)'$}  %[[ Fix an isomorphism $\G_{\Q_{p}}\cong \Res_{F_{p}/\Q_{p}}\GL_{2}$, giving a model of $\G$ over $\Z_{(p)}$. (The group  $\H$ has a natural model ${\Res}_{\OO_{E}/\Z}\G_{m}$ over $\Z$). 
+Pick an arbitrary  $(\G\ts\H)'(\Z_{p})$-stable lattice $W^{\circ}\subset W$, yieding a sub-local system $\cW^{\circ}\subset \cW$.
+  Then we define, for any $K=K^{p}K_{p}$ with $K_{p}\supset N_{0}$,
+\beq\label{MWK}
+\source{universal-p-adic-gross-zagier-formula}
+M_{W,K}^{\circ}:= (H^{1}(\baar{Z}_{K}, \cW^{\circ})\ot (W^{\circ, \vee})_{N_{0}})^{\ord},  \qquad M_{W,K}:= M_{W, K}^{\circ}\ot_{\OO_{L}}L.
+\eeq
+    
+Let $K^{p}\subset (\G\ts\H)'(\A^{p\infty})$ be an open compact subgroup. Consider the ordinary completed homology of $\baar{Z}_{K^{p}}$
+$$M_{K^{p}}:=( \varprojlim_{K_{p}\supset N_{0}} M_{K^{p}K_{p}}^{\circ})\ot_{\Z_{p}}\Q_{p},$$
+where $ M_{K}^{\circ}= $\eqref{MWK} with $W$ the trivial representation, and the limit is over $K$ such that $K_{p}\supset N_{0}$ (``level $\Gamma_{1}^{1}(p^{\infty})$''). By the work of Hida, $M_{K^{p}}$ is a finite flat module over a certain weight algebra $\Lm=\Lm_{K^{p}} \simeq \Q_{p}[\Delta]\ot_{\Z_{p}} \Z_{p}\llb T_{1}, \ldots , T_{2[F:\Q]+1+\delta_{F ,p}}\rrb$ where $\Delta $ is a   finite group and $\delta_{F, p}$ is the Leopoldt defect of $F$. 
+
+Let ${\bf T}^{\rm sph, \ord}_{K^{p}, \Q_{p}}\subset \End_{\Lm}(M_{K^{p}})$ be the image of the algebra generated by the  spherical Hecke operators and the operators $\Up_{v}$, $v\vert p$. The `ordinary eigenvariety' 
+$$\cE^{\ord}=\cE^{\ord}_{K^{p}}:=  \Spec {\bf T}^{\rm sph, \ord}_{K^{p}, \Q_{p}}$$ contains a dense subset  $\cE^{\ord, \cl}$ (more precisely a reduced $0$-dimensional ind-subscheme) of regular points,  in bijection with the   set of $G_{\Q_{p}}$-orbits of those  ordinary automorphic representations $\Pi$ of $(\G\ts\H)'$ over $\Q_{p}$ such that  $\Pi^{K^{p}}\neq 0$. 
+
+
+Let us  fix an irreducible component 
+$$\X\subset\cE^{\ord}_{K^{p}}$$
+that is a  \emph{Hida family} for $(\G\ts\H)'$. We let  $\X^{\cl}:=\X\cap\cE^{\ord, \cl}  $. 
+ 
+ 
+ \begin{defi}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\lb{hida loc dist} 
+A {Hida family} $\X$ for $(\G\ts \H)'$ 
+is said to be \emph{locally distinguished} (by $\H'$) if it satisfies  the conditions  
+\begin{itemize}
+\item[$(\eps_{v})'$]  for every (equivalently,\footnote{By \cite[Corollary 5.3.3]{LLC}.} one) classical point $z\in \X$ (of weight satisfying (wt)), the Galois representation $\cV_{z}$ attached to the representation $\Pi_{z}$ satisfies ($\eps_{v}$)
+\end{itemize}
+for all $v\nmid p\infty$.
+\end{defi}
+
+
+\subsubsection{Sheaves on $\X$} 
+ The Hida family $\X$ comes with a coherent sheaf   $\cM_{K^{p}}$ corresponding to $M_{K^{p}}$; moreover in fact for each $K^{p}{}'\subset K^{p}$ the module $M_{K^{p}{}'}$ gives rise to a coherent $\OO_{\X}$-module
+$$\cM_{K^{p}{}'}$$
+ with $\OO_{\X}$-linear Hecke- and Galois actions. Fix an arbitrary  $K^{p}{}'\subset K^{p}$, `sufficiently large' at the places in $\Sg$.\footnote{In the sense that for each $z\in \X^{\cl}$,  $v\in\Sg$, the finite-dimensional constituent  $\Pi_{z,v}$ of $\Pi_{z}$ is fixed by $K_{v}$.}  Let $S$ be a finite set of primes, not containing those above $p$, such that all data $\G, \H,K^{p}{}'$ are unramified outside $Sp$.
+ Let $G_{E, Sp}$ be the Galois group of the maximal extension of $E$ unramified outside $Sp$.
+ We prove in the text that the following statements are true up to  replacing $\X$ by an open subset  containing $\X^{\cl}$: 
+\begin{itemize}
+\item there exists a locally free sheaf $\cV$ of rank $2$ with a $G_{E, Sp}$-action, such that for all $z\in \X^{\cl}$, the representation $\cV_{|z}$ is associated with $\Pi_{z}$ via  the  Langlands correspondence;
+\item for each $w\vert p$ there is an exact sequence  of  $\OO_{\X}[G_{E,w}]$-modules 
+\beq\label{ord fam}
+\source{universal-p-adic-gross-zagier-formula}
+ 0\to \cV_{w}^{+}\to \cV_{w}\to \cV^{-}_{w}\to 0,\eeq 
+where the $\cV_{w}^{\pm} $ are line bundles  over $\X$, specialising to  \eqref{ord w} at all $z\in \X^{\cl}$;
+\item assume from now on that $\X$ is locally distinguished. There is a locally free $\OO_{\X}$-module 
+$$\Pi^{K^{p}{}', \ord}_{H'_{\Sg}}$$ 
+interpolating the spaces of $(E_{\Sg}^{\ts}/F_{\Sg}^{\ts})$-coinvariants,
+ $K^{p}{}'$-invariants of $\Pi_{z}^{\ord}$ for $z\in \X^{\cl}$; 
+\item we have a map of Hecke modules over $\OO_{\X}$
+\beq \label{cara hida}
+\source{universal-p-adic-gross-zagier-formula}
+ \Pi^{K^{p}{}', \ord}_{H'_{\Sg}}\to \Hom_{\OO_{\X}[G_{E, Sp}]}(\cM_{K^{p}{}'}^{H_{\Sg}'}, \cV)
+\eeq
+whose specialisations over $\X^{\cl}$ are deduced by \eqref{cara Z}.
+\end{itemize}
+
+
+\subsubsection{The universal Heegner class} 
+We construct in the appendix (Proposition \ref{gHo})  an  operator $\gamma_{H'}^{\ord}$, that is the key to the interpolation of Heegner cycles.  It is a limit of    of Hecke operators at $p\infty$, 
+ intertwining toric and ordinary  parts:
+\beqq\lb{op gamma} {\H}_{1}(\baar{Z}_{K^{p}}, \cW)^{H_{}'} &\stackrel{\cdot\tordp}{\longrightarrow} \H_{1}(\baar{Z}_{K^{p}}, \cW)^{\ord} =M_{W, K^{p}}^{\ord}\\
+\Pi^{{K^{p}}}_{H_{}'} &\stackrel{\tordp\cdot }{\longleftarrow} \Pi^{K^{p},\ord}.
+\eeqq
+
+
+Consider 
+ the class
+$$P^{\ord}_{W, K^{p}{}'} := P_{W,K^{p}{}'} \ \gamma_{H'}^{\ord} 
+\in  H^{1}(G_{E, Sp},   M_{W, K^{p}{}'}).$$
+It is   invariant under $\H'(\A^{p\infty})$, hence:
+\begin{itemize}
+\item as $K^{p}{}'$ varies, it defines an $\H'(\A^{p\infty})$-invariant functional
+\beq \lb{cP Pi}
+P_{\Pi}^{\ord}= P_{W}\circ \tord\colon \Pi^{\ord}\to H^{1}(E, V_{\Pi})
+\eeq
+and in fact, as we shall prove, valued in $H^{1}_{f}(E, V_{\Pi})$. 
+\item
+restricting  (without loss of generality as we will see in a moment) to the case where $W$ is trivial,  its localisation over 
+$\X$ defines a global section $\cP_{K^{p}{}'}$ of
+$  H^{1}(G_{E, Sp},\cM_{K^{p}{}'}^{H_{\Sg}'})$. 
+\end{itemize}
+
+
+Using \nek's theory of Selmer complexes  we show that
+ the universal class $\cP_{K^{p}{}'}$ is a section of a sheaf of Selmer groups   $\wtil{H}^{1}_{f}({E},\cM_{K^{p}{}'}^{H_{\Sg}'})$, where the subscript $f$ signifies  a local condition at $p$ coming from \eqref{ord fam}, and for Selmer groups we use $E$ in place of $G_{E, Sp}$ for short. Then by \eqref{cara hida} the class $\cP_{K^{p}{}'}$   defines a map of $\OO_{\X}$-modules
+$$\cP_{K^{p}{}'}\colon \Pi^{K^{p}{}', \ord}_{H'_{\Sg}} \to \wtil{H}^{1}_{f}({E}, \cV).$$
+
+When $\G=\GL_{2/\Q}$, the value of $\cP_{K^{p}{}'}$ on a family of newforms is the class  originally defined by Howard in \cite{howbig}. (The statement  that  the fibre of $\cP_{K^{p}{}'}$  at \emph{all} classical points lands in the Selmer group is in new even in the context of \cite{howbig}.) There, Howard    asked whether his class  interpolates  Heegner cycles at all classical points of $\X$. 
+The first part of the  following theorem summarises the results described above. The second part, whose proof is  simple and direct,  provides an affirmative answer to the  generalisation of Howard's question.\footnote{The question in \cite{howbig} was phrased in terms of the Abel--Jacobi classes of  Heegner  cycles  in a suitable Chow group, defined in that case in \cite{nek-heeg}; these  classes are identical to the  $P_{\Pi}(f)$ from  \eqref{cP Pi 0}: see \cite[\S~ I.2]{nek-heeg}.}
+
+\begin{theoA}\lb{theo heeg univ} Let $\X$ be a locally distinguished Hida family for $(\G\ts\H)'$.
+  There exist an open subset $\X'\subset  \X$ containing $\X^{\cl}$ 
+  and a map
+ $$\cP_{K^{p}{}'}\colon \Pi^{K^{p}{}', \ord}_{H'_{\Sg}} \to {H}^{1}_{f}(G_{E, Sp}, \cV)$$
+of sheaves over $\X'$,  satisfying the following properties:
+\begin{enumerate}
+\item
+$\cP_{K^{p}{}'}$ is invariant under the action of the away-from-$p\Sg$-Hecke algebra of $\H'$;
+\item 
+for all  $z\in \X^{\cl}$ corresponding to a representation $\Pi_{z}$  satisfying $(\textup{wt})$,  denote by $P^{\ord}_{\Pi_{z}, K^{p}{}'}$ the restriction of \eqref{cP Pi} to  $(\Pi_{z})_{H'_{\Sg}}^{K_{p}', \ord }$; then
+$$\cP_{K^{p}{}'|z}  = P^{\ord}_{\Pi_{z},K^{p}{}'}$$
+under the  natural  map ${H}^{1}(G_{E, Sp}, \cV)_{|z}\to {H}^{1}_{}(G_{E, Sp}, V_{\Pi_{z}})$.
+\end{enumerate}
+\end{theoA}
+
+ 
+ An answer to Howard's question in its original context was earlier given by Castella (\cite{cast}, \cite{cast2})  by an indirect method, under the assumption that   $p$ splits in $E$. 
+
+\begin{rema}
+\source{universal-p-adic-gross-zagier-formula}
+\notready It follows from the results of \cite{CV} that, under mild conditions, the class $\cP$ is non-torsion over $\X$, cf. the discussion after \cite[Theorem B]{fouquet}.
+\end{rema}
+\begin{rema}
+\source{universal-p-adic-gross-zagier-formula}
+\notready \lb{go to bd}
+Theorem \ref{theo heeg univ} is far from being the last word on $\cP$: first,  the class $\cP$ may vanish at some classical points; second, we can consider its specialisation in \nek's Selmer group $\wtil{H}^{1}_{f}(E, V_{\Pi_{z}})$, which equals $H^{1}_{f}(E, V_{\Pi_{z}}) $ when $z$ is not exceptional but is larger otherwise. In \S~\ref{sec bd conj}, we address both problems by proposing a conjecture for the order of vanishing and leading term of $\cP$ at any classical point, generalising conjectures by Bertolini--Darmon. The same Conjecture  \ref{pf conj} will also give a prediction for the leading terms of universal toric periods on distinguished Hida families for \emph{coherent} quaternionic groups, discussed in \S~\ref{sec: wald}, and in that case we will describe some new evidence in higher rank coming from the `plectic' world  via \cite{FG}.
+\end{rema}
+
+
+
+
+
+
+
+
+
+
+
+\subsection{The universal formula}\lb{sec: ugz}   We first recall the $p$-adic $L$-function constructed in \cite{dd-pLf}, then  state our formula for the $p$-adic height of $\cP_{K^{p}{}'
+}$.  
+
+At times we refer to the main body of the paper for the precise definition of some of the objects.
+
+
+
+
+
+
+
+\subsubsection{Dualities over Hida families}
+The space $\cE^{\ord}$  is  endowed with an involution $\iota$ corresponding to $\Pi_{z}\mapsto \Pi_{z}^{\vee}$.
+Fix a  locally distinguished Hida family $\X$; then the   constructions of \S~\ref{sec: uH}  can be performed over $\X$.
+ Denoting by $(-)^{\iota}$ the  pullback   under $\iota$ of an object over $\X$,
+ we have dualities 
+\beq\label{pair V fam}
+\source{universal-p-adic-gross-zagier-formula}
+\cV\ot \cV^{\iota}\to\OO_{\X}(1)
+\eeq
+interpolating \eqref{pair V}. These data, together with their deformation to a Hida family $\X^{\sharp}$ for $\G\ts\H$,  allow to define a height pairing as in Proposition \ref{prop ht2},
+\beq\label{ht fam}
+\source{universal-p-adic-gross-zagier-formula}
+h_{\cV/\cV^{\sharp}}\colon \wtil{H}^{1}_{f}({E}, \cV)\ot_{\OO_{\X}} \wtil{H}^{1}_{f}(E,\cV^{\iota})\to\mathscr{N}_{\X/\X^{\sharp}}^{*}\cong \OO_{\X}\hat{\ot}\Gamma_{F}.
+\eeq
+As usual after possibly restricting to an open subset containing $\X^{\cl}$, we  construct:
+\begin{itemize}
+\item
+pairings 
+$$((\ , \ )) \colon \Pi^{K^{p}{}', \ord}_{H'_{\Sg}} \ot_{\OO_{\X}} (\Pi^{K^{p}{}', \ord}_{H'_{\Sg}})^{\iota}\to \OO_{\X}$$
+ interpolating the $p\infty$-modification $(\ ,\  )^{\ord}_{\Pi}:=\eqref{()'}$ of $(,)_{\Pi}$;
+\item   $\OO_{\X}^{\ts}$-module maps 
+$$\cQ \colon( \Pi^{K^{p}{}', \ord}_{H'_{\Sg}} \ot_{\OO_{\X}^{\ts}} \Pi^{K^{p}{}', \ord, \iota}_{H'_{\Sg}})
+\ot_{\OO_{\X}^{\ts}} 
+( \Pi^{K^{p}{}', \ord}_{H'_{\Sg}} \ot_{\OO_{\X}^{\ts}} \Pi^{K^{p}{}', \ord, \iota}_{H'_{\Sg}})^{\times, -1}\to \cK_{\X}$$
+interpolating the $p\infty$-modification $Q^{\ord}= \eqref{Q orddd}$ of $Q$. Here, $\cK_{\X}$ is the sheaf of fractions of $\OO_{\X}$ and  the superscript `$\times, -1$' denotes the subgroup of those $f_{3}\ot f_{4} $ satisfying $((f_{3}, f_{4}))\neq 0$ and suggests  the `denominator' invariance of the pairing in the last two variables.
+\end{itemize}
+\subsubsection{The $p$-adic $L$-function} \lb{ssec Lp}
+ Let $\cE_{0}^{\sharp, \ord}:= \cE_{\G_{0}\ts\H}^{\ord} $ be the ordinary eigenvariety for $\G_{0}\ts\H$ (see \cite{hida-adv, hida-LF}); for appropriate  choices of tame levels,  there is a map $\iota_{\rm JL}\colon \cE^{\ord}_{\G\ts\H} \to \cE_{\G_{0}\ts \H}^{\ord}$, which is a closed immersion onto a union of irreducible components.
+Let $\X_{0}^{\sharp}:=\iota_{\rm JL}(\X^{\sharp})\subset \cE^{\sharp, \ord}$.  We recall the $p$-adic $L$-function on $\X^{\sharp}$ constructed in \cite{dd-pLf}.
+ 
+ 
+Let $\X_{0}^{\sharp, \cl} = \iota_{\rm JL}(\X_{}^{\sharp, \cl}) \subset \X_{0}^{\sharp}$ be the ind-scheme of classical points.
+If $(x,y)\in \X_{0}^{\sharp, \cl}(\bC)$ is a geometric point corresponding to a closed point  $(x_{0}, y_{0})\in \X_{0}^{\sharp,\cl}$ together with an embedding   $\iota\colon \Q_{p}(x_{0}, y_{0}) \into \bC$, we denote $\pi_{x} =\pi_{x_{0}}^{\iota}, \chi_{y}=\chi_{y_{0}}^{\iota}$, which are  complex automorphic representations of $\G_{0}(\A)$ and $\H(\A)$ respectively. We then  denote $V_{(x_{0},y_{0})}^{\sharp}:= V_{(\pi_{x_{0}}, \chi_{y_{0}})}$ and let  
+$$\calL(V_{(x, y)}^{\sharp}, 0)= \prod_{v}\iota \calL(V_{(x, y),v}^{\sharp},0)
+$$ be the product (defined by analytic continuation) of \emph{all} of the factors \eqref{calLv}.
+
+
+Recall that if $W$ is a complex Weil--Deligne representation of the Weil group of a local field $F_{v}$ and $\psi_{v}\colon F_{v}\to \bC^{\ts}$ is a nontrivial character,  the inverse Deligne--Langlands $\gamma $-factor is\footnote{The normalisations of $L$- and $\eps$-factors are as in \cite{tate-nt}.}  
+\beq \lb{gamma intro} \gamma(W, \psi_{v})^{-1} = {L(W)/ \eps(W, \psi_{v}) L(W^{*}(1))}, \eeq
+and  $\psi_{E, w}=\psi_{v}\circ \Tr_{E_{w}/F_{v}}$.
+
+ If $\pi=\pi_{x_{0}}$, $\chi=\chi_{y_{0}}$ are as just above (with weights $\uw=\uw_{x_{0}}$, $\ul=\ul_{y_{0}}$),  let  $\ad (V_{\pi,v})(1)^{++}:= \Hom(V_{\pi,v}^{-}, V_{\pi, v}^{+})$. Let $\psi=\prod_{v}\psi_{v}\colon F\bks \A_{F}\to \bC^{\ts}$ be the standard additive character such that $\psi_{\infty}(\cd) = e^{2\pi i \Tr_{F_{\infty}/\R}(\cd)}$; let $\psi_{E}=\prod_{w}\psi_{E, w}=\psi\circ \Tr_{\A_{E}/\A_{F}}$. For  a place $v\vert p $ of $F$, let $d_{v}$ be a generator of the different ideal of $F_{v}$, and  define 
+\beq \lb{eVv}
+e_{v}(V_{(\pi_{x}, \chi_{y})})= |d_{v}|^{-1/2}
+ {\prod_{w\vert v}\gamma(\iota{\rm WD}(V^{+}_{\pi, v|G_{E, w}} \ot V_{\chi, w}), \psi_{E,w})^{-1}
+ \over \gamma(\iota{\rm WD}(\ad(V_{\pi,v})(1))^{++}, \psi_{v})^{-1}}
+ \cd \calL( V_{(\pi^{\iota}, \chi^{\iota}),v})^{-1},\eeq
+ where  $\iota {\rm WD}$ is the functor from potentially semistable Galois representations to complex Weil--Deligne representations of \cite{fontaine}. %If $k_{0}\in \Z$ is such that the archimedean component of $\omega=\omega_{\pi^{\iota}} {\chi^{\iota}_{|\A_{F}^{\ts}}}$ is $\omega_{\infty}(x)=x^{k_{0}}$, we
+Finally,   we define 
+\beq\lb{epinf}
+e_{\infty}(V_{(\pi^{\iota}, \chi^{\iota})}) &:= i^{(w+l)[F:\Q]},\\
+ e_{p\infty}(V_{(\pi^{\iota}, \chi^{\iota})}) &:=  e_{\infty}(V_{(\pi^{\iota}, \chi^{\iota})}) \cd \prod_{v\vert p}e_{v}(V_{(\pi^{\iota}, \chi^{\iota})}).
+\eeq
+At least if $w+l=0$, these belong to $\iota \Q_{p}(x_{0}, y_{0})$, and we may define  
+\beq\lb{epinf L}
+e_{p\infty}(V_{(\pi, \chi)}) :=   \iota^{-1}e_{p\infty}(V_{(\pi^{\iota}, \chi^{\iota})}).\eeq
+
+
+
+ 
+
+
+  
+  
+  The following is the main theorem of \cite{dd-pLf}.
+
+
+\begin{theo} \lb{conj Lp} There exists a  meromorphic function 
+ $$\calL_{p}(\cV^{\sharp})\in  \mathscr{K}(\X_{0}^{\sharp})$$
+ whose polar locus $\mathscr{D}$  does not intersect $\X_{0}^{\cl}$, uniquely characterised by the following property.
+ 
+ 
+For each $z=(x, y)\in \X_{0}^{\sharp, \cl}(\bC)- \mathscr{D}(\bC)$ corresponding to an automorphic  representation $\pi_{x}\ot \chi_{y}$ of $\G_{0}(\A)\ts \H(\A)$
+ of weight $(\uw_{x},  \ul_{y})$ 
+ satisfying the conditions 
+$$
+  \text{ $| l_{y, \sg} | < w_{x, \sg}$, \qquad  $|w_{x}+l_{y}| \leq w_{x,\sg}- | l_{y,\sg}| -2$ \qquad for all $\sg\colon F\into \bC$},$$  
+ we have
+ \beq
+\label{interpol Lp intro} 
+\source{universal-p-adic-gross-zagier-formula}
+\calL_{p}(\cV)(x, y) =
+e_{p\infty}(V_{(\pi_{x}, \chi_{y})}^{})
+ \cdot  \calL(V_{(\pi_{x} ,\chi_{y})}, 0).
+ \eeq
+  \end{theo}
+  
+
+
+  
+
+
+
+
+
+
+\subsubsection{Main theorem}
+Under the condition of local distinction of $\X$,   the function  $\calL_{p}(\cV^{\sharp})$ vanishes identically on $\X_{0}$. Let   $\mathscr{N}^{*}_{\X_{0}/\X_{0}^{\sharp}} =\cI_{\X_{0}}/\cI_{\X_{0}}^{2}\ot_{\OO_{\X_{0}^{\sharp}}}\OO_{\X_{0}}  \cong \OO_{\X_{0}}\hat{\ot}\Gamma_{F}$  be the conormal sheaf and let 
+$$\qquad \qquad \qquad {\rm d}^{\sharp}\calL_{p}(\cV):={\rm d}_{\X_{0}/\X_{0}^{\sharp}} \calL_{p}(\cV^{\sharp})  \qquad \in \cK(\X_{0})\hat{\ot}\Gamma_{F}= \cK(\X)\hat{\ot}\Gamma_{F}$$ be the  image of $\calL_{p}(\cV^{\sharp})$.
+  
+
+
+
+
+\begin{theoA}\label{ugz thm} Let $\X$ be a locally distinguished Hida family for $(\G\ts\H)'$. Abbreviate $\Pi^{(\iota)}:=  \Pi^{K^{p}{}', \ord, (\iota)}_{H'_{\Sg}}$, $\OO:=\OO_{\X}$, $\cK:=\cK_{\X}$. 	
+\source{universal-p-adic-gross-zagier-formula}
+
+Then there is an
+open subset $\X'\subset \X$ containing $\X^{\cl}$ such that all of  the above constructions   can be made over $\X'$,  and
+$$   {  h_{\cV/\cV^{\sharp}}(\cP(f_{1}), \cP^{\iota}(f_{2}))    \over   ((f_{3}, f_{4}))      }  
+=
+ {\rm d}^{\sharp} \calL_{p}(\cV^{\sharp})
+\cdot
+\cQ\left( {  f_{1} \ot  f_{2}\over f_{3}\ot f_{4}}\right),
+$$
+ an equality of $\cK\hat{\otimes}_{\Z_{p}}\Gamma_{F}$-valued $\OO$-linear  functionals on $(\Pi\ot_{\OO} \Pi^{\iota})\ot_{\OO^{\times}} (\Pi\ot_{\OO} \Pi^{\iota})^{\ts, -1}$.
+\end{theoA}
+The formula of the theorem  in fact also holds at exceptional points $z\in \X^{\cl}$, see Theorem \ref{GZ thm'}.
+
+\subsection{Applications}
+\lb{sec: appl}
+We turn to some  arithmetic  applications of the main theorems (in addition to Theorem \ref{BK thm}).  
+
+
+\subsubsection{On the Iwasawa Main Conjecture for derivatives}
+We use the notation introduced after Theorem~\ref{BK thm}. 
+\begin{theoA} \label{iw}
+\source{universal-p-adic-gross-zagier-formula}
+Let $\X$ be a locally distinguished Hida family for $(\G\ts\H)'$, satisfying the further conditions 
+of \cite[Theorem B.(iii)]{fouquet}.  Let $\X'\subset \X$ be the open subset of Theorem \ref{ugz thm}; up to shrinking $\X'$ we may assume it is a regular scheme.  Let $\cR\subset \OO_{\X'}\hat{\ot} \Gamma_{F}$ be the regulator of the height pairing \eqref{ht fam}
+over $\X'$.
+ Then 
+\beqq
+{\rm d}^{\sharp}\calL_{p}(\cV) \succeq_{\OO_{\X'}} \cR\cdot {\rm char}_{\OO_{\X'}} (\wtil{H}^{2}_{f}(E, \mathscr{\cV})_{\OO_{\X'}{\textup{-tors}}}).
+\eeqq
+\end{theoA}
+The proof, based on Theorem \ref{ugz thm} and \cite[Theorem B.(iii)]{fouquet}, is virtually identical to that  of \cite[Theorem D]{dd-pyzz}, based on Theorem C.4 \emph{ibid.}  and \cite[Theorem B.(ii)]{fouquet}.
+
+
+
+\subsubsection{Generic non-vanishing of $p$-adic heights for self-dual CM motives} 
+It is conjectured that cyclotomic $p$-adic height pairings are non-vanishing (and even non-degenerate).  
+Results in this direction have been quite rare.  The next theorem generalises a variant of the main theorem of \cite{bur-d}, to which we refer for a discussion of the background.
+
+
+
+
+Consider the set of locally algebraic Hecke characters
+$$\chi\colon E^{\ts}\bks E_{\A}^{\ts}\to \Q_{p}(\chi)^{\ts}.$$
+satisfying the special  self-duality  condition
+\beq\lb{sd hecke}
+\chi_{|F_{\A}^{\ts}}=\eta \cdot \chi_{{\rm cyc},F}.
+\eeq
+
+This is precisely the set of classical points of the closed subspace 
+$$\cE^{\ord, {\rm sd}}_{\H}\subset \cE^{\ord}_{\H}:= \bigcup_{V^{p}\subset \H(\A^{p})}\cE^{\ord}_{\H, V^{p}}$$
+cut out by the condition \eqref{sd hecke} on continuous characters. 
+The space $\cE^{\ord, {\rm sd}}_{\H}$ is a  torsor for $\cE^{\ord}_{\H'}$; in particular it is smooth of  dimension $[F:\Q]$. Let $\Y\subset \cE^{\ord, {\rm sd}}_{\H}$ be an irreducible component; then there is a sign $\epsilon \in \{\pm 1\}$ such that  for all $x\in \Y_{}^{\rm cl}$,  $\eps(1,\chi) =\epsilon$; we then say that $\Y^{\cl} $ has type $\epsilon$.
+
+
+
+
+Denote by $h_E^-=h_E/h_F$  the relative class number of $E/F$ and  by $D_{F}$ the absolute discriminant of $F$.
+
+\begin{theoA}  \lb{nv CM}
+Let $\Y\subset \cE^{\ord, {\rm sd}}_{\H}$ be an irreducible component  of type $-1$. 
+Suppose that all primes $v\vert p$ of $F$ split in $E$,  the extension $E/F$ is ramified,  and $p \nmid 2 D_{F} h_E^-$. 
+
+Then, there  exists a non-empty open  subset $\Y'\subset \Y$ such that  for all $y\in \Y^{\cl}\cap \Y'$, the Selmer group $H^{1}_{f}({E}, \chi_{y})$ is nonzero and the $p$-adic height pairing 
+$$h\colon H^{1}_{f}({E}, \chi_{y})\ot H^{1}_{f}({E}, \chi_{y}^{-1}(1))\to \Q_{p}(y)\hat{\ot}\Gamma_{F}$$
+is non-vanishing.
+\end{theoA}
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+\subsubsection{Non-vanishing of universal  Heegner classes along some classical Hida families} Part 3 of the following theorem is also a contribution to the non-vanishing conjecture for $p$-adic heights. Parts 1 and 2 provide, to the best of the author's knowledge, the first piece of theoretical evidence towards conjectures of  Greenberg \cite{greenberg} and Howard \cite{howbig}.
+
+
+
+\begin{theoA} \lb{nv exc} Let $\X_{0}$ be a Hida family for ${\rm PGL}_{2/\Q}$, and let $\X_{0}^{\sharp}$ be the Hida family for $\GL_{2/\Q}$ containing $\X_{0}$. Denote by $\cV_{0}$, $\cV_{0}^{\sharp}$ the associated rank-$2$ representations of $G_{\Q}$. 
+
+  Suppose that $\X_{0}$ contains a point corresponding to an elliptic curve $A$ with split multiplicative reduction at~$p$,  satisfying $L(A, 1)\neq 0$.
+   Then:
+\begin{enumerate}
+\item a universal Heegner class  $\calP_{0}$ is nonvanishing along $\X_{0}$;
+\item the Selmer group $\wtil{H}^{1}_{f}(\Q, \cV_{0})$ has generic rank~$1$, generated by $\calP_{0}$;
+\item the $p$-adic height pairing $h_{\cV_{0}/\cV_{0}^{\sharp}} $ is non-vanishing.
+\end{enumerate}
+\end{theoA}
+
+
+
+ %\newpage
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Outline  of  the proofs} The basic  strategy to prove the main results is very simple. When $W$ is trivial, Theorem \ref{GZ thm} was proved  in \cite{dd-pyzz, nonsplit} under some technical assumptions. As the set of points of trivial weight in $\X^{\cl}$ satisfying those assumptions is still dense in $\X$, this suffices to deduce Theorem \ref{ugz thm} once its terms are defined; by a multiplicity-one argument and an explicit local  computation, this in turn implies Theorem \ref{GZ thm} for all $W$.
+Much of this work is therefore  an exercise in $p$-adic interpolation to construct the objects  of   \S\S~\ref{sec: uH}-\ref{sec: ugz}; 
+ the table of contents, and the internal references given so far, should suffice to guide the reader through the paper. 
+ 
+ {\begin{figure}[h] $$\includegraphics[width=.7\textwidth]{univ-elevator} 
+$$
+\caption{An illustration of the proof of Theorems \ref{GZ thm} and \ref{ugz thm}. Each of the (infinitely many) floors corresponds to a representation $\Pi$ as in Theorem \ref{GZ thm},  each apartment to a quadruple ${\bf f}=(f_{1}, f_{2}, f_{3}, f_{4})$, and the building  to a Hida family. A light being on indicates that the corresponding Gross--Zagier formula is proven. On `most' floors corresponding to a $\Pi$ of trivial weight, all lights are on by \cite{dd-pyzz, nonsplit}. In this paper, we construct the lift corresponding to the formula of Theorem~\ref{ugz thm}, with doors (interpolation statements) onto special  apartments in each floor (the formulas of Theorem \ref{GZ thm'} in \S~\ref{B ord}, equivalent to Theorem \ref{GZ thm} for certain special quadruples ${\bf f}$). As soon as the lights in a dense set of floors in the building are on, the light in the lift is on; this allows to turn on the light in all the special apartments. Finally, the multiplicity-one principle allows to propagate the electricity among different apartments on the same floor.}
+\lb{fig1}
+\end{figure} }
+ 
+ The proof of Theorem \ref{theo heeg univ} is completed in \S~\ref{645} and the proof of Theorems \ref{GZ thm}, \ref{ugz thm} is completed in  \S~\ref{sec: final}, where we also prove Theorem \ref{nv CM}. Theorem  \ref{nv exc} is proved  at the end of  \S~\ref{sec bd conj} using a known case of the conjecture made there.  Constructions and calculations of a local nature are gathered in  Appendix~\ref{app A}.  
+ 
+ \medskip
+ 
+ We highlight some of the key tools we use (many have already been mentioned):
+ \begin{itemize}
+ \item
+ \nek's theory of Selmer complexes and $p$-adic heights (\cite{nek-selmer}, see also \cite[Appendix C]{venerucci-thesis}), applied to Hida theory;
+\item the local Langlands correspondence in families as described in \cite{LLC}, that is necessary for the interpolation of the terms $Q_{v}$;
+\item Emerton's point of view \cite{emerton} on $p$-adic cohomological automorphic representations as having a component at `infinity' that is an algebraic representation of the relevant group; in our context, this further allows to properly consider  `incoherent' reductive groups;
+\item the multiplicity-one result for $\H'(\A)$-invariant functionals;
+\item the definition and study of semi-local operators at $p\infty$, as the key to transitioning between ordinary and anti-ordinary or toric parts of a module; 
+\item the explicit evaluation of certain local toric periods in terms of gamma factors.
+ \end{itemize}
+ 
+We view the framework introduced in the appendix as the main technical novelty contributed by the present work, and we hope that the underlying approach will prove useful in many other contexts.\footnote{Cf. the work \cite{loeffler} discussed in \S~\ref{contemp} below.}
+ 
+
+
+
+ \subsubsection*{Further directions} We have not paid attention to the integral aspects; doing so may also remove the need to  restrict to open subsets of $\X$ at various points, e.g. by restricting to newforms or using the  local Langlands correspondence in integral families of Emerton, Helm, and Moss (see references in \cite{LLC}).  (However, this would require imposing some residual irreducibility assumptions for the representation $\cV_{v}$.)  This may lead to non-vanishing results for higher-weight Heegner cycles, automorphic toric periods,  and $L$-values: an example we have in mind is the anticyclotomic non-vanishing result of \cite{CH}, based on a construction not unlike that of Theorem \ref{wald univ}. 
+ 
+  In a different direction, all of the constructions of this paper could be generalised, with work, to the context of eigenvarieties;   the  Gross--Zagier formulas should also extend to that context.
+ 
+\subsection{Related contemporary work}\lb{contemp} After a first version of this paper was made publicly available, the following partly related works have appeared.
+\begin{itemize}
+\item In  \cite{JLZ}, the authors construct universal Heegner classes for Coleman families of elliptic modular forms (with classical restrictions); then they prove that these classes interpolate the images of Heegner cycles, by a method not dissimilar to that of the present work. Similar results are also  independently proved in \cite{ota} in the ordinary case, and (by a  different method) in   \cite{BL} in the case where $p$ splits in the field of complex multiplications.
+\item In \cite{BPS},  the authors
+use \cite{JLZ, BL} and a strategy similar to the one of the present paper to prove the $p$-adic Gross--Zagier formula for critical-slope refinements of elliptic modular forms, conditionally on  work in preparation  of Kobayashi on such formula for small-slope refinements. Their idea is to deduce, from the latter,  a $p$-adic Gross--Zagier formula in a Coleman family, within which the objects considered by Kobayashi form a dense subset; then specialise the formula to other  classical points.
+\item In \cite{loeffler}, Loeffler gives a method to construct  $p$-adic  families of cohomology classes attached to   inclusions of reductive groups $\H_{1}\subset \H_{2}$ such that 
+$\H_{2}/\H_{1}$ is  a spherical variety. His local-at-$p$ construction vastly generalises the one of Proposition \ref{gHo}. A difference is that in \cite{loeffler}, the weight variation is not addressed (accordingly, that construction does not use the `infinite' place).
+\end{itemize}
+
+ \FloatBarrier
+
+\subsection{Acknowledgements} I would like to thank  Jo\"el Bellaiche, Ashay Burungale, Ga\"etan Chenevier,  Olivier Fouquet, Ming-Lun Hsieh, David Loeffler, Michele Fornea, Jonathan Pottharst,  Ye Tian,  Rodolfo Venerucci, and Sarah Zerbes for useful conversations or correspondence or mathoverflow answers. I am also grateful to the referee for coaxing me to write \S~\ref{sec bd conj}, and to Simone Dell'Ariccia for Figure~\ref{fig1}.
+ Finally,  I would  like to thank Shouwu Zhang for  a  vague question  he asked me in 2010; this paper may be a partial answer.
+
+
+\subsection{Notation}\label{sec: not1} Throughout the paper we use the  following notation unless otherwise noted.
+\source{universal-p-adic-gross-zagier-formula}
+\begin{itemize}
+\item $\A$ is the ring of ad\`eles of $\Q$;
+\item   the fields $F$ and $E$ are as in the introduction, $\eta=\eta_{E/F}\colon F_{\A}^{\ts}/F^{\ts}\to \{\pm 1\}$ is the associated quadratic character,  and we denote by  $\baar{E}$ a fixed  algebraic closure {of $E$};
+\item we denote by $G_{E}$ the absolute Galois group of a field $E$; if $E$ is a number field and $S$ is a finite set of places, we denote by $G_{E, S}$ the Galois group of the maximal extension of $E$ unramified outside $S\infty$;
+\item  for a place $w $ of  a number field $E$, we denote by $\vpi_{w}$ a fixed uniformiser at $w$, and by $q_{w} $ the cardinality of the residue field;
+\item the class field theory isomorphism is normalised by sending uniformisers to geometric Frobenii; for $E$  a number field (respectively a local field), we will then identify   characters of $G_{E}$ with characters of $E_{\A}^{\times}/E^{\times}$ (respectively $E^{\times})$ without further comment;
+\item let $\mu\subset \Q_{p}^{\times}$ be the subgroup of roots of unity, and let $\langle \cdot\rangle_{p}\colon \Q_{p}^{\times}\to 1+2p\Z_{p}\subset \Q_{p}^{\times} $ be the unique continuous character such that $x_{p}\langle x\rangle_{p}^{-1}$ has values in $\mu$. 
+The $p$-adic  cyclotomic character of $\Q$ is 
+ $$\chi_{{\rm cyc}, \Q}(x):=|x|_{\A^{\infty }}\la x_{p}\ra_{p} , $$ a character on $\A^{\infty,\times}/\Q^{\times}$.
+   If $E$ is a number field, the $p$-adic cyclotomic character of $E$ is the character
+    \beq\lb{chi cyc}\chi_{{\rm cyc}, E}=\chi_{{\rm cyc}, \Q } \circ N_{E/\Q}\colon E_{\A^{\infty}}^{\times}/E^{\times}\to \Q_{p}^{\times}.\eeq
+\end{itemize}

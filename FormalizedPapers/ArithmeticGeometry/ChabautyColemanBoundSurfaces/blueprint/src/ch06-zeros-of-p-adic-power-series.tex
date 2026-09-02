@@ -1,0 +1,97 @@
+% Source-derived chapter 06: Zeros of $p$-adic power series
+% Original source: chabauty-coleman-bound-surfaces
+\chapter{Zeros of $p$-adic power series}
+\label{chabauty-coleman-bound-surfaces-chapter-06}
+\source{chabauty-coleman-bound-surfaces}
+
+\begin{remark}[Source section]
+\label{chabauty-coleman-bound-surfaces-chapter-06-source}
+\source{chabauty-coleman-bound-surfaces}
+\source{chabauty-coleman-bound-surfaces}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Zeros of $p$-adic power series
+\label{SecZeros}
+\source{chabauty-coleman-bound-surfaces}
+
+We keep the notation from Section \ref{NotationLoc}.
+
+%%%%
+%%%%
+%%%%
+\subsection{One variable} Let $z$ be a variable. Given a power series $h(z)=\sum_{n=0}^\infty a_j z^j\in K[[z]]$ the radius of convergence of $h$ is defined by $\rho_h=\sup\{ r : \lim_j |a_j|r^j=0 \}$.
+
+If $\rho_h>0$ then $h(z)$ converges on $B_1(\rho_h)$, where it defines an analytic function. In particular, the vanishing order $\ord_{z_0}(h)$ is defined at each $z_0\in B_1(\rho_h)$. For each $0<r<\rho_h$ we define $|h|_r=\max_j |a_j|r^j$, $\nu(h,r)=\max\{m : |a_m|r^m=|h|_r\}$, and 
+$$
+\nn_0(h,r)=\sum_{|z_0|\le r} \ord_{z_0}(h).
+$$
+The following classical bound will suffice for our purposes. See, for instance,  Theorem 1.21 in \cite{HuYang}.
+%%
+%%
+\begin{lemma}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{LemmaZeros1var} If $h\ne 0$ and $\rho_h>0$, then for each $0<r<\rho_h$ we have $\nn_0(h,r)\le \nu(h,r)$.
+\source{chabauty-coleman-bound-surfaces}
+\end{lemma}
+%%
+%%
+
+%%%%
+%%%%
+%%%%
+\subsection{Several variables} Let $n\ge 1$ and let $\xx=(x_1,...,x_n)$ be an $n$-tuple of variables. Given 
+$$
+H(\xx)=\sum_{\alpha\in \N^n} c_\alpha \xx^\alpha\in K[[\xx ]]
+$$ 
+the radius of convergence $\rho_H$ is defined by $\rho_H= \sup \{r : \lim_m \max_{\|\alpha\| = m} |c_\alpha|r^m=0\}$. We note that this definition agrees with the one variable case when $n=1$. If $\rho_H>0$ then $H$ converges to an analytic function on $B_n(\rho_H)$. For each $j\ge 0$ let $P_{H,j}(\xx)=\sum_{\|\alpha\|=j} c_\alpha \xx^\alpha$; this is the homogeneous degree $j$ part of $H$. For $\uu\in K^n$ with $|\uu|=1$ we define
+$$
+H_\uu(z)=H(z\cdot \uu)=\sum_{j=0}^\infty P_{H,j}(\uu) \cdot z^j\in K[[z]].
+$$
+It follows that $\rho_{H_\uu}\ge \rho_H$ for each $\uu\in K^n$ with $|\uu|=1$.
+%%
+%%
+\begin{lemma}[Multivariable zero estimate]\label{LemmaMVzeros} Let $H(\xx)=\sum_\alpha c_\alpha \xx^\alpha\in K[[\xx]]
+\source{chabauty-coleman-bound-surfaces}
+\notready$ and let $\uu\in K^n$ with $|\uu|=1$. Suppose that there is an integer  $N\ge 1$ and a real number $M\ge 1$ such that
+\source{chabauty-coleman-bound-surfaces}
+\begin{itemize}
+\item[(i)] For each $\alpha$ we have $|c_\alpha|\le M^{\|\alpha\|-1}$.
+\item[(ii)] $\max\{|P_{H,j}(\uu)| : 0\le j\le N\}\ge 1$ (in particular, $H_\uu\ne 0$). 
+\end{itemize}
+Then $\rho_H\ge M^{-1}$ and for every $0<r<M^{-1}$ we have
+$$
+\nn_0(H_\uu,r)\le \left(N-\frac{\log M}{\log (r^{-1})}\right)\left(1-\frac{\log M}{\log (r^{-1})}\right)^{-1}.
+$$
+\end{lemma}
+%%
+%%
+\begin{proof} 
+By (i), $\rho_H\ge M^{-1}$. Fix $0<r<M^{-1}$, in particular $r<1$. From (ii) and $r<1$ we get
+$$
+r^N\le \max_{0\le j\le N} |P_{H,j}(\uu)|r^j.
+$$
+Let $\lambda = (\log M)/\log(r^{-1})$ and note that $0<\lambda<1$. For each $m> (N-\lambda)/(1-\lambda)$ we have
+$$
+M^{m-1}r^m=M^{-1}(Mr)^m<M^{-1}(Mr)^{(N-\lambda)/(1-\lambda)}=r^N
+$$
+because $Mr<1$. By (i) and these observations, for each $m> (N-\lambda)/(1-\lambda)$ we get
+\begin{equation}\label{EqnZeros1}
+\source{chabauty-coleman-bound-surfaces}
+|P_{H,m}(\uu) |r^m \le M^{m-1} r^m  < r^N \le \max_{0\le j\le N} |P_{H,j}(\uu )|r^j.
+\end{equation}
+Let $N'=\lfloor (N-\lambda)/(1-\lambda)\rfloor$ and note that $N'\ge N$.  From \eqref{EqnZeros1} we deduce 
+$$
+|H_{\uu}|_r\le \max\{|P_{H,j}(\uu )|r^j : 0\le j\le N'\}\quad \mbox{ and }\quad \nu(H_\uu, r)\le N'.
+$$
+The result follows from Lemma \ref{LemmaZeros1var}.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

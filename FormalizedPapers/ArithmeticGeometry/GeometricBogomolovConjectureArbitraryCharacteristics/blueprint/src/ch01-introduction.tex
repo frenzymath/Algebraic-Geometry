@@ -1,0 +1,280 @@
+% Source-derived chapter 01: Introduction
+% Original source: geometric-bogomolov-conjecture-arbitrary-characteristics
+\chapter{Introduction}
+\label{geometric-bogomolov-conjecture-arbitrary-characteristics-chapter-01}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+
+\begin{remark}[Source section]
+\label{geometric-bogomolov-conjecture-arbitrary-characteristics-chapter-01-source}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Introduction
+The goal of this paper is to prove the full geometric Bogomolov conjecture.
+We first reduce it to the case that the extension of the base fields has transcendence degree 1, and then we prove the later case by intersection theory in algebraic geometry. 
+The proof uses Yamaki's reduction theorem on the geometric Bogomolov conjecture and the Manin--Mumford conjecture proved by Raynaud and Hrushovski.  
+%\subsection{The geometric Bogomolov conjecture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Abelian varieties and heights}\label{par:1.1.1}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+Let $k$ be an algebraically closed field.
+%Let $k$ be a field.
+Let $K/k$ be a finitely generated field extension of transcendence degree $\trdeg(K/k)\geq 1$.
+Let $A$ be an abelian variety over $K$ of dimension $g$. 
+Let $L$ be a symmetric and ample line bundle over $A$.
+To define canonical height of subvarieties of $A$, we need choose integral models. 
+
+\subsubsection{Integral models} \label{sectioncanheight}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+
+A \emph{projective model of $K/k$} is a normal projective variety $S$ over $k$ with function field $K$.
+It follows that $\dim S=\trdeg(K/k)$.
+
+A \emph{polarization of $K/k$} is a pair $(S, \sM)$ consisting of a projective model $S$ of $K/k$ and an ample line bundle $\sM$ over $S$. 
+
+An \emph{integral model of $(A,L)$} over $S$ is a pair $(\sA, \pi, \sL)$ where: 
+\begin{points}
+\item[$\bullet$] $\sA$ is a projective variety over $k$;
+\item[$\bullet$] $\pi: \sA\to S$ is a projective morphism whose generic fiber is $A$;
+\item[$\bullet$] $\sL$ is a line bundle on $\sA$ extending $L$.
+\end{points}
+We usually abbreviate $(\sA, \pi, \sL)$ as $(\sA, \sL)$.
+%One may construct a model $(\sA, m, \sL)$ of $(A,L)$ such that $\sL$ is ample over $\sA$ as follows. 
+%There is $m\geq 1$ such that $L^{\otimes m}$ is very ample. We use $L^{\otimes m}$ to embed $A$ into
+%$\P_{K}^N$ for some $N>0$. The Zariski closure $\sA$ of $A$ inside $\P^N \times
+%S$ is an irreducible projective variety. We write
+%$\pi:\sA\rightarrow S$ for the projection. The pullback $\sL'$ of $\sO(1)$ on
+%$\P^N\times S$ to $\sA$ is $\pi$-ample and nef. Set $\sL = \sL'\otimes \pi^*\sM,$ which is ample. 
+% The restriction of $\sL$ to $A$ is isomorphic to $L^{\otimes m}$.  
+% Finally, replacing  $\sA$ by its normalization, we assume that $\sA$ is normal 
+% ($\sL$ remains ample on the normalization). 
+
+\subsubsection{Canonical heights}
+
+Let $X$ be any closed subvariety of $A$ over $K$.
+The {\bf{naive height}} of $X$ with respect to the polarization $(S,\sM)$
+and the integral model $(\sA, \sL)$ is defined as 
+\begin{equation}
+\label{eq:naiveheight}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+h_{(\sA,\sL)}^{\sM}(X):=\frac{\sL^{\dim X+1}\cdot (\pi^*\sM)^{\dim S-1}\cdot \sX}{(1+\dim X)\deg_L(X)},
+\end{equation}
+where $\sX$ is the Zariski closure of $X$ in $\sA$, the numerator is the intersection number in $\sA$, and $\deg_L(X)=L^{\dim X}\cdot X$
+is the intersection number in $A$.
+
+By Tate's limiting argument, the {\bf{canonical height}} of $X$ with respect to the polarization $(S,\sM)$
+and the line bundle $L$ over $A$ is the limit
+\begin{equation}\label{eq:ntlimit}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+\hat{h}_L^{\sM}(X)
+:=\lim_{n\to +\infty} \frac{1}{n^2}h_{(\sA,\sL)}([n]X).
+\end{equation}
+Here $[n]X$ is the image of $X$ under the multiplication map $[n]:A\to A$.
+The limit exists, depends on $(S,\sM)$ and $L$, but is independent of the integral model $(\sA, m, \sL)$; see Gubler's work \cite[Theorem 3.6]{Gubler2007} and \cite[Theorem 11.18]{Gubler:Pisa03}.
+Moreover, $\hat{h}_L^{\sM}(X)\geq0$ by choosing $\sL$ to be ample in the definition.
+Note that our heights are normalized by the degree and dimension in the denominator. 
+
+The definition of the heights can be easily extended to subvarieties of $A_{\overline{K}}=A\otimes_K\overline{K}$. In fact, let $X'$ be a closed subvariety of $A_{\overline{K}}$.
+Let $X$ be the minimal closed subvariety of $A$ such that $X_{\overline K}$ contains $X'$ in $A_{\overline{K}}$, or equivalently $X$ is the image of the composition 
+$X'\to A_{\overline{K}}\to A$ as schemes. 
+Then we simply define
+\begin{equation}\label{eq:ntlimit}
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+h_{(\sA,m,\sL)}^{\sM}(X')
+:=h_{(\sA,m,\sL)}^{\sM}(X),\qquad
+\hat{h}_L^{\sM}(X')
+:=\hat{h}_L^{\sM}(X).
+\end{equation}
+For simplicity, we usually omit the dependence on $L$ and $(S,\sM)$ and write 
+$$\hat{h}(X)=\hat{h}_L^{\sM}(X),\qquad
+\hat{h}(X')=\hat{h}_L^{\sM}(X').$$
+
+In the special case of $\dim X'=0$, we get the canonical height  for points 
+$$\hat{h}=\hat{h}_L^{\sM}:A(\overline{K})\to [0,+\infty)$$ 
+with respect to $L$ and $(S,\sM)$.
+
+In the special case of $\trdeg(K/k)=1$, the situation is much easier, since the the projective model $S$ is unique and the line bundle $\sM$ is not used in the definition of the heights.
+
+
+\subsubsection{Small points and special subvarieties}
+For any subvariety $X$ of  $A_{\overline{K}}$ and any $\epsilon> 0$, we set 
+\begin{equation}
+X(\epsilon):=\{x\in X(\overline{K})|\,\, \hat{h}(x)<\epsilon\}.
+\end{equation}
+We say that $X$ \emph{contains a dense set of small points of $A/K/k$} if $X(\epsilon)$ is Zariski dense in $X$ for all $\epsilon >0$.
+This notion is actually independent of the choice of $L$ and $(S,\sM)$ to define the canonical height $\hat h$, since any two such heights bound each other up to positive  multiples.
+
+Let $(A^{\overline{K}/k}, \tr)$ be the $\overline{K}/k$-trace of  $A_{\overline{K}}$; it
+is the final object of the category of pairs $(C,f)$, where $C$ is an abelian variety over $ k$ and $f$ is 
+a morphism from $C\otimes_{ k}\overline{K}$ to  $A_{\overline{K}}$ (cf. \cite[$\mathsection$7]{Lang:AbelianBook} or~\cite[$\mathsection$6]{Conrad}).
+If $\Char k=0$, $\tr$ is a closed immersion and $A^{\overline{K}/ k}\otimes_{k}\overline{K}$ can be naturally viewed 
+as an abelian subvariety of $A_{\overline{K}}$;
+if $\Char k>0$, $\tr$ is a purely inseparable isogeny to its image. 
+
+A {\bf{torsion subvariety}} of $A_{\overline K}$ is a translate $a+C$ of an abelian 
+subvariety $C\subset A_{\overline K}$ by a torsion point $a$ of $A_{\overline K}$. A subvariety $X$ of $A_{\overline{K}}$ is said to be {\bf{special}} if  
+\begin{equation}
+X=\tr(Y{\otimes_{k}\overline{K}})+T
+\end{equation}
+for some torsion subvariety $T$ of $A_{\overline{K}}$ and  some subvariety $Y$ of $A^{\overline{K}/k}$.
+When $X$ is special,  $X(\epsilon)$ is Zariski dense in $X$ for all $\epsilon >0$ (\cite[Theorem 5.4, Chapter 6]{Lang1983}).
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Geometric Bogomolov conjecture}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The goal of this paper is to prove the following theorem, which is known as the geometric Bogomolov conjecture. 
+
+\begin{thm}[geometric Bogomolov conjecture]
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+\notready \label{thmmain} 
+\source{geometric-bogomolov-conjecture-arbitrary-characteristics}
+Let $k$ be an algebraically closed field.
+Let $K/k$ be a finitely generated field extension of transcendence degree at least 1.
+Let $A$ be an abelian variety over $K$. 
+Let $X$ be a closed subvariety of $A_{\overline{K}}$. 
+If $X$ contains a dense set of small points of $A/K/k$, then $X$ is special.
+\end{thm}
+
+The above geometric Bogomolov conjecture was proposed by Yamaki \cite[Conjecture 0.3]{Yamaki2013}, but particular
+ instances of it were studied earlier by Gubler in~\cite{Gubler2007}. It is an analog over function fields of the original Bogomolov conjecture over number fields which was proved by Ullmo \cite{Ullmo1998} and Zhang \cite{Zhang1998}.
+
+Let us give a quick historical recall on results about the Bogomolov conjecture and its geometric version.
+The original Bogomolov conjecture over number fields was proved by Ullmo \cite{Ullmo1998} and Zhang \cite{Zhang1998}, where the major techniques are the equidistribution theorem of Szpiro--Ullmo--Zhang \cite{SUZ}.
+The treatments are extended in terms of the Moriwaki height to finitely generated fields over number fields by Moriwaki \cite{Moriwaki2000}.
+
+For the geometric Bogomolov conjecture, it was first proved by Gubler \cite{Gubler2007} when $A$ is totally degenerate at some place of $K/k$.
+Yamaki \cite{Yamaki2016c, Yamaki2016a} reduced the geometric Bogomolov conjecture to the case of abelian varieties with good reduction everywhere and with a trivial trace; based on this reduction theorem, Yamaki \cite{Yamaki2017} proved the conjecture for $\dim(X)=1$ or $\mathrm{codim}(X)=1$; he also proved the conjecture for abelian varieties of dimension 5, good reduction everywhere and with trivial trace in \cite{Yamaki2017a}.
+
+The works of Gubler \cite{Gubler2007} and Yamaki \cite{Yamaki2016c} are 
+valid in arbitrary characteristics, and extend the strategy of Ullmo and Zhang applying equidistribution theorems. 
+In fact, Gubler \cite{Gubler2007} considered tropical varieties of subvarieties of abelian varieties over non-archimedean fields, 
+extended the equidistribution theorem of Szpiro--Ullmo--Zhang to the tropical setting, and studied the equilibrium measure in this setting.
+Yamaki \cite{Yamaki2016c} did more careful analysis of the situation using equidistribution over Berkovich spaces. The latter equidistribution theorem was proved by Gubler \cite{Guber2008} and Faber \cite{Faber2009b}, which generalized the equidistribution theorems over number fields of Szpiro--Ullmo--Zhang \cite{SUZ},  Chambert-Loir \cite{CL2006}, and Yuan \cite{Yuan2008}.
+
+Before Yamaki \cite{Yamaki2017}, various examples and partial results of the geometric Bogomolov conjecture with $\dim(X)=1$ were previously obtained by \cite{Parshin, Moriwaki1996, Moriwaki1997, Moriwaki1998, Yamaki2002, Yamaki2008, Faber2009, Cinkir2011}.
+In particular, Cinkir \cite{Cinkir2011} proved the geometric Bogomolov conjecture for 
+$\dim(X)=1$ and $\Char k=0$, based on a height identity of Zhang \cite{Zhang2010}.
+
+In the case $\Char k=0$, Gao--Habegger  \cite{Gao2019} proved the geometric Bogomolov conjecture for $\trdeg(K/k)=1$. 
+Recently Cantat--Gao--Habegger--Xie \cite{Cantat2021} proved the full geometric Bogomolov conjecture for $\Char k=0$. 
+These proofs are based on the Betti map in the complex-analytic setting.
+
+
+
+
+
+\subsection{Plan of proof}
+
+Our proof of the geometric Bogomolov conjecture is based on Yamaki's reduction theorem, which reduces the conjecture to the case of good reduction and trivial trace.
+We also need the Manin--Mumford conjecture (in the case of trivial trace) proved by Raynaud and Hrushovski.
+
+First, we reduce the conjecture to the case that $K/k$ has transcendence degree 1. This is the main goal of \S\ref{sec trdeg}.
+The idea is to take intermediate fields $k'$ of $K/k$, algebraically closed in $K$ and with transcendence degree 1 over $k$, such that the geometric Bogomolov conjecture for $(A/K/k,X)$ follows from those of $(A/K/k',X)$.
+For the construction, let $(S,\sM)$ be a polarization of $K/k$.
+Use $\sM$ to get a pencil of hyperplane sections of $S$ 
+parametrized by $\P_k^1$. Take $k'=k(\P_k^1)$ to be the function field.
+There is a generic hyperplane section $H$ over the generic point $\Spec k'$ of $\P_k^1$. 
+In particular, $(H,\sM|_H)$ is a polarization of $K/k'$.  
+The process from $(S,\sM)$ to $(H,\sM|_H)$ does not increase canonical heights of subvarieties of $A_\OK$. 
+Then we carry out careful analysis of the change of special subvarieties of $A$ under this process.
+
+We remark that a well-known procedure to reduce the transcendence degree is to take a closed hyperplane section of 
+of $S$ over $k$. This process reduces $K/k$ to $K'/k$ (instead of our $K/k'$), and thus changes $X$ and $A$ by the corresponding reductions. Because of this, it is hard to track density of small points, and it is also hard to track the change of the trace of $A$.
+Our method does not change $K$ and thus make everything trackable.
+
+As a consequence, we can assume that $K/k$ has transcendence degree 1. 
+Then we apply Yamaki's reduction theorem. 
+This reduces the problem to the essential case that $K/k$ has transcendence degree 1, 
+and $A$ has good reduction over $S$ and trivial $K/k$-trace. 
+Here $S$ is the unique smooth projective curve over $k$ with function field $K$.
+Then $A\to \Spec K$ extends to an abelian scheme $\pi:\sA\to S$. 
+
+
+The second step is to prove the Bogomolov conjecture in the essential case. 
+Denote by $\sX$ the Zariski closure of $X$ in $A$.
+Let $\sL$ be a symmetric, relatively ample and rigidified line bundle over $\sA$.
+Our key property is that any torsion multi-section $\sT$ of $\sA\to S$ is numerically equivalent to a multiple of the self-intersection $\sL^{\dim A}$ in the Chow group of 1-cycles in $\sA$.
+This is proved in \S\ref{sec line bundle}.
+
+Now we come to \S\ref{sec final}, which is the core of the proof of the essential case.
+To illustrate the idea, assume that there is a positive integer $r$ such that the summation map $f:X^r\to A$ is surjective and generically finite. This happens, for example, if $X$ is a curve and $A$ is the Jacobian variety of $X$.
+We have a morphism $f:\sX_{/S}^r\to \sA$ over $S$. 
+Note that $X^r\subset A^r$ and $\sX_{/S}^r\subset \sA_{/S}^r$.
+Moreover, $X^r$ has canonical height 0 in $A^r$, by Zhang's fundamental inequality and the assumption that $X$ has a dense set of small points. 
+
+Let $\sT$ be a torsion multi-section of $\sA$. 
+Let us first assume that $\sT'=f^{-1}(\sT)$ is finite and flat over $S$, and address the technical issue later. 
+Denote by $h:\sA_{/S}^r\to \sA$ the summation morphism. 
+For any symmetric, relatively ample and rigidified line bundle 
+$\sL_r$ over $\sA_{/S}^r$, we have
+$$
+[\sT']\cdot \sL_r^{\dim \sT'}=[\sX_{/S}^r] \cdot h^*[\sT]\cdot \sL_r^{\dim \sT'}
+=a\, [\sX_{/S}^r] \cdot h^*(\sL^{\dim A})\cdot \sL_r^{\dim \sT'}
+=0.
+$$
+Here $a>0$ is a constant coming from the numerical equivalence mentioned above. 
+The last equality follows from the fact that $X^r$ has canonical height 0 in $A^r$.
+This implies that $T'=\sT'_K$ has canonical height 0, and thus is a finite set of torsion points of $A^r$. 
+When varying $\sT$, we obtain a Zariski dense set of torsion points of $X^r$ in $A^r$. 
+By the Manin-Mumford conjecture, $X^r$ is torsion, and thus $X$ is torsion. 
+
+In general, we are not able to find $r$ such that $f:X^r\to A$ is surjective and generically finite.
+But we can manage to find $r$ such that $f$ is surjective (up to replacing $A$ by an abelian subvariety), and that the relative dimension $e$ of $f$ is strictly smaller than $\dim X$.
+If $\sT'=f^{-1}(\sT)$ is flat over $S$ of dimension $e+1$, then the above process still implies that $T'=\sT'_K$ has canonical height 0. 
+Then we can conclude that $T'$ is a torsion subvariety in $A^r$ by induction, since $\dim T'<\dim X$.
+Torsion points of $T'$ are also torsion points of $X^r$. 
+Varying $T'$, we obtain a dense set of torsion points of $X^r$ in $A^r$. 
+Then the Manin-Mumford conjecture implies that $X$ is torsion. 
+
+
+In the above, we have made a technical assumption that $\sT'=f^{-1}(\sT)$ is flat over $S$ of dimension $e+1$.
+To remove this caveat, we will have to treat the case that $\sT'=f^{-1}(\sT)$ has irreducible components of dimension bigger than the expected dimension. Note that it is easy to choose $\sT$ so that the Zariski closure $\sT^*$ of $T'=\sT'_K$ in $\sT'$ has the correct dimension. 
+Then we prove that, the difference $[\sX_{/S}^r] \cdot h^*[\sT]-[\sT^*]$ is linearly equivalent to an effective Chow cycle of the correct dimension. 
+It remedies the above argument. 
+This is the content of \S\ref{sec nonproper}, and was inspired by a result of Jia--Shibata--Xie--Zhang.
+
+
+The idea of converting the Bogomolov conjecture to the Manin--Mumford conjecture was originally used by Zhang \cite{Zhang1992, Zhang1995a} in his proof of the Bogomolov conjecture for powers of $\G_m$. 
+In particular, \cite[Lemma 6.6]{Zhang1995a} produced enough torsion hypersurfaces of $X$, and thus enough torsion points of $X$ by induction.  
+On the other hand, our situation is more complicated due to lack of torsion hypersufaces in $A$, and our solution is based on the crucial numerical identity between $\sT$ and $\sL^{\dim A}$. As these cycles are not of codimension 1, it also brings issues of non-proper intersection discussed above.
+
+
+
+\subsection{Notation and Terminology}
+\begin{points}
+\item[$\bullet$] For any field $F$, denote by $\overline F$ its algebraic closure.
+\item[$\bullet$] For a field extension $K/k$, denote by $\trdeg(K/k)$ the transcendence degree.
+\item[$\bullet$] A \emph{variety} is an integral separated scheme of finite type over a field.
+\item[$\bullet$] For a Cartier divisor $H$ on a scheme $X$, denote by $|H|$ the linear system associated to $H.$
+\item[$\bullet$] For an integral scheme $X$, denote by $\eta_X$ its generic point.
+\item[$\bullet$] For a scheme $X$ over a field, denote by $X^{\sm}$ its smooth locus.
+\item[$\bullet$] A \emph{subvariety} of a variety is a closed integral subscheme.
+%\item[$\bullet$]For a rational map $f: X\dashrightarrow Y$ between varieties. Denote by $I(f)$ the indeterminacy locus of $f$. For a subvariety $V$ of $X$, if $I(f)$ does not contain any irreducible component of $V$, we write $f_{\#}(V)$ for the strict transform $\overline{f(V\setminus I(f))}$ of $V$.
+%\item[$\bullet$]For a subscheme $Z$ of a scheme $X$, denote by $I_Z$ the ideal sheaf associated to $Z$.
+\item[$\bullet$]
+By a \emph{line bundle} over a scheme, we mean an invertible sheaf over the scheme. 
+We often write or mention tensor products of line bundles additively, so $aL-bM$ means
+$L^{\otimes a}\otimes M^{\otimes (-b)}$
+for line bundles $L,M$ and integers $a,b$.
+\end{points}
+
+
+\medskip
+
+
+\noindent\textbf{Acknowlegement.}
+The authors would like to thank the support of the China-Russia Mathematics Center during the preparation of this paper.
+The first-named author would like to thank Beijing International Center for Mathematical Research in Peking University 
+for the invitation. The second-named author would also like to thank the hospitality of Shandong University, Qingdao for a workshop in July 2021.

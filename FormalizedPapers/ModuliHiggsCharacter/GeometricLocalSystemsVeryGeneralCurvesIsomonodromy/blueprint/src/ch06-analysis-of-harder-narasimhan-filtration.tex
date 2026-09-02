@@ -1,0 +1,1165 @@
+% Source-derived chapter 06: Analysis of Harder-Narasimhan filtration
+% Original source: geometric-local-systems-general-curves-isomonodromy
+\chapter{Analysis of Harder-Narasimhan filtration}
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-06}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+\begin{remark}[Source section]
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-06-source}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\source{geometric-local-systems-general-curves-isomonodromy}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Analysis of Harder-Narasimhan filtration
+\label{section:hn-filtration}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+\subsection{Main results on isomonodromic deformations} In this section, we prove the following theorem and corollary, generalizing \autoref{theorem:hn-constraints}.
+For the statement of this theorem, recall the notion of a refinement of a
+parabolic bundle, introduced in \autoref{definition:refinements}.
+Loosely speaking, $E_\star$ refines $F_\star$ if $F_\star$ is essentially obtained
+from $E_\star$ by forgetting some of the parabolic structure.
+The two most
+important cases for us will be when $F_\star= E_\star$
+or $F_\star = E_0$ with respect to the empty divisor, so there is trivial
+parabolic structure at every point.
+
+\begin{theorem}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{theorem:hn-constraints-parabolic}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $(C,D)$ be hyperbolic of genus $g$ with $D = x_1 + \cdots + x_n$, and let
+	$({E}, \nabla)$ be a flat
+vector bundle on $C$ with regular singularities along $D$ and irreducible
+monodromy. Let $E_\star$ denote a parabolic structure on $E$ refined by the parabolic structure on $E$ associated to $\nabla$.
+Suppose
+ $(E_\star',\nabla')$ 
+ is an isomonodromic deformation (which exists by \autoref{remark:refinement})
+of $({E_\star}, \nabla)$ to an analytically general nearby curve,
+with Harder-Narasimhan filtration $0 = (F_\star')^0 \subset (F_\star')^1 \subset \cdots \subset
+(F_\star')^m =
+E_\star'$. For $1 \leq i \leq m$, let $\mu_i$ denote the slope of
+$\on{gr}^{i}_{HN}E_\star' := (F'_\star)^i/(F_\star')^{i-1}$.
+Then the following two properties hold.
+\begin{enumerate}
+	\item If $E_\star'$ is not parabolically semistable, then for every $0 < i < m$, there
+	exists $j < i < k$ with $$\rk \on{gr}^{j+1}_{HN}E_\star'\cdot \rk
+	\on{gr}^k_{HN}E_\star'\geq g+1.$$
+\item We have $0<\mu_i-\mu_{i+1}\leq 1$ for all $i<m$. 
+\end{enumerate}
+\end{theorem}
+\begin{corollary}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready\label{cor:stable-parabolic}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $(C, D)$ be a hyperbolic curve of genus $g$.
+Let $({E}, \nabla)$ be a flat
+vector bundle on $C$ with irreducible monodromy and with regular singularities 
+along $D$, and suppose that
+$\on{rk}(E)<2\sqrt{g+1}$. 
+Then, for $E_\star$ any parabolic structure refined by the parabolic structure on $E$ associated to $\nabla$,
+the isomonodromic deformation of $E_\star$
+to an analytically general nearby curve is parabolically semistable. 
+\end{corollary}
+The proofs are given in \autoref{subsection:proof-hn} and
+\autoref{subsubsection:corollary-proof}.
+This latter corollary salvages the main theorem of \cite{BHH:parabolic} in the
+case of vector bundles of low rank when $E_\star$ is given the parabolic
+structure associated to $\nabla$; it salvages the main theorem of
+\cite{BHH:logarithmic} in low rank when $E_\star$ is given the trivial parabolic structure (in which case it agrees with \autoref{cor:stable}).
+
+Crucial in this section will be the notion of generic global generation.
+
+\begin{definition}[Generic global generation]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	A vector bundle $V$ is {\em generically globally generated} if the
+evaluation map $H^0(C, V) \otimes \mathscr O_C \to V$ does not factor through a proper
+subbundle of $V$, i.e.~if the cokernel of this map is torsion.
+
+We call a parabolic sheaf $E_\star$ {\em generically globally generated} if $E =
+E_0$ is a vector bundle which is generically globally generated.
+\end{definition}
+
+The basic idea of the proof of \autoref{theorem:hn-constraints-parabolic} will be to show that any counterexample to
+\autoref{theorem:hn-constraints-parabolic} will produce a certain semistable parabolic vector bundle of high
+slope which is not generically globally generated. 
+In order to see why this failure of generic global generation
+leads to a contradiction, we will need some facts about (generic) global generation of vector bundles on curves, arising from Clifford's theorem.
+
+\subsection{Preliminary results on high slope bundles with many sections}
+\label{subsection:high-slope-lemmas}
+\source{geometric-local-systems-general-curves-isomonodromy}
+We start with a bound on the dimension of the space of global sections of a vector bundle 
+whose Harder-Narasimhan polygon has slopes between $0$ and $2g$.
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:cohomology-bound}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $V$ is a vector bundle on a smooth proper curve $C$ with Harder-Narasimhan filtration $0 = N^0 \subset N^1 \subset \cdots \subset N^m = V$. Suppose moreover that for each $i$, the slope of $\on{gr}^i_{N} V=N^i/N^{i-1}$ 
+	satisfies $$0\leq \mu(\on{gr}^i_{N} V):=\frac{\deg(\on{gr}^i_{N}V)}{\on{rk}(\on{gr}^i_{N}V)}\leq 2g.$$ 
+	Then $\dim H^0(C, V) \leq \frac{\deg V}{2} + \rk V$.
+\end{lemma}
+\begin{proof}
+	For convenience set $W_i := \on{gr}^i_{N}V=N^i/N^{i-1}$.
+Suppose $W_1, \ldots, W_k$ have slopes $> 2g-2$ and $W_{k+1}, \ldots,
+	W_m$ have slopes $\leq 2g-2$.
+
+	Using Clifford's theorem for vector bundles 
+	\cite[Theorem 2.1]{brambila-pazGN:geography-of-brill-noether-loci}, 
+	for $i > k$,	
+	we have 
+	\begin{align*}
+	\dim H^0(C, W_i)
+	\leq \frac{\deg W_i}{2} + \rk W_i.
+	\end{align*}
+	Also, for $i \leq k$, since $W_i$ are semistable, there are no maps $W_i \to
+	\omega_C$.
+	Therefore, $H^1(C, W_i) = 0$ when $i \leq k$.
+	It follows from Riemann Roch that 
+	\begin{align*}
+	\dim H^0(C, W_i) = \deg W_i + (1-g) \rk W_i
+	\end{align*}
+	for $i \leq k$.
+	Summing over $i$, we get
+	\begin{align*}
+		\dim H^0(C, W) &\leq \sum_{i=1}^m \dim H^0(C, W_i) \\
+		&\leq \sum_{i=1}^k (\deg W_i + (1-g) \rk W_i)
++ \sum_{i=k+1}^m (\frac{\deg
+	W_i}{2} + \rk W_i) \\
+		&= \sum_{i=1}^m (\frac{\deg W_i}{2} + \rk W_i)
+		+ \sum_{i=1}^k (\frac{\deg W_i}{2} -g \rk W_i) \\
+		&= \frac{\deg W}{2} + \rk W+ \sum_{i=1}^k (\frac{\deg W_i}{2} -g \rk
+		W_i).
+	\end{align*}
+	To conclude, it is enough to show 
+	$\frac{\deg W_i}{2} -g \rk W_i \le 0$.
+	However, since we were assuming the slope $\mu(W_i) \leq 2g$, we find
+	$\deg W_i \leq 2g \rk W_i$ and so $\frac{\deg W_i}{2} \leq g \rk W_i$,
+	as desired.
+\end{proof}
+
+The following lemma is a well known criterion for global generation, which we
+spell out for completeness.
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:global-generation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $V$ be a semistable vector bundle on a smooth proper curve $C$, such that the slope of $V$ satisfies $\mu(V)> 2g - 1$. Then
+	$V$ is globally generated.
+\end{lemma}
+\begin{proof}
+	Let $p\in C$ be a point. It suffices to show $V|_p$ is generated by global sections of $V$. Indeed, $V(-p)$ is a semistable bundle with slope $\mu(V(-p)) > 2g-2$. Hence
+	 $H^1(C, V(-p)) = 0$, as any map $V(-p) \to \omega_C$ would be
+	destabilizing.
+	Since $H^1(C, V(-p)) = 0$, the sequence
+	\begin{equation}
+		\label{equation:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+		\begin{tikzcd}
+			0 \ar {r} & V(-p) \ar {r} & V \ar {r} & V|_p \ar {r}
+			& 0 
+	\end{tikzcd}\end{equation}
+	is exact on global sections, so
+	$H^0(C, V) \otimes \mathscr O \to V \to V|_p$ is surjective, as desired.
+\end{proof}
+
+The following result will be key to the proof of
+\autoref{theorem:hn-constraints-parabolic}, via
+\autoref{proposition:generic-parabolic-global-generation},
+as it places a constraint on the rank of a
+vector bundle which is not generically globally generated.
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:abstract-lower-bound-on-rank}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $V$ is a vector bundle on a smooth proper curve $C$ with 
+	$\mu(V) \geq 2g - 2$ (respectively, $> 2g-2$.)
+	Assume further $U \subset V$ is a proper subbundle 
+	$\delta := h^0(C, V) - h^0(C, U)$,
+	and either $U = 0$ or else both
+	\begin{enumerate}
+		\item 	$\mu(U) \leq \mu(V)$, and
+		\item each graded piece 
+	$\on{gr}^i_{\on{HN}}U$ of the Harder Narasimhan filtration of $U$
+	satisfies $0 \leq \mu(\on{gr}^i_{\on{HN}}U) \leq 2g$.
+	\end{enumerate}
+	Then, $\rk V \geq g (\rk V - \rk U)-\delta$ (respectively, $> g (\rk V - \rk
+	U)-\delta$).
+	In particular, if 
+	$h^0(C, U)  = h^0(C, V)$, $\rk V \geq g$ (respectively, $\geq g+1$).
+\end{lemma}
+\begin{proof}
+	In the case $U = 0$, the inequality 
+	$\rk V \geq g (\rk V - \rk U)-\delta$ (respectively, $\rk V> g (\rk V - \rk
+	U)-\delta$)
+	is equivalent to
+	$h^0(C, V) \geq (g-1) \rk V$ (respectively $h^0(C, V) > (g-1) \rk V$).
+	This holds by Riemann-Roch.
+
+	We now assume $U \neq 0$.
+	Applying \autoref{lemma:cohomology-bound}, we conclude
+	\begin{align*}
+	H^0(C,U) \leq \frac{\deg
+	U}{2} + \rk U.
+	\end{align*}
+	Using Riemann-Roch and the definition of $\delta$,
+	\begin{align*}
+	\dim H^0(C,U) + \delta = \dim H^0(C, V) \geq \deg V + (1-g)
+	\on{rk}
+	V.
+	\end{align*}
+
+	Combining the above gives
+	\begin{align}
+		\label{equation:section-bound}
+\source{geometric-local-systems-general-curves-isomonodromy}
+		\deg V + (1-g) \rk V \leq \frac{\deg U}{2} + \rk U + \delta.
+	\end{align}
+
+	To simplify notation, we use $c := \rk V - \rk U$ to denote the corank
+	of $U$ in $V$.
+	Rewriting \eqref{equation:section-bound}, and using $\rk U = \rk V - c$ and $\mu(U) \leq
+	\mu(V)$ gives
+	\begin{align*}
+		\mu(V) \rk (V) + (1-g) \rk V \leq \frac{\mu(U) \rk U}{2} + \rk U
+		+ \delta
+		\leq \frac{\mu(V)}{2} (\rk V - c) + \rk V - c + \delta.
+	\end{align*}
+	Rearranging the terms,
+	and multiplying both sides by $2$, we obtain
+%	\begin{align*}
+%		\mu(V) \frac{\rk(V) + 1}{2} + 1 \leq g \rk V
+%	\end{align*}
+%	and so
+%	\begin{align*}
+%		\mu(V) (\rk V + 1) \leq 2g \rk V -2.
+%	\end{align*}
+%	Simplifying further yields
+	\begin{align*}
+		(\mu(V)+2) \cdot c \leq (2g-\mu(V)) \rk V + 2 \delta.
+	\end{align*}
+	Since $2g-2 \leq \mu(V)$, we find 
+	$2g \leq \mu(V) + 2$ and $2g - \mu(V) \leq 2$, implying
+	\begin{align*}
+		2g \cdot c \leq (\mu(V) + 2)c \leq (2g-\mu(V)) \rk V +2\delta
+		\leq 2 \rk V +2\delta.
+	\end{align*}
+	Therefore, $\rk V \geq gc - \delta$. 
+	In particular, if $\delta =0$, $\rk V \geq g$ as $c \geq 1$.
+	In the case $2g-2 < \mu(V)$, we similarly find $\rk V > gc - \delta$
+	and $\rk V \geq g + 1$ when $\delta = 0$.
+\end{proof}
+
+\subsection{A constraint on global generation of parabolic bundles}
+
+In this subsection, we show that semistable parabolic bundles with large slope which are not generically globally generated cannot have
+small rank.
+This is accomplished in
+\autoref{proposition:generic-parabolic-global-generation}.
+Although it is a special case of 
+\autoref{proposition:generic-parabolic-global-generation},
+we start off by stating and proving the 
+following special, yet pivotal, case, in order to convey the main idea and orient the reader. We call it ``the non-GGG lemma," where GGG stands for ``generically globally generated."
+
+\begin{proposition}[The non-GGG lemma]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{proposition:lower-bound-on-rank}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $V$ is a nonzero semistable vector bundle on a smooth proper curve $C$
+	which is not generically globally generated.
+	\begin{enumerate}
+		\item[(a)] If $\mu(V) > 2g - 2$, then $\rk V \geq g+1$.
+		\item[(b)] If $\mu(V) = 2g-2$, then $\rk V \geq g$.
+	\end{enumerate}
+\end{proposition}
+\begin{proof}
+	The statement is trivial when $g =0$, so we assume $g \geq 0$.
+	Let $U\subset V$ be the saturation of the image of the evaluation map $$H^0(C, V)\otimes \mathscr{O}_C\to V.$$
+	We aim to apply
+	\autoref{lemma:abstract-lower-bound-on-rank}.
+	If $V$ is not generically globally generated, $U
+	\subset V$ is a proper sub-bundle of $V$, with $H^0(C,U) \to H^0(C, V)$
+	an isomorphism. Hence, we will be done by the final statement of
+	\autoref{lemma:abstract-lower-bound-on-rank}, once we verify
+	hypotheses $(1)$ and $(2)$ of
+	\autoref{lemma:abstract-lower-bound-on-rank}.
+
+	Semistability of $V$ implies $\mu(U) \leq \mu(V)$, verifying $(1)$.
+
+	We conclude by checking hypothesis $(2)$.
+	Using \autoref{lemma:global-generation},
+	we may assume $2g-2 \leq \mu(V) \leq 2g - 1$. 
+	Since $\mu(V) \leq 2g-1$ and $V$ is semistable, each
+	graded piece $\on{gr}^i_{\on{HN}}U$ of the Harder-Narasimhan filtration of $U$ must have slope
+	at most $2g-1$. Let $j$ be maximal such that $\on{gr}^j_{\on{HN}}U$ is non-zero. Since $U$ is generically globally generated, $\on{gr}^j_{\on{HN}}U$ has a global section, and therefore has
+	non-negative slope. By the definition of the Harder-Narasimhan filtration, the same is true for $\on{gr}^i_{\on{HN}}U$ for all $i$.
+	This verifies the final hypothesis $(2)$ of 
+	\autoref{lemma:abstract-lower-bound-on-rank}, so we conclude $\rk V \geq
+	g + 1$ in case $(a)$ and $\rk V\geq g$ in case $(b)$.
+\end{proof}
+
+We next wish to generalize \autoref{proposition:lower-bound-on-rank} to the parabolic setting.
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	The main difficulty in generalizing to the parabolic setting will be that
+the graded parts of the Harder-Narasimhan filtration of the bundle
+$U$ appearing in the proof of \autoref{proposition:lower-bound-on-rank} need no
+longer have slope bounded above by $2g-1$.
+We will get around this second issue in the proof of
+\autoref{proposition:generic-parabolic-global-generation}
+by quotienting both $U$ and $V$ by the
+part of the Harder-Narasimhan filtration with slope more than $2g-2$, and
+applying the ensuing argument to the resulting quotients.
+\end{remark}
+
+Before taking up this generalization, we record a couple of preliminary lemmas which will allow us to
+understand generic global generation of
+parabolic and coparabolic bundles.
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:pushforward-degree}
+\source{geometric-local-systems-general-curves-isomonodromy}
+Suppose $W_\star= (W,\{ W^i_j\}, \{\alpha^i_j\})$ is a parabolic bundle on $C$ with respect to a reduced divisor $D=x_1+\cdots+x_n$.
+	Let $\alpha := \max_{i,j} \alpha^i_j$.	
+	Then 
+	$\mu_\star(W_\star) - \mu(W) \leq n\alpha$.
+	Further, equality holds if and only if all $\alpha^i_j$ are equal to
+	$\alpha$.
+\end{lemma}
+\begin{proof}
+	By definition, this difference $\mu_\star(W_\star) - \mu(W)$ is
+	$$\sum_{j=1}^n \sum_{i=1}^{n_j} \alpha^i_j \frac{\dim
+	(W^i_j/W_j^{i+1})}{\rk W}.$$
+	To verify the inequality, splitting the contribution from each point, 
+	it suffices to show 
+	$$\sum_{i=1}^{n_j} \alpha^i_j \frac{\dim
+	(W^i_j/W_j^{i+1})}{\rk W} \leq \alpha.$$
+	Indeed, this holds because, for all $j$,
+	\begin{align*}
+		\sum_{i=1}^{n_j} \alpha^i_j \frac{\dim
+	(W^i_j/W_j^{i+1})}{\rk W} \leq \sum_{i=1}^{n_j} \alpha \frac{\dim
+	(W^i_j/W_j^{i+1})}{\rk W} = \alpha \sum_{i=1}^{n_j}  \frac{\dim
+	(W^i_j/W_j^{i+1})}{\rk W} = \alpha.
+	\end{align*}
+	Finally, equality holds in the above inequality for all $j$ if and only if all
+	$\alpha^i_j$ are equal to $\alpha$.
+\end{proof}
+
+Recall from 
+\autoref{definition:coparabolic-stability} that a coparabolic bundle $\widehat{E}_\star$ is defined to be
+semistable if $E_\star$ is semistable.
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:quotient-slope}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $V_\star$ be a semistable coparabolic vector
+	bundle or a semistable parabolic bundle on a curve $C$ with respect to a
+	reduced divisor $D=x_1+\cdots +x_n$ and $\mu_\star(V_\star)=r+n$.
+	Then any vector bundle $Q$ arising as a quotient of $V$ satisfies
+	$\mu(Q)\geq r$. 
+	Moreover, $\mu(Q) > r$ holds in the parabolic case if $n > 0$.
+\end{lemma}
+\begin{proof}
+	First we deal with the case that $V_\star$ is a parabolic vector bundle.
+	By \autoref{lemma:quotient-semistable}, any 
+	parabolic quotient of $V_\star$ 
+	(with the induced quotient structure of
+	\autoref{subsubsection:induced-subbundle})	
+	has parabolic slope at least $r+n$.
+	Therefore, to complete the parabolic case, 
+	it suffices to show that for any parabolic bundle $W_\star$ on $X$,
+	$\mu_\star(W_\star) - \mu(W) \leq n$, with a strict inequality if $n >
+	0$.
+	The $n = 0$ case is trivial while the $n > 0$ case
+	follows from \autoref{lemma:pushforward-degree} as $\alpha^i_j < 1$ for
+	all $i, j$.
+
+	Now, suppose $V_\star$ is a coparabolic bundle of the form $\widehat{W}_\star$ for $W_\star =
+	(W, \{W^i_j\}, \{\alpha^i_j\})$ a parabolic bundle.
+	For any $\varepsilon > 0$, there is a map $W[\varepsilon]_\star \to
+	\widehat{W}_\star$ and hence a map $W[\varepsilon]_0 \to Q$.
+	Let $Q^\varepsilon$ denote the image of this map, which we may endow
+	with the associated quotient parabolic structure to obtain a quotient
+	bundle
+	$W[\varepsilon]_\star \to Q^\varepsilon_\star$.
+	This implies 
+	$\mu_\star(Q^\varepsilon_\star) \geq \mu_\star(W[\varepsilon]_\star) = r + n - \varepsilon$ 
+	for all $\varepsilon > 0$, by \autoref{lemma:quotient-semistable}.
+	By \autoref{lemma:pushforward-degree}, it follows that
+        $\mu_\star(Q^\varepsilon_\star) - \mu(Q^\varepsilon) \leq n$, so
+	$\mu(Q^\varepsilon) \geq r-\varepsilon$. Now $Q^\varepsilon\to Q$ has
+	torsion cokernel, so $\mu(Q)\geq \mu(Q^\varepsilon)\geq r-\varepsilon$
+	for all $\varepsilon>0$, giving the result.
+\end{proof}
+
+We also need the following fairly standard lemma, which has little to do with
+parabolic bundles.
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:cohomology-vanish-for-large-slope}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $V$ is a vector bundle on a smooth proper curve $C$ so that each
+	graded part of the Harder-Narasimhan filtration of $V$ has slope more
+	than $2g - 2$. Then $H^1(C, V) = 0$.
+\end{lemma}
+\begin{proof}
+	Let $0= N^0 \subset N^1 \subset \cdots \subset N^s = V$ denote the
+	Harder-Narasimhan filtration.
+	From the exact sequence
+	\begin{equation}
+		\label{equation:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+		\begin{tikzcd}
+			H^1(C, N^{i-1}) \ar {r} & H^1(C, N^i) \ar {r} & H^1(C,
+			N^i/N^{i-1}) \ar {r} & 0 
+	\end{tikzcd}\end{equation}
+	by induction on $i$, it is enough to show $H^1(C, N^i/N^{i-1}) = 0$ for
+	every $i \leq s$.
+	Since $N^i/N^{i-1}$ is semistable of slope more than $2g-2$, there are
+	no nonzero maps $N^i/N^{i-1} \to \omega_C$, and so 
+	$H^1(C, N^i/N^{i-1}) = 0$.
+\end{proof}
+
+Combining the above, we are able to verify the parabolic analog of
+\autoref{proposition:lower-bound-on-rank}, namely \autoref{proposition:generic-parabolic-global-generation} below.
+In this paper, we will only require the case $\delta = 0, c = 1$
+of \autoref{proposition:generic-parabolic-global-generation}
+so we encourage the reader to focus on that case.
+We include the more general version, as the proof is nearly the same, 
+and will be useful in future work.
+
+\begin{proposition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{proposition:generic-parabolic-global-generation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $C$ is a smooth proper connected genus $g$ curve and
+	$E_\star = (E, \{E^i_j\}, \{\alpha^i_j\})$ is a nonzero parabolic bundle $C$
+	with respect to $D = x_1 + \cdots + x_n$.
+		Suppose $\widehat{E}_\star$ is coparabolically semistable. 
+		Let $U \subset \widehat E_0$ be a (non-parabolic) subbundle with
+		$c := \rk E_0 - \rk U$
+		and
+		$\delta := h^0(C, \widehat{E}_0) - h^0(C, U)$.
+	\begin{enumerate}
+		\item[(I)] If $\mu_\star(\widehat{E}_\star)> 2g-2 + n$, 
+		then $\rk E >
+			gc - \delta$.
+		\item[(II)] If $\mu_\star(\widehat{E}_\star)= 2g-2+n$, then $\rk
+			E \geq gc - \delta$.
+	\end{enumerate}
+	In particular, if $\widehat{E}_\star$
+	fails to be generically globally generated, and 
+	$\mu_\star(\widehat{E}_\star)> 2g-2 + n$, then $\rk E \geq g	+ 1$.
+\end{proposition}
+\begin{proof}
+	We first check the cases $g = 0$ and $g = 1$.
+	The statement is trivial when $g = 0$.
+	Case $(II)$ is trivial when $g = 1$, because
+	$\rk E \geq c$. Similarly case $(I)$ is trivial when $\delta >
+	0$.
+	It remains to verify case $(I)$ when $g = 1$ and $\delta = 0$. 
+	In this case, it is enough to show that $\rk U > 0$, 
+	and since $H^0(C, U) = H^0(C, \widehat{E}_0)$,
+	it is enough to show
+	$H^0(C, \widehat{E}_0)\neq 0$.
+	By \autoref{lemma:quotient-slope}, $\mu(\widehat{E}_0) > 0$,
+	so Riemann-Roch implies $H^0(C, \widehat{E}_0) \neq 0$.
+
+	We now assume $g \geq 2$.
+	Let $V_\star := \widehat{E}_\star$ denote the given coparabolic bundle.
+	As a first step, we reduce to the case that $U$ is generically globally
+	generated.
+	Indeed, let $U'$ denote the saturation of the image
+	$H^0(C, U) \otimes \mathscr O_C \to U \to V$. 
+	Since $h^0(C, U') \geq h^0(C, U)$ and $\rk V -
+	\rk U' \geq \rk V - \rk U$, the result holds for $U$ if it holds for
+	$U'$.
+	We may therefore assume $U$ is generically globally generated.
+
+	Let $0=N^0 \subset N^1 \subset \cdots \subset N^s = U$ denote the
+	Harder-Narasimhan filtration of $U$.
+	Let $t$ be the minimal index so that $\mu(N^{t+1}/N^{t}) \leq 2g-2$.
+	If no such index exists, take $t = s$.
+	We will show that in fact $\rk V/N^t > gc$ in case $(I)$ of the statement
+	of this proposition
+	and $\rk V/N^t \geq gc$ in case $(II)$.
+	We will do so by verifying the hypotheses of
+	\autoref{lemma:abstract-lower-bound-on-rank} applied to the subbundle
+	$U/N^t \subset V/N^t$.
+	To this end, using \autoref{lemma:quotient-slope},
+	we find
+	\begin{align}
+		\label{equation:quotient-slope-bound}
+\source{geometric-local-systems-general-curves-isomonodromy}
+		\mu(V/N^t) > 2g - 2 \text{ in case $(I)$ and }
+	\mu(V/N^t) \geq 2g - 2 \text{ in case $(II)$.}
+	\end{align}
+
+	We next verify 
+	$h^0(C, V)- h^0(C, U) = h^0(C,V/N^t) - h^0(C, U/N^t)$,
+which implies that present value of $\delta$, $h^0(C, V)- h^0(C, U)$, agrees with the value of $\delta$ we will use
+in our application of \autoref{lemma:abstract-lower-bound-on-rank},
+	$h^0(C,V/N^t) - h^0(C, U/N^t)$.
+	Indeed, $H^1(C, N^t) = 0$ by
+	\autoref{lemma:cohomology-vanish-for-large-slope}.
+	Therefore, 
+	$h^0(C, U/N^t) = h^0(C, U) - h^0(C, N^t)$ and 
+	$h^0(C, V/N^t) = h^0(C, V) - h^0(C, N^t)$. 
+	Hence,
+	\begin{align*}
+		h^0(C, V/N^t)- h^0(C,U/N^t) = h^0(C, V) - h^0(C, U) = \delta.
+	\end{align*}
+
+	In the case $t = s$, so $N^t = U$, we have $U/N^t = 0$, and we have verified the hypotheses of
+	\autoref{lemma:abstract-lower-bound-on-rank},
+	so we now assume $N^t \neq U$.
+	It remains to check hypotheses $(1)$ and $(2)$ of 
+	\autoref{lemma:abstract-lower-bound-on-rank}.
+	We first check $(2)$. Each 
+	graded piece of the Harder-Narasimhan filtration of $U/N^t$
+	has slope $\leq 2g - 2$ by construction of $N^t$, which verifies
+	the upper bound in $(2)$.
+	We claim the lower bound in $(2)$ follows from generic global generation of $U$.
+	Indeed, recall we are assuming $U$ is generically globally generated, via
+	the reduction made near the beginning of the proof.
+	Therefore, 
+	$H^0(C, U/N^{s-1})
+	= H^0(C, N^s/N^{s-1}) \neq 0$,
+	as any quotient bundle of a generically globally generated bundle is
+	generically globally generated.
+	This implies $\mu(N^s/N^{s-1}) \geq 0$, and so $\mu(N^j/N^{j-1}) \geq 0$ for
+	all $1 \leq j \leq t$.
+
+	Finally, we verify $(1)$, again in the case $t< s$, i.e., $N^t \neq U$.
+	In the previous paragraph, we showed each graded piece of the
+	Harder-Narasimhan filtration of $U/N^t$ has slope at most $2g -2$, so
+	we also obtain $\mu(U/N^t) \leq 2g - 2$.
+	On the other hand, we have already verified that $\mu(V/N^t) \geq 2g-2$ 
+	in \eqref{equation:quotient-slope-bound}, above.
+	Hence,
+	$\mu(U/N^t) \leq 2g-2 \leq \mu(V/N^t)$,	
+	verifying $(1)$.
+
+	Applying \autoref{lemma:abstract-lower-bound-on-rank} to the vector bundle
+	$V/N_t$ with the subbundle $U/N_t$ shows 
+	\begin{align*}
+	    \rk V/N_t &\geq g(\rk V/N_t -
+	\rk U/N_t) - \delta
+	= g(\rk V -
+	\rk U)-\delta
+	=gc - \delta,
+	\end{align*}
+	where the inequality is strict in case $(I)$ because $\mu(V/N^t) > 2g -
+	2$.
+	This proves cases $(I)$ and $(II)$ since $V = \widehat{E}_0$. 
+	
+	The final statement
+	holds by taking $U$ to be the saturation of the image of
+	$H^0(C, \widehat{E}_0) \otimes \mathscr O_C \to \widehat{E}_0$.
+	In this case, $H^0(U) = H^0(C, \widehat{E}_0)$, $\delta = 0$,
+	and $c \geq 1$
+	when $\widehat{E}_0$ is not generically globally generated. So we get
+	$\rk E \geq g + 1$.
+\end{proof}
+
+
+
+\subsection{Reduction for the proof of \autoref{theorem:hn-constraints-parabolic}}
+\label{subsection:proving-hn}
+\source{geometric-local-systems-general-curves-isomonodromy}
+We next prove some results in preparation for the proof of
+\autoref{theorem:hn-constraints-parabolic}. 
+Reviewing the idea of the proof, described in \autoref{subsection:idea-of-proof},
+may be helpful.
+%The general
+%outline will be as follows. Let $(C, D)$ be a hyperbolic curve and let $(E, \nabla)$ be a flat vector bundle with $C$ with regular singularities along $D$. For $N^\bullet$ the Harder-Narasimhan filtration of
+%$E$, 
+%We first show in \autoref{lemma:h1-map}
+%that if $N^\bullet$ extends to a neighborhood of $C$ in the isomonodromic deformation of $(E, \nabla)$, then the map 
+%$H^1(C,T_C(-D))
+%\to H^1(C, \sheafend(E)/\sheafend_{N^\bullet}(E))$
+%induced by the connection must vanish. We then show in 
+%\autoref{proposition:filtered-h1-map} that for every $i$, there are some $j < i < k$
+%so that there is a non-zero map $$T_C(-D)\to \on{Hom}(\on{gr}^{j+1}_N(E),\on{gr}^{k}_N(E)),$$ such that the induced map
+%\begin{align*}
+%	H^1(C,T_C(-D))
+%\to H^1(C, \on{Hom}(\on{gr}^{j+1}_N(E),\on{gr}^{k}_N(E)))
+%\end{align*}
+%vanishes.
+%Using this, we prove in \autoref{lemma:not-generically-globally-generated}
+%that $$\on{Hom}(\on{gr}^{j+1}_N(E),\on{gr}^{k}_N(E))^\vee \otimes \omega_C$$ is not generically globally
+%generated, and then use the results of \autoref{subsection:high-slope-lemmas}
+%to deduce \autoref{theorem:hn-constraints} in \autoref{subsection:proof-hn}.
+%
+%
+\begin{notation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{notation:graded-E}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $(C, D)$ be a hyperbolic curve.
+Let $(E, \nabla)$ be a flat vector bundle on $C$ with regular singularities along $D$, whose
+associated monodromy representation is irreducible. 
+Let $E_\star$ be a parabolic structure on $E$ refined by the canonical parabolic structure associated to $\nabla$, as in \autoref{definition:associated-parabolic} and
+\autoref{definition:refinements}. Let $q^\nabla: T_C(-D) \to \on{At}_{(C,D)}(E_\star)$ be the splitting of the Atiyah exact sequence associated to $\nabla$ and described in \autoref{definition:associated-parabolic}.
+Let
+$N^\bullet_\star$, given by $0 = N^0_\star \subset N^1_\star \subset \cdots
+\subset N^m_\star = E_\star$, be a
+nontrivial filtration of $E_\star$ by parabolic subbundles (with the induced parabolic structure). In particular, note $m > 1$.
+Let $\on{gr}^i_{N_\star}(E_\star) := N_\star^i/N_\star^{i-1}$ denote the
+quotient parabolic bundle with the induced parabolic quotient structure as described in
+\autoref{subsubsection:induced-subbundle}.
+The parabolic bundle $\sheafend(E_\star)_\star /\sheafend(E_\star, N^\bullet_\star)_\star$ has a filtration 
+	by sheaves whose
+associated graded sheaf is of the form
+\begin{align*}
+	\oplus_{1 \leq i< j \leq n} \sheafhom(\on{gr}^i_{N_\star}(E_\star),
+	\on{gr}^{j}_{N_\star}(E_\star))_\star.
+\end{align*}
+For $i<j$ define $E_\star^{i,j} :=
+\sheafhom(\on{gr}^i_{N_\star}(E_\star),\on{gr}^{j}_{N_\star}(E_\star))_\star.$
+%Here, if $F_\star = (F, \{F^i_j\}, \{\alpha^i_j\}), G_\star = (G, \{G^i_j\},
+%\{\beta^i_j\})$, then
+%$\sheafhom(F_\star, G_\star)$ denotes the coherent subsheaf of
+%$\sheafhom(F, G)$ so that over each point $x_j \in D$, 
+%the image of $F^i_j$ is contained in a subspace of $G^{i'}_j \subset G_{x_j}$ 
+%with $\beta^{i'}_j \geq \alpha^i_j$.
+%Colloquially, the weight in the filtrations does not decrease under maps.
+
+Let $\Delta=\mathscr{T}_{g,n}$ be the universal cover of the analytic stack
+$\mathscr{M}_{g,n}$, and let $(\mathscr{C}, \mathscr{D})$ be the universal
+marked curve over $\mathscr{T}_{g,n}$. Let $0\in \Delta$ be such that
+$(\mathscr{C}, \mathscr{D})_0$ is isomorphic to $(C,D)$; fix such an
+isomorphism. Let $(\mathscr{E_\star}, \widetilde{\nabla})$ be the universal
+isomonodromic deformation of $(E_\star, \nabla)$ to $\mathscr{C}$.
+\end{notation}
+We will later take the filtration $N_\star^\bullet$ to be the Harder-Narasimhan
+filtration (cf. \autoref{subsubsection:harder-narasimhan-parabolic}) of $E_\star$.
+%
+%The general plan for this subsection is to investigate what happens if we can
+%extend the filtration $N^\bullet$ to a first order neighborhood of $(C, D)$ in
+%the isomonodromic deformation. We interpret this in terms of deformation theory
+%to show in \autoref{lemma:h1-map} that this
+%forces a certain map to vanish, and then refine this to a stronger vanishing
+%statement in
+%\autoref{proposition:filtered-h1-map}.
+%We use this to show the failure of global generation of certain bundles in
+%\autoref{lemma:not-generically-globally-generated}.
+
+%We briefly digress out outline the idea of the proof of
+%\autoref{theorem:hn-constraints-parabolic}(1) when the HN filtration has %only
+%two parts.
+%\begin{remark}
+%	\label{remark:hn-proof-idea}
+%	Much of the remainder of this section, which is devoted to the proof of 
+%	\autoref{theorem:hn-constraints-parabolic}(1),
+%	becomes simplified in the case 
+%	the Harder-Narasimhan filtration has only two pieces.
+%	In this case, the basic idea of the proof is that the connection
+% induces a nonzero map $T_C(-D) \to \on{Hom}(N_\star^1, E_\star/N_\star^1)$
+%	which induces the $0$ map on $H^1$.
+%	Serre dualizing yields that this induces the $0$ map
+%	$H^0(C, \reallywidehat{\hom(N_\star^1, E_\star/N_\star^1)\vee} \otimes
+%	\omega_C(D)) \to H^0(C, \omega_C^{\otimes 2}(D))$. 
+%	In turn, this implies 
+%	$\reallywidehat{\hom(N_\star^1, E_\star/N_\star^1)\vee} \otimes
+%	\omega_C(D)$ is not generically globally generated.
+%	\autoref{proposition:generic-parabolic-global-generation} then yields 
+%	that $\reallywidehat{\hom(N_\star^1, E_\star/N_\star^1)\vee} \otimes
+%	\omega_C(D)$ has rank at least $g+1$.
+%
+%	In order to get the slightly finer statement as given in
+%	\autoref{theorem:hn-constraints-parabolic}(1),
+%	we analyze the
+%	Harder-Narasimhan filtration in more detail. Nevertheless, we suspect the above
+%	analysis may already be enough for many applications.
+%\end{remark}
+
+
+By \autoref{proposition:irreduciblity-splitting-condition},
+the map $q^\nabla$ yields a non-zero map 
+\begin{align}\label{q-nabla-map}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	T_C(-D)\overset{q^\nabla}\longrightarrow
+\on{At}_{(C,D)}(E_\star) \to
+\sheafend(E_\star)/\sheafend(E_\star, N_\star^\bullet).
+\end{align}
+
+We now observe that if $N_\star^\bullet$ extends to the universal isomonodromic deformation of
+$(C,D, E_\star)$ on the first-order neighborhood of $(C,D)$, the induced map on first cohomology must vanish. The reader may find it useful to consider the case where the Harder-Narasimhan filtration of $E_\star$ has only two steps.
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:h1-map}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Retain notation as in \autoref{notation:graded-E}.
+If the filtration $N_\star^\bullet$ extends to a filtration on the restriction of
+$(\mathscr E_\star,\widetilde{\nabla})$ to the first-order neighborhood of $(C,D)=(\mathscr{C}, \mathscr{D})_0\subset (\mathscr{C}, \mathscr{D})$, 
+then the composite map
+\begin{align*}
+	H^1(C,T_C(-D))
+\overset{(q^\nabla)_*}\longrightarrow H^1(C, \on{At}_{(C,D)}(E_\star))
+\to H^1(C, \sheafend(E_\star)_\star/\sheafend(E_\star, N^\bullet_\star)_\star).
+\end{align*}
+induced by (\ref{q-nabla-map}) is identically zero.
+\end{lemma}
+\begin{proof}
+By \autoref{proposition:connection-h1}
+the map $$(q^\nabla)_*: H^1(C,T_C(-D))\to
+H^1(C, \on{At}_{(C,D)}(E_\star))$$
+induced by the connection
+sends a first-order deformation of the pointed curve $(C,D)$
+to the corresponding first-order deformation of the triple $(C,D,E_\star)$
+obtained from isomonodromically deforming the connection $\nabla$.
+But given a first-order deformation $(\widetilde{C}, \widetilde{D} ,
+\widetilde{E}_\star)$
+of $(C, D, E_\star)$
+such that $N_\star^\bullet \subset E_\star$ admits an extension $\widetilde N_\star^\bullet$ to
+$\widetilde E_\star$, 
+the corresponding element of
+$H^1(C, \on{At}_{(C,D)}(E_\star))$ maps to $0$ in $H^1(C,
+\sheafend(E_\star)_\star/\sheafend(E_\star, N^\bullet_\star)_\star)$, 
+by \autoref{lemma:parabolic-extension-obstruction}. The assumption is precisely that this is true for all elements of $H^1(C, \on{At}_{(C,D)}(E_\star))$ in the image of $(q^\nabla)_*$.
+\end{proof}
+
+We now analyze the parabolic bundles $E_\star^{i,j}:=\sheafhom(\on{gr}^i_{N_\star}(E_\star),
+\on{gr}^j_{N_\star}(E_\star))_\star,$ for $i<j.$
+%We next refine the fact that the connection $T_C(-D) \to
+%\sheafend(E)/\sheafend_{N^\bullet}(E)$ does not vanish by showing
+%there is some $E^{j+1,k}$ with $j < i < k$ for which there is a nonzero map $T_C(-D) \to
+%E^{j+1,k}$.
+%As we are assuming $E$ has irreducible monodromy, this map
+%$T_C(-D)\to
+%\sheafend(E)/\sheafend_{N^\bullet}(E)$
+%is non-zero by \autoref{proposition:irreduciblity-splitting-condition}.
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:nonzero-induced-connection}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	With notation as in \autoref{notation:graded-E},
+	for every $0 < i < m$, there exists $j,k$ with $j < i$ and $k \geq
+	i + 1$ so that the nonzero map $T_C(-D)\to
+	\sheafend(E_\star)_\star/\sheafend(E_\star, N^\bullet_\star)_\star$ induces a nonzero map
+$\psi_{j+1, k}: T_C(-D)\to E_\star^{j+1,k}$.
+\end{lemma}
+\begin{proof}
+	First, recall the non-zero map
+$T_C(-D)\to
+\sheafend(E_\star)/\sheafend(E_\star,N_\star^\bullet)$ induced by $q^\nabla$, produced  in
+	\autoref{proposition:irreduciblity-splitting-condition}.
+Let $j$ be maximal such that $\nabla(N^j)\subset N^i\otimes \Omega^1_C(D)$. 
+Note that $j< i$ as the monodromy of $(E,\nabla)|_{C\setminus D}$ is irreducible, so $N^i$ is
+not a proper flat subbundle of $(E, \nabla)$, implying $\nabla(N^i) \not \subset
+N^i\otimes \Omega^1_C(D)$.
+Let $k$ be minimal such that $\nabla(N^{j+1})\subset N^k\otimes\Omega^1(D)$. 
+Note that $k\geq i+1$ by the definition of $j$. 
+By construction, the connection induces a nonzero $\mathscr{O}_C$-linear map of parabolic bundles
+\begin{align*}
+	N_\star^{j+1}/N_\star^j  \to (N_\star^k/N_\star^{i}) \otimes
+\Omega_C^1(D)\to (N_\star^k/N_\star^{k-1}) \otimes
+\Omega_C^1(D), 
+\end{align*}
+or equivalently a nonzero map
+\[\psi_{j+1, k}: T_C(-D) \to \sheafhom(\on{gr}^{j+1}_{N_\star}(E_\star),
+\on{gr}^k_{N_\star}(E_\star))_\star = E_\star^{j+1,k}.\qedhere\]
+\end{proof}
+
+We have shown that for each $i$, there exist $j<i< k$, and a non-zero map $$T_C(-D)\to E_\star^{j+1,k} =
+\sheafhom(\on{gr}^{j+1}_{N_\star}(E_\star),
+\on{gr}^{k}_{N_\star}(E_\star)).$$ 
+
+We next refine \autoref{lemma:h1-map} by showing that if its hypotheses are satisfied and if in addition $N_\star^\bullet$ is the Harder-Narasimhan filtration of $E_\star$, the  map on $H^1$ 
+induced by 
+$\psi_{j+1, k}: T_C(-D)\to E_\star^{j+1,k}$
+must also vanish.
+%For the next lemma, recall also that the cohomology of a parabolic bundle is by
+%definition equal to the cohomology of the underlying vector bundle. That is,
+%$H^i(C, E_\star) := H^i(C, E)$.
+
+%\begin{remark}
+%	\label{remark:}
+%	Suppose the filtration $N_\star^\bullet$ appearing in \autoref{notation:graded-E} is the Harder-Narasimhan filtration of $E_\star$.
+%	
+%Because a tensor product of semistable sheaves is semistable in
+%characteristic $0$, the $E_\star^{i,j}$ are semistable in this case.
+%\cite[Theorem 3.1.4]{huybrechtsL:the-geometry-of-moduli-spaces-of-sheaves}.
+%
+%Note that as $i<j$, $E_\star^{i,j}$ has negative degree since $\deg
+%\on{gr}^i_{N_\star}(E_\star) >
+%\deg \on{gr}^{i+1}_{N_\star}(E_\star)$.
+%by the definition of the Harder-Narasimhan filtration.
+%This also implies that the underlying vector bundle $E^{i,j}$ has negative
+%degree, since $\deg E^{i,j} \leq \on{par-deg}(E^{i,j}_\star)$.
+%\end{remark}
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{proposition:filtered-h1-map}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Use notation as in \autoref{notation:graded-E}. Suppose in addition that $N_\star^\bullet$ is the Harder-Narasimhan filtration of $E_\star$. Fix $i$ with $0<i<m$ and let $j,k,$ and $$\psi_{j+1, k}: T_C(-D)\to E_\star^{j+1,k}$$ be the data constructed in \autoref{lemma:nonzero-induced-connection}. If the filtration $N_\star^\bullet$ extends to a filtration on the restriction of
+$(\mathscr E_\star,\widetilde{\nabla} )$ to the first-order neighborhood of $(C,D)=(\mathscr{C}, \mathscr{D})_0\subset (\mathscr{C}, \mathscr{D})$, 
+then the map
+$H^1(C, T_C(-D))\to H^1(C, E_\star^{j+1,k})$
+	induced by $\psi_{j+1, k}$
+vanishes.
+\end{lemma}
+For the proof, we will need the following two  lemmas.
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:hn-sections-vanishing}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $F_\star, G_\star$ are parabolic vector bundles on a smooth
+	proper curve connected $C$ with respect to a divisor $D$
+	such that the Harder Narasimhan filtrations $0 = N^0_\star \subset N^1_\star
+	\subset \cdots \subset N^u_\star= F_\star$ and 
+	$0 = M^0_\star \subset M^1_\star
+	\subset \cdots \subset M^v_\star= G_\star$
+	satisfy
+ $\mu_\star(\on{gr}_{N_\star^\bullet}^i(F_\star)) >
+\mu_\star(\on{gr}_{M_\star^\bullet}^j(G_\star))$
+for any $1 \leq i \leq u$ and $1 \leq j \leq v$.
+Then $H^0(C, F_\star^\vee \otimes G_\star) = 0$.
+\end{lemma}
+\begin{proof}
+Observe that $F_\star^\vee \otimes G_\star$ has a filtration whose associated graded pieces are
+	$\on{gr}_{N_\star^\bullet}^i(F_\star)^\vee \otimes
+	\on{gr}_{M_\star^\bullet}^j(G_\star)$,
+	so it is enough to show the latter have vanishing $H^0$.
+
+	An nonzero element of $H^0(C, \on{gr}_{N_\star^\bullet}^i(F_\star)^\vee \otimes
+\on{gr}_{M_\star^\bullet}^j(G_\star))$ would yield a nonzero map
+	$\on{gr}_{N_\star^\bullet}^i(F_\star) \to
+	\on{gr}_{M_\star^\bullet}^j(G_\star)$.
+	The saturation of the image of this map would be a parabolic bundle
+$H_\star$. By semistability, $\mu_\star(\on{gr}_{N_\star^\bullet}^i(F_\star)) \leq
+\mu_\star(H_\star) \leq \mu_\star(\on{gr}_{M_\star^\bullet}^j(G_\star))$,
+	contradicting the assumption that 
+	$\mu_\star(\on{gr}_{N_\star^\bullet}^i(F_\star)) >
+	\mu_\star(\on{gr}_{M_\star^\bullet}^j(G_\star))$.
+\end{proof}
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:h1-injection}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $$0\to F_\star \to G_\star \to H_\star\to 0$$ is a short exact sequence of
+	parabolic sheaves on a smooth proper connected curve $C$ with respect to a divisor
+	$D$ and we are given a map $E \to F_\star$
+	inducing the $0$ map $H^1(C, E) \to H^1(C, F_\star) \to H^1(C,
+	G_\star)$.
+	If additionally $H^0(C, H_\star) = 0$ then $H^1(C, E) \to H^1(C,F_\star)$ vanishes.
+\end{lemma}
+\begin{proof}
+	The vanishing of $H^0(C, H_\star)$ yields an injection $H^1(C, F_\star)
+	\to H^1(C, G_\star)$. If the composition $H^1(C, E) \to H^1(C, F_\star)
+	\to H^1(C, G_\star)$ vanishes then so does $H^1(C, E) \to H^1(C,
+	F_\star)$.
+\end{proof}
+
+We now proceed with the proof of \autoref{proposition:filtered-h1-map}.
+
+\begin{proof}[Proof of \autoref{proposition:filtered-h1-map}]
+	The proof is a diagram chase.
+	Recall that the nonzero map in \autoref{lemma:nonzero-induced-connection} was
+	constructed by beginning with the map $T_C(-D) \to
+	\sheafend(E_\star)_\star/\sheafend(E_\star, N_\star^\bullet)_\star$, and then showing the induced map
+	$T_C(-D) \to
+	\sheafhom(N^{j+1}_\star, E_\star/N^{k-1})_\star$
+	factors through a map
+	$T_C(-D) \to
+	\sheafhom(N^{j+1}_\star, N^k_\star/N^{k-1})_\star$,
+	which in turn factors through
+	$T_C(-D) \to
+	\sheafhom(N^{j+1}_\star/N^j_\star, N^k_\star/N^{k-1})_\star$.
+
+	We will show each of the above three maps vanishes on $H^1$.
+	By \autoref{lemma:h1-map}, 
+	$T_C(-D) \to
+	\sheafend(E_\star)_\star$
+	vanishes on $H^1$.
+	Next, the injection of parabolic sheaves $N^{j+1}_\star \to E_\star$ induces a
+surjection of parabolic sheaves $\sheafend(E_\star)_\star\twoheadrightarrow
+\sheafhom(N_\star^{j+1}, E_\star)_\star$. 
+From this, we obtain
+a surjection
+$$\sheafend(E_\star)_\star /\sheafend(E_\star,N^\bullet_\star)_\star \twoheadrightarrow \sheafhom(N_\star^{j+1},
+E_\star/N_\star^{k-1})_\star.$$ 
+%\cite[Proposition 3.3 and Lemma 3.6]{yokogawa:infinitesimal-deformation},
+Note that $H^2$ of parabolic sheaves vanishes on a curve, because the same is true
+for usual sheaves. We therefore obtain a surjection
+$$H^1(C,\sheafend(E_\star)_\star/\sheafend(E_\star,N^\bullet_\star)_\star)\twoheadrightarrow H^1(C,\sheafhom(N_\star^{j+1},
+E_\star/N_\star^{k-1})_\star).$$ Thus the composition $T_C(-D)\to
+\sheafend(E_\star)_\star/\sheafend(E_\star,N^\bullet_\star)_\star\to
+\sheafhom(N_\star^{j+1}, E_\star/N_\star^{k-1})_\star$ induces
+the zero map on $H^1$, because the first map does by \autoref{lemma:h1-map}. 
+
+We next show the natural map $T_C(-D)\to \sheafhom(\on{gr}_{N_\star}^{j+1}(E_\star),
+E_\star/N_\star^{k-1})_\star$ to be described below, vanishes on $H^1$.
+Using \autoref{lemma:hn-sections-vanishing}, we find that
+$$H^0(C, \sheafhom(N_\star^{j}, E_\star/N_\star^{k-1})_\star)=0.$$
+Therefore, applying \autoref{lemma:h1-injection} to the short exact sequence $$0\to \sheafhom(\on{gr}_{N_\star}^{j+1}(E_\star),
+E_\star/N_\star^{k-1})_\star \to \sheafhom(N_\star^{j+1},
+E_\star/N_\star^{k-1})_\star \to
+\sheafhom(N_\star^{j}, E_\star/N_\star^{k-1})_\star \to 0$$ 
+and the map $f: T_C(-D) \to \sheafhom(\on{gr}_{N_\star}^{j+1}(E_\star),
+E_\star/N_\star^{k-1})_\star$
+shows that $f$ induces the $0$ map on $H^1$.
+
+We conclude by showing the map $$\psi_{j+1, k}: T_C(-D)\to
+\sheafhom(\on{gr}^{j+1}_{N_\star}(E_\star), \on{gr}^k_{N_\star}(E_\star))_\star=E_\star^{j+1,k}$$
+vanishes on $H^1$.
+Again by \autoref{lemma:hn-sections-vanishing},
+$$H^0(C, \sheafhom(\on{gr}_{N_\star}^{j+1}(E_\star),
+E_\star/N_\star^k)_\star) = 0.$$
+Applying \autoref{lemma:h1-injection} to the exact sequence 
+\begin{equation}
+\begin{tikzpicture}[baseline= (a).base]
+\node[scale=.7] (a) at (0,0){
+				\begin{tikzcd}
+		0 \ar {r} &  \sheafhom(\on{gr}^{j+1}_{N_\star}(E_\star),
+\on{gr}^k_{N_\star}(E_\star))_\star  \ar {r} & \sheafhom(\on{gr}_{N_\star}^{j+1}(E_\star),
+E_\star/N_\star^{k-1})_\star  \ar {r} & \sheafhom(\on{gr}_{N_\star}^{j+1}(E_\star),
+E_\star/N_\star^k)_\star \ar {r} & 0 
+				 \end{tikzcd}   
+};
+\end{tikzpicture}
+\end{equation}
+and the map $\psi_{j+1, k}$ shows that $\psi_{j+1,k}$ vanishes on $H^1$, as
+desired.
+\end{proof}
+
+We now show that if the map $H^1(C, T_C(-D)) \to H^1(C, E_\star^{j+1,k})$
+vanishes, we will be able to produce a coparabolic  bundle which is not generically
+globally generated.
+We will later apply \autoref{proposition:generic-parabolic-global-generation}
+to this bundle
+to obtain \autoref{theorem:hn-constraints-parabolic}(1).
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:not-generically-globally-generated}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	With notation as in \autoref{notation:graded-E},
+	suppose the map 
+	$H^1(C, T_C(-D)) \to 
+	H^1(C, E_\star^{j+1,k})$ (induced by the non-zero map $\psi_{j+1, k}: T_C(-D)\to E_\star^{j+1,k}$ of \autoref{lemma:nonzero-induced-connection}) vanishes.
+Then the coparabolic bundle $\reallywidehat{(E_\star^{j+1,k})^\vee} \otimes \omega_C(D)$ is not generically globally
+	generated.
+\end{lemma}
+\begin{proof}
+	Since
+	$\psi_{j+1, k}: T_C(-D) \to E_\star^{j+1,k}$ is nonzero,
+we obtain a nonzero Serre dual map
+\begin{align}
+	\label{equation:serre-dual-map}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	\reallywidehat{(E_\star^{j+1,k})^\vee}
+	\otimes \omega_C(D) \to \omega_C \otimes \omega_C(D),
+\end{align}
+which induces the $0$ map
+\begin{align*}
+	H^0(C,\reallywidehat{(E_\star^{j+1,k})^\vee} \otimes \omega_C(D) )
+	\to H^0(C, \omega_C\otimes \omega_C(D))
+\end{align*}
+by Serre duality \autoref{proposition:serre-duality} and
+\autoref{proposition:filtered-h1-map}.
+In particular, 
+$\reallywidehat{(E_\star^{j+1,k})^\vee} \otimes \omega_C(D)$ is not
+generically globally generated. Indeed, any global section must lie in the kernel
+of \eqref{equation:serre-dual-map}, which has corank one in 
+$\reallywidehat{(E_0^{j+1,k})^\vee} \otimes \omega_C(D)$.
+\end{proof}
+
+This concludes our setup for proving
+\autoref{theorem:hn-constraints-parabolic}(1).
+To prove 
+\autoref{theorem:hn-constraints-parabolic}(2), we will need the following
+generalization of \autoref{lemma:global-generation} to the coparabolic setting.
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:coparabolic-global-generation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	If $V_\star$ is a semistable coparabolic bundle with respect to a
+	divisor $D = x_1 + \cdots + x_n$, of coparabolic slope
+	$\mu_\star(V_\star) > 2g - 1 + n$, then $V_\star$ is globally
+	generated.
+\end{lemma}
+\begin{proof}
+	Let $p\in C$ be a point. 
+	Suppose $V_\star = \widehat{E}_\star$ for $E_\star$ a parabolic bundle.	
+	It suffices to show $V_\star$ is generated
+	by global sections at $p$. Indeed,
+	$V_\star(-p)$ is a semistable coparabolic bundle with coparabolic slope
+	$\mu_\star(V_\star(-p)) > 2g-2+n$. 
+	Therefore, $\mu_\star(E_\star^\vee(p) \otimes \omega_C(D)) < 0$,
+	implying $H^0(C, E_\star^\vee(p) \otimes \omega_C(D)) = 0$,
+	as any global section would be destabilizing.
+	By Serre duality \autoref{proposition:serre-duality}, (taking
+		$E_\star^\vee(p) \otimes \omega_C(D)$ in place of the parabolic
+	vector bundle $E_\star$ in \autoref{proposition:serre-duality}),
+	$H^1(C, V_\star(-p)) = H^0(C, E_\star^\vee(p) \otimes \omega_C(D))^\vee = 0$.
+	As in \autoref{lemma:global-generation},
+	the long exact sequence on cohomology associated $V(-p) \to V \to V|_p$
+	implies $H^0(C, V) \otimes \mathscr O \to V \to V|_p$ is surjective, as
+	desired.
+\end{proof}
+
+
+\subsubsection{}
+We now prove \autoref{theorem:hn-constraints-parabolic}.
+\label{subsection:proof-hn}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\begin{proof}[Proof of \autoref{theorem:hn-constraints-parabolic}]
+We use notation as in \autoref{notation:graded-E}.  We aim first to show that if $(E_\star',
+\nabla')$ is the isomonodromic deformation of $(E_\star, \nabla)$ to
+an analytically
+general nearby curve $C'$, and if $E'_*$ is not semistable, then for every $i$ there are some $j < i < k$ with 
+$\rk \on{gr}^{j+1}_{HN}E_\star'\cdot \rk \on{gr}^k_{HN}E_\star'\geq g+1.$
+
+By \cite[Lemma 5.1]{BHH:irregular},
+the locus of bundles in a family $\mathscr E_\star$ on $\mathscr C \to \Delta$
+which are not semistable form a closed analytic subset,
+and if a general member is not semistable, then, after passing to an open subset
+of $\Delta$, there is a filtration on $\mathscr E_\star$ restricting to the
+Harder-Narasimhan filtration on each fiber. Thus after replacing $(C,D)$ with an
+analytically general nearby curve $(C',D')$, and replacing $(E_\star,
+\nabla)$ with
+the restriction $(E_\star', \nabla')$ of the isomonodromic deformation to $(C',D')$,
+we may assume the Harder-Narasimhan filtration $HN^\bullet$ of $E_\star'$ extends to a filtration of $\mathscr{E_\star}$ on a first-order neighborhood of $C'$. We set $(E'_\star)^{i,j} :=
+\sheafhom(\on{gr}^i_{HN}(E'_\star),\on{gr}^{j}_{HN}(E'_\star))_\star$; note that $(E'_\star)^{i,j}$ is semistable by the definition of the Harder-Narasimhan filtration.
+%Therefore, in order to show a general member of an isomonodromic deformation is
+%not semistable, it is enough to show that for any fiber $(C,D)$ of $(\mathscr C,
+%\mathscr D)\to
+%\Delta$ with nontrivial Harder-Narasimhan filtration, that filtration does not
+%extend to some first-order deformation of $C$.
+
+We next verify that for every $0 < i < m$, there is some $j < i < k$ for which
+$\reallywidehat{((E'_\star)^{j+1,k})^\vee} \otimes \omega_C(D)$ is not generically globally generated.
+By \autoref{lemma:nonzero-induced-connection}, 
+%if $N^\bullet$ is
+%non-trivial, (i.e.,~if $E'$ is not semistable,) then 
+for every $0 < i < m$, 
+there is some $j < i$ and $k \geq i+1$ so that the map $T_{C'}(-D') \to
+\sheafend(E_\star')/\sheafend_{HN^\bullet}(E_\star')$
+induces a nonzero map
+$$T_{C'}(-D') \to (E'_\star)^{j+1,k}:=\sheafhom(\on{gr}^{j+1}_{HN}E_\star', \on{gr}^k_{HN} E_\star')_\star.$$
+By \autoref{proposition:filtered-h1-map},
+$H^1(C', T_{C'}(-D')) \to 
+H^1(C', (E'_\star)^{j+1,k})$ vanishes.
+Hence, by
+\autoref{lemma:not-generically-globally-generated},
+$\reallywidehat{((E'_\star)^{j+1,k})^\vee} \otimes \omega_C(D)$
+is not generically globally generated. Note that 
+$\reallywidehat{((E'_\star)^{j+1,k})^\vee} \otimes \omega_C(D)$
+has slope $> 2g - 2 + n$ by \autoref{lemma:degree-in-duals}.
+
+We are finally in a position to prove \autoref{theorem:hn-constraints-parabolic}(1).
+It follows from \autoref{proposition:generic-parabolic-global-generation} that $$\rk
+\on{gr}^{j+1}_{HN}E_\star'\cdot \rk \on{gr}^k_{HN}E_\star'= \rk
+\reallywidehat{((E'_\star)^{j+1,k})^\vee}
+\otimes \omega_C(D) \geq g+1.$$ Thus \autoref{theorem:hn-constraints-parabolic}(1) holds.
+
+We now conclude by verifying \autoref{theorem:hn-constraints-parabolic}(2).
+By \autoref{lemma:coparabolic-global-generation},
+\begin{align*}
+\reallywidehat{((E')_\star^{j+1,k})^\vee} \otimes \omega_C(D) =
+	\reallywidehat{\sheafhom(\on{gr}^{j+1}_{HN}E_\star',
+	\on{gr}^{k}_{HN} E_\star')^\vee} \otimes \omega_C(D)
+\end{align*}
+must have slope at most $2g-1+n$, since it is not generically globally generated.
+As $\sheafhom(\on{gr}^{j+1}_{HN}E_\star', \on{gr}^{k}_{HN} E_\star')$ has
+negative parabolic slope by the
+definition of the Harder-Narasimhan filtration and
+\autoref{lemma:degree-in-duals}, we find
+\begin{align*}
+	-1 \leq \mu_\star(\sheafhom(\on{gr}^{j+1}_{HN}(E_\star'),
+	\on{gr}^{k}_{HN}(E_\star'))) < 0.
+\end{align*}
+
+Using \autoref{lemma:degree-in-duals},
+the parabolic slope of a tensor product of parabolic vector bundles is the sum of their
+parabolic slopes, and taking duals negates parabolic slope.
+Therefore,
+\begin{align*}
+	0 < \mu_\star(\on{gr}^{j+1}_{HN}({E}_\star')) -
+	\mu_\star(\on{gr}^{k}_{HN}({E}_\star'))
+	\leq 1.
+\end{align*}
+
+Since 
+\begin{align*}
+	\mu_\star(\on{gr}^{j+1}_{HN}({E}_\star')) \geq
+\mu_\star(\on{gr}^{i}_{HN}({E}_\star')) \geq 
+\mu_\star(\on{gr}^{i+1}_{HN}({E}_\star')) \geq
+\mu_\star(\on{gr}^{k}_{HN}({E}_\star')),
+\end{align*}
+we also conclude 
+\[
+	0 < \mu_\star(\on{gr}^{i}_{HN}({E}_\star')) -
+	\mu_\star(\on{gr}^{i+1}_{HN}({E}_\star')) \leq 1.\qedhere
+\]
+%The result follows because the slope of a coparabolic bundle is by definition
+%the same as the slope of the corresponding parabolic bundle.
+\end{proof}
+
+
+\subsubsection{}
+\label{subsubsection:corollary-proof}
+\source{geometric-local-systems-general-curves-isomonodromy}
+We now prove \autoref{cor:stable-parabolic}, using
+\autoref{theorem:hn-constraints-parabolic}
+and the AM-GM inequality.
+\begin{proof}[Proof of \autoref{cor:stable-parabolic}]
+%It suffices to consider the case where $(E, \nabla)$ has irreducible monodromy, as an extension of semistable parabolic bundles of the same slope is semistable.
+
+If $(E_\star', \nabla')$ is an isomonodromic deformation of $(E_\star,\nabla)$ to an
+	analytically general nearby curve which is not semistable, it follows from
+	\autoref{theorem:hn-constraints-parabolic}(1) that for each $i$, there will be $j,k$ with
+	$j<i<k$ so that the Harder-Narasimhan filtration $HN$ of $E_\star'$ satisfies
+$\rk \on{gr}^{j+1}_{HN}E_\star'\cdot \rk
+	\on{gr}^k_{HN}E_\star'\geq g+1.$
+	Since $\rk \on{gr}^{j+1}_{HN}E_\star' + \rk \on{gr}^k_{HN}E_\star' \leq \rk E_\star' = \rk
+	E_\star$,
+	it follows from the arithmetic mean-geometric mean inequality that
+	$$g+1\leq \rk \on{gr}^{j+1}_{HN}E_\star'\cdot \rk \on{gr}^k_{HN}E_\star'\leq \left(\frac{\rk
+E_\star}{2} \right)^2.$$
+So
+$\rk E_\star \geq 2 \sqrt{g+1}$ as desired.
+\end{proof}
+
+\subsubsection{}
+\label{subsection:proof-intro-stable}
+\source{geometric-local-systems-general-curves-isomonodromy}
+We conclude by proving \autoref{theorem:hn-constraints} and
+\autoref{cor:stable}.
+\begin{proof}[{Proof of \autoref{theorem:hn-constraints} and \autoref{cor:stable}}]
+	These follow immediately from \autoref{theorem:hn-constraints-parabolic} and \autoref{cor:stable-parabolic} respectively, taking
+	$E_\star$ to have the trivial parabolic structure.
+\end{proof}

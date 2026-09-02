@@ -1,0 +1,381 @@
+% Source-derived chapter 05: On the SYZ conjecture in dimension 4
+% Original source: riemann-roch-polynomials-hyperkahler-fourfolds
+\chapter{On the SYZ conjecture in dimension 4}
+\label{riemann-roch-polynomials-hyperkahler-fourfolds-chapter-05}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+
+\begin{remark}[Source section]
+\label{riemann-roch-polynomials-hyperkahler-fourfolds-chapter-05-source}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: On the SYZ conjecture in dimension 4
+\label{sec:SYZ}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+
+In this section we state our two main results, Proposition~\ref{prop:CaseC1} and Proposition~\ref{prop:CaseC2}, on the SYZ conjecture for very general \hk\ fourfolds when numerically we expect that there exists a principal polarization.\
+We will prove them respectively in Section~\ref{sec:TwoNefIsotropic} and Section~\ref{sec:DivisorialContraction}; we start this section by reviewing a few general results on semi-ample line bundles and Lagrangian fibrations in dimension~4.
+
+\subsection{Results of Kawamata, Fujino, Matsushita, Fukuda, Huybrechts and Xu}\label{subsec:Lagrangian4folds}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+
+Let~$X$ be a \hk\ manifold of dimension~$2n$.\
+As we noted in Section~\ref{subsec:BBF}, given a nontrivial nef line bundle $L$ with primitive class $\lll$ such that $\int_X \lll^{2n}=0$, we have $\lll^{n}\ne0$ and $\lll^{n+1}=0$, hence the {\em numerical dimension} $\nu(X,L)$ is $n$.\
+
+The {\em Iitaka dimension} $\kappa(X,L)$, that is, the dimension of the image of the  rational map $\phi_{L^{\otp k}}\colon X\dra \P(H^0(X,L^{\otp k})^\vee)$ for $k$ sufficiently large and divisible, satisfies $\kappa(X,L)\le \nu(X,L)$.\
+If there is equality (that is, in our case, if $\kappa(X,L)=n$), the line bundle $L$ is {\em good} in the sense of \cite[Section~1]{kaw} (the current terminology is {\em abundant}; see \cite[Definition~2.2]{fuj}).\
+In that case, a theorem of Kawamata (\cite[Theorem~6.1]{kaw} in the algebraic case and \cite[Theorem~4.8]{fuj} for a simpler proof also valid in the analytic case) says that $L$ is semi-ample: for $k$ sufficiently large and divisible, the sections of~$L^{\otp k}$  define a {\em morphism} $f\colon X\to B$ with connected fibers which, by \cite[Theorem~1]{mat}, is a Lagrangian fibration.
+
+When the dimension of $X$ is 4, there are further results:
+\begin{itemize}
+\item assuming only $h^0(X,L^{\otp k})\ge 2$ for some $k>0$ (that is,  $\kappa(X,L)>0$), the line bundle $L$ is semi-ample (\cite[Theorem~1.5]{fuk});
+\item the base $B$ of the Lagrangian fibration is isomorphic to $\P^2$ (\cite{hx}).
+\end{itemize}
+Assume now that $L$ is semi-ample.\ Since $\lll$ is primitive, one can   write $f^*\cO_{\P^2}(1)=L^{k_L}$ for some positive integer $k_L$.\
+By~\cite[Theorem~1.3]{mathigher} and the projection formula, we have
+$R^qf_*L^{k_L} \isom \Omega_{\P^2}^q(1)$ for all $q$.\
+Since we know that $h^p(\P^2,\Omega_{\P^2}^q(1))=0$ except for $p=q=0$, the Leray spectral sequence gives
+\begin{equation}\label{kL}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+h^0(X,L^{k_L}) = h^0(\P^2, \cO_{\P^2}(1))=3\quad\textnormal{and}\quad h^i(X,L^{k_L}) =0\ \ \textnormal{for all } i>0.
+\end{equation}
+In particular, the map $f $ is the map $ \phi_{L^{k_L}}$.\ We will need the following elementary observation.
+
+\begin{lemm}\label{lem:H0large}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+Let $L$ be a nef line bundle on a  \hk\ fourfold $X$ with $\kappa(X,L)>0$.\
+We assume that its class $\lll\in\NS(X)$ is primitive and satisfies $\int_X\lll^4=0$.\
+Then,
+\begin{enumerate}[{\rm (a)}]
+\item either $h^0(X,L)\le1$;
+\item or $k_L=1$, $h^0(X,L)=3$, and~$L$ is globally generated.
+\end{enumerate}
+\end{lemm}
+
+\begin{proof}
+Let us assume  $k_L>1$ and $h^0(X,L)\ge2$.\ Let $\sigma,\tau\in H^0(X,L)$ be
+linearly independent sections.\ The $k_L+1$ sections  $\sigma^{k_L},\sigma^{k_L-1}\tau,\dots,\tau^{k_L}$ are then linearly independent in $H^0(X,L^{\otp k_L})$.\ Since this space has dimension 3 (see~\eqref{kL}), we have $k_L=2$ and the image of the map $f=\phi_{L^{k_L}}\colon X\to \P^2$ is a conic.\ This  contradicts the surjectivity of $f$.
+\end{proof}
+
+
+\subsection{Cones of divisors}\label{subsec:ConeDivisors}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+Let $X$ be a \hk\ manifold of dimension $2n$ with   classes~$\lll, \mm\in \NS(X)$ such that $q_X(\lll)=q_X(\mm)=0$ and $q_X(\lll,\mm)>0$.\
+We assume moreover that $\NS(X)=\Z \lll\oplus \Z \mm$.
+
+The (closed) \emph{positive cone} $\Pos(X)\subset\NS(X)\otimes\R$ is defined as the closure of the set of   classes of divisors with positive self-intersection and   positive intersection with a K\"ahler class for the form  $q_X$.\
+Under our assumptions, after possibly changing signs, the positive cone is then
+\[
+\Pos(X) =\R_{\ge 0}\lll + \R_{\ge 0} \mm.
+\]
+
+The (closed) \emph{movable cone} $\Mov(X)\subset\NS(X)\otimes\R$ is defined as the closure of the cone generated by classes of effective divisors whose  base locus has codimension $\geq2$.\
+We have an inclusion $\Mov(X)\subset\Pos(X)$.\
+To determine the movable cone, we need to understand prime exceptional divisors, namely reduced and irreducible divisors with negative self-intersection for the quadratic form $q_X$ (see~\cite[Lemma~6.22]{mar:survey}).
+
+\begin{lemm}\label{lem:PrimeExceptional}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+Let $E$ be a prime exceptional divisor on $X$.\
+We have $[E]=\pm(-\lll+\mm)$ in $\NS(X)$.
+\end{lemm}
+
+\begin{proof}
+Let us write $[E]=t\lll+u\mm$, with $t,u\in\Z$.
+By~\cite[Corollary~3.6]{mar}, the class
+\[
+-2\frac{q_X([E],\bullet)}{q_X([E])} = -\frac{q_X(t\lll+u\mm,\bullet)}{tuq_X(\lll,\mm)}
+\]
+is 
+%integral
+in $H_2(X,\Z)$.\
+By applying it to $\lll$ and $\mm$, we get $|t|=|u|=1$.\ Since $q_X([E])<0$, we have $t=-u$, as we wanted.
+\end{proof}
+
+By Lemma~\ref{lem:PrimeExceptional}, after possibly permuting $\lll$ and $\mm$, we can assume that the ray $\R_{\ge0}\lll$ is extremal for the movable cone $\Mov(X)$.\
+By~\cite[Theorem~7]{hats}, upon replacing $X$ with a birational model if necessary, which by~\cite[Theorem 4.6]{HuyHK} does not change the deformation type, we can assume that this ray is also extremal for the nef cone $\Nef(X)$.\
+Therefore, one can write
+\begin{align*}
+\Nef(X)&=\R_{\ge 0}\lll + \R_{\ge 0} (t_{\textnormal{nef}}\lll+\mm),\\
+\Mov(X)&=\R_{\ge 0}\lll + \R_{\ge 0} (t_{\textnormal{mov}}\lll+\mm),
+\end{align*}
+where $t_{\textnormal{nef}}\ge t_{\textnormal{mov}}\ge 0$ are rational numbers.
+By~\cite[prop.~4.4]{bou}, the movable and pseudo-effective cones are mutually $q_X$-dual, hence
+\[
+\Psef(X)=\R_{\ge 0}\lll + \R_{\ge 0} (-t_{\textnormal{mov}}\lll+\mm).
+\]
+
+%These cones may be different: we will see below that there are examples where
+%\begin{itemize}
+%\item  $a=n+1$ and $ t_{\textnormal{mov}}=  t_{\textnormal{nef}}= 0$ (in all even dimensions $2n\ge4$; see Proposition~\ref{prop31});
+%\item  $a=1$, $ t_{\textnormal{mov}}=  t_{\textnormal{nef}}=1$ (in all even dimensions $2n\ge4$; see Section~\ref{subsec:K3n});
+%\item  $a=1$, $ t_{\textnormal{mov}}= 1$, and $t_{\textnormal{nef}}=2$ (in  dimension $10$; see Section~\ref{ij}).
+%\end{itemize}
+
+By Lemma~\ref{lem:PrimeExceptional}, we deduce  the following.
+
+\begin{lemm}\label{lem61}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+Either $t_{\textnormal{mov}}=0$, or $t_{\textnormal{mov}}=1$ and there is a prime effective divisor $E$ in $X$ with class $-\lll+\mm$.
+\end{lemm}
+
+Note that, if $t_{\textnormal{mov}}=1$, the nef cone coincides with the movable cone if and only if the class $\lll+\mm$ is nef; this class is then semi-ample by Kawamata's Base-Point-Free Theorem and some multiple of it defines a divisorial contraction $c\colon X\to Y$ with exceptional divisor $E$.
+
+
+\subsection{The two key propositions}\label{subsec:HKNefCone}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+
+In the rest of this article, we will be mostly concerned with triples $(X,\lll,\mm)$ satisfying the following set of properties:
+\begin{equation}\label{hypo}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+    \left\{
+    \begin{array}{l}
+    X \hbox{ is a  \hk\ fourfold;}\\
+   \lll, \mm\in \NS(X);\\
+   \int_X \lll^{4}=0 \hbox { and }\int_X \lll^{2}\mm^{2}=2.
+    \end{array}
+    \right.
+\end{equation}
+We will always denote by $L$ and $M$ the line bundles on $X$ representing $\lll$ and $\mm$.
+
+By Theorem~\ref{th43a}, properties~\eqref{hypo} imply the following other set of properties (after possibly changing $\mm$ into $-\mm$ and adding to it a multiple of $\lll$):
+\begin{equation}\tag{\theequation$^\prime$}\label{hypoprime}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\begin{small}    \left\{
+    \begin{array}{l}
+   q_X(\lll)=q_X(\mm)=0\hbox{ and } q_X(\lll,\mm)=1; \\
+   \hbox{the Chern and Hodge numbers of $X$ are those of the Hilbert square of a K3 surface;}\\
+    \hbox{the canonical map $\Sym^2\!H^2(X,\Q)\isomto H^4(X,\Q)$ is an isomorphism;}\\
+    P_{RR,X}(T)= \binom{ \frac{T}{2}+3}{2};\\
+    \hbox{the quadratic form $q_X$ is even};\\
+c_X =3, \hbox{ so that $\int_X\alpha^4=3q_X(\alpha)^2$ for all } \alpha\in H^2(X,\Z).
+    \end{array}
+    \right.
+\end{small}
+\end{equation}
+So when we assume~\eqref{hypo}, we will always assume that~\eqref{hypoprime} also holds.
+
+
+Following \cite[Section~3]{og1}, we define the dual $q_X^\vee \in H^4(X,\Q)$ of the quadratic form $q_X$.\
+Since $b_2(X)=23$, it satisfies (\cite[Proposition~2.2]{og1})
+\begin{equation}\label{qxc}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\int_X q_X^\vee\cdot q_X^\vee=575\quad,\qquad \forall \alpha,\beta\in H^2(X,\Z)\quad \int_X q_X^\vee\cdot\alpha\cdot\beta=25 q_X(\alpha,\beta).
+\end{equation}
+Finally, we have (\cite[(3.0.45)]{og1})
+\begin{equation}\label{c2}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+c_2(X)=\frac 65 q_X^\vee.
+\end{equation}
+
+For any  cohomology class
+$\eta\in H^4(X,\Q)$, we define a symmetric intersection matrix
+\begin{eqnarray}\label{eqmatriceO}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+M_\eta\coloneqq
+\begin{pmatrix}
+\int_X\eta\lll^2& \int_X\eta\lll\mm \\
+\int_X\eta\lll\mm & \int_X\eta\mm^2
+\end{pmatrix}
+\end{eqnarray}
+with rational coefficients (which are integers if $\eta$ is integral).\
+We have for example
+\begin{eqnarray}\label{eqdematl2m2}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+M_{\lll^2}=\begin{pmatrix}
+0 & 0 \\
+0 & 2
+\end{pmatrix},\quad M_{\lll\mm}=\begin{pmatrix}
+0 & 2 \\
+2 & 0
+\end{pmatrix}, \quad M_{\mm^2}=\begin{pmatrix}
+2 & 0 \\
+0 & 0
+\end{pmatrix}, \quad M_{q_X^\vee}=\begin{pmatrix}
+0 & 25 \\
+25 & 0
+\end{pmatrix}.
+\end{eqnarray}
+
+
+The manifolds $X$ satisfying~\eqref{hypo} are all projective and, by the surjectivity of the period map, they form an irreducible 18-dimensional family.\
+For very general members of this family, we show that the groups of Hodge classes are very simple.
+
+
+\begin{prop}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\notready\label{prop:SurfacesOnHK4}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+A very general triple $(X,\lll,\mm)$ satisfying~\eqref{hypo} has the following properties:
+\begin{enumerate}[{\rm (a)}]
+\item\label{aaa} $\NS(X)=\Z\lll\op \Z\mm$;
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\item\label{bbb} the group of degree-2 rational Hodge classes is
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+$$\Hdg^2(X,\Q)={\Sym}^2{\NS}(X)_{\Q}\op\Q q_X^\vee=\Q\lll^2\oplus \Q\lll\mm\op\Q\mm^2\op\Q q_X^\vee.$$
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+ Item~\ref{aaa} is classical.\ As for   item~\ref{bbb}, the isomorphism $\Sym^2H^2(X,\Q)\isom H^4(X,\Q)$ from~\eqref{hypoprime} induces a decomposition
+\begin{eqnarray}\label{eqdecompH4}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+H^4(X,\Q)={\Sym}^2H^2(X,\Q)_{\rm tr}\oplus (H^2(X,\Q)_{\rm tr}\otimes \NS(X)_{\Q})\oplus {\Sym}^2{\NS}(X)_{\Q},
+\end{eqnarray}
+where $H^2(X,\Q)_{\rm tr}\coloneqq \NS(X)_{\Q}^\perp$.\ Since  $X$ is very general, the Mumford--Tate group of the Hodge structure on $H^2(X,\Q)_{\rm tr}$ is the orthogonal group of the  form $q_X$, so that the only Hodge classes in ${\Sym}^2H^2(X,\Q)_{\rm tr}\subset H^4(X,\Q)$ are multiples of the class $q_X^\vee$.\ It follows from the decomposition~\eqref{eqdecompH4} that the space of rational degree-2 Hodge classes on $X$ is generated by ${\Sym}^2{\NS}(X)_{\Q}$ and $q_X^\vee$.
+\end{proof}
+
+We described in   Section~\ref{subsec:ConeDivisors} the general structure of the cones of divisors.\ In our case, we use an idea similar to the one used in the proof of   Proposition~\ref{prop:SurfacesOnHK4} to make this description more precise.
+
+\begin{prop}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\notready\label{lem:NefCone4folds}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+Let $(X,\lll,\mm)$ be a triple satisfying~\eqref{hypo} and such that~$\NS(X)=\Z\lll\oplus\Z\mm$.\
+The nef and movable cones of $X$ coincide.\
+Equivalently, $X$ has no nontrivial \hk\ birational models.
+\end{prop}
+
+
+
+\begin{proof}
+We follow the proof of \cite[Theorem~22]{hats}, whose argument we briefly review.\
+We assume for a contradiction that the nef and movable cones of $X$ are different.\
+By \cite[Theorem 1.1]{wiwi}, there exists a Mukai flop on $X$, hence a Lagrangian plane $\P^2\subset X$.\
+Let $\ell\in H_2(X,\Z)$ be the class of a line in $ \PP^2$.
+
+Since the lattice $(\NS(X),q_X)$ is unimodular (by~\eqref{hypoprime}, it is a hyperbolic plane), there exists \mbox{$A\in\NS(X)$} such that
+\begin{equation}\label{eq:DualLine}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\forall B\in  \NS(X)\qquad q_X(A,B) =  B\cdot \ell.
+\end{equation}
+Since the class $\ell$ is of type $(1,1)$, it is orthogonal to $H^{2,0}(X)$, hence to the transcendental lattice  as defined in \cite[Definition~3.2.5]{huyk3}.\
+But the transcendental lattice is also the orthogonal complement of $\NS(X)$, hence~\eqref{eq:DualLine} remains valid for all $B$ in $\NS(X)^\perp_\Q$, hence for all $B$ in~$H^2(X,\Q)$.
+
+As explained in~\cite[(8)]{hats} and~\cite[Section~3]{og1}, upon replacing $X$ with a very general deformation for which the class $\ell$ remains a Hodge class (hence for which the plane $\P^2$ deforms along; see~\cite{voi}), we can write
+\[
+[\P^2] = t A^2 + u q_X^\vee \in H^4(X,\Q),
+\]
+for some $t,u\in\Q$.\
+We now compute the numbers
+\begin{equation*}
+[\P^2]\cdot[\P^2],\qquad c_2(X)\cdot [\P^2],\qquad A^2\cdot [\P^2]
+\end{equation*}
+in order to evaluate $t$, $u$, and $q_X(A)$.\
+
+Since $\P^2\subset X$ is Lagrangian, we have $N_{\P^2/X}\cong\Omega^1_{\P^2}$, and so (here we use $c_X=3$ from~\eqref{hypoprime}, and~\eqref{qxc})
+\begin{equation}\label{eq:NefCone4folds1}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+3 = c_2(N_{\P^2/X}) = [\P^2]\cdot [\P^2] = 3 t^2 q_X(A)^2 + 50 t u q_X(A) + 575 u^2.
+\end{equation}
+From the normal bundle exact sequence for $\P^2\subset X$, we get (here we use~\eqref{c2} and~\eqref{qxc})
+\begin{equation}\label{eq:NefCone4folds2}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+-3 = c_2(X)\cdot [\P^2] = \frac 65 \left( 25 t q_X(A) + 575 u \right)= 30 \left(t q_X(A) +  25 u \right).
+\end{equation}
+Finally, since $A\vert_{\P^2} = (A\cdot \ell)\ell$, we get from~\eqref{eq:DualLine} the relations
+\begin{equation}\label{eq:NefCone4folds3}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+q_X(A)^2  =  (A\cdot \ell)^2=  (A\vert_{\P^2})^2 = A^2\cdot [\P^2] =  3 t q_X(A)^2 + 25 u q_X(A).
+\end{equation}
+
+Solving~\eqref{eq:NefCone4folds1}, \eqref{eq:NefCone4folds2}, and \eqref{eq:NefCone4folds3} for $t$ and $u$, we get the equation
+\[
+92 q_X(A)^2 + 20  q_X(A) - 525 = 0,
+\]
+which has no integral solutions.\
+This a contradiction, which proves the proposition.
+\end{proof}
+
+Under the assumptions of Proposition~\ref{lem:NefCone4folds},  permuting $\lll$ and $\mm$ if necessary, we can assume that~$\lll$ is nef  and write, as in Lemma~\ref{lem61} (by Proposition~\ref{lem:NefCone4folds}, we do not need to replace~$X$ by a birational model  as in Section~\ref{subsec:ConeDivisors})
+\begin{align}
+\Pos(X) &=\R_{\ge 0}\lll + \R_{\ge 0} \mm,\nonumber\\
+\Mov(X)=\Nef(X)&=\R_{\ge 0}\lll + \R_{\ge 0} (t_0\lll+\mm),\label{cones}\\
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\Psef(X)&=\R_{\ge 0}\lll + \R_{\ge 0} (-t_0\lll+\mm),\nonumber
+\end{align}
+where $t_0\in\{0,1\}$.\
+In sum, there are two cases for a  triple $(X,\lll,\mm)$ satisfying~\eqref{hypo} and such that~$\NS(X)=\Z\lll\oplus\Z\mm$:
+\begin{enumerate}[label={\rm(C\arabic*)},ref=(C\arabic*)]
+\item\label{caseC1} either $t_0=0$, the class $\mm$ is nef and all cones of divisors are equal;
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\item\label{caseC2} or $t_0=1$ and Lemma~\ref{lem61} says that there exists a unique prime divisor~$E$ whose class is not in the positive cone.\ We have $E\in |L^{-1}\otimes M|$ and the sections of \mbox{$(L\otimes M)^{\otp k}$} define, for $k\gg 0$, the divisorial contraction $c\colon X\to Y$ of $E$.\ The discussion of Section~\ref{subsec:ExceptionalDivisor} still applies: a general fiber of $E\to c(E)$ is a smooth rational curve and the reflection about the hyperplane $(-\lll+\mm)^\bot$ is a monodromy operator that permutes~$\lll$ and~$\mm$.
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\end{enumerate}
+
+In short, the class $\mm$ is nef in case~\ref{caseC1} and not nef in case~\ref{caseC2}.\
+In the former case, we have the following result.
+
+\begin{prop}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\notready\label{prop:CaseC1}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+Let $(X,\lll,\mm)$ be a very general triple satisfying~\eqref{hypo}
+and assume in addition that we are in case~{\rm\ref{caseC1}}.\
+ Then one of the following  statements holds:
+\begin{enumerate}[{\rm (a)}]
+       \item  $H^0(X,L)\ne 0$, $H^0(X,M)\ne 0$, and  there is a Lagrangian fibration \mbox{$f\colon X\to\P^2$} with $f^*{\cO_{\P^2}}(1)\isom L$ or $M$;\label{prop64a}  
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+    \item  at least one of $H^0(X,L)$ or $H^0(X,M)$ is trivial and  the image of the rational map $\phi_{L\otimes M}\colon X\dra \P^5$ is rationally connected.\label{prop64b}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\end{enumerate}
+\end{prop}
+
+We will prove Proposition~\ref{prop:CaseC1} in Section~\ref{proof}.\
+As a consequence of the results in Section~\ref{subsec:ExceptionalDivisor} and~\cite{voisinfib}, we obtain that case~\ref{caseC1} actually does not occur.
+
+\begin{coro}\label{cor:NoTwoIsotropicNef}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+Let $(X,\lll,\mm)$ be a very general triple satisfying~\eqref{hypo}.\
+Case~{\rm\ref{caseC1}} does not occur.
+\end{coro}
+
+\begin{proof}
+By~\cite[Theorem 4.2]{voisinfib}, in case~\ref{caseC1}, if $H^0(X,L)$ or $H^0(X,M)$ is $0$, the image of the rational map $\phi_{L\otimes M}\colon X\dra \P^5$ cannot be rationally connected.\ 
+Hence we are in case~\ref{prop64a} of  Proposition~\ref{prop:CaseC1}: there exists a Lagrangian fibration \mbox{$f\colon X\to\P^2$} with $f^*{\cO_{\P^2}}(1)\isom L$ or~$M$.\
+The discussion of Section~\ref{subsec:ExceptionalDivisor} then applies, showing that $M$ and $L$ cannot be both nef,    contradicting~\ref{caseC1}.
+\end{proof}
+
+In case~\ref{caseC2}, we have the following result.
+
+\begin{prop}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+\notready\label{prop:CaseC2}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+Let $(X,\lll,\mm)$ be a very general triple
+satisfying~\eqref{hypo} and assume in addition that we are in case~{\rm\ref{caseC2}}.\
+ There exist a positive integer~$k_L$ and a Lagrangian fibration \mbox{$f\colon X\to\P^2$} such that $f^*{\cO_{\P^2}}(1)\isom L^{\otp {k_L}}$.
+\end{prop}
+
+We will prove Proposition~\ref{prop:CaseC2} in Section~\ref{sec:DivisorialContraction}.\
+We will then show in Section~\ref{sec:OGrady} that   $k_L=1$ and $X$ is of  K3$^{[2]}$ deformation type, thus completing the proof of both Theorem~\ref{thm:MainThm} and Theorem~\ref{thm:SYZ}.
+
+We note that Corollary~\ref{cor:NoTwoIsotropicNef} and Proposition~\ref{prop:CaseC2} do already imply a slightly weaker version of Theorem~\ref{thm:SYZ}, where we have no control on $k_L$.\
+We include the proof since it does not use the results of Section~\ref{sec:OGrady} and  might apply to more general situations.
+
+
+
+\begin{coro}[\HK\ SYZ conjecture]\label{cor:SYZ}
+\source{riemann-roch-polynomials-hyperkahler-fourfolds}
+Let $X$ be a  \hk\ fourfold and let~$L$ be a nef line bundle on $X$.\ Set $\lll\coloneqq c_1(L)$.\ Assume   $\int_X \lll^4=0$ and that there exists a class $\mm\in H^2(X,{\Z})$ with $\int_X\lll^2\mm^2=2$.\
+There exists a Lagrangian fibration $f\colon X\to\P^2$ with $f^*{\cO_{\P^2}}(1)\isom L^{\otp k_L}$ for some positive integer $k_L$.
+\end{coro}
+
+\begin{proof}
+We can argue as in the beginning of the proof of Theorem~\ref{th21} and consider the moduli space ${\mathfrak M}_\lll$ of marked hyper-K\"ahler manifolds with a fixed $(1,1)$-class $\lll$.\
+Then there exist  points $0,0^\prime\in {\mathfrak M}_\lll$ such that $(\cX_0,\cL_0)=(X,L)$ and $(X^\prime,L^\prime)\coloneqq (\cX_{0^\prime},\cL_{0^\prime})$ has the property that its N\'eron--Severi group is generated by the classes $\lll$ and $\mm$, $L^\prime$ is nef, and $X^\prime$ is very general in the sense of Proposition~\ref{lem:NefCone4folds}.
+
+By Proposition~\ref{prop:CaseC2}, some power $L^{\prime\,k}$ defines a Lagrangian fibration $X^\prime\to\P^2$.\
+According to~\cite[Lemma 2.4]{matlag}, this implies that the line bundle $\cL_t$ is semi-ample for all fibers~$\cX_t$ of Picard rank one.\
+In particular, for   very general points $t\in{\mathfrak M}_\lll$, one has $h^0(\cX_t,\cL_t^{k_t})\geq2$ for some positive integer $k_t$.\
+Hence, the  countable union  of the  closed sets $\{t\in{\mathfrak M}_\lll\mid h^0(\cX_t,\cL_t^{k})\geq2\}$, for all $k\in\Z_{>0}$,  contains all very general points.\
+This is enough to conclude that there exists one $k$ for which the corresponding set is all of ${\mathfrak M}_\lll$ and, in particular $h^0(X,L^k)\geq2$.\
+Hence, $L$ is semi-ample by Section~\ref{subsec:Lagrangian4folds}.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%

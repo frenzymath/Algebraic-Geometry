@@ -1,0 +1,341 @@
+% Source-derived chapter 10: Passage to   jacobian   fibrations
+% Original source: no-enriques-surface-over-the-integers
+\chapter{Passage to   jacobian   fibrations}
+\label{no-enriques-surface-over-the-integers-chapter-10}
+\source{no-enriques-surface-over-the-integers}
+
+\begin{remark}[Source section]
+\label{no-enriques-surface-over-the-integers-chapter-10-source}
+\source{no-enriques-surface-over-the-integers}
+\source{no-enriques-surface-over-the-integers}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Passage to   jacobian   fibrations
+\mylabel{Passage to jacobian}
+
+Throughout this section, $Y$ is an Enriques surface with constant Picard scheme $\Pic_{Y/k}$ over the field $k=\FF_2$.
+According to Theorem \ref{family with constant pic}, 
+there is at least one  genus-one fibration $\varphi:Y\ra\PP^1$. 
+We now assume that this fibration is elliptic,  and let
+$\phi:J\ra\PP^1$ be the resulting jacobian fibration, where $J$ is a  geometrically rational surface.
+The goal of this section is to establish the following result:
+
+\begin{theorem}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{jacobian constant pic}
+The geometrically rational surface $J$ has constant Picard scheme.
+\end{theorem}
+
+This ensures that the relation between the elliptic fibration on the Enriques surface
+and its jacobian is stronger that one might expect. This crucial observation will allow us in the next sections
+to use Weierstra\ss{} equations to reduce the possibilities for $J$, and thus   also for $Y$.
+
+Choose an an algebraic closure $k\subset k^\alg$, and write $\bY=Y\otimes k^\alg$ and $\bJ=J\otimes k^\alg$
+for the   base-changes.
+Throughout, $\ba:\Spec(\Omega)\ra \PP^1$ denotes a  geometric point   whose image
+point $a\in \PP^1$ is closed.
+
+\begin{proposition}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{same symbols}
+For each  such  $\ba:\Spec(\Omega)\ra \PP^1$, the geometric fibers $J_\ba$ and $Y_\ba$ have the same Kodaira symbols.
+If  $Y_a$ is simple,  we actually have $J_a\simeq Y_a$.
+\end{proposition}
+
+\proof
+The first assertion follows from a general result of Liu, Lorenzini and Raynaud 
+(\cite{Liu; Lorenzini; Raynaud 2005}, Theorem 6.6). Now suppose that $Y_a$ is simple.
+In order to check $J_a\simeq Y_a$ we may base-change to $\kappa(a)=\FF_{2^\nu}$ and assume that $a\in\PP^1$ is rational.
+If the fiber contains a rational point $y\in Y_a$ in the regular locus, the resulting 
+effective Cartier divisor gives an identification $J\otimes R\simeq Y\otimes R$,
+where $R=\O_{\PP^1,a}^h$ is the henselization, and in particular $J_a\simeq Y_a$.
+It remains  to verify the existence of such a  rational point. 
+For smooth fibers, this follows from Lang's result (\cite{Lang 1956}, Theorem 2).
+Suppose now that $C=Y_a$ is singular, with irreducible components $C_1,\ldots, C_r$.
+Each $C_i$ is birational to $\PP^1$, according to Proposition \ref{constant num over finite field}.
+In case $r=1$  the description before Proposition \ref{canonical type rational points} 
+reveals that the desired rational point exists.
+If $r\geq 2$, we actually have $C_i\simeq \PP^1$, and
+the canonical map $\Gamma(\bC)\ra\Gamma(C)$ is a graph isomorphism respecting edge labels, 
+again by Proposition \ref{constant num over finite field}.
+Choose a component $C_i$ corresponding to a terminal vertex of $\Gamma(C)$. Then there is exactly one
+component $C_j$ intersecting $C_i$, which has $(C_i\cdot C_j)\leq 2$.
+In turn, from the three rational points in $C_i=\PP^1$ at least one is contained in
+the regular locus of $C_\red$. 
+\qed
+
+\medskip
+We now state   several facts about the fibers of $\phi:J\ra\PP^1$, which can be formulated without referring to the Enriques surface $Y$:
+\newcounter{jac}\setcounter{jac}{0}
+\renewcommand{\thejac}{\rm \roman{jac}}
+\newcommand{\labeljac}[1]{\refstepcounter{jac}\mylabel{#1}}
+\newcommand{\refjac}[1] {{\rm (\ref{#1})}}
+
+\begin{proposition}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{jacobian fiber properties}
+Let $\ba:\Spec(\Omega)\ra \PP^1$ be a geometric point whose image point $a\in \PP^1$ is closed.
+Then the following holds:
+\begin{enumerate}
+\item 
+\labeljac{non-rational J}
+If $a\in \PP^1$ is non-rational, then the geometric fiber $J_\ba$ is irreducible.
+\item
+\labeljac{I0* J}
+The Kodaira symbol of  $J_\ba$ is different from  $\I_0^*$.
+\item
+\labeljac{semistable J}
+If $J_\ba$ is semistable, then  the   map $\Gamma(J_\ba)\ra\Gamma(J_a)$ is a graph isomorphism. 
+\item
+\labeljac{rational J}
+There is at most one rational point $b\in\PP^1$ whose fiber $J_b$ is semistable or supersingular. 
+\item
+\labeljac{mw J}
+The canonical inclusion $\MW(J/\PP^1)\subset \MW(\bJ/\bar{\PP}^1)$ 
+of Mordell--Weil groups is an equality.
+\end{enumerate} 
+\end{proposition}
+
+\proof
+Recall from Proposition \ref{same symbols} that for all closed points $a\in \PP^1$, the fibers $J_a$ and $Y_a$ have the same Kodaira symbol.
+Suppose now that $k\subset\kappa(a)$ is not an equality. Then $Y_\ba$ is   irreducible  
+by Theorem \ref{geometric and schematic fiber}, which  settles \refjac{non-rational J}.
+From Proposition \ref{canonical type rational points} we get \refjac{I0* J}.
+Suppose next  that $J_a$   is semistable. Then $Y_a$ must be simple, by  Lemma \ref{multiple for p=2}, hence
+$J_a\simeq Y_a$, again from  Proposition \ref{same symbols}. Assertion \refjac{semistable J} 
+thus follows from Theorem \ref{geometric and schematic fiber}.
+
+By Theorem \ref{family with constant pic}  there are two rational points $a\in \PP^1$ where the fiber $Y_a$ is multiple.
+The corresponding $\varphi^{-1}_\ind(a)$ are neither semistable nor supersingular, again by Lemma \ref{multiple for p=2}.
+So from the three rational points, there is only one $b\in\PP^1$  where $\varphi^{-1}_\ind(b)$ and hence $J_b$
+can be semistable or supersingular, which gives \refjac{rational J}.
+
+It remains to verify the last assertion \refjac{mw J}. According to the definition of Mordell--Weil groups we have
+$$
+\MW(J/\PP^1)=J(F)=\Pic^0_{Y_F/F}(F)=\Pic^0(Y_F),
+$$
+where $F$ is the function field of the projective line. The latter equality holds because $\Br(F)=0$, by Tsen's Theorem.
+Choose a two-section $R\subset Y$, and consider the  surjective homomorphism
+$$
+\Pic(Y)\lra \Pic^0(Y_F),\quad \shL\longmapsto \shL(-nR) | Y_F,
+$$
+where $2n=\deg(\shL|Y_F)$. The kernel $T(Y/\PP^1)$ of this map is generated by the irreducible components 
+of the closed fibers for $\varphi:Y\ra\PP^1$, together with $R$.  Consider the commutative diagram
+$$
+\begin{CD}
+\source{no-enriques-surface-over-the-integers}
+\notready
+T(Y/\PP^1)	@>>> 	\Pic(Y)\\
+@VVV		@VVV\\
+T(\bY/\bar{\PP}^1)	@>>>	\Pic(\bY)
+\end{CD}
+$$
+induced by base-change. By assumption,  the vertical map on the right is bijective.
+According to Theorem \ref{geometric and schematic fiber}, the same holds for the vertical map on the left.
+In turn, the induced vertical map  between cokernels is bijective, thus \refjac{mw J} holds.
+\qed
+
+\medskip
+The number of irreducible components   of the geometric fiber $J_\ba$ depends only on the image point $a\in \PP^1$;
+we denote this integer by $r_a\geq 1$. It coincides with the number of irreducible components in both $Y_\ba$ and $Y_a$.
+If $a\in\PP^1$ is rational, we furthermore set
+$$
+n_a=
+\begin{cases}
+i		& \text{if $J_a$ is smooth and isomorphic to $E_i$;}\\
+2r_a 	& \text{if $J_a$ is split semistable;}\\
+2r_a+2	& \text{if $J_a$ is non-split semistable;}\\
+2r_a+1	& \text{if $J_a$ is unstable.}
+\end{cases}
+$$ 
+Recall from Proposition \ref{elliptic curves} that the $E_i$ denote the five elliptic curves over the prime field
+$k=\FF_2$,  indexed by the order of the group of  rational points.
+Also note  that $n_a=| Y_a(k)|$, and thus
+$\sum n_a=25$ by  Corollary \ref{points on enriques}, where the sum runs over the three rational points $a\in\PP^1$. 
+The numbers $n_a\geq 1$ are defined,  however,  
+in terms of the irreducible components of the schematic and geometric fibers $J_a$ and $J_\ba$, and it is a priori not clear 
+how they  are related to $|J_a(k)|$.
+
+We now forget that $J$ comes from an elliptic Enriques surface,
+and only demand that it satisfies the properties  observed above.
+Theorem \ref{jacobian constant pic} becomes a consequence of the following more general statement:
+
+\begin{theorem}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{constant pic}
+Let $J$ be a geometrically rational surface, endowed with 
+an elliptic fibration $\phi:J\ra\PP^1$ that is relatively minimal and jacobian.
+Suppose that conditions {\rm (i)--(v)} of Proposition \ref{jacobian fiber properties} and the equation $\sum n_a=25$ hold.
+Then $J$ has constant Picard scheme.
+\end{theorem}
+
+The elliptic surface $J$ is geometrically rational, so the Picard scheme $\Pic_{Y/k}$ is  a local system
+of free abelian groups. Their  rank is $\rho=10$, by the minimality of the fibration.
+We have to show that the Galois group $G=\Gal(k^\alg/k)$ acts trivially on $\Pic_{J/k}(k^\alg)=\Pic(\bJ)=\ZZ^{\oplus 10}$.
+Since there is no torsion part, it suffices to find a subgroup of finite index for which this holds.
+The group $\Pic(\bJ)$ is generated  by a fiber, the vertical curves $\Theta$ disjoint from the zero-section,
+and the sections. The former is obviously defined over $k$, and the latter  by condition \refjac{mw J}.
+According to  condition \refjac{non-rational J}, each $\Theta\subset\bJ$ projects to  a fiber $J_a$ over some rational point  $a\in\PP^1$. 
+Thus it suffices to prove the following:
+
+\begin{proposition}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{bijection irreducible components}
+Let $\ba:\Spec(\Omega)\ra \PP^1$ be a geometric point. Assume that the image $a\in \PP^1$ is rational
+and that the fiber $J_a$ is singular. Then  the canonical map  $\Gamma(J_\ba)\ra \Gamma(J_a)$ 
+is a graph isomorphism.
+\end{proposition}
+
+\proof
+The assertion  is trivial if $J_\ba$ has Kodaira symbol $\I_1$ or $\II$.
+Condition \refjac{semistable J} ensures that it also holds for $\I_n$ with $n\geq 2$.
+Now suppose that  $J_\ba$ has one of the Kodaira symbol $\III,\IV,\ldots,\II^*$.
+Our task is to verify that the  Galois action of $G=\Gal(\FF_2^\alg/\FF_2)$ on the dual graph $\Gamma=\Gamma(J_\ba)$
+is trivial.
+Since it is a tree, it suffices that check that all terminal vertices are fixed.
+This obviously holds for the terminal vertex $v_0\in\Gamma$ that corresponds to 
+the irreducible component   that intersects the base-change of the zero-section $O\subset J$.
+If there is at most one further terminal vertex, it must be fixed as well.
+This already settles the cases where the Kodaira symbol is   $\III$, $\III^*$ or $\II^*$.
+
+If the Kodaira symbol is $\I_m^*$, we must have $m\geq 1$ by condition \refjac{I0* J}.
+Besides  $v_0\in\Gamma$, there are three other terminal vertices. One has a shorter distance
+to $v_0$ than the others, and thus must be fixed, and we have to deal with the remaining two 
+terminal vertices.
+For  Kodaira symbols $\IV$ and $\IV^*$ there are also two remaining terminal vertices besides $v_0\in\Gamma$.
+In all these cases, we shall check  that there is a section $P\subset J$ 
+whose base-change intersects an irreducible component   $\Theta\subset J_\ba$
+corresponding to one of the two remaining terminal vertices.
+
+To achieve this, first note that $\Num(\bJ)$
+is unimodular, because  the  minimal model of $\bJ$ is the projective plane.
+Consider the orthogonal complement $W\subset\Num(\bJ)$ of the fiber $J_\ba$ and the zero-section $O$.
+These two curves have Gram matrix $(\begin{smallmatrix}0&1\\1&-1\end{smallmatrix})$, and we infer that
+$W$ is unimodular. It is generated by the vertical curves disjoint from the zero-section,
+together with the combinations $(P-O)-(1+(P\cdot O))J_\ba$ for $P\in \MW(\bJ/\bar{\PP}^1)$.
+The latter have self-intersection $-1-2(P\cdot O)-1$, hence  the lattice $W$ is even.
+Furthermore, we consider the sublattice $W_\ba\subset W$  generated by the components $\Theta_1,\ldots,\Theta_r\subset J_\ba$ disjoint
+from the zero-section. Note that this  is a root lattice, endowed with a canonical basis.
+
+Suppose now that $J_\ba$ has Kodaira symbol $\IV$ or $\IV^*$, and that 
+all sections $P\subset J$ have a base change that
+passes through the component $\Theta_0\subset J_\ba$ corresponding to $v_0\in\Gamma$.
+Then $W_\ba\subset W$ is an orthogonal direct summand, hence unimodular. On the other hand, this root lattice has type $A_2$ or $E_6$,
+with discriminant $d=3$, contradiction.
+
+It remains to treat the symbols $\I_m^*$ with $1\leq m\leq 4$.
+Now $W_\ba$ is a root lattice of type $D_{m+4}$, which again is  not unimodular.
+Our lattices and their dual lattices are related by a commutative diagram
+\begin{equation}
+\label{various lattices}
+\source{no-enriques-surface-over-the-integers}
+\begin{CD}
+\source{no-enriques-surface-over-the-integers}
+\notready
+W_\ba	@>>>	W	@>>>	\Num(\bJ)\\
+@VVV		@VVV		@VVV\\
+W_\ba^*	@<<<	W^*	@<<<	\Num(\bJ)^*,
+\end{CD}
+\end{equation}
+where the vertical maps are given by $x\mapsto (y\mapsto (x\cdot y))$. 
+Seeking a contradiction, we now assume that each section $P\subset J$ passes through
+the component  $\Theta_0\subset J_\ba$ corresponding to $v_0\in\Gamma$, or the
+component $\Theta_1\subset J_\ba$ corresponding to the terminal vertex  $v_1\in\Gamma$  that has shorter distance to $v_0$.
+The latter indeed happens, because otherwise $W_\ba\subset W$ would be an orthogonal direct summand, hence unimodular,
+contradiction. Now fix some $P$ passing through $\Theta_1$.  Under the maps in \eqref{various lattices}, the combination $(P-O)-(1+(P\cdot O))J_\ba\in W$
+maps to the dual basis vector  $\Theta_1^*\in W_\ba^*$. Since the maps  respect the 
+intersection pairing, we conclude that $(\Theta_1^*\cdot\Theta_1^*)\in \QQ$ actually belongs to $2\ZZ$.
+On the other hand, a direct computation with the root lattice $W_\ba$ of type $D_{m+4}$ reveals $(\Theta_1^*\cdot\Theta_1^*)=\pm 1$,
+contradiction.
+\qed
+
+\medskip
+My original arguments for the cases $\IV,\IV^*$ and $\I_m^*$ in the above proof relied on Lang's Classification \cite{Lang 2000}, 
+which gives the possible  configuration of singular fibers for
+$\bJ$, together with the  Oguiso--Shioda Table \cite{Oguiso; Shioda 1991}  for Mordell--Weil lattices 
+and the Shioda's explicit formula \cite{Shioda 1990} for the height pairing $\langle P,Q\rangle\in\QQ$.
+This  method was already used in \cite{Schroeer 2021a}, Section 15. The above more elegant
+and conceptual argument was suggested by one referee.
+
+
+\iffalse
+Write  $b\neq c$ for the two other rational points, besides $a\in\PP^1$.
+In what follows, we shall use   \emph{Lang's Classification} \cite{Lang 2000}, 
+which gives the possible  configuration of singular fibers for
+$\bJ$. Note that in the presence of a semistable fiber, the classification reveals that there is at most one unstable fiber.
+It turns out that many cases do not occur in our situation.
+For the remaining cases we use the  \emph{Oguiso--Shioda Table} \cite{Oguiso; Shioda 1991}  for Mordell--Weil lattices 
+and the \emph{Shioda's explicit formula} \cite{Shioda 1990} for the \emph{height pairing} $\langle P,Q\rangle\in\QQ$  to produce
+the desired section $P\subset J$.  For more details, we refer to \cite{Schroeer 2021a}, Section 15,
+where the method was already employed. We now go through our four cases that the geometric fiber $J_\ba$ has Kodaira symbol
+$\I_m^*$.
+ 
+\emph{First suppose that $J_\ba$ has Kodaira symbol $\I_1^*$}, such that $n_a=13$ and $n_b+n_c=12$. By Lang's Classification,
+the possible configurations of singular fibers are
+$$
+\I_1^*+1^4,\quad \I^*_1+21^2,\quad \I_1^*+31,\quad \I_1^*+2^2,\quad \I_1^*+4,\quad \I_1^*+\II,\quad\I_1^*+\III,\quad\I_1^*+\IV.
+$$
+In the first three cases we get the contradiction $n_b+n_c\leq 5+6=11$.
+The fourth case does not occur thanks to condition \refjac{rational J}.
+In case five the trivial lattice is the root lattice $D_5\oplus A_3$, and the Oguiso--Shioda Table gives
+$\MW(J/\PP^1)=\ZZ/4\ZZ$, whereas the narrow Mordell--Weil group vanishes. Let $P\subset J$ be one of the two generators.
+We have
+$$
+0=\langle P,P\rangle = 2+2(P\cdot O) -\contr_a(P)-\contr_b(P),
+$$
+and the possible non-zero values are $\contr_a(P)=1,5/4$ and $\contr_b(P)=3/4,1$.
+This leaves two solutions. However, if $\contr_a(P)=\contr_b(P)=1$,
+we infer that $Q=2P$ lies in the narrow Mordell--Weil group, contradiction.
+Thus $\contr_a(P)=5/4$ and $\contr_b(P)=3/4$, and we infer that the base-change of $P$ intersects 
+a remaining component $\Theta\subset J_\ba$ as desired.
+In the remaining cases we may assume without restriction that $J_b$ is unstable and $J_c$ is smooth.
+Using $n_b+n_c=12$, one sees that only the last case is possible, which was already treated.
+
+\emph{Next, we suppose that $J_\ba$ has Kodaira symbol $\I_2^*$.}
+Then $n_a=15$ and $n_b+n_c=10$.
+The possible configuration of singular fibers
+on $\bJ$ are
+$$
+\I_2^*+1^2,\quad \I_2^*+2,\quad \I_2^*.
+$$
+Without restriction, we may assume that $J_b$ is ordinary and $J_c$ is smooth or semi\-stable.
+Using $10=n_b+n_c\leq 4+6$, we infer that $J_b=E_4$ and $J_c$ has Kodaira symbol $\tI_2$. 
+The trivial lattice   is the root lattice $D_6\oplus A_1$, and we get
+$\MW(J/\PP^1)=A_1^*\oplus\ZZ/2\ZZ$. Let $P\subset J$ be the
+generator of the torsion subgroup.
+Then
+$$
+0=\langle P,P\rangle = 2+2(P\cdot O) -\contr_a(P)-\contr_b(P),
+$$
+and the possible non-zero local contributions are $\contr_a(P)=1,3/2$ and $\contr_b(P)=1/2$.
+The only solution is $\contr_a(P)=3/2$, $\contr_b(P)=1/2$ and $(P\cdot O)=0$,
+hence the base-change of $P$ intersects a remaining component $\Theta\subset J_\ba$ as desired.
+
+\emph{To continue, suppose that  $J_\ba$ has Kodaira symbol $\I_3^*$.}
+Then $n_a=17$ and $n_b+n_c=8$. The only possible configuration of singular fibers 
+on $\bJ$ are $\I_3^*+1$ and $\I_3^*$.
+The trivial lattice for $\bJ$ is the root lattice $D_7$, and the Mordell--Weil lattice
+becomes $\MW(J/\PP^1)=\langle 1/4\rangle$. Let $P\subset J$ be one of the two generators, such that 
+$1/4=\langle P,P\rangle = 2+2(P\cdot O) -\contr_a(P)$. 
+The   non-zero local contribution is $\contr_a(P)=1$ or $\contr_a(P)=7/4$.
+The former is impossible, and we conclude as above.
+
+\emph{It remains to treat the case that $J_\ba$ has Kodaira symbol $\I_4^*$.}
+By Lang's classification, there is no other singular fiber,
+so the trivial lattice for $\bJ$ is the root lattice $D_8$, and the Mordell--Weil group
+must be $\MW(J/\PP^1)=\ZZ/2\ZZ$. The generator $P\subset J$ has
+$0=\langle P,P\rangle = 2+2(P\cdot O) -\contr_a(P)$, and the possible non-zero local contribution is 
+$\contr_a(P)=1$ or $\contr_a(P)=2$. The former is impossible, and we conclude as above.
+\qed
+\fi
+
+%===========================================================

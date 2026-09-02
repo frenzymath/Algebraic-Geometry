@@ -1,0 +1,333 @@
+% Source-derived chapter 05: Variations of Hodge structure and the Kodaira-Parshin trick
+% Original source: geometric-local-systems-general-curves-isomonodromy
+\chapter{Variations of Hodge structure and the Kodaira-Parshin trick}
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-05}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+\begin{remark}[Source section]
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-05-source}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\source{geometric-local-systems-general-curves-isomonodromy}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Variations of Hodge structure and the Kodaira-Parshin trick
+\label{section:counterexample}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+In this section we find that
+variations of Hodge structure on $\mathscr{M}_{g,1}$ with monodromy which is
+``big" in a suitable sense provide examples of flat vector bundles on curves
+whose isomonodromic deformation to a nearby curve is never semistable. We then produce such variations of
+Hodge structure via the Kodaira-Parshin trick. 
+This will be used to prove
+\autoref{theorem:counterexample} and contradicts earlier claimed theorems of
+Biswas, Heu, and Hurtubise 
+\cite[Theorem 1.3]{BHH:logarithmic},
+\cite[Theorem 1.3]{BHH:irregular}, and
+\cite[Theorem 1.2]{BHH:parabolic},
+as described further in \autoref{remark:bhh-error}.
+
+In \autoref{section:hodge-theoretic-results}, we will use that
+variations of Hodge structure with suitably large monodromy yield flat vector
+bundles which do not have isomonodromic deformations to semistable bundles.
+This will be used to analyze variations of Hodge structure on an analytically very general curve.
+\subsection{Construction of the counterexample}
+We now set up the proof of \autoref{theorem:counterexample} and
+\autoref{corollary:counterexample}. We will construct a variation of Hodge
+structure over the analytic moduli stack $\mathscr{M}_{g,1}$ whose restriction to each fiber of the forgetful map $\mathscr{M}_{g,1}\to \mathscr{M}_g$ satisfies the hypotheses of \autoref{lemma:positive-Hodge-bundle}. We will do this via the Kodaira-Parshin trick
+(see
+\cite[Proposition 7]{parshin:algebraic-curves-over-function-fields-i}
+and also
+\cite[Proposition 7.1]{lawrenceV:diophantine-problems}), 
+which produces a family of curves over $\mathscr{M}_{g,1}$ which is non-isotrivial when restricted to each fiber of the natural forgetful map $\mathscr{M}_{g,1}\to \mathscr{M}_g$. 
+We give a proof appealing to \cite{cataneseD:answer-to-a-question-by-fujita},
+but one can also prove it using \autoref{prop:basic-facts}  and
+\autoref{corollary:unstable}, as we mention in
+\autoref{remark:alternate-hodge-proof}
+Because we had difficulty finding a suitable reference, we now present a version
+of the Kodaira-Parshin trick in families.
+
+\begin{proposition}[Kodaira-Parshin trick]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{proposition:kodaira-parshin}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $Y$ denote a Riemann surface of genus $g\geq 1$ with a point $p \in Y$ and
+	let $Y^{\circ} := Y - p$. Choose a basepoint $y \in Y^{\circ}$.
+	Suppose $G$ is a finite center-free group with a surjection
+	$\phi: \pi_1(Y^{\circ},y) \twoheadrightarrow G$ which sends the loop around the puncture $p \in Y$ to 
+	a non-identity element of $G$.
+	Then there exists a smooth proper relative dimension $1$ map of
+	analytic stacks $f: \mathscr{X} \to
+	\mathscr{M}_{g,1}$ so that the fiber over a geometric point $[(C,p)] \in
+	\mathscr{M}_{g,1}$ is a finite disjoint union of $G$-covers of $C$
+	ramified at $p$.
+\end{proposition}
+We will prove this below in \autoref{subsubsection:proof-kodaira-parshin}.
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	In the finite disjoint union of $G$-covers appearing at the end of the
+	statement of \autoref{proposition:kodaira-parshin},
+	we can explicitly identify the finite set of $G$-covers.
+	Namely, suppose $h \in \pi_1(\mathscr M_{g,2})$, viewed as an
+	automorphism of the fundamental group of a $2$-pointed genus $g$ curve $\pi_1(Y^{\circ},y)$. (See \autoref{subsubsection:setup} below for an explanation of the action of $\pi_1(\mathscr{M}_{g,2})$ on $\pi_1(Y^\circ, y)$.)
+	There is one cover associated to each map
+	of the form $\phi_h: \pi_1(Y^{\circ},y) \to G$, with $\phi_h(g) :=
+	\phi(hgh^{-1})$,
+	modulo the following equivalence relation:
+	we identify $\phi_h \sim \phi_{g}$ if they
+	are conjugate, i.e., if there exists $m \in G$ with $\phi_h(s) = m
+	\phi_g(s)m^{-1}$ for all $s \in \pi_1(Y^{\circ},y)$.
+\end{remark}
+
+
+\subsubsection{Setup to prove \autoref{proposition:kodaira-parshin}}
+\label{subsubsection:setup}
+\source{geometric-local-systems-general-curves-isomonodromy}
+Let $$\pi:\mathscr{M}_{g, 2}\to \mathscr{M}_{g,1}$$ be the natural forgetful map.
+Let $x\in \mathscr{M}_{g,2}$ be a point. Let $\bar{x} := \pi(x) \in
+\mathscr{M}_{g,1}$ and let $C^\circ\subset \mathscr{M}_{g,2}$
+denote the fiber of $\pi^{-1}(\bar{x})$.
+
+Note that $C^\circ$ is the complement of a point in a smooth proper connected curve of genus $g$. 
+There is a natural short exact sequence
+\begin{align}
+1\to \pi_1(C^\circ, x) \to \pi_1(\mathscr M_{g,2}, x) \to \pi_1(\mathscr
+M_{g,1}, \bar x)\to 1
+\end{align}
+associated to the map $\mathscr{M}_{g,2} \to \mathscr{M}_{g,1}$ with fiber
+$C^{\circ}$.
+We may obtain this from the Birman exact sequence \cite[Theorem
+4.6]{farbM:a-primer} for mapping class groups,
+after identifying the fundamental group for $\mathscr M_{g,n}$ with the mapping
+class group of an $n$-times punctured genus $g$ surface.
+(The case $n = 0$ follows from contractibility of the universal cover of
+$\mathscr M_g$ \cite[Theorem 10.6]{farbM:a-primer} with covering group given by
+the mapping class group,
+and the case of general $n$ can be deduced from the Birman exact sequence
+\cite[Theorem 4.6]{farbM:a-primer}.)
+
+Let $G$ be a center-free finite group and suppose further there
+is a surjection $$\gamma: \pi_1(C^\circ, x)\twoheadrightarrow G.$$
+We assume that $\gamma$ takes the conjugacy class of the loop around the puncture of $C^\circ$ to a non-identity conjugacy class of $G$.
+
+Define $\Gamma\subset \pi_1(\mathscr{M}_{g,2}, x)$ as the set of $h \in
+\pi_1(\mathscr{M}_{g,2},x)$ such that there exists $\widetilde{\gamma}(h)\in G$ with $$\gamma(hgh^{-1})=\widetilde{\gamma}(h)\gamma(g)\widetilde{\gamma}(h)^{-1}$$ for all $g\in \pi_1(C^\circ, x).$ 
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:center-free-group}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Keeping notation as in \autoref{subsubsection:setup},
+	the map $\gamma$ determines a well-defined surjective homomorphism 
+	\begin{align*}
+		\widetilde{\gamma}: \Gamma  & \rightarrow G\\
+		h & \mapsto \widetilde{\gamma}(h).
+	\end{align*}
+	Moreover, $\Gamma \subset\pi_1(\mathscr{M}_{g,2},x)$ has finite index.
+\end{lemma}
+\begin{proof}
+	We first claim that $\Gamma$ contains $\pi_1(C^\circ, x)$ and surjects
+	onto $G$. Indeed, for $h\in
+\pi_1(C^\circ, x)$, one may take $\widetilde{\gamma}(h)=\gamma(h)$.
+Therefore, the surjectivity of $\gamma$ implies that $\widetilde{\gamma}$ is
+also surjective.
+
+	Next, we claim that for each $h$, $\widetilde{\gamma}(h)$ is uniquely determined. 
+	Indeed, suppose $\widetilde{\gamma}(h)$ may be either
+	$\alpha$ and $\beta$. Then we would have $\alpha \gamma(g) \alpha^{-1} =
+	\beta \gamma(g) \beta^{-1}$.
+	Since $\gamma$ is surjective, as shown above, we find $\alpha
+	\beta^{-1}$ lies in the center of $G$, and therefore is trivial. So
+	$\alpha = \beta$.	
+
+	The uniqueness of $\widetilde{\gamma}(h)$ just established shows that $\widetilde{\gamma}$ determines a well-defined map.
+This is moreover a homomorphism by the above established uniqueness, because we
+then obtain $\widetilde{\gamma}(h) \widetilde{\gamma}(h') =
+\widetilde{\gamma}(hh')$.   
+
+Finally, we claim $\Gamma$ has finite index in $\pi_1(\mathscr{M}_{g,2}, x)$.
+To see this, observe that there is an action of $\pi_1(\mathscr{M}_{g,2}, x)$
+on the set of surjective homomorphisms $\pi_1(C^{\circ},x) \to G$ sending $\phi:
+\pi_1(C^{\circ},x) \to G$ to the map $\phi^h(g) := \phi(hgh^{-1})$.
+By definition, we have $h \in \Gamma$ if and only if $\gamma^h$ is conjugate to $\gamma$.
+In particular, $\Gamma$ contains the stabilizer of $\gamma$ under the action of 
+$\pi_1(\mathscr{M}_{g,2}, x)$.
+But this stabilizer has finite index in 
+$\pi_1(\mathscr{M}_{g,2}, x)$ because 
+$G$ is finite and $\pi_1(C^\circ, x)$ is finitely generated. 
+Therefore,
+there are only
+finitely many 
+homomorphisms $\pi_1(C^\circ, x) \to G$,
+and, in particular, finitely many such surjective homomorphisms.
+
+\end{proof}
+
+\subsubsection{}\label{subsubsection:proof-kodaira-parshin}\begin{proof}[Proof of \autoref{proposition:kodaira-parshin}]
+\source{geometric-local-systems-general-curves-isomonodromy}
+Let $\widetilde{\Gamma}$ be the kernel of the map $\widetilde{\gamma}$ from
+\autoref{lemma:center-free-group}.
+The subgroup $\widetilde{\Gamma}$ corresponds to a finite \'etale cover
+$\mathscr X^\circ \to \mathscr M_{g,2}$. 
+Observe that $\mathscr M_{g,2} \subset \mathscr{M}_{g,1} \times_{\mathscr M_g} \mathscr{M}_{g,1}$
+can be viewed as a dense open substack, and
+let $\mathscr{X}$ be the normalization
+of $\mathscr{M}_{g,1} \times_{\mathscr M_g} \mathscr{M}_{g,1}$ in the function
+field of $\mathscr{X}^\circ,$ forming the following cartesian diagram
+\begin{equation}
+	\label{equation:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	\begin{tikzcd} 
+		\mathscr X^\circ \ar {r} \ar {d} & \mathscr X \ar {d} \\
+		\mathscr M_{g,2} \ar {r} & \mathscr{M}_{g,1} \times_{\mathscr
+		M_g} \mathscr{M}_{g,1}.
+\end{tikzcd}\end{equation}
+Restricting the natural map $\mathscr{X}\to\mathscr{M}_{g,1} \times_{\mathscr M_g} \mathscr{M}_{g,1}$ to a fiber $C$ of the universal curve $\mathscr{M}_{g,1} \times_{\mathscr M_g} \mathscr{M}_{g,1} \to \mathscr M_{g,1}$ yields a finite disjoint union of $G$-covers of $C$, ramified only over the tautological marked point of $C$.
+We then take our desired relative curve $f: \mathscr X \to \mathscr{M}_{g,1} \times_{\mathscr M_g}
+\mathscr{M}_{g,1} \to \mathscr M_{g,1}$ as the resulting
+composition.
+\end{proof}
+
+In order to use \autoref{proposition:kodaira-parshin}, we will need to know
+there are groups $G$ satisfying its hypotheses. We now provide such an example.
+\begin{example}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{example:kodaira-parshin}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	As a concrete example of a group $G$ to which 
+	\autoref{proposition:kodaira-parshin} applies, we can take $G = S_3$ to be the
+	symmetric group on three letters and identify $\pi_1(Y^\circ, y)$
+with the free group on the generators $a_1, \ldots, a_g, b_1, \ldots, b_g$. The group $\pi_1(Y, y)$
+is generated by $a_1, \ldots, a_g, b_1, \ldots, b_g$ with the relation
+$\prod_{i=1}^g \left[ a_i, b_i \right]$.
+Consider the surjection $\phi: \pi_1(C^\circ, y)\twoheadrightarrow S_3$
+sending $a_1\mapsto (12), b_1 \mapsto (13)$ and sending $a_i \mapsto
+\mathrm{id}, b_i
+\mapsto \mathrm{id}$ for $i > 1$.
+The loop around the puncture maps to 
+$\phi(\prod_{i=1}^g \left[ a_i, b_i \right]) = (12)(13)(12)^{-1}(13)^{-1} =
+(123) \neq \mathrm{id}$.
+\end{example}
+
+
+\subsubsection{}
+\label{subsubsection:proof-counterexample}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\begin{proof}[Proof of \autoref{theorem:counterexample}]
+Let $f: \mathscr X \to \mathscr{M}_{g,1}$ denote the map from
+\autoref{proposition:kodaira-parshin}. 
+Concretely, we can take $G = S_3$ and the map $\phi$ as in 
+\autoref{proposition:kodaira-parshin} to be that given in
+\autoref{example:kodaira-parshin}.
+Define the local system $\mathbb V := R^1 f_* \mathbb C$ on $\mathscr M_{g,1}$,
+and define $\mathscr{F}$ to be the vector bundle $\mathbb{V}\otimes
+\mathscr{O}$. Note that $\mathscr{F}$ admits a natural (Gauss-Manin) connection $\on{id}\otimes d$. The local system $\mathbb{V}$ evidently underlies a variation of Hodge structure.
+
+ Let $C$ be a
+ fiber of the forgetful morphism $\mathscr{M}_{g,1}\to \mathscr{M}_{g}$.
+ Let $X := f^{-1}(C) \subset \mathscr X$. We claim that the flat vector bundle $(\mathscr{F}, \nabla)$ satisfies the
+conditions of \autoref{theorem:counterexample}, i.e.~it has semisimple monodromy and $\mathscr{F}|_C$ is not semistable.
+
+We first check that $(\mathscr{F}, \nabla)|_C$ has semisimple monodromy. This is
+true for any flat vector bundle arising from the Gauss-Manin connection on the
+cohomology of a family of smooth proper varieties, by work of Deligne
+\cite[Th\'eor\`eme 4.2.6]{deligne:hodge-ii}.
+
+We now check that $(\mathscr{F}, \nabla)|_C$ is not semistable.  
+By \cite[Theorem
+4]{cataneseD:answer-to-a-question-by-fujita},
+if $X \to C$ is not isotrivial,
+$f_* \omega_f$ is a destabilizing subsheaf of $\mathscr F$.
+It remains to show $X \to C$ is not isotrivial.
+The fiber of $f|_X$ over a point $x\in C$ is a finite disjoint union of
+finite covers of $C$, branched only over $x$. These fibers must vary in moduli as $x$ varies,
+as there are only finitely many non-constant maps between any
+two curves over of genus at least $2$, 
+by de Franchis' theorem. 
+(See \cite{de1913teorema} or \cite[Corollary 3, p.~75]{samuel1966lectures}, for
+example.)
+% or	\cite[Theorem	1]{kobayashiO:meromorphic-mappings-onto-compact-complex-spaces-of-general-type}.
+%\begin{lemma}
+%	\label{lemma:}
+%	If $Y$ and $C$ are two curves of genus at least $2$, there are only
+%	finitely many maps $Y \to C$.
+%\end{lemma}
+%\begin{proof}
+%	First, note that the degree of any map $Y \to C$ is bounded by at most
+%$\frac{g(Y)-1}{g(C)-1}$ by
+%	Riemann-Hurwitz.
+%	Next, observe that the moduli space of maps of fixed degree $d$ from $X$ to $C$ is of finite
+%	type. Indeed, by sending a map to its graph, we can identify this moduli
+%	space of maps with a Hilbert scheme of subschemes
+%	$Y\subset X \times C$ so that the projection of $Y$ onto $X$ is an
+%	isomorphism and the projection onto $C$ has degree $d$.
+%	Therefore, it is enough to show that the moduli space of maps from $X$
+%	to $C$ has trivial tangent space at any such map $[f]$. The tangent
+%	space is identified with $H^0(X, f|_X^* T_C)$, which vanishes as $f|_X^* T_C$ has negative degree when the genus
+%of $C$ is at least $2$. \end{proof}
+\end{proof}
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:alternate-hodge-proof}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	We can also give a somewhat more involved proof of
+	\autoref{theorem:counterexample} using \autoref{corollary:unstable} in
+	place of \cite[Theorem
+	4]{cataneseD:answer-to-a-question-by-fujita}, as we now explain. This argument inspired the Hodge-theoretic results \autoref{theorem:very-general-VHS} and \autoref{corollary:geometric-local-systems}, proven in \autoref{section:hodge-theoretic-results}.
+
+	With notation as in the proof of 
+	\autoref{theorem:counterexample},
+	$\mathscr{F}$ has degree $0$ since it admits a flat connection, by
+	\autoref{prop:basic-facts}(3).
+	Therefore, it suffices to show $\mathscr{F}$ has a subsheaf of positive
+degree.
+The Hodge filtration exhibits $F^1\mathscr F\simeq (f|_X)_* \omega_{(f|_X)}$ as a subsheaf
+of $\mathscr F$,
+which is destabilizing by
+\autoref{corollary:unstable}
+once we verify that
+$\delta: F^1\mathscr F \to F^0 \mathscr F/ F^1 \mathscr F \simeq R^1 (f|_X)_* \mathscr{O}_{X}$
+is nonzero.
+
+We now check $\delta$ is nonzero.
+Locally around a point of $C$, $\delta$ 
+can be identified with the derivative of the period map
+\cite[Theorem 5.3.4]{carlsonMP:period-mappings}
+sending a curve corresponding to a fiber of 
+$f|_X : X \to C$
+to the corresponding Hodge structure on its first cohomology. To show this derivative is not identically zero it suffices to show that the period map is non-constant.
+More concretely, by the Torelli theorem, we only need to check
+$f|_X: X \to C$ is not isotrivial.
+This follows by de Franchis' theorem, as explained in the proof of
+\autoref{theorem:counterexample}.
+\end{remark}
+
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:bhh-error}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	As noted prior to its statement,
+	\autoref{theorem:counterexample} contradicts
+\cite[Theorem 1.3]{BHH:logarithmic},
+\cite[Theorem 1.3]{BHH:irregular}, and
+\cite[Theorem 1.2]{BHH:parabolic}, which claim, for example, that any irreducible flat vector bundle on a smooth proper  curve of genus at least $2$ admits a semistable isomonodromic deformation. We now explain the gaps in the proofs of
+those results. The error in \cite[Theorem 1.3]{BHH:logarithmic} occurs in
+\cite[Proposition 4.3]{BHH:logarithmic}; the issue is that the map denoted
+$f^*\nabla$ in diagram (4.14) does not in general exist. The proof works
+correctly if $G=\on{GL}_2$. An identical error occurs in \cite[Proposition
+4.4]{BHH:irregular}. A different argument is given in \cite{BHH:parabolic}.
+There, the error occurs in the proof of \cite[Proposition 5.1]{BHH:parabolic}, 
+in which the large diagram claimed to be commutative does not in general commute.
+\end{remark}

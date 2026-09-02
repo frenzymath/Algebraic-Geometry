@@ -16,8 +16,10 @@
 </p>
 
 > [!IMPORTANT]
-> The workspace currently registers 21 routes: 13 active projects and 8 planned
-> source projects for the next Luna/Codex transcription pass.
+> The workspace currently registers 47 routes: 13 active projects, 8 planned
+> source projects, and 26 source-derived paper blueprints. The paper blueprints
+> contain complete retrieved LaTeX bodies; their Lean declarations are still
+> intentionally pending.
 > The source statements are indexed in hgraph; Lean declarations are added
 > incrementally and are never claimed before they exist.
 
@@ -40,6 +42,8 @@ routes follow the eight imported official parts on
 shared/                  source-independent reusable infrastructure
 MainProjects/            flagship formalizations
 FormalizedSources/       source-faithful reference projects
+FormalizedPapers/        categorized source-derived paper blueprints
+references/              retrieved paper PDFs, e-prints, and TeX sources
 config.yaml              hgraph workspace and website manifest
 overview.html            hgraph landing-page content
 site/algebraic-geometry.css  workspace-wide hgraph style override
@@ -79,6 +83,7 @@ artifacts; they are regenerated per package and are never committed.
 | [`FormalizedSources/Curves/Papaioannou`](FormalizedSources/Curves/Papaioannou/) | Planned algebraic Riemann--Roch and function-field reference |
 | [`FormalizedSources/CommutativeAlgebra/`](FormalizedSources/CommutativeAlgebra/) | Planned commutative-algebra references |
 | [`FormalizedSources/CategoryTheory/Leinster`](FormalizedSources/CategoryTheory/Leinster/) | Planned categorical foundations reference |
+| [`FormalizedPapers/`](FormalizedPapers/) | 26 complete source-derived paper blueprints, organized by mathematical area |
 
 Stacks source chapter inventory (aggregated into one hgraph project per part):
 
@@ -105,6 +110,7 @@ Stacks source chapter inventory (aggregated into one hgraph project per part):
 | `Moduli/` | Picard, Hilbert, Quot, and compactification references |
 | `CommutativeAlgebra/` | Ring-theoretic foundations |
 | `CategoryTheory/` | Categorical foundations |
+| `FormalizedPapers/` | Retrieved research papers, grouped by mathematical area |
 
 Each Stacks part project aggregates numbered chapter files adapted from the
 upstream LaTeX. The parent part route is the registered hgraph project; there
@@ -116,10 +122,13 @@ carry their source-specific handoff prompts and exact Horizon paths.
 
 The current workspace provides:
 
-- 21 registered hgraph routes: 13 active projects and 8 planned source
-  projects, including eight Stacks part projects and two Algebraic Jacobian
-  construction routes;
+- 47 registered hgraph routes: 13 active projects, 8 planned source projects,
+  and 26 source-derived paper blueprints, including eight Stacks part projects
+  and two Algebraic Jacobian construction routes;
 - **109** Stacks chapter blueprints covering Parts 1–8 completely;
+- **247** source-derived paper chapters covering the 26 retrieved papers,
+  with their PDFs, e-print archives, and TeX sources indexed in
+  `references/manifest.yaml`;
 - source blueprints for Mumford, Milne, and Hartshorne, with ported Lean
   packages (`MilneLib`, `MumfordLib`, `HartshorneLib`) and matching `\lean`
   annotations where declarations exist;
@@ -155,7 +164,9 @@ the static landing page and live project routes.
 ## Contributing
 
 Contributions should start by defining the mathematical scope and the source
-provenance of a future project. Add its root to `config.yaml`. Stacks chapters
+provenance of a future project. Add its root to `config.yaml`. Paper projects
+belong under `FormalizedPapers/<area>/` and retain their complete source body
+in section-level `blueprint/src/ch*.tex` files. Stacks chapters
 belong under the matching `PartXX_…/` directory; update that part's aggregate
 `blueprint/src/content.tex` when adding a chapter. Add a project-local
 `hgraph/config.yaml` when the project has blueprint or Lean sources to

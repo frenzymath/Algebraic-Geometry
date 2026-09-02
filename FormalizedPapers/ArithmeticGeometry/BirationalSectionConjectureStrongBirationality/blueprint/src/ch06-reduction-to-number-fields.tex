@@ -1,0 +1,75 @@
+% Source-derived chapter 06: Reduction to number fields
+% Original source: birational-section-conjecture-strong-birationality
+\chapter{Reduction to number fields}
+\label{birational-section-conjecture-strong-birationality-chapter-06}
+\source{birational-section-conjecture-strong-birationality}
+
+\begin{remark}[Source section]
+\label{birational-section-conjecture-strong-birationality-chapter-06-source}
+\source{birational-section-conjecture-strong-birationality}
+\source{birational-section-conjecture-strong-birationality}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Reduction to number fields
+In \cite{saty21} M. Sa\"idi and M. Tyler reduced the birational section conjecture to number fields. We are going to do this for the $t$-birational version, too. A reader only interested in number fields may safely skip this section.
+
+Over number fields, we know that we can lift $t$-b.l. sections to open subsets thanks to \autoref{nflift}. In order to prove it, we use a theorem of J. Stix \cite[Theorem B]{sti13} which is only available for number fields. Lifting to open subsets is crucial for the reduction to number fields, and we can only do it for number fields: this is a problem. In order to overcome it, we define \emph{quasi-$t$-b.l.} sections.
+
+\begin{definition}
+\source{birational-section-conjecture-strong-birationality}
+\notready
+	Let $X$ be a geometrically connected curve over a field $k$. A Galois section $s$ of $X$ is quasi-$t$-b.l. if there is an open subset $U\s X$, a lifting $s'$ of $s$ to $U$ and a dominant map $f:U\to Y$ where $Y$ is a non-parabolic curve such that $s'$ is b.l. and $f(s')$ is $t$-b.l.
+\end{definition}
+
+Since $t$-b.l. sections are b.l. by \autoref{tbb}, it is immediate to check that $t$-b.l. sections are quasi-$t$-b.l. If $s$ is a quasi-$t$-b.l. section of $X$ and $U\s X$ is an open subset, then it is obvious that we can lift $s$ to a quasi-$t$-b.l. section of $U$.
+
+\begin{lemma}
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{spequasi}
+\source{birational-section-conjecture-strong-birationality}
+	Let $C$ be a curve with fraction field $K$, $X\to C$ a family of curves and $s\in\Pi_{X_{K}/K}(K)$ a generic section which is quasi-$t$-b.l. There exists a non-empty open subset $U\s C$ such that the specializations of $X|_{U}\to U$ are quasi-$t$-b.l.
+	\begin{proof}
+		Up to shrinking both $C$ and $X$, we may assume that there exists a family of non-parabolic curves $Y\to C$ and a quasi-finite morphism $f:X\to Y$ over $C$ such that $f(s)$ is $t$-b.l. The specializations of $f(s)$ are $t$-b.l. by \autoref{spetbir} and the specializations of $s$ are b.l. by \autoref{spebir}, it follows that they are quasi-$t$-b.l., too.
+	\end{proof}
+\end{lemma}
+
+\begin{lemma}
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{quasinf}
+\source{birational-section-conjecture-strong-birationality}
+	Let $k$ be a number field, and assume that $t$-b.l. sections over $k$ are geometric or cuspidal. Then the same holds for quasi-$t$-b.l. sections.
+	\begin{proof}
+		Let $X$ be a curve over $k$ and $s\in\Pi_{X/k}(k)$ a quasi-$t$-b.l. section. We may assume that there exists a non-parabolic curve $Y$ and a dominant morphism $f:X\to Y$ such that $f(s)$ is $t$-b.l. Since $s$ is b.l., for every finite place $\nu$ of $k$ there exists a unique associated point $x_{\nu}\in \bar{X}(k_{\nu})$. Since $f(s)$ is $t$-b.l., there exists a unique $k$-rational point $y\in \bar{Y}(k)$ associated to $f(s)$, in particular $f(x_{\nu})=y$ for every $\nu$. Any b.l. lifting of $s$ to $X\setminus f^{-1}(y)$ is cuspidal thanks to \cite[Theorem B]{sti15}, hence $s$ is geometric or cuspidal.
+	\end{proof}
+\end{lemma}
+
+Let us recall a famous result by A. Tamagawa.
+
+\begin{proposition}[Tamagawa]
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{tama}
+\source{birational-section-conjecture-strong-birationality}
+    Let $X$ be a hyperbolic curve over a field $k$ finitely generated over $\Q$ and let $s\in\Pi_{X/k}(k)$ be a Galois section. If $s$ is not geometric nor cuspidal, there exists a curve $Y$ of genus $\ge 2$ with $\bar{Y}(k)=\emptyset$, a finite étale morphism $Y\to X$ and a lifting $r\in\Pi_{Y/k}(k)$ of $s$.
+\end{proposition}
+
+\begin{proof}
+    This is essentially \cite[Proposition 2.8 (iv)]{tam97}.
+\end{proof}
+
+\begin{proposition}
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{nffg}
+\source{birational-section-conjecture-strong-birationality}
+	Assume that $t$-b.l. sections of curves defined over number fields are geometric or cuspidal. Then quasi-$t$-b.l. sections of curves over fields of finite type over $\Q$ are geometric or cuspidal.
+	\begin{proof}
+		We prove this by induction on the transcendence degree $n$ of the base field $k$ over $\Q$. The case $n=0$ is \autoref{quasinf}. Assume $n \ge 1$ and that the statement is proved for fields of transcendence degree $n-1$, let $h\s k$ be algebraically closed in $k$ and of transcendence degree $n-1$ over $\Q$. Let $X$ be a curve and $s\in\Pi_{X/k}$ a quasi-$t$-b.l. section, up to passing to an open subset we may assume that $X$ is hyperbolic. Assume by contradiction that $s$ is not geometric nor cuspidal, thanks to Tamagawa's argument (\autoref{tama}) and \autoref{morb} up to passing to an étale neighbourhood we may assume that $\bar{X}(k)=\emptyset$. Clearly the image in $s$ in $\bar{X}$ is not geometric, so we may replace $X$ with $\bar{X}$ and assume that $X$ is projective.
+		
+		Choose $E$ any elliptic curve over $h$, we may find a finite, possibly ramified cover $Y\to X$ with a finite morphism $Y\to E_{k}$. Let $U\s X,V\s Y$ be open subsets such that $V\to U$ is finite étale. Since $s$ is quasi-$t$-b.l., by applying \autoref{morb} to $V\to U$ we may find a finite extension $k'/k$ and a quasi-$t$-b.l. lifting $r\in\Pi_{Y/k}(k')$ of $s_{k'}$. Thanks to \cite[Lemma 6.5, Theorem 7.2]{anab}, it is enough to prove that $r$, and thus $s_{k'}$, is geometric. We may thus replace $k$, $X$, $s$ with $k'$, $Y_{k'}$, $r$ and assume that there is a finite morphism $X\to E_{k}$.
+		
+		Let $C$ be an affine curve over $h$ whose function field is $k$, up to shrinking $C$ we may extend $X$ to a family of smooth projective curves $\tilde{X}\to C$ with a finite morphism $\tilde{X}\to E\times C$ over $C$. The generic section $s$ extends to a global section $\tilde{s}:C\to\Pi_{\tilde{X}/C}$ thanks to \cite[Corollary 3.4]{scfg}. The specializations of $\tilde{s}$ are geometric thanks to \autoref{spequasi} plus inductive hypothesis. It follows that $s$ is geometric thanks to \cite[Definition 4.1, Corollary 4.9]{scfg}.
+	\end{proof}
+\end{proposition}

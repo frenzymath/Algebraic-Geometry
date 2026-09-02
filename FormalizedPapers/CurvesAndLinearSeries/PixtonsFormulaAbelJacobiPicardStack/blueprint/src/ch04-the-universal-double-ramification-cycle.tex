@@ -1,0 +1,723 @@
+% Source-derived chapter 04: The universal double ramification cycle
+% Original source: pixtons-formula-abel-jacobi-picard-stack
+\chapter{The universal double ramification cycle}
+\label{pixtons-formula-abel-jacobi-picard-stack-chapter-04}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+\begin{remark}[Source section]
+\label{pixtons-formula-abel-jacobi-picard-stack-chapter-04-source}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: The universal double ramification cycle
+\label{sec:uni_DR_defs}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\subsection{Overview}
+We fix a genus $g$, a number of markings $n$, and a vector $A=(a_1,\ldots,a_n) \in \bb Z^n$
+of ramification data satisfying
+$$\sum_{i=1}^{n}a_i=d\, .$$
+We define here 
+the associated universal twisted double ramification cycle class
+in the operational Chow group of the universal Picard stack $\Picabs_{g,n,d}$.
+The operational class is the class associated to a certain proper
+representable
+morphism 
+$$\cat{Div}_{g,A} \to \Picabs_{g,n,d}$$
+using the theory of Section \ref{sec:constructing_chow_class}.
+Our goal here is to define the stack $\cat{Div}_{g,A}$ over $\Picabs_{g,n,d}$. 
+
+%\begin{remark}
+%In fact, to state and prove the main \cref{Thm:main} it would suffice to consider the case $n=0$, since all other cases can be recovered from this one by pullback (see Section \ref{sec:varying_n_and_A} for the geometric side and Lemma \ref{Lem:pullbackP_g} for the side concerning Pixton's formula). %\jocomment{As far as I see, the statement for DR follows from the discussion in Section \ref{sec:varying_n_and_A}, whereas the statement for the Pixton formula is in Lemma \ref{Lem:pullbackP_g}. One possibility is to mention this as Invariance 0 in the intro and discussing it in the corresponding section below.}\{That seems a reasonable idea to me. }.
+%But the other cases are important for comparison to existing results in the literature. 
+%\end{remark}
+
+We will present three essentially equivalent definitions of the universal
+twisted double ramification cycle
+in Sections \ref{sec:naive_def}--\ref{sec:rub_log_def} which yield the same operational class: 
+\begin{enumerate}
+%\item[\ref{sec:naive_def}]
+\item[$\bullet$] a definition in Section \ref{sec:naive_def} by closing
+the Abel-Jacobi section
+which is simple to state but difficult to
+handle,
+%\item[\ref{sec:log_def}] 
+\item[$\bullet$] an intrinsic logarithmic definition in Section
+\ref{sec:log_def}
+following Marcus-Wise \cite{Marcus2017Logarithmic-com},
+ 
+\item[$\bullet$] a slight variation of the log definition in
+Section \ref{sec:rub_log_def}
+which facilitates  comparison to the spaces of rubber maps.
+\end{enumerate}
+After analyzing the set-theoretic closure of the Abel-Jacobi section in
+Section \ref{sec:image_of_aj},
+the equality of the three resulting classes will be shown in \cref{sec:proof_of_equiv_defs}. 
+%In Section \ref{sec:varying_n_and_A}, the compatibility of the universal twisted
+% double ramification cycle
+% under forgetful and translation maps is proven.
+In \cref{Sect:AJextension}, we briefly discuss 
+the lift of universal twisted
+ double ramification cycle to operational b-Chow.
+
+\subsection{$\mathsf{DR}^{\mathsf{op}}_{g,A}$ by closure}
+\label{sec:naive_def}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+We define the Abel-Jacobi section $\sigma$ of $\Picabs_{g,n,d} \to \frak M_{g,n}$  by
+\begin{equation}
+\sigma\colon \frak M_{g,n} \to \Picabs_{g,n,d}\, ,\ \ \ \ (C, p_1, \dots, p_n) \mapsto \ca O_C\Big(\sum_{i=1}^n a_i p_i\Big)\, . 
+\end{equation}
+The section $\sigma$  is not a closed immersion (both because 
+of the $\bb G_m$-automorphism groups of line bundles and because the
+image is not closed).
+%its non-empty fibres for smooth curves have dimension $1$, and 
+%because $\Picabs_{g,n,d} \to \frak M_{g,n}$ is not separated). 
+However, $\sigma$ is quasi-compact and relatively representable by schemes, and hence admits a well-defined \emph{schematic image} (we use that the formation of the schematic image is compatible with flat base-change, see \cite[\href{https://stacks.math.columbia.edu/tag/081I}{Tag 081I}]{stacks-project}). 
+The schematic image is the smallest closed reduced substack through which
+$\sigma$ factors.
+
+
+
+Since the schematic image $\bar\sigma$ is a closed substack of pure dimension, 
+$$\iota:\bar\sigma\to \Picabs_{g,n,d}\, ,$$
+we obtain an operational class $\iota_{\mathsf{op}}[\bar\sigma]$ by \cref{defbivariantclass}.  
+Our first definition of the universal twisted double ramification
+cycles is via the schematic image of $\sigma$:
+\begin{equation}\label{ddd111}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\DRop_{g,A} = \iota_{\mathsf{op}}[\bar\sigma] \, \in\, 
+\mathsf{CH}^g_{\mathsf{op}}(\Picabs_{g,n,d})
+\, . 
+\end{equation}
+
+Let $\Picabs_{\ul 0} \hra \Picabs$ be the open substack consisting of line bundles having degree 0 on every irreducible component of every geometric fibre (\emph{multidegree $\ul 0$}), and let $\Picrel_{\ul 0} \hra \Picrel$
+be defined analogously. We have a commutative diagram in which all squares are pullbacks: 
+\begin{equation}\label{eq:multidegree0}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\begin{tikzcd}
+(B \bb G_m)_{\frak M_{g,n}} \arrow[r] \arrow[d, equals] & \frak M_{g,n} \arrow[d, equals] \arrow[ddrr, "e = \ca O_C"]\\
+\bar \sigma^{\ul 0} \arrow[r]\arrow[dd]  \arrow[drr]& \bar\sigma_{\mathsf{rel}}^{\ul 0}\arrow[dd]\arrow[drr]\\
+& & \Picabs_{g,n, \ul 0} \arrow[r]\arrow[dd] & \Picrel_{g,n,\ul 0}\arrow[dd]\\
+\bar\sigma \arrow[r]\arrow[drr] & \bar\sigma_{\mathsf{rel}} \arrow[drr] &&\\
+& & \Picabs_{g,n,0} \arrow[r] & \Picrel_{g,n,0}\, .\\
+\end{tikzcd}
+\end{equation}
+
+Let $(C/B, p_1, \dots, p_n)$ be a prestable curve over
+a scheme $B$ of finite type over $\field$.
+Let $L$ be a line bundle on $C$ such that 
+$L(-\sum_{i=1}^n a_i p_i)$ is of multidegree $\ul 0$ 
+for $A=(a_1,\ldots, a_n) \in \bb Z^n$.
+The 
+data 
+$$C\to B\, , \ \ \ \ L\Big(-\sum_{i=1}^n a_i p_i\Big)\to C$$
+determine a map $$\phi\colon B \to \Picabs_{g,n,\ul 0}\, ,$$
+and we form a pullback diagram
+\begin{equation}\label{dia:easy}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+    \begin{tikzcd}
+    B' \arrow[r] \arrow[d,"\psi"] & \frak M_{g,n}\arrow[d, "e"]\\
+    B \arrow[r, "\phi^{\rel}"] & \Picrel_{g,n,\ul 0}\, . 
+    \end{tikzcd}
+\end{equation}
+Since $\frak M_{g,n}$ is smooth and $\Picrel_{g,n,\ul 0}$ is separated, the map $e$ is a regular embedding. 
+
+
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready In the multidegree $\ul 0$ case, we have
+\begin{equation}
+    \DRop_{g,A}(\phi)([B]) = \psi_*e^![B]\, .
+\end{equation}
+\end{lemma}
+\begin{proof}
+We begin by expanding the diagram \cref{dia:easy} to
+\begin{equation}
+    \begin{tikzcd}
+    B' \arrow[r] \arrow[d,"\psi"] & \frak M_{g,n} \times B \arrow[r,"f'"] \arrow[d] & \frak M_{g,n}\arrow[d, "e"]\\
+    B \arrow[r, "\phi' "]& \Picrel_{g,n,\ul 0} \times B \arrow[r,"f"] & \Picrel_{g,n,\ul 0}\, . 
+    \end{tikzcd}
+\end{equation}
+Since $\Picabs_{g,n} \to \Picrel_{g,n}$ is smooth, we deduce from \cref{lem:pushpullcommutes} and  diagram \cref{eq:multidegree0} that 
+\begin{equation}
+    \DRop_{g,A}(\phi)([B]) = \psi_*\phi'^![\frak M_{g,n} \times B]\, .
+\end{equation}
+We then compute
+\begin{equation}
+    \begin{split}
+        \DRop_{g,A}(\phi)([B]) & = \psi_*\phi'^![\frak M_{g,n} \times B]\\
+        & = \psi_*\phi'^! f'^*[\frak M_{g,n}]\\
+        & = \psi_*\phi'^! f'^*e^![\Picrel_{g,n,\ul 0}]\\
+        & = \psi_*\phi'^! e^! f^*[\Picrel_{g,n,\ul 0}]\\
+        & = \psi_*\phi'^! e^! [\Picrel_{g,n,\ul 0}\times B]\\
+        & = \psi_*e^! \phi'^!  [\Picrel_{g,n,\ul 0}\times B]\\
+        & = \psi_*e^! [B]\, . \\
+    \end{split}
+\end{equation}
+\end{proof}
+In particular, if the intersection of $B$ with the unit section in $\Picrel_{g,n,\ul 0}$ is transversal, then we simply take the naive intersection in $\Picrel_{g,n,\ul 0}$ and push it down to $B$. 
+
+
+\subsection{Logarithmic definition of \texorpdfstring{$\DRop$}{DR\^{}op}}\label{sec:log_def}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+%In this section we recall some definitions from \cite{Marcus2017Logarithmic-com}. We necessarily make use of log geometry; this will not play a substantial role elsewhere in the paper, though it will reappear in \cref{sec:comparing_stacks}. 
+
+\subsubsection{Overview of log divisors}
+
+%Note: in this section we work with relative Pic. We can just pull back Div, or equivalently take the flat pullback of the operational class, to get a class on absolute Pic. 
+We begin by recalling various results and definitions from log geometry. We refer the reader to \cite{Kato1989Logarithmic-str} for basics on log geometry and \cite{Marcus2017Logarithmic-com} for the details of what we do here. 
+While log geometry will not play a substantial role elsewhere in the paper, 
+it will reappear in \cref{sec:comparing_stacks}. 
+
+
+Given a log scheme $S = (S, M_S)$, we write
+\begin{equation*}
+\mathbb G_m^{log}(S) = \Gamma(S, M_S^{gp})
+\ \ \ \ 
+\text{and} \ \ \ \  
+\mathbb G_m^{trop}(S) = \Gamma(S, \bar M_S^{gp}), 
+\end{equation*}
+which we call the logarithmic and tropical multiplicative groups.  Both can naturally be extended to presheaves on the category $\cat{LSch}_S$ of log schemes over $S$,
+and both
+admit log smooth covers by log schemes (with subdivisions $\bb P^1$ and $[\bb P^1/\bb G_m]$ respectively). A \emph{log (tropical)} line on $S$ is a $\bb G_m^{log}$ ($\bb G_m^{trop}$) torsor on $S$, for the strict \'etale topology. 
+
+
+\begin{definition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready(See \cite[Def. 4.6]{Marcus2017Logarithmic-com}) 
+\label{Def:logdivisor}%newer version: Def 4.2.1
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let $C$ be a logarithmic curve over a logarithmic scheme $S$. A \emph{logarithmic divisor} on $C$ is a tropical line $P$ over $S$ and an $S$-morphism $C \to P$. 
+
+Let $\cat{Div}^{\rel}_g$ be the stack{\footnote{The stack $\cat{Div}^{\rel}_g$ was denoted $\cat{Div}_g$ in \cite{Marcus2017Logarithmic-com}, but we wish to reserve the
+latter notation for a certain $\bb G_m$-gerbe over $\cat{Div}^{\rel}_g$ which will play a much more prominent role in our paper.}} 
+in the strict \'etale topology on logarithmic schemes whose $S$-points are triples $(C, P, \alpha)$ where $C$ is a logarithmic curve of genus $g$ over $S$, $P$ is a tropical line over $S$, and 
+$$\alpha \colon  C \to P$$ is an $S$-morphism. 
+\end{definition}
+
+
+
+If $S$ is a geometric log point and $C/S$ a log curve, then the set of isomorphism classes of $\cat{Div}_g^{\rel}(S)$ is given by $\pi_*\bar M_C^{gp}/\bar M_S^{gp}$. At the markings, an element of $\pi_*\bar M_C^{gp}/\bar M_S^{gp}$ determines an element of the groupified relative characteristic monoid $\bb Z$ (for those who prefer a tropical perspective, this can be viewed as the outgoing slope at the marking). 
+
+\begin{definition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready
+Let $\cat{Div}^{\rel}_{g,A}$ be the (open and closed) substack of $\cat{Div}^{\rel}_g$ consisting of those triples where the curve carries exactly $n$ markings and where on each geometric fibre the outgoing slopes at the markings correspond to $A$ (our
+log curves come with an ordering of their markings as explained in \cref{sec:prestable_vs_log_curves}). 
+\end{definition}
+
+%If in addition $C/S$ is strict (i.e. classically smooth), then $\cat{Div} = \bb Z^n$ where $n$ is the number of nodes. 
+
+%Given $g$ and $n$ and a vector of integers $a_1, \dots, a_n$ we can define an ($S_n$ cover of an) open and closed substack $\cat{Div}_{g,\bd a}$ where the curve has genus $g$ and $n$ marked points with outgoing slopes given by the $a_i$. 
+
+\begin{remark}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready
+It is natural to ask for a description of the functor of points of the underlying (non-logarithmic) stack of $\cat{Div}^{\rel}_{g,A}$ as a fibred category over $\frak M_{g,n}$. However, we expect that such a description will not be simple. A closely related problem is solved in \cite{Biesel2016Fine-compactifi}, and the intricacy of the resulting definition suggests that the path will not be easy. 
+\end{remark}
+
+%\jocomment{The above definition gives $\cat{Div}$ as a stack on log schemes by giving its $S$-points for $S$ a log-scheme. But is it not also somehow possible to describe it as a stack over schemes and give its scheme-points? To be more modest, one could ask what the fibre of $\cat{Div}_{\ul 0}$ over a geometric point $C$ of $\frak M$ is. If I understand correctly, for $C$ of compact type, this is just a single point (mapping to the trivial line bundle on $C$ under the Abel-Jacobi map). }\{Added remark just above. Over a point it's more reasonable. I agree over compact type. }
+
+\subsubsection{Abel-Jacobi map}\label{sec:abel-jacobi-map}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+Given a log curve $\pi\colon C \to S$ of genus $g$,  the right-derived pushforward to $S$ of the standard exact sequence
+\begin{equation}\label{eq:log_exact_seq}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+1 \to \ca O_C^\times \to M_C^{gp} \to \bar M_C^{gp} \to 1\, ,
+\end{equation}
+yields a natural map 
+$$\pi_*\bar M_C^{gp} \to R^1\pi_*\ca O_C^\times\, ,$$
+which factors via the quotient $$\pi_*\bar M_C^{gp}/\bar M_S^{gp} = \cat{Div}^{\rel}_g(S)\, .$$ We therefore obtain
+a \emph{relative Abel-Jacobi} map $$\aj^{\rel}\colon \cat{Div}^{\rel}_{g} \to \Picrel_{g}\, ,$$ 
+which restricts to maps 
+$$\aj^{\rel}\colon \cat{Div}^{\rel}_{g,A} \to \Picrel_{g,n,d}\, .$$ 
+
+For a first example, suppose $S$ is a geometric log point with $\bar M_S = \bb N$. 
+The data then determines
+to first order a deformation of the curve over a DVR (which we take generically smooth),  and the section of $\pi_*\bar M_C^{gp}/\bar M_S^{gp}$ gives the multiplicities of components in the special fibre and the twists by the markings. 
+
+For another example, consider what happens over the locus of (strict) smooth curves. Writing $N/\ca M^{\mathsf{log}}_{g,n}$ for the stack of markings (finite \'etale), we see $\cat{Div}^{\rel}_g$ is just the category of locally constant functions from $N$ to $\bb Z$ -- in other words, choices of outgoing slope/weight on each leg. 
+The Abel-Jacobi map yields  $\ca O_C(\sum_{i=1}^n a_ip_i)$ where 
+the $p_i$ are the markings and $a_i$ are the weights. In particular, we see  $$\cat{Div}^{\rel}_{g,A} \to \ca M^{\mathsf{log}}_{g,n}$$
+is birational (as we fixed an ordering of the markings) and log \'etale. 
+
+\begin{definition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{def:div}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let  $\cat{Div}_{g}$ be the fibre product 
+\begin{equation}
+\cat{Div}^{\rel}_{g} \times_{\Picrel_{g}}\Picabs_{g}\, .
+\end{equation}
+\end{definition}
+
+More concretely, an $S$-point of $\cat{Div}_{g}$ is a quadruple $(C,P,\alpha,\ca L)$ where $(C, P, \alpha)$ is an $S$-point of $\cat{Div}^{\rel}_{g}$ and $\ca L$ is a line bundle on $C$ satisfying{\footnote{Here, $[\,]$ denotes the
+equivalence class under the relations of isomorphism and tensoring with the pullback of a line bundle from the base. }}% class up to a twist from the base (David: do you want
+%to write more here?).}}
+$$[\ca L] = \aj^{\rel}(C, P, \alpha)\in \Picrel_{g}(S)\, .$$ 
+We will denote by $\aj$ the resulting Abel-Jacobi map 
+$$\cat{Div}_g \to \Picabs_{g}\, .$$
+Observe that $\cat{Div}_g$ is a $\bb G_m$-gerbe over $\cat{Div}^{\rel}_{g}$, just as $\Picabs_{g,n,d}$ is a $\bb G_m$-gerbe over $\Picrel_{g,n, d}$. 
+Analogously,
+we define  
+\begin{equation}
+\cat{Div}_{g,A} = \cat{Div}^{\rel}_{g,A} \times_{\Picrel_{g,n,d}}\Picabs_{g,n,d}
+\ \ \ \ 
+\text{and} 
+\ \ \ \ \aj\colon \cat{Div}_{g,A} \to \Picabs_{g,n,d}\, .
+\end{equation}
+%$\cat{Div}_{g,A}$ ... I think the treatment
+%has to be slightly rewritten above since $A$ gives the $n$ and $d$.
+
+
+
+%(S) = \pi_*\bar M_C^{gp}/\bar M_S^{gp} \to R^1\pi_*\ca O_C^\times$. 
+
+% {\footnote{The current arXiv version of \cite{Marcus2017Logarithmic-com} incorrectly asserts in Theorem 4.11 that $\aj$ is a closed immersion.  A
+% correction will appear in a forthcoming version of \cite{Marcus2017Logarithmic-com}), since the underlying scheme morphism of a log monomorphism need not be a monomorphism.}}
+
+We summarise the key properties of the Abel-Jacobi map. These are proven
+in \cite{Marcus2017Logarithmic-com} for $\aj^{\rel}$, and are stable under base-change. 
+\begin{proposition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready
+The Abel-Jacobi map 
+$$\aj\colon \cat{Div}_{g,A} \to \Picabs_{g,n,d}$$
+is proper, relatively representable by algebraic spaces, and is a monomorphism of log stacks. 
+\end{proposition}
+
+
+We obtain an operational class $\aj_{\mathsf{op}}[\cat{Div}_{g,A}]$ associated by \cref{defbivariantclass} to the Abel-Jacobi map $\aj$.
+Our second definition of the universal twisted double ramification
+cycles is via $\aj$:
+\begin{equation}\label{ddd222}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\DRop_{g,A} = \aj_{\mathsf{op}}[\cat{Div}_{g,A}] \, \in\, 
+\mathsf{CH}^g_{\mathsf{op}}(\Picabs_{g,n,d})
+\, . 
+\end{equation}
+The equivalence of 
+definitions \eqref{ddd111} and \eqref{ddd222} will be proven in \cref{sec:proof_of_equiv_defs}.
+
+% \jocomment{Should we not comment on the fact that the abel-jacobi map is proper? Also in \cite[Theorem 4.11]{Marcus2017Logarithmic-com} they say that this map is a closed embedding. Now probably this is meant in a log-sense and it is not actually an embedding of algebraic stacks? Maybe in general it would be nice to have a Proposition collecting properties of $\cat{Div}_{g,A}$ and the abel-jacobi map (formulated in the world of algebraic stacks), e.g. that it is irreducible(?). E.g. this follows from Lemma \ref{Lem:UschemdenseDiv} below, so one could move this lemma up, since it's of independent interest.}
+
+% \{Good points, thanks. Done most of it. Not sure about moving the lemma below up, to me it is just part of the proof of the equivalence, but I don't mind (I'm too close to it to see clearly). I'll leave it to you (feel free to delete comments when done either way). }
+
+\subsubsection{Description of \texorpdfstring{$\cat{Div}_g$}{Div\_g} with log line bundles}
+Our approach to $\cat{Div}_g$ in \cref{def:div} via
+a fiber product is indirect.
+While it will not be used in the paper, a more conceptual path is to consider the stack $\cat{Div}'_g$ whose objects are tuples
+\begin{equation*}
+(C/S, \ca P, \alpha)
+\end{equation*}
+where $C/S$ is a log curve, $\ca P$ is a \emph{logarithmic} line on $S$  (a $\bb G_m^{log}$ torsor), and $\alpha$ is a map from $C$ to the \emph{tropical} line $P$ on $S$ induced from $\ca P$ by the exact sequence \eqref{eq:log_exact_seq}. 
+There is a natural map 
+$$\cat{Div}'_g \to \cat{Div}^{\rel}_g\, .$$ We can see $\alpha$ as a section of the tropicalisation of the pullback of $\ca P$ to $C$. As such, by the sequence \eqref{eq:log_exact_seq}, $\alpha$ induces a $\bb G_m$-torsor on $C$, giving us an Abel-Jacobi map $\cat{Div}_g'\to \Picabs_g$. Together these maps induce a map 
+\begin{equation*}
+\cat{Div}_g' \to \cat{Div}_g
+\end{equation*}
+to the fibre product, and a local computation verifies that this is an isomorphism. 
+
+ The above discussion points\footnote{The {\it unit section} of $\Picabs$ is given by the stack of $\bb G_m$ torsors on the base. Similarly, the {\it unit section} of the \emph{logarithmic} Picard stack $\frak{LogPic}_g$ is given by the stack of $\bb G_m^{log}$ torsors on the base. The natural map $\Picabs_g \to \frak{LogPic}_g$ is neither injective nor surjective: a logarithmic line bundle comes from a line bundle if and only if the associated tropical line bundle is trivial, and a choice of trivialisation of that tropical line bundle then determines a lift to a line bundle. Hence, we see that $\cat{Div}'_g$ is precisely the pullback of the unit section of $\frak{LogPic}_g$ to $\Picabs_g$.} towards a definition of the double ramification cycle via the \emph{logarithmic Picard functor} of \cite{Molcho2018The-logarithmic}
+which we hope will be pursued in future. 
+
+
+%Recall that the `unit section' of $\Picabs$ is given by the stack of $\bb G_m$ torsors; to a curve $C/S$ and a $\bb G_m$ torsor $L$ on $S$ we assign the pullback of $L$ to $C$. Similarly, the `unit section' of the \emph{logarithmic} Picard stack $\frak{LogPic}_g$ is given by the stack of $\bb G_m^{log}$ torsors; to a log curve $C/S$ and a $\bb G_m^{log}$ torsor $\ca P$ on $S$ we again assign the pullback of $\ca P$ to $C$. The natural map $\Picabs_g \to \frak{LogPic}_g$ is neither injective nor surjective; a logarithmic line bundle comes from a line bundle if and only if the associated tropical line bundle is trivial, and a choice of trivialisation of that tropical line bundle then determines a lift to a line bundle. In this way, we see that $\cat{Div}'_g$ is precisely the pullback of the unit section of $\frak{LogPic}_g$ to $\Picabs_g$. 
+
+
+\subsection{Logarithmic rubber definition of \texorpdfstring{$\DRop$}{DR\^{}op}}\label{sec:rub_log_def}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Marcus and Wise introduce a slight variant $\cat{Rub}^{\mathsf{rel}}_{g}$ of the stack $\cat{Div}^{\mathsf{rel}}_{g}$
+which
+parametrises pairs $(C,P, \alpha)$ where $P$ is a tropical line on $S$ and $\alpha\colon C \to P$ is an $S$-morphism \emph{such that on each geometric fibre over $S$ the values taken by $\alpha$ on the irreducible components of $C$ are totally ordered in $(\bar{M}_S^{gp})_s$}, with the ordering given by declaring the elements of $(\bar{M}_S)_s$ to be the non-negative elements. 
+
+The space $\cat{Rub}_{g,A}$,
+defined via pullback
+$$
+\cat{Rub}_{g,A} \, \stackrel{\sim}{=}\, 
+\cat{Div}_{g,A}
+\times_{\cat{Div}^{\mathsf{rel}}
+_{g,A}} 
+\cat{Rub}^{\mathsf{rel}}_{g,A}\, ,$$
+is pure dimensional and comes with a proper birational map 
+\begin{equation}\label{rrrbbb}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\cat{Rub}_{g,A} \to \cat{Div}_{g,A}\, .
+\end{equation}
+The stack $\cat{Rub}_{g,A}$  will 
+play an important role in the comparison to classes coming from stable map spaces in \cref{sec:comparing_stacks}. 
+
+%Again, we can associate an operational class on $\Picabs_{g,n,d}$ using %\cref{defbivariantclass}. 
+
+We obtain an operational class $\aj^{\mathsf{rub}}_{\mathsf{op}}[\cat{Rub}_{g,A}]$ associated by \cref{defbivariantclass} to 
+$$\aj^{\mathsf{rub}}: \cat{Rub}_{g,A} \to \Picabs_{g,n,d}$$
+obtained by composing \eqref{rrrbbb} with $\aj$.
+Our third defintion of the universal twisted double ramification
+cycles is via $\aj^{\mathsf{rub}}$:
+\begin{equation}%\label{ddd222}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\DRop_{g,A} = \aj^{\mathsf{rub}}_{\mathsf{op}}[\cat{Rub}_{g,A}] \, \in\, 
+\mathsf{CH}^g_{\mathsf{op}}(\Picabs_{g,n,d})
+\, . 
+\end{equation}
+The equivalence with the first two 
+definitions will be proven in \cref{sec:proof_of_equiv_defs}. 
+
+
+\subsection{The image of the Abel-Jacobi map}\label{sec:image_of_aj}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+The set theoretic image of the Abel-Jacobi map 
+$$\aj\colon \cat{Div}_{g, A} \to \Picabs_{g,n,d}$$ 
+can be characterized 
+in terms of a condition on twisted divisors similar to the 
+conditions of \cite{Farkas2016The-moduli-spac} for the moduli spaces $\widetilde{\HH}_g(A)$
+twisted
+canonical divisors.
+
+Given a prestable graph $\Gamma_{\delta}$ of degree $d$, a \emph{twist} on $\Gamma_\delta$ is a function $I: H(\Gamma) \to \mathbb{Z}$ satisfying
+\begin{enumerate}
+\item[(i)] $\forall j\in \L(\Gamma_\delta)$, corresponding to
+ the marking $j\in \{1,\ldots, n\}$,
+$$I(j)=a_j\, ,$$
+\item[(ii)] $\forall e \in \E(\Gamma_\delta)$, corresponding to two half-edges
+$h,h' \in \H(\Gamma_\delta)$,
+$$I(h)+I(h')=0 \, ,$$
+\item[(iii)] $\forall v\in \V(\Gamma_\delta)$,
+$$\sum_{v(h)= v} I(h)= \delta(v) \, ,$$ 
+where the sum is taken over {\em all} $\mathsf{n}(v)$ half-edges incident 
+to $v$.%\{The stack $\cat{Div}_{g,A}$ does not see this condition directly. This condition arises by taking the part that lives in multidegree $\delta$. }
+\item[(iv)] There is no \emph{strict cycle}\footnote{A strict cycle 
+ is a sequence $\vec e_i = (h_i, h_i')$, $i=1, \ldots, \ell$ of directed edges in $\Gamma$ forming a closed path in $\Gamma$ such that $I(h_i) \geq 0$ for all $i$ and there exists at least one $i$ with $I(h_i)>0$. Condition (iv)
+corresponds to the combination of the Vanishing, Sign, and Transitivity conditions for twists in \cite[Section 0.3]{Farkas2016The-moduli-spac}.} in $\Gamma$.
+%\{I'll need to think more about how/when this comes about in $\cat{Div}$. }
+\end{enumerate}
+
+
+Let $(C,p_1, \ldots, p_n)$ together with a line bundle $\mathcal{L} \to C$ of degree $d$ be a geometric point of $\Picabs_{g,n,d}$. Let $\Gamma_\delta$ be the prestable graph of $C$ decorated with the degrees $\delta(v)$ of the line bundle $\mathcal{L}$ restricted to the components $C_v$ of $C$. Given a twist $I$ on $\Gamma_\delta$, let
+\[\eta_I : C_I \to C\]
+be the partial normalization of $C$ at all nodes $q \in C$ corresponding to edges $e=(h,h')$ of $\Gamma$ with $$I(h) = -I(h') \neq 0\, .$$
+Denote by $q_h, q_{h'} \in C_I$ the preimages of $q$ corresponding to the half-edges $h,h'$. Denote by $\widehat{p}_i \in C_I$ the unique preimage of the $i$th marking $p_i \in C$.
+
+We say the point $(C,p_1, \ldots, p_n, \mathcal{L})$ of $\Picabs_{g,n,d}$ satisfies the \emph{twisted divisor condition} for the integer vector $A$ if and only if there exists a twist $I$ on $\Gamma_\delta$ such that on the partial normalization $C_I$ of $C$ there exists an isomorphism of line bundles
+\begin{equation}\label{eq:twisted_diff_condition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+    \eta_I^* \mathcal{L} \cong  \mathcal{O}_C\left(\sum_{i=1}^n a_i \widehat{p}_i + \sum_{h \in H(\Gamma)} I(h) q_h \right).
+\end{equation}
+For $\mathcal{L}=\omega_C$ this exactly corresponds to the notion \cite[Definition 1]{Farkas2016The-moduli-spac} of a twisted canonical divisor. 
+
+\begin{proposition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{prop:aj_image}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+A geometric point $(C,p_1, \ldots, p_n, \mathcal{L})$ of $\Picabs_{g,n,d}$ lies in the image of the Abel-Jacobi map $\aj \colon \cat{Div}_{g,A} \to \Picabs_{g,n,d}$ if and only if the twisted divisor condition for the vector $A$ is satisfied.
+\end{proposition}
+
+
+
+% Since we will not use 
+% Proposition \ref{prop:aj_image},
+% we omit the proof which, in any case, closely follows \cite{Farkas2016The-moduli-spac}.
+
+% \{To discuss: maybe restore the proof. }
+%\footnote{We believe that an analogous result will appear in a forthcoming revision of %\cite{Marcus2017Logarithmic-com}. }. 
+
+
+
+
+
+
+
+
+
+%Let the vector $A$ satisfy $d=\sum_i a_i = k(2g-2)$. Then the above result shows that, as expected, on the set-theoretic level pulling back the image of $\cat{Div}_{g,A}$ under the map
+%\[\overline{\cM}_{g,n} \to \Picabs_{g,n,k(2g-2)}, (C,p_1, \ldots, p_n) \mapsto (C, p_1, \ldots, p_n, \omega_C^{\otimes k})\]
+%we exactly obtain the moduli space $\widetilde{\HH}^k_g(A)$. In particular, combining with Theorem \ref{cccc} this gives another argument why the cycle
+%$$\mathsf{DR}_{g,A, \omega^k}\in \mathsf{CH}_{2g-3+n}(\overline{\cM}_{g,n})$$
+%is naturally supported on $\widetilde{\HH}^k_g(A)$ (this also follows from \cite[Theorem 1.1]{Holmes2019Infinitesimal-s}). 
+
+
+\begin{proof}
+%\jocomment{Is this easy for people knowing more log geometry than myself??}
+%\{I think it should be OK, I'll have a go... }
+We may suppose that ${\field}$ is a separably closed field and $(C/S, p_1, \dots, p_n)$ is a prestable curve over ${\field}$. We must show
+that the twisted divisor condition is equivalent to the existence of a log structure on $C/S$ satisfying the following property: {\em $C/S$  is a log curve with markings given by the $p_i$  which admits
+a global section $\alpha$ of $\bar M_C^{gp}$ with outgoing slope at $p_i$ given by $a_i$}. 
+
+Suppose that such a log structure exists. From the log structure,
+we can determine a twist. To each leg we associate the outgoing 
+slope of $\alpha$ on the corresponding leg. For an edge $\{ h, h'\}$,
+we define $\ell(\{ h, h'\})$ to be the element of $\bar M_S$ associated via the data of the log morphism $C \to S$ to the node of $C$ corresponding to $\{h,h'\}$. If $\{ h, h'\}$ is an edge with half-edge $h$ attached to a vertex $u$ and the opposite half-edge $h'$ attached to $v$, we set the integer $I(h)$ to be the unique integer such that 
+\begin{equation}\label{eq:slope}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\alpha(u) + I(h)\cdot \ell(\{h,h'\})  = \alpha(v) \in \bar M_S^{gp}\, .
+\end{equation}
+%\jocomment{Can you insert a half-sentence explaining what $\ell(\{h,h'\})$ is? Maybe something like ", where $\ell(\{h,h'\}) \in \bar M_S$ is the monoid element associated via the data of the log morphism $C \to S$ to the node of $C$ corresponding to the edge $\{h,h'\}$." Maybe better to explain the notation before the equation?}
+That such an $I(h)$ exists follows from the structure of $\bar M_C^{gp}$. 
+
+Next, we verify that $I$ is a twist. Conditions (i) and (ii) are immediate from the construction.  We deduce condition (iv) because by following
+a strict cycle starting at some vertex $u$ and applying \eqref{eq:slope} along each edge would yield 
+$\alpha(u) < \alpha(u)$, 
+which is impossible. Condition (iii) is immediate from the twisted divisor condition \eqref{eq:twisted_diff_condition} and the fact that isomorphic line bundles have the same degree, so this will be proven once we have checked the latter condition. 
+
+%For (iii) we restrict the condition \eqref{eq:twisted_diff_condition} to the component $v$, and use that isomorphic line bundles have the same degree.
+For the latter condition,
+we must work a little harder. To start,
+we claim that there exists a morphism $\bar M_S \to \bb N$ which does not send the label of any edge to $0$. Indeed, $\bar M_s^{gp}$ injects into its groupification which is a finitely generated torsion-free abelian group, hence isomorphic to $\bb Z^m$. Since $\bar M_S$ is sharp\footnote{A monoid is sharp if $0$ is indecomposable: $a+b=0$ implies $a=b=0$.} and finitely generated, the non-zero elements of its image in $\bb Z^m$ land in some strict half-space of $\bb Z^m$ cut out by a linear equation with integral coefficients.  Such a half-space admits a map to $\bb N$ such that the only preimage of $0$ is $0$. 
+
+After base changing over $S$ along such a map, we may assume 
+that $\bar M_S^{gp} = \bb N$ and that all edges have non-zero label. 
+We  obtain a first order map passing through our given point,
+$$S = \on{Spec} {\field}[[t]] \to \cat{Div}_{g,A}\, $$
+for which the induced prestable curve $C/S$ is generically smooth. On the curve $C$, we define a Weil divisor $D$ by assigning to an irreducible component $v$ the integer $\alpha(v)$. The divisor $D$ is then Cartier by \eqref{eq:slope}, which still applies after base-change, and hence determines a line bundle $\ca O_C(-D)$, which is exactly the image of the Abel-Jacobi map. In particular, the bundle $\ca L$ is (up to isomorphism) given by restricting $\ca O_C(-D)$ to the central fibre, so it suffices to verify \eqref{eq:twisted_diff_condition} for the latter bundle, which is a standard local calculation on a prestable curve over a discrete valuation ring. 
+
+
+%From this data we can determine a twist. First, to each leg we associate the outgoing slope of $\alpha$ on the corresponding leg. Then for a non-leg half-edge $h$ attached to a vertex $u$ and with the opposite half-edge $h'$ attached to $v$, we set the integer $I(h)$ to be the unique integer such that 
+%\begin{equation}\label{eq:slope}
+%\alpha(u) + I(h)\ell(\{h,h'\})  = \alpha(v) \in \bar M_S^{gp}
+%\end{equation}
+%(that such an $I(h)$ exists follows from the structure of $\bar M_C^{gp}$). 
+%
+%It remains to verify that this is a twist. The conditions (i) and (ii) are immediate from the construction. For (iii) we restrict the condition \eqref{eq:twisted_diff_condition} to the component $v$, and use that isomorphic line bundles have the same degree. Finally we deduce condition (iv) because walking around a strict cycle starting at some vertex $u$ and applying \eqref{eq:slope} along each edge would yield that $\alpha(u) < \alpha(u)$, which is impossible. 
+
+
+Conversely, suppose the twisted divisor condition is satisfied. We must build a log structure and a suitable section $\alpha \in \bar M_C^{gp}(C)$. We could try equipping $(C/S, p_1, \dots, p_n)$ with its minimal log structure (see \cref{sec:prestable_vs_log_curves}), but then the section $\alpha$ is
+unlikely to exist -- if there are no separating edges then there are no non-constant sections of $\bar M_C^{gp}$. Instead, we will construct a log structure by deforming the curve. 
+
+First, we claim that there exists an assignment of a positive integer $\ell(e) \in \bb Z_{>0}$ to each edge and of an integer $d(v) \in \bb Z$ to each vertex such that the following condition is satisfied: 
+  \begin{equation}
+    \begin{array}{c}
+         \text{\emph{if $e = \{ h, h'\}$ is an edge with $h$ attached to $u$ and $h'$ to $v$, then}} \\
+          d(u) + I(h)\cdot \ell(e)  = d(v)\, .
+    \end{array}\tag{*}
+  \end{equation}
+% \\
+% \emph{if $e = \{ h, h'\}$ is an edge with $h$ attached to $u$ and $h'$ to $v$, then $d(u) + \ell(e) I(h) = d(v)$. (*)}
+A twist $I$ on $\Gamma$ induces a binary relation $\preceq$ on $V(\Gamma)$ by 
+\[u \preceq v \iff \text{there is an edge }e=\{h,h'\}\text{ with $h$ at $u$, $h'$ at $v$ and } I(h) \geq 0\, .\]
+The fact that $\Gamma$ contains no strict cycles is equivalent by \cite{Suzumura1976Remarks-on-the-} to the existence of an extension of $\preceq$ to a total preorder on $V(\Gamma)$ (a reflexive, total, and transitive binary relation). Hence there exists a level function $d_0 : \V(\Gamma) \to \mathbb{Z}$ such that 
+\begin{equation} \label{eqn:levelfunct} u \preceq v \iff u, v\text{ connected by an edge and }d_0(u) \leq d_0(v)\, .\end{equation}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+We define
+\[L = \mathrm{lcm}(I(h) : h \in H(\Gamma), I(h) > 0)\, .\]
+Then, $d(v) = L d_0(v)$ still has property (\ref{eqn:levelfunct}), and,
+for any edge $e = \{ h, h'\}$  with $h$ attached to $u$ and $h'$ to $v$, we have two cases:
+\begin{itemize}
+    \item $I(h) = 0$, in which case all edges $\{\tilde h, \tilde h'\}$ connecting $u,v$ must satisfy $I(\tilde h)=0$ (due to the strict cycle condition), so we can set $\ell(e)=1$,
+    \item $I(h) \neq 0$, in which case the number $\ell(e) = (d(v) - d(u))/I(h)$ is indeed a positive integer (since $d$ has values in $L \cdot \mathbb{Z}$).
+\end{itemize}
+Clearly the functions $d$ and $\ell$ thus constructed satisfy the condition above.
+
+Such $d$ and $\ell$ are far from unique, but we pick them. Consider then the space of all smoothings $\ca C$ of $C$ over ${\field}[[t]]$ such that the thickness\footnote{The local equation of the node is $xy = t^r$ for some positive integer $r$ which we call the \emph{thickness} of the node. } of $\ca C$ at the node corresponding to edge $e$ is $\ell(e)$. Given such a smoothing $\ca C$, we construct a vertical Weil divisor $D$ by assigning to the irreducible component corresponding to vertex $v$ the weight $d(v)$. The divisor $D$ is then Cartier by the condition (*). Set $$\ca L_{\ca C} = \ca O_{\ca C}(D)|_{C}\otimes \ca O_C(\sum_i a_i p_i)\, .$$
+The smoothing $\ca C$ also induces a log structure on $C$ by  taking the divisorial log structure of the special fibre. The twist $I$ then determines an element $\alpha$ of $\pi_*\bar M_C^{gp}/\bar M_S^{gp}$. Applying the Abel-Jacobi map to $\alpha$ recovers $\ca L_{\ca C}$. 
+
+One can readily verify that $\ca L_{\ca C}$ satisfies \eqref{eq:twisted_diff_condition} by a local computation, but we need to show more:  the smoothing $\ca C$ can be chosen so that $\ca L_{\ca C}$ is isomorphic to the line bundle $\ca L$ that we started with. The space of such smoothings $\ca C$ naturally surjects onto 
+\begin{equation}
+\bigoplus_{e = \{ h, h'\} : I(h) \neq 0} \left( \ca O_{C_I}(h) \otimes \ca O_{C_I}(h')\right)^{\otimes \ell(e)}, 
+\end{equation}
+where the 1-dimensional $\field$-vector space $\left( \ca O_{C_I}(h) \otimes \ca O_{C_I}(h')\right)^{\otimes \ell(e)}$ corresponds exactly to the ways to glueing the two branches of $\eta_I^*\ca L$ together at the points $h$ and $h'$. In other words, by moving over the space $\bigoplus_{e = \{ h, h'\} : I(h) \neq 0} \left( \ca O_{C_I}(h) \otimes \ca O_{C_I}(h')\right)^{\otimes \ell(e)}, $ we can recover \emph{all} ways of glueing $\eta_I^*\ca L$ to a line bundle on $C$. In particular, we can recover $\ca L$, hence we can realise $\ca L$ as $\ca L_{\ca C}$ for some smoothing $\ca C$, as required. 
+\end{proof}
+
+\subsection{Proof of the equivalence of the definitions}\label{sec:proof_of_equiv_defs}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+The equivalence of the classes coming from $\cat{Div}_{g,A}$ and from $\cat{Rub}_{g,A}$ is immediate by applying \cref{prop:invarianceproperbirat}. We must compare 
+the latter two with the class defined by  \eqref{ddd111}
+via the schematic image. We will require the following two easy results. 
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:smooth_dense}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let $U \hra \cat{Div}_{g,A}$ denote the open locus where the log curve is classically smooth. Then $U$ is schematically dense in $\cat{Div}_{g,A}$. 
+\end{lemma}
+\begin{proof}
+Since $\cat{Div}_{g,A} \to \ca M^{\mathsf{log}}_{g,n}$ is log \'etale, we deduce that $\cat{Div}_{g,A}$ is log regular. In particular, $\cat{Div}_{g,A}$
+ is reduced,  and the locus where the log structure is trivial is dense. %. It thus suffices to show that any geometric point of $\cat{Div}_{g,A}$ can be hit by a trait (the spectrum of a discrete valuation ring)
+% \jocomment{Since I had not heard of traits in this sense before, maybe one can add a footnote explaining the concept (possibly with a reference)?}\{Is this OK? Struggling to find a canonical source to use as a reference (it's in Section 8 of \url{https://publications.ias.edu/sites/default/files/Theorie-de-Hodge-I.pdf}, 
+%but this is surely not the first place). Please delete if happy. } 
+%in $\cat{Div}_{g,A}$ whose generic point lies in $U$, but this was shown in the proof of \cref{prop:aj_image}. %Now the log \'etale-ness of $\cat{Div}_{g,A} \to \ca M^{log}_{g,n}$ allows us to lift traits from $ \ca M^{log}_{g,n}$ to $\cat{Div}_{g,A}$, so it suffices to show that any geometric point in $\ca M^{log}_{g,n}$ can be hit by a trait in $\ca M^{log}_{g,n}$ whose generic point corresponds to a smooth curve, but this is clear. 
+%
+%Write $(C/{\field}, \bb G_m^{trop}, \alpha)$ for such a geometric point, where $\alpha\in \bar M_C^{gp}(C)$ (we may as well take the tropical line to be trivial). It then suffices to construct a monoid map $\bar M_{\field} \to \bb N$, not sending any edge-label to 0, and such that there exists $\alpha' \in (\bar M_C \oplus_{\bar M_{\field}} \bb N)^{gp}(C)$ which pulls back to $\alpha \in \bar M_C^{gp}$. 
+\end{proof}
+
+%Before we can claim that these classes are equal we must arrange for them to live on the operational Chow group of the same stack; a-priori the closure is taken over the stack of prestable curves, and $\cat{Div}_{g,A}$ is constructed over the stack of log curves. For this we simply pull back the logarithmic construction along the strict open immersion $\phi\colon \frak M_{g,n} \to \ca M^{log}_{g,n}$ from \cref{lem:strict_open_immersion}. 
+
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready \label{Lem:UschemdenseDiv}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+The Abel-Jacobi map $\aj:\cat{Div}_{g,A} \to \Picabs_{g,n,d}$ factors through the
+inclusion $\bar\sigma \to \Picabs_{g,n,d}$, and the induced map 
+$$\cat{Div}_{g,A} \to \bar \sigma$$ 
+is proper and birational. 
+\end{lemma}
+\begin{proof}
+That $\cat{Div}_{g,a} \to \Picabs_{g,n,d}$ factors through $\bar\sigma \to \Picabs$ is immediate from \cref{lem:smooth_dense} and the definition of the schematic image. The induced map $\cat{Div}_{g,A} \to \bar \sigma$ is proper since $\cat{Div}_{g,A}$ is proper over $\Picabs_{g,n,d}$ and is birational since it is an isomorphism over the locus of smooth curves. 
+\end{proof}
+
+By another application of \cref{prop:invarianceproperbirat}, the definitions of $\DRop$ via 
+$\cat{Div}_{g,A}$ and the
+schematic image are equivalent. \qed
+
+\subsection{Proof of \cref{cccc}}\label{proof1111}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+Let $k\geq 0$, and let
+ $A=(a_1,\ldots,a_n)$ be a vector of integers satisfying
+$$\sum_{i=1}^n a_i=k(2g-2)\, .$$
+There are three definitions in the literature for the classical twisted double ramification cycle
+$$\mathsf{DR}_{g,A, \omega^k}\in \mathsf{CH}_{2g-3+n}(\overline{\cM}_{g,n}) $$
+on the moduli space of stable curves:
+\begin{enumerate}
+\item[$\bullet$]via birational modifications of $\Mbar_{g,n}$ \cite{Holmes2017Extending-the-d}, 
+\item[$\bullet$] via the closure of the image of the Abel-Jacobi section \cite{Holmes2017Jacobian-extens},
+\item[$\bullet$]
+via logarithmic geometry and the stack $\cat{Div}_g^{\mathsf{rel}}$ \cite{Marcus2017Logarithmic-com}. 
+\end{enumerate}
+All three are shown to be equivalent
+in \cite{Holmes2017Extending-the-d,Holmes2017Jacobian-extens}.
+For the proof of \cref{cccc}, we choose the definition of \cite{Marcus2017Logarithmic-com}, as this will give the shortest path. 
+
+For $d=k(2g-2)$, let $\phi: \Mbar_{g,n} \to \Picabs_{g,n,d}$ be the morphism
+associated to the data
+\begin{equation}\label{fftt66673}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\pi: \mathcal{C}_{g,n} \rightarrow \overline{\cM}_{g,n}\, , \ \ \ \ \omega_\pi^k \rightarrow \mathcal{C}_{g,n}\, .
+\end{equation}
+%The operational class $\DRop_{g,A}$ acts 
+%$$\DRop_{g,A}(\phi)\colon \Chow_*(\Mbar_{g,n}) \to \Chow_{* - g}(\Mbar_{g,n}\, ;$$
+To prove \cref{cccc}, we must show
+$$\DRop_{g,A}(\phi)([\Mbar_{g,n}]) = \mathsf{DR}_{g,A, \omega^k}\, ,$$
+where $[\Mbar_{g,n}]$ is the fundamental class. 
+
+
+
+We form the pullback diagram
+\begin{equation}
+ \begin{tikzcd}
+  \cat{Div}_{g,A} \times_{\Picabs_{g,n,d}} \Mbar_{g,n} \arrow[r] \arrow[d, "\psi"] & \cat{Div}_{g,A} \times \Mbar_{g,n} \arrow[d, "a \times \on{id}"]  \\
+  \Mbar_{g,n} \arrow[r, "\phi'=\phi\times \on{id}"] & \Picabs_{g,n,d} \times \Mbar_{g,n}\, .
+\end{tikzcd}
+\end{equation}
+Following \cref{defbivariantclass}, we have 
+$$\DRop_{g,A}(\phi)([\Mbar_{g,n}]) = \psi_*(\phi')^!([\cat{Div}_{g,A} \times \Mbar_{g,n}])\, .$$
+The construction
+is equivalent to the definition of the class $\mathsf{DR}_{g,A, \omega^k}$ in \cite{Marcus2017Logarithmic-com} after making the standard translation between the Gysin pullback and the virtual fundamental class as in \cite[Example 7.6]{Behrend1997The-intrinsic-n}. 
+
+
+
+% \subsection{Varying \texorpdfstring{$n$}{n} and \texorpdfstring{$A$}{A}}\label{sec:varying_n_and_A}
+
+% Let $A=(a_1,\ldots,a_n) \in \bb Z^n$ satisfy $\sum_{i=1}^n a_i=d$. 
+% We denote by $A_0$ the element of $\bb Z^{n+1}$ obtained by appending $0$
+% (as the last coefficient)
+% to $A$.
+% Forgetting the last marking induces a map 
+% $$\frak M_{g,n+1} \to \frak M_{g,n}\, .$$
+%  We then have a diagram of cartesian squares
+% \begin{equation}
+%  \begin{tikzcd}
+%   \cat{Div}_{g,A_0} \arrow[r]\arrow[d]  & \cat{Div}_{g,A} \arrow[d]\\
+%   \Picabs_{g,n+1,d} \arrow[r,"F"] \arrow[d] & \Picabs_{g,n,d} \arrow[d]\\
+%   \frak M_{g, n+1} \arrow[r] & \frak M_{g,n}\, . 
+% \end{tikzcd}
+% \end{equation}
+% In particular, for $\bd 0 \in \mathbb{Z}^n$ the zero vector, the stack $\cat{Div}_{g, \bd 0}$ can be obtained by pulling back
+% %\footnote{\{Here $[]$ denotes a vector of length 0. I have no idea what notation we want for this!} Y: We used $\DRop_{g,\emptyset}$ in \cref{sec:intro_deg_0}, so $\emptyset$ might be an option. \jocomment{What about writing just $\cat{Div}_{g}$?
+% %R: I think we shouldnt have more notation! We already have the emptyset which makes %complete %sense here.}} 
+% $\cat{Div}_{g,\emptyset}$ from $\Picabs_{g,0,0}$. 
+
+% As a consequence of the above cartesian square and the
+% second definition of the double ramification cycle, we obtain the following result.
+
+% \begin{lemma} \label{Lem:DR_forget_pullback}
+% The operational class $\mathsf{DR}^{\mathsf{op}}_{g,A_0}\in \mathsf{CH}_{\mathsf{op}}^g(\Picabs_{g,n+1,d})$ is the pullback
+% of $\mathsf{DR}^{\mathsf{op}}_{g,A}\in \mathsf{CH}_{\mathsf{op}}^g(\Picabs_{g,n,d})$
+% under the forgetful map $F$.
+% \end{lemma}
+
+
+
+
+% Let $B=(b_1,\ldots,b_n) \in \bb Z^n$ satisfy $\sum_{i=1}^n b_i=e$. 
+% We define a map over $\frak M_{g,n}$ by
+% \begin{equation}
+% \tau_B\colon \Picabs_{g,n,d-e} \to \Picabs_{g,n,d} \, , \ \ \ 
+% \ca L \mapsto \ca L \big(\sum_{i=1}^n b_i p_i\big)\, . 
+% \end{equation}
+% We have  a natural cartesian diagram
+% \begin{equation}
+%  \begin{tikzcd}
+%   \cat{Div}_{g,A-B} \arrow[r]\arrow[d]  & \cat{Div}_{g,A} \arrow[d]\\
+%   \Picabs_{g,n,d-e} \arrow[r, "\tau_B"]  & \Picabs_{g,n,d}\, .  
+% \end{tikzcd}
+% \end{equation}
+% In particular, for any ramification data
+% $A$, we can obtain $\cat{Div}_{g,A}$ from $\cat{Div}_{g,\bd 0}$ by such translations.
+
+
+% \begin{lemma} \label{Lem:varying_A}
+% The operational class $\mathsf{DR}^{\mathsf{op}}_{g,A-B}\in \mathsf{CH}_{\mathsf{op}}^g(\Picabs_{g,n,d-e})$ is the pullback
+% of $\mathsf{DR}^{\mathsf{op}}_{g,A}\in \mathsf{CH}_{\mathsf{op}}^g(\Picabs_{g,n,d})$
+% under the translation $\tau_B$.
+% \end{lemma}
+
+\subsection{The double ramification cycle in b-Chow} 
+\label{Sect:AJextension}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+
+
+The construction of the double ramification cycle in \cite{Holmes2017Extending-the-d} naturally yielded a more refined object: a b-cycle\footnote{An element of the colimit of the Chow groups of smooth blowups of $\Mbar_{g,n}$ with transition maps given by pullback.} on $\Mbar_{g,n}$ which pushes down to the usual double ramification cycle on $\Mbar_{g,n}$. 
+The refined cycle was shown in \cite{Holmes2017Multiplicativit} to have better properties with respect to intersection products than the usual double ramification cycle. By considering rational sections of the multidegree-zero relative Picard space over $\Picabs_{g,n,d}$, we can in an analogous way define a b-cycle on $\Picabs_{g,n,d}$ refining the universal twisted double ramification cycle introduced here. In future work, we will show that this refined universal cycle is compatible with intersection products in the sense of \cite{Holmes2017Multiplicativit} and that the \emph{toric contact cycles} of \cite{Ranganathan2019A-note-on-cycle} can be obtained by pulling back these products. 
+
+
+
+%\{End of shortened version}
+
+%In this section we sketch a construction of the universal twisted DR cycle which is much closer in spirit to that of \cite{Holmes2017Extending-the-d}. In particular it allows for the construction of a `$b-\DRop$' cycle in the operational b-Chow group of $\Picabs$, cf. \cite{Holmes2017Multiplicativit}, which seems worth further study. However, we will not use the results of this section elsewhere, so we only hint at the proofs. 
+
+%Over $\Picabs_{g,n}$ we have a universal prestable curve $\frak C_{g,n} \times_{\frak M_{g,n}} \Picabs_{g,n}$. This curve has in turn a relative Picard space, whose multidegree-zero part we denote by 
+%\begin{equation*}
+%P_{g,n} = {\Picrel}^{0}_{\frak C_{g,n} \times_{\frak M_{g,n}} \Picabs_{g,n}/ \Picabs_{g,n}}. 
+%\end{equation*}
+%Thus $P_{g,n}$ is a semi-abelian algebraic space over $\Picabs_{g,n}$. 
+
+%Fix $g$ and $A \in \bb Z^n$ with $d = \sum_i a_i$ and consider the component $\Picabs_{g, n, d}$ of $\Picabs_{g,n}$ corresponding to line bundles of total degree equal to $d$. Write $P_{g,n,d}$ for the pullback to $P_{g,n}$ to $\Picabs_{g,n,d}$. Over the locus of irreducible curves in $\Picabs_{g,n,d}$ we have a section of $P_{g,n,d}$, sending a pair $(C, \ca L)$ to the (equivalence class of the) triple $(C, \ca L, \ca L(-A))$; we arranged the degrees in such a way that $\ca L(-A)$ has total degree 0, which is the same as multidegree 0 for irreducible curves. We can think of this section as a rational map %\todo{David: notation clash with previous use of $\sigma$. Does this matter? }
+%\begin{equation}
+%\sigma_A\colon \Picabs_{g, n, d} \dashrightarrow P_{g,n,d} 
+%\end{equation}
+%(rational because it is only defined for irreducible curves). 
+
+%We call a map of stacks $t \colon T \to \Picabs_{g,n,d}$ \emph{$\sigma_A$-extending} if
+%\begin{enumerate}
+%\item
+%$T$ is normal;
+%\item The pullback along $t$ of the locus of smooth curves is dense in $T$;
+%\item The rational map $T \dashrightarrow P_{g,n,d} $ induced by $\sigma_A$ extends to a morphism (necessarily unique if exists, by separatedness of $P_{g,n,d} $ over $\Picabs_{g, n, d}$). 
+%\end{enumerate}
+%One can then show as in \cite{Holmes2017Extending-the-d} that the category of $\sigma_A$-extending stacks over $\Picabs_{g,n,d}$ has a terminal object, which we denote ${\Picabs}^A_{g,n,d}$. The natural map 
+%\begin{equation}
+%{\Picabs}^A_{g,n,d} \to \Picabs_{g,n,d}
+%\end{equation}
+%is separated, of finite presentation, and an isomorphism over the locus of smooth (even treelike) curves, but it is not in general proper. The construction equips it with a map
+%\begin{equation}
+%\sigma_A\colon {\Picabs}^A_{g,n,d} \to P_{g,n,d}, 
+%\end{equation}
+%which is in fact proper. In particular, if $e$ denotes the unit section of the semiabelian algebraic space $P_{g,n,d}$, then $\sigma_A^*e \tra {\Picabs}^A_{g,n,d}$ is proper over $\Picabs_{g,n,d}$. This $\sigma_A^*e$ corresponds to the \emph{double ramification locus} in the terminology of \cite{Holmes2017Extending-the-d}. By an analogous argument to that in \cite[Section 7]{Holmes2017Extending-the-d}, one can show that $\sigma_A^*e$ is naturally isomorphic to the normalisation of $\cat{Div}_{g,A}$ as stacks over $\Picabs_{g,n,d}$; in particular, they induce the same operational Chow class on $\Picabs_{g,n,d}$ by Proposition \ref{prop:invarianceproperbirat}. 
+%and the map $\sigma_A^*e \to \Picabs_{g,n,d}$ factors through the abel-jacobi map $\cat{Div}_{g,A} \to \Picabs_{g,n,d}$?}T
+
+%However, with this definition we can do more than simply recovering $\DRop_{g,A}$: we can also refine the definition to produce a b-cycle in the sense of \cite{Holmes2017Multiplicativit}, following the pattern therein. We choose a normal compactification of ${\Picabs}^A_{g,n,d}$ over $\Picabs_{g,n,d}$, then push $\sigma_A^*e$ forward to a cycle on this compactification; the resulting class in the b-Chow group of $\Picabs_{g,n,d}$ is then independent of the choice of compactification, and can be viewed as a refinement of the double ramification cycle. In a future work we will show that this refined universal cycle is compatible with intersections in the sense of \cite{Holmes2017Multiplicativit}, and that the \emph{toric contact cycles} of \cite{Ranganathan2019A-note-on-cycle} can be obtained by pulling back these products. 
+
+%  \jocomment{Is there more we want to say here? E.g. we could cite Dhruv's paper \url{https://arxiv.org/abs/1910.00239} - the cycles in his Theorem B should be pullbacks of b-Chow products, right?}
+
+% \{Good point. This stuff also just works; we could include it here? Cf. the note I shared with you just before AIM. Could include it here? }
+
+% \jocomment{Mmh, this stuff is certainly interesting, but I have the feeling this opens up a whole new discussion and this paper already contains a lot of things. }
+% \{I agree. Citing Dhruv sounds good. I wrote something above; feel free to improve, and delete comments when happy. }

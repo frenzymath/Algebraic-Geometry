@@ -1,0 +1,852 @@
+% Source-derived chapter 01: Introduction
+% Original source: canonical-representations-surface-groups
+\chapter{Introduction}
+\label{canonical-representations-surface-groups-chapter-01}
+\source{canonical-representations-surface-groups}
+
+\begin{remark}[Source section]
+\label{canonical-representations-surface-groups-chapter-01-source}
+\source{canonical-representations-surface-groups}
+\source{canonical-representations-surface-groups}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Introduction
+\label{section:introduction}
+\source{canonical-representations-surface-groups}
+\subsection{Overview}
+\label{subsection:overview}
+\source{canonical-representations-surface-groups}
+Let $\Sigma_{g,n}$ be an orientable topological surface of genus $g$ with $n$ punctures, and let $x\in\Sigma_{g,n}$ be a basepoint.
+We denote the mapping class group of $\Sigma_{g,n}$ by $\on{Mod}_{g,n}$. 
+There is a natural outer action of $\on{Mod}_{g,n}$ on $\pi_1(\Sigma_{g,n},x)$, induced by the action of $\on{Homeo}^+(\Sigma_{g,n})$ on $\Sigma_{g,n}$. 
+Hence, $\on{Mod}_{g,n}$ acts on the set of conjugacy classes of
+representations of $\pi_1(\Sigma_{g,n},x)$ into $\on{GL}_r(\mathbb{C})$. Our goal is to study the finite orbits of this action
+via Hodge-theoretic and arithmetic techniques. 
+
+\begin{definition}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{definition:mcg-finite}
+\source{canonical-representations-surface-groups}
+	For $g,n,r \geq 0$,
+	a representation $\rho: \pi_1(\Sigma_{g,n},x) \to \on{GL}_r(\mathbb C)$
+	is {\em MCG-finite} if the conjugacy class of $\rho$ has finite orbit under the action of
+	$\on{Mod}_{g,n}$.
+\end{definition}
+Note here that we are studying \emph{conjugacy classes} of representations. For
+example, semisimple MCG-finite representations correspond to finite
+$\on{Mod}_{g,n}$-orbits in the character variety of $\pi_1(\Sigma_{g,n})$, not
+its representation variety. Indeed, $\on{Mod}_{g,n}$ does not naturally act on
+the representation variety of $\pi_1(\Sigma_{g,n})$.
+
+Any representation of $\pi_1(\Sigma_{g,n})$ constructed without making choices
+(e.g.~without naming a specific curve in $\Sigma_{g,n}$),
+or by making choices with only a finite amount of indeterminacy, is MCG-finite.
+So we view MCG-finite representations 
+as the \emph{canonical} representations of $\pi_1(\Sigma_{g,n})$. 
+
+The study of MCG-finite
+representations has a long history.
+%albeit with different terminology, 
+It has a close
+connection to isomonodromy and the Painlev\'e VI equation,
+originally introduced in 1902 by Painlev\'e 
+\cite{painleve:on-the-differential-equations-of-sectond-order}
+and Gambier
+\cite{gambier:on-the-differential-equations-of-second-order}.
+For each $g,n,r$, conjugacy classes of semisimple MCG-finite representations 
+$$\pi_1(\Sigma_{g,n})\to \on{GL}_r(\mathbb{C})$$ correspond to algebraic solutions
+to a certain \emph{isomonodromy} differential equation, see \cite[Theorem A]{CH:isomonodromic}. 
+Algebraic solutions to the Painlev\'e VI equation in an appropriate choice of coordinates 
+correspond to MCG-finite representations with trivial determinant in
+the particular case $g=0, n=4, r=2$ (see
+\cite[\S1-\S3]{mahoux:itroduction-to-the-theory-of-isomonodromic-deformations}
+and \cite[\S2]{doran:isomonodromic}). 
+
+There is substantial literature on the
+search for algebraic solutions 
+to the Painlev\'e VI equation,
+\cite{andreev2002transformations, boalch2005klein, boalch2006fifty, boalchsome, boalch2007higher, cantat2009holomorphic, dubrovin1996geometry, dubrovin2000monodromy, hitchin1996poncelet, hitchin2003lecture, kitaev2006grothendieck, kitaev2005remarks},
+culminating in the classification given in \cite{lisovyy2014algebraic}. Boalch \cite{boalch2007towards} pitches the problem of classifying algebraic solutions to Painlev\'e VI as a natural generalization of Schwarz's list of hypergeometric equations with finite monodromy \cite{schwarz1873ueber}.
+
+We will later see that the classification of MCG-finite representations is
+closely connected to several major open questions in low-dimensional topology.
+In particular, it has connections to the Putman-Wieland conjecture
+\cite[Conjecture 1.2]{putmanW:abelian-quotients} and Ivanov's conjecture that mapping class groups do not virtually surject onto $\mathbb{Z}$ \cite[\S7]{Ivanov:problems}.
+These conjectures in turn have applications to algebraic geometry, as they would
+determine the first rational homology of finite covers of $\mathscr M_{g,n}$.
+
+Many interesting classes of
+representations are MCG-finite.
+Examples include 
+the rigid local systems studied by Katz \cite{katz2016rigid}, 
+representations constructed via TQFT techniques ~(e.g.~\cite{kuperberg2011denseness, koberda2016quotients, koberda2018irreducibility, koberda2018representation}),
+and representations of algebro-geometric interest, such as those constructed via the Kodaira-Parshin trick (e.g.~\cite[Example 3.3.1]{lawrence2019representations}).
+We will see later that MCG-finite representations of $\pi_1(\Sigma_{g,n})$ are closely related to representations of finite-index subgroups of $\on{Mod}_{g,n+1}$. 
+%In \autoref{section:questions} we speculate on links between MCG-finite representations and representations of geometric origin.
+
+
+
+\subsection{Results for surface groups}
+\label{subsection:surface-groups}
+\source{canonical-representations-surface-groups}
+Given the difficulty of classifying MCG-finite representations in the $g = 0, n = 4, r = 2$ case (encompassing Painlev\'e VI), it may be surprising that
+ we are able to obtain a complete and simple characterization of MCG-finite representations when 
+$g \gg r$.
+%We next describe a complete and simple characterization of MCG-finite representations when 
+%$g$ is large.
+%That such a simple classification exists may be particularly surprising, given the
+%difficulty of classifying MCG-finite reps in the $g = 0, n = 4, r = 2$ case, of which a special case
+%is classifying algebraic solutions to the Painlev\'e VI equation.
+
+\begin{theorem}
+\source{canonical-representations-surface-groups}
+\notready\label{theorem:finite-image}
+\source{canonical-representations-surface-groups}
+	For $g, n, r\geq 0$, let
+	$$\rho: \pi_1(\Sigma_{g,n})\to \on{GL}_r(\mathbb{C})$$ be a MCG-finite
+representation. If $r<\sqrt{g+1}$, then $\rho$ has finite image. 
+\end{theorem}
+	This answers a question of Junho Peter Whang \cite[Question
+	1.5.3]{lawrence2019representations}. We will prove
+	\autoref{theorem:finite-image} in
+\autoref{subsection:main-proof}.
+	
+	While the statement appears to be purely topological or even group-theoretic in nature, the proof relies on (non-abelian and mixed) Hodge theory, and also takes input from the Langlands program, through the work of Esnault-Groechenig \cite{esnault2018cohomologically} 
+and Klevdal-Patrikis \cite{klevdalP:g-rigid-local-systems-are-integral}
+on integrality of cohomologically rigid local systems.
+	
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{remark:}
+\source{canonical-representations-surface-groups}
+	Some bound on the rank as in \autoref{theorem:finite-image} is
+	necessary. Indeed, there are a number of interesting MCG-finite representations of $\pi_1(\Sigma_{g,n})$ of rank $r\gg g$ with infinite image, as explained in \autoref{question:bounds}. 
+	We have no reason to think that the precise bound of
+	$\sqrt{g+1}$ is optimal in general. 
+	That said the bound cannot be improved too much. It is sharp when $g=1$,
+	by \autoref{remark:sharp-g-1}, but not for $g=2,3$, by \autoref{remark:not-sharp-g-2-3}.
+	For general $g$ there are MCG-finite representations of $\pi_1(\Sigma_g)$ of rank  
+	$2g+1$ with infinite image (\autoref{non-rigid-examples}\eqref{h1-example}), so the bound cannot be improved to be better than linear in $g$.
+	We summarize the situation in \autoref{figure:MCG-geography}.
+\end{remark}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=.7, trim={2cm 18.0cm 0 1cm}]{mcg-geography.pdf}
+\caption{The geography of known MCG-finite representations.
+\autoref{theorem:finite-image} shows that the region $r<\sqrt{g+1}$ contains
+only MCG-finite representations with finite image. As explained in
+\autoref{question:bounds}, there are examples of MCG-finite rank $r$ representations with infinite image for $r\gg g$. For $r$ polynomial in $g$, all known examples have virtually solvable image. For $r$ exponential in $g$, there are interesting MCG-finite irreps with infinite image.}\label{figure:MCG-geography}
+\source{canonical-representations-surface-groups}
+\end{figure}
+
+As explained in ~\cite[Theorem A]{CH:isomonodromic}, 
+\autoref{theorem:finite-image} yields a classification result for algebraic solutions to isomonodromy differential equations:
+\begin{corollary}
+\source{canonical-representations-surface-groups}
+\notready
+	Let $C$ be a smooth projective curve of genus $g$, and let $D\subset C$
+	be a reduced effective divisor. Let $({E},\nabla)$ be a semisimple flat
+	vector bundle on $C$ with regular singularities along $D$, with $\rk
+	{E}<\sqrt{g+1}$. Suppose that the eigenvalues of the residue matrices of
+	$({E},\nabla)$ have real parts in $[0,1)$. Then $({E},\nabla)$ has an algebraic universal isomonodromic deformation if and only if $({E},\nabla)$ has finite monodromy.
+\end{corollary}
+Note that the condition on residue matrices can always be achieved after a birational gauge transformation, by replacing $({E}, \nabla)$ with the Deligne canonical extension of $({E}, \nabla)|_{C\setminus D}$.
+
+This algebro-geometric reformulation of our main result is not just window
+dressing. It is the perspective we will take in the proof of \autoref{theorem:finite-image}. 
+
+\subsection{An application to low rank local systems on $\mathscr M_{g,n}$}
+
+We next record a consequence of our main result for local systems of low rank on families of curves.
+As in \autoref{notation:versal-family}, we say a family $\pi:\mathscr C \to \mathscr M$ of smooth proper genus
+$g$ curves with geometrically connected fibers, equipped with $n$ disjoint sections $s_i: \mathscr M \to
+\mathscr C$, is {\em versal} if the corresponding map $\mathscr M \to \mathscr M_{g,n}$
+is dominant. We call 
+$\pi^\circ: \mathscr C^\circ := \mathscr C \setminus \bigcup_i s_i(\mathscr M)\to \mathscr
+M$ a {\em punctured versal family} of genus $g$ curves.
+
+The following is immediate from \autoref{theorem:finite-image}, by \autoref{proposition:MCG-finite-family-of-curves} below.
+\begin{corollary}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{corollary:}
+\source{canonical-representations-surface-groups}
+	Suppose $\pi^\circ: \mathscr C^\circ \to \mathscr M$
+	is a punctured versal family of genus $g$ curves,
+	and $\mathbb V$ is a local system on $\mathscr C^\circ$ of rank $<
+	\sqrt{g+1}$.
+	For any fiber $C^\circ$ of $\pi^\circ$, the local system $\mathbb
+	V|_{C^\circ}$ has finite monodromy.
+\end{corollary}
+%\begin{proof}
+%	The restriction $\mathbb V|_{C^\circ}$ corresponds to an MCG-finite
+%	representation, since it is fixed by the action of $\pi_1(\mathscr M)$,
+%	which has finite index in $\pi_1(\mathscr M_{g,n})$ by the versality
+%	assumption, see \autoref{proposition:MCG-finite-family-of-curves}.
+%	Then, $\mathbb V|_{C^\circ}$ has finite monodromy by
+%	\autoref{theorem:finite-image}.
+%\end{proof}
+
+\subsection{The Putman-Wieland conjecture}
+\label{subsection:intro-putman-wieland}
+\source{canonical-representations-surface-groups}
+
+Among the main ingredients in the proof of \autoref{theorem:finite-image} are some new results toward the Putman-Wieland conjecture, sketched below and
+described in detail in \autoref{section:Putman-Wieland}.
+%These are also used in the proof of the non-semisimple case of our main result,
+%\autoref{theorem:finite-image}.
+
+We now set some notation to state the Putman-Wieland conjecture.
+Let $\Sigma_{g,n}$ be a surface and let $\phi: \pi_1(\Sigma_{g,n},
+x)\twoheadrightarrow H$ be a surjection onto a finite group, corresponding to
+some finite $H$-cover $\Sigma_{g'}\to \Sigma_{g}$ branched over $n$ points. Let $\Gamma$ be the  stabilizer of $\phi$ up to conjugacy in the pure mapping class group of $\Sigma_{g,n+1}$. Then $\Gamma$ acts naturally acts on $H_1(\Sigma_{g'})$. 
+
+We say that {\em the Putman-Wieland conjecture for $(g,n,H)$ holds} if
+for every such $H$-cover $\Sigma_{g'} \to \Sigma_g$, 
+all nonzero vectors in $H_1(\Sigma_{g'})$ have infinite orbit under $\Gamma$.
+The original Putman-Wieland conjecture 
+\cite[Conjecture 1.2]{putmanW:abelian-quotients}
+asserts that for any fixed $g \geq 2, n \geq 0$,
+the Putman-Wieland conjecture for $(g,n,H)$
+holds for every $H$.
+We prove 
+Putman-Wieland conjecture for $(g,n,H)$ for any fixed $H$ once $g$
+is sufficiently large. 
+In this way, our results are an ``asymptotic" version of the Putman-Wieland conjecture. 
+\begin{theorem}
+\source{canonical-representations-surface-groups}
+\notready\label{theorem:intro-PW}
+\source{canonical-representations-surface-groups}
+	For $g \geq 2, n \geq 0$, and any finite group $H$ with
+	$\#H<g^2$,
+	the Putman-Wieland conjecture for $(g,n,H)$ holds.
+\end{theorem}
+\autoref{theorem:intro-PW} is proven below as a case of \autoref{corollary:asymptotic-putman-wieland}.
+More generally, for arbitrary $H$ we prove that the Putman-Wieland conjecture holds for the subspace of $H_1(\Sigma_{g'})$ spanned by irreducible representations of $H$ of small rank.
+\begin{theorem}
+\source{canonical-representations-surface-groups}
+\notready\label{theorem:rho-isotypic-PW-intro}
+\source{canonical-representations-surface-groups}
+	Let $\rho$ be an irreducible representation of $H$ with $\dim\rho<g$, and let $H_1(\Sigma_{g'})^{\rho}$ be the $\rho$-isotypic component of $H_1(\Sigma_{g'})$. Then no nonzero vector in $H_1(\Sigma_{g'})^{\rho}$ has finite orbit under $\Gamma$.
+\end{theorem}
+\autoref{theorem:rho-isotypic-PW-intro} is proven below as a special case of
+\autoref{theorem:asymptotic-putman-wieland}.
+
+As we shall see in the course of the proof of \autoref{theorem:finite-image},
+especially \autoref{lemma:semisimplicity},
+the Putman-Wieland conjecture is connected to the classification of MCG-finite representations with virtually solvable image.
+
+\subsection{Arithmetic applications}
+\label{subsection:arithmetic}
+\source{canonical-representations-surface-groups}
+In \autoref{section:arithmetic-applications}, we give a number of applications
+to questions in arithmetic geometry. For example, we show in
+\autoref{theorem:arithmetic-consequence} that low rank representations of the
+arithmetic \'etale fundamental group of a generic curve of genus $g$ have finite
+image when restricted to the geometric fundamental group. This verifies a
+prediction of the Fontaine-Mazur conjecture, see
+\autoref{remark:fontaine-mazur}. 
+These results also answer a question of Esnault-Kerz, see \autoref{remark:esnault-kerz}.
+
+As a consequence, we construct many residual
+representations of the geometric fundamental group of a generic curve of genus
+$g$ which have no lifts to representations of geometric origin. These examples are related to a conjecture of de Jong \cite{de2001conjecture} (proven by Gaitsgory \cite{gaitsgory2007jong}) and a question of Flach, see \autoref{remark:complete-intersection} and \autoref{remark:flach}. 
+
+
+\subsection{A consequence for free groups}
+\label{subsection:free-groups}
+\source{canonical-representations-surface-groups}
+
+From \autoref{theorem:finite-image}, we deduce an analogous result for free groups.
+\begin{corollary}
+\source{canonical-representations-surface-groups}
+\notready\label{corollary:free-groups}
+\source{canonical-representations-surface-groups}
+	Let $F_N$ be a free group on $N$ generators, with $N=2g$ or $N=2g+1$.
+	Let $$\rho: F_N\to \on{GL}_r(\mathbb{C})$$ be a representation whose conjugacy class has finite orbit under $\on{Out}(F_N)$. If $r<\sqrt{g+1}$, then $\rho$ has finite image.
+\end{corollary}
+\begin{proof}
+	If $N$ is even, choose an isomorphism $F_N\simeq \pi_1(\Sigma_{g,1})$
+	and if $N$ is odd choose $F_N\simeq \pi_1(\Sigma_{g,2})$. Any
+	representation of $F_N$ with finite orbit under $\on{Out}(F_N)$ yields a
+	representation of a genus $g$ surface group with finite orbit under the
+	mapping class group. Such a representation has finite image by \autoref{theorem:finite-image}.
+\end{proof}
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+It is natural to ask if the bound on $r$ in \autoref{corollary:free-groups} is sharp. 
+There exist (non-semisimple) representations of $F_N$ of fairly low rank ($r =N + 1$) with infinite image and finite orbit under $\on{Out}(F_N)$, see 
+\autoref{example:free-group-bounds}, so the bound cannot be improved too much. 
+However, in contrast with the case of MCG-finite representations, we do not know any examples of \emph{semisimple} representations of $F_N$ with infinite image and finite orbit under $\on{Out}(F_N)$ as soon as $N\geq 3$.
+Indeed, a conjecture of Grunewald and Lubotzky \cite[Conjecture in
+\S9.2]{grunewald2009linear}, combined with the main result of
+\cite{farb2017moving}, implies that no such examples exist when $N \geq 3$. In the interests of provocation, we conjecture 
+(\autoref{conjecture:infinite-image-semisimple})
+that such examples \emph{do} exist. 
+As evidence, we offer several examples of semisimple MCG-finite representations of surface groups with infinite image, see \autoref{question:bounds}. Note that there are interesting semisimple representations of $F_2$ with finite orbit under $\on{Out}(F_2)$, see \autoref{example:free-group-bounds}.
+\end{remark}
+
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{remark:explicit-free}
+\source{canonical-representations-surface-groups}
+One appeal of \autoref{corollary:free-groups} lies in the fact that it admits a completely elementary reformulation, using Nielsen's description of $\on{Aut}(F_N)$,
+see \cite{nielsen:die-isomorphismengruppe} 
+and also \cite[Theorem 3.2, p. 131]{magnusKS:combinatorial-group-theory}.
+Let $(A_1, \cdots, A_N)$ be an $N$-tuple of invertible $r\times r$ complex matrices, with $N=2g$ or $N=2g+1$. Consider the following operations on $N$-tuples of invertible matrices:
+\begin{enumerate}
+	\item The cyclic permutation $$c: (A_1, A_2, \cdots, A_N)\mapsto (A_2, A_3, \cdots, A_N, A_1)$$
+	\item The transposition $$\tau: (A_1, A_2, A_3, \cdots, A_N)\mapsto (A_2, A_1, A_3, \cdots, A_N)$$
+	\item The inversion map  $$\epsilon: (A_1, A_2, \cdots, A_N)\mapsto (A_1^{-1},A_2, \cdots, A_N)$$
+	\item The Dehn twist $$d: (A_1, A_2, \cdots, A_N)\mapsto (A_1A_2, A_2, \cdots, A_N)$$
+\end{enumerate}
+	We say $(A_1, \cdots, A_N)$ and $(A_1', \cdots, A_N')$ are \emph{conjugate} if there exists some $B$ such that $A_i=BA_i'B^{-1}$ for all $i$. 
+	
+	Now suppose that the set of $N$-tuples obtained from $(A_1, \cdots, A_N)$ by repeatedly applying $c, \tau, \epsilon$, and $d$ only intersect finitely many conjugacy classes of $N$-tuples
+	$(A_1, \cdots, A_N)$. 
+	If $r<\sqrt{g+1}$,
+	\autoref{corollary:free-groups} implies that $A_1, \ldots, A_N$ generate a finite subgroup of $\on{GL}_r(\mathbb{C})$. 
+\end{remark}
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{remark:}
+\source{canonical-representations-surface-groups}
+	Similarly to \autoref{remark:explicit-free}, one could make
+	\autoref{theorem:finite-image} explicit, using any one of the known
+	generating sets of $\on{Mod}_{g,n}$, but the formulas are a bit more
+	involved, as in \cite[\S6]{CH:isomonodromic}. It would in our view be of great interest to find a \emph{proof} of \autoref{theorem:finite-image} or \autoref{corollary:free-groups} of a similarly explicit nature.
+\end{remark}
+	
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+A result analogous to \autoref{corollary:free-groups} follows immediately for
+characteristic quotients of free or surface groups. For example, let $G$ be a
+characteristic quotient of a free group $F_N$ on $N=2g$ or $N=2g+1$ generators,
+and $\rho: G\to \on{GL}_r(\mathbb{C})$ a representation whose conjugacy class has finite orbit under $\on{Out}(G)$. If $r<\sqrt{g+1}$, then $\rho$ has finite image by \autoref{corollary:free-groups}.
+\end{remark}
+
+
+\subsection{Cohomological results}
+\label{subsection:cohomological}
+\source{canonical-representations-surface-groups}
+One of the new technical inputs we use to achieve \autoref{theorem:finite-image} is
+an analysis of the cohomology of unitary local systems on families of curves.
+Our main result, which follows from an analysis of the derivative of the period
+map associated to the mixed Hodge structure on the cohomology of unitary local
+systems, is the following.
+We adapt notation described later in \autoref{notation:versal-family}.
+\begin{theorem}
+\source{canonical-representations-surface-groups}
+\notready\label{theorem:rank-bound-subsystem}
+\source{canonical-representations-surface-groups}
+Let $\pi:\mathscr{C}\to \mathscr{M}$ be a smooth proper family of $n$-pointed
+curves of genus $g$ with geometrically connected fibers, so that the associated
+map $\mathscr{M}\to \mathscr{M}_{g,n}$ is dominant \'etale. Let $\pi^\circ:
+\mathscr{C}^\circ\to \mathscr{M}$ be the associated family of punctured curves.
+Let $\mathbb{V}$ be a unitary local system on $\mathscr{C}^\circ$. Then any
+nonzero sub-local system of $R^1\pi_*^\circ \mathbb{V}$ has rank at least $2g-2\rk\mathbb{V}$. 	
+\end{theorem}
+We prove this in \autoref{subsection:rank-bound-proof}, and give a related cohomological vanishing theorem with milder unitarity hypotheses in \autoref{theorem:unitary-rigid}.
+Note that \autoref{theorem:rank-bound-subsystem} shows that $H^0(\mathscr{M}, R^1\pi_*^\circ \mathbb{V})=0$ if
+$g>\on{rk}\mathbb{V}$. 
+This result is used several times in the proof of
+\autoref{theorem:finite-image}, as described in
+\autoref{subsection:outline-of-proof}.
+It is especially interesting when $\mathbb{V}$ has finite monodromy, where it is closely related to the Putman-Wieland conjecture, as described
+above in \autoref{subsection:intro-putman-wieland} and in more detail in \autoref{section:Putman-Wieland}.
+
+
+\subsection{Prior work}
+\label{subsection:prior-work}
+\source{canonical-representations-surface-groups}
+\subsubsection{MCG-finite representations and Painlev\'e VI}
+\label{subsubsection:prior-mcg-finite}
+\source{canonical-representations-surface-groups}
+As mentioned in \autoref{subsection:overview}, there has been a huge amount of effort put forth towards classifying algebraic solutions to the Painlev\'e VI equation, arguably beginning with work of Riemann \cite{riemann1857beitrage} and Schwarz \cite{schwarz1873ueber}
+and culminating in the classification \cite{lisovyy2014algebraic}. 
+Calligaris-Mazzocco \cite{calligaris2018finite} classified algebraic
+solutions satisfying several conditions in the case $g=0, n=5, r=2$, but the complete classification in
+this case remains open. See also \cite{michel-hurwitz} for a related result in the genus zero case, when the local monodromy matrices are given by reflections; this appears to be the first result showing that MCG-finite representations (satisfying certain conditions) have finite image.
+
+For all the work invested in the algebraic solutions to Painlev\'e VI, this only
+addresses the case of classifying  MCG-finite representations with $g = 0, n = 4,
+r = 2$, and trivial determinant, as explained in \cite{lisovyy2014algebraic}.
+In higher genus, all work that we know of has been on the case of
+$2$-dimensional representations.
+The beautiful paper \cite{biswas2017surface} handles the $2$-dimensional case ($r = 2, g \geq 1, n \geq 0$) with trivial
+determinant.
+The non-semisimple case $r = 2, g \geq 1, n \geq 0$ with arbitrary determinant
+is explained in \cite[Theorem B]{CH:isomonodromic}.
+These results appear to depend crucially on the assumption $r=2$.
+%Note that any representation with finite image is MCG-finite, and in fact
+%when $g \geq 2$ and $r = 2$, all such representations were shown to have finite
+%image.
+
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{remark:}
+\source{canonical-representations-surface-groups}
+	The above-mentioned results in rank $2$ led Junho Peter Whang to ask whether, for $g\gg r$, all MCG-finite rank $r$ representations of $\Sigma_{g,n}$
+have finite image \cite[Question 1.5.3]{lawrence2019representations}.
+More generally, motivated by the $p$-curvature conjecture, Mark Kisin asked whether MCG-finite representations
+necessarily have finite image,
+see \cite[p. 3]{biswas2017surface} and \cite[p. 1]{sinz:thesis}. (Note that
+counterexamples are known in general, see ~\cite[Theorem
+5.1]{biswas2018representations} for counterexamples coming from TQFT techniques or 
+\cite[Example 3.3.1]{lawrence2019representations} for counterexamples coming
+from the Kodaira-Parshin trick, as well as
+\autoref{question:bounds} of this paper.)
+In this way, \autoref{theorem:finite-image} answers Whang's question
+affirmatively, and provides a positive answer to Kisin's question in the regime
+$g > r^2-1$.
+\end{remark}
+
+There has also been much work put towards finding interesting \emph{examples} of MCG-finite representations, notably \cite{doran:isomonodromic, diarra2013construction, girand:a-new-two-parameter-family, diarra2015ramified, girand2016algebraic}. 
+
+In a more arithmetic direction, \cite{bourgainGS:announcement} 
+announced striking results on strong approximation for Markoff triples, obtained by analyzing the
+arithmetic properties of subvarieties of the character variety parametrizing $2$-dimensional
+representations of $\pi_1(\Sigma_{1,1})$.
+The first step in their analysis is to determine the finite orbits of the
+mapping class group action on this character variety \cite[last paragraph of p.
+132]{bourgainGS:announcement}.
+In this way, our \autoref{theorem:finite-image} can be viewed as a necessary
+first step 
+toward attempting to generalize their approach to 
+higher rank, higher genus character
+varieties.
+
+\subsubsection{MCG-finite representations and geometric topology}
+
+In the world of low-dimensional topology a number of authors have studied the
+dynamics of mapping class group actions on character varieties; finite orbits
+are the same as semisimple MCG-finite representations. Kasahara
+\cite{kasahara2015visualization} relates fixed points of this action
+corresponding to faithful representations to the well-known question of
+linearity of the mapping class group. Goldman and many other authors have
+studied ergodicity of these actions, see \cite{goldmanmapping} and the
+references therein. Previte-Xia \cite{previte2000topological,
+previte2002topological} study the relationship between density of the image of
+an $SU(2)$-representation and density of its mapping class group orbit. In some
+sense our main result is a partial answer to \cite[Question
+2.7]{goldmanmapping}, which asks for necessary and sufficient conditions for a
+representation to have dense orbit under the mapping class group. We
+characterize the most extreme possible failure of density, namely the case of
+finite orbit.
+
+There are also a number of related results on representations of the mapping class group.
+Farb, Lubotzky, and Minsky \cite[Theorem 1.6]{farbLM:rank-1-phenomena} show there are no faithful linear
+representations of finite index subgroups of $\on{Mod}_{g,0}$ of dimension $< 2 \sqrt{g-1}$. See \autoref{remark:FLM-rank-1-result} for a comparison of our results to theirs.
+See also
+\cite{franksH:triviality,korkmaz:low-dimensional-linear-representations,funar:two-questions, kielak-pierro}
+for bounds on the dimension of representations of 
+$\on{Mod}_{g,n}$, although these results only address representations of the full mapping
+class group, as opposed to representations of finite index subgroups.
+%There has also been significant work bounding the dimension of representations
+%of $\on{Mod}_{g,n}$ with infinite image.
+%Of course, there is a representation of dimension $2g$ where 
+%$\on{Mod}_{g,n}$ acts on $H_1(\Sigma_{g,n}, \mathbb C)$.
+%However, in 
+%\cite{franksH:triviality}, it is shown there any representation of 
+%$\on{Mod}_{g,n}$ of dimension $<2g$ is trivial.
+%This was also proven in \cite{korkmaz:low-dimensional-linear-representations}
+%and improves the weaker bound from \cite{funar:two-questions}.
+%However, the above results only address representations of the full mapping
+%class group, whereas we are investigating properties of finite index subgroups
+%of the mapping class group, which tend to be much more subtle.
+
+
+
+\subsubsection{The Putman-Wieland conjecture} The other main contribution of
+\label{subsubsection:prior-putman-wieland}
+\source{canonical-representations-surface-groups}
+this paper, towards the Putman-Wieland conjecture, has a number of precursors,
+notably \cite{looijenga:prym-representations,grunewald2015arithmetic, looijenga2021arithmetic}.
+Our Hodge-theoretic approach is related to an approach suggested by Looijenga \cite{looiejenga:AG}. 
+The strongest previous result towards the Putman-Wieland conjecture is perhaps 
+the main result of \cite{grunewald2015arithmetic}, which says that for certain quotients of $\pi_1(\Sigma_g)$, 
+called \emph{$\phi$-redundant} quotients,
+much more than the Putman-Wieland conjecture is true --- the monodromy representations considered by the conjecture have very large image, commensurable with an arithmetic group. There has also been interesting recent work related to the Putman-Wieland conjecture by Markovi\'c and Markovi\'c-To\u{s}i\'c \cite{markovic, markovic2}.
+
+The analogue of the Putman-Wieland conjecture for graphs, as opposed to surfaces, has been proven by Farb and Hensel \cite{farb2017moving}.
+
+
+\subsection{Outline of the proof}\label{subsection:outline-of-proof}
+\source{canonical-representations-surface-groups}
+We now sketch the proof of \autoref{theorem:finite-image}, which is loosely inspired by Katz's proof of the $p$-curvature conjecture for the Gauss-Manin connection \cite{katz:pcurvature-and-hodge}.
+Following this, we sketch the proof of the vanishing results we use (\autoref{theorem:rank-bound-subsystem} and its consequence \autoref{theorem:unitary-rigid}) in
+\autoref{subsubsection:rigidity-idea}, which are used in different ways in each of the three steps listed below of the proof of \autoref{theorem:finite-image}.
+A schematic diagram outlining the main elements of the proof is depicted in
+\autoref{figure:proof-schematic}.
+
+\begin{figure}
+	\centering
+\adjustbox{scale=.75,center}{
+   \begin{tikzcd}[column sep = 2.3em]
+	\qquad &&
+\text{Lem.}~\ref{lemma:gl-defined-over-number-field} \ar{d}&
+  \text{Lem.}~\ref{lemma:defined-over-number-field} \ar{l} \\
+%5
+  \qquad &&
+  \underbrace{\text{Prop.}~\ref{proposition:unitary-implies-finite}}_{\text{Unitary
+  case}}
+  \ar{dl}{\text{\cite[Non-abelian Hodge theory]{mochizuki2006kobayashi}}} 
+  \ar[swap]{dl}{\text{\cite[Isomonodromy]{LL:geometric-local-systems}}}  &
+  \text{Prop.}~\ref{proposition:cohomologically-rigid} 
+  \ar{l}{\text{\cite{mochizuki2006kobayashi}}} 
+  \ar[swap]{l}{\text{\cite{LL:geometric-local-systems}}}
+  \ar[swap]{u}{\text{\cite[Langlands]{esnault2018cohomologically, klevdalP:g-rigid-local-systems-are-integral}}} &
+  \text{Prop.}~\ref{proposition:generic-parabolic-global-generation} \ar{d} \\
+%6
+  \text{Thm.}~\ref{theorem:finite-image} &
+  \underbrace{\text{Thm.}~\ref{theorem:finite-image-semisimple}}_{\text{Semisimple
+  case}}\ar{l}&
+  \text{Lem.}~\ref{lemma:global-rigidity} \ar{l} &
+  \underbrace{\text{Thm.}~\ref{theorem:unitary-rigid}}_{\text{Cohomological
+  vanishing}} \ar{l} \ar{u}&
+  \text{Prop.}~\ref{proposition:pairing-result} \ar{dl}{\text{Mixed Hodge
+  theory and \cite{mehta1980moduli}}} \\
+%7
+  \qquad & \text{Lem.}~\ref{lemma:semisimplicity} \ar{ul}&
+  \underbrace{\text{Thm.}~\ref{theorem:asymptotic-putman-wieland}}_{\text{Putman-Wieland}} \ar{l}&
+	  \underbrace{\text{Thm.}~\ref{theorem:rank-bound-subsystem}}_{\text{Cohomological
+	  rank bound}}\ar{l} \ar{u} 
+	  &
+	  \underbrace{\text{Thm.}~\ref{theorem:period-map-computation}}_{\text{Period map}}
+	  \ar{l}
+	  \end{tikzcd}
+}
+\caption{
+A diagram depicting the structure of the proof of
+the main result,
+\autoref{theorem:finite-image}, in the shape of a boat.}
+\label{figure:proof-schematic}
+\source{canonical-representations-surface-groups}
+\end{figure}
+
+
+\subsubsection{Step 1. The unitary case.} 
+\label{subsubsection:step-1}
+\source{canonical-representations-surface-groups}
+Every unitary representation is a direct sum of irreducible unitary representations.
+Therefore, we suppose $\rho$ is unitary, irreducible, and MCG-finite, 
+with $\rk\rho<\sqrt{g+1}$. We construct from $\rho$ a finite
+\'etale cover $\mathscr{M}$ of $\mathscr{M}_{g,n}$, with associated family of
+punctured curves $\pi^\circ:\mathscr{C}^\circ\to \mathscr{M}$, and a projective unitary local
+system $\mathbb{V}$ on $\mathscr{C}^\circ$ whose restriction to a fiber
+$C^\circ$ of
+$\pi^\circ$ has monodromy given by $\rho$. 
+Applying \autoref{proposition:cohomologically-rigid}, (which is a fairly 
+straightforward consequence of our cohomological vanishing result,
+\autoref{theorem:unitary-rigid}, applied to $\on{ad}\mathbb{V}$), 
+shows that $\mathbb{V}$ is cohomologically rigid. 
+%Note that this only requires the restriction of $\mathbb V$ to a fiber of $\pi$
+%to be unitary.
+The main result of \cite{klevdalP:g-rigid-local-systems-are-integral} then gives that $\rho$ is defined over the ring of integers $\mathscr{O}_K$ of some number field $K$.
+Moreover, using \autoref{proposition:gl-lift},
+by replacing $\mathscr M$ by a dominant \'etale scheme over it, along which
+certain cohomological lifting obstructions vanish, we can assume
+$\mathbb V$ lifts from a projective local system to a bona fide local system.
+%riga
+
+By compactness of the unitary group and discreteness of $\mathscr{O}_K$, it
+suffices to show that for each embedding $\iota:
+\mathscr{O}_K\hookrightarrow\mathbb{C}$, $\rho\otimes_{\mathscr{O}_K, \iota}
+\mathbb{C}$ is unitary. (We know this unitarity for one such $\iota$ by assumption, but not
+the others.) The rigidity of $\mathbb{V}$ implies by non-abelian Hodge theory
+that these $\rho\otimes_{\mathscr{O}_K, \iota} \mathbb{C}$ underlie complex polarizable variations of Hodge structure for any complex structure on $\Sigma_{g,n}$. 
+Hence, given their low rank, these local systems are unitary by \cite[Theorem
+1.2.12]{LL:geometric-local-systems}.
+
+\subsubsection{Step 2. The semisimple case.} 
+\label{subsubsection:step-2}
+\source{canonical-representations-surface-groups}
+Now suppose $\rho$ is an arbitrary
+semisimple, MCG-finite representation with $\rk\rho<\sqrt{g+1}$. Again, we
+associate to $\rho$ a local system $\mathbb{V}$ on a family of curves
+$\pi^\circ:\mathscr{C}^\circ\to \mathscr{M}$, so that $\mathscr M$ has a
+dominant \'etale map to $\mathscr M_{g,n}$ and whose fibral monodromy is given by $\rho$.
+By non-abelian Hodge theory, we may deform $\mathbb{V}$ to a local system
+$\mathbb V_0$ underlying a complex polarizable
+variation of Hodge structure. By
+\cite[Theorem 1.2.12]{LL:geometric-local-systems}, $\mathbb{V}_0$ has unitary monodromy when
+restricted to a fiber of $\pi^\circ$. By the unitary case,
+\autoref{subsubsection:step-1},
+$\mathbb{V}_0$ thus has finite monodromy when restricted to a fiber of $\pi^{\circ}$. Note that even if $n=0$, i.e.~$\pi^\circ$ is proper, we here need to use non-abelian Hodge theory for non-proper varieties, as the total space $\mathscr{C}^\circ$ will not be proper.
+
+It remains to argue that the restriction $\mathbb V_0|_{C^\circ}$ of
+$\mathbb V_0$ to a fiber $C^\circ$ of
+$\pi^\circ$ agrees with the restriction $\mathbb V|_{C^\circ}$,
+corresponding to $\rho$.
+Recall that 
+$\mathbb V_0$ and $\mathbb V$ were only deformation equivalent, so it may be
+surprising that they necessarily restrict to the same local system on fibers.
+We verify this agreement 
+in \autoref{lemma:global-rigidity}
+through another application of
+\autoref{theorem:unitary-rigid}, which 
+which tells us that since the fibral monodromy $\mathbb{V}_0|_{C^\circ}$ 
+is unitary of low rank, it
+does not admit non-trivial MCG-finite deformations. 
+
+Note that $\mathbb{V}_0$ may not a priori be unitary; we only know that $\mathbb V_0|_{C^\circ}$ is unitary. In particular, it is not clear whether $\mathbb{V}_0$ is necessarily cohomologically rigid.
+
+\subsubsection{Step 3. The general case} 
+\label{subsubsection:step-3}
+\source{canonical-representations-surface-groups}
+The crucial input for dealing with
+non-semisimple representations is our work towards the
+Putman-Wieland conjecture. By the above it is enough to show that low-rank
+MCG-finite representations are semisimple, i.e.~we wish to verify that certain
+extensions split. 
+For simplicity, let's suppose for the purpose of this sketch that $\rho$ is an extension of two irreducible MCG-finite representations
+$\rho_1$ and $\rho_2$. 
+By the previous step, $\rho_1$ and $\rho_2$ have finite monodromy, so after
+passing to a finite cover $\Sigma_{g',n'}$ of $\Sigma_{g,n}$, we may assume
+$\rho_1$ and $\rho_2$ have trivial monodromy.
+The splitting of this extension of $\rho_2$ by $\rho_1$ corresponds to the vanishing of a certain
+element in $\on{Ext}^1_{\pi_1(\Sigma_{g',n'})}(\rho_1, \rho_2)$.
+Because we arranged that $\rho_1$ and $\rho_2$ have trivial monodromy
+on $\pi_1(\Sigma_{g',n'})$, the above extension class corresponds to a map
+$\pi_1(\Sigma_{g',n'}) \to \rho_1^\vee \otimes \rho_2$, with unipotent abelian
+image. Hence, it factors through $H_1(\Sigma_{g',n'})$,
+and so defines a low rank subspace of $H^1(\Sigma_{g',n'})$, stable under a
+finite index subgroup of $\on{Mod}_{g,n+1}$.
+We verify in \autoref{lemma:semisimplicity}, 
+using our main result toward the Putman-Wieland conjecture,
+\autoref{theorem:asymptotic-putman-wieland},
+that such a subspace cannot exist. Theorem \autoref{theorem:asymptotic-putman-wieland} itself follows more or less immediately from \autoref{theorem:rank-bound-subsystem}.
+
+%It remains to explain the proof of 
+%\autoref{theorem:asymptotic-putman-wieland}.
+%From the above data, one can construct a family of punctured curves $\mathscr C^\circ$ over $\mathscr M$,
+%for $\mathscr M$ a scheme with a dominant \'etale map to $\mathscr M_{g,n}$.
+%Moreover, one obtains finite, (hence unitary,) local systems $\mathbb U_\sigma$ on $\mathscr C^\circ$, for $\sigma$ varying over the
+%irreducible representations of the Galois group of the cover $\Sigma_{g',n'} \to
+%\Sigma_{g,n}$.
+%Then, the low rank subspace of $H^1(\Sigma_{g',n'})$ above yields a low rank
+%sub-local system of $R^1 \pi^\circ_* \mathbb U_\sigma$, which contradicts 
+%\autoref{theorem:rank-bound-subsystem}.
+%their failure to do so would yield low-rank sub-local
+%systems of $R^1\pi_*^\circ\mathbb{V}$ for $\pi^\circ: \mathscr{C}^\circ\to
+%\mathscr{M}$ as above, for some $\mathbb{V}$ with finite monodromy. 
+%This contradicts
+%\autoref{theorem:rank-bound-subsystem}.
+
+\subsubsection{The proof of our cohomological vanishing results}
+\label{subsubsection:rigidity-idea}
+\source{canonical-representations-surface-groups}
+Note that we used \autoref{theorem:rank-bound-subsystem}, or its immediate consequence,
+\autoref{theorem:unitary-rigid},
+in every step above.
+Before explaining the idea of the proof of these results, let us recall the
+setting. We begin with a scheme $\mathscr M$ with a dominant \'etale map
+$\mathscr M \to \mathscr M_{g,n}$.  We denote the associated family of punctured curves by $\mathscr
+C^\circ \to \mathscr M$. We are given a local system $\mathbb V$ on $\mathscr C^\circ$.
+\autoref{theorem:rank-bound-subsystem} says that if $\mathbb{V}$ is unitary,
+there are no sub-local systems of $R^1 \pi^\circ_* \mathbb V$ of low rank (that is, rank less
+than $2g - 2\rk \mathbb V$).
+Let $C^\circ$ be a fiber of $\pi^\circ$.
+%Now, let $m \in \mathscr M$ be a point and $C^\circ := \mathscr C^\circ_m$
+%denote a fiber of $\pi^\circ$.
+We deduce \autoref{theorem:unitary-rigid}, which says that when $\mathbb
+V|_{C^\circ}$
+is unitary and has low rank (less than $g$), then $R^1 \pi^\circ_* \mathbb V$ has no global sections.
+The benefit of \autoref{theorem:unitary-rigid} is that we only need check
+unitarity on fibers, but the cost is that we are only able to rule out global
+sections, i.e. trivial sub-local systems, instead of arbitrary low rank
+sub-local systems.
+
+First, we deduce \autoref{theorem:unitary-rigid} from
+\autoref{theorem:rank-bound-subsystem}.
+The idea is to use the assumption that
+$\mathbb V$ is unitary on fibers to
+reduce via \autoref{lemma:unitary-direct-sum} to the case that $\mathbb V$ is a
+tensor product $\mathbb U \otimes (\pi^\circ)^* \mathbb W$, with $\mathbb{U}$ unitary. 
+A nonzero global section of $R^1\pi^\circ_*(\mathbb U \otimes (\pi^\circ)^* \mathbb W)=(R^1\pi^\circ_*\mathbb{U})\otimes \mathbb{W}$ yields a nonzero map $\mathbb W^\vee \to R^1 \pi^\circ_* \mathbb U$, and hence a
+low rank sub-local system of $R^1 \pi^\circ_* \mathbb U$, contradicting 
+\autoref{theorem:rank-bound-subsystem}.
+
+The proof of
+\autoref{theorem:rank-bound-subsystem} boils down to an analysis of the derivative of the period map associated to the complex variation of mixed Hodge structure on $R^1\pi^\circ_*\mathbb{V}$, for $\mathbb{V}$ unitary.
+%The proof is based on an analysis of
+%derivatives of period maps associated to the mixed Hodge structure on the
+%cohomology of unitary local systems. 
+%If we had a low rank sub-local system of $R^1 \pi^\circ_* \mathbb V$,
+%we would, in particular, obtain such a sub-local system over a first order
+%neighborhood of any point $m \in \mathscr M$.
+%More precisely, let $C^\circ$ is the fiber of $\pi^\circ$ over $m$ and $C$ is the corresponding
+%proper curve, so that $C^\circ = C - D$, let $E$ denote the Deligne canonical extension to $C$ of the vector bundle
+%$\mathbb V|_{C^\circ} \otimes \mathscr O_{C^\circ}$.
+%Then, a sub-local system as above would yield a subspace $H^1(C^\circ, \mathbb
+%V|_{C^\circ})$ which does not vary to first order over $\mathscr M$. 
+%Using mixed Hodge theory to analyze the associated period map
+%$\mu: H^0(C, E \otimes \omega_C(D)) \to H^1(C, E) \otimes \Omega_{\mathscr M}$,
+%we obtain an element $v \in H^0(C, E \otimes \omega_C(D))$ so that $\mu(v)$ has
+%low rank.
+We identify this derivative with a natural multiplication map $$H^0(E\otimes \omega_C(D))\otimes H^0(E^\vee\otimes \omega_C)\to H^0(\omega_C^{\otimes 2}(D))$$ in
+\autoref{theorem:period-map-computation}, where $C$ is the smooth projective compactification of $C^\circ$ with boundary $D$, and $E$ is the vector bundle on $C$ associated to $\mathbb{V}|_{C^\circ}$ by the Mehta-Seshadri correspondence \cite{mehta1980moduli}. By the theorem of the fixed part, the existence of a low rank sub-local system of $R^1\pi_*^\circ\mathbb{V}$ places restrictions on this map, which we rule out
+%We then show no such element $v$ can exist in \autoref{proposition:pairing-result}
+%by studying the pairing $(E \otimes \omega_C(D)) \otimes (E^\vee\otimes
+%\omega_C) \to \omega_C^{\otimes 2}(D)$ 
+%associated to the above multiplication map.
+ using vector bundle methods,
+as developed in \cite[\S6]{LL:geometric-local-systems},
+ultimately relying on Clifford's theorem for vector bundles.
+
+%\subsection{Structure of the paper}
+%\label{subsection:structure}
+%In \autoref{section:representation-preliminaries}, we describe some geometric
+%and representation-theoretic preliminaries for local systems on families of
+%curves, and a number of constructions we will use throughout the paper. In
+%\autoref{section:Hodge-theoretic-preliminaries}, we describe several results on
+%the mixed Hodge structure on the cohomology of a unitary local system, and we
+%recall the facts from non-abelian Hodge theory that we will use. In
+%\autoref{section:unitary-period-map}, we compute the derivative of the
+%associated period map (with proofs in \autoref{appendix}).
+%\autoref{section:vanishing} contains the proof of the main cohomological result, \autoref{theorem:rank-bound-subsystem}, and its consequences. We give applications to the Putman-Wieland conjecture in \autoref{section:Putman-Wieland}. The proof of the main result, \autoref{theorem:finite-image}, is given in \autoref{section:main-proof}. In \autoref{section:arithmetic-applications}, we give a number of arithmetic applications. Finally, \autoref{section:questions} contains several examples, questions, and conjectures motivated by our results.
+
+\subsection{Notation}
+\label{subsection:notation}
+\source{canonical-representations-surface-groups}
+Unless otherwise stated, we will work over the field of complex numbers $\mathbb{C}$. 
+In particular, we will lift this restriction in
+\autoref{section:arithmetic-applications}.
+
+\begin{notation}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{notation:versal-family}
+\source{canonical-representations-surface-groups}
+	We fix non-negative integers $(g,n)$ so that $n \geq 1$ if $g = 1$ and
+	$n \geq 3$ if $g = 0$, i.e., $\Sigma_{g,n}$ is hyperbolic.
+	Let $\mathscr{M}$ be a connected complex variety. A \emph{family
+	of $n$-pointed curves of genus $g$ over $\mathscr{M}$} is a smooth
+	proper morphism $\pi: \mathscr{C}\to \mathscr{M}$ of relative dimension one, with geometrically
+	connected genus $g$ fibers, equipped with $n$ sections $s_1,\cdots,
+	s_n: \mathscr{M}\to \mathscr{C}$ with disjoint images. Call such a family is \emph{versal} if the
+	induced map $\mathscr{M}\to \mathscr{M}_{g,n}$ is dominant and \'etale.
+	Here $\mathscr M_{g,n}$ denotes the Deligne-Mumford moduli stack of $n$-pointed genus
+	$g$ smooth proper curves with geometrically connected fibers.
+
+	If $\pi: \mathscr{C}\to \mathscr{M}$ is a family of $n$-pointed curves, we let
+	$\mathscr D := \coprod_{i=1}^n \on{im}(s_i)$ denote the images of
+	the sections, which is finite \'etale of degree $n$ over $\mathscr M$.
+	Also let
+	$\mathscr{C}^\circ:=\mathscr{C}\setminus \bigcup_i \on{im}(s_i)$,
+	let $j: \mathscr C^\circ \hookrightarrow \mathscr{C}$ be the natural
+	inclusion, and let $\pi^\circ := \pi \circ j : \mathscr C^\circ \to \mathscr	M$ denote the composition. We will refer to $\pi^\circ: \mathscr{C}^\circ\to \mathscr{M}$ as the \emph{associated family of punctured curves}. If $\pi^\circ$ arises as the family of punctured curves associated to a versal family of $n$-pointed curves, we will call it a \emph{punctured versal family}.
+	We will frequently use $m \in \mathscr M$ as a basepoint, and $c \in
+	\mathscr C^\circ$ as a basepoint with $\pi^\circ(c) = m$.
+	We use $C^\circ$ as notation to denote the fiber $(\pi^\circ)^{-1}(m) = \mathscr
+	C^\circ_m$.
+	\begin{equation}
+		\label{equation:}
+\source{canonical-representations-surface-groups}
+		\begin{tikzcd}
+			\mathscr C^\circ \ar {r}{j} \ar {rd}{\pi^\circ} &
+			\mathscr C \ar {d}{\pi} & \mathscr D \ar{l} \\
+			& \mathscr M \ar{ur}{s_1} \ar[bend
+			right=70,swap,ur,"s_n"]
+			\arrow[bend right = 60, ur, draw=none, "\ddots"]
+		 &
+		\end{tikzcd}
+	\end{equation}
+\end{notation}
+
+%\begin{notation}[Conventions on basepoints]
+%	\label{notation:basepoint}
+%	We will use the following conventions for basepoints.
+%We use $m$ for a basepoint of $\mathscr M$ and $c$ for a basepoint of $\mathscr
+%C^\circ$ lying over $m$.
+%Throughout we shall introduce auxiliary schemes
+%$\mathscr M', \mathscr M_i,\mathscr C'^\circ, \mathscr C_i^\circ$ 
+%with maps $\mathscr M' \to \mathscr M, \mathscr M_i \to \mathscr M, \mathscr
+%C'^\circ
+%\to \mathscr C, \mathscr C_i^\circ \to \mathscr C$
+%and similarly use $m', m_i, c', c_i$ for basepoints of these schemes.
+%We shall assume (adjusting $m$ and $c$ if necessary) that $m' \mapsto m, m_i
+%\mapsto m, c' \mapsto c, c_i\mapsto c$.
+%\end{notation}
+
+\begin{notation}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{notation:adjoint}
+\source{canonical-representations-surface-groups}
+	For $G$ an algebraic group with derived subgroup $G^{\on{der}}$ and
+corresponding Lie algebra $\mathfrak g^{\on{der}}$, we use
+$\on{Ad} : G \to \on{GL}(\mathfrak g^{\on{der}})$
+to denote the natural action of $G$ on $\mathfrak{g}^{\on{der}}$ by conjugation.
+Given a representation $\rho: \pi_1(X, x) \to G(\mathbb C)$, let $\on{ad}(\rho)
+:= \rho \circ \on{Ad}: \pi_1(X, x) \to \on{GL}(\mathfrak g^{\on{der}})$. 
+In particular, given
+$\rho : \pi_1(X, x) \to \on{GL}_r(\mathbb C)$ or 
+$\rho : \pi_1(X, x) \to \on{PGL}_r(\mathbb C)$
+we use $\on{ad}(\rho)$ to denote the composite map
+$\on{ad}(\rho) : \pi_1(X, x) \to \on{GL}(\mathfrak {pgl}_r(\mathbb C))$.
+Under the identification between local systems on a connected space and representations of the
+fundamental group, if $\mathbb W$ is a local system on $X$ corresponding to some representation $\rho$, 
+we use $\on{ad}\mathbb W$ to denote the local system corresponding to
+$\on{ad}\rho$.
+
+A representation $\pi_1(X,x)\to \on{GL}_r(\mathbb{C})$ is \emph{unitary} if its image has
+compact closure. 
+A complex local system is unitary if its monodromy representation is unitary. By
+an averaging argument, unitary representations are exactly those that preserve a positive-definite Hermitian form on $\mathbb{C}^n$, i.e.~they are conjugate to a representation that factors through the unitary group $\on{U}(n)$.
+\end{notation}
+
+\begin{notation}
+\source{canonical-representations-surface-groups}
+\notready
+For a pointed finite-type scheme or Deligne-Mumford stack $(X, x)$ over
+$\mathbb{C}$, we will use $\pi_1(X, x)$ to denote the topological fundamental group 
+ of the associated complex-analytic space or analytic stack.
+Similarly, for a local system $\Lambda$ on $X$, we use
+$H^i(X, \Lambda)$ to denote the singular cohomology of the associated complex-analytic space or stack, unless otherwise stated. We will use $\on{Mod}_{g,n}$ to denote the mapping class group of an orientable surface of genus $g$ with $n$ punctures, and $\on{PMod}_{g,n}=\pi_1(\mathscr{M}_{g,n})$ 
+(see \autoref{lemma:mgn-fundamental-group})
+to denote pure mapping class group, i.e.~the subgroup of $\on{Mod}_{g,n}$ of index $n!$ preserving the punctures pointwise.
+\end{notation}
+
+\subsection{Acknowledgements}
+
+We would like to thank H\'el\`ene Esnault
+for extremely helpful comments, and especially for finding and helping us correct a substantial gap in the original proof of \autoref{theorem:finite-image-semisimple}. We thank Andrew Putman for encouraging us in this project, and Ian Agol and Dawid Kielak for bringing the Putman-Wieland conjecture to our attention.
+We also thank an anonymous referee,
+Philip Boalch,
+Anand Deopurkar,
+Charles Doran,
+Benson Farb,
+Matt Kerr,
+Mark Kisin,
+Christian Klevdal,
+Joshua Lam,
+Brian Lawrence,
+Alexander Lubotzky,
+Vladimir Markovi\'c,
+Takuro Mochizuki,
+Stefan Patrikis,
+Alexander Petrov,
+Mihnea Popa,
+Will Sawin,
+Carlos Simpson,
+Andrew Snowden,
+Junho Peter Whang,
+Ben Wieland,
+Melanie Matchett Wood, 
+and Kang Zuo.
+Landesman was supported by the National Science Foundation under Award No. DMS-2102955 
+and Litt was supported by NSF grant DMS-2001196.
+This material is based upon work supported by the Swedish Research Council under grant no. 2016-06596 while the authors were in residence at Institut Mittag-Leffler in Djursholm, Sweden during the fall of 2021.

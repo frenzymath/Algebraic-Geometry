@@ -1,0 +1,495 @@
+% Source-derived chapter 06: Proof of \texorpdfstring{\cref{Thm:main}}{main theorem}
+% Original source: pixtons-formula-abel-jacobi-picard-stack
+\chapter{Proof of \texorpdfstring{\cref{Thm:main}}{main theorem}}
+\label{pixtons-formula-abel-jacobi-picard-stack-chapter-06}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+\begin{remark}[Source section]
+\label{pixtons-formula-abel-jacobi-picard-stack-chapter-06-source}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Proof of \texorpdfstring{\cref{Thm:main}}{main theorem}
+\label{sec:proof_of_main_theorem}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\subsection{Overview} \label{sec:proof_of_main_theorem_overview}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+We prove here the main result of the paper:
+for $A=(a_1,\ldots,a_n)\in \mathbb{Z}^n$  satisfying $$\sum_{i=1}^n a_i=d\, ,$$
+the universal twisted double ramification cycle is calculated by Pixton's formula
+$$\mathsf{DR}^{\mathsf{op}}_{g,A} =\P_{g,A,d}^g\
+\in {\mathsf{CH}}^g_{\mathsf{op}}(\Picabs_{g,n,d})\, .$$
+
+
+
+The result is an equality in the operational Chow group, and therefore
+an equality on every finite type family of prestable curves. Given $C\to B$ a prestable curve and a line bundle $\ca L$ on $C$ of relative degree $d$, we obtain
+a map $$\phi_{\ca L}\colon B \to \Picabs_{g,n,d}\, .$$
+We must prove 
+\begin{equation}\label{eq:main_conj}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\DRop_{g,A}(\phi_{\ca L})= {\P_{g,A,d}^g}(\phi_{\ca L}) : \Chow_*(B) \to \Chow_{*-g}(B)\, .
+\end{equation} 
+
+
+
+As explained in \cref{sec:intro_deg_0},  the result for general $A \in \mathbb{Z}^n$ can be reduced  to the case $n=0, d=0$, though the case of arbitrary $A$ will be important in the proof as we proceed through a sequence of special cases. We recall that this reduction used the invariances \invnrn{} and \invnrA{} for the double ramification cycle and Pixton's formula. Note that these will be proved separately and independent of \cref{Thm:main} in \cref{Sect:proofInvariance}, so no circular reasoning occurs.  
+
+
+
+
+\subsection{On an open subset of $\Mbar_{g,n}(\mathbb{P}^l,\beta)$}\label{sec:projective_target}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+%for \texorpdfstring{$X=\mathbb{P}^l$}{X=PP\^{}l} and  \texorpdfstring{$\mathcal{L}=\ca O(1)$}{L=O(1)}}\label{sec:projective_target}
+
+
+\newcommand{\kk}{l}
+As before, let $A=(a_1,\ldots,a_n) \in \bb Z^n$ with $$\sum_{i=1}^n a_i=d\,.$$ 
+We consider here the target $X = \bb P^\kk$.
+Let $\beta$ be the class of $d$ times a line in $\bb P^\kk$. 
+Let 
+$$\ca C \to \Mbar_{g,n}(\mathbb{P}^l,\beta)$$
+be the universal curve over the moduli of stable maps to $\mathbb{P}^l$, let 
+$$f\colon \ca C \to \mathbb{P}^l$$ be the universal map, and 
+let $\ca L = f^*\ca O_X(1)$.
+
+
+We have a tautological map
+\begin{equation}
+\phi_{\ca L} \colon \Mbar_{g,n}(\mathbb{P}^l,\beta) \to \Picabs_{g,n,d}. 
+\end{equation}
+We would like to prove an equality of operational classes 
+$$\phi_{\ca L}^*\DRop_{g,A}=\phi_{\ca L}^*{\P_{g,A,d}^g}\, \in \mathsf{CH}_{\mathsf{op}}^g(\Mbar_{g,n}(\mathbb{P}^l,\beta))\, .$$
+We will apply  the main result of \cite{Janda2018Double-ramifica} which
+relates the double ramification cycle there to 
+Pixton's formula. However, 
+only the action of $\phi_{\ca L}^*{\P_{g,A,d}^g}$ on the
+virtual fundamental class
+$[ \Mbar_{g,n}(\mathbb{P}^l,\beta)]^\textup{vir}$ is computed in \cite{Janda2018Double-ramifica}. 
+Since we are interested here in the full operational class $\phi_{\ca L}^*{\P_{g,A,d}^g}$,
+our first idea is to restrict to the open locus 
+$$\Mbar_{g,n}(\mathbb{P}^l,\beta)' \hra \Mbar_{g,n}(\mathbb{P}^l,\beta)$$ 
+where (on each geometric fibre) we have $H^1(C, \ca L) = 0$. 
+
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:fun_eq_vfc}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+On the smooth Deligne-Mumford stack $\Mbar_{g,n}(\mathbb{P}^l,\beta)'$, the fundamental and virtual fundamental classes coincide. 
+\end{lemma}
+\begin{proof}
+It suffices to show that $H^1(C, f^*T_{\bb P^\kk}) = 0$ on $\Mbar_{g,n}(\mathbb{P}^l,\beta)'$. Pulling back the Euler exact sequence on $\bb P^\kk$ via $f$ yields 
+\begin{equation}
+0 \to \ca O_C \to \oplus_{1}^{\kk+1} f^*\ca O_{\bb P^\kk}(1) \to f^*T_{\bb P^\kk} \to 0\, .
+\end{equation}
+
+ Taking cohomology yields the exact sequence
+\begin{equation}
+\oplus_{1}^{\kk+1} H^1(C, f^*\ca O_{\bb P^\kk}(1)) \to H^1(C, f^*T_{\bb P^\kk}) \to H^2(C, \ca O_C)\, .
+\end{equation}
+But $H^1(C, f^*\ca O_{\bb P^\kk}(1)) = 0$ by assumption, and $H^2(C, \ca O_C) = 0$ for dimension reasons. %, so $H^1(C, f^*T_{\bb P^\kk}) = 0$ as required. 
+\end{proof}
+
+The next Lemma depends on a careful comparison of the logarithmic and rubber approaches to double ramification cycles, which will be postponed to Section \ref{sec:comparing_stacks}. 
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{cor:operational_equality_projective}\label{lem:projective_space_comparison}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let ${\phi'}_{\ca L}$ be the restriction of ${\phi}_{\ca L}$ to $\Mbar_{g,n}(\mathbb{P}^l,\beta)'$. We have an equality of operational classes 
+\begin{equation} \label{eqn:phiprimepullbackDR}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+{\phi'}_{\ca L}^*\DRop_{g,A}=
+{\phi'}_{\ca L}^*{\P_{g,A,d}^g}  \, \in \, \CHop^g(\Mbar_{g,n}(\mathbb{P}^l,\beta)')\, .
+\end{equation}
+\end{lemma}
+\begin{proof}
+
+By \cref{lem:op_eq_ch_for_smooth}, the two sides of  \eqref{eqn:phiprimepullbackDR} are equal if and only if their actions on the fundamental class $[\Mbar_{g,n}(\mathbb{P}^l,\beta)']$ are equal in $\Chow_*(\Mbar_{g,n}(\mathbb{P}^l,\beta)')$. 
+By  \eqref{eqn:pixton_vs_uni_pixton}, the action of the right side of \eqref{eqn:phiprimepullbackDR} on 
+$$[\Mbar_{g,n}(\mathbb{P}^l,\beta)']=[\Mbar_{g,n}(\mathbb{P}^l,\beta)']^\textup{vir}$$ 
+equals the restriction of $\DR_{g,A}(\mathbb{P}^l,\ca L)$ to 
+$\Mbar_{g,n}(\mathbb{P}^l,\beta)'$.
+
+The cycle $\DR_{g,A}(\mathbb{P}^l,\ca L)$
+is defined in \cite{Janda2018Double-ramifica} as the pushforward of the virtual fundamental class of the space of rubber maps{\footnote{Rubber maps will
+be discussed in \cref{sec:prestable_rubber_maps}.}}.  
+By \cref{prop:vfc_comparison_summary} of 
+\cref{sec:comparing_virtual_classes}, the restriction of
+$\DR_{g,A}(X,\ca L)$ to $\Mbar_{g,n}(\mathbb{P}^l,\beta)'$ is equal to ${\phi'}_{\ca L}^*\DRop_{g,A}( [\Mbar_{g,n}(\mathbb{P}^l,\beta)'])$. 
+
+\end{proof}
+
+
+
+
+
+\subsection{For sufficiently positive line bundles}\label{sec:positive_line_bundle}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+Let $\pi\colon C\to B$ be an $n$-pointed prestable curve over a scheme of finite type over ${\field}$. Let
+$\ca L$ on $C$ be a line bundle 
+of relative degree $d$. 
+Let $$A = (a_1,\ldots, a_n) \in\mathbb{Z}^n$$ with $\sum_{i=1}^n a_i = d$.  
+The line bundle $\ca L$ induces a map 
+$$\phi_{\ca L} \colon B \to \Picabs_{g,n,d}\, .$$
+
+We say $\ca L$ is \emph{relatively sufficiently positive} if $\ca L$ is relatively base-point free  and satisfies $R^1\pi_*\ca L = 0$. 
+
+
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{sec:very_ample}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let $\ca L$ be a line bundle which is relatively sufficiently positive. 
+Then we have an equality  
+\begin{equation}\label{eq:very_ample}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\DRop_{g,A}(\phi_{\ca L})=
+\P_{g,A,d}^g(\phi_{\ca L})  \colon \Chow_*(B) \to \Chow_{*-g}(B)\, .
+\end{equation}
+
+\end{lemma}
+\begin{proof}
+%By \cref{lem:check_equality_on_integral} we may and do assume that $B$ is integral. 
+
+For any finite-type scheme $B$ the union of irreducible components of $B$ maps properly and surjectively to $B$. Thus the pushforward from the Chow groups of the irreducible components to that of $B$ is surjective, and hence it suffices to show the equality \eqref{eq:very_ample} of maps of Chow groups for $B$ irreducible. 
+
+By relative sufficient positivity, 
+$$R\pi_*\ca L = \pi_*\ca L$$ 
+is a vector bundle on $B$ of rank $N$. 
+For a positive integer $l$, we define
+\begin{equation}\label{ppp12}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+E_l =\bigoplus_1^{l+1} R\pi_*\ca L \, , 
+\end{equation}
+a vector bundle on $B$ of rank $r=N(l+1)$. 
+Let $U_l \sub E_l$ denote the open locus of linear systems which are base-point free. Via pullback along $\psi\colon U_l \to B$, we obtain
+ a map $$\psi^*\colon \mathsf{CH}_*(B) \to \mathsf{CH}_{*+r}(U_l)\, .$$ 
+
+
+We claim that for $l>\dim B$, the pullback \eqref{ppp12}
+is injective. 
+To prove the injectivity, we show that the boundary $E_l \setminus U_l$ has codimension in $E_l$ greater than $\dim B$. Since $E_l \to B$ is flat with irreducible target, it suffices to bound the codimension  on each geometric fibre over $B$: for a  prestable curve $C/{\field}$ and a sufficiently
+positive line bundle $\ca L$ on $C$, we must show that the locus in $\bigoplus_1^{l+1} H^0(C, \ca L)$ consisting of base point free linear systems has 
+a complement of codimension 
+greater than $\dim B$. 
+
+Since $\ca L$ is base point free on $C$, the dimension of the locus in
+$\bigoplus_1^{l+1} H^0(C, \ca L)$ where the linear system has
+a base point at some given $p\in C$ is $(N-1)(l+1)$. Hence, as $p$ varies, the complement of the
+base point free locus in $\bigoplus_1^ {l+1} H^0(C, \ca L)$ has dimension at
+most $1 + (N-1)(l+1)$. So the codimension is at least
+$$ N(l+1) - 1 - (N-1)(l+1)  = l \, .$$
+
+
+We have a canonical map $g\colon C \times_B U_l \to \bb P^l$ with 
+$g^*\ca O_{\bb P^l}(1) = \ca L$ 
+which induces a map $$U_l \to \Mbar_{g,n}(\bb P^l,\beta)$$ which factors via the locus $$\Mbar_{g,n}(\bb P^l, \beta)' \subset \Mbar_{g,n}(\bb P^l, d)$$
+where $H^1(C, f^*\ca O_{\bb P^l}(1)) = 0$. 
+By construction, the composition $$U_l \xrightarrow{\psi} B \xrightarrow{\phi_{\ca L}} \Picabs_{g,n,d}$$ then factors through the map $ \Mbar_{g,n}(\bb P^l, \beta)' \to \Picabs_{g,n,d}$ induced by the line bundle $f^*\ca O_{\mathbb{P}^l}(1)$ as before. In other words, we have a commutative diagram
+%\jocomment{Might the following diagram be helpful to see what is going on:}
+\[
+\begin{tikzcd}
+U_l \arrow[r] \arrow[d,"\psi"]& \Mbar_{g,n}(\bb P^l, \beta)' \arrow[d,"\phi_{f^*\ca O_{\mathbb{P}^l}(1)}"]\\
+B \arrow[r,"\phi_{\ca L}"] & \Picabs_{g,n,d}\, . 
+\end{tikzcd}
+\]
+
+
+\Cref{cor:operational_equality_projective} then implies that 
+\begin{equation}
+\left(\DRop_{g,A}-\P_{g,A,d}^g \right)(\phi_{\ca L}\circ \psi)\colon \Chow_*(U_l) \to \Chow_{* - g}(U_l)
+\end{equation}
+is the zero map, and we conclude the proof of the Lemma from the commutative diagram
+\begin{equation}
+ \begin{tikzcd}
+  \Chow_{*+r}(U) \arrow[rrrr, "\left(\DRop_{g,A}-\P_{g,A,d}^g \right)(\phi_{\ca L}\circ \psi)"]&& && \Chow_{* + r-g}(U)\\
+  \Chow_*(B) \arrow[rrrr, "\left(\DRop_{g,A}-\P_{g,A,d}^g\right)(\phi_{\ca L})"] \arrow[u,"\psi^*",hookrightarrow]& &&&\Chow_{* - g}(B) \arrow[u,"\psi^*",hookrightarrow]\, . 
+\end{tikzcd}
+\end{equation}
+
+\end{proof}
+
+
+
+\subsection{With sufficiently many sections}\label{sec:many_markings}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+Let $\pi\colon C\to B$ be an $n$-pointed prestable curve 
+with markings $p_1,\ldots, p_n$
+over a scheme of finite type over ${\field}$. Let
+$\ca L$ on $C$ be a line bundle 
+of relative degree $d$. 
+Let $$A = (a_1,\ldots, a_n) \in\mathbb{Z}^n$$ with $\sum_{i=1}^n a_i = d$.  
+The line bundle $\ca L$ induces a map 
+$$\phi_{\ca L} \colon B \to \Picabs_{g,n,d}\, .$$
+
+
+
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready\label{lem:many_markings}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+For every geometric fibre of $C/B$, suppose the
+complement of the union of irreducible components which carry markings
+is a disjoint union of trees of nonsingular
+rational curves on which $\ca L$ is trivial. Then we have an equality 
+\begin{equation}\DRop_{g,A}(\phi_{\ca L})=
+\P_{g,A,d}^g(\phi_{\ca L}) \colon \Chow_*(B) \to \Chow_{*-g}(B)\, .
+\end{equation}
+%$\phi_{\ca L}^*{Pixton}^{g, r=0} = \phi_{\ca L}^*\DRop$ 
+\end{lemma}
+
+\begin{proof}
+We can choose $A' = (a'_1,\dots, a'_n)$ with entries 
+$$a'_i \gg 0\, , \ \ \ \sum_{i=1}^na_i' =d'\, $$
+large enough so that $$\ca L' = \ca L\Big(\sum_{i=1}^n a'_ip_i\Big)$$
+is relatively sufficiently positive (by Riemann-Roch for singular curves). 
+
+We obtain an associated map 
+$$\phi_{{\ca L}'} \colon B \to \Picabs_{g,n,d+d'}\, .$$
+By \cref{sec:very_ample},
+\begin{equation} \label{eqn:DRPequalityL42} \DRop_{g,A+A'}(\phi_{{\ca L}'})=
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\P_{g,A+A',d+d'}^g(\phi_{{\ca L}'}) \colon \Chow_*(B) \to \Chow_{*-g}(B).
+\end{equation}
+% Since $\phi_{\ca L'} = \tau_{A'} \circ \phi_{\ca L}$ for the map
+% $$
+% \tau_{A'}\colon \Picabs_{g,n,d} \to \Picabs_{g,n,d+d'} 
+% $$
+% defined by twisting by $\ca O_C(\sum_{i=1}^n a_i' p_i)$ introduced in \cref{sec:varying_n_and_A}, we have by \cref{Lem:varying_A} and \cref{wwwsss}
+Invariance \invnrA{} of \cref{Sect:introinvariance} (proven
+in \cref{Sect:proofInvariance}) implies 
+\begin{align*}
+\DRop_{g,A+A'}(\phi_{{\ca L'}})
+%= \tau_{A'}^*\DRop_{g,A+A'} (\phi_{{\ca L}})
+&=\DRop_{g,A}(\phi_{{\ca L}})\, ,\\ \P^g_{g,A+A',d+d'}(\phi_{{\ca L'}})
+%= \tau_{A'}^*\P^g_{g,A+A',d+d'}(\phi_{{\ca L}})
+&=\P^g_{g,A,d}(\phi_{{\ca L}})\, ,     
+\end{align*} 
+which together with \eqref{eqn:DRPequalityL42} finishes the proof.
+\end{proof}
+
+\subsection{Proof in the general case}\label{sec:general_case}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+To conclude the proof of \cref{Thm:main},
+will use the invariances  of \cref{Sect:introinvariance}
+(proven in \cref{Sect:proofInvariance}). As discussed in \cref{sec:proof_of_main_theorem_overview}, we can reduce to showing the result in the case $n=0, d=0$.\footnote{In genus $g=1$, we  follow a slightly modified strategy since there we must avoid the case $n=0$ for technical reasons (see Remark \ref{Rmk:genus1n0}). Instead, we can use the invariances to reduce to the case $g=1$, $n=1$, and $A=(0)$. All the proofs below generalize in a straightforward way since the vector $A=(0)$ does not affect the line bundles involved.}
+
+
+
+Let $B$ be an irreducible scheme of finite type over ${\field}$.
+Let $\pi\colon C\to B$ a prestable curve, and let
+$\ca L$ on $C$ be a line bundle 
+of relative degree $0$. 
+The line bundle $\ca L$ induces a map 
+$$\phi_{\ca L} \colon B \to \Picabs_{g,0,0}\, .$$
+
+ \begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready There exists an \label{ALTt}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+ alteration{\footnote{An alteration here is a proper, surjective, generically finite morphism between irreducible schemes.}}
+ $B' \to B$ and a destabilisation
+ \begin{equation}\label{kk3355}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+ C' \to C \times_B B'
+ \end{equation}
+ such that $C'$ admits sections $p_1, \ldots, p_m$ and satisfies the
+ following property:
+ $$(C'/B', p_1, \ldots, p_m)$$ is a family of $m$-pointed prestable curves 
+ and 
+ for every geometric fibre of $C'/B'$,  the
+complement of the union of irreducible components which carry markings
+is a disjoint union of trees of nonsingular
+rational curves which are contracted by the morphism \eqref{kk3355}.
+
+\end{lemma}
+
+\begin{proof}
+We first claim, after an alteration %\{This alteration is actually a modification, i.e. birational. Is it clearer to say this? }\jocomment{} 
+$\widehat{B}\to B$,
+there exists a multisection\footnote{By a multisection of $C_{\widehat{B}}\to \widehat{B}$,
+we mean a closed substack $Z \subset C_{\widehat{B}}$ such that $Z \to \widehat{B}$ is finite and flat.} 
+$$Z \subset \, C_{\widehat{B}}=C\times_B \widehat{B}\,  \to \widehat{B}$$ satisfying the following
+two conditions:
+\begin{enumerate}[label=\roman*)]
+    \item[(i)] Over the generic point of $\widehat{B}$, $Z$ is contained in the smooth locus of $C_{\widehat{B}} \to \widehat{B}$.
+    \item[(ii)] Every component of every geometric fibre of $C_{\widehat{B}}\to \widehat{B}$  carries at least two  distinct \'etale multisection points in the smooth locus. In other words, the \'etale locus of $Z \to \widehat{B}$ meets the smooth locus of every component of every geometric fibre of $C_{\widehat{B}} \to \widehat{B}$ in at least two points.
+\end{enumerate}
+To prove the above claim, we observe that for every geometric point $b$ of $B$ there exists an \'etale map $U_p \to B$ and a factorisation $U_p \to C$ whose image meets
+the smooth locus of every irreducible component of every geometric fibre in some Zariski neighbourhood $V_b\sub B$ of $b$ at least twice. Choose a finite set of $b$ such that the $V_b$ cover $B$, define $U$ to be the union of the $U_b$, and define $Z'$ to be the closure of the image of $U$ in $C$.  Then $Z' \to B$ is proper and generically finite. 
+Let $$\widehat B \to B$$ 
+be a modification which flattens $Z'$ (see \cite{Raynaud-Gruson}), and let $Z$ be the strict transform of $Z'$ over $\widehat B$. Then $$Z \to \widehat B$$
+is proper, flat, and generically finite, and hence  finite -- so condition (i) is
+satisfied. Moreover, $U$ already satisfies condition (ii), and the strict transform of a flat map is just the fibre product, hence $Z$ also satisfies condition (ii). 
+
+Let $\widetilde B \to \widehat B$ be an alteration such that over $\widetilde B$ the multisection $Z$ becomes a disjoint union of sections. 
+In other words the pullback 
+$$C_{\widetilde{B}}= C \times_B \widetilde B \to \widetilde B$$
+has sections $\widetilde p_1, \ldots, \widetilde p_m$ such that, as a set, 
+the preimage of $Z$ is given by the union of the images of sections $\widetilde p_1, \ldots, \widetilde p_m$. Such a $\widetilde B$ exists{\footnote{The base $\widehat B$ is excellent since it is finite type over a field.}}
+by \cite[Lemma 5.6]{Jong1996Smoothness-semi}.
+We can assume that the sections $\widetilde p_i$ are pairwise disjoint over the generic point of $\widetilde B$.
+
+By assumption (i) above, the family $C_{\widetilde B} \to \widetilde B$ with sections $\widetilde p_1, \ldots, \widetilde p_m$ is generically a stable $m$-pointed curve (since 
+every component has at least \emph{two} of the sections). We therefore obtain
+a rational map $$\widetilde B \dashrightarrow \Mbar_{g,m}\, .$$
+Let $B' \to \widetilde B$ be a blow-up resolving the indeterminacy of this map\footnote{As usual, this blowup is constructed by taking the closure of the graph and flattening. Then we check that this ensures the existence of the map to $C_{B'}$ as written below.}
+
+\begin{equation}
+\begin{tikzcd}
+B' \arrow[d] \arrow[r] & \Mbar_{g,m} \\
+\widetilde B \arrow[ru, dashed]&
+\end{tikzcd}    
+\end{equation}
+ and let $C' \to B'$ with sections $p_1, \ldots, p_m : B' \to C'$
+ be the pullback of the universal curve over $\Mbar_{g,n}$ to $B'$. Let 
+ $$C_{B'} = C \times_B B'$$ 
+ be the pullback of $C/B$ under $B' \to \widetilde B \to \widehat B \to B$. Then we have a map $f: C' \to C_{B'}$ fitting in a commutative diagram
+ \begin{equation} \label{eqn:partstabilizationalteration}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+ \begin{tikzcd}
+ C' \arrow[rr,"f"] \arrow[rd] & & C_{B'} \arrow[ld]\\
+ & B' \arrow[ul,"p_i", bend left] \arrow[ur, "\widetilde p_i", bend right, swap] &
+ \end{tikzcd}
+ \end{equation}
+ such that $f$ is a partial destabilization. On geometric fibers of $C'\to B'$,
+ $f$ collapses trees of rational curves to either nodes or coincident
+  sections $\widetilde p_i$ on
+ %\jocomment{propose changing "markings of" to "sections $\widetilde p_i$ on" since the $\widetilde p_i$ are not really markings} 
+ the geometric fibers of $C_{B'}$.
+ 
+ To conclude, we must show that for every geometric point $b \in B'$ and every irreducible component $D \subset C'_b$ which is not contracted by $f$, we can 
+ find a marking 
+ $$p_i(b)\in D \, .$$ 
+ The image of $D$ under $f$ is a component of $(C_{B'})_b$.
+ By condition (ii) above, $f(D)$
+ has at least one $\widetilde p_i(b)$ in the smooth locus of $f(D)$
+ pairwise distinct from all other $\widetilde p_j(b)$.
+ Since there are no components of $C'_b$ which collapse to $\widetilde p_i(b)$, we
+ must have $p_i(b) \in D$.
+ \end{proof}
+ 
+
+
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready \label{Lem:DR_alteration_invar}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+We have %$\phi_{\ca L}^*{Pixton}^{g, r=0} = \phi_{\ca L}^*\DRop$. 
+$\DRop_{g,\emptyset}(\phi_{\ca L})=
+\P_{g,\emptyset,0}^g(\phi_{\ca L}) :\Chow_*(B) \to \Chow_{*-g}(B)$. 
+\end{lemma}
+\begin{proof}
+We apply Lemma \ref{ALTt} to the family $C/B$ to obtain
+$$h\colon B' \to B\, , \ \ \ \ C' \to C_{B'}\, .$$ 
+Let $\ca L'$ be the pullback of $\ca L$ to $C'$.
+After applying \cref{lem:many_markings} with $A = \bd 0 \in \mathbb{Z}^m$, we obtain
+\begin{equation}\label{eq:an_equality}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\DRop_{g,\bd 0}(\phi_{\ca L'})=\P_{g,\bd 0,d}^g(\phi_{\ca L'}):
+\Chow_*(B') \to \Chow_{*-g}(B')\, .
+\end{equation}
+
+
+Since $h$ is proper and surjective, for any $\alpha \in \Chow_*(B)$ there exists $\alpha'\in \Chow_*(B')$ satisfying $h_*\alpha'=\alpha$. If any operational class maps $\alpha'$ to $0$, then it maps $\alpha$ to $0$ because the operation 
+commutes with $h_*$. 
+% It therefore suffices to prove  
+% \begin{equation}
+% \left( \DRop_{g,\emptyset}-\P_{g,\emptyset,0}^g \right) (\phi_\ca L) \circ h_*
+% \end{equation}
+% is the zero map on $\Chow_*(B')$.
+
+% \jocomment{By the compatibilities of operational classes we have
+% \begin{equation*}
+% \left( \DRop_{g,\emptyset}-\P_{g,\emptyset,0}^g \right) (\phi_\ca L) \circ h_* = h_* \left( \DRop_{g,\emptyset}-\P_{g,\emptyset,0}^g \right) (\phi_\ca L \circ h)
+% \end{equation*}
+% and the proof below will in fact show $\left( \DRop_{g,\emptyset}-\P_{g,\emptyset,0}^g \right) (\phi_\ca L \circ h)$ since Invariance \invnrIV{} is a statement on equality of operational Chow classes on $B'$. I propose not to drag along these $h_*$ below this point.
+% }
+
+
+% By \eqref{eq:an_equality}, we need only show 
+% \begin{equation}\label{eq:pullback_Div}
+% \DRop_{g, \emptyset}(\phi_\ca L)\circ h_* = h_* \circ \DRop_{g,\bd 0}(\phi_{\ca L'})
+% :\Chow_*(B') \to \Chow_{*-g}(B),
+% \end{equation}
+% \begin{equation}\label{eq:pullback_pixton}
+% \P_{g,\emptyset, 0}^g(\phi_\ca L)\circ h_* = h_* \circ \P_{g,\bd 0, 0}^g(\phi_{\ca L'})
+% :\Chow_*(B') \to \Chow_{*-g}(B)
+% \, .
+% \end{equation}
+% First note that for the forgetful map $F : \Picabs_{g,n,0} \to \Picabs_{g,0,0}$ of the markings, we see
+% \[\DRop_{g,\bd 0}(\phi_{\ca L'}) = F^*\DRop_{g,\emptyset}(\phi_{\ca L'}) = \DRop_{g,\emptyset}(F \circ \phi_{\ca L'})  \]
+% by \cref{Lem:DR_forget_pullback} and similarly
+% \[
+% \P_{g,\bd 0, 0}^g(\phi_{\ca L'}) = F^*\P_{g,\emptyset, 0}^g(\phi_{\ca L'}) = \P_{g,\emptyset, 0}^g(F \circ \phi_{\ca L'})
+% \]
+% by \cref{wwwrrr}. 
+
+
+
+% \Rcomment{Rewrite without using the forward reference to Sec 7!}
+% Second, we use Invariance \invnrIV{}. Indeed, in the notation of \cref{sec:proof_inv_IV} we define a map $\psi\colon B' \to \frak N$ using the data $C' \to C\times_B B'$, $\ca L$. Then $F \circ \phi_{\ca L'} = \sourcemap \circ \psi$ and $\phi_\ca L \circ h = \targetmap \circ \psi$ (where $\targetmap$ and $\sourcemap$ are the maps defined in \cref{sec:proof_inv_IV}), so the equalities  \eqref{eq:pullback_pixton} and \eqref{eq:pullback_Div} follow from \cref{lem:N_invariance_P,lem:N_invariance_DR} respectively.
+
+% \jocomment{To avoid forward references, we need to add to the statement of Invariance \invnrIV{} in \cref{Sect:introinvariance} explicitly the statement of invariance for Pixton's formula (the logic of our proof here requires independently the invariance of $\DRop$ and $\P$). Below is my proposal for the entire end of the proof starting with (75).
+% }
+
+It therefore suffices to prove  
+\begin{equation}
+\left( \DRop_{g,\emptyset}-\P_{g,\emptyset,0}^g \right) (\phi_\ca L) \circ h_*
+\end{equation}
+is the zero map on $\Chow_*(B')$. By the compatibilities of operational classes we have
+\begin{equation*}
+\left( \DRop_{g,\emptyset}-\P_{g,\emptyset,0}^g \right) (\phi_\ca L) \circ h_* = h_* \left( \DRop_{g,\emptyset}-\P_{g,\emptyset,0}^g \right) (\phi_\ca L \circ h)
+\end{equation*}
+and the proof below will in fact show $\left( \DRop_{g,\emptyset}-\P_{g,\emptyset,0}^g \right) (\phi_\ca L \circ h)=0$. 
+
+
+
+By \eqref{eq:an_equality}, we need only show 
+\begin{equation}\label{eq:pullback_Div}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\DRop_{g, \emptyset}(\phi_\ca L\circ h)  =  \DRop_{g,\bd 0}(\phi_{\ca L'})
+:\Chow_*(B') \to \Chow_{*-g}(B'),
+\end{equation}
+\begin{equation}\label{eq:pullback_pixton}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\P_{g,\emptyset, 0}^g(\phi_\ca L \circ h) = \P_{g,\bd 0, 0}^g(\phi_{\ca L'})
+:\Chow_*(B') \to \Chow_{*-g}(B')
+\, .
+\end{equation}
+For the map $F : \Picabs_{g,n,0} \to \Picabs_{g,0,0}$ forgetting the markings, Invariance \invnrn{} from \cref{Sect:introinvariance} for the double ramification cycle and the Pixton formula shows that
+we have
+\begin{align*}
+\DRop_{g,\bd 0}(\phi_{\ca L'})
+%= F^*\DRop_{g,\emptyset}(\phi_{\ca L'}) 
+&= \DRop_{g,\emptyset}(F \circ \phi_{\ca L'})  \\
+\P_{g,\bd 0, 0}^g(\phi_{\ca L'}) 
+% = F^*\P_{g,\emptyset, 0}^g(\phi_{\ca L'}) 
+&= \P_{g,\emptyset, 0}^g(F \circ \phi_{\ca L'})
+\end{align*}
+So we are reduced to showing
+\begin{equation} \label{eqn:InvIVapplication}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+    \DRop_{g, \emptyset}(\phi_\ca L\circ h) = \DRop_{g, \emptyset}(F \circ \phi_{\ca L'})\ \ \text{ and }\ \ \P_{g,\emptyset, 0}^g(\phi_\ca L\circ h) = \P_{g,\emptyset, 0}^g(F \circ \phi_{\ca L'})\ .
+\end{equation}
+
+
+The claims \eqref{eqn:InvIVapplication} follow from
+ Invariance \invnrIV{} of \cref{Sect:introinvariance}. As before, let
+ $C_{B'}$ be the pullback of $C$ under $h$,  and let
+ $\ca L_{B'}$ be the pullback of $\ca L$ to $C_{B'}$. The map 
+ $$\phi_\ca L\circ h  : B' \to \Picabs_{g,0,0}$$
+ is induced by the data
+\[C_{B'} \to B'\, ,\ \ \ \ca L_{B'} \to C_{B'}\, ,\]
+whereas $F \circ \phi_{\ca L'} : B' \to \Picabs_{g,0,0}$ is induced by
+\[C' \to B'\, ,\ \ \  \ca L'\to C'\,.\]
+By construction, we have a partial destabilization $C' \to C_{B'}$ over $B'$, and the line bundle $\ca L'$ is the pullback of $\ca L_{B'}$ under this map. Hence the equalities \eqref{eqn:InvIVapplication} follow from Invariance \invnrIV{} of \cref{Sect:introinvariance}.
+\end{proof}

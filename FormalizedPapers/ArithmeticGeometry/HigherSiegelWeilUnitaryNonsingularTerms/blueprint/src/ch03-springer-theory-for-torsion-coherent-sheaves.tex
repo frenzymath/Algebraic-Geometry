@@ -1,0 +1,234 @@
+% Source-derived chapter 03: Springer theory for torsion coherent sheaves
+% Original source: higher-siegel-weil-unitary-nonsingular-terms
+\chapter{Springer theory for torsion coherent sheaves}
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-03}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+\begin{remark}[Source section]
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-03-source}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Springer theory for torsion coherent sheaves
+\label{sec: springer}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+In this section we review the construction of the Springer sheaf on the moduli stack of torsion coherent sheaves on a curve following Laumon \cite{Lau87}. We also compute the Frobenius trace function of a particular summand of the Springer sheaf called the Steinberg sheaf. 
+
+In this section let $X$ be any smooth (not necessarily projective or connected) curve over $k=\F_{q}$.  For $d\in \N$, let $X_{d}$ be the $d^{\mrm{th}}$ symmetric power of $X$.
+
+\subsection{Local geometry of $\Coh_{d}$}\label{ss:Coh loc}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Let $\Coh_{d}=\Coh_{d}(X)$ be the moduli stack of torsion coherent sheaves on $X$ of length $d$. For any $k$-scheme $S$, $\Coh_d(S)$ is the groupoid of coherent sheaves on $X \times S$ whose pushforward to $S$ is locally free of rank $d$. 
+
+Let $s^{\Coh}_{d}: \Coh_{d}\to X_{d}$ be the support map. Recall that for any $k$-scheme $S$, $[\gl_{d}/\GL_{d}](S)$ is the groupoid of $(V, T)$ where $V$ is a vector bundle of rank $d$ on $S$ and $T$ is an endomorphism of $V$. When $X=\A^{1}$, we have a canonical isomorphism
+\begin{equation*}
+\Coh_{d}(\A^{1})\cong [\gl_{d}/\GL_{d}]
+\end{equation*}
+given as follows. For $\cQ\in \Coh_{d}(\A^{1})(S)$, $\Gamma(\A^{1}_{S},\cQ)$ is a locally free rank $d$ $\cO_{S}$-module equipped with an endomorphism given by the affine coordinate $t$ for $\A^{1}$, giving an $S$-point of $[\gl_{d}/\GL_{d}]$; conversely, given an object $(V,T) \in [\gl_{d}/\GL_{d}]$ we may view $V$ as an $\cO_{S}[t]$-module $\cQ$ (viewed as a coherent sheaf on $\A^{1}_{S}$) with $t$ acting as $T$.  
+
+Let $U\subset X_{\ov k}$ be open and $f:U\to \A^{1}_{\ov k}$ be an \'etale map. Such a pair $(U,f)$ is called an {\em \'etale chart} for $X_{\ov k}$. It induces a map $f^{\Coh}_{d}: \Coh_{d}(U)\to \Coh_{d}(\A^{1}_{\ov k})$ sending $\cQ$ to $f_{*}\cQ$ which is compatible with the symmetric power $f_{d}: U_{d}\to (\A^{1}_{\ov k})_{d}$ under $s^{\Coh}_{d}$. Let $\frD_{d,\A^{1}}\subset (\A^{1}_{\ov k})_{d}$ and $\frD_{d,U}\subset U_{d}$  be the discriminant divisors, i.e., they parametrize divisors with  multiplicities.  Clearly $\frD_{d,U}\subset f^{-1}_{d}(\frD_{d,\A^{1}})$, therefore we may write $f^{-1}_{d}(\frD_{d,\A^{1}})=\frD_{d,U}+\frR_{d,f}$ as Cartier divisors on $U_{d}$.  
+
+%% added 2023.9.29
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{l:not in R}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Let $D$ be an effective divisor of degree $d$ on $U$. Then $D\in U_{d}\bs \frR_{d,f}$ if and only if for all pairs of distinct points $x,y$ in the support of $D$, $f(x)\ne f(y)$. 
+\end{lemma}
+\begin{proof}
+Let $\pi_{d}: U^{d}\to U_{d}$ be the quotient map by the symmetric group $S_{d}$. We compute the divisor $\pi_{d}^{-1}(\frR_{d,f})$. Consider $U\times_{\A^{1}_{\ov k}} U$. Since $U$ is \'etale over $\A^{1}_{\ov k}$, $\D(U)\subset U\times_{\A^{1}} U$ is open and closed, hence we can write $U\times_{\A^{1}_{\ov k}}U=\D(U)\coprod \frR$. For geometric points $x,y\in U$,  $(x,y)\in \frR$ if and only if $x\ne y$ and $f(x)=f(y)$. 
+
+For $1\le i<j\le d$, let $p_{ij}: U^{d}\to U\times U$ be the projection to the $i$th and $j$th coordinates. Let 
+$$\wt\D_{ij}=p_{ij}^{-1}(U\times_{\A^{1}}U)=\D_{ij}\coprod \frR_{ij}, \mbox{ where }\D_{ij}=p_{ij}^{-1}(\D(U)), \frR_{ij}=p_{ij}^{-1}(\frR).$$ 
+By definition, $\pi_{d}^{-1}(\frD_{d,\A^{1}})=\sum_{1\le i< j\le d}\wt\D_{ij}$, $\pi_{d}^{-1}(\frD_{d,U})=\sum_{1\le i< j\le d}\D_{ij}$ as divisors on $U^{d}$. Therefore
+\begin{equation}\label{Rdf sum}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\pi_{d}^{-1}(\frR_{d,f})=\sum_{1\le i< j\le d}\frR_{ij}.
+\end{equation}
+From this we see, if $D=x_{1}+x_{2}+\cdots+x_{d}$, where $x_{i}\in U(\ov k)$, then $D\notin \frR_{d,f}$ if and only if $(x_{1},\cdots, x_{d})\notin \pi_{d}^{-1}(\frR_{d,f})$. By \eqref{Rdf sum}, the latter happens if and only if for all $1\le i<j\le d$, $(x_{i},x_{j})\notin \frR$, i.e., either $x_{i}=x_{j}$ or $f(x_{i})\ne f(x_{j})$. 
+\end{proof}
+
+
+
+
+Let $\Coh_{d}(U)^{f}\subset \Coh_{d}(U)$ be the preimage of $U_{d}\bs \frR_{d,f}$.  Then $\Coh_{d}(U)^{f}$ is an open substack of $\Coh_{d}(X)_{\ov k}=\Coh_{d}(X_{\ov k})$.
+
+The following lemma shows that $\Coh_{d}(X)$ is \'etale locally isomorphic to $\Coh_{d}(\A^{1})\cong[\gl_{d}/\GL_{d}]$.
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{l:Coh local}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{enumerate}
+\item For any \'etale chart $(U,f)$ of $X_{\ov k}$, the map $f^{\Coh}_{d}:\Coh_{d}(U)\to \Coh_{d}(\A^{1})_{\ov k}$  is \'etale when restricted to $\Coh_{d}(U)^{f}$.
+\item The stack $\Coh_{d}(X)_{\ov k}$ is covered by the substacks $\Coh_{d}(U)^{f}$ for various \'etale charts $(U,f)$ of $X_{\ov k}$. 
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(1) For any $\cQ\in \Coh_{d}(U)^{f}(\ov k)$, the tangent map of $f_{d}^{\Coh}$  at $\cQ$ is $\Ext^{*}_{U}(\cQ,\cQ)\to \Ext^{*}_{\A^{1}}(f_{*}\cQ, f_{*}\cQ)$. By Lemma \ref{l:not in R}, different points in the support of $\cQ$ map to different points in $\A^{1}$, the above map is the direct sum of $\t_{z}: \Ext^{*}_{\cO_{U,z}}(\cQ_{z},\cQ_{z})\to \Ext^{*}_{\cO_{\A^{1},f(z)}}(\cQ_{z}, \cQ_{z})$ over $z\in \supp(\cQ)$. Since $f$ is \'etale at each such $z$, $\t_{z}$  are isomorphisms, and hence $f_{d}^{\Coh}$ is \'etale at $\cQ$ by the Jacobian criterion. 
+
+(2) For every point $\cQ\in \Coh_{d}(X)(\ov k)$ we will construct an \'etale chart $(U,f)$ such that $\cQ\in \Coh_{d}(U)^{f}(\ov k)$.  Let $Z\subset X(\ov k)$ be the support of $\cQ$.  For $z\in Z$, let $\cO_{z}$ be the completed local ring of $X_{\ov k}$ at $z$ with a uniformizer $\vp_{z}$. The map of sheaves $r: \cO_{X_{\ov k}}\to \op_{x\in Z}\cO_{z}/\vp_{z}^{2}$ is surjective. Let $c:Z\to \ov k$ be any injective map of sets. Then there exists an open neighborhood $U_{1}$ of $Z$ and $f\in \cO(U_{1})$ such that $r(f)=(c(z)+\varpi_{z})_{z\in Z}$. Viewing $f$ as a map $f: U_{1}\to \A^{1}_{\ov k}$, it is then \'etale at $Z$, hence \'etale in an open neighborhood $U\subset U_{1}$ of $Z$, i.e., $(U,f)$ is an \'etale chart. Since  $\{f(z)=c(z)\}_{z\in Z}$ are distinct points in $\A^{1}_{\ov k}$, we see that $\cQ\in \Coh_{d}(U)^{f}_{\ov k}$ by Lemma \ref{l:not in R}.
+ \end{proof}
+
+\subsection{Springer theory for $\Coh_{d}$}
+Let $\wt\Coh_{d}(X)$ be the moduli stack classifying a full flag of torsion sheaves  on $X$
+\begin{equation*}
+0\subset \cQ_{1}\subset \cQ_{2}\subset \cdots\subset \cQ_{d}=\cQ
+\end{equation*}
+where $\cQ_{j}$ has length $j$. Let 
+\begin{equation*}
+\pi^{\Coh}_{d,X}: \wt\Coh_{d}(X)\to \Coh_{d}(X)
+\end{equation*}
+be the forgetful map recording only $\cQ=\cQ_{d}$.  
+
+\begin{lemma}[Laumon {\cite[Theorem 3.3.1]{Lau87}}]
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{lem: Laumon small} The stacks $\wt\Coh_{d}(X)$ and $\Coh_{d}(X)$ are smooth of dimension zero, and the map $\pi^{\Coh}_{d,X}$ is proper and small.
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\end{lemma}
+\begin{proof} It is enough to check the same statements after base change to $\ov k$. We give a quick alternative proof using Lemma \ref{l:Coh local}: for an \'etale chart $(U,f)$ (over $\ov k$), we have a diagram in which both squares are Cartesian:
+\begin{equation*}
+\xymatrix{     \wt\Coh_{d}(X)_{\ov k}   \ar[d]^{\pi^{\Coh}_{d,X}} &  \wt\Coh_{d}(U)^{f}   \ar[d]^{\pi^{\Coh}_{d,U}} \ar[r] \ar@{_{(}->}[l] & \wt\Coh_{d}(\A^{1})_{\ov k}   \ar[d]^{\pi^{\Coh}_{d,\A^{1}}} \\
+\Coh_{d}(X)_{\ov k}   & \Coh_{d}(U)^{f} \ar[r]^{f^{\Coh}_{d}} \ar@{_{(}->}[l]  & \Coh_{d}(\A^{1})_{\ov k}}
+\end{equation*}
+Here $\wt\Coh_{d}(U)^{f}$ is the preimage of $\Coh_{d}(U)^{f}$ in $\wt\Coh_{d}(U)$. Since the horizontal maps are \'etale and the $\Coh_{d}(U)^{f}$ cover $\Coh_{d}(X)_{\ov k}$ by Lemma \ref{l:Coh local}, the desired properties of $\pi^{\Coh}_{d,X}$ follow from the same properties of $\pi^{\Coh}_{d,\A^{1}}$, which is the Grothendieck alteration $\pi_{\gl_{d}}: [\wt\gl_{d}/\GL_{d}]\to [\gl_{d}/\GL_{d}]$.
+\end{proof}
+
+Let $X_{d}^{\c}\subset X_{d}$ be the open subset of multiplicity-free divisors (i.e., the complement of $\frD_{d,X}$), and let $\Coh_{d}(X)^{\c}$ (resp. $\wt\Coh_{d}(X)^{\c}$) be its  preimage under $s^{\Coh}_{d}$ (resp. under $s^{\Coh}_{d}\c\pi_{d}^{\Coh}$). Then $\wt\Coh_{d}(X)^{\c}\to \Coh_{d}(X)^{\c}$ is an $S_{d}$-torsor. 
+
+\begin{cor}[Laumon {\cite[p.320]{Lau87}}]
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{c:Coh Spr} The complex 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{equation*}
+\Spr_{d}:=R\pi^{\Coh}_{d,X*}\Qlbar\in D^{b}(\Coh_{d}(X), \Qlbar)
+\end{equation*}
+is a perverse sheaf on $\Coh_{d}(X)$ that is the middle extension from its restriction to $\Coh_{d}(X)^{\c}$. In particular, the natural $S_{d}$-action on $\Spr_d|_{\Coh_{d}(X)^{\c}}$ extends to the whole $\Spr_{d}$.
+\end{cor}
+
+
+
+\subsection{Springer fibers}\label{ss:Spr fiber}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Let $\cQ\in \Coh_{d}(X)(\ov k)$ with image $D$ in $X_{d}(\ov k)$, an effective divisor of degree $d$.  Let $Z=(\supp D)(\ov k)$. Let $\Sigma(Z)$ be the set of maps $y:\{1,2,\cdots, d\}\to Z$ such that $\sum_{i=1}^{d}y(i)=D$. Let $\cB_{\cQ}$  be the fiber of $\pi^{\Coh}_{d}$ over $\cQ$. Then $\cB_{\cQ}$ classifies complete flags of subsheaves $0\subset \cQ_{1}\subset \cQ_{2}\subset\cdots\subset \cQ_{d-1}\subset \cQ$. We write $\cohog{*}{-} := \cohog{*}{-; \Q_\ell}$ for $\ell$-adic cohomology (regarded as a graded $\Q_{\ell}$-vector space). By Corollary \ref{c:Coh Spr}, $\cohog{*}{\cB_{\cQ}}=(\Spr_{d})_{\cQ}$ carries an action of $S_{d}$.
+
+For $y\in \Sigma(Z)$, let $\cB_{\cQ}(y)$ be the open and closed subscheme of $\cB_{\cQ}$ defined by the condition $\supp\cQ_{i}/\cQ_{i-1}=y(i)$. Then $\cB_{\cQ}$ is the disjoint union of $\cB_{\cQ}(y)$ for $y\in \Sigma(Z)$. Hence
+\begin{equation*}
+\cohog{*}{\cB_{\cQ}}\cong \bigoplus_{y\in \Sigma(Z)}\cohog{*}{\cB_{\cQ}(y)}.
+\end{equation*}
+There is an action of $S_{d}$ on $\Sigma(Z)$ by precomposing. 
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{l:perm Coh}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+The action of $w\in S_{d}$ on $\cohog{*}{\cB_{\cQ}}$ sends $\cohog{*}{\cB_{\cQ}(y)}$ to $\cohog{*}{\cB_{\cQ}(y\c w^{-1})}$, for all $y\in \Sigma(Z)$.
+\end{lemma}
+\begin{proof}
+It suffices to check the statement for each simple reflection $s_{i}$ switching $i$ and $i+1$ ($1\le i\le d-1$). Let $\wt\Coh^{i}_{d}(X)$ be the moduli stack classifying chains of torsion coherent sheaves $0\subset\cQ_{1}\subset\cdots\subset\cQ_{i-1}\subset\cQ_{i+1}\subset\cdots \subset\cQ_{d}$ with $\cQ_{i}$ missing. Then we have a factorization
+\begin{equation*}
+\pi^{\Coh}_{d}: \wt\Coh_{d}(X)\xr{\r_{i}}\wt\Coh^{i}_{d}(X)\xr{\pi_{i}}\Coh_{d}(X).
+\end{equation*}
+The map $\r_{i}$ is an \'etale double cover over the open dense locus  $\wt\Coh^{i,\hs}_{d}(X)$  where $\cQ_{i+1}/\cQ_{i-1}$ (which has length $2$) is supported at two distinct points. The map $\r_{i}$ is small by Lemma \ref{lem: Laumon small}, and $R\r_{i*}\Qlbar$ carries an involution $\wt s_{i}$, which induces an involution $\wt s_{i}$ on $R\pi_{i*}R\r_{i*}\Qlbar\cong \Spr_{d}$. This action coincides with the action of $s_{i}$ over $\Coh_{d}(X)^{\c}$, hence coincides with $s_{i}$ everywhere. 
+
+Let $\cB_{\cQ}^{i}=\pi_{i}^{-1}(\cQ)$. By considering the support of the successive quotients, we have a decomposition of $\cB_{\cQ}^{i}$ by the orbit set $\Sigma(Z)/\j{s_{i}}$. When $y\in\Sigma(Z)$ satisfies $y\ne y\c s_{i}$, the $s_{i}$-orbit $\y=\{y,y\c s_{i}\}$ gives an open and closed substack $\cB^{i}_{\cQ}(\y)\subset \cB_{\cQ}^{i}$, such that $\r^{-1}_{i}(\cB^{i}_{\cQ}(\y))=\cB_{\cQ}(y)\coprod\cB_{\cQ}(y\c s_{i})$, and $\cB^{i}_{\cQ}(\y)\subset \wt\Coh^{i,\hs}_{2d}$. Therefore in this case the action of $\wt s_{i}$ on $\cohog{*}{\r^{-1}_{i}(\cB^{i}_{\cQ}(\y))}$ comes from the involution on $\cB_{\cQ}(y)\coprod\cB_{\cQ}(y\c s_{i})$ that interchanges the two components. Since $\wt s_{i}=s_{i}$, this proves the statement for $s_{i}$ and $y$ such that $y\ne y\c s_{i}$. For $y=y\c s_{i}$ the statement is vacuous. This finishes the proof. 
+\end{proof}
+
+Let $\cQ_{x}$ be the direct summand of $\cQ$ supported at $x\in Z$. Let $d_{x}=\dim_{\ov k}\cQ_{x}$. Then for any $y\in \Sigma(Z)$, there is a canonical isomorphism over $\ov k$
+\begin{equation}\label{BQy}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\b_{y}: \cB_{\cQ}(y)\cong \prod_{x\in Z}\cB_{\cQ_{x}}
+\end{equation}
+sending $(\cQ_{i})\in \cB_{\cQ}(y)$ to the full flag of $\cQ_{x}$ given by taking the summands of $\cQ_{i}$ supported at $x$.
+
+The proof above implies the following statement that we record for future reference.
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{l:min w} Let $y,y'\in \Sigma(Z)$ and let $w\in S_{d}$ be such that $y\c w^{-1}=y'$. Assume that $w$ has minimal length (in terms of the simple reflections $s_{1},\cdots, s_{d-1}$) among such elements (such $w$ is unique). Then the Springer action $w: \cohog{*}{\cB_{\cQ}(y)}\to \cohog{*}{\cB_{\cQ}(y')}$ is induced by the composition of the canonical isomorphisms $\b_{y,y'}:=\b_{y'}^{-1}\c\b_{y}: \cB_{\cQ}(y)\isom \cB_{\cQ}(y')$. In particular, $w$ sends the fundamental class of $\cB_{\cQ}(y)$ to the fundamental class of $\cB_{\cQ}(y')$.
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\end{lemma}
+\begin{proof}
+Let $w^{-1}=s_{i_{1}}\cdots s_{i_{N}}$ be a reduced word for $w^{-1}$. Let $y_{j}=ys_{i_{1}}\cdots s_{i_{j}}$, $1\le j\le N$. Let $y_{0}=y$, and $y'=y_{N}$. Since $w$ has minimal length among $w'\in S_{d}$ such that $y\c w'^{-1}=y'$, for each $1\le j\le N$, $y_{j-1}\ne y_{j}$ for otherwise one could delete $s_{i_{j}}$ to shorten $w$. Since $y_{j}=y_{j-1}\c s_{i_{j}}\ne y_{j-1}$, the proof of Lemma \ref{l:perm Coh} shows that the Springer action of $s_{i_{j}}: \cohog{*}{\cB_{\cQ}(y_{j-1})}\to \cohog{*}{\cB_{\cQ}(y_{j})}$ is induced by the canonical isomorphism $\s_{j}=\b^{-1}_{y_{j}}\c\b_{y_{j-1}}: \cB_{\cQ}(y_{j-1})\isom \cB_{\cQ}(y_{j})$. The action $w: \cohog{*}{\cB_{\cQ}(y)}\to \cohog{*}{\cB_{\cQ}(y')}$, being the composition $\s_{N}\c\cdots\c\s_{1}$, is then equal to $\b_{y'}^{-1}\c\b_{y}:\cB_{\cQ}(y)\isom \cB_{\cQ}(y')$. 
+\end{proof}
+
+%Let $d(Z)$ be the partition of $d$ given by $(d_{x})_{x\in Z}$. Fixing a total order on $Z$ makes the partition $d(Z)$ into a composition which we still denote by $d(Z)$, and gives a subgroup  $S_{d(Z)}\subset S_{d}$; taking preimage in $W_{d}$ gives a subgroup $W_{d(Z)}\cong \prod_{z\in Z}W_{d_{x}}\subset W_{d}$.
+
+
+\begin{cor}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{c:Sind} Let $y\in \Sigma(Z)$ and $S_{y}\cong \prod_{x\in Z}S_{d_{x}}$ be the stabilizer of $y$ under $S_{d}$.  There is an isomorphism of graded $S_{d}$-representations
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{equation*}
+\cohog{*}{\cB_{\cQ}}\cong \Ind^{S_{d}}_{S_{y}}\cohog{*}{\cB_{\cQ}(y)}\cong \Ind^{S_{d}}_{S_{y}}\left(\bigotimes_{x\in Z}\cohog{*}{\cB_{\cQ_{x}}}\right).
+\end{equation*}
+Here on the right side, each factor $S_{d_{x}}$ of $S_{y}$ acts on the tensor factor indexed by $x$ (for $x\in Z$) via the Springer action in Corollary \ref{c:Coh Spr} on $(\Spr_{d_{x}})_{\cQ_{x}}$.
+\end{cor}
+\begin{proof} By Lemma \ref{l:perm Coh},  $\cohog{*}{\cB_{\cQ}(y\c w^{-1})}=w\cohog{*}{\cB_{\cQ}(y)}$ for $w\in S_{d}$. In particular, $\cohog{*}{\cB_{\cQ}(y)}$ is stable under $S_{y}$, and  $\cohog{*}{\cB_{\cQ}}\cong \Ind^{S_{d}}_{S_{y}}\cohog{*}{\cB_{\cQ}(y)}$. By \eqref{BQy} and the K\"unneth formula, we have $\cohog{*}{\cB_{\cQ}(y)}\cong \ot_{x\in Z}\cohog{*}{\cB_{\cQ_{x}}}$. 
+
+It remains to check that the action of $S_{y}$ on $\cohog{*}{\cB_{\cQ}(y)}$ (as the restriction of the $S_{d}$-action on $\cohog{*}{\cB_{\cQ}}$) is the same as the tensor product of the Springer action of $S_{d_{x}}$ on  $\cohog{*}{\cB_{\cQ_{x}}}$. Since the action of $S_{d}$ on $\Sigma(Z)$ is transitive, it suffices to check this statement for a particular $y\in \Sigma(Z)$. 
+
+Order points in $Z$ as $x_{1},\cdots, x_{r}$.  Let $y_{0}\in \Sigma(Z)$ be the unique increasing function, i.e. such that if $i< j$ then the index of $y_0(i)$ is less than or equal to the index of $y_0(j)$. Let $d_{i}=d_{x_{i}}$. Let $\d=(\d_{i})_{1\le i\le r}$ be the increasing sequence $\d_{i}=d_{1}+\cdots+d_{i}$. Let $\Coh_{\d}(X)$ be the moduli stack of partial chains of torsion coherent sheaves $0\subset \cQ_{\d_{1}}\subset \cdots\subset \cQ_{\d_{r-1}}\subset \cQ_{\d_{r}}=\cQ$ such that $\cQ_{\d_{i}}$ has length $\d_{i}$. The map $\pi^{\Coh}_{d}$ then factorizes as
+\begin{equation*}
+\wt\Coh_{d}(X)\xr{\pi_{\d}}\Coh_{\d}(X)\xr{\nu_{\d}}\Coh_{d}(X).
+\end{equation*}
+We have a Cartesian diagram
+\begin{equation}\label{partial Spr Coh}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\xymatrix{\wt\Coh_{d}(X)\ar[d]^{\pi_{\d}}\ar[r]^-{\wt c} & \prod_{i=1}^{r} \wt\Coh_{d_{i}}\ar[d]^{\prod\pi^{\Coh}_{d_{i}}} \\
+\Coh_{\d}(X)\ar[r]^-{c} & \prod_{i=1}^{r}\Coh_{d_{i}}(X)}
+\end{equation}
+where $c$ sends $(\cQ_{\d_{i}})$ to $(\cQ_{\d_{i}}/\cQ_{\d_{i-1}})$. By proper base change we have $R\pi_{\d*}\Qlbar\cong c^{*}(\boxtimes_{i=1}^{r}\Spr_{d_{i}})$, and the latter carries the Springer action of $S_{d_{1}}\times\cdots\times S_{d_{r}}=S_{y_{0}}$ (pulled back along $c$). Pushing forward along $\nu_{\d}$, this induces an action of $S_{y_{0}}$ on $R\nu_{\d*}R\pi_{\d*}\Qlbar=\Spr_{d}$. This action coincides with the restriction of the action of $S_{d}$ because both actions come from deck transformations over $\Coh_{d}(X)^{\c}$. 
+
+Now $\nu_{\d}^{-1}(\cQ)$ contains the point $\cQ^{\da}\in \Coh_{\d}(X)$ where $\supp\cQ_{\d_{i}}/\cQ_{\d_{i-1}}=\{x_{i}\}$ for $1\le i\le r$. This is an isolated point in $\nu^{-1}_{\d}(\cQ)$, and $\cB_{\cQ}(y_{0})=\pi_{\d}^{-1}(\cQ^{\da})$.   Moreover, the isomorphism \eqref{BQy} is the one given by taking the Cartesian diagram \eqref{partial Spr Coh} and restricting to $\cQ^{\da}\in \Coh_{\d}(X)$. The above discussion shows that the action of $S_{y_{0}}\subset S_{d}$ on $\cohog{*}{\cB_{\cQ}(y_{0})}\subset \cohog{*}{\cB_{\cQ}}$ is the same as the Springer action of $\prod_{i}S_{d_{i}}$ on $\ot_{i}\cohog{*}{\cB_{\cQ_{x_{i}}}}$ via the isomorphism \eqref{BQy}.
+\end{proof}
+
+
+
+\subsection{The Steinberg sheaf} Let $\St_{d}\in D^{b}(\Coh_{d}(X),\Qlbar)$ be the direct summand of $\Spr_{d}$ where $S_{d}$ acts through the sign representation. We will describe its Frobenius trace function below.   The result is well-known but we include a self-contained proof.
+
+We call $\cQ\in \Coh_{d}(X)(\ov k)$ {\em semisimple} if it is a direct sum of skyscraper sheaves at closed points.
+
+\begin{prop}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{p:St} 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{enumerate}
+\item If $\cQ\in \Coh_{d}(X)(\ov k)$ is not semisimple, then the stalk of $\St_{d}$ at $\cQ$ is zero.
+\item Let $\cQ=\op_{v\in |X|}k_v^{\op d_{v}}\in \Coh_{d}(X)(k)$ be semisimple. Then the stalk of  $\St_{d}$ at $\cQ$ is $1$-dimensional, and the geometric Frobenius $\gFrob$ acts on the stalk $\St_{d,\cQ}$ by the scalar
+\begin{equation*}
+\e(\cQ)\prod_{v\in \supp\cQ}q_{v}^{d_{v}(d_{v}-1)/2}
+\end{equation*}
+where $\e(\cQ)\in\{\pm1\}$ is the sign of Frobenius permuting the geometric points in the support of $\cQ$ counted with multiplicities (as a multi-set of cardinality $d$).
+\end{enumerate}
+\end{prop}
+\begin{proof}
+Let $\cQ\in \Coh_{d}(X)(\ov k)$. Let $Z\subset X(\ov k)$ be the geometric points in the support of $\cQ$ and $y\in \Sigma(Z)$. By Corollary \ref{c:Sind} and Frobenius reciprocity,
+\begin{align}\label{St factor}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\St_{d,\cQ} &\cong \Hom_{S_{d}}(\sgn, \Ind^{S_{d}}_{S_{y}}(\ot \cohog{*}{\cB_{\cQ_{x}}}))\cong \Hom_{S_{y}}(\sgn, \ot \cohog{*}{\cB_{\cQ_{x}}}) \nonumber \\
+&\cong  \ot_{x\in Z}\Hom_{S_{d_{x}}}(\sgn,\cohog{*}{\cB_{\cQ_{x}}})\cong \ot_{x\in Z}\St_{d_{x}, \cQ_{x}}.
+\end{align}
+
+(1) By the above factorization of $\St_{d,\cQ}$, it suffices to show that if $\cQ_{x}$ is not semisimple, then $\St_{d_{x}, \cQ_{x}}=0$. By Lemma \ref{l:Coh local} we may reduce to the case $X=\A^{1}$ and $\cQ$ is concentrated at $x=0$. In this case $\Spr$ is the usual Springer sheaf on $[\gl_{d}/\GL_{d}]$, and $\cQ$ corresponds to a nilpotent element $e\in \scr{N}_{d}\subset \gl_{d}$ (here $\scr{N}_d$ is the nilpotent cone in $\gl_d$). It is well-known that $\St_{d}|_{\scr{N}_{d}}\cong \d_{0}[-d(d-1)]$ where $\d_{0}$ is the skyscraper sheaf at $0\in \scr{N}_{d}$. Indeed, by \cite[\S3.4, Corollary (b)]{BM}, for any nonzero nilpotent element $e\in \scr{N}_{d}$, the sign representation of $S_{d}$ does not appear in $\cohog{*}{\cB_{e}}$ ($\cB_{e}$ is the Springer fiber for $e$). For $e=0$, the sign representation of $S_{d}$ only appears in the top degree $\cohog{d(d-1)}{\cB_{e}}$, which is one-dimensional. This implies that $\St_{d}|_{\scr{N}}\cong \d_{0}[-d(d-1)]$.
+%this can be seen by identifying $\Spr|_{\scr{N}_{d}}$ with the direct image complex of the Springer resolution $\wt{\scr{N}}_{d}\to \scr{N}_{d}$). 
+In particular, $\St_{d,e}=0$ for all nilpotent $e\ne 0$.
+
+(2) Let $\cQ\in \Coh_{d}(X)(k)$ be semisimple. Let $|Z|$ be the set of closed points in the support of $\cQ$. The above discussion shows that $\St_{d_{x},\cQ_{x}}\cong \cohog{top}{\cB_{\cQ_{x}}} =\cohog{d_{x}(d_{x}-1)}{\Fl_{d_{x}}}$ where $\Fl_{d_{x}}$ is the flag variety for $\GL_{d_x}$. By \eqref{St factor}, $\St_{d,\cQ}$ is $1$-dimensional and is in the top degree cohomology of $\cohog{*}{\cB_{\cQ}}$. Let 
+\[
+N=\dim \cB_{\cQ}=\sum_{x\in Z}d_{x}(d_{x}-1)/2=\sum_{v\in|Z|}\deg(v)d_{v}(d_{v}-1)/2
+\]
+(here $d_{v}=d_{x}$ for any $x|v$). Let $0\ne \xi\in \St_{d,\cQ}\subset \op_{y\in\Sigma(Z)}\cohog{2N}{\cB_{\cQ}(y)}$. Let $\Frob:\cB_{\cQ}\to\cB_{\cQ}$  be the Frobenius morphism. We need to show that $\Frob^{*}\xi=\e(\cQ)q^{N}\xi$. 
+
+For $y\in \Sigma(Z)$, let $\y_{y}\in \cohog{2N}{\cB_{\cQ}(y)}$ be the fundamental class of $\cB_{\cQ}(y)$. Then $\Frob$ sends $\cB_{\cQ}(y)$ onto $\cB_{\cQ}(\Frob(y))$ (here $\Frob(y)$ means post-composing $y$ with the Frobenius permutation on $Z$), and hence $\Frob^{*}\y_{\Frob(y)}=q^{N}\y_{y}$. On the other hand, let $w\in S_{d}$ be the minimal length element such that $\Frob(y)=y\c w^{-1}$. By Lemma \ref{l:min w}, the Springer action of $w$ satisfies $w\y_{y}=\y_{\Frob(y)}$. Write  $\xi=(\xi_{y})_{y\in \Sigma(Z)}$ where $\xi_{y}=c_{y}\y_{y}$ for some $c_{y}\in \Qlbar^{\times}$. Since $w\xi=\sgn(w)\xi$, we see that $w\xi_{y}=\sgn(w)\xi_{\Frob(y)}$. Since  $w\y_{y}=\y_{\Frob(y)}$, we have $c_{y}=\sgn(w)c_{\Frob(y)}$. Therefore
+\begin{equation*}
+(\Frob^{*}\xi)_{y}=\Frob^{*}(\xi_{\Frob(y)})=c_{\Frob(y)}\Frob^{*}\y_{\Frob(y)}=q^{N}c_{\Frob(y)}\y_{y}=\sgn(w)q^{N}c_{y}\y_{y}=\sgn(w)q^{N}\xi_{y}.
+\end{equation*}Note that, for any choice of $y$ and $w$ above, $\sgn(w)$ is equal to the sign of the Frobenius permutation of the multiset $\{y(i)\}_{1\le i\le d}$, which is $\e(\cQ)$. This implies $\Frob^{*}\xi=\e(\cQ)q^{N}\xi$ as desired.
+\end{proof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

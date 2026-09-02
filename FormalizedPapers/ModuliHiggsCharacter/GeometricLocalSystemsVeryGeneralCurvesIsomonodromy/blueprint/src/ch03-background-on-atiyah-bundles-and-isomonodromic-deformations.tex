@@ -1,0 +1,778 @@
+% Source-derived chapter 03: Background on Atiyah bundles and isomonodromic deformations
+% Original source: geometric-local-systems-general-curves-isomonodromy
+\chapter{Background on Atiyah bundles and isomonodromic deformations}
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-03}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+\begin{remark}[Source section]
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-03-source}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\source{geometric-local-systems-general-curves-isomonodromy}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Background on Atiyah bundles and isomonodromic deformations
+\label{section:deformation-theory}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+
+\subsection{The Atiyah bundle of a filtered vector bundle}
+\label{subsection:atiyah-bundle}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+
+We begin by defining the Atiyah bundle.
+Let $C$ be a smooth projective curve.
+Following 
+\cite[16.8.1]{EGAIV.4},
+for $E$ a vector bundle on $C$, define $\on{Diff}^1(E,E)$ as follows: for
+$U\subset C$ open, $\on{Diff}^1({E}, {E})(U)$ is the set of
+$\mathbb{C}$-linear endomorphisms $\tau$ of $E(U)$, such that for each $f\in
+\mathscr{O}_C(U), v\in E(U)$, we have that $$\tau_f: v\mapsto
+\tau(fv)-f\tau(v)$$ is $\mathscr{O}_C$-linear.
+Here $\tau_f$ measures the failure of $\tau$ to be $\mathscr{O}_C$-linear, in
+that $\tau_f$ is zero for all $f$ if and only if $\tau$ is $\mathscr{O}_C$-linear.
+
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready[The Atiyah bundle, see
+	\protect{\cite[p. 5]{BHH:very-stable}}] 
+	\label{definition:atiyah}	
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $E$ be a
+vector bundle on a curve $C$. 
+Define the Atiyah bundle $$\on{At}_C(E)\subset \on{Diff}^1({E}, {E})$$ as the
+subsheaf with sections on an open set $U \subset C$ given as follows.
+Let $\on{At}_C(E)(U)$ consist of those $\mathbb{C}$-endomorphisms $\tau \in
+\on{Diff}^1({E}, {E})(U)$ such that for each $f\in \mathscr{O}_C(U)$, the endomorphism of ${E}$ defined by $$\tau_f: v\mapsto \tau(fv)-f\tau(v)$$ is multiplication by a section $\delta_\tau(f)\in \mathscr{O}_C(U)$. 
+\end{definition}
+
+One can also construct Atiyah bundles associated to filtered bundles.
+\begin{definition}[Atiyah bundle of a filtered vector bundle]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:atiyah-filtered}
+\source{geometric-local-systems-general-curves-isomonodromy}
+Let $P^\bullet := (0 = P^0 \subset P^1
+\subset \cdots \subset P^m = E)$ be a filtration on $E$.
+We define $$\on{At}_C(E, P^\bullet)\subset \on{At}_C(E)$$ to be the subsheaf
+consisting of those endomorphisms that preserve $P^\bullet$. 
+\end{definition}
+
+
+
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:atiyah-exact-sequence}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	From the definition, (see also \cite[(2.7)]{BHH:logarithmic}), there is a 
+short exact sequence 
+\begin{equation} \label{equation:non-logarithmic-atiyah-sequence} 0\to
+\source{geometric-local-systems-general-curves-isomonodromy}
+	\sheafend(E, P^\bullet)\overset{\iota}{\to} \on{At}_C(E,
+P^\bullet)\overset{\delta}{\to} T_C\to 0,\end{equation} where
+$\sheafend(E, P^\bullet)\subset \sheafend(E)$ is the subsheaf of $\mathscr{O}_C$-linear endomorphisms preserving $P^\bullet$, $\iota$ is the evident inclusion, 
+and $\delta$ sends a differential operator $\tau$ to the derivation
+$$\delta_\tau: f\mapsto \delta_\tau(f)$$ defined in 
+\autoref{definition:atiyah}.
+\end{remark}
+
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+    There is an alternate, perhaps more geometric, description of $\on{At}_C(E,
+    P^\bullet)$. Namely, the filtration $P^\bullet$ gives a restriction of
+    the structure group of ${E}$ to a parabolic subgroup ${P}\subset
+    \on{GL}_n$, and hence gives rise to a natural ${P}$-torsor $p:\Pi\to C$
+    over $C$, which is a subscheme of the frame bundle of ${E}$ (i.e.~it
+    consists of those frames which are compatible with $P^\bullet$). The tangent
+    exact sequence $$0\to T_{\Pi/C}\to T_\Pi\to p^*T_C\to 0$$ naturally admits a ${P}$-linearization (for the ${P}$-action on $\Pi$) 
+    and hence descends to a short exact sequence on
+    $C$, which is precisely \eqref{equation:non-logarithmic-atiyah-sequence}.
+\end{remark}
+
+Next, we introduce Atiyah bundles with respect to divisors.
+\begin{definition}[Atiyah bundle of a filtered vector bundle with respect to a divisor]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:atiyah-bundle-divisor}
+\source{geometric-local-systems-general-curves-isomonodromy}
+Let $D\subset C$ be a reduced effective divisor.
+The Atiyah bundle $\on{At}_{(C,D)}(E,P^\bullet)$ is defined as the preimage 
+$$\on{At}_{(C,D)}(E,P^\bullet):=\delta^{-1}(T_C(-D)),$$ where $\delta$ is the map appearing in Sequence \eqref{equation:non-logarithmic-atiyah-sequence} and where $T_C(-D)\hookrightarrow T_C$ is the natural inclusion. 
+
+If $P^\bullet = (0 = P^0 \subset P^1 = E)$ is the trivial filtration, we omit it from the notation, e.g.~we will use the notation $\on{At}_{(C,D)}(E)$ 
+in place of $\on{At}_{(C,D)}(E, 0 \subset E)$
+when convenient.
+\end{definition}
+The
+following alternate viewpoint on connections will be useful.
+\begin{proposition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready\label{proposition:atiyah-splittings}
+\source{geometric-local-systems-general-curves-isomonodromy}
+Suppose $E$ is a vector bundle on $C$ and $D \subset C$ a reduced
+effective divisor.
+    There is a natural bijection between splittings of the Atiyah exact sequence
+    \begin{equation}
+	    \label{equation:Atiyah-exact-sequence-normal}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	    0\to \sheafend(E, P^\bullet)\to \on{At}_{(C,D)}(E, P^\bullet)\to T_C(-D)\to
+    0.
+    \end{equation}
+	and flat connections on $E$ with
+    regular singularities along $D$ and preserving $P^\bullet$, given by
+    adjointness. That is, given a connection $$\nabla: E\to E\otimes
+    \Omega^1_C(\log D)$$ preserving $P^\bullet$, we may by adjointness view
+    $\nabla$ as a map $q^\nabla: T_C(-D)\to
+    \sheafend_{\mathbb{C}}(E)$. 
+    This map factors through $\on{At}_{(C,D)}(E)$ and
+    yields a splitting of \eqref{equation:Atiyah-exact-sequence-normal}.
+    Moreover, this correspondence between flat connections and splittings is bijective.
+\end{proposition}
+\begin{proof}
+    This is a matter of unwinding definitions.
+\end{proof}
+We will pass freely between $\nabla$ and $q^\nabla$ and refer to each as a connection.
+\subsection{The parabolic Atiyah bundle}
+\label{subsection:parabolic-atiyah}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+We next recall the generalization of the Atiyah bundle to the parabolic setting.
+
+	Let $C$ be a curve with reduced divisor $D=x_1+\cdots+x_n$ and let $E_\star$ be a
+	parabolic vector bundle on $(C,D)$.
+	It will useful to recall the explicit description of $\on{End}(E_\star)$ given in
+	\autoref{remark:end-definition}.
+	To define the parabolic Atiyah bundle, we also need the following
+	definition.
+
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let
+$\on{End}_j(E_\star)$ denote the image of the natural inclusion
+$\sheafend(E_\star)_{x_j} \to \sheafend(E)_{x_j}$, viewed as a subspace of $\sheafend(E)_{x_j}$.
+\end{definition}
+
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	We can write $\sheafend(E)/\sheafend(E_\star)$ as a direct sum of skyscraper
+sheaves supported on the $x_j$.
+More precisely, for $\on{End}_j(E_\star)$ the image of
+$\sheafend(E_\star)_{x_j} \to \sheafend(E)_{x_j}$ in the fiber over $x_j$,
+there is an exact sequence
+\begin{equation}
+	\label{equation:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	\begin{tikzcd}
+		0 \ar {r} & \sheafend(E_\star) \ar {r} & \sheafend(E) \ar {r} &
+		\oplus_{j= 1}^n \sheafend(E)_{x_j}/\on{End}_j(E_\star) \ar {r} &
+		0.
+\end{tikzcd}\end{equation}
+\end{remark}
+
+\subsubsection{The residue homomorphism}
+\label{subsubsection:residue}
+\source{geometric-local-systems-general-curves-isomonodromy}
+To define the Atiyah bundle associated to $E_\star$, we essentially want to
+carve it out from the Atiyah bundle by requiring our differential operators to preserve the quasiparabolic
+filtration over each $x_j$. For this, we need a certain homomorphism
+${\phi}_j: \on{At}_{(C,D)}(E)_{x_j}
+\to \sheafend(E)_{x_j}$,
+referred to as a {\em residue homomorphism}.
+The residue homomorphism is
+defined in, for
+example, \cite[(2.9)]{BHH:parabolic}, and we also recall it now.
+
+Given any smooth proper curve $C$ and reduced divisor $D \subset C$ with $x_j$ in the support of $D$,
+the residue homomorphism at $x_j$ is a map ${\phi}_j: \on{At}_{(C,D)}(E)_{x_j}
+\to \sheafend(E)_{x_j}$ defined as follows.
+There is a commutative diagram of vector spaces
+\begin{equation}
+	\label{equation:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	\begin{tikzcd}
+		0 \ar {r} & \sheafend(E)_{x_j} \ar {r}{\nu_j} \ar {d} &
+		\on{At}_{(C,D)}(E)_{x_j} \ar {r} \ar {d}{\alpha_j} & T_C(-D)_{x_j}
+		\ar {r} \ar {d}{\beta_j} & 0 \\
+		0 \ar {r} & \sheafend(E)_{x_j} \ar {r}{\mu_j} & \on{At}_C(E)_{x_j} \ar
+		{r}{\gamma_j} & (T_C)_{x_j} \ar {r} & 0.
+\end{tikzcd}\end{equation}
+The map $\beta_j$ is induced from the natural inclusion of invertible sheaves, and
+hence vanishes.
+Therefore, $\gamma_j \circ \alpha_j = 0$, which means $\alpha_j$ factors through
+$\sheafend(E)_{x_j}$. This produces the desired map
+${\phi}_j: \on{At}_{(C,D)}(E)_{x_j} \to \sheafend(E)_{x_j}$,
+satisfying the property that $\mu_j\circ \phi_j  = \alpha_j$.
+By definition of $\alpha_j$, the restriction of $\alpha_j$ to $\sheafend(E)_{x_j}$ is the identity.
+That is, $\phi_j\circ \nu_j   = \mathrm{id}$.
+This gives us a splitting 
+$\on{At}_{(C,D)}(E)_{x_j} \simeq  \sheafend(E)_{x_j} \oplus T_C(-D)_{x_j}$.
+
+Now, let $z$ denote a uniformizer of the local ring of $C$ 
+at $x_j$ and let $z \frac{\partial
+}{\partial z}$ denote the corresponding section of $T_C(-D)$ at $x_j$.
+Observe that this is independent of the choice of $z$.
+Given $q^\nabla: T_C(-D) \to \on{At}_{(C,D)}(E)$ a connection with regular
+singularities,
+let $q^\nabla_{x_j}(z \frac{\partial }{\partial z}) \in \on{At}_{(C,D)}(E) \simeq  \sheafend(E)_{x_j} \oplus T_C(-D)_{x_j}$ denote the image of $z
+\frac{\partial }{\partial z}$
+under $q^\nabla$ restricted to the fiber $x_j$.
+Define the {\em residue} $\on{Res}(\nabla)(x_j) \in \sheafend(E)_{x_j}$ as the
+projection of 
+$q^\nabla_{x_j}(z \frac{\partial }{\partial z}) \in \sheafend(E)_{x_j} \oplus T_C(-D)_{x_j}$ to $\sheafend(E)_{x_j}$.
+
+Having defined the map $\phi_j$ above, we next define the Atiyah bundle
+associated to a parabolic bundle.
+\begin{definition}[Atiyah bundle of a parabolic bundle]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:parabolic-atiyah-bundle}
+\source{geometric-local-systems-general-curves-isomonodromy}
+Let $D\subset C$ be a reduced effective divisor 
+and let $E_\star = (E, \{E^i_j\}, \{\alpha^i_j\})$ be a parabolic bundle on $(C,
+D)$.
+For $\phi_j$ the residue homomorphism, as defined above in
+\autoref{subsubsection:residue},
+let $\widehat{\phi}_j: \on{At}_{(C, D)}(E) \to \sheafend(E)_{x_j}/\on{End}_j(E_\star)$ denote the composition
+\begin{align*}
+	\on{At}_{(C, D)}(E) \to \on{At}_{(C,D)}(E)_{x_j} \xrightarrow{\phi_j}
+	\sheafend(E)_{x_j} \to \sheafend(E)_{x_j}/\on{End}_j(E_\star).
+\end{align*}
+Define $\on{At}_{(C, D)}(E_\star)$ as the coherent subsheaf of $\on{At}_{(C, D)}(E)$ given by
+\begin{align*}
+	\on{At}_{(C,D)}(E_\star) := \ker\left( \on{At}_{(C,D)}(E)
+	\xrightarrow{\oplus_{j=1}^n \widehat{\phi}_j } \oplus_{j=1}^n
+\sheafend(E)_{x_j}/\on{End}_j(E_\star) \right).
+\end{align*}
+Similarly, for $P^\bullet := (0 = P^0 \subset P^1
+\subset \cdots \subset P^m = E)$ a filtration on $E$,
+we let 
+$\on{At}_{(C,D)}(E_\star, P^\bullet) \subset \on{At}_{(C, D)}(E_\star)$
+denote the coherent subsheaf
+consisting of those endomorphisms that preserve $P^\bullet$. 
+\end{definition}
+
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+Using \autoref{definition:parabolic-atiyah-bundle}
+	and \eqref{equation:non-logarithmic-atiyah-sequence},
+	we find that $\on{At}_{(C,D)}(E_\star, P^\bullet)$ fits into a short exact sequence
+\begin{equation}\label{equation:Atiyah-exact-sequence}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	0\to \sheafend(E_\star, P^\bullet)\to \on{At}_{(C,D)}(E_\star, P^\bullet)\to T_C(-D)\to
+    0.
+\end{equation}
+
+
+By comparing \eqref{equation:Atiyah-exact-sequence} for a filtration $P^\bullet$
+and the trivial filtration, we obtain 
+the short exact sequence
+\begin{equation}
+	\label{equation:quotient-atiyah-bundles}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	\begin{tikzcd}
+		0 \ar {r} &  \on{At}_{(C,D)}(E_\star, P^\bullet) \ar {r} &
+		\on{At}_{(C,D)}(E_\star) \ar {r}
+		& \sheafend(E_\star)/\sheafend(E_\star, P^\bullet)\ar {r} & 0,
+\end{tikzcd}\end{equation}
+where $\sheafend(E_\star, P^\bullet) \subset \sheafend(E_\star)$ is the coherent subsheaf
+consisting of those endomorphisms preserving the filtration $P^\bullet$.
+\end{remark}
+
+\subsection{Parabolic structure and connections}
+\label{subsection:atiyah-properties}
+\source{geometric-local-systems-general-curves-isomonodromy}
+We continue  our review of Atiyah bundles by recalling the parabolic bundle
+associated to a connection, and a constraint on irreducibility of connections.
+
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:associated-parabolic}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $q^\nabla: T_C(-D) \to \on{At}_{(C,D)}(E)$ be a connection on $E$
+	with regular singularities along $D$.
+	Let $\on{Res}(\nabla)(x_j) \in \sheafend(E)_{x_j}$ denote the residue
+	of $\nabla$ at $x_j$, described in \autoref{subsubsection:residue}.
+	Suppose the eigenvalues of $\on{Res}(\nabla)(x_j)$ are $\eta_j^1, \ldots,
+	\eta^{s_j}_j$. Let $$\lambda^i_j:=\on{Re}(\eta^i_j)-\lfloor \on{Re}(\eta^i_j)\rfloor \in[0,1)$$ denote the fractional part of the real
+	part of $\eta^i_j$. Reorder the $\lambda^i_j$ and remove repetitions so that
+	\begin{align*}
+		0 \leq \lambda^1_j < \lambda^2_j < \cdots < \lambda_j^{n_j} < 1.
+	\end{align*}
+	Define $E^i_j \subset E_{x_j}$ as the sum of all generalized eigenspaces
+	of $\on{Res}(\nabla)(x_j)$
+	such that the fractional part of the real part of the associated
+	eigenvalue is $\geq \lambda^i_j$.
+	The data $(E, \{E^i_j\}, \{\lambda^i_j\})$ is the {\em parabolic bundle
+	associated to the connection} $\nabla$.
+	By \cite[Lemma 4.1]{BHH:parabolic}, the connection $q^\nabla: T_C(-D) \to
+	\on{At}_{(C, D)}(E)$
+	factors through $\on{At}_{(C, D)}(E_\star) \subset \on{At}_{(C, D)}(E)$
+	and we denote the induced map by $q^\nabla : T_C(-D) \to \on{At}_{(C,
+	D)}(E_\star)$ as well.
+	If the real part of each $\eta^i_j$ lies in $[0,1)$, then $(E_\star,
+	\nabla)$ is
+	called the {\em Deligne canonical extension} of $(E|_{C \setminus D},
+	\nabla_{C \setminus D})$.
+\end{definition}
+
+\begin{proposition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{proposition:irreduciblity-splitting-condition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+    Let $(E, \nabla: {E}\to {E}\otimes \Omega^1_C(\log D))$ be a flat
+    vector bundle on $C$ with regular singularities along $D$, 
+    and let $E_\star$ denote the parabolic bundle associated to $\nabla$, as in
+    \autoref{definition:associated-parabolic}.
+    Suppose the monodromy representation $\rho$ 
+    associated to $(E, \nabla)|_{C\setminus D}$ via the Riemann-Hilbert
+    correspondence is irreducible. Let $q^\nabla:
+    T_C(-D)\to \on{At}_{(C,D)}(E_\star)$ be the corresponding splitting of the Atiyah
+    exact sequence via \autoref{proposition:atiyah-splittings} and
+    \autoref{definition:associated-parabolic}. Then for any
+    nontrivial filtration $P^\bullet$ of $E$, the composition
+    $$T_C(-D)\overset{q^\nabla}{\to} \on{At}_{(C,D)}(E_\star){\to}
+    \on{At}_{(C,D)}(E_\star)/\on{At}_{(C,D)}(E_\star, P^\bullet)\simeq
+    \sheafend(E_\star)/\sheafend(E_\star,P^\bullet)$$ is nonzero.
+\end{proposition}
+\begin{proof}
+Assume not. Then $q^\nabla$ has image in $\on{At}_{(C,D)}(E_\star, P^\bullet)$, and
+hence yields a splitting of \eqref{equation:Atiyah-exact-sequence}. 
+Using \autoref{proposition:atiyah-splittings},
+the corresponding connection with regular singularities on $E$ preserves $P^1$ and hence yields a flat connection on $P^1$ with regular singularities along
+$D$, whose monodromy is a sub-representation of the monodromy representation
+$\rho$ associated to $({E}, \nabla)|_{C\setminus D}$. 
+But this contradicts the
+assumption that $\rho$ is irreducible. (See \cite[Proof of Proposition
+5.3]{BHH:logarithmic} for a similar argument in the non-parabolic setting.)
+\end{proof}
+\subsection{Isomonodromic deformations}
+\label{subsection:isomonodromic-deformations}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+We next recall the notion of  isomonodromic deformation.
+We also define the notion of an ``isomonodromic deformation to an analytically
+general nearby curve'' which appears in many of our main results.
+
+\begin{notation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{notation:curve-and-sections}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $\mathscr{C}, \Delta$ be complex manifolds, and let $\pi: \mathscr{C}\to \Delta$ 
+be a proper holomorphic submersion with connected fibers of relative dimension
+one, with $\Delta$ contractible.  Let $$s_1, \cdots, s_n: \Delta \to
+\mathscr{C}$$ be disjoint sections to $\pi$, and let $\mathscr{D}$ be the union
+$$\mathscr{D}:=\bigcup_i \on{im}(s_i).$$ Given a point $0\in \Delta$, let
+$(C, D) := (\pi^{-1}(0), \pi^{-1}(0) \cap \mathscr D)$ and further assume
+$(C, D)$ is hyperbolic.
+\end{notation}
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:iso-extension}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	With notation as in \autoref{notation:curve-and-sections}, let $$(E, \nabla: E \to E\otimes \Omega^1_C(\log
+	D))$$ be a flat vector bundle on $C$ with regular singularities along
+	$D$. Such a logarithmic flat vector bundle extends canonically to a
+	logarithmic flat vector bundle $$(\mathscr{E}, \widetilde{\nabla}:
+	\mathscr{E}\to \mathscr{E}\otimes \Omega^1_{\mathscr{C}}(\log
+\mathscr{D}))$$ on $\mathscr{C}$ with regular singularities along $\mathscr{D}$.
+\end{lemma}
+\begin{proof}
+	This follows from Deligne's work on differential equations
+with regular singularities \cite{deligne:regular-singular} and is explained in
+\cite[Theorem 3.4]{Heu:universal-isomonodromic}, following work of Malgrange
+\cite{malgrange:I, malgrange:II}.
+In particular, \cite[Theoreme 2.1]{malgrange:I} explains the case where $C$ has
+genus zero, and the general case is similar. 
+We now recapitulate the proof.
+
+The restriction
+of $({E}, \nabla)$ to $C\setminus D$ is a flat vector bundle and hence
+gives rise to a locally constant sheaf of $\mathbb{C}$-vector spaces
+$$\mathbb{V}:=\ker(\nabla)$$ on $C\setminus D$. As $\Delta$ is contractible, the
+inclusion $$C\setminus D\hookrightarrow \mathscr{C}\setminus \mathscr{D}$$ is a
+homotopy equivalence; thus $\mathbb{V}$ extends uniquely (up to canonical
+isomorphism) to a local system $\widetilde{\mathbb{V}}$ on $\mathscr{C}\setminus
+\mathscr{D}$. 
+
+Manin's local results on extending flat vector bundles across divisors
+\cite[Proposition 5.4]{deligne:regular-singular} imply that there is a
+canonical extension, which is unique, up to unique isomorphism,
+$$(\widetilde{\nabla}:
+\mathscr{E}\to \mathscr{E}\otimes \Omega^1_{\mathscr{C}}(\log \mathscr{D}))$$ of
+$$(\widetilde{\mathbb V}\otimes_{\mathbb{C}}\mathscr{O}_{\mathscr{C}\setminus
+\mathscr{D}}, \on{id}\otimes d)$$ to a flat vector bundle on $\mathscr{C}$ with
+regular singularities along $\mathscr{D}$, equipped with an isomorphism
+$({\mathscr{E}}, \widetilde{\nabla})|_C\simeq (E,\nabla).$
+\end{proof}
+
+Using the above, we are ready to define isomonodromic deformations.
+\begin{definition}[Isomonodromic Deformation]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:isomonodromy}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	With notation as in \autoref{notation:curve-and-sections}, let $D=x_1+ \cdots+ x_n$, so that $(C, D)$ is an $n$-pointed hyperbolic curve of genus $g$. Let $(E, \nabla)$ be a flat vector bundle on $C$ with regular singularities at the $x_i$.
+We call the extension $(\mathscr{E}, \widetilde{\nabla})$ as in
+\autoref{lemma:iso-extension} \emph{the isomonodromic deformation} of $({E}, \nabla)$.
+If $\Delta=\mathscr{T}_{g,n}$ is the universal cover of
+of the analytic stack $\mathscr{M}_{g,n}$, and $\mathscr{C}\to \Delta$ is the universal curve,
+we call the isomonodromic deformation over such $\Delta$  \emph{the universal
+isomonodromic deformation}.
+\end{definition}
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:nearby}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	With notation as in \autoref{definition:isomonodromy}, let $\Delta$ be
+	the universal cover of $\mathscr{M}_{g,n}$.
+We use \emph{an isomonodromic deformation to a nearby curve} to denote the
+restriction of $(\mathscr{E}, \widetilde{\nabla})$ to any fiber of $\mathscr{C}
+\to \Delta$.
+We use 
+\emph{an isomonodromic deformation to an analytically general nearby curve}
+to denote the restriction of $(\mathscr{E}, \widetilde{\nabla})$ to a
+general fiber of $\mathscr{C}
+\to \Delta$, i.e., a fiber in the complement of a nowhere dense closed analytic
+subset.
+\end{definition}
+
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	The construction of \autoref{lemma:iso-extension} is functorial: given a commutative diagram 
+$$\xymatrix{
+D \ar@{^(->}[d] \ar@{^(->}[r] & \mathscr{D} \ar[r]\ar@{^(->}[d] & \mathscr{D}'\ar@{^(->}[d] \\
+C \ar@{^(->}[r] \ar[d]& \mathscr{C} \ar[r] \ar[d]^\pi & \mathscr{C}' \ar[d]^{\pi'}\\
+0 \ar@{^(->}[r] & \Delta \ar[r] & \Delta'
+}$$
+and a flat vector bundle $({E}, \nabla)$ on $C$ with regular
+singularities along $D$, the isomonodromic deformation over $\Delta'$ pulls back
+to the isomonodromic deformation over $\Delta$.
+\end{remark}
+\begin{example}[Families of families, essentially in \cite{doran:isomonodromic}]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	With notation as in \autoref{notation:curve-and-sections}, suppose $\mathscr{D}=\emptyset$, and let $\tilde h:
+\mathscr{X}\to \mathscr{C}$ be a proper holomorphic submersion. Let
+$X=h^{-1}(C)$, and let $h=\tilde h|_X$. Then for each $i\geq 0,$ $R^i\tilde
+h_*\Omega^\bullet_{dR, \mathscr{X}/\mathscr{C}}$ with its Gauss-Manin connection
+is the isomonodromic deformation of $R^ih_*\Omega^\bullet_{dR, X/C}$ with its
+Gauss-Manin connection.
+\end{example}
+
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:parabolic-structure-on-isomonodromic-deformation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Using residues of the connection, we were able to associate to $(E,
+	\nabla)$ a certain parabolic bundle $E_\star$ in
+	\autoref{definition:associated-parabolic}.
+	This induces the structure of a relative parabolic bundle on the
+	isomonodromic deformation $(\mathscr E, \widetilde{\nabla})$ of $(E,
+	\nabla)$, which we denote $\mathscr E_\star$, as explained in
+	\cite[\S4.3]{BHH:parabolic}.
+	Let $\mathscr C_t$ denote the fiber of $\mathscr C \to \Delta$
+	over the point $t \in \Delta$ defining the isomonodromic deformation.
+	By \cite[Lemma 4.2]{BHH:parabolic}, the parabolic weights and the
+	associated dimensions of the graded parts of the quasiparabolic
+	structure corresponding to those weights on $\mathscr E|_{\mathscr C_t}$ are independent
+	of the point $t \in \Delta$. Indeed, the parabolic structure on $\mathscr{E}|_{\mathscr{C}_t}$ is exactly the one associated to the natural connection on $\mathscr{E}|_{\mathscr{C}_t}$ obtained by restricting $\widetilde{\nabla}$.
+\end{remark}
+We next introduce a notion of refinement of a parabolic structure. Loosely speaking, $F_\star$ is refined by $E_\star$ if $E_\star, F_\star$ have the same underlying vector bundle, and the parabolic structure on $F_\star$ is obtained by forgetting part of the parabolic structure on $E_\star$. The most
+important case of this which we will use is that the bundle $E_\star$ is a refinement of $E_0$, with its trivial parabolic structure.
+
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:refinements}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Given a parabolic bundle $E_\star$ on $(C,D)$, with $D=x_1+ \cdots+ x_n$ a reduced effective divisor, we may write $$E_\star= (E, \{E^i_j\}_{1 \leq j \leq n,
+	1\leq i \leq n_j+1}, \{\alpha^i_j\}_{1 \leq j \leq n,
+1\leq i \leq n_j}).$$
+Let $D'\subset D$ be an effective divisor, i.e.~there exists $I\subset \{1, \cdots, n\}$ so that $D'=\sum_{j\in I} x_j$. 
+
+We say a parabolic bundle $F_\star$ on $(C, D')$ is {\em refined by} $E_\star$ if for each $j\in I$ there is a subset $\{i_1, \ldots, i_{m_j}\} \subset
+\{2, \ldots, n_j\}$ such that there is an isomorphism of parabolic bundles
+$$F_\star \simeq  
+(E, \{E^i_j\}_{j \in I, i \in \{1, i_1, \ldots, i_{m_j}\} },
+\{\alpha^i_j\}_{j \in I, i \in \{1, i_1, \ldots, i_{m_j}\} }).$$
+%subject to the following conditions:
+%\begin{enumerate}
+%	\item There is an isomorphism $E \simeq F$.
+%	\item For each $j$ so that $x_j \in D'$, the parabolic structure of
+%	$F_\star$ at $x_j$ is refined by the parabolic structure of $E_\star$ at
+%	$x_j$:
+%	this means that we can write the filtration on $F_\star$ at $x_j$ in the %form
+%\begin{align*}
+%	F_{x_j} = E_{x_j}^1 \subsetneq E_{x_j}^{i_1} \subsetneq \cdots
+%	E_{x_j}^{i_{m_j}} \subsetneq 0,
+%\end{align*}
+%where $\beta_j^k = \alpha_j^{i_k}$.
+%\end{enumerate}
+%	for each $j$ with $x_j \in
+%\on{Supp}(D')$ and for each $1 \leq i \leq n_j$, there is some
+%	some $i'$ with $F^i_j = E^{i'}_j$, under the identification $E_{x_j}=
+%	F_{x_j}$ and $\alpha^{i'}_j = \beta^{i'}_j$.
+	%In the case that the parabolic structure of $F_\star$ at $x_{j_1},
+	%\ldots, x_{j_k}$ are trivial, i.e., they are of the form $F_{x_{j_t}} = F^1_{j_t} \supset
+	%F^2_{j_t} = 0$ with $\alpha^1_{j_t} = 0$,
+	%we consider $F$ as a parabolic bundle with respect to 
+	%$D \setminus \{ x_{j_1}, \ldots, x_{j_k}\}$.
+\end{definition}
+
+\begin{example}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{example:refinement}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Consider the case that our base curve is $X$, $D = x_1 + x_2$, and
+	the parabolic bundle $E_\star$ has underlying bundle $E = \mathscr O_X
+	\oplus \mathscr O_X$.
+	Suppose the parabolic structure of $E_\star$ at $x_1$ is given by
+	$E_{x_1} = E_1^1 \subsetneq E_1^2 \subsetneq 0$ with weights $\alpha_1^1
+	= 1/3, \alpha_1^2 = 2/3$ and parabolic structure at $x_2$ given by $E_{x_2} = E_2^1 \subsetneq 0$ with weight
+	$\alpha_2^1 = 1/2$.
+
+	There are $6 = 3 \cdot 2$ parabolic bundles $F_\star$ refined by $E_\star$.
+	Since $F_\star$ is a parabolic bundle with respect to a divisor $D'
+	\subset D$, we can take $D' = \emptyset, x_1, x_2,$ or $x_1+
+	x_2$. In the first case, $F_\star$ has trivial parabolic structure and
+	corresponds to the vector bundle $E_0$. In the case $D = x_1$, either
+	the parabolic structure at $x_1$ is the same as that of $E_\star$, or we take 
+	$F_{x_1} = E_1^1 \subsetneq 0$ with $\beta_1^1 = 1/3$.
+	When $D' = x_2$, $F_\star$ must have the same parabolic structure as
+	$E_\star$ at $x_2$. Finally, when $D' = x_1+ x_2$, the parabolic
+	structure at $x_2$ must agree with that of $E_\star$ and the parabolic
+	structure at $x_1$ can either agree with that of $E_\star$ or be given
+	by $E_{x_1} = E_1^1 \subsetneq 0$ with $\beta_1^1 = 1/3$, as in the
+	case $D = x_1$.
+
+	Generalizing this, there are $\prod_{j=1}^n (2^{n_j-1}+1)$ vector bundles
+	refined by a bundle $E_\star$ with respect to a divisor $D = x_1 +
+	\cdots + x_n$.
+\end{example}
+
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:refinement}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Continuing with the notation of
+	\autoref{remark:parabolic-structure-on-isomonodromic-deformation},
+	for any parabolic bundle $F_\star$ refined by $E_\star$,
+	there is a corresponding
+	isomonodromic deformation of $(F_\star,\nabla)$ over $\Delta$ given by taking the
+	parabolic structure from 
+	\autoref{remark:parabolic-structure-on-isomonodromic-deformation}
+	and forgetting
+	part of the parabolic structure on $\mathscr{E}_\star$.
+	As an important special case, the trivial parabolic structure on $E$ described in \autoref{example:vector-bundle} is refined by the parabolic bundle  $E_\star$ arising from \autoref{definition:associated-parabolic}.
+\end{remark}
+
+
+\subsection{Deformation theory of isomonodromic deformations}\label{subsection:filtered-bundle-deformations}
+\source{geometric-local-systems-general-curves-isomonodromy}
+We now analyze the infinitesimal deformation theory of isomonodromic
+deformations. 
+\begin{notation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready\label{notation:deformation-theory-iso}
+\source{geometric-local-systems-general-curves-isomonodromy}
+    Let $\on{Art}_{\mathbb{C}}$ be the category of local Artin
+$\mathbb{C}$-algebras. Let $C$ be a smooth proper curve over $\mathbb{C}$,
+$D\subset C$ a reduced effective divisor with $D=x_1+\cdots+x_n$, and $$({E}, \nabla: {E}\to
+{E}\otimes\Omega^1_C(\log D))$$ a flat vector bundle on $C$ with regular 
+singularities along $D$. Let $P^\bullet$ be a filtration of $E$.
+\end{notation}
+
+\begin{definition}[Deformations of a curve with divisor]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:curve-deformation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $$\on{Def}_{(C,D)}: \on{Art}_{\mathbb{C}}\to
+\on{Set}$$ be the functor sending a local Artin $\mathbb{C}$-algebra
+$(A,\mathfrak m, \kappa)$ (so $\mathfrak m$ is the maximal ideal and $\kappa$ is
+the residue field) to the
+set of flat deformations of $(C,D)$ over $A$.
+More precisely, it assigns to $A$ the set of those
+$(\mathscr C, \mathscr D, q, f)$ where
+$q: \mathscr C \to \on{Spec} A$ is a flat morphism, $\mathscr D \subset \mathscr C$
+is a relative Cartier divisor over $\on{Spec} A$ and $f: C \to \mathscr C$ is a map
+inducing an isomorphism $C \to \mathscr C \times_{\on{Spec} A} \on{Spec} \kappa$
+taking $D$ isomorphically to $\mathscr D \times_{\on{Spec} A} \on{Spec} \kappa$.
+\end{definition}
+\begin{proposition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready\label{proposition:curve-deformation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+    With notation as in \autoref{definition:curve-deformation}, there is a
+    canonical and functorial bijection
+    $$\on{Def}_{(C,D)}(\mathbb{C}[\varepsilon]/\varepsilon^2)\overset{\sim}{\to} H^1(C, T_C(-D)).$$
+\end{proposition}
+\begin{proof}
+This is standard, see 
+\cite[Proposition 3.4.17]{sernesi:deformations-of-algebraic-schemes}.
+\end{proof}
+We next generalize the above to describe the deformation theory of filtered
+vector bundles on curves.
+\begin{definition}[Deformations of a parabolic filtered vector bundle]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let
+$$\on{Def}_{(C,D, {E_\star}, P^\bullet)}:\on{Art}_{\mathbb{C}}\to \on{Set}$$ be the functor
+sending $A$ to the set of flat deformations of $(C, D, E_\star, P^\bullet)$ over $A$.
+More precisely, it assigns to $A$ the set of
+$(\mathscr C, \mathscr D, q, f, \mathscr E, \{\mathscr E^i_j\}, \mathscr{P}^\bullet, \psi)$
+where $(\mathscr C, \mathscr D, q, f)$ is a flat deformation of $(C,D)$ over $A$
+as in \autoref{definition:curve-deformation}, $\mathscr E$ is a vector bundle on $\mathscr C$, 
+$\oplus_j\mathscr E^i_j$ are sub-bundles of $\mathscr{E}|_\mathscr D$,
+$\mathscr{P}^\bullet$ is a filtration of $\mathscr{E}$ by sub-bundles, 
+and $\psi: f^* (\mathscr E,  \mathscr{P}^\bullet) \to (E,
+ P)$ is an isomorphism of filtered vector bundles on $C$ inducing an isomorphism $\mathscr{E}^i_j|_{x_j}\overset{\sim}{\to} E^i_j$ for each $i,j$.
+\end{definition}
+\begin{proposition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready\label{proposition:filtered-bundle-deformation}
+\source{geometric-local-systems-general-curves-isomonodromy}
+    Let $(E_\star, P^\bullet)$ be a filtered parabolic vector bundle on a curve $C$. Let $D\subset C$ be a reduced effective divisor. 
+    There is a canonical and functorial bijection $$\on{Def}_{(C, D, E_\star,
+    P^\bullet)}(\mathbb{C}[\varepsilon]/\varepsilon^2)\overset{\sim}{\to} H^1(C,
+    \on{At}_{(C,D)}(E_\star,P^\bullet)).$$
+\end{proposition}
+\begin{proof}
+	In the non-parabolic case, this is explained in \cite[\S2.2]{BHH:logarithmic}.
+	The parabolic case is described in \cite[Lemma 3.2]{BHH:parabolic} for
+	the case of a $1$-step filtration $P^\bullet = (0 \subset P^1 \subset
+	E)$, and the case of arbitrary length filtrations is analogous.
+\end{proof}
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	If $P^\bullet$ is trivial, we omit it from the notation. In particular,
+	$$\on{Def}_{(C, D,
+	E_\star)}(\mathbb{C}[\varepsilon]/\varepsilon^2)\overset{\sim}{\to} H^1(C,
+	\on{At}_{(C,D)}(E_\star)).$$
+\end{remark}
+
+Now, begin with a flat vector bundle $(E, \nabla)$ with regular singularities
+along $D \subset C$, and let $E_\star$ denote the associated parabolic bundle defined in
+\autoref{definition:associated-parabolic}.
+There is an evident natural transformation $$\on{Forget}: \on{Def}_{(C, D,
+{E_\star})}\to \on{Def}_{(C,D)}$$ given by forgetting ${E_\star}$. The construction of
+isomonodromic deformations yields a section $$\on{iso}: \on{Def}_{(C,D)}\to
+\on{Def}_{(C,D,E_\star)}$$ to this map (which depends on $\nabla$), as we now spell
+out.
+
+\begin{proposition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{proposition:connection-h1}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	With notation as above, let $\delta: \on{At}_{(C,D)}(E_\star)\to T_C(-D)$ be the natural quotient map, and
+$$q^\nabla: T_C(-D)\to\on{At}_{(C,D)}({E_\star})$$ be the section to $\delta$ 
+described in \autoref{definition:associated-parabolic}
+arising
+from $\nabla$ via \autoref{proposition:atiyah-splittings} and
+\cite[Lemma 4.1]{BHH:parabolic}.
+    Under the natural identifications
+    $$\on{Def}_{(C,D)}(\mathbb{C}[\varepsilon]/\varepsilon^2)\overset{\sim}{\to}
+    H^1(C, T_C(-D))$$ and $$\on{Def}_{(C,D,
+    {E_\star})}(\mathbb{C}[\varepsilon]/\varepsilon^2)\overset{\sim}{\to} H^1(C,
+    \on{At}_{(C,D)}({E_\star}))$$
+    arising from \autoref{proposition:curve-deformation} and \autoref{proposition:filtered-bundle-deformation}, the two squares below commute:
+    $$\xymatrix@C=.8em{
+    \on{Def}_{(C,D, {E_\star})}(\mathbb{C}[\varepsilon]/\varepsilon^2) \ar[r]^-\sim
+    \ar[d]_{\on{Forget}}&  H^1(C, \on{At}_{(C,D)}({E_\star})) \ar[d]_{\delta_*} &
+    \on{Def}_{(C,D, {E_\star})}(\mathbb{C}[\varepsilon]/\varepsilon^2) \ar[r]^-\sim &
+    H^1(C, \on{At}_{(C,D)}({E_\star})) \\
+    \on{Def}_{(C,D)}(\mathbb{C}[\varepsilon]/\varepsilon^2) \ar[r]^-\sim & H^1(C,
+    T_C(-D))  & \on{Def}_{(C,D)}(\mathbb{C}[\varepsilon]/\varepsilon^2) \ar[r]^-\sim
+    \ar[u]_{\on{iso}} & H^1(C, T_C(-D)) \ar[u]_{(q^\nabla)_*}.
+    }$$
+   \end{proposition}
+\begin{proof}
+	This is explained in \cite[Lemma 3.1 and Lemma 4.3]{BHH:parabolic}.
+	Also see \cite[\S2.2 and \S 4.1]{BHH:logarithmic} for the non-parabolic
+	case.
+\end{proof}
+We recall one additional result describing when a filtration extends to a
+deformation.
+
+The proof of the following lemma in the non-parabolic case is explained following the proof of 
+\cite[Lemma 3.1]{BHH:logarithmic}.
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:parabolic-extension-obstruction}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose we are given $(C,D,E_\star,\nabla)$ as in
+	\autoref{proposition:connection-h1}
+	and a filtration $P^\bullet$ of $E$ as in
+	\autoref{notation:deformation-theory-iso}.
+	Assume
+	further we have a first-order deformation $(\mathscr C, \mathscr D)$ of $(C, D)$
+	corresponding to an element $s \in \on{Def}_{(C,D)}(\mathbb{C}[\varepsilon]/\varepsilon^2)\overset{\sim}{\to} H^1(C, T_C(-D))$.
+	With $q^\nabla$ as in 
+	\autoref{proposition:connection-h1},
+	suppose $q^\nabla(s)$
+	corresponds to a deformation $(\mathscr C, \mathscr D, \mathscr E_\star)$ of
+	$(C,D,E_\star)$
+in which $P^\bullet \subset E$ admits an extension to a filtration $\mathscr
+P^\bullet$
+of $\mathscr E$.
+Then $$q^\nabla(s) \in \ker
+\left(H^1(C, \on{At}_{(C,D)}(E_\star)) \to H^1(C,
+\sheafend(E_\star)/\sheafend(E_\star, P^\bullet))\right).$$
+\end{lemma}
+\begin{proof}
+	Note that the map
+	$$H^1(C, \on{At}_{(C,D)}(E_\star)) \to
+	H^1(C,\sheafend(E_\star)/\sheafend(E_\star, P^\bullet))$$
+is induced by the surjection of sheaves
+$\on{At}_{(C,D)}(E_\star)
+\to \sheafend(E_\star)/\sheafend(E_\star, P^\bullet)$
+from \eqref{equation:quotient-atiyah-bundles}.
+In the above situation,
+	$q^\nabla(s) \in H^1(C, \on{At}_{(C,D)}(E_\star))$ is in the image of the natural map
+	$$H^1(C, \on{At}_{(C,D)}(E_\star, P^\bullet))\to H^1(C,
+	\on{At}_{(C,D)}(E_\star))$$ and the composition
+	$$H^1(C, \on{At}_{(C,D)}(E_\star, P^\bullet)) \to H^1(C,
+	\on{At}_{(C,D)}(E_\star)) \to H^1(C,
+\sheafend(E_\star)/\sheafend(E_\star, P^\bullet))$$
+vanishes. Indeed, this composition is part of the long exact sequence in cohomology induced by the short exact
+sequence of sheaves (\ref{equation:quotient-atiyah-bundles}).
+Therefore, 
+$q^\nabla(s) \in \ker
+\left(H^1(C, \on{At}_{(C,D)}(E_\star)) \to H^1(C,
+\sheafend(E_\star)/\sheafend(E_\star, P^\bullet))\right).$
+\end{proof}

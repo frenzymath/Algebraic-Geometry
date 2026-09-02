@@ -1,0 +1,360 @@
+% Source-derived chapter 06: The characteristic-primary aspects of the main result
+% Original source: purity-flat-cohomology
+\chapter{The characteristic-primary aspects of the main result}
+\label{purity-flat-cohomology-chapter-06}
+\source{purity-flat-cohomology}
+
+\begin{remark}[Source section]
+\label{purity-flat-cohomology-chapter-06-source}
+\source{purity-flat-cohomology}
+\source{purity-flat-cohomology}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: The characteristic-primary aspects of the main result
+\label{bad-characteristics}
+\source{purity-flat-cohomology}
+
+
+
+
+
+
+We have gathered all the ingredients we need to exhibit purity for flat cohomology. 
+ In \S\ref{perfectoid-version}, we establish the general case of the key formula \eqref{eqn:key-formula} and obtain the perfectoid version of flat purity. In \S\ref{grand-finale}, we then deduce the remaining ``bad residue characteristic'' cases of our main purity results.% \Cref{main} 
+
+
+%We establish the perfectoid purity statement, \Cref{perfectoid-purity}, in \S by using the perfectoid version of the crystalline Dieudonn\'{e} equivalence for $p$-divisible groups reviewed in \S\ref{crys-perfectoid}.
+%We handle the $p$-primary aspects of \Cref{main} by reducing them to a perfectoid purity statement () and then establishing the latter via crystalline Dieudonn\'{e} theory in the perfectoid setting, as reviewed in . We give the reduction directly in the proof of \Cref{main} in \S\ref{grand-finale}; the argument heavily relies on   Crystalline perfectoid inputs to the latter are reviewed in .
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\csub[The key formula and purity for flat cohomology of perfectoids] \label{perfectoid-version}
+\source{purity-flat-cohomology}
+
+
+We are ready for the key formula that relates flat cohomology of a perfectoid ring to quasi-coherent cohomology of its $\bA_\Inf$ with values in prismatic Dieudonn\'{e} modules $\bM(G)$ reviewed in \S\ref{pp:prismatic-review}. %with values in a commutative, finite, locally free group $G$ of $p$-power order 
+
+%via $p$-complete arc descent.
+
+%We turn to the general case of the key formula announced in \eqref{eqn:key-formula} and then use it to deduce the perfectoid case of purity for flat cohomology in \Cref{thm:perfectoid-purity}. Thanks to the arc-local analysis of the prismatic Dieudonn\'{e} module $\bM(G)$ carried out in \S\ref{section:Dieudonne-mixed-characteristic}, the key formula is now a fairly direct consequence of the $p$-complete arc descent for flat cohomology of perfectoids established in \S\ref{sec:descent}. %and, for discussing perfectoids, fix a prime $p$.
+
+%deduce its perfectoid version from , for which we use  $p$-complete arc descent established in \S\ref{sec:descent}. 
+ 
+
+
+
+
+
+
+
+\begin{theorem}
+\source{purity-flat-cohomology}
+\notready\label{thm:perfectoidsupport}  
+\source{purity-flat-cohomology}
+For a prime $p$, a perfectoid ring $A$, a commutative, finite, locally free, $A$-group $G$ of $p$-power order, and a closed $Z\subset \Spec (A/pA)$, we have a functorial in $A$, $G$, and $Z$ identification
+% be a subset contained in $\{p=0\}$. Let $Z^\flat\subset \Spec R^\flat$ be the corresponding subset of the tilt, and regard it also as a subset of $\Spec W_n(R^\flat)$ for any $n>0$. There is an equivalence
+\be \label{eqn:key-formula-pf}
+\source{purity-flat-cohomology}
+R\Gamma_Z(A,G)\cong R\Gamma_{Z}(\bA_\Inf(A), \bM(G))^{V = 1}.
+\ee
+\end{theorem}
+
+Here we choose the same $\xi$ when defining $V$ over perfectoid $A$-algebras, see \uS\uref{pp:prismatic-review} and \uS\uref{perfectoid-def}.
+
+\begin{proof}
+We may assume that $A$ is a $\bZ_p$-algebra and, by passing to an inverse limit in the end if necessary, we may assume that $Z$ is the vanishing locus of a finite number of elements of $A$. % Think in terms of the exact triangle and use that the complement $U$ of $Z$ is a union of quasi-compact $U_i$, so $R\Gamma(U) = R\lim(R\Gamma(U_i))$.
+
+Let us begin with the case when $A = \prod_{i \in I} A_i$ for perfectoid valuation rings $A_i$ of rank $\le 1$ that have algebraically closed fraction fields. For such $A$, our closed subset $Z$ is cut out by a single $a \in A$ with $a \mid p$. % In any case, $Z$ is cut out by finitely many elements of $A$, so it suffices to take a linear combination with idempotent coefficients so that coordinatewise the smallest possible valuation among the generators survives. Then to get $a \mid p$ one has $p^n \in (a)$ and one replaces $a$ by its $n$-th root.
+We choose compatible $p$-power roots $a^\flat \in A^\flat$ of $a$, so that $a^\flat \mid p^\flat$ and $a^\flat$ cuts out $Z \subset \Spec(A^\flat/p^\flat A^\flat)$ (see \S\ref{perfectoid-def}, especially \eqref{monoid-id}--\eqref{same-mod-pi}, as well as \Cref{tilt-summary}). By \Cref{M(G)-local-analysis}, we have
+%By \Cref{lem:ultrafilters}, neither $A$ nor $A[\frac 1a]$ has nonsplit \'{e}tale covers, so the B\'{e}gueri sequence~\eqref{Begueri} ensures the vanishing 
+\[
+\tst H^i(A,G) \cong H^i(A[\frac 1a],G) \cong 0 \qxq{for} i \ge 1,
+\]
+% this vanishing also holds for $i = 1$, 
+the map $V - 1$ is surjective on $\bM(G)$ and $\bM(G)[\f 1{[a^\flat]}]$, % This surjectivity is important for the $V$-invariants in the next diagram to be in the derived sense.
+and there is a unique commutative square
+\begin{equation*}
+\tst \xymatrix@C=40pt{
+G(A) \ar@{->>}[d]\ar[r]^-{\eqref{MG-fixed-pts}}_-{\sim} & \bM(G)^{V = 1} \ar@{->>}[d] \\
+G(A[\f 1{a}]) \ar[r]^-{\sim} & (\bM(G)[\f 1{[a^\flat]}])^{V = 1}.
+}
+\end{equation*}
+Thus, by the cohomology with supports sequence, 
+\[
+R\Gamma_Z(A, G) \qxq{and} R\Gamma_{Z}(\bA_\Inf(A), \bM(G))^{V = 1}
+\]
+are concentrated in degree $0$ and identified. Due to the functoriality of the isomorphism \eqref{MG-fixed-pts} and the uniqueness of the above diagram, this identification is functorial in $A$, $Z$, and $G$, as desired.
+
+For general $A$, by \Cref{thm:strongdescent-perfectoid}, the left side of \eqref{eqn:key-formula-pf} satisfies hyperdescent for those $p$-complete arc hypercovers whose terms are perfectoid $\bZ_p$-algebras. By \Cref{M(G)-coho-descent}, so does the right side. To then deduce the general case from the already settled case of $\prod_{i \in I} A_i$ as above, it remains to recall from \Cref{lem:arc-base} that such products form a base of the $p$-complete arc topology of $A$.
+\end{proof}
+
+
+
+
+
+With the key formula in hand, a similar argument to the one we used in positive characteristic at the end of the proof of \Cref{thm:main-pos-char} now gives purity for flat cohomology of perfectoid rings. 
+
+
+\bthm\label{thm:perfectoid-purity}
+\source{purity-flat-cohomology}
+For a prime $p$, a perfectoid ring $A$, a commutative, finite, locally free $A$-group $G$ of $p$-power order, a closed $Z \subset \Spec(A/pA)$, and a regular sequence $a_1, \dotsc, a_d \in A$ that vanishes on~$Z$,
+\[
+H^i_Z(A, G) \cong 0 \qxq{for} i < d.
+\]
+\ethm
+
+\bpf
+%The argument is similar to what we saw in the proof of \Cref{thm:main-pos-char}. Namely, 
+By \eqref{eqn:key-formula-pf} and a long exact cohomology sequence, it suffices to show that 
+\be \label{eqn:pp-coho-van}
+\source{purity-flat-cohomology}
+H^i_Z(\bA_\Inf(A), \bM(G)) \cong 0 \qxq{for} i < d. 
+\ee
+By \S\ref{pp:prismatic-review}, the $\bA_\Inf(A)$-module $\bM(G)$ is finitely presented of projective dimension $\le 1$, so
+\[
+H^i_Z(\bA_\Inf(A), \bA_\Inf(A)) \cong 0 \qxq{for} i < d + 1
+\]
+would suffice. For this, we use the $\bA_\Inf(A)$-regular sequence $a_0 \ce \xi, a_1, \dotsc, a_d$, where $\xi$ is a generator of $\Ker(\theta\colon \bA_\Inf(A) \surjects A)$ (see \S\ref{perfectoid-def}). Namely, since the $a_i$ vanish on $Z$ and $H^i_Z(\bA_\Inf(A), M)$ is supported on $Z$ for every $\bA_\Inf(A)$-module $M$, decreasing induction on $-1 \le j \le d$ gives the sufficient
+\[
+H^i_Z(\bA_\Inf(A), \bA_\Inf(A)/(a_0, \dotsc, a_j)) \cong 0 \qxq{for} i < d - j. \qedhere
+\]
+\epf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\csub[Purity for flat cohomology of local complete intersections]\label{grand-finale}
+\source{purity-flat-cohomology}
+
+
+%to this perfectoid version by using Andr\'{e}'s lemma discussed in \S\ref{And-lem} and excision results established in \S\ref{sec:excision}.
+
+We conclude the proof of purity for flat cohomology by reducing to its settled perfectoid case in \Cref{main-pf}.
+% since the coefficient module will no longer be of order prime to 
+The following lemmas help to pass to %$p$-adic 
+completions in the appearing perfectoid towers.
+
+
+\blem[\cite{Yek18}*{Theorems 1.3 and 1.5}% or \cite{SP}*{\href{https://stacks.math.columbia.edu/tag/0AGW}{0AGW}}%, see also \cite{And18b}*{1.1.1}
+] \label{flat-lemma}
+\source{purity-flat-cohomology}
+Let $I \subset R$ be an ideal in a Noetherian ring $R$. Every $I$-adically complete $R$-module $M$ that is $I$-completely flat \up{meaning that $M\otimes^{\bL}_R R/I$ is concentrated in degree $0$ and $R/I$-flat} is flat. In particular, the $I$-adic completion of a flat $R$-module is flat. \QED
+\elem
+
+
+
+
+\blem \label{slip-in-complete}
+\source{purity-flat-cohomology}
+Let $A$ be a ring, let $a \in A$, and let $\wh{A}$ be the $a$-adic completion. Each $A$-regular sequence $a_1, \dotsc, a_n \in A$ such that $A/(a_1, \dotsc, a_i)$ has bounded $a^\infty$-torsion for $0 \le i \le n$ is $\wh{A}$-regular~and
+\[
+\wh{A}/(a_1, \dotsc, a_n) \isomto (A/(a_1, \dotsc, a_n))\wh{\ }.
+\]
+\elem
+
+\bpf
+The bounded torsion assumption implies that the derived $a$-adic completions of the short exact sequences 
+\[
+0 \ra A/(a_1, \dotsc, a_{i - 1}) \xra{a_i}  A/(a_1, \dotsc, a_{i - 1}) \ra  A/(a_1, \dotsc, a_{i}) \ra 0 
+\]
+for $1 \le i \le n$ agree with their classical $a$-adic completions. In particular, we obtain short exact sequences 
+\[
+0 \ra (A/(a_1, \dotsc, a_{i - 1}))\wh{\ } \xra{a_i}  (A/(a_1, \dotsc, a_{i - 1}))\wh{\ } \ra  (A/(a_1, \dotsc, a_{i}))\wh{\ } \ra 0,
+\]
+which show the claim.
+%$a_i$ is a nonzerodivisor in $(A/(a_1, \dotsc, a_{i - 1}))\wh{\ }$ and 
+%The bounded torsion assumption implies that $(A/(a_1, \dotsc, a_i))[a^\infty] \isomto (A/(a_1, \dotsc, a_i))\wh{\ }[a^\infty]$ (this is true for the $r$-adic completion of any ring $R$  that has bounded $r^\infty$-torsion for an $r \in R$, as one sees from reductions modulo powers of $r$ of the exact sequence $0 \ra R[r^\infty] \ra R \ra R/R[r^\infty] \ra 0$). Thus, arguing by induction on $n$, we lose no generality by assuming that $n = 1$. In this case, taking the derived completion of the short exact sequence $0 \ra A \xra{a_1} A \ra A/(a_1) \ra 0$ and noting that by the bounded torsion assumption, all derived completions agree with their classical completions, we get the short exact sequence $0\ra \wh{A}\xra{a_1} \wh{A}\to A/(a_1)\wh{\ }\to 0$, which gives the desired result.
+\epf
+
+
+
+
+\begin{theorem}
+\source{purity-flat-cohomology}
+\notready \label{main-pf}
+\source{purity-flat-cohomology}
+For a Noetherian local ring $(R,\mathfrak m)$ that is a complete intersection and a commutative, finite, flat $R$-group $G$,
+\[
+H^i_{\mathfrak m}(R,G) \cong 0 \qxq{for} i < \dim(R).
+\]
+\end{theorem}
+
+\begin{proof} 
+By decomposing into primary factors, we may assume that $G$ is of $p$-power order for a prime $p$. \Cref{ell-semipurity} settles the case when $p$ is invertible in $R$, so we assume that $p = \Char(R/\fm)$. Moreover, by \Cref{reduce-to-complete}, we may assume that $R$ is $\fm$-adically complete, so that there is an unramified, complete, regular, local ring $(\wt{R}, \wt{\fm})$ and a regular sequence $f_1, \dotsc, f_n \in \wt{\fm}$ such that
+\[
+R \simeq \wt{R}/(f_1, \dotsc, f_n)
+\]
+(see \S\ref{conv}%\cite{EGAIV1}*{0.19.8.8 (i)}
+). We will argue the desired vanishing by induction on $i$ for all $R$ at once. 
+
+We use \Cref{lem:towers}~\ref{tower-a} to find a filtered direct system of regular, local, finite, flat $\wt{R}$-algebras $\wt{R}_j$ with $\varinjlim_j \wt{R}_j$ a regular local ring with an algebraically closed residue field. By the inductive assumption, \Cref{finite-cover}, %(with \Cref{finite-cover-rem}), 
+and a limit argument, we may replace $R$ by $(\varinjlim_j \wt{R}_j)/(f_1, \dotsc, f_n)$ and then apply \Cref{reduce-to-complete} again to assume that $\wt{R}$ has an algebraically closed residue field. Once this is arranged, the passage to a tower argument carried out with \Cref{lem:towers}~\ref{tower-b} instead supplies a faithfully flat %, ind-fppf 
+$\wt{R}$-algebra $\wt{R}_\infty$ whose $p$-adic completion is perfectoid %such that $p^{1/p^{\infty}} \in \wt{R}_\infty$ (this aspect uses the unramifiedness of $\wt{R}$) 
+for which we need to show that
+\[
+H^i_\fm(\wt{R}_\infty/(f_1, \dotsc, f_n), G) \cong 0 \qxq{for} i < \dim(R). 
+\]
+By %\Cref{cor:excision} 
+\Cref{heavy-handed} %(with \Cref{eg:for-passage-to-p-adic-completion}) 
+and \Cref{slip-in-complete}, we may replace $\wt{R}_\infty$ by its perfectoid 
+$p$-adic completion. Thus, it suffices to show that for any $p$-torsion free perfectoid ring $A$ that is $p$-completely faithfully flat over $\wt{R}$ in the sense that $A/p^nA$ is faithfully flat over $\wt{R}/p^n\wt{R}$ for $n > 0$,
+\be \label{ultimate-desire}
+\source{purity-flat-cohomology}
+H^i_\fm(A/(f_1, \dotsc, f_n), G) \cong 0 \qxq{for} i < \dim(R). 
+\ee
+By \Cref{flat-lemma}, such an $A$ is even $\wt{R}$-flat, so the sequence $f_1,\ldots,f_n$ is $A$-regular. By Andr\'{e}'s lemma, that is, by \Cref{Andre-lem}, there is an ind-syntomic, faithfully flat $A$-algebra $A'$ whose $p$-adic completion $\wh{A'}$ is perfectoid and contains compatible $p$-power roots $f_i^{1/p^\infty}$ for $i = 1, \dotsc, n$. A limit argument then gives the spectral sequence
+\[
+E_1^{st} = H^t_\fm((\underbrace{A'\otimes_A \ldots\otimes_A A'}_{s + 1})/(f_1, \dotsc, f_n),G) \Rightarrow H^{s + t}_\fm(A/(f_1, \dotsc, f_n), G).
+\]
+By \Cref{heavy-handed} and \Cref{slip-in-complete} again (with elementary excision as in \cref{foot:Milne} to $p$-Henselize the tensor products),  we may replace the $A'\otimes_A \ldots\otimes_A A'$ by their $p$-adic completions, which are perfectoid by \Cref{recognize}~\ref{R-a}. Thus, the spectral sequence above allows us to assume that our perfectoid $A$ in \eqref{ultimate-desire} contains compatible $p$-power roots $f_i^{1/p^\infty}$.\footnote{Another way to carry out this reduction is to use the version \cite{BS19}*{Theorem~7.14%--7.13
+} of Andr\'{e}'s lemma. Then $A'$ is only $p$-completely faithfully flat over $A$ but is a perfectoid right away and contains compatible $p$-power roots $f_i^{1/p^\infty}$. One then combines \Cref{cor:descentsupport} and \Cref{cor:excision} (with \Cref{slip-in-complete} again) to obtain the spectral sequence with $p$-adic completions already inside. This avoids \Cref{Andre-lem} at the cost of relying on heavier inputs from Chapter \ref{reduction}.} % In this method the tensor products and completions are derived right way and one uses \cite{BMS19}*{4.5} to show that the tensor products are still $p$-completely flat over $A$. To be able to apply Lemma 6.2.2, one first commutes derived completions with derived quotients, notices that the completion is no longer derived because it becomes identified with the usual completion of a tensor product of perfectoids, and then applied Lemma 6.2.1 to see the sequence $f_1, \dotsc, f_n$ is regular and so the derived quotient aspect disappears as well. 
+
+For every $R$-regular sequence $r_1, \dotsc, r_{\dim(R)} \in \wt{\fm}$, the sequence $f_1, \dotsc, f_n$, $r_1, \dotsc, r_{\dim(R)}$ is $A$-regular, so \Cref{mod-out-by-more} together with a limit argument reduces us to showing that 
+\be \label{main-pf-eq-4}
+\source{purity-flat-cohomology}
+H^i_\fm(A/(f_1^{1/p^\infty}, \dotsc, f_n^{1/p^\infty}), G) \cong 0 \q \x{for} \q i < \dim(R).
+\ee
+By the $\wt{R}$-flatness of $A$ and \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/07DV}{07DV}}, for all $m_1, \dotsc, m_n \ge 0$, every permutation of the sequence $f_1^{1/p^{m_1}}, \dotsc, f_n^{1/p^{m_n}}, r_1, \dotsc, r_{\dim(R)}$ is $A$-regular. Thus, by induction on the number of nonzero exponents $m_\ell$, the $A$-module 
+\[
+\tst A/(f_1^{1/p^{m_1}}, \dotsc, f_n^{1/p^{m_n}}, r_1, \dotsc, r_{j})
+\]
+is isomorphic to a submodule of $A/(f_1, \dotsc, f_n, r_1, \dotsc, r_j)$ for $j = 0, \dotsc, \dim(R)$. In particular, by the $\wt{R}$-flatness of $A$, its $p^\infty$-torsion is killed by $p^N$ for some fixed $N > 0$ that does not depend on the $m_\ell$ or on $j$. By forming colimits, this $p^N$ then kills every $(A/(f_1^{1/p^\infty}, \dotsc, f_n^{1/p^\infty}, r_1, \dotsc, r_j))\langle p^\infty\rangle$, so \Cref{slip-in-complete} ensures that $r_1, \dotsc, r_{\dim(R)}$ is still a regular sequence in the $p$-adic completion $(A/(f_1^{1/p^\infty}, \dotsc, f_n^{1/p^\infty}))\wh{\ }$. However, by \Cref{recognize}~\ref{R-b}, the latter is perfectoid, so \Cref{thm:perfectoid-purity} gives
+\[
+H^i_\fm((A/(f_1^{1/p^\infty}, \dotsc, f_n^{1/p^\infty}))\wh{\ }, G) \cong 0 \q \x{for} \q i < \dim(R).
+\]
+By \Cref{heavy-handed}, %(with \Cref{eg:for-passage-to-p-adic-completion}), 
+this vanishing gives the desired \eqref{main-pf-eq-4}.
+\end{proof}
+
+
+
+
+For \'{e}tale $G$, the variant of purity that involves the virtual dimension (defined in \S\ref{geom-depth-def}) follows, too.
+
+
+\bthm \lab{ell-semipurity-p}
+For a Noetherian local ring $(R, \fm)$ and a commutative, finite, \'{e}tale $R$-group $G$,
+\[
+H^i_\fm(R, G) \cong 0 \q \text{for} \q i < \vdim(R).
+\]
+\ethm
+
+\bpf
+\Cref{ell-semipurity} and its proof settle the case when the order of $G$ is invertible in $R$ and reduce the rest to the case when 
+\[
+G = \bZ/p\bZ \qxq{with} p = \Char(R/\fm) > 0
+\]
+and $R$ is a quotient of a regular local ring by a principal ideal. Such an $R$ is a complete intersection for which \Cref{main-pf} gives
+\[
+H^i_\fm(R, \bZ/p\bZ) \cong 0 \qxq{for} i < \vdim(R) \overset{\eqref{vdim-ineq}}{=} \dim(R). \qedhere
+\]
+\epf
+
+
+
+\brem
+To avoid repetitiveness, we deduced \Cref{ell-semipurity-p} from \Cref{main-pf}, although the proof of the latter simplifies significantly for $G = \bZ/p\bZ$. For example, to pass to completions in this case, we may replace Corollaries \ref{heavy-handed} and \ref{reduce-to-complete} by the simpler \Cref{lem:et-to-hat}. Moreover, since the \'{e}tale site is insensitive to nilpotents, there is no need to appeal to \Cref{mod-out-by-more} when reducing to \eqref{main-pf-eq-4}. Finally, there is no need to refer to \Cref{thm:perfectoid-purity} in the end: \Cref{baby-tilting} directly reduces to positive characteristic granted that one uses \cite{GR18}*{Proposition 16.4.17} to transfer depth. %across tilting. %(even this general transfer result is not needed because one can choose $r_1$ in such a way that . 
+\erem
+
+
+\brem
+In contrast to \Cref{ell-semipurity-p}, in \Cref{main-pf} we cannot drop the complete intersection assumption and replace $\dim(R)$ by $\vdim(R)$: for example, for $R \ce \bF_p\llb x, y, z, t\rrb/(x^2, y^2, xz - yt)$, the nonzero element $xy \in R$ dies on $U_R \ce \Spec(R)\setminus \{ \fm\}$, so it is nonzero in $H^0_\fm(R, \gA_p)$. %\cong \Ker(\gA_p(R) \ra \gA_p(U_R))$.
+\erem
+
+
+
+
+
+We close the section with a slight sharpening of \Cref{main-pf} in the case when $R$ is regular. 
+
+\bthm \label{thm:main-pf-regular}
+\source{purity-flat-cohomology}
+For a regular local ring $(R, \fm)$ that is not a field and a commutative, finite, flat $R$-group $G$,
+\[
+H^i_\fm(R, G) \cong 0 \qxq{for} i \le \dim(R).
+\]
+\ethm
+
+\bpf
+\Cref{main-pf} gives the vanishing for $i < \dim(R)$, so we may focus on the cohomological degree $i = \dim(R)$. Moreover, by decomposing $G$ into primary pieces and using \Cref{ell-semipurity}, we may assume that $G$ is of $p$-power order with $p = \Char(R/\fm) > 0$. We then use \cite{BBM82}*{th\'{e}or\`{e}me~3.1.1} to embed $G$ into a truncated $p$-divisible group and combine the resulting cohomology sequence with \Cref{main-pf} to reduce to $G$ itself being a truncated $p$-divisible group. The filtration by $p$-power torsion then allows us to assume that, in addition, $G$ is killed by $p$. 
+
+
+As in the proof of \Cref{main-pf}, we may assume that $R$ is $\fm$-adically complete. As there, we then use \Cref{lem:towers}~\ref{tower-a}, \Cref{finite-cover}, and \Cref{main-pf} to assume, in addition, that the residue field $k \ce R/\fm$ is algebraically closed. As in \Cref{lem:towers}~\ref{tower-b}, the Cohen theorem then shows that
+\[
+R \simeq W(k)\llb x_1, \dotsc, x_d\rrb/(p - f) \qxq{with either} f = x_1 \qxq{or} f \in (p, x_1, \dotsc, x_n)^2,
+\]
+and, since $R$ is not a field, $d > 0$. We then analogously use \Cref{finite-cover} and \Cref{main-pf} to pass to the tower supplied by \Cref{lem:towers}~\ref{tower-b}, and hence to reduce to showing that
+\[
+H^d_{\fm_\infty}(R_\infty, G) \cong 0,
+\]
+where
+\[
+R_\infty \simeq W(k)\llb x_1^{1/p^\infty}, \dotsc, x_d^{1/p^\infty}\rrb/(p - f), \q \fm_\infty \ce (p, x_1, \dotsc, x_d).
+\]
+Moreover, for showing this vanishing, \Cref{heavy-handed} allows us to replace $R_\infty$ by its $p$-adic completion $\wh{R}_\infty$, which is perfectoid. By \Cref{flat-lemma}, the sequence $x_1, \dotsc, x_d$ is $\wh{R}_\infty$-regular, so the key formula \eqref{eqn:key-formula-pf} and the vanishing \eqref{eqn:pp-coho-van} reduce us to showing that 
+\[
+H^d_{Z}(\bA_\Inf(\wh{R}_\infty), \bM(G))^{V = 1} \cong 0, 
+\]
+where $Z \subset \Spec(\bA_\Inf(\wh{R}_\infty))$ is the closed point. Since $G$ is the $p$-torsion of a $p$-divisible group and $\wh{R}_\infty^\flat$ is local, $\bM(G)$ is a finite free $\wh{R}_\infty^\flat$-module equipped with a $\Frob\i$-semilinear map $V \colon \bM(G) \ra \bM(G)$, so our task is to show that $V$ has no nonzero fixed points on $H^d_{Z}(\wh{R}_\infty^\flat, \bM(G))$. For this, we first describe $\wh{R}_\infty^\flat$-module $H^d_Z(\wh{R}_\infty^\flat, \wh{R}_\infty^\flat)$.
+
+
+As we saw in the proof of \Cref{abs-coh-pur}, the tilt $\wh{R}_\infty^\flat$ is the $\ov{f}$-adic completion of $k\llb (x_1^\flat)^{1/p^\infty}, \dotsc, (x_d^\flat)^{1/p^\infty} \rrb$ for some $\ov{f} \in (x_1^\flat, \dotsc, x_d^\flat)$. By \Cref{flat-lemma}, the sequence $x_1^\flat, \dotsc, x_d^\flat$ is $\wh{R}_\infty^\flat$-regular. In particular, similarly to the proof of \Cref{thm:perfectoid-purity}, from the exact sequences 
+\[
+0 \ra \wh{R}_\infty^\flat/(x_1^\flat, \dotsc, x_{j - 1}^\flat) \xra{x_j^\flat} \wh{R}_\infty^\flat/(x_1^\flat, \dotsc, x_{j - 1}^\flat) \ra \wh{R}_\infty^\flat/(x_1^\flat, \dotsc, x_{j}^\flat) \ra 0
+\]
+we get $H^j_Z(\wh{R}_\infty^\flat, \wh{R}_\infty^\flat) \cong 0$ for $j < d$ and, letting the transition maps be the indicated multiplications, we have
+\[
+\ba
+\tst H^d_Z(\wh{R}_\infty^\flat, \wh{R}_\infty^\flat) &\cong H^d_Z(\wh{R}_\infty^\flat, \wh{R}_\infty^\flat) \langle (x_1^\flat)^\infty \rangle \\ &\tst\cong \varinjlim_{x_1^\flat} H^{d - 1}_Z(\wh{R}_\infty^\flat, \wh{R}_\infty^\flat/(x_1^\flat)^n) \cong H^{d - 1}_Z(\wh{R}_\infty^\flat, \wh{R}_\infty^\flat[\f 1{x_1^\flat}]/\wh{R}_\infty^\flat).
+\ea\]
+Continuing in this way, since $k\llb (x_1^\flat)^{1/p^\infty}, \dotsc, (x_d^\flat)^{1/p^\infty} \rrb$ and its $\ov{f}$-adic completion agree modulo each $((x_1^\flat)^{n_1}, \dotsc, (x_d^\flat)^{n_d})$, we find that $H^d_Z(\wh{R}_\infty^\flat, \wh{R}_\infty^\flat)$ agrees with its analogue for $k\llb (x_1^\flat)^{1/p^\infty}, \dotsc, (x_d^\flat)^{1/p^\infty} \rrb$ and that, concretely, it is given by the quotient of $(k\llb (x_1^\flat)^{1/p^\infty}, \dotsc, (x_d^\flat)^{1/p^\infty} \rrb)[\f 1{x_1\cdots x_d}]$ by the space of those elements whose monomials have at least one nonnegative exponent. Thus, we may identify $H^d_Z(\wh{R}_\infty^\flat, \wh{R}_\infty^\flat)$ with the $k$-vector space with the basis 
+\[
+\tst\{(x_1^\flat)^{a_1} \cdots (x_d^\flat)^{a_d}\}_{a_1,\, \dotsc,\, a_d\, \in\, \bZ[\f 1p]_{< 0}}.
+\] 
+Since $\bM(G)$ is a finite free $\wh{R}_\infty^\flat$-module, $H^d_{Z}(\wh{R}_\infty^\flat, \bM(G))$ is a finite direct sum of such $k$-vector spaces. For any hypothetical nonzero element fixed by $V$, we choose a monomial $(x_1^\flat)^{a_1} \cdots (x_d^\flat)^{a_d}$ appearing in it for which the sum $a_1 + \dotsc + a_d$ is the smallest. The effect of $V$ is described by some matrix with coefficients in $k\llb (x_1^\flat)^{1/p^\infty}, \dotsc, (x_d^\flat)^{1/p^\infty} \rrb$ postcomposed with $\Frob\i$, and latter divides each $a_i$ by $p$, so the sum $a_1 + \dotsc + a_d$ strictly increases after applying $V$---more informally, $V$ is ``contracting'' on $H^d_{Z}(\wh{R}_\infty^\flat, \bM(G))$. Consequently, $V$ has no nonzero fixed points on $H^d_{Z}(\wh{R}_\infty^\flat, \bM(G))$, as desired.
+\epf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

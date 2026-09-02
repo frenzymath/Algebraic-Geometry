@@ -1,0 +1,309 @@
+% Source-derived chapter 05: Selmer sheaves and $p$-adic heights
+% Original source: universal-p-adic-gross-zagier-formula
+\chapter{Selmer sheaves and $p$-adic heights}
+\label{universal-p-adic-gross-zagier-formula-chapter-05}
+\source{universal-p-adic-gross-zagier-formula}
+
+\begin{remark}[Source section]
+\label{universal-p-adic-gross-zagier-formula-chapter-05-source}
+\source{universal-p-adic-gross-zagier-formula}
+\source{universal-p-adic-gross-zagier-formula}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Selmer sheaves and $p$-adic heights
+\label{big sec: sel}
+\source{universal-p-adic-gross-zagier-formula}
+In this section we present the   theory of Selmer complexes and $p$-adic heights  needed in the rest of the paper. The foundational material  is  taken from the   book of \nek\  \cite{nek-selmer}.
+\subsection{Continuous cohomology} 
+Let
+  $(R^{\circ}, \mathfrak{m})$ be a complete Noetherian local ring,  let $G$ be a topological group. 
+  \subsubsection{Continuous cochains for (ind-) admissible $R[G]$-modules} \lb{ssec adm}
+Let   $M$  be an $R^{\circ}[G]$-module.
+  We say that $M$ is  \emph{admissible of finite type }   if it is of finite type as an $R^{\circ}$-module  and  
+   the action $G\times M\to M$ is continuous  (when $M$ is given the $\mathfrak{m}$-adic topology). We say that $M$ is \emph{ind-admissible} if $M=\bigcup_{\alpha}M_{\alpha}$ where $\{M_{\alpha}\}$ is the set of   finite-type admissible $R^{\circ}[G]$-submodules of $M$. 
+
+The complex of continuous cochains of $M$ is denoted by $C^{\bullet}_{\rm cont}(G, M)$; it is defined in the usual  way \cite[(3.4.1)]{nek-selmer} when $M$ is admissible of finite type,  and by  $C^{i}_{\rm cont}(G, M):= \varinjlim_{\alpha} C^{i}_{\rm cont}(G, M_{\alpha})$ when we have a presentation $M=\bigcup_{\alpha}M_{\alpha}$ as above.   The image of  $C^{\bullet}_{\rm cont}(G, M)$ in the derived category of   $D({}_{R}{\rm Mod})$ of $R^{\circ}$-modules is denoted by 
+$$ {\rm R}\Gamma(G, M)$$
+and its cohomology groups by $$H^{i}(G, M)$$
+(we omit the subscript `cont' as we will only be working with continuous cohomology). 
+ 
+\subsubsection{Localisation} Let  
+$$R=R^{\circ}[\mathcal{S}^{-1}]$$
+ for some multiplicative subset $\mathcal{S}\subset R^{\circ}$, and let $M$ be an $R[G]$-module. We say that $M$ is ind-admissible if it is ind-admissible as an $R^{\circ}[G]$-module, and that it is of finite type if it is of finite type as an $R$-module. Suppose that   $M:=M^{\circ}\otimes_{R^{\circ}} R$ for an ind-admissible $R^{\circ}[G]$-module $M^{\circ}$. Then $M$ is ind-admissible  as an $R^{\circ}[G]$-module and   there is a canonical isomorphism
+\beq\label{localisation}
+\source{universal-p-adic-gross-zagier-formula}
+C^{\bullet}_{\rm cont}(G, M)\cong C^{\bullet}_{\rm cont}(G, M^{\circ})\otimes_{R^{\circ}}R
+\eeq
+(\cite[(3.7.4)]{nek-selmer}). 
+
+
+\begin{rema}
+\source{universal-p-adic-gross-zagier-formula}
+\notready \lb{calCR}Let 
+$$\mathscr{C}= \mathscr{C}_{R^{\circ}}$$ 
+be the category of schemes isomorphic to open subschemes of $\Spec R^{\circ}$, with maps being open immersions. It follows  from  the previous paragraph that,  for any object $X$ of $\mathscr{C}$,  the condition of ind-admissibility is defined for all quasicoherent $\OO_{X}[G]$-modules, and  the functors ${\rm R}\Gamma(G,- )$  are well-defined on ind-admissible  $\OO_{X}[G]$-modules. Moreover, both the ind-admissibility condition and the functors ${\rm R}\Gamma(G, - )$  are compatible with restriction along open immersions in $\mathscr{C}$. 
+\end{rema}
+
+In  the  following, we will not further comment on the generalisation indicated in the previous remark when referring to sources only considering $R^{\circ}[G]$-modules.
+
+\subsubsection{Completed product} \lb{compl product} For $i=1,2$, let $R_{i}^{\circ}$ be complete noetherian local rings, and let $R^{\circ}:= R_{1}^{\circ}\hat{\ot} R_{2}^{\circ}$. We have  a functor 
+\beq\lb{hatprod}\hat{\ts}\colon \mathscr{C}_{R_{1}^{\circ}}\ts \mathscr{C}_{R_{2}^{\circ}} \to  \mathscr{C}_{R^{\circ} }\eeq
+defined on objects 
+by $\Spec R_{1}^{\circ}[1/f_{1}] \hat{\ts} \Spec R_{1}^{\circ}[1/f_{2}]:= \Spec R_{1}^{\circ}\hat{\ot}R_{2}^{\circ}[1/f_{1}\ot1, 1/1\ot f_{2}]$ and glueing.
+
+\subsubsection{Notation} 
+Throughout the rest of this section, 
+$X$ will denote an object of $\mathscr{C}_{R^{\circ}}$.  If $\calA=\OO_{X}, \OO_{X}[G]$, we denote  by $D({}_{\calA}{\rm Mod})$ the derived category of $\calA$-moduels. We use sub- or superscripts $$\text{ft,  {ind-adm}, $+$, $-$, {b}, $[a, b]$,  {perf},} $$ to denote the full subcategory of objects quasi-isomorphic to complexes of $\calA$-modules that are respectively termwise of finite type, termwise ind-admissible, bounded below, bounded above, bounded, concentrated in degrees $[a,b]$, bounded, perfect (= bounded and termwise projective and of finite type).
+
+
+\begin{prop}[{ \cite[(3.5.6)]{nek-selmer}}]
+\source{universal-p-adic-gross-zagier-formula}
+\notready
+The functor ${\rm R}\Gamma(G, -)$ can be extended  to a functor on the category of bounded-below complexes of ind-admissible $\OO_{X}[G]$-modules, with values in bounded-below complexes of $\OO_{X}$-modules \cite[(3.4.1.3), (3.5.1.1)]{nek-selmer}. It descends to an exact   functor  
+$${\rm R}\Gamma(G, -)\colon D^{+}({}^{\textup{ind-adm}}_{\OO_{X}[G]}{\rm Mod})\to D^{+}({}_{\OO_{X}}{\rm Mod}).$$
+\end{prop}
+ 
+
+\subsubsection{Base-change} Suppose that $R\twoheadrightarrow R'=R/I$ is a surjective map of rings. Let $j\colon R^{\circ} \to R= R^{\circ}[\mathscr{S}^{-1}]$ be the natural map and let  $I^{\circ}:= j^{-1}(I)$. Then $R^{\circ}{}':= R^{\circ}/I^{\circ}$ is also complete local Noetherian, and  we may write $R'= R^{\circ}{}'[\mathscr{S}']^{-1}$ where  $\mathscr{S}'$ is the image of $\mathscr{S}$ in $R^{\circ}{}'$. Let $M'$ be an ind-admissible $R'$-module, then $C^{\bullet}_{\rm cont}(G, M')$ is the same whether we consider $M'$ as an $R'$-module or as an $R$-module: in the special case $R=R^{\circ}$ this follows from the fact that the maximal ideal of $R^{\circ}{}'$ is the image of the maximal ideal of $R^{\circ}$, so that the $\mathfrak{m}$-adic and $\mathfrak{m}'$-adic topologies on finitely generated $R^{\circ}{}'$-modules coincide; the general case   follows from  the special case by localisation \eqref{localisation}. 
+
+More generally, if $Y\subset X $ is a closed subset, the functor ${\rm R}\Gamma(G, -)$ on $\OO_{Y}[G]$-modules coincides with the restriction of the functor on $\OO_{X}[G]$-modules of the same name.
+
+ \begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\label{base change} Let $M$ be an ind-admissible $\OO_{X}[G]$-module and let $N$ be an $\OO_{X}$-module of finite projective dimension. Then  there is a natural isomorphism  in $D^{\rm b}({}_{\OO_{X}}{\rm Mod})$
+\source{universal-p-adic-gross-zagier-formula}
+ $$  {\rm R}\Gamma(G, M) \stackrel{\rm L}\otimes_{\OO_{X}} N\cong  {\rm R}\Gamma(G, M \stackrel{\rm L}\otimes_{\OO_{X}} N). $$
+  \end{prop}
+ \begin{proof} Let $P^{\bullet}$ be a finite projective resolution of $N$.   The natural map  of complexes of $\OO_{X}$-modules
+$$C_{\rm cont}^{\bullet}(G, M)\otimes_{\OO_{X} }P^{\bullet}\to  C_{\rm cont}^{\bullet}(G, M\otimes_{\OO_{X}}P^{\bullet})$$
+ is an isomorphism by   \cite[(3.4.4)]{nek-selmer}.\footnote{In \emph{loc. cit.}, the ring denoted by $R$ is our $R^{\circ}$, but as our $X$ is open in $\Spec R^{\circ}$, the $\OO_{X}$-modules $P^{n}$ are also flat as $R^{\circ}$-modules and the  cited result applies.} The desired result follows from the definition of derived tensor product. 
+ \end{proof}
+The proposition applies when $N=\OO_{Y}$ with $Y\subset X$  a local complete intersection, 
+or when  $X$ is regular and $N$ is any coherent $\OO_{X}$-module.
+ We highlight the following case. 
+ \begin{coro}   \label{base change cor} 
+\source{universal-p-adic-gross-zagier-formula}
+ Let $M$ be an ind-admissible $\OO_{X}[G]$-module that is flat as an $\OO_{X}$-module, and let $x\in X$ be a nonsingular point. Then there is an isomorphism in $D^{\rm b}({}_{\kappa(x)}{\rm Mod})$
+ $$ {\rm R}\Gamma(G, M) \stackrel{\rm L}\otimes_{\OO_{X}} \kappa(x)\cong 
+ {\rm R}\Gamma(G, M \otimes_{\OO_{X}} \kappa(x)) $$
+ hence a second-quadrant spectral sequence 
+ $${\rm Tor}_{-p}(H^{q}(G, M), \kappa(x)) \Rightarrow  H^{q-p}(G , M\otimes_{\OO_{X}}\kappa(x)).$$
+ \end{coro} 
+\begin{proof} After possibly localising at $x$, we may assume that $X=\Spec R$ is the spectrum of a  local ring, which by assumption will be regular. Then  
+ $\kappa(x)$   has finite projective dimension over $R$, and the result follows from the previous proposition. 
+\end{proof}
+ 
+\subsubsection{Continuous cohomology as derived functor} For $i=0, 1$, the functors $M\mapsto H^{i}(G,M)$ on the category of ind-admissible $R$-modules  coincide with the $i^{\rm th}$ derived functors of $M\mapsto M^{G}$ (\cite[(3.6.2)(v)]{nek-selmer}).
+
+
+\subsection{Specialisations}\label{(F)} 
+\source{universal-p-adic-gross-zagier-formula}
+From here on we further  assume that $R^{\circ}$ has finite residue field of characteristic~$p$. 
+
+\subsubsection{Finiteness conditions}
+Let $G$ be a profinite group. We consider the condition 
+$$\text{(F)}\qquad H^{i}(G, M) \text{ is finite for all finite discrete ${\bf F}_{p}[G]$-modules and all $i\geq 0$}$$
+and define the $p$-cohomological dimension of $G$ to be
+$${\rm cd}_{p}(G):= \sup\, \{i \, :\, \exists \text{ a finite discrete ${\bf F}_{p}[G]$-module $M$ with } H^{i}(G, M)\neq 0\}.$$
+ \begin{lemm}\label{finite coh}
+\source{universal-p-adic-gross-zagier-formula}
+ If $G$ satisfies (F) then the cohomology groups of ind-admissible $\OO_{X}[G]$-modules of finite type are $\OO_{X}$-modules of finite type (\cite[(4.2.5), (4.2.10)]{nek-selmer}).
+  The cohomology of any ind-admissible $\OO_{X}[G]$-module vanishes in degrees $>{\rm cd}_{p}(G)$ (\cite[(4.26)]{nek-selmer}). 
+ \end{lemm}
+ 
+ When $E$ is a number field, $S$ is a finite set of places of  $E$ and $G=G_{E, S}$,
+  condition (F) is satisfied and ${\rm cd}_{p}(G)= 3$. When $E_{w}$ is a local field and $G=G_{E_{w}}$,
+   condition (F) is satisfied and ${\rm cd}_{p}(G)= 2 $. In the latter case we use the notation $H^{i}(E_{w}, M) $ for $H^{i}(G, M)$. 
+
+\subsubsection{Projective limits, specialisations} We give two  results on the compatibility of  $G$-cohomology  with other functors.
+
+
+\begin{lemm}\label{projlim ok} Let $ G$ be a profinite group satisfying  (F) and let $M=\varprojlim_{n} M_{n}$ be the limit of  a countable projective system of admissible $R^{\circ}$-modules of finite type. Then for all $i$ the natural map
+\source{universal-p-adic-gross-zagier-formula}
+$$ H^{i}(G, M) \to  \varprojlim_{n} H^{i}(G, M_{n})$$
+is an isomorphism.
+\end{lemm}
+\begin{proof}
+In the special case $M_{n}=M/\mathfrak{m}^{n}M$, it is shown in \cite[Corollary 4.1.3]{nek-selmer} that the map under consideration is surjective with kernel $\lim^{(1)}_{n}  H^{i-1}(G, M_{n})$; this vanishes since by (F) those cohomology groups are finite, hence the projective system they form satisfies the Mittag-Leffler condition.  The general case follows from applying the special case to $M$ and the $M_{n}=\varprojlim_{r}M_{n}/\mathfrak{m}^{r}M_{n}$. 
+\end{proof}
+
+\begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\label{torss} Let $G$ be a profinite group satisfying (F) and ${\rm cd}_{p}(G)=e<\infty$. Let $M$  be an ind-admissible $\OO_{X}[G]$-module of finite type. Let  $x\in X$ be a nonsingular point, let $i_{0}\geq 0$  and suppose that   
+\source{universal-p-adic-gross-zagier-formula}
+$$H^{i}(G, M\otimes_{R}\kappa(x))=0$$
+for all $i\geq i_{0}+1$. 
+\begin{enumerate}
+\item For all $i\geq i_{0}+1$, the support of the finitely generated $R$-module $H^{i}(G, M)$ is a proper closed subset not containing $x$.
+\item The natural map
+$$H^{i_{0}}(G, M)\otimes_{\OO_{X}}\kappa(x)\to H^{i_{0}}(G, M\otimes_{R} \kappa(x))$$
+is an isomorphism.
+\item\lb{torss3} Suppose further  that $i_{0}=1$,  and that for $y$ in some dense open subset of $X$,  $\dim _{\kappa(y)} H^{1}(G, M\ot\kappa(y))= \dim _{\kappa(x)} H^{1}(G, M\ot\kappa(x))$. Then the natural map
+$$H^{{0}}(G, M)\otimes_{R}\kappa(x)\to H^{{0}}(G, M\otimes_{\OO_{X}} \kappa(x))$$
+is an isomorphism.
+\end{enumerate}
+\end{prop}
+\begin{proof}  By Nakayama's lemma  and the vanishing assumption, the first statement is equivalent to  
+\beq \label{dhi} 
+\source{universal-p-adic-gross-zagier-formula}
+H^{i}(G, M)\otimes_{\OO_{X}}\kappa(x)\cong H^{i}(G, M\otimes_{\OO_{X}} \kappa(x)).
+\eeq
+Therefore, for the proof of the first and second statements  it is enough to prove  \eqref{dhi}  for all $i\geq i_{0}$, which we do by decreasing induction on $i$.
+
+ For $i\geq e+1$ the result is automatic. In general, Corollary  \ref{base change cor} gives a second-quadrant spectral sequence 
+\beq \lb{E2pq}
+E_{2}^{p,q}={\rm Tor}_{-p}^{\OO_{X}}(H^{q}(G, M),  \kappa(x))\Rightarrow H^{q-p}(G, M\otimes_{\OO_{X}} \kappa(x)).\eeq
+By induction hypothesis, all terms on the diagonal  $q-p=i$ vanish except possibly  the one with $p=0$, and the differentials with source and target such term are $0$. It follows that $H^{i}(G, M\otimes_{\OO_{X} }\kappa(x))=E_{\infty }^{0, i}=E_{2}^{0, i}=H^{i}(G, M)\otimes_{\OO_{X}}\kappa(x) $.
+
+Finally, under the assumptions of part 3, the finitely generated $R$-module $H^{1}(G, M)$ is locally free of constant rank in a neighbourhood of $x$. Hence in the exact sequence 
+$$0\to H^{{0}}(G, M)\otimes_{R}\kappa(x)\to H^{0}(G, M\otimes_{\OO_{X}} \kappa(x)) \to {\rm Tor}_{1}^{\OO_{X}}(H^{1}(G, M), \kappa(x))$$
+deduced from \eqref{E2pq}, the last term vanishes.
+\end{proof}
+
+
+  
+\subsection{Selmer complexes and height pairings}\label{sec: sel} As in the preceding subsection, let $R^{\circ}$ be a Noetherian local ring  with finite residue field  of characteristic $p$,  $X$ an object of $\mathscr{C}_{R}$. 
+\source{universal-p-adic-gross-zagier-formula}
+
+When $E_{w}$ is a local field, we write ${\rm R}\Gamma(E_{w}, -):= {\rm R}\Gamma(G_{E_{w}}, -)$ and similarly for its cohomology groups. For number fields, we will only use the analogous shortened notation for Selmer groups.
+\subsubsection{Greenberg data} Let $E$ be a number field, $Sp$  a finite set of finite places of $E$ containing those above $p$. 
+ Fix for every $w\vert p$ an embedding $\baar{E}\into\baar{ E}_{{w}}$ inducing an embedding $G_{w}:=G_{E_{w}}\into G_{E, Sp}$.
+ If $M$ is an $\OO_{X}[G_{E, Sp}]$-module, we   denote by $M_{w}$ the module $M$ considered as an $\OO_{X}[G_{w}]$-module.
+ 
+ \begin{defi}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\label{grbg datum} A  \emph{Greenberg datum}   $ ( M, (M_{w}^{+})_{w\in  Sp})$ (often abusively abbreviated by $M$ in what follows)  over $X$ consists of
+\source{universal-p-adic-gross-zagier-formula}
+ \begin{itemize}
+ \item an ind-admissible  $\OO_{X}[G_{E, Sp}]$-module $M$,   finite and locally free  as an $\OO_{X}$-module;
+ \item  for every $w\in Sp$ a \emph{Greenberg local condition}, that is  a short exact sequence $$ 0 \to M_{w}^{+}\stackrel{i_{w}^{+}}{\to} M_{w}\to M_{w}^{-}\to 0$$
+of ind-admissible $\OO_{X}[G_{w}]$-modules,  finite and locally free as $\OO_{X}$-modules. 
+ \end{itemize}
+ \end{defi}
+ In this paper, at places $w \nmid p$ we will only consider the \emph{strict} Greenberg conditions $M_{w}^{+}=0$.  
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsubsection{Selmer complexes} Given a Greenberg  datum  $M= (M, (M_{w}^{+})_{w\in Sp})$,
+  the \emph{Selmer complex}  
+$$\wtil{{\rm R}{\Gamma}}_{f}(E, M)$$ is the image of the complex
+$$ {\rm Cone}\left(     C^{\bullet}_{\rm cont}(G_{E, Sp},M)\oplus\bigoplus_{w\in Sp} C^{\bullet}_{\rm cont}(E_{w}, M_{w}^{+})\stackrel{ \oplus_{w}{\rm res}_{w}-i_{w, *}^{+} }{\longrightarrow}    \bigoplus_{w\in Sp} C^{\bullet}_{\rm cont}(E_{w}, M_{w}) \right)[-1]  $$
+  in $D({}_{\OO_{X}}^{\rm ft}{\rm Mod})$. Its cohomology groups are denoted by $\wtil{H}^{i}_{f}(E, M)$. 
+We   have an exact triangle 
+\beq\label{ex tri}
+\source{universal-p-adic-gross-zagier-formula}
+\wtil{{\rm R}{\Gamma}}_{f}(E, M)\to {\rm R}{\Gamma}_{}(E, M)\to \oplus_{w\in Sp} {\rm R}\Gamma(E_{w}, M^{-}_{w}). 
+ \eeq
+  
+
+  
+  
+  
+  
+  
+
+
+\begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready The Selmer complex $\wtil{{\rm R}{\Gamma}}_{f}(E, M)$  and all terms of  \eqref{ex tri} belong to $D_{\rm perf}^{[0,3]}({}_{\OO_{X}}{\rm Mod})$. 
+\end{prop}
+\begin{proof} As in \cite[Proposition 9.7.2 (ii)]{nek-selmer}. 
+\end{proof}
+
+From the triangle  \eqref{ex tri} we extract an exact sequence
+\beq\label{tilde ses}
+\source{universal-p-adic-gross-zagier-formula}
+0 \to H^{0}(G_{E, Sp}, M)\to \bigoplus_{w\in Sp} H^{0}(E_{w}, M^{-}_{w}) \to \wtil{H}^{1}_{f}(E, M)\to H^{1}_{f} (E, M)\to 0
+\eeq
+where the last term is the (Greenberg) Selmer group 
+\beq\label{sel gr} H^{1}_{f} (E, M):= \Ker \left( H^{1}_{}(G_{E, Sp},M)\to \bigoplus_{w\in Sp}  H^{1} (E_{w}, M_{w}^{-})\right). 
+\source{universal-p-adic-gross-zagier-formula}
+\eeq
+
+\subsubsection{Height pairings} \label{sec: ht}
+\source{universal-p-adic-gross-zagier-formula}
+For $?=\emptyset,\iota$, let  $M^{?}=(M^{?}, (M_{w}^{?,+}))$ be a strict Greenberg datum for $G_{E, Sp} $ over $X$. Suppose given a perfect  pairing of $\OO_{X}[G_{E, Sp}]$-modules
+\beq \lb{skewp}
+M\ot_{\OO_{X}}M^{\iota}\to \OO_{X}(1) \eeq
+such that $M^{+}_{w}$ and $M^{+, \iota}_{w}$ are exact orthogonal of each other. Let $\Gamma_{F}$ be a profinite abelian group.
+
+
+For every pair of  Greenberg data $M$, $M^{\iota}$ as above, there  is a   height pairing 
+\beq \lb{hhh}
+h_{M}\colon \wtil{H}^{1}_{f}(E, M)\ot_{\OO_{X}}  \wtil{H}^{1}_{f}(E, M^{\iota})
+\to \OO_{X}\hat{\ot}\Gamma_{F}\eeq
+constructed  in  \cite[\S11.1]{nek-selmer}. The following is a special case of \cite[Appendix C, Lemma 0.16]{venerucci-thesis}. 
+\begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready \lb{prop ht} 
+For each regular point $x\in X$ and $P_{1}\ot P_{2}\in \wtil{H}^{1}_{f}(E,  M)\ot_{\OO_{X}}  \wtil{H}^{1}_{f}(E, M^{\iota})$, we have 
+$$h_{M\ot \kappa(x)} (P_{1,x}, P_{2, x})=(h_{M}(P_{1},  P_{2}))(x).$$
+\end{prop}
+
+
+ Venerucci has defined height pairings in an even more general context. Let $M_{X}$ be a strict Greenberg datum over $X$ as above, let $Y\subset X$ be a  local complete intersection, and let $M_{Y}^{?}$ be the restriction of $M_{X}^{?}$.  Let $\mathscr{N}_{Y/X}^{*}$ be the conormal sheaf of $Y\to X$. 
+Then there is a height pairing
+\beq \lb{hnv} h_{M_{Y}/M_{X}}\colon  \wtil{H}^{1}_{f}(E, M_{Y})\ot_{\OO_{Y}}  \wtil{H}^{1}_{f}(E, M_{Y}^{\iota})\to \mathscr{N}_{Y/X}^{*}, \eeq
+constructed in \cite[Appendix C, \S~0.21]{venerucci-thesis}. 
+
+We  note its relation to \eqref{hhh} in a special case, and its symmetry properties in a conjugate-self-dual case. 
+
+
+\begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready \lb{prop ht2} The pairing \eqref{hnv}
+satisfies the following properties. 
+\begin{enumerate}
+\item
+Let $\Gamma_{F}$ be a profinite abelian quotient of $G_{E, Sp}$, let $X=Y\hat{\ts}_{\Spec \Q_{p}}\Spec \Z_{p}\llb \Gamma_{F}\rrb_{\Q_{p}}$ (where $\hat{\ts}= \eqref{hatprod}$), and assume that $M_{X}^{?}=M_{Y}^{?}\ot_{\Z_{p}} \Z_{p}\llb \Gamma_{F} \rrb$ for $?=\emptyset, \iota$, where if $?=\emptyset $  (respectively $?=\iota$) then $G_{E, Sp}$ acts on $\Gamma_{F}$ through the tautological character (respectively its inverse). 
+Then $$h_{M_{Y}/M_{X}} = h_{M_{Y}}=\eqref{hhh}.$$
+\item Suppose that there is an involution $\iota\colon X\to X$ stabilising $Y$ and such that $M_{X}^{\iota}= M_{X}\ot_{\OO_{X}, \iota}\OO_{X}$, $M_{X,w}^{+,\iota}= M_{X, w}^{+}\ot_{\OO_{X}, \iota}\OO_{X}$. 
+
+ Let $\epsilon, \epsilon'\in\{\pm 1\}$. Assume that the pairing \eqref{skewp} is $\epsilon$-hermitian (\S~\ref{skew def}),
+that  ${\rm d}_{Y/X}\iota= \epsilon'\id$  on $\mathscr{N}_{Y/X}^{*}$, and that there is an  $\OO_{Y}$-linear isomorphism 
+$${\rm c}\colon \wtil{H}^{1}_{f}(E, M_{Y}^{\iota}) =  \wtil{H}^{1}_{f}(E, M_{Y})^{\iota} \to  \wtil{H}^{1}_{f}(E, M_{Y}) .$$
+Then the pairing 
+\beq\lb{skewsym}
+h_{M_{Y}/M_{X}}^{\Box} \colon  \wtil{H}^{1}_{f}(E, M_{Y})\ot_{\OO_{Y}}  \wtil{H}^{1}_{f}(E, M_{Y}) &\to \mathscr{N}_{Y/X}^{*}\\
+(z, z') &\mapsto h_{M_{Y}/M_{X}}(z, {\rm c} z')
+ \eeq
+ is $\epsilon\epsilon'$-symmetric. 
+\end{enumerate}
+\end{prop}
+In our main application  in Theorem \ref{ugz thm}, we have  $Y=\X$ (or an open subset), the Hida family for $(\G\ts\H)'$; $X=\X^{\sharp}$, the Hida family for $\G\ts \H$ containing $X$; and  $M_{Y}=\cV$, $M_{X}=\cV^{\sharp}$, the corresponding universal $G_{E}$-representations. In that case, the height pairing $h_{\cV/\cV^{\sharp}}$ is simply $1/2 $ of the pairing $h_{\cV}$ of Proposition \ref{prop ht}. 
+
+
+
+\begin{proof} Part 1 follows from the construction. (We omit further details since, by the remark preceding the present proof, we do not actually need it in this paper). 
+We prove the symmetry properties. Let $I$ be the ideal sheaf of $Y$; up to restricting to some open subset of $X$ we may assume that $I$ is generated by a regular sequence $x=(x_{1}, \ldots, x_{r})$. Then $\calN_{Y/X}^* = I/I^2$ is finite locally free generated by $([x_1], \ldots, [x_r])$. Let $\partial_i \in N = (I/I^2)^\vee$ be the map $\partial_i([x_j])=\delta_{ij}$. It suffices to show that $h_i:=\partial_i \circ h$ is   $\epsilon \epsilon'$-hermitian 
+ for all $i$. By \cite[Appendix C, Proposition 0.5]{venerucci-thesis}, $h_i$ is identified with $ h_{M_{Y}/M_{X_{i}}}$,  where $X_i=V_{X}((x_j)_{j\neq I})$ so that $Y=V_{X_{i}}(x_{i})$. Hence it suffices to prove the claim for $r=1$.
+
+We argue similarly to \cite[Proof of Corollary 10.10]{venerucci-thesis}.  Assume thus $r=1$, write $x $ in place of $x_{1}$, and let $K$ be the fraction field of $X$. By  \cite{nek-selmer} and \cite[Appendix A, \S~ 0.7]{venerucci-thesis} we have an $\epsilon$-hermitian Cassels--Tate pairing 
+$$\cup \colon \wtil{H}^{2}_{f}(E, M_{X})_{\text{$\OO_{X}$-tors}}
+ \ot_{\OO_{X}} \wtil{H}^{2}_{f}(E, M_{X}^{\iota})_{\text{$\OO_{X}$-tors}} \to K/\OO_{X},$$
+and by \cite[Appendix C, Proposition 0.17]{venerucci-thesis}, we have a map
+ $$ i_{x}\colon \wtil{H}^{1}_{f}(E, M_{Y})\to  \wtil{H}^{2}_{f}(E, M_{X})[x]$$
+ such that $h_{M_{Y}/M_{X}}$ coincides with 
+$$ \wtil{H}^{1}_{f}(E, M_{Y}) \ot  \wtil{H}^{1}_{f}(E, M^{\iota}_{Y}) 
+\stackrel{i_{x}\ot i_{x}^{\iota}}{\longrightarrow} 
+ \wtil{H}^{2}_{f}(E, M_{X})[x]\ot  \wtil{H}^{2}_{f}(E, M^{\iota}_{X})[x]  
+ \stackrel{\cup}{\longrightarrow}  x^{-1}\OO_{X}/\OO_{X}  \stackrel{[\cd x^{2}]}{\longrightarrow}  I/I^{2}= \calN^{*}_{Y/X}.$$
+Since all the above maps are $\iota$-equivariant, we find that $h_{M_{Y}/M_{X}}$ is $\epsilon$-hermitian as well. The desired assertion follows from this and the fact that $\iota $ acts by $\eps'$ on $\calN^{*}_{Y/X}$.
+ \end{proof}

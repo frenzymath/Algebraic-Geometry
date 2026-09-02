@@ -1,0 +1,402 @@
+% Source-derived chapter 05: Geometrization of local densities
+% Original source: higher-siegel-weil-unitary-nonsingular-terms
+\chapter{Geometrization of local densities}
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-05}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+\begin{remark}[Source section]
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-05-source}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Geometrization of local densities
+\label{s:geom density}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+The goal of this section is to give a sheaf-theoretic interpretation of the formula of Cho-Yamauchi on the representation density of Hermitian lattices, see Theorem \ref{th:Den Wd}. This will complete the geometrization of the analytic side of our proposed Siegel-Weil formula, at least for non-singular Fourier coefficients. The technical part of the proof of the theorem is a Frobenius trace calculation that uses properties of the Hermitian Springer action proved in \S\ref{ss:trace comp Spr}.
+
+%We are back to the situation in \S\ref{ssec: notation}. In particular,  $\nu:X'\to X$ is an \'etale double cover.
+
+%\subsection{Cho-Yamauchi formula}
+%
+%Fix a closed point $v\in |X|$. When $v$ is inert we write $v'\in |X'|$ as the unique closed point above $v$; when $v$ is split, let $v', v''\in |X'|$ be the two closed points above $v$.
+%
+%We write $\cO_{v}\subset F_{v}$ for the valuation ring and $k_v$ for the residue field at $v$, and $q_v = \# k_v$. Let $\cO'_{v}$ and $F'_{v}$ be the completed local ring and its ring of fractions of $X'$ along $\nu^{-1}(v)$ (so when $v$ is split we have $\cO'_{v}=\cO_{v'}\times \cO_{v''}$).  Let $k'_{v}=\cO'_{v}/\fm_{v}\cO'_{v}$. Then $k'_{v}$ is $k_{v}\times k_{v}$ or a quadratic extension of $k_{v}$ according to whether $v$ is split or inert. 
+%
+%
+%
+%Let $(L_{v}, h_{v})$ be an $\cO'_{v}$-lattice of rank $n$ together with a form $h_{v}$ that is Hermitian with respect to the quadratic extension $F'_{v}/F_{v}$. For any $\cO'_{v}$-lattice $L\subset V_{v}:=L_{v}\ot_{\cO'_{v}}F'_{v}$, let $L^{\vee}=\{x\in V_{v}|h_{v}(x,L)\subset \cO'_{v}\}$ denote the dual of $L$ under $h_{v}$.
+%
+%Recall from \S\ref{ss:} that  there is a polynomial $\Den_{v}(T,L_{v})\in \Z[T]$ such that
+%\begin{equation}
+%\Den_{v}((\y_{v}q_{v})^{-m}, L_{v})=\frac{\Den(\j{1}^{n+m}, L_{v})}{\Den(\j{1}^{n+m}, \j{1}^{n})}, 
+%\quad \forall m\in\Z_{\ge0}.
+%\end{equation}
+%
+%\begin{defn}\label{def:maT}
+%For $a\in \Z_{\ge0}$ define
+%\begin{equation}
+%\fm_{v}(a; T) := \prod_{i=0}^{a-1}(1-(\y_{v}q_v)^i T) \in \Z[T].
+%\end{equation}
+%\end{defn}
+%
+%
+%\begin{defn}\label{def:t} For a finite torsion $\cO_{X}$-module $\cT$ let
+%\begin{eqnarray}
+%\ell_{v}(\cT)&:=&\mbox{ length of $\cT$ as an $\cO_{v}$-module};\\
+%t_{v}(\cT)&:=&\dim_{k_{v}}(\cT\ot_{\cO_{v}}k_{v}).
+%\end{eqnarray}
+%Similarly, for  a closed point $v'\in |X'|$ and a finite torsion $\cO_{X'}$-module $\cT$ we may define $\ell_{v'}(\cT)$ and $t_{v'}(\cT)$. 
+%\end{defn}
+%
+%If $v$ is inert and $v'|v$, and $\cT$ is a finite torsion $\cO_{X'}$-module (and viewed as an $\cO_{X}$-module if needed), then 
+%\begin{equation}
+%\ell_{v}(\cT)=2\ell_{v'}(\cT), \quad t_{v}(\cT)=2 t_{v'}(\cT).
+%\end{equation}
+%
+%
+%\begin{thm}[Cho-Yamauchi \cite{}]\label{th:CY inert} If $v$ is inert in $X'$, then
+%\begin{eqnarray}\label{CY inert}
+%\Den_{v}(T,L_{v}) = \sum_{L_{v} \subset L \subset L^{\vee} \subset L^{\vee}_v} T^{2\ell_{v'}(L/L_{v})}\fm(t_{v'}(L^{\vee}/L);T). 
+%\end{eqnarray}
+%Here the sum is over $\cO'_{v}$-lattices $L$ containing $L_{v}$ on which $h_{v}$ is integral.
+%\end{thm}
+%
+%
+%\subsubsection{The split case}
+%When  $v$ is split in $X'$, the same formula \eqref{CY inert} works if we rewrite $2\ell_{v'}(-)$ as $\ell_{v}$ and $t_{v'}(-)$ as $\frac{1}{2}t_{v}$. \footnote{quote definition of $\Den_{v}$ in the split case.} 
+%
+%In the split case, if we write $\cO'_{v}=\cO_{v'}\times \cO_{v''}$ (both factors are canonically identified with $\cO_{v}$), then the datum of a Hermitian $\cO'_{v}$ lattice $L_{v}$ is a pair consisting of an  $\cO_{v'}$-lattices $L_{v'}$, an $\cO_{v''}$-lattice $L_{v''}$ together with an $\cO_{v}$-bilinear pairing pairing
+%\begin{equation}
+%(\cdot,\cdot): L_{v'}\times L_{v''} \to \cO_{v}
+%\end{equation}
+%that is perfect after base change to $F_{v}$.  We may write the summation in \eqref{CY inert} as over pairs $(L',L'')$ of $\cO_{v'}$ and $\cO_{v''}$-lattices such that $L_{v'}\subset L'\subset L''^{\vee}\subset L_{v''}^{\vee}$ (the last containment is equivalent to $L_{v''}\subset L''$). The split case of Theorem \ref{th:CY} can be stated as follows.
+%
+%\begin{thm}\label{th:CY split} If $v$ is split in $X'$ (i.e., $\y_{v}=1$), and $L_{v}=(L_{v'},L_{v''})$ as above, then
+%\begin{eqnarray}\label{CY split}
+%\Den_{v}(T,L_{v}) = \sum_{L_{v'} \subset L' \subset L''^{\vee} \subset L^{\vee}_{v''}} T^{\ell_{v}(L'/L_{v'})+\ell_{v}(L''/L_{v''})}\fm(t_v(L''^{\vee}/L');T). 
+%\end{eqnarray}
+%\end{thm}
+%\begin{proof}
+%
+%\end{proof}
+%
+%It is easy to see from the  formulas \eqref{CY inert} and \eqref{CY split} that $\Den_{v}(T,L_{v})$ depends only on the  torsion $\cO'_{v}$-module $\cQ_{v}:=L^{\vee}_{v}/L_{v}$ together with the Hermitian form on it induced from $h_{v}$.  
+%
+%In other words, for $(\cQ_{v},h_{v})\in \Herm(X'/X)(k)$ supported over $v$ (we often omit $h_{v}$ from notation), let us define
+%\begin{eqnarray}
+%&& \Den_{v}(T,\cQ_{v}) = \sum_{0 \subset \cI \subset \cI^{\bot} \subset \cQ_v} T^{\ell_{v}(\cI)}\fm_{v}(\frac{1}{2}t_v(\cI^{\bot}/\cI);T).\\
+%&=&\begin{cases} \sum_{0 \subset \cI \subset \cI^{\bot} \subset \cQ_v} T^{2\ell_{v'}(\cI)}\fm_{v}(t_{v'}(\cI^{\bot}/\cI);T)& v \mbox{ inert;} \\
+% \sum_{0 \subset \cI_{1} \subset \cI_{2} \subset \cQ_{v'}} T^{\ell_{v}(\cI_{1})+\ell_{v}(\cQ_{v'}/\cI_{2})}\fm_{v}(t_v(\cI_{2}/\cI_{1});T) & v \mbox{ split.}\end{cases}
+%\end{eqnarray}
+%Here $\cI^{\bot}$ is the orthogonal of $\cI$ under the perfect pairing $\cQ_{v}\times \cQ_{v}\to k_{v}$ induced from $h_{v}$. In the split case we decompose $\cQ_{v}=\cQ_{v'}\op \cQ_{v''}$ according to the support, and we write $\cI=\cI_{1}\op \cI^{\bot}_{2}$ for $\cI_{1},\cI_{2}\subset \cQ_{v'}$.
+
+
+
+
+\subsection{Density function for torsion sheaves}\label{ssec: density function for torsion sheaves}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+%Let $\nu: X'\to X$ be an \'etale double cover. 
+
+Following Remark \ref{r:Den tor}, for any Hermitian torsion sheaf $(\cQ,h)\in \Herm_{2d}(X'/X)(k)$, we may define the density  polynomial $\Den(T,\cQ)$ using the Cho-Yamauchi formula as follows. Let $\cQ_{v}$ be the summand of $\cQ$ supported over $v\in |X|$, we define
+\begin{equation*}
+\Den(T,\cQ):=\prod_{v\in|X|}\Den_{v}(T^{\deg(v)}, \cQ_{v})
+\end{equation*}
+where
+\begin{equation*}
+\Den_{v}(T, \cQ_{v})=\sum_{0\subset\cI\subset \cI^{\bot}\subset \cQ_{v}} T^{2\ell'_{v}(\cI)}\fm_{v}(t'_{v}(\cI^{\bot}/\cI);T). 
+\end{equation*}
+Here $I^\perp$ is the orthogonal of $I$ under the Hermitian form on $\cQ_v$, so in other words the sum is over all subsheaves of $\cQ_{v}$ that are isotropic under $h_{v}=h|_{\cQ_{v}}$, and we write $\fm_{v}(-)$ to emphasize the dependence of $\fm(a;T)$ on $F'_{v}/F_{v}$ (see Definition \ref{def:maT}). The functions $\ell'_{v}(-)$ and $t'_{v}(-)$ are the functions $\ell'(-)$ and $t'(-)$ defined in \S \ref{ssec: Cho-Yamauchi} for $F'_{v}/F_{v}$. 
+
+Expanding the product into a summation, we see
+\begin{equation}\label{Den sum}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\Den(T, \cQ)=\sum_{0 \subset \cI \subset \cI^{\bot} \subset \cQ} T^{\dim_{k}\cI}\prod_{v\in |X|}\fm_{v}(t'_v(\cI^{\bot}/\cI);T^{\deg(v)}).
+\end{equation}
+
+Given an injective Hermitian map $a \co \cE \inj \s^* \cE^\vee$, we have a Hermitian structure on the torsion sheaf $\coker(a)$ as follows. Applying $\s^{*}R\ul{\Hom}(-,\omega_{X'})$ to the short exact sequence
+\begin{equation}\label{EQ}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+0\to \cE\xr{a} \s^{*}\cE^{\vee}\to \cQ\to 0
+\end{equation}
+yields a short exact sequence
+\begin{equation}\label{EQ'}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+0\to \cE\xr{\s^{*}a^{\vee}} \s^{*}\cE^{\vee}\to \s^{*}\ul{\Ext}^{1}(\cQ,\omega_{X'})\to 0.
+\end{equation}
+Since $\s^*a^{\vee}=a$, we may identify \eqref{EQ} and \eqref{EQ'} and get an isomorphism $h_{\cQ}: \cQ\isom \s^{*}\cQ^{\vee}$. Using this, we may restate Theorem \ref{th:Eis Den} as follows.
+\begin{thm}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{th:Eis Den torsion} Let $\cE$ be a rank $n$ vector bundle over $X'$ and $a:\cE\inj\s^{*}\cE^{\vee}$ be an injective Hermitian map. Then
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\[
+E_{a}(m(\cE),s,\Phi)=\chi(\det(\cE))q^{-\deg(\cE)( s-n/2)-\frac{1}{2}n^2\deg(\omega_X) }
+\times \sL_n(s) ^{-1} \Den(q^{-2s}, \coker(a)).
+\]
+\end{thm}
+
+
+
+
+\subsection{Density sheaves}
+We will define a graded perverse sheaf on $\Herm_{2d}(X'/X)$ whose Frobenius trace at $\cQ$ recovers $\Den(T,\cQ)$.  We will suppress $X'/X$ from the notations.
+
+
+%\subsection{Local density sheaves for the non-split double covers}
+%\subsubsection{Setup for perverse sheaves} 
+For $0 \leq i \leq d$, let $\Herm_{i,2d}$ be the stack classifying 
+\[
+\{ (\cI, (\cQ,h)) \in \Coh_i(X') \times \Herm_{2d} \co \text{$\cI\subset \cQ$ and is  isotropic under $h$}\}.
+\]
+We have the following maps
+\begin{equation*}
+\xymatrix{& \Herm_{i,2d}\ar[dl]_{\oll{f}_{i}}\ar[dr]^{\orr{f_{i}}=(\orr{f}'_{i},\orr{f}''_{i})} \\
+\Herm_{2d}& & \Coh_i(X') \times  \Herm_{2(d-i)}
+}
+\end{equation*}
+Here $\oll{f}_{i}$ takes $(\cI,(\cQ,h))$ to $(\cQ,h)$, $\orr{f}'_{i}$ takes it to $\cI$ and $\orr{f}''_{i}$ takes it to $\cI^{\bot}/\cI$ with the Hermitian structure induced from $h$.
+
+Recall the perverse sheaf $\HSpr_{d}$ on $\Herm_{2d}$ from Definition \ref{d:Spr isotypic}(2). It is obtained from the Springer sheaf on $\Herm_{2d}$ by taking $(\Z/2\Z)^{d}$-invariants, and $\HSpr_{2d}$ carries an action of $S_{d}$.
+
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{def: K_Eis} We define the following graded virtual perverse sheaves on $\Herm_{2d}$. (In the notation below, the degree of the formal variable $T$ encodes the grading.) 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{enumerate}
+\item $\frP_{d}(T)=\bigoplus_{j=0}^{d}(-1)^{j}(\HSpr_{d})^{(S_{j}\times S_{d-j}, \sgn_{j}\bt \one)}T^{j}$.
+\item $\cK^{\Eis}_{d}(T)=\bigoplus_{i=0}^{d} R\oll{f}_{i,!}R\orr{f}^{*}_{i}(\Qlbar\cdot T^{i}\bt \frP_{d-i}(T)).$
+\end{enumerate}
+\end{defn}
+
+
+\begin{thm}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{th:Den Wd} For any $\cQ\in \Herm_{2d}(k)$, we have
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{equation*}
+\Den(T,\cQ)=\Tr(\Frob, \cK^{\Eis}_{d}(T)_{\cQ}).
+\end{equation*}
+\end{thm}
+\begin{proof}
+By the Grothendieck-Lefschetz trace formula, we have
+\begin{equation*}
+\Tr(\Frob, \cK^{\Eis}_{d}(T)_{\cQ})= \sum_{i=0}^d \sum_{(\cI,\cQ)\in \Herm_{i,2d}(k)}T^{\dim_{k}\cI}\Tr(\Frob, \frP_{d-i}(T)_{\cI^{\bot}/\cI}).
+\end{equation*}
+Comparing with the expansion \eqref{Den sum} for $\Den(T,\cQ)$, it suffices to prove, changing notation $d-i$ to $d$ and $\cI^{\bot}/\cI$ to $\cQ$, that
+\begin{equation}\label{Pm}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\Tr(\Frob, \frP_{d}(T)_{\cQ})=\prod_{v\in |X|}\fm_{v}(t'_{v}(\cQ);T^{\deg(v)}).
+\end{equation}
+This will be proved in Proposition \ref{p:PQ trace}.
+\end{proof}
+
+The rest of the section is devoted to the proof of \eqref{Pm}. The idea is to relate the Frobenius trace to a similar Frobenius trace of a graded perverse sheaf on $\Coh_{d}(X)$ using results from \S\ref{ss:trace comp Spr}, and then calculate the latter explicitly.
+
+
+%\section{Frobenius trace calculation}\label{sec: trace density}
+
+
+\subsection{Comparison of two graded Frobenius modules}%\mnote{TF: I'll add some index notation to $\frP_{\cQ}(T)$ because it will be needed later}
+For $(\cQ,h)\in \Herm_{2d}(k)$, write
+\[
+\frP_{\cQ}(T)=\frP_{d}(T)_{\cQ}=\bigoplus_{j=0}^{d} (-1)^{j}(\HSpr_{d})_{\cQ}^{(S_{j}\times S_{d-j}, \sgn_{j}\bt1)}T^{j} = \bigoplus_{j=0}^{d} (-1)^{j}\cohog{*}{\cB^{\Herm}_{\cQ}}^{(W_{j}\times W_{d-j}, \ov\sgn_{j}\bt1)}T^{j}.
+\]
+Here $\ov\sgn_{j}$ is the inflation of the sign representation of $S_{j}$ under $W_{j}\surj S_{j}$. We view $\frP_{\cQ}(T)$  as a $\Z$-graded virtual Frobenius module, with the $\Z$-grading indicated by the power of $T$.  Let $\cQ^{\flat}\in \Coh_{d}(X)(k)$ be in the isomorphism class that corresponds to $(\cQ,h)$ under the bijection in Lemma \ref{l:bij}. Define
+\[
+\frP_{\cQ^{\flat}}(T)=\bigoplus_{j=0}^{d} (-1)^{j}(\Spr_{d})_{\cQ^{\flat}}^{(S_{j}\times S_{d-j}, \sgn_{j}\bt1)}T^{j} =\bigoplus_{j=0}^{d} (-1)^{j}\cohog{*}{\cB_{\cQ^{\flat}}}^{(S_{j}\times S_{d-j}, \sgn_{j}\bt1)}T^{j}.
+\]
+Define the Frobenius traces 
+\begin{equation*}
+P_{\cQ}(T):=\Tr(\Frob,\frP_{\cQ}(T)), \quad  P_{\cQ^{\flat}}(T):=\Tr(\Frob,\frP_{\cQ^{\flat}}(T)) \in \Qlbar[T].
+\end{equation*}
+The goal is to get a relationship between $P_{\cQ}(T)$ and $P_{\cQ^{\flat}}(T)$. Note that $\frP_{\cQ^{\flat}}(T)$ is a special case of $\frP_{\cQ}(T)$ when the double cover $X'=X\sqcup X$ (and $\cQ$ is the direct sum of $\cQ^{\flat}$ on one copy of $X$ and $\cQ^{\flat,\vee}$ on the other). We shall apply Proposition \ref{p:trace relation} to express $P_{\cQ}(T)$ in terms of $P_{\cQ^{\flat}}(T)$. For this we need to calculate the decomposition of $\frP_{\cQ^{\flat}}(T)$ given in \eqref{HBQ pm}.
+
+
+Recall notations $Z, Z', \Sig(Z)$ and $\Sig(Z')$ from \S\ref{ss:Herm fiber}.   First we show that $\frP_{\cQ^{\flat}}(T)$ factorizes according to the support of $\cQ$ in $X$. Let $|Z|$ be the set of closed points in $Z$.   For $v\in |Z|$, let $\cQ^{\flat}_{v}$ denote the direct summand of $\cQ^{\flat}$ whose support is over $v$. 
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{l:Spr factor}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+We have a natural isomorphism of graded $\Frob$-modules
+\begin{equation*}
+\frP_{\cQ^{\flat}}(T)\cong\bigot_{v\in |Z|}\frP_{\cQ^{\flat}_{v}}(T).
+\end{equation*}
+In particular,
+\begin{equation*}
+P_{\cQ^{\flat}}(T)=\prod_{v\in |Z|}P_{\cQ^{\flat}_{v}}(T).
+\end{equation*}
+\end{lemma}
+\begin{proof}
+Choose any $y\in \Sig(Z)$ and let $|y|$ be the resulting map $\{1,2,\cdots, d\}\to |Z|$. Let $S_{|y|}=\Stab_{S_{d}}(|y|)$, then $S_{|y|}\cong \prod_{v\in|Z|}S_{I_{v}}$, where $I_{v}=|y|^{-1}(v)$. Applying  Corollary \ref{c:Sind} to $\cQ^{\flat}$ and to each $\cQ^{\flat}_{v}$ gives an isomorphism of $(S_{d},\Frob)$-modules 
+\begin{equation}\label{HBQflat ind}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\cohog{*}{\cB_{\cQ^{\flat}}}\cong \Ind^{S_{d}}_{S_{|y|}}\left(\bigot_{v\in|Z|}\cohog{*}{\cB_{\cQ^{\flat}_{v}}}\right).
+\end{equation}
+Here the factor $S_{I_{v}}$ of $S_{|y|}$ acts on $\cohog{*}{\cB_{\cQ^{\flat}_{v}}}$ by the Springer action. 
+
+Write $H_{v}=\cohog{*}{\cB_{\cQ^{\flat}_{v}}}$ as a $(S_{I_{v}},\Frob)$-module. Let $d_{v}=\# I_{v}$. By Mackey theory, the $(S_{j}\times S_{d-j}, \sgn_{j}\bt1)$-isotypical part of the right side of \eqref{HBQflat ind} is a direct sum over double cosets $(S_{j}\times S_{d-j})\bs S_{d}/S_{|y|}$, which can be identified with the set of functions $i: |Z|\to \Z_{\ge0}$, $v\mapsto i_{v}\le d_{v}$, such that $\sum_{v}i_{v}=j$. The stabilizer of the $S_{j}\times S_{d-j}$-action on the orbit indexed by $i$ is isomorphic to $\prod_{v\in |Z|}S_{i_{v}}\times S_{d_{v}-i_{v}}$ (where the $S_{i_{v}}$ factor lies in $S_{j}$, $S_{d_{v}-i_{v}}$ lies in $S_{d-j}$, and $S_{i_{v}}\times S_{d_{v}-i_{v}}$ is naturally a subgroup of $S_{I_{v}}\cong S_{d_{v}}$). The contribution of the summand indexed by $i$ is 
+\begin{equation*}
+\bigot_{v\in |Z|}H_{v}^{(S_{i_{v}}\times S_{d_{v}-i_{v}}, \sgn_{i_{v}}\bt 1)}.
+\end{equation*}
+This implies that
+\begin{eqnarray*}
+\frP_{\cQ^{\flat}}(T)&\cong &\sum_{i:|Z|\to \Z_{\ge0},  i_{v}\le d_{v}}(-1)^{\sum i_{v}}\left(\bigot_{v\in |Z|} H_{v}^{(S_{i_{v}}\times S_{d_{v}-i_{v}}, \sgn_{i_{v}}\bt 1)}\right)T^{\sum i_{v}}\\
+&\cong&\bigot_{v\in |Z|}\left(\sum_{i_{v}=0}^{d_{v}} (-1)^{i_{v}}H_{v}^{(S_{i_{v}}\times S_{d_{v}-i_{v}}, \sgn_{i_{v}}\bt 1)}T^{i_{v}}\right) = \bigot_{v\in |Z|}\frP_{\cQ^{\flat}_{v}}(T).
+\end{eqnarray*}
+\end{proof}
+
+
+Let $\cQ_{v}$ be the direct summand of $\cQ$ supported over $v$.  Then $\cQ_{v}$ and $\cQ^{\flat}_{v}$ correspond under the bijection in Lemma \ref{l:bij}. 
+
+For any Frobenius module $M$ with integral weights,  let $\Gr^{W}_{i}M$ be the pure of weight $i$ part of $M$. This notation applies also to graded Frobenius modules by taking $\Gr^{W}_{i}$ on each graded piece.
+
+\begin{prop}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{l:HSpr factor} Let $\cQ\in \Herm_{2d}(k)$.
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{enumerate}
+\item We have
+\begin{equation}\label{HSpr factor}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\frP_{\cQ}(T)\cong\bigot_{v\in |Z|}\frP_{\cQ_{v}}(T), \quad
+P_{\cQ}(T)=\prod_{v\in |Z|}P_{\cQ_{v}}(T).
+\end{equation}
+\item If $v\in |Z|$ is split in $X'$, then
+\begin{equation}\label{PQ split}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+P_{\cQ_{v}}(T)=P_{\cQ^{\flat}_{v}}(T).
+\end{equation}
+\item If $v\in |Z|$ is inert in $X'$, then
+\begin{equation}\label{PQ inert}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+P_{\cQ_{v}}(T)=\sum_{i}(-1)^{i}\Tr(\Frob,\Gr^{W}_{2i\deg(v)}\frP_{\cQ^{\flat}_{v}}(T)).
+\end{equation}
+Moreover, $\Tr(\Frob,\Gr^{W}_{i}\frP_{\cQ^{\flat}_{v}}(T))=0$ if $i$ is not a multiple of $2\deg(v)$.
+\end{enumerate}
+\end{prop}
+\begin{proof} We will use the notations from \S\ref{sss:choose points}. For each $y\in \Sig(Z)$, the summand $\cohog{*}{\cB_{\cQ^{\flat}}(y)}\cong \ot_{x\in Z}\cohog{*}{\cB_{\cQ^{\flat}_{x}}}$ is graded by multidegree $\bi: Z\to \Z_{\ge0}$
+\begin{equation*}
+\cohog{2\bi}{\cB_{\cQ^{\flat}}(y)}=\bigot_{x\in Z}\cohog{2\bi(x)}{\cB_{\cQ^{\flat}_{x}}}.
+\end{equation*}
+We define $\cohog{2\bi}{\cB_{\cQ^{\flat}}}$ as the direct sum of  $\cohog{2\bi}{\cB_{\cQ^{\flat}}(y)}$ over all $y\in \Sig(Z)$. Then each $\cohog{2\bi}{\cB_{\cQ^{\flat}}}$ is stable under $S_{d}$. Accordingly, $\frP_{\cQ^{\flat}}(T)$ decomposes into the direct sum of $\frP^{2\bi}_{\cQ^{\flat}}(T)$, which is by definition $\op_{j=0}^{d}(-1)^{j}\cohog{2\bi}{\cB_{\cQ^{\flat}}}^{(S_{j}\times S_{d-j}, \sgn_{j}\bt1)}T^{j}$. Let $\bi_{v}$ be the restriction of $\bi$ to those $x|v$, then under the factorization isomorphism in Lemma \ref{l:Spr factor} we have
+\begin{equation}\label{frPi}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\frP^{2\bi}_{\cQ^{\flat}}(T)\cong \bigot_{v\in |Z|} \frP^{2\bi_{v}}_{\cQ^{\flat}_{v}}(T).
+\end{equation}
+
+(1) Recall the involution $\th$  on $\cohog{*}{\cB_{\cQ^{\flat}}}$ in Proposition \ref{p:trace relation}. Using the above notation,  we see that $\th$ acts on $\cohog{2\bi}{\cB_{\cQ^{\flat}}}$ by $\prod_{v\in |
+Z|_{i}}(-1)^{\bi(x_{v})}$ (where $x_{v}\in Z$ is a chosen geometric point over $v$, as in \S\ref{sss:choose points}). Because of \eqref{frPi}, the action of $\th$ on $\frP_{\cQ^{\flat}}(T)$ factorizes as the tensor product of the similarly-defined $\th_{v}$ on each $\frP_{\cQ^{\flat}_{v}}(T)$. By Proposition \ref{p:trace relation}, $\frP_{\cQ}(T)$ is the Frobenius module obtained by modifying the Frobenius action on $\frP_{\cQ^{\flat}}(T)$ by composing with $\th$. By Lemma \ref{l:Spr factor}, this modified Frobenius structure on  $\frP_{\cQ^{\flat}}(T)$ is the tensor product of the similarly modified Frobenius modules $\frP_{\cQ^{\flat}_{v}}(T)$, which in turn are isomorphic to $\frP_{\cQ_{v}}(T)$ by Proposition \ref{p:trace relation}. This implies \eqref{HSpr factor}.
+
+(2) From the definition we see that if $v$ is split, then $\th_{v}$ is the identity on $\frP_{\cQ^{\flat}_{v}}(T)$. Hence $\frP_{\cQ_{v}}(T)=\frP_{\cQ^{\flat}_{v}}(T)$ and $P_{\cQ_{v}}(T)=P_{\cQ^{\flat}_{v}}(T)$.
+
+(3) Since the cohomology of $\cB_{\cQ^{\flat}_{v}}$ is pure by \cite[Corollary 2.3(3)]{HS77}, we see that $\Gr^{W}_{i}\frP_{\cQ^{\flat}_{v}}(T)$ is the sum of $\frP^{2\bi_{v}}_{\cQ^{\flat}_{v}}(T)$ where $\bi_{v}: \{x\in Z: x|v\}\to \Z_{\ge0}$ satisfies $\sum_{x|v}2\bi_{v}(x)=i$. The action of Frobenius sends $\frP^{2\bi_{v}}_{\cQ^{\flat}_{v}}(T)$ to $\frP^{2F^{*}\bi_{v}}_{\cQ^{\flat}_{v}}(T)$, where $F^{*}\bi_{v}$ means precomposing $\bi_{v}$ with Frobenius. Therefore only constant multi-degrees (i.e., constant functions $\bi_{v}$) contribute to the Frobenius trace of $\frP_{\cQ^{\flat}_{v}}(T)$. This implies $\Tr(\Frob, \Gr^{W}_{i}\frP_{\cQ^{\flat}_{v}}(T))=0$ unless $i$ is a multiple of $2\deg(v)$.
+
+By the discussion above,
+\begin{equation*}
+P_{\cQ_{v}}(T)=\Tr(\Frob\c\th_{v},  \frP_{\cQ^{\flat}_{v}}(T))=\sum_{i\ge0}\Tr(\Frob\c\th_{v}, \frP^{(2i,2i,\cdots,2i)}_{\cQ^{\flat}_{v}}(T)).
+\end{equation*}
+Since $v$ is inert, $\th_{v}$ acts by $(-1)^{i}$ on $\frP^{(2i,2i,\cdots,2i)}_{\cQ^{\flat}_{v}}(T)$, hence
+\begin{equation*}
+\Tr(\Frob\c\th_{v}, \frP^{(2i,2i,\cdots,2i)}_{\cQ^{\flat}_{v}}(T))=(-1)^{i}\Tr(\Frob, \frP^{(2i,2i,\cdots,2i)}_{\cQ^{\flat}_{v}}(T)).
+\end{equation*}
+On the other hand,  $\Tr(\Frob, \Gr^{W}_{2i\deg(v)}\frP_{\cQ^{\flat}_{v}}(T))$ is the sum of $\Tr(\Frob, \frP^{2\bi_{v}}_{\cQ^{\flat}_{v}}(T))$ with total degree $\sum_{x|v}2\bi_{v}(x)=2i\deg(v)$. Since only constant multi-degrees contribute to the trace, we again conclude
+\begin{equation*}
+\Tr(\Frob, \Gr^{W}_{2i\deg(v)}\frP_{\cQ^{\flat}_{v}}(T))=\Tr(\Frob, \frP^{(2i,2i,\cdots,2i)}_{\cQ^{\flat}_{v}}(T)).
+\end{equation*}
+Combining the above identities we get \eqref{PQ inert}.
+\end{proof}
+
+
+%For $x\in Z$, let $\cQ_{\nu^{-1}(x)}$ be the direct summand of $\cQ$ supported on the two points $\nu^{-1}(x)\subset Z'$. Then $\cQ_{\nu^{-1}(x)}$ inherits a Hermitian structure from $\cQ$, hence $\frP_{\cQ_{\nu^{-1}(x)}}(T)$ makes sense.
+
+
+\subsection{Calculation of $P_{\cQ^{\flat}}(T)$ and $P_{\cQ}(T)$}
+
+Let $\cQ^{\flat}\in \Coh_{d}(X)(k)$ with support $Z\subset X(\ov k)$. For each $v\in |Z|$ recall $t_{v}(\cQ^{\flat})$ from \eqref{def t} for the local field $F_{v}$. 
+
+\begin{prop}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{p:PQ Coh trace} For $\cQ^{\flat}\in \Coh_{d}(X)(k)$, we have
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{equation*}
+P_{\cQ^{\flat}}(T)=\prod_{v\in |Z|}(1-T^{\deg(v)})(1-q_{v}T^{\deg(v)})\cdots (1-q_{v}^{t_{v}(\cQ^{\flat})-1}T^{\deg(v)}).
+\end{equation*}
+\end{prop}
+\begin{proof} We write $\Coh_{d}(X)$ simply as $\Coh_{d}$ in the proof. For $0\le j\le d$, consider the correspondence
+\begin{equation*}
+\xymatrix{ & \Coh_{j,d}\ar[dl]_{p}\ar[dr]^{r}\\
+\Coh_{d} && \Coh_{j}\times \Coh_{d-j}.}
+\end{equation*}
+Here $\Coh_{j,d}$ classifies pairs $(\cQ_{j}\subset \cQ)$ of torsion sheaves of length $j$ and $d$ respectively, and the map $r$ sends $(\cQ_{j}\subset \cQ)$ to $(\cQ_{j}, \cQ/\cQ_j)$. We claim that
+\begin{equation}\label{Sj ind}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\Spr_{d}^{(S_{j}\times S_{d-j}, \sgn_{j}\bt1)}\cong Rp_{*}Rr^{*}(\St_{j}\bt\Qlbar).
+\end{equation}
+Indeed, consider the following diagram with Cartesian parallelogram
+\begin{equation*}
+\xymatrix{ & & \wt\Coh_{d}\ar[dl]_{\pi_{j,d}}\ar[dr]^{\wt r}\\
+& \Coh_{j,d}\ar[dl]_{p}\ar[dr]^{r} & & \wt\Coh_{j}\times\wt\Coh_{d-j}\ar[dl]_{\pi_{j}\times\pi_{d-j}}\\
+\Coh_{d} && \Coh_{j}\times \Coh_{d-j}
+}
+\end{equation*}
+Here $\pi_{j}=\pi_{j}^{\Coh}$, etc. The composition $p\c \pi_{j,d}=\pi_{d}=\pi^{\Coh}_{d}$. By the proper base change theorem, we get
+\begin{equation*}
+\Spr_{d}=Rp_{*}R\pi_{j,d*}\Qlbar\cong Rp_{*}Rr^{*}R(\pi_{j}\times\pi_{d-j})_{*}\Qlbar=Rp_{*}Rr^{*}(\Spr_{j}\bt\Spr_{d-j}).
+\end{equation*}
+This isomorphism is $S_{j}\times S_{d-j}$-equivariant by checking easily over the open substack $\Coh_{d}^{\c}$. Taking $(S_{j}\times S_{d-j},\sgn_{j}\bt1)$-isotypical parts of both sides we get \eqref{Sj ind}.
+
+By Lemma \ref{l:Spr factor} it remains to compute $P_{\cQ^{\flat}_{v}}(T)$ for each $v$. Therefore we may assume $\cQ^{\flat}=\cQ^{\flat}_{v}$.  By \eqref{Sj ind} and the Grothendieck-Lefschetz trace formula we have
+\begin{eqnarray*}
+P_{\cQ^{\flat}_{v}}(T)&=& \sum_{j}(-1)^{j}\Tr(\Frob, (\Spr_{d})^{(S_{j}\times S_{d-j}, \sgn_{j}\bt1)}_{\cQ^{\flat}_{v}})T^{j}\\
+ &= &\sum_{j}(-1)^{j}\Tr(\Frob, Rp_{*}Rr^{*}(\St_{j}\bt\Qlbar)_{\cQ_{v}^{\flat}})T^j\\
+&=& \sum_{\substack{\cR\subset \cQ^{\flat}_{v}, \\ \dim_{k_v} (\cR)=j}}(-1)^{\deg(v)j}\Tr(\Frob, (\St_{\deg(v)j})_{\cR})T^{\deg(v)j}.
+\end{eqnarray*}
+By Proposition \ref{p:St}, $(\St_{\deg(v)j})_{\cR}$ is zero unless $\cR\cong k_{v}^{\op j}$, in which case the Frobenius trace is $(-1)^{j(\deg(v)-1)}q_{v}^{j(j-1)/2}$. Let $\cQ_{v}[\vp]$ be the kernel of the action of a uniformizer $\vp$ at $v$. Note $V:=\cQ^{\flat}_{v}[\vp]$ has dimension $t=t_{v}(\cQ^{\flat})$ over $k_{v}$.  Then we only need to sum over $k_{v}$-subspaces $\cR$ of $V$. The above sum becomes
+\begin{equation*}
+\sum_{j=0}^{t}(-1)^{j}q_{v}^{j(j-1)/2}T^{\deg(v)j}\#\Gr(j,V)(k_{v}).
+\end{equation*}
+Recall that the ``$q$-binomial theorem'' says that $q_v^{j(j-1)/2} \# \Gr(j, V)(k_{v})$ is the coefficient of $x^j$ in $(1+x)(1+q_vx)\ldots(1+q_v^{t-1}x)$. Making the change of variables $x=-T^{\deg(v)}$, we get
+\[
+\sum_{j=0}^{t}(-1)^{j}q_{v}^{j(j-1)/2}T^{\deg(v)j}\#\Gr(j,V)(k_{v}) =(1-T^{\deg(v)})(1-q_{v}T^{\deg(v)})\ldots(1-q_v^{t-1}T^{\deg(v)})
+\]
+as desired.
+\end{proof}
+
+
+
+
+
+%For $v\in |X|$, let
+%\begin{equation}
+%\y_{v}=\begin{cases}1 & \mbox{ $v$ is split in $X'$;}\\ -1 & \mbox{ $v$ is inert in $X'$.}\end{cases}
+%\end{equation}
+
+Now we are ready to prove \eqref{Pm}.
+
+%Let $\cQ\in \Herm_{2d}(X'/X)(k)$ with support $Z$. For $v\in |Z|$, let $t_{v}(\cQ)$ be the number of Jordan blocks of $\cQ_{v'}$ under the action of a uniformizer at $v'$, where $v'\in |X'|$ is any place over $v$.
+
+\begin{prop}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{p:PQ trace} For $\cQ\in \Herm_{2d}(X'/X)(k)$ with support $Z$, we have
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\[
+P_{\cQ}(T)=\prod_{v\in |X|}\fm_{v}(t'_{v}(\cQ); T^{\deg(v)}) = \prod_{v\in |Z|}\prod_{j=0}^{t'_{v}(\cQ)-1}(1-(\y(\vp_{v})q_{v})^{j}T^{\deg(v)}).
+\]
+\end{prop}
+\begin{proof}
+By \eqref{HSpr factor} it suffices to treat the case $\cQ$ is supported over a single place $v$. Let $\cQ^{\flat}\in \Coh_{d}(X)(k)$ be the corresponding point. If $v$ is split, we have $P_{\cQ}(T)=P_{\cQ^{\flat}}(T)$ by \eqref{PQ split}, and the formula follows from Proposition \ref{p:PQ Coh trace}. 
+
+If $v$ is inert, let $t=t'_{v}(\cQ)=t_{v}(\cQ^{\flat})$. From the form of $P_{\cQ^{\flat}}(T)$ computed in Proposition \ref{p:PQ Coh trace}, which is valid for any extension of $k$,  the trace of the pure weight pieces of $\frP_{\cQ^{\flat}}(T)$ are separated by different powers of $q_{v}$, i.e., $q_{v}^{-i}\Tr(\Frob, \Gr^{W}_{2i\deg(v)}\frP_{\cQ^{\flat}}(T))$ is   the coefficient of $q_{v}^{i}$ in $\prod_{j=0}^{t-1}(1-q_{v}^{j}T^{\deg(v)})$.  By \eqref{PQ inert},
+\begin{equation*}
+P_{\cQ}(T)=\sum_{i}(-1)^{i}\Tr(\Frob, \Gr^{W}_{2i\deg(v)}\frP_{\cQ^{\flat}}(T)) =\prod_{j=0}^{t-1}(1-(-q_{v})^{j}T^{\deg(v)})
+\end{equation*}
+which is what we want because $\y(\vp_{v})=-1$ in this case.
+\end{proof}
+
+
+\part{The geometric side}

@@ -1,0 +1,338 @@
+% Source-derived chapter 04: $\omega$-integrality
+% Original source: chabauty-coleman-bound-surfaces
+\chapter{$\omega$-integrality}
+\label{chabauty-coleman-bound-surfaces-chapter-04}
+\source{chabauty-coleman-bound-surfaces}
+
+\begin{remark}[Source section]
+\label{chabauty-coleman-bound-surfaces-chapter-04-source}
+\source{chabauty-coleman-bound-surfaces}
+\source{chabauty-coleman-bound-surfaces}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: $\omega$-integrality
+\label{Secwint}
+\source{chabauty-coleman-bound-surfaces}
+
+
+%%%%%
+%%%%%
+%%%%%
+%%%%%
+
+\subsection{$\omega$-integral morphisms} Let $T$ be a scheme and let $\phi:X\to Y$ be a morphism of $T$-schemes. Using the canonical morphisms of sheaves $\Omega^1_{Y/T}\to \phi_*\phi^*\Omega^1_{Y/T}$ and $\phi^*\Omega^1_{Y/T}\to \Omega^1_{X/T}$, we define 
+$$
+\phi^\bullet : H^0(Y,\Omega^1_{Y/T})\to H^0(X,\Omega^1_{X/T})
+$$ 
+as the composition
+$$
+H^0(Y,\Omega^1_{Y/T})\to H^0(Y,\phi_*\phi^*\Omega^1_{Y/T})=H^0(X,\phi^*\Omega^1_{Y/T})\to H^0(X,\Omega^1_{X/T}).
+$$
+A basic property of this construction is that it respects composition. 
+%%
+%%
+\begin{lemma}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{LemmaCompositionInt} Let $\phi: X\to Y$ and $\psi: Y \to Z$ be morphisms of $T$-schemes. Then $(\psi\circ \phi)^\bullet = \phi^\bullet \circ \psi^\bullet$.
+\source{chabauty-coleman-bound-surfaces}
+\end{lemma}
+\begin{proof} First, we remark that this is not obvious. In particular, we claim that $(\psi\circ \phi)^\bullet$  and $\phi^\bullet \circ \psi^\bullet$ are equal, not just equal up to composition with an isomorphism. The result follows from Proposition 3.29 in \cite{GFthesis}; let us explain the details.
+
+We consider the functors $\phi_*$, $\phi_*$, $\psi_*$, $\psi^*$, $(\psi\phi)_*$, and $(\psi\phi)^*$ mapping between the categories of $\Ocal_X$-modules, $\Ocal_Y$-modules, and $\Ocal_Z$-modules. We have $(\psi\phi)_*=\psi_*\phi_*$, while the functors $(\psi\phi)^*$ and $\phi^*\psi^*$ are isomorphic.
+
+It is a routine exercise to check that for each $\Ocal_Z$-module $\Fcal$, the diagram 
+$$
+\begin{tikzcd}
+\Fcal \arrow{d} \arrow{rr} & & \psi_*\psi^*\Fcal\arrow{d} \\
+(\psi\phi)_*(\psi\phi)^*\Fcal \arrow{r}{\simeq} & (\psi\phi)_*\phi^*\psi^*\Fcal \arrow{r}{=} & \psi_*\phi_*\phi^*\psi^*\Fcal  
+\end{tikzcd}
+$$
+commutes, where the left vertical arrow is the canonical map, and the right vertical arrow is obtained by applying $\psi_*$ to the canonical map of $\Ocal_Y$-modules $\psi^* \Fcal\to \phi_*\phi^*\psi^*\Fcal$. In particular, the following diagram commutes
+%%
+\begin{equation}\label{EqnDiag1}
+\source{chabauty-coleman-bound-surfaces}
+\begin{tikzcd}
+H^0(Z,\Omega^1_{Z/T}) \arrow{d} \arrow{rr} & & H^0(Z,\psi_*\psi^*\Omega^1_{Z/T})\arrow{d} \\
+H^0(Z,(\psi\phi)_*(\psi\phi)^*\Omega^1_{Z/T}) \arrow{r}{\simeq} \arrow{d}{=}& H^0(Z,(\psi\phi)_*\phi^*\psi^*\Omega^1_{Z/T}) \arrow{r}{=} \arrow{d}{=}& H^0(Z,\psi_*\phi_*\phi^*\psi^*\Omega^1_{Z/T} ) \arrow{d}{=}\\
+H^0(X,(\psi\phi)^*\Omega^1_{Z/T}) \arrow{r}{\simeq} & H^0(X,\phi^*\psi^*\Omega^1_{Z/T}) \arrow{r}{=} & H^0(Y,\phi_*\phi^*\psi^*\Omega^1_{Z/T}  ).
+\end{tikzcd}
+\end{equation}
+%%
+Applying the functor $\phi_*\phi^*$ to the map $\psi^*\Omega^1_{Z/T}\to \Omega^1_{Y/T}$ we deduce that the diagram
+%%
+\begin{equation}\label{EqnDiag2}
+\source{chabauty-coleman-bound-surfaces}
+\begin{tikzcd}
+H^0(Z,\psi_*\psi^*\Omega^1_{Z/T})\arrow{r}{=}  \arrow{d} &H^0(Y,\psi^*\Omega^1_{Z/T})\arrow{r} \arrow{d} & H^0(Y,\Omega^1_{Y/T}) \arrow{d} \\
+H^0(Z,\psi_*\phi_*\phi^*\psi^*\Omega^1_{Z/T})\arrow{r}{=} &H^0(Y,\phi_*\phi^*\psi^*\Omega^1_{Z/T})\arrow{r} & H^0(Y,\phi_*\phi^*\Omega^1_{Y/T}).
+\end{tikzcd}
+\end{equation}
+%%
+commutes. By Proposition 3.29 in \cite{GFthesis}, the following diagram commutes
+%%
+\begin{equation}\label{EqnDiag3}
+\source{chabauty-coleman-bound-surfaces}
+\begin{tikzcd}
+H^0(X,(\psi\phi)^*\Omega^1_{Z/T})\arrow{r}{\simeq} \arrow{d} &H^0(X,\phi^*\psi^*\Omega^1_{Z/T})  \arrow{d}   &H^0(Y,\phi_*\phi^*\psi^*\Omega^1_{Z/T}) \arrow{l}{=} \arrow{d} \\
+H^0(X,\Omega^1_{X/T}) &H^0(X,\phi^*\Omega^1_{Y/T}) \arrow{l} &H^0(Y,\phi_*\phi^*\Omega^1_{Z/T}) \arrow{l}{=}
+\end{tikzcd}
+\end{equation}
+%%
+where the middle vertical arrow is obtained by applying $\phi^*$ to $\psi^*\Omega^1_{Z/T}\to \Omega^1_{Y/T}$. The result follows by combining \eqref{EqnDiag1}, \eqref{EqnDiag2}, and  \eqref{EqnDiag3}. 
+\end{proof}
+%%
+%%
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready Lemma \ref{LemmaCompositionInt} will be used very frequently, so we will not quote it at each application. 
+\end{remark}
+
+Given $T$-schemes $X$ and $Y$ and a differential $\omega\in H^0(Y, \Omega^1_{Y/T})$, we say that a morphism of $T$-schemes $\phi:X\to Y$ is \emph{$\omega$-integral} if $\phi^\bullet(\omega)=0$. 
+
+%%
+
+
+Let us consider points $x\in X$, $y=\phi(x)\in Y$ and let $t\in T$ be the image of $x$ (and $y$) in $T$. The map $\phi^\#_x:\Ocal_{Y,y}\to \Ocal_{X,x}$ makes $\Ocal_{X,x}$ into an $\Ocal_{Y,y}$-algebra, and both are $\Ocal_{T,t}$-algebras. Thus, we have natural maps $\Omega^1_{\Ocal_{Y,y}/\Ocal_{T,t}}\to \Omega^1_{\Ocal_{Y,y}/\Ocal_{T,t}}\otimes_{\Ocal_{Y,y}} \Ocal_{X,x}$ and $ \Omega^1_{\Ocal_{Y,y}/\Ocal_{T,t}}\otimes_{\Ocal_{Y,y}} \Ocal_{X,x}\to  \Omega^1_{\Ocal_{X,x}/\Ocal_{T,t}}$ induced by $\phi^\#_x$. Using these morphisms, we define the map 
+$$
+\phi^\bullet_x : \Omega^1_{\Ocal_{Y,y}/\Ocal_{T,t}}\to \Omega^1_{\Ocal_{X,x}/\Ocal_{T,t}}
+$$
+as the composition
+$$
+\Omega^1_{\Ocal_{Y,y}/\Ocal_{T,t}}\to \Omega^1_{\Ocal_{Y,y}/\Ocal_{T,t}}\otimes_{\Ocal_{Y,y}} \Ocal_{X,x}\to  \Omega^1_{\Ocal_{X,x}/\Ocal_{T,t}}.
+$$
+The following lemma is a straightforward verification. A more general result (stated over $\C$) can be found in \cite{GFthesis} Section 3.2.
+%%
+%%
+\begin{lemma}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{LemmaCommLoc} With the previous notation, the following diagram commutes
+\source{chabauty-coleman-bound-surfaces}
+$$
+\begin{tikzcd}
+H^0(Y,\Omega^1_{Y/T}) \arrow{d}   \arrow{r}{\phi^\bullet} & H^0(X,\Omega^1_{X/T})\arrow{d}\\
+\Omega^1_{\Ocal_{Y,y}/\Ocal_{T,t}} \arrow{r}{\phi^\bullet_x} & \Omega^1_{\Ocal_{X,x}/\Ocal_{T,t}}
+\end{tikzcd}
+$$
+where the vertical arrows are localization maps.
+\end{lemma}
+%%
+%%
+
+
+%%
+%%
+%%%%
+%%%%
+%%%%
+\subsection{Overdetermined $\omega$-integrality}\label{SecOver} Recall that $k$ is an algebraically closed field. Given a smooth surface $S$ over $k$ and two regular differentials $\omega_1,\omega_2$ on $S$, in general, one expects that there is no curve $C$ over $k$ with a non-constant morphism $C\to S$ which is $\omega_i$-integral for both $i=1,2$. In classical terms, the map $C\to S$ would determine a solution to an overdetermined system of differential equations, which is not a likely event. Our goal in this section is to bound the order of infinitesimal solutions to such an overdetermined system.
+\source{chabauty-coleman-bound-surfaces}
+
+
+
+ Let $z$ be a variable. For $m\ge 0$ we define $E_m^k=k[z]/(z^{m+1})$ and $V_m^k = \Spec(E_m^k)$. The only point of $V_m^k$ is denoted by $\zeta$. 
+%%
+%%
+\begin{theorem}[The ``overdetermined'' bound]
+\source{chabauty-coleman-bound-surfaces}
+\notready \label{ThmOver} Let $S$ be a smooth irreducible surface over $k$ and let $x\in S(k)$. Let $\omega_1,\omega_2\in H^0(S, \Omega^1_{S/k})$ be such that $\omega_1\wedge \omega_2\in H^0(S,\Omega^2_{S/k})$ is not the zero section. Let $D=\divi_S(\omega_1\wedge \omega_2)$ and let us write $D=a_1C_1+...+a_\ell C_\ell$ where $a_j$ are positive integers and $C_j$ are irreducible curves for each $j$ (possibly, $\ell=0$ if $D=0$). For each $j$, let $\nu_j:\widetilde{C}_j\to S$ be the normalization map of $C_j$ composed with the inclusion $C_j\to S$. 
+\source{chabauty-coleman-bound-surfaces}
+
+Let $m\ge 0$ be an integer such that there is a closed immersion $\phi: V_m^k\to S$ supported at $x$ (i.e. with $\phi(\zeta)=x$) which is $\omega_i$-integral for both $i=1$ and $i=2$. Then for every $\omega_0\in H^0(S,\Omega^1_{S/k})$ of the form $\omega_0=c_1\omega_1+c_2\omega_2$ with $c_1,c_2\in k$, we have
+\begin{equation}\label{EqnOver}
+\source{chabauty-coleman-bound-surfaces}
+m\le \sum_{j=1}^\ell \sum_{y\in \nu_j^{-1}(x)} a_j\cdot \left(\ord_y (\nu_j^\bullet (\omega_0))+1 \right).
+\end{equation}
+\end{theorem}
+%%
+%%
+
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{RmkOver1} If $x$ is not in the support of $D$, then the sum in \eqref{EqnOver} is empty and it gives the upper bound $m\le 0$, that is, $m=0$. This case is simpler and it is proved separately in Corollary \ref{Corom0}.
+\source{chabauty-coleman-bound-surfaces}
+\end{remark}
+
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready If $\nu_j^\bullet(\omega_0)=0$, then $\ord_y(\nu_j^\bullet(\omega_0))=+\infty$ and the upper bound for $m$ is useless. Thus, when we apply Theorem \ref{ThmOver} it is crucial to make sure that the maps $\nu_j$ are not $\omega_0$-integral.
+\end{remark}
+
+\begin{remark}
+\source{chabauty-coleman-bound-surfaces}
+\notready \label{RmkSharp} The bound \eqref{EqnOver} is optimal in some non-trivial cases. For instance, assume that $k$ has characteristic different from $2$ and $3$.  We take $S=\A^2_k=\Spec k[s_1,s_2]$, $x=(0,0)$, $\omega_1=ds_1+s_1^2ds_2$, and $\omega_2=ds_1+s_2^2ds_2$. Thus, $\omega_1\wedge\omega_2 = (s_2-s_1)(s_2+s_1)ds_1\wedge ds_2$. Let $C_1$ and $C_2$ be defined by $s_1-s_2=0$ and $s_1+s_2=0$ respectively, so that $D=C_1+C_2$. Let $m=2$ and let $\phi :V_2^k\to \A^2_k$ be the map induced by the $k$-algebra morphism $k[s_1,s_2]\to E_2^k=k[z]/(z^3)$, $s_1\mapsto z\bmod z^3$, $s_2\mapsto 0$. The map $\phi$ is a closed immersion supported at $x$ which is $\omega_i$-integral for $i=1,2$, as $\Omega^1_{E_2^k/k}=(k[z]/(z,3z^2))dz=(k[z]/(z^2))dz$. For $\omega_0=\omega_1,\omega_2$,  \eqref{EqnOver} becomes $m\le 1\cdot (0+1) + 1\cdot (0+1)=2$.
+\source{chabauty-coleman-bound-surfaces}
+\end{remark}
+%%
+%%
+
+The rest of this section is devoted to the proof of Theorem \ref{ThmOver}, and we keep the same notation and assumptions as in the statement. 
+
+%%%%
+%%%%
+%%%%
+\subsection{Local expressions} First we study the map $\phi_\zeta^\#:\Ocal_{S,x}\to E_m^k$ induced on local rings.
+%%
+%%
+\begin{lemma}[Generators for $\ker(\phi^\#_\zeta)$]
+\source{chabauty-coleman-bound-surfaces}
+\notready \label{LemmaGenOver} There are local parameters $s_1,s_2\in \mfrak_{S,x}$ at $x$ such that $\phi^\#_\zeta(s_1)=z \bmod z^{m+1}$ and $\phi^\#_\zeta(s_2)=0$. Furthermore, $\ker(\phi^\#_\zeta)=(s_1^{m+1},s_2)$.
+\source{chabauty-coleman-bound-surfaces}
+\end{lemma}
+%%
+%%
+\begin{proof} As $\phi$ is a closed immersion, $\phi^\#_\zeta:\Ocal_{S,x}\to E_m^k$ is surjective and we can take $s_1\in \mfrak_{S,x}$ with $\phi^\#_\zeta(s_1)=z\bmod z^{m+1}$. In fact, $s_1\in \mfrak_{S,x}\smallsetminus \mfrak_{S,x}^2$ because $\phi^\#_\zeta$ is a local map. 
+
+Let $s\in \mfrak_{S,x}$ with $\mfrak_{S,x}=(s_1,s)$, which is possible because $S$ is smooth.  One can write $\phi^\#_\zeta(s)=c_1z+...+c_{m+1} z^{m+1}\bmod z^{m+1}$ for certain $c_j\in k$, and we define $s_2=s -  (c_1s_1+...+c_{m+1} s_1^{m+1})$. Note that $\mfrak_{S,x}=(s_1,s)=(s_1,s_2)$ and $\phi^\#_\zeta(s_2)=0$. 
+
+Clearly $(s_1^{m+1},s_2)\subseteq \ker(\phi^\#_\zeta)$. Equality holds because  $\dim_k \Ocal_{S,x}/(s^{m+1},s_2)=m+1$ and $\dim_k \Ocal_{S,x}/\ker(\phi^\#_\zeta)=\dim_k E_m^k=m+1$, due to smoothness of $S$.
+\end{proof}
+%%
+%%
+From now on we fix a choice of $s_1,s_2$ as in Lema \ref{LemmaGenOver}. With this choice we obtain $\widehat{\Ocal}_{S,x}=k[[s_1,s_2]]$. 
+
+%%
+%%
+\begin{lemma}[Local expression for differentials]
+\source{chabauty-coleman-bound-surfaces}
+\notready \label{LemmaLocDiff} Let $\omega\in H^0(S, \Omega^1_{S/k})$ be such that the map $\phi:V_m^k\to S$ is $\omega$-integral. Then there are $G_1,G_2,G_3\in \Ocal_{S,x}$ such that the germ of $\omega$ at $x$ is 
+\source{chabauty-coleman-bound-surfaces}
+$$
+\omega_x=(G_1s_1^m + G_2s_2)ds_1 + G_3ds_2 \in \Omega^1_{\Ocal_{S,x}/k}.
+$$
+\end{lemma}
+%%
+%%
+\begin{proof} Since $\phi^\bullet(\omega)=0$, Lemma \ref{LemmaCommLoc} gives $\phi^\bullet_{\zeta}(\omega_x)=0$. Hence, 
+$$
+\omega_x\otimes 1_{E_m^k}\in \ker (\Omega^1_{\Ocal_{S,x}/k}\otimes E_m^k\to \Omega^1_{E_m^k/k}). 
+$$
+Let $I=\ker(\phi^\#_\zeta)\subseteq \Ocal_{S,x}$. As $\phi$ is a closed immersion, we have the exact sequence
+$$
+I/I^2\to \Omega^1_{\Ocal_{S,x}/k}\otimes E_m^k\to \Omega^1_{E_m^k/k}\to 0
+$$
+and it follows that $\omega_x\otimes 1_{E_m^k}$ is in the image of the first map. This means that there is $f\in I$ such that $(df-\omega_x)\otimes 1_{E_m^k}=0$. Thus, there are $g_1,g_2\in I$ with $df-\omega_x=g_1ds_1+g_2ds_2$. By Lemma \ref{LemmaGenOver} we have $I=(s_1^{m+1},s_2)$. Since $f,g_1,g_2\in I$, the result follows by a direct computation.
+\end{proof}
+%%
+%%
+
+Let us define $F\in \Ocal_{S,x}$ by the formula $\omega_{1,x}\wedge\omega_{2,x} = F\cdot ds_1\wedge ds_2\in \Omega^2_{\Ocal_{S,x}/k}$. Thus, $F$ is a local equation for $D$ at $x$. 
+
+%%
+%%
+\begin{lemma}[Local expression for $D$]
+\source{chabauty-coleman-bound-surfaces}
+\notready\label{LemmaLocD} We have $F\in (s_1^m,s_2)\subseteq \Ocal_{S,x}$.
+\source{chabauty-coleman-bound-surfaces}
+\end{lemma}
+%%
+%%
+\begin{proof} This follows by applying Lemma \ref{LemmaLocDiff} to $\omega_1$ and $\omega_2$, and then expanding $\omega_{1,x}\wedge \omega_{2,x}$.
+\end{proof}
+
+%%
+%%
+\begin{corollary}[The case $x\notin D$]
+\source{chabauty-coleman-bound-surfaces}
+\notready \label{Corom0} If $x$ is not in the support of $D$, then $m=0$.
+\source{chabauty-coleman-bound-surfaces}
+\end{corollary}
+%%
+%%
+\begin{proof} In this case $F$ is a unit in $\Ocal_{S,x}$. By Lemma \ref{LemmaLocD}, this can only happen for $m=0$.
+\end{proof}
+%%%%
+%%%%
+%%%%
+\subsection{Bound on a single branch} For each pair $(j,y)$ with $y\in \nu_j^{-1}(x)$ (if any) let $\pfrak_{j,y}\subseteq \widehat{\Ocal}_{S,x}=k[[s_1,s_2]]$ be the branch of $C_j$ at $x$ associated to $y$ by Lemma \ref{LemmaBranches}. Thus, there is a factorization 
+$$
+F=U\cdot \prod_{j=1}^\ell \prod_{y\in \nu^{-1}(x)} F_{j,y}^{a_j}
+$$
+where $U\in k[[s_1,s_2]]^\times$ and $F_{j,y}\in k[[s_1,s_2]]$ is irreducible with $\pfrak_{j,y}=(F_{j,y})$ for each pair $(j,y)$ as above. Here we recall that $D=\sum_{j=1}^\ell a_jC_j$.
+
+Let $\pi:k[[s_1,s_2]]\to k[[s_1]]$ be the quotient by $(s_2)$. 
+
+%%
+%%
+\begin{lemma}[Individual bound]
+\source{chabauty-coleman-bound-surfaces}
+\notready \label{LemmaIndividual} Let $\omega\in H^0(S,\Omega^1_{S/k})$ be such that $\phi:V_m^k\to S$ is $\omega$-integral. Take $j$ with $1\le j\le \ell$ and fix a choice of $y\in \nu_j^{-1}(x)$, if any. Then we have
+\source{chabauty-coleman-bound-surfaces}
+$$
+\ord_y (\nu_j^\bullet(\omega))\ge \min\{m, \ord_{s_1}(\pi(F_{j,y})) -1\}.
+$$
+\end{lemma}
+%%
+%%
+\begin{proof} Let $t\in \mfrak_{\widetilde{C}_j, y}$ be a local parameter. Thus, $\widehat{\Ocal}_{\widetilde{C}_j,y}=k[[t]]$. The morphism $\nu_{j}:\widetilde{C}_j\to S$ induces the map $\nu_{j,y}^\#: \Ocal_{S,x}\to \Ocal_{\widetilde{C}_j,y}$ and the map on completions $\widehat{\nu}_{j,y}^\#:k[[s_1,s_2]]\to k[[t]]$. 
+
+For $i=1,2$ let $h_i=\nu_{j,y}^\#(s_i)\in \mfrak_{\widetilde{C}_j,y}\subseteq t\cdot k[[t]]$. Lemma \ref{LemmaLocDiff} gives $\omega_x=(G_1s_1^m + G_2s_2)ds_1 + G_3ds_2$ for some $G_1,G_2,G_3\in \Ocal_{S,x}$. By Lemma \ref{LemmaCommLoc} we get
+$$
+(\nu_j^\bullet(\omega))_y = \nu_{j,y}^\bullet(\omega_x) = \left(\nu_{j,y}^\#(G_1)h_1^m +\nu_{j,y}^\#(G_2)h_2\right)h_1'dt + \nu_{j,y}^\#(G_3)h_2'dt
+$$
+where $h_i'\in \Ocal_{\widetilde{C}_j,y}$ are defined by the relation $dh_i=h_i'dt$ in $\Omega^1_{\Ocal_{\widetilde{C}_j,y}/k}$ (as $dt$ generates). It follows that
+%%
+\begin{equation}\label{EqnKeyVal1}
+\source{chabauty-coleman-bound-surfaces}
+\ord_y(\nu^\bullet(\omega)) = \ord_t\left((\nu_{j,y}^\#(G_1)h_1^m +\nu_{j,y}^\#(G_2)h_2)h_1' + \nu_{j,y}^\#(G_3)h_2'\right).
+\end{equation}
+%%
+Note that $F_{j,y}(h_1,h_2)=\widehat{\nu}_{j,y}^\#(F_{j,y})=0$ in $k[[t]]$, since $(F_{j,y})\subseteq k[[s_1,s_2]]$ is the branch of $C_j$ corresponding to $y$. As $F_{j,y}\in k[[s_1,s_2]]$ is irreducible, Lemma \ref{LemmaPloski} gives 
+%%
+\begin{equation}\label{EqnKeyVal2}
+\source{chabauty-coleman-bound-surfaces}
+\ord_t (h_2) \ge \ord_{s_1} (\pi(F_{j,y})).
+\end{equation}
+%%
+The relation $dh_i=h_i'dt$ in $\Omega^1_{\Ocal_{\widetilde{C}_j,y}/k}$  shows that in $\widehat{\Ocal}_{\widetilde{C}_j,y}=k[[t]]$, the power series $h_i'$ is the formal derivative of $h_i$. Hence, for $i=1,2$ we have
+%%
+\begin{equation}\label{EqnKeyVal3}
+\source{chabauty-coleman-bound-surfaces}
+\ord_t (h_i') \ge \ord_t (h_i)-1.
+\end{equation}
+%%
+Using \eqref{EqnKeyVal1}, \eqref{EqnKeyVal2}, and \eqref{EqnKeyVal3} we finally deduce
+$$
+\begin{aligned}
+\ord_y(\nu_j^\bullet(\omega))&\ge \min\left\{ \ord_t\left(\nu_{j,y}^\#(G_1)h_1^mh_1' \right), \ord_t\left(  \nu_{j,y}^\#(G_2)h_2h_1' + \nu_{j,y}^\#(G_3)h_2'  \right)   \right\} \\
+& \ge \min\left\{ (m+1) \ord_t(h_1) -1, \ord_t(h_2)-1   \right\} \\
+& \ge \min\left\{  m , \ord_{s_1}(\pi(F_{j,y}))-1  \right\}.
+\end{aligned}
+$$
+\end{proof}
+
+
+
+%%%%
+%%%%
+%%%%
+\subsection{Proof of the overdetermined bound} We keep the notation introduced in this section and the assumptions from the statement of Theorem \ref{ThmOver}.
+%%
+%%
+\begin{proof}[Proof of Theorem \ref{ThmOver}] By Corollary \ref{Corom0}, it is enough to assume that $x$ is in the support of $D$.  Let 
+$$
+\Scal= \sum_{j=1}^\ell \sum_{y\in \nu_j^{-1}(x)} a_j\cdot \left(\ord_y (\nu_j^\bullet (\omega_0))+1 \right). 
+$$
+Since $\phi$ is $\omega_i$-integral for $i=1,2$, it is also $\omega_0$-integral. By Lemma \ref{LemmaIndividual} we have
+$$
+\Scal\ge \sum_{j=1}^\ell \sum_{y\in \nu_j^{-1}(x)} a_j\cdot \min\left\{ m+1 , \ord_{s_1}(\pi(F_{j,y}))\right\}
+$$
+Since $x$ is in the support of $D$, the sum is non-empty. If there is at least one $(j,y)$ with  $1\le j\le \ell$, $y\in \nu_j^{-1}(x)$ and $\ord_{s_1}(\pi(F_{j,y}))\ge m+1$, then we get $\Scal\ge m+1>m$. 
+
+So we can assume that for each $j$ and each $y\in\nu_j^{-1}(x)$ we have $\ord_{s_1}(\pi(F_{j,y}))\le m$. In this case
+$$
+\Scal\ge \sum_{j=1}^\ell \sum_{y\in \nu_j^{-1}(x)} a_j\cdot \ord_{s_1}(\pi(F_{j,y})) = \ord_{s_1} (\pi(F)).
+$$
+By Lemma \ref{LemmaLocD} we have $F\in (s_1^m,s_2)$, which finally gives $\ord_{s_1} (\pi(F))\ge m$.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

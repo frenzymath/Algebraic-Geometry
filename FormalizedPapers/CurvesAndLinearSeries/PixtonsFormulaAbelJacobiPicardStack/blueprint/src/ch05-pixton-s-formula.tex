@@ -1,0 +1,527 @@
+% Source-derived chapter 05: Pixton's formula
+% Original source: pixtons-formula-abel-jacobi-picard-stack
+\chapter{Pixton's formula}
+\label{pixtons-formula-abel-jacobi-picard-stack-chapter-05}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+
+\begin{remark}[Source section]
+\label{pixtons-formula-abel-jacobi-picard-stack-chapter-05-source}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Pixton's formula
+\label{sec:univeral_pixton}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\subsection{Reformulation}
+% \jocomment{Johannes TODO. Mention the symmetries. } 
+% \todo{Some of this is in the intro, so does not need to be here. But the discussion about the twists and markings is important to have somewhere prominent. }
+%In the following section we want to highlight some features of the universal formula\footnote{For convenience, we denote by $\P_{g,A,d}^{\bullet}$ the mixed-degree class, whose codimension $c$ part is $\P_{g,A,d}^{c}$.}
+%$\P_{g,A,d}^{\bullet}$ from Section \ref{Ssec:MainFormula}, in particular how it %specializes to previous incarnations of formulas for double ramification cycles. 
+
+
+Recall the cycle $\P_{g,A,d}^{c} \in \mathsf{CH}^c_{\mathsf{op}}(\Picabs_{g,n,d})$
+defined in Section \ref{Ssec:MainFormula}. We write
+$$\P_{g,A,d}^{\bullet} =\sum_{c=0}^\infty \P_{g,A,d}^{c}
+\in \prod_{c=0}^\infty \mathsf{CH}^c_{\mathsf{op}}(\Picabs_{g,n,d})\, $$
+for the associated mixed dimensional class.
+We will rewrite the formula for $\P_{g,A,d}^{\bullet}$ in a 
+more convenient form for computation.
+
+Several factors in the formula of Section \ref{Ssec:MainFormula} can be pulled out of the sum over graphs and weightings. 
+We require the following four definitions:
+\begin{enumerate}
+\item[$\bullet$] Let $\G_{g,n,d}^\textup{se}$ be the set of graphs in $\G_{g,n,d}$ having exactly two vertices connected by a single edge. 
+Such graphs are thus described by a partition 
+\begin{equation}\label{cc993}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+(g_1, I_1, \delta_1\, |\,  g_2, I_2, \delta_2)
+\end{equation}
+of the genus, the marking set, and the degree of the universal line bundle. 
+\item[$\bullet$]
+Given a vector $A =(a_1,\ldots,a_n) \in \mathbb{Z}^n$ satisfying 
+$$\sum_{i=1}^n a_i = d$$ and 
+$\Gamma_{\delta} \in \G_{g,n,d}^\textup{se}$ corresponding to the partition \eqref{cc993}, we define
+\[c_A(\Gamma_\delta) = - (\delta_1 - \sum_{i \in I_1} a_i)^2 =  -(\delta_2 - \sum_{i \in I_2} a_i)^2\, .\]
+\item[$\bullet$] For $\Gamma_\delta \in \G_{g,n,d}^\textup{se}$, we write $$[\Gamma_\delta] = \frac{1}{|\Aut(\Gamma_\delta)|} j_{\Gamma_\delta*} [\Picabs_{\Gamma_{\delta}}]$$ for the class of the boundary divisor of $\Picabs_{g,n,d}$ associated to $\Gamma_\delta$. 
+\item[$\bullet$]
+Let $\G_{g,n,d}^\textup{nse}$ be the set of graphs in $\G_{g,n,d}$ such that every edge is non-separating. 
+\end{enumerate}
+
+\begin{proposition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready \label{Lem:Pixformulafactorization}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+The class $\P_{g,A,d}^{\bullet}$ is the constant term in $r$ of
+\begin{align} \label{eqn:Pixformulafactorization}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+&\exp\left(\frac12 \left( -\eta + \sum_{i=1}^n 2 a_i \xi_i+ a_i^2 \psi_i  + \sum_{\Gamma_\delta \in \G_{g,n,d}^\textup{se}} c_A(\Gamma_\delta) [\Gamma_\delta] \right) \right) \\ &\sum_{
+\substack{\Gamma_\delta\in \G_{g,n,d}^\textup{nse} \\
+w\in \mathsf{W}_{\Gamma_\delta,r}}
+}
+\frac{r^{-h^1(\Gamma_\delta)}}{|\Aut(\Gamma_\delta)| }
+\;
+j_{\Gamma_\delta*}\Bigg[
+% \prod_{v \in \V(\Gamma_\delta)} 
+%\\ &
+\prod_{e=(h,h')\in \E(\Gamma_\delta)}
+\frac{1-\exp\left(-\frac{w(h)w(h')}2(\psi_h+\psi_{h'})\right)}{\psi_h + \psi_{h'}} \Bigg]\, , \nonumber
+\end{align}
+for $r \gg 0$.
+\end{proposition}
+In the proof of Proposition \ref{Lem:Pixformulafactorization}, we will use the following computation which provides an interpretation for parts of the formula \eqref{eqn:Pixformulafactorization} and which will be used again in \cref{sec:applications}. 
+\begin{lemma}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready \label{Lem:vertterm}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let $A = (a_1,\ldots,a_n) \in \mathbb{Z}^n$
+with $\sum_{i=1}^n a_i=d$.
+ For the line bundle $\mathcal{L}$ on the universal curve $$\pi:\mathfrak{C}_{g,n,d} \to \Picabs_{g,n,d}$$
+ with universal sections $p_1, \ldots, p_n$, we define $$\mathcal{L}_A = \mathcal{L}\Big(- \sum_{i=1}^n a_i [p_i]\Big)\, .$$ Then, we have
+    \[- \pi_* c_1(\mathcal{L}_A)^2=
+    -\eta + \sum_{i=1}^n 2 a_i \xi_i+ a_i^2 \psi_i\, .\]
+\end{lemma}
+\begin{proof} The result follows from the definitions of the classes $\eta$ and $\xi_i$:
+\begin{align*}
+- \pi_* c_1(\mathcal{L}_A)^2 &= - \pi_* \left(c_1(\ca L)^2 +  \sum_{i=1}^n - 2 a_i c_1(\ca L)|_{[p_i]} + a_i^2 [p_i]^2  \right) \\
+&=-\eta + \sum_{i=1}^n 2 a_i \xi_i+ a_i^2 \psi_i\,,
+\end{align*}
+where, for the self-intersection $[p_i]^2$, we have used that the first Chern class of the normal bundle of $p_i$ is given by $- \psi_i$.
+\end{proof}
+
+\begin{proof}[Proof of \cref{Lem:Pixformulafactorization}]
+We denote by
+\begin{align*} 
+\Phi_{a}(x)&= \frac{1-\exp({-\frac{a}{2}}x)}{x}\\ &= \sum_{m=0}^\infty (-1)^m (\frac{a}{2})^{m+1} \frac{1}{(m+1)!}x^m = \frac{a}{2} - \frac{a^2}{8} x + \ldots 
+\end{align*}
+% Given $\Gamma \in \G_{g,n,d}$ and $w \in \mathsf{W}_{\Gamma_\delta,r}$ denote by
+% \[\Psi_{\Gamma_\delta,w} = \prod_{e=(h,h')\in \E(\Gamma_\delta)}
+% \Phi_{w(h)w(h')}(\psi_h+\psi_{h'}),\]
+% where the 
+the power series appearing in the edge-terms of Pixton's formula. 
+
+As a first step, we show that the constant term in $r$ of
+\begin{equation} \label{eqn:Graphfactorization1}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+    \exp\left(\frac12  \sum_{\Gamma_\delta \in \G_{g,n,d}^\textup{se}} c_A(\Gamma_\delta) [\Gamma_\delta]  \right) \cdot \sum_{
+\substack{\Gamma_\delta\in \G_{g,n,d}^\textup{nse} \\
+w\in \mathsf{W}_{\Gamma_\delta,r}}
+}
+\frac{r^{-h^1(\Gamma_\delta)}}{|\Aut(\Gamma_\delta)| }
+\;
+j_{\Gamma_\delta*} \prod_{e=(h,h')\in \E(\Gamma_\delta)}
+ \Phi_{w(h)w(h')}(\psi_h+\psi_{h'})
+\end{equation}
+and the constant term in $r$ of
+\begin{equation} \label{eqn:Graphfactorization2}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\sum_{
+\substack{\Gamma_\delta\in \G_{g,n,d} \\
+w\in \mathsf{W}_{\Gamma_\delta,r}}
+}
+\frac{r^{-h^1(\Gamma_\delta)}}{|\Aut(\Gamma_\delta)| }
+\;
+j_{\Gamma_\delta*} \prod_{e=(h,h')\in \E(\Gamma_\delta)}
+ \Phi_{w(h)w(h')}(\psi_h+\psi_{h'})
+\end{equation}
+are equal. The formula \eqref{eqn:Graphfactorization2} is a linear combination of boundary strata decorated by edge-terms $(\psi_h + \psi_{h'})^{m(e)}$ for nonnegative integers $m(e)$, $e \in \E(\Gamma_\delta)$ -- terms of the form
+\begin{equation} \label{eqn:Graphfactorization3}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+ j_{\Gamma_\delta*} \prod_{e=(h,h')\in \E(\Gamma_\delta)}
+ (\psi_h+\psi_{h'})^{m(e)}\, .
+\end{equation}
+A first consequence of the combinatorial rules for computing intersections in the tautological ring\footnote{See \cite{GraberPandharipande} for the original treatment of the tautological ring of $\overline{\mathcal{M}}_{g,n}$. A corresponding treatment for $\mathfrak{M}_{g,n}$ will be given in \cite{BaeSchmitt1, BaeSchmitt2}. See also \cite[Sections 1.1, 1.7]{Janda2018Double-ramifica}.} of $\Picabs_{g,n,d}$ is that \eqref{eqn:Graphfactorization1} is also a linear combination of such terms. The decorations $(\psi_h+\psi_{h'})^{m(e)}$ on separating edges $e=(h,h')$ appear naturally in the self-intersection formula for the boundary divisors $[\Gamma_\delta]$ since, for $\Gamma_\delta \in \G_{g,n,d}^\textup{se}$, the Chern class of the normal bundle of $j_{\Gamma_\delta}$ is given by $- (\psi_h + \psi_{h'})$.
+
+We show that the coefficients of the term \eqref{eqn:Graphfactorization3} in \eqref{eqn:Graphfactorization1} and \eqref{eqn:Graphfactorization2} have the same constant term in $r$. In \eqref{eqn:Graphfactorization2}, the coefficient is given by
+\begin{equation} \label{eqn:Graphfaccoeff1}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+    \sum_{
+w\in \mathsf{W}_{\Gamma_\delta,r}}
+\frac{r^{-h^1(\Gamma_\delta)}}{|\Aut(\Gamma_\delta)| }
+\prod_{e=(h,h')\in \E(\Gamma_\delta)}
+ (-1)^{m(e)} \left(\frac{w(h)w(h')}{2}\right)^{m(e)+1} \frac{1}{(m(e)+1)!}\, .
+\end{equation}
+On the other hand, let $e_1, \ldots, e_\ell \in E(\Gamma_\delta)$ be the separating edges of $\Gamma_\delta$, and let $\overline{\Gamma}_{\delta} \in \G_{g,n,d}^\textup{nse}$ be the graph obtained from $\Gamma_\delta$ by contracting these separating edges. Each separating edge $e_j$ corresponds to a unique graph $(\Gamma_j)_{\delta_j} \in \G_{g,n,d}^\textup{se}$ obtained by contracting all edges of $\Gamma_\delta$ except for $e_j$. 
+
+In the product \eqref{eqn:Graphfactorization1}, the intersection rules of the tautological ring of $\Picabs_{g,n,d}$ imply that we obtain multiples of the term \eqref{eqn:Graphfactorization3} by combining 
+\begin{itemize}
+    \item for $j=1, \ldots, \ell$, a total of $m(e_j)+1$ terms $[(\Gamma_j)_{\delta_j}]$ from expanding the power series \[\exp\left(\frac12  \sum_{\Gamma_\delta \in \G_{g,n,d}^\textup{se}} c_A(\Gamma_\delta) [\Gamma_\delta]  \right),\]
+    \item the terms associated to $\overline{\Gamma}_{\delta} \in \G_{g,n,d}^\textup{nse}$ in the second factor.
+\end{itemize}
+Let $M=\sum_{j=1}^\ell (m(j)+1)$, then \eqref{eqn:Graphfactorization3} appears in \eqref{eqn:Graphfactorization1} with coefficient
+\begin{align} \label{eqn:Graphfaccoeff2}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+    \frac{1}{M!}\binom{M}{m(e_1)+1, \ldots, m(e_\ell)+1} \cdot \left( \prod_{j=1}^\ell \left(\frac{c_A((\Gamma_j)_{\delta_j})}{2}\right)^{m(e_j)+1} (-1)^{m(e_j)} \right)\\ \nonumber \cdot \frac{|\Aut(\overline{\Gamma}_\delta)|}{|\Aut({\Gamma}_\delta)|} \sum_{
+w\in \mathsf{W}_{\overline{\Gamma}_\delta,r}}
+\frac{r^{-h^1(\overline{\Gamma}_\delta)}}{|\Aut(\overline{\Gamma}_\delta)| }
+\prod_{e=(h,h')\in \E(\overline{\Gamma}_\delta)}
+ (-1)^{m(e)} (\frac{w(h)w(h')}{2})^{m(e)+1} \frac{1}{(m(e)+1)!}\, .
+\end{align}
+To show the equality of \eqref{eqn:Graphfaccoeff1} and \eqref{eqn:Graphfaccoeff2}, we combine a number of observations. First, for the multinomial coefficients, we have
+\[\frac{1}{M!}\binom{M}{m(e_1)+1, \ldots, m(e_\ell)+1} = \prod_{j=1}^\ell \frac{1}{(m(e_j)+1)!}\, .\]
+Second, for the graph morphism $\Gamma_\delta \to \overline{\Gamma}_\delta$ contracting the separating edges:
+\begin{itemize}
+    \item we have an equality of Betti numbers $h^1(\Gamma_\delta) = h^1(\overline{\Gamma}_\delta)$,
+    \item for the separating edges $e_j=(h_j, h_j')$ of  $\Gamma_\delta$, splitting the graph according to the partition $(g_1, I_1, \delta_1\,  | \, g_2, I_2, \delta_2)$, the value of every weighting $w\in \mathsf{W}_{\Gamma_\delta,r}$ is uniquely determined on $h_j, h_j'$ since 
+    \[w(h_j) = \delta_1 - \sum_{i \in I_1} a_i   \mod r\, ,\ \ \  w(h_j') = \delta_2 - \sum_{i \in I_2} a_i   \mod r.\] Hence, the constant term in $r$ of $w(h_j) w(h_j')$ is precisely given by $c_A((\Gamma_j)_{\delta_j})$. 
+    \item concerning the non-separating edges for fixed $\Gamma_\delta$ with contraction $\Gamma_\delta \to \overline{\Gamma}_\delta$, the map $W_{\Gamma_\delta,r} \to W_{\overline{\Gamma}_\delta,r}$ given by restricting weightings $w \in W_{\Gamma_\delta,r}$ to the remaining half-edges $H(\overline{\Gamma}_\delta) \subset H({\Gamma}_\delta)$ is a bijection.
+\end{itemize}
+The combination of these facts proves equality of \eqref{eqn:Graphfaccoeff1} and \eqref{eqn:Graphfaccoeff2} and hence the equality of \eqref{eqn:Graphfactorization1} and \eqref{eqn:Graphfactorization2}. 
+
+To conclude the proof, we must show that the remaining part of the exponential term of \eqref{eqn:Pixformulafactorization} can be drawn into the graph sum. Using the projection formula, this identity is equivalent to showing
+\begin{multline*}
+(j_{\Gamma_\delta})^* \exp \left( \frac{1}{2} \left(-\eta + \sum_{i=1}^n 2 a_i \xi_i+ a_i^2 \psi_i \right) \right) = \\ \prod_{v \in \V(\Gamma_\delta)} \exp\left(-\frac12 \eta(v) \right) \prod_{i=1}^n \exp\left(\frac12 a_i^2 \psi_i + a_i \xi_i \right)
+,
+\end{multline*}
+which immediately reduces to showing
+\[(j_{\Gamma_\delta})^*  \left(-\eta + \sum_{i=1}^n (2 a_i \xi_i+ a_i^2 \psi_i) \right) = -\sum_{v \in \V(\Gamma_\delta)} \eta(v) + \sum_{i=1}^n (2 a_i \xi_i + a_i^2 \psi_i) 
+\, .\]
+By \cref{Lem:vertterm},
+    \[-\eta + \sum_{i=1}^n (2 a_i \xi_i+ a_i^2 \psi_i) = - \pi_* c_1(\mathcal{L}_A)^2.\]
+Now consider the diagram of universal curves
+\[
+% \begin{tikzcd}
+% \prod_{v \in \V(\Gamma_\delta)} \frak C_{g(v),n(v),\delta(v)} & \frak C_
+% \end{tikzcd}
+\begin{tikzcd}
+\coprod_{v \in \V(\Gamma)}\frak C_{\g(v),\n(v),\delta(v)}  \arrow[d] &\frak C'_{\Gamma_{\delta}} \arrow[l] \arrow[r,"G"] \arrow[d,"\pi'_{\Gamma_\delta}"] &\frak C_{\Gamma_{\delta}} \arrow[r, "J_{\Gamma_{\delta}}"] \arrow[d,"\pi_{\Gamma_\delta}"] & \frak C_{g,n,d} \arrow[d, "\pi"]\\
+\prod_{v \in \V(\Gamma)}\Picabs_{\g(v),\n(v),\delta(v)} & \Picabs_{\Gamma_{\delta}}\arrow[l]&\Picabs_{\Gamma_{\delta}} \ar[equal]{l}\arrow[r, "j_{\Gamma_{\delta}}"] & \Picabs_{g,n,d}
+\end{tikzcd}    
+\]
+where the left and right square are cartesian and the map $G$ is the gluing map identifying sections of $\frak C'_{\Gamma_{\delta}} \to \Picabs_{\Gamma_\delta}$ corresponding to pairs of half-edges forming an edge. This map $G$ is proper, representable, and birational. 
+
+The space $\frak C'_{\Gamma_{\delta}}$ is a disjoint union of universal curves 
+$$\pi'_{\Gamma_\delta,v} : \frak C'_{\Gamma_{\delta},v} \to \Picabs_{\Gamma_\delta}$$
+for $v \in \V(\Gamma)$ and the bundle  $G^* J_{\Gamma_\delta}^* \ca L_A$ restricted to the component $\frak C'_{\Gamma_{\delta},v}$ is equal to the pullback of the line bundle $\ca L_{v, A_v}$ from the factor $C_{\g(v),\n(v),\delta(v)}$ (where $A_v$ is the vector formed by numbers $a_i$ for $i$ a marking at $v$, extended by $0$ on the half-edges at $v$). Then using the projection formula together with \cref{prop:invarianceproperbirat}, we have
+    $$(j_{\Gamma_\delta})^* \pi_* c_1(\ca L_A)^2 = (\pi_{\Gamma_\delta})_* J_{\Gamma_\delta}^* c_1(\ca L_A)^2 = (G \circ \pi_{\Gamma_\delta})_* (G \circ \pi_{\Gamma_\delta})^*c_1(\ca L_A)^2$$
+    $$= \sum_{v \in \V(\Gamma_\delta)}(\pi'_{\Gamma_\delta,v})_* c_1(\ca L_{v, A_v})^2 = \sum_{v \in \V(\Gamma_\delta)} \eta(v) + \sum_{i=1}^n  a_i^2 \psi_i + 2 a_i \xi_i\, ,$$
+where for the last equality we again use \cref{Lem:vertterm}.
+\end{proof}
+%Sorry! Is it better now? 
+% Yes, I think section 4 is restored
+%That's a relief! Did I break anything else 9that you noticed)? Mmh, I didn't notice anything else. Younghan was also making some edits recently I think, not sure about those.
+%OK, I'll check with him. I think I know what I did wrong, and it should all be restored, but I'll make sure with him. Sorry! % No problem these things happen!
+%\begin{remark} \label{Rmk:Pixformulafactorization}
+% Below we comment on the various parts of the formula and how to show that it is equivalent to the formula from Section \ref{Ssec:MainFormula}.
+% \begin{enumerate}[label=(\alph*)] 
+%     \item For the line bundle $\mathcal{L}$ on the universal curve $\pi:\mathfrak{C}_{g,n} \to \Picabs_{g,n}$ over $\Picabs_{g,n}$ with the universal sections $p_1, \ldots, p_n$, we define $\mathcal{L}_A = \mathcal{L}(- \sum_{i=1}^n a_i [p_i])$. Then from the definitions of $\eta, \xi$ it follows that
+%     \[-\eta + \sum_{i=1}^n 2 a_i \xi_i+ a_i^2 \psi_i = - \pi_* c_1(\mathcal{L}_A)^2.\]
+%     Pulling back $- (1/2) \pi_* c_1(\mathcal{L}_A)^2$ under the maps $j_{\Gamma_\delta}$, one then obtains the previous leg- and vertex-terms
+%     \[\prod_{i=1}^n \exp\left(\frac12 a_i^2 \psi_i + a_i \xi_i \right)
+% \prod_{v \in \V(\Gamma_\delta)} \exp\left(-\frac12 \eta(v) \right).\]
+% \item The fact that we can draw out the contributions from separating edges from the original sum (which goes over all graphs $\Gamma_\delta\in \G_{g,n,d}$) is a purely combinatorial consequence of the rules\footnote{See \cite{GraberPandharipande} for the original treatment of the tautological ring of $\overline{\mathcal{M}}_{g,n}$. A corresponding treatment for $\mathfrak{M}_{g,n}$ will be given in \cite{BaeSchmitt}. See also \cite[Sections 1.1, 1.7]{Janda2018Double-ramifica}.} for computing intersections in the tautological ring of $\Picabs_{g,n,d}$. It corresponds to the fact that for any $\Gamma_\delta\in \G_{g,n,d}$, contracting all separating edges gives a graph in $\G_{g,n,d}^\textup{nse}$. On the other hand, for $\Gamma_{\delta} \in \G_{g,n,d}^\textup{se}$, the coefficient $c_A(\Gamma_\delta)$ is the constant term in $r$ of $w(h)w(h')$ for the unique weighting modulo $r$ on $\Gamma_\delta$. See also the proof of \cite[Lemma 7.3]{Holmes2017Multiplicativit} for an analogous statement concerning the classical Pixton formula. 
+% \end{enumerate}
+% \end{remark}
+
+
+In the case $n=0$ and $d=0$, the formula $\P_{g,\emptyset,0}^{\bullet}$ takes a slightly simpler shape: it is the $r=0$ term of the formula
+% \begin{align} \label{eqn:P_gformula}
+% \P_{g}^{\bullet,r} = \sum_{
+% \substack{\Gamma_\delta\in \G_{g,0,0} \\
+% w\in \mathsf{W}_{\Gamma_\delta,r}}
+% }
+% \frac{r^{-h^1(\Gamma_\delta)}}{|\Aut(\Gamma_\delta)| }
+% \;
+% j_{\Gamma_\delta*}\Bigg[&
+% \prod_{v \in \V(\Gamma_\delta)} \exp\left(-\frac12 \eta(v) \right)
+% \\ &
+% \prod_{e=(h,h')\in \E(\Gamma_\delta)}
+% \frac{1-\exp\left(-\frac{w(h)w(h')}2(\psi_h+\psi_{h'})\right)}{\psi_h + \psi_{h'}} \Bigg]\, . \nonumber
+% \end{align}
+% Our first remark is that a short computation shows that the vertex term involving the classes $\eta(v)$ can be pulled outside of the formula, so that $\P_{g}^{\bullet,r}$ can be written as
+\begin{align} \label{eqn:P_gformula2}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\exp\left(-\frac12 \eta \right) \sum_{
+\substack{\Gamma_\delta\in \G_{g,0,0} \\
+w\in \mathsf{W}_{\Gamma_\delta,r}}
+}
+\frac{r^{-h^1(\Gamma_\delta)}}{|\Aut(\Gamma_\delta)| }
+\;
+j_{\Gamma_\delta*}\Bigg[&
+% \prod_{v \in \V(\Gamma_\delta)} 
+%\\ &
+\prod_{e=(h,h')\in \E(\Gamma_\delta)}
+\frac{1-\exp\left(-\frac{w(h)w(h')}2(\psi_h+\psi_{h'})\right)}{\psi_h + \psi_{h'}} \Bigg]\, . %\nonumber
+\end{align}
+As explained in \cref{sec:intro_deg_0}, the full formula $\P_{g,A,d}^{\bullet}$ can be reconstructed from $\P_{g,\emptyset,0}^\bullet$.
+% \begin{proposition} \label{Lem:pullbackP_g}
+% Let $A =(a_1,\ldots,a_n) \in \mathbb{Z}^n$ with $\sum_{i=1}^n a_i = d$. 
+% The pullback of the operational Chow class $\P_{g,\emptyset,0}^\bullet$ under the morphism
+% \begin{equation} \label{eqn:Picshiftforget}
+% \Picabs_{g,n,d} \to \Picabs_{g,0,0}\, , \ \ \ (C \xrightarrow{\pi} S, p_1, \ldots, p_n, \mathcal{L}) \mapsto \left(C \xrightarrow{\pi} S, \mathcal{L}\left(- \sum_{i=1}^n a_i p_i\right)\right)
+% \end{equation}
+% is exactly given by $\P_{g,A,d}^{\bullet}$.
+% \end{proposition}
+% Similar to our treatment in \cref{sec:varying_n_and_A}, we split the proof in two parts. 
+% Let $A_0 \in \bb Z^{n+1}$ be defined by appending $0$ 
+% (as the last coefficient)
+% to $A$. As before, let
+% \[F : \Picabs_{g,n+1,d} \to \Picabs_{g,n,d}\]
+% be the map forgetting the last marking.
+
+% \begin{lemma} \label{wwwrrr}
+% The class $\P_{g,A_0,d}^\bullet$ is the pullback
+% of $\P_{g,A,d}^\bullet$
+% under the forgetful map $F$.
+% \end{lemma}
+% \begin{proof}
+% Since the map $F$ does not change the curve or the line bundle, we have a Cartesian diagram
+% \[
+% \begin{tikzcd}
+% \frak C_{g,n+1,d} \arrow[r,"\widehat{F}"] \arrow[d,"\pi'"]& \frak C_{g,n,d} \arrow[d,"\pi"]\\
+% \Picabs_{g,n+1,d} \arrow[r,"{F}"]& \Picabs_{g,n,d}\, .
+% \end{tikzcd}
+% \]
+% The universal line bundles $\ca L_{g,n,d}$ and $\ca L_{g,n+1,d}$ on $\frak C_{g,n,d}$ and $\frak C_{g,n+1,d}$ satisfy  $$\widehat{F}^* \ca L_{g,n,d} = \ca L_{g,n+1,d}\, .$$ Similarly, for the canonical line bundles of $\pi, \pi'$ we have $\widehat{F}^* \omega_\pi = \omega_{\pi'}$. Combining these facts, we see that $F$ pulls back the operational
+% classes $\eta, \xi_i, \psi_i$ on $\Picabs_{g,n,d}$ 
+% %(for $i=1, \ldots, n$) 
+% to the corresponding classes on $\Picabs_{g,n+1,d}$.
+
+% Next, given a graph $\Gamma_\delta \in \G_{g,n,d}$, we have a fibre diagram
+% \begin{equation} \label{eqn:forgetgluefibre}
+% \begin{tikzcd}
+%  \coprod_{v \in \V(\Gamma)} \Picabs_{\Gamma_{v,\delta}} \arrow[r,"\coprod_v j_{\Gamma_{v,\delta}}"] \arrow[d] & \Picabs_{g,n+1,d} \arrow[d,"\pi"]\\
+%  \Picabs_{\Gamma_{\delta}} \arrow[r,"j_{\Gamma_{\delta}}"] & \Picabs_{g,n,d}
+% \end{tikzcd}
+% % \begin{tikzcd}
+% % \coprod_{v \in \V(\Gamma)}\frak C_{\g(v),\n(v),\delta(v)}  \arrow[d] &\frak C'_{\Gamma_{\delta}} \arrow[l] \arrow[r,"G"] \arrow[d,"\pi'_{\Gamma_\delta}"] &\frak C_{\Gamma_{\delta}} \arrow[r, "J_{\Gamma_{\delta}}"] \arrow[d,"\pi_{\Gamma_\delta}"] & \Picabs_{g,n+1,d} \arrow[d, "\pi"]\\
+% % \prod_{v \in \V(\Gamma)}\Picabs_{\g(v),\n(v),\delta(v)} & \Picabs_{\Gamma_{\delta}}\arrow[l]&\Picabs_{\Gamma_{\delta}} \ar[equal]{l}\arrow[r, "j_{\Gamma_{\delta}}"] & \Picabs_{g,n,d}\, ,
+% % \end{tikzcd}   
+% \end{equation}
+% where, for $v \in \V(\Gamma)$, we denote by $\Gamma_{v,\delta} \in \G_{g,n+1,d}$ the graph obtained from $\Gamma_\delta$ by adding marking $n+1$ at $v$ and leaving the remaining data fixed. 
+
+% Using the expression \eqref{eqn:Pixformulafactorization} given in \cref{Lem:Pixformulafactorization}, we conclude the proof of 
+% $$\P_{g,A_0,0}^\bullet = F^*\P_{g,A,0}^\bullet\, ,$$  by the following observations:
+% \begin{itemize}
+%     \item The invariance of $\eta, \xi_i, \psi_i$ under $F$ implies
+%     \[F^*(-\eta + \sum_{i=1}^n 2 a_i \xi_i+ a_i^2 \psi_i ) = -\eta + \sum_{i=1}^{n+1} 2 a_i \xi_i+ a_i^2 \psi_i, \]
+%     where we use $a_{n+1}=0$.
+%     \item From the fibre diagram \eqref{eqn:forgetgluefibre} and the equality $c_{A}(\Gamma_\delta) = c_{A_0}(\Gamma_{v,\delta})$ for $\Gamma_\delta \in \G_{g,n,d}^\textup{se}$ and any $v \in \V(\Gamma)$, the sum over the terms $c_A(\Gamma_\delta) [\Gamma_\delta]$ pulls back correctly.
+%     \item For all $\Gamma_\delta \in \G_{g,n,d}$ and $v \in \V(\Gamma)$, $h^1(\Gamma_\delta) = h^1(\Gamma_{v,\delta})$ since the Betti number is independent of the position of the markings. Moreover, the automorphism group $\Aut(\Gamma_\delta)$ acts on $\V(\Gamma_\delta)$ and by the orbit-stabilizer formula, the size of the orbit  $\Aut(\Gamma_\delta) \cdot v$ of $v$ and the size of its stabilizer $\Aut(\Gamma_\delta)_v$ satisfy
+%     \begin{equation} \label{eqn:orbitstabilizerGamdelt}|\Aut(\Gamma_\delta) \cdot v| = \frac{|\Aut(\Gamma_\delta)|}{|\Aut(\Gamma_\delta)_v|}\, .\end{equation}
+%     The stabilizer $\Aut(\Gamma_\delta)_v$ is exactly equal to the automorphism group $\Aut(\Gamma_{v,\delta})$ of the graph $\Gamma_{v,\delta}$, since the marking $n+1$ at $v$ forces this vertex to be fixed. 
+%     \item As $\Gamma_\delta$ runs through $\G_{g,n,d}^\textup{nse}$, the graphs $\Gamma_{v,\delta}$ run through $\G_{g,n+1,d}^\textup{nse}$. The equality \eqref{eqn:orbitstabilizerGamdelt} precisely implies that the corresponding graph sums (weighted by the inverse size of automorphism groups) correspond to each other under pullback by $F$.
+%     \item Finally, the weightings $\mathsf{W}_{\Gamma_\delta,r}$ and $\mathsf{W}_{\Gamma_{v,\delta},r}$ are naturally bijective.
+% \end{itemize}
+% Combining the above observations, we see that also the second line of \eqref{eqn:Pixformulafactorization} transforms under pullback of $F$ as expected.
+% \end{proof}
+% Let $B=(b_1,\ldots,b_n) \in \bb Z^n$ satisfy $\sum_{i=1}^n b_i=e$. 
+% Recall the map
+% \begin{equation}
+% \tau_B\colon \Picabs_{g,n,d-e} \to \Picabs_{g,n,d} \, , \ \ \ 
+% \ca L \mapsto \ca L \big(\sum_{i=1}^n b_i p_i\big)\, . 
+% \end{equation}
+% \begin{lemma} \label{wwwsss}
+% The operational class $\P_{g,A-B,d-e}^\bullet$ is the pullback
+% of $\P_{g,A,d}^\bullet$
+% under $\tau_B$.
+% \end{lemma}
+% \begin{proof}
+% Recalling the notation $\ca L_A = \ca L(- \sum_i a_i [p_i])$ for the twisted universal line bundles from  \cref{Lem:vertterm}, observe that in the Cartesian diagram
+% \[
+% \begin{tikzcd}
+% \frak C_{g,n,d-e} \arrow[r,"\widehat \tau_B"] \arrow[d,"\pi'"] & \frak C_{g,n,d} \arrow[d,"\pi"]\\
+% \Picabs_{g,n,d-e} \arrow[r,"\tau_B"] & \Picabs_{g,n,d}
+% \end{tikzcd}
+% \]
+% we have $\widehat \tau_B^* \ca L_A = \ca L_{A-B}$. By \cref{Lem:vertterm}, we have
+% \begin{align*}
+% \tau_B^*(-\eta + \sum_{i=1}^n 2 a_i \xi_i+ a_i^2 \psi_i) &= - \tau_B^*\pi_* c_1(\mathcal{L}_A)^2\\
+% &=- \pi'_* c_1(\mathcal{L}_{A-B})^2 = -\eta + \sum_{i=1}^n 2 (a_i-b_i) \xi_i+ (a_i-b_i)^2 \psi_i\, ,
+% \end{align*}
+% which shows the compatibility of the first part of formula \eqref{eqn:Pixformulafactorization}.
+
+% As in the proof of \cref{Lem:Pixformulafactorization},  we can combine the exponential of the graph sum over $\G_{g,n,d}^\textup{se}$ with the graph sum over $\G_{g,n,d}^\textup{nse}$ 
+% in \eqref{eqn:Pixformulafactorization}
+% to recover the sum
+% \begin{equation} \label{eqn:taubfullsum}
+%     \sum_{
+% \substack{\Gamma_\delta\in \G_{g,n,d} \\
+% w\in \mathsf{W}_{\Gamma_\delta,r}}
+% }
+% \frac{r^{-h^1(\Gamma_\delta)}}{|\Aut(\Gamma_\delta)| }
+% \;
+% j_{\Gamma_\delta*}\Bigg[
+% % \prod_{v \in \V(\Gamma_\delta)} 
+% %\\ &
+% \prod_{e=(h,h')\in \E(\Gamma_\delta)}
+% \frac{1-\exp\left(-\frac{w(h)w(h')}2(\psi_h+\psi_{h'})\right)}{\psi_h + \psi_{h'}} \Bigg]
+% \end{equation}
+% over all graphs in $\G_{g,n,d}$. It will be more convenient to simply show the compatibility of the full graph sum \eqref{eqn:taubfullsum} under pullback by $\tau_B$.
+
+% Given a graph $\Gamma_\delta \in \G_{g,n,d}$, denote by $\delta^B : \V(\Gamma) \to \mathbb{Z}$ the map defined by
+% \[\delta^B(v) = \delta(v) - \sum_{\substack{i\text{ marking}\\\text{at }v}}b_i\, .\]
+% We have a fibre diagram
+% \begin{equation} \label{eqn:taubshiftgluing}
+% \begin{tikzcd}
+% \Picabs_{\Gamma_{\delta^B}} \arrow[r,"j_{\Gamma_{\delta^B}}"] \arrow[d] & \Picabs_{g,n,d-e} \arrow[d,"\tau_B"]\\
+% \Picabs_{\Gamma_{\delta}} \arrow[r,"j_{\Gamma_{\delta}}"] & \Picabs_{g,n,d}\, .
+% \end{tikzcd}    
+% \end{equation}
+% The proof that \eqref{eqn:taubfullsum} pulls back under  $\tau_B$ as desired follows from the following observations:
+% \begin{itemize}
+%     \item As $\Gamma_\delta$ runs through $\G_{g,n,d}$, the graphs $\Gamma_{\delta^B}$ run through $\G_{g,n,d-e}$. From the definitions, we verify that the conditions defining admissible weightings $w$ mod $r$ for $\Gamma_\delta$ and $\Gamma_{\delta^B}$ are identical (the shift from $\delta$ to $\delta^B$ cancels the shift from $A$ to $A-B$). 
+%     \item Since the underlying graphs of $\Gamma_\delta$ and $\Gamma_{\delta^B}$ agree, we have $h^1(\Gamma_\delta) = h^1(\Gamma_{\delta^B})$. Concerning the automorphisms,
+%     they appear to take into account the degree functions $\delta, \delta^B$ on the graphs. But any vertex $v$ such that $\delta(v) \neq \delta^B(v)$ must carry a marking and thus must anyway be fixed under an automorphism. Hence, $\Aut(\Gamma_\delta) = \Aut(\Gamma_{\delta^B})$.
+%     \item To conclude using the diagram \eqref{eqn:taubshiftgluing}, we observe that the map $\Picabs_{\Gamma_{\delta^B}} \to \Picabs_{\Gamma_\delta}$ appearing there is a map over $\frak M_{\Gamma}$ (since only the line bundle is changed). Hence, the 
+%     classes $\psi_h, \psi_{h'}$ appearing in the edge terms of \eqref{eqn:taubfullsum} are invariant. 
+% \end{itemize}
+% \end{proof}
+% \begin{proof}[Proof of \cref{Lem:pullbackP_g}]
+% The map $\Picabs_{g,n,d} \to \Picabs_{g,0,0}$ in \eqref{eqn:Picshiftforget} is a composition of $\tau_{-A}$ with $n$ forgetful maps. The result follows by combining 
+% Lemma \ref{wwwrrr} and \ref{wwwsss}.
+% \end{proof}
+
+%Fix $g$,$n$ (and let the vector $A$ be the zero vector). Then there is the following mixed-degree class on (absolute) Pic (such that $Pixton^{g,r=0}$ is $Pixton = Holmes$).
+
+% \begin{equation}
+% Pixton^{*,r} = 
+% \sum_{\Gamma , deg}
+% \sum_{w\in W}
+% \frac{r^{-h^1(\Gamma)}}{|Aut(\Gamma)|} 
+% (\xi_\Gamma)_*
+% \prod_{v \in \V(\Gamma)} e^{-\frac{1}{2} (\pi_v)_* (c_1(\ca L_v)^2) }
+% \prod_{(h,h') \in E(\Gamma)} \frac{1-e^{ -w(h)w(h')/2 (\psi_h + \psi_{h'}) }}{ \psi_h + \psi_{h'}}
+% \end{equation}
+% where
+% \begin{enumerate}
+% \item
+% The first sum is over prestable graphs $\Gamma$ of genus $g$ together with a `degree' function $deg: \V(\Gamma) \to  \bb Z$ such that $\sum_v deg(v)=0$; 
+% \item The second sum is over $W$ the set of admissible weightings on $\Gamma$ mod $r$; see JPPZ2 (to copy here eventually), where we require that $w$ balances out the degrees $deg(v)$ to be zero mod $r$ at each vertex
+% \item 
+% $\ca L_v$ is the universal line bundle on the component of universal curve $\pi_v : C_v \to Pic$ associated to the vertex $v$
+% \end{enumerate}
+% Question for Johannes; did I parse things correctly here? 
+
+% \begin{remark}\label{rem:op_chow_pixton}
+% David: It seems to me that the formula we have written makes sense})$, same as $\DRop$, so it makes sense to compare them. 
+% \end{remark}
+
+% Now there are two natural questions arising: A) where are the $a_i$, B) where is the $k$ from $\omega_C^k$? 
+
+% Looking at the formula, one sees that both just drop out very naturally in the vertex term:
+
+\subsection{Comparison to Pixton's \texorpdfstring{$k$}{k}-twisted  formula}\label{sec:pixton_ktwist_vs_univ}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Given $k \geq 0$ and a vector $A =(a_1,\ldots,a_n) \in \mathbb{Z}^n$ satisfying $$\sum_i a_i = k(2g-2)\, ,$$
+let $\tilde A = (\tilde{a}_1,\ldots,\tilde{a}_n)$ be the vector with entries $\tilde a_i = a_i + k$. Denote by  
+\[P_g^{c ,k}(\tilde A) \in \Chow^c(\overline{\mathcal{M}}_{g,n})\] Pixton's original formula  defined in \cite[Section 1.1]{Janda2016Double-ramifica}.
+
+In the $k=0$ case, $A=\tilde{A}$, and
+$2^{-g} P_g^{g,0}(\tilde{A})$ is the
+class originally conjectured by Pixton to
+equal the double ramification cycle associated to the vector $\tilde A$. Compatibility with the formula for the universal twisted double ramification cycle is given by the
+following result.
+
+\begin{proposition}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\notready \label{Prop:PixtonPullbackCompatibility}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Via the map $\phi_{\omega_\pi^k}: \Mbar_{g,n} \to \Picabs_{g,n,k(2g-2)}$ associated to the universal data
+\[\pi: \mathcal{C}_{g,n} \rightarrow \overline{\cM}_{g,n}\, , \ \ \ \ \omega_\pi^k \rightarrow \mathcal{C}_{g,n}\, ,\]
+% \begin{equation}
+% \Mbar_{g,n} \to \Picabs_{g,n,k(2g-2)}, (C \xrightarrow{$\pi$} S, p_1, ..., p_n) \mapsto (C \xrightarrow{$\pi$} S, \omega_\pi^{\otimes k}).
+% \end{equation}
+the class $\P_{g,A,k(2g-2)}^c$ acts as
+\begin{equation} \label{eqn:PixtonPullbackCompatibility}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\P_{g,A,k(2g-2)}^c(\phi_{\omega_\pi^k})([\overline{\mathcal{M}}_{g,n}])=2^{-c} P_g^{c,k}(\tilde A)
+\end{equation}
+for every $c \geq 0$.
+\end{proposition}
+\begin{proof}
+The left-hand side of \eqref{eqn:PixtonPullbackCompatibility} is obtained from $\P_{g,A,k(2g-2)}^c$ by substituting 
+\begin{equation}\label{cc78}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+    \mathcal{L} = \omega_\pi^{\otimes k}
+    \end{equation}
+in
+the formula and taking the action. 
+A factor $2^{-c}$ arises on the left side
+since all terms in $\P_{g,A,k(2g-2)}^c$ increasing the codimension of the cycle naturally come with corresponding negative powers of $2$ (which is placed as
+a prefactor on the right side in \cite[Section 1.1]{Janda2016Double-ramifica}).
+
+Under the substitution \eqref{cc78}, 
+the edge terms and weightings modulo $r$ in the two formulas 
+naturally correspond to each other. 
+Using \cref{Lem:Pixformulafactorization} and \cref{Lem:vertterm}, we must
+show 
+\[\exp \left(-\frac{1}{2} \pi_* c_1(\omega_\pi^{\otimes k}(- \sum_{i=1}^n a_i [p_i]) )^2 \right) = \exp \left(-\frac{1}{2} \left( k^2 \kappa_1 -  \sum_{i=1}^n \tilde a_i^2 \psi_i \right)\right),\]
+where again $[p_i]$ denotes the class of the image of the section $p_i: \overline{\mathcal{M}}_{g,n} \to \mathcal{C}_{g,n}$. Defining $\omega_\pi^\textup{log} = \omega_\pi(\sum_i p_i)$, we see
+\begin{align*}
+c_1(\omega_\pi^{\otimes k}(- \sum_{i=1}^n a_i [p_i]) )^2
+& = ( k c_1(\omega_{\log}) - \sum_{i=1}^n \tilde a_i [p_i] ) ^2 \\
+& = k^2 c_1(\omega_{\log})^2 - 2 k \sum_{i=1}^n \tilde a_i c_1(\omega_{\log})|_{[p_i]} + \sum_{i=1}^n \tilde a_i^2 [p_i]^2
+\end{align*}
+After pushing forward, the first term gives $k^2 \kappa_1$, the second vanishes (since $\omega_{\log}$ restricts to zero on the section $p_i$), and the third gives $- \sum_i \tilde a_i^2 \psi_i$, as desired.
+\end{proof}
+
+% The moral of the story is: there are no leg-terms, this is just an illusion since you are working on the wrong space! Note that the above formula actually does not feature legs at all, so (as maybe expected) it is a pullback of the Pic over $\frak{M}_{g,0}$.
+
+% I wonder if the edge-terms with the right mindset will also turn out to be illusions. After all, they feature the elements of the weighting and this again just gives a twist of some line bundle on the components of a suitable universal curve. 
+
+% D: I looked at this a bit, and I agree it should work, but it seems somewhat subtle. Just absorbing the $w(h)$ into the $\ca L_v$ does not give the right result, because one does not get suitable mixed terms between the $\psi$ classes (I think). So one needs to work globally rather than breaking up into components. Then one has to work over some $\cat{Div}$ or log blowup space in order to get these universal twisted bundles to exist. Then when one takes $c_1$ on a reducible curve one tends to get nonsense, so maybe we should work in K-theory? Anyway, looks very interesting but not straightforward (though I may well have missed an easy trick). 
+
+ 
+
+\subsection{Comparison to Pixton's formula with targets}\label{sec:pixton_targets_vs_univ}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+Let $X$ be a nonsingular projective variety over ${\field}$. The moduli space 
+%and $\ca L$ be a line bundle on $X$. 
+$\MbarX$ parametrizes stable maps 
+$$f\colon (C,p_1,\ldots,p_n)\to X$$
+from genus $g$, $n$-pointed curves $C$ to $X$ of degree $\beta \in H_2(X,\mathbb{Z})$. The moduli space carries a virtual fundamental class 
+$$[\MbarX]^\textup{vir} \in \Chow_{\vdim(g,n,\beta)}(\MbarX)$$
+where 
+%\begin{equation}
+%P^{d,r}_{g,A, \beta}(X, \ca L) \in \Chow_{\vdim(g,n,\beta) - g}(\Mbar_{g,n,\beta}(X))
+%\end{equation}
+% where:
+%\begin{enumerate}
+%\item
+%$g$ is the genus;
+%\item $d$ is a %parameter we will probably set to $g$;
+%\item $r$ another parameter; will take value at $r=0$;
+%\item $A$ is an integer vector (markings of legs) of length $n$;
+%\item $X$ is the smooth projective target;
+%\item $\beta \in H_2(X, \bb Z)$. 
+%\end{enumerate}
+%This is eventually polynomial in $r$, and dropping the $r$ from the notation indicates taking the `constant in $r$' part of this polynomial. 
+$$\vdim(g,n,\beta) = (\dim \,X -3)(1-g) + \int_{\beta} c_{1}(X) + n\, .$$
+See \cite{Behrend1997The-intrinsic-n} for the construction of virtual fundamental classes.
+
+Given the data of a line bundle $\ca L$ on $X$ and a vector $A=(a_1,\ldots, a_n) \in \mathbb{Z}^n$ satisfying
+\[\int_{\beta}c_1(\ca L)=\sum_{i=1}^{n}a_i \, ,\]
+a double ramification cycle 
+\[\DR_{g,A}(X,\ca L) \in \Chow_{\vdim(g,n,\beta)-g}(\MbarX)\]
+virtually compactifying the locus of maps $f\colon (C,p_1,\cdots,p_n)\to X$ with
+\[f^* \mathcal{L} \cong \mathcal{O}_C \left(\sum_{i=1}^n a_i p_i \right)\]
+is defined in \cite{Janda2018Double-ramifica}. 
+Furthermore, the authors define the notion of tautological classes
+inside the operational Chow ring $\CHop^*(\MbarX)$ of $\MbarX$.
+The main result of \cite{Janda2018Double-ramifica} is a
+Pixton  formula for a 
+codimension $g$ tautological class   whose action on $[\MbarX]^\textup{vir}$ yields $\DR_{g,A}(X,\ca L)$.
+
+
+We define a morphism 
+\begin{equation*}
+\phi_{\ca L}\colon \Mbar_{g,n,\beta}(X) \to \Picabs_{g,A,d}\, , \ \ \  f \mapsto \left(C, p_1, \ldots, p_n, f^*\ca L \right)\, . 
+\end{equation*}
+The compatibility result here is
+\begin{equation}\label{eqn:pixton_vs_uni_pixton}
+\source{pixtons-formula-abel-jacobi-picard-stack}
+\DR_{g,A}(X,\ca L) = \phi_{\ca L}^* \P^g_{g,A,d} \Big( [\MbarX]^\textup{vir}\Big)\, .
+\end{equation}
+The equality follows by an exact matching of the definition of 
+$\P^g_{g,\bd A,d}$ in Section \ref{Ssec:MainFormula}
+(after pullback by $\phi_{\ca L}^*$) with the
+Pixton formula in the main result of \cite{Janda2018Double-ramifica}.
+
+In fact, the compatibility \eqref{eqn:pixton_vs_uni_pixton}
+represented the starting point for our investigation of the 
+universal twisted double ramification cycle here.

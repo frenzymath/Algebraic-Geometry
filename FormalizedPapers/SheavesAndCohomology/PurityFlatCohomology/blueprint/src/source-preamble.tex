@@ -1,0 +1,800 @@
+% Original source preamble and source-level macro declarations.
+% This archival file is not the blueprint driver preamble.
+
+\documentclass[11pt, reqno]{amsart}
+
+%----------------------------------------------Showkeys
+%\usepackage[notcite]{showkeys}   % for drafts to show all the labels in pdf
+
+%----------------------------------------------Colors and color comments!
+\usepackage[usenames,dvipsnames]{color}
+\newcommand{\kestutis}[1]{{\color{Plum} \sf \it{ {\scriptsize ``#1''} }}}
+\newcommand{\ready}[1]{{\color{Brown}   
+#1}}						% parts carefully proofread
+\newcommand{\revise}[1]{{\color{Bittersweet}  
+ #1}}					% written parts, not in final form
+\newcommand{\temp}[1]{{\color{Gray} {\footnotesize  #1 }}}			% obsolete parts, leftovers
+\newcommand{\me}[1]{{\color{Plum} \sf \it{ {\scriptsize ``#1''} }}}
+
+\renewcommand{\ready}[1]{#1}	    	
+\renewcommand{\revise}[1]{#1}   		
+%\renewcommand{\temp}[1]{#1}     		
+
+\newcommand{\coR}{\textcolor{red}}
+\newcommand{\coG}{\textcolor{green}}
+\newcommand{\coB}{\textcolor{blue}}
+
+%----------------------------------------------Packages
+\usepackage[OT2, T1]{fontenc}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{graphicx}
+%\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\definecolor{link}{RGB}{11,0,128}
+\usepackage[colorlinks=true,citecolor=NavyBlue,linkcolor=OliveGreen,urlcolor=link]{hyperref}
+\usepackage{hyperref}
+\usepackage{paralist}
+\usepackage{colonequals}			% for nice :=
+\usepackage{color}
+\usepackage{mathabx}			% for \widec
+\usepackage{amscd}
+\usepackage[all,cmtip]{xy}			% for commutative diagrams
+\usepackage{sseq}				% for spectral sequences
+\usepackage{verbatim}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage[in]{fullpage}
+%\usepackage{graphicx}
+\usepackage{mathrsfs} 			% for \mathscr (script letters)
+%\usepackage{bm} 				% for bold Greek letters
+\usepackage{cleveref}
+\usepackage{enumitem}
+\usepackage{moreenum}			% for enumeration via Greek letters
+\usepackage[alphabetic,lite]{amsrefs} 	% for bibliography
+\usepackage{stmaryrd}			% this is for \llbracket and \rrbracket
+%\usepackage[foot]{amsaddr}
+\usepackage{subfiles}
+\usepackage{ragged2e}
+\usepackage[bbgreekl]{mathbbol}     % This package is in order to have the prism symbol
+\DeclareSymbolFontAlphabet{\mathbb}{AMSb}   % This is in order to common blackboard letters in the usual style (else the prism package messes them up)
+\usepackage{stackengine}
+
+
+\setlength\marginparwidth{2cm}
+
+
+%-----------------------Greek letters
+\newcommand{\gA}{\alpha}
+\newcommand{\gB}{\beta}
+\newcommand{\gG}{\gamma}
+\newcommand{\gD}{\delta}
+\newcommand{\gE}{\epsilon}
+\newcommand{\gZ}{\zeta}
+\newcommand{\gI}{\iota}
+\newcommand{\gK}{\kappa}
+\newcommand{\gL}{\lambda}
+\newcommand{\gM}{\mu}
+\newcommand{\gN}{\nu}
+\newcommand{\gX}{\xi}
+\newcommand{\gC}{\chi}
+\newcommand{\gO}{\omega}
+\newcommand{\gP}{\pi}
+\newcommand{\gF}{\phi}
+\newcommand{\gT}{\tau}
+
+%-----------------------Blackboard letters
+\newcommand{\bA}{\mathbb{A}}
+\newcommand{\bC}{\mathbb{C}}
+\newcommand{\bD}{\mathbb{D}}
+\newcommand{\bE}{\mathbb{E}}
+\newcommand{\bF}{\mathbb{F}}
+\newcommand{\bG}{\mathbb{G}}
+\newcommand{\bH}{\mathbb{H}}
+\newcommand{\bL}{\mathbb{L}}
+\newcommand{\bM}{\mathbb{M}}
+\newcommand{\bN}{\mathbb{N}}
+\newcommand{\bP}{\mathbb{P}}
+\newcommand{\bQ}{\mathbb{Q}}
+\newcommand{\bR}{\mathbb{R}}
+\newcommand{\bS}{\mathbb{S}}
+\newcommand{\bT}{\mathbb{T}}
+\newcommand{\bU}{\mathbb{U}}
+\newcommand{\bV}{\mathbb{V}}
+\newcommand{\bZ}{\mathbb{Z}}
+
+%-----------------------Bold letters
+\newcommand{\bbA}{\mathbf{A}}
+\newcommand{\bbB}{\mathbf{B}}
+\newcommand{\bbC}{\mathbf{C}}
+\newcommand{\bbD}{\mathbf{D}}
+\newcommand{\bbE}{\mathbf{E}}
+\newcommand{\bbF}{\mathbf{F}}
+\newcommand{\bbG}{\mathbf{G}}
+\newcommand{\bbH}{\mathbf{H}}
+\newcommand{\bbK}{\mathbf{K}}
+\newcommand{\bbL}{\mathbf{L}}
+\newcommand{\bbN}{\mathbf{N}}
+\newcommand{\bbP}{\mathbf{P}}
+\newcommand{\bbQ}{\mathbf{Q}}
+\newcommand{\bbR}{\mathbf{R}}
+\newcommand{\bbS}{\mathbf{S}}
+\newcommand{\bbT}{\mathbf{T}}
+\newcommand{\bbU}{\mathbf{U}}
+\newcommand{\bbX}{\mathbf{X}}
+\newcommand{\bbY}{\mathbf{Y}}
+\newcommand{\bbZ}{\mathbf{Z}}
+
+\newcommand{\bba}{\mathbf{a}}
+\newcommand{\bbb}{\mathbf{b}}
+\newcommand{\bbc}{\mathbf{c}}
+\newcommand{\bbd}{\mathbf{d}}
+\newcommand{\bbe}{\mathbf{e}}
+\newcommand{\bbf}{\mathbf{f}}
+\newcommand{\bbg}{\mathbf{g}}
+\newcommand{\bbh}{\mathbf{h}}
+\newcommand{\bbi}{\mathbf{i}}
+\newcommand{\bbj}{\mathbf{j}}
+\newcommand{\bbk}{\mathbf{k}}
+\newcommand{\bbl}{\mathbf{l}}
+\newcommand{\bbm}{\mathbf{m}}
+\newcommand{\bbn}{\mathbf{n}}
+\newcommand{\bbo}{\mathbf{o}}
+\newcommand{\bbp}{\mathbf{p}}
+\newcommand{\bbq}{\mathbf{q}}
+\newcommand{\bbr}{\mathbf{r}}
+\newcommand{\bbs}{\mathbf{s}}
+\newcommand{\bbt}{\mathbf{t}}
+\newcommand{\bbu}{\mathbf{u}}
+\newcommand{\bbv}{\mathbf{v}}
+\newcommand{\bbw}{\mathbf{w}}
+\newcommand{\bbx}{\mathbf{x}}
+\newcommand{\bby}{\mathbf{y}}
+\newcommand{\bbz}{\mathbf{z}}
+
+%-----------------------Calligraphic letters
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cG}{\mathcal{G}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\cJ}{\mathcal{J}}
+\newcommand{\cK}{\mathcal{K}}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\cM}{\mathcal{M}}
+\newcommand{\cN}{\mathcal{N}}
+\newcommand{\cO}{\mathcal{O}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cQ}{\mathcal{Q}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cT}{\mathcal{T}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cV}{\mathcal{V}}
+\newcommand{\cW}{\mathcal{W}}
+\newcommand{\cX}{\mathcal{X}}
+\newcommand{\cY}{\mathcal{Y}}
+\newcommand{\cZ}{\mathcal{Z}}
+
+%-----------------------Fraktur letters
+\newcommand{\fa}{\mathfrak{a}}
+\newcommand{\fb}{\mathfrak{b}}
+\newcommand{\fc}{\mathfrak{c}}
+\newcommand{\ff}{\mathfrak{f}}
+\newcommand{\fk}{\mathfrak{k}}
+\newcommand{\fl}{\mathfrak{l}}
+\newcommand{\fm}{\mathfrak{m}}
+\newcommand{\fn}{\mathfrak{n}}
+\newcommand{\fo}{\mathfrak{o}}
+\newcommand{\fp}{\mathfrak{p}}
+\newcommand{\fq}{\mathfrak{q}}
+\newcommand{\fr}{\mathfrak{r}}
+\newcommand{\ft}{\mathfrak{t}}
+
+\newcommand{\fA}{\mathfrak{A}}
+\newcommand{\fB}{\mathfrak{B}}
+\newcommand{\fC}{\mathfrak{C}}
+\newcommand{\fD}{\mathfrak{D}}
+\newcommand{\fE}{\mathfrak{E}}
+\newcommand{\fF}{\mathfrak{F}}
+\newcommand{\fG}{\mathfrak{G}}
+\newcommand{\fH}{\mathfrak{H}}
+\newcommand{\fI}{\mathfrak{I}}
+\newcommand{\fK}{\mathfrak{K}}
+\newcommand{\fL}{\mathfrak{L}}
+\newcommand{\fM}{\mathfrak{M}}
+\newcommand{\fN}{\mathfrak{N}}
+\newcommand{\fO}{\mathfrak{O}}
+\newcommand{\fP}{\mathfrak{P}}
+\newcommand{\fQ}{\mathfrak{Q}}
+\newcommand{\fR}{\mathfrak{R}}
+\newcommand{\fS}{\mathfrak{S}}
+\newcommand{\fT}{\mathfrak{T}}
+\newcommand{\fU}{\mathfrak{U}}
+\newcommand{\fV}{\mathfrak{V}}
+\newcommand{\fW}{\mathfrak{W}}
+\newcommand{\fX}{\mathfrak{X}}
+\newcommand{\fY}{\mathfrak{Y}}
+\newcommand{\fZ}{\mathfrak{Z}}
+
+%-----------------------Script letters
+\newcommand{\sA}{\mathscr{A}}
+\newcommand{\sB}{\mathscr{B}}
+\newcommand{\sC}{\mathscr{C}}
+\newcommand{\sD}{\mathscr{D}}
+\newcommand{\sE}{\mathscr{E}}
+\newcommand{\sF}{\mathscr{F}}
+\newcommand{\sG}{\mathscr{G}}
+\newcommand{\sH}{\mathscr{H}}
+\newcommand{\sI}{\mathscr{I}}
+\newcommand{\sJ}{\mathscr{J}}
+\newcommand{\sK}{\mathscr{K}}
+\newcommand{\sL}{\mathscr{L}}
+\newcommand{\sM}{\mathscr{M}}
+\newcommand{\sN}{\mathscr{N}}
+\newcommand{\sO}{\mathscr{O}}
+\newcommand{\sP}{\mathscr{P}}
+\newcommand{\sQ}{\mathscr{Q}}
+\newcommand{\sR}{\mathscr{R}}
+\newcommand{\sS}{\mathscr{S}}
+\newcommand{\sT}{\mathscr{T}}
+\newcommand{\sU}{\mathscr{U}}
+\newcommand{\sV}{\mathscr{V}}
+\newcommand{\sW}{\mathscr{W}}
+\newcommand{\sX}{\mathscr{X}}
+\newcommand{\sY}{\mathscr{Y}}
+\newcommand{\sZ}{\mathscr{Z}}
+
+%-----------------------New operators
+\DeclareMathOperator{\Ani}{Ani}		% Animation
+\DeclareMathOperator{\Ann}{Ann}		% Annihilator of a module
+\DeclareMathOperator{\Ass}{Ass}		% The set of associated primes
+\DeclareMathOperator{\Aut}{Aut}		% The group of automorphisms
+\DeclareMathOperator{\Bl}{Bl}			% blowup
+\DeclareMathOperator{\Br}{Br}			% The Brauer group
+\DeclareMathOperator{\CH}{CH}		% Chow group
+\DeclareMathOperator{\Cauchy}{Cauchy}	% The ring of Cauchy sequences
+\DeclareMathOperator{\Char}{char}		% Characteristic of a field
+\DeclareMathOperator{\cid}{cid}		% the complete intersection defect
+\DeclareMathOperator{\Cl}{Cl}			% Class group
+\DeclareMathOperator{\CM}{CM}		% Cohen--Macaulay locus
+\DeclareMathOperator{\codim}{codim}	% codimension
+\DeclareMathOperator{\Coeq}{Coeq}		% The coequalizer
+\DeclareMathOperator{\Coker}{Coker}	% Cokernel
+\DeclareMathOperator{\Cone}{Cone}		% The cone of a morphism
+\DeclareMathOperator{\Cont}{Cont}		% The space of continuous valuations
+\DeclareMathOperator{\cosk}{cosk}		% The coskeleton 
+\DeclareMathOperator{\depth}{depth}	% Depth of a module
+\DeclareMathOperator{\dist}{dist}		% Distance
+\DeclareMathOperator{\edim}{edim}		% The embedding dimension
+\DeclareMathOperator{\End}{End}		% The algebra of endomorphisms
+\DeclareMathOperator{\Eq}{Eq}			% The equalizer
+\DeclareMathOperator{\Ext}{Ext}		% Derived functors of Hom
+\DeclareMathOperator{\Extrig}{Extrig}	% Rigidified extensions
+\DeclareMathOperator{\Fib}{Fib}		% Mapping fiber
+\DeclareMathOperator{\Fil}{Fil}			% filtration
+\DeclareMathOperator{\Fitt}{Fitt}		% The Fitting ideal
+\DeclareMathOperator{\Frac}{Frac}		% Field of fractions
+\DeclareMathOperator{\Fun}{Fun}		% Homomorphisms between two modules, etc.
+\DeclareMathOperator{\Gal}{Gal}		% Galois group
+\DeclareMathOperator{\gdepth}{geom. depth}		% the geometric depth of a ring
+\DeclareMathOperator{\GL}{GL}		% The general linear group
+\DeclareMathOperator{\gr}{gr}			% The associated graded
+\DeclareMathOperator{\HH}{HH}		% Hochschild homology
+\DeclareMathOperator{\Hom}{Hom}		% Homomorphisms between two modules, etc.
+\DeclareMathOperator{\HP}{HP}		% periodic cyclic homology
+\DeclareMathOperator{\Ht}{ht}			% Height of an ideal
+\DeclareMathOperator{\im}{Im}			% The image of a map
+\DeclareMathOperator{\Ind}{Ind}		% The induced representation
+\DeclareMathOperator{\inv}{inv}		% The invariant map from local class field theory
+\DeclareMathOperator{\Irr}{Irr}			% The set of isomorphism classes of irreducible representations
+\DeclareMathOperator{\Isom}{Isom}		% The functor of isomorphisms
+\DeclareMathOperator{\Jac}{Jac}		% The Jacobian
+\DeclareMathOperator{\Ker}{Ker}		% The kernel
+\DeclareMathOperator{\LCI}{LCI}		% Local complete intersection locus
+\DeclareMathOperator{\lcm}{lcm}		% The least common multiple
+\DeclareMathOperator{\length}{length}	% The length of a module
+\DeclareMathOperator{\Lie}{Lie}		% The Lie algebra
+\DeclareMathOperator{\Mat}{Mat}		% Matrices
+\DeclareMathOperator{\Mod}{Mod}		% Category of modules
+\DeclareMathOperator{\Norm}{Norm}	% The norm
+\DeclareMathOperator{\NS}{NS}		% The Neron--Severi group
+\DeclareMathOperator{\Null}{Null}		% The nullspace or the ring of null sequences
+\DeclareMathOperator{\Ob}{Ob}		% Objects of a category
+\DeclareMathOperator{\ord}{ord}		% The order
+\DeclareMathOperator{\pd}{pd}			% projective dimension
+\DeclareMathOperator{\Perv}{Perv}		% The category of perverse sheaves
+\DeclareMathOperator{\PGL}{PGL}		% Projective general linear group
+\DeclareMathOperator{\Pic}{Pic}		% Picard group
+\DeclareMathOperator{\Pro}{Pro}		% Pro category
+\DeclareMathOperator{\Proj}{Proj}		% Proj of a graded ring
+\DeclareMathOperator{\rad}{rad}		% Radical of an ideal
+\DeclareMathOperator{\Reg}{Reg}		% regular locus
+\DeclareMathOperator{\Res}{Res}		% The restriction of the representation
+\DeclareMathOperator{\rk}{rk}			% rank
+\DeclareMathOperator{\Sel}{Sel}		% Selmer group
+\DeclareSymbolFont{cyrletters}{OT2}{wncyr}{m}{n}
+\DeclareMathSymbol{\Sha}{\mathalpha}{cyrletters}{"58}	% Sha
+\DeclareMathOperator{\sk}{sk}			% The skeleton
+\DeclareMathOperator{\SL}{SL}			% Special linear group
+\DeclareMathOperator{\Spa}{Spa}		% Adic spectrum of an f-adic ring
+\DeclareMathOperator{\Spec}{Spec}		% Spectrum of a ring
+\DeclareMathOperator{\Spf}{Spf}		% Formal spectrum of an adic ring
+\DeclareMathOperator{\Sq}{Sq}			% Steenrod squares
+\DeclareMathOperator{\Sw}{Sw}		% Swan conductor
+\DeclareMathOperator{\Supp}{Supp}		% Support of a module
+\DeclareMathOperator{\Sym}{Sym}		% symmetric power
+\DeclareMathOperator{\TC}{TC}		% topological cyclic homology
+\DeclareMathOperator{\THH}{THH}		% topological Hochschild homology
+\DeclareMathOperator{\Tor}{Tor}		% Derived functors of tensor product
+\DeclareMathOperator{\TP}{TP}		% periodic topological cyclic homology
+\DeclareMathOperator{\Tr}{Tr}			% Trace
+\DeclareMathOperator{\Trace}{Trace}	% Trace
+\DeclareMathOperator{\trdeg}{tr.deg}		% The transcendence degree
+\DeclareMathOperator{\vdim}{vdim}		% The virtual dimension
+\DeclareMathOperator{\Vect}{Vect}		% Vector bundles
+\DeclareMathOperator{\Ver}{Ver}		% Verschiebung
+
+
+%-----------------------Mathematics shortcuts
+\providecommand{\Ab}{\mathrm{Ab}}
+\newcommand{\ab}{\mathrm{ab}}				% Abelianization
+\newcommand{\ad}{\mathrm{ad}}			% associated adic space
+\newcommand{\aff}{\mathrm{aff}}	% for affine
+\newcommand{\alg}{\mathrm{alg}}		% algebraic closure (mainly used in superscripts)
+\newcommand{\ani}{{\mathrm{ani}}}		% the anisotropic locus
+\newcommand{\arc}{{\rm arc}}
+\newcommand{\Art}{\mathrm{Art}}				% Artin homomorphism
+\newcommand{\bal}{\mathrm{bal}}		% balanced level structures
+\newcommand{\ce}{\colonequals}
+\newcommand{\Cong}{\mathrm{cong}}	% Congruence number
+\newcommand{\const}{\mathrm{const}}	% Constant
+\newcommand{\cont}{{\mathrm{cont}}}		% Continuous 
+\newcommand{\cris}{{\mathrm{cris}}}		% Crystalline
+\newcommand{\cycl}{{\mathrm{cycl}}}	% cyclotomic
+\newcommand{\del}{\partial}
+\newcommand{\dirlim}{\varinjlim}
+\newcommand{\Div}{{\mathrm{Div}}}		% Cartier divisor associated to a generically exact complex
+\renewcommand{\div}{{\mathrm{div}}}	% Maximal divisible subgroup
+\newcommand{\dR}{{\mathrm{dR}}}		% de Rham
+\newcommand{\eps}{\epsilon}
+\newcommand{\et}{\mathrm{\acute{e}t}}	% for etale cohomology (mainly used in subscripts)
+\newcommand{\fet}{\mathrm{f\acute{e}t}}	% for etale cohomology (mainly used in subscripts)
+\newcommand{\fppf}{\mathrm{fppf}}		% for fppf cohomology (mainly used in subscripts)
+\newcommand{\fpqc}{\mathrm{fpqc}}		% for fppf cohomology (mainly used in subscripts)
+\newcommand{\Frob}{\mathrm{Frob}}			% Frobenius
+\providecommand{\Gp}{\mathrm{Gp}}
+\newcommand{\gp}{{\mathrm{gp}}}		% Group completion of a monoid
+\newcommand{\heart}{{\heartsuit}}		% Heart of a t-structure
+\newcommand{\hra}{\hookrightarrow}
+\DeclareMathOperator{\Idem}{\mathrm{Idem}}	% The set of idempotents
+\renewcommand{\i}{^{-1}}
+\newcommand{\id}{\mathrm{id}}			% Identity
+\newcommand{\Inf}{\mathrm{inf}}		% for A_\Inf
+\newcommand{\injects}{\hookrightarrow}
+\newcommand{\invlim}{\varprojlim}
+\newcommand{\isomto}{\overset{\sim}{\longrightarrow}}
+\newcommand{\isomfrom}{\overset{\sim}{\longleftarrow}}
+\newcommand{\La}{\Leftarrow}
+\newcommand{\llb}{\llbracket}			% [[
+\newcommand{\llp}{(\!(}			% ((
+\newcommand{\loc}{\mathrm{loc}}			% Localization map
+\newcommand{\MCM}{\underline{\mathrm{MCM}}}  % the stable cateogry of maximal CM modules
+\newcommand{\naive}{\mathrm{naive}}		% was used for X_0(n)^\naive
+\newcommand{\nd}{{\mathrm{nd}}}			% the maximal nondivisible quotient
+\newcommand{\normal}{{\lhd}}			% normal subgroup
+\newcommand{\nr}{{\mathrm{nr}}}			% unramified 
+\newcommand{\nsp}{\mathrm{nsp}}		% nonsplit (for instance, or nonsplit Cartan curve)
+\newcommand{\old}{\mathrm{old}}			% old quotient of a modular Jacobian
+\newcommand{\op}{{\mathrm{op}}}			% Opposite category
+\newcommand{\ov}{\overline}
+\providecommand{\p}[1]{\left(#1\right)}
+\newcommand{\PD}{{\mathrm{PD}}}		% Divided powers
+\newcommand{\perf}{\mathrm{perf}}			% perfection
+\newcommand{\pr}{^{\prime}}
+\newcommand{\prpr}{^{\prime\prime}}
+\DeclareSymbolFontAlphabet{\mathbbl}{bbold}
+\newcommand{\Prism}{{ \mathbbl{\Delta}}}
+\newcommand{\proet}{\mathrm{pro\acute{e}t}}			% proetale
+\newcommand{\profppf}{\mathrm{pro\x{-}fppf}}		% pro-fppf site
+\newcommand{\prosyn}{\mathrm{pro\x{-}syn}}		% pro-syn site
+\newcommand{\psh}{\mathrm{psh}}		% presheaf
+\newcommand{\pt}{\mathrm{pt}}			% A point
+\newcommand{\qcqs}{\mathrm{qcqs}}	% Quasi-compact quasi-seperated
+\newcommand{\Qlbar}{\ov{\bQ}_\ell}			% Algebraic closure of l-adic numbers
+\newcommand{\quot}{\mathrm{quot}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\red}{{\mathrm{red}}}		% The maximal reduced quotient
+\providecommand{\Ring}{\mathrm{Ring}}
+\newcommand{\rrb}{\rrbracket}			% ]]
+\newcommand{\rrp}{)\!)}			% ))
+\providecommand{\Set}{\mathrm{Set}}
+\newcommand{\sfp}{\mathrm{sfp}}		% strongly of finite presentation
+\newcommand{\sh}{\mathrm{sh}}		% strict henselization (mainly used in superscripts)
+\newcommand{\sing}{\mathrm{sing}}			% singular locus
+\newcommand{\sm}{\mathrm{sm}}			% smooth locus
+\providecommand{\Sn}{\text{{\upshape(S$_n$)}} }
+\providecommand{\Snn}{\text{{\upshape(S$_n$)}}}
+\providecommand{\Sone}{\text{{\upshape(S$_1$)}} }
+\providecommand{\Sonen}{\text{{\upshape(S$_1$)}}}
+\providecommand{\Stwo}{\text{{\upshape(S$_2$)}} }
+\providecommand{\Stwon}{\text{{\upshape(S$_2$)}}}
+\providecommand{\sqp}[1]{\left[#1\right]}
+\providecommand{\sSet}{\mathrm{sSet}}
+\newcommand{\st}{{\mathrm{st}}}		% semistable 
+\newcommand{\surjects}{\twoheadrightarrow}
+\newcommand{\syn}{\mathrm{syn}}		% for fppf cohomology (mainly used in subscripts)
+\newcommand{\Tate}{\underline{\mathrm{Tate}}} 	% for Tate curve
+\newcommand{\tensor}{\otimes} 			% tensor product
+\newcommand{\tors}{\mathrm{tors}}		% torsion subgroup (mainly used in subscripts)
+\newcommand{\un}{\underline}
+\newcommand{\val}{\mathrm{val}}		% Valuation
+\newcommand{\wh}{\widehat}
+\newcommand{\wt}{\widetilde}
+\newcommand{\xra}{\xrightarrow}
+\newcommand{\Zar}{\mathrm{Zar}}		% for Zariski cohomology 
+
+%\newcommand{\ss}{\mathrm{ss}}		% semisimplification
+\newcommand{\shv}{\mathrm{shv}}		% sheaf
+\renewcommand{\th}{^{\mathrm{th}}}
+
+\newcommand{\csub[1]}{\centering\subsection{\text{#1} \nopunct} \hfill \justify}
+\newcommand{\leftexp}[2]{{\vphantom{#2}}^{#1}{#2}}
+\newcommand{\leftsub}[2]{{\vphantom{#2}}_{#1}{#2}}
+\providecommand{\abs}[1]{\left\lvert#1\right\rvert}
+\providecommand{\norm}[1]{\lVert#1\rVert}
+\providecommand{\In}[1]{\left\langle#1\right\rangle}
+\providecommand{\up}[1]{{\upshape(}#1{\upshape)}}
+\providecommand{\resp}[1]{{\upshape(}resp.,~#1{\upshape)}}
+\providecommand{\uref}[1]{{\upshape\ref{#1}}}
+\providecommand{\uS}{{\upshape\S}}
+\providecommand{\f}[2]{\frac{#1}{#2}}
+\newcommand{\Ell}{\cE\ell\ell}				% The stack of elliptic curves
+\newcommand{\EEl}{\overline{\cE\ell\ell}}		% The compactified stack of elliptic curves
+\newcommand{\new}{\mathrm{new}}			% new quotient of a modular Jacobian
+\newcommand{\cusps}{\mathrm{cusps}}
+\newcommand{\rr}{\raggedright}
+\newcommand{\bconjt}{\begin{conj-tweak}}
+\newcommand{\econjt}{\end{conj-tweak}}
+\newcommand{\forg}{\mathrm{forg}}
+
+
+
+
+%------------------------------------------Tex shortcuts
+\renewcommand{\b}{\textbf}
+\providecommand{\ucolon}{{\upshape:} }
+\providecommand{\uscolon}{{\upshape;} }
+\providecommand{\uc}{{\upshape:} }
+\providecommand{\us}{{\upshape;} }
+
+\newcommand{\brems}{\begin{rems} \hfill \begin{enumerate}[label=\b{\thenumberingbase.},ref=\thenumberingbase]}
+\newcommand{\remi}{\addtocounter{numberingbase}{1} \item}
+\newcommand{\erems}{\end{enumerate} \end{rems}}
+\newcommand{\begs}{\begin{egs} \hfill \begin{enumerate}[label=\b{\thenumberingbase.},ref=\thenumberingbase]}
+\newcommand{\egi}{\addtocounter{numberingbase}{1} \item}
+\newcommand{\eegs}{\end{enumerate} \end{egs}}
+\newcommand{\m}{\item}
+\newcommand{\bsm}{\begin{smallmatrix}}
+\newcommand{\esm}{\end{smallmatrix}}
+\newcommand{\blem}{\begin{lemma}}
+\newcommand{\elem}{\end{lemma}}
+\newcommand{\blemt}{\begin{lemma-tweak}}
+\newcommand{\elemt}{\end{lemma-tweak}}
+\newcommand{\bconj}{\begin{conj}}
+\newcommand{\econj}{\end{conj}}
+\newcommand{\bprob}{\begin{Problem}}
+\newcommand{\eprob}{\end{Problem}}
+\newcommand{\bpropt}{\begin{prop-tweak}}
+\newcommand{\epropt}{\end{prop-tweak}}
+\newcommand{\bq}{\begin{Q}}
+\newcommand{\eq}{\end{Q}}
+\newcommand{\benum}{\begin{enumerate}[label={{\upshape(\alph*)}}]}
+\newcommand{\benuma}{\begin{enumerate}[label={{\upshape(\arabic*)}}]}
+\newcommand{\benumr}{\begin{enumerate}[label={{\upshape(\roman*)}}]}
+\newcommand{\eenum}{\end{enumerate}}
+\newcommand{\bitem}{\begin{itemize}}
+\newcommand{\eitem}{\end{itemize}}
+\newcommand{\bc}{\begin{comment}}
+\newcommand{\ec}{\end{comment}}
+\newcommand{\bd}{\begin{defn}}
+\newcommand{\ed}{\end{defn}}
+\newcommand{\bdt}{\begin{defn-tweak}}
+\newcommand{\edt}{\end{defn-tweak}}
+\newcommand{\beg}{\begin{eg}}
+\newcommand{\eeg}{\end{eg}}
+\newcommand{\begt}{\begin{eg-tweak}}
+\newcommand{\eegt}{\end{eg-tweak}}
+\newcommand{\bcl}{\begin{claim}}
+\newcommand{\ecl}{\end{claim}}
+\newcommand{\lab}{\label}
+\newcommand{\ssk}{\smallskip}
+\newcommand{\msk}{\medskip}
+\newcommand{\bsk}{\bigskip}
+\newcommand{\x}{\text}
+\newcommand{\rv}{\revise}
+\newcommand{\rd}{\ready}
+\providecommand{\qxq}[1]{\quad\text{#1}\quad}
+\providecommand{\qx}[1]{\quad\text{#1}}
+\providecommand{\xq}[1]{\text{#1}\quad}
+\newcommand{\q}{\quad}
+\newcommand{\qq}{\quad\quad}
+\newcommand{\qqq}{\quad\quad\quad}
+\newcommand{\qqqq}{\quad\quad\quad\quad}
+\newcommand{\qqqqq}{\quad\quad\quad\quad\quad}
+\newcommand{\qqqqqq}{\quad\quad\quad\quad\quad\quad}
+\newcommand{\qqqqqqq}{\quad\quad\quad\quad\quad\quad\quad}
+\newcommand{\qqqqqqqq}{\quad\quad\quad\quad\quad\quad\quad\quad}
+\newcommand{\qqqqqqqqq}{\quad\quad\quad\quad\quad\quad\quad\quad\quad}
+\newcommand{\tst}{\textstyle}
+\newcommand{\ba}{\begin{aligned}}
+\newcommand{\ea}{\end{aligned}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\newcommand{\bpf}{\begin{proof}}
+\newcommand{\epf}{\end{proof}}
+\newcommand{\bthm}{\begin{thm}}
+\newcommand{\ethm}{\end{thm}}
+\newcommand{\bprop}{\begin{prop}}
+\newcommand{\eprop}{\end{prop}}
+\newcommand{\bcor}{\begin{cor}}
+\newcommand{\ecor}{\end{cor}}
+\newcommand{\brem}{\begin{rem}}
+\newcommand{\erem}{\end{rem}}
+\newcommand*{\QED}{\hfill\ensuremath{\qed}}
+\newcommand*{\QEDD}{\hfill\ensuremath{\qed\qed}}
+\newcommand{\sabcd}[4]{\left(\begin{smallmatrix}#1&#2\\#3& #4\end{smallmatrix}\right)}
+
+
+%-----------------------Theorems
+\usepackage{aliascnt}
+\newaliascnt{numberingbase}{subsubsection}
+\numberwithin{equation}{numberingbase}
+
+\newtheoremstyle{thms}{0pt}{0pt}{\itshape}{}{\bfseries}{.}{ }{}
+\theoremstyle{thms}
+\newtheorem{conj}[numberingbase]{Conjecture}
+\newtheorem{corollary}[numberingbase]{Corollary}
+\newtheorem{cor}[numberingbase]{Corollary}
+\newtheorem{lemma}[numberingbase]{Lemma}
+\newtheorem{sublemma}[equation]{Lemma}
+\newtheorem{prop}[numberingbase]{Proposition}
+\newtheorem{proposition}[numberingbase]{Proposition}
+\newtheorem{Q}[numberingbase]{Question}
+\newtheorem{thm}[numberingbase]{Theorem}
+\newtheorem{theorem}[numberingbase]{Theorem}
+\newtheorem{variant}[numberingbase]{Variant}
+
+\newtheoremstyle{claims}{0pt}{0pt}{}{}{\itshape}{.}{ }{}
+\theoremstyle{claims}
+\newtheorem{claim}[equation]{Claim}
+
+\newtheoremstyle{defs}{0pt}{0pt}{}{}{\bfseries}{.}{ }{}
+\theoremstyle{defs}
+\newtheorem{defn}[numberingbase]{Definition}
+\newtheorem{definition}[numberingbase]{Definition}
+\newtheorem{eg}[numberingbase]{Example}
+\newtheorem{example}[numberingbase]{Example}
+\newtheorem*{egs}{Examples}
+\newtheorem{rem}[numberingbase]{Remark}
+\newtheorem{remark}[numberingbase]{Remark}
+\newtheorem*{rems}{Remarks}
+
+\Crefname{claim}{Claim}{Claims}
+\Crefname{sublemma}{Lemma}{Lemmas}
+\Crefname{conj}{Conjecture}{Conjectures}
+\Crefname{cor}{Corollary}{Corollaries}
+\Crefname{defn}{Definition}{Definitions}
+\Crefname{eg}{Example}{Examples}
+\Crefname{prop}{Proposition}{Propositions} 
+\Crefname{Q}{Question}{Questions}
+\Crefname{rem}{Remark}{Remarks}
+\Crefname{thm}{Theorem}{Theorems}
+\Crefname{variant}{Variant}{Variants}
+
+
+\theoremstyle{thms}
+\newtheorem{thm-tweak}[subsection]{Theorem}
+\Crefname{thm-tweak}{Theorem}{Theorems}
+\newtheorem{lemma-tweak}[subsection]{Lemma}
+\Crefname{lemma-tweak}{Lemma}{Lemmas}
+\newtheorem{cor-tweak}[subsection]{Corollary}
+\Crefname{cor-tweak}{Corollary}{Corollaries}
+\newtheorem{prop-tweak}[subsection]{Proposition}
+\Crefname{prop-tweak}{Proposition}{Propositions} 
+\newtheorem{conj-tweak}[subsection]{Conjecture}
+\Crefname{conj-tweak}{Conjecture}{Conjectures} 
+
+\theoremstyle{defs}
+\newtheorem{defn-tweak}[subsection]{Definition}
+\Crefname{defn-tweak}{Definition}{Definitions}
+\newtheorem{eg-tweak}[subsection]{Example}
+\Crefname{eg-tweak}{Example}{Examples}
+\newtheorem*{rems-tweak}{Remarks}
+\newtheorem{rem-tweak}[subsection]{Remark}
+\Crefname{rem-tweak}{Remark}{Remarks}
+
+%------------------------The bpp stuff
+\newtheoremstyle{subsection-tweak}
+   {0pt}
+   {0pt}%
+   {}
+   {}%
+   {\bfseries}
+   {}%
+   {.5em}
+   {\thmnumber{\@{#1}{}\@{#2}.}%
+    \thmnote{~{\bfseries#3.}}}    
+    
+\theoremstyle{subsection-tweak}
+\newtheorem{pp}[numberingbase]{}
+\newcommand{\bpp}{\begin{pp}}
+\newcommand{\epp}{\end{pp}}
+
+
+\theoremstyle{subsection-tweak}
+\newtheorem{conventions}[subsection]{}
+\newtheorem*{pp-tweak}{}
+
+
+
+%-----------------------Enumeration
+\renewcommand{\labelenumi}{\b{\arabic{enumi}.}}
+\renewcommand{\labelenumii}{(\alph{enumii})}
+
+%-----------------------Page layout
+%\setlength{\parindent}{0pt} % 0 pt  = indentation
+%\pagenumbering{gobble}          % Uncomment to suppress page numbers
+
+
+%--------------------------Table of contents customization
+
+\makeatletter
+\def\@tocline#1#2#3#4#5#6#7{
+    \begingroup 
+    \@ifempty{#4}{}{}
+
+    \parindent\z@ \leftskip#3\relax \advance\leftskip\@tempdima\relax
+    #5\hskip-\@tempdima
+      \ifcase #1
+       \or\or \hskip 2em \or \hskip 1em \else \hskip 3em \fi%
+      #6\nobreak\relax
+    \dotfill\hbox to\@pnumwidth{\@tocpagenum{#7}}\par
+    \nobreak
+    \endgroup
+ }
+ \def\l@section{\@tocline{1}{0pt}{1pc}{}{}}
+
+\renewcommand{\tocsection}[3]{%
+  \indentlabel{\@ifnotempty{#2}{\makebox[1.3em][l]{%
+    \ignorespaces#1 \bfseries{#2}.\hfill}}}\bfseries{#3}
+    \vspace{-5pt}}
+
+\renewcommand{\tocsubsection}[3]{%
+  \indentlabel{\@ifnotempty{#2}{\hspace*{-0.5em}\makebox[2.1em][l]{%
+    \ignorespaces#1#2.\hfill}}}#3
+    \vspace{-5pt}}
+   
+%\renewcommand{\tocsectionvskip}{10pt}
+%\set{10pt}
+%\settocsectionvskip{10pt}
+
+\makeatother 
+
+\makeatletter % This is for proper formatting of appendices in the table of contents
+\newcommand\appendix@section[1]{%
+  \refstepcounter{section}%
+  \orig@section*{Appendix \@Alph\c@section. #1}%
+%  \addcontentsline{toc}{section}{Appendix \@Alph\c@section. #1}%
+}
+\let\orig@section\section
+\g@addto@macro\appendix{\let\section\appendix@section}
+\makeatother
+
+
+%\setlength{\textwidth}{31pc}
+
+%\setlength{\textheight}{48pc}
+
+%\oddsidemargin=.65in
+
+%\evensidemargin=.65in
+
+
+
+
+
+%-------------------------------------------------------------END OF ALL THAT CRAP!
+
+
+
+% Checklist to do before making a public update to the manuscript: 
+%   	(a) Spell check; 
+%     (b) Eliminate numbering of unreferenced equations;
+%     (c) Check if cited preprints have appeared and for discrepancies in numbering;
+%     (d) Thank the referee in the acknowledgements (if applicable).
+%     (e) Go through the manuscript and check for unnecessary italicization of references, reference numbers, parentheses, semicolons, etc. in theorem statements.
+% }
+
+
+
+
+
+
+
+\author{K\k{e}stutis \v{C}esnavi\v{c}ius}
+\address{CNRS, UMR 8628, Laboratoire de Math\'{e}matiques d'Orsay, Universit\'{e} Paris-Saclay, 91405 Orsay, France}
+\email{kestutis@math.u-psud.fr}
+%\urladdr{http://math.berkeley.edu/~kestutis/}
+
+\date{\today}
+
+%-----------------------------------------------------------------------------------------------
+
+
+
+
+
+
+%\subjclass[2010]{\rv{Primary ; Secondary .}}
+%\keywords{\rv{...}}
+
+
+%\begin{abstract} \revise{...} \end{abstract}
+
+
+
+%\maketitle
+
+
+
+
+%\hypersetup{
+%    linktoc=page,     %set to all if you want both sections and subsections linked
+%}
+%\renewcommand*\contentsname{}
+%\q\\
+%\tableofcontents
+
+
+
+
+%\subsection*{Acknowledgements}  \revise{ }
+
+ 
+
+%\begin{bibdiv} \begin{biblist} 
+%\bibselect{bibliography}
+%\end{biblist} \end{bibdiv}
+
+
+
+
+
+%\usepackage[notcite]{showkeys}   % for drafts to show all the labels in pdf
+
+
+
+
+\newcommand{\bb}{\boldsymbol}		% for bold symbol in math mode (esp. greek letters)
+
+
+% Checklist to do before making a public update to the manuscript: 
+%   	(a) Spell check; 
+%     (b) Eliminate numbering of unreferenced equations;
+%     (c) Check if cited preprints have appeared and for discrepancies in numbering;
+%     (d) Thank the referee in the acknowledgements (if applicable).
+%     (e) Go through the manuscript and check for unnecessary italicization of references, reference numbers, parentheses, semicolons, etc. in theorem statements.
+% }
+
+\usepackage{epigraph}
+
+
+

@@ -1,0 +1,780 @@
+% Source-derived chapter 07: The crystal of a spherical variety
+% Original source: intersection-complexes-unramified-l-factors
+\chapter{The crystal of a spherical variety}
+\label{intersection-complexes-unramified-l-factors-chapter-07}
+\source{intersection-complexes-unramified-l-factors}
+
+\begin{remark}[Source section]
+\label{intersection-complexes-unramified-l-factors-chapter-07-source}
+\source{intersection-complexes-unramified-l-factors}
+\source{intersection-complexes-unramified-l-factors}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: The crystal of a spherical variety
+\label{sect:crystal}
+\source{intersection-complexes-unramified-l-factors}
+
+We keep the assumptions of \S\ref{sect:Heckeact}--\ref{sect:centralfiber}. In this section, we study the irreducible components of central Zastava fibers of critical dimension (Proposition \ref{prop:Vbasis}) which give rise to the ``new'' contributions $V_{X,\ch\lambda}$ to the pushforward of the IC sheaf by Proposition \ref{prop:format}. Our main result is that these components give rise to a crystal, in the sense of Kashiwara, if we formally attach to them their ``negatives''. These components are, by Proposition \ref{prop:Vbasis}, of two different kinds, namely those associated to the Zastava space of the open $G$-orbit $X^\bullet$ and those associated to certain strata of the affine Grassmannian. Since the relation of the latter to crystals is well-known by 
+\cite{BGcrys, BFG}, the problem quickly reduces to the study of the crystal associated to $X^\bullet$. 
+
+
+
+\subsection{The crystal $\mB_{X}$} 
+
+\subsubsection{Definition of crystal} 
+We review the definition of crystal, in the sense of Kashiwara \cite{Kas93}, 
+over the Langlands dual Lie algebra $\ch{\mf g}$. We refer the reader to 
+\cite{Kas94, Kas95, BS, HK} for further details on crystals, which can be associated 
+to any Kac--Moody algebra. 
+
+Let $I$ denote the set of vertices of the Dynkin diagram associated to $G$, 
+so $\{\alpha_i\}_{i\in I} = \Delta_G$ is the set of simple roots of $G$. 
+
+A crystal $\mB$ over $\ch{\mf g}$ is a set with the following data: 
+\begin{align*}
+\mathrm{wt} &: \mB \to \ch\Lambda_G \\
+\varepsilon_i, \varphi_i &: \mB \to \mbb Z \sqcup \{ -\infty \} &\text{for } i\in I, \\
+\tilde e_i, \tilde f_i &: \mB \to \mB \sqcup \{0\} &\text{for } i\in I,
+\end{align*}
+satisfying the following axioms:
+\begin{enumerate}[label={(\arabic*)}] 
+\item $\varphi_i(\msf b) = \varepsilon_i(\msf b) + \brac{ \alpha_i, \mathrm{wt}(\msf b)}$
+for $\msf b \in \mB,\, i\in I$.
+\item If $\msf b \in \mB$ and $\tilde e_i \msf b \ne 0$, then 
+\[ \mathrm{wt}(\tilde e_i \msf b) = \mathrm{wt}(\msf b) + \ch\alpha_i,\; 
+\varepsilon_i( \tilde e_i \msf b) = \varepsilon_i(\msf b) -1,\; 
+\varphi_i( \tilde e_i \msf b) = \varphi_i( \msf b ) + 1. \]
+\item If $\msf b \in \mB$ and $\tilde f_i \ne 0$, then 
+\[ \mathrm{wt}(\tilde f_i \msf b) = \mathrm{wt}(\msf b) - \ch\alpha_i,\;
+\varepsilon(\tilde f_i \msf b) + 1,\; 
+\varphi_i(\tilde f_i \msf b) = \varphi_i(\msf b) -1. 
+\]
+\item For $\msf b_1, \msf b_2 \in  \mB$, $\msf b_2 = \tilde f_i \msf b_1$ if and only if 
+$\msf b_1 = \tilde e_i \msf b_2$.
+\item If $\varphi_i(\msf b)=-\infty$, then $\tilde e_i \msf b = \tilde f_i \msf b = 0$. 
+\end{enumerate}
+
+A crystal $\mB$ is called \emph{seminormal}\footnote{This is the terminology of \cite{Kas94,Kas95}. In \cite{Kas93} the term \emph{normal} was used for what we call \emph{seminormal}.} 
+if 
+\[ \varepsilon_i(\msf b) = \on{max} \{ n \ge 0 \mid \tilde e_i^n \msf b \in \mB \} \in \mathbb N, 
+\quad \varphi_i(\msf b) = \on{max} \{ n \ge 0 \mid \tilde f_i^n \msf b \in \mB \} \in \mathbb N 
+\]
+for all $\msf b\in \mB, i\in I$.
+From now on we will only consider seminormal crystals, so the maps $\varepsilon_i, \varphi_i$
+are uniquely determined by $\mathrm{wt}, \tilde e_i, \tilde f_i$. 
+
+Kashiwara showed the existence and uniqueness of crystal bases for any integrable module of the
+quantized enveloping algebra $U_q(\ch{\mf g})$. 
+The crystal basis of an integrable $U_q(\ch{\mf g})$-module 
+is the limit at $q=0$ of Lusztig's canonical basis 
+(\cite{Lusztig90, Grojnowski-Lusztig}).
+A crystal $\mB$ is called \emph{normal} if it is isomorphic to the crystal basis 
+of an integrable $U_q(\ch{\mf g})$-module. 
+
+For any subset $J\subset I$, let $\ch{\mf g}_J$ denote the corresponding Levi subalgebra. 
+For a crystal $\mB$ of $\ch{\mf g}$, let $\Phi_J(\mB)$ denote $\mB$ regarded as a crystal 
+over $\ch{\mf g}_J$. 
+Then saying that $\mB$ is seminormal is equivalent to saying that 
+$\Phi_{\{i\}}(\mB)$ is isomorphic to the crystal basis of an integrable 
+$U_q(\ch{\mf g}_{\{i\}})$-module. 
+One can check the normality of a crystal by restricting to every pair
+of vertices in the Dynkin diagram:
+
+\begin{prop}[{\cite[Proposition 2.4.4]{KKMMNN}, \cite[Theorem 5.21]{BS}}]
+\source{intersection-complexes-unramified-l-factors}
+\notready 
+\label{prop:normal2}
+\source{intersection-complexes-unramified-l-factors}
+Let $\mB$ be a finite crystal over $\ch{\mf g}$ such that for every 
+subset $\{i,j\} \subset I$, the crystal $\Phi_{\{i,j\}}(\mB)$ is isomorphic to the
+crystal basis of a finite-dimensional $U_q(\ch{\mf g}_{\{i,j\}})$-module. 
+Then $\mB$ is normal. 
+\end{prop}
+
+
+For a crystal $\mB$ one can construct an oriented \emph{crystal graph} with vertex set $\mB$ and 
+edges given by the $\tilde f_i$. We can decompose $\mB$ into a disjoint union 
+of crystals corresponding to the connected components of the crystal graph. We will 
+call these the connected components of $\mB$.
+
+
+For $\ch\lambda \in \ch\Lambda^+_G$, there is a unique crystal basis 
+$\mB^{\ch\lambda}_{\ch{\mf g}}$ for the irreducible highest weight module $V^{\ch\lambda}$
+of $U_q(\ch{\mf g})$. (We will abuse notation and use $V^{\ch\lambda}$ to denote 
+both the representation of the quantized enveloping algebra and its classical limit at
+$q=1$, which is the corresponding irreducible $\ch{\mf g}$-module.)
+In other words, there is a unique normal connected crystal with highest weight vector of weight 
+$\ch\lambda$. However, we warn that in general there may be many seminormal connected crystals
+with the same property.
+
+Given a crystal $\mB$, we can define a crystal $\mB^\vee$ by ``reversing the arrows'':
+the set $\mB^\vee = \{ \msf b^\vee \mid \msf b \in \mB\}$ is formally the same as $\mB$, and 
+$\mathrm{wt}(\msf b^\vee) = -\mathrm{wt}(\msf b)$. The roles of $\tilde e_i,\tilde f_i$ 
+are swapped. 
+The crystal $(\mB^{\ch\lambda}_{\ch{\mf g}})^\vee$ is isomorphic to the crystal 
+basis of the irreducible $U_q(\ch{\mf g})$-module of lowest weight $-\ch\lambda$, which
+we also denote by $V^{-\ch\lambda}$.
+
+
+\subsubsection{} \label{sect:crysW}
+\source{intersection-complexes-unramified-l-factors}
+Let us mention an important consequence of the structure of a seminormal crystal $\mB$.
+Let $\wt W$ be the free group generated by $\{ s_i \mid i \in I \}$ with
+the relation $s_i^2= 1$. 
+The Weyl group $W$ is the quotient of $\wt W$ by the braid
+relations. 
+
+It follows from the classification of integrable $U_q(\mf{sl}_2)$-modules that
+we have a natural action of $\wt W$ on $\mB$ defined by 
+\[
+s_i(\msf b) = \begin{cases} 
+    \tilde f_i^{\brac{\alpha_i, \mathrm{wt}(\msf b)}}(\msf b) &\text{if } 
+    \brac{\alpha_i,\mathrm{wt}(\msf b)} \ge 0 \\
+    \tilde e_i^{-\brac{\alpha_i, \mathrm{wt}(\msf b)}}(\msf b) &\text{if } 
+    \brac{\alpha_i,\mathrm{wt}(\msf b)} \le 0 
+\end{cases}
+\]
+for $\msf b\in \mB_{X^\bullet}$. 
+For $\tilde w\in \wt W$ we have $\mathrm{wt}(\tilde w \msf b) = \tilde w (\mathrm{wt}(\msf b))$, 
+where $\wt W$ acts on $\ch\Lambda_G=\ch\Lambda_X$ through $W$. 
+In other words, we have isomorphisms 
+\begin{equation} \label{e:crysW}
+\source{intersection-complexes-unramified-l-factors}
+ \tilde w: \mB_{\ch\lambda} \overset\sim\to \mB_{\tilde w \ch\lambda} 
+\end{equation}
+\emph{a priori depending on} $\tilde w \in \wt W$ for all $\ch\lambda\in\ch\Lambda_G$.
+
+If $\mB$ is normal, the $\wt W$-action on $\mB$ factors through $W$. 
+
+
+\subsubsection{Definition of $\mB_X$}\label{sect:defcrys}
+\source{intersection-complexes-unramified-l-factors}
+
+For $\ch\lambda \in \mathfrak c_X$, we have defined the set 
+$\mB_{X,\ch\lambda}$ to consist of 
+the irreducible components of $\msf Y^{\ch\lambda}$ of critical dimension (Proposition \ref{prop:Vbasis}), that is:
+\begin{itemize}
+ \item if $\ch\lambda\in\mathfrak c^{\Cal D}_X$, the irreducible components of $\msf Y^{\ch\lambda}$ (or equivalently, of $\msf Y_{X^\bullet}^{\ch\lambda} = \msf Y^{\ch\lambda,0}$) of dimension 
+$\frac 1 2 (\len(\ch\lambda)-1)$;
+ \item the irreducible components of $\msf S^{\ch\lambda} \cap \Gr_G^{\ch\theta}$
+of dimension $\brac{\rho_G,\ch\lambda-\ch\theta}$, for $\ch\theta \in \Cal D^G_{\mathrm{sat}}(X)$, identified with their image in $\msf Y^{\ch\lambda}$ through the action map \eqref{e:actvY}.
+\end{itemize}
+Note that $\ch\lambda=0$ never satisfies the conditions above.
+
+Define $\mB_{X,-\ch\lambda} := \mB_{X,\ch\lambda}$, which
+is well-defined since $\Cal C_0(X)$ is strictly convex. 
+Let 
+\[ \mB^+_{X} = \bigcup_{\ch\lambda\in \mf c_X} \mB_{X,\ch\lambda}, \qquad 
+\mB^-_{X} = \bigcup_{\ch\lambda\in \mf c_X} \mB_{X,-\ch\lambda}. \]
+In other words $\mB^+_{X}$ is the set of all irreducible
+components of the central fiber of $\sY$ of the maximal dimensions 
+satisfying the semi-smallness equality.
+
+We (rather artificially) define $\mB_{X} = 
+\mB_{X}^+ \sqcup \mB_{X}^-$. Let $\mathrm{wt}:\mB_{X} \to \mf c_X$ be the map sending $\mB_{X,\ch\lambda}$ to $\ch\lambda$.
+
+
+\begin{thm}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{thm:crystal} 
+\source{intersection-complexes-unramified-l-factors}
+The set $\mB_{X}$ has the structure of a semi-normal crystal over 
+$\ch{\mf g}$  such that the defining bijection $\mB_{X}^+ \leftrightarrow \mB_{X}^-$ is an isomorphism of crystals $\mB_{X} \cong \mB_{X}^\vee$. 
+\end{thm}
+
+
+The statement of the theorem above is not optimal, of course, as it does not specify all the data that give rise to the structure of a crystal, such as the operations $\tilde e_i,\tilde f_i$. To do so, we will need to introduce a process of ``reduction to a Levi'', in particular, a Levi of semisimple rank one, that will provide these operators. We will define these operators, giving the structure of a self-dual semi-normal crystal to $\mB_X$, in \S\ref{sect:crystal-ef}. 
+
+\begin{conj}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{conj:crystal}
+\source{intersection-complexes-unramified-l-factors}
+The crystal $\mB_{X}$ is isomorphic to the unique crystal basis 
+of a finite-dimensional $\ch G$-module $\rho_X$. 
+\end{conj} 
+
+In Remark~\ref{rem:conj2} we explain that it suffices to prove Conjecture~\ref{conj:crystal}
+when $G$ has semisimple rank $2$, where there are finitely many cases (corresponding
+to the wonderful varieties in \cite{Wasserman} with only spherical roots of type $T$).  
+
+
+\subsubsection{Reduction to $X^\bullet$}
+
+Theorem \ref{thm:crystal} and Conjecture \ref{conj:crystal} immediately reduce to the study of the irreducible components of critical dimension in the central fiber of $\sY_{X^\bullet}$:
+
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready\label{lem:reduction-Xbullet}
+\source{intersection-complexes-unramified-l-factors}
+ Let $\mB_{X^\bullet}^+ = \mB_X \times_{\ch\Lambda_X} \mf c_X^{\mathcal D}$, hence $\mB_{X^\bullet}^+$ is the set of irreducible components of central fibers of $\sY_{X^\bullet}$ of critical dimension. Define $\mB_{X^\bullet}^-$ and $\mB_{X^\bullet} = \mB_{X^\bullet}^+ \sqcup \mB_{X^\bullet}^-$ as before. Then, Theorem \ref{thm:crystal} and Conjecture \ref{conj:crystal} hold if they hold for $\mB_{X^\bullet}$, with a decomposition of the crystal $\mB_X$ into a disjoint union of crystals:
+\begin{equation}
+\label{eq:crystaldecomp}
+\source{intersection-complexes-unramified-l-factors}
+\mB_X =  \mB_{X^\bullet} \sqcup \bigsqcup_{\ch\theta \in \pm \Cal D^G_{\mathrm{sat}}(X)} \mB^{\ch\theta}_{\ch{\mf g}},
+\end{equation}
+where $\mB^{\ch\theta}_{\ch{\mf g}}$ is the crystal 
+associated to the irreducible
+$\ch G$-module $V^{\ch\theta}$ of lowest weight $\ch\theta$, if $\ch\theta \in \Cal D^G_{\mathrm{sat}}(X) \subset \ch\Lambda_G^-$, or highest weight $\ch\theta$ if $-\ch\theta \in \Cal D^G_{\mathrm{sat}}(X)$.
+\end{lem}
+
+\begin{proof}
+ Indeed, by Proposition \ref{prop:Vbasis}, the elements of $\mB_X^+$ consist of elements of $\mB_{X^\bullet}^+$ and irreducible components of $\msf S^{\ch\lambda} \cap \Gr_G^{\ch\theta}$
+of dimension $\brac{\rho_G,\ch\lambda-\ch\theta}$, for $\ch\theta \in \Cal D^G_{\mathrm{sat}}(X)$.
+As explained in \cite{BGcrys}, the latter can be identified with the elements of
+the crystal basis in the $\ch\lambda$-eigenspace of the irreducible $\ch G$-module $V^{\ch\theta}$ of lowest weight $\ch\theta$.
+\end{proof}
+
+While the methods of this paper are insufficient to prove Conjecture~\ref{conj:crystal} 
+for $\mB_{X^\bullet}$, we do show that it must satisfy the following properties
+in \S\ref{sect:crystal-hw}. 
+
+
+\begin{thm}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{thm:crystal-properties}
+\source{intersection-complexes-unramified-l-factors}
+The crystal $\mB_{X^\bullet}$ has the following properties: 
+\begin{enumerate}
+\item The set $\mathrm{wt}(\mB_{X^\bullet})$ is equal\footnote{Here we only describe an equality of sets counted without multiplicities.} to the set of weights of 
+$\bigoplus_{\ch\lambda \in \ch\Lambda^+_G \cap W\varrho_X(\Cal D)} V^{\ch\lambda}$, 
+where $\ch\Lambda^+_G \cap W\varrho_X(\Cal D)$ denotes the dominant Weyl translates of valuations
+of colors.  
+\item If $\msf b \in \mB_{X^\bullet}^+$, then 
+there is a sequence of lowering operators $\tilde f_{i_j}$ sending $\msf b$ to an element of 
+$\mB_{X^\bullet,\ch\nu_D}$ for some color $D\in \Cal D$.
+\item For $\ch\lambda \in W\varrho_X(\Cal D)$,
+the cardinality of $\mf B_{X^\bullet,\ch\lambda}$ is equal to $1$, unless $\ch\lambda =\frac{\ch\gamma}{2}$ for some (not necessarily simple) coroot $\ch\gamma$, in which case the cardinality is $2$. 
+\end{enumerate}
+\end{thm}
+
+
+
+\begin{rem}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+ The ``multiplicity 2'' case appears when two colors have the same valuation, e.g., $X = \mathbb G_m\backslash\PGL_2$; see \S \ref{sect:spherical}.
+\end{rem}
+
+
+
+\begin{rem}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{rem:conj}
+\source{intersection-complexes-unramified-l-factors}
+Note that if Conjecture~\ref{conj:crystal} is true, then properties (i)--(iii) of 
+Theorem~\ref{thm:crystal-properties} uniquely determine the $\ch G$-module $\rho_X$: it must 
+be isomorphic to 
+\begin{equation} \label{e:conjVX}
+\source{intersection-complexes-unramified-l-factors}
+ \bigoplus_{\ch\lambda \in \ch\Lambda^+_G \cap W\varrho_X(\Cal D)} 
+(V^{\ch\lambda})^{\oplus \abs{\mf B_{X^\bullet,\ch\lambda}}} \oplus 
+\bigoplus_{\ch\theta \in \pm\Cal D^G_{\mathrm{sat}}(X)} V^{\ch\theta},
+\end{equation}
+where the cardinality of $\mf B_{X^\bullet,\ch\lambda}$ is specified by property (iii).
+\end{rem}
+
+
+\begin{cor}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{cor:minuscule}
+\source{intersection-complexes-unramified-l-factors}
+If all coweights in $\ch\Lambda^+_G \cap W\varrho_X(\Cal D)$ are 
+minuscule, then Conjecture~\ref{conj:crystal} holds, i.e., $\mf B_{X}$ is the crystal basis of 
+the $\ch G$-module given by \eqref{e:conjVX}. 
+\end{cor}
+\begin{proof}
+This is immediate from Theorems~\ref{thm:crystal}, \ref{thm:crystal-properties} and 
+\S\ref{sect:crysW} after we make the assumption $\mf c_{X^\bullet} = \mbb N^{\Cal D}$, which is
+allowed by \eqref{e:YXprime}.  
+\end{proof}
+
+We also show in Corollary~\ref{cor:Hreductive} that if $X$ is affine homogeneous (equivalently, $H$ is reductive), then 
+all coweights in $\ch\Lambda^+_G\cap W\varrho_X(\Cal D)$ must be minuscule. 
+
+\subsection{Reduction to Levi}
+\label{sect:crystal-reduction}
+\source{intersection-complexes-unramified-l-factors}
+
+From now on, having reduced the problem to giving a crystal structure to the set $\mB_{X^\bullet}$, we may (by \eqref{e:YXprime}) and will assume, unless
+otherwise specified, that $X = X^\can$ and $\mathfrak c_X \cong 
+\mathbb N^{\Cal D}$. 
+Under this assumption, $\Scr Y^{\ch\lambda,0}$ is dense in $\Scr Y^{\ch\lambda}$ by 
+Corollary~\ref{cor:Ycomp}, and $\mB_X = \mB_{X^\bullet}$. Moreover, any $\ch\lambda\succeq 0$ is an element of $\mathbb N^{\Cal D}$, so the length function $\len$ is a function of $\ch\lambda$.
+
+\medskip
+
+
+Let $P$ be a standard parabolic subgroup of $G$, i.e., $P \supset B$. 
+Let $N_P$ denote its unipotent radical and $M=P/N_P$ the Levi quotient. 
+Observe that the map $X \to X/\!\!/N$ factors through 
+$X \to X \sslash N_P \to X/\!\!/N$. 
+Set 
+\[ X_M := X \sslash N_P = \Spec k[X]^{N_P}. \]
+Then $X_M$ is an affine spherical $M$-variety
+and the map $X \to X_M$ is $M$-equivariant. 
+However, note that even if $X = X^\can$, it will not in general 
+be true that $X_M$ is the canonical embedding of $X_M^\bullet$. We will use this
+to our advantage later, using the crystals of Lemma \ref{lem:reduction-Xbullet} to produce the $\tilde e_i,\tilde f_i$ operations, when $M$ is taken to have semisimple rank one.
+
+For now, we work with a general parabolic $P$. Let $B_M$ denote the image of the Borel subgroup $B$ in $M$.
+We have $k[X]^{(B)} = k[X_M]^{(B_M)}$, therefore $\mathfrak c_{X_M} = \mathfrak c_X$. On the other hand, $\mathfrak c_{X_M}^- =\mathfrak c_{X_M} \cap \ch\Lambda_M^-$ is, in general, larger than $\mathfrak c_X^-$. The open $P$-orbit $X^\circ P$ maps to the open $M$-orbit $X_M^\bullet$, and we have
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+ \label{lem:openPorbit}
+\source{intersection-complexes-unramified-l-factors}
+The preimage of $X_M^\bullet$ under the quotient map $X\to X_M$ coincides with the open $P$-orbit $X^\circ P$, and the quotient stacks $X^\circ P/P$ and $X_M^\bullet/M$ are isomorphic.
+\end{lem}
+
+\begin{proof}
+A color $D\in \mathcal D$ belongs to the open $P$-orbit $X^\circ P$ if and only if $D\in \mathcal D(\alpha)$ for some $\alpha \in \Delta_M$; otherwise, it is $P$-stable, and induces an $M$-stable valuation on $k(X_M)$, which is the function field of $k[X]^{N_P}$. This valuation is nontrivial (because it is nontrivial on $k[X]^{(B)} = k[X_M]^{(B_M)}$), therefore the image of $D$ cannot belong to $X_M^\bullet$.   
+
+Since $N$ acts freely on $X^\circ$, the subgroup $N_P$ acts freely on $X^\circ P$, and therefore $X^\circ P/P = (X^\circ P/N_P)/M = X_M^\bullet/M$. 
+\end{proof}
+
+Define the parabolic Zastava model 
+\[ \sY_{X,P} := \Maps_\gen( C, X / P \supset X^\circ P / P ) \subset \sM_X \xt_{\Bun_G} \Bun_P, \]
+which naturally maps to $\Bun_P$. 
+The Cartesian diagram 
+\[\begin{tikzcd}
+X/B \ar[r] \ar[d] & 
+X/P \ar[d] \\ 
+X_M/B_M  \ar[r] & X_M/M  
+\end{tikzcd}\]
+gives rise to a diagram 
+\begin{equation} \label{e:YXPM1}
+\source{intersection-complexes-unramified-l-factors}
+\begin{tikzcd}
+\msf Y^{\ch\lambda}_X \ar[r] \ar[d] & 
+\sY_X \ar[r] \ar[d, swap, "q"] & \sY_{X,P} \ar[d, "\pi_{X,P}"]  \\ 
+\msf Y^{\ch\lambda}_{X_M} \ar[r] & \sY_{X_M} \ar[r] & \sM_{X_M}  
+\end{tikzcd}
+\end{equation}
+with all squares Cartesian.
+Central fibers are taken with respect to 
+a fixed point $v \in \abs C$. 
+
+Our goal is to study the components of critical dimension of $\msf Y^{\ch\lambda}_X$ in terms of $\msf Y^{\ch\lambda}_{X_M}$ and the fibers of the map $\pi_{X,P}$. At this point, it will be critical to distinguish the stratum $\msf Y_{X_M}^{\ch\lambda,\ch\theta}$ where the image of the generic point of a component $\msf b \in \mathfrak B_{X,\ch\lambda}$ lies, that is, the $M(\mathfrak o_v)$-orbit of its image in $X_M(\mathfrak o_v)$ (after trivialization in a formal neighborhood of $v$). The reason is, as we are about to see, that this stratum will completely determine the fiber of the map $\pi_{X,P}$ over the image.
+
+Indeed, recall from \S \ref{def:centralfiber} that lifting a point from $\sM_{X_M}$ to $\msf Y^{\ch\lambda}_{X_M}$ induces a trivialization of the corresponding $G$-bundle away from $v$ (depending on a fixed choice of base point $x_0\in X^\circ$), which identifies the central fiber $\msf Y^{\ch\lambda}_{X_M}$ with a subscheme of the affine Grassmannian $\Gr_M$. Moreover, the map $\msf Y^{\ch\lambda}_{X_M} \to \sM_{X_M}$ factors through the map
+\[ \Gr_M \xt_{\msf L X_M / \msf L^+M} (\msf L^+ X_M / \msf L^+M) \to \sM_{X_M}.\]
+as defined in \eqref{e:actHG}.
+Similarly, the map $\msf Y^{\ch\lambda}_X \to \sY_{X,P}$ factors through 
+\[\Gr_P \xt_{\msf L X / \msf L^+P} (\msf L^+ X / \msf L^+P) \to \sY_{X,P}.\]
+Hence we have a commutative diagram 
+\begin{equation} \label{e:YXPM2}
+\source{intersection-complexes-unramified-l-factors}
+\begin{tikzcd}
+\msf Y^{\ch\lambda}_X \ar[r,"\iota_{X,P}" ] \ar[d,"q"] &  
+\Gr_P \underset{\msf L X / \msf L^+P}\times (\msf L^+ X / \msf L^+P) \ar[r, "\act_v"]\ar[d] & \sY_{X,P} \ar[d, "\pi_{X,P}"]  \\ 
+\msf Y^{\ch\lambda}_{X_M} \ar[r,"\iota_{X_M}"] & \Gr_M \underset{\msf L X_M / \msf L^+M}\times (\msf L^+ X_M / \msf L^+M)  \ar[r, "\act_v"] & \sM_{X_M}  
+\end{tikzcd}
+\end{equation}
+with all squares Cartesian. 
+
+
+Let $H_M$ be the stabilizer in $P$ of the base point $x_0$. By Lemma \ref{lem:openPorbit}, it is isomorphic to the stabilizer in $M$ of the image of $x_0$ in $X_M$. We first note:
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready  \label{lem:XPfiber}
+\source{intersection-complexes-unramified-l-factors}
+For any $\ch\theta \in \mathfrak c_{X_M}^-$, the fibers of the map of ind-schemes  
+\begin{equation}\label{e:XPfiber}
+\source{intersection-complexes-unramified-l-factors}
+   \Gr_P \xt_{\msf L X / \msf L^+P} (\msf L^+ X / \msf L^+P) \to \Gr_M \xt_{\msf L X_M / \msf L^+M} (\msf L^+ X_M / \msf L^+M)
+\end{equation}
+over the stratum $\msf L^{\ch\theta} X_M / \msf L^+M$ are isomorphic under the $\msf LH_M$-action, and this action gives rise to a canonical bijection between the irreducible components of any two fibers. 
+
+More precisely, all fibers are isomorphic to $\{t^{\ch\theta}\} \xt_{\sM_{X_M}} \sY_{X,P}$ and of dimension $\le \frac 1 2 (\len(\ch\theta)-1)$, unless $\ch\theta = 0$, in which case the restriction of \eqref{e:XPfiber} to the $\ch\theta$-stratum is an isomorphism.
+\end{lem}
+
+
+Notice that, under our assumption that $\mathfrak c_X \cong 
+\mathbb N^{\Cal D}$ since the beginning of this subsection, $\len(\ch\theta)$ makes sense.
+\begin{proof}
+Since $\msf LH_M$ acts transitively on 
+$\Gr_M \xt_{\msf L X_M / \msf L^+M} (\msf L^{\ch\theta} X_M / \msf L^+M)$,
+the fibers of \eqref{e:XPfiber} over the $\ch\theta$-stratum are all isomorphic. 
+
+We may now choose the point $t^{\ch\theta}\in \msf Y_{X_M}^{\ch\theta}$, whose image in $\msf L^+ X_M / \msf L^+M$ lies in the $\ch\theta$-stratum --- in fact, by Corollary~\ref{cor:Ytheta}, $\msf Y_{X_M}^{\ch\theta,\ch\theta} = \{ t^{\ch\theta}\}$. By Corollary~\ref{cor:stab-conn}, the stabilizer in $\msf L H_M$ of its image 
+$t^{\ch\theta}\in \Gr_M$
+is connected. Therefore, the action of $\msf L H_M$ induces a \emph{canonical} bijection between irreducible components of the fibers.
+
+Finally, if $\ch\theta\ne 0$, the dimension of $\msf Y^{\ch\theta}_X$ is $\le \frac 1 2 (\len(\ch\theta)-1)$, as explained in Proposition \ref{prop:Vbasis}, and therefore so is, \emph{a fortiori}, the dimension of the fiber over $\msf Y_{X_M}^{\ch\theta,\ch\theta} = \{ t^{\ch\theta}\}$. For $\ch\theta =0$, we observe that 
+\[ \sY_{X,P} \xt_{\sM_{X_M}}     \sM_{X_M}^0 = \Maps(C, X^\circ P/P) = \Maps(C, X_M^\bullet /M) =  \sM_{X_M}^0,\]
+by Lemma \ref{lem:openPorbit}, so the fibers are singletons.
+\end{proof}
+
+\begin{rem}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+At this point, we would like to emphasize a fine point in the arguments that follow: Consider the decomposition of $\mB_{X_M}^+$ according to \eqref{eq:crystaldecomp} (restricted to the $+$-part):
+\[\mB_{X_M}^+ =  \mB_{X_M^\bullet}^+ \sqcup \bigsqcup_{\ch\theta \in \Cal D^M_{\mathrm{sat}}(X_M)} \mB^{\ch\theta}_{\ch{\mf m}}\]
+(where we have denoted $\mB^{\ch\theta}$ by $\mB^{\ch\theta}_{\ch{\mf m}}$, to emphasize that it corresponds to the $\ch\theta$-lowest weight crystal of a $\ch{\mf m}$-module). We \emph{will not} claim that the map $q$ of \eqref{e:YXPM1} induces a map from $\mB_X^+$ to $\mB_{X_M}^+$. Indeed, the generic fiber of a $\msf b\in \mB_X^+$ may map to the image of $\msf S_M^{\ch\lambda} \cap \Gr_M^{\ch\theta} \to \msf Y_{X_M}^{\ch\lambda}$ (where $\msf S_M^{\ch\lambda}$ denotes the semi-infinite orbit corresponding to $\ch\lambda$ in $\Gr_M$), for some $\ch\theta \in \mathfrak c_{X_M}^-$ that is \emph{not} an element of $\Cal D^M_{\mathrm{sat}}(X_M)$. These are the MV cycles that were discussed in Remark \ref{rem:othertheta}, which are not ``of critical dimension'' in terms of $X_M$. 
+Representation-theoretically, if we believe that $\mB_X$ corresponds to a representation of $\check G$ (as predicted by Conjecture \ref{conj:crystal}), this just says that the $\check M$-lowest weights of the spans of some vectors do not need to be extremal in $\mathfrak c_{X_M}^-$; however, in \S \ref{sect:crystal-hw} we will see that there are weight-lowering operators $\tilde f_i$, possibly corresponding to roots not in $\ch M$, which eventually lower such weights to the weight of a color.
+\end{rem}
+
+For that reason, for the following proposition, which is the main technical result of this subsection, we denote by $\mB^{\ch\theta}_{\ch{\mf m}}$ the crystal corresponding to the representation of $\ch{\mf m}$ of lowest weight $\ch\theta$, that is, the set of irreducible components of $\msf S_M^{\ch\lambda} \cap \Gr_M^{\ch\theta} $, for \emph{any} $\ch\theta\in \mathfrak c_{X_M}^-$.
+
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready\label{prop:crys-decomp}
+\source{intersection-complexes-unramified-l-factors}
+For any $\ch\lambda\in \mathfrak c_X^{\Cal D}$, the diagram \eqref{e:YXPM1} induces a canonical decomposition
+\begin{equation} \label{e:crys-decomp}
+\source{intersection-complexes-unramified-l-factors}
+    \mB_{X^\bullet,\ch\lambda} = \mB_{X_M^\bullet,\ch\lambda} \sqcup 
+        \bigsqcup_{\ch\theta \in \mathfrak c_{X_M}^-\sm 0} 
+        \mB^P_{X,\ch\theta} \xt \mB_{\ch{\mf m}, \ch\lambda}^{\ch\theta},
+\end{equation}
+where $\mB^P_{X,\ch\theta}$ denotes the set of irreducible components
+of $\{t^{\ch\theta}\} \xt_{\sM_{X_M}} \sY_{X,P}$ of dimension $\frac 1 2 (\len(\ch\theta)-1)$.
+
+Taking the union over all such $\ch\lambda$, we get
+\begin{equation}
+    \mB_{X^\bullet}^+ = \mB_{X_M^\bullet}^+ \sqcup \bigsqcup_{\ch\theta\in \mathfrak c_{X_M}^-\sm 0} 
+    \mB^P_{X,\ch\theta} \xt \mB^{\ch\theta}_{\ch{\mf m}}.
+\end{equation}
+\end{prop}
+
+The set $\mB^P_{X,\ch\theta}$ should be thought of as the multiplicity space for the irreducible representation with basis $\mB^{\ch\theta}_{\ch{\mf m}}$, and is something of a ``black box'' to us. 
+
+\begin{proof}
+The dimension yoga here goes as follows: 
+Let $\msf b \in \mB_{X^\bullet, \ch\lambda}$, and suppose that its generic point lands in the stratum $\msf Y^{\ch\lambda,\ch\theta}_{X_M}$ under the map $q$ of \eqref{e:YXPM2}.
+
+If $\ch\theta =0$, then $\ch\lambda \succeq_{X_M^\bullet} 0$, i.e., it belongs to the positive span of colors in $X_M$, hence $\len(\ch\lambda)$ is the same, whether we define it with respect to $X$ or with respect to $X_M$. By Lemma \ref{lem:XPfiber} the irreducible components of critical dimension $\frac{1}{2} (\len(\ch\lambda) - 1)$ of $\msf Y_X$ and $\msf Y_{X_M^\bullet}$ are in bijection, hence the set of $\msf b \in \mB_{X,\ch\lambda}$ which map generically to $\msf Y^{\ch\lambda,0}_{X_M}$ is identified with $\mB_{X_M^\bullet,\ch\lambda}$.
+
+If $\ch\theta \ne 0$, then $q$ sends $\msf b$ to $\msf Y^{\ch\lambda, \succeq \ch\theta}_{X_M}$, 
+which has dimension $\le \frac 1 2 \len(\ch\lambda-\ch\theta)$ by Lemma~\ref{lem:centralfibertheta}. 
+On the other hand, Lemma \ref{lem:XPfiber} states that the dimension of the corresponding fibers of $\pi_{X,P}$ is $\le \frac{1}{2} (\len(\ch\theta)-1)$. Thus, the only way that $\msf b$ is of critical dimension $\frac{1}{2} (\len(\ch\lambda)-1)$ is if both inequalities are equalities. 
+In this case Lemma~\ref{lem:centralfibertheta} implies that $\ch\lambda \ge \ch\theta$ 
+and the generic point of $\msf b$ is sent under the map $(\act_v\circ \iota_X,\iota_{X_M}\circ q)$ to an element of $\mB^P_{X,\ch\theta} \xt \mB_{\ch{\mf m}, \ch\lambda}^{\ch\theta}$. Vice versa, for any irreducible component (MV cycle) of  $\msf S^{\ch\lambda}_M\cap \Gr_M^{\ch\theta}$ (i.e., every element of $\mB_{\ch{\mf m},\ch\lambda}^{\ch\theta}$), 
+Lemma~\ref{lem:MVcentralfiber} guarantees that it corresponds to a component $\msf b'$ of $\msf Y_{X_M}^{\ch\lambda,\ch\theta}$ of the same dimension, and Lemma \ref{lem:XPfiber} ensures that the components of $\msf Y^{\ch\lambda}_X$ of critical dimension in the preimage of $\msf b'$ are in canonical bijection with $\mB^P_{X,\ch\theta}$.
+\end{proof}
+
+
+\subsubsection{Kashiwara operations $\tilde e_i, \tilde f_i$} \label{sect:crystal-ef}
+\source{intersection-complexes-unramified-l-factors}
+For $i\in I$ let $P_i = P_{\alpha_i}$ denote the corresponding parabolic subgroup of semisimple rank one.
+ Let $M_i$ denote the Levi factor. Then the Langlands 
+dual Lie algebra $\ch{\mf m}_i$ equals $\ch{\mf g}_{\{i\}}$ in our previous notation.
+Applying Proposition~\ref{prop:crys-decomp} to $M_i$ we get 
+the disjoint union
+\[ \mB^+_{X^\bullet} = \mB^+_{X_{M_i}^\bullet} \sqcup \bigsqcup_{\ch\theta \in \mathfrak c_i^-\sm 0} \mB^{P_i}_{X,\ch\theta} \xt \mB^{\ch\theta}_{\ch{\mf m}_i},
+\]
+where $\mathfrak c_i^- = \mathfrak c_{X_{M_i}}^-$.
+
+Now, by our ``type $T$'' assumption (see \S \ref{subsection:typeT}), $X_{M_i}^\bullet / B_{M_i} = \mbb G_m \bs \mbb P^1$ as stacks. 
+Therefore, $\sY_{X_{M_i}^\bullet} = \Sym C \oo\xt \Sym C$ (see Example~\ref{eg:YHecke}) 
+and $\mB_{X_{M_i}^\bullet}^+$ consists of two elements, which can be identified with their images $\ch\nu_i^{\pm}$ in $\ch\Lambda_X$, 
+$\ch\nu_i^\pm = \varrho_X( D_{\alpha_i}^\pm )$ are the valuations of the two colors in $\mathcal D(\alpha_i)$.
+Therefore, we have a bijection of sets 
+\[ \mB_{X^\bullet} = \mB^+_{X^\bullet} \cup \mB^-_{X^\bullet} = \{ \ch\nu_i^+, \ch\nu_i^-, -\ch\nu_i^+, -\ch\nu_i^- \} \sqcup \bigsqcup_{\ch\theta \in \mathfrak c_i^-\sm 0} 
+\mB^P_{X,\ch\theta} \xt \bigl( 
+\mB^{\ch\theta}_{\ch{\mf m}_i} \sqcup (\mB^{\ch\theta}_{\ch{\mf m}_i})^\vee \bigr).
+\]
+Observe that $\{\ch\nu_i^+, -\ch\nu_i^-\}$ is in bijection with 
+the normal crystal $\mB_{\ch{\mf m}_i}^{\ch\nu_i^+}$ since $\brac{\alpha_i,\ch\nu_i^+}=1$
+and $\ch\nu_i^+ - \ch\alpha_i = -\ch\nu_i^-$. 
+We also observe that $\{ \ch\nu_i^-, -\ch\nu_i^+\} = \mB_{\ch{\mf m}_i}^{\ch\nu_i^-} = 
+(\mB_{\ch{\mf m}_i}^{\ch\nu_i^+})^\vee$ as sets. 
+
+Now we simply define the operations $\tilde e_i, \tilde f_i$ such that 
+\begin{equation}\label{e:iselfdual}
+\source{intersection-complexes-unramified-l-factors}
+    \Phi_{\{i\}}(\mB_{X^\bullet}) = \mB_{\ch{\mf m}_i}^{\ch\nu_i^+} \sqcup 
+    \mB_{\ch{\mf m}_i}^{\ch\nu_i^-} \sqcup 
+    \bigsqcup_{\ch\theta \in \mathfrak c_i^-\sm 0} \mB^P_{X,\ch\theta} 
+    \xt \bigl( 
+    \mB^{\ch\theta}_{\ch{\mf m}_i} \sqcup (\mB^{\ch\theta}_{\ch{\mf m}_i})^\vee \bigr)
+\end{equation}
+as normal crystals over $\ch{\mf m}_i$, where $\mB^P_{X,\ch\theta}$ is treated as
+an abstract set. 
+This gives the structure of a seminormal 
+crystal over $\ch{\mf g}$ to $\mB_X$, such that the bijection $\mB_X^+\leftrightarrow\mB_X^-$ identifies it with its dual. This completes the proof of Theorem \ref{thm:crystal}.
+
+\begin{rem}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{rem:conj2}
+\source{intersection-complexes-unramified-l-factors}
+The decomposition \eqref{e:crys-decomp} gives a decomposition into crystals
+over $\ch{\mf m}$. Therefore, if we consider Proposition~\ref{prop:crys-decomp}
+for all standard parabolics corresponding to $\{i,j\} \subset I$, then 
+Proposition~\ref{prop:normal2} implies that $\mf B_X$ is normal (i.e., Conjecture~\ref{conj:crystal} holds)  
+if $\mf B_{X_M^\bullet}$ is normal for all $M$ of semisimple rank $2$. 
+\end{rem}
+
+
+The discussion of \S\ref{sect:crystal-ef} also leads to the following observation:
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{lem:plusWorbits}
+\source{intersection-complexes-unramified-l-factors}
+The $W$-orbit of $\varrho_X(\Cal D)$ is contained in $\mathfrak c_X^{\Cal D} \sqcup -\mathfrak c_X^{\Cal D}$. 
+If $\ch\lambda\in \mathrm{wt}(\mB_{X^\bullet}^+)$ is not in $W\varrho_X(\Cal D)$, the entire 
+$W$-orbit $W\ch\lambda$ is contained in the monoid $\mathfrak c_X^{\Cal D}$. 
+\end{lem}
+\begin{proof} Let $\msf b \in \mB_{X^\bullet}^+$ with $\ch\lambda=\mathrm{wt}(\msf b)$. 
+The decomposition of $\Phi_{\{i\}}(\mB_{X^\bullet}^+)$ from \S\ref{sect:crystal-ef}
+shows that if $\ch\lambda \notin \{\ch\nu_i^\pm\}$, 
+we have $s_i\msf b \in \mB^+_{X^\bullet}$, so $s_i\ch\lambda\in \mathfrak c_X^{\Cal D}$.
+Since $s_i \ch\nu_i^\pm = -\ch\nu_i^\mp$, we can iteratively 
+apply simple reflections to deduce the claims.
+\end{proof}
+
+
+
+\subsection{Lowering operators via hyperplane intersections} \label{sect:crystal-hw}
+\source{intersection-complexes-unramified-l-factors}
+
+In this subsection we prove Theorem~\ref{thm:crystal-properties}. 
+Property (iii) follows from Lemma~\ref{lem:Ycolor} and the $\wt W$-action on $\mB_X$ 
+given by semi-normality of the crystal (\S\ref{sect:crysW}). 
+
+
+To prove properties (i)--(ii) we will need a geometric interpretation of the weight-lowering operators $\tilde f_i$. 
+This interpretation is already hiding behind the crystal structure of $\mB^{\ch\theta}_{\ch{\mf m}}$ (in the notation of Proposition \ref{prop:crys-decomp}), and has to do with closure relations of semi-infinite orbits in the affine Grassmannian. To bring such closure relations into our discussion, we need to extend the considerations of \S \ref{sect:crystal-reduction} to the compactified Zastava models. 
+
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{prop:f-hyper}
+\source{intersection-complexes-unramified-l-factors}
+For $\ch\lambda\in \mathfrak c_X^{\Cal D}$, let $\msf b \in \mB_{X^\bullet,\ch\lambda}$ be an irreducible component of critical dimension, and let $\ol{\msf b}$
+be its closure in $\olsf Y^{\ch\lambda}$. For $i\in I$, consider the
+intersection 
+\[ \ol{\msf b} \cap \msf Y^{\ch\lambda-\ch\alpha_i} \subset \olsf Y^{\ch\lambda}. \]
+
+\begin{enumerate}
+\item
+If the intersection above is non-empty, then $\tilde f_i \msf b \ne 0$
+and it corresponds to an irreducible component of dimension $\dim(\msf b) -1$
+of $\ol{\msf b} \cap \msf Y^{\ch\lambda-\ch\alpha_i}$. Vice versa, if $\tilde f_i \msf b \ne 0$ then the intersection above is non-empty, unless $\ch\lambda=\ch\nu_i^\pm$ is a color, in which case $\msf b \subset \msf Y^{\ch\lambda}$ is a point. 
+
+\item The intersection $\olsf b \cap \msf Y^{\ch\lambda-\ch\alpha_i}$ is empty
+only if either $\ch\lambda=\ch\nu_i^\pm$ or $\brac{\alpha_i, \ch\lambda} \le 0$. 
+\end{enumerate}
+\end{prop}
+
+We remark that it may be possible for $\olsf b \cap \msf Y^{\ch\lambda-\ch\alpha_i}_X$
+to be reducible (cf.~\cite[Proposition 19.2]{BFG}, which replaces the erroneous 
+Proposition 15.2 of \emph{loc.~cit.}). 
+
+The proof of this proposition will be given at the end of this section. We first use 
+the proposition to prove Theorem~\ref{thm:crystal-properties}. 
+Both properties (i)--(ii) of the theorem rely on the following observation:
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+\label{lem:lowering}
+\source{intersection-complexes-unramified-l-factors}
+  For $\ch\lambda \in \mathfrak c^{\Cal D}_X$ and $\msf b \in \mB_{X^\bullet,\ch\lambda}$
+there is a sequence $\alpha_1, \dots,\alpha_d$ of simple roots (possibly with repetitions), where $d = \dim \msf b$, such that 
+we have 
+\begin{itemize}
+\item $\msf b_j := \tilde f_{\alpha_{j}} \dotsb \tilde f_{\alpha_1}(\msf b) \ne 0$ 
+for $0\le j \le d$,
+\item 
+the intersection $\ol{\msf b_{j-1}} \cap \msf S^{\ch\lambda - \ch\alpha_1 - \cdots -\ch\alpha_j}$ is nonempty of dimension $d-j$ for $1\le j \le d$, 
+\item $\ch\lambda - \sum_{j=1}^d \ch\alpha_j = \ch\nu_D$ for some color $D \in \Cal D$.
+\end{itemize} 
+In particular, $\ch\lambda \ge \ch\nu_D$. 
+\end{lem}
+
+\begin{proof}
+By definition, $\msf b$ is of critical dimension $d= \frac{1}{2}(\len(\ch\lambda)-1)$.
+Proposition \ref{prop:intersections} shows that there exists
+a $\ch\lambda' \le \ch\lambda$ 
+such that $\brac{\rho_G, \ch\lambda-\ch\lambda'} \ge \frac 1 2(\len(\ch\lambda)-1)$, and $\bar{\msf b} \cap \msf S^{\ch\lambda'}$ is nonempty of dimension zero. Proposition \ref{prop:centralstrata} states that the dimension inequality should be an equality, in which case Proposition \ref{prop:intersections} again provides the sequence of simple roots as in the statement. In that case, $\len(\ch\lambda')=1$, hence $\ch\lambda' = \ch\nu_D$ for some color $D\in \Cal D$. 
+Then Proposition \ref{prop:f-hyper}(i) applied inductively shows that
+$\tilde f_{\alpha_j} \dotsb \tilde f_{\alpha_1}(\msf b) \ne 0$
+satisfies the claim.
+\end{proof}
+
+
+\begin{proof}[Proof of Theorem~\ref{thm:crystal-properties}(ii)]
+Immediate from Lemma \ref{lem:lowering}.
+\end{proof}
+
+
+
+
+
+\begin{proof}[Proof of Theorem \ref{thm:crystal-properties}(i)]
+We assume as in \S\ref{sect:crystal-reduction} that $\mf c_X = \mbb N^{\Cal D}$. 
+First we show that the weights of $\mB_{X^\bullet}$ are contained in the weights of 
+$V^{\ch\lambda}$ for $\ch\lambda \in \ch\Lambda^+_G \cap W\varrho_X(\Cal D)$. 
+Let $\ch\theta \in \mathrm{wt}(\mB_{X^\bullet}^+)$. 
+By \eqref{e:crysW} and Lemma~\ref{lem:plusWorbits}, 
+we may assume that $\ch\theta \in \ch\Lambda^-_G$. 
+Now Lemma~\ref{lem:lowering} gives some color $D\in \Cal D$ such that 
+$\ch\nu_D \le \ch\theta$. Since $\ch\theta$ is antidominant, 
+it must be a weight of $V^{\ch\lambda}$ where $\ch\lambda$ is the unique dominant coweight in 
+the $W$-orbit of $\ch\nu_D$.
+If $\alpha$ is a simple root such that $\Cal D(\alpha) = \{ D, D' \}$, then 
+$s_\alpha(\ch\nu_{D'}) = -\ch\nu_D$. Thus, we see that 
+$W\varrho_X(\Cal D) = -W\varrho_X(\Cal D)$. Hence all of $\mathrm{wt}(\mB_{X^\bullet}^-)$ 
+is also contained in the weights of the claimed representations. 
+
+Next suppose that $\ch\mu$ is a weight of $V^{\ch\lambda}$ for $\ch\lambda \in \ch\Lambda^+_G \cap W\varrho_X(\Cal D) \subset \mathfrak c_X^{\Cal D}$. 
+We will show that $\mf B_{X^\bullet,\ch\mu}$ is nonempty. 
+By Theorem~\ref{thm:crystal-properties}(iii), there exists
+an element $\msf b \in \mB_{X,\ch\lambda}$, and  
+by \eqref{e:crysW} we may assume that 
+$\ch\mu \in \ch\Lambda^+_G$ is also dominant. 
+By Lemma~\ref{lem:walls} below, 
+we can find a sequence of simple coroots $\ch\alpha_1,\dotsc, \ch\alpha_d$
+(possibly with repetitions), where $d = \brac{\rho_G,\ch\lambda-\ch\mu}$,
+such that $\ch\lambda_j := \ch\lambda-\ch\alpha_1-\dotsb-\ch\alpha_j$ 
+satisfies $\ch\lambda_j + \ch\rho_G \in \ch\Lambda^+_G$ 
+for $j=1,\dotsc,d$ and $\ch\lambda_d = \ch\mu$. 
+In particular, this means that $\brac{\alpha_{j+1},\ch\lambda_j-\ch\alpha_{j+1}}
+= \brac{\alpha_{j+1},\ch\lambda_{j+1}} \ge -1$ for all $0\le j<d$. 
+Equivalently, $\brac{\alpha_{j+1},\ch\lambda_j} > 0$ for all $0\le j < d$.
+Now Proposition~\ref{prop:f-hyper}(ii) 
+implies that $\tilde f_{\alpha_d} \dotsb \tilde f_{\alpha_1} (\msf b) \in \mB_{X^\bullet,\ch\mu}$ 
+is nonzero. 
+\end{proof}
+
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready  \label{lem:walls}
+\source{intersection-complexes-unramified-l-factors}
+Let $\ch\mu \in \ch\Lambda_G^+$ and $\ch\lambda \in \ch\Lambda_G$
+such that $\ch\lambda \ge \ch\mu$ and $\ch\lambda+\ch\rho_G \in \ch\Lambda^+_G$. 
+Then $\ch\lambda-\ch\mu = \ch\alpha_1+\dotsb + \ch\alpha_d$ for a
+sequence of simple coroots $\ch\alpha_j$ (possibly with repetitions)
+where $d = \brac{\rho_G, \ch\lambda-\ch\mu}$
+such that $\ch\lambda - \ch\alpha_1 - \dotsb - \ch\alpha_j + \ch\rho_G
+\in \ch\Lambda^+_G$ for $j=1,\dotsc,d$. 
+\end{lem}
+\begin{proof}
+Since $\ch\lambda\ge\ch\mu$ we can decompose
+$\ch\lambda-\ch\mu = \ch\alpha_1+\dotsb+\ch\alpha_d$ into a sum of simple coroots (possibly with repetitions),
+where $d = \brac{\rho_G,\ch\lambda-\ch\mu}$. 
+To prove the lemma, it suffices, by induction on $\ch\lambda$, to 
+show that there exists an $\ch\alpha_j$ such that
+$\ch\lambda-\ch\alpha_j + \ch\rho_G \in \ch\Lambda^+_G$ for some 
+$1\le j\le d$. 
+We claim that if $\ch\lambda \ne \ch\mu$, then there exists some $\ch\alpha_j$ 
+with $\brac{\alpha_j, \ch\lambda} \ge 1$. 
+If not, then $\brac{\alpha_j,\ch\lambda-\ch\mu} \le \brac{\alpha_j, \ch\lambda} \le 0$ for all $j$. This implies that $\ch\lambda-\ch\mu$ 
+has non-positive norm with respect to an appropriate inner product on
+$\mf t$, and hence $\ch\lambda=\ch\mu$. 
+Therefore if $d>0$, then we have an $\ch\alpha_j$ 
+such that $\brac{\alpha_j, \ch\lambda} \ge 1$. 
+Equivalently, $\brac{\alpha_j, \ch\lambda+\ch\rho_G} \ge 2$ 
+and $\brac{\alpha_j, \ch\lambda-\ch\alpha_j+\ch\rho_G} \ge 0$. 
+This implies that $\ch\lambda-\ch\alpha_j +\ch\rho_G \in \ch\Lambda^+_G$.
+\end{proof}
+
+
+
+\begin{cor}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{cor:Hreductive}
+\source{intersection-complexes-unramified-l-factors}
+If $X^\bullet = H\bs G$ is affine, then all dominant Weyl translates 
+in $\ch\Lambda^+_G\cap W\varrho_X(\Cal D)$ are minuscule 
+and $\mB_X$ is a normal crystal.
+\end{cor}
+\begin{proof}
+Assume $X^\bullet$ is affine, so $\mf c_{X^\bullet}^- = 0$. 
+If there exists a non-minuscule coweight in $\ch\Lambda^+_G \cap W\varrho_X(\Cal D)$, then
+Theorem~\ref{thm:crystal-properties}(i) implies that $\mB_{X^\bullet, \ch\theta}$ is non-empty
+for some $\ch\theta \in \mf c_{X^\bullet}\sm 0$ not in $W\varrho_X(\Cal D)$. 
+Lemma~\ref{lem:plusWorbits} and \eqref{e:crysW} allow us to assume $\ch\theta \in \mf c_{X^\bullet}^- = 0$,
+which gives a contradiction.
+\end{proof}
+
+\subsubsection{} The rest of this section is devoted to the proof of Proposition~\ref{prop:f-hyper}.
+We use the notation from \S\ref{sect:crystal-ef}. 
+For brevity we write $X_i = X_{M_i},\, H_i=H_{M_i},\, B_i = B_{M_i}$ and 
+$N_i=N_{B_i}$. 
+We say $\ch\mu \le_i \ch\lambda$ if $\ch\lambda-\ch\mu \in \mathbb N\ch\alpha_i$. 
+
+
+We would like to embed the left Cartesian square of \eqref{e:YXPM2} into a Cartesian square involving compactified Zastava spaces. For that purpose, consider the extension of the map $\iota_{X_M} = \iota_{X_i}$ of that diagram to $\olsf Y^{\ch\lambda}_{X_i}$, and define $\msf Y^{\le_i \ch\lambda}_{X}$ by the Cartesian diagram
+\begin{equation} \label{e:YXPM3}
+\source{intersection-complexes-unramified-l-factors}
+\begin{tikzcd}
+\msf Y^{\le_i \ch\lambda}_{X} \ar[r,"\iota_{X,P_i}" ] \ar[d,"q"] & 
+\Gr_{P_i} \underset{\msf L X / \msf L^+P_i}\times (\msf L^+ X / \msf L^+P_i) \ar[r, "\act_v"]\ar[d] & \sY_{X,P_i} \ar[d, "\pi_{X,P_i}"]  \\ 
+\olsf Y^{\ch\lambda}_{X_i} \ar[r,"\iota_{X_i}"] & \Gr_{M_i} \underset{\msf L X_i / \msf L^+M_i}\times (\msf L^+ X_i / \msf L^+M_i)  \ar[r, "\act_v"] & \sM_{X_i}  
+\end{tikzcd}
+\end{equation}
+
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+\label{lem:CartXi}
+\source{intersection-complexes-unramified-l-factors}
+The scheme $(\msf Y^{\le_i \ch\lambda}_{X})_\red$ is naturally a locally closed subscheme of $\olsf Y^{\ch\lambda}_X$, equal to the union of strata
+\[ 
+\msf Y^{\le_i \ch\lambda}_{X} = \bigcup_{n\ge 0} \msf Y^{\ch\lambda- n\ch\alpha_i}_X.
+\]
+\end{lem}
+
+\begin{proof}
+From the Cartesian diagram \eqref{e:YXPM1}, we see that 
+the stratification 
+$\olsf Y^{\ch\lambda}_{X_i} = \bigcup_{n\ge 0} \msf Y^{\ch\lambda-n\ch\alpha_i}_{X_i}$ 
+induces a stratification 
+of $\msf Y^{\le_i \ch\lambda}_{X}$ by 
+$\bigcup_{n\ge 0}\msf Y^{\ch\lambda-n\ch\alpha_i}_X$.
+
+A point of $\msf Y^{\le_i\ch\lambda}_{X}$ is a map of stacks
+\[
+    y: C \to X \xt^{P_i} \ol{M_i/N_i} / T 
+\]
+such that $C\sm v$ is sent to the open substack $\pt = X^\circ/B$. 
+In particular, $y$ defines a $P_i \xt T$-bundle together with a trivialization on $C\sm v$, i.e.,
+a point of $\Gr_{P_i} \xt \Gr_T$. 
+This gives a map 
+\begin{equation} \label{e:YPBintoGr}
+\source{intersection-complexes-unramified-l-factors}
+    \msf Y^{\le_i,\ch\lambda}_{X} \to \Gr_{P_i} \xt \Gr_T^{\ch\lambda}. 
+\end{equation}
+Since $X \xt \ol{M_i/N_i}$ is affine and $X \xt \ol{M_i/N_i} / (P_i \xt T) \supset 
+(X \xt M_i)/ (P_i\xt N_i T) = X/B$ 
+contains $\pt$ as an open substack, Lemma~\ref{lem:extendsection} 
+implies that \eqref{e:YPBintoGr} is a closed embedding (the argument is
+the same as the proof of Lemma~\ref{lem:barYGr}).
+Therefore, at the level of reduced schemes we have 
+a closed embedding 
+\[ (\msf Y^{\le_i\ch\lambda}_{X})_\red \into \Gr_{P_i}. \]
+We deduce that $(\msf Y^{\le_i \ch\lambda}_{X})_\red$ is a locally closed 
+subscheme of $(\olsf Y^{\ch\lambda}_X)_\red$, since the (reduced) connected components of 
+$\Gr_{P_i}$ are locally closed subschemes of $\Gr_G$.
+\end{proof}
+
+We are now ready to prove Proposition \ref{prop:f-hyper}:
+
+\begin{proof}[Proof of Proposition \ref{prop:f-hyper}]
+Let $\msf b \in \mB_{X^\bullet, \ch\lambda}$.
+The generic point of $\msf b \subset \msf Y^{\ch\lambda}_X$ maps to 
+$\msf Y^{\ch\lambda,\ch\theta}_{X_i}$ 
+for some $\ch\theta \in \mathfrak c_{X_i}^-$.
+
+If $\ch\theta=0$, then in the decomposition \eqref{e:crys-decomp} we have that $\msf b\in \mB_{X_i^\bullet,\ch\lambda}$ and 
+$\ch\lambda = \ch\nu_i^\pm$ is the valuation attached to a color of $X_i^\bullet$. In that case, $\ch\nu_i^\pm-\ch\alpha_i \notin \mathfrak c_X$,
+so  $\msf Y^{\ch\lambda-\ch\alpha_i,0}_{X_i} = \emptyset$. At the same time, $\msf b$ is a point, as recalled in \S \ref{sect:crystal-ef}.
+
+Now assume $\ch\theta \ne 0$. As in the proof of Proposition \ref{prop:crys-decomp}, the composition $\iota_{X_i}\circ q$  sends $\msf b$ into $\msf S_{M_i}^{\ch\lambda}\cap \ol\Gr_{M_i}^{\ch\theta}$; let $\msf b_i$ be the image. By construction, $\tilde f_i \msf b$ either 
+\begin{itemize}
+ \item is zero iff $\ch\lambda = \ch\theta$, which happens precisely when $\msf S_{M_i}^{\ch\lambda}\cap \ol\Gr_{M_i}^{\ch\theta} = \{t^{\ch\theta}\}$ is closed in $\ol\Gr_{M_i}^{\ch\theta}$;
+ \item or has image (under $\iota_{X_i}\circ q$) equal to an irreducible component $\tilde f_i \msf b_i$ of $\olsf b_i \cap \msf S_{M_i}^{\ch\lambda-\ch\alpha_i}$. Indeed, this is a property of the crystal structure on MV cycles by \cite{BGcrys}.
+\end{itemize}
+
+In either case, the closure relations ``downstairs'' lift to closure relations ``upstairs'' under \eqref{e:YXPM3}, as $\msf b$ and $\tilde f_i\msf b$ get identified with the lifts of $\msf b_i$ and $\tilde f_i\msf b_i$ corresponding to \emph{the same} element of $\mB^{P_i}_{X,\ch\theta}$ under the identification of fibers afforded by Lemma \ref{lem:XPfiber}. Therefore, in the first case the closure of $\msf b$ in $\msf Y^{\le_i \ch\lambda}_{X}$ is entirely contained in $\msf Y^{\ch\lambda}$, which by Lemma \ref{lem:CartXi} means that $\olsf b \cap \msf Y^{\ch\lambda-\ch\alpha_i}$ is empty; while in the second case $\tilde f_i\msf b$ corresponds to an irreducible component of $\olsf b \cap \msf Y^{\ch\lambda-\ch\alpha_i}$. 
+\end{proof}

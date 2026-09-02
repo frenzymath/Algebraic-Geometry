@@ -1,0 +1,705 @@
+% Source-derived chapter 04: VOA from sheaf theory
+% Original source: virasoro-constraints-moduli-sheaves-vertex-algebras
+\chapter{VOA from sheaf theory}
+\label{virasoro-constraints-moduli-sheaves-vertex-algebras-chapter-04}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+\begin{remark}[Source section]
+\label{virasoro-constraints-moduli-sheaves-vertex-algebras-chapter-04-source}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: VOA from sheaf theory
+\label{sec: VOA from sheaf theory}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+The general treatment of vertex algebras in the previous section is now paralleled by their geometric construction formulated by Joyce \cite{Jo17}. Beginning from the application to the moduli stack of pairs of perfect complexes, we compare the resulting vertex algebras to lattice vertex algebras following the work of Gross \cite{Gr19}. The later parts of the section are focused on describing the duals of the operators $\mathsf{L}_k$ as Virasoro operators for a natural conformal element. 
+
+
+\subsection{Joyce's vertex algebra construction}\label{sec: Joycevertexalgebra}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+We begin by describing the assumptions needed for the geometric construction of the vertex algebra for perfect complexes following Joyce's \cite{Jo17}\footnote{The manuscript \cite{Jo17} is not published and the author declares it as an incomplete draft. The main thing we need from there is the construction of the vertex algebra and the proof that it satisfies the vertex algebra axioms, i.e., Theorem \ref{thm: geometricvaconstruction}, for which the author provides full details.}. We then follow it up with how to extend it to pairs of complexes which is the most natural setting to work in for conformal elements and the rank reduction arguments later on.
+
+We use the notation
+$$
+\pi_{J}\colon\prod_{i\in I}Z_i\longrightarrow \prod_{j\in J}Z_j
+$$
+for projections to components whenever $J\subset I$ are finite sets,
+and denote for a $K$-theory class $\mathcal{K}$ on $\prod_{j\in J}Z_j$ the pullback by $\mathcal{K}_J =\pi^\ast_{J}(\mathcal{K})$. Pushforwards, pullbacks and duality below are all understood to be derived.
+\begin{definition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{def: VOAconstruction}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\begin{enumerate}
+\item We work with a (higher) moduli stack $\MX$ of perfect complexes on $X$ constructed by Toën-Vaquié \cite{TV07} which admits a universal perfect complex $\CG$ on $ \MX\times X$.  The two structures we are interested in are the direct sum map 
+$\Sigma\colon\MX\times \MX\to \MX
+\,,$
+such that 
+$$
+(\Sigma\times\id_X)^\ast \CG = \CG_{1,3}\oplus \CG_{2,3}\,,
+$$
+and an action $\rho\colon B\BG_m\times\MX\to \MX$ determined by
+$$
+(\rho\times \id_X)^\ast(\CG) = \CQ_1\otimes \CG_{2,3}
+$$
+for the universal line bundle $\CQ$ on $B\BG_m$.
+   \item The second major ingredient in constructing vertex algebras is a complex
+    \begin{equation}
+    \label{Eq: Extcomplex}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    \Ext = (\pi_{1,2})_\ast\Big(\CG_{1,3}^\vee\otimes \CG_{2,3}\Big)\,,    \end{equation}
+   on $\CM_X\times \CM_X$. Denoting by  $\sigma\colon \MX\times \MX\to \MX\times \MX$ the map swapping the factors we construct its symmetrization
+    $$
+    \Theta = \Ext^\vee\oplus \sigma^\ast\Ext
+    $$
+    which satisfies
+    $
+   \sigma^* \Theta\cong \Theta^\vee.
+    $
+    \item For any topological type $\alpha\in K_\sst^0(X)\simeq \pi_0(\mathcal{M}_X)$, we denote the corresponding connected component by $\Malpha\subseteq \CM_X$. Any restriction of an object living on $\MX$ to $\Malpha$ will be labelled by adjoining the subscript $(-)_{\alpha}$. This allows us to express
+    $$
+   \chi_{\sym}(\alpha,\beta)\coloneqq \rk\big(\Theta_{\alpha,\beta}\big) = \chi(\alpha,\beta) + \chi(\beta,\alpha)
+    $$
+    for $\chi\colon K_\sst^0(X)\times K_\sst^0(X)\to \BZ$ the usual Euler form. 
+ \end{enumerate}
+\end{definition}
+By the construction of Blanc \cite[Section 3.4]{B16}, there exists a topological space $\CS^{\text{t}}$ defined up to homotopy which is assigned to each (higher) stack $\CS$. The homology and cohomology of $\CS$ are then defined by 
+$$
+H_\bullet(\CS) \coloneqq H_\bullet(\CS^{\text{t}})\, ,\qquad H^\bullet(\CS)\coloneqq H^\bullet(\CS^{\text{t}})\,.
+$$
+Each perfect complex $\CE$ on $\CS$ corresponds to a map 
+$
+\CS\xrightarrow{\CE} \text{Perf}_{\BC}
+$ which induces $\CS^{\text{t}}\xrightarrow{\CE^\text{t}}BU\times \BZ$ and the $K$-theory class
+$$
+\llbracket \CE \rrbracket= (\CE^{\text{t}})^*(\CU) \in K^0(\CS^{\text{t}})\,.
+$$
+The Chern classes of $\CE$ are defined to be the Chern classes of $\llbracket \CE\rrbracket$.
+\begin{remark}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{rem: classD}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+  We will only work with geometries where the natural map
+    $$
+    K^i_{\sst}(X, \BZ)\longrightarrow K^i(X, \BZ)
+    $$
+    for the semi-topological $K$-theory $K^i_{\sst}(X, \BZ)$ in \cite{FW} is an isomorphism for all $i>0$ and an injection when $i=0$. Gross \cite{Gr19} calls the class of such varieties class D; it includes curves, surfaces, rational 3-folds and rational 4-folds. From \cite[Theorem 4.21]{B16} it follows that for such varieties
+    $$
+    \pi_i(\MX^\text{t}) = K^i_{\sst}(X,\BZ)=\begin{cases}K^i(X, \BZ)&\textup{for }i>0\\
+    K_\sst^0(X)&\textup{for }i=0\,.\end{cases}
+    $$
+\end{remark}
+The vertex algebra on the shifted homology 
+\begin{equation}
+\label{eq: homologyvertex}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+V_\bullet = \bigoplus_{\alpha\in K_\sst^0(X)}\widehat{H}_\bullet(\Malpha) 
+\end{equation}
+for the shift 
+$$
+\widehat{H}_\bullet\big(\Malpha\big)= H_{\bullet-2\chi(\alpha,\alpha)}\big(\Malpha,\BC\big)
+$$
+was constructed by \cite{Jo17} as follows:
+\begin{theorem}[{\cite[Theorem 3.12]{Jo17}}]
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{thm: geometricvaconstruction}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+There is a vertex algebra structure on $V_\bullet$ from \eqref{eq: homologyvertex} defined by 
+\begin{enumerate}
+    \item letting $0\colon*\to \CM_0$ be the inclusion of the zero object and setting 
+    $$
+    \ket{0}=0_*(*)\in H_0(\CM_0)\,.
+    $$
+    \item taking $t\in H_2\big(B\BG_m\big)$ to be the dual of $c_1(\CQ)\in H^2\big(B\BG_m\big)$ and setting 
+    $$
+    T(u) = \rho_\ast\big(t\boxtimes u\big)\,.
+    $$
+    \item constructing the state-field correspondence by the formula 
+    \begin{equation}\label{eq: joycefields}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    Y(u,z)v = (-1)^{\chi(\alpha,\beta)}z^{\chi_\sym(\alpha,\beta)}\Sigma_\ast\Big[e^{zT}\boxtimes \text{id}\big(c_{z^{-1}}(\Theta)\cap (u\boxtimes v)\big)\Big]
+    \end{equation}
+for any $u\in \widehat{H}_\bullet(\mathcal{M}_\alpha)$ and $v\in \widehat{H}_\bullet(\mathcal{M}_{\beta})$.
+\end{enumerate}
+\end{theorem}
+
+
+While moduli spaces of sheaves (recall Section \ref{sec: modulisheavespairs}) naturally define an element in the vertex algebra $V_\bullet$ (or the associated Lie algebra $\widecheck V_\bullet$), this vertex algebra is not suitable to study wall-crossing in moduli spaces of pairs. Essentially this is due to the fact that the complex $\Ext$ in Definition \ref{def: VOAconstruction} captures the deformation theory of sheaves but not of pairs. 
+
+Thus, when working with pairs we will work with a larger vertex algebra $V_\bullet^{\pa}$ that is constructed from the homology of a stack parametrizing a pair of complexes and replaces the class $\Ext$ by $\Ext^{\pa}$, more related to the deformation theory of pairs. It also turns out that the vertex algebra $V_\bullet^{\pa}$ is the adequate place to construct a conformal element that produces the Virasoro operators. 
+
+
+\begin{definition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{def: pairVOA}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\begin{enumerate}
+\item Let $\CP_X\coloneqq\CM_X\times \CM_X$ and denote by $\CV=\CG_{1,3}$ and $\CF=\CG_{2,3}$ the pullbacks of $\CG$ via the two possible projections $\CM_X\times \CM_X\times X\to \CM_X\times X$. This stack has a natural direct sum map $\Sigma^{\pa}$ and a $B\BG_m$--action~$\rho^{\pa}$
+    \begin{align*}
+\Sigma^{\pa}&\coloneqq \big(\Sigma\times \Sigma\big)\circ \sigma_{2,3} : \CP_X\times \CP_X\longrightarrow \CP_X\,,\\
+\rho^{\pa}&\coloneqq \big(\rho\times\rho\big) \circ\big(\Delta_{B\BG_m}\times \id_{\CP_X}\big): B\BG_m\times \CP_X\longrightarrow \CP_X\,.
+\end{align*}
+where $\sigma_{2,3}$ swaps the second and third copy of $\CM_X$ in $\CP_X\times \CP_X=\CM_X^{\times 4}$. 
+\item One extends $\Ext$ to a perfect complex 
+    \begin{equation}
+    \label{Eq: Extpacomplex}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    \Ext^{\pa} = (\pi_{1,2})_\ast\Big((\CF_{1,3}\oplus \CV_{1,3}[1])^\vee\otimes \CF_{2,3}\Big)\,
+    \end{equation}
+on $\CP_X\times \CP_X$.
+We introduce its symmetrization
+$$
+\Theta^{\pa} = (\Ext^{\pa})^\vee \oplus (\sigma^{\pa})^\ast\Ext^{\pa}\,,
+$$
+where $\sigma^{\pa}:\CP_X\times \CP_X\to \CP_X\times \CP_X$ swaps the two factors. 
+
+
+\item We now work with two copies of the $K$-theory  with the connected components labeled by $\CP_{\alpha^{\pa}}$ whenever $\alpha^{\pa}=(\alpha_1,\alpha_ 2)\in K_\sst^0(X)^{\oplus 2}$ and continue to denote by the subscript $(-)_{\alpha^{\pa}}$ the restriction of some object to each connected component. We  define the pairing 
+\begin{align*}
+\label{Eq: pairing}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\chi^{\pa}\big(\alpha^{\pa},\beta^{\pa}\big) \coloneqq \chi(\alpha_2 -\alpha_1,\beta_2) =\rk\big(\Ext^{\pa}_{\alpha^{\pa},\beta^{\pa}}\big) \,.
+\end{align*}
+and its symmetrization
+\begin{equation*}\label{Eq: pairing}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\chi^{\pa}_{\sym}(\alpha^{\pa},\beta^{\pa}\big) \coloneqq \chi(\alpha^{\pa},\beta^{\pa}\big)+ \chi(\beta^{\pa}, \alpha^{\pa}\big)=\rk\big(\Theta^{\pa}_{\alpha^{\pa},\beta^{\pa}}\big) \,.
+\end{equation*}
+\end{enumerate}
+\end{definition}
+
+The pair vertex algebra has the underlying graded vector space 
+$$
+V^{\pa}_\bullet =\widehat {H}_\bullet(\CP_{X})= \bigoplus_{\alpha^{\pa}}\widehat{H}_{\bullet}\big(\CP_{\alpha^{\pa}}\big)\,,
+$$
+where $\widehat{H}_\bullet\big(\CP_{\alpha^{\pa}}\big) = H_{\bullet-2\chi^{\pa}(\alpha^{\pa}, \alpha^{\pa})}\big(\CP_{\alpha^{\pa}}\big)$. The structure of a vertex algebra is constructed exactly as in Theorem \ref{thm: geometricvaconstruction}. In particular, the state-field correspondence is given by
+    \begin{equation}\label{eq: joycefieldspa}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    Y(u,z)v = (-1)^{\chi^{\pa}(\alpha^{\pa}, \beta^{\pa})}z^{\chi_\sym^{\pa}(\alpha^{\pa},\beta^{\pa})}\Sigma^{\pa}_\ast\Big[e^{zT}\otimes \text{id}\big(c_{z^{-1}}(\Theta^{\pa})\cap u\boxtimes v\big)\Big]
+    \end{equation}
+for $u\in \widehat{H}_\bullet\big(\CP_{\alpha^{\pa}}\big)$, $v\in \widehat{H}_\bullet\big(\CP_{\beta^{\pa}}\big)$. 
+Note that the inclusion of $\CM_X\hookrightarrow \CP_X$ sending $F\mapsto (0, F)$ realizes $V_\bullet$ as a vertex subalgebra of $V_\bullet^{\pa}$.
+
+
+\begin{remark}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{rem: stackNX}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+In Joyce's theory \cite[Section 8]{Jo21}, wall-crossing for pairs plays an important role in the definition of the invariant classes $[M]^\inva$. However, the vertex algebra that he uses to formulate such wall-crossing formulae is not $V_\bullet^{\pa}$. For our purposes, it will be enough to consider the stack $\CN_X$ parametrizing triples $(U,F,f)$ where $U$ is a vector space, $F$ is a sheaf and $f:U \otimes \CO_X\to F$ is a morphism (cf. \cite[Definition 8.2]{Jo21} with $L=\CO_X$ or \cite[Definition 2.12]{Bo21} when $n=0$). The stack $\CN_X$ maps to $\CP_X$ by   
+\[\Omega:(U\otimes \CO_X\to F)\mapsto (U\otimes \CO_X,  F).\]
+If one replaces $\Ext^{\pa}$ by
+$$
+\Ext^{\text{vpa}} = (\pi_{1,2})_\ast\Big((\CF_{1,3}\oplus \CV_{1,3}[1])^\vee\otimes \CF_{2,3}\Big)\oplus \CV_{1,3}^\vee\otimes \CV_{2,3}
+$$
+in the definition of \eqref{eq: joycefieldspa},
+then the vertex algebra structure on $\CN_X$ used by Joyce makes the pushforward $\Omega_*$ in homology into a vertex algebra homomorphism. 
+
+When doing wall-crossing in Section \ref{sec: rankreduction} and in the Appendix \ref{app:A}, we only work with $Y(u,z)v$ where
+$$
+u\in V^{\pa}_{\bullet}\quad \text{and}\quad v \in V_{\bullet}\subset V^{\pa}_{\bullet}\,.
+$$
+The restrictions of $\Ext^{\pa}$ and $\Ext^{\text{vpa}}$ to $\CP_X\times \CM_X\subset \CP_X\times \CP_X$ coincide, so the resulting wall-crossing formulae remain the same. This was discussed in more detail for quivers in \cite[Remark 3.5 and 3.12, Lemma 4.4]{BoVir} where the comparison of vertex algebras was stated explicitly. 
+%\acomment{One point that was missed is the following: This is in fact not the vertex algebra compatible with the one in \cite[Definition 8.2]{Jo17} because that also sees $\End(U,U)$ in the $\Ext$-complex. This never matters for computations, because no one ever wall-crossed to higher ranks of $U$ and never will, but the way Joyce phrases the assumptions, it does play a role. This is because without $\End(U,U)$ we do not have an actual obstruction theory for the pair stack - a big part of the present formulation of the assumptions.. I propose that we change the description of the vertex algebra above and explain that wall-crossing formula is the same as in our original formulation.}
+\end{remark}
+    
+
+
+
+\subsection{Joyce's vertex algebra as a lattice vertex algebra}
+\label{sec: grossiso}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+We will now give an explicit description of $V_\bullet$ and $V^{\pa}_\bullet$ as lattice vertex algebras (see Theorem \ref{thm: voaconstruction}) following Gross' work \cite{Gr19}.  
+ 
+Let $\Lambda$ be the $\BZ_2$-graded vector space
+\[\Lambda=\Lambda_{\overline{0}}\oplus \Lambda_{\overline{1}}=K^0(X)\oplus K^1(X)=K^\bullet(X).\]
+Let also $\Lambda_\sst=K_\sst^0(X)$. Next we need to describe the bilinear forms $Q, q$ on $\Lambda$ extending the natural Euler pairing on $\Lambda_\sst=K_\sst^0(X)$. Recall that we have a natural Chern character isomorphism $K^\bullet(X)\cong H^\bullet(X)$.  Define the dual $(-)^\vee\colon K^\bullet(X)\to K^\bullet(X)$ by identifying with $H^\bullet(X)$ and setting
+$$
+\ch(v^\vee) = (-1)^{\floor*{ \frac{\deg\ch(v)}{2}}}\ch(v)\,,
+$$
+where $\deg\ch(v)$ is the cohomological degree. This leads to \begin{equation}
+\label{Eq: splittingduals}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+(v\cdot w)^\vee = (-1)^{|v||w|}v^\vee\cdot w^\vee\,.
+\end{equation}
+We define the extension of the Euler pairing to $K^\bullet(X)$ as
+$$
+\chi(v,w) = \int_X \ch(v^\vee)\cdot \ch(w)\cdot \td(X)\,,\qquad v,w\in K^\bullet(X)\,.
+$$
+We will denote its symmetrization by $\chi_\sym$:
+\[\chi_\sym(v,w)=\chi(v,w)+\chi(w,v)\,.\]
+
+For the pair version, we let 
+\[\Lambda^{\pa}_{\overline{i}} = \Lambda_{\overline{i}}^{\oplus 2}\,,\quad \Lambda^{\pa} =\Lambda^{\oplus 2}=\Lambda^{\pa}_{\ovZ}\oplus \Lambda^{\pa}_{\ovO}\,,\quad \Lambda^{\pa}_\sst=\Lambda_\sst^{\oplus 2}.\]
+Given $v\in \Lambda$ we will denote by $v^\CV=(v,0),\, v^\CF=(0,v)\in \Lambda^{\pa}$ the corresponding elements in the first and second copies of $\Lambda$, respectively. Given two elements 
+\[v^{\pa}=(v_1, v_2)=v^\CV_1 + v^\CF_2\,,\quad w^{\pa}=(w_1, w_2)=w^\CV_1 + w^\CF_2\]
+their pairing is defined as
+\begin{equation}
+\label{Eq: chipa}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\chi^{\pa}\big(v^{\pa},w^{\pa}\big) =  \chi(v_2-v_1,w_2) \,,
+\end{equation}
+and as usual its symmetrization is
+\begin{equation}
+\label{Eq: chipasym}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\chi^{\pa}_\sym\big(v^{\pa},w^{\pa}\big) = \chi^{\pa}\big(v^{\pa},w^{\pa}\big)+\chi^{\pa}\big(w^{\pa},v^{\pa}\big) \,.
+\end{equation}
+Note that the forms $\chi^{\pa}$ and $\chi^{\pa}_{\sym}$ extend the ones in Definition \ref{def: pairVOA}.(3).
+
+
+\begin{lemma}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{Lem: nondegenerate}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+The form $\chi^{\pa}_{\sym}$ is non-degenerate.
+\end{lemma}
+\begin{proof}
+Using the decomposition $\Lambda^{\pa}=\Lambda\oplus \Lambda$ the symmetric form $\chi^{\pa}_{\sym}$ can be represented by the block matrix
+\[\chi^{\pa}_{\sym}=\begin{bmatrix}
+0&-\chi\\
+-\chi& \chi_\sym
+\end{bmatrix}.\]
+Since clearly $\chi$ is non-degenerate it follows that $\chi^{\pa}_{\sym}$ is non-degenerate as well.
+\end{proof}
+
+
+
+The following is a necessary modification of \cite[Theorem 5.7]{Gr19} which we write out in full detail to avoid imprecisions and to include the analog statement for the pair vertex algebra. We point out that while all the ideas already appear in loc. cit. the computation of the odd degree fields is not present there and their description has a degree shift to the correct one. Furthermore, unlike the Definition of the generalized lattice vertex algebra in \cite{Gr19}, we do not rely on the construction of Abe \cite{Abe07}.
+
+\begin{theorem}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{thm: gross}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $X$ be a variety in class D (cf. Remark \ref{rem: classD}).
+Then we have isomorphisms of vertex algebras
+\begin{align}
+\label{Eq: sheafVOA}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+V_\bullet &\cong \BC\big[\Lambda_\sst\big]\otimes \BD_{\Lambda}\,,\\
+\label{Eq: pairVOA}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+V^{\pa}_\bullet &\cong \BC\big[\Lambda^{\pa}_{\sst}\big]\otimes \BD_{\Lambda^{\pa}}\,,
+\end{align}
+where: the left hand sides are the vertex algebras from Joyce's geometrical construction with the data of Definitions \ref{def: VOAconstruction} and \ref{def: pairVOA}, respectively; the right hand sides are the lattice vertex algebras from Theorem \ref{thm: voaconstruction} and the symmetric bilinear forms $q=\chi, Q=\chi_\sym$ and $q=\chi^{\pa}, Q=\chi_\sym^{\pa}$, respectively.
+\end{theorem}
+
+
+
+We begin the proof of the Theorem by explaining how to identify both sides as graded vector spaces. Using the universal sheaf $\CG_{\alpha}$ on $\CM_{\alpha}\times X$ we have for each $\alpha\in K_\sst^0(X)$ a geometric realization morphism \eqref{eq: geometricrealizationalpha}
+\[\xi_{\CG_\alpha}\colon \BD^X_\alpha\to H^\bullet(\CM_\alpha).\]
+ 
+\begin{lemma}[{\cite[Theorem 4.15]{Gr19}}]
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{Lem: isomorphism}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $X$ be a variety in class D. Then the map $\xi_{\CG_{\alpha}}$ is an isomorphism, 
+\[H^\bullet(\CM_\alpha)\cong \BD^X_\alpha.\]
+Similarly,
+\[H^\bullet(\CP_{\alpha^{\pa}})\cong \BD^{X, \pa}_{\alpha^{\pa}}\coloneqq \BD^X_{\alpha_1}\otimes \BD^X_{\alpha_2}.\]
+\end{lemma}
+\begin{proof}
+Gross shows that $H^\bullet(\CM_\alpha)$ is freely generated by the Kunneth components of $\ch_k(\CG_\alpha)\in H^\bullet(\CM_\alpha\times X).$ But these are precisely the geometric realization of descendents, see \eqref{eq: chkunnethdescendents}. The result for pairs follows from the sheaf version.\qedhere
+\end{proof}
+
+
+We know from the previous lemma that
+$$
+H^\bullet(\CM_\alpha) \cong \BD^X_\alpha =\SSym\llbracket \tCH^X_\alpha\rrbracket \,,
+$$
+and we define the pairing $
+\langle -,-\rangle \colon \text{CH}^X_{\alpha}\times \text{CH}_{\Lambda} \longrightarrow \BC
+$
+given by \begin{equation}
+\label{Eq: capproductchk}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\Big\langle\ch_{k}(\gamma),v_{-j}\Big\rangle  =\int_X\gamma \cdot \ch(v) \frac{\delta_{k,j}}{(k-1)!}\,.
+\end{equation}
+The reader can recall the definition of $\tCH^X_\alpha$ and $\tCH_\Lambda$ in Definition \ref{def: topdescendentalgebra} and Theorem~\ref{thm: voaconstruction}, respectively. The pairing above is a perfect pairing, so it identifies the dual of the graded vector space $\tCH^X_\alpha$ with $\tCH_\Lambda$; we will use $\dagger$ to denote duals. Recalling the discussion from Section \ref{sec: supercommutative}, we then get an identification between
+\[H_\bullet(\CM_\alpha)=H^\bullet(\CM_\alpha)^\dagger=
+(\BD_\alpha^X)^\dagger=\SSym\llbracket\tCH_\alpha^X\rrbracket ^\dagger=\SSym[\tCH_\Lambda]=\BD_\Lambda\,.\]
+Moreover, by Definition \ref{Def: pairingofV} the pairing between $\BD_\alpha^X$ and $\BD_\Lambda$ can be promoted to a cap product
+$$\cap:\BD^X_{\alpha}\times \BD_{\Lambda}\to \BD_{\Lambda}$$
+such that for a basis $B$ of $K^\bullet(X)$, we have
+\begin{equation}\label{eq: capdescendents}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\ch_{k}(\gamma)\cap(-)=\frac{1}{(k-1)!}\sum_{w\in B}\int_X\gamma\cdot \ch(w)\frac{\partial}{\partial w_{-k}}\,.
+\end{equation}
+
+The isomorphisms $\BD_{\Lambda}\cong H_\bullet(\CM_\alpha)$ and $\BD_{\alpha}^X\cong H^\bullet(\CM_\alpha)$ identify this abstract cap product with the topological cap product, i.e.,
+\begin{equation}
+\label{Eq: homologyisomorphism}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\begin{tikzcd}
+\BD^X_{\alpha}\times \arrow[d,"{\xi_{\CG_{\alpha}}\times \xi_{\CG_{\alpha}}^{-\dagger}}"]\BD_{\Lambda}\arrow[r,"\cap"]&\BD_{\Lambda}\arrow[d,"{\xi_{\CG_{\alpha}}^{-\dagger}}"]\\
+H^\bullet(\CM_{\alpha})\times H_\bullet(\CM_{\alpha})\arrow[r,"\cap"]&H_\bullet(\CM_{\alpha})
+\end{tikzcd}
+\end{equation}
+commutes where $\xi^{-\dagger}$ denotes the inverse of the isomorphism $\xi^{\dagger}$. 
+
+By assembling all the isomorphisms of graded vector spaces $\widehat H_\bullet(\CM_\alpha)\cong e^\alpha \BD_\Lambda$ we get
+\begin{equation}\label{eq: isovectorspaceva}\widehat H_\bullet(\CM_X)=\bigoplus_{\alpha\in K_\sst^0(X)}\widehat H_\bullet(\CM_\alpha)\cong \bigoplus_{\alpha\in \Lambda_\sst}e^\alpha \BD_\Lambda=\BC[\Lambda_\sst]\otimes \BD_\Lambda
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{equation}
+and similarly 
+\begin{equation}\label{eq: isovectorspacevapa}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\widehat H_\bullet(\CP_X)\cong \BC[\Lambda_\sst^{\pa}]\otimes \BD_{\Lambda^{\pa}}.
+\end{equation}
+To prove Theorem \ref{thm: gross} it remains to show that the vertex algebra that Joyce defined on the left hand side and the lattice vertex algebra on the right hand side are compatible under this isomorphism. We will do this using Proposition \ref{Cor: calpha}. 
+
+Before we analyze the fields required to show that the two vertex algebra structures are compatible, it will be useful to identify the translation operators on both sides. Recall Definition \ref{def: invariantdescendents} of the operator $\mathsf{R}_{-1}: \BD^X_\alpha\to \BD^X_\alpha$.
+
+\begin{lemma}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{lem: translationdualr-1}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Under the identification of $\BD^X_\alpha$ with $H^\bullet(\CM_\alpha)\cong H_\bullet(\CM_\alpha) ^\dagger$, the translation operator $T\colon H_\bullet(\CM_\alpha)\to H_{\bullet+2}(\CM_\alpha)$ (defined in Theorem \ref{thm: geometricvaconstruction}) is dual to $\bR_{-1}$. Moreover, the isomorphisms \eqref{eq: isovectorspaceva}, \eqref{eq: isovectorspacevapa} preserve the respective translation operators on both sides.
+\end{lemma}
+\begin{proof}
+We recall the operator 
+\[\bE=e^{\zeta \bR_{-1}}\] from Lemma \ref{lem: changeuniversalsheaf}. We claim that the following diagram commutes:
+\begin{center}
+\begin{tikzcd}
+\BD^X_\alpha \arrow[r, "\bE"] \arrow[d, "\xi_{\CG_\alpha}"]\arrow[rd, "\xi_{\CQ \boxtimes \CG_\alpha}"]&
+\BD^X_\alpha\llbracket \zeta\rrbracket \arrow[rd, "\xi_{\CG_\alpha}"]&
+\,
+\\
+H^\bullet(\CM_\alpha)\arrow[r, "\rho^\ast"]&
+H^\bullet(B\BG_m\times \CM_\alpha)\arrow[r, "\sim"]&
+H^\bullet(\CM_\alpha)\llbracket \zeta\rrbracket
+\end{tikzcd}
+\end{center}
+The triangle on the left commutes because $\rho^*(\CG_\alpha) = \CQ\boxtimes \CG_\alpha$. The parallelogram on the right commutes by Lemma \ref{lem: changeuniversalsheaf}. It follows that, under the identification $\BD^X_\alpha\cong H^\bullet(\CM_\alpha)$, $\bE=\rho^\ast$ and thus $\bR_{-1}=(t\backslash-)\circ \rho^\ast$ where the $(t\backslash -)$ stands for the slant product with the generator $t\in H_2(B\BG_m)$ dual to $\zeta=c_1(\CQ)\in H^2(B\BG_m)$. This is clearly the dual to Joyce's translation operator defined by $T=\rho_\ast\circ (t\boxtimes -).$
+
+To show that Joyce's translation operator agrees with the one constructed in the lattice vertex algebra it is enough to check equations \eqref{Eq: translation}. This is straightforward with the identification of $T$ with the dual of $\bR_{-1}$. 
+\end{proof}
+
+Before we reproduce the proof of Theorem \ref{thm: gross}, we introduce some notation. From now on we will omit the isomorphism $\xi_{\CG_\alpha}$ and simply write $\ch_i(\gamma)\in H^\bullet(\CM_\alpha)$. We also set $\ch_0(\gamma)$ to be $\int_X \gamma\cdot \ch(\alpha)\in H^0(\CM_\alpha)$. We will use the notation $\ch_i^\CV(\gamma)=\ch_i(\gamma)\otimes 1$ and $\ch_i^\CF(\gamma)=1\otimes \ch_i(\gamma)$ for the generators of $\BD^{X, {\pa}}_{\alpha^{\pa}}=\BD^X_{\alpha_1}\otimes \BD^X_{\alpha_2}$, as we did in Section \ref{sec: virasoropairs}. We also use the same notation for the images in $H^\bullet(\CP_{\alpha^{\pa}})$. Given $\gamma\in H^\bullet(X)$ we let $\gamma^\CV=(\gamma, 0), \gamma^{\CF}=(0, \gamma)\in H^\bullet(X)^{\oplus 2}$. Given $\gamma^{\pa}\in H^\bullet(X)^{\oplus 2}$ we introduce the symbol $\ch_i(\gamma^{\pa})\in \BD^{X, {\pa}}_{\alpha^{\pa}}$ so that $\ch_i(\gamma^{\CV})=\ch_i^{\CV}(\gamma)$, $\ch_i(\gamma^{\CF})=\ch_i^{\CF}(\gamma)$. Given $\gamma^{\pa}\in H^\bullet(X)^{\oplus 2}$ and $w^{\pa}\in K^\bullet(X)^{\oplus 2}$ we define the pairing
+\[\langle \gamma^{\pa}, w^{\pa} \rangle=\int_X \gamma_1\cdot \ch(w_1)+\int_X \gamma_2\cdot \ch(w_2).\]
+If $\{w^{\pa}\}$ is a basis of $K^\bullet(X)^{\oplus 2}$ we then have the analogue of \eqref{eq: capdescendents} for pairs:
+\begin{equation}
+\label{eq: capdescendentspairs}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\ch_{k}(\gamma^{\pa})\cap(-)=\frac{1}{(k-1)!}\sum_{w^{\pa}}\langle \gamma^{\pa}, w^{\pa}\rangle\frac{\partial}{\partial w^{\pa}_{-k}}\,.
+\end{equation}
+
+\begin{proof}[Proof of Theorem \ref{thm: gross}]
+We will only give the proof of the statement for pairs, since the sheaf version is easier and a direct consequence. Since we have already identified the underlying vector spaces, by Proposition \ref{Cor: calpha} it is enough to check conditions (i)-(iii) for the vertex algebra defined by Joyce. The vacuum condition (i) is immediate. Before we compute the fields necessary in (ii), (iii) we will obtain a formula for the Chern classes of $\Theta^{\pa}$. Fix a basis $\{\gamma\}\subseteq H^\bullet(X)$ and let $\{ \overline{\gamma}\}\subseteq H^\bullet(X)$ be the dual basis, such that $\int_X \gamma_1\cdot\overline{\gamma_2}=\delta_{\gamma_1,\gamma_2}$. Then the class of the diagonal in $X\times X$ is
+\[\Delta_\ast(1)=\sum_{\gamma}\overline\gamma\otimes \gamma\in H^\bullet(X\times X)\,,\]
+where the sum is over the basis we fixed. We then have
+\begin{equation}\label{eq: chkunnethdescendents}\ch(\CF)  = (\pi_{1,2})_\ast\big((\id_{\CP_X}\times \Delta)_* (\ch(\CF)\big) = \sum_{i\geq 0}\ch^{\CF}_i(\overline{\gamma})\boxtimes\gamma 
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{equation}
+and an analogous formula for $\CV$. The term $\ch_{i}^\CF(\overline{\gamma})\otimes \gamma$ contributes to $\ch_k(\CF)$ for \[k=\frac{2i-|\overline \gamma|+\deg \gamma}{2}=i+\left\lfloor\frac{\deg(\gamma)}{2}\right \rfloor.\]
+Thus,
+\[\ch(\CF^\vee)=\sum_{\gamma}\sum_{i\geq 0} (-1)^{i+\left\lfloor\frac{\deg \gamma}{2}\right \rfloor}\ch_{i}^\CF(\overline{\gamma})\otimes \gamma\,.\]
+ Using Grothendieck-Riemann-Roch as in \cite[Proposition 5.2]{Gr19} and being careful with signs obtained from commuting odd variables we find that
+\begin{align}\nonumber 
+\ch(\Ext^{\pa}) &=\sum_{\gamma, \delta}\sum_{i, j\geq 0}(-1)^{i+|\gamma|}\chi(\gamma, \delta)\ch_i^{\CF-\CV}(\overline \gamma)\boxtimes\ch_j^{\CF}(\overline \delta)\\
+&=\sum_{\gamma^{\pa}, \delta^{\pa}}\sum_{i, j\geq 0}(-1)^{i+|\gamma^{\pa}|}\chi^{\pa}(\gamma^{\pa}, \delta^{\pa})\ch_i(\overline \gamma^{\pa})\boxtimes\ch_j(\overline \delta^{\pa})\in H^\bullet(\CP_X\times \CP_X)\,.\label{eq: chextpa}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{align}
+In the first line, we sum over $\gamma, \delta$ in our prescribed basis. In the second line, we sum over the basis 
+\[\{\gamma^{\pa}\}=\{\gamma^\CV\}\cup \{\gamma^\CF\}\subseteq H^\bullet(X)^{\oplus 2}\]
+and use the definition of $\chi^{\pa}$.
+The pairings $\chi, \chi^{\pa}$ coincide with the ones for $K$-theory previously described under the Chern character isomorphism, i.e.,
+\[\chi(\gamma, \delta)=\int_X(-1)^{\lfloor\frac{\deg \gamma}{2}\rfloor}\gamma\cdot \delta \cdot \td(X).\]
+Note that all the non-zero terms in \eqref{eq: chextpa} have $|\gamma|=|\delta|=|\overline \gamma|=|\overline \delta|$, so we replace the occurrence of any of those parities by $|\gamma|$.
+From \eqref{eq: chextpa} (and being again careful with the signs introduced by taking the dual and by $(\sigma^{\pa})^\ast$) we get the Chern character of the symmetrization 
+\begin{equation}
+\label{eq: chthetapa} \ch(\Theta^{\pa})=\sum_{\gamma^{\pa}, \delta^{\pa}}\sum_{i, j\geq 0}(-1)^{j}\chi^{\pa}_\sym(\gamma^{\pa}, \delta^{\pa})\ch_i(\overline \gamma^{\pa})\boxtimes\ch_j(\overline \delta^{\pa})\,.
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{equation}
+By Newton's identities we have
+\begin{align}\label{eq: chernclasstheta}c_{z^{-1}}(\Theta^{\pa})&=\exp\Big[\sum_{k\geq 0}(-1)^{k}k!\ch_{k+1}(\Theta^{\pa})z^{-k-1}\Big]\\ \nonumber
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+&=\exp\Big[\sum_{\gamma^{\pa}, \delta^{\pa}}\sum_{i+j\geq |\gamma^{\pa}|+1}(-1)^{i-|\gamma^{\pa}|-1}(i+j-|\gamma^{\pa}|-1)!z^{-i-j+|\gamma^{\pa}|}\\
+&\qquad \qquad\qquad \chi^{\pa}_\sym(\gamma^{\pa}, \delta^{\pa})\ch_i(\overline \gamma^{\pa})\boxtimes\ch_j(\overline \delta^{\pa})\Big]\, .\nonumber
+\end{align}
+It suffices to consider the expansion of this exponential up to the linear terms in
+$$Y(v^{\pa}_{-1},z)= \Sigma_\ast^{\pa}\big[e^{zT}\boxtimes 1\big(c_{z^{-1}}(\Theta^{\pa})\cap (v^{\pa}_{-1}\boxtimes -)\big)\big]\,,
+$$
+because quadratic terms and beyond annihilate $(v^{\pa}_{-1}\boxtimes -)$ for degree reasons. The constant term of the exponential \eqref{eq: chernclasstheta}, namely $1$, determines the creation part of the field $Y(v^{\pa}_{-1},z)$ as
+\begin{equation}\label{eq: creation part}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    \Sigma_\ast^{\pa}\big[e^{zT} v_{-1}^{\pa}\boxtimes -\big]=\sum_{k\geq 0}v^{\pa}_{(-k-1)}z^k\,.
+\end{equation}
+This uses the fact that
+\[\frac{T^k}{k!} v_{-1}^{\pa}=v_{-k-1}^{\pa}\,, \quad \Sigma_\ast^{\pa}\big(v_{-k-1}^{\pa}\boxtimes -\big)=v_{(-k-1)}^{\pa}\]
+for $k\geq 0$, see \cite[Lemmas 5.3, 5.5]{Gr19} (the first one also follows from Lemma \ref{lem: translationdualr-1}). On the other hand, it suffices to consider the linear terms of \eqref{eq: chernclasstheta} with $i=1$ and $j-|\gamma^{\pa}|=k\geq 0$ for degree reasons. They determine the annihilation part of the field $Y(v^{\pa}_{-1},z)$ as 
+\begin{align}\label{eq: annihilation part}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    \Sigma^{\pa}_*\bigg[\sum_{\gamma^{\pa}, \delta^{\pa}}\nonumber
+    &\sum_{k\geq 0}(-1)^{|\gamma^{\pa}|}k!z^{-k-1}
+    \chi^{\pa}_\sym(\gamma^{\pa}, \delta^{\pa})\ch_1(\overline \gamma^{\pa})\boxtimes\ch_{k+|\gamma^{\pa}|}(\overline \delta^{\pa})\cap (v^{\pa}_{-1}\boxtimes-)\bigg]\nonumber\\
+    &=\sum_{\gamma^{\pa}, \delta^{\pa}}\sum_{k\geq 0}k!z^{-k-1}
+    \chi^{\pa}_\sym(\gamma^{\pa}, \delta^{\pa})\langle\overline{\gamma}^{\pa},v^{\pa}\rangle\,\ch_{k+|\gamma^{\pa}|}(\overline \delta^{\pa})\cap \nonumber\\
+    &=\sum_{\delta^{\pa}}\sum_{k\geq 0}k!z^{-k-1}
+    (-1)^{|\delta^{\pa}|}\chi^{\pa}_\sym(v^{\pa}, \delta^{\pa})\,\ch_{k+|\delta^{\pa}|}(\overline \delta^{\pa})\cap\,.
+\end{align}
+The sign disappears in the second line due to the interaction between the cap product and the tensor product \cite[12.17]{dold} and reappears in the last line by using
+\[(-1)^{|\delta^{\pa}|}\sum_{\gamma^{\pa}}\langle\overline{\gamma}^{\pa},v^{\pa}\rangle\chi^{\pa}_\sym(\gamma^{\pa}, \delta^{\pa})=\sum_{\gamma^{\pa}}\langle v^{\pa}, \overline{\gamma}^{\pa}\rangle\chi^{\pa}_\sym(\gamma^{\pa}, \delta^{\pa})=\chi^{\pa}_\sym(v^{\pa}, \delta^{\pa})\,.\]
+We can further simplify this expression by replacing descendent actions with derivatives. Let $\{w^{\pa}\}\subseteq K^\bullet(X)^{\oplus 2}=\Lambda^{\pa}$ be the basis obtained by applying the inverse of the Chern character isomorphism to $\{\delta^{\pa}\}$. By \eqref{eq: capdescendentspairs},
+\[\ch_j(\overline \delta^{\pa})\cap -=\frac{(-1)^{|\delta^{\pa}|}}{(j-1)!}\frac{\partial}{\partial w^{\pa}_{-j}}\, ,\quad \textup{for }j\geq 1\,. \]
+The constant descendent action by $\ch_0(\overline{\delta}^{\pa})$ is treated separately as a multiplication by $\langle \overline{\delta}^{\pa},\alpha^{\pa}\rangle$ on $H_\bullet(\CP_{\alpha^{\pa}})$. Therefore, we have 
+\begin{align*}
+    \eqref{eq: annihilation part}
+    &=\sum_{k\geq 1-|v^{\pa}|}\sum_{w^{\pa}}\chi^{\pa}_{\sym}(v^{\pa},w^{\pa})k^{1-|v^{\pa}|}\frac{\partial}{\partial w^{\pa}_{-k-|v^{\pa}|}} z^{-k-1}+\chi^{\pa}(v^{\pa},\alpha^{\pa})z^{-1}
+\end{align*}
+on $H_\bullet(\CP_{\alpha^{\pa}})$. Combining with the creation part \eqref{eq: creation part}, this matches exactly with \eqref{Eq: explicitfield}, so we are done with (ii).
+
+For (iii) we are left with computing $Y(e^{\alpha^{\pa}},z)e^{\beta^{\pa}}$:
+
+\begin{align*} Y(e^{\alpha^{\pa}},z)e^{\beta^{\pa}}
+&= (-1)^{\chi^{\pa}(\alpha^{\pa},\beta^{\pa})}z^{\chi_\sym^{\pa}(\alpha^{\pa},\beta^{\pa})}\Sigma_*\big[e^{zT}\boxtimes \id (c_{z^{-1}}(\Theta^{\pa})\cap (e^{\alpha^{\pa}}\boxtimes e^{\beta^{\pa}}))\big]\\
+&=(-1)^{\chi^{\pa}(\alpha^{\pa},\beta^{\pa})}z^{\chi_\sym^{\pa}(\alpha^{\pa},\beta^{\pa})}\Sigma_*\big[e^{zT}(e^{\alpha^{\pa}})\boxtimes  e^{\beta^{\pa}}\big]\,,
+\end{align*}
+where we used the fact that $\ch_i(\overline \gamma^{\pa})\cap -$ and $\ch_j(\overline \delta^{\pa})\cap -$ annihilate $e^{\alpha^{\pa}}, e^{\beta^{\pa}}$ for any $i,j>0$. The $z^{\chi_\sym^{\pa}(\alpha^{\pa},\beta^{\pa})}$ coefficient is simply
+\[(-1)^{\chi^{\pa}(\alpha^{\pa},\beta^{\pa})}\Sigma_*(e^{\alpha^{\pa}}\boxtimes e^{\beta^{\pa}})=(-1)^{\chi^{\pa}(\alpha^{\pa},\beta^{\pa})}e^{\alpha^{\pa}+\beta^{\pa}}\,,\]
+as required in (iii), thus finishing the proof.\qedhere
+\end{proof}
+
+
+
+
+Recall from Section \ref{Sec: physical} that associated to a vertex algebra $V_\bullet$ we have a Lie algebra $\widecheck V_\bullet=V_{\bullet+2}/TV_\bullet$. This quotient of $V_{\bullet}$ also has a geometric interpretation observed by \cite{Jo17} and related to $\BD^X_{\inv, \alpha}$ from Definition \ref{def: invariantdescendents}. We begin by recalling that the $B\BG_m$--action $\rho$ on $\CM_X$ leads to a \textit{rigidification} (see \cite[Appendix]{AOV} and \cite[Proposition 2.25 (b)]{Jo17}) which quotients out $\BG_m\cdot \id$ from the stabilizer of each object in the moduli stack. We denote it by 
+$$
+\CM_\alpha^\rig=\CM_\alpha \mkern-7mu\fatslash B\BG_m\,.
+$$
+\begin{lemma}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{Lem: DXinv}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Let $X$ be a variety in class D. Let $\ch(\alpha)\neq 0$ and $\pi^{\rig}_{\alpha}: \CM_\alpha\to \CM^{\rig}_\alpha$ be the projection, then $(\pi^{\rig}_\alpha)^\ast: H^\bullet(\CM^{\rig}_\alpha)\to H^\bullet(\CM_{\alpha})$ is injective and the isomorphism of Lemma \ref{Lem: isomorphism} induces
+$$
+\BD^X_{\inv,\alpha}\cong(\pi^{\rig}_{\alpha})^\ast\big(H^\bullet(\CM^{\rig}_{\alpha})\big)\cong H^\bullet(\CM^{\rig}_{\alpha})\,.
+$$
+Equivalently, we have the isomorphism
+$$
+\widecheck{H}_{\bullet}(\CM^{\rig}_{\alpha}) \coloneqq H_{\bullet-2\chi(\alpha,\alpha)+2}(\CM^{\rig}_\alpha)\cong \widecheck V_{\alpha, \bullet}\,.
+$$
+\end{lemma}
+\begin{proof}
+A big part of this proof is already due to Joyce \cite[Proposition 3.24]{Jo17}, \cite[Theorem 4.8, Remark 4.10]{Jo21}. He proves that 
+$$
+H_\bullet(\CM^{\rig}_{\alpha}) =H_\bullet(\CM_\alpha)/T(H_{\bullet-2}(\CM_\alpha))\,,
+$$
+when $\ch(\alpha)\neq 0$. This is the last statement of the lemma. Dually, we have injectivity of the pull-back and
+\[(\pi^{\rig}_{\alpha})^\ast\big(H^\bullet(\CM^{\rig}_{\alpha})\big) =\{D\in H^\bullet(\CM_{\alpha}) \colon \rho^*D = 1\boxtimes D \textup{ in }H^\bullet(B \BG_m\times \CM_\alpha) \}.\] The isomorphism with $\BD^X_{\inv,\alpha}$ finally follows from the the fact that $\rho^\ast=e^{\zeta \bR_{-1}}$ under the identification $H^\bullet(\CM_\alpha)\cong \BD^X_\alpha$ as we showed in the proof of Lemma \ref{lem: translationdualr-1}. 
+\end{proof}
+
+\begin{example}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{ex: invdescendents}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+We continue with the Example \ref{Ex: DXinvdescendents} proving it differently for the full stack.  On $\CM_{\alpha}$ and $\CM^{\rig}_{\alpha}$, virtual tangent bundles $T^{\vir}\CM_{\alpha}$ and $T^{\vir}\CM_{\alpha}^{\rig}$ are defined as the topological K-theory classes of the duals of the natural obstruction theory complexes\footnote{In \cite{TV07}, the stack $\CM_{\alpha}$ is constructed by truncating its derived refinement. Because derived refinements naturally induce obstruction theories (see \cite[Proposition 1.2]{STV}), we have a natural obstruction theory on $\CM_{\alpha}$ given by the formula that follows as shown in \cite[Corollary 3.29]{TV07}. Because these derived refinements can be rigidified in the same way as the original stacks, there is also a natural choice of an obstruction theory on $\CM^{\rig}_{\alpha}$.}.  Before rigidifying, the virtual tangent bundle is given by $$T^\vir\CM_{\alpha}=-\RHom_{\CM_\alpha}(\CG,\CG)\,,$$
+and its relation to  $T^\vir\CM^{\rig}_{\alpha}$ in $K$-theory is
+$$
+T^\vir\CM_\alpha = (\pi^{\rig}_\alpha)^*(T^\vir\CM^{\rig}_\alpha) - \CO_{\CM_\alpha}\,.
+$$
+  We see from Lemma \ref{Lem: DXinv} that $\ch(T^{\vir})\in \BD^X_{\inv, \alpha}$. This clearly holds for any $K$-theory class pulled back from $\CM^{\rig}_{\alpha}$.
+\end{example}
+
+
+
+
+
+
+\subsection{Virasoro operators from Kac's conformal element}
+\label{sec: virasorocomparison}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+Construction of conformal element depends on Assumption \ref{Ass: vanishing} which we assume throughout this section. Recall that we need to make a choice of a maximal isotropic decomposition of $K^1(X)^{\oplus 2}$ with respect to a symmetric non-degenerate pairing $\chi^{\pa}_\sym$ (recall Lemma~\ref{Lem: nondegenerate}) to define Kac's conformal element. Hodge decomposition is a source of the decomposition that we use. Define the subspaces $K^{\bullet,\bullet+1}(X)$ and $K^{\bullet+1,\bullet}(X)$ of $K^1(X)$ such that via the Chern character isomorphism we have 
+$$K^{\bullet,\bullet+1}(X)\xrightarrow{\sim}\bigoplus_{p}H^{p,p+1}(X),\quad K^{\bullet+1,\bullet}(X)\xrightarrow{\sim}\bigoplus_{p}H^{p+1,p}(X)\,.
+$$
+We consider a decomposition of $K^1(X)^{\oplus 2}=I\oplus \hat{I}$ given by 
+\begin{equation}\label{Hodge isotropic decomposition}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    I\coloneqq K^{\bullet,\bullet+1}(X)^{\oplus 2},\quad \hat{I}\coloneqq K^{\bullet+1,\bullet}(X)^{\oplus 2}\,,
+\end{equation}
+that is maximally isotropic due to Hodge degree consideration. This defines a conformal element $\omega$ inside $V_\bullet^{\pa}=\BC[\Lambda^{\pa}_{\sst}]\otimes \BD_{\Lambda^{\pa}}$ hence the vertex Virasoro operators $L_n^{\pa}$ for all $n\in\BZ$. On the other hand, we defined in Section \ref{sec: virasoropairs} descendent Virasoro operators $\bL_n^{\pa}$ for $n\geq -1$ acting on the formal pair descendent algebra $\BD^{X,\pa}$. 
+
+In this section, we prove duality between the two Virasoro operators $L_n^{\pa}$ and $\bL_n^{\pa}$ for $n\geq -1$. To set up the stage where we state the duality, let $\alpha^{\pa}\in \Lambda_{\sst}^{\pa}$ and consider the realization homomorphism 
+$$p_{\alpha^{\pa}}:\BD^{X,{\pa}}\rightarrow \BD^{X,\pa}_{\alpha^{\pa}}\,,
+$$
+as in Definition \ref{def: topdescendentalgebra}. By Assumption \ref{Ass: vanishing}, this realization homomorphism is surjective. Furthermore, descendent Virasoro operators $\bL_k^{\pa}$ factor through this quotient as follows from noting that $\ker(p_{\alpha})$ is only generated by symbols of the form $\ch^H_0(\gamma)$ giving us $$\bR_k\big(\!\ker(p_{\alpha})\big)=0 \,.$$
+We use the same notation for the resulting operators on $\BD^{X,\pa}_{\alpha^{\pa}}$. 
+\begin{theorem}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{thm: duality}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+For any $\alpha^{\pa}\in \Lambda_{\sst}^{\pa}$ and $n\geq -1$, Virasoro operators $L_n^{\pa}$ and $\bL_n^{\pa}$ are dual to each other with respect to the perfect pairing 
+$$\BD^{X,\pa}_{\alpha^{\pa}}\otimes e^{\alpha^{\pa}}\, \BD_{\Lambda^{\pa}}\rightarrow \BC\,.
+$$
+\end{theorem}
+\begin{proof}
+On $K^\bullet(X)^{\oplus 2}$ we are given a symmetric non-degenerate pairing
+\begin{align*}
+    \chi^{\pa}_{\sym}\big(v^{\pa},w^{\pa}\big)&=\chi^{\pa}(v^{\pa},w^{\pa})+\chi^{\pa}(w^{\pa},v^{\pa})\\
+    &=\chi(v_2-v_1,w_2)+\chi(w_2-w_1,v_2)\,.
+\end{align*}
+The maximal isotropic decomposition \eqref{Hodge isotropic decomposition} determines the conformal element $\omega\in V^{\pa}_\bullet$ and a new supersymmetric non-degenerate pairing (see Section \ref{sec: Kacconformal}) $Q^\omega=\chi^{\HH,\pa}_{\ssym}$. We use the superscript $\HH$ instead of $\omega$ to indicate the relevance to the holomorphic degree in the Hodge decomposition. This new pairing can be written as
+\begin{align*}
+    \chi^{\HH,\pa}_{\ssym}\big(v^{\pa},w^{\pa}\big)&=\chi^{\HH,\pa}(v^{\pa},w^{\pa})+(-1)^{|v^{\pa}||w^{\pa}|}\chi^{\HH,\pa}(w^{\pa},v^{\pa})\\
+    &=\chi^\HH(v_2-v_1,w_2)+(-1)^{|v^{\pa}||w^{\pa}|}\chi^\HH(w_2-w_1,v_2)\,,
+\end{align*}
+where $\chi^\HH$ is a pairing on $K^\bullet(X)$ defined as
+$$\chi^\HH(v,w)\coloneqq (-1)^p\int \ch(v)\ch(w)\td(X)\ \ \textnormal{if}\ \ch(v)\in H^{p,\bullet}(X)\,.
+$$
+The supersymmetric pairing $\chi^{\HH,\pa}_{\ssym}$ allows a simple formulation of the conformally shifted field:
+\begin{equation}\label{eq: shifted field}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    Y(v_{-1}^{\HH,\pa},z)
+    =\sum_{k\geq 0} v^{\HH,\pa}_{(-k-1)}z^k+\sum_{k\geq 0}\sum_{\delta^{\pa}}k!z^{-k-1}\chi^{\HH,\pa}_{\ssym}(\delta^{\pa},v^{\pa})\,\ch_{k}^\HH(\overline{\delta}^{\pa})\cap\,.
+\end{equation}
+This formula is proven by the non-shifted version for $Y(v_{-1}^{\pa},z)$ as in \eqref{eq: creation part}, together with a case division analysis as in the proof of \eqref{eq: shifted bracket}. 
+
+Recall that the vertex Virasoro operator are written as 
+$$L_n^{\pa}=\frac{1}{2}\sum_{\substack{ i+j=n \\ v^{\pa}\in B^{\pa}}}:\tilde{v}^{\HH,\pa}_{(i)} v^{\HH,\pa}_{(j)}:\quad n\in\BZ\,.
+$$
+When $n\geq -1$, we write $L_n^{\pa}=R_n^{\pa}+T_n^{\pa}$ where 
+$$R_n^{\pa}\coloneqq \frac{1}{2}\sum_{\substack{ i+j=n\\ i<0\textnormal{ or }j<0 \\ v^{\pa}\in B^{\pa}}}:\tilde{v}^{\HH,\pa}_{(i)} v^{\HH,\pa}_{(j)}:\,,\quad
+T_n^{\pa}\coloneqq \frac{1}{2}\sum_{\substack{ i+j=n\ \\i,j\geq 0 \\ v\in B^{\pa}}}:\tilde{v}^{\HH,\pa}_{(i)} v^{\HH,\pa}_{(j)}:\,.
+$$
+From the computation \eqref{eq: shifted field}, we have
+\begin{align*}
+    T_n^{\pa}
+    &=\frac{1}{2}\sum_{\substack{i+j=n\\i,j\geq 0}}i!j!\sum_{v^{\pa}\in B^{\pa}}\sum_{\delta^{\pa}, \gamma^{\pa}}
+    \chi^{\HH,\pa}_{\ssym}(\delta^{\pa},\tilde{v}^{\pa})
+    \chi^{\HH,\pa}_{\ssym}(\gamma^{\pa},v^{\pa})\,
+    \ch_i^\HH(\overline{\delta}^{\pa})\ch_j^\HH(\overline{\gamma}^{\pa})\cap -\\
+    &=\frac{1}{2}\sum_{\substack{i+j=n\\i,j\geq 0}}i!j!
+    \sum_{\delta^{\pa}, \gamma^{\pa}}
+    \Big(\chi^{\HH,\pa}(\gamma^{\pa},\delta^{\pa})+(-1)^{|\gamma^{\pa}||\delta^{\pa}|}\chi^{\HH,\pa}(\delta^{\pa},\gamma^{\pa})\Big)
+    \ch_i^\HH(\overline{\delta}^{\pa})\ch_j^\HH(\overline{\gamma}^{\pa})\cap -\\
+    &=\sum_{\substack{i+j=n\\i,j\geq 0}}i!j!
+    \sum_{\delta^{\pa}, \gamma^{\pa}}
+    \chi^{\HH,\pa}(\gamma^{\pa},\delta^{\pa})\,
+    \ch_i^\HH(\overline{\delta}^{\pa})\ch_j^\HH(\overline{\gamma}^{\pa})\cap -\\
+    &=\sum_{\substack{i+j=n\\i,j\geq 0}}i!j!
+   \sum_{\delta,\gamma}
+    \chi^{\HH}(\gamma,\delta)\,
+    \ch_i^{\HH,\CF}(\overline{\delta})\ch_j^{\HH,\CF-\CV}(\overline{\gamma})\cap -\\
+    &=\sum_{\substack{i+j=n\\i,j\geq 0}}i!j!
+   \sum_{\delta,\gamma}
+   (-1)^{\dim(X)-p(\overline{\gamma})}
+    \left(\int \delta \cdot \gamma\cdot \td(X)\right) \ch_i^{\HH,\CF-\CV}(\overline{\gamma})\ch_j^{\HH,\CF}(\overline{\delta})\cap -\\
+    &=\sum_{\substack{i+j=n\\i,j\geq 0}}i!j!\sum_t (-1)^{\dim(X)-p_t^L}\ch_i^{\HH,\CF-\CV}(\gamma_t^L)\ch_j^{\HH,\CF}(\gamma_t^R)\cap -\,,
+\end{align*}
+where in the last equality the summation takes over
+$$\Delta_*(\td(X))=\sum_t \gamma_t^L\otimes \gamma_t^R.
+$$
+This is exactly dual to the multiplication operator $\bT_n^{\pa}$. 
+
+Now we prove that operators $R_n^{\pa}$ and $\bR_n^{\pa}$ are dual to each other. Let $R_n^{{\pa}, \dagger}\colon \BD^{X,\pa}_{\alpha^{\pa}}\to \BD^{X,\pa}_{\alpha^{\pa}}$ be the dual to $R_n^{\pa}$. For $n\geq -1$, both $R_n^{{\pa}, \dagger}$ and $\bR_n^{\pa}$ annihilate $1$ so it is enough to show that their commutators with right multiplication by descendents agree, i.e.,
+\[[R_n^{\pa, \dagger}, \cdot\,\chh_k(\gamma^{\pa})]=[\bR_n^{\pa}, \cdot\,\chh_k(\gamma^{\pa})]=\left(\prod_{j=0}^n(k+j)\right)\cdot\ch_{k+n}^\HH(\gamma^{\pa})\,.\]
+Dually, this is equivalent to
+\begin{equation*}
+\left[\ch_k^{\HH}(\gamma^{\pa})\cap\,,\,R_n^{\pa}\right]=\left(\prod_{j=0}^n(k+j)\right)\ch_{k+n}^\HH(\gamma^{\pa})\cap\,.
+\end{equation*}
+
+We finish the proof by showing the required commutator relation. Since $\chi^{\HH,\pa}_{\ssym}$ is a perfect pairing, there is a unique $w^{\pa}\in K(X)^{\pa}$ such that 
+$$\sum_{\delta^{\pa}}\chi^{\HH,\pa}_{\ssym}(\delta^{\pa}, w^{\pa})\,\overline{\delta}^{\pa}=\gamma^{\pa}\,.
+$$
+From \eqref{eq: shifted field}, this implies that $w_{(k)}^{\HH,\pa}=k!\ch_k^\HH(\gamma^{\pa})\cap\,$. On the other hand, we have
+\begin{align*}
+    R_n^{\pa}
+    &=\frac{1}{2}\sum_{\substack{ i+j=n\\ i<0\\ v^{\pa}\in B^{\pa}}}\tilde{v}^{\HH,\pa}_{(i)} v^{\HH,\pa}_{(j)}
+    +\frac{1}{2}\sum_{\substack{ i+j=n\\ j<0 \\ v^{\pa}\in B^{\pa}}}(-1)^{|v^{\pa}|} v^{\HH,\pa}_{(j)}\tilde{v}^{\HH,\pa}_{(i)}
+    =\sum_{\substack{ i+j=n\\ i<0\\ v^{\pa}\in B^{\pa}}}\tilde{v}^{\HH,\pa}_{(i)} v^{\HH,\pa}_{(j)}\,,
+\end{align*}
+since the dual $\tilde{v}^{\pa}$ is defined by supersymmetric pairing $\chi^{\HH,\pa}_{\ssym}$. Therefore, we obtain 
+\begin{align*}
+    \left[\ch_k^{\HH}(\gamma^{\pa})\cap\,,\,R_n^{\pa}\right]
+    &=\frac{1}{k!}\sum_{\substack{ i+j=n\\ i<0\\ v\in B^{\pa}}}
+    \left[w_{(k)}^{\HH,\pa}, \tilde{v}^{\HH,\pa}_{(i)}v^{\HH,\pa}_{(j)}\right]\\
+    &=\frac{1}{k!}\sum_{\substack{ i+j=n\\ i<0\\ v\in B^{\pa}}} \left[w^{\HH,\pa}_{(k)}, \tilde{v}^{\HH,\pa}_{(i)}\right]v^{\HH,\pa}_{(j)}+\tilde{v}^{\HH,\pa}_{(i)}\left[w^{\HH,\pa}_{(k)},v^{\HH,\pa}_{(j)}\right]\\
+    &=\frac{1}{k!}\sum_{v\in B^{\pa}}k\cdot\chi^{\HH,\pa}_{\ssym}(w^{\pa},\tilde{v}^{\pa})v_{(k+n)}^{\HH,\pa}\\
+    &=\left(\prod_{j=0}^n(k+j)\right)\chh_{k+n}(\gamma^{\pa})\cap\,,
+\end{align*}
+where we used the bracket formula \eqref{eq: shifted bracket} with $k\geq 0$.  
+\end{proof}
+
+\begin{remark}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{rem: obstructionvsvirasoro}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+ To summarize the ideas leading up to this final statement, we explain where the obvious similarity between $\bT_k$ and the virtual tangent bundle (see Example \ref{Ex: Tvir}) comes from in general. It is best represented by the diagram
+ $$
+ \begin{tikzcd}
+&\chi^{\pa}_{\ssym},\chi^{\HH,\pa}_{\ssym}\arrow[dr,"(\textnormal{iii})", bend left]&\\
+\arrow[d,"(\textnormal{i})"']\Ext^{\pa},\Theta^{\pa} \arrow[ur,"(\textnormal{ii})", bend left]&&\omega\arrow[d, "(\textnormal{iv})"]\\
+T^{\vir}\arrow[rr,dashed,"?"]&&\bL_k^{\pa}\,.
+ \end{tikzcd}
+ $$
+Meaning of the arrows are explained below. 
+ \begin{enumerate}[label = (\roman*)]
+\item   represents pullback along the diagonal which restricts $\Ext^{\pa}$ to the virtual tangent bundle of any pair moduli space mapping to $\CP_X$. This is the content of assumption \cite[Assumption 4.4]{Jo21} and is satisfied in larger generality than our Definition \ref{def: pairVOA}.
+\item  corresponds to taking ranks of the symmetrization $\Theta^{\pa}$ of $\Ext^{\pa}$ and then fixing a choice of an isotropic splitting  $\Lambda_{\ovO}^{\pa} = I\oplus \hat{I}$ of the odd part of $\Lambda^{\pa}$ as we did in \eqref{Eq: splittingisotropic}. Out of it, we constructed a supersymmetric pairing  which in the case 
+$$
+I= K^{\bullet,\bullet+1}(X)^{\oplus 2},\quad \hat{I}= K^{\bullet+1,\bullet}(X)^{\oplus 2}\,,
+$$
+led to $\chi^{\HH,\pa}_{\ssym}$. This can be generalized to any setting where the induced pairing is non-degenerate so that isotropic splitting can be chosen.
+\item is assigning the conformal element for a given choice of an isotropic splitting in the procedure described in Section \ref{sec: Kacconformal} (more explicitly see \eqref{Eq: omega}) and works as long as Joyce's construction in Section \ref{sec: Joycevertexalgebra} leads to a lattice vertex algebra.
+\item is filled in by Theorem \ref{thm: duality} that fundamentally depends on the comparison between $\BD^{X,\pa}$ and $H^\bullet(\CP_{X})$ contained in the description of the lattice vertex algebra structure on $\widehat{H}_\bullet(\CP_X)$ proved in Theorem \ref{thm: gross}. This would again work in a setting where a similar comparison can be made.
+ \end{enumerate}
+ A direct geometric relation represented by the ``?" between Virasoro constraints and the virtual tangent bundle is however unclear.
+\end{remark}
+
+
+\subsection{Virasoro constraints and primary states}
+\label{subsec: virasoroprimary}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+Let $M=M_\alpha$, for $\ch(\alpha)\neq 0$, be a moduli space of sheaves as in Section \ref{sec: modulisheavespairs} with a universal sheaf $\BG$. By the universal property of the stack $\CM_X$ there is a map $f_\BG\colon M\to \CM_X$ such that
+$(f_\BG\times \id_X)^\ast \CG=\BG$
+where $\CG$ is the universal complex in $\CM_X\times X$. Even without a universal sheaf $\BG$, we always have an open embedding into the rigidified stack $\iota\colon M \hookrightarrow \CM_X^\rig$. When a universal sheaf exists this embedding is the composition
+\[\iota\colon M\overset{f_\BG}{\longrightarrow} \CM_X\longrightarrow \CM_X^\rig\,.\]
+We define classes in $\CM_X$, $\CM_X^\rig$ by
+\begin{align*}
+[M]^\vir&\coloneqq \iota_\ast [M]^\vir \in H_\bullet(\CM_X^\rig)\,,\\
+[M]^\vir_\BG&\coloneqq (f_\BG)_\ast [M]^\vir \in H_\bullet(\CM_X)=V_\bullet\,.
+\end{align*}
+By Lemma \ref{Lem: DXinv} we may regard the class $[M]^\vir$ as being in Borcherds Lie algebra $\widecheck V_\bullet=V_{\bullet+2}/TV_\bullet$. Given any $\BG$ the class $[M]^\vir_\BG$ is a lift of $[M]^\vir\in  V_{\bullet+2}/TV_\bullet$ to the vertex algebra $V_\bullet$ -- quotienting by $T$ removes the ambiguity in the choice of $\BG$. The integrals of geometric realizations of descendents $D\in \BD^X_\alpha$ can be expressed in terms of these classes by
+\[\int_{[M]^\vir}\xi_\BG(D)=\int_{[M]^\vir}(f_\BG)^\ast \big(\xi_\CG(D)\big)=\int_{[M]^\vir_\BG}\xi_\CG(D)\,.\]
+By Theorem \ref{Lem: isomorphism}, if $X$ is a variety in class D then $\xi_\CG$ is an isomorphism between $\BD^X_\alpha$ and $H^\bullet(\CM_\alpha)$, so knowing the class $[M]^\vir_\BG$ is precisely the same as knowing all the descendent integrals. Similarly, by Lemma \ref{Lem: DXinv} the class $[M]^\vir \in \widecheck V_\bullet$ contains precisely the information of integrals of weight 0 descendents $D\in \BD^X_{\alpha, \inv}$.
+
+An analogous situation happens for moduli spaces of pairs and the stack $\CP_X$. Given a moduli of pairs as in Section \ref{sec: modulisheavespairs} with universal sheaf $q^\ast V\to \BF$, by the universal property of the stack $\CP_X$ we have a map
+\[f_{(q^\ast V, \BF)}\colon P\to \CP_X\,,\]
+such that 
+\[(f_{(q^\ast V, \BF)}\times \id_X)^\ast \CV=q^\ast V\,,\quad (f_{(q^\ast V, \BF)}\times \id_X)^\ast \CF=\BF\,.\]
+The classes 
+\[[P]^\vir_{(q^\ast V, \BF)}\coloneqq (f_{(q^\ast V, \BF)})_\ast [P]^\vir\in V_\bullet^{\pa}\] 
+contain exactly the information of the descendent integrals
+\[\int_{[P]^\vir}\xi_{(q^\ast V, \BF)}(D)\,\quad\textup{for}\quad D\in \BD^{X, {\pa}}_{\alpha^{\pa}}\,.\]
+A class $[M]^\vir$ coming from a moduli of sheaves can also be considered in $\widecheck V_\bullet^{\pa}$ via the embedding $\CM_X\hookrightarrow \CP_X$ sending $G\mapsto (0,G)$.
+
+We now use Theorem \ref{thm: duality}, which states the duality between the Virasoro operators on the descendent algebra and and on the vertex algebra, to prove Theorem \ref{thm: virasorophysical} saying that the Virasoro constraints holding for some moduli space of sheaves $M$ or pairs $P$ are equivalent to their respective classes on the Lie/vertex algebra being primary states.
+\begin{proof}[Proof of Theorem \ref{thm: virasorophysical}]
+We start with part (2) which refers to pairs. Under Assumption \ref{Ass: vanishing} the morphism 
+$p_{\alpha^{\pa}}\colon \BD^{X, \pa}\to \BD^{X, \pa}_{\alpha^{\pa}}$ is surjective, so Conjecture \ref{conj: pairvirasoro} holds if and only if
+\[\int_{[P]^\vir}\xi_{(q^\ast V, \BF)}(\bL_n^{\pa}(D))=0\]
+for every $D\in \BD^{X, \pa}_{\alpha^{\pa}}$ and $n\geq 0$. By Theorem \ref{thm: duality} and the previous observations
+\[\int_{[P]^\vir}\xi_{(q^\ast V, \BF)}(\bL_n^{\pa}(D))=\int_{[P]^\vir_{(q^\ast V, \BF)}}\xi_{(\CV, \CF)}(\bL_n^{\pa}(D))=\int_{L_n^{\pa}([P]^\vir_{(q^\ast V, \BF)})}\xi_{(\CV, \CF)}(D)\,.\]
+Since $\xi_{(\CV, \CF)}$ defines an isomorphism between $\BD^{X, \pa}_{\alpha^{\pa}}$ and the cohomology $H^\bullet(\CP_{\alpha^{\pa}})$ the last integral vanishes for all $D$ if and only if $L_n^{\pa}\big([P]^\vir_{(q^\ast V, \BF)}\big)=0$, i.e.,
+\[[P]^\vir_{(q^\ast V, \BF)}\in P_0^{\pa}\,.\]
+
+The claim (1) for sheaves follows in a similar way by noting that the operator $\bL_\inv$ is dual to $[-, \omega]$ by Theorem \ref{thm: duality} and Lemma \ref{WC with conformal element} and using the equivalente characterization of primary states in $\widecheck P_0$ provided by Proposition \ref{prop: primaryomegabracket}.\qedhere
+\end{proof}
+
+Joyce defines more generally (under certain conditions, see \cite[Theorem 5.7]{Jo21} or Section \ref{sec: joyceclasses}) classes $[M]^\inva\in \widecheck V_\bullet$ even when $M$ contains strictly semistable sheaves; when it does not contain strictly semistable sheaves, this class coincides with $[M]^\vir$. As in Remark \ref{rem:nocoarsedirect} and Conjecture \ref{conj:actualinvvir}, we say that $M$ satisfies the Virasoro constraints if $[M]^\inva$ is a primary state, i.e.
+$$
+  [M]^{\inva}\in \widecheck{P}_0\,.
+$$

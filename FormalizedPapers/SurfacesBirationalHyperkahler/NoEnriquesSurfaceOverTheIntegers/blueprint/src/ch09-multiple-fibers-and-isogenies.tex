@@ -1,0 +1,172 @@
+% Source-derived chapter 09: Multiple fibers and isogenies
+% Original source: no-enriques-surface-over-the-integers
+\chapter{Multiple fibers and isogenies}
+\label{no-enriques-surface-over-the-integers-chapter-09}
+\source{no-enriques-surface-over-the-integers}
+
+\begin{remark}[Source section]
+\label{no-enriques-surface-over-the-integers-chapter-09-source}
+\source{no-enriques-surface-over-the-integers}
+\source{no-enriques-surface-over-the-integers}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Multiple fibers and isogenies
+\mylabel{Multiple fibers}
+
+In this section we relate  multiple   fibers in elliptic fibrations with simple elliptic fibers
+via isogenies. The general  set-up is as follows: Suppose $R$ is an   discrete valuation ring,
+with field of fractions $F=\Frac(R)$ and residue field $k=R/\maxid_R$. For the sake of exposition,
+we assume that  the local ring $R$ is excellent, which here means that the field extension $\Frac(R)\subset\Frac(\hat{R})$
+is separable, compare the discussion in \cite{Schroeer 2020}, Section 4.
+Let $E_F$ be an elliptic curve over $F$ and $X_F$ be a principal homogeneous space,
+representing a cohomology class in $H^1(F,E_F)$ with respect to the   flat topology.
+Suppose that $E_F$ has good reduction over $R$, that is,   arises as generic fiber for some
+family of elliptic curves $E\ra\Spec(R)$.
+Furthermore, we assume that the principal homogeneous space is the generic fiber of some relatively minimal regular model
+$X\ra\Spec(R)$, and that the underlying reduced subscheme $X_{k,\red}$  of the closed
+fiber $X_k$ is an elliptic curve. We then observe:
+
+\begin{proposition}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{reduction isogeneous}
+Under the above assumptions, the two elliptic curves $E_k$ and $X_{k,\red}$ over the residue field $k$ are isogeneous.
+\end{proposition}
+
+\proof
+Without restriction, we may assume that the discrete valuation ring $R$ is henselian.
+Let $m\geq 1$ be the multiplicity of the closed fiber for $X\ra\Spec(R)$, such
+that $X_k=mX_{k,\red}$. By assumption, the reduction $X_{k,\red}$ is an elliptic curve,  in particular contains a
+$k$-rational point $d\in X_{k,\red}$. This is an effective Cartier divisor,
+and can be extended to an effective Cartier divisor $D_k\subset X_k$ on the   fiber.
+In light of \cite{EGA IVd}, Theorem 18.5.11 we may extend further, and regard it as the closed
+fiber of some effective Cartier divisor $D\subset X$.
+The scheme $D$ is regular, because the intersection of Cartier divisors $D\cap X_{k,\red}=\Spec \kappa(d)$
+is  zero-dimensional and regular. Writing $D=\Spec(R')$, we get a finite extension of discrete valuation rings
+$R\subset R'$. The residue field extension has degree one, hence $k'=R'/\maxid_{R'}$ is a copy of $k=R/\maxid_R$.
+By construction, the base-change $X_{R'}$
+acquires a section;  by abuse of notation, we use the same symbol for the
+effective Cartier divisor $D\subset X$ and the resulting section $D\subset X_{R'}$.
+Note, however, that the scheme $X_{R'}$   usually becomes non-normal, and contains $D$
+as a Weil divisor rather than a Cartier divisor.
+Let $X'\ra X_{R'}$ be the normalization. By the valuative criterion for properness,
+the inclusion $D\subset X_{R'}$ lifts to an inclusion $D\subset X'$.
+
+To proceed, consider the base-change $E'=E_{R'}$, which is a family of elliptic curves over $R'$.
+The section $D\subset X'$ yields a  rational map $X'\dashrightarrow E'$, which is 
+defined on the generic fiber. Choose  proper birational  maps $X'\leftarrow Y\ra E'$
+that restrict to identities on the generic fiber,  where $Y$ is a normal scheme.
+According to \cite{Raynaud 1970}, Theorem 8.2.1 the morphism $Y\ra\Spec(R')$ is cohomologically flat,
+because it admits a section. In turn, the closed fiber $C=Y\otimes_{R'}k'$ has cohomological invariants
+$h^0(\O_C)=h^1(\O_{C})=1$.
+
+Let $C_1,\ldots,C_r\subset C$ be those irreducible components
+that are strict transforms of irreducible components in $X'_{k'}$, endowed with reduced scheme structure.
+Then each $C_i$ dominates the elliptic curve $X_{k,\red}$,
+hence is a curve with cohomological invariants $h^0(\O_{C_i})\geq 1$ and  $h^1(\O_{C_i})\geq 1$,
+by Lemma \ref{covering} below. We now claim that  $r=1$.
+Seeking a contradiction,   suppose that $r\geq 2$. In the   exact sequence
+$\O_C\ra \bigoplus_{i=1}^r \O_{C_i}\ra \shF\ra 0$,
+the term on the right is a skyscraper sheaf, whereas the other sheaves are one-dimensional.
+From this we infer that the map  $H^1(C,\O_C)\ra \bigoplus H^1(C_i,\O_{C_i})$
+is surjective. Since each summand is a non-trivial vector space, we must have $r=1$, with $h^1(\O_{C_1})=1$.
+
+Now write $C_1'\subset Y$ for the strict transform of  $E_{k'}$. This is an elliptic curve, because the birational map $C_1'\ra E_{k'}$ 
+must be an  isomorphism.
+Arguing as in the preceding paragraph, we see $C_1= C_1'$.
+Summing up, the morphism $C_1\ra E_{k'}=E_k$ is an isomorphism. Using its inverse, we obtain
+the desired isogeny   $E_k=C_1\ra   X_{k,\red} $.
+\qed
+
+\medskip 
+It is easy to construct an example, even in arbitrary dimensions: Suppose for simplicity that $R$ contains a field of representatives,
+that is, a subfield that surjects onto the residue field, for example $R=k[[t]]$.
+Let $A$ be an abelian variety over $k$, endowed with a finite subgroup $G\subset A(k)$, 
+and suppose that there is a finite Galois extension $F\subset F'$ with
+Galois group $\Gal(F'/F)=G$ such that $R\subset R'$ has trivial residue field extension. 
+Consider the diagonal action on $A\times\Spec(R')$, which is free,
+and the resulting quotient $X=(A\times\Spec(R'))/G$. Then the generic fiber is a twisted form
+of $A\otimes_k F$, whereas the closed fiber contains the abelian variety $A/G$ as reduction.
+See the dissertation of Zimmermann  for more on this construction (\cite{Zimmermann 2019a}, \cite{Zimmermann 2021}).
+
+In light of general results of Serre, Tate and Honda on isogeny classes of abelian varieties over finite fields,
+the  above result has the following consequences for finite fields:
+
+\begin{corollary}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{reduction same zeta}
+Assumptions as in the proposition. If the residue field $k=\FF_q$ is finite, 
+then for each integer $r\geq 1$, the number of $\FF_{q^r}$-valued points
+in $E_k$ and $X_k$ coincide.
+\end{corollary}
+
+\proof
+According to  \cite{Tate 1982}, Theorem 1 any    two isogeneous elliptic curves over 
+the finite field $\FF_q$ have the same    zeta function, in other words,
+the same number of $\FF_{q^r}$-valued points, $r\geq 1$.
+\qed
+
+\begin{corollary}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{reduction isomorphic}
+Assumptions as in the proposition. If the residue field is $k=\FF_2$, then
+the elliptic curve $E_k$ is isomorphic to the scheme $X_{k,\red}$.
+\end{corollary}
+
+\proof
+We recalled in Proposition \ref{elliptic curves} that  there are five isomorphism classes of elliptic
+curves over $k=\FF_2$. In each case, the group of rational points is cyclic, and each of the
+groups $\ZZ/n\ZZ$, $1\leq n\leq 5$ does occur. Hence the number of rational points 
+already determines the isomorphism class, and the assertion follows from Corollary \ref{reduction same zeta}.
+\qed
+
+\medskip
+Note that according to the results of  Tate \cite{Tate 1982} and Honda \cite{Honda 1968},
+the isogeny classes of simple abelian varieties $A$ over a finite field $k=\FF_q$, $q=p^\nu$
+corresponds to the conjugacy classes of $q$-Weil numbers $\pi\in\CC$.
+
+In the proof for Proposition \ref{reduction isogeneous}, we have used the following observation on algebraic curves:
+
+\begin{lemma}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{covering}
+Let $k$ be a ground field, $E$ be an elliptic curve, $C$ be an integral proper curve, and $f:C\ra E$ be a dominant morphism.
+Then  $h^1(\O_C)\geq 1$. Moreover,  if $h^1(\O_C)=1$ then the curve $C$ is regular.
+\end{lemma}
+
+\proof
+Let $d\geq 1$ be the degree of the dominant morphism $f:C\ra E$.
+The induced homomorphism $\Pic(E)\ra\Pic(C)$ comes with a norm map in the reverse direction (see \cite{EGA II} Section 6.5), 
+with the property $N_{C/E}(\shL|C)=\shL^{\otimes d}$ for all invertible sheaves $\shL$ on $E$.
+
+To check $h^1(\O_C)\geq 1$, we may assume that $k$ is separably closed.
+Seeking a contradiction, we assume that $h^1(\O_C)=0$, such that $\Pic^0_{C/k}$ is trivial.
+We conclude that the abelian group $\Pic^0(E)=E(k)$ is annihilated by $d$.
+By Bertini's Theorem (for example \cite{EGA V}, Proposition 4.3 or \cite{Jouanolou 1983}, Chapter I, Theorem 6.3), we find some smooth divisor $D\subset E$ that is disjoint
+from the scheme $E[d]$ of $d$-torsion. Each point $a\in D$ of this subscheme is rational,
+because $k$ is separably closed. The corresponding invertible sheaf $\shL=\O_E(a-0_E)$
+ has $\shL^{\otimes d}\neq \O_E$, contradiction.
+
+Now suppose that $h^1(\O_C)=1$. 
+It remains to check that $C$ is regular.
+Let $C'\ra C$ be the normalization. The short exact sequence $0\ra\O_C\ra\O_{C'}\ra\shF\ra 0$
+yields a long exact cohomology sequence
+$$
+0\ra H^0(C,\O_C)\ra H^0(C',\O_{C'})\ra H^0(C,\shF)\ra H^1(C,\O_C)\ra H^1(C',\O_{C'})\ra 0.
+$$
+The term on the right does not vanish, by the preceding paragraph, hence the map on the right is bijective.
+Thus $H^1(C,\O_C)$ is a one-dimensional  vector space over $k=H^0(C,\O_C)$. It is also a vector space over the field extension $k'=H^0(C',\O_{C'})$,
+and we infer $k=k'$.
+Then the above exact sequence   gives $h^0(\shF)=0$,   whence the torsion sheaf $\shF$ vanishes.
+Thus the one-dimensional scheme $C$ is normal, hence regular.
+\qed
+
+
+%===========================================================

@@ -1,0 +1,138 @@
+% Source-derived chapter 02: Splitting loci
+% Original source: refined-brill-noether-theory-hurwitz-spaces
+\chapter{Splitting loci}
+\label{refined-brill-noether-theory-hurwitz-spaces-chapter-02}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+
+\begin{remark}[Source section]
+\label{refined-brill-noether-theory-hurwitz-spaces-chapter-02-source}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Splitting loci
+\label{split}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+Let $B$ be a finite type scheme over a field and $\pi: \pp^1 \times B \rightarrow B$ the projection. 
+Given a vector bundle $E$ on $\pp^1 \times B$, the base $B$ is stratified by \textit{splitting loci} of $E$, defined by
+\[\Sigma_{\vec{e}}(E) := \{b \in B : E|_{\pi^{-1}(b)} \cong \O(\vec{e})\}.\]
+The list of integers $h^0(\pp^1, \O(\vec{e})(m))$ for all $m \in \zz$ determines the splitting type $\vec{e}$: In fact, the multiplicity of $\O_{\pp^1}(-j)$ as a summand of $E$ is equal to the second difference function evaluated at $j$ of the Hilbert function $m \mapsto h^0(\pp^1, E(m))$ (see e.g. \cite[Lemma 5.6]{ES}).
+In families, uppersemicontinuity of cohomology on fibers of $\pi$ constrains which splitting types can specialize to others. Given two splitting types $\e = (e_1, \ldots, e_k)$ and $\ee = (e_1', \ldots, e_k')$, we write $\ee \leq \e$ if $e_1'+\ldots + e_j' \leq e_1+\ldots+e_j$ for all $j$. 
+For each rank and degree, there is a unique maximal splitting type called the \textit{balanced} splitting type, which is characterized by the condition $|e_i - e_j| \leq 1$ for all $i, j$. We denote the \textit{balanced bundle} of rank $r$ and degree $d$ by $B(r, d)$.
+We define \textit{splitting degneracy loci} by
+\begin{equation} \label{u}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\overline{\Sigma}_{\vec{e}}(E) := \bigcup_{\ee \leq \e} \Sigma_{\vec{e}}(E).
+\end{equation}
+
+Recall that the \textit{expected codimension} of $\Sigma_{\vec{e}}(E)$ is
+\[u(\vec{e}) := h^1(\pp^1, End(\O(\vec{e}))) = \sum_{i < j} \max \{0, e_j - e_i - 1\},\]
+which is the dimension of the deformation space of $\O(\vec{e})$.
+In general, $\overline{\Sigma}_{\vec{e}}(E)$ is always closed, but need not be the closure of $\Sigma_{\vec{e}}(E)$.
+However, in the case that all splitting loci have the expected dimension, the following lemma shows $\overline{\Sigma}_{\vec{e}}(E)$ is the closure of $\Sigma_{\vec{e}}(E)$. Thus, no confusion should result from this notation.
+\begin{Lemma}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\notready \label{low}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+Let $E$ be a vector bundle on $\pi: \pp^1 \times B \rightarrow B$ with $B$ irreducible. If $\Sigmabar_{\vec{e}}(E)$ is non-empty, then every component of $\Sigmabar_{\vec{e}}(E)$ has at least the expected dimension. In particular, if all $\Sigma_{\vec{e}}(E)$ have the expected dimension, then $\overline{\Sigma}_{\vec{e}}(E)$ is the closure of $\Sigma_{\vec{e}}(E)$.
+\end{Lemma}
+\begin{proof}
+Let $\E$ be the universal bundle over the moduli stack $\B$ of vector bundles on $\pp^1$ bundles. Then $\Sigmabar_{\vec{e}}(\E)$ has codimension $u(\vec{e})$ and
+$\Sigmabar_{\vec{e}}(E)$ is its preimage under the induced map $B \rightarrow \B$. Codimension can only decrease under pullback so $\codim \Sigmabar_{\vec{e}}(E) \leq u(\vec{e})$. This applies on any open set of $B$, so every component of $\Sigmabar_{\vec{e}}(E)$ has at least the expected dimension.
+If all splitting loci have the expected dimension, every component of $\Sigmabar_{\vec{e}}(E) \backslash \Sigma_{\vec{e}}(E)$ has dimension less than the expected dimension of $\Sigmabar_{\vec{e}}(E)$. Thus, all of $\Sigmabar_{\vec{e}}(E) \backslash \Sigma_{\vec{e}}(E)$ must lie in the closure of $ \Sigma_{\vec{e}}(E)$.
+\end{proof}
+
+We now realize the Brill-Noether splitting loci defined in the introduction as splitting loci of a vector bundle on $\pp^1 \times \Pic^d(C)$.
+Let $f\colon  C \rightarrow \pp^1$ be a degree $k$, genus $g$ cover and consider the following commuting triangle
+\begin{center}
+\begin{tikzcd}
+&C \times \Pic^d(C) \arrow{r}{f \times \mathrm{id}} \arrow{rd}[swap]{\nu} & \pp^1 \times \Pic^d(C) \arrow{d}{\pi}\\
+& & \Pic^d(C).
+\end{tikzcd}
+\end{center}
+Let $\mathcal{L}$ be a Poincar\'e line bundle on $C \times \Pic^d(C)$, that is, a line bundle with the property that $\L|_{\nu^{-1}[L]} \cong L$ (see e.g. \cite[\S IV.2]{ACGH}).
+The push forward $\E := (f \times \mathrm{id})_*\L$ is a vector bundle on $\pp^1 \times \Pic^d(C)$ with the property that $\E|_{\pi^{-1}[L]} \cong f_*L$.
+In other words, the Brill-Noether splitting loci defined in the introduction are the splitting loci of $\E$:
+\[\Sigma_{\vec{e}}(C, f) = \Sigma_{\vec{e}}(\E) \qquad \text{and} \qquad \Sigmabar_{\vec{e}}(C, f) = \overline{\Sigma}_{\vec{e}}(\E).\]
+ By Riemann-Roch, the degree of $\E$ on a fiber of $\pi$ is
+\[
+\deg \E|_{\pi^{-1}[L]} = \chi(C, \E|_{\pi^{-1}[L}]) - \rank \E|_{\pi^{-1}[L]} = \chi(L) - k = d - g + 1 - k.
+\]
+
+It follows from the definitions that
+\begin{equation} \label{weq}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+W^r_d(C) = \bigcup_{\substack{\vec{e} \\ h^0(\O(\vec{e})) \geq r+1}} \Sigma_{\vec{e}}(C, f) = \bigcup_{\substack{\vec{e} \text{ maximal}\\ h^0(\O(\vec{e})) \geq r+1}} \overline{\Sigma}_{\vec{e}}(C, f).
+\end{equation}
+That is, to characterize contributions of splitting loci to $W^r_d(C)$ we are interested in splitting types that are maximal with respect to the partial ordering among those satisfying $h^0(\O(\vec{e}))\geq r+1$.
+
+\begin{Lemma}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\notready \label{wlem}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+Let $d' = d - g + 1 - k$ and suppose $r > d - g$.
+The maximal splitting types of rank $k$, degree $d'$ among those satisfying $h^0(\O(\vec{e}))\geq r+1$ 
+are 
+\[\vec{w}_{r,\ell} := B(k-r-1+\ell, d'-\ell) \oplus B(r+1-\ell, \ell)\]
+for $\max\{0, r+2-k\} \leq \ell \leq r$ such that $\ell = 0$ or $\ell \leq g - d + 2r + 1 - k$. Moreover,
+\[u(\vec{w}_{r, \ell}) = g - \rho(g, r-\ell, d) + \ell k.\]
+\end{Lemma}
+\begin{remark}
+\source{refined-brill-noether-theory-hurwitz-spaces}
+\notready
+If $r \leq d - g$ we automatically have $W^r_d(C) = \Pic^d(C)$.
+As Pflueger points out in \cite[Remarks 1.6 and 3.2]{Pf},  the codimension $g - \rho(g, r-\ell, d) + \ell k$ is quadratic in $\ell$, achieving its minimum at $\ell_0 = \frac{1}{2}(g - d +2r + 1-k)$.
+Our lower bound $r + 2 - k$ is the same distance from the minimum $\ell_0$ as Pflueger's upper bound $g - d + r - 1$. From this, it is not hard to see that the minimum over $\ell$ in our range is the same as Pflueger's minimum.
+\end{remark}
+\begin{proof}
+The assumption $r > d - g$ implies $k - r - 1 + \ell < \ell - d'$ so $B(k-r-1+\ell, d'-\ell)$ consists of entirely negative summands.
+Requiring that the rank of this vector bundle is positive gives our lower bound $\ell \geq r + 2 - k$.
+
+
+
+First we show every $\vec{e}$ with $h^0(\O(\vec{e})) \geq r+1$ is less than $\vec{w}_{r,\ell}$ for some $\ell$.
+We may write $\O(\vec{e}) = N \oplus P$ where $N$ consists of negative summands, and $P$ consists of nonnegative summands. If $h^0(\pp^1, P) > r + 1$, then the splitting type obtained from $\vec{e}$ by decreasing the largest summand by one and increasing the lowest summand by one is more balanced than $\vec{e}$ and still has at least $r+1$ sections. Hence, it suffices to consider the case $h^0(\pp^1, P) = r +1$. Then, $\vec{e} \leq \vec{w}_{r,\ell}$ for $\ell = \deg P$.
+
+By construction, the only splitting types more balanced than $\vec{w}_{r,\ell}$ are obtained from $\vec{w}_{r,\ell}$ by lowering a summand in $B(r+1 - \ell, \ell)$ and raising a summand in $B(k-r-1+\ell, d'-\ell) $. This produces a splitting type with less than $r+1$ global sections unless $\ell > 0$ and $B(k-r-1+\ell, d'-\ell)$ has a summand of degree $-1$. In that case, we see $\vec{w}_{r,\ell} < \vec{w}_{r, \ell-1}$. Thus, $\vec{w}_{r,\ell}$ is maximal precisely when $\ell = 0$ or all summands of $B(k-r-1+\ell, d'-\ell)$ are degree at most $-2$. The latter means
+$2(k - r - 1 + \ell) \leq \ell - d'$, which is equivalent to $\ell \leq g - d + 2r + 1 - k$.
+
+Finally, the expected codimension of $\vec{w}_{r,\ell}$ is 
+\begin{align*}
+u(\vec{w}_{r,\ell}) &= h^1(\pp^1, End(\vec{w}_{r,\ell})) = h^1(\pp^1, Hom(B(r+1 - \ell, \ell), B(k - r - 1 + \ell, d' - \ell)) \\
+&= - \chi(\pp^1, Hom(B(r+1 - \ell, \ell), B(k - r - 1 + \ell, d' - \ell)))\\
+&= \ell(k - r - 1 + \ell) - (d' - \ell)(r+1 - \ell) - (r + 1 - \ell)(k - r - 1 + \ell) \\
+&= \ell k -(r + 1 - \ell)( d -g - r + \ell). \qedhere
+\end{align*}
+\end{proof}
+
+\begin{Example}
+The following table lists the ``balanced plus balanced" splitting types of rank $5$ and degree $-4$ with at least $4$ global sections. The first three are maximal.
+\begin{center}
+\begingroup
+\setlength{\tabcolsep}{8pt} % Default value: 6pt
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{c||c|c|c|c}
+$\ell$ & 0 & 1 & 2 & 3 \\ [2pt]
+\hline
+\hline
+$\vec{w}_{3,\ell}$ & $(-4, 0, 0, 0, 0)$ & $(-3, -2, 0, 0, 1)$ & $(-2, -2, -2, 1, 1)$ & $(-2, -2, -2, -1, 3)$ \\ [2pt]
+\hline
+$u(\vec{w}_{3,\ell})$ & $12$ & $11$ & $12$ & $15$
+\end{tabular}
+\endgroup
+\end{center}
+\vspace{.1in}
+Notice that $w_{3,3} < w_{3,2}$ in the partial ordering, showing necessity of the condition $\ell \leq g - d + 2r + 1 - k$ in Lemma \ref{wlem}. 
+Corollary \ref{cor} says that for a general pentagonal curve, every component of $W^3_g(C)$ has dimension $g - 11$ or $g - 12$. Moreover, there is at least one component of dimension $g - 11$ and at least  two components of dimension $g - 12$ when these quantities are nonnegative.
+\end{Example}
+
+Assuming Theorem \ref{main}, Corollary \ref{cor} now follows.
+
+\begin{proof}[Proof of Corollary \ref{cor}]
+Equation \eqref{weq} and Lemma \ref{wlem} show that $W^r_d(C)$ is the union of $\Sigmabar_{\vec{w}_{r,\ell}}(C, f)$ for $\max\{0, r+2 - k\} \leq \ell \leq r$
+such that $\ell = 0$ or $\ell \leq g - d + 2r + 1 - k$. Theorem \ref{main} asserts that $\Sigma_{\vec{w}_{r,\ell}}(C, f)$ is smooth of pure dimension $g - u(\vec{w}_{r,\ell})$ whenever this quantity is nonnegative, and Lemma \ref{low} guarantees that $\Sigmabar_{\vec{w}_{r,\ell}}(C, f)$ is its closure.
+\end{proof}

@@ -1,0 +1,386 @@
+% Source-derived chapter 07: Variations of Hodge structure on an analytically general curve
+% Original source: geometric-local-systems-general-curves-isomonodromy
+\chapter{Variations of Hodge structure on an analytically general curve}
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-07}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+\begin{remark}[Source section]
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-07-source}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\source{geometric-local-systems-general-curves-isomonodromy}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Variations of Hodge structure on an analytically general curve
+\label{section:hodge-theoretic-results}
+\source{geometric-local-systems-general-curves-isomonodromy}
+We prove \autoref{theorem:isomonodromic-deformation-CVHS} in
+\autoref{subsection:iso-def-proof},
+\autoref{theorem:very-general-VHS} in \autoref{subsection:very-general-vhs}, 
+\autoref{corollary:abelian-schemes} in
+\autoref{subsubsection:geometric-origin-proof},
+and
+\autoref{corollary:geometric-local-systems} in
+\autoref{subsubsection:abelian-scheme-proof}.
+Finally, we prove an additional application concerning maps from very general
+curves to Hilbert modular varieties in \autoref{subsection:very-general-vhs}.
+
+
+
+\subsection{The proof of \autoref{theorem:isomonodromic-deformation-CVHS}}
+\label{subsection:iso-def-proof}
+\source{geometric-local-systems-general-curves-isomonodromy}
+We start with the following lemma, which gives a useful criterion for showing a
+monodromy representation is unitary.
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:unitary}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $(C, x_1, \ldots, x_n)$ is an $n$-pointed hyperbolic curve and $(E,
+	\nabla)$ is a flat vector bundle on $C\setminus\{ x_1, \ldots, x_n\}$
+	underlying a polarizable complex variation of Hodge structure. Let
+	$(\overline{E}_\star, \overline{\nabla})$ be the Deligne canonical extension of $(E, \nabla)$ to a flat vector bundle on $C$ with regular singularities at the $x_i$, with the parabolic structure associated to $\overline{\nabla}$.
+	If $\overline{E}_\star$ is semistable, then the representation of $\pi_1(C\setminus\{x_1, \cdots, x_n\})$ 
+	associated to $(E, \nabla)$ is unitary.
+\end{lemma}
+%We first indicate how \autoref{lemma:unitary} follows from 
+%\cite{simpson:iterated-destabilizing-modifications}, and then give a
+%separate, self-contained proof.
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:simpson-reference}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	As pointed out by a referee, \autoref{lemma:unitary} can also be deduced from the results of
+	\cite{simpson:iterated-destabilizing-modifications} if $D=\emptyset$, see \cite[\S5.4]{simpson:iterated-destabilizing-modifications}. 
+	%Denote the Hodge filtration on $\overline{E}_\star$ by $F$.
+	%Using \autoref{prop:basic-facts}, after replacing $(\overline{E}_\star,
+	%\overline{\nabla})$ with a direct summand, we can assume
+	%$(\overline{E}_\star, \overline{\nabla})$
+	%is irreducible, so that the associated Higgs bundle $(\on{gr}_F\overline{E}_\star, \theta)$
+	%is stable. 
+	%Using 
+	%\cite[Theorem 2.5]{simpson:iterated-destabilizing-modifications}, there
+	%is a Griffiths-transverse filtration of $\overline{E}_\star$ whose associated graded Higgs bundle semistable. Note that the Hodge filtration $F$ and the trivial filtration both satisfy these conditions.
+	 
+	%By \cite[Proposition 4.3]{simpson:iterated-destabilizing-modifications},
+	%up to shifting the indices on the filtration, this filtration is unique as $(\on{gr}_F\overline{E}_\star, \theta)$ is stable. Hence the Hodge filtration is trivial.
+	%Because the Hodge filtration is trivial, the definition of PVHS implies the monodromy of $(\overline{E}_\star, \overline{\nabla})$
+	%preserves a definite Hermitian form $Q$ (the polarization), and so the monodromy must factor
+	%through the unitary group for $Q$, as desired. 
+	Presumably a parabolic version of Simpson's results would imply  \autoref{lemma:unitary} in general, but as far as we know such results have not yet appeared in the literature. 
+\end{remark}
+
+\begin{proof}[Proof of \autoref{lemma:unitary}]
+	By \autoref{prop:basic-facts}(2), we may write
+	$\mathbb{V}:=\ker(\nabla)$ as $$\mathbb{V}:=\bigoplus_i
+	\mathbb{L}_i\otimes W_i$$ where the $\mathbb{L}_i$ each have irreducible
+	monodromy and also underlie polarizable variations of Hodge structure,
+	and the $W_i$ are constant complex Hodge structures.
+	It suffices to show the representation associated to each $\mathbb L_i$ has unitary monodromy.
+	We may therefore reduce to the case that $\mathbb{V} = \mathbb L_i$ and assume
+	that $(E,\nabla)$ has irreducible monodromy.
+%Let $(\overline{E}, \overline{\nabla})$ be the Deligne canonical extension of
+%$(E, \nabla)$ from $C \setminus \{ x_1, \ldots, x_n\}$ to $C$. 
+
+
+Let $i$ be maximal such that $F^i\overline{E}_\star$ is non-zero. 
+Since $\overline{E}_\star$ is semistable, it follows from
+\autoref{corollary:unstable} that
+that the natural map 
+\begin{align*}
+	F^i\overline{E}_\star \to
+	F^{i-1}\overline{E}_\star/F^i\overline{E}_\star\otimes \omega_C
+\end{align*}
+induced by the connection is zero, i.e.~the connection preserves
+$F^i\overline{E}_\star$. By irreducibility
+of the monodromy of $(E, \nabla)$, we must have that $F^i\overline{E}_\star$ equals
+$\overline{E}_\star.$
+But in this case $({E}, \nabla)$ is unitary, as the monodromy preserves the polarization, a definite Hermitian form.
+\end{proof}
+
+
+\subsubsection{}
+We now recall  the setup of
+\autoref{theorem:isomonodromic-deformation-CVHS}. Let
+$(C, x_1, \cdots, x_n)$ 
+be an $n$-pointed
+hyperbolic curve 
+of genus $g$.
+Let $({E}, \nabla)$ be a flat vector bundle on
+$C$ with $\on{rk}{E}<2\sqrt{g+1}$ such that $(E,\nabla)$ has regular singularities at the $x_i$. Our goal is to show that if an isomonodromic
+deformation of ${(E, \nabla)}$ to an analytically general nearby $n$-pointed curve underlies a polarizable complex variation of Hodge structure, then $({E},\nabla)$ has unitary monodromy.
+
+\begin{proof}[Proof of \autoref{theorem:isomonodromic-deformation-CVHS}]
+As the hypothesis is about the restriction of $(E, \nabla)$ to $C\setminus \{x_1, \cdots, x_n\}$, we may without loss of generality assume $(E,\nabla)$ is the Deligne canonical extension of $(E, \nabla)|_{C\setminus \{x_1, \cdots, x_n\}}$. As local systems underlying complex polarizable variations of Hodge structure are semisimple by \autoref{prop:basic-facts}(2), we may moreover assume that $(E, \nabla)|_{C\setminus \{x_1, \cdots, x_n\}}$ has irreducible monodromy.
+
+Endow $E$ with the parabolic structure associated to $\nabla$, and denote the
+corresponding parabolic bundle by $E_\star$.
+After replacing $(C, x_1, \cdots, x_n)$ with an analytically general nearby
+curve, and $(E,\nabla)$ with its isomonodromic deformation to this curve, we may
+assume by \autoref{cor:stable-parabolic} that $E_\star$ is semistable.	Thus $(E, \nabla)$ has unitary monodromy by \autoref{lemma:unitary}.
+\end{proof}
+
+\subsection{The proof of \autoref{theorem:very-general-VHS}} 
+\label{subsection:very-general-vhs}
+\source{geometric-local-systems-general-curves-isomonodromy}
+The proof of \autoref{theorem:very-general-VHS} follows  
+from the integrality assumption and the following lemma; this lemma is well-known and appears e.g.~in the course of the proofs of \cite[Proposition 4.2.1.3]{katz:pcurvature-and-hodge} or \cite[Proposition 8.2]{esnault2020rigid}, but we have included a proof in the interests of self-containedness.
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:integral-and-unitary-implies-finite}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $\Gamma$ is a group,
+	%$(C, x_1, \ldots, x_n)$ is an analytically general smooth proper
+	%$n$-pointed curve of genus $g$, 
+	$K$ is a number field, and $\rho$ is
+	a representation $$\rho: \Gamma\to \on{GL}_m(\mathscr{O}_K).$$
+	If for each embedding $\iota: K\hookrightarrow \mathbb{C}$ the 
+	representation $\rho\otimes_{\mathscr{O}_K, \iota} \mathbb{C}$ is unitary, then
+	$\rho$ has finite image.
+\end{lemma}
+\begin{proof}
+Indeed, for $\iota: K\hookrightarrow\mathbb{C}$ an embedding, let $$\rho_\iota:
+\Gamma\to \on{GL}_m(\mathbb{C})$$ be the corresponding representation $\rho\otimes_{\mathscr{O}_K, \iota} \mathbb{C}$. First,
+$$\prod_\iota \rho_\iota: \Gamma\to \prod_\iota \on{GL}_m(\mathbb{C})$$ has
+image contained in a compact set by the definition of being unitary. 
+Moreover, the image of $$\mathscr{O}_K\hookrightarrow \prod_\iota \mathbb{C}$$
+is discrete, since the difference of any two distinct elements of
+$\mathscr{O}_K$ has norm at least $1$.
+Hence the image of $\prod_\iota \rho_\iota$ is discrete and has compact closure, and is therefore finite.
+\end{proof}
+
+
+Let $K$ be a number field with ring of integers
+$\mathscr{O}_K$. Let $(C, x_1, \cdots, x_n)$ be an analytically general
+hyperbolic $n$-pointed curve of genus $g$, and let $\mathbb{V}$ be a $\mathscr{O}_K$-local system on $C\setminus\{x_1, \cdots, x_n\}$ with infinite monodromy.
+ Suppose that for each embedding $\iota: \mathscr{O}_K\hookrightarrow
+ \mathbb{C}$, $\mathbb{V}\otimes_{\mathscr{O}_K, \iota}\mathbb{C}$ underlies a
+ polarizable complex variation of Hodge structure. Our goal is to prove
+ \autoref{theorem:very-general-VHS}, which states that $$\on{rk}_{\mathscr{O}_K}(\mathbb{V})\geq 2\sqrt{g+1}.$$
+
+\begin{proof}[Proof of \autoref{theorem:very-general-VHS}]
+	We use 
+	$\mathscr{T}_{g,n}$ to denote the universal cover of $\mathscr{M}_{g,n}$.
+For a fixed representation
+$\rho: \pi_1(C\setminus\{x_1, \cdots, x_n\}))\to \on{GL}_m(\mathscr{O}_K)$
+let $T_\rho$ denote the set of $[(C', x_1', \cdots, x_n')]\in
+\mathscr{T}_{g,n}$,
+for which the associated $\mathscr O_K$-local system $\mathbb V$ has the
+following property:
+for each embedding $\iota: \mathscr{O}_K\hookrightarrow \mathbb{C}$,
+$\mathbb{V}\otimes_{\mathscr{O}_K, \iota}\mathbb{C}$ underlies a polarizable
+complex variation of Hodge structure on $C' \setminus \{x_1', \ldots, x_n'\}$.
+Let $M_\rho$ denote the image of $T_\rho$ under the covering map
+$\mathscr{T}_{g,n} \to \mathscr M_{g,n}$.
+
+Our goal is to show that an analytically very general point of $\mathscr M_{g,n}$ lies in the complement of
+the union of the $M_\rho,$ where $\rho$ ranges over the set of representations
+of $\pi_1(C\setminus\{x_1, \cdots, x_n\})\to \on{GL}_r(\mathscr{O}_K)$, with
+infinite image, for $K$ a number field, and $r<2\sqrt{g+1}$.
+Since there are only countably many such representations $\rho$,
+it is enough to show that an analytically very general point lies in the complement
+of $M_\rho$ for fixed $\rho$.
+Since $(C, x_1, \ldots, x_n)$ is hyperbolic, 
+$\mathscr{T}_{g,n} \to \mathscr M_{g,n}$
+is a covering space of countable degree, and so the image of a closed analytic
+set is locally contained in a countable union of closed analytic subsets.
+It therefore suffices to show that for any $\rho$ with infinite monodromy and
+rank $< 2 \sqrt{g+1}$, $T_\rho$ is contained in a closed analytic subset
+of $\mathscr T_{g,n}$.
+
+We now show such $T_\rho$ as above are contained in a closed analytic subset of
+$\mathscr{T}_{g,n}$.
+Indeed, suppose $\mathbb V$ is the local system associated to $\rho$ on some curve $C\setminus\{x_1, \cdots, x_n\}$, and that for each embedding $\iota: \mathscr{O}_K\hookrightarrow \mathbb{C}$, $\mathbb{V}\otimes_{\mathscr{O}_K, \iota} \mathbb{C}$, underlies a polarizable complex variation of Hodge structure. 
+It is enough to show this complex polarizable variation of Hodge structure does
+not extend to an analytically general nearby curve.
+Indeed, if it did,
+\autoref{theorem:isomonodromic-deformation-CVHS} implies
+$\prod_{\iota: \mathscr O_K \to \mathbb C} \rho_\iota$
+has unitary monodromy,
+and
+\autoref{lemma:integral-and-unitary-implies-finite} implies its monodromy is
+finite.
+This contradicts our assumption that $\rho$ has infinite monodromy. \end{proof}
+
+\subsection{}\label{subsubsection:geometric-origin-proof}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\begin{proof}[Proof of \autoref{corollary:geometric-local-systems}]
+Let $g\geq 1$ be an integer and let $(C, x_1, \cdots, x_n)$ be an analytically
+general hyperbolic $n$-pointed curve of genus $g$. Let $U\subset C\setminus\{x_1, \cdots, x_n\}$ be a dense Zariski-open subset. Let $f: Y\to U$ be a smooth proper morphism, $i\geq 0$ an integer, and suppose $\mathbb{V}$ is a complex local system on $(C, x_1, \cdots, x_n)$ with infinite monodromy such that $\mathbb{V}|_U$ is a summand of $R^if_*\mathbb{C}$. Then we wish to show that $\dim_{\mathbb{C}}\mathbb{V}\geq 2\sqrt{g+1}$.
+
+It suffices to show that $\mathbb{V}$ satisfies the hypotheses of
+\autoref{theorem:very-general-VHS}. The existence of an
+$\mathscr{O}_K$-structure follows from the fact that $R^if_*\mathbb{C}$ has a
+$\mathbb{Z}$-structure. 
+Let $\mathbb{W}$ be the corresponding $\mathscr{O}_K$-local system. All that remains is to verify that for each embedding
+$\iota:\mathscr{O}_K\hookrightarrow \mathbb{C}$, the corresponding complex local
+system $\mathbb{W}_\iota:=\mathbb{W}\otimes_{\mathscr{O}_K, \iota} \mathbb{C}$
+underlies a polarizable complex variation of Hodge structure. But  each such
+embedding yields a summand $\mathbb{W}_\iota|_U$ of $R^if_*\mathbb{C}$,
+Galois-conjugate to the original embedding $\mathbb{W}|_U\subset
+\mathbb{V}|_U\subset R^if_*\mathbb{C}.$ Any such summand underlies a polarizable
+complex variation of Hodge structure, by \autoref{prop:basic-facts}(2). Now
+$\mathbb{W}_\iota|_U$ extends from $U$ to $C\setminus \{x_1, \cdots, x_n\}$ and
+so the same is true for the corresponding complex polarizable variation of Hodge
+structure by \cite[Corollary 4.11]{schmid1973variation}, which completes the proof.
+\end{proof}
+
+\subsection{}
+\label{subsubsection:abelian-scheme-proof}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\begin{proof}[Proof of \autoref{corollary:abelian-schemes}]
+	The statement for relative curves $h: S \to C \setminus \{x_1, \ldots, x_n\}$ reduces to the statement for abelian varieties
+	upon taking the relative Jacobian $\on{Pic}^0_h$, as the Torelli theorem implies that
+	$h$ is isotrivial if $\on{Pic}^0_h$ is.
+	Hence, it suffices to show that any abelian scheme $f: A \to C \setminus\{x_1,
+	\ldots, x_n\}$ of relative dimension $r < \sqrt{g+1}$ is isotrivial.
+	If $r < \sqrt{g+1}$ then $\rk R^1 f_* \mathbb C = 2r < 2 \sqrt{g+1}$, so $R^1 f_* \mathbb C$ has
+	finite monodromy by \autoref{corollary:geometric-local-systems}.
+	To show $f$ is isotrivial, it is enough to show $f$ is trivial after a finite base change. 
+	After passing to a finite \'etale cover of
+	$C \setminus\{x_1,\ldots, x_n\}$, we may therefore assume
+	$R^1 f_* \mathbb C$ has trivial monodromy.
+	In this case, the theorem of the fixed part 
+	\cite[Corollaire 4.1.2]{deligne:hodge-ii}
+	implies that the first part of the Hodge filtration $F^1(R^1 f_* \mathbb
+	C) \subset R^1 f_* \mathbb C$ is also a trivial local system.
+	Since $A$ is a quotient of 
+	$F^1(R^1 f_* \mathbb C)^\vee$ by the constant local system
+	$(R^1 f_* \mathbb Z)^\vee$,
+	%$R^{2g-1} f_* \mathbb Z \simeq \wedge^{2g-1} R^1 f_* \mathbb Z$,
+	(on fibers this local system is identified with the first homology of $f$
+	via Poincar\'e duality,)
+	$f$ is also trivial.
+\end{proof}
+
+
+\subsection{}\label{subsubsection:non-density-proof}
+\source{geometric-local-systems-general-curves-isomonodromy}
+We next prove that local systems of geometric origin with low rank are not
+Zariski dense in the character variety of an analytically very general genus $g$
+curve.
+Recall that we use $\mathscr{M}_{B,r}(X)$ for the character variety
+parametrizing conjugacy classes of semisimple representations $$\rho:
+\pi_1(C\setminus\{x_1, \cdots, x_n\})\to \on{GL}_r(\mathbb{C}).$$
+
+\begin{proof}[Proof of \autoref{corollary:non-density-of-geometric-local-systems}]
+Let $(C, x_1, \cdots, x_n)$ be an analytically very general hyperbolic
+$n$-pointed curve of genus $g$, and fix an integer $r$ with $1<r<2\sqrt{g+1}$. 
+Note that we must have $g \neq 0$ because there are no integers $r$ with $1 < r
+< 2 \sqrt{0 + 1}$.
+By \autoref{corollary:geometric-local-systems}, the points of
+$\mathscr{M}_{B,r}(C\setminus\{x_1, \cdots, x_n\})$ of geometric origin
+correspond to representations $\rho$ with finite image whenever $r < 2
+\sqrt{g+1}$. 
+We wish to show these finite image representations are not Zariski dense in
+$\mathscr{M}_{B,r}(C\setminus\{x_1, \cdots, x_n\})$.
+This follows from
+by \autoref{lemma:finite-image-not-dense}.
+upon choosing a topological identification $C\setminus\{x_1, \cdots, x_n\} \simeq
+\Sigma_{g,n}$. 
+\end{proof}
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:finite-image-not-dense}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $\Sigma_{g,n}$ be a topological $n$-punctured genus $g$ surface with
+	basepoint $p \in \Sigma_{g,n}$. For $r > 1$, the set of representations $\rho: \pi_1(\Sigma_{g,n},p) \to
+	\on{GL}_r(\mathbb C)$ with finite image are not Zariski dense in the character
+	variety $\mathscr{M}_{B,r}(\Sigma_{g,n}, p)$.
+\end{lemma}
+\begin{proof}
+%	 It suffices to
+% prove non-density of representations with finite image in the \emph{framed}
+% character variety
+% $$\mathscr{M}_{B,r}^\square(\Sigma_{g,n}):=\on{Hom}(\pi_1(\Sigma_{g,n},p),
+% \on{GL}_r(\mathbb{C})).$$
+
+ For $s\in \mathbb{Z}_{>0}$, let $V_s\subset
+ \mathscr{M}_{B,r}(\pi_1(\Sigma_{g,n},p))$ be the closed subvariety
+	 consisting of those representations $\rho$ such that $$\on{Tr} [\rho(x)^s,
+	 \rho(y)^s]=\on{Tr}(\on{id})$$ for all $x,y\in \pi_1(\Sigma_{g,n},p)$.
+
+By Jordan's theorem (\cite[p.~91]{jordan1878memoire} or \cite[Theorem
+36.13]{curtis1966representation}) on finite subgroups of $\on{GL}_r(\mathbb{C})$,
+there is some constant $m_r$ such that for each finite subgroup $G\subset
+\on{GL}_r(\mathbb{C})$, there exists an abelian normal subgroup $H\subset G$ of index
+at most $m_r$. Hence $V_{(m_r!)}$ contains all representations with finite
+image. Thus it suffices to show $V_s$ is not all of
+$\mathscr{M}_{B,r}(\Sigma_{g,n})$ for any $s>0$. 
+
+We now write $$\pi_1(\Sigma_{g,n},p)=\left\langle a_1, \cdots, a_g, b_1,\cdots,
+b_g, \gamma_1, \cdots, \gamma_n \mid \prod_{i=1}^g [a_i,b_i]\cdot \prod_{j=1}^n
+\gamma_j\right\rangle$$ for the standard presentation of the fundamental group.
+If $g\geq 2$, let $$\rho: \pi_1(\Sigma_{g,n},p)\to \on{GL}_2(\mathbb{C})$$ be the representation defined by $$a_1 \mapsto \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$$
+$$a_2 \mapsto \begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix}$$
+and sending all other generators to the identity.  If $g=1$, hyperbolicity of
+$\Sigma_{g,n}$ implies $n>0$. Then $\pi_1(\Sigma_{g,n},x)$ is free on $n+1$ generators, and we may set $\rho$ to be a representation sending two of the generators to the matrices above, and all other generators to the identity. 
+Then $\rho$ does not lie in $V_s$ for any $s>0$ by direct computation. This completes the case $r = 2$. For the case that $r > 2$, the representation $\rho\oplus \on{triv}^{\oplus r-2}$ lies outside of $V_s$ for all $s$, for the same reason.
+\end{proof}
+
+\subsection{An application to Hilbert modular varieties}
+\label{subsection:hilbert-modular}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+Let $K$ be a totally real number field of degree $h$ over $\mathbb Q$, $\mathscr O_K$ its ring of integers, and 
+use $\mathscr X_K$ to denote the Hilbert modular stack parameterizing
+$h$-dimensional principally polarized abelian varieties $A$ with an injection
+$\mathscr O_K \hookrightarrow \on{End}(A)$.
+Using \autoref{corollary:abelian-schemes}, we find there are no nonconstant maps
+from an analytically very general $n$-pointed curve of genus $g$
+to the moduli stack of principally polarized abelian varieties of dimension $h$
+whenever $h \leq \sqrt{g+1}$, or equivalently when $g > h^2$.
+We now show that the analogous statement for Hilbert modular stacks holds
+whenever $g \geq 1$.
+In particular, this improved bound is independent of $h$.
+We thank Alexander Petrov for pointing out the following application.
+
+\begin{proposition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{proposition:hilbert-modular}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $\mathscr X_K$ be the Hilbert modular stack associated to a totally
+	real field $K$.
+	Let $(C, x_1, \ldots, x_n)$ be an analytically very general hyperbolic $n$-pointed
+	curve of genus $g \geq 1$.
+	Any map $\phi: C\setminus \{x_1, \ldots, x_n\} \to \mathscr X_K$ is constant.
+\end{proposition}
+\begin{proof}
+	We first use the map $\phi$ to produce a rank $2$ integral local system
+	on $C \setminus \{x_1, \ldots, x_n\}$.
+	A map $\phi: C\setminus \{x_1, \ldots, x_n\} \to \mathscr X_K$ yields an
+	abelian scheme $f: A \to C\setminus \{x_1, \ldots, x_n\}$ with an $\mathscr
+	O_K$-action. In particular, $R^1 f_* \mathbb Z$ is a 
+	complex PVHS of rank $2h$ with an	$\mathscr O_K$-action.
+	If $K$ has degree $h$, then this rank $2h$ local system may not be a
+	$\mathscr O_K$-local system, as its fibers may only be locally free, as opposed to free.
+	However, after passing to a finite extension $K'$ of $K$, such as the
+	Hilbert class field of $K$, any such rank $2$ locally free module
+	becomes a free module,
+	and so $R^1 f_* \mathbb Z
+	\otimes_{\mathscr O_K} \mathscr O_{K'}$ is an $\mathscr O_{K'}$-local system of rank $2$.
+	
+	We now show the map $\phi$ must be constant.
+	By construction,
+	for any embedding $\mathscr O_{K'} \to \mathbb C$, the local system
+$R^1 f_* \mathbb Z\otimes_{\mathscr O_K} \mathscr O_{K'} \otimes_{\mathscr
+O_{K'}} \mathbb C$ underlies a $\mathbb{C}$-PVHS. Hence by \autoref{theorem:very-general-VHS}, $R^1 f_* \mathbb Z\otimes_{\mathscr O_K} \mathscr O_{K'}$ has finite monodromy, as 
+\begin{align*}
+2 = \rk_{\mathscr O_K'}R^1 f_* \mathbb Z\otimes_{\mathscr O_K} \mathscr O_{K'} < 2 \sqrt{g+1}.
+\end{align*}
+Hence, the same holds for
+$R^1 f_* \mathbb Z$. 
+This implies the map $\phi$ is constant using the theorem of the fixed part
+\cite[Corollaire 4.1.2]{deligne:hodge-ii} (see the proof
+of \autoref{corollary:abelian-schemes} for a similar argument).
+\end{proof}

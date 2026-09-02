@@ -1,0 +1,311 @@
+% Source-derived chapter 06: The main cohomological results
+% Original source: canonical-representations-surface-groups
+\chapter{The main cohomological results}
+\label{canonical-representations-surface-groups-chapter-06}
+\source{canonical-representations-surface-groups}
+
+\begin{remark}[Source section]
+\label{canonical-representations-surface-groups-chapter-06-source}
+\source{canonical-representations-surface-groups}
+\source{canonical-representations-surface-groups}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: The main cohomological results
+\label{section:vanishing}
+\source{canonical-representations-surface-groups}
+
+In \autoref{subsection:rank-bound-proof}, we prove our main cohomological result, showing that higher direct images of 
+unitary systems on families of curves contain no low rank local systems.
+From this we derive a related vanishing result in \autoref{subsection:no-sections},
+which we will use later to establish cohomological rigidity of certain local systems.
+
+
+Throughout this section, we continue to use \autoref{notation:versal-family}.
+Namely, we use $\pi:\mathscr{C}\to \mathscr{M}$ for a versal family of
+$n$-pointed curves of genus $g$, and $\pi^\circ: \mathscr{C}^\circ \to \mathscr{M}$ for the
+associated punctured versal family of curves.
+
+\subsection{A rank bound}
+\label{subsection:rank-bound-proof}
+\source{canonical-representations-surface-groups}
+We now prove our main result on the cohomology of unitary local systems on versal families of curves,
+\autoref{theorem:rank-bound-subsystem}.
+That is, for $\mathbb V$ a unitary local system on $\mathscr C^\circ$, we
+will show that any nonzero
+sub-local system of $R^1 \pi^\circ_* \mathbb V$ has rank at
+least $2g-2\rk\mathbb{V}$.
+
+\begin{proof}[Proof of \autoref{theorem:rank-bound-subsystem} assuming
+	\autoref{lemma:low-rank-vector} (below)]
+Let $m \in \mathscr{M}$, $C=\pi^{-1}(m)$, $C^\circ = (\pi^{\circ})^{-1}(m)$
+and $D := C - C^\circ$.
+Let $(E, \nabla)$ denote the
+Deligne canonical extension
+to $C$ of the vector bundle $\mathbb V|_{C^\circ} \otimes \mathscr O_{C^\circ}$ with its tautological connection; $(E,\nabla)$ is a flat vector bundle on $C$ with regular singularities along $D$. The residues of $\nabla$ endow $E$ with the structure of a parabolic bundle $E_\star$, as described in \cite[Definition 3.3.1]{LL:geometric-local-systems}.
+By the Mehta-Seshadri correspondence \cite{mehta1980moduli},
+the parabolic bundle $E_\star$ is a sum of parabolically stable bundles, hence
+parabolically semistable. 
+
+The connection $\nabla$ on $\mathscr{H} := R^1 \pi^\circ_*\mathbb V \otimes_{\mathbb C}
+\mathscr O_{\mathscr M}$ induces an $\mathscr O_{\mathscr M}$-linear map
+\begin{align*}
+	F^1\mathscr{H} \xrightarrow{\overline{\nabla}} \mathscr{H}/F^1 \mathscr{H} \otimes \Omega_{\mathscr M}.
+\end{align*}
+as in \eqref{equation:shift-derivative}.
+\autoref{theorem:period-map-computation} identifies the fiber of this map at the point $m \in \mathscr M$ with the map
+\begin{align*}
+	\mu: H^0(C, E \otimes \omega_C(D)) &\to \Hom(H^0(C, E^\vee \otimes \omega_C),
+	H^0(C, \omega_C^{\otimes	2}(D))) \\
+v&\mapsto (u\mapsto B_E(v, u)) \end{align*}
+defined via $B_E$ from \eqref{equation:bilinear-pairing}. For $v\in H^0(C, E\otimes \omega_C(D))$, we denote by $\overline{\nabla}_m(v)$ the induced map 
+\begin{align*}
+ \overline{\nabla}_m(v): H^0(C, E^\vee \otimes \omega_C)& \rightarrow H^0(C, \omega_C^{\otimes	2}(D))\\
+u & \mapsto B_E(v, u).
+\end{align*}
+%$$\overline{\nabla}_m(v): H^0(C, E^\vee \otimes \omega_C)\to H^0(C,
+%\omega_C^{\otimes	2}(D))$$ $$u\%mapsto B_E(v, u).$$
+
+Our strategy is to observe that a sub-local system of $R^1\pi_*^\circ \mathbb{V}$ of low rank would provide us with a vector $v$ in $F^1\mathscr{H}_m$ so that the linear transformation $\overline{\nabla}_m(v)$ has low rank. This is in tension with \autoref{proposition:pairing-result} above, which will provide us with the required dimension bound.
+
+Now, suppose we have a nonzero irreducible sub-local system $\mathbb L \subset R^1 \pi^\circ_* \mathbb
+V$.
+We will show in \autoref{lemma:low-rank-vector} that, after possibly replacing $\mathbb{V}$ with its complex conjugate $\overline{\mathbb{V}}$, there is some nonzero $v \in
+F^1\mathscr{H}_m \simeq
+H^0(C, E \otimes \omega_C(D))$ for which
+$\overline{\nabla}_m(v)$ has rank (as a linear map) at most $\frac{\rk \mathbb L}{2}$. 
+Under the identification of
+\autoref{theorem:period-map-computation},
+we obtain that $\mu(v)$ has rank at most $\frac{\rk \mathbb L}{2}$. 
+Using \autoref{proposition:pairing-result}, $\rk \mathbb{V}=\rk
+E \geq g-\frac{\rk \mathbb L}{2}$. Upon rearranging, we find $\rk\mathbb{L}\geq 2g-2\rk\mathbb{V}$.
+\end{proof}
+
+We now complete the proof of \autoref{theorem:rank-bound-subsystem} by verifying
+the following lemma, which is essentially an application of the theorem of the
+fixed part.
+\begin{lemma}
+\source{canonical-representations-surface-groups}
+\notready\label{lemma:low-rank-vector}
+\source{canonical-representations-surface-groups}
+Suppose $\pi^\circ:\mathscr{C}^\circ\to \mathscr{M}$ is a punctured versal family of genus
+$g$ curves and $\mathbb{V}$ is a unitary local system on $\mathscr{C}^\circ$. 
+For $m \in \mathscr M$, let $\overline{\nabla}_m$ denote the fiber over $m$ of
+the map $F^1\mathscr{H} \xrightarrow{\overline{\nabla}} \mathscr{H}/F^1
+\mathscr{H} \otimes \Omega_{\mathscr M}$
+from \eqref{equation:shift-derivative}.
+Suppose 
+$\mathbb L \subset R^1 \pi^\circ_* \mathbb V$
+is a nonzero irreducible sub-local system.
+After possibly replacing $\mathbb{V}$ and $\mathbb L$ with their complex
+conjugates
+$\overline{\mathbb{V}}$ and $\overline{\mathbb L}$, there is some nonzero $v \in \mathbb L_m \cap F^1
+\mathscr H_m$ so that
+$\overline{\nabla}_m(v)$ has rank at most $\frac{\rk \mathbb L}{2}$.
+\end{lemma}
+\begin{proof}
+For a local system $\mathbb W$, let $\widetilde{\mathbb W}$ denote the
+corresponding local system with real structure as in
+\eqref{equation:real-construction}. Note that $$\widetilde{R^1 \pi^\circ_* \mathbb{V}}=R^1 \pi^\circ_* \widetilde{\mathbb{V}}.$$
+
+By \autoref{proposition:subrep-real-variation}, $\widetilde{\mathbb{L}}$
+underlies a real polarizable variation of Hodge structure, and we have a
+nonzero real mixed Hodge structure $Q_{\mathbb R}$ and a nonzero map of real
+variations of mixed Hodge structures
+$$\iota: Q_{\mathbb R} \otimes \widetilde{\mathbb L} \to \widetilde{R^1 \pi^\circ_* \mathbb V}.$$  
+%%Here is an alternate conclusion of the proof:
+%Using the decomposition of \autoref{lemma:three-part-hodge-structure}, any such
+%map must also be nonzero on the first part of the Hodge filtration, so we obtain a nonzero map 
+%$$F^1(Q \otimes \widetilde{\mathbb L})_{\mathbb{C}} \to F^1(\widetilde{R^1 \pi^\circ_* \mathbb
+%V})_{\mathbb{C}}.$$
+%Since $Q_\mathbb{C}=\oplus Q^{i,j}$ is (the complexification of) a real mixed Hodge structure itself, we can find some $i,j$ and some $1$-dimensional
+%homogeneous subspace $P = \on{Span}(p) \subset Q^{i,j}$, for which 
+%$F^1(P \otimes \widetilde{\mathbb L})_\mathbb{C} \to F^1(\widetilde{R^1 \pi^\circ_* \mathbb
+%V})_\mathbb{C}$
+%is nonzero. Note that $P\otimes \mathbb{L}$ underlies a complex PVHS. 
+%Further, as $\mathbb{L}$ is irreducible, the natural map $$P\otimes \mathbb{L}\to (\widetilde{R^1 \pi^\circ_* \mathbb
+%V})_\mathbb{C}$$ is an injective map of complex PVHS's. Moreover note that $P\otimes \mathbb{L}$ is supported in at most two bidegrees, as $\mathbb{L}$ appears in $R^1 \pi^\circ_* \mathbb V$.
+%
+%After possibly replacing $\mathbb L$ with $\overline{\mathbb L}$ and $\mathbb{V}$ with $\overline{\mathbb{V}}$, 
+%we may assume both
+%$$\dim F^1(P\otimes \mathbb{L})\geq \dim P\otimes
+%\mathbb{L}/F^1(P\otimes \mathbb{L}),$$ and,
+%using \autoref{lemma:three-part-hodge-structure}, that
+%there is an injective map
+%\begin{align*}
+%\iota: F^1(P \otimes \mathbb L) \to F^1(R^1 \pi^\circ_* \mathbb V).
+%\end{align*}
+%Set $\mathbb N := P \otimes \mathbb L$.
+%Recall $m \in \mathscr M$ is our chosen basepoint.
+%Taking any $\ell \in F^1\mathbb N_m$ we set $v = \iota_m(p \otimes \ell)$, for
+%$P = \on{span}(p)$ as above.
+%
+%To conclude, we verify $\rk \overline\nabla_m(v) \leq \frac{\rk \mathbb L}{2}$.
+%Since $\iota_m$ is injective,
+%it is enough to show
+%$\rk \overline \nabla_{\mathbb N, m}(p \otimes \ell) \leq \frac{\rk \mathbb L}{2}$,
+%for
+%\begin{align*}
+%	\overline \nabla_{\mathbb N, m}: F^1\mathbb N_m \to \left( \mathbb N_m /F^1 \mathbb N_m\right) \otimes \Omega^1_{\mathscr{M},m}
+%=\Hom((\mathbb N_m / F^1 \mathbb N_m)^\vee, \Omega^1_{\mathscr{M},m})
+%\end{align*}
+%the derivative of the period map associated to $\mathbb N$ at $m$.
+%This holds because $\rk \mathbb N_m/ F^1 \mathbb N_m \leq \frac{\rk \mathbb L}{2}$,
+%since 
+%$\rk F^1 \mathbb N \geq \rk \mathbb N/F^1 \mathbb N$
+%and  $\rk F^1 \mathbb N + \rk \mathbb N/F^1 \mathbb N = \rk \mathbb N = \rk
+%\mathbb L.$
+%Fix $p \in Q$ for which $\iota(p \otimes \mathbb L)$ is nonzero
+%and let $P := \on{Span}(p)$ and let $\mathbb N := P \otimes \mathbb L$.
+%We may assume $\rk F^1(\mathbb N) \geq \mathbb N/F^1 \mathbb N$,
+%as it holds after possibly replacing $\mathbb L$ and $\mathbb V$ with their
+%conjugates by \eqref{equation:dual-conjugate}.
+%By irreducibility of $\mathbb N$, $\iota_m$ is
+%injective on $\mathbb N$.
+%Choose any nonzero $\ell \in \mathbb L_m$ and take $v := \iota_m(p \otimes
+%\ell)$.
+%In order to show $\mu(v) = \mu(\iota_m(p \otimes \ell))$ has rank at most $\frac{\rk \mathbb
+%L}{2}$,
+%it is enough to show $\rk \mu'(p \otimes \ell) \geq \frac{\rk \mathbb L}{2}$,
+%for
+%\begin{align*}
+%	\mu': F^1\mathbb N_m \to \left( \mathbb N_m /F^1 \mathbb N_m\right) \otimes \Omega^1_{\mathscr{M},m}
+%=\Hom((\mathbb N_m / F^1 \mathbb N_m)^\vee, \Omega^1_{\mathscr{M},m})
+%\end{align*}
+%the period map associated to $\mathbb N$.
+%This holds because $\rk \mathbb N_m/ F^1 \mathbb N_m \leq \frac{\rk \mathbb L}{2}$,
+%by assumption that 
+%$\rk F^1 \mathbb N \geq \rk \mathbb N/F^1 \mathbb N$
+%and  $\rk F^1 \mathbb N + \rk \mathbb N/F^1 \mathbb N = \rk \mathbb N = \rk
+%\mathbb L.$
+%We now produce the desired $v$. By \autoref{corollary:conjugation-trick},
+%$\mathbb{L}$ underlies a complex variation of Hodge structure, and there exists
+%a bigraded vector space $Q$ and a nonzero flat map $$\iota: Q\otimes
+%\mathbb{L}\otimes \mathscr{O}_\mathscr{M}\to
+%\mathscr{H},$$ respecting the bigradings on both sides. 
+
+Let $Q := (Q_\mathbb R) \otimes_{\mathbb R} \mathbb C$.
+As the grading on $(\widetilde{R^1 \pi^\circ_* \mathbb V})_{\mathbb C}$ is supported in degrees $(1,0), (0,1), (1,1)$, we may assume (after regrading and possibly replacing $Q$ with a subspace) that either
+\begin{enumerate}
+\item the bigrading on $\mathbb{L}$ is supported in degree $(0,0)$ and the bigrading on $Q$ has support contained in  $\{(1,0), (0,1), (1,1)\}$, or
+\item the bigrading on $\mathbb{L}$ has support equal to $\{(1,0),(0,1)\}$
+	and the bigrading on $Q$ is supported in degree $(0,0)$.
+\end{enumerate}
+In the two cases above, we choose $v$ as follows.
+
+\emph{Case (1):} After possibly replacing ${\mathbb{V}}, \mathbb{L}$ with their complex conjugates, we may assume that  $$\iota_{i,j}: Q^{i,j}\otimes\mathbb{L}\to R^1\pi_*^\circ \mathbb{V}$$ is nonzero for some $(i,j)\in \{(1,0), (1,1)\}$. Choose $\ell\in \mathbb{L}_m$ and $q\in Q^{i,j}$, $(i,j)\in\{(1,0), (1,1)\}$ such that $v:=\iota_m(q\otimes\ell)$ is nonzero.
+
+\emph{Case (2):} After possibly replacing $\mathbb{V}$ and $\mathbb{L}$ with
+their complex conjugates, we may assume $\dim\mathbb{L}_m^{0,1}\leq \dim \mathbb{L}_m^{1,0}$. 
+Choose arbitrary nonzero $q\in Q$ and $\ell\in \mathbb{L}_m^{1,0}$ such that $v:=\iota_m(q\otimes\ell)$ is nonzero.
+
+It is enough to argue that for $v$ as above, $\overline{\nabla}(v)$ has rank at
+most $\frac{\rk\mathbb{L}}{2}$. Since $\mathbb{L}$ carries a complex PVHS, we
+may compute the rank of $\overline{\nabla}(v)$ by computing with the analogous
+period map 
+\begin{align*}
+\overline{\nabla}_{\mathbb L,m}: F^1\mathbb{L}_m\to \mathbb{L}_m/F^1\mathbb{L}_m\otimes \Omega^1_{\mathscr{M},m}
+\end{align*}
+associated to $\mathbb{L}$. In case (1), this map is identically
+zero, so we are done (i.e.~$\rk \overline{\nabla}(v)=0$). In case (2), 
+from the definition of $\overline{\nabla}_{\mathbb L,m}$,
+it
+is enough to show
+\begin{align*}
+	\dim \mathbb{L}_m/F^1\mathbb{L}_m\leq \frac{\rk \mathbb L}{2}.
+\end{align*}
+This follows because we have 
+$\dim \mathbb{L}_m=\dim F^1 \mathbb{L}_m+ \dim \mathbb{L}_m/F^1 \mathbb L_m$ and
+we assumed
+\begin{equation*}
+	\dim F^1 \mathbb L_m = \dim \mathbb L^{1,0}_m \geq \dim \mathbb
+	L^{0,1}_m = \dim \mathbb L_m/F^1 \mathbb L_m.\qedhere
+\end{equation*}
+\end{proof}
+
+\subsection{A vanishing result}
+\label{subsection:no-sections}
+\source{canonical-representations-surface-groups}
+
+We apply \autoref{theorem:rank-bound-subsystem} to prove a vanishing result about local systems on $\mathscr{C}^\circ$ that are not necessarily unitary. We assume only that their restriction to each fiber of $\pi^\circ$ is unitary. The reader may find it useful to consider the case where $A=\mathbb{C}$ below, though we will need the full generality of the result below for our deformation-theoretic applications.
+\begin{theorem}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{theorem:unitary-rigid}
+\source{canonical-representations-surface-groups}
+	With notation as in \autoref{notation:versal-family}, 
+	%let $\pi: \mathscr{C}\to \mathscr{M}$ be a versal family of $n$-pointed curves of genus $g$, with associated family of punctured curves 
+	let $\pi^\circ: \mathscr{C}^\circ\to \mathscr{M}$ be a punctured versal
+	family of genus $g$ curves. Let $m\in \mathscr{M}$ be a point and set $C^\circ
+	= \mathscr C^\circ_m$. Let $A$ be a local Artin $\mathbb{C}$-algebra with residue field $\mathbb{C}$, and let $\mathbb V$ be a locally constant sheaf of free $A$-modules on $\mathscr C^\circ$
+	such that
+	\begin{enumerate}
+ \item $\mathbb V|_{C^\circ}$ is a constant deformation of a unitary local system, i.e. there exists a unitary complex local system $\mathbb{V}_0$ on $C^\circ$ and an isomorphism $\mathbb V|_{C^\circ}\simeq \mathbb{V}_0\otimes A$, and
+\item $\rk_A \mathbb V < g$.
+		\end{enumerate}
+ Then
+	$H^0(\mathscr M, R^1 \pi^\circ_* \mathbb V) = 0$.
+\end{theorem}
+\begin{proof}
+	Given a dominant map $\mathscr M' \to \mathscr M$,
+	we have an injection $$H^0(\mathscr M, R^1 \pi^\circ_* \mathbb
+	V) \to H^0(\mathscr M', R^1 \pi^\circ_* \mathbb V|_{\mathscr M'}).$$
+	Hence, it is enough to prove the claim after replacing $\mathscr M$ by
+	some $\mathscr M'$ with a dominant map to  $\mathscr M$.
+	Combining this with \autoref{lemma:unitary-direct-sum}, we may assume $\mathbb V \simeq \oplus_{i=1}^s \mathbb U_i
+\otimes (\pi^\circ)^* \mathbb
+	W_i$, where $\mathbb W_i$ are locally constant sheaves of free $A$-modules on $\mathscr M$ and
+	$\mathbb U_i$ are unitary complex local systems on $\mathscr C^\circ$. 
+	It is enough to show that 
+	$$H^0(\mathscr{M}, R^1\pi^\circ_*(\mathbb{U}_i\otimes
+	(\pi^\circ)^*\mathbb{W}_i))=H^0(\mathscr{M},
+	(R^1\pi^\circ_*\mathbb{U}_i)
+	\otimes \mathbb{W}_i )=0$$ for each $i$. 
+	Letting $\mathfrak{m}_A$ be the maximal ideal of $A$, the $\mathfrak{m}_A$-adic filtration on $\mathbb{W}_i$ has associated-graded pieces isomorphic to direct sums of copies of $\mathbb{W}_i^0:=\mathbb{W}_i\otimes_A\mathbb{C}.$ 
+	Hence $\mathbb W_i\otimes R^1\pi_*\mathbb{U}_i$ has a filtration with associated-graded pieces isomorphic to $\mathbb{W}_i^0\otimes R^1\pi_*\mathbb{U}_i$. 
+	Thus it suffices to prove  $$H^0(\mathscr{M},
+	R^1\pi^\circ_*(\mathbb{U}_i\otimes
+	(\pi^\circ)^*\mathbb{W}^0_i))=H^0(\mathscr{M}, (R^1\pi^\circ_*\mathbb{U}_i) \otimes \mathbb W^0_i)=0.$$
+	 Note that $\on{rk} \mathbb{U}_i\otimes (\pi^\circ)^*\mathbb{W}^0_i<g$.
+
+	It is therefore enough to show that if $\mathbb{U}$ is a unitary complex local system on
+	$\mathscr C^\circ$ and $\mathbb{W}$ is an arbitrary complex local system on $\mathscr M$
+	with
+\begin{align*}
+	H^0(\mathscr{M}, R^1\pi^\circ_* (\mathbb{U}\otimes (\pi^\circ)^*\mathbb{W}))=
+	H^0(\mathscr M, R^1 \pi^\circ_* \mathbb U \otimes \mathbb W) \neq 0,
+\end{align*}
+	then $\rk \mathbb U \otimes (\pi^\circ)^*\mathbb W \geq g$.
+A nonzero element of $H^0(\mathscr M, R^1 \pi^\circ_* \mathbb U \otimes \mathbb W)$ yields a nonzero map of local systems $$\mathbb{W}^\vee\to R^1\pi^\circ_*\mathbb{U}.$$
+Since $\mathbb U$ is unitary, we have
+$\rk \mathbb{W} \geq 2g - 2\rk \mathbb U$
+by \autoref{theorem:rank-bound-subsystem}. 
+Hence $\rk \mathbb{W} + 2\rk \mathbb{U} \geq 2g$.
+As $\rk \mathbb{W}, \rk\mathbb{U}$ are positive integers, we find 
+$\rk \mathbb W \cdot \rk \mathbb U$ is minimized when $\rk \mathbb W = 1$
+in which case $\rk \mathbb W \cdot \rk \mathbb U \geq \lceil (2g-1)/2 \rceil \geq g$. 
+Note here we use that $g \geq 2$ in order for condition $(2)$ of the statement to be
+satisfied as $\mathbb V \neq 0$.
+%To see this, we want to minimize the value of $\rk \mathbb W \cdot 2 \cdot(g -
+%\rk \mathbb W)$.
+%This corresponds to a downward sloping parabola, and the minimum therefore
+%occurs at one of the endpoints, which are $\rk \mathbb W = 1$ and $\rk \mathbb
+%W = g$. The second case attains the minimum when $g > 1$, and the first case is
+%not possible when $g \leq 1$.
+In general, this implies
+\begin{align}
+	\label{equation:rank-product-bound}
+\source{canonical-representations-surface-groups}
+\rk (\mathbb{U}\otimes (\pi^\circ)^*\mathbb{W})=\rk \mathbb W \cdot \rk \mathbb U \geq g,
+\end{align}
+as desired.
+\end{proof}
+%\begin{remark}
+%	Note that equality in \eqref{equation:rank-product-bound} occurs only
+%	when $\rk \mathbb U = 1$.	
+%	If we knew for some reason that the relevant $\mathbb U$ satisfied
+%	$\rk U > 1$ we could obtain the stronger bound $\rk \mathbb V < 2g-2$.
+%\end{remark}

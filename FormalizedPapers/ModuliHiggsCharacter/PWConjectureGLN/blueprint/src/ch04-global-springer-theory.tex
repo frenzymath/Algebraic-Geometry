@@ -1,0 +1,234 @@
+% Source-derived chapter 04: Global Springer theory
+% Original source: pw-conjecture-gl-n
+\chapter{Global Springer theory}
+\label{pw-conjecture-gl-n-chapter-04}
+\source{pw-conjecture-gl-n}
+
+\begin{remark}[Source section]
+\label{pw-conjecture-gl-n-chapter-04-source}
+\source{pw-conjecture-gl-n}
+\source{pw-conjecture-gl-n}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Global Springer theory
+In this section, we review Yun's global Springer theory \cite{Yun1, Yun2, Yun3} and use it to deduce Theorem \ref{conj2.7}, assuming a support theorem (Theorem \ref{thm3.2}). Global Springer theory was previously used to study perverse filtrations for affine Springer fibers in terms of Chern classes \cite{OY, OY2}.  In our setting, we require a partial extension of Yun's results from the elliptic locus to the entire Hitchin base.
+
+\subsection{Notations}
+We fix $\CL$ to be an effective line bundle of sufficiently large degree
+($\mathrm{deg}\left(\CL\right)> 2g$ is enough for us).
+ Since from now on we only concern the $\CL$-twisted moduli spaces, we will use $M, \widecheck{M}$, and $\widehat{M}$ to denote the $\CL$-twisted $\mathrm{GL}_n$, $\mathrm{SL}_n$, and $\mathrm{PGL}_n$ Dolbeault moduli spaces $M^\CL_{\mathrm{Dol}}, \widecheck{M}^\CL_{\mathrm{Dol}}$, and $\widehat{M}^\CL_{\mathrm{Dol}}$ respectively. For the same reason, we will uniformly use the term \emph{Higgs bundles} to call $\CL$-twisted Higgs bundles.
+
+From now on we let $G = \mathrm{PGL}_n$, $\mathfrak{g}$ its Lie algebra, $B \subset G$ the Borel subgroup induced by upper triangular matrices with $\mathfrak{b}$ the Lie algebra, $T\subset B$ the maximal torus given by diagonal matrices, and $W \simeq \mathfrak{S}_n$ the Weyl group. We denote by $\BX^*(T)$ the character group of $T$; it is isomorphic to $\BZ^{n-1}$ as an abelian group.
+
+
+
+
+\subsection{Parabolic moduli stacks}
+
+Let $\widehat{\FM}$ be the moduli stack of $G$-Higgs bundles on $C$; we do not impose any stability condition on $\widehat{\FM}$ so that it is only a (singular) algebraic stack. The stable locus of $\widehat{\FM}$ is a nonsingular Deligne--Mumford substack
+\[
+\widehat{M} \hookrightarrow \widehat{\FM}.
+\]
+
+Yun's global Springer theory \cite{Yun1} constructs an algebraic stack $\widehat{\FM}^\mathrm{par}$ over $C \times \widehat{\FM}$:
+\begin{equation}\label{PI}
+\source{pw-conjecture-gl-n}
+\pi: \widehat{\FM}^\mathrm{par} \to C \times \widehat{\FM}
+\end{equation}
+which is a global analog of the Grothendieck simultaneous resolution. There are two equivalent constructions of $\widehat{\FM}^{\mathrm{par}}$ given in \cite[Section 2.1]{Yun1}. 
+
+
+The first is to construct $\widehat{\FM}^{\mathrm{par}}$ as the moduli stack of parabolic Higgs bundles, which are quadruples $(x, \CE, \theta, \CE_x^B)$, with $(\CE, \theta)$ is a $G$-Higgs bundle, $x\in C$ a closed point, and $\CE_x^B$ a $B$-reduction of $\CE$ at $x$, satisfying the constraint that $\theta$ is compatible with $\CE_x^B$; see \cite[Definition 2.1.1]{Yun1}. Then the morphism $\pi$ is given by forgetting the $B$-reduction:
+\[
+\pi (x, \CE, \theta, \CE_x^B)  = (x, (\CE,\theta)) \in C \times \widehat{\FM}.
+\]
+
+The second construction is via the Grothendieck simultaneous resolution $\pi_G: [\mathfrak{b}/B] \to [\mathfrak{g}/G]$. More precisely, let $\rho_\CL$ be the $\BG_m$-torsor over $C$ associated with the line bundle $\Omega_\CL$. Denote by $[\mathfrak{g}/G]_\CL$ (resp. $[\mathfrak{b}/B]_\CL$) the family of $[\mathfrak{g}/G]$ (resp. $[\mathfrak{b}/B]$) over the curve $C$ twisted by the torsor $\rho_\CL$. We have a tautological evaluation map
+\begin{equation}\label{evaluation}
+\source{pw-conjecture-gl-n}
+    \begin{tikzcd}[column sep=small]
+    C\times \widehat{\FM} \arrow[dr, ""] \arrow[rr, "\mathrm{ev}"] & & {[\mathfrak{g}/G]_\CL} \arrow[dl, ""] \\
+       & C  & 
+\end{tikzcd}
+\end{equation}
+which is a natural $C$-morphism; after base change to a closed point $x\in C$, the map $\mathrm{ev}$ sends a $G$-Higgs bundle to the evaluation of its Higgs field at $x$. The morphism (\ref{PI}) is then induced by the base change of the Grothendieck simultaneous resolution along the evaluation map (see \cite[Lemma 2.1.2]{Yun1}):
+\begin{equation*}
+\begin{tikzcd}
+\widehat{\FM}^{\mathrm{par}} \arrow[r, "\mathrm{ev}^p"] \arrow[d, "\pi"]
+&{[\mathfrak{b}/B]_\CL} \arrow[d, "\pi_G"] \\
+C\times \widehat{\FM} \arrow[r, "\mathrm{ev}"]
+& {[\mathfrak{g}/G]_\CL}.
+\end{tikzcd}
+\end{equation*}
+
+The parabolic Hitchin system
+\[
+\widehat{h}^\mathrm{par}: \widehat{\FM}^{\mathrm{par}} \to C\times \widehat{A}
+\]
+is the composition of $\pi:\widehat{\FM}^{\mathrm{par}} \to C\times \widehat{\FM}$ and the morphism $\mathbf{h}: C\times \widehat{\FM} \to C\times \widehat{A}$
+induced by the standard (stacky) Hitchin map $\widehat{h}: \widehat{\FM} \to \widehat{A}$.\footnote{Recall that we always use the $\CL$-twisted version.}
+
+In general the moduli stack $\widehat{\FM}^{\mathrm{par}}$ is singular, and the parabolic Hitchin map is not proper. In the next section we will impose a stability condition and then restrict to the stable locus. 
+
+\subsection{Stable loci}
+
+We define the \emph{stable locus} of the moduli of parabolic $G$-Higgs bundles to be
+\[
+\widehat{M}^{\mathrm{par}}: = (C \times \widehat{M}) \times_{C \times \widehat{\FM}} \widehat{\FM}^{{\mathrm{par}}};
+\]
+equivalently, it fits into the Cartesian diagrams
+\begin{equation}\label{diag0}
+\source{pw-conjecture-gl-n}
+\begin{tikzcd}
+\widehat{M}^{\mathrm{par}} \arrow[r,hook] \arrow[d, "\pi"]&  \widehat{\FM}^{\mathrm{par}} \arrow[r, "\mathrm{ev}^p"] \arrow[d, "\pi"]
+&{[\mathfrak{b}/B]_\CL} \arrow[d, "\pi_G"] \\ C \times \widehat{M} \arrow[r,hook]
+& C\times \widehat{\FM} \arrow[r, "\mathrm{ev}"]
+& {[\mathfrak{g}/G]_\CL}.
+\end{tikzcd}
+\end{equation}
+
+We use the same notation as for the stacky case to denote the parabolic Hitchin map restricted to the stable locus:
+\begin{equation}\label{parah}
+\source{pw-conjecture-gl-n}
+\widehat{h}^{\mathrm{par}}: \widehat{M}^{\mathrm{par}} \to C\times \widehat{A}.
+\end{equation}
+
+\begin{prop}
+\source{pw-conjecture-gl-n}
+\notready\label{prop3.1}
+\source{pw-conjecture-gl-n}
+\begin{enumerate}
+    \item[(i)] The moduli stack $\widehat{M}^{\mathrm{par}}$ is nonsingular and Deligne--Mumford; and
+    \item[(ii)] the parabolic Hitchin map (\ref{parah}) is proper.
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+The Deligne--Mumford part of (i) follows from the proof of \cite[Proposition 2.5.1 (3)]{Yun1}. Indeed, the left vertical arrow in the diagram (\ref{diag0}) is the pullback of $\pi_G$, therefore it is schematic and of finite type. This implies that $\widehat{M}^{\mathrm{par}}$ is Deligne--Mumford since $C \times \widehat{M}$ is Deligne--Mumford.
+
+To prove the smoothness part of (i), we use the evaluation map (\ref{evaluation}). Recall that \cite[Proposition 4.1]{MS} (which was proven via deformation theory) shows that the $C$-morphism $\mathrm{ev}$ is smooth after restricting over the stable locus $C \times \widehat{M}$. Hence by the Cartesian diagrams of (\ref{diag0}), the evaluation map
+\[
+\mathrm{ev}: \widehat{M}^{\mathrm{par}} \to {[\mathfrak{b}/B]_\CL}
+\]
+is also smooth. Since the target is a nonsingular algebraic stack, so is the source.
+
+(ii) follows directly from (\ref{diag0}) and that $\widehat{h}: \widehat{M} \to \widehat{A}$ is proper.
+\end{proof}
+
+As a consequence of Proposition \ref{prop3.1}, the direct image complex
+\[
+R{\widehat{h}^{\mathrm{par}}}_* ~\BQ_{\widehat{M}^{\mathrm{par}}} \in D^b_c(C\times \widehat{A})
+\]
+satisfies the decomposition theorem \cite{BBD}.
+
+\begin{thm}[Support theorem for parabolic Hitchin map]
+\source{pw-conjecture-gl-n}
+\notready\label{thm3.2}
+\source{pw-conjecture-gl-n}
+The decomposition for the parabolic Hitchin map $\widehat{h}^{\mathrm{par}}$ has full support, \emph{i.e.}, any non-trivial simple perverse summand of \[
+^\mathfrak{p}\CH^i\left(R{\widehat{h}^{\mathrm{par}}}_* ~\BQ_{\widehat{M}^{\mathrm{par}}} \right), \quad  \forall i\in \BZ\]
+has support $C\times \widehat{A}$.
+\end{thm}
+
+We will postpone the proof of Theorem \ref{thm3.2} to Section 4.
+
+
+\subsection{Proof of Theorem \ref{conj2.7}}
+
+We first prove Theorem \ref{conj2.7} assuming Theorem \ref{thm3.2}.
+
+There are three ingredients of global Springer theory
+\[
+\pi: \widehat{M}^\mathrm{par} \to C \times \widehat{M}
+\]
+which are important in the proof of Theorem \ref{conj2.7}. We summarize them as follows.
+\begin{enumerate}
+    \item[(A)] \emph{(Splitting of the universal $G$-bundle)} As explained in the second bullet point of \cite[Construction 6.1.4]{Yun1}, each Chern root of $\pi^*\CU$ is of the form $c_1(L(\xi))$ where $\xi$ is an element in $\BX^*(T)$ and $L(\xi)$ is the tautological line bundle on $\widehat{M}^{\mathrm{par}}$ associated with $\xi$. 
+    
+    More precisely, $\pi^*\CU$ is the universal $G$-bundle on $\widehat{M}^{\mathrm{par}}$ whose fiber over $(x,\CE,\theta, \CE^B_x)$ is $\CE_x$; the $B$-reduction $\CE_x^B$ yields a $T$-torsor over $\widehat{M}^{\mathrm{par}}$ which induces for each $\xi \in \BX^*(T)$ a line bundle $L(\xi)$.
+
+    
+    \item[(B)] \emph{(Strong perversity for $c_1(L(\xi))$)} By \cite[Lemma 3.2.3]{Yun2}, there exists a Zariski dense open subset of $C\times \widehat{A}$ over which the operator
+    \[
+c_1(L(\xi)): R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}} \to R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}[2]    \]
+has strong perversity $1$ for any $\xi \in \BX^*(T)$. 
+%In other words,
+%it sends ${^\mathfrak{p}\tau_{\leq i}}\left( R\widehat{h}^p_*\BQ_{\widehat{M}^{\mathrm{par}}}\right)$ to ${^\mathfrak{p}\tau_{\leq i-1}}\left(R\widehat{h}^p_*\BQ_{\widehat{M}^{\mathrm{par}}}[2]\right)$
+Since $c_1(L(\xi))$ automatically has strong perversity $2$, showing it has strong perversity $1$ is equivalent to showing that the induced morphism of perverse cohomology sheaves
+\[
+{}^{p}\CH^i\left( R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}\right)\rightarrow
+{}^{p}\CH^i\left(R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}[2]\right)
+\]
+vanishes for each $i$.  Once we have Theorem \ref{thm3.2}, these sheaves have full support over the entire base, so this vanishing (and thus strong perversity $1$) extends over the total base $C \times \widehat{A}$ as well. 
+In fact, \cite[Lemma 3.2.3]{Yun2} was proven in exactly this way using a support theorem \cite[Section 4.6.2]{Yun2} for the elliptic locus.
+
+    
+    \item[(C)] \emph{(Springer's Weyl group action)} By the Cartesian diagrams (\ref{diag0}), we may pullback Springer's sheaf-theoretic Weyl group action from the Grothendieck simultaneous resolution; in particular, the object $R\pi_* \BQ_{\widehat{M}^{\mathrm{par}}}$ admits a canonical $W$-action whose invariant part recovers the trivial local system
+    \[
+\left(R\pi_* \BQ_{\widehat{M}^{\mathrm{par}}} \right)^W = \BQ_{C\times \widehat{M}}.  \]
+By taking global cohomology we have
+\[
+H^*(\widehat{M}^{\mathrm{par}}, \BQ) = H^*(C\times \widehat{M}, \BQ) \oplus \left(\mathrm{variant~~part~~of~~} W \right).
+\]
+\end{enumerate}
+
+Now we prove Theorem \ref{conj2.7}. We first prove its parabolic version.
+
+\medskip
+\noindent {\bf Claim.} The class
+\[
+\mathrm{ch}_k\left(\pi^* \CU\right) \in H^{2k}(\widehat{M}^{\mathrm{par}}, \BQ)
+\]
+has strong perversity $k$ with respect to the parabolic Hitchin system (\ref{parah}).
+
+\begin{proof}[Proof of Claim]
+By (A), the Chern character $\mathrm{ch}_k(\pi^*\CU)$ can be expressed in terms of $c_1(L(\xi))$. Hence the claim follows from Lemma \ref{lem1.2} and the strong perversity of $c_1(L(\xi))$ given by (B).
+\end{proof}
+
+
+Next, we reduce Theorem \ref{conj2.7} to the claim above via the following lemma.
+
+\begin{lem}
+\source{pw-conjecture-gl-n}
+\notready
+For a class $\gamma \in H^l(C \times \widehat{M}, \BQ)$, if $\pi^*\gamma \in H^l(\widehat{M}^{\mathrm{par}}, \BQ)$ has strong perversity $k$ with respect to $\widehat{h}^{\mathrm{par}}: \widehat{M}^{\mathrm{par}} \to C\times \widehat{A}$, then $\gamma$ has strong perversity $k$ with respect to ${\mathbf{h}} : C\times \widehat{M} \to C\times \widehat{A}$.
+\end{lem}
+
+\begin{proof}
+    This is a consequence of (C). We write the class $\gamma$ as a map 
+    \begin{equation}\label{3.3_1}
+\source{pw-conjecture-gl-n}
+\gamma: \BQ_{C\times \widehat{M}} \to \BQ_{C\times \widehat{M}}[l],   
+\end{equation}
+whose pullback 
+\begin{equation}\label{3.3_2}
+\source{pw-conjecture-gl-n}
+\pi^*\gamma: \BQ_{\widehat{M}^{\mathrm{par}}} \to  \BQ_{\widehat{M}^{\mathrm{par}}}[l]
+\end{equation}
+recovers the class $\pi^*\gamma \in H^l(\widehat{M}^{\mathrm{par}}, \BQ)$. By the projection formula $\pi_*\pi^*\gamma = |W|\cdot \gamma$, we may recover the morphism (\ref{3.3_1}) from (\ref{3.3_2}) by derived pushing forward to $C \times \widehat{M}$ and taking the $W$-invariant part.
+
+Now by the assumption we know that the action of $\pi^*\gamma$ on the object $R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}$ satisfies
+\begin{equation}\label{3.3_4}
+\source{pw-conjecture-gl-n}
+\pi^*\gamma: {^\mathfrak{p}\tau_{\leq i}}R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}} \to {^\mathfrak{p}\tau_{\leq i+(k-l)}}\left(R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}[l]\right).
+\end{equation}
+Since we have
+\[
+R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}} = R\mathbf{h}_*\left(R\pi_* \BQ_{\widehat{M}^{\mathrm{par}}}\right),
+\] 
+the ingredient (C) produces a natural $W$-action on this object whose invariant part recovers $R\mathbf{h}_*\BQ_{C\times \widehat{M}}$; the operator
+\begin{equation}\label{3.3_3}
+\source{pw-conjecture-gl-n}
+\gamma:  R\mathbf{h}_*\BQ_{C\times \widehat{M}} \to R\mathbf{h}_*\BQ_{C\times \widehat{M}}[l]  
+\end{equation}
+is then recovered from the $W$-invariant part of the action of $\pi^*\gamma$ on $R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}$. In particular, the desired property concerning (\ref{3.3_3}) follows from the $W$-invariant part of (\ref{3.3_4}).
+\end{proof}
+
+
+
+
+Thus we have completed the proof of Theorem \ref{conj2.7}. \qed

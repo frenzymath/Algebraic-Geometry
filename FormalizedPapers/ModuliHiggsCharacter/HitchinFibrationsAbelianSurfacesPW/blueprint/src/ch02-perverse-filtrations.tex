@@ -1,0 +1,240 @@
+% Source-derived chapter 02: Perverse filtrations
+% Original source: hitchin-fibrations-abelian-surfaces-pw
+\chapter{Perverse filtrations}
+\label{hitchin-fibrations-abelian-surfaces-pw-chapter-02}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+
+\begin{remark}[Source section]
+\label{hitchin-fibrations-abelian-surfaces-pw-chapter-02-source}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Perverse filtrations
+\label{sec1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+
+\subsection{Overview}
+We begin with the definition and some relevant properties of the perverse filtration associated with a proper surjective morphism $\pi: X\rightarrow Y$. Some  references are \cite{BBD, dCM0, dCM1, WSB}. 
+Throughout this section, for simplicity, we assume $X$ and $Y$ are nonsingular.
+
+Following \cite{dCHM3, Z, SZ}, we discuss the perverse filtration for the Hilbert scheme of $n$-points on an abelian surface $E \times E'$ product of two elliptic curves, induced by the natural  second projection morphism
+\[
+E \times E' \to E'.
+\]
+ This example plays a crucial role in Section 2 concerning moduli of sheaves on abelian surfaces.
+
+\subsection{Perverse sheaves}
+Let $D_c^b(Y)$ denote the bounded derived category of $\BQ$-constructible sheaves on $Y$, and let $\BD: D_c^b(Y)^{\mathrm{op}} \to D_c^b(Y)$ be the Verdier duality functor. The full subcategories 
+\begin{align*}
+    ^ \mathfrak{p} D_{\leq 0}^b(Y) & = \left\{\CE \in D_c^b(Y): \dim \mathrm{Supp}(\CH^i(\CE)) \leq -i \right\}, \\
+    ^ \mathfrak{p} D_{\geq 0}^b(Y) & = \left\{\CE \in D_c^b(Y): \dim \mathrm{Supp}(\CH^i(\BD\CE)) \leq -i \right\}
+\end{align*}
+give rise to the \emph{perverse $t$-structure} on $D_c^b(Y)$, whose heart is the abelian category of perverse sheaves,
+\[
+\mathrm{Perv}(Y) \subset D_c^b(Y).
+\]
+
+For $k \in \BZ$, let $^\mathfrak{p}\tau_{\leq k}$ be the truncation functor associated with the perverse $t$-structure. Given an object $\CC \in D_c^b(Y)$, there is a natural morphism
+\begin{equation}\label{trun0}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+^\mathfrak{p}\tau_{\le k}\CC \rightarrow \CC.
+\end{equation}
+For the morphism $\pi:X \to Y$, we obtain from (\ref{trun0}) the morphism
+\[
+^\mathfrak{p}\tau_{\le k}R\pi_\ast \BQ_X \rightarrow R\pi_\ast \BQ_X,
+\]
+which further induces a morphism of (hyper-)cohomology groups
+\begin{equation}\label{perv_filt}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+H^{d-(\dim X -{ R})}\Big{(}Y, \, ^\mathfrak{p}\tau_{\le k}(R\pi_\ast \BQ_X[\dim X - { R}]) \Big{)} \rightarrow H^d(X, \BQ).
+\end{equation}
+Here
+\begin{equation}\label{defect}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+    {R} = \dim X \times_Y X - \dim X
+\end{equation}
+is the \emph{defect of semismallness}. The $k$-th piece of the perverse filtration (\ref{Perv_Filtration})
+\[
+P_kH^d(X, \BQ) \subset H^d(X, \BQ)
+\]
+is defined to be the image of (\ref{perv_filt}).\footnote{Here the shift $[\dim X- {R}]$ is to ensure that the perverse filtration is concentrated in the degrees $[0, 2 { R}]$.} 
+
+We say that a  graded vector space decomposition
+\[
+H^*(X, \BQ) = \bigoplus_{k,d} G_k H^d(X, \BQ)
+\]
+\emph{splits} the perverse filtration, if 
+\[
+P_k H^d(X, \BQ) = \bigoplus_{i \leq k} G_i H^d(X, \BQ), \quad \forall k,d.
+\]
+
+
+\subsection{The decomposition theorem}\label{sec1.3}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+Perverse filtrations can be described through the decomposition theorem \cite{BBD, dCM0}. By applying the decomposition theorem to the morphism $\pi: X \to Y$, we obtain an isomorphism
+\begin{equation}\label{decomp}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+R\pi_*\BQ_X[\dim X- { R}]\simeq \bigoplus_{i=0}^{2{ R}}\mathcal{P}_i[-i] \in D^b_c(Y)
+\end{equation}
+with $\mathcal{P}_i  \in \mathrm{Perv}(Y)$. The perverse filtration can be identified as
+\[
+P_kH^d(X,\BQ)=\mathrm{Im}\Big\{H^{d-(\dim X - { R})}(Y, \bigoplus_{i=0}^k\mathcal{P}_i[-i])\to H^d(X,\BQ)\Big\}.
+\]
+In general, the isomorphism (\ref{decomp}) in the decomposition theorem is not canonical. Once we fix such an isomorphism $\phi$, we obtain a splitting $G_\ast H^\ast(X, \BQ)$ of the perverse filtration,
+\[
+P_kH^d(X, \BQ) = \bigoplus_{i\leq k} G_iH^d(X, \BQ).
+\]
+Here
+\[
+G_iH^d(X, \BQ) = \mathrm{Im}\Big\{ H^{d-(\dim X - { R})}(Y, \mathcal{P}_i[-i])\to H^d(X,\BQ)\Big\}
+\]
+with
+\[
+H^{d-(\dim X - {R})}(Y, \mathcal{P}_i[-i])\to H^d(X,\BQ)
+\]
+the morphism induced by $\phi^{-1}$.
+
+\subsection{Perverse filtration for projective bases}
+We review another description of the perverse filtration associated with
+\[
+\pi: X \to Y,
+\]
+when $Y$ is projective.
+
+We fix $\eta$ to be an ample class on $Y$, and we consider
+\[
+L = \pi^* \eta \in H^2(X, \BQ).
+\]
+The class $L$ acts on $H^*(X, \BQ)$ as an nilpotent operator via cup product
+\[
+L: H^*(X, \BQ) \xrightarrow{\cup L} H^*(X, \BQ).
+\]
+
+The following proposition shows that the filtration (\ref{Perv_Filtration}) is completely described by an ample class on the base.  It is stated in the special case needed in this paper.
+
+
+\begin{prop}[\cite{dCM0} Proposition 5.2.4.]
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready \label{prop1.1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+Assume that
+\begin{equation*}
+\dim X = 2 \dim Y = 2R.
+\end{equation*}
+Then we have
+\[
+P_kH^m(X, \BQ) = \sum_{i\geq 1} \left(
+\mathrm{Ker}(L^{R+k+i-m}) \cap \mathrm{Im}(L^{i-1}) \right) \cap H^m(X, \BQ).
+\]
+%Here the summation in the right-hand side stands for the span of all the vector spaces in its terms.
+\end{prop}
+
+
+
+\subsection{Abelian surfaces and Hilbert schemes}\label{Section1.5}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+Let $A = E \times E'$ be an abelian surface with $E$ and $E'$ elliptic curves, and let $n \in \BZ^{\geq 0}$.
+The natural projection, 
+\[
+p: A \to E'
+\]
+induces a morphism
+\[
+p_n: A^{[n]} \to {E'}^{(n)}
+\]
+from the Hilbert scheme of $n$ points on $A$ to the symmetric product of the elliptic curve $E'$. 
+We briefly review the construction \cite{SZ} of a  \emph{canonical} splitting 
+\begin{equation}\label{canonical_split}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+H^\ast(A^{[n]}, \BQ) = \bigoplus_{i,d}\widetilde{G}_iH^d(A^{[n]},\BQ)
+\end{equation}
+of the perverse filtration associated with $p_n$, which culminates with  the explicit formula (\ref{cansplitting15}).
+
+We start with a canonical decomposition 
+\begin{equation}\label{split1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+    H^*(A, \BQ) = \bigoplus_{i,d} \widetilde{G}_iH^d(A, \BQ)
+\end{equation}
+with $\widetilde{G}_iH^d(A, \BQ)$ the K\"unneth factor 
+\[
+H^i(E, \BQ) \otimes H^{d-i}(E',\BQ) \subset H^d(A, \BQ).
+\]
+Since $p: A\to E'$ is a trivial fibration, (\ref{split1}) splits the perverse filtration associated with $p$. Assume that we already have decompositions of $H^*(X_1, \BQ)$ and $H^*(X_2, \BQ)$, a decomposition of $H^\ast(X_1 \times X_2, \BQ)$ can be constructed by using the K\"unneth decomposition. In particular, we obtain the direct sum decomposition of $H^*(A^n, \BQ)$ with summands
+\[
+\widetilde{G}_kH^*(A^n, \BQ)= \left \langle \alpha_1 \boxtimes \cdots \boxtimes \alpha_n;~~ \alpha \in \widetilde{G}_{k_i}H^*(A, \BQ),~~ \sum_{i} {k_i} = k   \right \rangle,
+\]
+whose $\mathfrak{S}_n$-invariant part induces a decomposition 
+\[
+H^*(A^{(n)}, \BQ) = \bigoplus \widetilde{G}_iH^d(A^{(n)}, \BQ).
+\]
+In turn, by using  K\"unneth decompositions again, this gives us  canonical decompositions for
+\[
+H^\ast(A^{(n_1)}\times A^{(n_2)} \times \cdots \times A^{(n_k)}, \BQ), \quad n_i \geq 1.
+\]
+Finally, the cohomology of the Hilbert scheme $A^{[n]}$ is related to the cohomology of symmetric products by \cite{Go2, dCM3}.  We employ exponential notation for partitions $\nu:= (\nu_i)_{i=1}^l$, with  $\nu_i >0$ and
+$\sum_i \nu_i =n,$ of a positive integer $n$. Namely, we let $a_k$ be the number of times the integer $k$ appears
+in the partition, so that the expression 
+\[
+1^{a_1}2^{a_2}\cdots n^{a_n}\]
+ recovers the partition $\nu$.
+We use $A^{(\nu)}$ to denote the variety $A^{(a_1)} \times A^{(a_2)} \times \cdots \times A^{(a_n)}$. The cohomology group $H^d(A^{[n]}, \BQ)$ admits a canonical decomposition
+\begin{equation}\label{GS_decomp}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+H^d(A^{[n]}, \BQ) = \bigoplus_{\nu} H^{d+2l(\nu)-2n}(A^{(\nu)}, \BQ)
+\end{equation}
+where $\nu$ runs through all partitions of $n$ and $l(\nu)$ is the length of $\nu$. 
+The desired canonical splitting (\ref{canonical_split}) is then defined by setting
+\begin{equation}\label{cansplitting15}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\widetilde{G}_kH^d(A^{[n]}, \BQ) = \bigoplus_{\nu} \widetilde{G}_{k+l(\nu)-n}H^{d+2l(\nu)-2n}(A^{(\nu)}, \BQ)
+\end{equation}
+to be the sub-vector space of $H^d(A^{[n]}, \BQ)$ under the identification (\ref{GS_decomp}). By \cite[Proposition 4.12]{Z}, this decomposition splits the perverse filtration associated with $p_n$.\footnote{We will give another interpretation of the splitting $\tilde{G}_*H^*(A^{[n]},\BQ)$ in Corollary \ref{cor3.6}.}
+
+ In view of \cite[Proposition 2.1]{Z},  by using the K\"unneth decomposition again, we obtain a canonical splitting 
+\begin{equation}\label{splitting0}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+H^\ast(A\times A^{[n]}, \BQ) = \bigoplus_{i,d} \widetilde{G}_i H^d(A \times A^{[n]}, \BQ)
+\end{equation}
+of the perverse filtration associated with
+\[
+p \times p_n: A \times A^{[n]} \to E' \times E'^{(n)}.
+\]
+
+
+The following theorem obtained in \cite{Z, SZ} is concerned with  tautological classes and  multiplicativity in the context of Hilbert schemes. 
+
+\begin{thm}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready\label{taut_Hilb}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+Let $\CI_n$ be the universal ideal sheaf on $A \times A^{[n]}$. 
+\begin{enumerate}
+    \item[(a)](Tautological classes) We have
+    \[
+    \mathrm{ch}_k(\CI_n) \in \widetilde{G}_k H^{2k}(A\times A^{[n]}, \BQ).
+    \]
+    \item[(b)](Multiplicativity) The decomposition  (\ref{canonical_split}) is multiplicative, i.e.
+    \[
+   \cup:  \widetilde{G}_i H^d(A^{[n]}, \BQ) \times \widetilde{G}_{i'} H^{d'}(A^{[n]}, \BQ) \to \widetilde{G}_{i+i'}H^{d+d'}(A^{[n]}, \BQ).
+    \]
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+Theorem \ref{taut_Hilb} (b) was proven in \cite{Z}. Although the multiplicativity was shown only for the perverse filtration in \cite{Z}, the same proof works for  the decomposition (\ref{canonical_split}).  This was explained in \cite[Proposition 1.8]{SZ}. Theorem \ref{taut_Hilb} (a) follows directly from the proof of \cite[Theorem 0.1]{SZ} and the proof of \cite[Theorem 3.3]{SZ}, where it is explained how to treat perverse decompositions instead of perverse filtrations. 
+\end{proof}
+
+%\subsection{Comparisons} 
+%Later...
+%The second cohomology of the Hilbert scheme $A^{[n]}$ admits the decomposition
+%\begin{equation}\label{H2_Hilb}
+%H^2(A^{[n]}, \BQ) = H^2(A, \BQ) \oplus \langle e \rangle.
+%\end{equation}
+%Here $e$ is the class of the exceptional divisor of the Hilbert-Chow morphism $A^{[n]} \to A^{(n)}$.
+
+%We will show that the canonical splitting (\ref{canonical_split}) coincides with the splittings using some relative ample..

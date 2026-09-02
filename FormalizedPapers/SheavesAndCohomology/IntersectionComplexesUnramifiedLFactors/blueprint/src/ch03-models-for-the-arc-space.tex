@@ -1,0 +1,966 @@
+% Source-derived chapter 03: Models for the arc space
+% Original source: intersection-complexes-unramified-l-factors
+\chapter{Models for the arc space}
+\label{intersection-complexes-unramified-l-factors-chapter-03}
+\source{intersection-complexes-unramified-l-factors}
+
+\begin{remark}[Source section]
+\label{intersection-complexes-unramified-l-factors-chapter-03-source}
+\source{intersection-complexes-unramified-l-factors}
+\source{intersection-complexes-unramified-l-factors}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Models for the arc space
+\label{sect:models}
+\source{intersection-complexes-unramified-l-factors}
+
+In this section we define two models (in the sense of Grinberg--Kazhdan) 
+for the arc space of $X$, both of which
+were already introduced in \cite{GN} and go back to ideas of Drinfeld. 
+We call these the global and Zastava models (the term `global' refers to the fact
+that the model depends on the curve $C$). 
+The global model $\sM_X$ is crucial because it allows us to model the $G(\mf o)$-orbits of $X(\mf o)$,
+something which cannot be done directly via the Zastava model. 
+On the other hand, the Zastava model $\Scr Y_X$ is more suitable for finite type calculations. 
+
+\smallskip
+
+Various incarnations of these constructions have been used in 
+\cite{FM, FFKM, BG, BFGM, BFG, ABB}.
+To place our work in this context, we remark that when $X = \ol{N\bs G}^\aff$ 
+we have $\sM_X = \ol\Bun_N$ is Drinfeld's compactification of $\Bun_N$ 
+and $\sY_X$ is ``the'' Zastava space of \cite{FM}. % (in this case $\ch G_X = \ch T$).
+
+\smallskip
+
+While Gaitsgory--Nadler define the global and Zastava models for any affine $X$, 
+in order to avoid various technical difficulties they faced (such as the existence
+of \emph{twisted strata}, which are related to the existence of 
+disconnected stabilizer subgroups) we make the following simplifying assumption:
+
+\medskip
+
+Starting from \S\ref{sect:localmodel}, 
+\emph{we assume for the rest of the paper that $B$ acts simply transitively on $X^\circ$.} 
+If $\ch G_X = \ch G$ and $X$ has no spherical roots of type $N$, then the assumption above always holds. 
+
+
+\begin{rem}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{rem:Hconnected}
+\source{intersection-complexes-unramified-l-factors}
+The assumption that $B$ acts simply transitively on $X^\circ$ implies that $H$ must
+be connected, by Lemma~\ref{lem:H_I-conn}. 
+\end{rem}
+
+
+\subsection{Global model}
+
+Gaitsgory--Nadler \cite{GN} define certain stacks of meromorphic quasimaps from $C \dashrightarrow X/G$ 
+to model $X^\bullet(F)$, the loop space of $X^\bullet$. 
+Our global model $\sM_X$ is the substack consisting of those quasimaps that 
+extend to regular maps\footnote{In the literature, when $X=\ol{N\bs G}$ regular maps 
+$C \to \ol{N\bs G}$ are still referred to as quasimaps to $N\bs G$.} $C \to X/G$. 
+
+\subsubsection{Definition}
+Define the stack 
+\[ \sM_{X} := \Maps_\gen(C, X/ G \supset X^\bullet /G) \]
+to be the open substack of $\Maps(C, X/G)$ representing maps generically
+landing in $X^\bullet/G = (H\bs G)/G = H\bs\pt$. 
+
+\smallskip
+
+An $S$-point of $\Scr M_{X}$ is a map $f : C\times S \to X/G$, which is
+equivalent to the datum $(\Scr P_G, \sigma)$ where 
+\begin{itemize}
+\item $\Scr P_G$ is a $G$-bundle on $C\times S$ and 
+\item $\sigma : C\times S \to X\times^G \Scr P_G$ is a section over $C\times S$ 
+such that
+\item $\sigma|_{\Spec k(C) \xt S}$ lands in $X^\bullet \xt^G \Scr P_G = H\bs \Scr P_G$
+and gives $\Scr P_G |_{\Spec k(C)\xt S}$ the structure of an $H$-bundle.
+\end{itemize}
+We call the preimage $\sigma^{-1}(X^\bullet \xt^G \sP_G)\subset C \xt S$ the 
+locus of $G$-nondegenerate points. 
+
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+The natural map $\Scr M_{X} \to \Bun_G$ is schematic locally of finite type. 
+In particular, $\Scr M_{X}$ is an algebraic stack locally of finite type over $k$.
+\end{prop}
+\begin{proof}
+Since $\Scr M_{X}$ is an open substack of $\Maps(C, X/G)$,
+it suffices to show the latter is schematic locally of finite type
+over $\Bun_G$. 
+Let $S \to \Bun_G$ correspond to a $G$-bundle $\Scr P_G$ on $C\xt S$.
+Then the fiber product $S \underset{\Bun_G}\times \Maps(C, X/G)$ 
+is isomorphic to the space of sections $C\xt S \to X \times^G \Scr P_G$ over $C \xt S$.
+This space is representable by a $k$-scheme locally of finite type 
+(\cite[Theorem 5.23]{FGA-explained}). 
+\end{proof}
+
+If $X = H\bs G$ is homogeneous, then $\Scr M_X = \Maps(C,H\bs \pt) = \Bun_H$. 
+
+\subsubsection{Adelic description} \label{sect:adelic}
+\source{intersection-complexes-unramified-l-factors}
+For motivational purposes, we give an ``adelic'' description of the $k$-points of 
+$\sM_X$. 
+Let $\mbb A$ denote the restricted product $\prod'_{v\in \abs C} F_v$ and 
+$\mbb O = \prod_{v\in \abs C} \mf o_v$. 
+(If $k=\mbb F_q$ then $\mbb A$ is the ring of adeles of the function field $\Bbbk = k(C)$.)
+
+The underlying set of meromorphic quasimaps $C \dashrightarrow X/G$ 
+can be identified with the set
+\[ X^\bullet(\Bbbk) \xt^{G(\Bbbk)} G(\mbb A) / G(\mbb O) 
+= H(\Bbbk) \bs G(\mbb A) / G(\mbb O). 
+\]
+Note that the $G$-action on $X$ induces a map 
+\[ X^\bullet(\Bbbk) \xt^{G(\Bbbk)} G(\mbb A) / G(\mbb O) \to X^\bullet(\mbb A)/G(\mbb O) \subset X(\mbb A)/G(\mbb O). 
+\]
+The underlying set of $\sM_X(k)$ identifies with 
+the preimage of $(X^\bullet(\mbb A) \cap X(\mbb O)) / G(\mbb O)$ under the map above.
+
+\medskip
+
+Note that the topologies on $X^\bullet(\mbb A)$ vs.~$X(\mbb A)$ are different: the
+fact that the geometric constructions above depend on $X$ can be expressed
+by saying that we are always using the topology of $X(\mbb A)$, not of $X^\bullet(\mbb A)$.
+
+
+
+\subsubsection{} \label{def:partition}
+\source{intersection-complexes-unramified-l-factors}
+For any set $\msf S$, define the set of unordered \emph{multisets} in
+$\msf S$ to be the formal direct sum
+\[ \Sym^\infty(\msf S) := \bigoplus_{\ch\lambda\in \msf S} \mbb N[\ch\lambda]. \] 
+An element of $\Sym^\infty(\msf S)$ is a 
+formal sum $\mf P = \sum_{\ch\lambda \in \msf S} N_{\ch\lambda}[\ch\lambda]$
+where $N_{\ch\lambda}\ge 0$ are integers and only finitely many 
+are nonzero. 
+For a multiset $\mf P$, define 
+\[ \oo C^{\mf P} = \oo \prod_{\ch\lambda \in \msf S} \oo C^{(N_{\ch\lambda})}
+\]
+to be the open subscheme of $C^{\mf P}:=\prod C^{(N_{\ch\lambda})}$ 
+with all diagonals
+removed, i.e., the subscheme of multiplicity free divisors.
+We write $\mf P=0$ for the zero element, and we will use the 
+convention $\oo C^{0}=C^{0}=\pt$. 
+If we define $\abs{\mf P} = \sum N_{\ch\lambda}$, then there are 
+natural maps $C^{\abs{\mf P}} \to C^{\mf P} \to C^{(\abs{\mf P})} \subset \Sym C$.
+
+Now consider the case when $\msf S = \msf M\sm 0$ for a commutative monoid
+$\msf M$. Then $\Sym^\infty(\msf M\sm 0)$ identifies with the set of 
+\emph{partitions} of arbitrary elements in $\msf M$.
+Given a partition $\mf P\in \Sym^\infty(\msf M\sm 0)$ as above, 
+we define $\deg : \Sym^\infty(\msf M\sm 0) \to \msf M$ by 
+\[
+    \deg(\mf P) := \sum_{\ch\lambda\in \msf M\sm 0} N_{\ch\lambda}\ch\lambda 
+\]
+with addition taking place in $\msf M$. 
+There is a natural order on the set $\Sym^\infty(\msf M\sm 0)$: 
+we say that $\mf P$ refines $\mf P'$ if the difference $\mf P-\mf P'$
+viewed as an element of $\bigoplus_{\ch\lambda\in \msf M\sm 0}
+ \mbb Z [\ch\lambda]$ can be written as a sum of elements of the
+form $[\ch\lambda']+[\ch\lambda'']-[\ch\lambda]$ with $\ch\lambda'+\ch\lambda''=\ch\lambda$ in $\msf M$. 
+
+Let $\Prim(\msf M)$ be the set of primitive elements of $\msf M$, i.e.,
+the elements $\ch\lambda\in \msf M\sm 0$ that cannot be decomposed
+as a sum $\ch\lambda=\ch\lambda_1+\ch\lambda_2$ where $\ch\lambda_1,\ch\lambda_2 \in \msf M\sm 0$. Then any partition in $\Sym^\infty(\msf M\sm 0)$
+can be refined to an element in $\Sym^\infty(\Prim(\msf M))$. 
+
+
+
+\subsubsection{Stratification of $\sM_X$}
+
+\label{sect:globstrat}
+\source{intersection-complexes-unramified-l-factors}
+
+
+We would like to stratify $\sM_X$ according to $G(\mf o_v)$-orbits of 
+$X(\mf o_v)\cap X^\bullet(F_v)$ at each $v\in \abs C$, described in Theorem \ref{thm:Gorbits}. 
+
+
+Consider the set $\Sym^\infty(\mathfrak c_X^-\sm 0)$
+of partitions in $\mathfrak c_X^-$, as defined
+in \S\ref{def:partition}. 
+Let  
+\[ \ch\Theta = \sum_{\ch\theta\in \mathfrak c_X^- \sm 0} N_{\ch\theta} [\ch\theta] \] 
+denote such a partition. 
+We will write $\ch\Theta=0$ for the empty partition and 
+$\ch\Theta=[\ch\theta]$ for the singleton partition corresponding to a
+single element $\ch\theta$. 
+
+In \S\ref{proof:globstrata}, we define locally closed substacks $\Scr M^{\ch\Theta}_X$ of $\Scr M_X$ ranging over all partitions 
+$\ch\Theta$ in $\mathfrak c_X^-$.  
+For simplicity we only describe $\Scr M^{\ch\Theta}_X$ on $k$-points below:
+Such a point consists of a map $f : C\to X/G$ and a formal sum
+$\sum_{v\in \abs C} \ch\theta_v \cdot v$ satisfying the following
+conditions: 
+\begin{itemize}
+\item $\ch\theta_v \ne 0$ for finitely many $v\in \abs C$, 
+\item for a fixed $\ch\theta \ne 0$, the cardinality of $\{ v\in \abs C \mid \ch\theta_v =\ch\theta\}$ equals $N_{\ch\theta}$, 
+\item for each $v\in \abs C$
+the restriction $f|_{\Spec \mf o_v} : \Spec \mf o_v \to X/G$ defines a point in $\msf L^{\ch\theta_v} X / \msf L^+ G$.  
+\end{itemize} 
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{lem:globstrata}
+\source{intersection-complexes-unramified-l-factors}
+The substack $\Scr M^{\ch\Theta}_X$ is
+smooth and locally closed in $\Scr M_X$. 
+\end{lem}
+
+We defer the proof of Lemma~\ref{lem:globstrata} to \S\ref{proof:globstrata} of the appendix. 
+
+\medskip
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{prop:globwhitney}
+\source{intersection-complexes-unramified-l-factors}
+Assume $k=\mbb C$. Let $\Scr S$ denote the collection of connected components of 
+$\Scr M^{\ch\Theta}_X$, ranging over all 
+$\ch\Theta \in \Sym^\infty(\mathfrak c_X^- \sm 0)$. Then $\Scr S$ 
+is a Whitney\footnote{We say that a stratification on an algebraic stack $\Scr M$ locally of
+finite type is Whitney if the stratification is Whitney after pullback
+along any (equivalently all) smooth cover of $\Scr M$ by a scheme.} 
+stratification of $\Scr M_X$. 
+\end{prop}
+
+By a stratification we mean a collection of locally closed substacks that form a
+disjoint union on $k$-points and such that the closure of any stratum is a union of
+strata. The stratification is Whitney if the strata are smooth and
+every pair of strata satisfies Whitney's condition B. (This only makes sense
+if the characteristic of $k$ is zero; in positive characteristic, see 
+\S \ref{sect:whitneyperverse} below.)
+
+\smallskip
+
+The proof of Proposition~\ref{prop:globwhitney} is given in \S\ref{proof:whitney}. 
+We call this the \emph{fine stratification} of $\Scr M_X$. 
+The open stratum $\sM_X^0 = \Maps(C, H\bs G/G)$ identifies
+with $\Bun_H$. We abbreviate $\sM_X^{\ch\theta} := \sM_X^{[\ch\theta]}$. 
+
+\begin{rem}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+If $X$ is affine and homogeneous, then $\Cal C_0(X) \cap \Cal V = 0$ 
+so the stratification is trivial, consisting of
+the single smooth stratum $\Scr M_X$ itself.
+\end{rem}
+
+\subsubsection{} \label{sect:whitneyperverse}
+\source{intersection-complexes-unramified-l-factors}
+Let $\rmD^b_{\Scr S}(\sM_X,\ol\bbQ_\ell)$  
+denote the subcategory of bounded $\Scr S$-constructible complexes, i.e., 
+the usual cohomology sheaf $\rmH^i(\Scr F)|_S$ is a local system
+of finite rank for all $i\in\bbZ$ and $S\in\Scr S$. 
+As explained in \cite{BBDG}, the category $\rmD^b_{\Scr S}(\sM_X)$ has a 
+perverse $t$-structure. Let $\rmP_{\Scr S}(\sM_X)$ denote the heart
+of this $t$-structure, i.e., this is the abelian subcategory of all perverse sheaves
+that are $\Scr S$-constructible. 
+
+In particular, the IC complex of the closure of any stratum $\sM_X^{\ch\Theta}$ 
+is an object of $\rmP_{\Scr S}(\sM_X)$.
+When $k$ has positive characteristic, this is the condition on $\Scr S$ 
+that we need (in place of the Whitney condition). 
+Proposition~\ref{prop:Whitney-poschar} shows that this condition 
+indeed holds in positive characteristic.
+
+
+\subsection{Toric case} \label{sect:baseA}
+\source{intersection-complexes-unramified-l-factors}
+If we apply the definitions above to the special case where $G$ is replaced by the torus $T_X$ and $X$ is replaced by the toric variety $X\sslash N$, we obtain the space \begin{equation}  \label{e:defA}
+\source{intersection-complexes-unramified-l-factors}
+    \Scr A = \Maps_\gen(C, (X/\!\!/N)/T_X \supset \pt) 
+\end{equation}
+of maps generically landing in $T_X/T_X=\pt$. 
+
+
+
+The stack $\Scr A$ has been previously studied in \cite[\S 3]{BNS} as 
+a model for the formal arc space of the toric variety $X/\!\!/N$ 
+(in particular, $\Scr A$ turns out to be representable by a scheme). 
+We review the relevant properties below.
+
+For any $N \in \mbb N$, we have the $N$th symmetric product
+$C^{(N)}$ of $C$, which identifies with the Hilbert scheme $\on{Hilb}^N(C)$
+parametrizing relative effective divisors in $C$ of degree $N$.
+Let $\Sym C$ denote the disjoint union 
+$\bigsqcup_{N\in \mathbb N} C^{(N)}$ (where $C^{(0)}=\pt$). 
+
+
+\begin{eg}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+Observe that $\Maps_\gen(C, \mbb A^1/\mbb G_m\supset \pt)$ sends a test scheme $S$ to 
+the set of relative effective Cartier divisors on $C \times S$, i.e., 
+$\Maps_\gen(C, \mbb A^1/\mbb G_m\supset \pt) \cong \Sym C$. 
+Addition of divisors gives $\Sym C$ the structure of a monoid. 
+\end{eg}
+
+
+Let $\mf c_X^\vee = \Hom(\mf c_X, \mbb N)$ denote the monoid dual 
+to $\mf c_X$, so $k[X/\!\!/N]$ is the semigroup algebra of $\mf c_X^\vee$. 
+Then there is an isomorphism 
+\[ \Scr A \cong \Hom(\mf c_X^\vee, \Sym C) \] 
+where the right hand side represents homomorphisms of monoid objects in the category of schemes
+(with $\mf c_X^\vee$ viewed as a discrete scheme). 
+A $k$-point of $\Scr A$ is a formal finite sum 
+\[ \sum_{v\in \abs C} \ch\lambda_v \cdot v \]
+where $\ch\lambda_v$ is an element of the dual monoid $\mathfrak c_X$ and $\ch\lambda_v=0$ for all but finitely many $v$. 
+
+\subsubsection{} 
+The stratification described in \S \ref{sect:globstrat} takes here the following form:
+For any $\mf P \in \Sym^\infty(\mathfrak c_X\sm 0)$ there is a natural map 
+\[ \oo C^{\mf P} \into \Scr A, \] 
+where the image consists of the $k$-points $\sum_{v\in \abs C} \ch\lambda_v\cdot v$ such that the unordered multiset of nonzero $\ch\lambda_v$, counted
+with multiplicities, coincides with $\mf P$. 
+
+
+
+\begin{prop}[{\cite[Proposition 3.5]{BNS}}]
+\source{intersection-complexes-unramified-l-factors}
+\notready 
+\label{prop:Astrata}
+\source{intersection-complexes-unramified-l-factors}
+\ 
+\begin{enumerate}
+\item The maps $\oo C^{\mf P}\into \Scr A$ are locally closed embeddings,
+and the collection of such embeddings over all $\mf P\in \Sym^\infty(\mathfrak c_X \sm 0)$ forms a stratification of $\Scr A$.
+\item $\oo C^{\mf P'}$ lies in the closure of $\oo C^{\mf P}$
+if and only if $\mf P$ refines $\mf P'$. 
+\item The irreducible components of $\Scr A$ are in bijection with 
+the closures of $\oo C^{\mf P}$ for $\mf P \in \Sym^\infty(\Prim(\mf c_X))$.
+\end{enumerate}
+\end{prop}
+
+\begin{cor}[{\cite[Corollary 3.6]{BNS}}]
+\source{intersection-complexes-unramified-l-factors}
+\notready 
+For $\ch\lambda \in \mathfrak c_X$, let 
+\[ \Scr A^{\ch\lambda} \subset \Scr A \]
+denote the subscheme whose $k$-points consist of all 
+$\sum_{v\in \abs C} \ch\lambda_v \cdot v$
+such that $\sum_v \ch\lambda_v = \ch\lambda$. 
+Then $\Scr A^{\ch\lambda}$ is a connected component of $\Scr A$, and
+this gives a bijection 
+\[ \pi_0(\Scr A) \cong \mathfrak c_X. \] 
+\end{cor}
+
+\begin{rem}
+\source{intersection-complexes-unramified-l-factors}
+\notready\label{rem:Afree}
+\source{intersection-complexes-unramified-l-factors}
+If $\mathfrak c_X$ is a free monoid with basis $\{ \ch\nu_i \}$, 
+then for $\ch\lambda = \sum_i N_i \ch\nu_i$ we have 
+$\Scr A^{\ch\lambda} = \prod_i C^{(N_i)}$. The bases for the Zastava spaces
+in \cite[\S 2.1]{BFGM} take this form.
+\end{rem}
+
+
+
+\subsection{Zastava model} \label{sect:localmodel}
+\source{intersection-complexes-unramified-l-factors}
+
+\emph{For the rest of this paper we assume that $B$ acts simply transitively on $X^\circ$.} 
+This implies that $T_X = T$ and $\Lambda_X = \Lambda_G$, so we will use the notation
+interchangeably. 
+
+\medskip
+
+We introduce a special case of the model used in \cite[Part III]{GN}, which is based 
+on a general pattern pointed out by Drinfeld (see \cite[\S 4.2--4.4]{Drinfeld}). 
+These are a generalization of the Zastava\footnote{``Zastava'' is Croatian for ``flag''.} spaces introduced by Finkelberg--Mirkovi\'c in \cite{FM, FFKM, BFGM}, and we will henceforth call them the Zastava model for $X$. 
+
+\medskip
+
+The Zastava model for $X$ is defined as 
+\begin{equation}
+    \sY = \Scr Y_{X} = \Maps_\gen(C, X/B \supset \pt),
+\end{equation}
+the stack of maps $C \times S \to X/B$ generically landing 
+in $X^\circ/B=\pt$. 
+
+
+Applying $\Maps(C,?/T)$ to the natural map $X/N \to X/\!\!/N $ induces a map 
+\begin{equation}\label{mappi} \pi: \Scr Y \to \Scr A.
+\source{intersection-complexes-unramified-l-factors}
+\end{equation}
+For $\ch\lambda \in \mf c_X$, let $\sY^{\ch\lambda}$ denote the preimage of 
+$\sA^{\ch\lambda}$ under $\pi$. 
+
+We show in Proposition~\ref{prop:YGr} below that $\sY$ is representable by a
+scheme locally of finite type over $k$. This was predicted by 
+Drinfeld \cite[Conjecture 4.2.3]{Drinfeld} in 
+a more general setting. 
+
+\begin{eg}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{eg:YHecke}
+\source{intersection-complexes-unramified-l-factors}
+Let $X = \mbb G_m \bs \GL_2$ where $\mbb G_m$ is embedded as $\left( \begin{smallmatrix} 1 & \\ & * \end{smallmatrix} \right)$. 
+Then $\ch G_X = \ch G = \GL_2$ and $\ch\Lambda_X = \ch\Lambda_G = \mbb Z^2$ with 
+standard basis $\ch\vareps_1,\ch\vareps_2$.
+The $B$-orbits on $X$ are the same as $\mbb G_m$-orbits on $G/B=\mbb P^1$, so
+there are three orbits: $\mbb G_m, \{0\}, \{\infty\}$. 
+These correspond to $X^\circ$ and two colors $D^+, D^- \subset X$, respectively.
+We have $\ch\nu_{D^+} = \ch\vareps_1,\, \ch\nu_{D^-} = -\ch\vareps_2$
+and $\mf c_X = \mbb N^2$ is the free monoid generated by $\ch\nu_{D^+}, \ch\nu_{D^-}$. 
+Note that $\ch\nu_{D^+} + \ch\nu_{D^-} = \ch\alpha$ is the simple coroot. 
+
+Since $X$ is affine homogeneous, $\sM_X = \Bun_H = \Bun_1$ is the moduli stack
+of line bundles. The Zastava model is $\sY=\Maps_\gen(C, \mbb G_m \bs \GL_2/B \supset \pt) 
+= \Maps_\gen(C, \mbb G_m \bs \mbb P^1 \supset \pt)$. 
+This is the stack parametrizing two line bundles $\Scr L, \Scr L'$ on $C$
+and a fiberwise injective map of vector bundles $\sigma :\Scr L \into \Scr O_C \oplus \Scr L'$ 
+such that \emph{both} coordinates $\sigma_1 : \Scr L \into \Scr O_C$ and $\sigma_2 : \Scr L \into \Scr L'$ are generically nonzero. 
+Thus, $\sigma_1,\sigma_2$ are equivalent to two effective Cartier divisors 
+$D_1, D_2$ which give $\Scr L = \Scr O(-D_1)$ and $\Scr L' = \Scr O(D_2-D_1)$. 
+The condition that $\sigma=(\sigma_1,\sigma_2)$ is fiberwise injective is equivalent
+to saying that the supports of $D_1,D_2$ are disjoint. 
+Therefore, we have an identification
+\[ \sY_{\mbb G_m \bs \GL_2} = \Sym C \oo\xt \Sym C = \bigsqcup_{(n_1,n_2)\in \mbb N^2} C^{(n_1)} \oo\xt C^{(n_2)}. \]
+Meanwhile $\Scr A_{\mbb G_m \bs \GL_2} = \Sym C \xt \Sym C = \bigsqcup_{\mbb N^2} C^{(n_1)} \times C^{(n_2)}$. 
+In this case $\sY \to \sA$ is the natural open embedding, and 
+$\sY^{n_1\ch\nu_{D^+}+n_2\ch\nu_{D^-}} = C^{(n_1)} \oo\xt C^{(n_2)}$ is connected.
+The map $\sY \to \sM_X$ forgetting the $B$-structure corresponds to 
+$(D_1,D_2) \mapsto \Scr O(D_2-D_1)$. 
+
+Note that for the embedding above of $\mbb G_m \into \GL_2$, 
+the open $B$-orbit is the orbit of $\left( \begin{smallmatrix} 1 & 0 \\ 1 & 1 \end{smallmatrix}
+\right) \in \mbb G_m \bs \GL_2$. In particular $X^\circ$ does not contain the identity coset. 
+If we conjugate $\mbb G_m$ to the embedding $\left( \begin{smallmatrix} 1 & 0 \\ 1-a & a \end{smallmatrix}\right)$, then we may take the base point $x_0=1$. 
+\end{eg}
+
+\begin{eg}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{eg:YHeckePGL}
+\source{intersection-complexes-unramified-l-factors}
+In the example above we could instead replace $\GL_2$ by $G = \PGL_2$ and 
+$H = \mbb G_m$ becomes the split torus inside $\PGL_2$. 
+Then we still have $X = \mbb G_m\bs \PGL_2$ affine spherical with $\ch G_X = \ch G = \mathrm{SL}_2$ and two colors $D^+,D^-$. 
+However now $\ch\Lambda_X = \ch\Lambda_G = \mbb Z \frac {\ch\alpha}2$ 
+and $\ch\nu_{D^+} = \ch\nu_{D^-} = \frac {\ch\alpha}2$. 
+The space $\Scr Y_{\mbb G_m \bs \PGL_2}$ still identifies with 
+$\Sym C \oo\xt \Sym C$. However now $\Scr A_{\mbb G_m \bs \PGL_2} = \Sym C$
+with $\Scr A^{n \frac{\ch\alpha}2} = C^{(n)}$. 
+Then $\sY_{\mbb G_m \bs \PGL_2}^{n \frac{\ch\alpha}2} = \bigsqcup_{n_1+n_2=n} C^{(n_1)}\oo\xt C^{(n_2)}$ and the map $\sY \to \sA$ corresponds to addition of divisors.
+
+Note that $\sM_X = \Bun_1$ and $C^{(n_1)}\oo\xt C^{(n_2)}$ maps to the component 
+$\Bun_1^{n_2-n_1}$ of degree $n_2-n_1$ line bundles. 
+Thus, while $\sY^{n \frac{\ch\alpha}2}$ is not connected, 
+fixing a connected component of $\Bun_1$ determines the connected
+component of $\sY^{n \frac{\ch\alpha}2}$.
+\end{eg}
+
+
+\subsection{Graded factorization property}
+Note that our assumption on $X^\circ$ implies that $X^\circ/B=\pt$ is a dense open
+substack of $X/B$. In the language of \cite[\S 4.2.1]{Drinfeld}, the stack $X/B$ is \emph{pointy}. Drinfeld observed that maps from a curve to a pointy stack will have local
+behavior with respect to $C$ (compared to \cite{Drinfeld}, we are in the special
+setting where we have a group $B$ acting on $X$, not just a groupoid).
+
+
+Let $\ch\lambda = \ch\lambda_1 + \ch\lambda_2$ with $\ch\lambda_i \in \mathfrak c_X$ and let us denote by $\Scr A^{\ch\lambda_1} \oo\times \Scr A^{\ch\lambda_2}$ the open subset of the direct product $\Scr A^{\ch\lambda_1} \times \Scr A^{\ch\lambda_2}$ consisting of $\alpha_1,\alpha_2 : C \to (X/\!\!/N)/T$ such that
+the supports of $C\sm \alpha_1^{-1}(\pt)$ and $C\sm \alpha_2^{-1}(\pt)$ are 
+disjoint. 
+We have a natural \'etale map $\Scr A^{\ch\lambda_1} \oo\times \Scr A^{\ch\lambda_2} \to \Scr A^{\ch\lambda}$.
+
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{prop:factorization}
+\source{intersection-complexes-unramified-l-factors}
+The scheme $\Scr Y$ has the graded factorization property, in the sense
+that there is a natural isomorphism 
+\[ 
+\Scr Y^{\ch\lambda}  \underset{\Scr A^{\ch\lambda}}\times 
+(\Scr A^{\ch\lambda_1} \oo\xt \Scr A^{\ch\lambda_2})
+\cong 
+(\Scr Y^{\ch\lambda_1} \times \Scr Y^{\ch\lambda_2})|_{\Scr A^{\ch\lambda_1}\oo\times \Scr A^{\ch\lambda_2}}. 
+\]
+\end{prop}
+\begin{proof}
+Let $y_1, y_2 : C \times S \to X/B$ be $S$-points of $\Scr Y^{\ch\lambda_1}, \Scr Y^{\ch\lambda_2}$, respectively. 
+Let $U_i = y_i^{-1}(\pt)\subset C\times S$; the condition that $(\pi(y_1),\pi(y_2))\in
+\Scr A^{\ch\lambda_1} \oo\xt \Scr A^{\ch\lambda_2}$ is equivalent to 
+requiring that $U_1 \cup U_2 = C\times S$. 
+Then 
+$y_1|_{U_1\cap U_2} \cong y_2|_{U_1\cap U_2} : U_1\cap U_2 \to \pt$
+provides a gluing 
+data for $y_1,y_2$ on the covering of $C\times S$ by $U_1$ and $U_2$.
+Since $X/B$ is a stack, the gluing data descends to a map
+$y : C\times S \to X/B$ that sends $U_1\cap U_2$ to $\pt$. 
+This defines $y\in \Scr Y^{\ch\lambda}(S)$. 
+The map in the opposite direction
+is constructed in the same way and they are mutually inverse.
+\end{proof}
+
+We will henceforth use the notation 
+$\Scr Y^{\ch\lambda_1} \oo\xt \Scr Y^{\ch\lambda_2}$ to denote
+$(\Scr Y^{\ch\lambda_1} \times \Scr Y^{\ch\lambda_2})|_{\Scr A^{\ch\lambda_1}\oo\times \Scr A^{\ch\lambda_2}}$. 
+
+\subsection{Global-to-Zastava yoga} 
+
+We have a map $\Scr Y \to \Scr M_{X}$ by forgetting the $B$-structure. 
+More precisely, we have an open embedding 
+\begin{equation}
+    \Scr Y \into \Scr M_{X} \underset{\Bun_G}\times \Bun_B.
+\end{equation}
+
+Although the natural map $\Bun_B \to \Bun_G$ is in general not smooth, 
+it is smooth over a large enough open substack: 
+consider $T$ as the Levi quotient of $B^-$. Let $\mf n^-$ denote the Lie algebra of $N^-$
+viewed as a $T$-module. Define the open substack $\Bun^r_T \subset \Bun_T$ to consist
+of those $T$-bundles $\Scr P_T$ for which 
+$H^1(C, V \times^T \Scr P_T)=0$, for all $T$-modules $V$ which appear as
+subquotients of $\mf n^-$. Let 
+$\Bun_B^r$ be the preimage of $\Bun^r_T$ under the natural projection 
+$\Bun_B \to \Bun_T$.
+
+For $\ch\mu\in \ch\Lambda_T$, let $\Bun^{\ch\mu}_T$ denote the corresponding
+connected component of $\Bun_T$ of degree $\ch\mu$, and 
+let $\Bun^{\ch\mu}_B$ (resp.~$\Bun^{\ch\mu,r}_B$) be 
+its preimage in $\Bun_B$ (resp.~$\Bun^r_B$). 
+Note that by Riemann--Roch, $\Bun_B^{-\ch\mu,r} = \Bun_B^{-\ch\mu}$ 
+if $\brac{\alpha_i,\ch\mu} > 2g-2$ for all simple roots $\alpha_i$, where $g$ is the genus of $C$. We say that $\ch\mu$ is ``large enough'' if $\brac{\alpha_i,\ch\mu}>N$
+for all simple roots $\alpha_i$ and some $N \gg 0$.
+
+\begin{lem}[{\cite{DS}, \cite[Lemma 3.7]{BFGM}, \cite[Lemma 14.2.1]{GN}}]
+\source{intersection-complexes-unramified-l-factors}
+\notready 
+\label{lem:BunBtoGsm}
+\source{intersection-complexes-unramified-l-factors}
+The restriction of the map $\Bun_B \to \Bun_G$ to $\Bun^r_B$ is smooth. 
+Any open substack $U\subset \Bun_G$ of finite type is contained in the image of 
+$\Bun^{-\ch\mu}_B$ for $\ch\mu$ large enough, and the fibers of $\Bun^{-\ch\mu}_B\to \Bun_G$ over $U$ are geometrically connected. 
+\end{lem}
+
+Under our conventions, the composition $\Scr Y^{\ch\lambda} \to \Bun_B \to \Bun_T$ lands in the connected component $\Bun_T^{-\ch\lambda}$. 
+
+
+\begin{cor}
+\source{intersection-complexes-unramified-l-factors}
+\notready\label{cor:Mcover}
+\source{intersection-complexes-unramified-l-factors}
+(i) The map $\Scr Y^{\ch\mu} \to \Scr M_{X}$
+is smooth with geometrically connected fibers (when nonempty) for $\ch\mu$ large enough.
+
+(ii)
+Any $k$-point of $\Scr M_{X}$ lies in the image of $\Scr Y^{\ch\mu}$ for all $\ch\mu$ in a translate of $\ch\Lambda^\pos_G$. 
+\end{cor}
+\begin{proof}
+We have an open embedding $\Scr Y^{\ch\mu} \into \Scr M_{X} \xt_{\Bun_G} \Bun_B^{-\ch\mu}$, so (i) follows from Lemma~\ref{lem:BunBtoGsm} 
+by base change. To show (ii), we consider the fiber of 
+$\Scr Y \to \Scr M_{X}$ on $k$-points:
+
+A point in $\Scr M_X(k)$ is equivalent to a datum 
+$(\Scr P_G, \sigma : C\to X\xt^G \Scr P_G)$. 
+First we show that there exists some point in $\sY(k)$ that maps to $f$. 
+By \cite{Steinberg}, there exists an open subscheme $U\subset C$
+on which $\Scr P_G|_U$ can be trivialized. 
+If we fix such a trivialization, then $\sigma|_U$ 
+identifies with a section $U \to H\bs G$. Since $H\bs G$ is
+spherical, $\sigma(U)$ intersects the open orbit of a 
+Borel subgroup $g B g^{-1} \subset G$ for some $g\in G(k)$. 
+Then $g$ defines a point in  
+$(G/B)(k) \subset (G/B)(\Bbbk)$, where $\Bbbk=k(C)$. 
+Using our fixed trivialization
+of $\Scr P_G|_U$, we get a section 
+\[ \Spec \Bbbk \overset{g}\to \Spec \Bbbk \times G/B \cong \Scr P_G^0|_{\Spec \Bbbk} \xt^G (G/B) 
+\cong \sP_G|_{\Spec \Bbbk} \xt^G G/B, 
+\]
+which extends to a section $C \to \Scr P_G \xt^G G/B$ since 
+$G/B$ is proper. The latter is equivalent to giving a 
+$B$-structure $\Scr P_B$ on $\Scr P_G$. 
+By construction $(\Scr P_B,\sigma)$ satisfies the generic condition 
+for it to lie in $\Scr Y(k)$, and $(\Scr P_B,\sigma)$ maps to $(\sP_G,\sigma) \in \sM_X(k)$. 
+
+Next let us fix an arbitrary lift of $(\Scr P_G,\sigma)$ to $(\Scr P_B^1,\sigma)\in \Scr Y(k)$.
+Fix a trivialization of $\Scr P_B^1|_{\Spec \Bbbk}$, which also specifies a 
+trivialization $\Scr P_G|_{\Spec \Bbbk} \cong \Scr P_G^0|_{\Spec \Bbbk}$.
+With respect to this trivialization, we have a bijection of sets
+\begin{equation}\label{e:liftBstructure}
+\source{intersection-complexes-unramified-l-factors}
+    H(\Bbbk)B(\Bbbk)/B(\Bbbk) \overset\sim\to \{\text{lift of } (\sP_G,\sigma) \text{ to a point in } \sY(k) \} 
+\end{equation}
+where the map is given by sending $h \in H(\Bbbk)B(\Bbbk)/B(\Bbbk)\subset (G/B)(\Bbbk)$ to 
+the section
+\[ \Spec \Bbbk \overset{h}\to \Spec \Bbbk \times G/B \cong \sP^0_G|_{\Spec \Bbbk} \xt^G(G/B)
+\cong \sP_G|_{\Spec \Bbbk} \xt^G G/B \]
+and uniquely extending to a section $C \to \sP_G \xt^G G/B$.
+The point $B \in (G/B)(\Bbbk)$ is sent under \eqref{e:liftBstructure} to the lift $(\sP_B^1,\sigma)$.
+
+We are concerned with the possible degrees of $\Scr P_B$ for 
+lifts $(\Scr P_B,\sigma)\in \Scr Y(k)$ above $(\Scr P_G,\sigma)$.
+For a simple root $\alpha$ of $G$, let $P_\alpha$ denote the corresponding minimal
+parabolic in $G$. 
+The image of $H\cap P_\alpha$ in $P_\alpha/\mf R(P_\alpha) = \PGL_2$ must contain 
+a subgroup conjugate to $\left(\begin{smallmatrix} * & 0 \\ 0 & * \end{smallmatrix}\right)$
+or $\left(\begin{smallmatrix} 1 & * \\ 0 & 1 \end{smallmatrix}\right)$.
+Thus we can choose an identification $P_\alpha/B \cong \mbb P^1$ such that
+the image of $(H\cap P_\alpha)(\Bbbk)$ in $\mbb P^1(\Bbbk)$ contains 
+$\Bbbk^\times = k(C)^\times$. 
+For $f \in (H\cap P_\alpha)(\Bbbk)$, let $\bar f$ denote its image in $(P_\alpha/B)(\Bbbk) \cong \mbb P^1(\Bbbk)$. 
+For such a function $f$, let $(\sP_B,\sigma)$ denote the corresponding lift
+of $(\sP_G,\sigma)$ under the bijection \eqref{e:liftBstructure}.
+If $\bar f \in k(C)^\times$, then $\sP_B$ is of degree $-(\ch\mu_1 + N\ch\alpha)$, 
+where $-\ch\mu_1$ is the degree of $\Scr P_B^1$ and 
+$N$ is the degree of the divisor of zeros of $\bar f$.
+
+By the Riemann--Roch theorem, we have a rational function $\bar f\in k(C)^\times$ 
+with divisor of zeros of degree $N$ for any $N \gg 0$. 
+Therefore for any $N\gg 0$, there is a lift $\Scr P_B$ of degree 
+$-(\ch\mu_1+N\ch\alpha)$. 
+We conclude that there exists a lift 
+$(\Scr P_B,\sigma)\in \Scr Y^{\ch\mu}(k)$ for any $\ch\mu$ 
+in a certain translate of $\ch\Lambda^\pos_G$.
+\end{proof}
+
+
+\subsubsection{} \label{sect:locglobyoga}
+\source{intersection-complexes-unramified-l-factors}
+It is not in general true that the natural map 
+$\Scr Y^{\ch\lambda} \to \Scr M_{X}$ is smooth for 
+arbitrary $\ch\lambda$. However, the following 
+well-known argument (cf.~\cite[Theorem 16.2.1]{GN}) 
+shows that any neighborhood of a point in $\Scr Y^{\ch\lambda}$
+is smooth locally isomorphic to a neighborhood of a point in 
+$\Scr M_{X}$:
+
+Let $\ch\lambda\in \mathfrak c_X$ be arbitrary. 
+Since $\ch\Lambda^\pos_G \subset \mf c_X$, we can always
+find $\ch\mu \in \ch\Lambda^\pos_G$ large enough such that 
+$\ch\lambda+\ch\mu$ is also large enough. 
+Let $\Scr Y^{\ch\mu,0}$ denote the preimage of $\Scr M_X^0=\Bun_H$ under the smooth map $\Scr Y^{\ch\mu} \to \Scr M_{X}$.
+Then $\Scr Y^{\ch\mu,0}$ is smooth and   
+the first projection
+\[  \Scr Y^{\ch\lambda} \times \Scr Y^{\ch\mu,0} \to \Scr Y^{\ch\lambda} \]
+is smooth.
+On the other hand, by the graded factorization property (Proposition~\ref{prop:factorization}), there is a natural \'etale map 
+\[ \Scr Y^{\ch\lambda} \oo\xt \Scr Y^{\ch\mu,0} 
+\to \Scr Y^{\ch\lambda+\ch\mu}. 
+\]
+We can compose this with the smooth map $\Scr Y^{\ch\lambda+\ch\mu}\to \Scr M_X$ to get a smooth map $\Scr Y^{\ch\lambda} \oo\xt \Scr Y^{\ch\mu,0} \to \Scr M_X$.
+To summarize, we have constructed:
+
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{lem:localglobalyoga}
+\source{intersection-complexes-unramified-l-factors}
+For any $\ch\lambda\in \mathfrak c_X$ and any $\ch\mu \in \ch\Lambda_G^\pos$ large enough, there is a correspondence 
+\[ 
+\Scr Y^{\ch\lambda} \leftarrow 
+\Scr Y^{\ch\lambda} \oo\times \Scr Y^{\ch\mu,0} \rightarrow 
+\Scr M_{X} 
+\]
+where the left arrow is smooth surjective, and the right arrow is smooth.
+\end{lem}
+
+
+
+\subsection{Stratification of the Zastava model}
+We stratify $\sY^{\ch\lambda}$ according to the fine stratification of $\sM_X$:
+for a partition $\ch\Theta \in \Sym^\infty(\mf c_X^- \sm 0)$
+and $\ch\lambda\in \mf c_X$,
+define the stratum 
+\[ \Scr Y^{\ch\lambda,\ch\Theta} := \Scr Y^{\ch\lambda}
+\underset{\Scr M_X}\times \Scr M_X^{\ch\Theta}. \]
+Abbreviate $\sY^{\ch\lambda,\ch\theta} := \sY^{\ch\lambda,[\ch\theta]}$.
+
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{prop:localstrata}
+\source{intersection-complexes-unramified-l-factors}
+The stratum $\Scr Y^{\ch\lambda,\ch\Theta}$ is a smooth locally closed
+subscheme of $\Scr Y^{\ch\lambda}$.
+\end{prop}
+\begin{proof}
+By Lemma~\ref{lem:localglobalyoga}, there exists $\ch\mu\in\ch\Lambda_X$
+such that there is a smooth correspondence 
+\[ \Scr Y^{\ch\lambda} \leftarrow \Scr Y^{\ch\lambda}\oo\times \Scr Y^{\ch\mu,0} \to \Scr M_X \]
+where the left arrow is surjective.
+Note that by definition of $\Scr M_X^{\ch\Theta}$, the preimage of 
+$\Scr M_X^{\ch\Theta}$ in $\Scr Y^{\ch\lambda}\oo\times\Scr Y^{\ch\mu,0}$
+is isomorphic to $\Scr Y^{\ch\lambda,\ch\Theta} \oo\times \Scr Y^{\ch\mu,0}$
+since $\Scr Y^{\ch\mu,0}$ consists
+of maps $C\to X^\bullet/B$ which can only define points in $\msf L^0 X/\msf L^+ G$ 
+upon restriction to $\mf o_v$ for any $v\in \abs C$.
+Therefore, we get a smooth correspondence
+\begin{equation} \label{e:localglobalcorresp}
+\source{intersection-complexes-unramified-l-factors}
+    \Scr Y^{\ch\lambda,\ch\Theta} \leftarrow \Scr Y^{\ch\lambda,\ch\Theta} \oo\times \Scr Y^{\ch\mu,0} \to \Scr M_X^{\ch\Theta} 
+\end{equation}
+where the left arrow is still surjective. 
+Now smoothness of $\Scr Y^{\ch\lambda,\ch\Theta}$ follows from smoothness
+of $\Scr M_X^{\ch\Theta}$ (Lemma~\ref{lem:globstrata}).
+\end{proof}
+
+We call the collection of connected components of $\Scr Y^{\ch\lambda,\ch\Theta}$ the
+\emph{fine stratification} of $\Scr Y^{\ch\lambda}$. By the smooth
+correspondence \eqref{e:localglobalcorresp} above 
+and Proposition~\ref{prop:globwhitney}, this is a Whitney stratification (in fact
+the Zastava model is used in the proof of \emph{loc~cit.}).
+
+Note that for a fixed $\ch\lambda$, many of the 
+ $\Scr Y^{\ch\lambda,\ch\Theta}$ are empty.
+
+
+
+\subsection{Relation to the affine Grassmannian} \label{sect:YGr} 
+\source{intersection-complexes-unramified-l-factors}
+
+Let $\Gr_{G,\Sym C} \to \Sym C$ denote the following version of the Beilinson--Drinfeld affine Grassmannian: an $S$-point consists of a relative effective Cartier divisor $D \subset C\times S$ and a $G$-bundle $\Scr P_G$ on $C\times S$ together with a trivialization
+$\Scr P_G|_{C\times S \sm D} \cong \Scr P_G^0|_{C\times S\sm D}$ where 
+$\Scr P_G^0$ is the trivial $G$-bundle. 
+For any linear algebraic group $G$, the functor $\Gr_{G,\Sym C}$ is representable by an ind-scheme, ind-of finite type
+over $\Sym C$ (cf.~\cite{BD}, \cite[Theorem 3.1.3]{Xinwen}).
+
+In particular, we can consider the ind-scheme 
+$\Gr_{B,\Sym C}$. Let 
+$\Gr_{B,C^{(N)}}$ denote the preimage over $C^{(N)}$. 
+
+\subsubsection{} \label{sss:YGr}
+\source{intersection-complexes-unramified-l-factors}
+Choose some $\delta \in \Lambda_X$ that lies on the interior of the
+cone dual to $\Cal C_0(X)$, so $\brac{\delta,\ch\lambda}>0$
+for any nonzero $\ch\lambda \in \Cal C_0(X)$.
+Let $f_\delta \in k[X]^{(B)}$ denote the corresponding $\delta$-eigenfunction. 
+Then $f_\delta$ induces a map $X/\!\!/N \to \mbb A^1$, which 
+in turn induces a map $\Scr A \to \Sym C$ sending 
+$\Scr A^{\ch\lambda} \to C^{(\brac{\delta,\ch\lambda})}$. 
+We can map\footnote{
+The effective Cartier divisor cut out by $f_\delta$ 
+has the property that the complement of its support in $X$ equals $X^\circ$. 
+In this guise, the map $\sY \to \Sym C$ we have constructed coincides with
+the one described in \cite[Remark 4.2.6]{Drinfeld}.}
+
+\begin{equation} \label{e:YGr}
+\source{intersection-complexes-unramified-l-factors}
+    \Scr Y^{\ch\lambda} \to \Gr_{B,C^{(\brac{\delta,\ch\lambda})}} 
+\end{equation}
+as follows:
+let $y : C\times S \to X/B$ be an $S$-point of $\Scr Y$. 
+Let $D \subset C \times S$ be the relative effective divisor corresponding
+to the image of $\pi(y)\in \Scr A(S)$ under the map $\Scr A \to \Sym C$.
+Since $\delta$ was chosen in the interior of the dual cone of $\Cal C_0(X)$, we have
+$C\times S \sm D = y^{-1}(\pt) =: U$. 
+Thus, $y$ defines a $B$-bundle $\sP_B$ on $C \xt S$ together with 
+a section $U \to X^\circ \xt^B \sP_B \cong \sP_B$, i.e., a trivialization of 
+$\sP_B|_U$. 
+The datum $(D, \Scr P_B, \Scr P_B|_U \cong \Scr P_B^0|_U)$ defines an $S$-point 
+of $\Gr_{B,\Sym C}$. 
+
+
+\begin{prop}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{prop:YGr}
+\source{intersection-complexes-unramified-l-factors}
+The map \eqref{e:YGr} is a closed embedding. 
+Moreover, the stack $\Scr Y$ is representable by a scheme locally of finite type over $k$, and for fixed $\ch\lambda\in \mathfrak c_X$, the scheme 
+$\Scr Y^{\ch\lambda}$ is of finite type over $k$. 
+Consequently, the map $\pi : \Scr Y \to \Scr A$ is schematic of finite type. 
+\end{prop}
+\begin{proof}
+First we show that \eqref{e:YGr} is a closed embedding.
+Fix a map $S \to \Gr_{B,\Sym C}$ corresponding to a pair 
+$(D,\Scr P_B)$ and a trivialization of $\Scr P_B$ away from $D$. 
+A trivialization of $\Scr P_B$ on $C\times S\sm D$ is equivalent to a section 
+$\sigma_0:C \times S\sm D \to \Scr P_B \cong X^\circ \xt^B \sP_B$. 
+The fiber of $\Scr Y \to \Gr_{B,\Sym C}$ over $S$
+ parametrizes commutative diagrams 
+\[ 
+\begin{tikzcd}
+C \times S' \sm D' \ar[d,hook] \ar[r, "{\sigma_0}"] & X^\circ \overset B\times\Scr P_B \ar[d, hook]  \\ 
+C \times S' \ar[r, "\sigma"] & X \overset B\times \Scr P_B  
+\end{tikzcd}
+\]
+where $S'$ is an $S$-scheme, $D':= D\times_S S'$, and $\sigma$ is a 
+section over $C\times S$. 
+Observe that $\sigma$ is uniquely determined by $\sigma_0$. 
+By Lemma~\ref{lem:extendsection} below, the condition that 
+$\sigma_0$ extends to $\sigma$ is closed in $S$. 
+
+We have shown that $\Scr Y$ is representable by an ind-scheme
+ind-closed in $\Gr_{B,\Sym C}$. On the other hand, we have a map
+$\Scr Y \to \Bun_B$ whose fiber over an $S$-point $\Scr P_B \in \Bun_B(S)$
+is open in the space of sections $C\times S \to X \times^B \Scr P_B$ over $C\times S$.
+This space is representable by a scheme locally of finite type over $k$ (\cite[Theorem 5.23]{FGA-explained}). Since $\Bun_B$ is an algebraic stack, we conclude that 
+$\Scr Y$ is an algebraic stack representable by an ind-scheme. Hence 
+$\Scr Y$ is representable by a scheme. 
+For fixed $\ch\lambda \in \mathfrak c_X$, we now know that $\Scr Y^{\ch\lambda}$ is a closed subscheme of $\Gr_{B,C^{(\brac{\delta,\ch\lambda})}}$, which is ind-of finite type. It follows that $\Scr Y^{\ch\lambda}$ is of finite type over $k$. The other assertions all follow.  
+\end{proof}
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{lem:extendsection} 
+\source{intersection-complexes-unramified-l-factors}
+Let $S$ be a test scheme and $D \subset C\xt S$ a relative effective divisor.
+Let $\Scr X$ be a scheme affine of finite presentation over $C\xt S$.
+Suppose that there exists a section 
+$\sigma : C\xt S \sm D \to \Scr X$ over $C\xt S$. 
+Then the functor sending $S'$ to the set of 
+maps $S'\to S$ such that $\sigma$ extends to a regular map on $C\xt S'$
+is representable by a closed subscheme of $S$. 
+\end{lem}
+\begin{proof} The map $\sigma$ is equivalent to a map of 
+$\Scr O_{C\xt S}$-algebras
+$\Scr O_{\Scr X} \to \Scr O_{C\xt S\sm D}$. 
+Given $S' \to S$, the condition that 
+$\sigma$ extends to $C\xt S'$ is equivalent to 
+requiring the image of 
+$\Scr O_{\Scr X} \to \Scr O_{C\times S\sm D}$ to land in $\Scr O_{C\times S'} \subset \Scr O_{C\times S' \sm D'}$
+after base change to $S'$, where $D':= D\xt_S S'$. 
+The claim is local in $S$, so we may assume that
+$\Scr O_{\Scr X}$ is surjected onto by 
+$\Sym_{\Scr O_{C\xt S}}(\Scr E^\vee)$ for some
+vector bundle $\Scr E$ on $C\xt S$. 
+Then we just need the composed $\Scr O_{C\times S}$-linear map $\Scr E^\vee \to \Scr O_{C\times S \sm D} \to \Scr O_{C\times S\sm D}/\Scr O_{C\times S}$ to vanish after base change to $S'$.
+Since $\Scr E^\vee$ is coherent, the image of this map 
+is contained in a submodule $\Scr F = \Scr O(m\cdot D)/\Scr O_{C\times S}$
+for some integer $m \ge 0$.  
+The projections $p: C\times S \to S,\, p':C\times S'\to S'$ are proper, and we are considering
+when an element in $H^0 p'_*( \Scr E \otimes_{\Scr O_{C\times S}} \Scr F \otimes_{\Scr O_S} \Scr O_{S'})$ vanishes. 
+Note that $p_*(\Scr E \otimes_{\Scr O_{C\times S}} \Scr F)$ is finite locally free
+as an $\Scr O_S$-module.
+By cohomology and base change 
+we are reduced to asking when an element of $p_*(\Scr E \otimes_{\Scr O} \Scr F)$
+vanishes after base change to $S'$. 
+This is a closed condition on $S$.
+\end{proof}
+
+\begin{rem}[Open curves]
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{rem:opencurve}
+\source{intersection-complexes-unramified-l-factors}
+The graded factorization property of $\Scr Y^{\ch\lambda}$ implies that 
+the geometry of $\Scr Y^{\ch\lambda}$ is purely local
+with respect to the curve $C$. Therefore, we could define 
+\[ \Scr Y(C) = \Maps_\gen(C, X/B \supset \pt) \]
+for any smooth curve $C$ (not necessarily projective), and all 
+the same properties would still hold.
+For example, in \cite{FM}, \cite{Drinfeld}, the affine curve $C = \mbb A^1$ is used.
+\end{rem}
+
+\subsubsection{Beauville--Laszlo's theorem} \label{sect:BLthm}
+\source{intersection-complexes-unramified-l-factors}
+Let $S$ be an affine scheme and $D$ a closed affine subscheme of $C\times S$.
+Denote by $\wh C_D$ the formal completion of $C\times S$ along $D$ and by
+$\wh C'_D$ the spectrum of the ring of regular functions on $\wh C_D$ (so $\wh C_D$ is an ind-affine formal scheme and $\wh C'_D$ is the corresponding true scheme). 
+Let $\wh C^\circ_D := \wh C'_D \sm D$ denote the open subscheme.
+
+There are maps $\hat p: \wh C_D \to C\times S$ and $i: \wh C_D \to \wh C'_D$. 
+We will implicitly use the following fact in what follows:
+
+\begin{prop}[{\cite[Proposition 2.12.6]{BD}}]
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{prop:formalext}
+\source{intersection-complexes-unramified-l-factors}
+There exists a unique map 
+$p : \wh C'_D \to C\times S$ such that $\hat p = p\circ i$. 
+\end{prop}
+
+
+To justify that $\Scr Y$ is of local nature, we record 
+the following consequence of the globalized version of Beauville--Laszlo's theorem (cf.~\cite[Theorem 2.12.1]{BD}, \cite{BLa}). 
+Let $S$ be an affine scheme and $D\subset C\times S$ a relative effective divisor.  
+Proposition~\ref{prop:formalext} implies that there exists a map $p:\wh C'_D\to C\times S$. 
+
+\begin{lem}
+\source{intersection-complexes-unramified-l-factors}
+\notready \label{lem:B-L}
+\source{intersection-complexes-unramified-l-factors}
+Let $X$ be any affine scheme with an action of an algebraic group $B$
+such that $X/B$ is pointy, i.e., $X$ has an open $B$-orbit $X^\circ$ with $X^\circ/B=\pt$.
+Let $C,S$ and $D$ be as above. 
+
+Then there is a natural equivalence between the following categories:
+\begin{enumerate}
+\item the groupoid of $(\Scr P_B, \sigma)$ where $\Scr P_B$ is a $B$-bundle on $C\times S$ and a section $\sigma : C\times S \to X\times^B \Scr P_B$ 
+that sends $C\times S\sm D$ to $X^\circ \times^B \Scr P_B$,
+\item the groupoid of $(\hat{\Scr P}_B, \hat \sigma)$ where $\hat{\Scr P}_B$ is a $B$-bundle on $\wh C'_D$ and a section $\hat\sigma: \wh C'_D \to X\times^B \hat{\Scr P}_B$ that sends $\wh C^\circ_D$ to $X^\circ \times^B \hat{\Scr P}_B$.
+\end{enumerate}
+\end{lem}
+
+\begin{proof}
+The functor from (i) to (ii) is just pullback along $p$. 
+To define the functor from (ii) to (i) we descend along the covering 
+$\wh C'_D \sqcup (C\times S \sm D) \to C\times S$. The justification
+for this is Beauville--Laszlo's theorem (cf.~\cite[Theorem 2.12.1]{BD}). 
+First, $\hat \sigma$ induces 
+a section $\wh C^\circ_D \to X^\circ \times^B \hat{\Scr P}_B \cong \hat{\Scr P}_B$.
+Then we can ``descend'' $\hat{\Scr P}_B$ to a $B$-bundle $\Scr P_B$ on $C\times S$ with a section $C\times S\sm D \to \Scr P_B$ (which
+is equivalent to a trivialization of $\Scr P_B|_{C\times S\sm D}$).
+The section $\hat\sigma$ is equivalent to a map of quasicoherent
+$\Scr O_{\wh C'_D}$-algebras $\Scr O_{X\times^B \hat{\Scr P}_B} \to \Scr O_{\wh C'_D}$ since $X$ is affine. 
+Again by \cite[Theorem 2.12.1]{BD}, this descends 
+to a map of quasicoherent $\Scr O_{C\times S}$-algebras $\Scr O_{X\times^B \Scr P_B} \to \Scr O_{C\times S}$ such that the restriction to 
+$C\times S\sm D$ factors through the trivialization 
+$\Scr O_{X^\circ \times^B \Scr P_B}\cong \Scr O_{\Scr P_B} \to \Scr O_{C\times S\sm D}$.
+By construction, the two functors are mutually inverse.
+\end{proof}
+
+
+\subsection{Theorem of Grinberg--Kazhdan, Drinfeld} 
+
+We now justify why $\sM_X$ and $\sY$ are indeed ``models'' for the formal arc space
+$\msf L^+ X$. Since $\sM_X$ and $\sY$ are smooth-locally isomorphic,
+it suffices to explain the latter. 
+
+\begin{defn}
+\source{intersection-complexes-unramified-l-factors}
+\notready\label{def:formalmodel} 
+\source{intersection-complexes-unramified-l-factors}
+A finite type formal model of $\msf L^+ X$ at $\gamma_0\in \msf L^+ X(k)$ is the formal completion $\wh{Y}_y$ of a $k$-scheme of finite type $Y$ at a point $y\in Y$ equipped with an isomorphism of formal schemes
+\begin{equation} \label{finite model}
+\source{intersection-complexes-unramified-l-factors}
+\wh{\msf L^+ X}_{\gamma_0} \simeq \wh{Y}_y \times \wh{\mbb A}^\infty,
+\end{equation}
+where $\wh{\mbb A}^\infty$ is the product of countably many copies of the formal disk $\on{Spf} k\tbrac t$.
+\end{defn}
+
+
+Since $X/B \supset \pt$ is a pointy stack, 
+Drinfeld's proof \cite[\S 4.2-4.3]{Drinfeld} of the Grinberg--Kazhdan theorem 
+essentially shows that the scheme $\sY$ (which we have shown is a disjoint union
+of finite type schemes) explicitly satisfies the following:
+
+\begin{thm}[Grinberg--Kazhdan, Drinfeld]
+\source{intersection-complexes-unramified-l-factors}
+\notready  \label{thm:DGK}
+\source{intersection-complexes-unramified-l-factors}
+Fix an arc $\gamma_0 : \Spec k\tbrac t \to X$ in $\msf L^+ X(k)$
+such that $\gamma_0(\Spec k\lbrac t) \subset X^\circ$. 
+Then there exists a point $y \in \Scr Y(k)$ 
+such that the formal completion of $\Scr Y$ at $y$ is a finite type formal model of $\msf L^+ X$ at $\gamma_0$. 
+
+More precisely, if $\gamma_0$ belongs to the stratum $\msf L^{\ch\theta} X$, for $\ch\theta\in \mf c_X^-$, we can take $y$ to be the point $t^{\ch\theta}$ in the central fiber $\msf Y^{\ch\theta,\ch\theta}$ over any point $v\in \abs C$.
+\end{thm}
+
+
+The central fiber $\msf Y^{\ch\theta}$ 
+over a point $v\in \abs C$ is the fiber of $\sY^{\ch\theta}\to \sA^{\ch\theta}$ over the 
+``diagonal divisor'' $\ch\theta \cdot v \in \sA^{\ch\theta}(k)$.
+We define $\msf Y^{\ch\theta,\ch\theta} := \sY^{\ch\theta} \xt_{\sM_X} \sM_X^{\ch\theta}$. 
+Then $\msf Y^{\ch\theta}$ is naturally a subvariety of $\Gr_B$ (see \S\ref{def:centralfiber}), 
+and $t^{\ch\theta}$ denotes the corresponding point in $\Gr_B$. The significance of
+this point will become evident in Corollary~\ref{cor:Ytheta}(iii).
+
+\smallskip
+
+The statements all follow from the proof of \cite[\S 4]{Drinfeld}. 
+We also give the same argument, with some notational changes, in the proof of Theorem~\ref{thm:DGKfamily}.
+
+
+\begin{rem}
+\source{intersection-complexes-unramified-l-factors}
+\notready
+The point $y : C \to X/B$ can be chosen so that $y^{-1}(\pt) = C\sm v$ for a single
+point $v\in \abs C$. However it is essential, for the theorem to hold, that $\sY$ contains
+maps with multiple points of $C$ mapping to $(X\sm X^\circ)/B$. 
+\end{rem}

@@ -1,0 +1,552 @@
+% Source-derived chapter 07: Global purity consequences and the conjectures of Gabber
+% Original source: purity-flat-cohomology
+\chapter{Global purity consequences and the conjectures of Gabber}
+\label{purity-flat-cohomology-chapter-07}
+\source{purity-flat-cohomology}
+
+\begin{remark}[Source section]
+\label{purity-flat-cohomology-chapter-07-source}
+\source{purity-flat-cohomology}
+\source{purity-flat-cohomology}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Global purity consequences and the conjectures of Gabber
+\label{global}
+\source{purity-flat-cohomology}
+
+
+
+Our final goal is to deduce global purity consequences from the local \Cref{main-pf} %(see \Cref{P-d-pf,Brauer-purity,P-c-pf}) 
+and to settle the conjectures of Gabber, as announced in \Cref{thm:Gabber-conjectures}. In particular, we extend purity for the Brauer group settled for regular schemes in \cite{brauer-purity} to the case of complete intersection singularities. 
+%from \Cref{main} the global results stated in \Cref{purity}. 
+
+
+
+
+
+
+
+
+
+
+
+
+
+\csub[Cohomology with finite flat group scheme coefficients]
+
+
+We begin with the most straight-forward global consequence of \Cref{main-pf}: in \Cref{P-d-pf} we show that on Noetherian schemes with complete intersection singularities, flat cohomology classes with values in commutative, finite, flat group schemes are insensitive to removing closed subschemes of sufficiently large codimension. The reduction of this statement to its local case uses the following concrete manifestation of \'{e}tale descent for fppf cohomology with supports.  
+
+\blem \label{lem-sup-ss}
+\source{purity-flat-cohomology}
+For a scheme $X$, a closed subset $Z \subset X$, an abelian fppf sheaf $\sF$ on $X$, and the \'{e}tale sheafification $\cH^j_Z(-, \sF)$ of the functor $X' \mapsto H^j_Z(X', \sF)$, there is a %functorial in $\sF$ 
+spectral sequence
+\[
+E_2^{ij} = H^i_\et(X, \cH^j_Z(-, \sF)) \Ra H^{i + j}_Z(X, \sF). 
+\]
+\elem
+
+
+\bpf
+One way to show this is by considering injective resolutions, see, for instance, \cite{BC19}*{Lemma~2.3.2}.
+\epf
+
+
+\bthm \label{P-d-pf}
+\source{purity-flat-cohomology}
+Let $X$ be a scheme, let $G$ be a commutative, finite, locally free $X$-group, and let $Z \subset X$ be a closed subset such that the immersion $X \setminus Z \hra X$ is quasi-compact and each $\sO_{X,\, z}$ with $z \in Z$ is either a complete intersection of dimension $\ge d$ or regular of dimension $\ge d - 1$. The map
+\[
+H^i(X, G) \ra H^i(X \setminus Z, G)  \q\x{is} \q  \begin{cases}\x{injective for} \q  i < d, \\ \x{bijective for} \q i < d - 1.\end{cases}
+%\q \x{for each} \q i < d - 1 \q \x{and} \q H^{d - 1}(X, G) \hra H^{d - 1}(X \setminus Z, G).
+\]
+\ethm
+
+\bpf
+We will deduce the assertion from the local purity Theorems \ref{main-pf} and \ref{thm:main-pf-regular}. One may wish to compare the method of this deduction to \cite{Gab04a}*{Lemma 3.1 and its proof}.
+
+The assertion amounts to the vanishing $H^i_Z(X, G) \cong 0$ for $i < d$. Thus, the  spectral sequence
+\[
+E_2^{ij} = H^i_\et(X, \cH^j_Z(-, G)) \Ra H^{i + j}_Z(X, G)
+\]
+of \Cref{lem-sup-ss} reduces us to the case when $X$ is strictly Henselian and $Z \neq \emptyset$ (the quasi-compactness assumption is used in this step to identify the stalks of $\cH^j_Z(-, G)$ via limit formalism, compare with the proof of \cite{brauer-purity}*{Theorem 6.1}). Then $X$ is Noetherian and we will show how to shrink $Z$ to arrive by Noetherian induction at the case $Z = \{\fm\}$ supplied by Theorems \ref{main-pf} and \ref{thm:main-pf-regular}.
+
+Suppose that $Z \neq \{\fm\}$, fix a generic point $z$ of $Z$, and let $U$ be an open neighborhood of $z$ in $X$. The \v{C}ech-to-derived spectral sequence  % To ensure that one can use "alternating cochains", that is, that one does not need repeats of opens, one may use Serre's FAC, Prop. 2 on p. 214. Also, see \cite{Mil80}*{2.24 on p. 110}.
+\[
+\widecheck{H}^p(\{U, X \setminus Z\}, H^q(-, G)) \Ra H^{p+q}(U \cup (X \setminus Z), G)
+\]
+%of \cite{SGA4II}*{V, 3.3}
+(a concrete incarnation of Zariski descent for fppf cohomology) gives the Mayer--Vietoris sequence
+\[
+\dotsc \ra H^i(U \cup (X \setminus Z), G) \ra H^i(U, G) \oplus H^i(X \setminus Z, G) \ra H^i(U \cap (X \setminus Z), G) \ra \dotsc
+\]
+As $U$ shrinks, it becomes $\Spec(\sO_{X,\, z})$ and $U \cap (X \setminus Z)$ becomes $\Spec(\sO_{X,\, z}) \setminus \{ z\}$, so, by Theorems \ref{main-pf} and \ref{thm:main-pf-regular}, in this limit the maps 
+\[
+H^i(U, G) \ra H^i(U \cap (X \setminus Z), G) \qxq{become} \begin{cases} \x{injective for}  &i = d - 1, \\ \x{bijective for} & i < d - 1.
+\end{cases}
+\]
+Consequently, for $i < d$, the sequence implies that any $\gA \in H^i(X, G)$  that dies in $H^i(X \setminus Z, G)$ also dies in $H^i(U \cup (X \setminus Z), G)$ for sufficiently small $U$. Likewise, for $i < d - 1$, any $\gB \in H^i(X \setminus Z, G)$ extends to $H^i(U \cup (X \setminus Z), G)$ for some such $U$. This allows us to apply the inductive hypothesis to $Z' \ce Z \cap (X \setminus U) \subsetneq Z$ to conclude.
+\epf
+
+
+
+
+
+Moret-Bailly has a nonabelian version of \Cref{P-d-pf} in \cite{MB85b}*{lemme~2}. For completeness, we include its very mild generalization whose argument is independent of the rest of this article and builds on the omitted one for \emph{loc.~cit.}~(that was explained in \cite{Mar16}*{Chapter~3}). %(see also Remark \ref{nonab-rem} above). %We review Moret-Bailly's argument 
+
+\bthm\label{MB-lem}
+\source{purity-flat-cohomology}
+Let $X$ be a scheme, let $G$ be a finite, locally free $X$-group, and let $Z \subset X$ be a closed subset such that the immersion $j \colon X \setminus Z \hra X$ is quasi-compact and each $\sO_{X,\, z}$ with $z \in Z$ is regular of dimension $\ge 2$. Pullback is an equivalence from the category of $G$-torsors to that of $G_{X\setminus Z}$-torsors. More generally, for any $G$-gerbe $\sB$, the following pullback is an equivalence of~categories\ucolon
+\[
+\sB(X) \isomto \sB(X\setminus Z), \qxq{so also} \Ker(H^2(X, G) \ra H^2(X\setminus Z, G)) = \{ *\}.
+\]
+\ethm
+
+\bpf
+The claim about the nonabelian $H^2$ amounts to $\sB(X)$ being nonempty whenever so is $\sB(X \setminus Z)$, so it follows from the claim about $\sB$. As for the latter, the classifying stack $\bbB G$ is smooth, so a general $G$-gerbe $\sB$ becomes isomorphic to $\bbB G$ over an \'{e}tale cover of $X$, to the effect that \'{e}tale descent reduces us to the case $\sB = \bbB G$. Thus, we may and will focus on the claim about $G$-torsors. 
+
+By glueing, the assertion is Zariski-local on $X$. Thus, by localizing at a point of $Z$ and  spreading out (which uses the quasi-compactness of $j$), we may assume that $X$ is local and $Z \neq \emptyset$. Then $X$ is Noetherian, so \cite{EGAIV2}*{th\'{e}or\`{e}me 5.10.5} gives the full faithfulness because $\depth_Z(X) \ge 2$. For the %remaining 
+essential surjectivity, by Noetherian induction and spreading out, we may localize at a generic point of $Z$ to assume that $Z$ is the closed point of $X$. By \cite{EGAIV2}*{corollaire 5.11.4}, for a $G_{X \setminus Z}$-torsor $Y$, the $\sO_X$-algebra $j_*(\sO_Y)$ is coherent, so all we need to show is its flatness as an $\sO_X$-module: the proof of full faithfulness will then uniquely extend the torsor structure map of $Y$ to that of $\un{\Spec}_X(j_*(\sO_Y))$. 
+
+For the remaining $\sO_X$-flatness of $j_*(\sO_Y)$, by a result of Auslander \cite{Aus62}*{Theorem~1.3} that crucially uses the regularity of $X$, it suffices to show that 
+\[
+\sH om_{\sO_X}(j_*(\sO_Y), j_*(\sO_Y)) \simeq (j_*(\sO_Y))^{\oplus r} \q \x{as $\sO_X$-modules.}
+\]
+It suffices to argue this over $X\setminus Z$ (see \cite{Grothendieck-Lefschetz}*{Lemma~2.2}), so, since $\sO_G$ is $\sO_X$-free, it suffices to show that
+\[
+\sH om_{\sO_{X \setminus Z}}(\sO_{G_{X\setminus Z}}, \sO_Y)  \isomto  \sH om_{\sO_{X \setminus Z}}(\sO_Y, \sO_Y)
+\]
+via
+\[
+\tst f \mapsto \p{\sO_Y \xra{a} \sO_{G_{X\setminus Z}} \tensor_{\sO_{X\setminus Z}} \sO_Y \xra{(f,\, \id)}  \sO_Y }\!,
+\]
+where $a$ is the $G$-action morphism. The explicit inverse of this $\sO_{X \setminus Z}$-module homomorphism is
+\[
+g \mapsto \p{\sO_{G_{X\setminus Z}} \xra{\id  \tensor\, 1} \sO_{G_{X\setminus Z}} \tensor_{\sO_{X\setminus Z}} \sO_Y \xra{(a,\, \id)\i} \sO_Y \tensor_{\sO_{X\setminus Z}} \sO_Y \xra{(g,\, \id)}  \sO_Y }\!. \qedhere
+\]
+\epf
+
+\brem\label{nonab-rem}
+\source{purity-flat-cohomology}
+We expect that \Cref{MB-lem} also holds when each $\sO_{X,\, z}$ with $z \in Z$ is either   a complete intersection of dimension $\ge 3$ or regular of dimension $\ge 2$ (compare with \Cref{P-d-pf}). Unfortunately, the argument given above, especially, \cite{Aus62}*{Theorem~1.3}, is specific to regular~$\sO_{X,\, z}$.  %In this direction, we point out a conjecture of Auslander  
+\erem
+
+%\kestutis{Remark about how this result improves the proposition slightly implying that for $H^1$ may assume regular of dim $\ge 2$.}
+
+%The analogy with \Cref{P-d-pf} suggests that \Cref{MB-lem} should continue to hold if $\sO_{X,\, z}$ is a complete intersection of dimension $\ge 3$ for some $z \in Z$. The same argument would show this if one knew that the stalks of $j_*(\sO_T)$ have finite projective dimension over the stalks of $\sO_X$: indeed, \cite{Jot74} and \eqref{Aus-crit} would then imply the local freeness of $j_*(\sO_T)$.
+
+
+%\temp{
+%Using \ref{HLP-i}, one may prove that $H^1(X, A) \isomto H^1(X \setminus Z, A)$ for any abelian $X$-scheme $A$ (at least if $X$ itself is regular, need to think else); \ref{HLP-ii} would have similar implications.
+%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\csub[The conjectures of Gabber and purity for the Brauer group] \label{passage-section}
+\source{purity-flat-cohomology}
+
+
+
+
+
+
+We are ready to settle Gabber's conjecture \cite{Gab04}*{Conjecture~3} on the local Picard group.
+
+
+
+
+%We recall that the statement \ref{d2c-3} was conjectured  in  and that, by \cite{SGA2new}*{XI,~3.13~(ii)}, for local complete intersections $(R, \fm)$ of dimension $\ge 4$, even $\Pic(U_R) = 0$.
+
+
+\bthm%[\Cref{thm:Gabber-conjectures}~\ref{item:GC-a}] 
+\label{deg-2-case}
+\source{purity-flat-cohomology}
+For a Noetherian local ring $(R, \fm)$ that is a complete intersection of dimension~$\ge 3$,
+\[
+\Pic(U_R)_\tors \cong 0, \qxq{where} U_R \ce \Spec(R) \setminus \{ \fm\}.
+\]
+If $R$ is either of dimension $\ge 4$ or regular of any dimension, then even 
+\[
+\Pic(U_R) \cong 0.
+\]
+\ethm
+
+\bpf
+The assertion about the case $\dim(R) \ge 4$ was settled in \cite{SGA2new}*{expos\'{e}~XI, th\'{e}or\`{e}me~3.13~(ii)}. Moreover, a line bundle $\sL$ on $U_R$ is trivial if and only if it extends to a line bundle on $R$. For regular $R$, one constructs such an extension either by considering Weil divisors or by first extending $\sL$ as a coherent module and then taking the determinant of a perfect complex representing this module.
+
+For the remaining assertion about $\Pic(U_R)_\tors$, \Cref{main-pf} implies the bijectivity of the left vertical map in the commutative diagram
+\[
+\xymatrix@R=15pt@C=15pt{
+H^1(R, \mu_n) \ar[d]^-{\sim} \ar[r] & H^1(R, \bG_m) \ar[d] & \!\!\!\!\!\!\!\!\!\!\!\!\cong \Pic(R) \cong 0 \\
+H^1(U_R, \mu_n) \ar[r] & H^1(U_R, \bG_m) & \!\!\!\!\!\!\!\!\!\!\!\!\!\!\! \cong \Pic(U_R).
+}
+\]
+Since every element of $\Pic(U_R)_\tors$ comes from $H^1(U_R, \mu_n)$ for some $n \ge 0$, the claim follows.
+\epf
+
+
+
+%\brem
+%\Cref{deg-2-case} amounts to the vanishing $H^2_\fm(R, \mu_n) \cong 0$ for $n > 0$, implies  that $H^2_\fm(R, G) \cong 0$ for every commutative, finite, locally free $R$-group $G$ (the $i = 2$ case of \Cref{main-pf}). To argue this, one uses the B\'{e}gueri sequence \eqref{Begueri-0} and the fact that the local rings of $G^*$ are complete intersections (see \cite{SGA3Inew}*{III, 4.15} and \cite{SP}*{\href{http://stacks.math.columbia.edu/tag/09Q7}{09Q7}}). 
+%\erem
+% Here is the argument.
+%Finally, for \ref{d2c-3}$\Ra$\ref{d2c-1}, let $(R, \fm)$ be a local complete intersection of dimension $\ge 3$ and let $G$ be a commutative, finite, flat $R$-group scheme for which we seek to show that $H^2_\fm(R, G) \cong 0$. By combining \Cref{low-degrees} with the spectral sequence \eqref{eq-sup-ss} in the form
+%\be \label{et-fppf-ss}
+%E_2^{ij} = H^i_\et(R, \cH^j_\fm(-, G)) \Rightarrow H^{i + j}_\fm(R, G),
+%\ee
+%we lose no generality by replacing $R$ by its strict Henselization. The B\'{e}gueri resolution
+%\be \label{Begueri-2}
+%0 \ra G \ra \Res_{G^*/R}(\bG_m) \ra Q \ra 0
+%\ee
+%of $G$ by commutative, affine, smooth $R$-group schemes then shows that
+%\be \label{ff-coho-van}
+%H^i(R, G) = 0 \q\x{for} \q i \ge 2.
+%\ee
+%Thus, the cohomology with supports sequence reduces us to the surjectivity of the pullback map $H^1(R, G) \ra H^1(U_R, G)$. For the latter, we analyze a map of exact sequences supplied by \eqref{Begueri-2}:
+%\[
+%\xymatrix{
+%Q(R) \ar[r] \ar[d]^{\sim}_{\x{\ref{low-degrees}~\ref{LD-b}}} & H^1(R, G) \ar[r] \ar[d] &H^1(\Gamma(R, \sO_{G^*}), \bG_m) \ar[d] \\
+%Q(U_R) \ar[r] & H^1(U_R, G) \ar[r] & H^1(\Gamma(R, \sO_{G^*})_{U_R}, \bG_m).
+%}
+%\]
+%By \cite{SGA3Inew}*{III, 4.15} and \cite{SP}*{\href{http://stacks.math.columbia.edu/tag/09Q7}{09Q7}}, the local rings of $G^*$ inherit the complete intersection property from $R$. Thus, since these local rings at the points over $\fm$ are finite flat $R$-algebras, \ref{d2c-3} applies to them and shows that 
+%\[
+% H^1(\Gamma(R, \sO_{G^*})_{U_R}, \bG_m)_\tors = 0.
+% \]
+%Since $H^1(U_R, G)$ is torsion, the desired surjectivity of $H^1(R, G) \ra H^1(U_R, G)$ follows.
+
+\brem \label{no-free-lunch}
+\source{purity-flat-cohomology}
+\Cref{deg-2-case} (so also \Cref{main}) does not hold if $(R, \fm)$ is merely Cohen--Macaulay. For instance, consider the normal local domain
+\[
+R \ce (\bC\llb x_1, \dotsc, x_n\rrb)^{\bZ/2\bZ}
+\]
+where the $\bZ/2\bZ$-action is given by $x_i \mapsto -x_i$ for $1 \le i \le n$. 
+The map 
+\[
+R \ra \bC\llb x_1, \dotsc, x_n\rrb
+\]
+is the normalization in a quadratic extension of the fraction field, is a nontrivial $\bZ/2\bZ$-torsor away from the maximal ideal, and is an inclusion of an $R$-module direct summand (with the antiinvariants as a complementary summand). In particular, a system of parameters for $R$ is also one for $\bC\llb x_1, \dotsc, x_n\rrb$, and $R$ inherits Cohen--Macaulayness from $\bC\llb x_1, \dotsc, x_n\rrb$. 
+ %away from the maximal ideal the map $R \ra \bC\llb x_1, \dotsc, x_n\rrb$ is a $\mu_2$-torsor that is nontrivial if $n \ge 1$. 
+Thus, for $n \ge 2$, we have $R^\times \isomto H^0(U_R, \bG_m)$ and the torsor gives a nonzero element of $\Pic(U_R)[2]$.
+\erem
+
+
+\bcor \label{global-ci-cor}
+\source{purity-flat-cohomology}
+For a field $k$ and a global complete intersection $X \subset \bP^n_k$ of dimension $\ge 2$,  
+\[
+(\Pic(X)/(\bZ \cdot [\sO(1)]))_\tors \cong 0.
+\]
+If $X$ is of dimension $\ge 3$, then $\Pic(X)$ is even free, generated by $[\sO(1)]$.
+\ecor
+
+In the case when $X$ is smooth this corollary was established by Deligne in \cite{SGA7II}*{expos\'{e}~XI, th\'{e}or\`{e}me~1.8}.
+
+\bpf
+The assertion about the case $\dim(X) \ge 3$ was settled in \cite{SGA2new}*{expos\'{e} XII, corollaire~3.7}. 
+To deduce the rest from \Cref{deg-2-case} we will pass to the affine cone of $X$. Namely, as in \cite{Grothendieck-Lefschetz}*{proof of Theorem~4.1}, the scheme $X$ is the $\Proj$ of a graded $k$-algebra $R\ce k[x_0, \dotsc, x_n]/(f_1, \dotsc, f_{n - d})$ for homogeneous elements $f_1, \dotsc, f_{n - d} \in k[x_0, \dotsc, x_n]$ that form a $k[x_0, \dotsc, x_n]$-regular sequence, and 
+\[
+\tst R \cong \bigoplus_{m \ge 0} \Gamma(X, \sO_X(m))
+\]
+compatibly with the gradings. As there, a line bundle $\sL$ on $X$ defines a finite, graded $R$-module 
+\[
+\tst M_\sL \ce \bigoplus_{m \ge 0} \Gamma(X, \sL(m))
+\] 
+whose restriction to $\Spec(R) \setminus \{ \fm\}$ with $\fm \ce (x_0, \dotsc, x_n)$ is a line bundle $\wt{\sL}$. As there, $M_\sL$ is the pushforward of $\wt{\sL}$, and if $\wt{\sL}|_{\Spec(R_\fm)\setminus \{\fm\}}$ is free, then so is $M_\sL$, %(this step uses the graded Nakayama lemma), 
+in which case $\sL \simeq \sO_X(m)$. Moreover, by \cite{EGAII}*{th\'{e}or\`{e}me~3.4.4}, the $\sO_X$-module associated to $M_\sL$ is $\sL$, so \cite{EGAII}*{propositions 3.2.4, 3.2.6 et 3.4.3} show that $\wt{\sL} \tensor \wt{\sL'} \isomto (\sL \tensor_{\sO_X} \sL')\wt{\ \,}$. It follows that 
+\[
+\tst \Pic(X)/(\bZ \cdot [\sO(1)]) \hra \Pic(\Spec(R_\fm) \setminus \{ \fm\}),
+\]
+so \Cref{deg-2-case} gives the claim. 
+\epf
+
+
+
+\brem\label{eg:from-Hartshorne}
+\source{purity-flat-cohomology}
+\Cref{global-ci-cor} (so also \Cref{deg-2-case}) %(so also \Cref{global-ci-cor}) 
+is sharp: indeed, one cannot drop $(-)_\tors$ because the complete intersection 
+\[
+X\ce \Proj(k[ x, y, z, w]/(xw - yz))
+\]
+of dimension $2$ (the Segre embedding of $\bP^1_k \times_k \bP^1_k$) satisfies $\Pic(X) \simeq \bZ \oplus \bZ$, %\cite{Har77}*{II.6.6.1}
+and one cannot weaken then dimension assumption because an elliptic curve $E$  over an algebraically closed field has $\#(\Pic(E)_\tors) = \infty$.
+\erem
+
+
+
+%\beg \label{eg:from-Hartshorne}
+%Let $X$ be a projective variety over a field that is a locally factorial complete intersection in projective space, and let $R$ be the local ring at the vertex of the affine cone over $X$. By \cite{Har77}*{II.6.16, Exercise II.6.3}, there is a short exact sequence
+%\be \label{cone-seq}
+%0 \ra \bZ \xra{\text{hyperplane class}} \Pic(X) \ra \Pic(U_R) \ra 0.
+%\ee
+%Thus, \Cref{deg-2-case} implies that if $\dim(X) \ge 2$, then $\Pic(X)$ is torsion free and the hyperplane class is primitive . This, in particular, reproves a result of Deligne \cite{SGA7II}*{XI, 1.8}. 
+
+%The sequence \eqref{cone-seq} also shows that the assumptions of \Cref{deg-2-case} are sharp: for instance, one cannot remove $(-)_\tors$ because $R = ()_{(x, y, z, w)}$ is a complete intersection of dimension $3$ with $\Pic(U_R) \cong \bZ$, see \cite{Har77}*{II.6.6.1} (and also \cite{Har77}*{II.6.6.4} for further examples); likewise, one cannot weaken the $\dim(R) \ge 3$ requirement because by letting $X$ be an elliptic curve over an algebraically closed field, we find an $R$ of dimension $2$ for which $\Pic(U_R)_\tors$ is infinite.
+%\eeg
+
+
+We turn to Gabber's \cite{Gab04}*{Conjecture~2} on the Brauer group of local complete intersections.
+
+
+
+\bthm%[\Cref{thm:Gabber-conjectures}~\ref{item:GC-b}] 
+\label{deg-3-case}
+\source{purity-flat-cohomology}
+For a Noetherian local ring $(R, \fm)$ that is either a complete intersection of dimension $\ge 4$ or regular of dimension $\ge 2$,
+\[
+\Br(R) \isomto \Br(U_R), \qxq{where} U_R \ce \Spec(R) \setminus \{ \fm\}. 
+\]
+\ethm
+
+
+
+
+\bpf
+We recall that the Brauer group $\Br(X)$ of a scheme $X$ is defined using Azumaya algebras:
+\[
+\tst \Br(X) \ce \bigcup_{n > 0} \im\p{H^1(X, \PGL_n) \ra H^2(X, \bG_m)_\tors}\!.
+\]
+By a result of Gabber and de Jong \cite{dJ02} (see also \cite{CTS21}*{Section 4.2}), we have 
+\[
+\Br(X) \cong H^2(X, \bG_m)_\tors
+\]
+whenever $X$ has an ample line bundle, for instance, whenever $X$ is quasi-affine. In our setting, %by the Grothendieck--Lefschetz theorem, 
+$\Pic(R) \cong \Pic(U_R) \cong 0$ (see \Cref{deg-2-case}%\cite{SGA2new}*{XI, 3.13 (ii)}
+), so 
+\[
+\Br(R)[n] \cong H^2(R, \mu_n) \qxq{and} \Br(U_R)[n] \cong H^2(U_R, \mu_n) \qxq{for} n \ge 0.
+\]
+Thus, except for the case when $R$ is regular of dimension $2$, the desired conclusion follows by noting that $H^2(R, \mu_n) \isomto H^2(U_R, \mu_n)$ thanks to Theorems \ref{main-pf} and \ref{thm:main-pf-regular}. The just excluded case is actually the most basic and was treated in \cite{Gro68c}*{th\'{e}or\`{e}me~6.1~b)}: in this case, the desired conclusion follows by considering Azumaya algebras and noting that pullback gives an equivalence between the category of vector bundles (resp.,~Azumaya algebras) on $R$ and those on $U_R$.
+% and, due to the sequence $0 \ra \mu_n \ra \bG_m \ra \bG_m \ra 0$ and the strict Henselianity of $R$, we have $H^2(R, \mu_n) = 0$ (since $\bG_m$ is smooth, $H^i(R, \bG_m)$ can be computed in the \'{e}tale topology). Consequently, $H^2(U_R, \bG_m)_\tors = 0$, so we also have the desired $\Br(U_R) = 0$. 
+\epf
+
+
+%\brem
+%As pointed out in \cite{Gab04}*{top of p.~1976}, \Cref{deg-3-case} implies \Cref{deg-2-case}. Namely, if $(R, \fm)$ is a complete intersection of dimension $3$, then $R' \ce R \llb x, y \rrb/(xy)$ is a complete intersection of dimension $4$ that is strictly Henselian if so is $R$. By \cite{Bou78}*{IV.5.1}, the sequence 
+%\be \label{MV-seq}
+%0 \ra \bG_m \ra (i_{x = 0})_*(\bG_m) \oplus (i_{y = 0})_*(\bG_m) \xra{(a_1, a_2)\, \mapsto\, a_1/a_2} (i_{x = y = 0})_*(\bG_m) \ra 0
+%\ee
+%is short exact on $\Spec(R')_\et$, so the Grothendieck--Lefschetz theorem \cite{SGA2new}*{XI,~3.13~(ii)} gives $H^1_\et(U_{R}, \bG_m) \hra H^2_\et(U_{R'}, \bG_m)$. \Cref{deg-3-case} gives $H^2_\et(U_{R'}, \bG_m)_\tors \cong 0$, so the claim follows.
+%\erem
+
+
+\brem
+%Similarly to \Cref{deg-2-case}, the assumptions of 
+One cannot weaken the dimension assumption of \Cref{deg-3-case}. Indeed, let $S$ be the local ring at the vertex of the affine cone over an elliptic curve over $\bC$, so that $S$ is a $2$-dimensional, normal, Noetherian, local $\bQ$-algebra that is a complete intersection with $\#(\Pic(U_S)_\tors) = \infty$ (see \Cref{eg:from-Hartshorne}). We have  $\Pic(U_S) \hra \Pic(U_{S^{sh}})$ because for any $\sL$ in the kernel, $\Gamma(U_S, \sL)$ is a free $S$-module. Thus, for the $3$-dimensional, strictly Henselian, complete intersection $R \ce S^{sh}\llb x, y\rrb/(xy)$, since $\Pic(U_{S^\sh\llb t \rrb})$ is finitely generated (see, for instance, \cite{Bou78}*{chapitre~V, corollaire~4.9}), the short exact sequence
+\[%be \label{MV-seq}
+\source{purity-flat-cohomology}
+0 \ra \bG_m \ra (i_{x = 0})_*(\bG_m) \oplus (i_{y = 0})_*(\bG_m) \xra{(r_1,\, r_2)\, \mapsto\, r_1/r_2} (i_{x = y = 0})_*(\bG_m) \ra 0
+\]
+on $\Spec(R)_\et$ (compare with \cite{Bou78}*{chapitre~IV, lemme~5.1}) shows that $\#(\Br(U_R)) = \infty$, whereas  $\Br(R) \cong 0$. The same reasoning carried out with the Segre embedding of $\bP^1_\bC \times_\bC \bP^1_\bC$ in place of an elliptic curve shows that in \Cref{deg-3-case} the full $H^2(U_R, \bG_m)$ may contain classes that do not come from $H^2(R, \bG_m)$.
+\erem
+
+
+%\brem
+%, %in contrast to $\Br(U_R) \cong H^2(U_R, \bG_m)_\tors$, 
+%even when $R$ is strictly Henselian . For instance, by the construction of the preceding remark, it can contain $\Pic(U_{R'})$ for a strictly Henselian local complete intersection $R'$ of dimension $3$ and such $\Pic(U_S)$ need not vanish as we saw in \Cref{eg:from-Hartshorne} . 
+%\erem
+
+
+
+
+
+
+
+
+
+To establish purity for the Brauer group of local complete intersections, we globalize \Cref{deg-3-case} in \Cref{P-b-pf} below. For this, we use the following version of Hartogs' extension principle.
+
+%In  \Cref{deg-2-case,deg-3-case} below we deduce the conjectures \cite{Gab04}*{Conj.~2 and 3} from \Cref{main-pf}, and then proceed to draw the corresponding global consequences, such as purity for the Brauer group of Noetherian schemes with complete intersection singularities (see \Cref{P-b-pf}). We begin with 
+
+
+
+
+
+\blem \label{loc-sections}
+\source{purity-flat-cohomology}
+Let $X$ be a scheme and let $Z \subset X$ be a closed subset. %such that $X \setminus Z \hra X$ is quasi-compact. 
+\benum
+\item \label{LS-a}
+\source{purity-flat-cohomology}
+If each $\fm_{X,\, z}$ with $z \in Z$ contains an $\sO_{X,\, z}$-regular element, then 
+\[
+\qq Y(X) \hra Y(X \setminus Z) \q \x{for every separated $X$-scheme $Y$.}
+\]
+
+\item \label{LS-b}
+\source{purity-flat-cohomology}
+If each $\fm_{X,\, z}$ with $z \in Z$ contains an $\sO_{X,\, z}$-regular sequence of length $2$, then
+\[
+\qq Y(X) \isomto Y(X \setminus Z) \q \x{for every $X$-affine $X$-scheme $Y$.}
+\]
+\eenum
+\elem
+
+\bpf \hfill
+\benum
+\item
+Since $Y$ is separated, its diagonal is a closed immersion. Thus, it suffices to check  that no nonzero local section $f$ of $\sO_X$ vanishes away from $Z$. %(see \cite{EGAI}*{9.5.2}). 
+By shrinking $X$, we assume that $f$ is global and let $X \setminus Z \subset U$ be the maximal open on which it vanishes. If $U \neq X$, then we choose a generic point $z$ of $X \setminus U$ and a nonzerodivisor $m \in \fm_{X,\, z}$ to see that $\sO_{X,\, z} \hra \sO_{X,\, z}[\f{1}{m}]$. Since $f$ vanishes in $\sO_{X,\, z}[\f{1}{m}]$, it also vanishes in $\sO_{X,\, z}$, a contradiction.
+
+\item
+By \ref{LS-a}, the map is injective, so it suffices to show that every section of $Y$ over $X \setminus Z$ extends (necessarily uniquely) to a section over $X$. Moreover, by working locally on $X$, we may assume that $X$ is affine. We then embed $Y$ into a (possibly infinite dimensional) affine space over $X$ and use \ref{LS-a} to reduce to the case when $Y = \bA^1_X$. In other words, we have reduced to showing that every global section of $X \setminus Z$ extends (necessarily uniquely) to a global section of $X$. 
+
+By glueing, there is the largest open $X \setminus Z \subset U$ such that the global section of $X \setminus Z$ in question extends to a global section of $U$. To show that the inclusion $U \subset X$ is not strict, we suppose otherwise and fix a generic point $z$ of $X \setminus U$. A limit argument reduces us to showing that
+%By \Cref{low-degrees}~\ref{LD-b}, we have
+\[
+\qq \sO_{X,\, z} \isomto \Gamma(\Spec(\sO_{X,\, z}) \setminus \{ z\}, \sO_X).
+\]
+For Noetherian $\sO_{X,\, z}$, this follows from \cite{EGAIV2}*{th\'{e}or\`{e}me 5.10.5}, and in general we fix an $\sO_{X,\, z}$-regular sequence $m_1, m_2 \in \fm_{X,\, z}$ and seek to show that the complex
+\[
+\tst \qq \sO_{X,\, z} \hra \sO_{X,\, z}[\f{1}{m_1}] \oplus \sO_{X,\, z}[\f{1}{m_2}] \xra{(a,\, b)\, \mapsto\, a - b} \sO_{X,\, z}[\f{1}{m_1m_2}]
+\]
+is exact in the middle. This complex is a filtered direct limit of Koszul complexes $K(m_1^n, m_2^n)$ (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0913}{0913}}), so it suffices to show that the latter, considered as chain complexes in degrees between $0$ and $2$, have vanishing homology in degree $1$. The sequence $m_1^n, m_2^n$ inherits $\sO_{X,\, z}$-regularity (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/07DV}{07DV}}), so this vanishing follows from the fact that if $m_1^n a = m_2^n b$ in $\sO_{X,\, z}$, then $b = m_1^n c$ for some $c \in \sO_{X,\, z}$ for which also $a = m_2^n c$.
+%since the depth assumption ensures that  (see ), we obtain $X(R) \isomto X(U_R)$. To deduce the claim about $H^1$, we let $X$ be the scheme parametrizing isomorphisms between two fixed $G$-torsors (such an $X$ is affine by \cite{SP}*{\href{https://stacks.math.columbia.edu/tag/0247}{0247}, \href{https://stacks.math.columbia.edu/tag/02L5}{02L5}}).
+%hus, we may extend $\gA$ over $x$ and then spread out the extension to an open neighborhood in order to enlarge $U_\gA$. This shows that in fact we had $U_\gA = X$ to begin with.
+ \qedhere
+\eenum
+\epf
+
+
+
+
+\bthm \label{P-b-pf} \label{Brauer-purity}
+\source{purity-flat-cohomology}
+Let $X$ be a scheme, let $T$ be a finite type $X$-group of multiplicative type, and let $Z \subset X$ be a closed subset such that the open immersion $j \colon X \setminus Z \hra X$ is quasi-compact.
+\benum
+\item \label{PbP-a} %\up{Compare with }.
+\source{purity-flat-cohomology}
+If each local ring $\sO_{X,\, z}$ for $z \in Z$ is Noetherian and geometrically parafactorial,\footnote{We recall from \cite{EGAIV4}*{d\'{e}finition 21.13.7} that a local ring $(R, \fm)$ is \emph{parafactorial} if pullback is an equivalence from the category of line bundles on $\Spec(R)$ to those on $\Spec(R) \setminus \{ \fm\}$. A local ring is \emph{geometrically parafactorial} if its strict Henselization is parafactorial. For example, by \cite{EGAIV4}*{exemple 21.13.9 (ii)}, every Noetherian, local, geometrically factorial (in the sense that the strict Henselization is factorial) ring of dimension $\ge 2$ is geometrically parafactorial and, by \cite{SGA2new}*{expos\'{e} XI, th\'{e}or\`{e}me 3.13 (ii)}, so is every local complete intersection of dimension $\ge 4$.} then 
+\[\ba
+\qqq H^0(X, T) \isomto &H^0(X \setminus Z, T), \q H^1(X, T) \isomto H^1(X \setminus Z, T), 
+\\  &H^2(X, T) \hra H^2(X \setminus Z, T). 
+\ea
+\]
+
+\item \label{PbP-b}
+\source{purity-flat-cohomology}
+If each local ring $\sO_{X,\, z}$ for $z \in Z$ is either a complete intersection of dimension $\ge 3$ \up{resp.,~$\ge 4$} or  regular of dimension $\ge 2$, then\footnote{Here $(-)_\tors$ denotes classes killed by a locally constant function. For instance, an $\gA \in H^i(X, T)$ lies in $H^i(X, T)_\tors$ if and only if there is a decomposition $X = \bigsqcup_{n \in \bZ_{> 0}} X_n $ into clopens such that each $\gA|_{X_n}$ is killed by $n$.}
+\[
+\qqq H^1(X, T)_\tors \isomto H^1(X \setminus Z, T)_\tors 
+\]
+{\upshape(}resp., 
+\[
+\qqq H^2(X, T)_\tors \isomto H^2(X \setminus Z, T)_\tors).
+\]
+\eenum
+\ethm
+
+The importance of geometric parafactoriality for the $H^2$ aspect of \ref{PbP-a} was noticed in \cite{Str79}*{Teorema~4}. 
+
+\bpf \hfill
+\benum
+\item
+We need to show that $H^i_Z(X, T) \cong 0$ for $i \le 2$. By \cite{EGAIV4}*{proposition~21.13.8}, for each $z \in Z$  we have $\depth(\sO_{X,\, z}) \ge 2$, so \Cref{loc-sections}~\ref{LS-b} gives the $i \le 1$ part of this vanishing. Moreover, as in the proof of \Cref{P-d-pf}, \Cref{lem-sup-ss} reduces us to the case when $X$ is strictly local and $Z \neq \emptyset$. Then $X$ is Noetherian and, by realizing $T$ as the kernel of a morphism between tori, we may assume that $T = \bG_m$. This turns our task into showing that for every line bundle $\sL$ on $X \setminus Z$, the pushforward $j_*(\sL)$ is also line bundle. For the latter, we argue by Noetherian induction, so, since the formation of $j_*(\sL)$ commutes with flat base change, we replace $X$ by its strict Henselization at a generic point of $Z$ to assume that $Z$ is the closed point. In this case, the parafactoriality assumption shows that $j_*(\sL)$ is a line bundle. 
+
+\item
+The injectivity follows from \Cref{loc-sections}~\ref{LS-b} (resp.,~from \ref{PbP-a}), which also shows that the clopens of $X$ and $X \setminus Z$ correspond. Thus, for the surjectivity, we may assume that the cohomology class in question is killed by some $n > 0$ and then that $T$ is $n$-torsion. This removes the subscripts `$\tors$,' so \Cref{lem-sup-ss} (with \Cref{loc-sections}~\ref{LS-a} for the vanishing of $\cH^0_Z$) allows us to assume that $X$ is strictly Henselian and $Z \neq \emptyset$. %(see the proof of \Cref{P-d-pf}). 
+Then $X$ is Noetherian and we need to extend a cohomology class on $X\setminus Z$ to $X$. For this, Noetherian induction, limit arguments, and the Mayer--Vietoris sequence used in the proof of \Cref{P-d-pf} allow us to replace $X$ by its localization at a generic point of $Z$. Then $X$ is local and $Z$ is the closed point, so, except for the case when $X$ is regular of dimension $2$, %(resp.,~$2$ or $3$), 
+Theorems \ref{main-pf} and \ref{thm:main-pf-regular} give the extension. For $H^1$ (resp.,~$H^2$), the remaining case is supplied by \ref{PbP-a} (resp.,~by \Cref{deg-3-case}).
+% For $H^2$, the remaining case follows from the purity for the Brauer group \cite{Gro68c}*{6.1 b)}, \cite{Gab81}*{I, Thm.~2$'$}. 
+\qedhere
+\eenum
+\epf
+
+
+
+
+
+Under  more restrictive assumptions, \Cref{Brauer-purity} extends to higher degree cohomology as follows.
+
+
+\bthm \label{P-c-pf}
+\source{purity-flat-cohomology}
+Let $X$ be a scheme, let $T$ be a finite type $X$-group of multiplicative type, let $d \ge 3$ be an integer, and let $Z \subset X$ be a closed subset  such that the open immersion $j \colon X \setminus Z \hra X$ is quasi-compact and each $\sO_{X,\, z}$ for $z \in Z$ either is a complete intersection of dimension $\ge d$ all of whose strict Henselizations are factorial\footnote{To illustrate the assumption, we recall that every regular local ring is factorial and, from \cite{SGA2new}*{expos\'{e} XI, corollaire 3.14}, that every complete intersection whose local rings of height $\le 3$  are factorial (for instance, regular) is factorial.} or is regular of dimension $\ge d - 1$. The map
+\[
+H^i(X, T) \ra H^i(X \setminus Z, T)  \q\x{is} \q  \begin{cases}\x{injective for} \q  i < d, \\ \x{bijective for} \q i < d - 1.\end{cases}
+\]
+\ethm
+
+\bpf
+%The case  $d \le 1$ follows from \Cref{loc-sections}~\ref{LS-a}, so we assume that $d \ge 2$.  
+We need to show that $H^i_Z(X, T) \cong 0$ for $i < d$, and \Cref{lem-sup-ss} reduces us to $X$ being strictly local with $Z \neq \emptyset$. %is of codimension $\ge d$ in $X$. 
+Then $X$ is Noetherian, integral, and we may assume that $T = \bG_m$. By \cite{Gro68b}*{proposition~1.4}, which uses the factoriality assumption, $H^i(X, \bG_m)$ and $H^i(X\setminus Z, \bG_m)$ are torsion for $i \ge 2$. Thus, since 
+\[
+H^i(X, \bG_m) \isomto H^i(X\setminus Z, \bG_m) \qxq{for} i \le 1
+\]
+by \Cref{Brauer-purity}~\ref{PbP-a}, all the $H^{i}_Z(X, \bG_m)$ are also torsion. The vanishing $H^i_Z(X, \mu_n) \cong 0$ for $i < d$ supplied by \Cref{P-d-pf} then suffices.
+%implies their vanishing in cohomological degrees $3 \le i < d$. The same argument applies to $H^{2}_Z(X, \bG_m)$  because \Cref{Brauer-purity}~\ref{PbP-a} gives $H^1(X \setminus Z, \bG_m) \cong 0$ when $2 < d$. 
+\epf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subfile{appendix}
+
+
+
+
+ 
+
+\begin{bibdiv}
+\begin{biblist}
+% \bibselect{big}
+
+\bibselect{bibliography}
+
+\end{biblist}
+\end{bibdiv}

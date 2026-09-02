@@ -1,0 +1,1020 @@
+% Source-derived chapter 04: Coherent sheaves on $\sY$
+% Original source: tates-thesis-de-rham-setting
+\chapter{Coherent sheaves on $\sY$}
+\label{tates-thesis-de-rham-setting-chapter-04}
+\source{tates-thesis-de-rham-setting}
+
+\begin{remark}[Source section]
+\label{tates-thesis-de-rham-setting-chapter-04-source}
+\source{tates-thesis-de-rham-setting}
+\source{tates-thesis-de-rham-setting}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Coherent sheaves on $\sY$
+\label{s:indcoh}
+\source{tates-thesis-de-rham-setting}
+
+\subsection{Overview}
+
+In this section, we define $\IndCoh^*$ for $\sY$ and its relatives.
+This section follows \cite{methods} \S 6, though we keep our exposition largely
+independent of \emph{loc. cit}. 
+
+We strive to keep our exposition as explicit as possible, so assume
+whatever simplifying assumptions we like. We refer to \emph{loc. cit}. for
+a more thorough development of the subject.
+
+\subsection{Affine case}
+
+\subsubsection{}
+
+Suppose $S$ is an eventually coconnective (e.g. classical) affine scheme.
+
+We define the (non-cocomplete, DG) subcategory $\Coh(S) \subset \QCoh(S)$
+to consist of objects $\sF \in \QCoh(S)^+$ such that for each $n$, the object
+$\tau^{\geq -n}(\sF) \in \QCoh(S)^{\geq -n}$ is compact. 
+In other words, $\sF$ should be eventually coconnective and 
+$\ul{\Hom}_{\QCoh(S)}(\sF,-)$ should commute with
+filtered colimits in $\QCoh(S)^{\geq -n}$ for each $n$.
+Clearly $\Perf(S) \subset \Coh(S)$.
+
+\begin{notation}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+For $S = \Spec(A)$, we also sometimes write $\Coh(A) \subset A\mod$ for 
+the subcategory $\Coh(S) \subset \QCoh(S) \simeq A\mod$.
+
+\end{notation}
+
+We define $\IndCoh^*(S)$ as $\Ind(\Coh(S))$. 
+Observe that we have a
+natural functor $\Psi:\IndCoh^*(S) \to \QCoh(S)$.
+
+Define $\IndCoh^*(S)^{\leq 0}$ as the subcategory generated
+under colimits by coherent objects that are connective (with respect to the
+$t$-structure on $\QCoh(S)$). There is a corresponding 
+$t$-structure on $\IndCoh^*(S)$ with this as its connective subcategory.
+
+\begin{lem}[\cite{methods} Lemma 6.4.1]
+\source{tates-thesis-de-rham-setting}
+\notready\label{l:psi-affine}
+\source{tates-thesis-de-rham-setting}
+
+The above functor $\Psi$ is $t$-exact and induces an equivalence 
+$\Psi:\IndCoh^*(S)^+ \isom \QCoh(S)^+$.
+
+\end{lem}
+
+\subsubsection{Pullbacks}
+
+Let $f:S \to T$ be an eventually coconnective morphism of affine, eventually
+coconnective schemes.
+
+
+\subsubsection{Pushforwards}
+
+Now suppose $f:S \to T$ is a morphism of affine, eventually coconnective schemes.
+In this case, there is a unique continuous DG functor:
+%
+\[
+f_*^{\IndCoh}:\IndCoh^*(S) \to \IndCoh^*(T)
+\]
+
+\noindent fitting into a commutative diagram:
+%
+\[
+\xymatrix{
+\IndCoh^*(S) \ar[rr]^{f_*^{\IndCoh}} \ar[d]^{\Psi} &&  \IndCoh^*(T)\ar[d]^{\Psi} \\
+\QCoh(S) \ar[rr]^{f_*} && \QCoh(T)
+}
+\]
+
+\noindent and such that $f_*^{\IndCoh}(\Coh(S)) \subset \QCoh(T)^+$.
+(Indeed, this functor is necessarily the ind-extension of 
+$\Coh(S) \xar{f_*} \QCoh(T)^+ \simeq \IndCoh^*(T)^+ \subset \IndCoh^*(T)$.
+
+In general, the functor $f_*^{\IndCoh}$ can\footnote{Unfortunately, \cite{methods}, which
+is currently being revised, erroneously claims otherwise.}be pathological, i.e., it may fail to map $\IndCoh^*(S)^+$ into $\IndCoh^*(T)^+$.
+This issue complicates the theory, compared to the finite type setting. 
+
+\subsubsection{}
+
+Suppose $f:S \to T$ as above is eventually coconnective (i.e., of finite
+$\Tor$-amplitude). In this case,
+$f^*:\QCoh(T) \to \QCoh(S)$ maps $\Coh(T)$ to $\Coh(S)$. By ind-extension,
+we obtain a functor $f^{*,\IndCoh}:\IndCoh^*(T) \to \IndCoh^*(S)$.
+It is immediate to see that it is left adjoint to $f_*^{\IndCoh}$.
+
+Moreover, $f^{*,\IndCoh}$ is manifestly right $t$-exact. Therefore, 
+$f_*^{\IndCoh}$ \emph{is} left $t$-exact in this case. 
+
+\subsubsection{}
+
+Suppose $f:S \to T$ is proper (e.g., an almost finitely presented
+closed embedding). 
+
+Then $f_*:\Coh(S) \to \QCoh(T)^+$ maps into $\Coh(T)$. Therefore,
+the functor $f_*^{\IndCoh}$ admits a continuous right adjoint, 
+that we denote $f^!$ in this case. 
+
+\subsubsection{Semi-coherence}
+
+We now provide a general hypothesis that ensures that $f_*^{\IndCoh}$ is
+left $t$-exact, even when $f$ is not eventually coconnective. 
+
+\begin{defin}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+A connective and eventually coconnective 
+commutative algebra $A$ is \emph{semi-coherent}
+if every $M \in A\mod^+$ can be written as a filtered colimit
+of objects $M_i$ such that:
+
+\begin{itemize}
+
+\item $M_i \in \Coh(A)$ % notation!!
+for every $i$.
+
+\item There exists an integer $r$ independent of $i$ 
+such that every $M_i$ lies in $A\mod^{\geq -r}$.
+
+\end{itemize}
+
+We say $S = \Spec(A)$ is \emph{semi-coherent} if $A$ is.
+
+\end{defin}
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{r:semi-coh-ab}
+\source{tates-thesis-de-rham-setting}
+
+In the definition, if one restricts to $M \in A\mod^{\heart}$,
+one finds that such an $r$ may be constructed (if it exists)
+independent of $M$ (by considering direct sums of modules).  
+It follows that it suffices to check the hypothesis just for $M \in A\mod^{\heart}$.
+
+\end{rem}
+
+\begin{example}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+Any Noetherian (and eventually coconnective) 
+$A$ is obviously semi-coherent. More generally, any 
+coherent (and eventually coconnective) $A$ is semi-coherent.
+
+\end{example}
+
+We now have the following simple observation.
+
+\begin{lem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{l:semi-coh-functor}
+\source{tates-thesis-de-rham-setting}
+
+Suppose $S$ is a semi-coherent eventually connective affine scheme.
+Suppose $\sC \in \DGCat_{cont}$ is a DG category with a $t$-structure
+compatible with filtered colimits.  
+Suppose $F:\IndCoh^*(S) \to \sC$ is a continuous left $t$-exact DG functor 
+such that $F(\Coh(S)) \subset \sC^+$.
+Then $F(\IndCoh^*(S)^+) \subset \sC^+$.
+
+\end{lem}
+
+\begin{proof}
+
+Suppose $\sF \in \IndCoh^*(S)^+$. By assumption and $S$, we can write
+$\sF$ as a filtered colimit $\colim_i \sF_i$ with 
+$\sF_i \in \Coh(S) \cap \QCoh(S)^{\geq -r}$ for
+some $r$; equivalently, $\sF_i \in \Coh(S) \cap \IndCoh^*(S)^{\geq -r}$.
+Then $F(\sF) = \colim_i F(\sF_i) \in \sC^{\geq -r}$ by assumption, giving
+the claim.
+
+\end{proof}
+
+\begin{cor}
+\source{tates-thesis-de-rham-setting}
+\notready\label{c:semi-coh-push}
+\source{tates-thesis-de-rham-setting}
+
+Suppose $f:S \to T$ is a morphism of eventually coconnective affine schemes
+with $S$ semi-coherent. Then $f_*^{\IndCoh}$ is $t$-exact.
+
+\end{cor}
+
+\begin{proof}
+
+By Lemma \ref{l:semi-coh-functor}, $f_*^{\IndCoh}$ is left $t$-exact.
+Therefore, we have a commutative diagram:
+%
+\[
+\xymatrix{
+\IndCoh^*(S)^+ \ar[rr]^{f_*^{\IndCoh}} \ar[d]^{\Psi} &&  \IndCoh^*(T)^+\ar[d]^{\Psi} \\
+\QCoh(S)^+ \ar[rr]^{f_*} && \QCoh(T)^+
+}
+\]
+
+\noindent in which the left arrows are $t$-exact equivalences and the
+bottom arrow is $t$-exact (by affineness). This gives the claim.
+
+\end{proof}
+
+\subsubsection{}
+
+We have the following important technical result.
+
+\begin{prop}
+\source{tates-thesis-de-rham-setting}
+\notready\label{p:semi-coh}
+\source{tates-thesis-de-rham-setting}
+
+The (classical) commutative algebra $A_n$ defined in \S \ref{ss:coords} is
+semi-coherent.
+
+\end{prop}
+
+In other words, $\widetilde{\sZ}^{\leq n}$ is semi-coherent.
+
+We defer the proof of the proposition to \S \ref{ss:z-semi-coh-pf}, 
+at the end of this section. Until that point, we assume it.
+
+\subsection{Coherent sheaves with support}
+
+\subsubsection{}
+
+We now consider the following situation. 
+
+Let $Z$ be an affine, eventually coconnective scheme. 
+Let $f:Z \to \bA^1$ be a function. Let $U = \{f \neq 0\} \subset Z$, 
+and let $j:U \to Z$ be the embedding.
+Let $i:Z_0 \into Z$ be a closed subscheme with 
+$Z \setminus Z_0 = U$.
+
+The following type of result is standard in the finite type setting.
+
+\begin{lem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{l:coh-supp}
+\source{tates-thesis-de-rham-setting}
+
+Suppose that:
+
+\begin{itemize}
+
+\item $i$ is almost finitely presented.
+
+\item The map $i_*^{\IndCoh}:\IndCoh^*(Z_0) \to \IndCoh^*(Z)$ is $t$-exact.
+
+\end{itemize}
+
+\noindent Then the functor:
+%
+\[
+(j^{*,\IndCoh},i^!):\IndCoh^*(Z) \to \IndCoh^*(U) \times \IndCoh^*(Z_0)
+\]
+
+\noindent is conservative. 
+
+\end{lem}
+
+\begin{proof}
+
+Let $\sF \in \IndCoh^*(Z)$ be given. We suppose $\sF$ is a non-zero
+object with $j^{*,\IndCoh}(\sF) = 0$. Our goal is to construct 
+an object $\sH \in \IndCoh^*(Z_0)$ and a non-zero map 
+$i_*^{\IndCoh}(\sH) \to \sF$. 
+
+\step We have:\footnote{Indeed, $j_*^{\IndCoh}$ is automatically left $t$-exact
+(hence $t$-exact) because $j$ is flat; therefore, this formula follows from
+the quasi-coherent setting by ind-extension.}
+%
+\[
+j_*^{\IndCoh}j^{*,\IndCoh}(\sF) = \colim \big(\sF \xar{f} \sF \xar{f} \ldots \big) = 
+0.
+\]
+
+Let $\sG \in \Coh(Z)$ be given with a non-zero map $\alpha:\sG \to \sF$; such 
+$(\sG,\alpha)$
+exists because $\sF$ is assumed non-zero. 
+
+By compactness of $\sG$, there is an integer $n$ such that the composition:
+%
+\[
+\sG \xar{\alpha} \sF \xar{f^n} \sF
+\]
+
+\noindent is null-homotopic. This map coincides with the composition:
+%
+\[
+\sG \xar{f^n} \sG \xar{\alpha} \sF
+\]
+
+\noindent so this map must be null-homotopic as well. 
+It follows that $\alpha$ factors through a (necessarily non-zero) map: 
+%
+\[
+\sG/f^n\coloneqq \Coker(f^n:\sG \to \sG) \to \sF
+\]
+
+\noindent for some $n \gg 0$.
+
+We have a standard co/fiber sequence:
+%
+\[
+\sG/{f^{n-1}} \xar{f} \sG/f^n \to \sG/f.
+\]
+
+\noindent By descending induction, we see that there must exist
+a non-zero map from $\sG/f \to \sF$. Replacing $\sG$ with $\sG/f \in \Coh(Z)$, 
+we can assume that $f$ acts by zero on our original object $\sG$.
+
+\step We now digress to make the following simple commutative algebra 
+observation.\footnote{In our eventual application, $Z_0$ is the classical
+scheme underlying $\{f=0\}$. This step is unnecessary under that
+additional hypothesis.}
+Suppose $Z = \Spec(A)$ below.
+
+Let $I \subset H^0(A)$ be the ideal of 
+elements vanishing on $Z_0^{cl}$. Let $(f) \subset H^0(A)$ 
+be the ideal generated by $f$. We claim that there are integers $r,s$
+such that:
+%
+\[
+I^r \subset (f), (f^s) \subset I. 
+\]
+
+For any $g \in I$, we have $\{g \neq 0\} \subset \{f \neq 0\}$ by assumption. 
+Therefore, $f$ is invertible in $H^0(A)[g^{-1}]$, so $g^{r_0} \in (f)$ for some
+$r_0$ (depending on $g$). 
+Because $i$ is almost finitely presented, $I$ is finitely generated,
+so we obtain $I^r \subset (f)$ for $r \gg 0$.
+
+The other inclusion (which we do not need) follows similarly: $\{f \neq 0\}$ is covered
+by $\{g \neq 0\}$ for $g \in I$, so $1 \in I[f^{-1}] = H^0(A)[f^{-1}]$,
+so $f^s \in I$ for some $s$.
+
+We deduce the following: any module: 
+%
+\[
+M \in H^0(A/f)\mod^{\heart} \subset H^0(A)\mod^{\heart} = 
+A\mod^{\heart}
+\]
+
+\noindent admits a finite filtration:
+%
+\[
+0 = I^r M \subset I^{r-1} M \subset \ldots \subset IM \subset M
+\]
+
+\noindent with subquotients lying in $H^0(A)/I\mod^{\heart} \subset A\mod^{\heart}$.
+
+\step We now return to earlier setting.
+
+Recall that we have $\sG \in \Coh(Z)$ on which $f$ acts null-homotopically.
+Because $\sG$ is bounded, it has a finite Postnikov filtration as an object
+of $\QCoh(Z)$
+with associated graded terms $H^i(\sG)[-i]$. 
+Each $H^i(\sG) \in 
+\QCoh(Z)^{\heart}$. Because $f$ acts by zero on them, they lie
+in $\QCoh(\{f = 0\})^{\heart}$. By the previous step, each
+of these terms is obtained by successively extending 
+objects in $\QCoh(Z_0)^{\heart}$.
+
+Now the diagram:
+%
+\[
+\xymatrix{
+\IndCoh(Z_0)^+ \ar[r]^{i_*^{\IndCoh}} \ar[d]^{\Psi} & \IndCoh(Z)^+ \ar[d]^{\Psi} \\
+\QCoh(Z_0)^+ \ar[r]^{i_*} & \QCoh(Z)^+}
+\]
+
+\noindent commutes because we assumed $i_*^{\IndCoh}$ $t$-exact;
+moreover, the vertical arrows are equivalences. Therefore, $\sG$
+admits a finite filtration as an object of $\IndCoh^*(Z)$
+with associated graded terms $\IndCoh$-pushed forward from $Z_0$. 
+Therefore, one of these associated graded terms must have a non-zero map
+to $\sF$, giving the claim.  
+
+\end{proof}
+
+\subsubsection{Application to $\widetilde{\sZ}^{\leq n}$}
+
+We now apply the above to construct generators of $\IndCoh^*(\widetilde{\sZ}^{\leq n})$.
+
+\begin{prop}
+\source{tates-thesis-de-rham-setting}
+\notready\label{p:tilde-z-gens}
+\source{tates-thesis-de-rham-setting}
+
+For
+$n > 0$, the DG category $\IndCoh^*(\widetilde{\sZ}^{\leq n})$ is compactly 
+generated by the objects 
+$\{\iota_*^{r,\IndCoh}(\sO_{\widetilde{\sZ}^{\leq n}})\}_{r \geq 0}$.
+
+For $n = 0$, the DG category $\IndCoh^*(\widetilde{\sZ}^{\leq 0})$ is compactly 
+generated by $\sO_{\widetilde{\sZ}^{\leq 0}})$.
+
+\end{prop}
+
+\begin{proof}
+
+We proceed by induction on $n$. 
+
+\step 
+
+The $n = 0$ case is simple: $\widetilde{\sZ}^{\leq 0}$ is $\bA^1$ (with coordinate
+$a_0$). 
+
+\step 
+
+We now fix $n > 0$, and that the proposition for $n - 1$. 
+We introduce the following notation.   
+
+Let $\sC \subset \IndCoh^*(\widetilde{\sZ}^{\leq n})$ be the subcategory generated
+by the objects $\iota_*^{r,\IndCoh}\sO_{\widetilde{\sZ}^{\leq n}}$. We need
+to show that $\sC$ is the full $\IndCoh^*$.
+
+\step \label{st:gen-3}
+\source{tates-thesis-de-rham-setting}
+
+We observe that \eqref{eq:fund-ses} implies that 
+$\delta_{n,*}^{\IndCoh}(\sO_{\sZ}^{\leq n-1}) \in \sC$. 
+More generally, we find 
+$\iota_*^{r,\IndCoh}\delta_{n,*}^{\IndCoh}(\sO_{\sZ}^{\leq n-1}) \in \sC$ for
+any $r\geq 0$. 
+
+\step 
+
+Below, we will apply Lemma \ref{l:coh-supp} with 
+$i:Z_0 \to Z$ corresponding to 
+$\delta_n:\widetilde{\sZ}^{\leq n-1} \to \widetilde{\sZ}$. We remark
+that $\delta_n$ is almost finitely presented by 
+Lemma \ref{p:z-flat-axes} \eqref{i:z-axes-2} 
+(cf. the proof of Corollary \ref{c:iota-afp}), and that $\delta_{n,*}^{\IndCoh}$
+is $t$-exact by Proposition \ref{p:semi-coh}. 
+
+In other words, our application of the lemma is justified. 
+
+\step 
+
+We now treat the $n = 1$ case. 
+
+Suppose $\sF \in \IndCoh^*(\widetilde{\sZ}^{\leq 1})$ lies in the 
+right orthogonal to $\sC$. 
+
+By Step \ref{st:gen-3} and the $n = 0$ case, $\delta_1^!(\sF) = 0$, and 
+$\delta_1^!(\iota^r)^! \sF = 0$ more generally. Therefore, 
+by Lemma \ref{l:coh-supp}, $\sF$ is $*$-extended from:
+%
+\[
+\widetilde{\sZ}^{\leq 1} \setminus  
+\big(\widetilde{\sZ}^{\leq 0} \cup \ldots \cup \iota^r(\widetilde{\sZ}^{\leq 0})\big)
+\]
+
+\noindent for each $r$. It follows that $\sF$ is $*$-extended from:
+%
+\[
+\widetilde{\sU}_1 \coloneqq 
+\widetilde{\sZ}^{\leq 1} \times_{\sZ^{\leq 1}} \sU_1.
+\]
+
+But by Lemma \ref{l:u1} (cf. \S \ref{sss:u-reg-noeth}), 
+$\IndCoh^*(\widetilde{\sU}_1) \simeq \QCoh(\widetilde{\sU}_1)$ 
+is generated by its structure sheaf. Since this is the $*$-restriction
+of the structure sheaf on $\sZ^{\leq 1}$, we obtain the claim. 
+
+\step 
+
+We now assume $n>1$ case. 
+
+In this case, we have:
+%
+\[
+\iota_*^{r,\IndCoh}\delta_{n,*}^{\IndCoh} \simeq 
+\delta_{n,*}^{\IndCoh}
+\iota_*^{r,\IndCoh}.
+\]
+
+\noindent (Here we use $\iota$ to denote the map for both $\sZ^{\leq n}$ 
+and $\sZ^{\leq n-1}$.)
+
+By induction and Step \ref{st:gen-3}, $\sC$ contains the subcategory
+generated under colimits by the essential image of
+$\delta_{n,*}^{\IndCoh}$. Therefore, by Lemma \ref{l:coh-supp}, 
+any $\sF$ in the right orthogonal to $\sC$ is $*$-extended
+from $\widetilde{\sU}_n$. 
+
+But again, $\IndCoh^*(\widetilde{\sU}_n) \simeq \QCoh(\widetilde{\sU}_n)$ is generated
+by its structure sheaf by Lemma \ref{l:un}; as 
+$\sO_{\widetilde{\sZ}^{\leq n}} \in \sC$, we obtain the claim.
+
+\end{proof}
+
+
+\subsection{Stacky case}
+
+\subsubsection{}
+
+Now suppose $S$ is a stack of the form $T/G$ for $G$ classical affine group scheme
+and $T$ an eventually coconnective affine scheme.
+
+In this case, $G$ acts weakly on $\IndCoh^*(T)$, i.e., $\QCoh(G)$
+acts canonically on $\IndCoh^*(T)$ (by flatness of $G$ over a point). 
+We set $\IndCoh^*(S) \coloneqq \IndCoh^*(T)^{G,w}$.
+%One can see that this is canonically independent of the presentation of
+%$S$ as $T/G$, cf. \cite{methods} Corollary 6.25.2.
+
+%We say an object $\sF \in \IndCoh^*(S)$ is \emph{coherent} if
+%its pullback to some (equivalently any) cover is coherent. 
+%We let $\Coh(S) \subset \IndCoh^*(S)$ denote the corresponding
+%full subcategory. We remark that in general, objects of
+%$\Coh(S)$ may not be compact, but this is not an issue if
+%$G$ is assumed to be of finite type. 
+
+There is a unique $t$-structure on $\IndCoh^*(S)$ such that the
+forgetful functor:
+%
+\[
+\IndCoh^*(S) \to \IndCoh^*(T)
+\]
+
+\noindent is $t$-exact. 
+
+\subsubsection{}
+
+In the above setting, given a map $f:S_1 \to S_2$ of stacks of the
+above types, we obtain similar functoriality as in the non-stacky case;
+we omit the details.  
+
+\subsubsection{}
+
+We now have:
+
+\begin{cor}
+\source{tates-thesis-de-rham-setting}
+\notready\label{c:z-gen}
+\source{tates-thesis-de-rham-setting}
+
+The category $\IndCoh^*(\sZ^{\leq n})$ is compactly generated
+by the objects $\iota_*^{r,\IndCoh}(\sO_{\sZ^{\leq n}})(m)$, where $r \geq 0$ and 
+$m \in \bZ$.
+
+\end{cor}
+
+\begin{proof}
+
+For $G$ an affine algebraic group (in particular, of finite type) and 
+$\sF \in \sC^{G,w}$, it is a general fact that $\sF$ is compact
+if and only if its image $\Oblv(\sF) \in \sC$ is compact.\footnote{See 
+\cite{methods}, proof of Lemma 5.20.2.}
+Moreover, the functor $\Oblv:\sC^{G,w} \to \sC$ always generates
+the target under colimits. 
+
+Therefore, writing $\sZ^{\leq n} = \widetilde{\sZ}^{\leq n}/\bG_m$, 
+the above objects are indeed compact. The generation follows from 
+Proposition \ref{p:tilde-z-gens}.
+
+\end{proof}
+
+\subsubsection{}
+
+There is a natural functor:
+%
+\[
+\Psi:\IndCoh^*(\sZ^{\leq n}) \to \QCoh(\sZ^{\leq n})
+\]
+
+\noindent obtained by passing to weak $\bG_m$-invariants for
+the corresponding functor for $\widetilde{\sZ}^{\leq n}$. This functor
+is an equivalence on coconnective (equivalently: eventually coconnective) 
+subcategories via the corresponding assertion for $\widetilde{\sZ}^{\leq n}$.
+
+We let $\Coh(\sZ^{\leq n}) \subset \IndCoh^*(\sZ^{\leq n})$ 
+denote the subcategory of compact objects. By the above, 
+the functor $\Coh(\sZ^{\leq n}) \to \QCoh(\sZ^{\leq n})$
+induced by $\Psi$ is fully faithful; its essential image is 
+exactly the subcategory of 
+eventually coconnective almost compact objects. 
+
+\subsubsection{}
+
+We now observe that the functor:
+%
+\[
+\iota_*^{\IndCoh}:\IndCoh^*(\sZ^{\leq n}) \to \IndCoh^*(\sZ^{\leq n})
+\]
+
+\noindent is $t$-exact. 
+
+Indeed, by definition, this assertion reduces to the analogous
+statement for $\widetilde{\sZ}^{\leq n}$, which in turn follows 
+from Proposition \ref{p:semi-coh}.
+
+The same analysis applies for pushforward functors:
+%
+\[
+\delta_{n+1,*}^{\IndCoh}:\IndCoh^*(\sZ^{\leq n}) \to \IndCoh^*(\sZ^{\leq n+1}).
+\]
+
+\subsection{Ind-algebraic stacks}
+
+We define:
+%
+\[
+\IndCoh^*(\sY_{\log}^{\leq n}) \coloneqq \colim \, \big(
+\IndCoh^*(\sZ^{\leq n}) \xar{\iota_*^{\IndCoh}}
+\IndCoh^*(\sZ^{\leq n}) \xar{\iota_*^{\IndCoh}} \ldots \big) \in \DGCat_{cont}.
+\]
+
+\noindent We let: 
+%
+\[
+i_{n,*}^{\IndCoh}: \IndCoh^*(\sZ^{\leq n}) \to \IndCoh^*(\sY_{\log}^{\leq n})
+\]
+
+\noindent denote the structural functor. 
+
+Similarly, we define:
+%
+\[
+\IndCoh^*(\sY_{\log}) \coloneqq \underset{n}{\colim} \, \IndCoh^*(\sY_{\log}^{\leq n}) =
+\underset{\iota_*^{\IndCoh},\delta_{n,*}^{\IndCoh}}{\underset{n,m}{\colim}} \, \IndCoh^*(\sZ^{\leq n}) \in \DGCat_{cont}.
+\]
+
+By the above and \cite{whit} Lemma 5.4.3, there is a unique 
+$t$-structure on $\IndCoh^*(\sY_{\log}^{\leq n})$ such that 
+each structural functor:
+%
+\[
+\IndCoh^*(\sZ^{\leq n}) \to \IndCoh^*(\sY_{\log}^{\leq n})
+\]
+
+\noindent is $t$-exact. Similarly, there is a unique $t$-structure on 
+$\IndCoh^*(\sY_{\log})$ such that each structural functor:
+%
+\[
+\IndCoh^*(\sY_{\log}^{\leq n}) \to \IndCoh^*(\sY_{\log})
+\]
+
+\noindent is $t$-exact.
+
+Each of these categories is compactly generated as all of our structural
+functors preserve compact objects.
+
+\subsection{Grassmannian actions}
+
+Suppose $n>0$ in what follows. 
+
+\subsection{}
+
+Recall that $\Gr_{\bG_m}$ tautologically acts on $\sY_{\log}$.
+
+Observe that $\sZ \subset \sY_{\log}$ is preserved
+under the action of the submonoid 
+$\Gr_{\bG_m}^{pos} \subset \Gr_{\bG_m}$.
+
+Indeed, suppose more generally that $Y$ is a prestack
+mapping to $\fL \bA^1/\bG_m$. Then:
+%
+\[
+\Gr_{\bG_m}^{pos} = \Ker(\fL^+ \bA^1/\bG_m \to \fL \bA^1/\bG_m)
+\]
+
+\noindent acts canonically on:
+%
+\[
+Z \coloneqq Y \underset{\fL \bA^1/\bG_m}{\times} \fL^+ \bA^1/\bG_m
+\]
+
+\noindent compatibly with the canonical $\Gr_{\bG_m} = 
+\Ker(\fL^+\bB \bG_m \to \fL \bB \bG_m)$-action on:
+%
+\[
+Y_{\log} \coloneqq Y \underset{\fL\bB\bG_m}{\times} \fL^+ \bB \bG_m.
+\]
+
+Taking $Y = \sY$, we recover the claim.
+
+\subsubsection{}
+
+Next, observe that the action of 
+$\Gr_{\bG_m}^{pos,\leq n} \subset \Gr_{\bG_m}^{\leq n}$
+on $\sY_{\log}^{\leq n}$ preserves $\sZ^{\leq n}$.
+
+Indeed, this is an immediate consequence of the above.
+
+\subsubsection{}
+
+By the above, there is a canonical action:
+%
+\[
+\QCoh(\Gr_{\bG_m}^{pos,\leq n}) \actson \QCoh(\sZ^{\leq n})
+\]
+
+\noindent where the left hand side is given its convolution monoidal
+structure. 
+
+For $\sF \in \Coh(\Gr_{\bG_m}^{pos,\leq n}) \subset \QCoh(\Gr_{\bG_m}^{\leq n})$,
+the corresponding action functor:
+%
+\[
+\QCoh(\sZ^{\leq n}) \to \QCoh(\sZ^{\leq n})
+\]
+
+\noindent clearly preserves $\Coh(\sZ^{\leq n})$. Therefore, we obtain 
+a canonical action:
+%
+\[
+\IndCoh(\Gr_{\bG_m}^{pos,\leq n}) \actson \IndCoh^*(\sZ^{\leq n}).
+\]
+
+\subsubsection{}
+
+By Remark \ref{r:gr-n-pos-gp-cpl}, we have:
+%
+\[
+\IndCoh(\Gr_{\bG_m}^{\leq n}) \underset{\IndCoh(\Gr_{\bG_m}^{pos,\leq n})}{\otimes} 
+\simeq \big(
+\IndCoh^*(\sZ^{\leq n}) \xar{\iota_*^{\IndCoh}}
+\IndCoh^*(\sZ^{\leq n}) \xar{\iota_*^{\IndCoh}} \ldots \big) \simeq 
+\IndCoh^*(\sY_{\log}^{\leq n}).
+\]
+
+\noindent Thus, we obtain a natural action of $\IndCoh(\Gr_{\bG_m}^{\leq n})$
+on $\IndCoh^*(\sY_{\log}^{\leq n})$ such that the functor
+$i_{n,*}^{\IndCoh}$ is a morphism of $\IndCoh(\Gr_{\bG_m}^{pos,\leq n})$-module
+categories. 
+
+\subsubsection{}
+
+The map $\delta_{n,*}^{\IndCoh}:\IndCoh^*(\sZ^{\leq n}) \to \IndCoh^*(\sZ^{\leq n+1})$
+is naturally a map of $\IndCoh(\Gr_{\bG_m}^{pos,\leq n})$-module categories,
+as is evident by again considering subcategories of compact objects. 
+
+Therefore, $\IndCoh(\Gr_{\bG_m})$ naturally acts on $\IndCoh(\sY_{\log})$,
+compatibly with the above actions. 
+
+\subsection{Ind-coherent sheaves on $\sY$}
+
+We now define:
+%
+\[
+\IndCoh^*(\sY) \coloneqq \IndCoh^*(\sY_{\log})^{\Gr_{\bG_m},w}.
+\]
+
+\noindent By definition, the right hand side is:
+%
+\[
+\TwoHom_{\IndCoh(\Gr_{\bG_m})\mod}(\Vect, \IndCoh^*(\sY_{\log})).
+\]
+
+We let:
+%
+\[
+\Oblv:\IndCoh^*(\sY) \to \IndCoh^*(\sY_{\log})
+\]
+
+\noindent denote the (conservative) forgetful functor.
+It admits a left adjoint:
+%
+\[
+\Av_!^{\Gr_{\bG_m},w}.
+\] 
+
+The resulting monad on $\IndCoh^*(\sY_{\log})$ is easily seen to be 
+$t$-exact.\footnote{This reduces to the assertion that for 
+$\sF \in \IndCoh(\Gr_{\bG_m}^{\leq n,pos})^{\heart}$, the 
+action functor $\IndCoh^*(\sZ^{\leq n}) \to \IndCoh^*(\sZ^{\leq n})$
+is $t$-exact. Filtering $\sF$, we are reduced to the case that
+it is the skyscraper sheaf at a $k$-point. In that case, the
+relevant functor is a composition of functors $\iota_*^{\IndCoh}$,
+so $t$-exact by Proposition \ref{p:semi-coh}.}
+Therefore, we obtain:
+
+\begin{prop}
+\source{tates-thesis-de-rham-setting}
+\notready\label{p:y-t-str}
+\source{tates-thesis-de-rham-setting}
+
+There is a unique $t$-structure on $\IndCoh^*(\sY)$ such that the
+functor $\Oblv:\IndCoh^*(\sY) \to \IndCoh^*(\sY_{\log})$ is $t$-exact.
+Moreover, the functor $\Av_!^{\Gr_{\bG_m},w}$ is $t$-exact.
+
+\end{prop}
+
+Indeed, this follows from:
+
+\begin{lem}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+Let $\sC \in \DGCat_{cont}$ be equipped with a $t$-structure compatible with
+filtered colimits and a right $t$-exact monad $T:\sC \to \sC$.
+Then $T\mod(\sC)$ admits a unique $t$-structure such that the
+forgetful functor $T\mod(\sC) \to \sC$ is $t$-exact. 
+
+\end{lem}
+
+\subsubsection{}\label{ss:y-trun-indcoh}
+\source{tates-thesis-de-rham-setting}
+
+In the truncated setting, we similarly define:
+%
+\[
+\IndCoh^*(\sY^{\leq n}) \coloneqq 
+\IndCoh^*(\sY_{\log}^{\leq n})^{\Gr_{\bG_m}^{\leq n},w}.
+\]
+
+\noindent We again have adjoint functors:
+%
+\[
+\Oblv,\Av_!^{\Gr_{\bG_m}^{\leq n},w}
+\]
+
+\noindent and a $t$-structure on $\IndCoh^*(\sY^{\leq n})$.
+
+\subsubsection{}
+
+By functoriality of the constructions, there is a natural functor:
+%
+\[
+\lambda_{n,*}^{\IndCoh}:\IndCoh^*(\sY^{\leq n}) \to \IndCoh^*(\sY).
+\]
+
+\noindent This functor is $t$-exact and preserves compact objects. Moreover, we have:
+
+\begin{lem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{l:lambda-ff}
+\source{tates-thesis-de-rham-setting}
+
+For $n>0$, the functor $\lambda_{n,*}^{\IndCoh}$ is fully faithful.
+
+\end{lem}
+
+Roughly speaking, this is true because the map $\sY^{\leq n} \to \sY$ is 
+formally \'etale for $n>0$, which follows from the corresponding
+fact for $\LocSys_{\bG_m}^{\leq n} \to \LocSys_{\bG_m}$ (which 
+follows from Proposition \ref{p:locsys-log}). Unwinding the constructions
+to convert this argument into a proof is straightforward. 
+
+\subsection{Proof of Proposition \ref{p:semi-coh}}\label{ss:z-semi-coh-pf}
+\source{tates-thesis-de-rham-setting}
+
+We now give the proof of Proposition \ref{p:semi-coh}, which we deferred earlier.
+
+\subsubsection{}
+
+Our argument is by induction on $n$. We proceed in steps.
+
+\subsubsection{Step 1: $n = 0$ case}
+
+The $n = 0$ case is trivial, as $A_0 = k[a_0]$ is Noetherian.
+
+\subsubsection{Step 2: $n = 1$ case} 
+
+The inductive step we give for $n>1$ below may be adapted to treat the 
+$n = 1$ case, but it requires somewhat more work; we indicate how this works
+in \S \ref{sss:semi-coh-7}. We prefer
+to give a direct argument. Actually, we will show that $A_1$ is coherent.
+
+Recall the Noetherian subalgebras $A_{1,\leq m} \subset A_1$ from \S \ref{ss:rs-sketch}.
+It suffices to show that for any finitely presented $M \in A_1\mod^{\heart}$,
+there is an integer $m \gg 0$ and finitely generated
+$N \in A_{1,\leq m}\mod^{\heart}$ such that
+there is an isomorphism $N \otimes_{A_{1,\leq m}} A_1 \isom M$, where
+the tensor product is understood in the derived sense.
+
+Choose some $m_0$ and $N_0 \in A_{1,\leq m_0}\mod^{\heart}$ with an 
+isomorphism $H^0(N_0 \otimes_{A_{1,\leq m_0}} A_1) \isom M$; this may be
+done by choosing generators and relations for $M$ and $m_0$ such that 
+the relations all involve linear combinations with coefficients in $A_{1,\leq m_0}$.
+
+Choose $m > m_0$ such that $N_0$ does not contain any $(b_{-1}-i)$-torsion 
+for any integer $i\geq m$; this can be done because the finitely generated
+$A_{1,\leq m_0}$-module $N_0$ only admits finitely many associated primes.
+Then it is easy to see that $N \coloneqq 
+H^0(A_{1,\leq m} \otimes_{A_{1,\leq m_0}} N_0)$ satisfies the hypotheses.
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+We see here that $A_1$ is actually coherent, not merely semi-coherent.
+We do not consider this question for general $n$.
+
+\end{rem}
+
+\subsubsection{Step 3: filtered colimits, extensions, and effective bounds} 
+We now make the following observations for d\'evissage.
+
+For an integer $r$, we say that $M \in A_n\mod$ is \emph{$r$-good} if $M$ can be 
+expressed as a filtered colimit of coherent objects concentrated in 
+degrees $\geq -r$. Clearly any such $M$ lies in $A_n\mod^{\geq -r}$.
+
+In other words, $M$ is $r$-good if it lies in the full subcategory:
+%
+\[
+\Ind(\Coh(A) \cap A\mod^{\geq -r}) \subset A\mod^{\geq -r}.
+\]
+
+\noindent Here the natural functor is fully faithful because
+$\Coh(A) \cap A\mod^{\geq -r}$ consists of objects that are 
+compact in $A\mod^{\geq -r}$ by assumption.
+
+It follows from the second description that $r$-good objects are closed
+under filtered colimits (for fixed $r$). We also observe that $r$-good objects
+are closed under extensions.
+
+Finally, we say an object $M \in A_n\mod$ is \emph{good} if it is
+$r$-good for some $r$. So our task is to show that any $M \in A_n\mod^+$ 
+is good, or equivalently, any $M \in A_n\mod^{\heart}$.
+
+\subsubsection{Step 4: reductions}
+
+We now begin our induction. Take $n>1$ and assume the result for $n-1$.
+
+Suppose $M \in A_n\mod^+$. 
+It it suffices to show that:
+%
+\[
+M[b_{-n}^{-1}] \coloneqq \underset{b_{-n}}{\colim} \, M \text{ and }
+\Coker(M \to M[b_{-n}^{-1}])
+\]
+
+\noindent are good (where $\Coker$ indicates the \emph{homotopy cokernel}, 
+i.e., the cone).
+
+We check these assertions below. We remark that by Remark \ref{r:semi-coh-ab},
+we are reduced to considering $M \in A_n\mod^{\heart}$.
+
+\subsubsection{Step 5: generic case}
+
+Note that $M[b_{-n}^{-1}] \in A_n[b_{-n}^{-1}]\mod^{\heart} \subset A_n\mod^{\heart}$.
+
+As $n>1$, we have an isomorphism:
+%
+\[
+A_n[b_{-n}^{-1}] = k[b_{-1},\ldots,b_{-n},b_{-n}^{-1}].
+\]
+
+\noindent by Lemma \ref{l:un}.
+
+As this algebra is regular Noetherian, it follows that
+$M[b_{-n}^{-1}]$ has bounded $\Tor$-amplitude as an 
+$A_n[b_{-n}^{-1}]$-module (simply because it is bounded from below),
+so the same is true of $M[b_{-n}^{-1}]$ as an $A_n$-module.
+By standard homological algebra, $M[b_{-n}^{-1}]$ can be represented
+by a bounded complex of flat (classical) $A_n$-modules. 
+By Lazard, a flat $A_n$-module is good, so $M[b_{-n}^{-1}]$ is good.
+
+\subsubsection{Step 6: torsion case} 
+
+We now show that $\widetilde{M} = \Coker(M \to M[b_{-n}^{-1}])$ is good. 
+More generally, we show that any bounded complex 
+$\widetilde{M} \in A_n\mod^+$ such that $b_{-n}$ acts locally nilpotently on
+its cohomologies is good. As the complex $\widetilde{M}$ is assumed bounded,
+it suffices to treat its cohomology groups one at a time, so 
+we can assume (up to shifting) that $\widetilde{M} \in A_n\mod^{\heart}$.
+
+By induction, there exists an integer $r$ such that any module
+$N \in A_{n-1}\mod^{\heart}$ is $r$-good as an $A_{n-1}$-module.
+Because the projection $A_n \xar{b_{-n} \mapsto 0} A_{n-1}$ is
+almost finitely presented by Proposition \ref{p:z-flat-axes} \eqref{i:z-axes-2},
+so coherent $A_{n-1}$-complexes restrict to coherent $A_n$-complexes, 
+$N$ restricts to an $r$-good $A_n$-module. 
+
+Now let $\widetilde{M}_i \subset \widetilde{M}$ be the 
+non-derived kernel of the map $b_{-n}^i:\widetilde{M} \to \widetilde{M}$. 
+Clearly $\widetilde{M}_i/\widetilde{M}_{i-1} \in A_{n-1}\mod^{\heart} \subset
+A_n\mod^{\heart}$, so is $r$-good for the above $r$ (which is independent
+of everything in sight except $n$). The module 
+$\widetilde{M}_i$ is then $r$-good, as it is obtained by successively extending
+$r$-good modules. Finally, $\widetilde{M} = \colim_i \widetilde{M}_i$ is 
+a filtered colimit of $r$-good modules, so is $r$-good. This concludes the argument.
+
+\subsubsection{Step 7: revisiting the $n = 1$ case}\label{sss:semi-coh-7}
+\source{tates-thesis-de-rham-setting}
+
+Finally, we make a remark that the above argument can be adapted to 
+treat the $n = 1$ case, if one so desires. As in Lemma \ref{l:u1}, 
+we should consider the localization of 
+$A_1$ at $\{b_{-1},b_{-1}-1,b_{-1}-2,\ldots\}$
+(instead of simply at $b_{-1}$); one again then obtains a Noetherian ring
+of finite global dimension. The argument concludes by noting that 
+any classical $A_1/(b_{-1}-i) = k[a_i]$-module is $0$-good, so 
+any module for $A_1$ that is torsion for the above elements (thus
+necessarily the direct sum of its torsion with respect to each) is
+$0$-good (by an argument as above).
+
+In other words, we need to localize at infinitely many elements before
+obtaining a regular ring; the saving
+grace is that the goodness for torsion modules at each is bounded independently
+of the element.

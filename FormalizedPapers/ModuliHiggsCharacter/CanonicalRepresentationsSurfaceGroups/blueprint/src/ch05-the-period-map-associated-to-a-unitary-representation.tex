@@ -1,0 +1,420 @@
+% Source-derived chapter 05: The period map associated to a unitary representation
+% Original source: canonical-representations-surface-groups
+\chapter{The period map associated to a unitary representation}
+\label{canonical-representations-surface-groups-chapter-05}
+\source{canonical-representations-surface-groups}
+
+\begin{remark}[Source section]
+\label{canonical-representations-surface-groups-chapter-05-source}
+\source{canonical-representations-surface-groups}
+\source{canonical-representations-surface-groups}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: The period map associated to a unitary representation
+\label{section:unitary-period-map}
+\source{canonical-representations-surface-groups}
+
+In this section, we give an explicit description of the derivative of the period map
+on the cohomology of a unitary vector bundle over a punctured curve.
+In \autoref{subsection:period-map-derivative},
+we set up notation to describe the derivative of the period map,
+and state our description in
+\autoref{theorem:period-map-computation}.
+In \autoref{subsection:bilinear-pairing},
+we study a natural bilinear pairing on vector bundles,
+which is closely related to the derivative of the period map.
+%Specifically, in \autoref{proposition:pairing-result} 
+%we give a sufficient condition for the vector bundle to have high rank, 
+%in terms of this bilinear form.
+
+\subsection{The period map}
+	\label{subsection:period-map-derivative}
+\source{canonical-representations-surface-groups}
+	We now describe the period map associated to the 
+first cohomology of a unitary local system over a punctured curve.
+We aim to state \autoref{theorem:period-map-computation}, which is a
+generalization of the classical statement that, for $C$ a curve, the multiplication map
+$$H^0(C, \omega) \otimes H^0(C, \omega) \to H^0(C, \omega^{\otimes 2})$$ can be
+identified via Serre duality with the derivative of the period map associated to the Hodge structure on
+$H^1(C, \mathbb C)$ \cite[Lemma 10.22]{Voisin:hodgeTheory}.
+
+\begin{notation}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{notation:period-map}
+\source{canonical-representations-surface-groups}
+	Suppose $\pi: \mathscr{C} \to \mathscr{B}$ is a relative smooth proper curve over a smooth
+	contractible complex-analytic base $\mathscr{B}$. Suppose $s_1, \cdots,
+	s_n: \mathscr{B}\to \mathscr{C}$ are sections to $\pi$ with disjoint
+	images $\mathscr{D}_1, \cdots, \mathscr{D}_n$, and let $\mathscr{D}$ be
+	the union of the $\mathscr{D}_i$. Let
+	$\mathscr{C}^\circ=\mathscr{C}\setminus \mathscr{D}$,
+	$j:\mathscr{C}^\circ\to \mathscr{C}$ be the natural inclusion, and let $\pi^\circ: \mathscr{C}^\circ \to \mathscr{B}$ be the composition $\pi^\circ=\pi\circ j$.
+Let $\mathbb V$ be a unitary $\mathbb C$-local system on $\mathscr{C}^\circ$ and
+let 
+$\mathbb{W}:=R^1 \pi^\circ_* \mathbb V$ denote the higher direct image local system on $\mathscr{B}$.
+Let $(\mathscr E, \nabla)$ denote the Deligne canonical extension 
+\cite[Remarques 5.5(i)]{deligne:regular-singular}
+of $(\mathbb{V}\otimes \mathscr{O}_{\mathscr{C}^\circ}, \on{id}\otimes d)$ to $\mathscr{C}$; this is a vector bundle with flat connection with regular singularities along $\mathscr{D}$. Note that for each $b\in \mathscr{B}$, $\mathscr{E}|_{\mathscr{C}_b}$ with the parabolic structure induced by $\nabla$ (as in \cite[Definition 3.3.1]{LL:geometric-local-systems}) is the semistable parabolic vector bundle associated to $\mathbb{V}|_{\mathscr{C}_b^\circ}$ by the Mehta-Seshadri correspondence \cite{mehta1980moduli, simpson1990harmonic}.
+
+\end{notation}
+
+\subsubsection{Constructing the period map}
+\label{subsubsection:constructing-period-map}
+\source{canonical-representations-surface-groups}
+We next construct the relevant period map in \eqref{equation:period-map}.
+Set $\mathscr H:=\mathbb{W} \otimes_{\mathbb C}
+\mathscr O_\mathscr{B} \simeq  \mathbb R^1
+\pi_*( \mathscr E \overset{\nabla}{\to} \mathscr E \otimes \Omega^1_{\mathscr{C}/\mathscr{B}}(\log \mathscr{D}))$, the
+right hand side being
+relative hypercohomology \cite[Corollaire 6.10, Proposition 6.14]{deligne:regular-singular}.
+As the vector bundle $\mathscr{H}$ arises from a local system, it carries a natural Gauss-Manin connection $\nabla_{GM}$.
+Because we are assuming $\mathbb V$ is unitary, the Hodge-de Rham spectral sequence
+degenerates \cite[Theorem 7.1(a)]{timmerscheidt:mixed-hodge-structure-for-unitary} (see also \cite[Th\'eor\`eme 5.3.1]{saito1988modules} for a much more general result), 
+giving a $2$-step Hodge filtration of 
+$\mathscr H = \mathbb W \otimes \mathscr O_\mathscr{B}$, satisfying
+\begin{equation}
+	\label{equation:h-filtration}
+\source{canonical-representations-surface-groups}
+\begin{aligned}
+F^1 \mathscr H &:= \pi_* (\mathscr E \otimes
+\Omega^1_{\mathscr{C}/\mathscr{B}}(\log\mathscr{D})) \\
+\mathscr H/ F^1 \mathscr H &\simeq R^1 \pi_* \mathscr E,
+\end{aligned}
+\end{equation}
+as described in \autoref{theorem:unitary-MHS}.
+
+Since $\mathscr{B}$ is contractible, we can globally trivialize the local system $\mathbb W$, yielding a flat trivialization of $\mathscr{H}$. 
+We therefore obtain a period map
+\begin{align}
+	\label{equation:period-map}
+\source{canonical-representations-surface-groups}
+	P: \mathscr{B} \to \on{Gr}(\rk F^1 \mathscr H, \rk \mathscr H),
+\end{align}
+for $\on{Gr}(s, r)$ the Grassmannian of $s$-dimensional subspaces of an $r$
+dimensional vector space, which sends $b\in \mathscr{B}$ to the subspace $F^1\mathscr{H}_b\subset \mathscr{H}_b$. 
+%The purpose of this section is to give an explicit algebraic description of the differential of this map.
+
+%\begin{remark}
+%	\label{remark:}
+%	Note that the filtration in \eqref{equation:h-filtration}
+%is the same filtration as that in \autoref{theorem:unitary-MHS}.
+%\end{remark}
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+	\label{remark:}
+\source{canonical-representations-surface-groups}
+	In the above \autoref{notation:period-map}, and in what follows,
+	when $\mathscr C \to \mathscr B$ is a relative curve, we will tend to use
+	$\Omega^1_{\mathscr C/\mathscr B}(\mathscr D)$ instead of the isomorphic but arguably more correct
+	$\Omega^1_{\mathscr C/\mathscr B}(\log \mathscr D)$
+	in order to simplify notation. 
+%	For a definition of logarithmic differentials, see 
+%	\cite[III, Definition 3.1]{deligne:regular-singular}.
+	We will also often identify $\Omega^1_{\mathscr{C}/\mathscr{B}}$ with the relative dualizing sheaf $\omega_{\mathscr{C}/\mathscr{B}}$, and will pass between the two without comment.
+\end{remark}
+
+\subsubsection{The derivative of the period map}
+\label{subsubsection:derivative-period-map-2}
+\source{canonical-representations-surface-groups}
+
+Having set up notation for the period map, we now describe its derivative.
+The derivative of the period map is an $\mathscr{O}_{\mathscr{B}}$-linear map
+\begin{align*}
+	dP : T_{\mathscr B} \to P^* T_{\on{Gr}(\rk F^1 \mathscr H, \rk \mathscr H)} \simeq (F^1
+	\mathscr H)^\vee \otimes (\mathscr H/F^1 \mathscr H),
+\end{align*}
+where the latter canonical identification follows from \cite[Theorem 3.5]{eisenbudH:3264-&-all-that}
+and the fact that the universal sub and quotient bundles on the Grassmannian
+pull back under $P$ to $F^1 \mathscr H$ and 
+$\mathscr H/F^1 \mathscr H$.
+This is dual to a map
+$$dP^\vee: (F^1\mathscr{H})\otimes
+(\mathscr{H}/F^1\mathscr{H})^\vee\to \Omega^1_{\mathscr B}.$$ As $\mathscr{C},
+s_1, \cdots, s_n$ is a family of $n$-pointed curves over $\mathscr{B}$, we also
+obtain a classifying map $c: \mathscr{B}\to \mathscr{M}_{g,n}$, inducing a
+pullback map $$c^*: c^*\Omega^1_{\mathscr{M}_{g,n}}\to \Omega^1_{\mathscr B}.$$
+
+\subsubsection{The derivative of the period map at a point}
+\label{subsubsection:derivative-period-map}
+\source{canonical-representations-surface-groups}
+
+We now identify the derivative of the period map at a point $b \in \mathscr B$.
+Given a point $b\in \mathscr{B}$, set $C:=\mathscr{C}_b$,
+$D:=\mathscr{D}_b$, and $E:=\mathscr{E}|_C$. Via Serre duality, we identify $dP^\vee_b$ as a map $$dP^\vee_b: H^0(C, {E}\otimes \Omega^1_C(\log D))\otimes H^0(C, {E}^\vee \otimes \omega_C)\to \Omega^1_{\mathscr{B},b},$$ and $c^*_b$ as a map $$c^*_b: H^0(C, \omega_C^{\otimes 2}(D))\to \Omega^1_{\mathscr{B}, b}.$$
+We also have a natural $\mathscr{O}_\mathscr{B}$-linear map $\overline{\nabla}: F^1 \mathscr H \to \mathscr H/F^1 \mathscr H \otimes
+\Omega^1_{\mathscr B}$ given as the composition
+\begin{align}
+	\label{equation:shift-derivative}
+\source{canonical-representations-surface-groups}
+	\overline{\nabla}: F^1 \mathscr H \to \mathscr H \xrightarrow{\nabla_{GM}} \mathscr H \otimes
+	\Omega^1_{\mathscr B} \to \mathscr H/F^1 \mathscr H \otimes
+	\Omega^1_{\mathscr B}.
+\end{align}
+
+A computation similar to
+\cite[Lemma 10.19, Theorem 10.21, and Lemma 10.22]{Voisin:hodgeTheory},
+which we carry out in 
+\autoref{appendix} and complete in
+\autoref{subsection:proof-period-map},
+yields:
+\begin{theorem}
+\source{canonical-representations-surface-groups}
+\notready\label{theorem:period-map-computation}
+\source{canonical-representations-surface-groups}
+	Under the identifications above, the map $dP^\vee_b$ factors as 
+	\begin{equation}
+	\xymatrix{
+	H^0(C, {E}\otimes \Omega^1_C(\log D))\otimes H^0(C, {E}^\vee \otimes \omega_C) \ar[r]^-{dP^\vee_b}  \ar[d]^{\otimes} & \Omega^1_{\mathscr{B},b}\\
+	H^0(C, {E}\otimes {E}^\vee \otimes \omega_C^{\otimes 2}(D)) \ar[r]^-{\on{tr}} & H^0(C, \omega_C^{\otimes 2}(D)) \ar[u]^{c^*_b}
+	}
+		\label{equation:multiplication-to-period}
+\source{canonical-representations-surface-groups}
+	\end{equation}
+where the left vertical map $\otimes$ is the tensor product of global sections, and the bottom map $\on{tr}$ is induced by the trace pairing ${E}\otimes {E}^\vee\to \mathscr{O}_C$.
+	Moreover, $dP^\vee_b$ is adjoint to $\overline \nabla_b$.
+\end{theorem}
+
+\subsection{A bilinear pairing}\label{subsection:bilinear-pairing}
+\source{canonical-representations-surface-groups}
+
+Let $C$ be a smooth proper connected curve of genus $g$, $D\subset C$ a reduced divisor, and $E$
+a vector bundle on $C$. 
+In this section, we study the natural perfect pairing
+\begin{align}
+	\label{equation:bilinear-pairing}
+\source{canonical-representations-surface-groups}
+	B_E:
+(E \otimes \omega_C(D))\times (E^\vee\otimes \omega_C) \to
+\omega_C^{\otimes 2}(D)
+\end{align}
+given as the composition $$B_E: (E \otimes \omega_C(D))\times (E^\vee\otimes \omega_C)\overset{\otimes}{\longrightarrow} (E\otimes E^\vee)\otimes \omega_C^{\otimes 2}(D)\overset{\on{tr}\otimes \on{id}}{\longrightarrow} \omega_C^{\otimes 2}(D),$$
+where $\on{tr}$ denotes the trace pairing ${E}\otimes {E}^\vee\to
+\mathscr{O}_C.$ 
+Our motivation for considering this pairing is the close relationship between
+\eqref{equation:bilinear-pairing} and
+\autoref{theorem:period-map-computation}: for $E$ as in \autoref{theorem:period-map-computation}, the pairing on global sections induced by $B_E$ computes the derivative of the period map.
+
+The main result of this section is \autoref{proposition:pairing-result},
+which gives a sufficient criterion for the rank of $E$ to be large in terms of
+this bilinear pairing. It is this lower bound on the
+rank of $E$ that ultimately leads to the bound of $\sqrt{g+1}$ in our main result,
+\autoref{theorem:finite-image}.
+In \autoref{section:vanishing} and \autoref{section:Putman-Wieland} we use
+\autoref{proposition:pairing-result} to analyze mapping class group representations appearing in the
+cohomology of unitary local systems. 
+
+We next review background on parabolic bundles, in order to state
+\autoref{proposition:pairing-result}.
+For a more detailed and leisurely introduction to parabolic bundles, we suggest
+the reader consult
+\cite[\S2]{LL:geometric-local-systems}
+and references therein.
+
+\subsubsection{A lightning review of parabolic bundles}
+%Let's hope that the lightning doesn't sink the boat of
+%\autoref{figure:proof-schematic}!
+
+Fix a smooth proper curve $C$ and let $D = x_1 + \cdots + x_n$ be a reduced divisor on
+$C$. 
+Recall that a {\em parabolic bundle} on $(C,D)$ is a vector bundle $E$ on $C$, a
+decreasing filtration $E_{x_j} = E_j^1 \supsetneq E_j^2 \supsetneq \cdots
+\supsetneq E_j^{n_j+1} =
+0$ for each $1 \leq j \leq n$, and an increasing sequence of real numbers $0\leq
+\alpha_j^1<\alpha_j^2<\cdots<\alpha_j^{n_j}<1$ for each $1 \leq j \leq n$.
+referred to as {\em weights}. 
+We use $E_\star = (E, \{E^i_j\}, \{\alpha^i_j\})$ to denote the data of a parabolic bundle.
+
+Given a parabolic bundle
+$E_\star = (E, \{E^i_j\}, \{\alpha^i_j\})$,
+let $J \subset \{1, \ldots, n\}$ denote the set of 
+integers $j \in \{1, \ldots, n\}$ for which $\alpha^1_j = 0$, and define
+\begin{align*}
+\widehat{E}_0 : = \ker( E \to \oplus_{j \in J} E_{x_j}/E_j^2).
+\end{align*}
+(This is a special case of more general notation used for coparabolic bundles
+as in \cite[2.2.8]{LL:geometric-local-systems} or the equivalent
+\cite[Definition 2.3]{bodenY:moduli-spaces-of-parabolic-higgs-bundles}, but is all we will need for this
+paper.)
+In particular, $\widehat{E}_0 \subset E$ is a subbundle.
+
+Parabolic
+bundles admit a notion of \emph{parabolic stability}, analogous to the usual
+notion of stability for vector bundles, which we next recall. 
+First, the {\em parabolic degree} of a parabolic bundle $E_\star$ is
+\begin{align*}
+	\on{par-deg}(E_\star) := \deg(E) + \sum_{j=1}^n \sum_{i=1}^{n_j}
+	\alpha^i_j \dim(E_j^i/E_j^{i+1}).
+\end{align*}
+Then, the {\em parabolic slope} is defined by $\mu_\star(E_\star) :=
+\on{par-deg}(E_\star)/\rk(E_\star)$.
+Any subbundle $F \subset E$ has an induced parabolic structure $F_\star \subset
+E_\star$ defined as
+follows:
+We take the filtration
+over $x_j$ on $F$ is obtained
+	from the filtration $$F_{x_j} = E^1_j \cap F_{x_j} \supset E^2_j \cap
+	F_{x_j} \supset \cdots \supset E^{n_j+1}_j \cap F_{x_j} = 0$$
+	by removing redundancies. For the weight associated to $F^i_j \subset
+	F_{x_j}$ one takes $$\max_{\substack{k, 1 \leq k \leq n_j}} \{ \alpha^k_j : F^i_j = E^k_j \cap
+	F_{x_j}\}.$$
+A parabolic bundle $E_\star$ is {\em parabolically semi-stable} if for every
+nonzero subbundle $F \subset E$ with
+induced parabolic structure $F_\star$, we have $\mu_\star(F_\star) \leq
+\mu_\star(E_\star)$.
+
+Mehta and Seshadri 
+\cite[Theorem 4.1, Remark 4.3]{mehta1980moduli},
+give a correspondence between
+\emph{parabolically stable parabolic bundles of parabolic degree zero} on
+$(C,D)$ and irreducible unitary local systems on $C\setminus D$.
+This bijection sends a local system $\mathbb{V}$ to the Deligne canonical extension of $(\mathbb{V}\otimes \mathscr{O}, \on{id}\otimes d)$ with the parabolic structure induced by the connection (as in \cite[Definition 3.3.1]{LL:geometric-local-systems}). 
+
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+It is not entirely trivial to extract from \cite{mehta1980moduli} that the parabolic vector bundle they construct from a unitary representation is in fact the parabolic vector bundle associated to the Deligne canonical extension of the associated flat vector bundle. What we will use is the fact that the parabolic vector bundle associated to the Deligne canonical extension is parabolically semistable, which follows from \cite[Theorem 5]{simpson1990harmonic}, for example. A generalization of this fact about unitary local systems (for complex PVHS) is nicely explained in \cite[\S5]{arapura2019vanishing}.
+\end{remark}
+
+%In the case that the weights are rational, the data of a parabolic bundle is equivalent to the data of a vector bundle on a stacky curve rooted along $D$, and the parabolic bundle is
+%parabolically stable if and only if the corresponding vector bundle on the
+%stacky curve is stable, as follows from the equivalence in
+%\cite[Th\'eor\`em 3.13]{bourne:fibres-paraboliques}, which preserves the notion
+%of semistability.
+
+%There is a notion of Serre duality for parabolic bundles due to Yokogawa
+%\cite{yokogawa:infinitesimal-deformation}, which also makes reference to a
+%variant notion: so-called \emph{coparabolic bundles}. The coparabolic bundle
+%associated to a parabolic vector bundle $E_\star$ is denoted
+%$\widehat{E_\star}$. For further background on parabolic bundles and the
+%terminology we will use, see \cite[\S2]{LL:geometric-local-systems} or
+%\cite{yokogawa:infinitesimal-deformation}.
+%%, or \cite{bodenY:moduli-spaces-of-parabolic-higgs-bundles}.
+
+The main technical result we will use regarding $B_E$ is:
+\begin{proposition}
+\source{canonical-representations-surface-groups}
+\notready\label{proposition:pairing-result}
+\source{canonical-representations-surface-groups}
+	Let $E_\star$ be a semistable parabolic bundle on $(C,D)$ of parabolic
+	degree zero, with underlying vector bundle $E$. Let $v\in H^0(C, E\otimes \omega_C(D))$ be a nonzero global section, and suppose the map 
+\begin{align*}
+	H^0(C, B_E(v,-)): H^0(C, E^\vee \otimes \omega_C) & \rightarrow H^0(C, \omega_C^{\otimes 2}(D)) \\
+	u & \mapsto B_E(v,u)
+\end{align*}
+has rank $r$. Then $\on{rk}(E)\geq g-r.$
+\end{proposition}
+
+Before proceeding with the proof, we
+recall \cite[Proposition 6.3.6]{LL:geometric-local-systems}, which the
+reader may take as a black box.
+For a less technical variant of this statement, see 
+\cite[Proposition 6.3.1]{LL:geometric-local-systems}. 
+\begin{proposition}[{ \cite[Proposition 6.3.6]{LL:geometric-local-systems}}]
+\source{canonical-representations-surface-groups}
+\notready
+	\label{proposition:generic-parabolic-global-generation}
+\source{canonical-representations-surface-groups}
+	Suppose $C$ is a smooth proper connected genus $g$ curve and
+	$E_\star = (E, \{E^i_j\}, \{\alpha^i_j\})$ is a nonzero parabolic bundle $C$
+	with respect to $D = x_1 + \cdots + x_n$.
+		Suppose $E_\star$ is parabolically semistable. 
+	Let $U \subset \widehat E_0$ be a (non-parabolic) subbundle with
+		$c := \rk E - \rk U$ and
+		$\delta := h^0(C, \widehat{E}_0) - h^0(C, U)$. 
+	\begin{enumerate}
+		\item[(I)] If $\mu_\star({E}_\star)> 2g-2 + n$, 
+		then $\rk E >
+			gc - \delta$.
+		\item[(II)] If $\mu_\star({E}_\star)= 2g-2+n$, then $\rk
+			E \geq gc - \delta$.
+	\end{enumerate}
+\end{proposition}
+\begin{remark}
+\source{canonical-representations-surface-groups}
+\notready
+\label{remark:}
+\source{canonical-representations-surface-groups}
+The statement of \autoref{proposition:generic-parabolic-global-generation} is equivalent to \cite[Proposition
+6.3.6]{LL:geometric-local-systems}, but differs slightly in that we write
+``$E_\star$ is parabolically stable'' in place of ``$\widehat{E}_\star$ is
+coparabolically stable'' and $\mu_\star(E_\star)$ in place of
+$\mu_\star(\widehat{E}_\star)$.
+However, by definition 
+$E_\star$ is parabolically stable if and only if $\widehat{E}_\star$ is
+coparabolically stable and $\mu_\star(E_\star) = \mu_\star(\widehat{E}_\star)$
+\cite[Definitions 2.2.9 and 2.4.2]{LL:geometric-local-systems}.
+\end{remark}
+
+\begin{proof}[Proof of \autoref{proposition:pairing-result}]
+The idea is to apply
+\autoref{proposition:generic-parabolic-global-generation}(II) with $c =1$ and
+$\delta = r$, and we now set up notation to do so.
+Set $n=\deg D$. Let $f_v: E^\vee\otimes \omega_C\to \omega_C^{\otimes 2}(D)$ be the map of vector bundles induced by $B_E(v, -)$, and set $U=\ker(f_v)$. 
+As $B_E$ is a perfect pairing and $v$ is nonzero by assumption, $U$ has corank one in $E^\vee\otimes \omega_C$.
+
+We conclude by applying \autoref{proposition:generic-parabolic-global-generation}(II) 
+to the parabolic bundle $(E_\star)^\vee \otimes
+\omega_C(D)$.
+%, which is the Serre dual coparabolic bundle
+%to $E_\star$ as in \cite[Proposition 2.6.6]{LL:geometric-local-systems}.
+This is parabolically stable by definition and
+has slope $\mu((E_\star)^\vee \otimes
+\omega_C(D)) = 2g - 2+n$,
+since $E_\star$ has parabolic slope $0$.
+
+By unwinding the definitions, one may verify $\reallywidehat{(E_\star)^\vee \otimes
+\omega_C(D)}_0=E^\vee \otimes \omega_C.$
+Therefore, the assumption of the proposition implies
+\begin{align*}
+	h^0(C,\reallywidehat{(E_\star)^\vee \otimes
+\omega_C(D)}_0) - h^0(C, U) = 
+h^0(C,E^\vee \otimes \omega_C) - h^0(C, U) = 
+r.
+\end{align*}
+Applying \autoref{proposition:generic-parabolic-global-generation}(II) 
+to the parabolic bundle
+$(E_\star)^\vee \otimes
+\omega_C(D)$
+with $U = \ker(f_v)$ as defined above so that $c =
+1$ and $\delta = r$ we find $\rk E=\rk \reallywidehat{(E_\star)^\vee \otimes
+\omega_C(D)}_0 \geq g - r.$
+%\begin{lemma}
+%	\label{lemma:parabolic-duality}
+%	Suppose $E_\star$ is a parabolic bundle on a pointed curve $(C, D)$.
+%Then there is an inclusion
+%$(E_0)^\vee \otimes \omega_C \to \reallywidehat{(E_\star)^\vee \otimes
+%\omega_C(D)}$
+%inducing an isomorphism
+%\begin{align*}
+%(E_0)^\vee \otimes \omega_C \to \reallywidehat{(E_\star)^\vee \otimes
+%\omega_C(D)}_0.
+%\end{align*}
+%\end{lemma}
+%\begin{proof}
+%	It's enough to show
+%	\begin{align*}
+%E_0^\vee \otimes \omega =  \reallywidehat{(E_\star)^\vee \otimes \omega(D)}_0
+%	\end{align*}
+%From the definition of the associated coparabolic sheaf, for sufficiently small $\varepsilon$, we want to show
+%\begin{align*}
+%E_0^\vee \otimes \omega =  \reallywidehat{(E_\star)^\vee \otimes \omega(D)}_{\varepsilon}
+%\end{align*}
+%Equivalently, we want to show
+%\begin{align*}
+%E_0^\vee =  \reallywidehat{(E_\star)^\vee(D)}_{\varepsilon}
+%\end{align*}
+%Using the formula for parabolic dual
+%\cite[(3.1)]{yokogawa:infinitesimal-deformation},
+%the right hand side becomes
+%\begin{align*}
+%\reallywidehat{E_{-\varepsilon}}^\vee(-D) (D) = \reallywidehat{E_{-\varepsilon}}^\vee = E_0^\vee
+%\end{align*}
+%as we wanted to show.
+%\end{proof}
+\end{proof}

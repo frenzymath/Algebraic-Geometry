@@ -1,0 +1,544 @@
+% Source-derived chapter 02: Background on parabolic bundles
+% Original source: geometric-local-systems-general-curves-isomonodromy
+\chapter{Background on parabolic bundles}
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-02}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+\begin{remark}[Source section]
+\label{geometric-local-systems-general-curves-isomonodromy-chapter-02-source}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\source{geometric-local-systems-general-curves-isomonodromy}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Background on parabolic bundles
+\label{section:parabolic}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+We now review some basics on parabolic sheaves and parabolic bundles, primarily following the notation of
+\cite[\S2.3]{BHH:parabolic}.
+Some useful references include 
+\cite[Part 3, \S1]{seshadri:fibres-vectoriels-sur-les-courbes-algebriques},
+\cite[\S1 and \S3]{yokogawa:infinitesimal-deformation}, and
+\cite[\S2]{bodenY:moduli-spaces-of-parabolic-higgs-bundles}.
+Let $C$ be a smooth proper curve and $D\subset C$ a reduced divisor. Loosely speaking, a parabolic bundle is a vector bundle on $C$ together with an additional
+filtration of the fibers over points of the given divisor, weighted by an increasing sequence of real numbers in $[0,1)$.
+
+\subsection{Definition of parabolic bundles}
+\label{subsubsection:definition-parabolic}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:parabolic-bundle}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $E$ be a vector bundle over a curve $C$.
+	Let $D = x_1 + \cdots + x_n \subset C$ denote a divisor, with the $x_i$ distinct.
+	A {\em quasiparabolic structure} on $E$ over $D$ is a strictly decreasing
+	filtration of subspaces
+	\begin{align*}
+		E_{x_j} = E_j^1 \supsetneq E_j^2 \supsetneq \cdots \supsetneq E_j^{n_j+1}
+		= 0
+	\end{align*}
+	for each $1 \leq j \leq n$.
+	A {\em parabolic structure} on $E$ over $D$ is a quasiparabolic
+	structure together with
+	$n$ sequences of real numbers
+	\begin{align*}
+		0 \leq \alpha^1_j < \alpha^2_j \cdots < \alpha^{n_j}_j < 1
+	\end{align*}
+	for $1 \leq j \leq n$.
+	A {\em parabolic bundle} is a vector bundle with a parabolic structure.
+	The collection $\{\alpha^i_j\}$ are called the {\em weights} of the
+	parabolic bundle. We say the parabolic bundle has {\em rational weights} if
+	all $\alpha^i_j$ are rational numbers.
+	We often notate the data of a parabolic bundle simply as $E_\star$
+	instead of $(E, \{E^i_j\}, \{\alpha^i_j\})$.
+\end{definition}
+
+\begin{definition}[Parabolic degree and slope]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $E_\star := (E, \{E^i_j\}, \{\alpha^i_j\})$. We define the {\em
+	parabolic degree} of $E_\star$ as
+\begin{align*}
+	\on{par-deg}(E_\star) := \deg(E) + \sum_{j=1}^n \sum_{i=1}^{n_j}
+	\alpha^i_j \dim(E_j^i/E_j^{i+1}).
+\end{align*}
+We define the {\em parabolic slope} as $\mu_\star(E_\star) :=
+\on{par-deg}(E_\star)/\rk(E_\star)$.
+\end{definition}
+
+\subsection{Definition of parabolic sheaves}
+\label{subsubsection:parabolic-sheaf}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+In order to later apply Serre duality, we will not only need parabolic bundles, but also so-called
+coparabolic bundles. Coparabolic bundles are examples of parabolic sheaves,
+which we define next.
+The definitions in this subsection follow
+\cite{yokogawa:infinitesimal-deformation} and
+\cite{bodenY:moduli-spaces-of-parabolic-higgs-bundles}.
+
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:filtered-O_X-module}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $X$ be a scheme and $D \subset X$ an effective Cartier divisor.
+	Let $\mathbb R$ denote the category whose objects are real numbers with
+	a single morphism $i^{\alpha,\beta}:\alpha\to\beta$ if $\alpha \geq \beta$ and no
+	morphisms otherwise.
+	Let $\mathscr M_X$ denote the category of sheaves of $\mathscr{O}_X$-modules.
+A {\em $\mathbb R$-filtered $\mathscr O_X$-module} is a functor $E: \mathbb R \to \mathscr M_X$.
+Notationally, we use $E_\star$ to denote the functor $E$, so $E_\alpha := E(\alpha)$.
+We write $i_E^{\alpha,\beta} := E(i^{\alpha,\beta})$.
+\end{definition}
+\begin{example}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{example:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Define $E[\alpha]_\star$ as the $\mathbb{R}$-filtered $\mathscr O_X$-module given by
+$E[\alpha]_\beta := E_{\alpha + \beta}$
+and $i^{\beta,\gamma}_{E[\alpha]} := i_E^{\beta + \alpha, \gamma + \alpha}$.
+Let $i^{[\alpha,\beta]}_E : E[\alpha]_\star \to E[\beta]_\star$ denote the
+natural transformation whose value on $\gamma$ is $i_E^{\alpha + \gamma, \beta +
+\gamma}$.
+For $f: E_\star \to F_\star$, we use $f[\alpha] : E[\alpha]_\star \to F[\alpha]_\star$ for
+the natural induced map.
+By abuse of notation, we will frequently write $E$ in place of $E_0$.
+\end{example}
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:parabolic-sheaf}
+\source{geometric-local-systems-general-curves-isomonodromy}
+A {\em parabolic sheaf} on $X$ with respect to $D$ is
+a $\mathbb R$-filtered $\mathscr O_X$-module $E_\star$ equipped with an isomorphism
+\begin{align*}
+	j_E : E_\star \otimes \mathscr O_X(-D) \overset{\sim}{\to} E[1]_\star
+\end{align*}
+ such that $i_E^{[1,0]} \circ j_E = \on{id}_{E_\star}
+\otimes i_D: E_\star \otimes \mathscr O_X(-D) \to E_\star$, where $i_D: \mathscr{O}_X(-D)\to \mathscr{O}_X$ is the natural inclusion.
+
+A natural transformation of parabolic $\mathscr O_X$-modules $f: E_\star \to
+F_\star$ is a {\em parabolic morphism} if
+\begin{equation}
+	\label{equation:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	\begin{tikzcd} 
+		E_\star \otimes \mathscr O_X(-D) \ar {r}{f\otimes
+		\on{id}} \ar {d}{j_E} & F_\star \otimes \mathscr
+		O_X(-D) \ar {d}{j_F} \\
+		E[1]_\star \ar {r}{f[1]} & F[1]_\star
+\end{tikzcd}\end{equation}
+commutes.
+
+Let $\on{Hom}(E_\star, F_\star)$ denote the set of parabolic morphisms.
+We let $\sheafhom(E_\star, F_\star)$ denote the sheaf of homomorphisms 
+defined by taking $\sheafhom(E_\star, F_\star)(U):= \on{Hom}(E_\star|_U,
+F_\star|_U).$
+We also define a parabolic sheaf
+$\sheafhom(E_\star, F_\star)_\star$ by taking
+$\sheafhom(E_\star, F_\star)_\alpha := \sheafhom(E_\star, F[\alpha]_\star)$
+and the $i_{\sheafhom(E_\star, F_\star)}^{\alpha,\beta}$ for $\alpha \geq \beta$
+to be the natural maps
+induced by $i_F^{[\alpha, \beta]}: F[\alpha]_\star \to F[\beta]_\star$.
+
+We define $\on{End}(E_\star) := \on{Hom}(E_\star, E_\star)$
+and use $\sheafend(E_\star) := \sheafhom(E_\star, E_\star)$.
+\end{definition}
+
+
+
+\begin{example}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{example:parabolic}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Any parabolic vector bundle $(E, \{E^i_j\}, \{\alpha^i_j\})$ defines a
+	parabolic sheaf as follows. For $0 \leq \alpha < 1$,
+	define
+	\begin{align*}
+	E_\alpha := \cap_{j=1}^n \ker(E \to
+	E_{x_j}/E^{\beta(\alpha, j)}_j).
+	\end{align*}
+	where $\beta(\alpha, j)=\min(i: \alpha^i_j\geq \alpha),$ for $\alpha\leq \max_i(\alpha^i_j)$ and taking $\beta(\alpha, j)=n_j+1$ for $1>\alpha>\max_i(\alpha^i_j)$.
+	For $n\in \mathbb{Z}$ set $E_{x+n} := E_x(-nD)$ and take $i^{\alpha,\beta}_E$ as the
+	natural inclusions. We will refer to parabolic vector bundles and their associated parabolic sheaves interchangeably.
+\end{example}
+
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:end-definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	It follows from the definition of $\on{End}(E_\star)$ that 
+	$\sheafend(E_\star) \subset \sheafend(E)$ is the coherent subsheaf
+corresponding to those endomorphisms preserving the quasiparabolic filtration
+$\{E^i_j\}$ at each point $x_j$ of $D$.
+\end{remark}
+
+\begin{example}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{example:vector-bundle}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Every vector bundle $E$ defines a parabolic bundle on $X$ with respect
+	to $D$ by taking the quasiparabolic structure
+	$E_{x_j} = E_j^1 \subset E_{j}^2 = 0$ with $\alpha_j^1 = 0$.
+	In turn, this defines a parabolic sheaf by \autoref{example:parabolic}.
+	We say such a parabolic bundle has trivial parabolic structure.
+\end{example}
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:map-vector-bundle-to-parabolic}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	If $V$ is a vector bundle on a scheme $X$ and $E_\star$ is a parabolic
+	sheaf, we write a map $V \to E_\star$ to denote a map $V_\star \to
+	E_\star$, where $V_\star$ is the parabolic sheaf corresponding to $V$ as
+	in \autoref{example:vector-bundle}.
+\end{remark}
+
+
+In addition to parabolic vector bundles, we will also require coparabolic vector
+bundles, in order to use Serre duality.
+The essential idea is that while the parabolic sheaves associated to parabolic vector bundles are unchanged in intervals of
+the form $(\alpha^i, \alpha^{i+1}]$, coparabolic vector bundles are unchanged in
+intervals of the form $[\alpha^i, \alpha^{i+1})$.
+I.e., parabolic vector bundles can be viewed as lower semicontinuous functors, taking
+the discrete topology on the set of isomorphism classes of vector bundles, while coparabolic vector
+bundles 
+can be viewed as upper semicontinuous functors, see \cite[Figure
+1]{bodenY:moduli-spaces-of-parabolic-higgs-bundles}.
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready[Coparabolic vector bundles,
+	\protect{\cite[Definition 2.3]{bodenY:moduli-spaces-of-parabolic-higgs-bundles}}]
+	\label{definition:coparabolic-vector-bundle}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $E_\star$ denote a parabolic vector bundle, viewed as a parabolic
+	sheaf.
+	The associated {\em coparabolic vector bundle}, denoted
+	$\widehat{E}_\star$, is the parabolic sheaf defined by
+		$$\widehat{E}_\alpha :=
+			\on{colim}_{\beta > \alpha} E_{\beta} $$
+	The colimit above is the union taken over the inclusions given by
+	$i^{\alpha,\beta}_E$.
+\end{definition}
+
+\begin{definition}[Coparabolic degree and slope]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	If $F_\star$ is a coparabolic bundle of the form $F_\star = \widehat{E}_\star$,
+for $E_\star$ a parabolic vector bundle, then the {\em coparabolic degree} of
+$F_\star$ is defined by $\on{copar-deg}(F_\star) := \on{par-deg}(E_\star)$ and the
+coparabolic slope of $F_\star$ is defined by $\mu_\star(F_\star) := \mu_\star(E_\star)$.
+\end{definition}
+\begin{example}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{example:vector-bundle-co}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Given a vector bundle $V$, one can define an associated parabolic bundle
+	$E_\star$ with the trivial parabolic structure, as in
+	\autoref{example:vector-bundle}. We call $\widehat{E}_\star$
+	as the coparabolic bundle associated with trivial coparabolic structure.
+\end{example}
+
+
+
+\subsection{Induced subbundles and quotient bundles}
+
+\label{subsubsection:induced-subbundle}
+\source{geometric-local-systems-general-curves-isomonodromy}
+Let $E_\star := (E, \{E^i_j\}, \{\alpha^i_j\})$ be a parabolic bundle.
+	Any subbundle $F \subset E$ has an induced parabolic structure $F_\star$ as
+	follows, see
+\cite[Part 3, \S1.A, Definition 4]{seshadri:fibres-vectoriels-sur-les-courbes-algebriques}.
+	The quasiparabolic structure over $x_j$ on $F$ is obtained
+	from the filtration $$F_{x_j} = E^1_j \cap F_{x_j} \supset E^2_j \cap
+	F_{x_j} \supset \cdots \supset E^{n_j+1}_j \cap F_{x_j} = 0$$
+	by removing redundancies. For the weight associated to $F^i_j \subset
+	F_{x_j}$ one takes $$\max_{\substack{k, 1 \leq k \leq n_j}} \{ \alpha^k_j : F^i_j = E^k_j \cap
+	F_{x_j}\}.$$
+	Similarly, any quotient $E \to Q$ with kernel $F$ has an induced parabolic structure
+	given as follows.
+	The quasiparabolic structure over $x_j$ on $Q$ is obtained from
+	$$Q_{x_j} = (E^1_j+F_{x_j})/F_{x_j} \supset (E^2_j+F_{x_j})/F_{x_j}\supset\cdots\supset 
+	(E^{n_j+1}_j+F_{x_j})/F_{x_j} = 0$$
+	by removing redundancies. For the weight associated to a subspace $Q^i_j \subset
+Q_{x_j}$ one takes $$\max_{\substack{k, 1 \leq k \leq n_j}} \{ \alpha^k_j : Q^i_j = (E^k_j + F_{x_j})
+/F_{x_j}\}.$$
+
+\subsection{Stability of parabolic and coparabolic bundles}
+\label{subsubsection:stability-parabolic}
+\source{geometric-local-systems-general-curves-isomonodromy}
+
+\begin{definition}[Parabolic stability]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	A parabolic vector bundle $E_\star$ is {\em parabolically semistable}
+	(respectively, parabolically stable) if $\mu_\star(F_\star) \leq
+\mu_\star(E_\star)$ (respectively $\mu_\star(F_\star)< \mu_\star(E_\star)$) for all parabolic subbundles $F_\star \subset E_\star$ (with the
+induced parabolic structure as described above).
+\end{definition}
+\begin{definition}[Coparabolic stability]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:coparabolic-stability}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	A coparabolic bundle $E_\star$ is {\em coparabolically semistable}
+	if $E_\star$ is of the form $\widehat{F}_\star$ for $F$ a semistable
+	parabolic bundle.
+\end{definition}
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Note that parabolic and coparabolic stability are both defined with
+	respect to parabolic bundles.
+\end{remark}
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:coparabolic-stability}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	This remark will not be needed in what follows.
+	It turns out that if $n > 0$,
+	a coparabolic bundle $E_\star=\widehat{F}_\star$ is coparabolically semistable if for any
+	injection from a parabolic vector bundle $G_\star \hookrightarrow E_\star$, $\mu_\star(G_\star) <
+	\mu_\star(E_\star)$.
+	That is, although the definition 
+	only gives $\mu_\star(G_\star) \leq \mu_\star(E_\star)$, equality of
+	slopes is not possible when $n > 0$.
+
+	The reason for this is that any such map $G_\star \to E_\star$ also
+	induces a map $G[-\varepsilon]_\star \to E_\star\to F_\star$ for some sufficiently
+	small $\varepsilon > 0$. 
+	We then have $\mu_\star(G_\star) < \mu_\star(G[-\varepsilon]_\star) \leq
+	\mu_\star(F_\star)=\mu_\star(E_\star)$.
+\end{remark}
+
+
+
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:quotient-semistable}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $E_\star$ is a parabolic bundle and $F_\star \subset E_\star$ is
+	a parabolic subbundle with the induced subbundle structure. If $Q_\star
+	= E_\star/F_\star$ then $\on{par-deg}(E_\star) = \on{par-deg}(Q_\star) +
+	\on{par-deg}(F_\star)$.
+	In particular, a parabolic bundle $E_\star$ is semistable (respectively,
+	stable) if and only if for every quotient
+	bundle $Q_\star$, $\mu_\star(E_\star) \leq \mu_\star(Q_\star)$, (respectively $<
+	\mu_\star(Q_\star)$).
+\end{lemma}
+\begin{proof}
+	The second statement follows from the first, because
+	$\frac{\on{par-deg}(F_\star)}{\rk(F_\star)} <
+	\frac{\on{par-deg}(E_\star)}{\rk(E_\star)}$
+	is equivalent to 
+	$\frac{\on{par-deg}(E_\star)- \on{par-deg}(F_\star)}{\rk(E_\star) -
+	\rk(F_\star)} >
+	\frac{\on{par-deg}(E_\star)}{\rk(E_\star)}$, and similarly where one
+	replaces the inequalities with equalities.
+
+	The first statement is stated in
+	\cite[Part 3, \S1.A, p. 69, Remark
+	3]{seshadri:fibres-vectoriels-sur-les-courbes-algebriques},
+	together with the definition of exact sequence of parabolic bundles
+	\cite[Part 3, \S1.A, p. 68]{seshadri:fibres-vectoriels-sur-les-courbes-algebriques}.
+% 
+%	For the first statement, the equality of degrees certainly holds on the
+%	underlying bundles. That is, $\deg E = \deg Q + \deg F$.
+%	Write $E_\star = (E, \{E^i_j\}, \{\alpha^i_j\}),
+%	F_\star = (F, \{F^i_j\}, \{\beta^i_j\}),
+%	Q_\star = (Q, \{Q^i_j\}, \{\gamma^i_j\})$.
+%	It suffices to show 
+%	that for each $1 \leq j \leq n$, 
+%	\begin{align}
+%		\label{align:degree-at-point-sum}
+%	\sum_i \alpha^i_j \dim (E^i_j/E^{i+1}_j) = 
+%	\sum_i \beta^i_j \dim (F^i_j/F^{i+1}_j) + \sum_i \gamma^i_j
+%	\dim(Q^i_j)/Q^{i+1}_j.
+%	\end{align}
+%	By induction on the rank of $F$, it is enough to verify this
+%	equality when $\rk(F) = 1$.
+%	Namely, if $S_\star \subset F_\star$ has rank $1$, we can use the claim for $F_\star/S_\star
+%	\to E_\star/S_\star \to E_\star/F_\star$, $S_\star \to F_\star \to F_\star/S_\star$ and $S_\star \to E_\star \to E_\star/S_\star$ to decude the
+%	claim for $F_\star \to E_\star \to E_\star/F_\star$.
+%	In the case, $F$ has rank $1$, $F$ corresponds to a line $F \subset E$ indexed by a
+%	slope $\beta^1_j = \alpha^s_j$, for $\alpha^s_j$ maximal among all
+%	$\alpha^i_j$ for which $E^i_j$ contains the line $F$.
+%	In the quotient filtration, if $\rk (E^s_j) > 1$, we have $\rk(Q^i_j) =
+%	\rk(E^i_j)$ if $i \neq s$, $\rk Q^s_j = \rk E^s_j - 1$, and $\gamma^i_j
+%	= \alpha^i_j$. If $\rk(E^s_j) = 1$ then $\rk Q^i_j = \rk E^i_j$ and
+%	$\alpha^i_j = \gamma^i_j$ for $i <
+%	s$, while $\rk Q^i_j = \rk E^{i+1}_j$ and $\gamma^i_j = \alpha^{i+1}_j$ for $i >s$.
+%	In either case, \autoref{align:degree-at-point-sum} holds.
+\end{proof}
+
+\subsection{Harder-Narasimhan filtrations}
+\label{subsubsection:harder-narasimhan-parabolic}
+\source{geometric-local-systems-general-curves-isomonodromy}
+It is a standard fact that parabolic vector bundles have a Harder-Narasimhan
+filtration, and its proof is similar to the construction of Harder-Narasimhan
+filtrations of vector bundles, see 
+\cite[Part 3, \S1.B, Theorem 8]{seshadri:fibres-vectoriels-sur-les-courbes-algebriques}.
+	
+\subsection{Serre duality}
+
+If $E_\star$ is a parabolic sheaf on a scheme
+$X$, we have $H^0(C, E_\star) := \on{Hom}(\mathscr O_X, E_\star) =
+\on{Hom}(\mathscr O_X, E_0) = \Gamma(X, E)$, and one can define the
+higher cohomology groups by taking the corresponding right derived functor, as in 
+\cite[p. 130]{yokogawa:infinitesimal-deformation}, where, more generally,
+$\on{Ext}^i(E_\star, F_\star)$ is defined for parabolic $\mathscr O_X$ modules.
+In general we have $H^i(X, E_\star)=H^i(X, E_0)$.
+
+To state Serre duality, we need the notion of parabolic tensor product and
+duality.
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{definition:dualization}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	For $F_\star$ a parabolic sheaf, define $F^\vee_\star :=
+	\sheafhom(F_\star, \mathscr O_X)_\star$.
+\end{definition}
+The following gives a useful alternate description of parabolic dualization.
+\begin{lemma}[Parabolic dualization, cf. \protect{\cite[(3.1)]{yokogawa:infinitesimal-deformation}}]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:parabolic-dual-formula}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	If $F_\star$ arises from a parabolic vector bundle, we have
+	$F^\vee_\alpha \simeq (\widehat{F}_{-\alpha})^\vee (-D)$.
+\end{lemma}
+
+\begin{definition}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready[Parabolic tensor product, cf. \protect{\cite[Example
+	3.2]{yokogawa:infinitesimal-deformation}}]
+	\label{definition:parabolic-tensor}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Let $\tau: X - D \to X$ denote the inclusion.
+	Suppose $E_\star, F_\star$ are both parabolic modules so that each $F_\alpha$
+	and $E_\alpha$ is locally free,
+	define $(E_\star \otimes F_\star)_\alpha := \sum_{\alpha_1 + \alpha_2 =
+	\alpha} E_{\alpha_1} \otimes F_{\alpha_2}$, viewed as a subbundle of
+	$\tau_* \tau^*(E \otimes F)$. We take $i^{\alpha,\beta}_{E_\star \otimes F_\star}$ to be the natural inclusion map.
+\end{definition}
+\begin{remark}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{remark:}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	In \cite[p. 136-137]{yokogawa:infinitesimal-deformation}, the tensor
+	product of two arbitrary parabolic sheaves is defined, but the
+	definition is more difficult to state, and we will not require this
+	greater generality.
+\end{remark}
+
+The next lemma states that parabolic tensor products and duals interact in the usual way with degree.
+We omit the proof, which is a matter of unwinding definitions.
+\begin{lemma}
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{lemma:degree-in-duals}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	For $E_\star$ and $F_\star$ two parabolic bundles, $\deg E_\star \otimes
+	F_\star= \deg E_\star \rk F_\star + \deg F_\star \rk E_\star$ and $\deg
+	E_\star^\vee = - \deg E_\star$.
+\end{lemma}
+%\begin{proof}
+%	The first fact about tensor products is stated but not proved in
+%	\cite[Remark, p. 5]{bodenY:moduli-spaces-of-parabolic-higgs-bundles}.
+%	We content ourselves with proving 
+%$\deg E_\star^\vee = - \deg E_\star$
+%Using \autoref{lemma:parabolic-dual-formula}, it is enough to show the parabolic bundle 
+%$F_\star$ given by 
+%$F_\alpha = (\widehat{E}_{-\alpha})^\vee (-D)$ has degree $- \deg E_\star = -\deg
+%E_0 - \sum_{j=1}^n \sum_{i=1}^{n_j} \alpha^i_j %\dim(E_j^i/E_j^{i+1})$.
+%There are two cases, depending on whether each given $\alpha^1_j$ is $0$ or
+%nonzero.
+%We will cover the case that each $\alpha^1_j \neq 0$.
+%The case that some $\alpha^1_j \neq 0$ is similar, but slightly more
+%notationally annoying.
+%One can deduce the general case by replacing $E_\star$ by a shift of the form
+%$E_\star[\varepsilon]$ for which all $\alpha^1_j \neq 0$
+%and using $(E_\star[\varepsilon])^\vee =
+%E^\vee_\star[-\varepsilon]$ and $\deg E_\star[\varepsilon] = \deg E_\star +
+%\varepsilon \rk E$.
+%
+%In the case all $\alpha^1_j \neq 0$, writing $F_\star = (F_0, \{F_j^i\} , \{\beta_j^i\})$,
+%we find $\beta^i_j = 1 - \alpha^{n_j + 1 - i}_j$ for $1 \leq i \leq n_j$ and
+%$\dim F_j^i/F_j^{i+1} = \dim E^{n_j+1-i}_j / E^{n_j + 2 -i}_j$
+%for $1 \leq i \leq n_j$.
+%Additionally, under our hypotheses, $F_0 = E_0^\vee(-D)$ so $\deg F_0 = -\deg
+%E_0 - n\rk E$.
+%Therefore,
+%\begin{align*}
+%	\deg F &= \deg F_0 + \sum_{j=1}^n \sum_{i=1}^{n_j} \beta^i_j
+%	\dim(F_j^i/F_j^{i+1}) \\
+%	&= \deg F_0 + \sum_{j=1}^n \sum_{i=1}^{n_j} (1-\alpha^{n_j+1-i}_j) \dim
+%	E^{n_j+1-i}_j / E^{n_j + 2 -i}_j \\
+%	&= -\deg E_0 -n \rk E+ \sum_{j=1}^n \sum_{i=1}^{n_j} (1-\alpha^{i}_j)
+%	\dim E^{i}_j / E^{i + 1}_j \\
+%	&= -\deg E_0 -n \rk E  + n \rk E - \sum_{j=1}^n \sum_{i=1}^{n_j}
+%	(1-\alpha^{i}_j) \dim E^{i}_j / E^{i + 1}_j \\
+%	&= -\deg E_0  - \sum_{j=1}^n \sum_{i=1}^{n_j} (1-\alpha^{i}_j) \dim
+%	E^{i}_j / E^{i + 1}_j \\
+%	&= - \deg E_\star. \qedhere
+%\end{align*}
+%\end{proof}
+
+
+
+\begin{proposition}[Serre duality]
+\source{geometric-local-systems-general-curves-isomonodromy}
+\notready
+	\label{proposition:serre-duality}
+\source{geometric-local-systems-general-curves-isomonodromy}
+	Suppose $X$ is a smooth projective $n$-dimensional variety over an
+	algebraically closed field $k$ and let $\omega_X$ denote the dualizing
+	sheaf on $X$. For all parabolic vector bundles $E_\star$, we have a canonical isomorphism
+\begin{align*}
+	H^i(X, E_\star) \simeq H^{n-i}(X, \widehat{E_\star^\vee} \otimes
+	\omega_X(D))^\vee.
+\end{align*}
+\end{proposition}
+\begin{proof}
+	The version in \cite[Proposition
+	3.7]{yokogawa:infinitesimal-deformation} states
+	$\on{Ext}^i_X(E_\star, F_\star \otimes \omega_X(D)) \simeq
+	\on{Ext}^{n-i}_X(F_\star, \widehat{E}_\star)^\vee.$
+	Using \cite[Lemma 3.6]{yokogawa:infinitesimal-deformation}, and taking
+	$E_\star = \mathscr O_X$, we find
+	$H^i(X, F_\star \otimes \omega_X(D)) \simeq H^{n-i}( F_\star^\vee
+		\otimes
+	\widehat{\mathscr O_X})^\vee \simeq H^{n-i}(X, \widehat{F_\star^\vee})^\vee$.
+	Now, taking $E_\star$ as in the statement to be 
+	$F_\star \otimes \omega_X(D)$, we find $F_\star^\vee = E_\star^\vee
+	\otimes \omega_X(D)$ and so
+$H^i(X, E_\star) \simeq H^{n-i}(X, \reallywidehat{E_\star^\vee \otimes
+\omega_X(D)})^\vee \simeq 
+H^{n-i}(X, \widehat{E_\star^\vee} \otimes
+\omega_X(D))^\vee.$
+\end{proof}

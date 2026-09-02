@@ -1,0 +1,230 @@
+% Source-derived chapter 02: The local system of numerical classes
+% Original source: no-enriques-surface-over-the-integers
+\chapter{The local system of numerical classes}
+\label{no-enriques-surface-over-the-integers-chapter-02}
+\source{no-enriques-surface-over-the-integers}
+
+\begin{remark}[Source section]
+\label{no-enriques-surface-over-the-integers-chapter-02-source}
+\source{no-enriques-surface-over-the-integers}
+\source{no-enriques-surface-over-the-integers}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: The local system of numerical classes
+\mylabel{Local system}
+
+Throughout, $k$ denotes  a ground field of characteristic $p\geq 0$. Let $X$ be a proper scheme,   $\Pic_{X/k}$ the
+Picard scheme, and $\Pic^\tau_{X/k}$ be the open subgroup scheme parameterizing numerically trivial
+invertible sheaves  (see for example \cite{SGA 6}, Expos\'e XII, Corollary 1.5 and Expos\'e XIII, Theorem 4.7, compare also
+\cite{Laurent; Schroeer 2021}, Section 2). 
+The latter is   \emph{algebraic}, which means that the structure morphism is of finite type and separated,
+and the resulting quotient
+$$
+\Num_{X/k}=(\Pic_{X/k})/(\Pic^\tau_{X/k})
+$$
+is an \'etale group scheme.
+As such, it corresponds to the Galois representation on the stalk
+$$
+\Num_{X/k}(k^\alg)=\Num_{X/k}(k^\sep)=\ZZ^{\oplus\rho},
+$$
+where  $k^\sep\subset k^\alg$ are chosen separable and algebraic closures,
+and  $\rho\geq 0$ denotes the Picard number for the base-change $\bX=X\otimes k^\alg$. 
+The case $\rho=0$ is also allowed, it   may occur  for   schemes without ample sheaves (\cite{Schroeer 1999}, Section 3).
+One may call  $\Num_{X/k}$  the \emph{local system  of numerical classes}.
+Note that all these group schemes exist, even if $X$ fails to be reduced, irreducible,
+or equidimensional.
+
+We say that   $\Num_{X/k}$  is a  \emph{constant local system} if the corresponding Galois representation $\Gal(k^\sep/k)\ra\GL_\rho(\ZZ)$
+is trivial. In other words, the group scheme  $\Num_{X/k}$  is isomorphic to  
+$(\ZZ^{\oplus\rho})_k=\bigcup\Spec(k)$, where the disjoint union runs over all elements $l\in\ZZ^{\oplus\rho}$. 
+
+In this section, we collect some noteworthy consequences of this condition. It can be solely characterized in terms
+of invertible sheaves as follows:
+
+\begin{lemma}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{invertible sheaves}
+The group scheme $\Num_{X/k}$ is constant if and only if there is an integer $d\geq 0$ with the following property:
+For every invertible sheaf $\shL$ on $\bX$  there is a numerically trivial invertible sheaf $\shN$  on $\bX$
+such that $\shL^{\otimes d}\otimes\shN$ is the pullback of some invertible sheaf on $X$.
+\end{lemma}
+ 
+\proof
+The condition is sufficient: It ensures that the Galois action on the stalk  $\Num_{X/k}(k^\alg) =\ZZ^{\oplus\rho}$ becomes
+trivial on some subgroup of finite index. Hence it is trivial after tensoring with $\QQ$, and thus
+on the torsion-free group $\ZZ^{\oplus\rho}$.
+
+The condition is also necessary:
+Each rational point $l\in \Num_{X/k}$ can be seen as a representable  torsor
+$T\subset\Pic_{X/k}$ for the algebraic group scheme $P=\Pic^\tau_{X/k}$.
+Fix a closed point $a\in T$. The torsor becomes trivial after base-changing to the finite extension field $E=\kappa(a)$.
+So we may regard the isomorphism class of $T$ as an element in $l\in H^1(k,P)$, where    the cohomology is taken
+with respect to the finite flat topology. 
+
+Such classes have  finite order, which follows from general principles:
+Set $X'=X\otimes E$ and $P'=\Pic_{X'/E}$, and view them as $k$-schemes. First note that for each $k$-algebra $A$,
+the projection $\pr:X'\otimes A\ra X\otimes A$ is locally free of rank $n=[E:k]$,
+so  besides the pull-back   $\pr^*:\Pic(X\otimes A)\ra\Pic(X'\otimes A)$ we also have a \emph{norm map} $N$ in the other direction,
+where $N\circ\pr^*$ is multiplication by $n$ (for details see \cite{EGA II}, Section 6.5).
+Now consider the    diagram 
+$$
+\begin{tikzcd} 
+ 	& 			& H^1(k,P)\ar[d,"\pr^*"]\ar[dl,"\pr^*"]\\
+0\ar[r]	& H^1(k,\pr_*P')\ar[r]\ar[ur,bend left=20,"N"]	& H^1(E,P')\ar[r]		& H^0(k,R^1\pr_*P').
+\end{tikzcd}
+$$
+Here the lower   sequence is exact, coming  from the Leray--Serre spectral sequence.
+Note that the term on the right is zero, because  the coefficient sheaf 
+$R^1\pr_*P'$  vanishes, by the arguments for Lemma \ref{brauer group} below. 
+Our class $l\in H^1(k,P)$ becomes trivial
+in $H^1(E,P')$, hence $n \cdot l=N(\pr^*(l))=0$.
+ 
+Summing up,  there is some $n\geq 1$ such that $nl$ comes from a rational point $l'\in \Pic_{X/k}$.
+We next show that some multiple of $l'$ comes from an invertible sheaf. Set $S=\Spec(k)$.
+The Leray--Serre spectral sequence for the structure morphism
+$h:X\ra S$ yields an exact sequence
+$$
+H^1(X,\GG_m)\lra H^0(S,R^1h_*(\GG_m))\lra H^2(S,h_*(\GG_{m,X})).
+$$
+The arrow on the left coincides with the canonical map $\Pic(X)\ra \Pic_{X/k}(k)$. The 
+term on the right is a torsion group by Lemma \ref{brauer group} below.
+Consequently there is some integer $n'\geq 1$ so that the point  $n'l'$ comes
+from some invertible sheaf $\shL$ on $X$. 
+Applying the above reasoning for the members of  some generating set $l_1,\ldots, l_r\in\Num_{X/k}(k)$,
+we conclude that the composite map $\Pic(X)\ra\Num_{X/k}(k^\alg)$ has finite cokernel, and the assertion follows.
+\qed
+
+\medskip
+Attached to any noetherian scheme $Z$ is the \emph{dual graph} $\Gamma=\Gamma(Z)$. Its 
+finitely many vertices $v_i\in\Gamma$ correspond to the irreducible components $Z_i\subset Z$, and two vertices $v_i\neq v_j$ are joined by an edge if $Z_i\cap Z_j\neq\varnothing$. Any morphism $Z'\ra Z$ that sends irreducible components to irreducible components,
+in particular flat maps,  induces a map $\Gamma(Z')\ra\Gamma(Z)$ between vertex sets that sends edges to edges.
+Such maps are termed \emph{graph morphisms}. They are called  \emph{graph isomorphism}
+if the maps on vertex and edge sets are bijective.
+
+\begin{proposition}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{graph isomorphism}
+Suppose   $X$ is one-dimensional. Then the local system  $\Num_{X/k}$ is constant if and only if 
+ $\Gamma(\bX)\ra\Gamma(X)$ is a graph isomorphism.
+\end{proposition}
+
+\proof
+Let $C_1,\ldots,C_r\subset X$ be the irreducible components, endowed with reduced scheme structure.
+First note that an  invertible sheaf $\shL$ is numerically trivial if and only if $(\shL\cdot C_i)=0$ for $1\leq i\leq r$.
+
+We now show that our condition is sufficient: If $\Gamma(\bX)\ra\Gamma(X)$ is a graph isomorphism,
+the stalk $\Num_{X/k}(k^\alg)$ has rank $\rho=r$.
+For each $1\leq i\leq r$, choose a closed point $a_i\in X$ not contained in $\Ass(\O_X)$
+and the union of the $C_j$, $j\neq i$, and some effective Cartier divisor $D_i\subset X$ supported by $a_i$.
+Recall that $\Ass(\O_X)$ is the set of all points where the local ring $\O_{X,\zeta}$ admits a copy of the
+residue field $\kappa(\zeta)$ as a submodule. Here it  comprises the generic points, together with closed points that give
+embedded components.
+The   invertible sheaves $\shL_i=\O_X(D_i)$ define elements $l_i\in\Num_{X/k}(k^\alg)$ that
+generate a subgroup of finite index. In turn, the Galois representation must be trivial.
+
+The condition is also necessary: Let $E_1,\ldots,E_s\subset\bX$ be the irreducible components.  
+Fix some $1\leq i_0\leq s$, and choose some effective 
+Cartier divisor  on $X$ supported by $E_{i_0}$ but disjoint from the other components.
+Using  Lemma \ref{invertible sheaves}, we find  some invertible sheaf $\shL$ on $X$ with $(\shL_\bX\cdot E_i)\geq 0$,
+with inequality if and only if $i=i_0$.
+It follows that $(\shL\cdot  C_j)\geq 0$, with inequality for precisely one index $j=j_0$,
+such that $C_{j_0}\otimes k^\alg=E_{i_0}$ as closed sets.
+Consequently $\Gamma(\bX)\ra\Gamma(X)$ is bijective, whence a graph isomorphism.
+\qed
+
+\medskip
+Let us use the following terminology: A \emph{contraction} of $X$ is a proper scheme $Z$ together with a   morphism
+$f:X\ra Z$ with $\O_Z=f_*(\O_X)$.
+
+\begin{theorem}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{projective contractions}
+Suppose  the local system $\Num_{X/k}$ is constant.  
+Then every contraction $\bX\ra \bY$  to some projective scheme $\bY$ is isomorphic to the base-change of a contraction $X\ra Y$.
+\end{theorem}
+
+\proof
+First note that each  invertible sheaf $\shL$ on $X$ yields the graded ring 
+$$
+R(X,\shL)=\bigoplus_{t=0}^\infty H^0(X,\shL^{\otimes t}),
+$$
+and the resulting homogeneous spectrum $P(X,\shL)=\Proj R(X,\shL)$. If $\shL$ is semiample,
+then $Z=P(X,\shL)$ is projective and yields a contraction, and each   contraction with $Z$ projective is of this form.
+The sheaf  $\shL$ is unique up to preimages of semiample sheaves on $Z$.
+
+According to \cite{EGA IVc}, Theorem 8.8.2 there is a finite   extension $k\subset k'$
+such that the given contraction $\bX\ra \bY$ is the base-change of some contraction $f':X'\ra Y'$ 
+with $Y'$ projective, where $X'=X\otimes k'$. Choose some semiample invertible sheaf $\shL'$
+on $X'$ defining the contraction, as discussed in the preceding paragraph.
+Enlarging $k'$, we may assume that it is a splitting field. Then it is the composition
+of a Galois extension by some purely inseparable extension, and it suffices to treat these cases
+individually.
+
+Suppose first that $k'$ is Galois, with   Galois group $G=\Gal(k'/k)$.  
+For each $\sigma\in G$, the pullback $\shL'_\sigma=\sigma^*(\shL')$ is semiample, and also numerically equivalent to $\shL'$
+because $\Num_{X/k}$ is constant.
+Replacing $\shL'$ by the tensor product $\bigotimes_\sigma\shL'_\sigma$, we may assume that the $k'$-valued
+point $\Pic_{X/k}(k')$ corresponding to $\shL'$ is Galois-invariant, hence defines a rational point $l\in\Pic_{X/k}$.
+Passing to a multiple, it comes from an invertible sheaf $\shL$ on $X$, and the assertion follows.
+
+It remains to treat the case that $k'$ is purely inseparable.
+In this setting we can prove a    stronger statement:
+Any contraction $X'\ra Y'$ to a \emph{proper}  scheme $Y'$ is the base-change of some contraction $X\ra Y$.
+To see this, recall that our scheme $X=(|X|,\O_X)$ comprises an underlying topological space and a structure sheaf,
+and that the given contraction is a pair $(f',\varphi')$ where $f:|X'|\ra |Y'| $ is a continuous map  and
+$\varphi':\O_{Y'}\ra\O_{X'}$ is an $f'$-homomorphism (\cite{EGA I}, Chapter 0, Section 3.5.1).
+Since $\pr:X'\ra X$ is a homeomorphism, we are forced to set  $|Y|=|Y'|$ and $f=f'$  and   $\O_Y=f_*(\O_X)$.
+Define $Y=(|Y|,\O_Y)$ and write  $\varphi:\O_Y\ra\O_X$ for the canonical $f$-homomorphism.
+This gives a morphism   of ringed spaces $(f,\varphi):X\ra Y$.
+
+It remains to verify that this is the desired contraction. Obviously, the topological space $|Y|$ is quasicompact, and $f_*(\O_X)=\O_Y$.
+The rest of the  problem is essentially local: Let $V'\subset Y'$ be an affine open subscheme,  $U'=f'^{-1}(V)$ the preimage, 
+and $U\subset X$ the corresponding open subscheme. 
+The condition $f'_*(\O_{X'})=\O_{Y'}$ ensures that    
+$V'=\Spec\Gamma(U',\O_{X'})$. In other words, $U'\ra V'$ is the \emph{affine hull}, and this morphism is proper.
+Consider the affine hull $V=\Spec\Gamma(U,\O_X)$. Then $U'\ra V'$ is the base-change of $U\ra V$, according to \cite{EGA IIIa}, Proposition 1.4.15.
+Using that $V'\ra V$ is a homeomorphism, we get an identification $(|V|,\O_Y|_{|V|})=V$, compatible with the morphisms from $U$.
+It follows that the ringed space $Y=(|Y|,\O_Y)$
+is a scheme and that $f:X\ra Y$ is a morphisms of schemes.  Moreover, we infer $Y'=Y\otimes k'$ and $f'=f\otimes k'$.
+Applying \cite{EGA IVb}, Proposition 2.7.1 to the structure morphism $Y\ra \Spec(k)$, we see that $Y$ is proper.
+\qed
+
+\medskip
+Note that the    part in the  previous proof that  deals with purely inseparable extensions $k\subset k'$ 
+works without any assumptions on $\Num_{X/k}$. 
+The  proof of Lemma \ref{invertible sheaves} relies on  the following observation:
+
+\begin{lemma}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{brauer group}
+Write $S=\Spec(k)$, and let $h:X\ra S$ be the structure morphism. Then we have an identification $H^2(S,h_*(\GG_{m,X}))=\Br(X^\aff)$,
+and this is a torsion group.
+\end{lemma}
+
+\proof
+For any $k$-algebra $A$, we have $\Gamma(X\otimes A,\GG_a)=\Gamma(X^\aff\otimes A,\GG_a)$,
+because $X$ is   quasicompact and separated, and $k\ra A$ is flat.  It follows that the multiplicative groups
+on $X$ and $X^\aff$ have the same direct image on $S$, and it suffices to treat the case that $X=\Spec(R)$ is finite.
+One easily checks that the restriction map $H^2(X,\GG_m)\ra H^2(X_\red,\GG_m)$ is bijective.
+The term on the right is the sum of Brauer groups for  fields, which is torsion.
+
+Consider the Leray--Serre spectral sequence $H^i(S,R^jh_*(\GG_{m}))\Rightarrow H^{i+j}(X,\GG_m)$.
+We show that the edge map $H^2(X,\GG_m)\ra H^2(S,h_*(\GG_{m}))$ is bijective by checking that 
+  $R^ih_*(\GG_{m})=0$ for $i=1,2$.
+Let $A$ be a finite $k$-algebra. Then $X\otimes A$ is semilocal, hence its Picard group vanishes, and we immediately see the  
+vanishing for $i=1$. Now suppose we have a  class $\alpha\in H^2(X\otimes A,\GG_m)$.
+Let $k^\sep$ be some separable closure. The base-change $A\otimes_kk^\sep$ is the product of finitely many 
+strictly henselian local Artin rings, so the pullback of $\alpha$ vanishes. Then there is already
+a finite extension $k\subset k'$ on which the pullback vanishes. This shows $R^2h_*(\GG_m)=0$.
+\qed
+
+ 
+%===========================================================

@@ -1,0 +1,511 @@
+% Source-derived chapter 03: Local Abel-Jacobi morphisms
+% Original source: tates-thesis-de-rham-setting
+\chapter{Local Abel-Jacobi morphisms}
+\label{tates-thesis-de-rham-setting-chapter-03}
+\source{tates-thesis-de-rham-setting}
+
+\begin{remark}[Source section]
+\label{tates-thesis-de-rham-setting-chapter-03-source}
+\source{tates-thesis-de-rham-setting}
+\source{tates-thesis-de-rham-setting}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Local Abel-Jacobi morphisms
+\label{s:aj}
+\source{tates-thesis-de-rham-setting}
+
+\subsection{}
+
+In this section, we collect some standard results
+about local Abel-Jacobi maps and (simplified) 
+Contou-Carr\`ere pairings for use in \S \ref{s:weyl}.
+This material is standard and included for the reader's
+convenience.
+
+\subsection{}
+
+Let $\widehat{\sD} \in \IndSch$ denote the formal disc
+$\Spf(k[[t]]) \coloneqq \colim_n \Spec(k[[t]]/t^n)$.
+
+Let $\widehat{\Delta}:\widehat{\sD} \to \widehat{\sD} \times \sD$ denote the
+graph of the canonical map $\widehat{\sD} \to \sD$. 
+Clearly this map is a closed embedding (in particular, schematic).
+
+We define: 
+%
+\[
+\sO(-\widehat{\Delta}) \coloneqq \Ker\big(
+\sO_{\widehat{\sD} \times \sD} \to \widehat{\Delta}_*(\sO_{\widehat{\sD}})\big) 
+\in \QCoh(\widehat{\sD} \times \sD).
+\]
+
+\noindent One readily checks 
+that $\sO(-\widehat{\Delta})$ is a line bundle on 
+$\widehat{\sD} \times \sD$: in fact, 
+a choice of coordinate on the disc 
+gives a trivialization of it. 
+Moreover, as:
+%
+\[
+\widehat{\sD}
+\underset{\widehat{\sD} \times \sD }{\times}
+(\widehat{\sD} \times \o{\sD} ) = \emptyset
+\]
+
+\noindent there is a canonical trivialization
+of 
+$\sO(-\widehat{\Delta})|_{\widehat{\sD} \times \o{\sD}}$. 
+
+Thus, we obtain a map:
+%
+\[
+\AJ^{-1}:\widehat{\sD} \to \Gr_{\bG_m}.
+\] 
+
+\noindent We 
+define the \emph{local Abel-Jacobi map} 
+$\AJ$ as $\AJ^{-1}$ composed
+with the inversion map $\Gr_{\bG_m} \to \Gr_{\bG_m}$.
+
+Explicitly, we have:
+%
+\[
+\begin{gathered}
+\AJ: \widehat{\sD} \to \Gr_{\bG_m} \\
+\tau \mapsto (\sO_{\sD}(\tau),1)
+\end{gathered}
+\]
+
+\noindent where $\sO_{\sD}(\tau)$ is the line bundle on 
+the disc with sections having at worst simple
+poles at $\tau \in \widehat{\sD} \subset \sD$
+and the evident trivialization ``$1$" on $\o{\sD}$.
+
+\subsection{}\label{ss:dlog-aj}
+\source{tates-thesis-de-rham-setting}
+
+We now consider a closely related map to the Abel-Jacobi map.
+
+We have an evident evaluation map:
+%
+\begin{equation}\label{eq:ev-a1}
+\source{tates-thesis-de-rham-setting}
+\widehat{\sD} \times \fL^+ \bA^1 \to \bA^1
+\end{equation}
+
+\noindent that is linear in the second coordinate.
+Using the non-degeneracy of the residue pairing, 
+we deduce that there is a unique map:
+%
+\begin{equation}\label{eq:dlog-aj}
+\source{tates-thesis-de-rham-setting}
+\widehat{\sD} \to
+\fL^{pol} \bA^1 dt.
+\end{equation}
+
+\noindent such that the composition:
+%
+\[
+\widehat{\sD} \times \fL^+ \bA^1 
+\xar{\eqref{eq:dlog-aj} \times \id}
+\fL^{pol} \bA^1 dt \times 
+\fL^+ \bA^1 \xar{(f,\omega) \mapsto \Res(f\omega)} 
+\bA^1
+\]
+
+\noindent recovers the evaluation map above.
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{r:dlog-aj-fmla}
+\source{tates-thesis-de-rham-setting}
+
+Explicitly, \eqref{eq:dlog-aj} is given in coordinates
+by:
+%
+\[
+(\tau \in \widehat{\sD}) \mapsto \sum_{i = 0}^{\infty}
+\frac{\tau^i}{t^{i+1}} dt.
+\]
+
+\end{rem}
+
+We have the following elementary calculation.
+
+\begin{lem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{l:dlog-aj}
+\source{tates-thesis-de-rham-setting}
+
+The map \eqref{eq:dlog-aj} coincides with the composition:
+%
+\[
+\widehat{\sD} \xar{\AJ} \Gr_{\bG_m} 
+\xar{-d\log} \fL^{pol} \bA^1 dt.
+\]
+
+\end{lem}
+
+\begin{proof}
+
+Choose coordinates as in Remark \ref{r:dlog-aj-fmla}.
+The map $\AJ:\widehat{\sD} \to \Gr_{\bG_m}$ lifts to a 
+map to $\fL\bG_m$ via $\tau \mapsto \frac{1}{t-\tau}$.
+We then have:
+%
+\[
+d\log \frac{1}{t-\tau} = 
+\frac{d\frac{1}{t-\tau}}{\frac{1}{t-\tau}} = 
+-\frac{dt}{t-\tau} = -\frac{1}{t}\sum_{i = 0}^{\infty} \frac{\tau^i}{t^i} dt
+\]
+
+\noindent Comparing to Remark \ref{r:dlog-aj-fmla}, we obtain the 
+claim.
+
+\end{proof}
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+Following the lemma, we denote the above map by 
+$-d\log \AJ$, and its additive inverse by $d\log \AJ$.
+
+\end{rem}
+
+
+\subsection{Compatibility with truncations}\label{ss:aj-trun}
+\source{tates-thesis-de-rham-setting}
+
+We use the following observation. We remind that
+$\sD^{\leq n} \coloneqq \Spec(k[[t]]/t^n)$.
+
+Clearly $d\log \AJ$ maps $\sD^{\leq n}$ maps 
+into $\fL^{pol,\leq n} \bA^1 dt$. 
+Therefore, by definition (see \S \ref{ss:loop-gr-trun}),
+we deduce that $\AJ$ maps $\sD^{\leq n}$ into 
+$\Gr_{\bG_m}^{\leq n}$.
+
+\subsection{The positive Grassmannian}\label{ss:pos-gr}
+\source{tates-thesis-de-rham-setting}
+
+Next, we define: 
+%
+\[
+\fL^{pos} \bG_m \coloneqq
+\fL \bG_m \underset{\fL \bA^1} {\times} \fL^+ \bA^1.
+\]
+
+\noindent There is an evident commutative monoid
+structure on $\fL^{pos} \bG_m$ and homomorphism
+$\fL^+ \bG_m \to \fL^{pos} \bG_m$.
+
+We then define:
+%
+\[
+\Gr_{\bG_m}^{pos} \coloneqq \fL^{pos} \bG_m/\fL^+ \bG_m =
+\Ker(\fL^+\bA^1/\bG_m \to \fL \bA^1/\bG_m).
+\]
+
+Explicitly, $\Gr_{\bG_m}^{pos}$ parametrizes
+the data of $\sL$ a line bundle on the disc and
+$\sigma \in \Gamma(\sD,\sL)$ a (regular) section
+such that $\sigma|_{\o{\sD}}$ trivializes $\sL$.
+
+\subsection{}
+
+For $n \geq 0$, we define: 
+%
+\[
+\Sym^n \widehat{\sD} \coloneqq \Spf(k[[t_1,\ldots,t_n]])^{S_n} 
+\in \IndSch.
+\]
+
+\noindent for $S_n$ the symmetric group.
+We then let: 
+%
+\[
+\Sym\widehat{\sD} \coloneqq 
+\coprod_n \Sym^n \widehat{\sD} \in \IndSch.
+\]
+
+\subsection{}
+
+As for usual smooth curves, $\Sym\widehat{\sD}$ parametrizes
+effective Cartier divisors on $\sD$ supported on $\widehat{\sD}$.
+Hence, we obtain an isomorphism:
+%
+\[
+\Sym\widehat{\sD} \isom \Gr_{\bG_m}^{pos}
+\]
+
+\noindent such that the composition:
+%
+\[
+\widehat{\sD} = \Sym^1 \widehat{\sD} \to 
+\Sym\widehat{\sD} \simeq \Gr_{\bG_m}^{pos}
+\subset \Gr_{\bG_m}
+\]
+
+\noindent is $\AJ$.
+
+This is an isomorphism of commutative monoids for the
+evident product on $\Sym(\widehat{\sD})$.
+
+\subsection{Log Contou-Carr\'ere}
+
+\subsubsection{}
+
+We now observe the following.
+
+There is a unique pairing:
+%
+\[
+\pair{-}{-}:\Gr_{\bG_m}^{pos} \times \fL^+ \bA^1 \to \bA^1
+\]
+
+\noindent that is bilinear for multiplicative monoid
+structures on both sides and whose restriction 
+to $\widehat{\sD} \times \fL^+ \bA^1$ is 
+\eqref{eq:ev-a1}. 
+
+Explicitly, for $D \in \Gr_{\bG_m}^{pos}$ an effective 
+Cartier divisor
+on $\sD$ supported on $\widehat{\sD}$ and 
+$f\in \fL^+ \bA^1$, we have:
+%
+\[
+\pair{D}{f} = f(D) \coloneqq \Nm_D(f).
+\]
+
+\subsubsection{}
+
+There are some variants of the pairing above.
+
+First, note that 
+$\pair{-}{-}|_{\Gr_{\bG_m}^{pos} \times \fL^+ \bG_m}$
+maps into $\bG_m$. As $\Gr_{\bG_m}$ is the group completion
+of $\Gr_{\bG_m}^{pos}$ (in the evident sense), we obtain a 
+pairing:
+%
+\[
+\pair{-}{-}:\Gr_{\bG_m} \times \fL^+ \bG_m \to 
+\bG_m.
+\]
+
+\noindent This pairing is compatible with Contou-Carr\'ere's
+pairing \cite{cc} in the evident sense.
+
+\subsubsection{}
+
+Next, let $\Sym^m \sD^{\leq n} \coloneqq
+\Spec((k[[t]]/t^n)^{\otimes m,S_m})$, which is an
+affine scheme. We let $\Gr_{\bG_m}^{pos,\leq n}\coloneqq 
+\coprod_m \Sym^m \sD^{\leq n}$.
+
+The evident map:
+%
+\[
+\Gr_{\bG_m}^{pos,\leq n} \to \coprod_m \Sym^m \widehat{\sD} \to \Gr_{\bG_m}
+\]
+
+\noindent maps into $\Gr_{\bG_m}^{\leq n}$. Indeed,
+this map is a map of monoids, so the same is
+true of its composition with $d\log:\Gr_{\bG_m} \to 
+\fL^{pol} \bA^1 dt$. As $\sD^{\leq n}$ maps into
+$\fL^{pol,\leq n} \bA^1 dt$ (cf. \S \ref{ss:aj-trun}),
+we obtain the claim by definition of $\Gr_{\bG_m}^{\leq n}$.
+
+
+For similar reasons, the pairing:
+%
+\[
+\pair{-}{-}:
+\Gr_{\bG_m}^{pos,\leq n} \times \fL^+ \bA^1 \to \bA^1
+\]
+
+\noindent factors through a pairing:
+%
+\[
+\Gr_{\bG_m}^{pos,\leq n} \times \fL_n^+ \bA^1 \to \bA^1 
+\]
+
+\noindent that we also denote by $\pair{-}{-}$.
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{r:gr-n-pos-gp-cpl}
+\source{tates-thesis-de-rham-setting}
+
+The base-point $0 \in \widehat{\sD}$ gives a point of 
+$\Gr_{\bG_m}^{pos,\leq n}$ (of degree 1), hence 
+a translation map $T:\Gr_{\bG_m}^{pos,\leq n} \to \Gr_{\bG_m}^{pos,\leq n}$.
+There is a natural map:
+%
+\[
+\colim \, (\Gr_{\bG_m}^{pos,\leq n} \xar{T} \Gr_{\bG_m}^{pos,\leq n} \xar{T} \ldots)
+\to \Gr_{\bG_m}^{\leq n}
+\]
+
+\noindent that we claim is an isomorphism. 
+Indeed, the assertion is evident at the level of $k$-points (both sides 
+are $\bZ$), so it suffices to check the assertion on tangent complexes,
+where it is straightforward (both sides naturally identify with 
+$t^{-n+1}k[[t]]/k[[t]]$). 
+
+\end{rem}
+
+
+\subsubsection{}\label{ss:pairing-map}
+\source{tates-thesis-de-rham-setting}
+
+We will use the following constructions (in a quite simple setting).
+
+Let $V$ be a vector space. We consider $V$ as a prestack\footnote{If $Y$ is
+coconnective, this prestack is a (DG) indscheme.}
+with functor of points $\Spec(A) \mapsto \Omega^{\infty}(A\otimes V) \in \Gpd$.
+
+Now suppose $X$ is an ind-proper indscheme equipped with a morphism
+$\vph:X \to V$. We obtain a canonical ``integration" map:
+%
+\begin{equation}\label{eq:integration}
+\source{tates-thesis-de-rham-setting}
+\Gamma^{\IndCoh}(X,\omega_X) \to V.
+\end{equation}
+
+\noindent Indeed, our map $\vph$ is (tautologically) equivalent to
+a morphism $\sO_X \to V\otimes \sO_X \in \QCoh(X)$. Tensoring with the dualizing
+sheaf on $X$, we obtain a morphism $\omega_X \to V \otimes \omega_X \in \IndCoh(X)$,
+or what is the same, a map $p^!(k) \to p^!(V)$ for $p:X \to \Spec(k)$ the projection.
+By ind-properness and adjunction, 
+we obtain a map $p_*^{\IndCoh}p^!(k) \to V$ as desired. 
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready\label{r:upsilon-ff}
+\source{tates-thesis-de-rham-setting}
+
+Using \cite{grbook} \S II.3 Lemma 3.3.7, one finds that this is a bijection;
+i.e., specifying a map \eqref{eq:integration} is equivalent to giving
+$X \to V$.
+
+\end{rem}
+
+We also have the following variant.
+Suppose we are also given $Y$ a prestack and
+$\pi:X \times Y \to \bA^1$ a map.
+
+The map $\pi$ can be encoded by a morphism $X \to \Gamma(Y,\sO_Y)$ (thinking of the target
+as a prestack as above). Therefore, 
+we obtain a comparison map:
+%
+\[
+c_{\pi}:\Gamma^{\IndCoh}(X,\omega_X) \to \Gamma(Y,\sO_Y) \in 
+\Vect
+\]
+
+\noindent by the above. (As in Remark \ref{r:upsilon-ff}, 
+one can actually recover $\pi$ from $c_{\pi}$.) 
+
+\subsubsection{}
+
+We now have the following non-degeneracy assertion for our
+pairings.
+
+\begin{prop}
+\source{tates-thesis-de-rham-setting}
+\notready\label{p:cc-log}
+\source{tates-thesis-de-rham-setting}
+
+Each of the morphisms:
+%
+\[
+\begin{gathered}
+\Gamma^{\IndCoh}(\Gr_{\bG_m}^{pos},\omega_{\Gr_{\bG_m}^{pos}}) 
+\to \Gamma(\fL^+ \bA^1,\sO_{\fL^+ \bA^1}) \\
+\Gamma^{\IndCoh}(\Gr_{\bG_m},\omega_{\Gr_{\bG_m}}) 
+\to \Gamma(\fL^+ \bG_m,\sO_{\fL^+ \bG_m}) \\
+\Gamma^{\IndCoh}(\Gr_{\bG_m}^{pos,\leq n},\omega_{\Gr_{\bG_m}^{pos,\leq n}}) 
+\to \Gamma(\fL_n^+ \bA^1,\sO_{\fL_n^+ \bA^1}) \\
+\Gamma^{\IndCoh}(\Gr_{\bG_m}^{\leq n},\omega_{\Gr_{\bG_m}^{\leq n}}) 
+\to \Gamma(\fL_n^+ \bG_m,\sO_{\fL_n^+ \bA^1})
+\end{gathered}
+\]
+
+\noindent coming from our pairings and \S \ref{ss:pairing-map}
+is an isomorphism.
+
+Moreover, each isomorphism is a map of commutative algebras,
+where the left hand sides are commutative algebras using
+the commutative monoid structures on the relevant spaces,
+while the right hand sides are commutative algebras 
+as functions on schemes.
+
+\end{prop}
+
+\begin{proof}
+
+Each of these maps is a map of commutative algebras
+because of the bilinearity of the pairings.
+
+Next, we have:
+%
+\[
+\begin{gathered}
+\Gamma^{\IndCoh}(\Gr_{\bG_m}^{pos,\leq n},\omega_{\Gr_{\bG_m}^{pos,\leq n}}) =
+\underset{m}{\oplus} \,
+\Gamma^{\IndCoh}(\Sym^m\sD^{\leq n},\omega_{\Sym^m\sD^{\leq n}})
+= \\
+\underset{m}{\oplus} \, ((k[[t]]/t^n)^{\otimes m,S_m})^{\vee}
+= \Sym((k[[t]]/t^n)^{\vee})
+\end{gathered}
+\]
+
+\noindent where the second equality is by finiteness of
+$\Sym^m \sD^{\leq n}$.
+
+We similarly have 
+$\fL_n^+ \bA^1 = \Spec(\Sym((k[[t]]/t^n)^{\vee}))$ by 
+definition. Under these identifications, it suffices to
+show that the map:
+%
+\[
+\Sym((k[[t]]/t^n)^{\vee}) = 
+\Gamma^{\IndCoh}(\Gr_{\bG_m}^{pos,\leq n},\omega_{\Gr_{\bG_m}^{pos,\leq n}}) 
+\to \Gamma(\fL_n^+ \bA^1,\sO_{\fL_n^+ \bA^1}) =
+\Sym((k[[t]]/t^n)^{\vee})
+\]
+
+\noindent from the proposition is the identity: 
+it suffices to check this on
+the generators of the left hand side (as we have a map
+of commutative algebras), and there it follows 
+by construction of the pairing.
+
+Passing to the colimit as $n \to \infty$, we recover
+the first map under consideration.
+
+The second and fourth cases follow from Remark \ref{r:gr-n-pos-gp-cpl}.
+
+\end{proof}
+
+\begin{rem}
+\source{tates-thesis-de-rham-setting}
+\notready
+
+The assertion $\Gamma^{\IndCoh}(\Gr_{\bG_m},\omega_{\Gr_{\bG_m}}) 
+\simeq \Gamma(\fL^+ \bG_m,\sO_{\fL^+ \bG_m})$ via this
+pairing is standard from Contou-Carr\`ere \cite{cc}. 
+The other assertions
+are apparently less well-known,\footnote{For example,
+they concern Cartier duality for commutative monoids,
+which is less often considered than the group case.}
+though they easy results.
+
+\end{rem}
+
+%\include{sect3}

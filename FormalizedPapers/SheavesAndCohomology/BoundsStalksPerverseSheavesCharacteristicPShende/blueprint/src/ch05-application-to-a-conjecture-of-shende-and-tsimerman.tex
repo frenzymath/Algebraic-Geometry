@@ -1,0 +1,267 @@
+% Source-derived chapter 05: Application to a conjecture of Shende and Tsimerman
+% Original source: bounds-stalks-perverse-sheaves-characteristic-p-shende
+\chapter{Application to a conjecture of Shende and Tsimerman}
+\label{bounds-stalks-perverse-sheaves-characteristic-p-shende-chapter-05}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+
+\begin{remark}[Source section]
+\label{bounds-stalks-perverse-sheaves-characteristic-p-shende-chapter-05-source}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Application to a conjecture of Shende and Tsimerman
+This section is devoted to proving \ref{theta-betti-bound}, following the strategy used by \citet{TS} to prove the characteristic zero analogue. To do this, we must first redo their calculation of the characteristic cycle in characteristic $p$, using Saito's definition of the characteristic cycle, and then explain why their estimate for the polar multiplicities of this cycle remains valid in characteristic $p$. 
+
+While the argument is from a different perspective, and uses different notation in some parts, the ideas are essentially all due to Shende and Tsimerman. Because we are redoing the argument anyways, we take the opportunity to tighten up some of the inequalities.
+
+Because the statement to prove is purely cohomological in nature, we work for simplicity over an algebraically closed field $k$. 
+
+ Let $C$ be a smooth projective hyperelliptic curve over an algebraically closed field $k$, $\tau$ its hyperelliptic involution, $J$ its Jacobian, and $C^{(n)}$ the $n$th symmetric power, which we view as a moduli space of degree $n$ divisors.
+ 
+ We can fix some degree $1$ divisor on $C$ which is equal to half the hyperelliptic class, and therefore identity the group of degree $n$ divisor classes on $C$ with $J$ for all $n$. In particular, once we have done this, for $P$ a point of $C$, the divisor class $[P+ \tau(P)]$ will equal the hyperelliptic class and thus vanish.
+ 
+ 
+Let $\underline{A}^{a,b}: C^{(g-a)} \times C^{(g-b)} \to J$ be the map sending a pair $(D_1,D_2)$ of divisors to the divisor class $[D_1+D_2]$.
+
+Note that the cotangent bundle of $J$ is a trivial bundle, and we can identify its fiber at any point as the vector space $H^0(C, K_C)$.  
+  
+ For natural natural numbers $w_1,w_2$ with $w_1+ w_2 \leq g$, consider the closed subset $Z_{w_1,w_2}$ of  $C^{ (w_1) } \times C^{ (w_2)} \times H^0(C, K_C) $ consisting of pairs $(D_1,D_2, \omega )$ with $D_1$ a divisor of degree $w_1$, $w_2$ a divisor of degree $w_2$, and $\omega$ a differential form on $C$ whose divisor of zeroes is at least $D_1+D_2+ \tau(D_1) + \tau(D_2)$. 
+ 
+ Note that, because $K_C (- D_1- D_2-  \tau(D_1) - \tau(D_2) )$ is the pullback from $\mathbb P^1$ of a divisor of degree $g-1 -w_1-w_2$, \[\dim H^0 (C, K_C (- D_1- D_2-  \tau(D_1) - \tau(D_2) ) ) = g-w_1-w_2,\] and so $Z_{w_1,w_2}$ is smooth of dimension $g$.
+  
+ We can define a map $pr_{W_1,W_2}: Z_{w_1,w_2} \to T^* J$ by sending $(D_1,D_2, \omega)$ to $( [D_1+ 2D_2], \omega)$. Because $pr_{W_1, W_2}$ is proper, $pr_{w_1,w_2 *} [ Z_{w_1,w_2} ] $ is an algebraic cycle of codimension $g$ on $T^* J$. 
+
+\begin{lemma}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+\notready\label{ts-singular} The pushforward $ \underline{A}^{A,b}_{\circ} (C^{(g-a)} \times C^{(g-b)} ) $ of the zero-section of $T^* ( C^{(g-a)} \times C^{(g-b)} )$ is contained in the union of the zero section of $T^* J$ with the union over $w_1,w_2$ such that $w_1+w_2<g$ of the support of $pr_{W_1,W_2 *} [ Z_{w_1,w_2} ]$. \end{lemma}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+
+\begin{proof} The inverse image $\left( d\underline{A}^{a,b}\right)^{-1}  (C^{(g-a)} \times C^{(g-b)} )$ is the set of pairs $(D_a, D_b, \omega)$ with $D_a$ a divisor of degree $g-a$, $D_b$ a divisor of degree $g-b$, and $\omega\in H^0(C, T^*C)$ such that $d\underline{A}^{a,b} (D_a,D_b) (\omega)$ vanishes, The pushforward of $\left( d\underline{A}^{a,b}\right)^{-1}   (C^{(g-a)} \times C^{(g-b)} )$ to $T^* J$ is the set of all pairs $( [D_a + D_b], \omega)$ where $[D_a + D_b]$ is the divisor class of $D_a+D_b$, such that $d\underline{A}^{a,b} (D_a,D_b) (\omega)$ vanishes. By Definition \ref{circ-forward}, this pushforward is $ \underline{A}^{A,b}_{\circ} (C^{(g-a)} \times C^{(g-b)} ) $.
+
+Let us fix $(D_a,D_b,\omega)$ such that $d\underline{A}^{a,b} (D_a,D_b) (\omega)$ vanishes. We will show that $( [D_a + D_b], \omega)$ is contained in either $pr_{W_1,W_2 *} [ Z_{w_1,w_2} ]$ for some $w_1,w_2$ or the zero section.
+
+
+We can represent the tangent space of  $C^{(a)}$ at $D_a$ as $H^0(C, \mathcal O(D_a) /\mathcal O)$ so that by Serre duality the cotangent space is $H^0(C, K_C / K_C(-D_a) )$. Then the derivative map \[ H^0(C, K_C) \to H^0(C, K_C / K_C (-D_a) ) \oplus H^0(C, K_C / K_C (-D_b) )\] is given by reducing a section modulo $D_a$ and $D_b$. Hence $\omega$ is in the kernel of $d\underline{A}^{a,b} (D_a,D_b) $ if and only if its divisor is greater than or equal to $D_a$ and also greater than or equal to $D_b$. Thus the divisor of $\omega$ is greater than or equal to $\max(D_a,D_b) $
+
+Let $D' $ be obtained from $D_a+D_b$ by iteratively subtracting divisors of the form $[P + \tau (P)]$ until it is no longer possible to subtract divisors of the form $[P + \tau(P)]$ from $D'$ while keeping it effective. This means that there is no point $P$ for which $P$ and $\tau(P)$ are both in the support of $D'$, except possibly for points fixed by $\tau$, which must have multiplicity at most $1$. Let $D_1$ be the sum of all the points with odd multiplicity in $D'$ and let $D_2 = (D' -D_1)/2$.  Then by construction \[  [D_a + D_b] = [D' ] = [D_1 + 2D_2].\] 
+
+Next, let us check that the divisor of $\omega$ is at least $D_1+ D_2 + \tau(D_1) + \tau(D_2) $
+
+To do this, consider a point $P$ in the support of $D_1+ D_2 + \tau(D_1) + \tau(D_2) $ and let $m$ be the multiplicity of $D_1+ D_2 + \tau(D_1) + \tau(D_2) $ at $P$.
+
+If $P$ is fixed by $\tau$, we can have $m$ at most $2$, and $m=0$ unless $D'$ vanishes at $P$. If $D'$ vanishes at $p$, then $D_a$ or $D_b$ vanishes at $P$, which means $\omega$ vanishes at $P$. Then $\omega$ must vanish to order $2$ at $P$ because global $1$-forms on a hyperelliptic curve are negated by the hyperelliptic involution and so vanish to even order at hyperelliptic points. So in either case, $\omega$ vanishes to order at least $m$ at $p$.
+
+Otherwise, we cannot have both $P$ and $\tau(P)$ in the support of $D_1+D_2$, so either $P$ or $\tau(P)$ has multiplicity $m$ in $D_1+D_2$. Because the divisor of $\omega$ is symmetric, without loss of generality we can assume $P$ has multiplicity $m$ in $D_1+D_2$. Because the multiplicity of $D_1$ at $P$ is at most $1$, the multiplicity of $D_2$ is at least $m-1$, so the multiplicity of $D' = D_1+2 D_2$ is at least $2(m-1)+1=2m-1$. Thus the multiplicity of $D_a+D_b$ at $P$ is at least $2m-1$. Then the multiplicity of either $D_a$ or $D_b$ must be at least $\left\lceil \frac{2m-1}{2} \right\rceil =m$. Thus $\omega$ vanishes to order $m$ at $P$.
+
+So in either case the order of vanishing of $\omega$ at $P$ is at least $m$, as desired.
+
+So we have shown that the divisor of $\omega$ is at least $D_1+ D_2 + \tau(D_1) + \tau(D_2) $ and thus $(D_1,D_2, \omega)$ is a point of $Z_{w_1, w_2}$ where $w_1 = \deg D_1$ and $w_2 = \deg w_2$. Because $[D_1 +2D_2 ]= [D_a+D_b]$, it follows that  $( [D_a+ D_b] ,\omega) $ is the image of $(D_1,D_2, \omega)$ under $ pr_{w_1,w_2 }$.  Finally, note that if $\deg D_1 + D_2 \geq g$, then the divisor of $\omega$ is at least a divisor of degree at least $2g$. Thus $\omega$ vanishes and so $([D_a+D_b], \omega)$ is contained in the zero section. So $([D_a+D_b],\omega)$ is contained in either $pr_{w_1,w_2} (Z_{w_1,w_2})$ for $w_1+w_2<g$ or the zero section.
+
+\end{proof} 
+
+
+\begin{lemma}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+\notready\label{ts-smooth-cc} The characteristic cycle $CC ( \underline{A}_{a,b *} \mathbb Q_\ell [ 2g-a-b] )$ is equal to \[ \sum_{0 \leq w_1+ w_2 < g} m_{w_1,w_2,a,b}  pr_{w_1,w_2 *} [ Z_{w_1,w_2} ]  + m_{a,b} [ A]  \]
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+
+
+where $m_{w_1,w_2,a,b}$ is the coefficient of $v_1^{g-a} v_2^{g-b}$ in  \[ (v_1+ v_2+ v_1^2 v_2 + v_1 v_2^2 )^{w_1} (v_1v_2)^{w_2} ( 1  + v_1^2 + 2v_1 v_2 + v_2^2 + v_1^2 v_2^2 )^{g-1-w_1 -w_2} \]
+and \[ |m_{a,b} | \leq 8^g .\]
+
+ \end{lemma}
+
+\begin{proof} By definition, $CC ( \mathbb Q_\ell [ 2g-a-b] )$ is equal to the zero-section. Hence by Lemma \ref{ts-singular},  $\underline{A}^{A,b}_{\circ} ( SS (\mathbb Q_\ell) ) $ is contained in the union of the zero section with $pr_{W_1,W_2 *} [ Z_{w_1,w_2} ]$ for $w_1+w_2<g$, and thus has dimension $\leq g$.  This verifies condition (2.20) of \cite[Theorem 2.2.5]{saito-direct}. The other conditions (that $J$ is projective, that $\underline{A}^{A,b}$ is quasi-projective and proper on the support of $\mathbb Q_\ell$, and that $\mathbb Q_\ell$ is constructible) are clear. Hence from \cite[Theorem 2.2.5]{saito-direct} we deduce \[CC  ( \underline{A}_{a,b *} \mathbb Q_\ell[2g-a-b] )= \underline{A}^{a,b}_! CC( \mathbb Q_\ell[2g-a-b]) = \underline{A}^{a,b}_! [ C^{(g-a)} \times C^{(g-b) }]. \]
+
+To prove \[  \underline{A}^{a,b}_! [ C^{(g-a)} \times C^{(g-b) }] = \sum_{0 \leq w_1+ w_2 < g} m_{w_1,w_2,a,b}  pr_{w_1,w_2 *} [ Z_{w_1,w_2} ]  + m_{a,b} [ A]  ,\] let us first prove that the two sides become equal after we pull back by a general section $A \to T^* A$ coming from a general element $\omega  \in H^0(C, K_C)$. 
+
+By a push-pull formula, the pullback of $\underline{A}^{a,b}_! [ C^{(g-a)} \times C^{(g-b) }]$ along $\omega$ is simply the pushforward along $\underline{A}^{a,b}$ of the pullback of $[ C^{(g-a)} \times C^{(g-b) }]$ along $d \underline{A}^{a,b} (\omega)$, which is the pushforward along $\underline{A}^{a,b}$ of the zero locus of $d \underline{A}^{a,b} (\omega)$. Because $\omega$ is general, it has $2g-2$ distinct zeroes forming $g-1$ orbits of size $2$ under $\tau$. Let $x_1,\dots, x_{g-1}, x_g,\dots, x_{2g-2}$ be these zeroes with $x_{g-1+i} = \tau(x_i)$. 
+
+It follows that $(D_a, D_b)$ lies in the zero locus of $d \underline{A}^{a,b} (\omega)$ if and only if $D_a$ is the sum of a subset of size $a$ of these zeroes and $b$ is the sum of a subset of size $b$ of these zeroes. Furthermore the multiplicities of each of these pairs in the zero locus of  $d \underline{A}^{a,b} (\omega)$ must be one, as the sum of all the multiplicities must equal the topological Euler characteristic $\binom{2g-2 }{ a} \binom{2g-2 }{ b}$ of $C^{(a)} \times C^{(b)}$. Thus we can write \[ \omega^* ( \underline{A}^{a,b}_! [ C^{(g-a)} \times C^{(g-b) } ] ) = \sum_{ \substack{ S ,T \subseteq \{x_1,\dots, x_{2g-2}\} \\ |S| = a, |T|= b}} \left[ \sum_{x_i \in S} x_i + \sum_{x_i \in T} x_i \right] .\]
+
+On the other hand, $\omega^*  pr_{w_1,w_2 *} [ Z_{w_1,w_2} ]$ is simply the pushforward from $C^{(w_1) } \times C^{(w_2)}$ to $J$ along the map $(D_1,D_2) \to [D_1+2D_2]$ of the set of $(D_1,D_2)$ with $|D_1|=w_1$, $|D_2|=w_2$, and such that $ D_1 + D_2 + \tau(D_1) + \tau(D_2)$ is at most the divisor of $\omega$.  This occurs when $D_1$ is a subset of $\{x_1,\dots, x_{2g-2}\}$ of size $w_1$, $D_2$ is a subset of  $\{x_1,\dots, x_{2g-2}\}$ of size $w_2$, and $D_1, D_2, \tau(D_1), \tau(D_2)$ are all disjoint. 
+
+To match the two sides, we choose for each $S, T$ a pair $D_1, D_2$ such that $ \sum_{i \in S} x_i + \sum_{ i \in T} x_i  = D_1 + 2D_2$ and $D_1, D_2$ satisfy the stated conditions. To do this, observe that for each $i$ from $1$ to $g-1$, the linear combination of indicator functions
+\[ 1_{ x_i \in S}+ 1_{x_i \in T} - 1_{x_{i+g-1} \in S} -1_{x_{i+g-1} \in T}\] takes the value $2, 1,0,-2,$ or $2$. If it is $2$, put $x_i$ in $D_2$. If it is $1$, put $x_i$ in $D_1$. If it is $-1$, put $x_{i+g-1}$ in $D_1$. If it is $-2$, put $x_{i+g-1}$ in $D_2$. If it is $0$, put neither $x_{i}$ nor $x_{i+g-1}$ in $D_1$ or $D_2$.
+
+To prove the two pullbacks are equal, it suffices to prove that for any $(D_1,D_2)\subseteq \{x_1,\dots,x_{2g-2} $ with  $|D_1|=w_1$, $|D_2|=w_2$, and $D_1,D_2,\tau(D_1), \tau(D_2)$ all disjoint, the number of $S,T$ with $|S|=a, |T|=b$, where this process produces $D_1,D_2$, is $m_{w_1,w_2,a,b}$.  We use the standard generating functions approach to counting the number of ways to make a series of independent choices subject to linear constraints:
+
+For any pair $(x_i,\tau(x_i))$, if $x_i \in D_2$, the tuple $(1_{x_i\in S}, 1_{x_i \in T}, 1_{\tau(x_i) \in S}, 1_{\tau(x_i)\in T})$ can only take the value $(1,1,0,0)$. We assign this value the term $v_1v_2$.
+
+If $x_i \in D_1$, the tuple must take one of the four values $(1,0,0,0), (0,1,0,0), (1,1,1,0),(1,1,0,1)$. We assign these values the terms $v_1,v_2,v_1^2 v_2, $ and $v_1v_2^2$ respectively.
+
+For $x_i \not \in D_1,x_i \not\in D_2, \tau(x_i)\not\in D_1, \tau(x_i)\not\in D_2$, the tuple must take one of the six values $(0,0,0,0),(1,0,1,0), (1,0,0,1),(0,1,1,0),(0,1,0,1),(1,1,1,1)$. We assign these values the terms $1,v_1^2, v_1v_2,v_1v_2, v_2^2,$ and $v_1^2v_2^2$ respectively.
+
+Then by our system of assignments, each choice of $S,T$ where this process produces $D_1,D_2$ corresponds to a monomial in \[ (v_1+ v_2+ v_1^2 v_2 + v_1 v_2^2 )^{w_1} (v_1v_2)^{w_2} ( 1  + v_1^2 + 2v_1 v_2 + v_2^2 + v_1^2 v_2^2 )^{g-1-w_1 -w_2} \] and the ones with $|S| = a, |T|=b$ are exactly the monomials $v_1^a v_2^b$, so the coefficient of $v_1^a v_2^b$ is the number of $S,T$, as desired.
+
+Now because the two cycles agree when pulled back to a general fiber of the projection to $H^0(C, K_C)$, they are equal modulo a sum of irreducible components whose projection to $H^0(C, K_C)$ is not dense. Because $ \underline{A}^{a,b}_! [ C^{(g-a)} \times C^{(g-b) }]$ is contained in $ \underline{A}^{a,b}_{\circ} ( C^{(g-a)} \times C^{(g-b) })$, by Lemma \ref{ts-singular}, these irreducible components must be contained in either $pr_{W_1,W_2} (Z_{w_1,w_2})$ or the zero section. Because $Z_{w_1,w_2}$ is irreducible of dimension at most $g$, the same properties hold for $pr_{W_1,W_2} (Z_{w_1,w_2})$, and so these irreducible components must equal either $pr_{W_1,W_2} (Z_{w_1,w_2})$ or the zero section. Because the projection of $Z_{w_1,w_2}$ to $H^0(C,K_C)$ is dense, the problematic  components cannot be $pr_{W_1,W_2} (Z_{w_1,w_2})$, so they must be the zero section.
+
+
+To calculate the multiplicity of the zero-section in $CC ( \underline{A}_{a,b *} \mathbb Q_\ell [ 2g-a-b] )$, we notice that it is equal by definition to $(-1)^g$ times the Euler characteristic of the stalk of $\underline{A}_{a,b *} \mathbb Q_\ell [ 2g-a-b]$ at the generic point, which is $(-1)^{g+ a+b}$ times the topological Euler characteristic of the generic fiber of $\underline{A}_{a,b}$. This Euler characteristic is bounded in \citep[ Proposition 3.16]{TS} as at most $8^g$, giving our stated formula.
+
+Note that when calculating this Euler characteristic, it does not matter if we work in characteristic zero or characteristic $p$, as we can lift everything in sight to characteristic zero, and the Euler characteristic is preserved by this lifting. \end{proof} 
+
+We can factor $\underline{A}^{a,b}$ as the composition $mult \circ (\pi^a \times \pi^b)$ where $mult: J \times J \to J$ is the multiplication and $\pi_n : C^{(n)}\to J$ sends a divisor to its class. Let $\Theta_n$ be the image of $C^{(n)}$ under $\pi_n$, i.e. the set of degree $n$ divisor classes which are effective, and let $i^n$ be the inclusion of $\Theta_n$ into $J$.
+
+Let $\Sigma^{a,b} = mult \circ (i^a \times i^b) $.
+
+\begin{lemma}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+\notready\label{ts-decomposition} For $0 \leq n \leq g$, \[ \pi^n_* \mathbb Q_\ell= \bigoplus_{r=0}^{n/2} i^{n+2r}_* \mathbb Q_\ell [-2r] (-r) .\] \end{lemma}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+
+\begin{proof} This is obtained as part of the proof of \cite[Lemma 2.9]{IY} or \cite[Lemma 3.1]{TS}. \end{proof}
+
+
+\begin{lemma}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+\notready\label{ts-singular-cc}  The characteristic cycle $CC ( \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b] )$ is equal to \[ \sum_{0 \leq w_1+ w_2 < g} m'_{w_1,w_2,a,b}  pr_{w_1,w_2 *} [ Z_{w_1,w_2} ]  + m'_{a,b} [ A]  \]
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+
+where $m_{w_1,w_2,a,b}$ is the coefficient of $v_1^{g-a} v_2^{g-b}$ in \[ (1 -v_1^{-2} ) (1-v_2^{-2} ) (v_1+ v_2+ v_1^2 v_2 + v_1 v_2^2 )^{w_1} (v_1v_2)^{w_2} ( 1  + v_1^2 + 2v_1 v_2 + v_2^2 + v_1^2 v_2^2 )^{g-1-w_1 -w_2} \]
+
+and \[|m'_{a,b}| \leq 4 \cdot 8^g.\] \end{lemma}
+
+\begin{proof} We have \[ \underline{A}^{a,b}_* \mathbb Q_\ell = mult_*  (\pi^a \times \pi^b)_* \mathbb Q_\ell = mult_*\left(  \pi^a_* \mathbb Q_\ell\boxtimes \pi^b_* \mathbb Q_\ell \right) \] \[= mult_* \left( \left( \bigoplus_{r=0}^{n/2-a} i^{a+2r}_* \mathbb Q_\ell [-2r] (-r)  \right) \boxtimes \left( \bigoplus_{s=0}^{n/2-b} i^{b+2s}_* \mathbb Q_\ell [-2s] (-s)  \right)\right) \] \[= \bigoplus_{r=0}^{n/2-a} \bigoplus_{s=0}^{n/2-b}  mult_* (i^{a+2r} \times i^{b+2s})_* \mathbb Q_\ell [-2r-2s](-r-s) =\bigoplus_{r=0}^{n/2-a} \bigoplus_{s=0}^{n/2-b}  \Sigma^{a+2r, b+2s}_* \mathbb Q_\ell  [-2r-2s](-r-s)\] and thus
+\[ CC( \underline{A}^{a,b}_* \mathbb Q_\ell ) = \sum_{r=0}^{n/2-a} \sum_{s=0}^{n/2-b} CC(  \Sigma^{a+2r, b+2s}_* \mathbb Q_\ell) \]
+and so solving for $CC ( \Sigma^{a,b}_* \mathbb Q_\ell)$ we get \[ CC ( \Sigma^{a,b}_* \mathbb Q_\ell) = CC( \underline{A}^{a,b}_* \mathbb Q_\ell ) - CC( \underline{A}^{a+2,b}_* \mathbb Q_\ell )-CC( \underline{A}^{a,b+2}_* \mathbb Q_\ell )-CC( \underline{A}^{a+2,b+2}_* \mathbb Q_\ell )\] and then the claim follows from Lemma \ref{ts-smooth-cc}. \end{proof}
+
+
+\begin{lemma}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+\notready\label{individual-polar-bound} For a line bundle $E$ in $J$ and $0\leq i < g-1$, the $i$th polar multiplicity of $pr_{w_1,w_2 *} [ Z_{w_1,w_2} ]$ at $E$ is at most
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+
+ \[ 2^{w_1 +w_2} { g \choose i} \sum_{\substack{c+d = w_1+w_2 -i \\ c \leq w_1, d\leq w_2 }} {g-i-1 \choose c,d,g-1-w_1-w_2} 2^{w_2-d} {w_1 + w_2 -c -d \choose w_1 -c }.\]    \end{lemma}
+
+\begin{proof}  We apply Definition \ref{polar-multiplicity}. 
+
+Let us take $L \subseteq  H^1(C, \mathcal O_C)$ a generic subspace of rank $g-i-1$, and $L^\vee \subseteq H^0(C, K_C)$ its perpendicular space of dimension $i+1$. Let $V$ on $J$ be the constant vector bundle $L^\vee$. Then $V_x = L^\vee$ is a generic subspace. By Definition \ref{polar-multiplicity}, the $i$th polar multiplicity of $pr_{w_1,w_2 *} [ Z_{w_1,w_2} ]$ at $x$ equals the multiplicity of \[ \pi_* ( \mathbb P ( pr_{w_1,w_2 *} [ Z_{w_1,w_2} ] ) \cap \mathbb P(V)) \] at $x$.
+
+Let $ \mathbb P ( Z_{w_1,w_2} )$ be the moduli space of triples $(D_1,D_2,\omega)$ with $D_1 \in C^{(w_1)}, D_2\in C^{(w_2)}, \omega \in \mathbb P ( H^0(C, K_C))$ and let $pr_{w_1,w_2}' $ be the projection to $\mathbb P (T^* J)$ sending $(D_1,D_2,\omega)$ to $([D_1+2D_2],\omega)$. Then we have \[ \mathbb P ( pr_{w_1,w_2 *} [ Z_{w_1,w_2} ] ) = pr'_{w_1,w_2 *} [\mathbb P(Z_{w_1,w_2} )] \] so 
+\[ \pi_* ( \mathbb P ( pr_{w_1,w_2 *} [ Z_{w_1,w_2} ] ) \cap \mathbb P(V)) = \pi_* (  pr'_{w_1,w_2 *} [\mathbb P(Z_{w_1,w_2} )] ) \cap \mathbb P(V) =( \pi \circ pr'_{w_1,w_2})_* (  pr_{w_1,w_2}^{'*} \mathbb P(V) ).\]
+
+We can view the cycle $\mathbb P(V)$ as the pullback of $\mathbb P(L^\perp)$ from $\mathbb P(H^0(C,K_C))$, so we can view $pr_{w_1,w_2}^{'*} \mathbb P(V)$ as the pullback of $\mathbb P(L^\perp)$ under the projection $\sigma: \mathbb P ( Z_{w_1,w_2} )\to \mathbb P(H^0(C,K_C))$.
+
+For $\omega \in H^0(C, K_C)$, $\div(\omega)$ is the pullback from $(C/\tau)= \mathbb P^1$ of a divisor on $\mathbb P^1$, so $\div(\omega)- D_1 -\tau(D_1) - D_2 -\tau(D_2)$ is the pullback from $(C/\tau)$ of a divisor of degree $g-1-w_1 -w_2$. This divisor uniquely determines $\omega$. This gives an isomorphism between $\mathbb P ( Z_{w_1,w_2}) $ and $C^{(w_1)} \times C^{(w_2)} \times (C/\tau)^{g-1-w_1-w_2}$. Under this interpretation, the map $\pi' \circ  pr'_{w_1,w_2}$ is equal to the map $\pi_{w_1,w_2}:  C^{(w_1)} \times C^{(w_2)} \times (C/\tau)^{g-1-w_1-w_2} \to J$ that sends $(D_1,D_2, D_3) $ to $ [D_1+2D_2] $. Furthermore, under this interpretation, the map to $\mathbb P ( H^0(C, K_c)) = \mathbb P ( C/\tau, \mathcal O(g-1)) = (C/\tau)^{g-1}$ may be obtained by projecting $D_1$ and $D_2$ to $ C/\tau$ and then adding all three divisors, as the pullback of this sum to $C$ is necessarily $\div(\omega)$.
+
+Shende and Tsimerman define a polar variety $P_L'V_{w_1,w_2} = \pi_{w_1,w_2} (\sigma^{-1} (\mathbb P(L^\vee)))$ using exactly this definition of $\pi_{w_1,w_2}$ and $\sigma$ (except that they use the letters $r$ and $s$ instead of $w_1$ and $w_2$. )
+
+They calculated \cite[Lemma 3.22]{TS} that the cycle class of  $P_L'V_{w_1,w_2}$ equals
+\[    \sum_{\substack{c+d = w_1+w_2 -i \\ c \leq w_1, d\leq w_2 }} 2^{ w_1+w_2-i}  {g-i-1 \choose c,d,g-1-w_1-w_2} 2^{w_2-d} {w_1 + w_2 -c -d \choose w_1 -c }  [\Theta_i].\]   
+(In fact they use slightly different notation - to obtain their formula, substitute $r$ for $w_1$, $s$ for $w_2$, $a$ for $c$, $b$ for $d$, and $g-1-k$ for $i$.)
+
+Because we can lift everything smoothly to characteristic zero, it does not matter here whether we do intersection theory in characteristic zero or characteristic $p$.
+
+
+Now applying Theorem \ref{appendix}, we see that the multiplicity is at most \[\sum_{\substack{c+d = w_1+w_2 -i \\ c \leq w_1, d\leq w_2 }} 2^{ w_1+w_2-i}  {g-i-1 \choose c,d,g-1-w_1-w_2} 2^{w_2-d} {w_1 + w_2 -c -d \choose w_1 -c }   \] times \[  2^{i-1} ([\Theta_i], [\Theta_{g-i}] )= 2^{i-1} {g \choose i} \]
+(or times $1$ if $i=0$) which is at most  \[ 2^{w_1 +w_2} { g \choose i} \sum_{\substack{c+d = w_1+w_2 -i \\ c \leq w_1, d\leq w_2 }} {g-i-1 \choose c,d,g-1-w_1-w_2} 2^{w_2-d} {w_1 + w_2 -c -d \choose w_1 -c },\] where we ignore the factor of $2^{-1}$ in the case $i>0$ for simplicity.
+
+\end{proof} 
+
+
+\begin{lemma}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+\notready\label{global-polar-bound} For $x \in J$, the sum for $i$ from $0$ to $g-1$ of the $i$th polar multiplicity of $CC ( \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b] )$ at $x$ is at most $28^g/16$. \end{lemma}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+
+\begin{proof} 
+In the formula of Lemma \ref{individual-polar-bound} note that, because  $c+d= w_1+w_2-i$, we have \[  {g-i-1 \choose c,d,g-1-w_1-w_2} = {w_1+w_2 -i  \choose d} {g-i-1 \choose w_1 + w_2 -i} \] and \[ \sum_{\substack{c+d = w_1+w_2 -i \\ c \leq w_1, d\leq w_2 }}{w_1+w_2 -i  \choose d}2^{w_2-d} {w_1 + w_2 -c -d \choose w_1 -c } \] is the coefficient of $u^{w_2}$ in  $(1+2u)^i  (1+u)^{w_1+w_2-i}$. 
+
+It follows that the $i$th polar multiplicity of $pr_{w_1,w_2 *} [ Z_{w_1,w_2} ] $ at $x$  is at most the coefficient of  $u^{w_2} $ in \[(1+2u)^i  (1+u)^{w_1+w_2-i}  2^{w_1+ w_2}  {g \choose i}    {g-i-1 \choose w_1 + w_2 -i}. \]
+
+Let us bound $m'_{w_1,w_2,a,b}$ more crudely. It is at most $m_{w_1,w_2,a,b}$, which being the coefficient of $v_1^{g-a} v_2^{g-b}$  in\[  (v_1+ v_2+ v_1^2 v_2 + v_1 v_2^2 )^{w_1} (v_1v_2)^{w_2} ( 1  + v_1^2 + 2v_1 v_2 + v_2^2 + v_1^2 v_2^2 )^{g-1-w_1 -w_2} ,\] is at most the value of that polynomial at $1$, or  $4^{w_1} 6^{g-1-w_1-w_2}$. 
+
+So the $i$'th polar multiplicity of \[ m'_{w_1,w_2,a,b} pr_{w_1,w_2 *} [ Z_{w_1,w_2} ] \] at $x$ is at most the coefficient of $u^{w_2}$ in  \[ 6^{g-1-w_1 -w_2} (4+2u)^i  (4+u )^{w_1+w_2-i} 2^{w_1+w_2}  {g \choose i} {g-i-1 \choose w_1 + w_2 -i}. \]
+
+Now letting $w=w_1+w_2$, we can sum over all $w_2$ with  $0 \leq w_2 \leq w$, getting that the $i$th polar multiplicity of \[ \sum_{\substack{0 \leq w_1,w_2\\ w_1+w_2 =w } }  m'_{w_1,w_2,a,b} pr_{w_1,w_2 *} [ Z_{w_1,w_2} ]\] at $x$ is at most \[ 6^{g-1-w} 6 ^i  5^{w-i} 2^w   {g \choose i}   {g-i-1 \choose w-i} =  6^{g-1-w} 12 ^i  10^{w-i}    {g \choose i}   {g-i-1 \choose w-i} . \]
+
+Now observe that \[\sum_{w=i}^{g-1} 6^{g-1-w} 6^i  10^{w-i}  {g \choose i}    {g-i-1 \choose w-i} =  12^i {g\choose i}  ( 6 + 10)^{ g-i-1} \] so we get the $i$th polar multiplicity of \[ \sum_{\substack{ 0\leq w_1,w_2 \\ w_1+w_2 \leq g} }m'_{w_1,w_2,a,b} pr_{w_1,w_2 *} [ Z_{w_1,w_2} ]\] is at most \[   {g \choose i} 12^i (16)^{g-i-1}.\] This is also a bound for the $i$th polar multiplicity of $CC  ( \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b] )$ by Lemma \ref{ts-singular-cc} and the fact that the zero-section does not contribute to the $i$th polar multiplicity for $i$ from $0$ to $g-1$. 
+
+Now summing over $i$ from $0$ to $g-1$ and adding back in the $i=0$ term, we see that the sum from $i=0$ to $g-1$ of the polar multiplicities at $x$ is at most $ ( 12+ 16)^{g} / 16 = 28^g/ 16$.\end{proof} 
+
+\begin{proof}[Proof of Theorem \ref{theta-betti-bound}]  By the proper base change theorem, \[ H^i (  (\Theta_{g-a} \cap L - \Theta_{g-b} )_{\overline{k}}, \mathbb Q_\ell)\] is the $i-2g+ab$th cohomology of the stalk at the point $L \in J$ of $ \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b]$. By \citep[Lemma 3.1 and Lemma 3.6]{TS}, $\Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b] $ splits into a sum of its perverse homology sheaves, and ${}^p \mathcal H^i ( \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b] )$ is a constant sheaf of rank $\dim H^{g+i} (J,\mathbb Q_\ell$ for $i \neq 0$. Hence the sum of the Betti numbers of the stalk of  $ \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b] )$
+at $L$ is at most the sum of the Betti numbers of the stalk of \[ {}^p \mathcal H^0 ( \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b] )\] plus the sum of the Betti numbers of $J$, and the second term is at most $4^g$.
+
+Because the higher and lower perverse cohomology are constant, we have \[ CC \left( {}^p \mathcal H^0 ( \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b] )\right) = CC \left( \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b]  \right) - \sum_{0 \leq i \leq 2g, i\neq g} (-1)^{i+g } {2g \choose i} [ J] \] as the characteristic cycle of a constant sheaf is simply the zero section.
+
+We apply Theorem \ref{first-Massey-intro} to $( {}^p \mathcal H^0 ( \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b] $. We get that the sum of its Betti numbers at $L$ is at most the sum of its polar multiplicities. All the polar multiplicities except the $g$th one match $CC \left( \Sigma^{a,b}_* \mathbb Q_\ell[2g-a-b]  \right) $, and thus their sum is bounded by $28^g/16$ by Lemma \ref{global-polar-bound}. The $g$th polar multiplicity is simply the multiplicity of the zero section, which is bounded by $4 \cdot 8^g + 4^g $ by Lemma \ref{ts-singular-cc} and the preceding formula.
+
+So in total, the sum of the Betti numbers of $(\Theta_{g-a} \cap L - \Theta_{g-b} )_{\overline{k}}$ is bounded by $28^g/16 + 4 \cdot 8^g + 2\cdot 4^g$, as stated.
+
+ \end{proof}
+
+
+\appendix
+
+\section[Bounding Multiplicity in Jacobians of Hyperelliptic curves]{ Bounding Multiplicity in Jacobians of Hyperelliptic Curves\\ \vspace{5pt} Jacob Tsimerman}
+
+
+The purpose of this appendix is provide an upper bound for the multiplicity of a subvariety of the Jacobian of a curve in terms of intersection theory. Of particular importance to
+us is that the method works in any characteristic. We therefore work over an arbitrary algebraically closed field $k$.
+
+Let $C/k$ be a curve of genus $g$ and gonality $r$ so that there is a map $\pi:C\ra \PP^1$ of degree $r$. We call a point $P\in C(k)$ \emph{ordinary}
+if $\pi$ is not ramified over $\pi(P)$. We similarly call an effective divisor $D=\sum_i P_i$ ordinary if all the $P_i$ are ordinary and the sets $\pi^{-1}(\pi(P_i))$ are all distinct. 
+We set  $J^{(k)}$ to be the degree $k$ component of the Jacobian, and $\Theta_k\subset J^{(k)}$ the image of $\Sym^kC$. By translating we 
+may non-canonically identify all the $J^{(k)}$, and thus canonically identify their Chow groups, which we do.
+
+Now, consider the maps $\psi_k:\Sym^k C \ra \Sym^k\PP^1 \cong \PP^k, \phi_k:\Sym^k \ra J^{(k)}$, where the map $\psi_k$ is induced by $\pi$. Note that $\psi_k$ is finite, flat of degree 
+$r^k$ and $\phi_k$ is proper. Thus we have corresponding maps on Chow groups \[CH^j(\PP^k)\xra{\psi_k^*} CH^j(\Sym^k C)\xra{\phi_{k*}} CH^j(J^{(k)}).\] 
+
+Our goal is to prove the following
+
+\begin{theorem}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+\notready\label{appendix}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+
+Let $V\subset J^{(g)}$ be a subvariety of codimension $j<g$. Then the multiplicity of $V$ at any point $v\in V(k)$ is bounded above by $r^{g-1-j} ([V],[\Theta_j])$. 
+
+\end{theorem}  
+
+\begin{proof}
+
+We first prove the following
+
+\begin{lemma}
+\source{bounds-stalks-perverse-sheaves-characteristic-p-shende}
+\notready
+
+Let $\ell_j$ be the class of a linear subspace of dimension $j$ in $\PP^k$. Then $\phi_{k*}\circ\psi_k^*L_j = r^{k-j} [\Theta_j]$. 
+
+\end{lemma}
+
+\begin{proof}
+
+Let $D$ be an effective ordinary divisor of degree $k-j$, and let $L\subset\PP^k$ denote
+$\psi_k(D+\Sym^j C)$. It is easy to see that $L$ is a linear subspace. Now $\psi_k^*L$ consists of the union of $D'+\Sym^jC$ where $D'$ varies over the $r^{k-j}$ divisors
+consisting of  sums of $k-j$ points, including exactly one element form each set $\pi^{-1}(\pi(P_i))$. Moreover, since the map $\psi_k$ is etale over a generic point
+of $L$, there is no generic multiplicity. Thus, $\psi_k^*\ell_j = r^{k-j} [D+\Sym^j C]$. 
+
+Next, note that the scheme-theoretic image of $D+\Sym^jC$ under $\phi_k$ is  $(D) + \Theta_j$. Moreover, the restriction of $\phi_k$  is birational onto its image, and thus
+$\phi_{k*}[D+\Sym^jC] = [\Theta_j]$, from which the proof follows.
+
+\end{proof}
+
+We now prove Theorem \ref{appendix}. First, we pick a translate $x+\Theta_{g-1}$ such that $v-x=(D)\in\Theta_{g-1}$ where $D$ is an ordinary divisor, and the dimension of $(V-x)\cap \Theta_{g-1}$ is $j-1$.
+
+Next define $W=(V-x)\cap\Theta_{g-1}$, and set $W'$ to be the irreducible component of $\phi_k^* W$ containing $\phi_k^{-1}(v-x)$, so that $W'$ has dimension $j$ and maps surjectively onto the irreducible component $W$ containing $(v-x)$. Finally, set $W'' = \psi_k(W')$. Now let $L_0\subset \PP^{g-1}$ be a linear space of codimension $j-1$ which intersects $W''$ in isolated points and passes through 
+$\psi_k\circ\phi_k^{-1}(v-x)$. 
+Then $\psi_{k*}\circ\psi_k^*L_0$ intersects $W$ in isolated points and passes through $v-x$, and therefore $x+\psi_{k*}\circ\psi_k^*L_0$ intersects $V$ at isolated points and passes
+through $v$. The theorem now follows as in \citep[Proposition 3.25]{TS} since the contribution to the intersection is positive at all points, and the intersection multiplicity at $v$ is bounded below by the multiplicity of $V$ at $v$.
+
+
+
+\end{proof}
+
+
+
+
+ \bibliographystyle{plainnat}
+
+\bibliography{references}

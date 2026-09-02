@@ -1,0 +1,3100 @@
+\documentclass[11pt]{amsart}
+\usepackage{lmodern}
+\usepackage{amsmath, amsthm, amssymb, amsfonts}
+\usepackage[normalem]{ulem}
+\usepackage{hyperref}
+
+\usepackage{verbatim} 
+\usepackage{longtable}
+
+
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+
+\usepackage{tikz}
+\usetikzlibrary{decorations.pathmorphing}
+\tikzset{snake it/.style={decorate, decoration=snake}}
+
+\usepackage{caption}
+
+\usepackage{tikz-cd}
+\usetikzlibrary{arrows}
+
+\newenvironment{MD}{\noindent \color{cyan}{\bf MARK:} \footnotesize}{}
+\newcommand{\cb}{\color{blue}}
+
+\theoremstyle{plain}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{question}[thm]{Question}
+\newtheorem{speculation}[thm]{Speculation}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{example}[thm]{Example}
+
+\theoremstyle{remark}
+\newtheorem{rmk}[thm]{Remark}
+
+\newcommand{\BA}{{\mathbb{A}}}
+\newcommand{\BB}{{\mathbb{B}}}
+\newcommand{\BC}{{\mathbb{C}}}
+\newcommand{\BD}{{\mathbb{D}}}
+\newcommand{\BE}{{\mathbb{E}}}
+\newcommand{\BF}{{\mathbb{F}}}
+\newcommand{\BG}{{\mathbb{G}}}
+\newcommand{\BH}{{\mathbb{H}}}
+\newcommand{\BI}{{\mathbb{I}}}
+\newcommand{\BJ}{{\mathbb{J}}}
+\newcommand{\BK}{{\mathbb{K}}}
+\newcommand{\BL}{{\mathbb{L}}}
+\newcommand{\BM}{{\mathbb{M}}}
+\newcommand{\BN}{{\mathbb{N}}}
+\newcommand{\BO}{{\mathbb{O}}}
+\newcommand{\BP}{{\mathbb{P}}}
+\newcommand{\BQ}{{\mathbb{Q}}}
+\newcommand{\BR}{{\mathbb{R}}}
+\newcommand{\BS}{{\mathbb{S}}}
+\newcommand{\BT}{{\mathbb{T}}}
+\newcommand{\BU}{{\mathbb{U}}}
+\newcommand{\BV}{{\mathbb{V}}}
+\newcommand{\BW}{{\mathbb{W}}}
+\newcommand{\BX}{{\mathbb{X}}}
+\newcommand{\BY}{{\mathbb{Y}}}
+\newcommand{\BZ}{{\mathbb{Z}}}
+
+\newcommand{\CA}{{\mathcal A}}
+\newcommand{\CB}{{\mathcal B}}
+\newcommand{\CC}{{\mathcal C}}
+\newcommand{\CD}{{\mathcal D}}
+\newcommand{\CE}{{\mathcal E}}
+\newcommand{\CF}{{\mathcal F}}
+\newcommand{\CG}{{\mathcal G}}
+\newcommand{\CH}{{\mathcal H}}
+\newcommand{\CI}{{\mathcal I}}
+\newcommand{\CJ}{{\mathcal J}}
+\newcommand{\CK}{{\mathcal K}}
+\newcommand{\CL}{{\mathcal L}}
+\newcommand{\CM}{{\mathcal M}}
+\newcommand{\CN}{{\mathcal N}}
+\newcommand{\CO}{{\mathcal O}}
+\newcommand{\CP}{{\mathcal P}}
+\newcommand{\CQ}{{\mathcal Q}}
+\newcommand{\CR}{{\mathcal R}}
+\newcommand{\CS}{{\mathcal S}}
+\newcommand{\CT}{{\mathcal T}}
+\newcommand{\CU}{{\mathcal U}}
+\newcommand{\CV}{{\mathcal V}}
+\newcommand{\CW}{{\mathcal W}}
+\newcommand{\CX}{{\mathcal X}}
+\newcommand{\CY}{{\mathcal Y}}
+\newcommand{\CZ}{{\mathcal Z}}
+
+\newcommand{\Fa}{{\mathfrak{a}}}
+\newcommand{\Fb}{{\mathfrak{b}}}
+\newcommand{\Fc}{{\mathfrak{c}}}
+\newcommand{\Fd}{{\mathfrak{d}}}
+\newcommand{\Fe}{{\mathfrak{e}}}
+\newcommand{\Ff}{{\mathfrak{f}}}
+\newcommand{\Fg}{{\mathfrak{g}}}
+\newcommand{\Fh}{{\mathfrak{h}}}
+\newcommand{\Fi}{{\mathfrak{i}}}
+\newcommand{\Fj}{{\mathfrak{j}}}
+\newcommand{\Fk}{{\mathfrak{k}}}
+\newcommand{\Fl}{{\mathfrak{l}}}
+\newcommand{\Fm}{{\mathfrak{m}}}
+\newcommand{\FM}{{\mathfrak{M}}}
+\newcommand{\Fn}{{\mathfrak{n}}}
+\newcommand{\Fo}{{\mathfrak{o}}}
+\newcommand{\Fp}{{\mathfrak{p}}}
+\newcommand{\Fq}{{\mathfrak{q}}}
+\newcommand{\Fr}{{\mathfrak{r}}}
+\newcommand{\Fs}{{\mathfrak{s}}}
+\newcommand{\Ft}{{\mathfrak{t}}}
+\newcommand{\Fu}{{\mathfrak{u}}}
+\newcommand{\Fv}{{\mathfrak{v}}}
+\newcommand{\Fw}{{\mathfrak{w}}}
+\newcommand{\Fx}{{\mathfrak{x}}}
+\newcommand{\Fy}{{\mathfrak{y}}}
+\newcommand{\Fz}{{\mathfrak{z}}}
+
+\newcommand{\ra}{{\ \longrightarrow\ }}
+\newcommand{\la}{{\ \longleftarrow\ }}
+\newcommand{\blangle}{\big\langle}
+\newcommand{\brangle}{\big\rangle}
+\newcommand{\Blangle}{\Big\langle}
+\newcommand{\Brangle}{\Big\rangle}
+
+\newcommand{\dq}{{q \frac{d}{dq}}}
+\newcommand{\pt}{{\mathsf{p}}}
+\newcommand{\ch}{{\mathrm{ch}}}
+\DeclareMathOperator{\Hilb}{Hilb}
+
+\DeclareFontFamily{OT1}{rsfs}{}
+\DeclareFontShape{OT1}{rsfs}{n}{it}{<-> rsfs10}{}
+\DeclareMathAlphabet{\curly}{OT1}{rsfs}{n}{it}
+\renewcommand\hom{\curly H\!om}
+\newcommand\ext{\curly Ext}
+\newcommand\Ext{\operatorname{Ext}}
+\newcommand\Hom{\operatorname{Hom}}
+\newcommand{\p}{\mathbb{P}}
+\newcommand\Id{\operatorname{Id}}
+\newcommand\Spec{\operatorname{Spec}}
+
+\newcommand*\dd{\mathop{}\!\mathrm{d}}
+\newcommand{\Mbar}{{\overline M}}
+
+\newcommand{\git}{\mathbin{
+  \mathchoice{/\mkern-6mu/}% \displaystyle
+    {/\mkern-6mu/}% \textstyle
+    {/\mkern-5mu/}% \scriptstyle
+    {/\mkern-5mu/}}}% \scriptscriptstyle
+
+
+
+
+\newcommand{\Chow}{\mathrm{Chow}}
+\newcommand{\Coh}{\mathrm{Coh}}
+\newcommand{\Pic}{\mathop{\rm Pic}\nolimits}
+\newcommand{\PT}{\mathsf{PT}}
+\newcommand{\DT}{\mathsf{DT}}
+\newcommand{\GW}{\mathsf{GW}}
+
+\usepackage{tikz}
+\usepackage{lmodern}
+\usetikzlibrary{decorations.pathmorphing}
+
+\usepackage{amsmath}
+\usepackage{mathabx}
+
+
+\addtolength{\hoffset}{-1.5cm} \addtolength{\textwidth}{3cm}
+%\addtolength{\voffset}{-1cm} \addtolength{\textheight}{2cm}
+\linespread{1.15}
+
+\begin{document}
+\title[The P=W conjecture for $\mathrm{GL}_n$]{The P=W conjecture for $\mathrm{GL}_n$}
+\date{\today}
+
+\author[D. Maulik]{Davesh Maulik}
+\address{Massachusetts Institute of Technology}
+\email{maulik@mit.edu}
+
+
+\author[J. Shen]{Junliang Shen}
+\address{Yale University}
+\email{junliang.shen@yale.edu}
+
+
+
+\begin{abstract}
+%We prove the $P=W$ conjecture for $\mathrm{GL}_n$.
+We prove the $P=W$ conjecture for $\mathrm{GL}_n$ for all ranks $n$ and curves of arbitrary genus $g\geq 2$.  The proof combines a strong perversity result on tautological classes with the curious Hard Lefschetz theorem of Mellit. For the perversity statement, we apply the vanishing cycles constructions in our earlier work to global Springer theory in the sense of Yun, and prove a parabolic support theorem.
+
+\end{abstract}
+
+\baselineskip=14.5pt
+\maketitle
+
+\setcounter{tocdepth}{1} 
+
+\tableofcontents
+\setcounter{section}{-1}
+
+
+
+\section{Introduction}
+
+Throughout, we work over the complex numbers $\BC$. 
+
+\subsection{The P=W conjecture}
+The purpose of this paper is to present a proof of the $P=W$ conjecture by de Cataldo--Hausel--Migliorini \cite{dCHM1} for arbitrary rank $n$ and genus $g \geq 2$.
+
+Let $C$ be a nonsingular irreducible projective curve of genus $g \geq 2$. For two coprime integers $n \in \BZ_{\geq 1}$ and $d \in \BZ$, there are two moduli spaces $M_{\mathrm{Dol}}$ and $M_B$, called the Dolbeault and the Betti moduli spaces, attached to $C,n,$ and $d$. 
+
+
+The Dolbeault moduli space parameterizes stable Higgs bundles $(\CE, \theta)$ on $C$, where $\CE$ is a vector bundle on $C$ of rank $n$ and degree $d$, $\theta: \CE \to \CE \otimes \Omega_C^1$ is a Higgs field, and stability is defined with respect to the slope $\mu(\CE,\theta) ={\mathrm{deg}(\CE)}/{\mathrm{rk(\CE)}}$. The moduli space $M_{\mathrm{Dol}}$ admits the structure of a completely integrable system
+\[
+h: M_{\mathrm{Dol}} \to A := \bigoplus_{i=1}^n H^0(C, {\Omega_C^{1}}^{\otimes i}), \quad (\CE, \theta) \mapsto \mathrm{char.polynomial}(\theta),
+\]
+which is referred to as the Hitchin system \cite{Hit, Hit1}. The Hitchin map $h$ is surjective and proper; it is also Lagrangian with respect to the canonical holomorphic symplectic form on $M_{\mathrm{Dol}}$ induced by the hyper-K\"ahler metric. The \emph{perverse filtration} is an increasing filtration 
+\[
+P_0H^*(M_{\mathrm{Dol}}, \BQ)\subset P_1H^*(M_{\mathrm{Dol}}, \BQ) \subset \cdots \subset H^*(M_{\mathrm{Dol}}, \BQ)
+ \]
+on the (singular) cohomology of $M_{\mathrm{Dol}}$ governed by the topology of the Hitchin system $h$; see Section \ref{sec1.1} for a brief review.
+
+The Betti moduli space $M_B$ is the (twisted) character variety associated with $\mathrm{GL}_n(\BC)$ and degree $d$.  It parametrizes isomorphism classes of irreducible local systems
+\[
+\rho: \pi_1(C\backslash \{p\}) \rightarrow \mathrm{GL}_n(\BC)
+\]
+where $\rho$ sends a loop around a chosen point $p$ to 
+$e^{\frac{2\pi \sqrt{-1} d}{n}}\mathrm{Id}_n$.  Concretely, we have
+\begin{equation*}
+M_B := \Big{\{}a_k, b_k \in \mathrm{GL}_n(\BC),~k=1,2,\dots,g: ~~\prod_{j=1}^g [a_j, b_j] = e^{\frac{2\pi \sqrt{-1} d}{n}}\mathrm{Id}_n \Big{\}}\git\mathrm{GL}_n(\BC).
+\end{equation*}
+It is an affine variety whose mixed Hodge structure admits a nontrivial weight filtration 
+\[
+W_0 H^*(M_B, \BQ) \subset W_1H^*(M_B, \BQ) \subset \cdots \subset H^*(M_B, \BQ).
+\]
+
+Non-abelian Hodge theory \cite{Simp, Si1994II} gives a diffeomorphism between the two very different algebraic varieties $M_{\mathrm{Dol}}$ and $M_B$, which canonically identifies their cohomology:
+\begin{equation}\label{NAH}
+ H^*(M_{\mathrm{Dol}}, \BQ)  = H^*(M_{B}, \BQ).
+\end{equation}
+The $P=W$ conjecture by de Cataldo--Hausel--Migliorini \cite{dCHM1} 
+refines the identification (\ref{NAH}); it predicts that the perverse filtration associated with the Hitchin system is matched with the (double-indexed) weight filtration associated with the Betti moduli space. This establishes a surprising connection between topology of Hitchin systems and Hodge theory of character varieties.
+
+\begin{conj}\label{conj}[The P=W conjecture for $\mathrm{GL}_n$, \cite{dCHM1}] For any $k,m\in \BZ_{\geq 0}$, we have
+\[
+P_kH^m(M_{\mathrm{Dol}}, \BQ) = W_{2k}H^m(M_{B}, \BQ) = W_{2k+1}H^m(M_B, \BQ).
+\]
+\end{conj}
+
+Conjecture \ref{conj} has previously been proven for $n=2$ and arbitrary genus $g\geq 2$ by de Cataldo--Hausel--Migliorini \cite{dCHM1}, and recently for arbitrary rank $n$ and genus 2 by de Cataldo--Maulik--Shen \cite{dCMS}. The compatibility between the $P=W$ conjecture and Galois conjugation on the Betti side was proven in \cite{dCMSZ}, which implies that $P=W$ does not depend on the degree $d$ as long as it is coprime to $n$. We refer to \cite[Section 1]{dCHM1} and the paragraphs following \cite[Theorem 0.2]{dCMS} for discussions concerning connections between Conjecture \ref{conj} and other directions. In particular, by \cite{CDP} and \cite[Section 9.3]{MT}, Conjecture \ref{conj} implies the correspondence between Gopakumar--Vafa invariants and Pandharipande--Thomas invariants \cite[Conjecture 3.13]{MT} for the local Calabi--Yau 3-fold $T^*C \times \BC$ in any curve class $n[C]$. 
+
+
+The main result of this paper is a full proof of Conjecture \ref{conj}.
+
+\begin{thm}\label{thm}
+    Conjecture \ref{conj} holds.
+\end{thm}
+
+
+Conjecture \ref{conj} has several variants which, to the best of our knowledge, are still open. These include the version formulated for possibly singular moduli spaces, intersection cohomology, and general reductive groups \cite{dCHM1, dCM, FM}, and the version formulated for moduli stacks \cite{Davison}.  There also exist parabolic versions of Conjecture \ref{conj} and we expect that our argument applies to these settings using parabolic variants of the ingredients here \cite{Mellit, OY}. We refer to \cite{DMS, HLSY, Geo_P=W, Zhang} and references therein for the $P=W$ phenomenon in other settings.
+
+
+For the case of type $A_{n-1}$ ($\mathrm{GL}_n, \mathrm{PGL}_n, \mathrm{SL}_n$) and a degree $d$ coprime to $n$, Conjecture \ref{conj} (\emph{i.e.} the $P=W$ conjecture for $\mathrm{GL_n}$) is equivalent to the $P=W$ conjecture for $\mathrm{PGL}_n$; see the paragraph after \cite[Theorem 0.2]{dCMS}. The case of $\mathrm{SL}_n$ is more subtle --- it is closely related to the endoscopic decomposition of the $\mathrm{SL}_n$ Hitchin moduli spaces. A systematic discussion on this aspect can be found in \cite[Section 5]{MS}. In the special case when $n=p$ a prime number, \cite[Theorem 0.2]{SLn} implies that the $P=W$ conjecture for $\mathrm{GL}_p$, $\mathrm{SL}_p$, and $\mathrm{PGL}_p$ are all equivalent. In particular, we have the following immediate consequence of Theorem \ref{thm}, which generalizes the result of \cite{dCHM1} for $\mathrm{SL}_2$.
+
+\begin{thm}
+The $P=W$ conjecture holds for a curve $C$ of any genus at least two and $\mathrm{SL}_p$ with $p$ a prime number.
+\end{thm}
+
+
+
+
+
+
+\subsection{Idea of the proof}
+Our proof of Conjecture \ref{conj} has 4 major steps.
+
+\begin{enumerate}
+    \item[Step 1.] \emph{Strong perversity of Chern classes}: Using work of Markman \cite{Markman}, Shende \cite{Shende}, and Mellit \cite{Mellit}, we may reduce the $P=W$ conjecture to a statement about the interaction between Chern classes of the universal family and the perverse filtration. This allows us to reduce the $P=W$ conjecture to a sheaf-theoretic statement which concerns strong perversity of Chern classes.
+    \item[Step 2.] \emph{Vanishing cycle techniques}: We apply the formalism of vanishing cycles to reduce the sheaf-theoretic formulation of Step 1 for the Hitchin system, to the case of twisted Hitchin systems associated with meromorphic Higgs bundles. Our motivation is from the key observation by Ng\^o \cite{Ngo} and Chaudouard-Laumon \cite{CL}, that the decomposition theorem for such twisted Hitchin systems is more manageable. 
+    
+    Steps 1 and 2 are carried out in Sections 1 and 2.  
+
+    \item[Step 3.]\emph{Global Springer theory}: The global Springer theory of Yun \cite{Yun1, Yun2,Yun3} produces rich symmetries for certain Hitchin moduli spaces; this proves the sheaf-theoretic formulation of Step 1 over the \emph{elliptic locus}. For our purpose, we need a version of global Springer theory for the stable locus over the total Hitchin base. This is described in Section 3.
+
+    \item[Step 4.] \emph{A support theorem}: Lastly, in order to extend part of Yun's symmetries induced by Chern classes from the elliptic locus to the total Hitchin base, we prove a support theorem parallel to \cite{CL} for certain parabolic Hitchin moduli spaces. This is completed in Section 4.
+\end{enumerate}
+
+The idea of combining vanishing cycle functors and support theorems was also applied in \cite{MS} to give a proof of the topological mirror symmetry conjecture of Hausel--Thaddeus \cite{HT, GWZ}.
+
+\subsection{Acknowledgements}
+We would like to thank Mark Andrea de Cataldo, Bhargav Bhatt, Ben Davison, Jochen Heinloth, and Max Lieblich for various discussions.  We are especially grateful to Zhiwei Yun for explaining his thesis to us, both in his office and at the playground.  We also thank the anonymous referee for careful
+reading and useful suggestions on the exposition. J.S. was supported by the NSF grants DMS-2134315 and DMS-2301474. 
+
+
+
+\section{Perverse filtrations and vanishing cycles}
+
+In this section, we introduce the notion of \emph{strong perversity} and show its compatibility with vanishing cycle functors (Proposition \ref{prop1.4}). This plays a crucial role in Section 2 in lifting the $P=W$ conjecture sheaf-theoretically and reduce it to the twisted case.
+
+\subsection{Perverse filtrations}\label{sec1.1}
+Let $f: X \to Y$ be a proper morphism between irreducible nonsingular quasi-projective varieties (or Deligne--Mumford stacks) with $\mathrm{dim}X = a$ and $\mathrm{dim}Y = b$. Let $r$ be the defect of semismallness of $f$:
+\[
+r: = \mathrm{dim} X \times_YX - \mathrm{dim}X.
+\]
+In particular, we have $r = a-b$ when $f$ has equi-dimensional fibers. The perverse filtration 
+\[
+P_0H^m(X, \BQ) \subset P_1H^m(X, \BQ) \subset \dots \subset H^m(X, \BQ)
+\]
+is an increasing filtration on the cohomology of $X$ governed by the topology of the morphism $f$; it is defined to be
+\[
+P_iH^m(X, \BQ) := \mathrm{Im}\left\{ H^{m-a+r}(Y, {^\mathbf{p}\tau_{\leq i}} (Rf_* \BQ_X[a-r])) \to H^m(X, \BQ)\right\}
+\]
+where $^\mathbf{p}\tau_{\leq * }$ is the perverse truncation functor \cite{BBD}. 
+
+\begin{lem}\label{lem0}
+If $f$ has equi-dimensional fibers, the perverse filtration on $H^m(X,\BQ)$ terminates at $P_mH^m(X, \BQ)$, \emph{i.e.}
+\[
+P_mH^m(X, \BQ) = H^m(X, \BQ).
+\]
+In particular, we have $1 \in P_0H^0(X, \BQ)$.
+\end{lem}
+
+\begin{proof}
+By definition and the decomposition theorem \cite{BBD}, the dimensions of the graded pieces of the perverse filtration are given by
+\begin{equation}\label{llm0}
+\mathrm{dim} \mathrm{Gr}^P_iH^{m}(X, \BQ) = \mathrm{dim} H^{m-i-(a-r)}\left(Y,{^\mathfrak{p}\CH^i(Rf_* \BQ_X[a-r])}\right).
+\end{equation}
+Since a perverse sheaf, as a complex of constructible sheaves, is concentrated in degrees $[-b, 0]$, it only has non-trivial cohomology in degrees $\geq -b$. In particular, the right-hand side of (\ref{llm0}) is non-trivial only if 
+\[
+m-i-(a-r) \geq -b.
+\]
+Since $r=a-b$, this inequality is equivalent to $m \geq i$.
+\end{proof}
+
+
+A cohomology class $\gamma \in H^l(X, \BQ)$ can be viewed as a morphism $\gamma: \BQ_X \to \BQ_X[l]$, which naturally induces 
+\begin{equation}\label{induced}
+\gamma: Rf_* \BQ_X \to Rf_* \BQ_X [l]
+\end{equation}
+after pushing forward along $f$. For an integer $c\geq 0$, we say that $\gamma \in H^l(X, \BQ)$ has \emph{strong perversity} $c$ with respect to $f$ if its induced morphism (\ref{induced}) satisfies
+\begin{equation}\label{assumption}
+\gamma \left({^\mathbf{p}\tau_{\leq i} Rf_* \BQ_X}\right) \subset {^\mathbf{p}\tau_{\leq i+(c-l)}} \left(Rf_* \BQ_X  [l] \right), \quad \forall i;
+\end{equation}
+more precisely, the condition (\ref{assumption}) says that the composition
+\[
+{^\mathbf{p}\tau_{\leq i} Rf_* \BQ_X} \hookrightarrow Rf_* \BQ_X \xrightarrow{\gamma} Rf_* \BQ_X [l]
+\]
+factors through ${^\mathbf{p}\tau_{\leq i+(c-l)}} \left(Rf_* \BQ_X  [l] \right) \hookrightarrow Rf_* \BQ_X  [l]$ for any $i$.  Notice that $\gamma$ automatically has strong perversity $l$, so this condition is interesting only when $c < l$. Combining Lemma \ref{lem0} and the following lemma, we see that if $f$ has equi-dimensional fibers and $\gamma$ has strong perversity $c$, then $\gamma \in P_cH^*(X, \BQ)$.
+
+\begin{lem}\label{lem1.1}
+If $\gamma\in H^l(X, \BQ)$ has strong perversity $c$ with respect to $f$, then taking cup-product with $\gamma$ satisfies
+\[
+\gamma\cup - : H^m(X, \BQ) \to H^{m+l}(X, \BQ), \quad P_iH^m(X, \BQ) \mapsto P_{i+c}H^{m+l}(X, \BQ).
+\]
+\end{lem}
+
+\begin{proof}
+This follows from taking global cohomology for (\ref{assumption}) and noticing that
+\begin{align*}
+    H^{m-a+r}\left(Y, {^\mathbf{p}\tau_{\leq i+(c-l)}} \left(Rf_* \BQ_X  [l+a-r] \right)\right) & \\ = H^{(m-a+r)+l}&\left(Y, {^\mathbf{p}\tau_{\leq i+c}} \left(Rf_* \BQ_X  [a-r] \right)\right). \qedhere
+    \end{align*}
+\end{proof}
+
+In general, the perverse filtration $P_\bullet H^*(X, \BQ)$ may not be multiplicative, \emph{i.e.}, for $\gamma_j \in P_{c_j}H^*(X, \BQ)$ (j=1,2,\dots,s), it may not be true that
+\[
+\gamma_1 \cup \gamma_2 \cup \cdots \cup \gamma_s \in P_{c_1+\cdots+c_s}H^*(X, \BQ);
+\]
+see \cite[Exercise 5.6.8]{Park}. In fact, it was proven in \cite[Theorem 0.6]{dCMS} that Conjecture \ref{conj} is equivalent to the multiplicativity of the perverse filtration associated with the Hitchin system. The following easy observation illustrates the advantage of considering strong perversity in view of the multiplicativity issue.
+
+\begin{lem}\label{lem1.2}
+If the class $\gamma_j \in H^{l_j}(X, \BQ)$ ($j=1,2,\dots, s$) has strong perversity $c_j$ with respect to $f$, then the cup product 
+\[
+\gamma_1 \cup \gamma_2 \cup \cdots \cup \gamma_s \in H^{l_1+\cdots+l_s}(X, \BQ)
+\]
+has strong perversity $\sum_jc_j$.
+\end{lem}
+
+
+\subsection{Vanishing cycles}\label{Sec1.2}
+
+Throughout section \ref{Sec1.2}, we let $g: X \to \BA^1$ be a morphism such that $X$ is nonsingular and irreducible with $X_0 = g^{-1}(0)$ the closed fiber over $0 \in \BA^1$. We consider the vanishing cycle functor 
+\[
+\varphi_g: D^b_c(X) \rightarrow D^b_c(X_0)
+\]
+which preserves the perverse $t$-structures,
+\[
+\varphi_g: \mathrm{Perv}(X) \rightarrow \mathrm{Perv}(X_0).
+\]
+Here $\mathrm{Perv}(-)$ stands for the abelian category of perverse sheaves. We denote by 
+\[
+\varphi_g : = \varphi_g(\mathrm{IC}_X) = \varphi_g(\BQ_X[\mathrm{dim}X]) \in \mathrm{Perv}(X_0) \]
+the perverse sheaf of vanishing cycles. We use $X' \subset X$ to denote the support of the vanishing cycle complex $\varphi_g$ so that $\varphi_g \in \mathrm{Perv}(X')$.
+
+Recall that for any bounded constructible object $\CK \in D^b_c(X)$, a class $\gamma \in H^l(X, \BQ)$ induces a morphism
+\[
+\gamma: \CK \to \CK [l] 
+\]
+via taking the tensor product with $\gamma: \BQ_X \to \BQ_X[l]$. The following lemma shows the compatibility between the vanishing cycle functor and restriction of cohomology classes.
+
+\begin{lem}\label{lem1.3}
+With the same notation as above, let $i: X'\hookrightarrow X$ be the closed embedding. The morphism \[
+i^*\gamma: \varphi_g \rightarrow \varphi_g[l] \in D^b_c(X')
+\]
+induced by the class $i^*\gamma$ (applied to the object $\CK = \varphi_g$) coincides with 
+\[
+\varphi_g(\gamma): \varphi_g \to \varphi_g[l] \in D_c^b(X')
+\]
+obtained by applying the functor $\varphi_g$ to $\gamma: \BQ_X \to \BQ_X[l]$.
+\end{lem}
+
+\begin{proof}
+Let $\iota: X_0 \hookrightarrow X$ be the closed embedding of the closed fiber over $0$. By \cite[Definition 8.6.2]{KS}, the vanishing cycle functor can be written as
+\begin{equation}\label{vanishing}
+\varphi_g(-) = \iota^* R\CH{om}(\CC, -) \in D^b_c(X_0)
+\end{equation}
+with $\CC$ a fixed complex of sheaves. The morphism obtained
+by applying $R\CH{om}(\CC, -)$ to $\gamma: \BQ_X \to \BQ_X[l]$ 
+is equivalent to the morphism induced by applying $\gamma$ to $R\CH{om}(\CC, \BQ_X)$.
+Similarly, the functor $\iota^*$ sends the morphism induced by $\gamma$
+to the morphism induced by $\iota^*\gamma$.
+
+%by applying (\ref{vanishing}) to $\gamma: \BQ_X \to \BQ_X[l]$ is equivalent to the morphism applied $\iota^*\gamma$ to the object $\iota^* R\CH{om}(\CK, \BQ_X)$:
+%\[
+%\iota^*\gamma: \iota^* R\CH{om}(\CK, \BQ_X) \to \iota^* R\CH{om}(\CK, %\BQ_X)[l] \in \mathrm{Perv}(X_0).
+%\]
+Therefore, if we denote by $\iota': X' \hookrightarrow X_0$ the closed embedding and view $\varphi_g$ as a perverse sheaf on $X'$, we have an equivalent morphism
+\begin{equation}\label{321} 
+\varphi_g(\gamma) = \iota^*\gamma:  \iota'_*\varphi_g \to \iota'_*\varphi_g[l] \in D^b_c(X_0). 
+\end{equation}
+
+
+%We note that Betti moduliy definition, the vanishing cycle complex $\varphi_g$, as an oBetti moduliject on $X_0$, is of the form
+%\[
+%\varphi_g = \iota^* \CF
+%\]
+%with $\CF$ a constructiBetti modulile oBetti moduliject on $X$. The cohomology class $\gamma \in H^l(X, \BQ)$ then induces 
+%\[
+%\gamma: \CF \to \CF [l] \in D^b_c(X),
+%\]
+%whose restriction to $X_0$ induces the vanishing cycle morphism $\varphi_g(\gamma)$ on $X_0$:
+%\[
+%\varphi_g(\gamma) = \iota^*\gamma:  \iota^* \CF \to \iota^*\CF[l] \in D^b_c(X_0). 
+%\]
+%Finally, as the object $\iota^*\CF= \varphi_g$ is supporte on $X'$, for the closed embedding $\iota': X' \hookrightarrow X_0$ we have
+%\[
+%\iota^*\gamma: \iota'_* \varphi_g \to \iota'_* \varphi_g[l] \in D^b_c(X_0).
+%\]
+Finally, after applying $\iota'^*: D^b_c(X_0) \rightarrow D^b_c(X')$ to (\ref{321}) and noticing $\iota'^*\iota'_*= \mathrm{id}$, we obtain that the class $i^*\gamma = \iota'^*\iota^*\gamma$ induces
+\[
+\varphi_g(\gamma): \varphi_g \to \varphi_g[l] \in D_c^b(X').
+\]
+This completes the proof.
+\end{proof}
+
+
+\begin{prop}\label{prop1.4}
+Let $g: X \to \BA^1$ and $X'$ be as above. Assume that $X'$ is nonsingular and
+\begin{equation}\label{4.1_0}
+\varphi_g \simeq \mathrm{IC}_{X'} = \BQ_{X'}[\mathrm{dim}X'] \in \mathrm{Perv}(X').
+\end{equation}
+Assume further that we have the commutative diagram
+\begin{equation*}
+\begin{tikzcd}
+X' \arrow[r, "i"] \arrow[d, "f'"]
+& X \arrow[d, "f"] \\
+Y' \arrow[r]
+& Y
+\end{tikzcd}
+\end{equation*}
+such that $f$ is proper and $g =   f\circ \nu$ with $\nu: Y \to \BA^1$. Then if a class $\gamma \in H^l(X, \BQ)$ has strong perversity $c$ with respect to $f$, its restriction $i^*\gamma \in H^l(X', \BQ)$ has strong perversity $c$ with respect to $f'$. 
+\end{prop}
+
+
+\begin{proof}
+By definition, the morphism 
+\begin{equation}\label{1.4_1}
+\gamma: Rf_* \BQ_X \to Rf_* \BQ_X[l] \in D^b_c(Y)
+\end{equation}
+induced by $\gamma$ satisfies
+\begin{equation}\label{1.4_2}
+\gamma \left({^\mathbf{p}\tau_{\leq i} Rf_* \BQ_X}\right) \subset {^\mathbf{p}\tau_{\leq i+(c-l)}} (Rf_* \BQ_X[l]), \quad \forall i.
+\end{equation}
+Now we apply the vanishing cycle functor $\varphi_\nu$ to (\ref{1.4_1}). On one hand, we have the base change $Rf'_* \circ \varphi_g \simeq \varphi_\nu\circ Rf_*$ and the fact that the vanishing cycle functor preserves the perverse $t$-structures. Therefore (\ref{1.4_2}) implies  that the morphism
+\[
+\varphi_g(\gamma): Rf'_* \varphi_g \to Rf'_* \varphi_g[l] \in D^b_c(Y')
+\]
+satisfies
+\[
+\varphi_g(\gamma) \left({^\mathbf{p}\tau_{\leq i}} Rf'_* \varphi_g\right) \subset {^\mathbf{p}\tau_{\leq i+(c-l)}} (Rf'_* \varphi_g[l]), \quad \forall i.
+\]
+On the other hand, using the isomorphism (\ref{4.1_0}) and Lemma \ref{lem1.3}, the above equation means precisely that the morphism $i^*\gamma : \BQ_{X'} \to \BQ_{X'}[l]$ satisfies
+\begin{equation*}
+(i^*\gamma) \left({^\mathbf{p}\tau_{\leq i} Rf'_* \BQ_{X'}}\right) \subset {^\mathbf{p}\tau_{\leq i+(c-l)}} (Rf'_* \BQ_{X'}[l]), \quad \forall i;
+\end{equation*}
+that is, the class $i^*\gamma$ has strong perversity $c$ with respect to $f'$.
+\end{proof}
+
+
+
+
+
+
+\section{Strong perversity for Chern classes}
+
+In this section, we fix the rank $n$ and the degree $d$ with $(n,d)=1$. In Theorem \ref{conj2.7}, we rephrase and then enhance Conjecture \ref{conj} to a statement involving $\CL$-twisted Hitchin systems and strong perversity of Chern classes. It will be proven in Sections 3 and 4.
+
+\subsection{Tautological classes}
+
+As discussed in \cite[Section 0.3]{dCMS}, the $P=W$ conjecture for $\mathrm{GL}_n$ can be reduced to a statement involving tautological classes on $M_{\mathrm{Dol}}$ and the perverse filtration associated with $h: M_{\mathrm{Dol}} \to A$, without reference to the Betti moduli space $M_B$. In this subsection, we recall this reduction step.
+
+
+For convenience, we work with the $\mathrm{PGL}_n$ Dolbeault moduli space to avoid normalization of a universal family as in \cite{dCMS}; we refer to \cite{Shende} for a detailed discussion concerning the formulation of the $P=W$ conjecture in terms of tautological classes for the $\mathrm{PGL}_n$ Dolbeault moduli space.
+
+Fix $\CN \in \mathrm{Pic}^d(C)$. Let $\widecheck{M}_{\mathrm{Dol}}$ be 
+the moduli stack of stable Higgs bundles $(\CE, \theta)$ with $\mathrm{det}(\CE) \simeq \CN$ and $\mathrm{trace}(\theta) = 0$, rigidified with respect to the generic $\mu_n$-stabilizer; this is the same as taking its coarse moduli space.  We refer to this (nonsingular) variety as the $\mathrm{SL}_n$ Dolbeault moduli space of degree $d$. The finite group $\Gamma: = \mathrm{Pic}^0(C)[n]$ acts naturally on $\widecheck{M}_{\mathrm{Dol}}$ via tensor product. The $\mathrm{PGL}_n$ Dolbeault moduli space of degree $d$ is recovered by taking the quotient stack
+\begin{equation}\label{233}
+\widehat{M}_{\mathrm{Dol}} : = \widecheck{M}_{\mathrm{Dol}}/\Gamma
+\end{equation}
+which is a nonsingular Deligne--Mumford stack. The $\mathrm{PGL}_n$ Hitchin system 
+\[
+\widehat{h}: \widehat{M}_{\mathrm{Dol}} \to \widehat{A}: = \bigoplus_{i=2}^n H^0(C, {\Omega_C^1}^{\otimes i})
+\]
+is induced by the Hitchin map associated with $\widecheck{M}_{\mathrm{Dol}}$ as the $\Gamma$-action is fiberwise with respect to $h$. Analogous to the $\mathrm{GL}_n$  case, we have the perverse filtration $P_*H^*(\widehat{M}_{\mathrm{Dol}}, \BQ)$ associated with $\widehat{h}$. The universal $\mathrm{PGL}_n$-bundle $\CU$ on $C \times \widehat{M}_{\mathrm{Dol}}$ induces Chern characters
+\[
+\mathrm{ch}_k(\CU) \in H^{2k}(C \times \widehat{M}_{\mathrm{Dol}}, \BQ),\quad k \geq 2. 
+\]
+The tautological classes $c_k(\gamma)$ are defined to be
+\[
+c_k(\gamma): = \int_\gamma \mathrm{ch}_k(\CU) = q_{M*}(q_C^*\gamma \cup \mathrm{ch}_k(\CU)) \in H^*(\widehat{M}_{\mathrm{Dol}}, \BQ), \quad \gamma \in H^*(C,\BQ),
+\]
+where $q_{(-)}$ are the projections from $C \times \widehat{M}_{\mathrm{Dol}}$.
+
+Now we consider the $\mathrm{PGL}_n$ Betti moduli space of degree $d$ with the isomorphism on cohomology provided by non-abelian Hodge theory (\emph{c.f.}\cite[Theorem 1.2.4]{dCHM1}):
+\begin{equation}\label{NAH2}
+H^*(\widehat{M}_{\mathrm{Dol}}, \BQ) = H^*(\widehat{M}_{B}, \BQ).
+\end{equation}
+Define the Hodge sub-vector space
+\[
+^k\mathrm{Hdg}^m(\widehat{M}_B): = W_{2k}H^m(M_B, \BQ) \cap F^kH^m(M_B, \BC) \subset H^m(\widehat{M}_{B}, \BQ).
+\]
+
+The following theorem, collecting results of Markman and Shende, provides a complete description of $H^*(\widehat{M}_B, \BQ)$ in terms of the Chern classes $\mathrm{ch}_k(\CU)$ and the weight filtration.
+
+\begin{thm}[\cite{Markman, Shende}]\label{thm2.1}
+We use the same notation as above.
+\begin{enumerate}
+    \item[(i)] The tautological classes $c_k(\gamma)\in H^*(\widehat{M}_{\mathrm{Dol}}, \BQ)$ generate $H^*(\widehat{M}_\mathrm{Dol}, \BQ)$ as a $\BQ$-algebra.
+    \item[(ii)] The class $c_k(\gamma)$, passing through the non-abelian Hodge correspondence (\ref{NAH2}), lies in $^k\mathrm{Hdg}^*(\widehat{M}_B)$. In particular, we have a canonical decomposition
+    \[
+H^*(\widehat{M}_B, \BQ) = \bigoplus_{m,k} {^k\mathrm{Hdg}^m(\widehat{M}_B)}.    \]
+\end{enumerate}
+\end{thm}
+
+\begin{proof}
+The first part was proven in \cite{Markman}, and the second part was proven in \cite{Shende}.
+\end{proof}
+
+
+Theorem \ref{thm2.1} (ii) yields immediately that 
+\[
+W_{2k}H^m(\widehat{M}_B, \BQ) = W_{2k+1}H^m(\widehat{M}_B, \BQ).
+\]
+Moreover, by Theorem \ref{thm2.1}, the $P=W$ conjecture implies that each class $\prod_{i=1}^s c_{k_i}(\gamma_i)$ lies in the perverse piece $P_{\Sigma_i{k_i}}H^*(\widehat{M}_{\mathrm{Dol}}, \BQ)$; the latter is in fact equivalent to the $P=W$ conjecture. Indeed, suppose we have 
+\begin{equation}\label{taut}
+\prod_{i=1}^s c_{k_i}(\gamma_i) \in P_{\Sigma_i{k_i}}H^*(\widehat{M}_{\mathrm{Dol}}, \BQ)
+\end{equation}
+for any product of tautological classes.
+Then we know that $W_{2k}H^*(\widehat{M}_B, \BQ) \subset P_kH^*(\widehat{M}_{\mathrm{Dol}}, \BQ)$. The curious hard Lefschetz theorem proven by Mellit \cite{Mellit} forces the two filtrations $P_\bullet$ and $W_{2\bullet}$ to coincide as long as one contains the other. This was mentioned in the last paragraph of \cite[Section 1]{Mellit}; we include its proof here for the reader's convenience.
+
+\begin{lem}
+We denote by $V$ the $\BQ$-vector space (\ref{NAH2}) with the perverse and the weight filtrations $P_\bullet$ and $W_{2\bullet}$. If $W_{2k} \subset P_k$ for all $k$, then $W_{2k} = P_k$ for all $k$.
+\end{lem}
+
+\begin{proof}
+Assume $r = \mathrm{dim}\widehat{M}$; both filtrations terminate at the $r$-th pieces, \emph{i.e.}, $W_{2r} = P_{r} = V$. We first show that 
+\[
+W_0 = P_0, \quad W_{2(r-1)} = P_{r-1}. 
+\]
+In fact, since $W_\bullet  \subset P_\bullet$, we have
+\[
+\mathrm{dim} W_0 \leq \mathrm{dim} P_0 = \mathrm{dim}V/P_{r-1} \leq \mathrm{dim} V/W_{2(r-1)};
+\]
+moreover, by the curious hard Lefschetz theorem, each inequality has to be an equality. So our claim follows. 
+
+Then we proceed by applying the same argument to $W_1, P_1$ and $W_{2(r-2)}, P_{r-1}$. The lemma follows by a simple induction.
+\end{proof}
+
+
+In conclusion, we have reduced the $P=W$ conjecture to the following:
+
+
+\begin{conj}[Equivalent version of P=W]\label{conj2.2}
+Condition (\ref{taut}) holds for all products of tautological classes.
+\end{conj}
+
+\subsection{Strong perversity for Chern classes for $\CL$-twisted Hitchin systems}
+
+For our purposes, it is important to consider Dolbeault moduli spaces of Higgs bundles, twisted by an effective line bundle $\CL$ (\emph{i.e.}, $H^0(C, \CL) \neq 0$). These moduli spaces have already appeared in \cite{CL, HT2, HT, Yun1, Yun2}; we review the construction here briefly. 
+
+Set $\Omega_\CL$ to be the line bundle $\Omega^1_C \otimes \CL$ on the curve $C$. We denote by $M^\CL_{\mathrm{Dol}}$ the moduli space of stable twisted Higgs bundles
+\[
+(\CE, \theta), \quad \theta: \CE \to \CE \otimes\Omega_\CL, \quad \mathrm{rk}(\CE) = n, ~~\mathrm{deg}(\CE)=d,
+\]
+with respect to the slope stability condition. The corresponding Hitchin map
+\[
+h^\CL: M^\CL_{\mathrm{Dol}} \to A^\CL: = \bigoplus_{i=1}^n H^0\left(C, {\Omega_\CL}^{\otimes i} \right) ,\quad (\CE, \theta) \mapsto \mathrm{char.polynomial}(\theta),
+\]
+is still proper as in the untwisted case; but it fails to be a Lagrangian fibration when $\mathrm{deg}(\CL)>0$. The $\CL$-twisted $\mathrm{SL}_n$ and $\mathrm{PGL}_n$ Dolbeault moduli spaces $\widecheck{M}^\CL_{\mathrm{Dol}}$ and $\widehat{M}^\CL_{\mathrm{Dol}}$ can be constructed similarly. The moduli space
+\[
+\widecheck{M}^\CL_{\mathrm{Dol}}:= \{(\CE, \theta) \in M^\CL_{\mathrm{Dol}}|~~ \mathrm{det}(\CE) \simeq \CN \in \mathrm{Pic}^d(C), \mathrm{trace}(\theta) = 0\}
+\]
+admits a Hitchin map
+\[
+\widecheck{h}^\CL: \widecheck{M}^\CL_{\mathrm{Dol}} \to \widehat{A}^\CL:= \bigoplus_{i=2}^nH^0\left(C, {\Omega_\CL}^{\otimes i} \right)\]
+and a fiberwise $\Gamma = \mathrm{Pic}^0(C)[n]$ action by tensor product. Taking the $\Gamma$-quotient recovers the $\CL$-twisted $\mathrm{PGL}_n$ Hitchin map
+\[
+\widehat{h}^\CL: \widehat{M}^\CL_{\mathrm{Dol}} =\widecheck{M}^\CL_{\mathrm{Dol}}/\Gamma \to \widehat{A}^\CL. 
+\]
+
+
+An observation in \cite[Section 4]{MS} is that, for a fixed closed point $p\in C$, the $\CL$-twisted and $\CL(p)$-twisted $\mathrm{SL}_n$ Dolbeault moduli spaces can be related via critical loci and vanishing cycles, which we recall in the following.
+
+By viewing a $\CL$-twisted Higgs bundle naturally as a $\CL(p)$-twisted Higgs bundle, we have the natural embedding $i: \widecheck{M}^\CL_{\mathrm{Dol}} \hookrightarrow \widecheck{M}^{\CL(p)}_{\mathrm{Dol}}$ which induces the commutative diagram
+\begin{equation}\label{2.3_1}
+\begin{tikzcd}
+\widecheck{M}^\CL_{\mathrm{Dol}}\arrow[r, hook,"i"] \arrow[d, "\widecheck{h}^\CL"]
+&\widecheck{M}^{\CL(p)}_{\mathrm{Dol}} \arrow[d, "\widecheck{h}^{\CL(p)}"] \\
+\widehat{A}^\CL \arrow[r,hook]
+& \widehat{A}^{\CL(p)}.
+\end{tikzcd}
+\end{equation}
+
+We recall the following theorem from \cite{MS}.
+
+\begin{thm}[\cite{MS} Theorem 4.5]\label{thm2.5}
+There exists a regular function $g: \widecheck{M}^{\CL(p)}_{\mathrm{Dol}} \to \BA^1$ factorized as $g = \nu \circ \widecheck{h}^{\CL(p)}$ with $\nu: \widehat{A}^{\CL(p)} \to \BA^1$ such that
+\[
+\varphi_g \simeq \mathrm{IC}_{\widecheck{M}^{\CL}_{\mathrm{Dol}}} = \BQ_{\widecheck{M}^{\CL}_{\mathrm{Dol}}}[\mathrm{dim} \widecheck{M}^{\CL}_{\mathrm{Dol}}].
+\]
+\end{thm}
+
+Since the embedding $i: \widecheck{M}^\CL_{\mathrm{Dol}} \hookrightarrow \widecheck{M}^{\CL(p)}_{\mathrm{Dol}}$ is $\Gamma$-equivariant, taking $\Gamma$-quotients in the diagram (\ref{2.3_1}) yields the following commutative diagram:
+\begin{equation}\label{diagram3}
+\begin{tikzcd}
+\widehat{M}^\CL_{\mathrm{Dol}}\arrow[r, hook, "\widehat{i}"] \arrow[d, "\widehat{h}^\CL"]
+&\widehat{M}^{\CL(p)}_{\mathrm{Dol}} \arrow[d, "\widehat{h}^{\CL(p)}"] \\
+\widehat{A}^\CL \arrow[r, hook]
+& \widehat{A}^{\CL(p)}.
+\end{tikzcd}
+\end{equation}
+
+
+\begin{prop}\label{prop2.6}
+The vanishing cycle complex $\varphi_{\widehat{g}}$ associated with the regular function
+\[
+\widehat{g}: = \nu \circ \widehat{h}^{\CL(p)}: \widehat{M}^{\CL(p)}_{\mathrm{Dol}} \to \BA^1
+\]
+satisfies
+\[
+\varphi_{\widehat{g}} \simeq \mathrm{IC}_{\widehat{M}^{\CL}_{\mathrm{Dol}}} = \BQ_{\widehat{M}^{\CL}_{\mathrm{Dol}}}\left[\mathrm{dim} \widehat{M}^{\CL}_{\mathrm{Dol}}\right].\]
+\end{prop}
+
+\begin{proof}
+We reduce Proposition \ref{prop2.6} to Theorem \ref{thm2.5}. Consider the $\Gamma$-quotient map $r: \widecheck{M}^{\CL(p)}_{\mathrm{Dol}} \to \widehat{M}^{\CL(p)}_{\mathrm{Dol}}$. The direct image $r_* \BQ_{\widecheck{M}^{\CL(p)}_{\mathrm{Dol}}}$ admits a natural $\Gamma$-equivariant structure, whose invariant part recovers 
+\begin{equation}\label{2.6_1}
+\left(r_* \BQ_{\widecheck{M}^{\CL(p)}_{\mathrm{Dol}}}\right)^{\Gamma} \simeq \BQ_{\widehat{M}^{\CL(p)}_{\mathrm{Dol}}}.
+\end{equation}
+Since $g = \widehat{g}\circ r$, we have
+\begin{align*}
+\varphi_{\widehat{g}} & = \varphi_{\widehat{g}}\left(\BQ_{\widehat{M}^{\CL(p)}_{\mathrm{Dol}}}\left[\mathrm{dim} \widehat{M}^{\CL(p)}_{\mathrm{Dol}}\right]\right) \\ & \simeq \varphi_{\widehat{g}}\left(r_* \BQ_{\widecheck{M}^{\CL(p)}_{\mathrm{Dol}}}\left[\mathrm{dim} \widecheck{M}^{\CL(p)}_{\mathrm{Dol}}\right]\right)^{\Gamma}\\
+& \simeq (r_* \varphi_g)^\Gamma \\ & \simeq  \BQ_{\widehat{M}^{\CL}_{\mathrm{Dol}}}\left[\mathrm{dim} \widehat{M}^{\CL}_{\mathrm{Dol}}\right].
+\end{align*}
+Here the first equation follows by definition, the second uses (\ref{2.6_1}), the third follows from the base change, and the last is given by Theorem \ref{thm2.5}.
+\end{proof}
+
+%In the remaining, we show that the following conjecture implies Conjecture \ref{conj2.3}; therefore it also implies Conjecture \ref{conj} in view of Proposition \ref{prop2.41}.
+
+Now we formulate a sheaf-theoretic enhancement of Conjecture \ref{conj2.2}.
+
+\begin{thm}\label{conj2.7}
+There exists an effective line bundle $\CL$ such that the class
+\[
+\mathrm{ch}_k(\CU^\CL) \in H^{2k}(C\times \widehat{M}^\CL_{\mathrm{Dol}}, \BQ)
+\]
+has strong perversity $k$ with respect to 
+\[
+\mathbf{h}^\CL: = \mathrm{id} \times \widehat{h}^\CL:C\times \widehat{M}^\CL_{\mathrm{Dol}} \to C\times \widehat{A}^\CL. 
+\]
+Here $\CU^\CL$ is the universal $\mathrm{PGL}_n$-bundle over $C\times \widehat{M}^\CL_{\mathrm{Dol}}$.
+\end{thm}
+
+Notice that the perversity bound here is stronger than the trivial one of $2k$.  We prove in the rest of this section that Theorem \ref{conj2.7} indeed implies Conjecture \ref{conj2.2}; therefore it implies Conjecture \ref{conj}. We prove Theorem \ref{conj2.7} in Sections 3 and 4.
+
+
+\subsection{Theorem \ref{conj2.7} implies Conjecture \ref{conj2.2}}\label{Sec2.3} We start with the following claim.
+
+%\begin{prop}
+%Conjecture \ref{conj2.7} implies Conjecture \ref{conj2.3}.
+%\end{prop}
+
+%\begin{proof}
+\medskip
+\noindent {\bf Claim.} For a point $p\in C$, if the class
+\[
+\mathrm{ch}_k(\CU^{\CL(p)}) \in H^{2k}(C\times \widehat{M}^{\CL(p)}_{\mathrm{Dol}}, \BQ) 
+\]
+has strong perversity $k$ with respect to $\mathbf{h}^{\CL(p)}: C\times \widehat{M}^{\CL(p)}_{\mathrm{Dol}} \to C\times \widehat{A}^{\CL(p)}$, then the class
+\[
+\mathrm{ch}_k(\CU^{\CL}) \in H^{2k}(C\times \widehat{M}^{\CL}_{\mathrm{Dol}}, \BQ)
+\]
+has strong perversity $k$ with respect to $\mathbf{h}^{\CL}: C\times \widehat{M}^\CL_{\mathrm{Dol}} \to C\times \widehat{A}^\CL$.
+
+\begin{proof}[Proof of Claim]
+
+We consider the commutative diagram obtained from (\ref{diagram3}):
+
+\begin{equation}\label{diagram4}
+\begin{tikzcd}
+C \times \widehat{M}^\CL_{\mathrm{Dol}}\arrow[r,hook, "\mathbf{i}"] \arrow[d, "\mathbf{h}^\CL"]
+&C\times \widehat{M}^{\CL(p)}_{\mathrm{Dol}} \arrow[d, "\mathbf{h}^{\CL(p)}"] \\
+C\times \widehat{A}^\CL \arrow[r,hook]
+& C\times \widehat{A}^{\CL(p)}.
+\end{tikzcd}
+\end{equation}
+Here $\mathbf{i} = \mathrm{id} \times \widehat{i}$. By definition,  we have $\mathbf{i}^* \CU^{\CL(p)} = \CU^{\CL}$. Therefore 
+\[
+\mathbf{i}^* \mathrm{ch}_k(\CU^{\CL(p)}) = \mathrm{ch}_k(\CU^\CL).
+\]
+We know from Proposition \ref{prop2.6} that the vanishing cycle complex associated with the regular function
+\[
+\mathbf{g}: =  \widehat{g} \circ \mathrm{pr}_M: C\times \widehat{M}^{\CL(p)}_{\mathrm{Dol}} \to\widehat{M}^{\CL(p)}_{\mathrm{Dol}}\to \BA^1
+\]
+satisfies
+\[
+\varphi_{\mathbf{g}} \simeq \mathrm{IC}_{C\times \widehat{M}^{\CL}_{\mathrm{Dol}}} = {\BQ}_{C\times \widehat{M}^{\CL}_{\mathrm{Dol}}}\left[\mathrm{dim}~ (C\times \widehat{M}^{\CL}_{\mathrm{Dol}})\right].
+\]
+Our claim then follows from Proposition \ref{prop1.4} (applied to the diagram (\ref{diagram4}), the class $\mathrm{ch}_k(\CU^{\CL(p)})$, and the map $\mathbf{g}$).
+\end{proof}
+
+%We prove Conjecture \ref{conj2.7} in the next two sections. Note that although for our purpose, we only need \emph{one} effective divisor $D$ satisfying Conjecture \ref{conj2.7}, our proof actually shows that it is true for \emph{any} effective $\CL$.
+
+
+
+%\subsection{Enhancement I: strong perversity}
+
+As a consequence of the claim, the statement of Theorem \ref{conj2.7} holds for $\CL \simeq \CO_C$, \emph{i.e.}, the class 
+\[
+\mathrm{ch}_k(\CU) \in H^{2k}(C\times \widehat{M}_{\mathrm{Dol}}, \BQ)
+\] 
+has strong perversity $k$ with respect to 
+\[
+\mathbf{h}:= \mathrm{id} \times \widehat{h}: C\times \widehat{M}_{\mathrm{Dol}} \to C\times \widehat{A}.
+\]
+
+
+%We first lift Conjecture \ref{conj2.2} to a sheaf-theoretic statement concerning the decomposition theorem for $\widehat{h}: \widehat{M}_{\mathrm{Dol}} \to \widehat{A}$.
+
+Finally, to deduce the cohomological statement, we note that since $\mathbf{h}$ is the identity map restricting to $C$, its induced perverse filtration can be described as:
+\begin{equation}\label{2.2_1}
+P_kH^*(C \times \widehat{M}_{\mathrm{Dol}}, \BQ) = H^*(C, \BQ) \otimes P_kH^*(\widehat{M}_{\mathrm{Dol}}, \BQ).
+\end{equation}
+Choose a homogeneous basis of $H^*(C, \BQ)$:
+\[
+\Sigma=\{\sigma_0, \sigma_1, \dots, \sigma_{2g+2}\}
+\]
+with Poincar\'e-dual basis $\{\sigma^{\vee}_{0}, \dots, \sigma^\vee_{2g+2}\}$.
+
+We may express $\mathrm{ch}_k(\CU)$ as
+\begin{equation}\label{2.4_1}
+\mathrm{ch}_k(\CU) = \sum_{\sigma\in \Sigma} \sigma^\vee \otimes c_k(\sigma) \in H^*(C, \BQ) \otimes H^*(\widehat{M}_{\mathrm{Dol}}, \BQ).
+\end{equation}
+Since $\mathrm{ch}_k(\CU)$ has strong perversity $k$, Lemma \ref{lem1.1} implies that
+\[
+\mathrm{ch}_k(\CU) \cup - : P_sH^*(C\times \widehat{M}_{\mathrm{Dol}}, \BQ) \to P_{s+k}H^{*}(C\times \widehat{M}_{\mathrm{Dol}}, \BQ).
+\]
+Applying this operator to $\sigma \otimes P_sH^*(\widehat{M}_{\mathrm{Dol}}, \BQ) \subset H^*(C\times \widehat{M}_{\mathrm{Dol}}, \BQ)$ with $\sigma \in \Sigma$, we obtain from (\ref{2.2_1}) and (\ref{2.4_1}) that
+\[
+c_k(\sigma) \cup -: P_sH^*(\widehat{M}_{\mathrm{Dol}}, \BQ) \to P_{s+k}H^*(\widehat{M}_{\mathrm{Dol}}, \BQ). 
+\]
+In particular, for any class $\gamma \in H^*(C, \BQ)$ we have
+\[
+c_k(\gamma): P_sH^*(\widehat{M}_{\mathrm{Dol}}, \BQ) \to P_{s+k}H^*(\widehat{M}_{\mathrm{Dol}}, \BQ)\]
+which further yields
+\[
+\prod_ic_{k_1}(\gamma_i) = \left( \prod_ic_{k_1}(\gamma_i) \right) \cup 1 \in P_{\Sigma_ik_i}H^*(\widehat{M}_{\mathrm{Dol}}, \BQ).
+ \]
+ Here we used $1\in P_0H^0(\widehat{M}_{\mathrm{Dol}}, \BQ)$ in the last equation, which is given by Lemma \ref{lem0}.
+
+This completes the proof that Theorem \ref{conj2.7} implies Conjecture \ref{conj2.2}. \qed
+
+
+
+
+\section{Global Springer theory}
+
+In this section, we review Yun's global Springer theory \cite{Yun1, Yun2, Yun3} and use it to deduce Theorem \ref{conj2.7}, assuming a support theorem (Theorem \ref{thm3.2}). Global Springer theory was previously used to study perverse filtrations for affine Springer fibers in terms of Chern classes \cite{OY, OY2}.  In our setting, we require a partial extension of Yun's results from the elliptic locus to the entire Hitchin base.
+
+\subsection{Notations}
+We fix $\CL$ to be an effective line bundle of sufficiently large degree
+($\mathrm{deg}\left(\CL\right)> 2g$ is enough for us).
+ Since from now on we only concern the $\CL$-twisted moduli spaces, we will use $M, \widecheck{M}$, and $\widehat{M}$ to denote the $\CL$-twisted $\mathrm{GL}_n$, $\mathrm{SL}_n$, and $\mathrm{PGL}_n$ Dolbeault moduli spaces $M^\CL_{\mathrm{Dol}}, \widecheck{M}^\CL_{\mathrm{Dol}}$, and $\widehat{M}^\CL_{\mathrm{Dol}}$ respectively. For the same reason, we will uniformly use the term \emph{Higgs bundles} to call $\CL$-twisted Higgs bundles.
+
+From now on we let $G = \mathrm{PGL}_n$, $\mathfrak{g}$ its Lie algebra, $B \subset G$ the Borel subgroup induced by upper triangular matrices with $\mathfrak{b}$ the Lie algebra, $T\subset B$ the maximal torus given by diagonal matrices, and $W \simeq \mathfrak{S}_n$ the Weyl group. We denote by $\BX^*(T)$ the character group of $T$; it is isomorphic to $\BZ^{n-1}$ as an abelian group.
+
+
+
+
+\subsection{Parabolic moduli stacks}
+
+Let $\widehat{\FM}$ be the moduli stack of $G$-Higgs bundles on $C$; we do not impose any stability condition on $\widehat{\FM}$ so that it is only a (singular) algebraic stack. The stable locus of $\widehat{\FM}$ is a nonsingular Deligne--Mumford substack
+\[
+\widehat{M} \hookrightarrow \widehat{\FM}.
+\]
+
+Yun's global Springer theory \cite{Yun1} constructs an algebraic stack $\widehat{\FM}^\mathrm{par}$ over $C \times \widehat{\FM}$:
+\begin{equation}\label{PI}
+\pi: \widehat{\FM}^\mathrm{par} \to C \times \widehat{\FM}
+\end{equation}
+which is a global analog of the Grothendieck simultaneous resolution. There are two equivalent constructions of $\widehat{\FM}^{\mathrm{par}}$ given in \cite[Section 2.1]{Yun1}. 
+
+
+The first is to construct $\widehat{\FM}^{\mathrm{par}}$ as the moduli stack of parabolic Higgs bundles, which are quadruples $(x, \CE, \theta, \CE_x^B)$, with $(\CE, \theta)$ is a $G$-Higgs bundle, $x\in C$ a closed point, and $\CE_x^B$ a $B$-reduction of $\CE$ at $x$, satisfying the constraint that $\theta$ is compatible with $\CE_x^B$; see \cite[Definition 2.1.1]{Yun1}. Then the morphism $\pi$ is given by forgetting the $B$-reduction:
+\[
+\pi (x, \CE, \theta, \CE_x^B)  = (x, (\CE,\theta)) \in C \times \widehat{\FM}.
+\]
+
+The second construction is via the Grothendieck simultaneous resolution $\pi_G: [\mathfrak{b}/B] \to [\mathfrak{g}/G]$. More precisely, let $\rho_\CL$ be the $\BG_m$-torsor over $C$ associated with the line bundle $\Omega_\CL$. Denote by $[\mathfrak{g}/G]_\CL$ (resp. $[\mathfrak{b}/B]_\CL$) the family of $[\mathfrak{g}/G]$ (resp. $[\mathfrak{b}/B]$) over the curve $C$ twisted by the torsor $\rho_\CL$. We have a tautological evaluation map
+\begin{equation}\label{evaluation}
+    \begin{tikzcd}[column sep=small]
+    C\times \widehat{\FM} \arrow[dr, ""] \arrow[rr, "\mathrm{ev}"] & & {[\mathfrak{g}/G]_\CL} \arrow[dl, ""] \\
+       & C  & 
+\end{tikzcd}
+\end{equation}
+which is a natural $C$-morphism; after base change to a closed point $x\in C$, the map $\mathrm{ev}$ sends a $G$-Higgs bundle to the evaluation of its Higgs field at $x$. The morphism (\ref{PI}) is then induced by the base change of the Grothendieck simultaneous resolution along the evaluation map (see \cite[Lemma 2.1.2]{Yun1}):
+\begin{equation*}
+\begin{tikzcd}
+\widehat{\FM}^{\mathrm{par}} \arrow[r, "\mathrm{ev}^p"] \arrow[d, "\pi"]
+&{[\mathfrak{b}/B]_\CL} \arrow[d, "\pi_G"] \\
+C\times \widehat{\FM} \arrow[r, "\mathrm{ev}"]
+& {[\mathfrak{g}/G]_\CL}.
+\end{tikzcd}
+\end{equation*}
+
+The parabolic Hitchin system
+\[
+\widehat{h}^\mathrm{par}: \widehat{\FM}^{\mathrm{par}} \to C\times \widehat{A}
+\]
+is the composition of $\pi:\widehat{\FM}^{\mathrm{par}} \to C\times \widehat{\FM}$ and the morphism $\mathbf{h}: C\times \widehat{\FM} \to C\times \widehat{A}$
+induced by the standard (stacky) Hitchin map $\widehat{h}: \widehat{\FM} \to \widehat{A}$.\footnote{Recall that we always use the $\CL$-twisted version.}
+
+In general the moduli stack $\widehat{\FM}^{\mathrm{par}}$ is singular, and the parabolic Hitchin map is not proper. In the next section we will impose a stability condition and then restrict to the stable locus. 
+
+\subsection{Stable loci}
+
+We define the \emph{stable locus} of the moduli of parabolic $G$-Higgs bundles to be
+\[
+\widehat{M}^{\mathrm{par}}: = (C \times \widehat{M}) \times_{C \times \widehat{\FM}} \widehat{\FM}^{{\mathrm{par}}};
+\]
+equivalently, it fits into the Cartesian diagrams
+\begin{equation}\label{diag0}
+\begin{tikzcd}
+\widehat{M}^{\mathrm{par}} \arrow[r,hook] \arrow[d, "\pi"]&  \widehat{\FM}^{\mathrm{par}} \arrow[r, "\mathrm{ev}^p"] \arrow[d, "\pi"]
+&{[\mathfrak{b}/B]_\CL} \arrow[d, "\pi_G"] \\ C \times \widehat{M} \arrow[r,hook]
+& C\times \widehat{\FM} \arrow[r, "\mathrm{ev}"]
+& {[\mathfrak{g}/G]_\CL}.
+\end{tikzcd}
+\end{equation}
+
+We use the same notation as for the stacky case to denote the parabolic Hitchin map restricted to the stable locus:
+\begin{equation}\label{parah}
+\widehat{h}^{\mathrm{par}}: \widehat{M}^{\mathrm{par}} \to C\times \widehat{A}.
+\end{equation}
+
+\begin{prop}\label{prop3.1}
+\begin{enumerate}
+    \item[(i)] The moduli stack $\widehat{M}^{\mathrm{par}}$ is nonsingular and Deligne--Mumford; and
+    \item[(ii)] the parabolic Hitchin map (\ref{parah}) is proper.
+\end{enumerate}
+\end{prop}
+
+\begin{proof}
+The Deligne--Mumford part of (i) follows from the proof of \cite[Proposition 2.5.1 (3)]{Yun1}. Indeed, the left vertical arrow in the diagram (\ref{diag0}) is the pullback of $\pi_G$, therefore it is schematic and of finite type. This implies that $\widehat{M}^{\mathrm{par}}$ is Deligne--Mumford since $C \times \widehat{M}$ is Deligne--Mumford.
+
+To prove the smoothness part of (i), we use the evaluation map (\ref{evaluation}). Recall that \cite[Proposition 4.1]{MS} (which was proven via deformation theory) shows that the $C$-morphism $\mathrm{ev}$ is smooth after restricting over the stable locus $C \times \widehat{M}$. Hence by the Cartesian diagrams of (\ref{diag0}), the evaluation map
+\[
+\mathrm{ev}: \widehat{M}^{\mathrm{par}} \to {[\mathfrak{b}/B]_\CL}
+\]
+is also smooth. Since the target is a nonsingular algebraic stack, so is the source.
+
+(ii) follows directly from (\ref{diag0}) and that $\widehat{h}: \widehat{M} \to \widehat{A}$ is proper.
+\end{proof}
+
+As a consequence of Proposition \ref{prop3.1}, the direct image complex
+\[
+R{\widehat{h}^{\mathrm{par}}}_* ~\BQ_{\widehat{M}^{\mathrm{par}}} \in D^b_c(C\times \widehat{A})
+\]
+satisfies the decomposition theorem \cite{BBD}.
+
+\begin{thm}[Support theorem for parabolic Hitchin map]\label{thm3.2}
+The decomposition for the parabolic Hitchin map $\widehat{h}^{\mathrm{par}}$ has full support, \emph{i.e.}, any non-trivial simple perverse summand of \[
+^\mathfrak{p}\CH^i\left(R{\widehat{h}^{\mathrm{par}}}_* ~\BQ_{\widehat{M}^{\mathrm{par}}} \right), \quad  \forall i\in \BZ\]
+has support $C\times \widehat{A}$.
+\end{thm}
+
+We will postpone the proof of Theorem \ref{thm3.2} to Section 4.
+
+
+\subsection{Proof of Theorem \ref{conj2.7}}
+
+We first prove Theorem \ref{conj2.7} assuming Theorem \ref{thm3.2}.
+
+There are three ingredients of global Springer theory
+\[
+\pi: \widehat{M}^\mathrm{par} \to C \times \widehat{M}
+\]
+which are important in the proof of Theorem \ref{conj2.7}. We summarize them as follows.
+\begin{enumerate}
+    \item[(A)] \emph{(Splitting of the universal $G$-bundle)} As explained in the second bullet point of \cite[Construction 6.1.4]{Yun1}, each Chern root of $\pi^*\CU$ is of the form $c_1(L(\xi))$ where $\xi$ is an element in $\BX^*(T)$ and $L(\xi)$ is the tautological line bundle on $\widehat{M}^{\mathrm{par}}$ associated with $\xi$. 
+    
+    More precisely, $\pi^*\CU$ is the universal $G$-bundle on $\widehat{M}^{\mathrm{par}}$ whose fiber over $(x,\CE,\theta, \CE^B_x)$ is $\CE_x$; the $B$-reduction $\CE_x^B$ yields a $T$-torsor over $\widehat{M}^{\mathrm{par}}$ which induces for each $\xi \in \BX^*(T)$ a line bundle $L(\xi)$.
+
+    
+    \item[(B)] \emph{(Strong perversity for $c_1(L(\xi))$)} By \cite[Lemma 3.2.3]{Yun2}, there exists a Zariski dense open subset of $C\times \widehat{A}$ over which the operator
+    \[
+c_1(L(\xi)): R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}} \to R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}[2]    \]
+has strong perversity $1$ for any $\xi \in \BX^*(T)$. 
+%In other words,
+%it sends ${^\mathfrak{p}\tau_{\leq i}}\left( R\widehat{h}^p_*\BQ_{\widehat{M}^{\mathrm{par}}}\right)$ to ${^\mathfrak{p}\tau_{\leq i-1}}\left(R\widehat{h}^p_*\BQ_{\widehat{M}^{\mathrm{par}}}[2]\right)$
+Since $c_1(L(\xi))$ automatically has strong perversity $2$, showing it has strong perversity $1$ is equivalent to showing that the induced morphism of perverse cohomology sheaves
+\[
+{}^{p}\CH^i\left( R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}\right)\rightarrow
+{}^{p}\CH^i\left(R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}[2]\right)
+\]
+vanishes for each $i$.  Once we have Theorem \ref{thm3.2}, these sheaves have full support over the entire base, so this vanishing (and thus strong perversity $1$) extends over the total base $C \times \widehat{A}$ as well. 
+In fact, \cite[Lemma 3.2.3]{Yun2} was proven in exactly this way using a support theorem \cite[Section 4.6.2]{Yun2} for the elliptic locus.
+
+    
+    \item[(C)] \emph{(Springer's Weyl group action)} By the Cartesian diagrams (\ref{diag0}), we may pullback Springer's sheaf-theoretic Weyl group action from the Grothendieck simultaneous resolution; in particular, the object $R\pi_* \BQ_{\widehat{M}^{\mathrm{par}}}$ admits a canonical $W$-action whose invariant part recovers the trivial local system
+    \[
+\left(R\pi_* \BQ_{\widehat{M}^{\mathrm{par}}} \right)^W = \BQ_{C\times \widehat{M}}.  \]
+By taking global cohomology we have
+\[
+H^*(\widehat{M}^{\mathrm{par}}, \BQ) = H^*(C\times \widehat{M}, \BQ) \oplus \left(\mathrm{variant~~part~~of~~} W \right).
+\]
+\end{enumerate}
+
+Now we prove Theorem \ref{conj2.7}. We first prove its parabolic version.
+
+\medskip
+\noindent {\bf Claim.} The class
+\[
+\mathrm{ch}_k\left(\pi^* \CU\right) \in H^{2k}(\widehat{M}^{\mathrm{par}}, \BQ)
+\]
+has strong perversity $k$ with respect to the parabolic Hitchin system (\ref{parah}).
+
+\begin{proof}[Proof of Claim]
+By (A), the Chern character $\mathrm{ch}_k(\pi^*\CU)$ can be expressed in terms of $c_1(L(\xi))$. Hence the claim follows from Lemma \ref{lem1.2} and the strong perversity of $c_1(L(\xi))$ given by (B).
+\end{proof}
+
+
+Next, we reduce Theorem \ref{conj2.7} to the claim above via the following lemma.
+
+\begin{lem}
+For a class $\gamma \in H^l(C \times \widehat{M}, \BQ)$, if $\pi^*\gamma \in H^l(\widehat{M}^{\mathrm{par}}, \BQ)$ has strong perversity $k$ with respect to $\widehat{h}^{\mathrm{par}}: \widehat{M}^{\mathrm{par}} \to C\times \widehat{A}$, then $\gamma$ has strong perversity $k$ with respect to ${\mathbf{h}} : C\times \widehat{M} \to C\times \widehat{A}$.
+\end{lem}
+
+\begin{proof}
+    This is a consequence of (C). We write the class $\gamma$ as a map 
+    \begin{equation}\label{3.3_1}
+\gamma: \BQ_{C\times \widehat{M}} \to \BQ_{C\times \widehat{M}}[l],   
+\end{equation}
+whose pullback 
+\begin{equation}\label{3.3_2}
+\pi^*\gamma: \BQ_{\widehat{M}^{\mathrm{par}}} \to  \BQ_{\widehat{M}^{\mathrm{par}}}[l]
+\end{equation}
+recovers the class $\pi^*\gamma \in H^l(\widehat{M}^{\mathrm{par}}, \BQ)$. By the projection formula $\pi_*\pi^*\gamma = |W|\cdot \gamma$, we may recover the morphism (\ref{3.3_1}) from (\ref{3.3_2}) by derived pushing forward to $C \times \widehat{M}$ and taking the $W$-invariant part.
+
+Now by the assumption we know that the action of $\pi^*\gamma$ on the object $R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}$ satisfies
+\begin{equation}\label{3.3_4}
+\pi^*\gamma: {^\mathfrak{p}\tau_{\leq i}}R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}} \to {^\mathfrak{p}\tau_{\leq i+(k-l)}}\left(R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}[l]\right).
+\end{equation}
+Since we have
+\[
+R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}} = R\mathbf{h}_*\left(R\pi_* \BQ_{\widehat{M}^{\mathrm{par}}}\right),
+\] 
+the ingredient (C) produces a natural $W$-action on this object whose invariant part recovers $R\mathbf{h}_*\BQ_{C\times \widehat{M}}$; the operator
+\begin{equation}\label{3.3_3}
+\gamma:  R\mathbf{h}_*\BQ_{C\times \widehat{M}} \to R\mathbf{h}_*\BQ_{C\times \widehat{M}}[l]  
+\end{equation}
+is then recovered from the $W$-invariant part of the action of $\pi^*\gamma$ on $R\widehat{h}^{\mathrm{par}}_*\BQ_{\widehat{M}^{\mathrm{par}}}$. In particular, the desired property concerning (\ref{3.3_3}) follows from the $W$-invariant part of (\ref{3.3_4}).
+\end{proof}
+
+
+
+
+Thus we have completed the proof of Theorem \ref{conj2.7}. \qed
+
+
+
+
+
+
+\section{Parabolic support theorem}
+
+In the last section, we prove Theorem \ref{thm3.2}. This is the parabolic version of the Chaudouard--Laumon support theorem \cite{CL}. For the proof, we ultimately reduce it to a relative dimension bound which we establish in Section \ref{sec4.4}.
+
+\subsection{Review of support theorems}\label{Sec4.1}
+
+We start with a review of support theorems for Hitchin systems.
+
+For a proper morphism $f: X\to Y$ with $X,Y$ nonsingular Deligne--Mumford stacks, the decomposition theorem \cite{BBD} yields
+\[
+Rf_* \BQ_X \simeq \bigoplus_i {^\mathfrak{p}\CH^i(Rf_* \BQ_X)[-i]}
+\]
+with ${^\mathfrak{p}\CH^i}(Rf_* \BQ_X)$ semisimple perverse sheaves on $Y$; we say that a closed $Z \subset Y$ is a support of $f$ if it is a support of a simple summand of some ${^\mathfrak{p}\CH^i}(Rf_* \BQ_X)$. A particularly interesting case is that $f$ has full support, that is, $Y$ is the only support of $f$; in this case the cohomology of any closed fiber of $f$ is governed by the nonsingular fibers.
+
+The study of supports for Hitchin systems was initiated by B.C. Ng\^o and is crucial in his proof of the fundamental lemma of the Langlands program \cite{Ngo}. He determines all the supports for the Hitchin system (including the $\CL$-twisted cases) after restricting to the elliptic locus of the Hitchin base; that is the subset formed by integral spectral curves.
+
+After Ng\^o's work, Chaudouard--Laumon \cite{CL} observed that, if we consider the moduli space of $\CL$-twisted $\mathrm{GL}_n$ stable Higgs bundles with $\mathrm{deg}(\CL) >0$, then Ng\^o's support theorem can be extended to the total Hitchin base; in particular they showed that the $\CL$-twisted $\mathrm{GL}_n$ Hitchin system has full support. Chaudouard--Laumon's idea was extended to the $\mathrm{SL}_n$ case \cite{dC_SL}, the endoscopic moduli spaces \cite{MS}, and singular cases involving strictly semistable Higgs bundles \cite{MS2, MS3}. See also \cite{dCHM2, MM} concerning the supports over the open subset of reduced spectral curves for the untwisted (\emph{i.e.} $\CL = 0$) Hitchin system.
+
+The idea of Chaudouard--Laumon \cite{CL} is to show that each support of the $\CL$-twisted Hitchin system has generic point lying in the elliptic locus; this is achieved by combining two constraints: (I) the support inequality for a weak abelian fibration, and (II) $\delta$-regularity for spectral curves. We describe them in more detail.
+\begin{enumerate}
+    \item[(I)] \emph{(Support inequaltiy)} The Hitchin system admits the structure of a weak abelian fibration, that is, there is a commutative group scheme $P$ over the Hitchin base acting on the moduli space which satisfies certain properties. Then an argument generalizing the Goresky--MacPherson inequality leads to a codimension estimate for the supports. More concretely, it says that any support $Z$ has codimension bounded above by the $\delta$-function of the group $P$. This part was already carried out in Ng\^o \cite[Section 7]{Ngo}; see \cite[Section 1]{MS2} for a summary.
+    \item[(II)] \emph{($\delta$-regularity)} In the case of type $A$ and for the stable locus, the group scheme is obtained from the multi-degree 0 relative Picard (or, for $\mathrm{SL}_n$, Prym) variety associated with the family of spectral curves. Then we have the Severi inequality, referred to as \emph{$\delta$-regularity}, for the spectral curves. We refer to \cite[Theorem 5.4.4]{dC_SL} for the precise statement.
+\end{enumerate}
+
+Using (I) and (II), one can deduce that no support is allowed to have generic point lying outside the open subset of integral curves; this was explained in \cite[Section 11]{CL} for $\mathrm{GL}_n$, in \cite[Section 6.2]{dC_SL} for $\mathrm{SL}_n$, and in \cite[Section 4.5]{MS2} for a general complete linear system in a del Pezzo surface. The argument is to combine the two inequalities above to deduce a numerical contradiction if there is a support that appears outside the elliptic locus.
+
+%We note that, for the Chaudouard--Laumon argument to work, we have to work with semistable $\CL$-twisted Higgs bundles with $\mathrm{deg}(\CL) > 0$.
+
+\subsection{Parabolic Hitchin systems}
+Now we focus on the $\CL$-twisted parabolic Hitchin system (\ref{parah}). Let $\widehat{A}^{\mathrm{ell}} \subset \widehat{A}$ be the open subset parameterizing integral spectral curves (the elliptic locus). Following Ng\^o's method, Yun \cite{Yun2, Yun3} proved a parabolic support theorem over $C \times \widehat{A}^{\mathrm{ell}}$ and determined all the supports of (\ref{parah}) in $C \times \widehat{A}^\mathrm{ell}$. More precisely, by \cite[Section 2]{Yun3} any strict subset of $C \times \widehat{A}^{\mathrm{ell}}$, which is a support of $\widehat{h}^{\mathrm{par}}|_{C \times \widehat{A}^{\mathrm{ell}}}$, is a component of the \emph{endoscopic loci} governed by the endoscopic theory of $G$. As we only consider the special case $G = \mathrm{PGL}_n$, there are no nontrivial endoscopic loci and the restricted Hitchin map $\widehat{h}^{\mathrm{par}}|_{C \times \widehat{A}^{\mathrm{ell}}}$ has full support.
+
+To prove Theorem \ref{thm3.2}, it suffices to show that there is no support of (\ref{parah}) whose generic point lying outside $C \times \widehat{A}^{\mathrm{ell}}$.
+
+Since stability for a $\mathrm{PGL}_n$ Higgs bundle is described by its corresponding vector bundle (see (\ref{233})), it is more convenient to work with the $\mathrm{SL}_n$ moduli spaces. We consider the following Cartesian diagram
+\begin{equation}\label{diag321}
+\begin{tikzcd}
+\widecheck{M}^{\mathrm{par}} \arrow[r, "(-)/\Gamma"] \arrow[d, "\pi'"]
+& \widehat{M}^{\mathrm{par}} \arrow[d, "\pi"] \\
+C\times \widecheck{M} \arrow[r, "(-)/\Gamma"]
+& C \times \widehat{M}.
+\end{tikzcd}
+\end{equation}
+Here the horizontal maps are given by the natural quotient maps by $\Gamma = \mathrm{Pic}^0(C)[n]$. To describe the map $\pi'$ at the left-side of the diagram (see \cite[Example 2.2.5]{Yun1}),  we recall that $\widecheck{M}$ parameterizes traceless Higgs bundles with fixed determinant  
+\[
+(\CE, \theta) , \quad \theta: \CE \to \CE\otimes \Omega_\CL, \quad \mathrm{rk}(\CE) = n, ~~\mathrm{det}(\CE) \simeq \CN,~~ \mathrm{trace}(\theta) = 0
+\]
+with respect to slope stability. Similarly $\widecheck{M}^{\mathrm{par}}$ parameterizes 
+\[
+(x, \CE = \CE_0 \supset \CE_1 \supset \cdots \supset \CE_n =  \CE_0(-x), \theta)
+\]
+where $x\in C$, $(\CE, \theta) \in \widecheck{M}$, each $\CE_i$ in the flag is of rank $n$ with $\CE_i/\CE_{i+1}$ a length 1 skyscraper sheaf supported at $x$, the Higgs field preserves the flag $\theta(\CE_i) \subset \CE_i\otimes \Omega_\CL$, and the map $\pi'$ in the diagram is the forgetful map. We note that the stability condition for a parabolic Higgs bundle is determined by the stability of the underlying Higgs bundle. 
+
+Following \cite[Example 2.2.5]{Yun1} we may also describe $\widecheck{M}^{\mathrm{par}}$ via spectral curves. If we present a point in $\widecheck{M}$ as a 1-dimensional sheaf $\CF_\alpha$ supported on a spectral curve $C_\alpha \subset \mathrm{Tot}(\Omega_\CL)$ with $p_\alpha: C_\alpha \to C$ the projection, then for any $x\in C$, a closed point in the fiber $\pi'^{-1}(x, \CF_\alpha)$ is represented by
+\[
+\CF_\alpha = \CF_0 \supset \CF_1 \supset \cdots \supset \CF_n = \CF_0\otimes p_\alpha^* \CO_C(-x), \quad \mathrm{lengh}(\CF_i/\CF_{i+1}) = 1;
+\]
+see \cite[(2.4)]{Yun1}.
+
+Now we consider the $\mathrm{SL}_n$ parabolic Hitchin system
+\begin{equation}\label{SLh}
+\widecheck{h}^{\mathrm{par}}: \widecheck{M}^{\mathrm{par}} \to C\times \widecheck{M} \to C\times \widehat{A}.
+\end{equation}
+From the diagram (\ref{diag321}), it recovers the $\mathrm{PGL}_n$ Hitchin system $\widehat{h}^{\mathrm{par}}: \widehat{M}^{\mathrm{par}} \to C \times \widehat{A}$ by taking the quotient of the source by $\Gamma$. In particular, we have
+\[
+R{\widehat{h}^{\mathrm{par}}}_* ~\BQ_{\widehat{M}^{\mathrm{par}}} = \left(R{\widecheck{h}^{\mathrm{par}}}_* ~\BQ_{\widecheck{M}^{\mathrm{par}}}\right)^\Gamma \in D_c^b(C\times \widehat{A}).
+\]
+Hence in order to prove Theorem \ref{thm3.2}, it suffices to show that there is no support of (\ref{SLh}) with generic point lying outside $C \times \widehat{A}^{\mathrm{ell}}$. In the next two sections, we adapt the strategy of Chaudouard--Laumon \cite{CL} and de Cataldo \cite{dC_SL} (for the $\mathrm{SL}_n$-version) to this parabolic setting, and verify the parabolic analogs of (I) and (II) of Section \ref{Sec4.1}. 
+
+
+
+
+\subsection{Weak abelian fibrations and $\delta$-regularity}
+
+A general approach for proving support theorems was given in \cite[Theorem 1.8]{MS2}. We apply it here for the parabolic Hitchin system (\ref{SLh}). In this section, we explain how existing results allow us to reduce Theorem \ref{thm3.2} to a relative dimension bound (\ref{relative}). Then in the next section we prove this bound. 
+
+For the reader's convenience, we first recall some of the necessary ingredients. As mentioned in (I) of Section \ref{Sec4.1}, the notion of \emph{weak abelian fibration} introduced by Ng\^o \cite{Ngo} plays a key role. A weak abelian fibration is a triple $(\CP, \CM, \CA)$ with morphisms 
+\[
+f: \CM\to \CA, \quad g: \CP \to \CA,
+\]
+such that all $\CP, \CM, \CA$ are nonsingular, $f$ is proper, $g: \CP \to \CA$ is a smooth group scheme, and $\CP$ acts on $\CM$ relatively over $\CA$; they satisfy the following conditions:
+\begin{enumerate}
+    \item[(i)] every closed fiber of the $\CP \to \CA$ has dimension $= \mathrm{dim}\CM - \mathrm{dim}\CA$,
+    \item[(ii)] the action of $\CP$ on $\CM$ has affine stabilizers, and
+    \item[(iii)] the Tate module associated with $\CP \to \CA$ is polarizable.
+\end{enumerate}
+We refer to \cite[Section 1.1]{MS2} for more details.
+
+Now we show that (\ref{SLh}) is naturally enhanced into a weak abelian fibration. We first construct the $(C\times \widehat{A})$-group scheme $P$ which acts on $\widecheck{M}^{\mathrm{par}}$. Recall that in \cite{dC_SL} de Cataldo showed that $\widecheck{M}$ admits a weak abelian fibration structure $(\widecheck{P}, \widecheck{M}, \widehat{A})$. Here the $\widehat{A}$-group scheme $\widecheck{P}$ which acts on $\widecheck{M}$ is given by the identity component of the relative Prym variety associated with the spectral curves \cite[(43)]{dC_SL}. For a spectral curve $p_\alpha: C_\alpha \to C$ with a Higgs bundle given by $\CF_\alpha$ supported on $C_\alpha$, the Prym action is induced by tensor product
+\[
+\CQ \cdot \CF_{\alpha} = \CQ \otimes \CF_\alpha, \quad \CQ \in \mathrm{Prym}^0(C_\alpha/C) = \widecheck{P}_{[C_\alpha]},~ \quad [C_\alpha] \in \widehat{A}. 
+\]
+We denote by $P$ the $(C\times \widehat{A})$-group scheme obtained by the pullback of $\widecheck{P}$. The $P$-action on $C\times \widecheck{M}$ can be lifted to $\widecheck{M}^{\mathrm{par}}$:
+\[
+\CQ \cdot (x, \CF_\alpha = \CF_0 \supset \CF_1 \supset \cdots \supset \CF_n) =  (x, \CQ\otimes\CF_\alpha = \CQ \otimes \CF_0 \supset \CQ\otimes\CF_1 \supset \cdots \supset \CQ \otimes \CF_n),
+\] 
+since the stability condition does not rely on the flag.
+
+
+\begin{prop}\label{prop4.1}
+The triple $(P, \widecheck{M}^{\mathrm{par}}, C\times \widehat{A})$ forms a weak abelian fibration, \emph{i.e.},  it satisfies (i,ii,iii) above or of \cite[Section 1.1]{MS2}.
+\end{prop}
+
+\begin{proof}
+    (i) only concerns the dimension of $\widecheck{M}$ which is clear from (\ref{diag0}), and (iii) only depends on the group scheme $P$ which follows from the corresponding property for $\widecheck{P}$ proved in \cite[Theorem 4.7.2]{dC_SL}. To prove (ii): since the $P$-action on $\widecheck{M}^{\mathrm{par}}$ is a lifting of the $P$-action on $C\times \widecheck{M}$, and the latter has affine stabilizers by \cite{dC_SL}, we obtain that the $P$-stabilizer for any point $z \in \widecheck{M}^{\mathrm{par}}$ is contained in the (affine) $P$-stabilizer for $\pi(z) \in C \times \widecheck{M}$. This proves (ii).
+\end{proof}
+
+
+%We obtain immediately the $\delta$-regularity ((II) of Section \ref{Sec4.1}) of the weak abelian fibration $(P, \widecheck{M}, C\times \widehat{A})$. Indeed, this is a property only dependent on $P$, which follows from the corresponding property established for $\widecheck{P}$ \cite[corollary 5.4.4]{dC_SL}. 
+
+Next, we consider the $\delta$-function on the base $C\times \widehat{A}$. The group scheme $P$ endows $C\times \widehat{A}$ with an upper semi-continuous function
+\[
+\delta: C\times \widehat{A} \to \BN
+\]
+calculating the dimension of the affine part of the commutative group scheme given by each closed fiber. For a closed subset $Z\subset C\times \widehat{A}$, we define $\delta_Z$ to be the minimal value of the function $\delta$ on $Z$. 
+
+We say that the weak abelian fibration  $(P, \widecheck{M}^{\mathrm{par}}, C\times \widehat{A})$ given by Proposition \ref{prop4.1} satisfies the \emph{support inequality} ((I) of Section \ref{Sec4.1}), if the inequality
+\begin{equation}\label{delta_ineq}
+\mathrm{codim}_{C\times \widehat{A}}Z \leq \delta_Z
+\end{equation}
+holds for any irreducible support $Z \subset C\times \widehat{A}$ associated with (\ref{SLh}). Furthermore, by \cite[Theorem 1.8]{MS2}, the support inequality (\ref{delta_ineq}) follows from the relative dimension bound
+\begin{equation}\label{relative}
+   \tau_{> 2\mathbf{d}}\left( R\widecheck{h}^{\mathrm{par}}_* \BQ_{\widecheck{M}^{\mathrm{par}}}\right) = 0, \quad \mathbf{d}: = \mathrm{dim} \widecheck{M}^{\mathrm{par}} - \mathrm{dim} (C\times \widehat{A})
+\end{equation}
+with $\tau_{>*}$ the standard truncation functor. 
+
+Once we have (\ref{relative}),
+we can combine the support inequality (\ref{delta_ineq}) with $\delta$-regularity of 
+$\widecheck{P}$ \cite[corollary 5.4.4]{dC_SL} to prove 
+Theorem \ref{thm3.2} as follows.  If $Z \subset C \times \widehat{A}$ is an irreducible support of $\widecheck{h}^{\mathrm{par}}$, the projection $W = \mathrm{pr}_{\widehat{A}}(Z) \subset \hat{A}$ also satisfies the support inequality
+\[
+\mathrm{codim}_{\widehat{A}} W \leq \mathrm{codim}_{C\times \widehat{A}}Z \leq \delta_Z = \delta_W.
+\]
+Here we used in the second inequality the support inequality (\ref{delta_ineq}) for $\widecheck{h}^{\mathrm{par}}$, and used in the last equality that the $\delta$-function on $C\times \widehat{A}$ is pulled back from $\widehat{A}$. The argument of \cite[Section 6.2]{dC_SL} then shows that the generic point of $W$ lies in $\widehat{A}^{\mathrm{ell}}$. Hence the generic point of $Z$ lies in $C\times \widehat{A}^{\mathrm{ell}}$ as we desired.
+
+
+%This is because the argument there only depends on $(\widecheck{P}, \widehat{A})$, which automatically works for $(P, C\times \widehat{A})$.
+
+
+In conclusion, this reduces Theorem \ref{thm3.2} to (\ref{relative}).
+
+
+
+\subsection{Proof of the relative dimension bound (\ref{relative})}\label{sec4.4}
+
+We need to show that each closed fiber of the morphism
+$$\widecheck{h}^{\mathrm{par}}: \widecheck{M}^{\mathrm{par}} \rightarrow C\times \widehat{A}$$
+has dimension
+\[
+\mathbf{d} = \mathrm{dim}\widecheck{M}^{\mathrm{par}} - \mathrm{dim} (C\times \widehat{A}) =    \frac{n(n-1)}{2}\deg(\CL) + (n^2-1)(g-1).\]
+Here the last equation is obtained by the dimension formula of \cite[Proposition 2.4.6]{dC_SL} directly:
+\[
+\mathbf{d} =  \mathrm{dim}\widecheck{M} - \mathrm{dim}\widehat{A} = \frac{n(n-1)}{2} \deg(\CL) + (n^2-1)(g-1).
+\]
+
+%$$\dim \widetilde{\CM_{L}} - \dim \CA_{L}- 1 = \frac{1}{2}(n-1)(n)\deg L + (n-1)(g-1).$$
+
+
+First,  we note that the morphism $\widecheck{h}^{\mathrm{par}}$ is surjective since the usual Hitchin map $\widecheck{h}: \widecheck{M} \to \widehat{A}$ is surjective. Furthermore, as $\widecheck{h}^{\mathrm{par}}$ is equivariant with respect to the scaling $\BG_m$-action on the Higgs fields, it suffices to bound from above the dimension of the fiber over $(x, 0) \in C\times \widehat{A}$ for each point $x \in C$ by $\mathbf{d}$, since upper semicontinuity will force all other fibers to have the same dimension upper-bound.\footnote{Furthermore, we actually show that each fiber has the same dimension. But the dimension bound is enough for our purpose.}  We fix the point $p$ from now on.
+
+Using the assumption $\deg(\CL)>2g$, we may express $\CL$ as $\CO_C(D)$ with $D = x_0 + x_1 + \dots + x_t$ an effective reduced divisor containing $x = x_0$. In particular, a Higgs bundle $(\CE, \theta: \CE \to \CE\otimes \Omega_\CL)$ can be viewed as a meromorphic (un-twisted) Higgs bundles with at most simple poles along $D$:
+\[
+(\CE, \theta), \quad \theta: \CE \to \CE \otimes \Omega_C^1(D).
+\]
+We will control the fiber dimension using an analogous bound for the nilpotent cone for \emph{strongly parabolic} Higgs bundles for the pair $(C,D)$.
+
+Recall that, given $D$ as above, a strongly parabolic Higgs bundle consists of an $\mathrm{SL}_n$ Higgs bundle of degree $d$:
+\[
+(\CE, \theta), \quad \theta: \CE\to \CE \otimes \Omega^1_C(D),~~~\mathrm{rk}(\CE) =n,~~\mathrm{det}(\CE)\simeq \CN, ~~\mathrm{trace}(\theta) = 0,
+\]
+along with a flag at each point $x_i \in D$:
+\[
+\CE|_{x_i}=F_{x_i,0}  \supset F_{x_i,1} \supset F_{x_i,2}, \supset \cdots \supset F_{x_i,n} = 0, \quad \mathrm{dim} F_{x_i,j}/F_{x-i, j+1} = 1,
+\]
+such that the Higgs field satisfies $\theta(F_{x_i, j}) \subset F_{x_i, j+1}$.\footnote{One may compare this with the (non-strong) parabolic condition $\theta(F_{x,j}) \subset F_{x,j}$ we used earlier in this paper for the global Springer theory.}
+
+
+%a vector bundle $\CE$ on $C$ with fixed determinant $\mathrm{det}(\CE) \simeq \CN$, along with reduction of structure group to the Borel subgroup $B$ at each point of $D$, equipped with a meromorphic Higgs field $\phi \in H^0(C, \mathfrak{g}\otimes K_C(D))$ such that the residue of $\phi$ at each point of $D$ lies in the $\mathfrak{n}$.  In terms of a flag of subspaces $F_n \subset F_{n-1} \subset \dots$, this last condition translates to requiring $\phi(F_j) \subset F_{j+1}$ for each $j$.
+
+
+Let $\widecheck{M}^{\mathrm{spar}}(D)$ denote the moduli space of strongly parabolic Higgs bundles associated with the pair $(C,D)$, such that the underlying twisted Higgs bundle is stable. Let
+$$A(D) = \bigoplus_{i=2}^{n} H^0(C, \Omega_\CL^{\otimes i}(-D)) \subset \widehat{A}$$
+denote the linear subspace consisting of sections which vanish along the points of $D$. There is a Hitchin map for the strongly parabolic Higgs moduli space
+$$\widecheck{h}^{\mathrm{spar}}:\widecheck{M}^{\mathrm{spar}}(D) \rightarrow A(D)$$
+which is proper, surjective, and Lagrangian with respect to a natural holomorphic symplectic form \cite{Faltings}. In particular, the dimension of the zero fiber is given by
+\begin{align*}
+\dim \widecheck{M}^{\mathrm{spar}}(D)_0 = \dim A(D) &= \sum_{j=2}^{n} \left((j-1)(\deg(\Omega_L)) +g-1\right)\\
+&= \frac{n(n-1)}{2}\deg (\CL) + (n^2-1)(g-1).
+\end{align*}
+See also \cite[Theorem 6.9]{SWW} for a direct proof of the above dimension formula.\footnote{The formula above has $g$ less than the dimension formula obtained in \cite[Theorem 6.9]{SWW}, since we consider the $\mathrm{SL}_n$ case where we fixed the determinant on $C$.}
+
+We now consider the following diagram relating the two types of parabolic Higgs moduli spaces $\widecheck{M}^{\mathrm{spar}}(D)$ and 
+$\widecheck{M}^{\mathrm{par}}$:
+
+\begin{equation}\label{diagram}
+\begin{tikzcd}
+\widecheck{M}^{\mathrm{spar}}(D)_0 \arrow{d}{q_0}\arrow[r,hook]
+&\widecheck{M}^{\mathrm{spar}}(D)\arrow{d}{q}
+& 
+\\
+\widecheck{M}^{\mathrm{par}}_{(x,0)}\arrow{d}\arrow[r, hook]&
+{\widecheck{M}^{\mathrm{par}}}|_{x \times A(D)} \arrow{d}\arrow[r,hook]&
+\widecheck{M}^{\mathrm{par}}\arrow[d,"\widecheck{h}^{\mathrm{par}}"]\\
+\{(x,0)\} \arrow[r, hook] & x \times A(D)  \arrow[r, hook] & C\times \widehat{A}
+\end{tikzcd}
+\end{equation}
+where all squares are Cartesian.  
+
+We first claim that the natural map $q$ (sending a strong parabolic Higgs bundle to a parabolic Higgs bundle) is surjective. Indeed, given a point $z \in \widecheck{M}^{\mathrm{par}}$ lying over $C\times {A}(D)$,
+choosing a point in its preimage $q^{-1}(z)$ only consists of fixing a flag at each point of $x_i$ with $i>0$, preserved by the Higgs field --- since the characteristic polynomial already has zero roots at all points of $D$, the Higgs field is automatically strongly parabolic.
+
+
+By base change, this implies that $q_0$ is surjective as well, so we get the desired dimension upper bound
+\[
+\dim {\widecheck{M}^{\mathrm{par}}}_{(x,0)} \leq \dim \widecheck{M}^{\mathrm{spar}}(D)_0 = \frac{n(n-1)}{2}\deg (\CL) + (n^2-1)(g-1),
+\]
+which completes the proof. \qed
+
+
+\begin{rmk}
+Combining Sections 3 and 4 proves that Theorem \ref{conj2.7} holds for a line bundle $\CL$ of sufficiently large degree. Then the argument of Section \ref{Sec2.3} implies that it actually holds for any effective $\CL$.
+\end{rmk}
+
+
+
+\begin{thebibliography}{10}
+
+%\bibitem{At} M. F. Atiyah, {\em K-theory,} Lecture notes by D. W. Anderson. W. A. Benjamin, Inc., New York-Amsterdam 1967.
+
+
+%\bibitem{A} N. A'Campo, {\em Tresses, monodromie et le groupe symplectique,} Comment. Math. Helv. 54 (1979), no. 2, 318--327.
+
+
+%\bibitem{BFM} P. Baum, W. Fulton and R. MacPherson, {\em Riemann-Roch for singular varieties,} Inst. Hautes Etudes Sci. Publ. Math. 45 (1975), 101--145.
+
+
+%\bibitem{B} A. Beauville, {\em Vari\'et\'es k\"ahl\'eriennes dont la premi\`ere classe de Chern est nulle,} J. Differential Geom. 18 (1983), no. 4, 755--782 (1984).
+
+%\bibitem{Be} A. Beauville, {\em Syst\`emes hamiltoniens compl\`etement int\'egrables associ\'es aux surfaces~$K3$,} Problems in the theory of surfaces and their classification (Cortona, 1988), 25--31, Sympos. Math., XXXII, Academic Press, London, 1991.
+
+%\bibitem{BNR} A. Beauville, M.S. Narasimhan, and S. Ramanan, {\em Spectral curves and the generalized theta divisor,}  J. Reine Angew. Math. (1989) 398, 169--179.
+
+
+\bibitem{BBD} A. A. Be\u{\i}linson, J. Bernstein, and P. Deligne, {\em Faisceaux pervers,} Analysis and topology on singular spaces, I (Luminy, 1981), 5--171, Ast\'erisque, 100, Soc. Math. France, Paris, 1982.
+
+%\bibitem{Borel} A. Borel, {\em Density properties for certain subgroups of semi-simple groups without compact components,} Ann. of Math. (2) 72 (1960), 179--188.
+
+%\bibitem{Bo} F. A. Bogomolov, {\em On the cohomology ring of a simple hyper-K\"ahler manifold (on the results of Verbitsky),} Geom. Funct. Anal. 6 (1996), no. 4, 612--618.
+
+%\bibitem{BK} F. Bogomolov and N. Kurnosov, {\em Lagrangian fibrations for IHS fourfolds,} arXiv:\linebreak 1810.11011.
+
+%\bibitem{B1} O. Biquard, {\em Fibr\'es de Higgs et connexions int\'egrables: le cas logarithmique (diviseur lisse),} Ann. Sci. \'Ecole Norm. Sup. (4) 30 (1997), no. 1, 41--96. 
+
+%\bibitem{B2} O. Biquard, O. Garc\'ia-Prada, I. Mundet i Riera, {\em Parabolic Higgs bundles and representations of the fundamental group of a punctured surface into a real group,} arXiv:1510.04207.
+
+\bibitem{CL} P.-H. Chaudouard, G. Laumon, {\em Un th\'{e}or\`{e}me du support pour la fibration de Hitchin,} Ann. Inst. Fourier, Grenoble, Tome 66, no 2 (2016), p. 711--727.
+
+\bibitem{CDP} W. Y. Chuang, D. E. Diaconescu, and G. Pan, {\em BPS states and the P=W conjecture,} Moduli spaces, 132--150, London Math. Soc. Lecture Note Ser., 411, Cambridge Univ. Press, Cambridge, 2014.
+
+
+
+\bibitem{dC_SL} M.A. de Cataldo, {\em A support theorem for the Hitchin fibration: the case of $\mathrm{SL}_n$,} Compos. Math. 153 1316--1347.
+
+\bibitem{Park}  M. A. de Cataldo, {\em Perverse sheaves and the topology of algebraic varieties,} Geometry of moduli spaces and representation theory, 1--58, IAS/Park City Math. Ser., 24, Amer. Math. Soc., Providence, RI, 2017. 
+
+
+
+%\bibitem{dC} M. A. de Cataldo, {\em Hodge-theoretic splitting mechanisms for projective maps,} with an appendix containing a letter from P. Deligne, J. Singul. 7 (2013), 134--156.
+
+%\bibitem{sp} M. A. de Cataldo, {\em Perverse Leray filtration and specialization with applications to the Hitchin morphism,} preprint.
+
+
+\bibitem{dCHM1} M. A. de Cataldo, T. Hausel, and L. Migliorini, {\em Topology of Hitchin systems and Hodge theory of character varieties: the case $A_1$,} Ann. of Math. (2) 175 (2012), no.~3, 1329--1407.
+
+%\bibitem{dCHM3} M. A. de Cataldo, T. Hausel, and L. Migliorini, {\em Exchange between perverse and weight filtration for the Hilbert schemes of points of two surfaces,} J. Singul. 7 (2013), 23--38.
+
+\bibitem{dCM} M. A. de Cataldo and D. Maulik, {\em The perverse filtration for the Hitchin fibration is locally constant,} Pure Appl. Math. Q. 16 (2020), no. 5, 1441--1464.
+
+
+
+\bibitem{dCHM2} M.A. de Cataldo, J. Heinloth, and L. Migliorini, {\em A support theorem for the Hitchin fibration: the case of $\mathrm{GL}_n$
+and $K_C$,} J. Reine Angew. Math., 780:41--77, 2021.
+
+%\bibitem{dCM3} M. A. de Cataldo and L. Migliorini, {\em The Douady space of a complex surface,} Adv. in Math. 151 (2000), 283--312.
+
+%\bibitem{dCM3} M. A. de Cataldo and L. Migliorini, {\em The Chow groups and the motives of the Hilbert scheme of points on a surface,} Journal of Algebra 251, 824--848 (2002).
+
+%\bibitem{dCM4} M. A. de Cataldo and L. Migliorini, {\em The Chow motive of semismall resolutions,} Mathematical Research Letters 11, 151--170 (2004).
+
+%\bibitem{dCM0} M. A. de Cataldo and L. Migliorini, {\em The Hodge theory of algebraic maps,} Ann. Sci. \'Ecole Norm. Sup. (4) 38 (2005), no. 5, 693--750.
+
+%\bibitem{dCM123} M. A. de Cataldo and L. Migliorini, {\em Intersection forms, topology of algebraic maps and motivic decompositions for resolutions of threefolds,} Algebraic cycles and motives, Vol. 1, 102--137, London Math. Soc. Lecture Note Ser., 343, Cambridge Univ. Press, Cambridge, 2007.
+
+%\bibitem{dCM1} M. A. de Cataldo and L. Migliorini, {\em The decomposition theorem, perverse sheaves and the topology of algebraic maps,} Bull. Amer. Math. Soc. (N.S.) 46 (2009), no. 4, 535--633.
+
+%\bibitem{dCM4} M. A. de Cataldo, L. Migliorini, {\em Hodge-theoretic aspects of the decomposition theorem,} Algebraic Geometry, Seattle 2005, Proceedings of Symposia in Pure Mathematics, Vol. 80.2, 2009.
+
+
+
+
+\bibitem{dCMS} M. A. de Cataldo, D. Maulik, and J. Shen, {\em Hitchin fibrations, abelian surfaces, and the $P=W$ conjecture,}  J. Amer. Math. Soc. 35 (3), 911--953.
+
+\bibitem{SLn} M.A. de Cataldo, D. Maulik, and J. Shen, {\em On the P=W conjecture for $\mathrm{SL}_n$,} Selecta Math.(N.S.) 28 (2022), No.5. Paper No. 90.
+
+\bibitem{dCMSZ} M.A. de Cataldo, D. Maulik, J. Shen, S. Zhang, {\em Cohomology of the moduli of Higgs bundles via positive
+characteristic,} arXiv: 2105.03043, to appear in J. Eur. Math. Soc.
+
+\bibitem{DMS} Z. Dancso, M. McBreen, V. Shende, {\em Deletion-Contraction Triangles for Hausel--Proudfoot Varieties,} arXiv:1910.00979, to appear in J. Eur. Math. Soc.
+
+\bibitem{Davison} B. Davison, {\em Nonabelian Hodge theory for stacks and a stacky P=W conjecture,} Adv. Math. (2023) Issue 1.
+
+
+
+
+\bibitem{D} P. Deligne, {\em D\'ecompositions dans la cat\'egorie d\'eriv\'ee,} Motives (Seattle, WA, 1991), 115--128, Proc. Sympos. Pure Math., 55, Part 1, Amer. Math. Soc., Providence, RI, 1994.
+
+%\bibitem{DLL} R. Donagi, L. Ein, R. Lazarsfeld, {\em Nilpotent cones and sheaves on K3 surfaces,} Birational algebraic geometry (Baltimore, MD, 1996), 51--61, Contemp. Math., 207, Amer. Math. Soc., Providence, RI, 1997. 
+
+%\bibitem{D} P. Deligne, {\em Theorie de Hodge, III,} Publications Math\'ematiques de l'IHES 44.1 (1974): 5-77.
+
+\bibitem{Faltings} G. Faltings, {\em Stable $G$-bundles and projective connections,} J. Alg. Geom. 2 (1993) 507--568.
+
+
+
+
+%\bibitem{Fulton} W. Fulton, {\em Intersection theory,} Ergebnisse der Mathematik und ihrer Grenzgebiete (3), 2. Springer-Verlag, Berlin, 1984.
+
+\bibitem{FM} C. Felisetti and M. Mauri, {\em P=W conjectures for character varieties with symplectic resolution,} Journal de l'\'Ecole polytechnique, 9 (2022), 853-–905.
+
+
+%\bibitem{Fuj} A. Fujiki, {\em On the de Rham cohomology group of a compact K\"ahler symplectic manifold,} Algebraic geometry, Sendai, 1985, 105--165, Adv. Stud. Pure Math., 10, North-Holland, Amsterdam, 1987.
+
+%\bibitem{FH} W. Fulton and J. Harris, {\em Representation theory. A first course,} Graduate Texts in Mathematics, 129, Readings in Mathematics, Springer-Verlag, New York, 1991. xvi+551 pp.
+
+%\bibitem{GV} R. Gopakumar and C. Vafa, {\em $M$-Theory and topological strings--II,} arXiv:hep-th/\linebreak 9812127.
+
+%\bibitem{GNR} A. Gorsky, N. Nekrasov, V. Rubtsov, {\em Hilbert schemes, separated variables, and D-branes,} Comm. Math. Phys. 222 (2001), no. 2, 299--318.
+
+%\bibitem{Go1} L. G\"ottsche, {\em The Betti numbers of the Hilbert scheme of points on a smooth projective surface,} Math. Ann. 286 (1990), 193--207.
+
+%\bibitem{Go2} L. G\"ottsche, W. S\"orgel, {\em Perverse sheaves and the cohomology of Hilbert schemes of smooth algebraic surfaces,} Math. Ann. 296 (1993), 235--245.
+
+%\bibitem{Gr} M. Gr\"ochenig, {\em Hilbert schemes as moduli of Higgs bundles and local systems,} Int. Math. Res. Not. (2014) 2014 (23): 6523--6575.
+
+%\bibitem{GLO} V. Golyshev, V. Luntz, and D. Orlov, {\em Mirror symmetry for abelian varieties,} J. Alg. Geom.10 (2001) 433--496.
+
+
+\bibitem{GWZ} M. Groechenig, D. Wyss, and P. Ziegler, {\em Mirror symmetry for moduli spaces of
+Higgs bundles via p-adic integration,} Invent. Math. 221. 505--596(2020).
+
+\bibitem{HLSY} A. Harder, Z. Li, J. Shen, and Q. Yin, {\em P=W for Lagrangian fibrations and degenerations of hyper-K\"ahler manifolds,} Forum Math. Sigma., to appear.
+
+%\bibitem{HLR} T. Hausel, E. Letellier, and F. Rodriguez-Villegas, {\em Arithmetic harmonic analysis on character and quiver varieties,} Duke Math. J. 160 (2011), no. 2, 323--400.
+
+%\bibitem{HRV} T. Hausel and F. Rodriguez-Villegas, {\em Mixed Hodge polynomials of character varieties,} with an appendix by Nicholas M. Katz, Invent. Math. 174 (2008), no. 3, 555--624. 
+
+
+\bibitem{HT} T. Hausel, M. Thaddeus, {\em Mirror symmetry, Langlands duality, and the Hitchin
+system,} Invent. Math. 153 (2003), no. 1, 197--229. 
+
+
+\bibitem{HT2} T. Hausel, M. Thaddeus, {\em Relations in the cohomology ring of the moduli space of rank 2 Higgs bundles,} J. Amer. Math. Soc. 16 (2003), no. 2, 303--327.
+
+%\bibitem{HT1} T. Hausel, M. Thaddeus, {\em Generators for the cohomology ring of the moduli space of rank 2 Higgs bundles,} Proc. London Math. Soc. (3) 88 (2004), no. 3, 632--658. 
+
+
+%\bibitem{HL} D. Huybrechts and M. Lehn, {\em The geometry of moduli spaces of sheaves,} Aspects of Mathematics, E31. Friedr. Vieweg and Sohn, Braunschweig, 1997. xiv+269 pp.
+
+
+\bibitem{Hit} N. J. Hitchin, {\em The self-duality equations on a Riemann surface,} Proc. London Math. Soc. (3) 55 (1987), no. 1, 59--126.
+
+\bibitem{Hit1} N.J. Hitchin, {\em Stable bundles and integrable systems,} Duke Math. J. 54 (1987) 91--114.
+
+
+%\bibitem{HST} S. Hosono, M.-H. Saito, and A. Takahashi, {\em Relative Lefschetz action and BPS state counting,} Internat. Math. Res. Notices 2001, no. 15, 783--816.
+
+%\bibitem{HX} D. Huybrechts and C. Xu, {\em Lagrangian fibrations of hyperk\"ahler fourfolds,} arXiv:\linebreak 1902.10440.
+
+%\bibitem{Hw} J.-M. Hwang, {\em Base manifolds for fibrations of projective irreducible symplectic manifolds,} Invent. Math. 174 (2008), no. 3, 625--644.
+
+%\bibitem{I} M. Inaba, M. Saito, {\em Moduli of unramified irregular singular parabolic connections on a smooth projective curve,} Kyoto J. Math. 53, no. 2 (2013), 433--482.
+
+\bibitem{KS} M. Kashiwara and P. Schapira, {\em Sheaves on manifolds,} Grundlehren der Mathematischen Wissenschaften, vol.
+292, Springer--Verlag, Berlin, 1990.
+
+
+
+
+%\bibitem{KKP} S. Katz, A. Klemm, and R. Pandharipande, {\em On the motivic stable pairs invariants of $K3$ surfaces,} with an appendix by R. P. Thomas, $K3$ surfaces and their moduli, 111--146, Progr. Math., 315, Birkh\"auser/Springer, Cham, 2016.
+
+%\bibitem{KKV} S. Katz, A. Klemm, and C. Vafa, {\em $M$-theory, topological strings, and spinning black holes}, Adv. Theor. Math. Phys. 3 (1999), no. 5, 1445--1537.
+
+%\bibitem{KY} T. Kawai and K. Yoshioka, {\em String partition functions and infinite products,} Adv. Theor. Math. Phys. 4 (2000), no. 2, 397--485. 
+
+%\bibitem{KL} Y.-H. Kiem and J. Li, {\em Categorification of Donaldson--Thomas invariants via perverse sheaves,} arXiv:1212.6444v5.
+
+%\bibitem{L} M. Lehn, {\em Chern classes of tautological sheaves on Hilbert schemes of points on surfaces,} Inventiones Mathematicae, 1999, 136(1):157--207.
+
+%\bibitem{LS} M. Lehn, C. Sorger, {\em The cup product of the Hilbert scheme for K3 surfaces,} Inventiones mathematicae May 2003, Volume 152, Issue 2, pp 305--329.
+
+%\bibitem{LQW} W. Li, Z. Qin, W. Wang, {\em Vertex algebras and the cohomology ring structure of Hilbert schemes of points on surfaces,} Math. Ann. 324 (2002), 105--133.
+
+%\bibitem{LL} E. Looijenga and V. A. Lunts, {\em A Lie algebra attached to a projective variety,} Invent. Math. 129 (1997), no. 2, 361--412. 
+
+%\bibitem{LP1} J. Le Potier, {\em Faisceaux semi-stables de dimension 1 sur le plan projectif,} Rev. Roumaine Math. Pures Appl., 38(7--8):635--678, 1993.
+
+%\bibitem{LP2} J. Le Potier, Syst\`emes coh\'erents et structures de niveau. Ast\'erisque No. 214 (1993).
+
+%\bibitem{Lieb} M. Lieblich, Moduli of sheaves: a modern primer. Algebraic geometry: Salt Lake City 2015, 361-388, Proc. Sympos. Pure Math., 97.2, Amer. Math. Soc., Providence, RI, 2018. 
+
+
+\bibitem{Markman} E. Markman, {\em Generators of the cohomology ring of moduli spaces of sheaves on symplectic surfaces,} J. Reine Angew. Math. 544 (2002), 61--82. 
+
+
+%\bibitem{Markman5} E. Markman, {\em Integral generators for the cohomology ring of moduli spaces of sheaves over Poisson surfaces,} Adv. Math., 208 (2007), 622-646.
+
+%\bibitem{Markman2} E. Markman, {\em On the monodromy of moduli spaces of sheaves on K3 surfaces,} J. Algebraic Geom.17(2008), 29--99.
+
+
+%\bibitem{Markman4} E. Markman, {\em Lagrangian fibrations of holomorphic-symplectic varieties of K3[n]-type,} In Anne Fr\"uhbis-Kr\"uger et. al., Algebraic and Complex Geometry, volume 71. Springer Proceedings in Math., 2014.
+
+
+%\bibitem{Markman3} E. Markman, {\em The monodromy of generalized Kummer varieties and algebraic cycles on their intermediate Jacobians,} arXiv:1805.11574.
+
+
+%\bibitem{Ma1} D. Matsushita, {\em On fibre space structures of a projective irreducible symplectic manifold,} Topology 38 (1999), no. 1, 79--83. Addendum: Topology 40 (2001), no. 2, 431--432.
+
+%\bibitem{Ma2} D. Matsushita, {\em Equidimensionality of Lagrangian fibrations on holomorphic symplectic manifolds,} Math. Res. Lett. 7 (2000), no. 4, 389--391.
+
+%\bibitem{Ma3} D. Matsushita, {\em Higher direct images of dualizing sheaves of Lagrangian fibrations,} Amer. J. Math. 127 (2005), no. 2, 243--259.
+
+%\bibitem{Ma4} D. Matsushita, {\em On deformations of Lagrangian fibrations,} $K3$ surfaces and their moduli, 237--243, Progr. Math., 315, Birkh\"auser/Springer, Cham, 2016.
+
+%\bibitem{MPT} D. Maulik, R. Pandharipande, and R. Thomas, {\em Curves on $K3$ surfaces and modular forms,} with an appendix by A. Pixton, J. Topol. 3 (2010), no. 4, 937--996. 
+
+\bibitem{MS} D. Maulik and J. Shen, {\em Endoscopic decompositions and the Hausel--Thaddeus
+conjecture,} Forum Math., Pi, 9, (2021), No. e8, 49 pp.
+
+\bibitem{MS2} D. Maulik and J. Shen, {\em Cohomological $\chi$-independence for moduli of one-dimensional sheaves and moduli of
+higgs bundles,} Geom. Topol. 27:4 (2023), 1539--1586. 
+
+\bibitem{MS3} D. Maulik and J. Shen, {\em On the intersection cohomology of the moduli of $\mathrm{SL}_n$-Higgs bundles on a curve,}  J. Topol. 15 (3) (2022), 1034--1057.
+
+\bibitem{MT} D. Maulik and Y. Toda, {\em Gopakumar--Vafa invariants via vanishing cycles,} Invent. Math. 213 (2018), no. 3, 1017--1097. 
+
+
+\bibitem{MM} M. Mauri and L. Migliorini, {\em Hodge-to-singular correspondence for reduced curve,} arXiv 2205.11489.
+
+\bibitem{Mellit} A. Mellit, {\em Cell decompositions of character varieties,} arXiv:1905.10685.
+
+
+%\bibitem{Na} H. Nakajima, {\em Heisenberg algebra and Hilbert schemes of points on projective surfaces,} Ann. Math. 145 (1997), 379--388.
+
+%\bibitem{NS} B. Nasatya, B. Steer, {\em Orbifold Riemann surfaces and the Yang-Mills-Higgs equations,} Annali della Scuola Normale Superiore di Pisa - Classe di Scienze 22.4 (1995): 595-643.
+
+%\bibitem{Og} K. Oguiso, {\em Picard number of the generic fiber of an abelian fibered hyperk\"ahler manifold,} Math. Ann. 344 (2009), no. 4, 929--937.
+
+%\bibitem{Ou} W. Ou, {\em Lagrangian fibrations on symplectic fourfolds,} J. Reine Angew. Math., to appear.
+
+%\bibitem{PT} R. Pandharipande and R. P. Thomas, {\em 13/2 ways of counting curves,} Moduli spaces, 282--333, London Math. Soc. Lecture Note Ser., 411, Cambridge Univ. Press, Cambridge, 2014.
+
+%\bibitem{PT2} R. Pandharipande and R. P. Thomas, {\em The Katz--Klemm--Vafa conjecture for $K3$ surfaces,} Forum Math. Pi 4 (2016), e4, 111 pp.
+
+\bibitem{GIT} D. Mumford, Geometric Invariant Theory, Springer-Verlag, 1965.
+
+
+
+\bibitem{Ngo} B.C. Ng\^{o}, {\em Le lemme fondamental pour les alg\`{e}bres de Lie, } Publ. Math. IHES. 111 (2010) 1--169.
+
+
+\bibitem{OY} A. Oblomkov and Z. Yun, {\em Geometric representations of graded and rational Cherednik algebras,} Adv. in Math., 92 (2016), 601--706.
+
+\bibitem{OY2} A. Oblomkov and Z. Yun, {\em The cohomology ring of certain compactified Jacobians,} arXiv:1710.05391.
+
+
+\bibitem{Sz} S. Szabó, {\em Perversity equals weight for Painlevé spaces,} Adv. Math. 383 (2021), Paper No. 107667, 45 pp.
+
+%\bibitem{SY} J. Shen and Q. Yin, {\em Topology of Lagrangian fibrations and Hodge theory and Hodge theory of hyper-K\"ahler manifolds,} appendix by Claire Voisin, Duke Math. J., to appear.
+
+%\bibitem{SZ} J. Shen and Z. Zhang, {\em Perverse filtrations, Hilbert schemes, and the P=W conjecture for parabolic Higgs bundles,} Algebr. Geom., to appear.
+
+\bibitem{Shende} V. Shende, {\em The weights of the tautological classes of character varieties,} Int. Math. Res. Not. 2017, no. 22, 6832--6840.
+
+%\bibitem{Simp88} C. T. Simpson, {\em Constructing variations of Hodge structure using Yang--Mills theory and applications to uniformization,} J. Amer. Math. Soc. 1 (1988), no. 4, 867--918. 
+
+%\bibitem{Simp90} C. T. Simpson, {\em Harmonic bundles on noncompact curves,} J. Amer. Math. Soc. 3 (1990), no. 3, 713--770.
+
+
+\bibitem{Simp} C. T. Simpson, {\em Higgs bundles and local systems,} Inst. Hautes \'Etudes Sci. Publ. Math. No. 75 (1992), 5--95.
+
+\bibitem{Si1994II} C. T. Simpson, {\em Moduli of representations of the fundamental group of smooth projective varieties II,"} Inst. Hautes \'Etudes Sci. Publ. Math.   No. 80 (1994), 5-79.
+
+%\bibitem{Simp95} C. T. Simpson, {\em The Hodge filtration on nonabelian cohomology,} Algebraic geometry---Santa Cruz 1995, 217--281, Proc. Sympos. Pure Math., 62, Part 2, Amer. Math. Soc., Providence, RI, 1997.
+
+\bibitem{Geo_P=W} C. Simpson, {\em The dual boundary complex of the $\mathrm{SL}_2$ character variety of a punctured sphere,} Ann. Fac. Sci. Toulouse Math. (6) 25 (2016), no. 2--3, 317--361.
+
+
+\bibitem{SWW} X. Su, B Wang, and X. Wen, {\em Parabolic Hitchin maps and their generic fibers,} Math. Z., 301(1):343--
+372, 2022.
+
+
+
+%\bibitem{Ver90} M. S. Verbitski\u{\i}, {\em Action of the Lie algebra of $SO(5)$ on the cohomology of a hyper-K\"ahler manifold,} Funct. Anal. Appl. 24 (1990), no. 3, 229--230.
+
+%\bibitem{Ver95} M. Verbitsky, {\em Cohomology of compact hyperkaehler manifolds,} Thesis (Ph.D.)--Harvard University, 1995, 89 pp.
+
+%\bibitem{Ver96} M. Verbitsky, {\em Cohomology of compact hyper-K\"ahler manifolds and its applications,} Geom. Funct. Anal. 6 (1996), no. 4, 601--611.
+
+%\bibitem{WSB} G. Williamson, {\em The Hodge theory of the decomposition theorem,} S\'eminaire Bourbaki Vol. 2015/2016, Expos\'es 1104--1119, Ast\'erisque No. 390 (2017), Exp. No. 1115, 335--367.
+
+%\bibitem{Yo} K. Yoshioka, {\em Moduli spaces of stable sheaves on abelian surfaces,} Math. Ann. 321 (2001),no. 4, 817--884.
+
+
+
+
+
+\bibitem{Yun1} Z. Yun, {\em Global Springer Theory,} Adv. in Math. 228 (2011), 266--328. 
+
+\bibitem{Yun2} Z. Yun, {\em Langlands duality and global Springer theory,} Compositio. Math. 148 (2012), 835--867.
+
+\bibitem{Yun3} Z. Yun, {\em Towards a global springer theory III: endoscopy and Langlands duality,} arXiv:0904.3372.
+
+\bibitem{Zhang} Z. Zhang, {\em The P=W identity for cluster varieties,} Math. Res. Lett. 28 (2021), no. 3, 925--944. 
+
+%\bibitem{Z} Z. Zhang, {\em Multiplicativity of perverse filtration for Hilbert schemes of fibered surfaces,} Adv. Math. 312 (2017), 636--679.
+
+\end{thebibliography}
+\end{document}
+
+
+
+
+\begin{comment}
+\begin{prop}
+There exists a smooth family 
+\[
+\pi_\CM : \CM \to T
+\]
+together with a sheaf $\CF_\CM$ on $\CS \times_T \CM$ satisfying the following peoperties.
+\begin{enumerate}
+    \item[(a)] The restriction of $(\CS \times_T \CM, \CF_\CM)$ to the central fiber 
+    \[
+    \left( \pi_\CS \times_T \pi_\CM\right)^{-1}(0) \subset \CS \times_T \CM
+    \]
+    is $\left(T^*C \times \CM_{\mathrm{Dol}}, \CF_n \right)$ where $\CF_n$ is a universal family of 1-dimensional sheaves.
+    \item[(b)] The restriction of $(\CS \times_T \CM, \CF_\CM)$ to 
+    \[
+    \left( \pi_\CS \times_T \pi_\CM\right)^{-1}(T^\circ) \subset \CS \times_T \CM
+    \]
+    is $\left((A\times \CM_{\beta,A}) \times T^\circ, \CF_\beta \boxtimes \CO_{T^\circ}\right)$.
+\end{enumerate}
+\end{prop}
+
+
+We consider
+\[
+\CS \subset \bar{\CS} = \mathrm{Bl}_{C\times 0}(A \times \BP^1).
+\]
+The 3-fold $\bar{\CS}$ is nonsingular and projective. Let $\bar{\beta} \in H_2(\bar{\CS}, \BZ)$ be the strict transform of the curve class $n[C \times \mathrm{pt}]$ on $A \times \BP^1$. Assume that $\bar{\CM}$ is the moduli space of 1-dimensional Gieseker-stable sheaves $\CF$ (with respect to a polarization) on $\bar{\CS}$ satisfying that
+\[
+ [\mathrm{supp}(\CF)] = \bar{\beta}, \quad \chi(\CF) = 1.
+\]
+By \cite[Theorem 4.6.5]{HL}, there exists a universal family on $\bar{\CS} \times \bar{\CM}$, which is denoted by $\CF_{\bar{\CM}}$. Since $\bar{\beta}$ is a curve class supported on fibers of 
+\begin{equation}\label{123}
+\bar{\CS} = \mathrm{Bl}_{C\times 0}(A \times \BP^1)\rightarrow \BP^1,
+\end{equation}
+every $\CF \in \bar{\CM}$ is supported on a closed fiber of (\ref{123}) by the stability of $\CF$. Hence the universal family $\CF_{\bar{\CM}}$ is supported on the sub-scheme
+\[
+\bar{\CS} \times _{\BP^1} \bar{\CM} \subset \bar{\CS} \times \bar{\CM}.
+\]
+
+Now we define $\CM$ to be the sub-moduli space
+\begin{equation}\label{CM}
+\CM \subset \bar{\CM}
+\end{equation}
+parametrizing 1-dimensional sheaves in $\bar{\CM}$ which are supported on $\CS \subset \bar{\CS}$. The variety $\CM$ admits a morphism
+\[
+\pi_\CM: \CM \to T
+\]
+whose closed fiber over $t\in T$ is the moduli space of sheaves in $\CM$ which are supported in the closed fiber 
+\[
+\pi_\CS^{-1}(t) \subset \CS.
+\]
+The restriction of $\CF_{\bar{\CM}}$ gives a universal family $\CF'_\CM$ on $\CS \times_T \CM$, which satisfies the condition (a). Moreover, its restriction over $T^\circ \subset T$ is
+\[
+\CF'_\beta \boxtimes \CO_{T^\circ} \in \Coh\left((A\times  \CM_{\beta,A})\times T^\circ \right)
+\]
+for \emph{some} universal family $\CF'_{\beta}$ on $A\times \CM_{\beta,A}$. In particular, there exists a line bundle $\CL$ on $\CM$ such that
+\[
+\CF_\beta = \CF'_\beta \otimes p_\CM ^\ast \CL
+\]
+where $p_\CM: A \times \CM_{\beta,A} \to \CM_{\beta,A}$ is the projection. 
+
+By spreading, we obtain a line bundle $\tilde{\CL}$ on $\CM$ whose restriction over $T^\circ$ is $\CL$. Let $\tilde{p}_{\CM}: \CS \times_T\CM \to \CM$ be the natural projection. Then the variety $\CM$ together and the sheaf 
+\[
+\CF_{\CM} = \CF'_\CM \otimes \tilde{p}_{\CM}^* \tilde{\CL}
+\]
+satisfies both the conditions (a) and (b). Not complete yet...
+\end{comment}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Fourier--Mukai transforms}\label{Sec2.5} Sections 2.5 to 2.7 are devoted to proving Theorem \ref{taut_abelian}. Let $E$ and $E'$ be two very general elliptic curves. We first treat the special case
+\begin{equation}\label{special}
+A= E \times E', \quad \beta = \sigma + nf
+\end{equation}
+where $\sigma = [\mathrm{pt} \times E']$ and $f = [E \times \mathrm{pt}]$ are the classes of a section and a fiber with respect to the elliptic fibration $p: A \to E'$.
+
+By \cite[Theorem 3.15]{Yo}, we have an isomorphism of the moduli spaces
+\[
+\CM_{\beta,A} \cong M_{v_n, A}(= A^{[n]} \times \widehat{A}),\quad v_n = (1,0,-n),
+\]
+induced by a relative Fourier--Mukai transform with respect to the elliptic fibration $p: A \to E'$. 
+
+The support of a sheaf $\CF \in \CM_{\beta, A}$ is the union of a section and several fibers (with multiplicities). Hence the Hilbert--Chow morphism (\ref{Hilb-Ch}) is exactly the morphism
+\begin{equation}\label{HC2}
+p_n\times q: A^{[n]} \times \widehat{A} \to E'^{(n)} \times E
+\end{equation}
+where we use $\widehat{A}\cong A = E \times E'$ and $q$ is the projection to the first factor.  Under the identification
+\[
+A \times A = (E \times E) \times (E'\times E'),
+\]
+the kernel for the relative Fourier--Mukai transform associated with the elliptic fibration $p: A \to E'$ is given by
+\begin{equation}\label{rel_P}
+\CP'_E = \CP_E \boxtimes \CO_{\Delta_{E'}}.
+\end{equation}
+with
+\[
+\CP_E = \CO_{E\times E}(\Delta_E - \mathrm{pt}\times E - E\times \mathrm{pt})
+\]
+the normalized Poincar\'e line bundle. Recall the universal family $\CE_n$ on $A \times M_{v_n,A}$ defined in (\ref{univ_ideal}). This provides us a universal family on $A \times \CM_{\beta,A}$ of 1-dimensional Gieseker-stable sheaves,
+\begin{equation}\label{univ2}
+\CF_\beta = {R\pi_{13}}_\ast \left( \pi_{12}^\ast (\pi_1^*N\otimes{\CP'_{E}}) \otimes^{\BL} \pi_{23}^\ast \CE_n \right)
+\end{equation}
+where $\pi_i, \pi_{ij}$ are the projection from $A \times A \times M_{v_n,A}$ to the corresponding factors, and $N \in p^* \mathrm{Pic}(E')\subset \mathrm{Pic}(A)$.\footnote{Twisting by a line bundle $N$ pulled back from $E'$ along the morphism $p: A \to {E'}$ is to ensure that the (shifted) image of $\CO_A$ with respect to the relative Fourier--Mukai transform has Euler characteristic 1; see \cite[Section 3.2]{Yo}} We define the normalized universal family 
+\[
+\CF^{n}_\beta = {R\pi_{13}}_\ast \left( \pi_{12}^\ast {\CP'_{E}} \otimes^{\BL} \pi_{23}^\ast \CE_n \right) = \CF_\beta \otimes \pi_A^\ast N^{-1}.
+\]
+
+The universal family (\ref{univ2}) serves as the one in Theorem \ref{taut_abelian}. We construct in the following a decomposition
+\begin{equation}\label{splitting1}
+H^\ast(\CM_{\beta, A}, \BQ) = \bigoplus_{i,d} \widetilde{G}_iH^\CL(\CM_{\beta, A}, \BQ)
+\end{equation}
+which serves as the splitting in Theorem \ref{taut_abelian}.
+
+A canonical splitting of the perverse filtration associated with
+\[
+q: \widehat{A} =A \to E
+\]
+is given by
+\[
+G'_kH^\CL(\widehat{A}, \BQ) = \bigoplus_{i+k =d} H^i(E, \BQ)\otimes H^k(E',\BQ).
+\]
+We define (\ref{splitting1}) as the decomposition
+\begin{equation}\label{splitting2}
+\widetilde{G}_kH^\ast(\CM_{\beta, A}, \BQ) = \bigoplus_{i+j=k}  \widetilde{G}_i H^\ast(A^{[n]}, \BQ) \otimes G'_jH^\ast(\widehat{A},\BQ),
+\end{equation}
+where
+$\widetilde{G}_\ast H^\ast(A^{[n]}, \BQ)$ was defined in Section \ref{Section1.5}.
+Since $\widetilde{G}_\ast H^\ast(A^{[n]}, \BQ)$ splits the perverse filtration associated with 
+\[
+p_n:  A^{[n]} \to E'^{(n)},
+\]
+the filtration (\ref{splitting2}) splits the perverse filtration associated with the Hilbert--Chow morphism (\ref{Hilb-Ch}). 
+
+The following theorem verifies Theorem \ref{taut_abelian} for the special case (\ref{special}), where we can choose the twisting class to be 
+\[
+\alpha = - \pi_A^* c_1(N) \in H^2(A\times \CM_{\beta,A}, \BQ).
+\]
+
+\begin{thm}\label{Step1}
+The decomposition (\ref{splitting2}) is multiplicative and is compatible with the normalized tautological classes; that is, we have
+\begin{equation}\label{1}
+\int_\gamma \mathrm{ch}_k(\CF^n_\beta) \in \widetilde{G}_{k-1} H^\ast(\CM_{\beta,A}, \BQ),\quad \forall~\gamma \in H^\ast(A, \BQ).
+\end{equation}
+\end{thm}
+
+\begin{proof}
+The multiplicativity of (\ref{splitting2}) follows directly from Theorem \ref{taut_Hilb} (b). It suffices to prove (\ref{1}). 
+
+We consider the multiplicative splitting 
+\begin{equation}\label{eqn27}
+\widetilde{G}_kH^\ast(A \times \CM_{\beta,A} ,\BQ) = H^\ast(A, \BQ) \otimes \widetilde{G}_kH^\ast(\CM_{\beta,A}, \BQ)
+\end{equation}
+on the total space $A \times \CM_{\beta,A}$. This decomposition splits the perverse filtration associated with 
+\[
+\mathrm{id}\times \pi_\beta: A \times \CM_{\beta, A} \to A \times B.
+\]
+The statement (\ref{1}) is equivalent to the following:
+\begin{equation}\label{eqn28}
+\mathrm{ch}(\CF^n_\beta) \in \bigoplus_{k\geq 1} \widetilde{G}_{k-1} H^{2k}(A\times \CM_{\beta, A}, \BQ).
+\end{equation}
+
+For a nonsingular projective variety $X$ with a decomposition $G_*H^*(X, \BQ)$ on its cohomology, we say that a class $\alpha \in H^*(X, \BQ)$ is \emph{balanced} with respect to this decomposition if 
+\[
+\alpha \in \bigoplus_{k} G_{k} H^{2k}(X, \BQ).
+\]
+We prove (\ref{eqn28}) by the following 3 steps.
+
+\noindent\emph{Step 1.} We consider the new decomposition 
+\begin{equation}\label{31}
+\begin{split}
+\overline{G}_k H^*(A \times \CM_{\beta, A}, \BQ)& = \bigoplus_{i+j=k} H^i(E, \BQ) \otimes H^*(E', \BQ) \otimes \widetilde{G}_jH^*(\CM_{\beta,A}, \BQ)\\
+& = \bigoplus_{i+j=k} \widetilde{G}_i H^\ast(A \times A^{[n]}, \BQ) \otimes G'_jH^\ast(\widehat{A}, \BQ).
+\end{split}
+\end{equation}
+of the cohomology $H^\ast(A\times \CM_{\beta,A}, \BQ)$. It is a multiplicative decomposition splitting the perverse filtration associated with the morphism
+\[
+p \times \pi_\beta: A\times \CM_{\beta,A} \to E' \times B.
+\]
+We first show that the class
+\[
+\mathrm{ch}(\CE_n) \in H^\ast(A \times M_{A, v_n}, \BQ) = H^*(A \times \CM_{\beta,A}, \BQ)
+\]
+is balanced with respect to the splitting (\ref{31}).
+
+
+Recall the expression (\ref{univ_ideal}) of the universal family $\CE_n$. By Theorem \ref{taut_Hilb} (a), the class
+\[
+\mathrm{ch}(\CI_n) \in  H^{\ast}(A\times A^{[n]}, \BQ)
+\]
+is balanced with respect to the splitting (\ref{splitting0}). Hence via pulling back along the projection
+\[
+\pi_{12}: A\times \CM_{\beta,A} = A\times A^{[n]} \times \widehat{A} \to A \times A^{[n]},
+\]
+we obtain that the class 
+\[
+\begin{split}
+\pi_{12}^\ast \mathrm{ch}(\CI_n) =  \mathrm{ch}(\CI_n) \otimes 1_{\widehat{A}} & \in H^\ast(A \times A^{[n]}, \BQ) \otimes H^0(\widehat{A}, \BQ)\\  & \subset H^*(A\times \CM_{\beta,A}, \BQ)
+\end{split}
+\]
+is also balanced with respect to (\ref{31}). A direct calculation shows the class $\pi_{13}^\ast c_1(\CP)$ is balanced. Hence we conclude from the multiplicativity of (\ref{31}) that the class
+\[
+\mathrm{ch}(\CE_n) = \pi_{12}^\ast \mathrm{ch}(\CI_n) \otimes \pi_{13}^\ast \mathrm{ch}(\CP)=  \pi_{12}^\ast \mathrm{ch}(\CI_n) \otimes \pi_{13}^\ast \mathrm{exp}(c_1(\CP))
+\]
+is balanced. 
+
+
+\noindent \emph{Step 2.} We further consider the multiplicative decomposition  
+\begin{equation}\label{32}
+\widetilde{G}_k H^*(A \times A \times \CM_{\beta, A}, \BQ) = H^*(A, \BQ) \otimes \overline{G}_k H^*(A \times \CM_{\beta, A}, \BQ)
+\end{equation}
+of $H^*(A \times A \times \CM_{\beta, A})$, which splits the perverse filtration associated with the morphism
+\[
+\mathrm{id} \times p \times \pi_\beta: A \times A \times \CM_{\beta, A} \to A \times E'\times B.
+\]
+We show that 
+\begin{equation}\label{34}
+\mathrm{ch}(\pi_{12}^\ast {\CP'_{E}} \otimes^{\BL} \pi_{23}^\ast \CE_n) \in \bigoplus_{k\geq 1}\widetilde{G}_{k-1} H^{2k}(A \times A\times \CM_{\beta, A}, \BQ)
+\end{equation}
+
+In fact, by Step 1, we obtain that the class
+\[
+\pi_{23}^* \mathrm{ch}(\CE_n) = 1_A \otimes \mathrm{ch}(\CE_n) \in H^0(A, \BQ) \otimes H^*(A\times \CM_{\beta,A}, \BQ)
+\]
+is balanced with respect to (\ref{32}). The relative Poincar\'e sheaf (\ref{rel_P}) can be expressed as
+\begin{equation}\label{233}
+\pi_{13}^\ast \mathrm{ch}(\CP'_E) = \pi_{13}^\ast \mathrm{ch}(\CP_E)\cup \pi_{13}^* \mathrm{ch}(\CO_{\Delta_{E'}}).
+\end{equation}
+The class $\pi_{12}^\ast \mathrm{ch}(\CP_E)$ is balanced via a direct calculation, and 
+\[
+\pi_{12}^*\mathrm{ch}(\CO_{\Delta_E'}) = \pi_{12}^* c_1(\CO_{\Delta_{E'}}) \in \widetilde{G}_0 H^2(A\times A \times \CM_{\beta,A}, \BQ).
+\]
+Hence by (\ref{233}) and the multiplicativity of (\ref{32}), we get
+\[
+\pi_{12}^* \mathrm{ch}(\CP'_E)\in \bigoplus_{k\geq 1} \widetilde{G}_{k-1}H^{2k}(A\times A \times \CM_{\beta,A}).
+\]
+This yields (\ref{34}) since
+\[
+\mathrm{ch}(\pi_{12}^\ast {\CP'_{E}} \otimes^{\BL} \pi_{23}^\ast \CE_n) = \pi_{12}^*\mathrm{ch}(\CP'_E) \cup \pi_{23}^\ast \mathrm{ch}(\CE_n).
+\]
+
+\noindent \emph{Step 3.} We finish the proof of (\ref{eqn28}). 
+
+Appying the Grothendieck--Riemann-Roch formula to the projection
+\[
+\pi_{13}: A \times A \times \CM_{\beta, A} \to A \times \CM_{\beta,A},
+\]
+we obtain that
+\[
+\mathrm{ch}(\CF^n_\beta) = {\pi_{13}}_\ast \mathrm{ch}(\pi_{12}^\ast {\CP'_{E}} \otimes^{\BL} \pi_{23}^\ast \CE_n).
+\]
+Equivalently, the class $\mathrm{ch}(\CF^n_\beta)$ corresponds to the K\"unneth factor of the class
+\[
+\mathrm{ch}(\pi_{12}^\ast {\CP'_{E}} \otimes^{\BL} \pi_{23}^\ast \CE_n) 
+\]
+in the subspace
+\[
+H^4(A, \BQ) \otimes H^*(A \times \CM_{\beta,A}, \BQ) \subset H^*(A\times A \times \CM_{\beta, A}, \BQ).
+\]
+Here $H^4(A, \BQ)$ is spanned by the point class in the second factor of the product $A \times A \times \CM_{\beta, A}$. Hence (\ref{eqn28}) follows from (\ref{34}).
+\end{proof}
+
+
+\subsection{Perverse filtrations and $H^2(\CM_{\beta,A}, \BQ)$}
+In this section, we assume that $A$ is any abelian surface with $\beta$ an ample curve class satisfying \[\beta^2= 2n \geq 4.\] Our goal is to prove a variant of Proposition \ref{prop1.1} for $\CM_{\beta,A}$.  More precisely, we introduce a \emph{canonical} class
+ \begin{equation}\label{ample_base}
+ L_\beta \in H^2(\CM_{\beta,A} ,\BQ)
+ \end{equation}
+to characterize the perverse filtration $P_{\ast} H^*(\CM_{\beta, A})$ associated with the morphism
+\[
+\pi_\beta: \CM_{\beta, A} \to B.
+\]
+
+
+Let $\CF_0 \in \CM_{\beta, A}$ be any given point. We consider the morphisms
+\[
+\mathrm{det}: \CM_{\beta,A} \to \widehat{A}, \quad \CF \mapsto \mathrm{det}(\CF)\otimes \mathrm{det}(\CF_0)^\vee 
+\]
+and
+\[
+\widehat{\mathrm{det}}: \CM_{\beta,A} \to A, \quad \CF \mapsto \mathrm{det}(\phi_\CP(\CF)) \otimes \mathrm{det}(\phi_\CP(\CF))^\vee.
+\]
+Here $\phi_\CP : D^b\Coh(A) \to D^b\Coh(\widehat{A})$ is the Fourier--Mukai transform induced by the normalized Poincar\'e line bundle $\CP$ on $A \times \widehat{A}$. By \cite{Yo}, the Albanese map for $\CM_{\beta,A}$ with respect to the reference point $\CF_0$ is
+\[
+\mathrm{alb} = \widehat{\mathrm{det}} \times \mathrm{det}: \CM_{\beta,A} \to A \times \widehat{A}.
+\]
+The closed fiber over the origin $0 \in A\times \widehat{A}$, denoted by
+\[
+K_{\beta,A} = \mathrm{alb}^{-1}(0) \subset \CM_{\beta, A},
+\]
+is a holomorphic symplectic vairiety of Kummer type. It parametrizes 1-dimensional sheaves $\CF \in \CM_{\beta,A}$ satisfying
+\[
+ \mathrm{det}(\CF)= \mathrm{det}(\CF_0) \in \widehat{A},\quad   \mathrm{det}(\phi_\CP(\CF)) = \mathrm{det}(\phi_\CP(\CF)) \in \widehat{\widehat{A}} = A.
+\]
+The restriction of (\ref{Hilb-Ch}) to the subvariety $K_{\beta, A}$ is a Lagrangian fibration
+\[
+\pi'_\beta: K_{\beta, A} \to  |\CO_A(\beta)| =  \BP^{n-1}.
+\]
+Here $ |\CO_A(\beta)|$ denotes the linear system associated with the divisor \[
+\mathrm{supp}(\CF_0) \subset A.
+\]
+
+We now consider the following commutative diagram,
+\begin{equation}\label{diagram1}
+    \begin{tikzcd}
+K_{\beta, A} \times A \times \widehat{A}\arrow{r}{h} \arrow{d}{\pi'_\beta \times \mathrm{pr}_A} & \CM_{\beta,A}\arrow{d}{\pi_\beta} \\
+ \BP^{n-1}\times A \arrow{r}{h'} & B.
+\end{tikzcd} 
+\end{equation}
+Here the horizontal arrows are defined by
+\[
+h(\CF, a, L) = {t_a}_* \CF \otimes  L,\quad h'(C, a)= {t_a}_\ast C
+\]
+with $t_a: A \xrightarrow{\simeq} A$ the translation by $a$. Since both $h$ and $h'$ are finite and surjective, the pullback morphism
+\begin{equation*}
+    h^*: H^k(\CM_{\beta, A}, \BQ) \to H^k(K_{\beta, A} \times A \times \widehat{A}, \BQ)
+\end{equation*}
+is injective. Moreover, it is an isomorphism when $k=2$ by G\"ottsche's formula \cite{Go1} for the Betti numbers of the generalized Kummer varieties.
+
+When $n =2$, we have $\CM_{\beta,A} \cong A \times \widehat{A}$ by \cite{Yo}, and therefore $K_{\beta,A}$ is a point. 
+
+Now we consider the case $n \geq 3$. Recall the Mukai vector $v_\beta =(0,\beta ,1) \in S_A^+$. By \cite[Theorem 0.2 and (1.6)]{Yo}, the correspondence induced by the class 
+\[
+c_1(\CF_\beta) \in H^2(A \times \CM_{\beta,A})
+\]
+composed with the restriction map
+\[
+H^2(\CM_{\beta,A}, \BQ) \to H^2(K_{\beta,A}, \BQ)
+\]
+gives an isometry between $v_\beta^\perp \subset S_A^+\otimes \BQ$ and $H^2(K_{\beta,A}, \BQ)$,
+\[
+\theta: v_\beta^\perp  \xrightarrow{\simeq}  H^2(K_{\beta,A}, \BQ).
+\]
+Hence the pullback $h^*$ induces an isomorphism
+\begin{equation}\label{eqn39}
+\varphi: H^2(\CM_{\beta, A}, \BQ) \xrightarrow{\simeq} v_\beta^\perp \oplus H^2(A\otimes \widehat{A}, \BQ),
+\end{equation}
+which does not depend on the choice of $\CF_0$ by the discussion of the second factor 
+\[
+q_{v_\beta}: H^2(\CM_{{\beta},A}, \BQ) \to H^2(A \times \widehat{A}, \BQ)
+\]
+in \cite[Section 8, Page 40]{Markman3}.
+
+
+We consider the following classes
+\[
+\begin{split}
+    l_\beta & = \theta\left((0,0,1)\in v_\beta^\perp\right) \in H^2(K_{\beta,A} ,\BQ), \\
+    L_\beta & = \varphi^{-1} \left( l_\beta \oplus (\beta\otimes 1_{\widehat{A}}) \right) \in H^2(\CM_{\beta, A}, \BQ).
+\end{split}
+\]
+The following proposition is the main result of this section.
+
+\begin{prop}\label{prop2.4}
+We have 
+\[
+P_kH^m(\CM_{\beta,A}, \BQ) = \left( \sum_{i\geq 1} \mathrm{Ker}(L_\beta^{n+k+i-m}) \cap \mathrm{Im}(L_\beta^{i-1}) \right) \cap H^m(\CM_{\beta, A}, \BQ).
+\]
+\end{prop}
+
+Something to be added..
+
+
+
+
+
+
+
+
+
+\begin{proof}
+We denote by 
+\[
+\pi_K = \pi'_\beta \times \mathrm{pr}_A : K_{\beta, A} \times A \times \widehat{A} \to \BP^{n-1}\times A
+\]
+the left vertical map of the diagram (\ref{diagram1}). 
+
+By \cite[Example 3.1]{Markman4}, we have 
+\[
+l_\beta = {\pi'_\beta}^\ast \CO_{\BP^5}(1) \in H^2(K_{\beta,A}, \BQ).
+\]
+Hence 
+\[
+h^*L_\beta = l_\beta \oplus (\beta\otimes 1_{\widehat{A}}) \in H^2(K_{\beta, A} \times A \times \widehat{A},\BQ)
+\]
+is the pullback of an ample class on the base $\BP^{n-1}\times A$ via the morphism $\pi_K$. Since $h$ and $h'$ are finite, the $t$-exactness of finite morphisms implies that a class $\alpha \in H^*(\CM_{\beta, A}, \BQ)$ lies in $P_kH^*(\CM_{\beta}, A)$ if and only if
+\[
+h^* \alpha \in P_kH^*(K_{\beta, A} \times A \times \widehat{A},\BQ), 
+\]
+where the perverse filtration for $K_{\beta, A} \times A \times \widehat{A}$ is associated with the morphism $\pi_K$. Hence we obtain Proposition \ref{prop2.4} by applying Proposition \ref{prop1.1} to the morphism $\pi_K$ and the class $L = h^*L_\beta$.
+\end{proof}
+
+\subsection{Proof of Theorem \ref{taut_abelian}}
+In this section, we complete the proof of Theorem \ref{taut_abelian} by combining the tools developed in the previous sections.
+
+Let $A$ be an abelian surface and $\beta$ be an ample curve class. A \emph{perverse package} associated with the pair $(A, \beta)$ is defined to be a triple
+\[
+ (\CF_\beta, \alpha_\beta, L_\beta),
+\]
+where $\CF_\beta$ is a universal family on $A \times \CM_{\beta,A}$, $L_\beta \in H^2(\CM_{\beta,A}, \BC)$ is the class introduced in Section 2.6, and $\alpha \in H^2(A\times \CM_{\beta,A}, \BC)$ is of the type (\ref{alpha}).
+
+An isomorphism between the perverse packages associated with $(A, \beta)$ and $(A', \beta')$ is the following:
+\begin{enumerate}
+    \item[(1)] A grading-preserving isomorphism of $\BC$-vector spaces 
+    \[
+    g: H^*(A, \BC) \xrightarrow{\simeq} H^*(A', \BC).
+    \]
+    \item[(2)] A graded isomorphism of $\BQ$-algebras
+    \[
+    \phi: H^*(\CM_{\beta,A}, \BC) \xrightarrow{\simeq} H^*(\CM_{\beta',A'}, \BC).
+    \]
+    \item[(3)] The isomorphisms $g$ and $\phi$ satisfy that
+    \[
+    \begin{split}
+        (g\otimes \phi) \mathrm{ch}^{\alpha_\beta} (\CF_\beta) & = \mathrm{ch}^{\alpha_{\beta'}}(\CF_{\beta'}),\\
+        \phi(L_\beta) & = L_{\beta'}.
+    \end{split}
+    \]
+\end{enumerate}
+Isomorphisms of perverse packages form an equivalence relation. We call two pairs $(A, \beta)$ and $(A', \beta')$ \emph{perversely isomorphic} if there is a perverse package associated with $(A,\beta)$ isomorphic to a perverse package associated with $(A', \beta')$.
+
+\begin{prop}\label{prop2.5}
+Assume that $(A, \beta)$ is perversely isomorphic to $(A', \beta')$. If Theorem \ref{taut_abelian} holds for $(A, \beta)$, then it also holds for $(A', \beta')$.
+\end{prop}
+
+\begin{proof}
+By Proposition \ref{prop2.4}, the condition 
+\[
+\phi(L_\beta) = L_{\beta'}
+\]
+implies that the perverse filtrations on $H^*(\CM_{\beta,A}, \BC)$ and $H^*(\CM_{\beta', A'}, \BC)$ are identified via $\phi$. Let 
+\[
+H^*(\CM_{\beta,A}, \BC) = \bigoplus_{k,d} \widetilde{G}_k H^\CL(\CM_{\beta,A}, \BC)
+\]
+be the splitting of the perverse filtration for $\CM_{\beta, A}$ satisfying
+\[
+\int_\gamma \mathrm{ch}^{\alpha_\beta}_k(\CF_\beta) \in \widetilde{G}_{k-1}H^*(\CM_{\beta,A}, \BC).
+\] 
+Then the decomposition 
+\[
+\
+\widetilde{G}_k H^\CL(\CM_{\beta',A'}, \BC) = \phi(\widetilde{G}_k H^\CL(\CM_{\beta,A}, \BC))
+\]
+also splits the perverse filtration for $\CM_{\beta',A'}$, and the corresponding tautological classes lie in its correct pieces by the condition (3).
+\end{proof}
+
+If $(A, \beta)$ is perversely isomorphic to $(A', \beta')$, then condition (2) implies that
+\[
+\beta^2 = \mathrm{dim}(\CM_{\beta,A}) -2 = \mathrm{dim}(\CM_{\beta',A'}) -2 = \beta'^2.
+\]
+The following theorem deduced from Theorem \ref{monodromy_main} verifies its converse.
+
+\begin{thm}\label{thm2.6}
+Any pairs $(A, \beta)$ and $(A', \beta')$ satisfying
+\[
+\beta^2 = \beta'^2 
+\]
+are perversely isomorphic.
+\end{thm}
+
+\begin{proof}
+
+Our goal is to find a grading-preserving isomorphism of $\BC$-vector spaces
+\begin{equation}\label{39}
+g: H^*(A, \BC)  \to H^*(A', \BC)
+\end{equation}
+satisfying the following two properties:
+\begin{enumerate}
+    \item[(a)] $g$ preserve the intersection pairings,
+    \item[(b)] the restriction of $g$ on $S_A^+\otimes \BQ$ satisfies
+    \begin{equation}\label{40}
+    \begin{split}
+        g(0,0,1) & = (0,0,1),\\
+        g(1,0,0) & = (1,0,0),\\
+        g(0,\beta,0) & = (0, \beta',0).
+    \end{split}
+    \end{equation}
+\end{enumerate}
+and a graded ring isomorphism
+ \[
+ \phi : H^*(\CM_{\beta,A}, \BC) \to H^*(\CM_{\beta', A'}, \BC)
+ \]
+satisfying the condition (3).
+
+We construct $(g, \phi)$ in two steps.
+
+First, because the Mukai vectors $v_\beta$ and $v_{\beta'}$ are primitive of the same length,
+we can apply \cite[Theorem 8.3]{Markman3} (which follows from Yoshioka \cite{Yo}) to find
+\[ g_1: H^*(A, \BZ)  \to H^*(A', \BZ) ,\quad \phi_1: H^*(\CM_{\beta,A}, \BQ) \to H^*(\CM_{\beta', A'}, \BQ)\]
+such that $g_1(v_\beta) = v_{\beta'}$ and
+\begin{equation}\label{eq41}
+(g_1 \otimes \phi_1) \mathrm{ch}(\CF_\beta) = \mathrm{ch}(\CF_{\beta'})
+\end{equation}
+with $\CF_{\beta'}$ a universal family on $A \times \CM_{\beta,A}$. 
+If $\beta$ and $\beta'$ have different divisibility, then $g_1$ cannot satisfy condition b) above, so it requires further modification.
+
+We now choose $g_2 \in \mathrm{SO}(S_{A'}^+\otimes \BC)_{v_{\beta'}}$ such that the restriction
+$$g_2\circ g_1|_{S_{A}^{+}}: S_{A}^{+} \otimes \BC \rightarrow S_{A'}^{+}\otimes\BC$$
+is grading-preserving and satisfies condition b).
+Because we are working with complex coefficients, we can lift $g_2$ to an element of
+$\mathrm{Spin}(S_{A'}^{+}\otimes \BC)_{v_{\beta'}}$ and take the associated isomorphisms
+\[
+\begin{split}
+ g_2: &  H^*(A',\BC)  \rightarrow H^*(A',\BC)
+\\
+\phi_2=  \gamma_{g_2,v_{\beta'}}: &   H^*(\CM_{\beta',A'},\BC)  \rightarrow H^*(\CM_{\beta',A'},\BC). 
+\end{split}
+\]
+
+We deduce from Theorem \ref{monodromy_main} that
+\begin{equation}\label{eq42}
+(g_2 \otimes \phi_2) \mathrm{ch}(\CF_{\beta'}) =  \mathrm{ch}^{\pi_\CM^*a}(\CF_{\beta'}), \quad a \in H^2(\CM_{\beta',A'}, \BC).
+\end{equation}
+
+Finally, we set $g = g_2 \circ g_1$ and $\phi = \phi_2\circ \phi_1$.
+Then  (\ref{eq41}) and (\ref{eq42}) imply that
+\[
+(g\otimes \phi)\mathrm{ch}(\CF_{\beta}) = \mathrm{ch}^{\pi_\CM^*a}(\CF_{\beta'}).
+\]
+In particular, for any class $\alpha_\beta \in H^2(A\times \CM_{\beta,A}, \BC)$ of the type (\ref{alpha}), we have
+\[
+(g\otimes \phi)\mathrm{ch}^{\alpha_\beta}(\CF_{\beta}) = \mathrm{ch}^{\alpha_{\beta'}}(\CF_{\beta'}), \quad \alpha_{\beta'} = \pi_\CM^*a+ (g\otimes \phi)\alpha_\beta.
+\]
+
+Finally, under the identification (\ref{eqn39}), it follows from (\ref{40}) that the isomorphism $\phi$ induced by $g$ sends $(0,0,1) \in v_\beta^\perp$ to $(0,0,1) \in v_{\beta'}^\perp$ and sends $\beta\otimes 1_{\widehat{A}} \in H^2(A\times \widehat{A}, \BC)$ to $\beta' \otimes 1_{\widehat{A'}} \in H^2(A'\times \widehat{A'}, \BC)$. In particular, we have
+\[
+\phi(L_\beta) = L_{\beta'}.
+\]
+This completes the proof of Theorem \ref{thm2.6}. 
+\end{proof}
+
+Theorem \ref{taut_abelian} follows from Theorem \ref{Step1}, Proposition \ref{prop2.5}, and Theorem \ref{thm2.6}. Later in Section \ref{Section3.5}, we will prove a strengthened version of Theorem \ref{taut_abelian} which further requires the decomposition $\tilde{G}_*H^*(\CM_{\beta,A}, \BC)$ to be induced by a construction of Deligne. 
+
+\begin{rmk}\label{remark2.8}
+It was shown in \cite{dCM} that perverse filtrations behave well under deformations. However, for the pairs $(A, \beta)$ and $(A',\beta')$ such that $\beta$ and $\beta'$ have different divisibilities in $H^2(A, \BZ)$ and $H^2(A',\BZ)$, the fibrations $\pi_\beta$ and $\pi_{\beta'}$ are not deformation equivalent.
+
+Hence, in order to reduce Theorem \ref{taut_abelian} for any pair $(A,\beta)$ to that for a special pair
+\[
+A= E \times E', \quad \beta = \sigma +n f,
+\] 
+it is essential to consider an equivalence relation weaker than deformation equivalences of fibrations $\pi_\beta$. This is our motivation to work with equivalences of perverse packages as introduced above. 
+\end{rmk}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Splittings of perverse filtrations}
+
+\subsection{Overview}
+In this section, we study splittings of the perverse filtration associated with a proper surjective morphism $\pi: X\to Y$ with $X$ and $Y$ nonsingular. As an application, we strengthen Theorem \ref{taut_abelian} by requiring that the decomposition 
+\begin{equation}\label{decomp6}
+H^\ast(\CM_{\beta, A}, \BQ) = \bigoplus_{i,d} \widetilde{G}_iH^\CL(\CM_{\beta, A}, \BQ).
+\end{equation}
+is induced by a ``Lefschetz class" via the mechanisms introduced in \cite{D, dC, dCM4}; see Theorem \ref{strengthened2.1}. As discussed in Remark \ref{remark1}, this is crucial in the study of the specialization morphism (\ref{sp}) in Section 4. 
+
+\subsection{Lefschetz classes}
+We consider the perverse filtration associated with $\pi: X \to Y$,
+\begin{equation}\label{e50}
+P_0H^\ast(X, \BQ) \subset P_1H^\ast(X, \BQ) \subset \dots \subset P_{2r}H^\ast(X, \BQ) =  H^\ast(X, \BQ),
+\end{equation}
+where $r$ is the defect of semismallness (\ref{defect}). The action of a class $\eta \in H^2(X, \BQ)$ on the cohomology $H^*(X, \BQ)$ via cup product satisfies
+\begin{equation}\label{e51}
+\eta: P_kH^i(X, \BQ) \to P_{k+2}H^{i+2}(X, \BQ),
+\end{equation}
+which further induces an action on 
+\[
+\BH = \bigoplus_{i,j\geq 0} \mathrm{Gr}_i^P H^{i+j}(X, \BQ)= \bigoplus_i \left( P_iH^{i+j}(X, \BQ)/P_{i-1}H^{i+j}(X, \BQ) \right).
+\]
+
+We call $\eta \in H^2(X, \BQ)$ a \emph{Lefschetz class} with respect to the morphism $\pi: X\to Y$, if its induced action on $\BH$ satisfies the hard Lefschetz condition in the sense of \cite[Assumption 2.3.1]{dC}, \emph{i.e.}, the actions
+\[
+\eta^k: \mathrm{Gr}^P_{r-k}H^*(X, \BQ) \xrightarrow{\simeq}  \mathrm{Gr}^P_{r+k}H^*(X, \BQ), \quad \forall k\geq 0,
+\]
+are isomorphisms. As a typical example, the relative hard Lefschetz theorem \cite{BBD} with respect to $\pi: X \to Y$ implies that a relative ample class is a Lefschetz class. The following lemma gives examples of Lefschetz classes other than relative ample classes.  
+
+\begin{lem}\label{Lemma3.1}
+Let $A$ be an abelian variety of dimension $m$. Any class $\eta \in H^2(A, \BQ)$ satisfying
+\[
+\eta^m \neq 0 
+\]
+is a Lefschetz class with respect to $\pi: A \to \mathrm{pt}$.
+\end{lem}
+
+\begin{proof}
+The action of $\eta$ on $H^*(A, \BQ)$ is a nilpotent operator. It suffices to show that $\eta$ can be completed into an $\mathfrak{sl}_2$-action. This follows from \cite[Proposition 3.3]{LL} and the Jacobson--Morosov lemma, since the operator $\eta$ is contained in the Loiijenga--Lunts semi-simple Lie algebra $\mathfrak{g}_{\mathrm{tot}}(A)$.
+\end{proof}
+
+Recall the Hitchin fibration $h: \CM_{\mathrm{Dol}} \to \Lambda$. The following proposition is a numerical criterion for Lefschetz classes with respect to $h$.
+
+\begin{prop}\label{prop3.2_Hitchin}
+Let $F$ be a closed fiber of $h$. A class $\eta \in H^2(\CM_{\mathrm{Dol}}, \BQ)$ is a Lefschetz class with respect to $h$ if and only if
+\begin{equation}\label{eqn50}
+\eta^{\mathrm{dim(F)}}|_{F} \neq 0.
+\end{equation}
+\end{prop}
+
+\begin{proof}
+We denote by $\widehat{\CM}_{\mathrm{Dol}}$ the moduli space of stable $\mathrm{PGL}_n$-Higgs bundles with
+\[
+\widehat{h}: \widehat{\CM}_{\mathrm{Dol}} \to \widehat{\Lambda}
+\]
+the corresponding Hitchin fibration. By \cite{HT1, Markman}, we have
+\[
+H^2( \widehat{\CM}_{\mathrm{Dol}}, \BQ ) = \BQ \cdot \alpha
+\]
+where $\alpha$ is a relative ample class, and therefore a Lefschetz class, with respect to $\widehat{h}$. By the discussion in \cite[Section 2.4]{dCHM1}, we have an isomorpism
+\begin{equation}\label{112233}
+H^*(\CM_{\mathrm{Dol}}, \BQ) = H^*( \widehat{\CM}_{\mathrm{Dol}}, \BQ ) \otimes H^*(\mathrm{Pic}^0(C), \BQ)
+\end{equation}
+satisfying that
+\[
+P_k H^*(\CM_{\mathrm{Dol}}, \BQ) = \bigoplus_{i+j=k} P_iH^*( \widehat{\CM}_{\mathrm{Dol}}, \BQ ) \otimes H^j(\mathrm{Pic}^0(C), \BQ).
+\]
+Under the identification 
+\[
+H^2(\CM_{\mathrm{Dol}}, \BQ) = H^2( \widehat{\CM}_{\mathrm{Dol}}, \BQ ) \oplus H^2(\mathrm{Pic}^0(C), \BQ) = \BQ \cdot \alpha  \oplus H^2(\mathrm{Pic}^0(C)),
+\]
+induced by (\ref{112233}), we can express any class $\eta \in H^2(\CM_{\mathrm{Dol}}, \BQ)$ as
+\[
+\eta = \mu \alpha + \xi, \quad \mu \in \BQ,~ \xi \in H^2(\mathrm{Pic}^0(C), \BQ).  
+\]
+So by Lemma \ref{Lemma3.1}, the class $\eta$ is Lefschetz if and only if $\mu \neq 0$ and $\xi^g\neq 0$. This is equivalent to the condition (\ref{eqn50}).
+\end{proof}
+
+\subsection{The first Deligne splitting}
+Deligne defined in \cite{D} three splittings of the perverse filtration associated with $\pi: X\to Y$.\footnote{Without the assumption that $X$ is nonsingular, the discusion in this section works identically for splitting the perverse filtration on the intersection cohomology $\mathrm{IH}^*(X, \BQ)$.} Each splitting relies on the choice of a Lefschetz class
+\[
+\eta \in H^2(X, \BQ).
+\]
+Deligne's constructions were later extended and generalized in \cite{dC, dCM4}. In this section, we only consider the splitting given by the first construction of \cite{D} which we call \emph{the first Deligne splitting}. 
+
+%We follow closely the treatment of \cite{dCM4}.
+
+The first Deligne splitting 
+\[
+H^*(X,\BQ) = \bigoplus_{i}G_iH^*(X, \BQ)
+\]
+of the perverse filtration (\ref{e50}) is governed by the sub-vector spaces
+\[
+Q^k \subset P_kH^*(X, \BQ),\quad  0\leq k\leq r
+\]
+satisfying that
+\[
+G_kH^*(X, \BQ) = \bigoplus_i \eta^i Q^{k-2i}.
+\]
+We describe $Q^k$ following \cite[Section 2.7]{dCM4}.
+
+By (\ref{e51}), we have
+\[
+\eta^j P_k H^*(X, \BQ) \subset P_{k+2j}H^*(X, \BQ).
+\]
+Let $\Phi_0$ be the composition of the morphisms
+\[
+\Phi_0: P_kH^*(X, \BQ) \xrightarrow{\eta^{r-k+1}} P_{2r-k+2}H^*(X, \BQ) \to \mathrm{Gr}_{2r-k+2}^PH^*(X, \BQ),
+\]
+where the first map is cup product and the second map is the projection to the graded piece. We obtain the sub-vector space
+\[
+\mathrm{Ker}(\Phi_0) \subset P_kH^*(X, \BQ).
+\]
+The morphisms $\Phi_m$ are defined inductively for $m\geq 0$ as the following:
+\[
+\Phi_m: \mathrm{Ker}(\Phi_{m-1}) \xrightarrow{\eta^{r-k+m}} P_{2r-k+2m}H^*(X, \BQ) \to \mathrm{Gr}_{2r-k+2m}^PH^*(X, \BQ).
+\]
+Therefore for fixed $k$, we obtain a sequence of sub-vector spaces
+\[
+\cdots \subset \mathrm{Ker}(\Phi_1) \subset \mathrm{Ker}(\Phi_0) \subset P_kH^*(X, \BQ), 
+\]
+and $Q^k$ is obtained as
+\[
+Q^k = \mathrm{Ker}(\Phi_k) \subset P_kH^*(X, \BQ)
+\]
+by \cite[Proposition 2.7.1]{dCM4}.
+
+The description of the first Deligne splitting yields immediately the following comparison lemma.
+
+\begin{lem}\label{comparison1}
+Let $X_i$ $(i=1,2)$ be nonsingular varieties with proper surjective morphisms $f_i: X_i \to Y_i$, and let $P_*H^*(X_i, \BQ)$ be the corresponding perverse filtrations. Assume there is a graded morphism 
+\[
+\phi: H^*(X_1, \BQ) \to H^*(X_2, \BQ)
+\]
+of $\BQ$-algebras satisfying 
+\begin{enumerate}
+    \item[(a)] $\phi(P_kH^i(X_1, \BQ)) \subset P_kH^i(X_2, \BQ)$;
+    \item[(b)] $\phi(\eta_1) = \eta_2$ with $\eta_i \in H^2(X_i, \BQ)$ a Lefschetz class associated with $f_i$. 
+\end{enumerate}
+Then we have
+\[
+\phi(G_kH^i(X_1, \BQ)) \subset G_k H^i(X_2, \BQ), \quad \forall i,k,
+\]
+with $G_*H^*(X_i, \BQ)$ the first Deligne splitting associated with $\eta_i$.
+\end{lem}
+
+\begin{proof}
+It follows from the fact that the sub-vector spaces
+\[
+\mathrm{Ker}(\Phi_m), ~ Q^k \subset P_kH^*(X_i, \BQ)
+\]
+are preserved under the morphism $\phi$.
+\end{proof}
+
+\begin{rmk}
+In the case of the Hitchin fibration 
+\[
+h: \CM_{\mathrm{Dol}} \to  \Lambda,
+\]
+we see in the proof of Proposition \ref{prop3.2_Hitchin} that the first Deligne splitting associated with any Lefschetz class has the form 
+\begin{equation}\label{Hitchin_splitting}
+G_k H^*(\CM_{\mathrm{Dol}}, \BQ) = \bigoplus_{i+j=k} G_iH^*(\widehat{\CM}_{\mathrm{Dol}}, \BQ) \otimes H^j(\mathrm{Pic}^0(C), \BQ), 
+\end{equation}
+where $G_iH^*(\widehat{\CM}_{\mathrm{Dol}}, \BQ)$ is the first Deligne splitting associated with the relative ample class 
+\[
+\alpha \in H^2(\widehat{\CM}_{\mathrm{Dol}}, \BQ).
+\]
+In particular, the splitting (\ref{Hitchin_splitting}) does not depend on the choice of a Lefschetz class.
+\end{rmk}
+
+\subsection{Semismall maps and Hilbert schemes}\label{Section3.4}
+In this section, we study the morphism $\pi: X \to Y$ which can be factorized as
+\[
+X \xrightarrow{f} Z \xrightarrow{g} Y
+\]
+where $f: X \to Z$ is semismall. We further assume that there are sub-varieties $Z_i \subset Z$ such that the decomposition theorem for $f$ has the form
+\begin{equation}\label{decomp9}
+\mathrm{Rf_\ast} \BQ_X = \bigoplus_i \mathrm{IC}_{Z_i}[-\mathrm{dim}(X)].
+\end{equation}
+In particular, one of $Z_i$ is the total variety $Z$. The restriction of $g$ to every $Z_i$ gives the morphism
+\[
+g_i: Z_i \to Y_i \subset Y.
+\]
+We deduce from (\ref{decomp9}) the canonical decomposition of the cohomology of $X$:
+\begin{equation}\label{decomp8}
+H^\CL(X, \BQ) = \bigoplus_i \mathrm{IH}^{d-2n_i}(Z_i, \BQ), \quad n_i = \mathrm{codim}_{Z_i}(X).
+\end{equation}
+
+\begin{prop}\label{proposition3.5}
+For $\alpha \in H^2(Z, \BQ)$, we assume that the restriction
+\[
+\alpha_i = \alpha|_{Z_i} \in H^2(Z_i, \BQ)
+\]
+is a Lefschetz class with respect to $g_i$ which induces the first Delgine splitting 
+\[
+\mathrm{IH}^*(Z_i, \BQ) = \bigoplus_k G_k \mathrm{IH}^*(Z_i, \BQ).
+\]
+Then $\eta = f^*\alpha \in H^2(X, \BQ)$ is a Lefschetz class, whose induced first Deligne splitting is
+\begin{equation}\label{decomp7}
+G_kH^\CL(X, \BQ) = \bigoplus_i G_{k-n_i}\mathrm{IH}^{d-2n_i}(Z_i, \BQ).
+\end{equation}
+under the identification (\ref{decomp8}).
+\end{prop}
+
+\begin{proof}
+Since $f$ is semismall, it is a generically finite morphism. By the projection formula, we have
+\[
+f_\ast \eta = f_*f^* \alpha = \mathrm{deg}(f)\cdot  \alpha,
+\]
+which implies that the induced morphism
+\[
+f_\ast \eta: \bigoplus_i \mathrm{IC}_{Z_i} \to \bigoplus_i\mathrm{IC}_{Z_i}[2]
+\]
+is the direct sum 
+\[
+f_\ast \eta = f_*f^* \alpha = \mathrm{deg}(f) \cdot \bigoplus_i \alpha_i,\quad \alpha_i: \mathrm{IC}_{Z_i} \to \mathrm{IC}_{Z_i}[2].
+\]
+In particular, for a class written in the form
+\[
+(\gamma_i)_i \in H^*(X, \BQ), \quad \gamma_i \in \mathrm{IH}^{*}(Z_i, \BQ),
+\]
+via (\ref{decomp8}), we have $\eta \cup (\gamma_i)_i = \mathrm{deg}(f)\cdot(\alpha_i \cup \gamma_i)_i$.
+
+We apply the decomposition theorem to the composition
+\[
+X \to Z \to Y
+\]
+and obtain that the perverse filtration $P_*H^*(X, \BQ)$ can be expressed in terms of the perverse filtrations $P_*\mathrm{IH}^*(Z_i, \BQ)$ under (\ref{decomp8}), \emph{i.e.},
+\[
+P_kH^\CL(X, \BQ) = \bigoplus_i P_{k-n_i}\mathrm{IH}^{d-2n_i}(Z_i, \BQ).
+\]
+Hence we deduce that $\eta$ is a Lefschetz class from the fact that every $\alpha_i$ is a Lefschetz class, and the decomposition (\ref{decomp7}) follows.
+\end{proof}
+
+We show in the following that the splitting (\ref{canonical_split}) for a Hilbert scheme is the first Deligne splitting induced by a Lefschetz class. 
+
+The morphism $p_n: A^{[n]} \to E'^{(n)}$ introduced in Section \ref{Section1.5} can be factorized as
+\begin{equation}\label{factorization_Hilb}
+A^{[n]} \xrightarrow{f} A^{(n)} \xrightarrow{g} E'^{(n)}
+\end{equation}
+where the Hilbert--Chow morphism $f$ is semismall \cite{Go2}. There are canonical morphisms
+\[
+\kappa_\nu: A^{(\nu)} \to A^{(n)}
+\]
+together with a canonical stratification of $A^{(n)}$ indexed by the partitions $\nu$ of $n$,
+\[
+A^{(n)} = \bigcup_\nu A_\nu, \quad \overline{A_\nu} = \mathrm{Im}(\kappa_\nu) \subset A^{(n)}.
+\]
+By \cite[Theorem 3]{Go2}, the decomposition theorem associated with $f$ is
+\[
+\mathrm{Rf}_* \BQ_{A^{[n]}} = \bigoplus_{\nu} \mathrm{IC}_{\overline{A_\nu}} [-2n],
+\]
+and the restriction of $g: A^{(n)} \to E'^{(n)}$ to each $\overline{A_\nu}$ is described by the commutative diagrams
+\begin{equation}\label{diagram9}
+\begin{tikzcd}
+A^{(\nu)} \arrow{r}{\kappa_\nu}  \arrow[swap]{d} &  \overline{A_\nu}\arrow[r, hookrightarrow]  \arrow[swap]{d} &  A^{(n)}  \arrow{d} \\
+{E'}^{(\nu)} \arrow{r} & \overline{{E'_\nu}} \arrow[r, hookrightarrow] & E'^{(n)}.
+\end{tikzcd}
+\end{equation}
+
+We consider the relative ample class
+\[
+\alpha = \mathrm{pt} \otimes 1_{E'} \in H^2(E, \BQ)\otimes H^0(E', \BQ) \subset H^2(A, \BQ)
+\]
+of $p:A \to E'$ which induces a Lefschetz class 
+\[
+\alpha^{(n)} \in H^2(A^{(n)}, \BQ)
+\]
+with respect to $A^{(n)} \to E'^{(n)}$. It further induces a Lefschetz class
+\[
+\alpha^{(\nu)} \in H^2(A^{(\nu)}, \BQ)
+\]
+with respect to $A^{(\nu)} \to E'^{(\nu)}$ for every partition $\nu$ of $n$. By the diagram (\ref{diagram9}), the pullback of $\alpha^{(n)}$ to every $A^{(\nu)}$ via $\kappa_\nu$ coincides with $\alpha^{(\nu)}$. Hence we obtain the following corollary by applying Proposition \ref{proposition3.5} to the factorization (\ref{factorization_Hilb}).
+
+\begin{cor}\label{cor3.6}
+The decomposition (\ref{canonical_split}) is the first Deligne splitting induced by the Lefschetz class 
+\[
+\eta_{A^{[n]}} = f^*\alpha^{(n)} \in H^2(A^{[n]}, \BQ)
+\]
+with respect to $p_n: A^{[n]} \to E'^{(n)}$.
+\end{cor}
+
+\subsection{A strengthened version of Theorem \ref{taut_abelian}}\label{Section3.5}
+We study the decomposition (\ref{decomp6}) constructed for Theorem \ref{taut_abelian}. In the special case (\ref{special}), we have
+\[
+\CM_{\beta, A} \cong A^{[n]} \times \widehat{A}
+\]
+with the morphism $\pi_\beta: \CM_{\beta,A} \to B$ given by (\ref{HC2}). Therefore we deduce from Corollary \ref{cor3.6} that the decomposition (\ref{splitting2}) is the first Deligne splitting associated with the Lefschetz class
+\[
+\eta_{A,\beta} = \eta_{A^{[n]}} \otimes 1_{\widehat{A}} + 1_{A^{[n]}}\otimes \left(1_E \otimes \mathrm{pt} \right) \in H^2(A^{[n]} \times \widehat{A}, \BQ) =  H^2(\CM_{\beta, A}, \BQ).
+\]
+
+By Theorem \ref{thm2.6}, any pair $(A', \beta')$ with $\beta'^2=2n$ is perversely isomorphic to the special pair $(A, \beta)$ given by (\ref{special}). So there is a graded isomorphism
+\[
+\phi: H^*(\CM_{\beta, A}, \BQ) \xrightarrow{\simeq} H^*(\CM_{\beta', A'}, \BQ) 
+\]
+of $\BQ$-algebras preserving the corresponding perverse filtrations, and we obtain a decomposition (\ref{decomp6}) as
+\begin{equation}\label{996}
+\widetilde{G}_kH^\CL(\CM_{\beta',A'}, \BQ) = \phi(\widetilde{G}_kH^\CL(\CM_{\beta',A'}, \BQ));
+\end{equation}
+see the proof of Proposition \ref{prop2.5}. Hence 
+\[
+\eta_{A',\beta'} = \phi(\eta_{A,\beta}) \in H^2(\CM_{\beta',A'}, \BQ)
+\]
+is a Lefschetz class with respect to $\pi_{\beta'}$, and Lemma \ref{comparison1} implies that the decomposition (\ref{996}) is the first Deligne splitting associated with $\eta_{A',\beta'}$. 
+
+This gives the following strengthened version of Theorem \ref{taut_abelian}.
+
+\begin{thm}\label{strengthened2.1}
+Theorem \ref{taut_abelian} holds for a splitting $\widetilde{G}_\ast H^\ast(\CM_{\beta,A}, \BQ)$ given by the first Deligne splitting associated with a Lefschetz class with respect to $\pi_\beta: \CM_{\beta,A} \to B$.
+\end{thm}
+
+
+
+
+\section{Topology of Hitchin fibrations}
+
+\subsection{Overview} Throughout the section, we assume $C$ is a nonsingular curve of genus $g$ embedded into an abelian surface $A$. We study a specialization morphism
+\begin{equation}\label{sp}
+    \mathrm{sp}^!: H^*(\CM_{\beta, A}, \BQ) \to H^*(\CM_{\mathrm{Dol}}, \BQ)
+\end{equation}
+where $\CM_{\mathrm{Dol}}$ is the moduli of stable Higgs bundles of rank $n$ and degree 1, and 
+\[
+\beta = n[C] \in H_2(A, \BZ).
+\]
+Then we deduce Theorems \ref{genus_2}, \ref{P=W_even}, and \ref{P=W_odd} from Theorem \ref{taut_abelian} via the morphism (\ref{sp}).
+
+\subsection{Deformation to the normal cone}\label{Section 4.2}
+
+The moduli space $\CM_{\mathrm{Dol}}$ of rank $n$ stable Higgs bundles can be realized as the moduli space of $1$-dimensional Gieseker-stable sheaves $\CF$ on the surface $T^*C$ with
+\[
+ [\mathrm{supp}(\CF)] = n[C] \in H_2(T^*C, \BZ), \quad \chi(\CF) = 1;
+\]
+see \cite{BNR}. We describe $\CM_{\mathrm{Dol}}$ as the ``limit'' of a trivial family of $\CM_{\beta,A}$ as follows.
+
+Assume $T = \BP^1$ and $T^\circ = \BP^1 \setminus 0 = \BC$. Let 
+\begin{equation}\label{normal_cone}
+ \CS = \mathrm{Bl}_{C\times 0}(A \times T) \setminus (A\times 0) \to T
+\end{equation}
+be the total space of the deformation to the normal cone associated with the embedding $j_C:C\hookrightarrow A$. The central fiber of (\ref{normal_cone}) is
+\[
+\CS_0 = T^*C \to 0 \in T,
+\]
+and the restriction over $T^\circ$ is a trivial fibration
+\[
+A \times T^\circ \to  T^\circ \subset T.
+\]
+
+
+We associate to $\beta$ a family of homology classes 
+\[
+\beta_t = n[C] \in H_2(\CS_t, \BZ).
+\]
+Let $\CM \rightarrow T$ be the (coarse) relative moduli space which parametrizes, for each $t \in T$, pure one-dimensional Gieseker-stable sheaves $\CF$ on $\CS_t$ such that $\CF$ has proper support in the class $\beta_t$ and $\chi(\CF)=1$. Similarly, let $\CB \rightarrow T$ denote the component of the relative Hilbert scheme which parametrizes Cartier divisors in $\CS_t$ with proper support in the class $\beta_t$.  Following \cite[Section 5.3]{GIT}, we have a proper morphism 
+\begin{equation*}
+\begin{tikzcd}
+\CM \ar [rr,"h_T"]\ar[rd]& & \CB\ar[ld]\\
+ &T&
+\end{tikzcd}
+\end{equation*}  
+over the base $T$, which, on the level of points, sends a sheaf $\CF$ on $\CS_t$ to its cycle-theoretic support, viewed as an element in $\CB_t$.
+Clearly, both $\CM$ and $\CB$ become trivial families when restricted over $T^\circ$,
+\begin{equation*}
+\begin{tikzcd}
+\CM_{\beta,A} \times T^\circ \ar [rr,"h_{T^\circ}"]\ar[rd]& & B \times T^\circ \ar[ld]\\
+ &T^\circ&
+\end{tikzcd}
+\end{equation*}  
+The fibers over $0 \in T$ recover the moduli space $\CM_{\mathrm{Dol}}$, the Hitchin base $\Lambda$, and the Hitchin fibration (\ref{Hitchin_fib}).
+
+The following lemma is standard, but we give a brief proof due to lack of adequate reference.
+\begin{lem}\label{lem4.1}
+\begin{enumerate}
+\item[(i)] Both $\CM$ and $\CB$ are irreducible varieties and smooth over $T$.
+\item[(ii)] There exists a universal family $\CF_T$ of 1-dimensional Gieseker-stable sheaves on $\CM\times_{T} \CS$.
+\end{enumerate}
+\end{lem}
+\begin{proof}
+
+For (i), we first argue for $\CB$. For notational convenience, we define
+\[
+\tilde{g} = \mathrm{dim}(\CB_t) = n^2(g-1)+1, \quad \forall~t \in T.
+\]
+We observe that the closure of 
+\[
+\CB^{\circ} = B \times T^\circ
+\]
+is irreducible of dimension $\tilde{g}+1$, so the intersection 
+\[
+\overline{\CB^{\circ}}\cap \CB_0 \subset \CB_0
+\]
+must have at least dimension $\tilde{g}$ at every closed point.  This intersection is non-empty since it contains the divisor $n[C]$ which clearly deforms to the generic fiber. Since $\CB_0$ is irreducible of dimension $\tilde{g}$, we have $\CB_0 \subset \overline{\CB^{\circ}}$. Therefore $\CB$ is irreducible. This implies the flatness of $\CB$ over $T$. Furthermore, since its fibers are all nonsingular, the morphism $\CB \to T$ is smooth.
+
+The same argument applies for $\CM$. The only thing to check is that there exists a point in the central fiber $\CM_0$ which deforms to the generic fiber.  By the last paragraph, we can choose a nonsingular curve $Z_0 \subset \CS_0$ which deforms to $Z_t \subset \CS_t$.  Any line bundle on $Z_0$ with Euler characteristic $1$ can be deformed as well and this gives a liftable point in $\CM_0$.
+
+As for (ii), this follows as in the non-relative case. The moduli stack $\mathsf{M}$ of Gieseker-stable 1-dimensional sheaves is a $\BG_m$-gerbe over $\CM$ and, as in \cite{Lieb}, this gerbe is trivial if and only if there exists a twisted line bundle.  In our case, if $\mathsf{F}_T$ is the universal family over $\mathsf{M}$, the determinant $\mathrm{det}R\Gamma(\mathsf{F}_T)$ defines a twisted line bundle because of the condition $\chi(\CF)  =1$.  By pulling back $\mathsf{F}_T$ over the moduli stack via a trivialization of the gerbe, we obtain a universal family $\mathcal{F}_T$ over $\CM$.\footnote{The choice of trivialization affects the universal family by tensoring with a line bundle.}
+\end{proof}
+
+
+\subsection{Specializations}\label{section4.3} Specialization morphisms with respect to perverse filtrations have been studied systematically in \cite{dCM, sp}. Here we provide a concrete description of the specialization morphism in our case as follows.
+
+As before, we assume $T = \BP^1$ and $T^\circ = \BP^1 \setminus 0$. Let $f: W \to T$ be a smooth morphism, whose restriction over $T^\circ$ is a trivial product
+\[
+f^\circ: W^\circ = W_t \times T^\circ \rightarrow T^\circ, \quad \forall~ t\neq 0,
+\]
+with $W_t$ proper.
+Hence by the global invariant cycle theorem \cite[Theorem 1.7.1]{dCM1}, the restriction 
+\[
+\mathrm{res}_t:  H^*(W, \BQ) \to H^*(W_t, \BQ)
+\]
+is surjective for $t \neq 0$. Let 
+\[
+\alpha_1, \alpha_2 \in H^*(W, \BQ)
+\]
+be two liftings of a class $\alpha \in H^*(W_t, \BQ)$ with $t\neq 0$. The localization exact sequence implies that 
+\begin{equation}\label{en52}
+\alpha_1 - \alpha_2 = {i_0}_* \gamma, 
+\end{equation}
+for some class $\gamma$
+ in the Borel--Moore homology of $W_0$.  Here $i_0: W_0 \hookrightarrow W$ is the closed embedding of the central fiber, and we identify the Borel--Moore homology and the cohomology of $W$ in the equation (\ref{en52}). Hence by the excess intersection formula, we have
+\[
+\mathrm{res}_0(\alpha_1) - \mathrm{res}_0(\alpha_2) = i_0^*{i_0}_* \gamma = c_1(N_{W_0/W})\cap \gamma =0.
+\]
+We define the specialization morphism
+\begin{equation}\label{sp!}
+\mathrm{sp}^!: H^*(W_t, \BQ) \rightarrow H^*(W_0, \BQ), \quad t\neq 0
+\end{equation}
+as
+\begin{equation}\label{sp1}
+\mathrm{sp^!}(\alpha) = \mathrm{res}_0(\tilde{\alpha}) \in H^*(W_0, \BQ)
+\end{equation}
+where $\tilde{\alpha} \in H^*(W, \BQ)$ is any lifting of $\alpha$. The discussion above implies that the class (\ref{sp1}) does not depend on the lifting $\tilde{\alpha}$, and (\ref{sp!}) is a homomorphism of $\BQ$-algebras,
+since $\mathrm{res}_t$ is a homomorphism for all $t$.
+
+
+\begin{example}\label{example1}
+Let $\CS \to T$ be the relative surface (\ref{normal_cone}) associated with the embedding $j_C: C \hookrightarrow A$. So we have the specialization morphism
+\begin{equation}\label{2333}
+\mathrm{sp}^!: H^*(A, \BQ) \to H^*(T^*C, \BQ) = H^*(C, \BQ).
+\end{equation}
+By the definition of $\mathrm{sp}^!$, the morphism (\ref{2333}) is given by the pullback along
+\[
+T^*C  \hookrightarrow \BP(T^*C \oplus \CO_C) \hookrightarrow \mathrm{Bl}_{C\times 0}(A \times T) \to A\times T \to A.
+\]
+In particular, we have
+\[
+\mathrm{sp}^!(\gamma)  = j_C^* \gamma \in H^*(T^*C, \BQ) = H^*(C, \BQ),\quad \forall~ \gamma \in H^*(A, \BQ). 
+\]
+\end{example}
+
+Now we discuss the interaction between $\mathrm{sp}^!$ and perverse filtrations. Let $W$ be as above. We consider a commutative diagram
+
+\begin{equation*}
+\begin{tikzcd}
+W \ar [rr,"h"]\ar[rd]& & V\ar[ld]\\
+ &T&
+\end{tikzcd}
+\end{equation*}  
+where the morphism $h: W \to V$ is proper of relative dimension $d$. For every $t \in T$, there is a perverse filtration $P_*H^*(W_t, \BQ)$ associated with the morphism $h_t : W_t \to V_t$.
+
+\begin{prop}\label{Prop3.1}
+The specialization morphism (\ref{sp!}) preserves the perverse filtrations, \emph{i.e.}, 
+\[
+\mathrm{sp}^!\left( P_kH^\CL(W_t, \BQ ) \right) \subset P_k H^\CL(W_0, \BQ), \quad \forall k,d.
+\]
+\end{prop}
+
+\begin{proof}
+We show that there exist splittings of the perverse filtrations
+\[
+H^*(W_t, \BQ) = \bigoplus_{i,d}G_iH^\CL(W_t, \BQ), \quad \forall~ t \in T
+\]
+such that 
+\begin{equation*}
+\mathrm{sp}^!\left(G_iH^*(W_t ,\BQ)\right) \subset G_iH^*(W_0, \BQ).
+\end{equation*}
+
+We apply the decomposition theorem \cite{BBD} to the morphism $h: W \to V$, and fix an isomorphism
+\[
+\phi: \mathrm{Rh}_\ast \BQ_W [\mathrm{dim}W - d] \xrightarrow{\simeq} \bigoplus_{i=0}^{2d} \CP_V^i [-i].
+\]
+Here $\CP_V^i$ are semisimple perverse sheaves on $V$. By the discussion in Section \ref{sec1.3}, the isomorphism $\phi$ induces a splitting of the perverse filtration on $H^*(W, \BQ)$ associated with $h$. By smoothness of $f$ and compatibility of vanishing cycles with $\mathrm{Rh}_*$, we have $\varphi_f(\mathrm{Rh}_\ast \BQ_W) = 0$.  As a result, Corollary $3.1.6$ of \cite{dCM} shows the restriction of $\CP_V^i$ to a closed fiber over $t\in T$ is a shifted perverse sheaf,
+\[
+\CP_{V,t}^i [-1] = \mathrm{res}_t^*\CP_V^i [-1] \in \mathrm{Perv}(V_t), \quad \forall~ t\in T.
+\]
+Hence the restriction of the decomposition $\phi$ induces a splitting of the perverse filtration
+\[
+H^*(W_t, \BQ) = \bigoplus_{i,d}H^\CL(B, \CP_{B,t}^i)
+\]
+for every $t\in T$, and we conclude from the definition of $\mathrm{sp}^!$ that
+\[
+\mathrm{sp}^! (H^\CL(V, \CP_{V,t}^i)) \subset H^\CL(V, \CP_{V,0}^i)
+\]
+This completes the proof.
+\end{proof}
+
+Now we consider the family
+\[
+h_T: \CM \to  \CB
+\]
+over $T$ constructed in Section \ref{Section 4.2}. Proposition \ref{Prop3.1} implies that the specialization morphism
+\[
+\mathrm{sp}^!: H^*(\CM_{\beta, A}, \BQ) \to H^*(\CM_{\mathrm{Dol}}, \BQ)
+\]
+preserves the perverse filtrations. Let $\widetilde{G}_*H^*(\CM_{\beta,A}, \BQ)$ be a splitting given by Theorem \ref{strengthened2.1}. So it is the first Deligne splitting induced by a Lefschetz class
+\[
+\eta_{A,\beta} \in H^2(\CM_{\beta,A}, \BQ).
+\]
+
+\begin{comment}
+%associated with $h_t = \pi_\beta: \CM_{A,\beta} \to B$ and $h_0: \CM_{\mathrm{Dol}} \to \Lambda$.
+
+%\begin{prop}
+%Let $\widehat{G}_*H^*(W_t, \BQ)$ be a splitting of the perverse filtration $P_*H^*(W_t, \BQ)$ for $t\neq 0$. Then we have the decomposition
+%\[
+%\mathrm{Im}\left\{\mathrm{sp}^!: H^*(W_t, \BQ) \to H^*(W_0,\BQ)\right\}= \bigoplus_{i,d} \mathrm{sp}^!\left(G_iH^\CL(W_0, \BQ)\right)
+%\]
+%which splits the restricted perverse filtration $P_*H^*(W_0, \BQ) \cap \mathrm{Im}(\mathrm{sp}^!)$.
+%\end{cor}
+
+\begin{proof}
+Since $\mathrm{sp}^!$ preserves the perverse filtrations, it suffices to show that 
+\[
+\mathrm{sp}^!\left(G_iH^\CL(W_0, \BQ)\right) \cap \mathrm{sp}^!\left(G_jH^\CL(W_0, \BQ)\right) = \{0\}, \quad \forall~ i\neq j.
+\]
+This follows from Proposition \ref{Prop3.1} that
+\[
+\mathrm{sp}^!\left(G_iH^\CL(W_0, \BQ)\right) \cap \mathrm{sp}^!\left(P_{i-1}H^\CL(W_0, \BQ)\right) = \{0\}. \qedhere
+\]
+\end{proof}
+\end{comment}
+
+\begin{prop}\label{prop4.4}
+The class
+\[
+\eta_0 = \mathrm{sp}^!\left( \eta_{A,\beta}\right) \in H^2(\CM_{\mathrm{Dol}}, \BQ)
+\]
+is a Lefschetz class with respect to the Hitchin fibration $h: \CM_{\mathrm{Dol}} \to \Lambda$. Assume further that $\widetilde{G}_\ast H^*(\CM_{\mathrm{Dol}}, \BQ)$ is the first Deligne splitting associated with $\eta_0$. Then we have
+\begin{equation}\label{prop4.4eq}
+\mathrm{sp}^!\left( \widetilde{G}_kH^\CL(\CM_{\beta,A}, \BQ) \right) \subset \widetilde{G}_k H^\CL(\CM_{\mathrm{Dol}}, \BQ).
+\end{equation}
+\end{prop}
+
+
+\begin{proof}
+Let $F_{\beta,A} \subset \CM_{\beta,A}$ be a closed fiber of the morphism $\pi_\beta: \CM_{A,\beta} \to B$. We have
+\[
+ \mathrm{dim}(F_{A,\beta})= \frac{1}{2}\mathrm{dim}(\CM_{A,\beta}) = \tilde{g}.
+\]
+Since the fiber class 
+\[
+[F_{A,\beta}] \in H^{2\tilde{g}}(\CM_{A,\beta}, \BQ)
+\]
+lies in $P_0H^{2\tilde{g}}(\CM_{A,\beta}, \BQ)$ by Proposition \ref{prop1.1}, and $\eta_{A,\beta}$ is a Lefschetz class, we obtain that
+\[
+\eta_{A,\beta}^{\tilde{g}}|_{F_{A,\beta}} = \eta_{A,\beta}^{\tilde{g}} \cup [F_{A,\beta}] \neq 0.
+\]
+by the hard Lefschetz condition. Hence after specialization, we have
+\[
+\eta_0^{\tilde{g}}|_{F_0} = \eta_{A,\beta}^{\tilde{g}}|_{F_{A,\beta}} \neq 0
+\]
+with $F_0$ a closed fiber of $h: \CM_{\mathrm{Dol}} \to \Lambda$. We conclude from Proposition \ref{prop3.2_Hitchin} that $\eta_0$ is a Lefschetz class with respect to $h$. The equation (\ref{prop4.4eq}) then follows from Lemma \ref{comparison1}.
+\end{proof}
+
+
+\begin{rmk}\label{remark1}
+Proposition \ref{prop4.4} implies that $\mathrm{sp}^!(G_*H^*(\CM_{A,\beta}, \BQ))$ splits the restricted perverse filtration $P_*H^*(\CM_{\mathrm{Dol}}, \BQ) \cap \mathrm{Im(sp^!)}$, \emph{i.e.},
+\[
+P_kH^*(\CM_{\mathrm{Dol}}, \BQ) \cap \mathrm{Im(sp^!)} = \bigoplus_{i\leq k} \mathrm{sp}^!\left( \widetilde{G}_iH^*(\CM_{A,\beta}, \BQ)\right).
+\]
+In general, for an arbitrary splitting $G_*H^*(\CM_{A,\beta}, \BQ)$ of the perverse filtration $P_*H^*(\CM_{A,\beta}, \BQ)$, it may not be true that
+\[
+\mathrm{sp}^!\left({G}_iH^*(\CM_{A,\beta}, \BQ) \right) \cap \mathrm{sp}^!\left({G}_jH^*(\CM_{A,\beta}, \BQ) \right) = \{0\}, \quad \forall i\neq j.
+\]
+Hence it is crucial to realize the splitting $\widetilde{G}_*H^*(\CM_{A,\beta}, \BQ)$ as a Deligne splitting associated with a Lefschetz class as in Theorem \ref{strengthened2.1}.
+\end{rmk}
+
+
+
+\subsection{Normalized classes} Our purpose is to apply the specialization morphism to the tautological classes. We first discuss some properties of the normalized classes introduced in Section 0.3.
+
+Following \cite{HRV, HT1, Shende}, the cohomology 
+\[
+H^*(\CM_{\mathrm{Dol}}, \BQ) = H^*(\CM_B, \BQ)
+\]
+can be understood by the associated $\mathrm{PGL}_n$-character variety $\tilde{\CM}_B$. More precisely, let
+\[
+H^*(\CM_B, \BQ) \cong H^*(\tilde{\CM}_B, \BQ) \otimes H^*((\BC^*)^{2g}, \BQ)
+\]
+be the isomorphism established in \cite[Section 1]{HT1} and \cite[Theorem 2.2.12]{HRV}. Every class $w \in H^i(\tilde{\CM}_B, \BQ)$ can be naturally viewed as a class
+\[
+w = w\otimes 1 \in H^i(\CM_B, \BQ).
+\]
+The weights of the tautological classes associated with the universal $\mathrm{PGL}_n$-bundle $\CT$ were calculated in \cite{Shende},
+\begin{equation}\label{eqn52}
+\int_\gamma c_k(\CT) \in {^k\mathrm{Hdg}^{i+2k-2}(\CM_B)},\quad \forall~\gamma \in H^i(C, \BQ).
+\end{equation}
+The following lemma deduces (\ref{taut_weight}) from (\ref{eqn52}).
+
+\begin{lem}\label{lem3.1}
+A twisted universal family $(\CU^\alpha, \theta)$ satisfies
+\begin{equation}\label{53}
+\int_\gamma \mathrm{ch}^\alpha_k(\CU) \in {^k\mathrm{Hdg}^{i+2k-2}(\CM_B)},\quad \forall~\gamma \in H^i(C, \BQ),~~ \forall~ k\geq 0,
+\end{equation}
+if and only if $\mathrm{ch}^\alpha(\CU)$ is normalized.
+\end{lem}
+
+\begin{proof}
+We define
+\[
+{^k\mathrm{Hdg}^{d}(C\times \CM_B)} = \bigoplus_{i+j=d} H^i(C, \BQ) \otimes {^k\mathrm{Hdg}^{j}(\CM_B)}.
+\]
+Then (\ref{53}) is equivalent to
+\[
+\mathrm{ch}^\alpha(\CU) \in \bigoplus_k {^k\mathrm{Hdg}^{2k}(C\times \CM_B)}.
+\]
+By a direct calculation using Chern roots, we have
+\[
+\mathrm{ch}^\alpha(\CU) = \mathrm{ch}(\CT) \cup \mathrm{exp}\left(\frac{c_1(\CU)}{n}+ \alpha\right).
+\]
+Note that (\ref{eqn52}) is equivalent to \[
+\mathrm{ch}(\CT) \in \bigoplus_k {^k\mathrm{Hdg}^{2k}(C\times \CM_B)}.
+\]
+Since 
+\[
+{^1\mathrm{Hdg}^{2}(C\times \CM_B)} = H^1(C, \BQ)\otimes H^1(\CM_B ,\BQ), 
+\]
+we obtain that (\ref{53}) holds if and only if
+\[
+\mathrm{ch}_1^\alpha(\CU)= c_1(\CU) + n\alpha \in H^1(C, \BQ) \otimes H^1(\CM_B, \BQ).
+\]
+This is equivalent to the condition that the class $\mathrm{ch}(\CU^\alpha)$ is normalized.
+\end{proof}
+
+We also give a criterion of the normalized classes $\mathrm{ch}^\alpha(\CU)$ via the perverse filtration parallel to Lemma \ref{lem3.1}.
+
+\begin{lem}\label{lem4.7}
+Suppose we have a twisted universal family $(\CU^\alpha, \theta)$ such that, for each $k \geq 0$ and $\gamma \in H^{2i}(C, \BQ)$, the tautological class 
+\begin{equation*}
+\int_\gamma \mathrm{ch}^\alpha_k(\CU) \in H^{2i+2k-2}(\CM_\mathrm{Dol}, \BQ),
+\end{equation*}
+has perversity $k$. Then $\mathrm{ch}^\alpha(\CU)$ is normalized.
+\end{lem}
+
+\begin{proof}
+We have
+\[
+ P_1H^2(\CM_{\mathrm{Dol}}, \BQ) = 0, \quad  P_0H^0(\CM_{\mathrm{Dol}}, \BQ)=H^0(\CM_{\mathrm{Dol}}, \BQ).
+\]
+For the first vanishing, we can use the decomposition \eqref{112233}; the corresponding vanishing holds $\widehat{CM}_{\mathrm{Dol}}$ since its second cohomology is generated by an ample class which cannot have perversity $1$.  The second statement follows similarly.
+Since any K\"unneth factor of $\mathrm{ch}_1^\alpha(\CU)$ in $H^*(\CM_{\mathrm{Dol}}, \BQ)$ has perversity $1$, we conclude that 
+\[
+\mathrm{ch}_1^\alpha(\CU) \in  H^1(C, \BQ)\otimes H^1(\CM_\mathrm{Dol} ,\BQ). \qedhere
+\]
+\end{proof}
+
+\subsection{Specializations and tautological classes}
+Assume $j_C: C\hookrightarrow A$ is the closed embedding. Let $\CS \to T$ and $\CM \to T$ be the family of surfaces and the relative moduli space of 1-dimensional sheaves introduced in Section \ref{Section 4.2}. By Lemma \ref{lem4.1}, there is a universal family $\CF_T$ on $\CS\times_T \CM$.
+
+Let
+\[
+\pi_\CS: \CS\times_T \CM \to \CS,\quad \pi_\CM: \CS\times_T \CM \to \CM
+\]
+be the projections. The support of $\CF_T$ is the universal spectral curve
+\[
+\CC \subset \CS\times_T \CM
+\]
+which is proper over $\CM$. By \cite{BFM}, the sheaf $\CF_T$ defines a localized Chern character
+\[
+\mathrm{ch}(\CF_T) \in H^{\mathrm{BM}}_*(\CC, \BQ)
+\]
+with $H^{\mathrm{BM}}_*(-, \BQ)$ the Borel--Moore homology. For any class
+\begin{equation}\label{alphatilde}
+\tilde{\alpha} = \pi_\CS^* \tilde{\alpha}_1 + \pi_\CM^* \tilde{\alpha}_2 \in H^2(\CS \times_T \CM)
+\end{equation}
+with $\tilde{\alpha}_1\in H^2(\CS, \BQ),~ \tilde{\alpha}_2\in H^2(\CM, \BQ)$, we consider the relative twisted class
+\begin{equation}\label{456}
+\mathrm{ch}^{\tilde{\alpha}}(\CF_T) = \mathrm{exp}(\tilde{\alpha})\cap \mathrm{ch}(\CF_T).
+\end{equation}
+Since $\mathrm{ch}(\CF_T)$ defines a class in the Borel--Moore homology of $\CC$, the class (\ref{456}) also lies naturally in $ H^{\mathrm{BM}}_*(\CC, \BQ)$, whose degree $k$ part
+\[
+ \mathrm{ch}_k^{\tilde{\alpha}}(\CF_T) \in H^{\mathrm{BM}}_{2\mathrm{dim}(\CS\times_T\CM)-2k}(\CC, \BQ)
+\]
+induces the relative tautological classes
+\begin{equation}\label{427}
+\int_{\tilde{\gamma}} \mathrm{ch}_k^{\tilde{\alpha}}(\CF_T) = {\pi_\CC}_* ( \pi_{\CS}^*\tilde{\gamma} \cap  \mathrm{ch}_k^{\tilde{\alpha}}(\CF_T) ) \in H^*(\CM, \BQ), \quad \forall \tilde{\gamma}\in H^*(\CS, \BQ).
+\end{equation}
+Here $\pi_\CC$ is the proper morphism
+\[
+\pi_\CC: \CC \hookrightarrow \CS \times_T \CM \to \CM, 
+\]
+and therefore the push-forward 
+\[
+{\pi_\CC}_*: H^\mathrm{BM}_*(\CC, \BQ) \to H^\mathrm{BM}_*(\CM, \BQ) \cong H^*(\CM, \BQ)
+\]
+is well defined. In particular, (\ref{427}) gives a family of cohomology classes over $T$ whose restriction to every closed fiber is a twisted universal class.
+
+\begin{prop}\label{prop4.8}
+Let 
+\[
+\int_{\gamma} \mathrm{ch}_k^\alpha (\CF_\beta) \in H^*(\CM_{A,\beta}, \BQ), \quad  \gamma \in H^*(A, \BQ)
+\]
+be the classes of Theorem \ref{taut_abelian}, then we have
+\[
+\mathrm{sp}^!\left( \int_{\gamma} \mathrm{ch}_k^\alpha (\CF_\beta) \right) = c(k-1, j_C^*\gamma).
+\]
+\end{prop}
+
+\begin{proof}
+By the definition of $\mathrm{sp}^!$, we have
+\[
+\mathrm{sp}^!\left( \mathrm{res}_t\left( \int_{\tilde{\gamma}} \mathrm{ch}_k^{\tilde{\alpha}} (\CF_T) \right)\right) = \mathrm{res}_0\left( \int_{\tilde{\gamma}} \mathrm{ch}_k^{\tilde{\alpha}} (\CF_T) \right)
+\]
+for any $\tilde{\alpha}$ of the type (\ref{alphatilde}). Hence the class $\mathrm{sp}^!\left( \int_{\gamma} \mathrm{ch}_k^\alpha (\CF_\beta) \right)$ is of the form
+\[
+\int_{\mathrm{sp}^!(\gamma)} \mathrm{ch}_k^{\alpha_0} (\CF_0),
+\]
+where $(\CF_0, \alpha_0)$ is a twisted universal family of 1-dimensional Gieseker-stable sheaves on $T^*C \times \CM_{\mathrm{Dol}}$. Example \ref{example1} and a direct calculation using the Grothendieck--Riemann--Roch formula imply that
+\begin{equation*}\label{997}
+\int_{\mathrm{sp}^!(\gamma)} \mathrm{ch}_k^{\alpha_0} (\CF_0) = \int_{j_C^*\gamma} \mathrm{ch}_{k-1}^{\alpha_0}(\CU).
+\end{equation*}
+Here $\CU = \mathrm{pr}_* \CF_0$ is a universal family on $C\times \CM_{\mathrm{Dol}}$ with
+\[
+\mathrm{pr}: T^*C\times \CM_{\mathrm{Dol}} \to C\times \CM_{\mathrm{Dol}} 
+\]
+the natural projection. 
+
+In conclusion, we obtain that
+\[
+\mathrm{sp}^!\left( \int_{\gamma} \mathrm{ch}_k^\alpha (\CF_\beta) \right) = \int_{j_C^*\gamma} \mathrm{ch}_{k-1}^{\alpha_0}(\CU).
+\]
+Moreover, we know from Proposition \ref{prop4.4} that the twisted class \[
+\int_{j_C^*\gamma} \mathrm{ch}_{k-1}^{\alpha_0}(\CU),\quad \forall \gamma \in H^*(A, \BQ)
+\]
+has perversity $k-1$ for any $k \geq 1$. Hence Lemma \ref{lem4.7} implies that 
+\[
+\int_{j_C^*\gamma} \mathrm{ch}_{k-1}^{\alpha_0}(\CU) = c(k-1, j_C^*\gamma). \qedhere
+\]
+\end{proof}
+
+\subsection{Proofs of Theorems \ref{genus_2}, \ref{P=W_even}, and \ref{P=W_odd}}\label{Section4.6}
+
+Since the perverse filtration with respect to the Hitchin fibration $h: \CM_{\mathrm{Dol}} \to \Lambda$ is locally constant when we deform the curve $C$ \cite{dCM}, it suffices to prove all the three theorems for a curve which can be embedded in an abelian surface
+\[
+j_C: C\hookrightarrow A.
+\]
+Therefore we apply the specialization morphism 
+\[
+\mathrm{sp}^!: H^*(\CM_{\beta, A}, \BQ) \to H^*(\CM_{\mathrm{Dol}}, \BQ).
+\]
+introduced in Section \ref{section4.3}, and obtain the following results immediately from Theorem \ref{strengthened2.1}, Proposition \ref{prop4.4}, and Proposition \ref{prop4.8}:
+\begin{enumerate}
+    \item[(i)] We have
+    \begin{equation}\label{333333}
+    c(\gamma, k) \in \widetilde{G}_kH^*(\CM_{\mathrm{Dol}}, \BQ), \quad \forall \gamma \in \mathrm{Im}({j_C^*}) \subset H^*(C, \BQ).
+    \end{equation}
+    \item[(ii)] The restriction of the decomposition \[
+    H^*(\CM_{\mathrm{Dol}}, \BQ)= \bigoplus_{k,d}\widetilde{G}_kH^\CL(\CM_{\mathrm{Dol}}, \BQ)
+    \]to the subalgebra of $H^*(\CM_{\mathrm{Dol}}, \BQ)$ generated by the classes (\ref{333333}) is multiplicative.
+\end{enumerate}
+
+We first prove Theorem \ref{genus_2}. The Abel-Jacobi map embeds a genus 2 curve $C$ into its Jacobian
+\[
+j_C: C \hookrightarrow \mathrm{Jac}(C) = A.
+\]
+Hence the restriction morphism $j_C^*$ is surjective, and Theorem \ref{genus_2} follows from (i) and (ii) above. 
+
+The proof of Theorem \ref{P=W_even} is similar. For any embedding $j_C$, the image of $j_C^*$ always contains the sub-vector space
+\[
+H^0(C, \BQ) \oplus H^2(C, \BQ) \subset H^*(C, \BQ).
+\]
+Hence the subalgebra
+\[
+R^*(\CM_{\mathrm{Dol}}) \subset H^*(\CM_{\mathrm{Dol}}, \BQ)
+\]
+is contained in the subalgebra generated by the classes (\ref{333333}), and we again conclude Theorem \ref{P=W_even} by (i) and (ii).
+
+Finally we treat the odd classes 
+\[
+c(\gamma, k) \in H^{2k-1}(\CM_{\mathrm{Dol}}, \BQ), \quad \gamma\in H^1(C, \BQ)
+\]
+and prove Theorem \ref{P=W_odd}. 
+
+When the curve $C$ has genus $\geq 3$, the restriction
+\begin{equation}\label{resH1}
+j_C^*: H^1(A, \BQ) \to H^1(C, \BQ)
+\end{equation}
+is not surjective. We know from (i) that $c(\gamma, k)$ has perversity $k$ for any $\gamma$ lying in the image of (\ref{resH1}). Since the monodromy group of the moduli space $\CM_g$ of nonsingular genus g curves is the full symplectic group $\mathrm{Sp}_{2g}$ by \cite{A}, the sub-vector space 
+\[
+\mathrm{Im}\left({j_C^*}:H^1(A, \BQ)\to H^1(C,\BQ) \right) \subset H^1(C, \BQ)
+\]
+generate the total cohomology $H^1(C, \BQ)$ via the action of the monodromy group. We deduce Theorem \ref{P=W_odd} from \cite{dCM}. \qed
+
+
+
+
+
+\begin{thebibliography}{99}
+
+\bibitem{A} N. A'Campo, {\em Tresses, monodromie et le groupe symplectique,} Comment. Math. Helv. 54 (1979), no. 2, 318--327.
+
+
+\bibitem{BFM} P. Baum, W. Fulton and R. MacPherson, {\em Riemann-Roch for singular varieties,} Inst. Hautes Etudes Sci. Publ. Math. 45 (1975), 101--145.
+
+
+\bibitem{B} A. Beauville, {\em Vari\'et\'es k\"ahl\'eriennes dont la premi\`ere classe de Chern est nulle,} J. Differential Geom. 18 (1983), no. 4, 755--782 (1984).
+
+\bibitem{Be} A. Beauville, {\em Syst\`emes hamiltoniens compl\`etement int\'egrables associ\'es aux surfaces~$K3$,} Problems in the theory of surfaces and their classification (Cortona, 1988), 25--31, Sympos. Math., XXXII, Academic Press, London, 1991.
+
+\bibitem{BNR} A. Beauville, M.S. Narasimhan, and S. Ramanan, {\em Spectral curves and the generalized theta divisor,}  J. Reine Angew. Math. (1989) 398, 169--179.
+
+
+\bibitem{BBD} A. A. Be\u{\i}linson, J. Bernstein, and P. Deligne, {\em Faisceaux pervers,} Analysis and topology on singular spaces, I (Luminy, 1981), 5--171, Ast\'erisque, 100, Soc. Math. France, Paris, 1982.
+
+\bibitem{Borel} A. Borel, {\em Density properties for certain subgroups of semi-simple groups without compact components,} Ann. of Math. (2) 72 (1960), 179--188.
+
+\bibitem{dC} M. A. de Cataldo, {\em Hodge-theoretic splitting mechanisms for projective maps,} with an appendix containing a letter from P. Deligne, J. Singul. 7 (2013), 134--156.
+
+\bibitem{sp} M. A. de Cataldo, {\em Perverse leray filtration and specialization with applications to the Hitchin morphism,} preprint.
+
+\bibitem{dCHM1} M. A. de Cataldo, T. Hausel, and L. Migliorini, {\em Topology of Hitchin systems and Hodge theory of character varieties: the case $A_1$,} Ann. of Math. (2) 175 (2012), no.~3, 1329--1407.
+
+\bibitem{dCHM3} M. A. de Cataldo, T. Hausel, and L. Migliorini, {\em Exchange between perverse and weight filtration for the Hilbert schemes of points of two surfaces,} J. Singul. 7 (2013), 23--38.
+
+\bibitem{dCM} M. A. de Cataldo and D. Maulik, {\em The perverse filtration for the Hitchin fibration is locally constant,} arXiv:1808.02235.
+
+%\bibitem{dCM3} M. A. de Cataldo and L. Migliorini, {\em The Douady space of a complex surface,} Adv. in Math. 151 (2000), 283--312.
+
+\bibitem{dCM3} M. A. de Cataldo and L. Migliorini, {\em The Chow groups and the motives of the Hilbert scheme of points on a surface,} Journal of Algebra 251, 824--848 (2002).
+
+%\bibitem{dCM4} M. A. de Cataldo and L. Migliorini, {\em The Chow motive of semismall resolutions,} Mathematical Research Letters 11, 151--170 (2004).
+
+\bibitem{dCM0} M. A. de Cataldo and L. Migliorini, {\em The Hodge theory of algebraic maps,} Ann. Sci. \'Ecole Norm. Sup. (4) 38 (2005), no. 5, 693--750.
+
+\bibitem{dCM123} M. A. de Cataldo and L. Migliorini, {\em Intersection forms, topology of algebraic maps and motivic decompositions for resolutions of threefolds,} Algebraic cycles and motives, Vol. 1, 102--137, London Math. Soc. Lecture Note Ser., 343, Cambridge Univ. Press, Cambridge, 2007.
+
+\bibitem{dCM1} M. A. de Cataldo and L. Migliorini, {\em The decomposition theorem, perverse sheaves and the topology of algebraic maps,} Bull. Amer. Math. Soc. (N.S.) 46 (2009), no. 4, 535--633.
+
+\bibitem{dCM4} M. A. de Cataldo, L. Migliorini, {\em Hodge-theoretic aspects of the decomposition theorem,}
+Algebraic Geometry, Seattle 2005, Proceedings of Symposia in Pure Mathematics, Vol.
+80.2, 2009.
+
+
+%\bibitem{Park} J. Cheah, {\em Cellular decompositions for nested Hilbert schemes of points,} Pacific J. Math. 183 (1998), no. 1, 39--90.
+
+\bibitem{CDP} W. Y. Chuang, D. E. Diaconescu, and G. Pan, {\em BPS states and the P=W conjecture,} Moduli spaces, 132--150, London Math. Soc. Lecture Note Ser., 411, Cambridge Univ. Press, Cambridge, 2014.
+
+\bibitem{D} P. Deligne, {D\'ecompositions dans la cat\'egorie d\'eriv\'ee,} Motives (Seattle, WA, 1991), 115--128, Proc. Sympos. Pure Math., 55, Part 1, Amer. Math. Soc., Providence, RI, 1994.
+
+%\bibitem{D} P. Deligne, {\em Theorie de Hodge, III,} Publications Math\'ematiques de l'IHES 44.1 (1974): 5-77.
+
+%\bibitem{Fuj} A. Fujiki, {\em On the de Rham cohomology group of a compact K\"ahler symplectic manifold,} Algebraic geometry, Sendai, 1985, 105--165, Adv. Stud. Pure Math., 10, North-Holland, Amsterdam, 1987.
+
+%\bibitem{FH} W. Fulton and J. Harris, {\em Representation theory. A first course,} Graduate Texts in Mathematics, 129, Readings in Mathematics, Springer-Verlag, New York, 1991. xvi+551 pp.
+
+%\bibitem{GV} R. Gopakumar and C. Vafa, {\em $M$-Theory and topological strings--II,} arXiv:hep-th/\linebreak 9812127.
+
+%\bibitem{GNR} A. Gorsky, N. Nekrasov, V. Rubtsov, {\em Hilbert schemes, separated variables, and D-branes,} Comm. Math. Phys. 222 (2001), no. 2, 299--318.
+
+\bibitem{Go1} L. G\"ottsche, {\em The Betti numbers of the Hilbert scheme of points on a smooth projective surface,} Math. Ann. 286 (1990), 193--207.
+
+\bibitem{Go2} L. G\"ottsche, W. S\"orgel, {\em Perverse sheaves and the cohomology of Hilbert schemes of smooth algebraic surfaces,} Math. Ann. 296 (1993), 235--245.
+
+%\bibitem{Gr} M. Gr\"ochenig, {\em Hilbert schemes as moduli of Higgs bundles and local systems,} Int. Math. Res. Not. (2014) 2014 (23): 6523--6575.
+
+\bibitem{GLO} V. Golyshev, V. Luntz, and D. Orlov, {\em Mirror symmetry for abelian varieties,} J. Alg. Geom.10 (2001) 433--496.
+
+
+
+\bibitem{HLR} T. Hausel, E. Letellier, and F. Rodriguez-Villegas, {\em Arithmetic harmonic analysis on character and quiver varieties,} Duke Math. J. 160 (2011), no. 2, 323--400.
+
+\bibitem{HRV} T. Hausel and F. Rodriguez-Villegas, {\em Mixed Hodge polynomials of character varieties,} with an appendix by Nicholas M. Katz, Invent. Math. 174 (2008), no. 3, 555--624. 
+
+
+%\bibitem{HT2} T. Hausel, M. Thaddeus, {\em Relations in the cohomology ring of the moduli space of rank 2 Higgs bundles,} J. Amer. Math. Soc. 16 (2003), no. 2, 303--327.
+
+\bibitem{HT1} T. Hausel, M. Thaddeus, {\em Generators for the cohomology ring of the moduli space of rank 2 Higgs bundles,} Proc. London Math. Soc. (3) 88 (2004), no. 3, 632--658. 
+
+
+\bibitem{HL} D. Huybrechts and M. Lehn, {\em The geometry of moduli spaces of sheaves,} Aspects of Mathematics, E31. Friedr. Vieweg and Sohn, Braunschweig, 1997. xiv+269 pp.
+
+
+%\bibitem{Hit} N. J. Hitchin, {\em The self-duality equations on a Riemann surface,} Proc. London Math. Soc. (3) 55 (1987), no. 1, 59--126.
+
+\bibitem{Hit1} N.J. Hitchin, {\em Stable bundles and integrable systems,} Duke Math. J. 54 (1987) 91--114.
+
+
+%\bibitem{HST} S. Hosono, M.-H. Saito, and A. Takahashi, {\em Relative Lefschetz action and BPS state counting,} Internat. Math. Res. Notices 2001, no. 15, 783--816.
+
+%\bibitem{HX} D. Huybrechts and C. Xu, {\em Lagrangian fibrations of hyperk\"ahler fourfolds,} arXiv:\linebreak 1902.10440.
+
+%\bibitem{Hw} J.-M. Hwang, {\em Base manifolds for fibrations of projective irreducible symplectic manifolds,} Invent. Math. 174 (2008), no. 3, 625--644.
+
+%\bibitem{I} M. Inaba, M. Saito, {\em Moduli of unramified irregular singular parabolic connections on a smooth projective curve,} Kyoto J. Math. 53, no. 2 (2013), 433--482.
+
+%\bibitem{KKP} S. Katz, A. Klemm, and R. Pandharipande, {\em On the motivic stable pairs invariants of $K3$ surfaces,} with an appendix by R. P. Thomas, $K3$ surfaces and their moduli, 111--146, Progr. Math., 315, Birkh\"auser/Springer, Cham, 2016.
+
+%\bibitem{KKV} S. Katz, A. Klemm, and C. Vafa, {\em $M$-theory, topological strings, and spinning black holes}, Adv. Theor. Math. Phys. 3 (1999), no. 5, 1445--1537.
+
+%\bibitem{KY} T. Kawai and K. Yoshioka, {\em String partition functions and infinite products,} Adv. Theor. Math. Phys. 4 (2000), no. 2, 397--485. 
+
+%\bibitem{KL} Y.-H. Kiem and J. Li, {\em Categorification of Donaldson--Thomas invariants via perverse sheaves,} arXiv:1212.6444v5.
+
+%\bibitem{L} M. Lehn, {\em Chern classes of tautological sheaves on Hilbert schemes of points on surfaces,} Inventiones Mathematicae, 1999, 136(1):157--207.
+
+%\bibitem{LS} M. Lehn, C. Sorger, {\em The cup product of the Hilbert scheme for K3 surfaces,} Inventiones mathematicae May 2003, Volume 152, Issue 2, pp 305--329.
+
+%\bibitem{LQW} W. Li, Z. Qin, W. Wang, {\em Vertex algebras and the cohomology ring structure of Hilbert schemes of points on surfaces,} Math. Ann. 324 (2002), 105--133.
+
+\bibitem{LL} E. Looijenga and V. A. Lunts, {\em A Lie algebra attached to a projective variety,} Invent. Math. 129 (1997), no. 2, 361--412. 
+
+\bibitem{LP1} J. Le Potier, {\em Faisceaux semi-stables de dimension 1 sur le plan projectif,} Rev. Roumaine Math. Pures Appl., 38(7--8):635--678, 1993.
+
+\bibitem{LP2} J. Le Potier, Syst\`emes coh\'erents et structures de niveau. Ast\'erisque No. 214 (1993).
+
+\bibitem{Lieb} M. Lieblich, Moduli of sheaves: a modern primer. Algebraic geometry: Salt Lake City 2015, 361--388, Proc. Sympos. Pure Math., 97.2, Amer. Math. Soc., Providence, RI, 2018. 
+
+
+\bibitem{Markman} E. Markman, {\em Generators of the cohomology ring of moduli spaces of sheaves on symplectic surfaces,} J. Reine Angew. Math. 544 (2002), 61--82. 
+
+\bibitem{Markman2} E. Markman, {\em On the monodromy of moduli spaces of sheaves on K3 surfaces,} J. Algebraic Geom.17(2008), 29--99.
+
+\bibitem{Markman4} E. Markman, {\em Lagrangian fibrations of holomorphic-symplectic varieties of K3[n]-type,} In Anne Fr\"uhbis-Kr\"uger et. al., Algebraic and Complex Geometry, volume 71. Springer Proceedings in Math., 2014.
+
+
+\bibitem{Markman3} E. Markman, {\em The monodromy of generalized kummer varieties and algebraic cycles on their intermediate Jacobians,} arXiv:1805.11574.
+
+%\bibitem{Ma1} D. Matsushita, {\em On fibre space structures of a projective irreducible symplectic manifold,} Topology 38 (1999), no. 1, 79--83. Addendum: Topology 40 (2001), no. 2, 431--432.
+
+%\bibitem{Ma2} D. Matsushita, {\em Equidimensionality of Lagrangian fibrations on holomorphic symplectic manifolds,} Math. Res. Lett. 7 (2000), no. 4, 389--391.
+
+%\bibitem{Ma3} D. Matsushita, {\em Higher direct images of dualizing sheaves of Lagrangian fibrations,} Amer. J. Math. 127 (2005), no. 2, 243--259.
+
+%\bibitem{Ma4} D. Matsushita, {\em On deformations of Lagrangian fibrations,} $K3$ surfaces and their moduli, 237--243, Progr. Math., 315, Birkh\"auser/Springer, Cham, 2016.
+
+%\bibitem{MPT} D. Maulik, R. Pandharipande, and R. Thomas, {\em Curves on $K3$ surfaces and modular forms,} with an appendix by A. Pixton, J. Topol. 3 (2010), no. 4, 937--996. 
+
+\bibitem{MT} D. Maulik and Y. Toda, {\em Gopakumar--Vafa invariants via vanishing cycles,} Invent. Math., to appear.
+
+\bibitem{Mellit} A. Mellit, {\em Cell decompositions of character varieties,} arXiv:1905.10685.
+
+
+%\bibitem{Na} H. Nakajima, {\em Heisenberg algebra and Hilbert schemes of points on projective surfaces,} Ann. Math. 145 (1997), 379--388.
+
+%\bibitem{NS} B. Nasatya, B. Steer, {\em Orbifold Riemann surfaces and the Yang-Mills-Higgs equations,} Annali della Scuola Normale Superiore di Pisa - Classe di Scienze 22.4 (1995): 595-643.
+
+%\bibitem{Og} K. Oguiso, {\em Picard number of the generic fiber of an abelian fibered hyperk\"ahler manifold,} Math. Ann. 344 (2009), no. 4, 929--937.
+
+%\bibitem{Ou} W. Ou, {\em Lagrangian fibrations on symplectic fourfolds,} J. Reine Angew. Math., to appear.
+
+%\bibitem{PT} R. Pandharipande and R. P. Thomas, {\em 13/2 ways of counting curves,} Moduli spaces, 282--333, London Math. Soc. Lecture Note Ser., 411, Cambridge Univ. Press, Cambridge, 2014.
+
+%\bibitem{PT2} R. Pandharipande and R. P. Thomas, {\em The Katz--Klemm--Vafa conjecture for $K3$ surfaces,} Forum Math. Pi 4 (2016), e4, 111 pp.
+
+\bibitem{GIT} D. Mumford, Geometric Invariant Theory, Springer-Verlag, 1965.
+
+\bibitem{SY} J. Shen and Q. Yin, {\em Topology of Lagrangian fibrations and Hodge theory and Hodge theory of hyper-K\"ahler manifolds,} arXiv: 1812.10673v3.
+
+\bibitem{SZ} J. Shen and Z. Zhang, {\em Perverse filtrations, Hilbert schemes, and the P=W conjecture for parabolic Higgs bundles,} arXiv:1810.05330.
+
+\bibitem{Shende} V. Shende, {\em The weights of the tautological classes of character varieties,} Int. Math. Res. Not. 2017, no. 22, 6832--6840.
+
+%\bibitem{Simp88} C. T. Simpson, {\em Constructing variations of Hodge structure using Yang--Mills theory and applications to uniformization,} J. Amer. Math. Soc. 1 (1988), no. 4, 867--918. 
+
+%\bibitem{Simp90} C. T. Simpson, {\em Harmonic bundles on noncompact curves,} J. Amer. Math. Soc. 3 (1990), no. 3, 713--770.
+
+\bibitem{Simp} C. T. Simpson, {\em Higgs bundles and local systems,} Inst. Hautes \'Etudes Sci. Publ. Math. No. 75 (1992), 5--95.
+
+\bibitem{Si1994II} C. T. Simpson, {\em Moduli of representations of the fundamental group of smooth projective varieties II,"} Inst. Hautes Etudes Sci. Publ. Math. No. 80 (1994), (1995), 5-79.
+
+%\bibitem{Simp95} C. T. Simpson, {\em The Hodge filtration on nonabelian cohomology,} Algebraic geometry---Santa Cruz 1995, 217--281, Proc. Sympos. Pure Math., 62, Part 2, Amer. Math. Soc., Providence, RI, 1997.
+
+%\bibitem{Ver90} M. S. Verbitski\u{\i}, {\em Action of the Lie algebra of $SO(5)$ on the cohomology of a hyper-K\"ahler manifold,} Funct. Anal. Appl. 24 (1990), no. 3, 229--230.
+
+%\bibitem{Ver95} M. Verbitsky, {\em Cohomology of compact hyperkaehler manifolds,} Thesis (Ph.D.)--Harvard University, 1995, 89 pp.
+
+%\bibitem{Ver96} M. Verbitsky, {\em Cohomology of compact hyper-K\"ahler manifolds and its applications,} Geom. Funct. Anal. 6 (1996), no. 4, 601--611.
+
+\bibitem{WSB} G. Williamson, {\em The Hodge theory of the decomposition theorem,} S\'eminaire Bourbaki Vol. 2015/2016, Expos\'es 1104--1119, Ast\'erisque No. 390 (2017), Exp. No. 1115, 335--367.
+
+\bibitem{Yo} K. Yoshioka, {\em Moduli spaces of stable sheaves on abelian surfaces,} Math. Ann. 321 (2001),no. 4, 817--884.
+
+\bibitem{Z} Z. Zhang, {\em Multiplicativity of perverse filtration for Hilbert schemes of fibered surfaces,} Adv. Math. 312 (2017), 636--679.
+
+\end{thebibliography}
+\end{document}
+
+
+

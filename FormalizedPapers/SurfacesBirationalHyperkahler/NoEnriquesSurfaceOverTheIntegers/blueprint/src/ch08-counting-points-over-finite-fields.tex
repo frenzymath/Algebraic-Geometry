@@ -1,0 +1,165 @@
+% Source-derived chapter 08: Counting points over finite fields
+% Original source: no-enriques-surface-over-the-integers
+\chapter{Counting points over finite fields}
+\label{no-enriques-surface-over-the-integers-chapter-08}
+\source{no-enriques-surface-over-the-integers}
+
+\begin{remark}[Source section]
+\label{no-enriques-surface-over-the-integers-chapter-08-source}
+\source{no-enriques-surface-over-the-integers}
+\source{no-enriques-surface-over-the-integers}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Counting points over finite fields
+\mylabel{Counting points}
+
+In this section we count the number of rational points  on Enriques surfaces  with constant local system over finite fields.
+The observation has nothing in particular to do with Enriques surfaces, so we first work in a general setting.
+Let $k=\FF_q$ be a finite ground field, for some prime power $q=p^\nu$, and   $X$ be a smooth proper scheme of dimension $n\geq 0$,
+with $h^0(\O_X)=1$.
+
+Set $N_s=\Card X(\FF_{q^s})$ for  the integers $s\geq 1$, such that $N_1$ is the number of rational points.
+The \emph{Hasse--Weil zeta function} is 
+\begin{equation}
+\label{zeta function}
+\source{no-enriques-surface-over-the-integers}
+Z(X,t) = \prod_a \frac{1}{1-t^{\deg\kappa(a)}} =\exp\left(\sum_{s=1}^\infty \frac{N_s }{s}t^s\right),
+\end{equation}
+where the product runs over all closed points $a\in X$. This formal power series actually belongs to
+the subring $\QQ(t)\subset\QQ[[t]]$, by Dwork's Rationality Theorem \cite{Dwork 1960}.
+
+Choose some algebraic closure $\bk=k^\alg$, write $\bX=X\otimes \bk$, and fix a prime $\ell\neq p$. 
+For each $i\geq 0$ and each integer $j$ we can form the  $\ell$-adic cohomology groups
+\begin{equation}
+\label{l-adic cohomology groups}
+\source{no-enriques-surface-over-the-integers}
+H^i(\bX,\QQ_\ell(j))= \left( \invlim_r H^i(\bX,\mu^{\otimes j}_{\ell^r})\right)\otimes_{\ZZ_\ell}\QQ_\ell.
+\end{equation}
+Here $j\in\ZZ$ refers to the \emph{Tate twist} in the coefficient sheaves. Note that $H^i(\bX,\QQ_\ell(j))$
+arises from $H^i(\bX,\QQ_\ell)$ by tensoring with the one-dimensional  vector space
+$\QQ_\ell(j)=(\invlim_r\mu_{l^r}(\bk))\otimes_{\ZZ_\ell}\QQ_\ell$, which comprises only information on the action of $\Gal(\bk/k)$
+on the $l$-primary roots of unity in $\bk$.
+In particular, the $\QQ_\ell$-dimensions $b_i\geq 0$ of the $\ell$-adic cohomology 
+$H^i(\bX,\QQ_\ell(j))$ do not depend on the Tate twist, and are called  the \emph{Betti numbers} of $X$.
+
+The   power $F^\nu_X:X\ra X$ of the absolute Frobenius is a $k$-morphism, and induces by base-change a 
+$\bk$-morphism $\Phi=F^\nu_X\otimes \id_\bk$ on $\bX$. Let us write $f_{i,j}=\Phi^*$ for the induced 
+$\QQ_\ell$-linear endomorphism on the    cohomology group $H^i(\bX,\QQ_\ell(j))$. Of particular interest are the $f_i=f_{i,0}$:
+The zeta function takes the form 
+$$
+Z(X,t)=\prod \det(1-tf_i)^{(-1)^{i+1}},
+$$
+by the  Grothendieck--Lefschetz Trace Formula \cite{FL}.
+Here the  polynomial factors can be seen as
+``reciprocal'' characteristic polynomials 
+$\det(1-f_it)=t^{b_i}\det(t^{-1}-f_i)$ of the endomorphisms $f_i$. 
+The characteristic polynomials of $f_{i,j}$ have coefficients from $\QQ$, and the eigenvalues
+$\alpha\in\QQ^\alg$ are algebraic integers, 
+of  length $|\alpha|=q^{i/2-j}$ in all complex embeddings, according to the Riemann Hypothesis (\cite{Deligne 1980}, Corollary 3.3.9,
+see   \cite{Deligne 1974}, Theorem 1.6 for the projective case).
+
+The following observations explain the  effect of the Tate twist:
+First of all, we have a canonical identification $H^i(\bX,\QQ_\ell(j))=H^i(\bX,\QQ_\ell)\otimes \QQ_\ell(j)$.
+Moreover, the  composition $(F_X^\nu\otimes\id_\bk)\circ (\id_X\otimes F_\bk^\nu)$ is a power of the absolute Frobenius of $\bX$, which
+acts trivially on \'etale cohomology   with respect to any coefficient sheaf.
+Finally, the Frobenius power $F_\bk^\nu$ acts by multiplication with $q=p^\nu$ on $\QQ_\ell(1)$. Combining these three observations,
+we see that $f_{i,j}=f_i\otimes q^{-j}$, which reveals that the eigenvalues of $f_i$ are obtained from the eigenvalues of $f_{i,j}$
+by multiplication with $q^j$.
+
+The Tate twists become   relevant in connection with algebraic cycles:
+Let $\CH^j(\bX)$ be the \emph{Chow group} of $j$-codimensional cycles modulo linear equivalence, which comes with 
+a \emph{cycle class map}  $\CH^j(\bX)\ra H^{2j}(\bX,\QQ_\ell(j))$. 
+We likewise can form Chow groups and  $\ell$-adic cohomology on the scheme $X$, before base-changing to the algebraic closure,
+and have a commutative diagram 
+\begin{equation}
+\label{cycle class maps}
+\source{no-enriques-surface-over-the-integers}
+\begin{CD}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\CH^j(X)	@>>> 	H^{2j}(X,\QQ_\ell(j))\\
+@VVV			@VVV\\
+\CH^j(\bX)	@>>> 	H^{2j}(\bX,\QQ_\ell(j))
+\end{CD}
+\end{equation}
+of cycle class maps. For more details on cycle class maps see \cite{Deligne 1977}.
+
+\begin{proposition}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{generalization wedderburn}
+Suppose for all integers $j\geq 0$ we have $H^{2j+1}(\bX,\QQ_\ell)=0$, and that the 
+composite map $\CH^j(X)\otimes\QQ_\ell \ra H^{2j}(\bX,\QQ_\ell(j))$ is surjective.
+Then the zeta function is
+\begin{equation}
+\label{simple zeta function}
+\source{no-enriques-surface-over-the-integers}
+Z(X,t) = \prod_{j=0}^{n}\left(\frac{1}{1-q^jt}\right)^{b_{2j}}.
+\end{equation}
+In particular, the number of rational points is $\Card X(\FF_q)= \sum_{j=0}^{n} b_{2j}q^j$, and  the set of rational points is non-empty.
+\end{proposition}
+
+\proof
+Suppose  that the endomorphism $f_{2j}$ is the homothety with eigenvalue $q^j$. Then 
+$$
+t^{b_{2j}}\det(t^{-1}-f_{2j}) = t^{b_{2j}}(t^{-1}-q^j)^{b_{2j}} = (1- q^jt)^{b_{2j}},
+$$
+and the assertion on the zeta function follows. Expanding \eqref{zeta function} and \eqref{simple zeta function} 
+as formal power series in $t$ and comparing linear terms, we get the statement on the number of rational points.
+Since $b_0=1$ the set  $X(\FF_q)$ must be non-empty.
+
+It remains to verify the assertion on the endomorphism $f_{2j}$. 
+Set $r=b_{2j}$ and choose prime cycles $Z_1,\ldots,Z_r\subset X$ whose cycle classes in $H^{2j}(\bX,\QQ_\ell(j))$ form
+a vector space basis. Obviously, the action of $\id_X\otimes F_\bk$ on the base changes $\bar{Z}_1,\ldots,\bar{Z}_r\subset\bX$ is trivial,
+so  the same holds for the action on $H^{2j}(\bX,\QQ_\ell(j))$. The latter action is   inverse to the action of
+$\Phi=F_X^\nu\otimes\id_\bk$, as observed above.  In other words, $f_{2j,j}$ is the identity map.
+We also observed above that $f_{2j,j}=f_{2j}\otimes q^{-j}$, thus $f_{2j}$ is the homothety with eigenvalue $q^j$.
+\qed
+
+\medskip
+The conditions obviously hold if $b_{2j+1}=0$ and $b_{2j}=1$ for all $j\geq 0$. One may see the above result
+as a generalization of  Wedderburn's Theorem, which states that every Brauer--Severi variety $X$ contains a rational point, 
+and is thus isomorphic to   projective  space $\PP^n$. 
+Let us now specialize to surfaces. Recall that $\rho=\rank \Num(\bX)$ denotes the Picard number.
+
+\begin{corollary}
+\source{no-enriques-surface-over-the-integers}
+\notready
+Suppose that $X$ is a surface with $b_1=0$ and $b_2=\rho$.
+If the local system $\Num_{X/k}$ is constant, we have $\Card X(\FF_p)= 1+b_2q+q^2$. 
+\end{corollary}
+
+\proof
+We have $b_0=1$, and with Poincar\'e Duality get $b_4=1$ and $b_1=0$. The cycle class map $\CH^1(X)\ra H^2(\bX,\QQ_\ell(1))$
+factors over $\Num(X)$, and  by the assumptions  the inclusion $\Num(X)\otimes\QQ_\ell\subset H^2(\bX,\QQ_\ell(1))$ is an equality.
+Thus we may apply the  Proposition and  the formula on  $\Card X(\FF_p)$ follows.
+\qed
+
+\begin{corollary}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{points on enriques}
+Suppose that $X$ is either an Enriques surface, or a  geometrically rational   surface endowed
+with a relatively minimal genus-one fibration $X\ra\PP^1$. If the local system $\Num_{X/k}$ is constant,
+we have  $\Card X(\FF_q) = 1+10q+q^2$.
+\end{corollary}
+
+\proof
+In both cases, we have $b_1=0$. 
+In light of the previous corollary, we only have to show
+that $\bX$ has Betti number $b_2=10$. For Enriques surfaces, this holds by definition.
+In the other case, the induced  fibration over $\bk$ remains a relatively minimal genus one-fibration.
+We have $K_{\bX}^2=0$ by \cite{Cossec; Dolgachev 1989}, Proposition 5.6.1.
+Hence there is a morphism $\bX\ra\PP^2_\bk$ that can be factored as a sequence of nine blowing ups,
+so we also have $b_2=10$.   
+\qed
+
+\medskip
+We shall be particularly concerned with the case $q=p=2$. The above formula then gives $\Card X(\FF_2)=25$.
+
+
+%===========================================================

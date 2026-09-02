@@ -1,0 +1,521 @@
+% Source-derived chapter 07: Special cycles: basic properties
+% Original source: higher-siegel-weil-unitary-nonsingular-terms
+\chapter{Special cycles: basic properties}
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-07}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+\begin{remark}[Source section]
+\label{higher-siegel-weil-unitary-nonsingular-terms-chapter-07-source}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Special cycles: basic properties
+\label{s:int prob}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+In this section we define special cycles over the moduli stacks of hermitian shtukas, and construct corresponding cycle classes. The latter task is rather subtle, as the cycles are in most cases of a highly ``derived'' nature, with their ``virtual dimension'' differing significantly from their actual dimension. 
+
+\subsection{Special cycles}
+
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{def: Z} Let $\Cal{E}$ be a rank $m$ vector bundle on $X'$.
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+
+ We define the stack $\Cal{Z}_{\Cal{E}}^{r}$ whose $S$-points are the groupoid of the following data: 
+ \begin{itemize}
+ \item A $U(n)$-shtuka with $(\{x'_1, \ldots, x'_r\}, \{\Cal{F}_0, \ldots, \Cal{F}_r\}, \{f_1, \ldots, f_r\}, \varphi) \in  \Sht_{U(n)}^{r}(S)$.
+ \item Maps of coherent sheaves  $t_i \co \Cal{E} \boxtimes \cO_{S} \rightarrow \Cal{F}_i$ on $X'\times S$ such that the isomorphism $\varphi \co \Cal{F}_r \cong \ft \Cal{F}_0$ intertwines $t_r$ with $\ft t_0$, and the maps $t_{i-1}, t_{i}$ are intertwined by the modification $f_i \co  \Cal{F}_{i-1} \dashrightarrow \Cal{F}_{i}$ for each $i = 1, \ldots, r$, i.e. the diagram below commutes. 
+\[
+\begin{tikzcd}
+\Cal{E}\boxtimes\cO_{S} \ar[d, "t_0"] \ar[r, equals] &  \Cal{E}\boxtimes\cO_{S} \ar[r, equals]  \ar[d, "t_1"]& \ldots \ar[d] \ar[r, equals] & \Cal{E}\boxtimes\cO_{S} \ar[r, "\sim"] \ar[d, "t_{r}"] & \ft (\Cal{E} \boxtimes\cO_{S})\ar[d, "\ft t_0"] \\
+\Cal{F}_0 \ar[r, dashed, "f_0"] & \Cal{F}_1 \ar[r, dashed, "f_1"]  &  \ldots \ar[r, dashed, "f_r"] &  \Cal{F}_{r} \ar[r, "\sim"] & \ft \Cal{F}_0  
+\end{tikzcd}
+\]
+\end{itemize}
+In the sequel, when writing such diagrams we will usually just omit the ``$\boxtimes \cO_S$'' factor from the notation.
+
+
+We will call the $\Cal{Z}_{\Cal{E}}^r$ (or their connected components) {\em special cycles of corank $m$} (with $r$ legs).
+\end{defn}
+
+
+There is an evident map $\Cal{Z}_{\Cal{E}}^{r} \rightarrow \Sht_{U(n)}^r$ projecting to the data in the first bullet point. When $\rank \Cal{E}=1$, the $\Cal{Z}_{\Cal{E}}^{r} $ are function field analogues (with multiple legs) of the \emph{Kudla-Rapoport divisors} introduced in \cite{KRI, KRII}. %As we are considering these analogues in relation to the geometry of shtukas, which were invented 
+%Drinfeld,
+
+
+
+\subsection{Indexing via Hermitian maps}\label{ssec: sht index by a} 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{def: A(k)}Let $\Cal{A}^{\rm all}_{\Cal{E}}(k)$ be the $k$-vector space of Hermitian maps\footnote{We will later in \S\ref{ss:Hit base} introduce a space $\Cal{A}^{\rm all}$ over $\Bun_{\GL'_m}$ for which $\Cal{A}^{\rm all}_{\Cal{E}}(k)$ is the $k$-rational points of the fiber over $\cE\in \Bun_{\GL'_m}(k)$, justifying the notation.} $a \co \Cal{E} \rightarrow \sigma^* \Cal{E}^{\vee}$ such that $\sigma(a)^{\vee} =a$. Let $\Cal{A}_{\Cal{E}}(k)\subset \Cal{A}^{\rm all}_{\Cal{E}}(k)$ be the subset where the map $a \co \Cal{E} \rightarrow \sigma^* \Cal{E}^{\vee}$ is injective (as a map of coherent sheaves). 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\end{defn}
+%\WZ{Add $\cA^{all}_\cE$}
+
+Let $(\{x'_i\}, \{\Cal{F}_i\}, \{f_i\}, \varphi, \{t_i\}) \in \Cal{Z}_{\Cal{E}}^r(S)$. By the compatibilities between the $t_i$ in the definition of $\Cal{Z}_{\Cal{E}}^r$, the compositions 
+\begin{equation}\label{eq: hitchin map formula}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\Cal{E} \boxtimes \cO_S \xrightarrow{t_i} \Cal{F}_i \xrightarrow{h_i} \sigma^* \Cal{F}_i^{\vee} \xrightarrow{\sigma^* t^{\vee}_{i}} \sigma^* \Cal{E}^{\vee} \boxtimes \cO_S
+\end{equation}
+agree for each $i$, and \eqref{eq: hitchin map formula} for $i=r$ also agrees with the Frobenius twist of \eqref{eq: hitchin map formula} for $i=0$. Hence \eqref{eq: hitchin map formula} for every $i$ gives the same map $\Cal{E} \boxtimes \cO_S  \rightarrow \Cal{E}^{\vee} \boxtimes \cO_S$, which moreover must come by pullback from $\Cal{A}^{\rm all}_{\Cal{E}}(k)$. This defines a map $\Cal{Z}_{\Cal{E}}^{r} \rightarrow \Cal{A}^{\rm all}_{\Cal{E}}(k)$. For $a \in \Cal{A}^{\rm all}_{\Cal{E}}(k)$, we denote by $\Cal{Z}^{r}_{\Cal{E}}(a)$ the fiber of $\Cal{Z}^{r}_{\Cal{E}}$ over $a$. We have
+\begin{equation*}
+\cZ_{\cE}^{r}=\coprod_{a\in \cA^{\rm all}_{\cE}(k)} \cZ^{r}_{\cE}(a).
+\end{equation*}
+
+
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{def:Da}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+For $a\in \cA_{\cE}(k)$, let $D_{a}$ be the effective divisor on $X$ such that $\nu^{-1}(D_{a})$ is the divisor of the Hermitian map $\det(a): \det(\cE)\to \s^{*}\det(\cE)^{\vee}$.
+\end{defn}
+
+
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{def:Z(0)}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+For any $a \in \cA_{\cE}^{\all}(k)$, we define: 
+\begin{itemize}
+\item $\cZ_{\cE}^{r}(a)^{\circ}\subset\cZ^{r}_{\cE}(a)$ to be the open substack classifying $(\{x'_{i}\}, \{\cE\xr{t_{i}}\cF_{i}\})$ with the additional condition that all $t_{i}$ are \emph{injective} when restricted to $X'_{\ov s}$ for any geometric point $\ov s$ of the test scheme $S$. 
+\item $\cZ_{\cE}^{r}(a)^{*}\subset\cZ^{r}_{\cE}(a)$ to be the open substack classifying $(\{x'_{i}\}, \{\cE\xr{t_{i}}\cF_{i}\})$ with the additional condition that all $t_{i}$ are \emph{non-zero} when restricted to $X'_{\ov s}$ for any geometric point $\ov s$ of the test scheme $S$.
+\end{itemize}
+Note that if $\rank(\cE)=1$, then the inclusion $\cZ_{\cE}^{r}(a)^{\circ} \inj \cZ_{\cE}^{r}(a)^{*}$ is an isomorphism, and both include isomorphically into $\cZ_{\cE}^r(a)$ unless $a=0$.
+\end{defn}
+
+\subsection{Finiteness properties} 
+
+We next establish that the projection map $\Cal{Z}_{\Cal{E}}^{r}(a) \rightarrow \Sht_{U(n)}^{r}$ is finite, which will eventually allow us to construct cycle classes on $ \Sht_{U(n)}^{r}$ associated to $\Cal{Z}_{\Cal{E}}^{r}(a) $. 
+
+\begin{prop}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{prop: Z finite}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Let $\cE$ be any vector bundle of rank $m$ on $X'$ and let  $a \in \Cal{A}^{\rm all}_{\Cal{E}}(k)$. Then the projection maps $\Cal{Z}_{\Cal{E}}^{r}(a) \rightarrow \Sht_{U(n)}^{r}$ and $\Cal{Z}_{\Cal{E}}^{r}(a)^* \rightarrow \Sht_{U(n)}^{r}$ are both finite.
+\end{prop}
+
+\begin{proof}
+Note that $\Cal{Z}_{\Cal{E}}^{r}(a)$ has a closed substack where the map $t \co \cE \rightarrow \cF$ is $0$, which projects isomorphically to $\Sht_{U(n)}^r$. The complement of this closed substack is $\Cal{Z}_{\Cal{E}}^{r}(a)^*$, so it suffices to show the finiteness of $\Cal{Z}_{\Cal{E}}^{r}(a)^* \rightarrow \Sht_{U(n)}^{r}$. We will show that it is proper and quasi-finite. First we establish the properness. It suffices to show this locally on the target, so we pick a Harder-Narasimhan polygon $P$ for $\Bun_{U(n)}$ and consider the truncation $\Bun_{U(n)}^{\leq P}$. Define $\Sht_{U(n)}^{r, \leq P} $ to be the open substack of $\Sht_{U(n)}^r$ obtained as the pullback of $\Bun_{U(n)}^{\leq P} \inj \Bun_{U(n)}$ via the tautological projection $\pr_{0}: \Sht_{U(n)}^r \rightarrow \Bun_{U(n)}$ recording $\cF_{0}$, and $\Cal{Z}_{\Cal{E}}^{r, \leq P}(a) \inj \Cal{Z}_{\Cal{E}}^{r}(a)$ the analogous pullback.  
+
+We can then pick a sufficiently anti-ample vector bundle $\cE'$ of rank $m$ on $X'$ and an injection $\iota \co \Cal{E}' \inj \Cal{E} $ so that the stack $\ul{\Hom}(\Cal{E}', -)^{\leq P}$ parametrizing $\{(\Cal{F} \in \Bun_{U(n)}^{\leq P}, t \in \Hom(\Cal{E}', \Cal{F}))\}$ forms a vector bundle over $\Bun_{U(n)}^{\leq P}$, with respect to the obvious projection map. Let $a' := (\sigma^{*} \iota^{\vee}) \circ a \circ \iota \co \Cal{E}' \rightarrow \Cal{E}'^\vee$.  Then we have a closed embedding $\Cal{Z}_{\Cal{E}}^{r, \leq P}(a)  \inj \cZ_{\Cal{E}'}^{r, \leq P}(a')$ cut out by the condition that the map $t \co \Cal{E}' \rightarrow \Cal{F}$ factors through $\iota$, which fits into a commutative diagram 
+\[
+\begin{tikzcd}
+\Cal{Z}_{\Cal{E}}^{r, \leq P}(a)  \ar[r, hook] \ar[dr] & \cZ_{\Cal{E}'}^{r, \leq P}(a') \ar[d] \\
+& \Sht_{U(n)}^{r, \leq P}.
+\end{tikzcd}
+\]
+It suffices to show the open substack $\cZ_{\Cal{E}'}^{r, \leq P}(a')^*$ defined by the condition that  $t_{0}\ne0$ fiberwise over the test scheme is proper over $ \Sht_{U(n)}^{r, \leq P} $. We can factorize this map as the composition of two maps in the diagram below: 
+\[
+\begin{tikzcd} 
+\cZ_{\Cal{E}'}^{r, \leq P}(a')^* \ar[dr] \ar[r, "j"] & \PP(\ul{\Hom}(\Cal{E}', -)^{\leq P}) \times_{\Bun_{U(n)}^{\leq P}} \Sht_{U(n)}^{r, \leq P}\ar[d, "\pr_2"] \\
+& \Sht_{U(n)}^{r, \leq P}
+\end{tikzcd}
+\]
+where $j$ is determined by the map $\cZ_{\Cal{E}'}^{r, \leq P}(a')^* \rightarrow \PP(\ul{\Hom}(\Cal{E}', -)^{\leq P})$ sending 
+\[
+(\Cal{F}_0 \dashrightarrow \ldots \dashrightarrow \Cal{F}_r \cong \ft \Cal{F}_0, (t_i)_{i=0}^r) \mapsto (\Cal{F}_0 , t_0 \co \Cal{E}' \rightarrow \Cal{F}_0).
+\]
+The map $\pr_2$ is a projective bundle by design, so in order to establish that $\pr_2 \circ j$ is proper it suffices to show that $j$ is finite. Indeed, since data of all the $t_i$ is determined by $t_0$, the analogous map $\cZ_{\Cal{E}'}^{r, \leq P}(a')^*  \rightarrow \ul{\Hom}(\Cal{E}', -)^{\leq P} \times_{\Bun_{U(n)}^{\leq P}} \Sht_{U(n)}^{r, \leq P}$ is a closed embedding. The requirement $t_0 = \ft t_0$ in the definition of $\cZ_{\Cal{E}'}^{r}$ therefore implies that the map $j$ is a $k^{\times}$-torsor onto its image, which is a closed substack of $\PP(\ul{\Hom}(\Cal{E}', -)^{\leq P})$. This completes the proof of properness. 
+
+It remains to show that $\Cal{Z}_{\Cal{E}}^{r}(a) \rightarrow \Sht_{U(n)}^{r}$ is quasi-finite. Since the map is already established to be proper, it suffices by \cite[Tag 01TC]{stacks-project} to check that the fibers over field-valued points are finite. Let 
+\[
+(\{x'_{i}\}_{1\le i\le r}, (\Cal{F}_0 ,h_0) \dashrightarrow (\Cal{F}_1, h_1) \dashrightarrow \ldots (\Cal{F}_{r}, h_{r}) \xrightarrow{\sim} (\ft\Cal{F}_0, \ft h_0)) \in \Sht_{U(n)}^{r}(\kappa)
+\]
+be such a point valued in a field $\kappa$. Its fiber in $\Cal{Z}_{\Cal{E}}^{r}(a)(\kappa)$ consists of $\{t_i \co \cE \rightarrow \cF_i \}_{0\le i\le r}$ fitting into commutative diagrams 
+\[
+\begin{tikzcd}
+\Cal{E}_{\kappa} \ar[d, "t_0"] \ar[r, equals] &  \Cal{E}_{\kappa} \ar[r, equals]  \ar[d, "t_1"]& \ldots \ar[r, equals] & \Cal{E}_{\kappa} \ar[r, "\sim"] \ar[d, "t_{r-1}"] & \ft \Cal{E}_{\kappa} \ar[d, "\ft t_0"] \\
+\Cal{F}_0 \ar[r, dashed] & \Cal{F}_1 \ar[r, dashed] \ar[r] &  \ldots \ar[r, dashed] &  \Cal{F}_{r-1} \ar[r, "\sim"] & \ft \Cal{F}_0  
+\end{tikzcd}
+\]
+such that $\sigma^* t_i^{\vee} \c h_{i}\circ t_i = a \in \Cal{A}_{\Cal{E}}^{\all}(\kappa)$ for each $i = 0, \ldots, r$. We want to show that there are finitely many possibilities for such $t_i \in \cohog{0}{X'_\kappa, \Cal{E}^{\vee}_{\kappa} \otimes \Cal{F}_i}$. 
+
+The situation can be abstracted to the following semi-linear algebra problem.  
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{lem: semlinear alg}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Suppose that $\kappa$ is any field over $k$, and we have finite-dimensional $\kappa$-vector spaces $V_1, V_2 \subset V$ with an injective $\Frob$-semi-linear map $\tau \co V_1 \hookrightarrow V_2$. 
+\[
+\begin{tikzcd}
+V_1 \ar[rr,"\tau"] \ar[dr, hook] & & V_2 \ar[dl, hook'] \\
+& V 
+\end{tikzcd}
+\]
+Then the set $\{ x \in V_1 \co \tau(x) = x  \in V\}$ is finite. 
+\end{lemma}
+
+We assume Lemma \ref{lem: semlinear alg} for the moment and use it to conclude the proof of Proposition \ref{prop: Z finite}. We apply it to the situation above with $V_1 := \Hom_{X'_{\kappa}} (\Cal{E}_{\kappa}, \Cal{F}_{0})$, $V_2 := \Hom_{X'_{\kappa}}( \ft \Cal{E}_{\kappa},\ft \Cal{F}_0)$, which are both viewed as subspaces of 
+\[
+V := \Hom_{X'_{\kappa}}\left( \Cal{E}_{\kappa},  \Cal{F}_0(\sum_{j=1}^r (x'_j + \sigma(x'_j))) \right)
+\]
+by the obvious inclusion. The map $V_1 \rightarrow V_2$ is the twist by $\tau$. Then Lemma \ref{lem: semlinear alg} shows that there are finitely many possibilities for $t_0$ since $\t(t_{0})=t_{0}$. The other $t_i$ are determined by $t_0$ (if they exist) because the $t_i$ as well as the modifications $\cF_i \dashrightarrow \cF_{i+1}$ are all isomorphisms over an open subset of $X'_{\kappa}$. 
+\end{proof}
+
+\begin{proof}[Proof of Lemma \ref{lem: semlinear alg}] By replacing $\kappa$ with an algebraic closure, it suffices to consider the case when $\kappa$ is algebraically closed. Let us call a subspace $V_1' \subset V_1$ ``$\tau$-fixed'' if $\tau(V_1') = V_1' \subset V$. Since a sum of $\tau$-fixed subspaces is evidently $\tau$-fixed, there is a well-defined largest $\tau$-fixed subspace $V^{\circ}_1 \subset V_1$. It is a sub $\kappa$-vector space of $V_1$, hence necessarily finite-dimensional. Since $\tau:V_1\to V_2$ is injective, the restriction of  $\tau$ to $V_1^{\circ}$ is a $\Frob$-semi-linear bijection. The set $\{ x \in V_1 \co \tau(x) = x  \in V\}$ is evidently contained in $(V_1^{\circ})^{\tau}$, which is an $k$-form of $V_1^{\circ}$ (because $\kappa$ is algebraically closed) and therefore finite-dimensional over $k$. 
+\end{proof}
+
+\subsection{Variation with $\cE$} 
+Let $\cE',\cE$ be two vector bundles (with possibly distinct ranks) on $X'$ and $s \co \Cal{E}' \to \Cal{E}$ be a map of coherent sheaves. Given $a \co \Cal{E} \to \sigma^* \Cal{E}^{\vee}$ in $\cA^{\rm all}_{\cE}(k)$, let $a'  = (\sigma^{*} s^{\vee} ) \circ a \circ s \co \Cal{E}' \to \sigma^* (\Cal{E}')^{\vee}$ be the corresponding element in $\cA^{\rm all}_{\cE'}(k)$. Therefore, composing with $s$ defines a map 
+\begin{equation}\label{eq: Z_E to Z_E'}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+z_{s}: \Cal{Z}_{\Cal{E}}^r(a) \to \Cal{Z}_{\Cal{E}'}^r(a')
+\end{equation}
+sending
+\[
+\begin{tikzcd}
+\Cal{E} \ar[d] \ar[r , equals ] &  \ldots \ar[r, dashed]  & \Cal{E} \ar[r, equals] \ar[d]  & \ft \Cal{E}   \ar[d] \\
+ \Cal{F}_0 \ar[r, dashed]  & \ldots \ar[r, dashed] & \Cal{F}_r \ar[r, "\sim"] & \ft \Cal{F}_0
+\end{tikzcd} \mapsto 
+\begin{tikzcd}
+\Cal{E}' \ar[d] \ar[r , equals ] &  \ldots \ar[r, dashed]  & \Cal{E}' \ar[r, equals]  \ar[d]  & \ft \Cal{E}'   \ar[d] \\
+ \Cal{F}_0 \ar[r, dashed]  & \ldots \ar[r, dashed] & \Cal{F}_r \ar[r, "\sim"] & \ft \Cal{F}_0
+\end{tikzcd}
+\]
+
+The following lemma follows directly from definitions.
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{l:KR direct sum}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+If $\cE=\cE_{1}\op \cE_{2}$, and $a_{i}\in \cA^{\rm all}_{\cE_{i}}(k)$ for $i=1,2$, then there is a canonical isomorphism
+\begin{equation}
+\cZ^{r}_{\cE_{1}}(a_{1})\times_{\Sht^{r}_{U(n)}}\cZ^{r}_{\cE_{2}}(a_{2})\cong \coprod_{a=\mat{a_{1}}{*}{*}{a_{2}}}\cZ^{r}_{\cE}(a)
+\end{equation}
+where the union runs over all  Hermitian maps $a:\cE\to \s^{*}\cE^{\vee}$ whose restriction to $\cE_{i}$ is $a_{i}$ (for $i=1,2$). The map from the right side to the left is given by $(z_{\io_{1}},z_{\io_{2}})$, where $\io_{i}:\cE_{i}\incl \cE$ is the inclusion.
+\end{lemma}
+
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{l:change E} Under the  notations of the beginning of this subsection,
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{enumerate}
+\item If $s:\cE'\to \cE$ is generically surjective, then $z_{s}:\cZ^{r}_{\cE}(a)\to \cZ^{r}_{\cE'}(a')$ is a closed embedding.
+\item Suppose that $s$ is generically an isomorphism (in particular $\cE$ and $\cE'$ have the same rank). Let $D_{s}\subset X'$ be the divisor of $\det(s)$. Then the restriction of $z_{s}$ over $(X\bs \nu(D_{s}))^{r}$ 
+\begin{equation}
+\cZ^{r}_{\cE}(a)|_{(X\bs \nu(D_{s}))^{r}}\subset \cZ^{r}_{\cE'}(a')|_{(X\bs \nu(D_{s}))^{r}}
+\end{equation}
+is open and closed. Here we write $\cZ^{r}_{\cE}(a)|_{(X\bs \nu(D_{s}))^{r}}$ for the preimage of $(X\bs \nu(D_{s}))^{r}$ under the leg map $\cZ^{r}_{\cE}(a)\to \Sht^{r}_{U(n)}\to X'^{r}\xr{\nu^{r}} X^{r}$.
+\end{enumerate}
+\end{lemma}
+\begin{proof}
+(1) Let $\ov\cE'=\cE'/\ker(s)\xr{\ov s}\cE$, equipped with the induced Hermitian map $\ov a' \co \ov\cE' \rightarrow \sigma^* (\ov\cE')^{\vee}$. Then $s^{*}$ factors as $\cZ^{r}_{\cE}(a)\xr{z_{\ov s}}\cZ_{\ov\cE'}^{r}(\ov a')\subset \cZ^{r}_{\cE'}(a')$, the latter being evidently a closed embedding. Therefore it suffices to show $z_{\ov s}$ is a closed embedding. We thus reduce to the case $s$ is generically an isomorphism. 
+
+Let $D$ be an effective divisor on $X'$ such that $\cE(-D)\incl \cE'\xr{s}\cE$. Let $\cF^{\rm univ}$ be the universal Hermitian bundle over $X'\times \Bun_{U(n)}$, and $\cF^{\rm univ}_{D}$ its restriction to $D\times \Bun_{U(n)}$. Let $\cV_{D}=\pr_{2*}\un\Hom(\pr_{1}^{*}\cE(-D)|_{D},\cF^{\rm univ}_{D})$, where $\pr_{1},\pr_{2}$ are the projections of $D\times \Bun_{U(n)}$ to the two factors. Then $\cV_{D}$ is a vector  bundle of rank equal to $n\rank(\cE)\deg(D)$ over $\Bun_{U(n)}$. Let $\cV_{i,D}$ be the pullback of $\cV_{D}$ over $\cZ^{r}_{\cE'}(a')$ via the map $\pr_{i}: \cZ^{r}_{\cE'}(a')\to \Bun_{U(n)}$. Then $\cV_{i,D}$ has a section $v_{i}$ whose value at $(\{x'_{j}\}, \{\cF_{j}\}, \{t_{j}: \cE'\to \cF_{j}\})\in \cZ^{r}_{\cE'}(a')$ is the restriction of $t_{i}$ to $\cE(-D)|_{D}\to \cF_{i}|_{D}$.  Then $t_{i}$ extends to $\cE$ if and only if $v_{i}$ vanishes at the point $(\{x'_{j}\}, \{\cF_{j}\}, \{t_{j}\})$. This identifies $\cZ^{r}_{\cE}(a)$ as the common zero locus of the sections $(v_{i})_{0\le i\le r-1}$ of the vector bundles $\cV_{i,D}$ over $\cZ^{r}_{\cE'}(a')$, hence closed in $\cZ^{r}_{\cE'}(a')$. 
+
+(2) By (1),  it remains to show the openness of $z_s$ when restricted to $(X\bs \nu(D_{s}))^{r}$. Let $U'=X'\bs \supp(D_{s}+\s D_{s})$. Let $\Sht^{r}_{U(n),D_{s}}$ be the moduli stack of Hermitian shtukas $(\{x'_{i}\}, \{\cF_{i}\})$ of rank $n$ with legs in $U'^{r}$, and trivializations of $\cF_{i}|_{D_{s}}$ (as a vector bundle over $D_{s}$ of rank $n$) compatible with the shtuka structures. Then $\l: \Sht^{r}_{U(n),D_{s}}\to \Sht^{r}_{U(n)}|_{U'^{r}}$ is a $\GL_{n}(\cO_{D_{s}})$-torsor. Let $\cZ^{r}_{\cE}(a)_{D_{s}}$ and $\cZ^{r}_{\cE'}(a')_{D_{s}}$ be the base changes of $\cZ^{r}_{\cE}(a)$ and $\cZ^{r}_{\cE'}(a')$ along $\l$. Since $\cZ^{r}_{\cE'}(a')_{D_{s}}\to \cZ^{r}_{\cE'}(a')|_{U'^{r}}$ is finite \'etale surjective, it suffices to show that the inclusion $\cZ^{r}_{\cE}(a)_{D_{s}}\inj \cZ^{r}_{\cE'}(a')_{D_{s}}$ is open. Using the trivializations of $\cF_{i}|_{D_{s}}$, we get an evaluation map
+\begin{equation}
+\ev_{D_{s}}: \cZ^{r}_{\cE'}(a')_{D_{s}}\to \Hom_{D_{s}}(\cE'|_{D_{s}}, \cO_{D_{s}}^{\op n})
+\end{equation}
+where the target is a discrete set. Then $\cZ^{r}_{\cE}(a)_{D_{s}}$ is the preimage of the image of
+\begin{equation}
+\Hom_{D_{s}}(\cE|_{D_{s}}, \cO_{D_{s}}^{\op n}) \xr{(-)\c s} \Hom_{D_{s}}(\cE'|_{D_{s}}, \cO_{D_{s}}^{\op n})
+\end{equation}
+under $\ev_{D_{s}}$. Indeed, a map $\cE'\to \cF_{i}$ extends to $\cE\to \cF_{i}$ if and only if $\cE'|_{D_{s}}\to \cF_{i}|_{D_{s}}$ vanishes on $\ker(\cE'|_{D_{s}}\to \cE|_{D_{s}})$ (this can be checked locally using elementary divisors). Since the target of $\ev_{D_{s}}$ is discrete, $\cZ^{r}_{\cE}(a)_{D_{s}}\subset \cZ^{r}_{\cE'}(a')_{D_{s}}$ is open and closed.
+\end{proof}
+
+
+\subsection{Corank $1$ special cycles} 
+
+A special role is played by the case $m=1$, i.e. where $\Cal{E}$ is a line bundle on $X'$, because it is only in this case that we can appropriately control the dimension of the cycles $\Cal{Z}_{\Cal{E}}^{r}$. We will write $\Cal{L} := \Cal{E}$ to emphasize that it is a line bundle. 
+
+Note that in this case $a \in \cA_{\cL}(k)$ if and only if $a \neq 0$. 
+
+\begin{prop}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{prop: dim Z_L}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+We have $\dim \cZ_{\cL}^{r}(a)^{\circ} \leq r(n-1)$. 
+\end{prop}
+
+%\begin{proof}
+This is established later, in Proposition \ref{p:ShM dim} (for $a\ne0$) and Proposition \ref{p:dim ZL0} (for $a=0$),  as a consequence of a more refined study of the geometry of $\cZ_{\cL}^{r}(a)^{\circ}$. 
+%\end{proof}
+
+\begin{remark}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{rem: actual dimension}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+One can show that when $a\ne0$, in fact $\cZ_{\cL}^{r}(a)^{\circ}$ is LCI of pure dimension $r(n-1)$. This will appear in a future paper; it relies on some ideas from \cite{FYZ2}. This fact will not be used in the present paper, but it may be psychologically helpful. 
+\end{remark}
+
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{def: m=1 cycle class} 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+For $a \in \cA^{\all}_{\cL}(k)$, we define $[ \cZ_{\cL}^{r}(a)^{\circ} ] \in \Ch_{r(n-1)}( \cZ_{\cL}^{r}(a)^{\circ})$ to be the cycle class of the union of the irreducible components of $\cZ_{\cL}^{r}(a)^{\circ} $ with dimension $r(n-1)$, throwing away the irreducible components of dimension $<r(n-1)$. (According to Remark \ref{rem: actual dimension}, there are no such components to be thrown away at least when $a\ne0$, but we neither prove nor use this in the present paper.)  
+\end{defn}
+
+
+
+
+\subsection{Corank $n$ special cycles}
+In this paper we are mainly concerned with the case where the rank of $\cE$ is $m=n$.   The following proposition contains basic geometric information about $\cZ^{r}_{\cE}(a)$. 
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{l:KR cycle legs}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Let $\cE$ be a vector bundle on $X'$ of rank $n$, and $a\in \cA_{\cE}(k)$. Then the map $\cZ^{r}_{\cE}(a)\to X'^{r}$ recording  the legs has image in $(\supp\nu^{-1}(D_{a}))^{r}$.
+\end{lemma}
+\begin{proof} Let $(\{x'_{i}\}, \{\cF_{i}\}, \{t_{i}\})$ be a geometric point of $\cZ^{r}_{\cE}(a)$. For each $1\le i\le r$,  the Hermitian map $a$ factorizes as $\cE\incl \cF^{\flat}_{i-1/2}\incl \cF_{i-1}\incl \s^{*}\cE^{\vee}$, we see that $x'_{i}$ (the support of $\cF_{i-1}/\cF^{\flat}_{i-1/2}$) is in the support of $\sigma^*\cE^{\vee}/a(\cE)$, i.e., $x'_{i}\in \supp \nu^{-1}(D_{a})$.
+\end{proof}
+
+
+\begin{prop}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{prop: KR cycle proper} 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Let $\cE$ be a vector bundle on $X'$ of rank $n$, and $a\in \cA_{\cE}(k)$. Then $\cZ^{r}_{\cE}(a)$ is a proper scheme over $k$ that depends only on the torsion sheaf $\cQ=\coker(a)=\s^{*}\cE^{\vee}/\cE$ together with the Hermitian structure $\ov a$ on $\cQ$ induced from $a$ (see \S\ref{ss:Herm} for the notion of Hermitian structure on a torsion sheaf).
+\end{prop}
+The proof involves a few ideas not yet introduced, and will be given later in \S \ref{sssec: complete proof}.
+
+
+
+The next goal is to equip the proper scheme $\cZ_{\cE}^{r}(a)$ with a $0$-cycle class in its Chow group. The ``virtual dimension'' of $\cZ_{\cE}^{r}(a)$ is at most zero, for if $\cE$ is a direct sum of line bundles $\cL_{1}\op\cdots\op \cL_{n}$, then $\cZ_{\cE}^{r}(a)$ is contained in the intersection of $Z^{r}_{\cL_{i}}(a_{ii})$ for $1\le i\le r$, each having codimension at least $r$ in $\Sht^{r}_{U(n)}$ by Proposition \ref{prop: dim Z_L} (which can be shown to be an equality, cf. Remark \ref{rem: actual dimension}).  However the actual dimension of $\cZ_{\cE}^{r}(a)$ can be strictly positive. Our task is to find the correct virtual fundamental class of $\cZ_{\cE}^{r}(a)$.
+
+
+\subsection{Intersection theory on stacks}\label{ss:int stacks}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+Recall the discussion of intersection theory on Deligne-Mumford stacks from \cite[Appendix A]{YZ}. Let $Y$ be a smooth, separated, locally finite type  Deligne-Mumford stack over $k$ of pure dimension $d$. Let $Y_{1}, \cdots, Y_{n}$ be Deligne-Mumford stacks with maps $f_{i}: Y_{i}\to Y$. Then there is an intersection product
+\[
+(-) \cdot_{Y} (-)  \cdot_Y \cdots \cdot_Y (-) \co \Ch_{i_{1}}(Y_{1}) \times \Ch_{i_{2}}(Y_{2})\times\cdots\times\Ch_{i_{n}}(Y_{n}) \rightarrow \Ch_{i_{1}+\cdots+i_{n}-d(n-1)}(Y_{1}\times_{Y}\cdots\times_{Y}Y_{n}).
+\]
+For $\z_{i}\in \Ch_{*}(Y_{i})$, the intersection product $\z_{1}\cdot_{Y}\cdots\cdot_{Y}\z_{n}$ is defined as the Gysin pullback of the external product $\z_{1}\times\cdots\times \z_{n}\in \Ch_{*}(Y_{1}\times\cdots\times Y_{n})$ along the diagonal map $\Delta: Y\to Y^{n}$, which is a regular embedding of codimension $d(n-1)$.
+
+
+
+
+\subsection{Intersection problem: the case of a direct sum of line bundles}\label{ssec: KR cycle classes}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+%odd title: Cycle classes on $\Sht_{U(n)}^{r}$
+We now formulate the cycle classes which enter into our intersection problem.  We first consider the case $\Cal{E}$ a direct sum of $m$ line bundles on $X'$,
+\begin{equation}
+\Cal{E} \cong \Cal{L}_1 \oplus \ldots \oplus \Cal{L}_m.
+\end{equation}
+%\subsubsection{The case of a direct sum of line bundles}\label{sssec: KR for direct sum of line bundles}
+Let $a \in \Cal{A}_{\Cal{E}}(k)$. We write $a$ as an $m\times m$-matrix with entries $a_{ij}\in \Hom(\cL_{j}, \s^{*}\cL^{\vee}_{i})$. 
+
+%We make the following assumption:
+%\begin{equation}
+%a_{ii}\ne0, \quad i=1,2,\cdots, m.
+%\end{equation}
+Let 
+\begin{equation}
+\cZ^{r}_{\cL_{1},\cdots, \cL_{m}}(a_{11},\cdots, a_{mm})^{\circ}:=\Cal{Z}^{r}_{\Cal{L}_1}(a_{11})^{\circ} \times_{\Sht^{r}_{U(n)}} \ldots \times_{\Sht^{r}_{U(n)}} \Cal{Z}^{r}_{\Cal{L}_m}(a_{mm})^{\circ}.
+\end{equation}
+In Definition \ref{def: m=1 cycle class} we defined a fundamental class $[\Cal{Z}_{\Cal{L}}^{r}(a)^{\circ}] \in \Ch_{r(n-1)}(\Cal{Z}_{\Cal{L}}^{r}(a)^{\circ})$. Applying the intersection product construction in \S\ref{ss:int stacks} for $Y=\Sht^{r}_{U(n)}$ (the hypotheses apply by Lemma \ref{lem: shtuka geometry} (2)), we obtain a class  %\mnote{Removed value for dimension of the cycle class, although we know what it is we do not prove it in this paper}
+\begin{equation}\label{int m Z}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+[\Cal{Z}^r_{\Cal{L}_1}(a_{11})^{\circ}] \cdot_{\Sht_{U(n)}^r} \ldots \cdot_{\Sht_{U(n)}^r} [\Cal{Z}^{r}_{\Cal{L}_m}(a_{mm})^{\circ}]\in\Ch_{r(n-m)}(\Cal{Z}^{r}_{\Cal{L}_1,\cdots, \cL_{m}}(a_{11},\cdots, a_{mm})^{\circ}).
+\end{equation}
+Let $\cA_{\cE}^{\all}(a_{11},\cdots, a_{mm})(k)$ be the finite set of Hermitian maps $a:\cE\to \s^{*}\cE^{\vee}$ (not assumed to be injective) such that its restriction to $\cL_{i}$ is $a_{ii}$ for $i=1,\cdots, m$. By Lemma \ref{l:KR direct sum}, there is a map
+\begin{equation}
+\Cal{Z}_{\Cal{L}_1}^r(a_{11}) \times_{\Sht^{r}_{U(n)}} \ldots \times_{\Sht^{r}_{U(n)}} \Cal{Z}^r_{\Cal{L}_m}(a_{mm})\to \cA_{\cE}^{\all}(a_{11},\cdots, a_{mm})(k)
+\end{equation}
+such that the fiber over $a \in \cA_{\cE}(k)$ identifies with $\cZ^{r}_{\cE}(a)$. Since $a$ is injective, the image of $\cZ^{r}_{\cE}(a)\to \cZ^{r}_{\cL_{i}}(a_{ii})$ lies in $\cZ^{r}_{\cL_{i}}(a_{ii})^{\circ}$. In particular, 
+\begin{equation}
+\cZ^{r}_{\cE}(a)\subset \Cal{Z}^{r}_{\Cal{L}_1,\cdots,\Cal{L}_m}(a_{11}, \cdots, a_{mm})^{\circ}
+\end{equation}
+is open and closed. Restricting \eqref{int m Z} to $\cZ^{r}_{\cE}(a)$ gives a cycle class
+\[
+\z^{r}_{\cL_{1},\cdots, \cL_{m}}(a):=  \left([\Cal{Z}^r_{\Cal{L}_1}(a_{11})^{\circ}] \cdot_{\Sht_{U(n)}^r} \ldots \cdot_{\Sht_{U(n)}^r} [\Cal{Z}^{r}_{\Cal{L}_m}(a_{mm})^{\circ}]\right)  |_{\cZ^{r}_{\cE}(a)}
+ \in  \Ch_{r(n-m)}(\cZ^{r}_{\cE}(a)).
+\]
+
+\begin{remark}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready Our notation suggests that $\z^{r}_{\cL_{1},\cdots, \cL_{m}}(a)$ (as a cycle class on $\cZ_{\cE}^{r}(a)$) depends, at least a priori, on the decomposition of $\cE$ into a direct sum of line bundles $\cL_{1},\cdots, \cL_{m}$.  However, we will show later in Theorem \ref{th:compare KR}  that, at least when $m=n$, it only depends on $\cE$, and is equal to the cycle class $[\cZ^{r}_{\cE}(a)]$ that we will define for general rank $n$ bundle $\cE$.
+\end{remark}
+
+
+
+%The map $\Cal{Z}_{\Cal{L}_1}(a_{11}) \cap \ldots \cap \Cal{Z}_{\Cal{L}_m}(a_{mm}) \rightarrow \Cal{A}_{\Cal{E}}(k)$ %\mnote{This map doesn't exist now that $\Cal{A}$ is defined to be the non-degenerate locus} 
+%induces a decomposition 
+%\[
+%\Ch_{nr-mr}(\Cal{Z}_{\Cal{L}_1}(a_{11}) \cap \ldots \cap \Cal{Z}_{\Cal{L}_m}(a_{mm}))  = \bigoplus_{a \in \Cal{A}(k)} \Ch_{nr-mr}(\Cal{Z}_{\Cal{L}_1}(a_{11}) \cap \ldots \cap \Cal{Z}_{\Cal{L}_m}(a_{mm}))_a
+%\]
+%We let $[\KR{E}(a)]$ be the projection to the component indexed by $a \in \Cal{A}_{\Cal{E}}(k)$. 
+%\tony{This definition only works if $a$ has non-zero diagonal entries $a_{11}, \ldots, a_{mm}$} 
+
+%\begin{remark}
+%It is not a priori clear that the above definition of $[\KR{E}(a)]$ is independent of the choice of presentation $\Cal{E}$ as a direct sum of line bundles. This will be established later \tony{forward reference}
+%\end{remark}
+	
+
+\subsection{Intersection problem: $m=n$ and $\cE$ arbitrary}\label{ssec: intersection problem}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+%Let $\Cal{E}$ be a vector bundle of rank $n$ on $X'$. For $a \in \Cal{A}_{\Cal{E}}(k)$ we will define a $0$-cycle class $[\KR{E}^r(a)] \in \Ch_{0}(\KR{E}^r(a))$ for general $\Cal{E}$ of rank $n$, although it will not be clear from our description that it is well-defined (i.e., independent of certain auxiliary choices). That will be established later.
+
+
+
+
+
+To define a $0$-cycle $[\KR{E}^r(a)] $ for general rank $n$ vector bundle $\Cal{E}$ on $X'$, we need to make some auxiliary choice first; eventually we will show that the definition is independent of the choice.
+
+
+
+\begin{defn}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{def: auxiliary E'}  Let $\cE$ be a rank $n$ vector bundle over $X'$ and $a\in \cA_{\cE}(k)$. A {\em good framing} of $(\cE,a)$ is an $n$-tuple $(s_{i}: \cL_{i}\to \cE)_{1\le i\le n}$ of $\cO_{X'}$-linear maps from line bundles $\cL_{i}\in \Pic(X')$ satisfying:
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{enumerate}
+\item The map $s=\op s_{i}: \cE':=\op_{i=1}^{n}\cL_{i}\to \cE$ is injective.
+\item Let $D_{s}$ be the divisor of the nonzero map $\det(s): \ot_{i=1}^{n}\cL_{i}\to \det\cE$. Then $\nu(D_{s})$ (image in $X$) is  disjoint from $D_{a}$ (see Definition \ref{def:Da}). %In particular, $D_{s}$ is supported on split places of $X'/X$.
+%\item Let $a'_{ij}$ be the composition
+%\begin{equation}
+%\cL_{j}\xr{s_{j}}\cE\xr{a}\s^{*}\cE^{\vee}\xr{\s^{*}s_{i}^{\vee}}\s^{*}\cL^{\vee}_{i}.
+%\end{equation}
+%Then $a'_{ii}\ne0$ for $i=1,\cdots,n$.
+%\item $\mu_{\min}(\cE)>\max\{\deg\cL_{i}+2g'-1\}_{1\le i\le n}$.
+\end{enumerate}
+%\begin{enumerate}
+%\item A rank $n$ vector bundle $\Cal{E}'$ and a decomposition $\Cal{E}' = \Cal{L}_1 \oplus \ldots \oplus \Cal{L}_n$ as a direct sum of $n$ line bundles on $X'_{k}$. 
+%\item A map $\iota \co \Cal{E}' \hookrightarrow \Cal{E}$ of vector bundles over $X'_{k}$ whose cokernel is a simple torsion sheaf $\Cal{T}$ whose support is disjoint from the support of $\Div(a)$, and consists of places split in $X'/X$.  
+%\end{enumerate}
+\end{defn}
+%\WZ{Is this ever used?
+%For a good framing $(s_{i}: \cL_{i}\to \cE)_{1\le i\le n}$, we denote by $a_{ij}$ the composition
+%\begin{equation}
+%\cL_{j}\xr{s_{j}}\cE\xr{a}\s^{*}\cE^{\vee}\xr{\s^{*}s_{i}^{\vee}}\s^{*}\cL^{\vee}_{i}.
+%\end{equation}
+%}
+
+\begin{lemma}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready For any rank $n$ bundle $\cE$ on $X'$ and $a\in \cA_{\cE}(k)$, there exists a good framing for $(\cE,a)$ in the sense of Definition \ref{def: auxiliary E'}.
+\end{lemma}
+
+\begin{proof} For notational convenience we give the argument for $X'$ connected; the case $X'=X\coprod X$ can be proved with obvious changes. 
+
+We strengthen condition (2) on $s:\op_{i=1}^{n}\cL_{i}\to \cE$ slightly by asking $\nu(D_{s})$ to avoid a prescribed divisor $D_{0}$ on $X$, instead of $D_{a}$.  We prove the existence of $s$ satisfying this stronger condition by induction on $n$. 
+
+The base case $n=1$ is trivial: take $\cL_{1}=\cE$. %pick a multiplicity-free divisor $D$ of large degree that is disjoint from $D_{0}$, then let $s: \cL_{1}=\cE(-D)\incl \cE$.  
+
+For the inductive step, start by picking any saturated line bundle $\Cal{L}_{1}\inj \cE$. %that is not isotropic under $a$. This is always possible because it amounts to taking an non-isotropic line in the generic fiber of $\cE$. 
+Then $\Cal{E}_{n-1} := \Cal{E}/\Cal{L}_{1}$ is a vector bundle of rank $n-1$. By induction hypothesis  we may pick $\ov s: \op_{i=2}^{n}\cL'_{i} \inj \Cal{E}_{n-1}$ satisfying the conditions of Definition \ref{def: auxiliary E'} and such that $\nu(D_{\ov s})$ avoids the given divisor $D_{0}$. Let $D_{2},\cdots, D_{n}$ be effective divisors on $X'$ such that
+\begin{enumerate}
+\item $\nu(D_{2}),\cdots, \nu(D_{n})$ are disjoint from $\nu(D_{0})$, and
+\item $\deg \cL'_{i}-D_{i}+2g'-2<  \deg \cL_{1}$ for $i=2,\cdots, n$.
+\end{enumerate}
+Let $\cL_{i}=\cL'_{i}(-D_{i})$. By the inequality above we see that $\Ext^1(\Cal{L}_i, \Cal{L}_1) = 0$, so the map $\ov s_{i}: \cL_{i} \inj \Cal{E}_{n-1}=\cE/\cL_1$ lifts to a map $s_{i}: \cL_{i} \inj \Cal{E}$, $i=2,\cdots, n$. 
+
+Now we have an injection $s: \op_{i=1}^{n}\cL_{i}\inj \cE$ whose divisor $D_{s}$ satisfies $D_{s}=D_{\ov s}+D_{2}+\cdots+D_{n}$. Since $\nu(D_{2}),\cdots, \nu(D_{n}), \nu(D_{\ov s})$ are disjoint from $D_{0}$ by construction, the same is true for $\nu(D_{s})$. 
+\end{proof}
+
+% Also $a_{11}\ne0$ by construction. By replacing each $\cL_{i}$ with $\cL_{i}(-D'_{i})$ for some  multiplicity-free effective divisor disjoint from $D_{s}$ we can make sure that $\deg\cL_{i}<\mu_{\min}(\cE)-(2g'-1)$. 
+
+%It remains to make adjustments so that $a_{ii}\ne0$ for $i=2,\cdots, n$. Choose multiplicity-free effective divisors $D''_{2},\cdots, D''_{n}$ whose image in $X$ are disjoint from each other and disjoint from $\nu(D_{0}+D_{s})$, such that there is a nonzero map $b_{i}: \cL_{i}(-D''_{i})\to \cL_{1}$. If $a_{ii}\ne0$ there is nothing to do. If $a_{ii}=0$, consider the family of maps $s_{i}(t)=s_{i}+t s_{1}\c b_{i}:\cL_{i}(-D''_{i})\inj \cE$ for $t\in k$. The resulting norm $a'_{ii}(t)=\s^{*}s_{i}(t)^{\vee}\c a \c s_{i}(t)\in V:=\Hom(\cL_{i}(-D''_{i}),\s^{*}\cL_{i}^{\vee}(\s D''_{i}))$ is a quadratic function in $t$ of the form $a'_{ii}(t)=c_{2}t^{2}+c_{1}t$ valued in $V$, where $c_{2}=\s^{*}b_{i}^{\vee}\c a'_{11}\c b_{i}\ne0$. If $q>2$, then $a'_{ii}(t)=0$ for all $t\in k$ implies $c_{2}=0$, a contradiction. Therefore in this some $Q(t)\ne0$. Changing $\cL_{i}$ to $\cL_{i}(-D''_{i})$ and $s_{i}$ to $s_{i}(t)$ completes the construction. In case $q=2$, the above argument breaks only if $c_{2}=c_{1}\ne0$, where $c_{1}= a'_{i1}\c b_{i}+\s^{*}b_{1}^{\vee}\c a'_{1i}$. We may choose $D''_{i}$ to also avoid the divisors of $a'_{11}, a'_{1i}$ and $a'_{i1}$. We have $\Div(c_{2})=D''_{i}+\s(D''_{i})+\Div(a'_{11})$, $\Div(a'_{i1}\c b_{i})=\Div(b_{i})+\s(D''_{i})+\Div(a'_{i1})$ and  $\Div(\s^{*} b^{\vee}_{i}\c a'_{1i}) =\s(\Div(b_{i}))+D''_{i}+\Div(a'_{1i})$. Then $c_{1}=c_{2}$ implies $\Div(b_{i})$ contains $D''_{i}$, i.e., $b_{i}$ extends to $\cL_{i}\to \cL_{1}$. Of course by enlarging $D''_{i}$ we may choose $b_{i}$ that does not extend to $\cL_{i}\to \cL_{1}$. This choice of $b_{i}$ implies $a'_{ii}(t)$ is not identically zero for $t\in k$ even if $q=2$. This finishes the proof.
+
+
+%Now we take $\Cal{L}_1 = \Cal{L}(-D)$ where $D$ is a divisor such that:
+%\begin{enumerate}
+%\item $D$ is supported on points of $X'$ split over $X$ and disjoint from the support of $\coker(\Cal{E}_{n-1}' \inj \Cal{E}_{n-1})$. 
+%\item If we write $\Cal{E}_{n-1}' = \Cal{L}_2 \oplus \ldots \oplus \Cal{L}_n$, then $\deg \Cal{L}_1 < 2g'-1 + \deg \Cal{L}_i $ for every $i$. 
+%\end{enumerate} 
+%Condition (2) ensures that $\Ext^1(\Cal{E}'_{n-1}, \Cal{L}_1 ) = \bigoplus_{2 \leq i \leq n} \Ext^1(\Cal{L}_i, \Cal{L}_1) = 0$, so the map $\Cal{E}'_{n-1} \inj \Cal{E}_{n-1}$ lifts to a map $\Cal{E}'_{n-1} \inj \Cal{E}$. Then condition (1) ensures that the resulting map $\Cal{L}_1 \oplus \Cal{E}'_{n-1} \inj \Cal{E}$ satisfies the requirements of Definition \ref{def: auxiliary E'}, if we take $\Cal{E}' := \Cal{L}_1 \oplus \Cal{E}'_{n-1} $. 
+%\end{proof}
+
+
+
+\begin{cor}
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\notready\label{c:ZE open closed} If $s:\cE'=\op_{i=1}^{n}\cL_{i}\inj \cE$ is a good framing, then the map \eqref{eq: Z_E to Z_E'} realizes $\Cal{Z}_{\Cal{E}}(a)$ as an open and closed subscheme of $\Cal{Z}_{\Cal{E}'}(a')$. 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\end{cor}
+\begin{proof} Closedness is proved in Lemma \ref{l:change E}(1). Only the openness requires an argument.
+By the definition of a good framing, $\nu(D_{s})$ is disjoint from $D_{a}$, and therefore disjoint from all legs of all points of $\cZ^{r}_{\cE}(a)$ by Lemma \ref{l:KR cycle legs}. Let $U'=X'\bs \supp(D_{s}+\s D_{s})$, then $\cZ^{r}_{\cE}(a)=\cZ^{r}_{\cE}(a)|_{U'^{r}}$. By Lemma \ref{l:change E}(2), the inclusion
+\begin{equation}
+\cZ^{r}_{\cE}(a)=\cZ^{r}_{\cE}(a)|_{U'^{r}}\inj \Cal{Z}_{\Cal{E}'}(a')|_{U'^{r}}
+\end{equation}
+is open, hence the inclusion $\cZ^{r}_{\cE}(a)\inj \cZ^{r}_{\cE'}(a')$ is open.
+\end{proof}
+
+
+%\begin{lemma}\label{lem: Z for general E} If $s:\cE'=\op_{i=1}^{n}\cL_{i}\inj \cE$ is a good framing, then the map \eqref{eq: Z_E to Z_E'} realizes $\Cal{Z}_{\Cal{E}}(a)$ as an open and closed substack of $\Cal{Z}_{\Cal{E}'}(a')$. \end{lemma}
+%
+%\begin{proof}
+%Write 
+%\[
+%\underbrace{\sigma^*(\Cal{E}')^{\vee}/\Cal{E}'}_{\coker(a')}\cong \underbrace{\Cal{S}}_{\coker(s)}\op \underbrace{\s^{*}\cS^{\vee}}_{\coker(\s^{*}s^{\vee})} \oplus \underbrace{(\sigma^* \Cal{E}^{\vee}/\Cal{E})}_{\coker(a)}.
+%\]
+%By assumption, the above decomposition has disjoint supports. %$\supp(\Cal{T} ) \cap \supp(\coker(a)) = \emptyset$. 
+%
+%Consider a point of $\Cal{Z}_{\Cal{E}'}^r(a')$, which is represented by a diagram 
+%\begin{equation}\label{eq: point of Z_E'}
+%\begin{tikzcd}
+%\Cal{E}' \ar[d, hook] \ar[r , equals ] &  \ldots \ar[r, dashed]  & \Cal{E}' \ar[r, equals]  \ar[d]  & \ft \Cal{E}'   \ar[d, hook] \\
+% \Cal{F}_0 \ar[r, dashed]  & \ldots \ar[r, dashed] & \Cal{F}_r \ar[r, "\sim"] & \ft \Cal{F}_0
+%\end{tikzcd}
+%\end{equation}
+%In particular, we have $\Cal{F}_i \cong \sigma^* \Cal{F}_i^{\vee} \inj \sigma (\Cal{E}')^{\vee}$. Note that the datum of $\Cal{F}_i$ is determined by its image  $\ov\cF_{i}=\Ima(\cF_{i}\to \sigma^*(\Cal{E}')^{\vee}/\Cal{E}')$, and the point \eqref{eq: point of Z_E'} comes from $\Cal{Z}^{r}_{\Cal{E}}(a)$ via \eqref{eq: Z_E to Z_E'} if and only if each map $\Cal{E}' \rightarrow \Cal{F}_i$ extends to $\Cal{E}$,  if and only if each $\ov\cF_{i}$ contains $\cS$, if and only if $\Ima(\ov \cF_{i}\to \cS\op \s^{*}\cS^{\vee})=\cT$ (a priori the condition is a containment, but it must then automatically be an equality since both of these images are self $\sigma$-dual).
+%
+%
+%
+%%By assumption, $\Cal{T}$ is of the form 
+%%\[
+%%\Cal{T} \cong \bigoplus (\kappa_x \oplus \kappa_{\sigma x})
+%%\]
+%%where each $x$ is a closed point of $X'$ split over $X$. As $\Cal{F}$ is Hermitian, $\Ima(\Cal{F} \rightarrow \Cal{T})$ is a Lagrangian subsheaf of $\Cal{T}$. \tony{could use more explanation ... it is covered later in Lemma 12.1} As the only isotropic subsheaves of $\kappa_x \oplus \kappa_{\sigma x}$ are $\kappa_x$ or $\kappa_{\sigma x}$, we see that the image of $\Cal{F}$ in the summand $(\kappa_x \oplus \kappa_{\sigma x})$ must be either $\kappa_x$ or $\kappa_{\sigma x}$. 
+%
+%Write $\cT:=\cS\op \s^{*}\cS^{\vee}$, equipped with the Hermitian form inherited from the one on $\coker(a')$. Let $\Lagr(\cT)$ denote the moduli space of Lagrangian subsheaves of $\cT$. By assumption, $\cT$ is multiplicity-free,  therefore $\Lagr(\cT)_{\ov{k}}$ is finite discrete (indeed, each Lagrangian of $\cT_{\ov{k}}$ amounts to a choice of one point from each pair $\{x,\s(x)\}$ in the support of $\cT_{\ov k}$).   Sending \eqref{eq: point of Z_E'} to $\{\Ima(\ov\cF_i \rightarrow \cT)\}_i$ defines a map 
+%\[
+%\Cal{Z}^{r}_{\Cal{E}'}(a') \rightarrow \Lagr(\cT)^r
+%\]
+%for which $\Cal{Z}^{r}_{\Cal{E}}(a)$ is identified with the fiber of the point $(\cS,\cdots, \cS)\in \Lagr(\cT)^r$. Since $\Lagr(\cT)^r$ is discrete, this fiber is evidently closed and open. 
+%\end{proof}
+
+
+%\TF{Note that by Proposition \ref{prop: dim Z_L}, for $a \in \cA_{\cL_1 \oplus \ldots \oplus \cL_n}(k)$ with diagonal entries $a_{ii}$, the cycle class $[\cZ^r_{\cL_{1},\cdots, \cL_{n}}(a)]$ constructed in \S \ref{ssec: KR cycle classes} lies in $\Ch_{0}(\cZ^{r}_{\cL_{1},\cdots, \cL_{m}}(a_{11},\cdots, a_{mm})^{*})$. (This is because any hypothetical components of $\cZ^r_{\cL_i}(a_{ii})$ having dimension smaller than $r(n-1)$ are necessarily killed off in the intersection by dimension considerations, although it turns out that there are no such components anyway.) }
+
+\begin{defn-prop}\label{defn:general KR} Let $\cE$ be a vector bundle of rank $n$ over $X'$ and $a\in \cA_{\cE}(k)$. Let $s:\op_{i=1}^{n}\cL_{i}\inj \cE$ be a good framing of $(\cE,a)$. Let 
+\source{higher-siegel-weil-unitary-nonsingular-terms}
+\begin{equation}
+[\Cal{Z}^{r}_{\Cal{E}}(a)]:=\z^r_{\cL_{1},\cdots, \cL_{n}}(a')|_{\cZ^{r}_{\cE}(a)}\in \Ch_{0}(\cZ_{\cE}^{r}(a)).
+\end{equation}
+Here we are using Corollary \ref{c:ZE open closed} to make sense of the restriction, as it implies that $\Cal{Z}^{r}_{\Cal{E}}(a)$ is a union of connected components of $\Cal{Z}^{r}_{\Cal{E}'}(a')$. Then the cycle class $[\Cal{Z}^{r}_{\Cal{E}}(a)]$ thus defined is independent of the good framing $s:\cE'=\op_{i=1}^{n}\cL_{i}\inj \cE$. 
+\end{defn-prop}
+The independence of good framing  will be proved in Theorem \ref{th:compare KR} after some preparation in \S\ref{sec: hitchin spaces}. The idea is to construct another $0$-cycle class on $\cZ^{r}_{\cE}(a)$ without making auxiliary choices (which is done by introducing Hitchin shtukas), and show that the two constructions agree. 
+
+%When $\cE=\cL_{1}\op\cdots\op\cL_{n}$ is a direct sum of line bundles, we have defined two $0$-cycles on $\cZ^{r}_{\cE}(a)$, namely  $[\cZ^{r}_{\cL_{1},\cdots, \cL_{n}}(a)]$ and $[\cZ^{r}_{\cE}(a)]$. The latter is defined, for example, by choosing $\cL'_{i}=\cL_{i}(-D_{i})$ for a collection of divisors $D_{1},\cdots, D_{n}$ satisfying certain genericity conditons, and letting $[\cZ^{r}_{\cE}(a)]$ be the restriction of $\cZ_{\cL'_{1},\cdots, \cL'_{n}}(a')$. These two $0$-cycle classes are the same by the following result.
+
+
+
+%\begin{prop}
+%The class $[\Cal{Z}^{r}_{\Cal{E}}(a)]=[\cZ^{r}_{\cE'}(a')]|_{\cZ_{\cE}(a)} \in \Ch_{c,0}(\cZ^{r}_{\cE}(a))$ is \end{prop}
+%\begin{proof}
+%\tony{forward reference}
+%\end{proof}
+%
+%\tony{to be clarified: which $a$'s can actually be reached by such a procedure? seems we would at least need to further use some modularity property to get all of them}
+
+%\subsection{Intersection number} \WZ{Delete}
+%To extract a number from the $0$-cycle $[\cZ_{\cE}(a)]$, we use the following.
+
+
+%When $\Cal{E} = \Cal{L}_1 \oplus \ldots \oplus \Cal{L}_n$ is a direct sum of $n$ line bundles on $X'_{k}$, and $a \in \Cal{A}_{\Cal{E}}(k)$ is non-degenerate with each $a_{ii} \neq 0$, we have already defined $[\KR{E}^r(a)]$. 
+
+By Proposition \ref{prop: KR cycle proper}, $\cZ^{r}_{\cE}(a)$ is proper over $k$, 
+therefore the {\em degree} of the $0$-cycle of $[\cZ^{r}_{\cE}(a)]\in \Ch_{0}(\cZ^r_{\cE}(a))$ is a well-defined  number in $\Q$.  The main problem we are concerned with in this Part is to determine $\deg [\KR{E}^r(a)] \in \Q$.
+
+%\mnote{Is this definition used anywhere?}  \WZ{Maybe should delete this definition.}
+%\begin{defn}
+%The $(\Cal{E},a)$th coefficient of the \emph{geometric side of the higher Siegel-Weil formula} is $\deg [\KR{E}^r(a)] \in \Q$.
+%\end{defn}
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

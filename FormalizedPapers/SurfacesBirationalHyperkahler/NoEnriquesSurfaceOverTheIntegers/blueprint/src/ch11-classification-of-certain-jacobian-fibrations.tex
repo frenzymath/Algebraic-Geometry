@@ -1,0 +1,355 @@
+% Source-derived chapter 11: Classification of certain jacobian fibrations
+% Original source: no-enriques-surface-over-the-integers
+\chapter{Classification of certain jacobian fibrations}
+\label{no-enriques-surface-over-the-integers-chapter-11}
+\source{no-enriques-surface-over-the-integers}
+
+\begin{remark}[Source section]
+\label{no-enriques-surface-over-the-integers-chapter-11-source}
+\source{no-enriques-surface-over-the-integers}
+\source{no-enriques-surface-over-the-integers}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Classification of certain jacobian fibrations
+\mylabel{Classification jacobian}
+
+Throughout, we work over the ground field $k=\FF_2$.
+Let $Y$ be a geometrically rational surface, and $\phi:Y\ra\PP^1$ be an elliptic fibration that
+is relatively minimal and jacobian. It is then described by some Weierstra\ss{} equation 
+$$
+y^2+a_1xy+a_3y = x^3+a_2x^2+a_4x+a_6,
+$$
+where the coefficients $a_i\in \FF_2[t]$ are polynomials of degree $\deg(a_i)\leq i$, and the discriminant does not vanish.
+The goal of this section is to classify those Weierstra\ss{} equations that might arise from
+an Enriques surface with constant Picard scheme.
+It turns out that there are exactly eleven such Weierstra\ss{} equations, up to change of coordinates and
+automorphism of the projective line.
+This is quite remarkable, because all in all there are $2^{21}=2097152$ possible Weierstra\ss{} equations.
+
+We make the following assumptions on the surface $J$ and the jacobian fibration $\phi:J\ra\PP^1$:
+\newcounter{J}\setcounter{J}{0}
+\renewcommand{\theJ}{\rm \roman{J}}
+\newcommand{\labelJ}[1]{\refstepcounter{J}\mylabel{#1}}
+\newcommand{\refJ}[1] {{\rm (\ref{#1})}}
+
+\begin{enumerate}
+\item 
+\labelJ{constant}
+The proper scheme $J$ has constant   Picard scheme $\Pic_{J/k}$.
+\item 
+\labelJ{rational}
+There is at most one rational point $a\in\PP^1$ whose fiber $J_a$   is semistable or supersingular.
+\end{enumerate}
+
+The first condition arises from Theorem \ref{jacobian constant pic}, and the second from Proposition \ref{jacobian fiber properties}.
+With Propositions \ref{constant num over finite field}, \ref{canonical type rational points} and \ref{points on enriques} 
+we see that   the following holds as well:
+
+\begin{enumerate}
+\setcounter{enumi}{2}
+\item 
+\labelJ{non-rational}
+The fibers $J_\ba$ over non-rational points $a\in\PP^1$ have Kodaira $\I_0$, $\I_1$ or $\II$.
+\item 
+\labelJ{I0*}
+There is no fiber $J_\ba$ with Kodaira symbol $\I_0^*$.
+\item 
+\labelJ{points}
+The number of rational points is $\Card Y(\FF_2)=25$.
+\end{enumerate}
+
+For each rational point $a\in \PP^1$, let  
+$r_a\geq 1$ and $n_a\geq 1$  be the respective numbers of irreducible components and rational points in $J_a$.
+We start our analysis by observing that there is a large fiber, in the sense that there are many irreducible
+components:
+
+\begin{proposition}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{six   components}
+There is a rational point $a\in\PP^1$ whose fiber $J_a$ contains at least six irreducible components.
+\end{proposition}
+
+\proof
+Seeking a contradiction, we   assume that $r_a\leq 5$ for the three rational points $a\in\PP^1$.
+If $J_a$ is unstable we actually have $r_a\leq 3$, because the Kodaira symbol $\I_0^*$ is impossible,
+and  get $n_a\leq 7$.
+The same estimate holds if the fiber is smooth, because it is then isomorphic to one of the elliptic curves
+$E_i$, with $1\leq i\leq 5$.
+In the semistable case we get $n_a\leq 10$, and there is at most one rational point with
+semistable fiber. Writing $a,b,c\in\PP^1$ for the three rational points,
+we get the  contradiction $25=\Card Y(\FF_2)=n_a+n_b+n_c\leq 10 + 7 + 7= 24$.
+\qed
+
+\medskip
+We shall see that this large fiber must be unstable. The next result is a  first step into this direction:
+
+\begin{proposition}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{unstable fiber}
+There is a rational point $a\in\PP^1$ whose fiber $J_a$ is reducible and unstable.
+\end{proposition}
+
+\proof
+Seeking a contradiction, we assume that all reducible fibers are semistable.
+According to Proposition \ref{six components}, there is a reducible fiber with at least six components, 
+say $J_a$.
+It follows that $J_a$ has Kodaira symbol $\I_r$ for some $r\geq 6$,
+contributing $n=2r\geq 12$ rational points. We also have the upper bound $r\leq 9$, because
+of the Picard number $\rho(J)=10$.
+
+For each of the  two other rational points $b,c\in \PP^1$, it follows that the fiber 
+is either ordinary or with Kodaira symbol $\II$.
+In the former case, the number of rational points is even, in the latter case it is odd.
+Since $\Card Y(\FF_2)=25$ is odd, we may assume without restriction that $J_b=E_{2i}$
+for $1\leq i\leq 2$, and  $J_c$ has Kodaira symbol $\II$.
+This gives $25=\Card Y(\FF_2) = 2r +  2i+3$. The only possible solution is $r=9$ and $i=2$.
+But by Lang's Classification \cite{Lang 2000}, the configuration of singular fibers $\II+\I_9$ does not occur.
+\qed
+
+\medskip
+The generic fiber   of the jacobian fibration $\phi:J\ra\PP^1$
+has a certain invariant $j(J/\PP^1)$ in the function field $ k(\PP^1)=\FF_2(t)$, which is also called
+the \emph{functional $j$-invariant} and  can   be seen  as a morphism $j:\PP^1\ra\PP^1$.
+It is now convenient to distinguish the cases that the invariant   is zero or non-zero.
+
+\begin{proposition}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{non-constant j-invariant}
+Suppose the functional $j$-invariant   is non-zero.
+Then there is  exactly one  unstable fiber.
+If this fiber contains $r\leq 5$ irreducible components, the configuration of fibers over   rational points
+must be $\III+E_4+ \I_8$. 
+\end{proposition}
+
+\proof 
+First note that by Proposition \ref{unstable fiber} there is a rational point $a\in\PP^1$ whose fiber $J_a$ is unstable.
+As observed by Lang, there is no other unstable fiber (\cite{Lang 2000}, beginning of Section 1).
+Indeed,  a fiber $J_x$ is unstable if and only if $c_4\in \FF_2[T]$ vanishes at the point $x$ (\cite{Deligne 1975}, Proposition 5.1), and 
+in our situation  $c_4=a_1^4$ with $\deg(a_1)\leq 1$.
+Assume now that $J_a$   contains at most five irreducible components. Since the Kodaira symbol $\I_0^*$ does not occur,
+$J_a$ has at most three irreducible components.
+According to Proposition \ref{six components}, there must be a semistable fiber $J_b$ over some rational point $b\in\PP^1$,
+with $6\leq m\leq 9$ irreducible components.
+In light of Lang's Classification \cite{Lang 2000}, Section 2 the only possible configuration of singular fibers
+is $\III+\I_6$ and $\III+\I_8$. Consequently, the fiber over the last rational point $c\in\PP^1$ is ordinary,
+whence $J_c=E_{2n}$ with $1\leq n\leq 2$.
+The respective number of rational points in the fiber is thus 
+$n_a=5$ and $n_b=2m$ and $n_c=2n$. From $25=\Card Y(\FF_2)=n_a+n_b+n_c$ we get $m+n=10$.
+The only solution is  $m=8$ and $n=2$.
+\qed
+
+\medskip
+We now can state the first half our our classification result:
+
+\begin{theorem}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{classification non-zero j}
+Suppose the functional $j$-invariant is non-zero. 
+Up to coordinate changes and automorphisms of the projective line,
+the fibration $\phi:J\ra\PP^1$ is given by exactly one of the following eight Weierstra\ss{} equations: 
+$$
+\begin{array}[c]{@{}lll}
+\toprule
+\text{\rm Weierstra\ss{} equation}      & \text{\rm fibers over $t=0,1,\infty$}	& \text{\rm $j$-invariant}\\
+\toprule
+y^2+txy+t^2y=x^3+ tx^2+t^4x+t^5(1+t)    & \I_1^*+E_4+\I_4                       & t^4\\
+\midrule
+y^2+txy=x^3+t^3x+t^5(1+t)               & \III^*+E_4+E_4                        & t^2/(t^2+t+1)\\
+\midrule
+y^2+txy=x^3+t^3x 			            & \III^*+E_4+\I_2                       & t^2\\
+y^2+txy=x^3+t^2x^2+t^3x                 & \III^*+E_2+\tI_2\\
+\midrule
+y^2+txy=x^3+t^5                         & \II^*+E_4+\I_1                        & t\\
+y^2+txy=x^3+t^2x^2+t^5                  & \II^*+E_2+\tI_1\\
+\midrule
+y^2+txy=x^3+tx^2+t^4x                   & \I_4^* +E_2+E_4                       & 1\\
+\midrule
+y^2+txy+ty=x^3+tx^2+tx                     & \III+E_4+\I_8                         & t^8\\
+\bottomrule
+\end{array}
+$$
+For the invariant $j=t^2/(t^2+t+1)$, there is an additional singular fiber, which occurs over the point $x\in\PP^1$ with $\kappa(x)\simeq\FF_4$
+and has Kodaira symbol $\I_1$.
+In all other cases, the fibers over the non-rational points are smooth.
+\end{theorem}
+
+\proof
+Let $J_a$ be the unstable fiber, with $1\leq r_a\leq 9$ irreducible components and $n_a=2r_a+1$ rational points. 
+Note that the latter is odd.
+Without restriction, we may assume that $a$ is given by $t=0$. Write $b,c\in\PP^1$ for the remaining two rational points,
+whence
+\begin{equation}
+\label{cardinality}
+\source{no-enriques-surface-over-the-integers}
+25=\Card Y(\FF_2) = n_a+n_b+n_c.
+\end{equation}
+
+First, assume that $r_a\geq 6$.
+To start with, we consider the situation that both fibers $J_b$ and $J_c$ are smooth.
+Applying an automorphism of the projective line, we may assume that the first is ordinary. Then $n_b$ is even.
+By \eqref{cardinality} the number $n_c$ is also even, hence $J_c$ is also ordinary.
+Write  $J_b=E_{2i}$ and $J_c=E_{2j}$. Applying another automorphism of the projective line,  we may assume
+that $b$ is given by $t=1$. Recall that $r_a\geq 1$ is the number of irreducible components in $J_a$.
+ From \eqref{cardinality} one infers $r_a+i+j=12$.
+Using $i+j\leq 4$ we obtain $r_a\geq 8$.
+Consequently, the possible configurations of   fibers over rational points are 
+$$
+\II^*+E_2+E_4,\quad \I_4^*+E_2+E_4,\quad \III^*+E_4+E_4,\quad \I_3^*+E_4+E_4.
+$$
+In the first and last cases, Lang's Classification \cite{Lang 2000} tells us that
+there must be an additional singular geometric fiber, which is unique and has Kodaira symbol $\I_1$.
+This uniqueness ensures that it comes from a  fiber over a rational point, contradiction.
+
+We now analyze the case that $J_a$ has Kodaira symbol $\I_4^*$.
+We are thus in Lang Case 5D from \cite{Lang 2000}, and the Weierstra\ss{} equation takes the form
+$y^2+txy=x^3+td_1x^2+t^4x$, where $t\nmid d_1$.
+\emph{In this context, symbols like $d_i,e_i,\ldots$ denote   polynomials in the variable $t$ of degree $\leq i$.}
+Here we have the two cases $d_1=1$ and $d_1=1+t$. The former is transformed into the latter, 
+by the automorphism $t\mapsto t/(1+t)$ of the projective line,  followed by the change of coordinates 
+$x=u^2x'$ and $y=u^3y'$ with $u=1/(1+t)$.
+For $d_1=1$ the fibers, the  Weierstra\ss{} equation and the ensuing $j$-invariant are as in the table.
+
+Suppose now that $J_a$ has Kodaira symbol $\III^*$.
+Here we are in Lang Case 7, 
+and the configuration of singular geometric fibers  must
+be $\III^*+\I_1+\I_1$. The Weierstra\ss{} equation is of the form
+$y^2+txy+t^3c_0y=x^3+t^2d_0x^2+ t^3e_1x+t^5f_1$ with $t\nmid e_1$.
+Making a change of variables we achieve $c_0=0$ and $e_1=1$.
+The discriminant becomes $\Delta=t^{10}(tf_1+1)$.
+Since the fiber over  the unique point $x\in\PP^1$ with residue field $\kappa(x)\simeq \FF_4$
+is singular, we must have $f_1=1+t$.
+The case $d_0=1$ yields $J_b=E_2$, contradiction. Thus $d_0=0$.
+Again the Weierstra\ss{} equation and the ensuing $j$-invariant are as in the table.
+
+We next consider the situation that one of the fibers over rational points is semistable.
+Applying an automorphism of the projective line, we may assume that this happens over $c\in\PP^1$,
+and that this point is given by $t=\infty$. Recall that $r_c\geq 1$ is the number of irreducible components
+in $J_c$. The remaining fiber is ordinary,
+and we write $J_b=E_{2i}$ for some $1\leq i\leq 2$, such that $n_b=2i$.
+Suppose first that the semistable fiber is untwisted.
+Then $n_c=2r_c$, and \eqref{cardinality} gives $r_a+i+r_c=12$. In particular, we have
+$$
+r_c = 12-i-r_a\geq 10-r_a.
+$$
+For $r_a=6$ this estimate gives $r_c\geq 4$. By Lang's Classification, the configuration of fibers over rational points
+must be $\I_1^*+E_4+\I_4$. For $r_a=7$ we get  $r_a\geq 3$, and now the classification ensures that the configuration must be $\IV^*+E_4+\I_3$.
+In this case, however, there is a unique additional degenerate fiber, which has Kodaira symbol $\I_1$.
+The uniqueness ensures that it lies over a rational point, contradiction.
+For $r_a=8$ we obtain $r_c\geq 2$, and the configuration is $\III^*+E_4+\I_2$.
+Finally, for $r_a=9$ the possible configuration is $\II^*+E_4+\I_1$.
+If the semistable fiber is twisted, we have  $r_c\leq 2$ and $n_c=2r_c+2$.
+Now \eqref{cardinality} becomes $r_a+i+r_c=11$ and thus $r_c\geq 11-i-r_a\geq 7$, and the argument is similar.
+Summing up, we have the following possibilities:
+$$
+\I_1^*+E_4+\I_4,\quad \III^*+E_4+\I_2,\quad\III^*+E_2+\tI_2, \quad \II^*+E_4+\I_1,\quad \II^*+E_2+\tI_1.
+$$
+Let me give the details for the first case: Here we are in Lang Case 5A,
+with a Weierstra\ss{} equation of the form $y^2+txy+t^2c_1y=x^3+td_1x^2+t^3e_1x+t^4c_2$,
+subject to the conditions  $t\nmid c_1$ and $t\nmid d_1$.
+Making a change of coordinates, we may assume $c_1=1$ and $e_1=t$.
+Now the discriminant becomes
+$$
+\Delta=t^8(t^2c_2+t^3+td_1+t^4+1+t).
+$$
+The second factor is a unit, hence equals one, because we assume that the semistable fiber is at $t=\infty$.
+Comparing coefficients yields the solutions  $c_2=t+t^2$, $d_1=1$ and $c_2=1+t+t^2$, $d_1=1+t$.
+For the latter solutions, the semistable fiber is twisted, as revealed by the Tate Algorithm at $t=\infty$.
+Hence we are in the former case, and the Weierstra\ss{} equation and the resulting $j$-invariant is as in the Table.
+The remaining cases are even simpler, and handled in the same fashion. We leave the details to the reader.
+Summing up, this settles the case $r_a\geq 6$.
+
+It remains to treat the case that $r_a\leq 5$. According to Proposition \ref{non-constant j-invariant}, the configuration over
+the singular fibers is $\III+E_4+\I_8$, and we are in Lang Case 2A, with Weierstra\ss{} equation
+$y^2+txy + tc_2y=x^3+tc_1x^2+tc_3x+t^2c_4$, with $t\nmid c_2$ and $t\nmid c_3$ and $\Delta=t^4$.
+Making successive changes  of coordinates  $x=x'+R$ and $y=y'+T$ 
+where the indeterminate $t$ divides $R$ and $T$, 
+we may assume that $c_2=c_3=1$.
+Then $1=\Delta/t^4=c_4t^4+t^3+c_1t^3+1$. It follows $c_1=1+\alpha t$ and $c_4=\alpha$
+for some scalar $\alpha\in \FF_2$. In case $\alpha=1$ we have $J_b=E_2$, contradiction, hence $\alpha=0$.
+\qed
+
+\medskip
+It remains to understand the situation with trivial functional $j$-invariant:
+
+\begin{theorem}
+\source{no-enriques-surface-over-the-integers}
+\notready
+\mylabel{classification  zero j}
+Suppose the functional $j$-invariant is zero.
+Up to some coordinate changes and automorphisms of the projective line,
+the fibration $\phi:J\ra\PP^1$ is given by exactly one of the following three Weierstra\ss{} equations: 
+$$
+\begin{array}[c]{@{}ll}
+\toprule
+\text{\rm Weierstra\ss{} equation}		& \text{\rm fibers over $t=0,1,\infty$}\\
+\toprule
+y^2+t^2y=x^3+tx^2			& \I_1^*+E_5+\IV\\	
+\midrule
+y^2+t^2y=x^3+t^3x 			& \IV^*+E_5+\III\\
+\midrule
+y^2+t^2y=x^3 			& \IV^*+E_3+\IV\\
+\bottomrule
+\end{array}
+$$
+In all three cases, the fibers over non-rational points $x\in\PP^1$ are smooth.
+\end{theorem}
+
+\proof
+There are neither ordinary nor semistable fibers, because the  map $j:\PP^1\ra\PP^1$ misses
+the values $t=1$ and $t=\infty$. In particular, each smooth fiber  over a rational point 
+is isomorphic to one of the elliptic curves $E_1$, $E_3$ or $E_5$. So there are
+at least two rational points $a\neq c$ on $\PP^1$ such that $J_a$ and $J_c$ are unstable.
+By Lang's Classification, there are at most three singular geometric fibers. If present, 
+the third singular geometric fiber must be Galois invariant, whence occurs over
+the remaining rational point $b\in\PP^1$. Thus all fibers over non-rational points are smooth.
+
+Suppose first that all fibers of $\phi:J\ra\PP^1$ are reduced, such that the Kodaira symbols for
+the singular fibers are $\II$, $\III$ or $\IV$. Then each fiber over  a rational point contains
+at most seven rational points, which gives the contradiction $25=\Card Y(\FF_2)\leq 3\cdot 7$.
+Thus there is a non-reduced rational fiber.
+
+Recall that $J_a$ and $J_c$ are unstable. Let $r_a,r_c\geq 1$ be the respective number of irreducible components.
+After applying an automorphism of the projective line, we may assume that $J_a $  is non-reduced. 
+By Lang's Classification (\cite{Lang 2000}, page 5829), the remaining fiber $J_b$ must be smooth 
+(one referee pointed out that this also follows from the fact that the valuation of the discriminant
+in characteristic $p=2$ is at least four at an additive fiber, and at least eight at a non-reduced fiber).
+Write $J_b=E_{2i-1}$ for some $1\leq i\leq 3$.
+Then $25=\Card Y(\FF_2) = (2r_a+1) +(2i-1) + (2r_c+1) $, or equivalently $r_a+i+r_c=12$.
+Since $J_a$ is non-reduced and the Kodaira symbol $\I_0^*$ does not occur, we have $6\leq r_a\leq 9$.
+In particular, $r_c\leq 5$, so the unstable fiber $J_c$ is reduced, such that actually $1\leq r_c\leq 3$.
+The case $r_a=6$ implies $r_c=i=3$. In case $r_a=7$ we get $r_c=3$, $i=2$ or $r_c=2$, $i=3$.
+Going through Lang's Classification, we see that these are the only possibilities,
+which already give the second column of the table.
+
+Suppose the configuration of fibers over rational points is $\I_1^*+E_5+\IV$.
+Then we are in Lang Case 13A, and the Weierstra\ss{} equation takes the form
+$y^2+t^2c_1y=x^3+td_1x^2+t^3e_1x+t^4d_2$ with $t\nmid d_1$ and $t\nmid c_1$.
+The discriminant is $\Delta=t^8c_1^4$, thus $c_1=1$. Making a change of coordinate $y'=y+sx$,
+we achieve $d_1=1$. Making a further change of coordinates, we may assume
+that $e_1$ has no linear term, and that $d_2$ has neither constant nor quadratic term.
+Now the Weierstra\ss{} equation becomes $y^2+t^2y=x^3+tx^2+t^3e_0x+t^5d_0$.
+One checks that only $e_0=d_0=0$ yields $J_b=E_5$.
+
+Next, suppose the configuration is $\IV^*+E_5+ \III$.
+Now we are in Lang Case 14, with $y^2+t^2c_1y=x^3+t^2d_0x^2+t^3e_1x+t^4d_2$ subject to
+the condition $t\nmid c_1$. The discriminant is $\Delta=t^8c_1^4$, whence $c_1=1$.
+Making a suitable change of variables $y=y'+sx'$ we   achieve $d_0=0$.
+As in the preceding paragraph, we put the Weierstra\ss{} equation into
+the form $y^2+t^2y=x^3+t^3e_0x+t^5d'_0$.
+Only the case $e_0=1$ and $d'_0=0$ yields $J_b=E_5$.
+
+Finally, consider the configuration $\IV^*+E_3+\IV$.
+We argue as in the preceding paragraph to reduce to the very same   Weierstra\ss{} equation.
+Now only $e_0=d'_0=0$ yields the fiber $J_b=E_3$. 
+\qed
+
+
+%===========================================================

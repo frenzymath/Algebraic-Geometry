@@ -1,0 +1,980 @@
+% Source-derived chapter 03: Moduli of one-dimensional sheaves
+% Original source: hitchin-fibrations-abelian-surfaces-pw
+\chapter{Moduli of one-dimensional sheaves}
+\label{hitchin-fibrations-abelian-surfaces-pw-chapter-03}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+
+\begin{remark}[Source section]
+\label{hitchin-fibrations-abelian-surfaces-pw-chapter-03-source}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Moduli of one-dimensional sheaves
+\subsection{Overview and main results}\label{Sec2.1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+Throughout this section, we assume $A$ is an abelian surface and fix  $\chi \in \mathbb{Z}$.  Let $\beta \in H_2(A, \BZ)$ be an ample curve class with $\beta^2 \geq 6$; we only consider classes $\beta$ for which the vector $(0,\beta,\chi)\in H^{\mathrm{ev}}(A,\BZ)$ is primitive.
+Finally, we assume that we are given a polarization $H$ that is generic with respect to the vector $(0, \beta, \chi)$.  We will typically omit $\chi$ and $H$ from our notation.
+
+Let $\CM_{\beta,A}$ be the moduli space which parametrizes one-dimensional sheaves satisfying
+\begin{equation}\label{given_d}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+[\mathrm{supp}(\CF)]= \beta, \quad \chi(\CF) = \chi,
+\end{equation}
+that are Gieseker-stable with respect to our generic polarization. In the paper, by ``support", we mean Fitting support (see \cite{LP1}), and the square bracket denotes the associated homology class.
+Equivalently, these are Gieseker-stable sheaves on $A$ with Mukai vector $(0, \beta, \chi)$.
+By  \cite{Yo}, the moduli space $\CM_{\beta,A}$
+ is a non-empty, nonsingular projective variety of dimension $\beta^2+2$. 
+
+
+Let
+\[
+\pi_A: A\times \CM_{\beta,A} \to A, \quad \pi_\CM: A\times \CM_{\beta,A} \to \CM_{\beta,A}
+\]
+be the projections. 
+If there exists a universal family $\CF_\beta$ on $A \times \CM_{\beta,A}$, then, in analogy to Section \ref{sec_0.3}, we define the twisted Chern character associated with a class 
+\begin{equation}\label{alpha}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\alpha = \pi_A^\ast \alpha_1 + \pi_\CM^\ast \alpha_2 \in H^2(A\times \CM_{\beta,A}, \BC)
+\end{equation}
+by setting
+\[
+\mathrm{ch}^\alpha(\CF_\beta) = \mathrm{ch}(\CF_\beta) \cup \mathrm{exp}(\alpha) \in H^{*}(A \times \CM_{\beta,A}, \BC)
+\]
+(the use of $\BC$-coefficients is for later use in Theorem \ref{taut_abelian}),
+and we denote its degree  $2k$ part by
+\[
+\mathrm{ch}_k^\alpha(\CF_\beta) \in H^{2k}(A\times \CM_{\beta,A}, \BC).
+\]
+In general, a universal family may not exist; however, as explained in \cite[Section 3.1]{Markman5}, there exists
+a \emph{universal class} 
+\[
+[\CF_\beta] \in K_{\mathrm{top}}(A \times \CM_{\beta,A}),
+\]
+which is well-defined up to pullback of a topological line bundle on $\CM_{\beta,A}$.\footnote{Here $K_{\mathrm{top}}(X)$ denotes the Grothendieck ring of topological complex vector bundles on $X$ \cite{At}.}
+As before, given a choice of $\alpha$ as in (\ref{alpha}), we can take its associated twisted Chern character 
+\[
+\mathrm{ch}^{\alpha}([\CF_\beta]) \in H^{*}(A \times \CM_{\beta,A}, \BC),
+\]
+which we still denote by $\mathrm{ch}^{\alpha}(\CF_\beta)$ for notational convenience.
+
+
+
+The moduli space $\CM_{\beta,A}$ admits a natural Hilbert--Chow morphism
+\begin{equation}\label{Hilb-Ch}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\pi_\beta: \CM_{\beta,A} \to B, \quad \pi_\beta(\CF) = [\mathrm{supp}(\CF)]
+\end{equation}
+where $B$ is  the Chow variety parametrizing effective one-cycles in the class $\beta$; see \cite{LP1, LP2}. The purpose of Section 2 is to prove the following theorem, which can be viewed as an analog of Conjecture \ref{P=W2} for abelian surfaces.
+
+\begin{thm}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready\label{taut_abelian}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+There exists a choice of universal twisted class
+$\mathrm{ch}^\alpha(\CF_\beta)$ with $\alpha$ of  type (\ref{alpha}),
+and a splitting $\widetilde{G}_\ast H^\ast(\CM_{\beta,A}, \BC)$ of the perverse filtration associated with
+the Hilbert-Chow morphism $\pi_\beta$ (\ref{Hilb-Ch}), satisfying the following properties.
+\begin{enumerate}
+    \item[(a)](Tautological classes) For any $\gamma \in H^*(A, \BC)$, we have
+    \[
+   \int_\gamma \mathrm{ch}^\alpha_k(\CF_\beta) \in \widetilde{G}_{k-1}H^*(\CM_{\beta,A}, \BC).
+    \]
+    \item[(b)](Multiplicativity) We have
+    \[
+   \cup: \widetilde{G}_i H^d(\CM_{\beta,A}, \BC) \times \widetilde{G}_{i'} H^{d'}(\CM_{\beta,A}, \BC) \to \widetilde{G}_{i+i'}H^{d+d'}(\CM_{\beta,A}, \BC).
+    \]
+\end{enumerate}
+\end{thm}
+
+
+
+Theorem \ref{taut_abelian} will be deduced from Theorem \ref{taut_Hilb}  and  Markman's results on the monodromy of holomorphic symplectic varieties
+\cite{Markman2, Markman3}.
+The strategy of the argument is to use Theorem \ref{taut_Hilb} and direct computations to study the case of primitive curve classes for special abelian varieties. To pass to imprimitive curve classes (which form a distinct deformation class of Lagrangian fibrations), we require a mild extension of Markman's work to the setting of complex coefficients.
+
+In the next three sections, we review Markman's work, and in the subsequent three sections, we  prove 
+Theorem \ref{taut_abelian}.
+
+
+
+
+\subsection{Mukai lattices} 
+
+
+Let 
+\[
+H^\ast(A, \BZ) = S_A^+ \oplus S_A^-
+\]
+be the even/odd decomposition of the cohomology $H^\ast(A, \BZ)$ with
+\[
+S_A^+ = H^0(A, \BZ) \oplus H^2(A, \BZ)\oplus H^4(A,\BZ), \quad S_A^- = H^1(A,\BZ)\oplus H^3(A,\BZ).
+\]
+The Mukai pairing on $S_A^+$ is given by
+\begin{equation}\label{Mukai_pair}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\langle a, b \rangle = \int_A {(a_1\cup b_1 - a_0\cup b_2-a_2\cup b_0)},
+\end{equation}
+where $a=(a_0, a_1,a_2)$ and $b=(b_0, b_1, b_2)$ are elements in $S_A^+$. We have
+\[
+(S_A^+, \langle ~~~, ~~~ \rangle) \cong U^{\oplus 4}
+\]
+with $U$ the parabolic plane. For a coherent sheaf $\CF$ on $A$, its Mukai vector 
+\[
+v(\CF) = \mathrm{ch}(\CF) \cup \sqrt{\mathrm{td}_A}  \in S_A^+
+\]
+coincides with the Chern character $\mathrm{ch}(\CF)$.
+
+Throughout Section 2, we assume $v \in S_A^+$ is a primitive vector such that the moduli space $M_{v,A}$ of Gieseker-stable sheaves $\CF$ on $A$ (with respect to a very general polarization $H$) with Mukai vector $v(\CF) = v$ is non-empty. By \cite[Theorem 0.1]{Yo}, the variety $M_{v,A}$ is nonsingular and projective of dimension
+\[
+\mathrm{dim} (M_{v,A}) = \langle v,v\rangle +2,
+\]
+and it is deformation equivalent to 
+\[
+M_{(1,0,-n), A} = A^{[n]} \times \hat{A}
+\]
+where $\hat{A}$ is the dual abelian variety of $A$ and {$2n = \langle v ,v \rangle$.} 
+
+A universal family on 
+\[
+A \times M_{(1,0,-n), A} = A \times A^{[n]} \times  \hat{A}
+\]
+is 
+\begin{equation}\label{univ_ideal}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\CE_n = \pi_{12}^\ast \CI_n \otimes \pi_{13}^\ast \CP,
+\end{equation}
+with $\CI_n$ the universal ideal sheaf, $\CP$ the normalized Poincar\'e line bundle on $A \times \hat{A}$, and $\pi_{ij}$ the corresponding projections. 
+
+\subsection{$\mathrm{Spin}$ representations}\label{spin8reps} 
+\source{hitchin-fibrations-abelian-surfaces-pw}
+
+The even cohomology $S_A^+$ together with the Mukai pairing is a unimodular lattice.  
+Consider the corresponding Spin group for this lattice, denoted by $\mathrm{Spin}(S_A^+)$. We recall certain representations of this group involved in Markman's work following \cite[Section 3]{Markman3}.
+
+Let $H^*(A,\BZ)$ denote the total cohomology of $A$ equipped with the pairing
+\begin{equation}\label{pairing}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+(a,b)_A = \int_{A}\tau(a)\cup b,
+\end{equation}
+where $\tau$ acts on $H^i(A,\BZ)$ by $(-1)^{i(i-1)/2}$.
+The group $\mathrm{Spin}(S_A^+)$ admits an action by  parity-preserving  isometries on $H^*(A, \BZ)$
+\[\mathrm{Spin}(S_A^+) \rightarrow \mathrm{Aut}(H^*(A, \BZ)),\]
+which extends the natural representation on $S_A^+$.
+%given by restricting to even cohomology.
+
+We consider $V$ to be the lattice 
+\[
+V = H^1(A, \BZ) \oplus H^1(\hat{A} ,\BZ)
+\]
+carrying a symmetric bilinear form via the canonical identification \[
+H^1(\hat{A}, \BZ) = H^1(A, \BZ)^*.
+\]
+There exists a representation 
+\[\mathrm{Spin}(S_A^+) \rightarrow \mathrm{Aut}(V)\]
+by isometries which we can extend to an action of $\mathrm{Spin}(S_A^+)$
+on $\bigwedge^{k}V = H^{k}(A \times \hat{A},\BZ)$ for each $k$. This action will play a role in the proof
+of Theorem \ref{thm2.6}.
+
+These constructions are linear-algebraic and make sense for the groups $\mathrm{Spin}(S_A^+\otimes \BK)$ with general coefficients 
+\[
+\BK = \BZ, \BQ, \BR, \mathrm{or}~~ \BC.
+\]
+ 
+ 
+
+
+
+\subsection{Monodromy representations}\label{Monodromy} 
+\source{hitchin-fibrations-abelian-surfaces-pw}
+In this section, we recall Markman's monodromy operators \cite{Markman3} for abelian surfaces. They play a crucial role in the proof of Theorem \ref{taut_abelian}. We refer to \cite{Markman2} for a parallel theory concerning $K3$ surfaces. 
+
+Let $H^\ast(A)$ be the cohomology $H^\ast(A, \BK)$ with coefficients $\BK = \BZ~~\mathrm{or}~~ \BC$.  Assume that
+\[
+g: H^*(A) \to H^*(A)
+\]
+is a parity-preserving homomorphism induced by an element (cf. Section \ref{spin8reps})
+\[
+g \in \mathrm{Spin}(S_A^+\otimes \BK)
+\]
+ which fixes a primitive Mukai vector $v\in S_A^+$. 
+Assume we are given a generic polarization $H$ with respect to $v$.
+We explain how to construct a graded $\BK$-algebra automorphism
+\begin{equation*}\label{mono1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\gamma_{g,v}:  H^*(M_{v,A}, \BK) \to H^*(M_{v,A}, \BK).
+\end{equation*}
+
+
+%For notational convenience, we only consider the moduli spaces of Gieseker-stable sheaves on $A$ admitting unviersal families. In general, such constraints can be removed since quasi-universal families play the same role as universal families; see \cite[Section 3.1]{Markman2} and \cite[Section 3.1]{Markman3}.
+
+For a projective variety $X$, we define
+\[
+l: \bigoplus_i H^{2i}(X, \BQ) \rightarrow \bigoplus_i H^{2i}(X, \BQ) 
+\]
+to be the universal polynomial map which takes the exponential Chern character to its total Chern class,
+\[
+l(r+a_1+a_2 + \cdots) = 1+a_1 + (a_1^2/2-a_2) + \cdots,
+\]
+and we define
+\[
+(-)^\vee: \bigoplus_iH^\mathrm{2i}(X, \BZ) \to \bigoplus_i H^{2i}(X, \BZ), \quad \omega \mapsto \omega^\vee
+\]
+to be the dualizing automorphism which acts by $(-1)^i$  on the even cohomology $H^{2i}(X, \BZ)$. 
+
+Let $[\CE_v]$ and $[\CE'_v]$ be universal classes on $A \times M_{v,A}$, in the sense of Section 2.1. We denote by $x_{g,v}$ the class  
+\[
+x_{g,v} =  \pi_{12}^\ast \left[(\mathrm{id}\otimes g)\mathrm{ch}(\CE_v)\right]^\vee \cup \pi_{23}^\ast \mathrm{ch}(\CE'_v) \in H^*(M_{v,A} \times A \times M_{v,A} ,\BK),
+\]
+where $\pi_{ij}$ are the projections from the product $M_{v,A}\times A \times M_{v,A}$ to the corresponding factors. 
+Via the formalism of correspondences, to define an endomorphism of cohomology, it suffices to give a cohomology class in the product; in our case, 
+the morphism $\gamma_{g,v}$ is defined by the class ()
+\begin{equation}\label{gammagv}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+ \gamma_{g,v}([\CE_v],[\CE'_v])=\left( \left[l({\pi_{13}}_\ast x_{g,v}) \right]^{-1} \right)_{\mathrm{deg}~2d_M} \in H^{2d_M}(M_{v,A} \times M_{v,A}, \BK)
+\end{equation}
+where $d_M = \mathrm{dim} (M_{v,A})$, and $-_{\mathrm{deg}~~ k}$ denotes the degree $k$ part of a cohomology class $-$.
+
+Markman proves the following statements regarding $\gamma_{g,v}([\CE_v],[\CE'_v])$ when $\BK = \BZ$
+
+\begin{enumerate}
+\item[(a)] $\gamma_{g,v}:= \gamma_{g,v}([\CE_v],[\CE'_v])$ is independent of the choice of universal classes $[\CE_v]$ and $[\CE'_v]$.
+\item[(b)] $\gamma_{g,v}$ is a graded $\BK$-algebra automorphism.
+\end{enumerate}
+
+Consider the subgroup 
+\[
+\mathrm{Spin}(S_A^+)_v \subset \mathrm{Spin}(S_A^+)
+\]
+preserving $v$. By \cite[Corollary 8.4]{Markman3}, every $\gamma_{g,v}$ with $g\in \mathrm{Spin}(S_A^+)_v$ is a graded ring automorphism of $H^\ast(M_{v,A}, \BZ)$ and the relation
+\begin{equation}\label{composition}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\gamma_{g_1,v}\circ \gamma_{g_2,v} = \gamma_{g_1g_2,v}
+\end{equation}
+holds. Therefore, we have a group homomorphism (Markman's monodromy operators)
+\begin{equation}\label{mon2}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+    \mathrm{mon}:  \mathrm{Spin}(S_A^+)_v \to \mathrm{Aut}(H^*(M_{v,A}, \BZ)),\quad \mathrm{mon}(g) = \gamma_{g,v}.
+\end{equation}
+
+
+The following theorem is  proved by Markman for $\BZ$ coefficients in \cite{Markman2, Markman3}.
+The extension of (\ref{mon2}) to  $\BC$-coefficients is crucial in the proof of Theorem \ref{taut_abelian}.
+
+\begin{thm}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready\label{monodromy_main} 
+\source{hitchin-fibrations-abelian-surfaces-pw}
+For $g \in \mathrm{Spin}(S_A^+\otimes\BC)_v$,
+the class $\gamma_{g,v}:= \gamma_{g,v}([\CE_v],[\CE'_v])$ is independent of the choice of universal classes $[\CE_v]$ and $[\CE'_v]$.
+The morphism (\ref{mon2}) extends to a group homomorphism
+\[
+ \mathrm{mon}:  \mathrm{Spin}(S_A^+ \otimes \BC)_v \to \mathrm{Aut}(H^*(M_{v,A}, \BC)).
+\]
+ Moreover, for a fixed universal class $[\CE_v]$ and any $g \in \mathrm{Spin}(S_A^+ \otimes \BC)_v$, there exists
+$\alpha \in H^2(M_{v,A}, \BC)$ 
+so that we have
+\begin{equation}\label{univ_fam}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+(g\otimes \gamma_{g,v}) \mathrm{ch}(\CE_v) = \mathrm{ch}({\CE}_v)\cup \pi_M^* \mathrm{exp}(\alpha)
+\end{equation}
+where $\pi_M: A\times M_{v,A} \to M_{v,A}$ is the second projection.
+\end{thm}
+
+\begin{proof}
+We deduce this theorem  from the case of integral coefficients using the Zariski-density of integral points
+\[
+\mathrm{Spin}(S_A^+)_v \subset \mathrm{Spin}(S_A^+ \otimes \BC)_v,
+\]
+which follows from the Borel Density Theorem \cite{Borel} applied to the simple group
+\[
+\mathrm{Spin}(S_A^+)_v \cong \mathrm{Spin}(v^\perp), \quad v^\perp \subset S_A^+.
+\]
+The first claim, on the independence of universal classes, expresses a Zariski-closed condition on the element $g$, so that  it can be deduced from (a) above; see \cite[Lemma 3.11]{Markman2}.
+
+For the remaining claims, as in the proof of \cite[Corollary 8.4]{Markman3}, we can reduce the theorem to the case $\mathrm{rank}(v) >0$. It follows that  the class $\alpha$ in the equation (\ref{univ_fam}) is uniquely determined  by
+\[
+\mathrm{rank}(v) \cdot \pi_M^\ast \alpha = c_1([\CE_v])- \left[(g\otimes \gamma_{g,v}) \mathrm{ch}([\CE_v])\right]_{\mathrm{deg}~2}.
+\]
+The operator $\gamma_{g,v}$  (\ref{gammagv})  arises as a grading-preserving element in
+ \[
+\mathrm{End}(H^*(M_{v,A}, \BC)).
+\]
+
+We need to show that for any $g\in \mathrm{Spin}(S_A^+ \otimes \BC)_v$, we have that:
+\begin{enumerate}
+    \item[(i)] $\gamma_{g,v}$ is an automorphism of graded $\BC$-algebras, and
+    \item[(ii)] the equation (\ref{univ_fam}) holds.
+\end{enumerate}
+
+We first show (ii). By \cite[Corollary 8.4]{Markman3},  for every integral point $g \in \mathrm{Spin}(S_A^+)$, the homomorphism 
+\[
+g\otimes \gamma_{g,v}: H^*(A \times M_{v,A}, \BC) \to H^*(A \times M_{v,A}, \BC)
+\]
+sends  a universal class to a universal class in the sense of \cite[Definition 3.4]{Markman3}.  It follows that the equation (\ref{univ_fam}) holds for any integral $g$. Since this equation expresses  a Zariski-closed condition with respect to the parameter $g$, we obtain (\ref{univ_fam}) by the density of integral points in $\mathrm{Spin}(S_A^+ \otimes \BC)_v$. 
+
+%in $\mathrm{Spin}(S_A^+ \otimes \BC)_v$. 
+
+As to (i),  we deduce, again, from  Zariski-density, that $\gamma_{g,v}$ is a graded $\BC$-algebra  homomorphism for any $g\in \mathrm{Spin}(S_A^+ \otimes \BC)_v$. The endomorphism $\gamma_{g,v}$ being an automorphism is not a Zariski closed condition. However, to prove $\gamma_{g,v} \in \mathrm{Aut}(H^*(M_{v,A},\BC))$, it suffices to show that 
+\begin{equation}\label{eq24}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\gamma_{g,v} \circ \gamma_{g^{-1}, v} = \mathrm{id}, \quad g\in \mathrm{Spin}(S_A^+ \otimes \BC)_v.
+\end{equation}
+For integral $g$, the equation (\ref{eq24}) follows from (\ref{composition}),
+%\cite{Markman} and \cite[Corollary 3.6]{Markman3},
+\[
+\gamma_{g,v} \circ \gamma_{g^{-1},v} = \gamma_{g\cdot g^{-1} , v} = \gamma_{\mathrm{id},v} = \mathrm{id}.
+\]
+Since (\ref{eq24}) is a Zariski closed condition, we conclude that it holds for any $g$, and (i) follows.
+\end{proof}
+
+%follows from (ii) together with the main theorem of \cite{Markman}, that the tautological classes 
+%\[
+%\int_\gamma \mathrm{ch}_k(\CE_v), \quad \gamma \in H^j(A, \BQ)
+%\]
+%generate $H^*(M_{v,A}, \BC)$. See the proofs of \cite[Lemma 4.11 (3)]{Markman2} and \cite[Lemma 9.7]{Markman3}.
+
+
+
+
+
+\subsection{Fourier--Mukai transforms}\label{Sec2.5} 
+\source{hitchin-fibrations-abelian-surfaces-pw}
+%{\MD I need to discuss this section 25 on FM with J.} 
+Sections 2.5 to 2.7 are devoted to proving Theorem \ref{taut_abelian}. 
+We first treat the special case where, if we let  $E$ and $E'$ be two elliptic curves, then we set
+\begin{equation}\label{special}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+A= E \times E', \quad \beta = \sigma + nf,
+\end{equation}
+where  $\sigma = [\mathrm{pt} \times E']$ and $f = [E \times \mathrm{pt}]$ are the classes of a section and a fiber with respect to the elliptic fibration $p: A \to E'$. {Note that  $\beta^2=2n$.}
+
+
+By \cite[Theorem 3.15]{Yo}, we have an isomorphism of  moduli spaces
+\begin{equation}\label{FM1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\CM_{\beta,A} \cong M_{v_n, A}(= A^{[n]} \times \hat{A}),\quad v_n = (1,0,-n)
+\end{equation}
+induced by a relative Fourier--Mukai transform with respect to the elliptic fibration $p: A \to E'$. Our strategy is to compare a universal rank 1 torsion free sheaf on $A\times M_{v_n, A}$ with a universal 1-dimensional sheaf on $A\times \CM_{\beta,A}$ under the isomorphism (\ref{FM1}). Then we reduce  the special case (\ref{special})
+of Theorem \ref{taut_abelian} to Theorem \ref{taut_Hilb}.
+
+
+
+%{\MD this is for me: Yoshioka identifies, via Fourier-Mukai for the elliptic surface $E\times E'/E'$, the moduli spaces for Mukai vectors  $(0, \sigma + nf ,1)$ and$(1,0,-n)$; the latter is identified with $A^{[n]} \times \hat{A}$; $(0, \sigma + nf, 1)$ has Le Potier Morphism to Chow variety; this Chow variety is $E$ for $\sigma$, times  ${E'}^{(n)}$ for the $n$ points;  the moduli space $(1,0,-n)$, identified with $A^{[n]} \times \hat{A}$, also has a natural morphism onto $E'^{(n)} \times \hat{E}$}.
+
+The proof of \cite[Theorem 3.15]{Yo} shows that the support of a sheaf $\CF \in \CM_{\beta, A}$ is the union of a section and several fibers (with multiplicities). Hence the Hilbert--Chow morphism (\ref{Hilb-Ch}) is exactly the morphism
+\begin{equation}\label{HC2}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+p_n\times q: A^{[n]} \times \hat{A} \to E'^{(n)} \times E.
+\end{equation}
+Here we use the identification between $\hat{A}$ and $A$ for the abelian surface $A= E \times E'$, and $q$ is the projection to the first factor.  Under the identification
+\[
+A \times A = (E \times E) \times (E'\times E'),
+\]
+the kernel for the relative Fourier--Mukai transform associated with the elliptic fibration $p: A \to E'$ is given by
+\begin{equation}\label{rel_P}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\CP'_E = \CP_E \boxtimes \CO_{\Delta_{E'}}
+\end{equation}
+with
+\[
+\CP_E = \CO_{E\times E}(\Delta_E - o_{E}\times E - E\times o_E)
+\]
+the normalized Poincar\'e line bundle. Recall the universal family $\CE_n$ on $A \times M_{v_n,A}$ defined in (\ref{univ_ideal}). A universal family $\CF_\beta$ of 1-dimensional Gieseker-stable sheaves on $A \times \CM_{\beta,A}$ is induced by $\CE_n$ and $\CP_E'$ under the isomorphism (\ref{FM1}) as follows. 
+
+For $\chi$ given in (\ref{given_d}), we define
+\[
+N= \CO_A\left(\chi \cdot [E\times o_{E'}]\right) = p^*\CO_{E'}(\chi \cdot o_{E'}) \in \mathrm{Pic}(A).
+\]
+By \cite[Theorem 3.15]{Yo} together with its proof, every closed point in $\CM_{\beta,A}$ is given by 
+\[
+\left(\phi_{\CP'_E}(I_Z\otimes L) \otimes N\right) [1] \in \Coh(A)
+\]
+where $\phi_{\CP'_E}$ is the Fourier--Mukai transform with  kernel (\ref{rel_P}), and $I_Z\otimes L \in M_{v_n,A}=A^{[n]} \times \hat{A}$  is a uniquely determined  rank one torsion free sheaf on $A$. In particular, the sheaf
+\begin{equation}\label{univ2}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\CF_\beta = {R\pi_{13}}_\ast \left( \pi_{12}^\ast (\pi_1^*N\otimes{\CP'_{E}}) \otimes^{\BL} \pi_{23}^\ast \CE_n \right)[1] \in \Coh(A \times \CM_{\beta,A})
+\end{equation}
+%%Mark: in keeping with FM moving from left to right, the above could be written after a suitable permutation of the indices and the pull-back of $N$ could be put outside the parenthesis as coming from $M\times A \to A \to E'$
+is a universal family on $A \times M_{\beta,A}$, where $\pi_i, \pi_{ij}$ are projections from $A \times A \times M_{v_n,A}$ to the corresponding factors, and we identify $A \times M_{v_n,A}$ with $A \times \CM_{\beta,A}$ via (\ref{FM1}).
+
+For notational convenience, we define the shifted normalized universal family
+%{\MD this terminology does not appear when introducing things in the introduction; it is not a universal family (right?) so I would use a different term; it is a coherent sheaf whose chern character is $ch^\alpha(F_\beta)$ for $\alpha$ as in the next page, correct?}
+\begin{equation}\label{Normalized_F}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\CF^{n}_\beta = {R\pi_{13}}_\ast \left( \pi_{12}^\ast {\CP'_{E}} \otimes^{\BL} \pi_{23}^\ast \CE_n \right) = \CF_\beta \otimes \pi_A^\ast N^{-1} [-1] 
+\end{equation}
+on $A\times \CM_{\beta,A}$, whose restriction over every closed point $\CF \in \CM_{\beta,A}$ recovers the shifted 1-dimensional coherent sheaf $\left(\CF \otimes N^{-1}\right)[-1]$ on A.
+
+
+We use the universal family (\ref{univ2}) {and the class $\alpha$ (\ref{alpha1})} to serve as the ones in Theorem \ref{taut_abelian} for the special case (\ref{special}). Next, we construct a decomposition of the perverse filtration
+ \begin{equation}\label{splitting1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+H^\ast(\CM_{\beta, A}, \BQ) = \bigoplus_{i,d} \widetilde{G}_iH^d(\CM_{\beta, A}, \BQ)
+\end{equation}
+which serves as the splitting in Theorem \ref{taut_abelian}.
+
+A canonical splitting of the perverse filtration associated with
+\[
+q: \hat{A} =A \to E
+\]
+is given by 
+\[
+G'_kH^d(\hat{A}, \BQ) = \bigoplus_{i+k =d} H^{d-k}(E, \BQ)\otimes H^k(E',\BQ).
+\]
+We define (\ref{splitting1}) as the decomposition
+%{\MD do you mean 
+%\[\oplus_{i'+i''=k; d'+d''=d} G_{i'}H^{d'}\otimes G_{i''}H^{d''}?
+%\]
+%please confirm; your notation seems better. Except, that the three stars have different meaning. Still, it is standard for graded object to write the way you do. Same question for (\ref{eqn27}).}
+\begin{equation}\label{splitting2}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\widetilde{G}_kH^\ast(\CM_{\beta, A}, \BQ) = \bigoplus_{i+j=k}  \widetilde{G}_i H^\ast(A^{[n]}, \BQ) \otimes G'_jH^\ast(\hat{A},\BQ),
+\end{equation}
+where
+$\widetilde{G}_\ast H^\ast(A^{[n]}, \BQ)$ was defined by (\ref{GS_decomp}). Since $\widetilde{G}_\ast H^\ast(A^{[n]}, \BQ)$ splits the perverse filtration {(\ref{cansplitting15}) associated} with 
+\[
+p_n:  A^{[n]} \to E'^{(n)},
+\]
+the filtration (\ref{splitting2}) splits the perverse filtration associated with the Hilbert--Chow morphism (\ref{HC2}). 
+
+
+The following theorem verifies Theorem \ref{taut_abelian} for the special case (\ref{special}), where we can choose the twisting class to be  
+%{\MD  DISCUSSED. CLASS NOT UNIQUE. in Theorem \ref{taut_abelian}, the class $\alpha$ is unique, right? why not add that there and here? also add an equation number for this one (I do not want to do it since I do not know if anything bad may happen}
+\begin{equation}\label{alpha1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\alpha = - \pi_A^* c_1(N) \in H^2(A\times \CM_{\beta,A}, \BQ).
+\end{equation}
+
+
+\begin{thm}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready\label{Step1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+The decomposition (\ref{splitting2}) is multiplicative, and, with 
+$\alpha$ as in  (\ref{alpha1}), we have 
+\begin{equation}\label{000}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\int_\gamma \mathrm{ch}^\alpha_k(\CF_\beta) \in \widetilde{G}_{k-1} H^\ast(\CM_{\beta,A}, \BQ),\quad \; 
+\forall k \geq 0, \forall\gamma \in H^\ast(A, \BQ).
+\end{equation}
+\end{thm}
+
+\begin{proof}
+The multiplicativity of (\ref{splitting2}) follows directly from Theorem \ref{taut_Hilb} (b) and the K\"unneth
+formula. We need to prove (\ref{000}), which,  { by the very definition of $\alpha$ and $\CF^n_\beta$ and by the fact that 
+a cohomological shift only changes the signs of Chern classes},
+%{\cb in view of the very definition (\ref{Normalized_F})}
+ is  equivalent to 
+\begin{equation}\label{1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\int_\gamma \mathrm{ch}_k(\CF^n_\beta) \in \widetilde{G}_{k-1} H^\ast(\CM_{\beta,A}, \BQ),\quad 
+\forall k\geq 0, \; \forall \gamma \in H^\ast(A, \BQ).
+\end{equation}
+We consider the  product  $A \times \CM_{\beta,A}$ and the multiplicative splitting 
+of its cohomology
+\begin{equation}\label{eqn27}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\widetilde{G}_kH^\ast(A \times \CM_{\beta,A} ,\BQ) := H^\ast(A, \BQ) \otimes \widetilde{G}_kH^\ast(\CM_{\beta,A}, \BQ).
+\end{equation} This decomposition splits the perverse filtration associated with the morphism
+\[
+\mathrm{id}\times \pi_\beta: A \times \CM_{\beta, A} \to A \times B.
+\]
+The statement (\ref{1}) is equivalent to the following:
+\begin{equation}\label{eqn28}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\mathrm{ch}(\CF^n_\beta) \in \bigoplus_{k\geq 1} \widetilde{G}_{k-1} H^{2k}(A\times \CM_{\beta, A}, \BQ).
+\end{equation}
+
+For a nonsingular projective variety $X$ with a decomposition $G_*H^*(X, \BQ)$ on its cohomology, we say that a class $\alpha \in H^*(X, \BQ)$ is \emph{balanced} with respect to this decomposition if 
+\[
+\alpha \in \bigoplus_{k} G_{k} H^{2k}(X, \BQ).
+\]
+We prove (\ref{eqn28}) by the following 3 steps.
+
+\noindent\emph{Step 1.} We consider the new decomposition 
+\begin{equation}\label{31}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\begin{split}
+\overline{G}_k H^*(A \times \CM_{\beta, A}, \BQ)& := \bigoplus_{i+j=k} H^i(E, \BQ) \otimes H^*(E', \BQ) \otimes \widetilde{G}_jH^*(\CM_{\beta,A}, \BQ)\\
+& = \bigoplus_{i+j=k} \widetilde{G}_i H^\ast(A \times A^{[n]}, \BQ) \otimes G'_jH^\ast(\hat{A}, \BQ).
+\end{split}
+\end{equation}
+of the cohomology $H^\ast(A\times \CM_{\beta,A}, \BQ)$. It is a multiplicative decomposition splitting the perverse filtration associated with the morphism
+%{\MD $\pi_\beta$ defined on page 12 is there called Hilbert-Chow; isn't Le Potier morphism more standard?}
+\[
+p \times \pi_\beta: A\times \CM_{\beta,A} \to E' \times B.
+\]
+We first show that the class
+\[
+\mathrm{ch}(\CE_n) \in H^\ast(A \times M_{A, v_n}, \BQ) = H^*(A \times \CM_{\beta,A}, \BQ)
+\]
+is balanced with respect to the splitting (\ref{31}). Here the last identification is given by (\ref{FM1}).
+
+
+Recall the expression (\ref{univ_ideal}) of the universal family $\CE_n$. By Theorem \ref{taut_Hilb} (a), the class
+\[
+\mathrm{ch}(\CI_n) \in  H^{\ast}(A\times A^{[n]}, \BQ)
+\]
+is balanced with respect to the splitting (\ref{splitting0}). Hence via pulling back along the projection
+\[
+\pi_{12}: A\times \CM_{\beta,A} = A\times A^{[n]} \times \hat{A} \to A \times A^{[n]},
+\]
+we obtain that the class 
+\[
+\begin{split}
+\pi_{12}^\ast \mathrm{ch}(\CI_n) =  \mathrm{ch}(\CI_n) \boxtimes 1_{\hat{A}} & \in H^\ast(A \times A^{[n]}, \BQ) \otimes H^0(\hat{A}, \BQ)\\  & \subset H^*(A\times \CM_{\beta,A}, \BQ)
+\end{split}
+\]
+is also balanced with respect to (\ref{31}). A direct calculation shows that the class $\pi_{13}^\ast c_1(\CP)$ is balanced. Hence we conclude from the multiplicativity of (\ref{31}) that the class
+\[
+\mathrm{ch}(\CE_n) = \pi_{12}^\ast \mathrm{ch}(\CI_n) \otimes \pi_{13}^\ast \mathrm{ch}(\CP)=  \pi_{12}^\ast \mathrm{ch}(\CI_n) \otimes \pi_{13}^\ast \mathrm{exp}(c_1(\CP))
+\]
+is balanced. 
+
+
+\noindent \emph{Step 2.} We further consider the multiplicative decomposition  
+\begin{equation}\label{32}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\widetilde{G}_k H^*(A \times A \times \CM_{\beta, A}, \BQ) := H^*(A, \BQ) \otimes \overline{G}_k H^*(A \times \CM_{\beta, A}, \BQ)
+\end{equation}
+of $H^*(A \times A \times \CM_{\beta, A})$, which splits the perverse filtration associated with the morphism
+\[
+\mathrm{id} \times p \times \pi_\beta: A \times A \times \CM_{\beta, A} \to A \times E'\times B.
+\]
+We show that 
+\begin{equation}\label{34}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\mathrm{ch}(\pi_{12}^\ast {\CP'_{E}} \otimes^{\BL} \pi_{23}^\ast \CE_n) \in \bigoplus_{k\geq 1}\widetilde{G}_{k-1} H^{2k}(A \times A\times \CM_{\beta, A}, \BQ).
+\end{equation}
+Here $\pi_{ij}$ are the projections from $A\times A \times \CM_{\beta,A}$ to the corresponding factors; compare the notation of (\ref{Normalized_F}).
+
+
+In fact, by Step 1, we obtain that the class
+\[
+\pi_{23}^* \mathrm{ch}(\CE_n) = 1_A \boxtimes \mathrm{ch}(\CE_n) \in H^0(A, \BQ) \otimes H^*(A\times \CM_{\beta,A}, \BQ)
+\]
+is balanced with respect to (\ref{32}). The relative Poincar\'e sheaf (\ref{rel_P}) can be expressed as
+\begin{equation}\label{233}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\pi_{13}^\ast \mathrm{ch}(\CP'_E) = \pi_{13}^\ast \mathrm{ch}(\CP_E)\cup \pi_{13}^* \mathrm{ch}(\CO_{\Delta_{E'}}).
+\end{equation}
+The class $\pi_{12}^\ast \mathrm{ch}(\CP_E)$ is balanced via a direct calculation, and 
+\[
+\pi_{12}^*\mathrm{ch}(\CO_{\Delta_E'}) = \pi_{12}^* c_1(\CO_{\Delta_{E'}}) \in \widetilde{G}_0 H^2(A\times A \times \CM_{\beta,A}, \BQ).
+\]
+Hence by (\ref{233}) and the multiplicativity of (\ref{32}), we get
+\[
+\pi_{12}^* \mathrm{ch}(\CP'_E)\in \bigoplus_{k\geq 1} \widetilde{G}_{k-1}H^{2k}(A\times A \times \CM_{\beta,A}).
+\]
+This yields (\ref{34}) since
+\[
+\mathrm{ch}(\pi_{12}^\ast {\CP'_{E}} \otimes^{\BL} \pi_{23}^\ast \CE_n) = \pi_{12}^*\mathrm{ch}(\CP'_E) \cup \pi_{23}^\ast \mathrm{ch}(\CE_n).
+\]
+
+\noindent \emph{Step 3.} We finish the proof of (\ref{eqn28}). 
+
+Recall the expression (\ref{Normalized_F}) of $\CF^n_\beta$. Appying the Grothendieck--Riemann-Roch formula to the projection
+\[
+\pi_{13}: A \times A \times \CM_{\beta, A} \to A \times \CM_{\beta,A},
+\]
+we obtain that
+\[
+\mathrm{ch}(\CF^n_\beta) = {\pi_{13}}_\ast \mathrm{ch}(\pi_{12}^\ast {\CP'_{E}} \otimes^{\BL} \pi_{23}^\ast \CE_n).
+\]
+Equivalently, the class $\mathrm{ch}(\CF^n_\beta)$ corresponds to the K\"unneth factor of the class
+\[
+\mathrm{ch}(\pi_{12}^\ast {\CP'_{E}} \otimes^{\BL} \pi_{23}^\ast \CE_n) 
+\]
+in the subspace
+\[
+H^4(A, \BQ) \otimes H^*(A \times \CM_{\beta,A}, \BQ) \subset H^*(A\times A \times \CM_{\beta, A}, \BQ).
+\]
+Here $H^4(A, \BQ)$ is spanned by the point class in the second factor of the product $A \times A \times \CM_{\beta, A}$. Hence (\ref{eqn28}) follows from (\ref{34}).
+\end{proof}
+
+
+\subsection{Perverse filtrations and $H^2(\CM_{\beta,A}, \BQ)$}
+In this section, we assume that $A$ is any abelian surface and $\beta$ is an ample curve class satisfying {$\beta^2= v_n^2=2n$}. Recall from Section \ref{Sec2.1} that $\CM_{\beta,A}$ is the moduli space of Gieseker-stable sheaves with respect to the primitive Mukai vector
+\begin{equation}\label{vbeta}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+v_\beta = (0, \beta, \chi) \in S_A^+
+\end{equation}
+with dimension
+\[
+\mathrm{dim}(\CM_{\beta,A}) = v_\beta^2+2 = 2n+2.
+\]
+Our goal is to prove Proposition \ref{prop2.4}, which is a variant of Proposition \ref{prop1.1} for $\CM_{\beta,A}$.  More precisely, we introduce a \emph{canonical} class
+ \begin{equation}\label{ample_base}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+ L_\beta \in H^2(\CM_{\beta,A} ,\BQ)
+ \end{equation}
+to characterize the perverse filtration $P_{\star} H^*(\CM_{\beta, A}, \BQ)$ associated with the morphism
+\[
+\pi_\beta: \CM_{\beta, A} \to B. 
+\]
+
+
+Let $\CF_0 \in \CM_{\beta, A}$ be a general point on the moduli space. We consider the  morphisms
+defined by considering determinants of coherent sheaves
+\[
+\mathrm{det}: \CM_{\beta,A} \to \hat{A}, \quad \CF \mapsto \mathrm{det}(\CF)\otimes \mathrm{det}(\CF_0)^\vee 
+\]
+and
+\[
+\hat{\mathrm{det}}: \CM_{\beta,A} \to A, \quad \CF \mapsto \mathrm{det}(\phi_\CP(\CF)) \otimes \mathrm{det}(\phi_\CP(\CF))^\vee.
+\]
+Here $\phi_\CP : D^b\Coh(A) \to D^b\Coh(\hat{A})$ is the Fourier--Mukai transform induced by the normalized Poincar\'e line bundle $\CP$ on $A \times \hat{A}$. By \cite[(4.1) and Theorem 4.1]{Yo}, the Albanese morphism for $\CM_{\beta,A}$ with respect to the reference point $\CF_0$ is
+\[
+\mathrm{alb} = \hat{\mathrm{det}} \times \mathrm{det}: \CM_{\beta,A} \to A \times \hat{A}.
+\]
+The closed fiber over the origin $0 \in A\times \hat{A}$, denoted by
+\[
+K_{\beta,A} = \mathrm{alb}^{-1}(0) \subset \CM_{\beta, A},
+\]
+is a holomorphic symplectic vairiety of Kummer type; see \cite[Theorem 0.2]{Yo}. It parametrizes 1-dimensional sheaves $\CF \in \CM_{\beta,A}$ satisfying
+\[
+ \mathrm{det}(\CF)= \mathrm{det}(\CF_0) \in \hat{A},\quad   \mathrm{det}(\phi_\CP(\CF)) = \mathrm{det}(\phi_\CP(\CF)) \in \hat{\hat{A}} = A.
+\]
+The restriction of the Hilbert--Chow morphism (\ref{Hilb-Ch}) to the subvariety $K_{\beta, A}$ is a Lagrangian fibration
+\[
+\pi'_\beta: K_{\beta, A} \to  |\CO_A(\beta)| =  \BP^{n-1}.
+\]
+Here $ |\CO_A(\beta)|$ denotes the linear system associated with the divisor  
+\[
+\mathrm{supp}(\CF_0) \subset A.
+\]
+
+We consider the following commutative diagram,
+\begin{equation}\label{diagram1}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+    \begin{tikzcd}
+K_{\beta, A} \times A \times \hat{A}\arrow{r}{h} \arrow{d}{\pi'_\beta \times \mathrm{pr}_A} & \CM_{\beta,A}\arrow{d}{\pi_\beta} \\
+ \BP^{n-1}\times A \arrow{r}{h'} & B.
+\end{tikzcd} 
+\end{equation}
+Here the horizontal arrows are defined by
+\[
+h(\CF, a, L) = {t_a}_* \CF \otimes  L,\quad h'(C, a)= {t_a}_\ast C
+\]
+with $t_a: A \xrightarrow{\simeq} A$ the translation by $a$. Since both $h$ and $h'$ are finite and surjective, the map
+%{\MD this is for myself: I want to convince myself and see if these are finte group quotients}, the pullback morphism
+\begin{equation*}
+    h^*: H^k(\CM_{\beta, A}, \BQ) \to H^k(K_{\beta, A} \times A \times \hat{A}, \BQ)
+\end{equation*}
+is injective by the projection formula. Moreover, it is an isomorphism when $k=2$ since
+\[
+\mathrm{dim}\,H^2(\CM_{\beta,A}, \BQ) = \mathrm{dim}\,H^2(A^{[n]}\times \hat{A}, \BQ)= \mathrm{dim}\,H^2(K_{\beta, A} \times A \times \hat{A}, \BQ)
+\]
+by G\"ottsche's formula \cite{Go1} for the Betti numbers of the Hilbert schemes and the generalized Kummer varieties.
+
+By \cite[Theorem 0.1 and (1.6)]{Yo}, the correspondence induced by $\mathrm{ch}(\CF_\beta) \in H^*(A \times \CM_{\beta,A})$ together with the restriction map
+\[
+H^2(\CM_{\beta,A}, \BQ) \to H^2(K_{\beta,A}, \BQ)
+\]
+gives an isometry between $v_\beta^\perp \subset S_A^+\otimes \BQ$ and $H^2(K_{\beta,A}, \BQ)$  (endowed with the Beauville-Bogomolov-Fujiki form)
+\[
+\theta: v_\beta^\perp  \xrightarrow{\simeq}  H^2(K_{\beta,A}, \BQ).
+\]
+{Therefore, the pullback $h^*$ induces an isometry 
+ (see also \cite[Theorem 4.1.(3) eq. (4.3)]{Yo})}
+\begin{equation}\label{eqn39}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\varphi: H^2(\CM_{\beta, A}, \BQ) \xrightarrow{\simeq} v_\beta^\perp \oplus H^2(A\times \hat{A}, \BQ),
+\end{equation}
+which, by \cite[Section 8]{Markman2}, is  ${\rm Spin} (S_A^+\otimes \BQ)_{v_\beta}$-equivariant.
+{
+\begin{rmk}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready\label{compatibilityspin} The equivariance means  that 
+\source{hitchin-fibrations-abelian-surfaces-pw}
+Markman's monodromy operators $\gamma_{g,v_\beta}$ (\ref{mon2}) acting on 
+$H^2(\CM_{\beta, A}, \BQ)$ are identified, via $\varphi$, with the action of $g$ on the
+right-hand side of (\ref{eqn39})  described in Section \ref{spin8reps}. We may say that $\varphi$ is compatible with $g$ and $\gamma_{g,v_\beta}$.
+\end{rmk}
+}
+
+We consider the following classes 
+\begin{equation}\label{Lbeta}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\begin{split}
+    l_\beta & = \theta\left((0,0,1)\in v_\beta^\perp\right) \in H^2(K_{\beta,A} ,\BQ), \\
+    L_\beta & = \varphi^{-1} \left( (0,0,1) +  (\beta\boxtimes 1_{\hat{A}}) \right) \in H^2(\CM_{\beta, A}, \BQ).
+\end{split}
+\end{equation}
+
+\begin{prop}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready\label{prop2.4}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+We have  
+\[
+P_kH^m(\CM_{\beta,A}, \BQ) = \left(\sum_{i\geq 1} \mathrm{Ker}\left(L_\beta^{(n+1)+k+i-m}\right) \cap \mathrm{Im}(L_\beta^{i-1}) \right) \cap H^m(\CM_{\beta,A}, \BQ).
+\]
+\end{prop}
+
+\begin{proof}
+We denote by 
+\[
+\pi_K = \pi'_\beta \times \mathrm{pr}_A : K_{\beta, A} \times A \times \hat{A} \to \BP^{n-1}\times A
+\]
+the left vertical map of the diagram (\ref{diagram1}). 
+
+By \cite[Example 3.1]{Markman4}, we have  
+\[
+l_\beta = {\pi'_\beta}^\ast \CO_{\BP^{n-1}}(1) \in H^2(K_{\beta,A}, \BQ).
+\]
+Hence 
+\[
+h^*L_\beta = l_\beta \boxtimes 1_{A\times\hat{A}}+ 1_{K_{\beta,A}}\boxtimes (\beta\otimes 1_{\hat{A}}) \in H^2(K_{\beta, A} \times A \times \hat{A},\BQ)
+\]
+is the pullback of an ample class on the base $\BP^{n-1}\times A$ via the morphism $\pi_K$. Since $h$ and $h'$ are finite, Proposition \ref{prop2.4} is deduced immediately from the diagram (\ref{diagram1}) and the following lemma.
+\end{proof}
+
+\begin{lem}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready
+We consider a commutative diagram 
+\begin{equation*}
+    \begin{tikzcd}
+X\arrow{r}{h} \arrow{d}{f} & X'\arrow{d}{f'} \\
+ Y \arrow{r}{h'} & Y'
+\end{tikzcd} 
+\end{equation*}
+where all the varieties are nonsingular and irreducible, the horizontal morphisms are finite and surjective, and the vertical morphisms are proper. We assume 
+\[
+\mathrm{dim}(X) = \mathrm{dim}(X') = 2 \mathrm{dim}(Y) = 2\mathrm{dim}(Y') =2R
+\]
+for some positive integer $R$, and that there is a class $\alpha \in H^2(X', \BQ)$ satisfying
+\[
+h^* \alpha = f^* L
+\]
+with $L \in H^2(Y, \BQ)$ an ample class on $Y$. Then the perverse filtration $P_\star H^*(X', \BQ)$ associated with $f'$ can be expressed as
+\begin{equation}\label{2019}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+P_kH^m(X', \BQ) = \left(\sum_{i\geq 1} \mathrm{Ker}(\alpha^{R+k+i-m}) \cap \mathrm{Im}(\alpha^{i-1}) \right) \cap H^m(X', \BQ).
+\end{equation}
+\end{lem}
+
+\begin{proof}
+The composition of the following maps is multiplication by the degree of $h$
+\[
+\BQ_{X'} \to h_*h^* \BQ_{X'} = h_*\BQ_X \to \BQ_{X'},
+\]
+where the first map is the adjunction and the last map is the trace map. This composition is nonzero since $h$ has non-zero degree, so it yields the splitting
+\begin{equation}\label{48}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+h_* \BQ_X = \BQ_{X'} \oplus \CG, \quad \CG \in \mathrm{D}^b_c(X'),
+\end{equation}
+which further induces the embedding 
+\begin{equation}\label{2020}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+h^*: H^*(X', \BQ) \hookrightarrow H^*(X, \BQ) 
+\end{equation}
+as a  direct summand. After pushing forward (\ref{48}) along $f': X' \to Y'$, we obtain
+\[
+{^\mathfrak{p} \CH}^k(\mathrm{Rf'}_\ast h_\ast \BQ_X) = {^\mathfrak{p} \CH}^k(\mathrm{Rf'}_\ast \BQ_{X'}) \oplus {^\mathfrak{p} \CH}^k(\mathrm{Rf'}_\ast \CG).
+\]
+On the other hand, by the $t$-exactness of the finite morphism $h'$, we have
+\[
+{^\mathfrak{p} \CH}^k(\mathrm{Rf'}_\ast h_\ast \BQ_X) = {^\mathfrak{p} \CH}^k(h'_*\mathrm{Rf}_\ast \BQ_X)  =h'_* {^\mathfrak{p} \CH}^k(\mathrm{Rf}_\ast \BQ_X).
+\]
+Hence the pullback (\ref{2020}) induced by (\ref{48}) is filtered strict with respect to the perverse filtrations associated with $f$ and $f'$, and we have 
+\begin{equation}\label{filer_strict}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+P_kH^d(X, \BQ) \cap \mathrm{Im}(h^*) \subset P_kH^d(X', \BQ),\quad \forall k,d.
+\end{equation}
+We deduce (\ref{2019}) from (\ref{filer_strict}) and Proposition \ref{prop1.1} (applied to $f: X\to Y$).
+\end{proof}
+
+
+\subsection{Proof of Theorem \ref{taut_abelian}}\label{Section2.7} In this section, we complete the proof of Theorem \ref{taut_abelian} by combining the tools developed in the previous sections.
+\source{hitchin-fibrations-abelian-surfaces-pw}
+
+Let $A$ be an abelian surface and $\beta$ be an ample curve class. A \emph{perverse package} associated with the pair $(A, \beta)$ is defined to be a triple
+\[
+ ([\CF_\beta], \alpha_\beta, L_\beta),
+\]
+where $[\CF_\beta]$ is a universal class on $A \times \CM_{\beta,A}$, $L_\beta \in H^2(\CM_{\beta,A}, \BC)$ is the class introduced in Section 2.6, and $\alpha \in H^2(A\times \CM_{\beta,A}, \BC)$ is of the type (\ref{alpha}).
+
+An isomorphism between the perverse packages associated with $(A, \beta)$ and $(A', \beta')$ is the following:
+\begin{enumerate}
+    \item[(i)] An  isomorphism of  graded $\BC$-vector spaces 
+    \[
+    g: H^*(A, \BC) \xrightarrow{\simeq} H^*(A', \BC).
+    \]
+    \item[(ii)] An isomorphism of graded  $\BC$-algebras
+    \[
+    \phi: H^*(\CM_{\beta,A}, \BC) \xrightarrow{\simeq} H^*(\CM_{\beta',A'}, \BC).
+    \]
+    \item[(iii)] The isomorphisms $g$ and $\phi$ satisfy that
+    \[
+    \begin{split}
+        (g\otimes \phi) \mathrm{ch}^{\alpha_\beta} (\CF_\beta) & = \mathrm{ch}^{\alpha_{\beta'}}(\CF_{\beta'}),\\
+        \phi(L_\beta) & = L_{\beta'}.
+    \end{split}
+    \]
+\end{enumerate}
+Isomorphisms of perverse packages form an equivalence relation. We call two pairs $(A, \beta)$ and $(A', \beta')$ \emph{perversely isomorphic} if there is a perverse package associated with $(A,\beta)$ isomorphic to a perverse package associated with $(A', \beta')$.
+
+\begin{prop}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready\label{prop2.5}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+Assume that $(A, \beta)$ is perversely isomorphic to $(A', \beta')$. If Theorem \ref{taut_abelian} holds for $(A, \beta)$, then it also holds for $(A', \beta')$.
+\end{prop}
+
+\begin{proof}
+By Proposition \ref{prop2.4}, the condition 
+\[
+\phi(L_\beta) = L_{\beta'}
+\]
+implies that the perverse filtrations on $H^*(\CM_{\beta,A}, \BC)$ and $H^*(\CM_{\beta', A'}, \BC)$ are identified via $\phi$. Let 
+\[
+H^*(\CM_{\beta,A}, \BC) = \bigoplus_{k,d} \widetilde{G}_k H^d(\CM_{\beta,A}, \BC)
+\]
+be the splitting of the perverse filtration for $\CM_{\beta, A}$ satisfying
+\[
+\int_\gamma \mathrm{ch}^{\alpha_\beta}_k(\CF_\beta) \in \widetilde{G}_{k-1}H^*(\CM_{\beta,A}, \BC).
+\] 
+Then the decomposition 
+\[
+\
+\widetilde{G}_k H^d(\CM_{\beta',A'}, \BC) = \phi(\widetilde{G}_k H^d(\CM_{\beta,A}, \BC))
+\]
+also splits the perverse filtration for $\CM_{\beta',A'}$, and the corresponding tautological classes lie in its correct pieces by  condition (iii) in the definition of isomorphism of perverse package.
+\end{proof}
+
+If $(A, \beta)$ is perversely isomorphic to $(A', \beta')$, then condition (ii) implies that
+\begin{equation}\label{beta2beta2}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\beta^2 = \mathrm{dim}(\CM_{\beta,A}) -2 = \mathrm{dim}(\CM_{\beta',A'}) -2 = \beta'^2.
+\end{equation}
+The following theorem, which we  deduce from Theorem \ref{monodromy_main}, establishes the  converse
+to (\ref{beta2beta2}). In other words, perverse equivalence classes associated with pairs $(A, \beta)$ are larger than the equivalence classes
+given  by the deformation types of the \emph{fibrations} $\pi_\beta: \CM_{\beta,A} \to B$; see Remark \ref{remark2.8}.
+
+
+\begin{thm}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready\label{thm2.6}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+Any two pairs $(A, \beta)$ and $(A', \beta')$ satisfying
+\[
+\beta^2 = \beta'^2 
+\]
+are perversely isomorphic.
+\end{thm}
+
+\begin{proof}
+
+As we explain at the end of the proof, it will be sufficient to find an isomorphism of  graded $\BC$-vector spaces
+\begin{equation}\label{39}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+g: H^*(A, \BC)  \to H^*(A', \BC)
+\end{equation}
+satisfying the following two properties:
+\begin{enumerate}
+    \item[(a)] $g$ preserves the intersection pairing;
+    \item[(b)] {$g$ satisfies the following identities}
+    \begin{equation}\label{40}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+    \begin{split}
+        g(0,0,1) & = (0,0,1),\\
+        g(1,0,0) & = (1,0,0),\\
+        g(0,\beta,0) & = (0, \beta',0),
+    \end{split}
+    \end{equation}
+\end{enumerate}
+and a {graded $\BC$-algebra  isomorphism}
+ \begin{equation}\label{fi}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+ \phi : H^*(\CM_{\beta,A}, \BC) \to H^*(\CM_{\beta', A'}, \BC)
+ \end{equation}
+satisfying  condition (iii) {in the definition of isomorphism of perverse packages.}
+
+We construct $(g, \phi)$ in two steps. 
+
+{We note that $g_1,g_2$, and $ g=g_2\circ g_1$ constructed below automatically satisfy condition (a)
+by construction.}
+
+Firstly, since the Mukai vectors (\ref{vbeta})  $v_\beta$ and $v_{\beta'}$ are primitive with the same Mukai length, 
+\[
+v_\beta^2 = v_{\beta'}^2 \in \BZ,
+\]
+we can apply \cite[Theorem 8.3]{Markman3} (which follows from Yoshioka \cite{Yo}) to find
+{isometries}
+\[ g_1: H^*(A, \BZ)  \to H^*(A', \BZ) ,\quad \phi_1: H^*(\CM_{\beta,A}, \BQ) \to H^*(\CM_{\beta', A'}, \BQ)\]
+such that $g_1(v_\beta) = v_{\beta'}$ and
+\begin{equation}\label{eq41}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+(g_1 \otimes \phi_1) \mathrm{ch}(\CF_\beta) = \mathrm{ch}(\CF_{\beta'})
+\end{equation}
+with $[\CF_{\beta'}]$ a universal class on $A \times \CM_{\beta,A}$. Moreover, the morphism $\phi_1$ satisfies the evident variant of Remark \ref{compatibilityspin}, \emph{i.e.}, the morphism 
+\[
+\varphi_{\beta'}^{-1}\phi_1 \varphi_\beta: v_\beta^\perp \oplus H^2(A\times \hat{A},\BQ) 
+\to v_{\beta'}^\perp \oplus H^2(A'\times \hat{A'},\BQ)
+\]
+is induced by the isomtery $g_1: H^*(A, \BZ) \to H^*(A', \BZ)$; see  \cite[Proposition 8.5]{Markman2}. We may say that the identifications $\varphi$ (\ref{eqn39}) for $\beta$ and $\beta'$ are compatible with $g_1$ and $\phi_1$.
+
+
+If $\beta$ and $\beta'$ have different divisibility, then $g_1$ {cannot satisfy the condition (b) above}, so that  we proceed as follows.
+We choose $g_2 \in \mathrm{SO}(S_{A'}^+\otimes {\BQ})_{v_{\beta'}}$ such that the restriction
+$$g_2\circ g_1|_{S_{A}^{+}}: S_{A}^{+} \otimes {\BQ} \rightarrow S_{A'}^{+}\otimes {\BQ}$$
+is grading-preserving and satisfies condition (b).
+We can lift $g_2$ to an element of
+$\mathrm{Spin}(S_{A'}^{+}\otimes \BC)_{v_{\beta'}}$, also denoted by $g_2$, and take the associated isomorphisms
+\[
+\begin{split}
+ g_2: &  H^*(A',\BC)  \rightarrow H^*(A',\BC) \qquad \mbox{ (cf. Section \ref{spin8reps})}
+\\
+\phi_2=  \gamma_{g_2,v_{\beta'}}: &   H^*(\CM_{\beta',A'},\BC)  \rightarrow H^*(\CM_{\beta',A'},\BC)
+\quad
+\mbox{(cf. Section \ref{Monodromy})}.
+\end{split}
+\]
+By Theorem \ref{monodromy_main}, we have
+\begin{equation}\label{eq42}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+(g_2 \otimes \phi_2) \mathrm{ch}(\CF_{\beta'}) =  \mathrm{ch}^{\pi_\CM^*a}(\CF_{\beta'}), \quad {\exists} a \in H^2(\CM_{\beta',A'}, \BC).
+\end{equation}
+
+We set $g = g_2 \circ g_1$ and $\phi = \phi_2\circ \phi_1$.
+Then  (\ref{eq41}) and (\ref{eq42}) imply that
+\[
+(g\otimes \phi)\mathrm{ch}(\CF_{\beta}) = \mathrm{ch}^{\pi_\CM^*a}(\CF_{\beta'}).
+\]
+In particular, for any class $\alpha_\beta \in H^2(A\times \CM_{\beta,A}, \BC)$ of type (\ref{alpha}), we have
+\[
+(g\otimes \phi)\mathrm{ch}^{\alpha_\beta}(\CF_{\beta}) = \mathrm{ch}^{\alpha_{\beta'}}(\CF_{\beta'}), \quad {\rm with}\; \alpha_{\beta'} = \pi_\CM^*a+ (g\otimes \phi)\alpha_\beta,
+\]
+where the class $\alpha_{\beta'}$ is also of type (\ref{alpha}). {The first condition appearing in (iii) is thus met.}
+
+{It remains to verify that $\phi (L_\beta)=L_{\beta'}$.
+In view of  the compatibility of the $\varphi$'s for $\beta$ and $\beta'$ with $g_1, \phi_1$, and of $\varphi$ for $\beta'$ with $g_2, \phi_2$ (cf. Remark \ref{compatibilityspin}), and in view  of the construction of $g_1$ and $g_2$, 
+%By \cite[Section 8]{Markman2},  the identification (\ref{eqn39}) is $\mathrm{Spin}(S_A^+)_v$-equivariant, where the action on $H^2(A \times \hat{A}, \BC)$ is as defined in Section \ref{spin8reps}.  It follows from (\ref{40}) that
+the isomorphism $\phi$  sends $(0,0,1) \in v_\beta^\perp$ to $(0,0,1) \in v_{\beta'}^\perp$, and sends $\beta\boxtimes 1_{\hat{A}} \in H^2(A\times \hat{A}, \BC)$ to $\beta' \boxtimes 1_{\hat{A'}} \in H^2(A'\times \hat{A'}, \BC)$. In particular, we have
+$
+\phi(L_\beta) = L_{\beta'}
+$, and the desired condition (3) is met in its entirety.
+This completes the proof of Theorem \ref{thm2.6}. }
+\end{proof}
+
+Theorem \ref{taut_abelian} follows from Theorem \ref{Step1}, Proposition \ref{prop2.5}, and Theorem \ref{thm2.6}
+{(with $n:=\beta^2/2$, $v_n$ and $\beta$)}. In Section \ref{Section3.5}, we prove a strengthened version of Theorem \ref{taut_abelian} to the effect that  the decomposition $\tilde{G}_*H^*(\CM_{A,\beta}, \BC)$ is the one  induced by a variant of a construction of Deligne's. 
+
+\begin{rmk}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+\notready\label{remark2.8}
+\source{hitchin-fibrations-abelian-surfaces-pw}
+It was shown in \cite{dCM} that perverse filtrations behave well under deformations. However, for the pairs $(A, \beta)$ and $(A',\beta')$ such that $\beta$ and $\beta'$ have different divisibilities in $H^2(A, \BZ)$ and $H^2(A',\BZ)$, the fibrations $\pi_\beta$ and $\pi_{\beta'}$ are not deformation equivalent.
+Therefore,  in order to reduce the proof of Theorem \ref{taut_abelian} for any pair $(A,\beta)$ to that for a special pair
+\[
+A= E \times E', \quad \beta = \sigma +n f,
+\] 
+it is essential to consider an equivalence relation weaker than deformation equivalences of fibrations $\pi_\beta$. This is our motivation for introducing  equivalences of perverse packages. 
+\end{rmk}

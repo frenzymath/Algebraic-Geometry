@@ -1,0 +1,123 @@
+% Source-derived chapter 02: Étale fundamental gerbes
+% Original source: birational-section-conjecture-strong-birationality
+\chapter{Étale fundamental gerbes}
+\label{birational-section-conjecture-strong-birationality-chapter-02}
+\source{birational-section-conjecture-strong-birationality}
+
+\begin{remark}[Source section]
+\label{birational-section-conjecture-strong-birationality-chapter-02-source}
+\source{birational-section-conjecture-strong-birationality}
+\source{birational-section-conjecture-strong-birationality}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Étale fundamental gerbes
+In addition to the classical language of étale fundamental groups, we use the language of \emph{étale fundamental gerbes} \cite[\S 8, \S 9]{bv15}, \cite[Appendix A]{anab}. Étale fundamental gerbes are essentially an alternative point of view on the theory of étale fundamental groups where groups are replaced by a particular type of algebraic stack, i.e. gerbes. Everything that can be done in one language can be translated into the other one and it is actually possible to use both languages at the same time, switching back and forth depending on convenience.
+
+%~ We use both languages, choosing each time which one is convenient depending on the situation. 
+Generally speaking, fundamental groups are better for handling geometric arguments about the original varieties, while fundamental gerbes are better for handling arguments about Galois sections. The reason is that the étale fundamental gerbe, in some sense, \emph{is} the space of Galois sections, but constructed directly without passing through fundamental groups.
+
+Furthermore, fundamental gerbes are naturally base point free. This is particularly helpful since we make a lot of specialization arguments involving different fibers of a single family, and doing so while keeping track of base points would be problematic. With fundamental gerbes, the problem just doesn't exist. Moreover, the theory of non-unique specializations in the classical language requires making non-canonical choices, while this is not the case from the point of view of gerbes.
+
+If $X$ is geometrically connected over a field $k$, the étale fundamental gerbe $\Pi_{X/k}$ is a profinite étale stack over $k$ with a morphism $X\to\Pi_{X/k}$ universal among morphisms to finite étale stacks over $k$. The space of Galois sections $\mc{S}_{X/k}$ of $X$ is in natural bijection with the set of isomorphism classes of $\Pi_{X/k}(k)$. Furthermore, the étale fundamental gerbe behaves well with respect to base change in characteristic $0$ \cite[Proposition A.18]{anab}.
+
+Fundamental gerbes are easier to understand when there is a $k$-rational point. Recall that, if $G$ is an affine group scheme over $k$, the classifying stack $\mc{B}_{k}G$ is defined as follows: given a scheme $S$ over $k$, then $\mc{B}_{k}G(S)$ is the groupoid of $G$-torsors for the fpqc topology over $S$, see for instance \cite[Definition 8.1.14]{olsson}. If $G$ is of finite type over $k$ every $G$-torsor is trivialized by an fppf covering $S'\to S$, namely $S'=T$, and hence the fppf topology is sufficient. In general, e.g. if $G$ is pro-finite, we need to use the fpqc topology, see \cite{bv15} for details. If $X$ has a rational point $x\in X(k)$, the Galois group $\gal(\bar{k}/k)$ acts continuously on the étale fundamental group $\pi_{1}(X_{\bar{k}},x)$, this allows us to define an étale fundamental group scheme $\upi_{1}(X,x)$ which is a twisted form of $\pi_{1}(X_{\bar{k}},x)$. The étale fundamental gerbe identifies naturally with the classifying stack $\mathcal{B}_{k}\upi_{1}(X,x)$, and the $k$-rational sections of $\Pi_{X/k}$ correspond to $\upi_{1}(X,x)$-torsors over $k$. 
+
+\subsection{Relative fundamental gerbes}
+
+In order to do specialization arguments, we need to work with families of curves for which there is a short exact sequence of étale fundamental groups. We identify very restrictive assumptions under which this works, these are sufficient for our purposes.
+
+%\begin{lemma}
+%    Let $S$ be any connected scheme, and $X\to S$ a family of curves with with geometric fiber $F$. The sequence
+%    \[\pi_{1}(F)\to\pi_{1}(X)\to\pi_{1}(S)\to 1\]
+%    is exact.
+%\end{lemma}
+
+\begin{lemma}
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{families}
+\source{birational-section-conjecture-strong-birationality}
+	Let $k$ be a field of characteristic $0$ and $A$ a ring which is a localization of a $1$-dimensional regular domain $\tilde{A}$ of finite type over $k$, write $C=\spec A$. If $X\to C$ is a family of curves and $F$ is a geometric fiber, then
+	\[1\to\pi_{1}(F)\to\pi_{1}(X)\to\pi_{1}(C)\to 1\]
+	is exact.  
+\end{lemma}
+
+\begin{proof}
+    Assume first that $A$ is a $1$-dimensional regular domain of finite type over $k$.
+
+    If $k=\C$, the sequence of topological fundamental groups is exact since the second homotopy group of $C$ is trivial, and we get an exact sequence of profinite completions by \cite[Proposition 5]{anderson} and \cite[Proposition 3.7]{gjz08}.
+
+    Assume that $k$ is any field of characteristic $0$, it is clearly enough to do the case in which $k$ is algebraically closed. In this case, since everything is of finite type there exists an algebraically closed field $k'$ with embeddings $k'\subset k$ and $k'\subset \C$ such that $X\to C$ descends to a family of curves $X'\to C'$ over $k'$. Since étale fundamental groups are invariant under base change of algebraically closed fields \cite[Exposé X, Corollaire 1.8]{sga1}, the statement follows from the case $k=\C$.
+
+    If $A$ is a localization of a $1$-dimensional regular domain $\tilde{A}$ of finite type over $k$, since $X$ is of finite type over $C=\spec A$ then up to localizing a finite number of elements of $\tilde{A}$ we may assume that $X$ extends to a family of curves $\tilde{X}\to\tilde{C}=\spec\tilde{A}$. We have that $\pi_{1}(C)\simeq\projlim_{U}\pi_{1}(U)$ where $U$ varies among open subsets of $\tilde{C}$ containing $C\subset \tilde{C}$; this follows from the fact that the category of finite étale covers of $C$ is the direct limit of the categories of finite étale covers of $U$ for varying $U$. Analogously, $\pi_{1}(X)\simeq\projlim_{U}\pi_{1}(\tilde{X}_{U})$.
+
+    For every open subset $C\subset U\subset \tilde{C}$, by the preceding case we have a short exact sequence
+    \[1\to\pi_{1}(F)\to\pi_{1}(\tilde{X}_{U})\to\pi_{1}(U)\to 1,\]
+    hence we obtain a projective system of short exact sequences where the left term is constant. This implies that 
+    \[\pi_{1}(X)\simeq\projlim_{U}\pi_{1}(\tilde{X})\times_{\pi_{1}(\tilde{C})}\pi_{1}(U)\simeq \pi_{1}(\tilde{X})\times_{\pi_{1}(\tilde{C})}\pi_{1}(C),\]
+    and the statement follows.
+    
+%    We conclude by the following lemma.
+
+    
+%    since $X$ is of finite type over $C=\spec A$ then up to localizing a finite number of elements of $A$ we may assume that $X$ extends to a family of curves $\tilde{X}\to\tilde{C}=\spec\tilde{A}$. We have a commutative diagram
+%    \[\begin{tikzcd}
+%            &   \pi_{1}(F)\rar\dar[equal]   &   \pi_{1}(X)\rar\dar  &   \pi_{1}(C)\dar  &   \\
+%        1   &   \pi_{1}(F)\rar              &   \pi_{1}(\tilde{X})\rar  &   \pi_{1}(\tilde{C})\rar  &   1
+%    \end{tikzcd}\]
+%    where the lower is exact. The homomorphism $\pi_{1}(X)\to\pi_{1}(C)$ is surjective if and only if connected finite étale covers of $C$ pull back to connected covers of $\pi_{1}(X)$. Any given finite étale cover of $C$ is the restriction of a finite étale cover of some open subset of 
+%	Let us prove exactness in the middle. By \cite[Exposé V, Proposition 6.11]{sga1}, we have to check that the pullback to $F$ of a finite étale covering of $C$ is trivial, and if $E\to X$ is a connected finite étale covering with a section $F\to E|_{F}$ then there exists a covering $E'\to C$ such that a connected component of $E'|_{X}$ maps to $E$. The first condition is obvious. Write $\tilde{C}=\spec \tilde{A}$. For the second condition, up to shrinking $\tilde{C}$ we have that $E$ extends to a finite étale covering $\tilde{E}\to\tilde{X}$, where $\tilde{X}\to\tilde{C}$ is a family of curves. It is enough to find $\tilde{E}'\to\tilde{C}'$ with the analogous property, and by standard arguments it is enough to do so in the case $k=\C$. If $k=\C$, the short exact sequence of topological fundamental groups for $\tilde{X}\to\tilde{C}$ induces a short exact sequence of étale fundamental groups by \cite[Exercices I.2.6]{ser94}, hence we get the desired covering $\tilde{E}'\to\tilde{X}$.
+	
+%	Exactness on the left and right are analogous: we rephrase everything as a statement about étale coverings, up to shrinking we pass to $\tilde{X}\to\tilde{C}$, we reduce to $k=\C$ and finally we can use topology thanks to \cite[Exercices I.2.6]{ser94}.
+\end{proof}
+
+%\begin{lemma}
+ %   Let
+ %   \[1 \to A \to B_{i} \to C_{i} \to 1\]
+%    be a projective system of short exact sequences of groups where the left term $A=A_{i}$ is constant. The limit sequence
+%    \[1\to A \to \projlim_{i}B_{i} \to \projlim_{i} C_{i} \to 1\]
+%    is exact.
+%\end{lemma}
+
+%\begin{proof}
+%    Choose any index $i_{0}$, we may replace the projective system with the cofinal subsystem of indexes over $i_{0}$, so that we may assume that $i_{0}$ is the terminal object of the system. The fact that the kernel is constant implies that $B_{i}\simeq C_{i}\times_{C_{i_{0}}}B_{i_{0}}$ for every $i$, hence 
+%    \[\projlim_{i} B_{i}\simeq \projlim (C_{i}\times_{C_{i_{0}}}B_{i_{0}})\simeq (\projlim_{i}C_{i})\times_{C_{i_{0}}}B_{i_{0}}.\]
+%    The statement follows.
+
+    
+
+%    The homomorphism $A\to \projlim_{i} B_{i}$ is injective since the composition with $\projlim_{i}B_{i}\to B_{i_{0}}$ is injective. The composition $A\to\projlim_{i} C_{i}$ is trivial since $A\to C_{i}$ is trivial for every $i$.
+    
+%    Let $(c_{i})_{i}\in\projlim_{i} C_{i}$ be an element of the limit, and choose $b_{i_{0}}\in B_{i_{0}}$ an inverse image of $c_{i_{0}}$. For every index $i$, since $A_{i}=A_{i_{0}}=A$, there exists a unique $b_{i}\in B_{i}$ which maps to $c_{i}$ in $C_{i}$ and to $b_{i_{0}}$ in $B_{i_{0}}$. The elements $(b_{i})_{i}$ define an element of $\projlim_{i} B_{i}$ mapping to $(c_{i})_{i}$, hence we get surjectivity of $\projlim_{i}B_{i} \to \projlim_{i} C_{i}$.
+
+%    Finally, let $(b_{i})_{i}\in\projlim_{i} B_{i}$ be an element mapping to $1$ in $\projlim_{i} C_{i}$. In particular, $b_{i}\in A$ for every $i$, and the compatibility condition between the $b_{i}$s implies that $b_{i}=b_{i_{0}}$ for every $i$, hence $(b_{i})_{i}=(b_{i_{0}})_{i}\in A$ and we obtain exactness in the middle.
+%\end{proof}
+
+Let $X\to C$ be a family of curves as in \autoref{families}. Define the \emph{relative fundamental gerbe} $\Pi_{X/C}$ by the $2$-cartesian diagram
+\[\begin{tikzcd}
+	\Pi_{X/C}\rar\dar	& 	\Pi_{X/k}\dar	\\
+	C\rar				&	\Pi_{C/k},
+\end{tikzcd}\]
+there is a structural morphism $X\to\Pi_{X/C}$ over $C$.
+
+%~ If $k'/k$ is a field extension and $c:\spec k'\to C$ is a point, the sequence
+%~ \[1\to\pi_{1}(X_{c,\bar{k'}})\to\pi_{1}(X_{\bar{k'}})\to\pi_{1}(C_{\bar{k'}})\to 1\]
+
+
+If $k'/k$ is a field extension and $c:\spec k'\to C$ is a point, the induced morphism 
+\[\Pi_{X_{c}/k'}\to\Pi_{X/C}\times_{C}\spec k'\]
+is an isomorphism: using the fact that the étale fundamental gerbe behaves well under base change \cite[Proposition A.18]{anab}, this is a direct consequence of the exactness of the sequence of étale fundamental groups. Because of this, the relative fundamental gerbe is a convenient way of packing the spaces of Galois sections of the fibers without choosing base points. So to speak, it is the ``relative family of spaces of Galois sections''.
+
+\begin{lemma}
+\source{birational-section-conjecture-strong-birationality}
+\notready\label{limit}
+\source{birational-section-conjecture-strong-birationality}
+	The relative fundamental gerbe $\Pi_{X/C}\to C$ is a projective limit $\projlim \Phi_{i}$ of proper, étale morphisms $\Phi_{i}\to C$ which are gerbes over $C$.
+\end{lemma}
+
+\begin{proof}
+	Since $\Pi_{X/k}$, $\Pi_{C/k}$ are pro-finite étale, then we may write them as projective limits $\projlim_{i}\Psi_{i}$, $\projlim_{i}\Lambda_{i}$ of finite étale gerbes over $k$ with $\Pi_{X/k}\to\Psi_{i}$, $\Pi_{C/k}\to\Lambda_{i}$ locally full \cite[Definition 3.4, Proposition 3.9]{bv19}. Up to re-indexing, we may assume that $\Pi_{X/k}\to\Pi_{C/k}$ induces a morphism $\Psi_{i}\to\Lambda_{i}$ for every $i$; the fact that the fibers of $X\to C$ are geometrically connected implies that $\Pi_{X/k}\to\Pi_{C/k}$ is locally full (i.e. the homomorphism of geometric fundamental groups is surjective), which in turn implies that $\Psi_{i}\to\Lambda_{i}$ is locally full. The morphism $\Psi_{i}\to\Lambda_{i}$ is a proper étale relative gerbe: it is proper étale since $\Psi_{i},\Lambda_{i}$ are proper étale over $k$, and it is a relative gerbe by \cite[Proposition 3.10]{bv19}. The statement then follows by defining $\Phi_{i}$ as $\Psi_{i}\times_{\Lambda_{i}}C$.
+\end{proof}

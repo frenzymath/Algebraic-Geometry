@@ -1,0 +1,2542 @@
+% Source-derived chapter 05: Flat cohomology with finite, locally free coefficients
+% Original source: purity-flat-cohomology
+\chapter{Flat cohomology with finite, locally free coefficients}
+\label{purity-flat-cohomology-chapter-05}
+\source{purity-flat-cohomology}
+
+\begin{remark}[Source section]
+\label{purity-flat-cohomology-chapter-05-source}
+\source{purity-flat-cohomology}
+\source{purity-flat-cohomology}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Flat cohomology with finite, locally free coefficients
+\label{reduction}
+\source{purity-flat-cohomology}
+
+
+
+Our argument for %\Cref{main} 
+purity for flat cohomology uses several new properties of fppf cohomology with coefficients in commutative, finite, locally free group schemes. We establish these properties in this chapter by combining deformation theory discussed in \S\ref{sec:defthy} with crystalline Dieudonn\'{e} theory discussed in \S\ref{section:Dieudonne-positive-characteristic}. It is convenient to extend the statements to the setting of fppf cohomology of animated rings: even for usual rings this removes unnecessary assumptions and makes the proofs possible because our reductions involve derived $p$-adic completions and derived base changes that leave the realm of usual rings. The ultimate goal of these reductions is to end up with perfect $\bF_p$-algebras, %(and thus truncated, that is, with no higher homotopy groups), cases that are 
+which may then be treated by using the key formula \eqref{crystalline-cor} in positive characteristic. %\Cref{KT-input}.
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\csub[Deformation theory over animated rings] \label{sec:defthy}
+\source{purity-flat-cohomology}
+
+A crucial tool in our reductions is deformation theory, carried out in the setting of simplicial rings. We will, however, not work with the latter in the strict sense of simplicial objects in the category of (commutative, as always) rings: instead, we will consider the $\infty$-category obtained by inverting the weak equivalences, that is, the maps that induce weak equivalences of the underlying simplicial sets, equivalently, the maps that induce quasi-isomorphisms of the underlying simplicial abelian groups considered as connective chain complexes via the Dold--Kan correspondence. The passage from the category of commutative rings to this $\infty$-category is an instance of a general procedure discussed in \S\ref{animation} that Dustin Clausen, inspired by Beilinson's \cite{Bei07},\footnote{In \cite{Bei07}, Beilinson lifts certain equalities in $K_0$ to actual homotopies in the $K$-theory space (that is, in the $K$-theory anima in the terminology we use), which he refers to as ``animations'' of that equality.} suggested to term ``animation.'' For instance, the animation of the category of sets---the $\infty$-category of ``animated sets'' or, briefly, of ``anima''---is simply the $\infty$-category of ``spaces'' in the sense of Lurie: it is the $\infty$-category obtained from the category of simplicial sets (or topological spaces) by inverting weak equivalences.
+
+
+
+%\bpp[Simplicial rings and animated rings] \label{animated}
+%\epp
+
+
+
+To put animation into context, we begin with the following general category-theoretic review.
+
+\bpp[Free generation by $1$-sifted colimits] \label{sfp-fun}
+\source{purity-flat-cohomology}
+For a category $\sC$ that has filtered colimits, we let $\sC^{\mathrm{fp}} \subset \sC$ be the full subcategory of those $X \in \sC$ that are \emph{of finite presentation} (also called \emph{compact}) in the sense that $\Hom_\sC(X, -)$ commutes with filtered colimits. Finite colimits in $\sC$ of objects of $\sC^{\mathrm{fp}}$ lie in $\sC^{\mathrm{fp}}$, and we have fully faithful embeddings\footnote{\label{cat-foot} To see that the functor 
+\source{purity-flat-cohomology}
+\[
+f\colon \Ind(\sC^{\mathrm{fp}}) \ra \sC
+\]
+supplied by the universal property of $\Ind(\sC^{\mathrm{fp}})$ is an embedding, we use the argument of \cite{HTT}*{Proposition 5.5.8.22} as follows. For a fixed $X \in \sC^{\mathrm{fp}}$, the full subcategory of the $Y \in \Ind(\sC^{\mathrm{fp}})$ with 
+\[
+\Hom_{\Ind(\sC^{\mathrm{fp}})}(X, Y) \isomto \Hom_\sC(X, f(Y))
+\]
+contains $\sC^{\mathrm{fp}}$ and is stable under filtered colimits, so it is all of $\Ind(\sC^{\mathrm{fp}})$. Thus, the full subcategory of the $X \in \Ind(\sC^{\mathrm{fp}})$ such that 
+\[
+\Hom_{\Ind(\sC^{\mathrm{fp}})}(X, Y) \isomto \Hom_\sC(f(X), f(Y)) \qxq{for all} Y \in \Ind(\sC^{\mathrm{fp}})
+\]
+contains $\sC^{\mathrm{fp}}$; since it is also stable under filtered colimits, it must be all of $\Ind(\sC^{\mathrm{fp}})$.} %every object of $\sC$ is %\emph{accessible} if each of its objects is 
+%a filtered colimit of a diagram in $\sC^{\mathrm{fp}}$ if and only if 
+\[
+\sC^{\mathrm{fp}} \hra \Ind(\sC^{\mathrm{fp}}) \hra \sC.
+\]
+%that is, if and only if $\sC$ is freely generated under filtered colimits by $\sC^{\mathrm{fp}}$ (see \cite{AR94}*{2.26}). % Notation Pres_\lambda(\cK) is defined on p. 21
+%We recall that a (small) indexing category  of sets (compare with \cite{ARV10}*{p.~251}). More generally, 
+
+For a category $\sC$ that has $1$-sifted\footnote{\label{foot-sifted}A small category $\sD$ is \emph{$1$-sifted}---usually simply called ``sifted'' in traditional category theory, but we want to reserve the term ``sifted'' for the $\infty$-categorical concept---if $\sD$-indexed colimits commute with finite products in the category $\Set$ of sets (see \cite{ARV10}*{Remark~1.1~(i)} for a concrete description; for context, we recall that $\sD$ is filtered if and only if $\sD$-indexed colimits commute with finite limits in $\Set$). %Certainly, any filtered diagram is sifted 
+\source{purity-flat-cohomology}
+For example, the category $\Delta^\op$ that indexes simplicial objects is $1$-sifted: $\Delta^\op$-indexed colimits, that is, \emph{geometric realizations}, are computed after restricting to $\Delta^\op_{\le 1}$, %(this becomes false $\infty$-categories), ; also, see MO #147093
+which is $1$-sifted \cite{ARV10}*{Example~1.2}; the $\Delta^\op_{\le 1}$-indexed colimits are \emph{reflexive coequalizers}. If the domain of a functor $F \colon \sC \ra \sC'$  has finite colimits, then $F$ commutes with $1$-sifted colimits if and only if it commutes with filtered colimits and reflexive coequalizers (see~\cite{ARV10}*{Theorem~2.1}).
+} colimits, %(that is, direct limits indexed by sifted diagrams), 
+we let $\sC^{\mathrm{sfp}} \subset \sC$ be the full subcategory of those $X \in \sC$ that are \emph{strongly of finite presentation} (also called \emph{compact projective} when $\sC$ has all colimits) in the sense that $\Hom_{\sC}(X, -)$ commutes with $1$-sifted colimits. Finite coproducts in $\sC$ of objects of $\sC^\sfp$ lie in $\sC^\sfp$, and, letting $\mathrm{sInd}$ denote the $1$-sifted ind-category (the subcategory of $\Fun((\sC^\sfp)^\op,\Set)$ generated under $1$-sifted colimits by the Yoneda image of $\sC^\sfp$), we have fully faithful embeddings %every object of $\sC$ is a sifted colimit of a diagram in $\sC^{\mathrm{sfp}}$ if and only if 
+\[
+\sC^\sfp \hra \mathrm{sInd}(\sC^\sfp) \hra \sC %\qx{(where )}.
+\]
+(compare with \cref{cat-foot}). 
+%that is, if and only if $\sC$ is freely generated under sifted colimits by $\sC^{\mathrm{sfp}}$ (see \cite{AR01}*{3.9~(1)}). 
+If $\sC$ is cocomplete and \emph{generated under colimits} by $\sC^\sfp$ in the sense that $\sC$ has no proper cocomplete subcategory containing $\sC^\sfp$, then\footnote{\label{sInd-coco}Indeed, $\mathrm{sInd}(\sC^\sfp)$ inherits cocompleteness from $\sC$: since a product of $1$-sifted diagrams is $1$-sifted, % think about the description in terms of cospans and zigzags of cospans
+\source{purity-flat-cohomology}
+it inherits the existence of finite coproducts from $\sC^\sfp$, so, by taking filtered limits, it has arbitrary coproducts, and it remains to recall that any colimit is a reflexive coequalizer of coproducts.} 
+\be \label{sInd-all}
+\source{purity-flat-cohomology}
+\mathrm{sInd}(\sC^\sfp) \isomto \sC.
+\ee
+Consequently, $1$-sifted-colimit-preserving functors $F$ from such a $\sC$ correspond %via restriction 
+to functors from $\sC^{\sfp}$, and $F$ commutes with all colimits if and only if $F|_{\sC^{\sfp}}$ commutes with finite coproducts. By \cite{Mac98}*{Chapter V, Section 8, Corollary} and the following proposition, %Without the ``following proposition'', we use the following. \footnote{To apply \emph{loc.~cit.},~we need to check that $\sC$ is co-well-powered (every object admits only a set worth of epimorphisms) and has a small generating set (these is a small $\sC_0 \subset \sC$ such that for every distinct parallel arrows $c_1 \rightrightarrows c_2$ in $\sC$ there is a $c_0 \in \sC_0$ and an arrow $c_0 \ra c_1$ in $\sC$ such that the compositions $c_0 \rightrightarrows c_2$ are distinct). By \cite{AR94}*{1.58}, it suffices to show that $\sC \simeq \Ind(\sC_0)$ for some small $\sC_0$. It then remains to observe that, by \cite{AR01}*{2.3~(2)}, every $\sC \simeq \mathrm{sInd}(\sD)$ is of this form granted that $\sD$ is small and has finite coproducts. %(in our case $\sD \simeq \sC^\sfp$ and finite ).}
+if $\sC^\sfp$ is small, then $\sC^{\mathrm{fp}}$ is also small and the category of functors $F \colon \sC^\op \ra \Set$ that bring colimits in $\sC$ to limits in $\Set$ is nothing else than the essential image of the Yoneda embedding of $\sC$; equivalently, $\sC$ is the category of functors
+\[
+(\sC^\sfp)^\op\to \Set
+\]
+that bring finite coproducts in $\sC^\sfp$ to products in $\Set$. %\me{Need an additional condition for this sentence (solution set condition), for instance, accessibility of $\sC$.}
+%$\sC \simeq \mathrm{sInd}(\sC^\sfp)$ whenever $\sC$ is merely .
+%An object $X$ of a category $\sC$, %that admits all filtered direct limits, an object $X \in \sC$ 
+%is \emph{projective}) if  ... preserves epimorphisms); we let $\sC^{\mathrm{cp}} \subset \sC$ denote the full subcategory consisting of the finitely presented, projective objects of $\sC$. 
+%\temp{A category $\sC$ that has all colimits is generated under colimits  if and only if it is generated freely under sifted colimits by $\sC^{\mathrm{cp}}$. \kestutis{why?}}
+\epp
+
+
+\begin{proposition}
+\source{purity-flat-cohomology}
+\notready 
+Let $\sC$ be a cocomplete category generated under colimits by $\sC^\sfp$. The finitely presented objects of $\sC$ \up{that is, the objects of $\sC^{\mathrm{fp}}$} are precisely the coequalizers \up{equivalently, the reflexive coequalizers} of objects in $\sC^\sfp$ and 
+%\benum
+%\item The finitely presented objects $\sC^{\mathrm{fp}}$ of $\sC$ are exactly ; equivalently, the reflexive coequalizers of $\sC^\sfp$.
+%\item The category 
+$\sC$ is generated under filtered colimits by $\sC^{\mathrm{fp}}$. In~particular, 
+\[
+\Ind(\sC^{\mathrm{fp}})\isomto \sC.
+\]
+\end{proposition}
+
+
+\begin{proof} 
+The coequalizer $X$ of parallel arrows $Y\rightrightarrows Z$ agrees with the (reflexive) coequalizer of $Y\sqcup Z\rightrightarrows Z$, so the parenthetical claim follows. %, which is a reflexive coequalizer as both maps are split by the inclusion $Z\hookrightarrow Y\sqcup Z$.
+Moreover, the equalizer of $\Hom(Z,-)\rightrightarrows \Hom(Y,-)$ is $\Hom(X,-)$, so, since equalizers commute with filtered colimits, if $Y, Z \in \sC^\sfp$, then	 $X\in \sC^{\mathrm{fp}}$.
+
+A colimit is a coequalizer of coproducts, so any $X\in \sC$ is a coequalizer of some 
+\[
+\tst \bigsqcup_{i\in I} Y_i\rightrightarrows \bigsqcup_{j\in J} Z_j \qxq{with} Y_i,Z_j\in \sC^\sfp.
+\]
+Since the $Y_i$ are finitely presented, for every finite subset $I'\subset I$ there is a finite subset $J'\subset J$ such that one has a subdiagram $\bigsqcup_{i\in I'} Y_i\rightrightarrows \bigsqcup_{j\in J'} Z_j$. Its coequalizer $X_{I',\,J'}$ is finitely presented by the above, so, by taking the filtered colimit over all such choices of $I', J'$, we express $X$ as the filtered colimit of the $X_{I',\, J'}$, so that $\sC$ is generated under filtered colimits by $\sC^{\mathrm{fp}}$.
+
+It remains to see that every $X\in \sC^{\mathrm{fp}}$ is a coequalizer of objects of $\sC^\sfp$. The preceding arguments imply that $X$ is a retract of some coequalizer $X'$ of a diagram $Y\rightrightarrows Z$ in $\sC^\sfp$; let $f: X'\to X'$ be the corresponding idempotent endomorphism of $X'$. Then $X$ is the coequalizer of $X'\rightrightarrows X'$, where the two maps are the identity and $f$. Since $Z\in \sC^\sfp$, the map $f: X'\to X'$ can be lifted to a map $\wt{f}: Z\to Z$, and then $X$ is also the coequalizer of $Z\sqcup Y\rightrightarrows Z$ where the two maps are the given ones on $Y$ and the identity (resp.,~$\wt{f}$) on $Z$.
+\end{proof}
+
+
+
+\beg \label{sfp-egs}
+\source{purity-flat-cohomology}
+The following cocomplete categories $\sC$ are generated under colimits by $\sC^\sfp$: %so \eqref{sInd-all} applies to~them.
+\benuma
+\m \label{sfp-egs-Set}
+\source{purity-flat-cohomology}
+$\Set$ of sets: $\Set^{\mathrm{sfp}}$ consists of the finite sets;
+
+\m
+$\Gp$ of groups: $\Gp^{\mathrm{sfp}}$ consists of the free groups on finite sets;
+
+\m 
+$\Ab$ of abelian groups: $\Ab^{\mathrm{sfp}}$ consists of the finitely generated, free abelian groups;
+
+\m
+$\Ring$ of (unital, commutative) rings: $\Ring^{\mathrm{sfp}}$ consists of the retracts of finite type, polynomial $\bZ$-algebras, in other words, of $\bZ$-algebras $R$ that are quotients $\pi \colon \bZ[x_1, \dotsc, x_n] \surjects R$ such that there is a $\bZ$-algebra map $\iota \colon R \ra \bZ[x_1, \dotsc, x_n]$ with	 $\pi \circ \iota = \id_R$. 
+\eenum
+The claimed descriptions of the subcategories $\sC^\sfp$ follow from the case $\sC = \Set$ and \cite{HA}*{Corollary~4.7.3.18}, which in each of the cases characterizes $\sC^\sfp$ as the full subcategory consisting of the retracts of the ``finite free'' objects (one also uses the Nielsen--Schreier theorem, according to which a subgroup of a free group is free, so that any retract of a finitely generated, free group inherits these properties). \emph{Loc.~cit.}~applies because the forgetful functor from the respective category to sets commutes with $1$-sifted colimits, that is, with filtered colimits and reflexive coequalizers: the former is clear and for the latter we note that the set-theoretic equivalence relation generated by the parallel arrows of reflexive equalizers preserves the algebraic structures (thanks to the built in simultaneous splitting).
+%since presentations in $\sC$ can be realized as reflexive coequalizers between free objects, the objects in $\sC^\sfp$ are free and, since $\sC^\sfp \subset \sC^{\mathrm{fp}}$, they are even finite free. Conversely, if $X \in \sC$  is finite free, then $\Hom_\sC(X, -)$ commutes with $1$-sifted colimits: for this, it suffices to see that the forgetful functor from the respective categories to sets commutes with $1$-sifted colimits, that is, with filtered colimits and reflexive coequalizers. The former is clear, and for the latter we note that the set-theoretic equivalence relation generated by the parallel arrows of reflexive equalizers preserves the algebraic structures (thanks to the built in simultaneous splitting).
+\eeg
+
+
+
+
+
+
+\bpp[The animation of a category] \label{animation}
+\source{purity-flat-cohomology}
+ For a cocomplete %\kestutis{why not only sifted-cocomplete? Probably then \cite{HTT}*{5.5.8.15} would not apply (need finite coproducts, then also all colimits because have sifted colims by assumption).} 
+ category $\sC$ generated under colimits by $\sC^{\sfp}$ (so $\sC \cong \mathrm{sInd}(\sC^\sfp)$ by \eqref{sInd-all}), 
+% such that  is small and generates $\sC$ under colimits 
+ the \emph{animation} of $\sC$ is the $\infty$-category $\mathrm{Ani}(\sC)$ freely  generated under sifted colimits by $\sC^{\sfp}$, that is, $\Ani(\sC)$ has sifted colimits\footnote{For siftedness in the $\infty$-categorical context, see \cite{HTT}*{Definition 5.5.8.1 and what follows}; prototypical examples are filtered colimits and geometric realizations (that is, $\Delta^\op$-indexed colimits), and in some sense all sifted colimits are generated from these.} and a functor
+ \[
+ \sC^\sfp \ra \Ani(\sC)
+ \]
+such that 
+\[
+\Fun_{\mathrm{sifted}}(\Ani(\sC), \sA) \isomto \Fun(\sC^\sfp, \sA)
+\]
+for any $\infty$-category $\sA$ that has sifted colimits, where $(-)_{\mathrm{sifted}}$ indicates the full subcategory of functors that commute with sifted colimits (equivalently, with filtered colimits and geometric realizations). This characterization determines $\Ani(\sC)$ uniquely, % Get maps $\Ani(\sC) \ra \Ani'(\sC) \ra \Ani(\sC)$ and need to show that the composition is the identity, which translates to showing that $\Fun(\sC, \Ani'(\sC)) \ra \Fun(\sC, \Ani(\sC))$ maps the structure map to the structure map, which follows from how $\Ani'(\sC) \ra \Ani(\sC)$ is defined by the universal property.
+whereas \cite{HTT}*{Definition 5.5.8.8, Proposition 5.5.8.10 (4), Proposition 5.5.8.15} ensure its existence. By \cite{HTT}*{Theorem 5.5.1.1, Proposition 5.5.8.10 (1)}, the $\infty$-category $\Ani(\sC)$ is presentable, so, by \cite{HTT}*{Definition~5.5.0.1, Corollary 5.5.2.4}, it is complete and cocomplete. If the objects of $\sC$ are widgets, then those of $\mathrm{Ani}(\sC)$ are \emph{animated widgets}, except we abbreviate $\Ani(\Set)$ to $\Ani$ and the term `animated set' to \emph{anima} (plural: \emph{anima}). For a comparison between $\Ani(\sC)$ and constructions going back to Quillen's \cite{Qui67}, see \cite{HTT}*{Section 5.5.9, especially, Corollary~5.5.9.3}.
+
+By \Cref{sfp-egs}~\ref{sfp-egs-Set} and \cite{HTT}*{Definition 5.5.8.8}, the $\infty$-category $\Ani$ of anima is obtained from the category of simplicial sets by inverting weak equivalences, and for a general $\sC$ as above, for which $\sC^\sfp$ is small, $\Ani(\sC)$ is the $\infty$-category of functors $(\sC^{\sfp})^\mathrm{op}\to \mathrm{Ani}$ that take finite coproducts in $\sC^{\sfp}$ to products in $\Ani$. 
+%, compare with \cite[%Definition 
+%5.5.8.8, %Proposition 
+%5.5.8.15]{HTT}. 
+By \cite[Lemma 5.5.8.14]{HTT}, any such functor can be lifted to a %strict 
+functor that is representable by a simplicial object of $\sC$ (even of $\Ind(\sC^{\sfp}) \subset \mathrm{sInd}(\sC^\sfp) \cong \sC$).
+%to the category of simplicial sets $(\sC^{\mathrm{sfp}})^{\mathrm{op}}\to \mathrm{sSet}$, and the latter are equivalent to simplicial objects of $\sC$. 
+In fact, \cite[Corollary 5.5.9.3]{HTT} (with the final paragraph of \S\ref{sfp-fun} above) describes $\mathrm{Ani}(\sC)$ as the $\infty$-category obtained from the category of simplicial objects of $\sC$ by inverting weak equivalences with respect to a suitable model structure induced by the Quillen model structure on the category $\mathrm{sSet}$ of simplicial sets. %One can also describe it by passing to fibrant-cofibrant on the category of simplicial objects of $\sC$ . %; these form a simplicial category, and its homotopy-coherent nerve defines an equivalent $\infty$-category.
+
+By \cite{HTT}*{Remark 5.5.8.26, Proposition 5.5.6.18}, composition of a functor
+\[
+(\sC^\sfp)^\op \ra \Ani
+\]
+with the truncation $\tau_{\le n} \colon \Ani \ra \Ani$ induces a truncation functor 
+\[
+\tau_{\le n} \colon \Ani(\sC) \ra \Ani(\sC)
+\]
+that is left adjoint to the inclusion of the full subcategory of $n$-truncated objects of $\Ani(\sC)$ (in the sense of \cite[Definition~5.5.6.1]{HTT}). In particular, by the last aspect of \S\ref{sfp-fun}, there is a fully faithful inclusion $\sC\hookrightarrow \mathrm{Ani}(\sC)$ that identifies $\sC$ with the full subcategory of the $0$-truncated objects of $\mathrm{Ani}(\sC)$; the functor $\pi_0 \ce \tau_{\le 0}$ is left adjoint to the inclusion and is given by composition with the  connected component functor $\pi_0\colon \mathrm{Ani}\to \mathrm{Set}$. %, compare with . Indeed, a functor 
+%\[
+%(\sC^{\mathrm{sfp}})^{\mathrm{op}}\to \mathrm{Ani} \qxq{is $0$-truncated if and only if it takes values in}  \mathrm{Set}\subset \mathrm{Ani},
+%\]
+%and such functors are equivalent to objects in $\sC$ (as $\sC$ is %the category generated 
+%freely under sifted colimits by $\sC^{\mathrm{sfp}}$). On the other hand, by the universal property of $\mathrm{Ani}(\sC)$, there is a functor $\pi_0\colon \mathrm{Ani}(\sC)\to \sC$ back to $\sC$; it is left adjoint to the inclusion. Explicitly, it 
+% \me{discuss the functors $\pi_m$}
+
+In particular, for a functor $F: \sC\to \sD$ between cocomplete categories as above, if $F$ preserves $1$-sifted colimits, then it induces a unique functor 
+\[
+\Ani(F)\colon \Ani(\sC)\to \Ani(\sD),
+\]
+the \emph{animation} of $F$, that preserves sifted colimits, that restricts to 
+\[
+F\colon \sC^\sfp\to \sD\subset \Ani(\sD)
+\]
+on $\sC^\sfp\subset \Ani(\sC)$, and that is such that $\pi_0\circ \Ani(F) = F \circ \pi_0$. In general this operation is not compatible with composition; this is akin to the formation of derived functors that only compose well under certain assumptions.
+\epp
+
+\begin{proposition}
+\source{purity-flat-cohomology}
+\notready\label{prop:composeanimation} 
+\source{purity-flat-cohomology}
+Let $F\colon \sC\to \sD$ and $G\colon \sD\to \sE$ be $1$-sifted-colimit-preserving functors between cocomplete categories generated under colimits by their strongly finitely presented objects.
+\benum
+\item \lab{CA-a}
+There is a natural transformation from the composite $\Ani(G)\circ \Ani(F)$ to $\Ani(G\circ F)$.
+
+\item \lab{CA-b}
+If either $F(\sC^\sfp) \subset \Ind(\sD^\sfp)$ in $\sD$ or  $(\Ani(G))(F(\sC^\sfp)) \subset \sE$ in $\Ani(\sE)$, then the natural transformation 
+\[
+\qq \Ani(G)\circ \Ani(F)\to \Ani(G\circ F)
+\]
+of \ref{CA-a} is an equivalence.
+\eenum
+\end{proposition}
+
+%As usual with derived functors, it would be enough to assume that for all $X\in \sC^\sfp$, the object $\Ani(G)(F(X))$ is $0$-truncated.
+
+\begin{proof} 
+Both $\Ani(G) \circ \Ani(F)$ and $\Ani(G \circ F)$ are  functors $\Ani(\sC)\to \Ani(\sE)$ that preserve sifted colimits, so it suffices to compare their restrictions to $\sC^\sfp$. Such restriction of the first functor is $X\mapsto \Ani(G)(F(X))$, while that of the second one is $X\mapsto G(F(X))$. However, $\pi_0 \circ \Ani(G) = G\circ \pi_0$ and $F(X)$ is $0$-truncated, so we have the desired natural transformation
+\[
+\Ani(G)(F(X))\to \pi_0 (\Ani(G)(F(X))) \cong G(\pi_0 (F(X))) \cong G(F(X)).
+\]
+For the second part, we need to see that this is an equivalence if $F(X)$ is a filtered colimit of objects of $\sD^\sfp$ or if $(\Ani(G))(F(X))$ is $0$-truncated. The latter is clear and for the former we note that the class of $Y \in \sD$ such that $\Ani(G)(Y)\isomto G(Y)$ contains $\sD^\sfp$ and is stable under filtered colimits.
+\end{proof}
+
+
+
+\beg \label{ani-egs}
+\source{purity-flat-cohomology}
+The animations of the categories $\Gp$, $\Ab$, and $\Ring$ may be described as follows.
+% All of these categories have all limits: by HTT, 5.5.2.4 because they are presentable by HTT 5.5.1.1 and 5.5.8.10 (see also HTT 5.5.1.6 though we don't need it).
+\benuma
+\m 
+%$\mathrm{Gp}$, %$\mathrm{Gp}^{\mathrm{cp}}$ is the category of free groups on finite sets and
+The $\infty$-category $\mathrm{Ani}(\mathrm{Gp})$ of animated groups is obtained from the category of simplicial groups by inverting weak equivalences and, by a classical theorem (see \cite{HA}*{Theorem~5.2.6.10, Corollary~5.2.6.21}), is identified with the $\infty$-category of $\mathbb E_1$-groups (also known as associative groups) in $\mathrm{Ani}$.
+
+\m 
+%$\mathrm{Ab}$, 
+The $\infty$-category $\mathrm{Ani}(\mathrm{Ab})$
+%$\mathrm{Ab}^{\mathrm{cp}}$ is the category of finitely generated, free abelian groups %$\mathbb Z^n$, 
+of animated abelian groups is obtained from the category of simplicial abelian groups by inverting weak equivalences and, by the Dold--Kan correspondence (see \cite{HA}*{Theorem~1.2.3.7}), %$\mathrm{Ani}(\mathrm{Ab})$ 
+is identified with the connective part\footnote{As pointed out to us by Hesselholt, it is pleasing to recover $\cD^{\le 0}(\bZ)$ in this way because the cochain complex requirement $d^2 = 0$ becomes part of a solution to a universal problem instead of a construction. } $\mathcal{D}^{\leq 0}(\mathbb Z)\subset \mathcal D(\mathbb Z)$ of the derived $\infty$-category of $\mathbb Z$ %, obtained by inverting quasi-isomorphisms in the category of chain complexes 
+(however, $\Ani(\mathrm{Ab})$ is \emph{not} equivalent to what might be called commutative groups in $\mathrm{Ani}$, namely, it is not equivalent to the $\infty$-category of  $\mathbb E_\infty$-groups in $\mathrm{Ani}$). %We will refer to objects of $\mathrm{Ani}(\mathrm{Ab})$ as animated abelian groups.
+The $\infty$-category $\Ani(\Ab)$ is also identified with the $\infty$-category of abelian group objects in $\Ani$.\footnote{Recall that an \emph{abelian group object} (or a \emph{$\mathbb Z$-module object}) in an $\infty$-category $\sC$ that has finite products is a contravariant functor from the category of finite free $\mathbb Z$-modules to $\sC$ that commutes with finite products.} % This is also claimed in Example 1.2.9 of Lurie "Elliptic cohomology I - spectral abelian varieties". For the footnote, compare with Definition 1.2.4 in that article. 
+
+\m 
+%$\mathrm{Ring}$, 
+The $\infty$-category $\mathrm{Ani}(\mathrm{Ring})$ %$\mathrm{Ring}^{\mathrm{cp}}$ is the category of finite type polynomial $\bZ$-algebras %$\mathbb Z[X_1,\ldots,X_n]$, 
+of animated rings is obtained from the category of simplicial commutative rings by inverting weak equivalences. %We will refer to objects of $\mathrm{Ani}(\mathrm{Ring})$ as animated rings (where it is understood, as throughout, that all rings are unital and commutative).
+\eenum
+Since the forgetful functors $\Ring \ra \Ab \ra \Set$ commute with $1$-sifted colimits (see \Cref{sfp-egs}), they induce functors $\Ani(\Ring) \ra \Ani(\Ab) \ra \Ani$. In this case, Proposition~\ref{prop:composeanimation} ensures that the functors compose well. Moreover, these functors admit left adjoints, given by the animations of the usual left adjoints; in particular, these forgetful functors commute with all limits.
+%\kestutis{Do the latter commute with limits / colimits? Why? (We may be using this later.)}
+\eeg
+
+
+
+
+
+\bpp[Animated rings and modules] \label{ani-rings}
+\source{purity-flat-cohomology}
+%An animated ring $A$ has an underlying animated abelian group, which in turn has an underlying anima. 
+For an animated ring $A$, we write $a\in A$ for a map $\ast\xra{a} A$ of anima %in the $\infty$-category of anima 
+(equivalently, a map $\mathbb Z[X]\ra A$ of animated rings), call $a$ an element of $A$, and set 
+\[
+\tst A[\f 1a] \ce A \tensor^\bL_{\bZ[X]} \bZ[X, \f 1X] \qxq{and} A/^\bL a \ce A \tensor_{\bZ[X],\, X\mapsto 0}^\bL \bZ.
+\] 
+Up to equivalence, the datum of an $a\in A$ amounts to that of an element of $\pi_0(A)$. More generally, elements $a_1, \dotsc, a_n \in A$ correspond to a map 
+\[
+\bZ[X_1, \dotsc, X_n] \xra{X_i\, \mapsto\, a_i} A
+\]
+of animated rings, and we set 
+\[
+A/^\bL (a_1, \dotsc, a_n) \ce A \tensor_{\bZ[X_1, \dotsc, X_n],\, X_i\mapsto 0}^\bL \bZ,
+\]
+so that
+\[
+A/^\bL (a_1, \dotsc, a_n) \cong ((A/^\bL a_1)/^\bL \dotsc )/^\bL a_n.
+\]
+Thanks to  \Cref{ani-egs}, every animated ring $A$ has its associated graded ring of homotopy groups 
+\[
+\tst \pi_*(A) \ce \bigoplus_{n \ge 0} \pi_n(A);
+\]
+the $m$-truncation functor of \S\ref{animation} gives the universal map $A \ra \tau_{\le m}(A)$ to an animated ring with vanishing homotopy $\pi_{> m}(-)$. To work with animated algebras over a base ring $R$, one either starts with the category of $R$-algebras and animates it or considers animated rings equipped with a map from $R$---the two perspectives are equivalent (compare with \cite[Corollary~25.1.4.3]{SAG}).
+
+For an animated ring $A$, the $\infty$-category $\Mod(A)$ of $A$-modules is, by definition, the $\infty$-category of modules over the underlying $\bE_1$-ring of $A$, compare with \cite[Notation~25.2.1.1]{SAG}. The $\infty$-category of \emph{animated $A$-modules} is its subcategory 
+\[
+\tst \Mod^{\le 0}(A) \subset \Mod(A)
+\]
+of connective objects. When $A$ is a usual ring, $\Mod(A)$ is nothing else but the derived $\infty$-category of $A$ (see \cite{HA}*{Theorem~7.1.2.13}) and $\Mod^{\le 0}(A)$ agrees with the animation of the category of $A$-modules (so there is no clash of terminology). For a general animated ring $A$, the $\infty$-category $\Mod^{\le 0}(A)$ is identified with the $\infty$-category of modules in animated abelian groups over $A$ (regarded as an $\bE_1$-algebra in animated abelian groups), which may reasonably be called animated $A$-modules.
+
+Equivalently, one may define the $\infty$-category of animated rings $A$ equipped with an animated $A$-module $M$ by animating the category of rings equipped with modules, compare with \cite[Proposition~25.2.1.2]{SAG}. One can then define various forms of derived tensor products between animated rings or animated modules by animating the usual functors. In particular, for a diagram $B\leftarrow A\to C$ of animated rings, one may define the animated ring $B\tensor^\bL_A C$, by animating the usual functor on rings.
+%The $\infty$-category of animated rings is also discussed by Lurie in \cite[%Section \S25.1]{SAG}. As there, we will sometimes work over a base ring $R$ and considered animated $R$-algebras. There are two perspective: Either one ; or, one . The two 
+\epp
+
+
+
+
+\bpp[The cotangent complex of an animated ring] \label{pp:cot-cx}
+\source{purity-flat-cohomology}
+For an animated ring $A$ and an animated $A$-module $M$, we define an animated ring $A\oplus M$, the prototypical example of a ``square-zero extension,'' by animating the corresponding functor defined on usual rings equipped with modules, compare with \cite[Construction~25.3.1.1]{SAG}. The animated ring $A \oplus M$ comes with maps from and to $A$ and, as can be checked on underlying anima, the functor 
+\[
+(A,M)\mapsto A\oplus M
+\]
+commutes with %all 
+limits. 
+
+A \emph{derivation} of an animated ring $A$ with values in an animated $A$-module $M$ is a map $A\to A\oplus M$ of animated rings splitting the projection $A\oplus M\to A$. We follow \cite[Definition~25.3.1.4]{SAG} in writing $\mathrm{Der}(A,M)$ for the anima of derivations of $A$ with values in $M$. By \cite[Proposition~25.3.1.5]{SAG} or, rather, by the theorem on corepresentable functors \cite[Proposition~5.5.2.7]{HTT}, there is a universal derivation: for an animated ring $A$, the \emph{cotangent complex} $L_{A/\mathbb Z}$ is the universal animated $A$-module equipped with a derivation of $A$ with values in $L_{A/\mathbb Z}$, that is, such that postcomposition induces an equivalence of anima 
+\[
+\Hom_A(L_{A/\mathbb Z}, M)\cong \mathrm{Der}(A,M) \qx{for all animated $A$-modules $M$.}
+\]%The existence of $L_{A/\mathbb Z}$ is a simple consequence of .
+When $A$ is $0$-truncated, this $L_{A/\mathbb Z}$ agrees with the usual cotangent complex, see \cite{SAG}*{Example~25.3.1.8}.
+
+More generally, one defines the cotangent complex of a map of animated rings $f\colon A'\to A$ by repeating the above definitions verbatim, defining $A'$-derivations of $A$ with values in $M$ as maps of animated $A'$-algebras $A\to A\oplus M$ splitting the projection. By \cite[Remark~25.3.2.4]{SAG}, this agrees with the definition of $L_{A/A'}$ %\cite[%Definition 25.3.2.1]{SAG} 
+as the cofiber of the map 
+\[
+L_{A'/\mathbb Z}\otimes^{\mathbb L}_{A'} A\to L_{A/\mathbb Z},
+\]
+so there is a transitivity triangle
+\[
+L_{A'/\mathbb Z}\otimes^{\mathbb L}_{A'} A\to L_{A/\mathbb Z}\to L_{A/A'}\to (L_{A'/\mathbb Z}\otimes^{\mathbb L}_{A'} A)[1],
+\]
+and for any morphism $A' \ra B'$ of animated rings with $B \ce A \tensor^\bL_{A'} B'$, we have
+\be \label{cot-cx-bc}
+\source{purity-flat-cohomology}
+L_{A/A'} \tensor^\bL_A B \cong L_{B/B'}. 
+\ee
+\epp
+
+
+
+
+\bpp[Square-zero extensions of animated rings] \label{pp:sq-zero}
+\source{purity-flat-cohomology}
+A \emph{square-zero extension} of animated rings is the datum of a map of animated rings $f\colon A'\to A$, an animated $A$-module $M$ (the \emph{ideal} of the square-zero extension), and a pullback square of animated rings
+\be\label{sq-zero}
+\source{purity-flat-cohomology}
+\ba\xymatrix{
+A'\ar[r]^-f\ar[d] & A\ar[d]^-{i}\\
+A\ar[r]^-{s} & A\oplus (M[1]),
+}\ea\ee
+where $i$ is the inclusion and $s$ is a derivation of $A$ with values in $M[1]$ (that is, $s$ is a map  of animated rings that splits the projection $A\oplus (M[1]) \to A$, see \S\ref{pp:cot-cx}). Equivalently, the $\infty$-category of square-zero extensions of animated rings is the $\infty$-category of pairs $(A,M)$ of an animated ring $A$ and an animated $A$-module $M$ equipped with a derivation $s$ of $A$ with values in $M[1]$.
+%map $s\colon A\to A\oplus (M[1])$ of animated rings splitting the projection $A\oplus (M[1]) \to A$. 
+Indeed, this defines $A'$ as the equalizer of 
+\[
+A\rightrightarrows A\oplus (M[1]),
+\]
+where the two maps are $s$ and the inclusion.
+
+To define a commutative diagram as in the definition it suffices to define a map $L_{A/A'}\to M[1]$: indeed, by \S\ref{pp:cot-cx}, this gives a derivation, that is, a map between the $A'$-algebras $A$ and $A\oplus (M[1])$ splitting the projection (even as $A'$-algebras; one forgets that part of the information).
+\epp
+
+
+
+\begin{example}
+\source{purity-flat-cohomology}
+\notready \label{sq-zero-eg}
+\source{purity-flat-cohomology}
+Let us give several examples of square-zero extensions.
+\benuma
+\item Taking any pair $(A,M)$ and $s$ to be the inclusion, by the commutation of $(A,M)\mapsto A\oplus M$ with limits in $M$, we recover the trivial square-zero extension $A' \cong A\oplus M$. %In particular, trivial square-zero extensions are examples of square-zero extensions.
+
+\item \label{sq-0-2}
+\source{purity-flat-cohomology}
+Let $A'\surjects A$ be a square-zero extension of usual rings with 
+\[
+\qq M \ce \Ker(A'\surjects A),
+\]
+which is an $A$-module. To find a map $s\colon A\to A\oplus (M[1])$ that gives $A'\to A$ the structure of a square-zero extension of animated rings, we need to exhibit  a map $L_{A/A'}\to M[1]$, and for this it suffices to recall from \cite{SP}*{Lemmas~\href{https://stacks.math.columbia.edu/tag/08US}{08US} and \href{https://stacks.math.columbia.edu/tag/07BP}{07BP}} that $\tau_{\leq 1} (L_{A/A'}) \cong M[1]$.
+
+\item \label{sq-0-3}
+\source{purity-flat-cohomology}
+Let $A'$ be an $(m+1)$-truncated animated ring, set $A \ce \tau_{\leq m} (A')$, and consider the $\pi_0( A)$-module $M\ce \pi_{m+1}( A')$ as an animated $A$-module. There is a map $s\colon A\to A\oplus (M[m+2])$ that realizes $A'$ as a square-zero extension of $A$: to define the corresponding map $L_{A/A'} \ra M[m + 2]$, we recall from \cite[Proposition~25.3.6.1]{SAG} that $\tau_{\leq m+2} (L_{A/A'})\simeq M[m+2]$.
+\end{enumerate}
+\end{example}
+
+
+
+
+We now apply these ideas to deformation theory, in particular, we derive the crucial  \Cref{cor:deftheorygroup}.
+
+%In the following, we fix a commutative affine group scheme $G$ over a ring $R$, and we shall always assume that $G$ is smooth or that $G$ is finite locally free. We will consider the cohomology of simplicial $R$-algebras $A$ with coefficients in $G$.
+\bpp[Deformation-theoretic setup] \label{def-setup}
+\source{purity-flat-cohomology}
+%Now we wish to apply these ideas to deformation theory. More specifically, 
+For a ring $R$, a commutative, flat, affine $R$-group scheme $G$ is automatically a $\mathbb Z$-module object in the $\infty$-category opposite to that of animated rings over $R$. %equivalent to animated abelian groups, essentially by definition.} 
+It follows that for animated $R$-algebras $A$, the anima $G(A)$ of $A$-valued points has a functorial $\mathbb Z$-module structure, and thus becomes an animated abelian group. We are interested in the behavior of $G(A)$ under square-zero extensions, so we  consider the functor from the $\infty$-category of animated $A$-modules $M$ to that of animated abelian groups defined by
+\[
+M\mapsto T(M) \ce \mathrm{Fib}(G(A\oplus M)\to G(A)).
+\]
+Since $G$ is affine, the functor $A\mapsto G(A)$ commutes with %all
+ limits (as can be checked on underlying anima), so the functor $T$ commutes with %all 
+ limits. %in $M$. 
+ It %is also clearly accessible, it
+ then  follows from \cite[Proposition 5.5.2.7]{HTT} that $T$ it is corepresentable by some $\mathbb Z$-module $L_{G_A/A}$ in animated $A$-modules.
+
+Let $e \colon \Spec(R)\ra G$ be the unit section. If $G$ is of finite presentation, then $e^*(L_{G/R})$ has perfect amplitude $[-1, 0]$ (see \cite{Ill72}*{chapitre~VII, \'{e}quation~(3.1.1.3)}); if $G$ is even smooth, then $e^*(L_{G/R})$ even has perfect amplitude $[0, 0]$. In particular, in these cases the $\mathbb Z$-module structure on $e^*(L_{G/R})$ is the trivial one (obtained from the animated $R$-module structure by restriction of scalars): indeed, a priori $e^*(L_{G/R})$ is a module over the $\bE_\infty$-ring $\mathbb Z\otimes_{\mathbb S}^\bL R$ but, being $1$-truncated, it is a module over $\tau_{\leq 1}(\mathbb Z\otimes_{\mathbb S}^\bL R)\cong R$.
+\epp
+
+\begin{proposition}
+\source{purity-flat-cohomology}
+\notready \label{L-underlie}
+\source{purity-flat-cohomology}
+In \uS\uref{def-setup}, the animated $A$-module that underlies $L_{G_A/A}$ is $e^\ast(  L_{G/R})\otimes_R^{\mathbb L} A$. In particular, the formation of $L_{G_A/A}$ commutes with base change. %, where $e\colon \Spec R\to G$ is the unit section.
+\end{proposition}
+
+\begin{proof} Let $G=\Spec(S)$. Then $T$, as a functor to anima, sends $M$ to the anima of $R$-algebra maps $S\to A\oplus M$ whose projection to $A$ is identified with the composite $S\to R\to A$ where the first map corresponds to the unit section of $G$, in other words, to that of $R$-algebra maps $S\to R\oplus M$ whose first component is the unit section. But this functor is also corepresented by $e^\ast(L_{G/R})\otimes_R^{\mathbb L} A$.
+\end{proof}
+
+
+
+
+
+
+%In particular, one can see that $L_{G_A/A} = L_{G/R}\otimes_R^{\mathbb L} A$ commutes with base change.  By base change, the same identification holds true for $L_{G_A/A}$.
+
+
+
+\bthm\label{cor:deftheorygroup}
+\source{purity-flat-cohomology}
+Let $R$ be a ring, let $G$ be a flat, affine, commutative $R$-group of finite presentation, and let $e$ be the unit section of $G$. For a square-zero extension of animated $R$-algebras $A'\surjects A$ with ideal $M$,
+% be equipped with the structure of a square-zero extension, with ideal $M$, of animated $R$-algebras. 
+ there is the following functorial fiber sequence of animated abelian groups\uc
+\be \label{eqn:def-thy-basic}
+\source{purity-flat-cohomology}
+G(A')\to G(A)\to \Hom_R(e^*(L_{G/R}), M[1]).
+\ee
+\ethm
+
+\begin{proof} %Consider the Cartesian square
+%\[\xymatrix{
+%A'\ar[r]^f\ar[d]_f & A\ar[d]\\
+%A\ar[r] & A\oplus (M[1])
+%}\]
+%of animated rings . 
+Since the functor $A\mapsto G(A)$ commutes with limits, by applying $G(-)$ to the Cartesian square \eqref{sq-zero} that is part of the structure of a square-zero extension gives a Cartesian square
+\[
+\xymatrix{
+G(A')\ar[r]\ar[d] & G(A)\ar[d]^{G(i)}\\
+G(A)\ar[r] & G(A\oplus (M[1]))
+}\]
+of animated abelian groups. The map $G(i)$ is split by the projection, so its cofiber is identified with the fiber of $G(A\oplus (M[1]))\to G(A)$, which is $\Hom_A(L_{G_A/A},M[1])$ by the definition of $L_{G_A/A}$. The conclusion now follows from \Cref{L-underlie}. %base change compatibility of $L_{G/R}$ now implies the result.
+\end{proof}
+
+
+\brem \label{rem-proj-amp}
+\source{purity-flat-cohomology}
+When thinking of animated abelian groups as connective objects of $\cD(\bZ)$, the last term of \eqref{eqn:def-thy-basic} is the connective cover $\tau_{\geq 0}$ of the $R\Hom$. In practice, $G$ is of finite presentation, so $e^*(L_{G/R})$ has perfect Tor-amplitude in $[-1,0]$ (see \S\ref{def-setup}) and the truncation is not necessary. However, in the latter case the fibre sequence \eqref{eqn:def-thy-basic} in animated abelian groups may fail to be a fibre sequence in $\mathcal D(\mathbb Z)$ because the last map may not be surjective on $\pi_0$. On fppf cohomology, this issue disappears by \Cref{prop:defthy} below.
+\erem
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\csub[Flat cohomology of animated rings] \label{sec:fppf-coho-simplicial}
+\source{purity-flat-cohomology}
+
+
+Flat cohomology in the setting of animated rings is at the heart of our approach to exhibiting new properties of flat cohomology of usual rings. We define the former in this section and record its basic features, for instance, hyperdescent and convergence of Postnikov towers in \Cref{prop:smooth-fppf-et-comp} and a key deformation-theoretic cohomology triangle in \Cref{prop:defthy}. We begin by discussing the basic properties of flatness in the setting of animated rings. %; and the comparison with the cohomology of the underlying usual ring in \Cref{cor:nil-nil-deform-cohomology}. 
+%We record some basic cohomological consequences of the deformation-theoretic work of the previous section. After reviewing basic definitions in \S\ref{pp:topologies} and \S\ref{pp:simplicial-coho-def},  we transpose \eqref{eqn:def-thy-basic} to cohomology in  and show in \Cref{prop:smooth-fppf-et-comp} that with suitable coefficients fppf cohomology of animated rings satisfies fppf hyperdescent and behaves well with respect to Postnikov truncations.
+
+\bpp[Flat and \'{e}tale maps of animated rings] \label{pp:flat-modules}
+\source{purity-flat-cohomology}
+An animated module $M$ over an animated ring $A$ is \emph{flat} (resp.,~\emph{faithfully flat}) if $\pi_0(M)$ is a flat (resp.,~faithfully flat) $\pi_0(A)$-module and 
+\[
+\pi_i(A) \otimes_{\pi_0(A)}\pi_0(M) \isomto \pi_i(M) \qxq{for all $i$}
+\]
+or, more succinctly, 
+\[
+\pi_*(A) \otimes_{\pi_0(A)}\pi_0(M) \isomto \pi_*(M),
+\]
+so that the graded $\pi_*(A)$-module $\pi_*(M)$ is flat (resp.,~faithfully flat). If $M$ is flat, then for any animated $A$-module $M'$ we have
+\[
+\Tor^{\pi_*(A)}_i(\pi_*(M'), \pi_*(M)) \cong \begin{cases} \pi_*(M') \tensor_{\pi_0(A)} \pi_0(M)  &\x{for $i = 0$,} \\ 0 &\x{for $i > 0$,} \end{cases}
+\]
+so the spectral sequence \cite{Qui67}*{Chapter~II, Section~6, Theorem~6 (b)} gives 
+\[
+\pi_*(M' \tensor_A^\bL M) \cong \pi_i(M') \tensor_{\pi_0(A)} \pi_0(M).
+\]
+In particular, (resp.,~faithful) flatness is stable under base change along a map $A \ra A'$ of animated~rings.
+\epp
+
+
+
+
+In the animated setting, flatness is insensitive to infinitesimal thickenings as follows.
+
+\blem \label{lem:reduced-flatness}\lab{support-lem}
+\source{purity-flat-cohomology}
+Let $A \ra A'$ be a map of animated rings that induces a surjective map $\pi_0(A) \surjects \pi_0(A')$ with nilpotent kernel. An animated $A$-module $M$ is \up{resp.,~faithfully} flat if and only if so is the animated $A'$-module $A' \tensor^\bL_A M$. In particular, $M \simeq 0$ if and only if $A' \tensor^\bL_A M  \simeq 0$.
+\elem
+
+\bpf
+A flat $M$ vanishes if and only if $\pi_0(M)$ vanishes, which may be tested modulo any nilpotent ideal of $\pi_0(A)$, so the `in particular' follows from the main assertion. Moreover, in the latter the `only if' is clear and for the `if' we may focus on flatness because the support of $\pi_0(M)$ is insensitive to base change to $\pi_0(A')$. For the flatness, we first consider the special case when $A' = \pi_0(A)$, that is, we first claim that $M$ is $A$-flat if and only if $\pi_0(A) \tensor^\bL_A M$ is $\pi_0(A)$-flat.
+
+For this, since base change to $\tau_{\le m}(A)$ does not affect the $\pi_i(M)$ with $i \le m$, we lose no generality by assuming that $A$ is $m$-truncated for some $m > 0$ and, by induction, need to show that $M$ is $A$-flat if $\tau_{\le m - 1}(A) \tensor^\bL_A M$ is $\tau_{\le m -1}(A)$-flat. However, the latter assumption and \S\ref{pp:flat-modules} give
+\[\ba
+\pi_m(A)[m] \tensor^\bL_A M &\cong \pi_m(A)[m] \tensor^\bL_{\tau_{\le m - 1}(A)} (\tau_{\le m - 1}(A)  \tensor^\bL_A M) \\
+&\cong (\pi_m(A) \tensor_{\pi_0(A)} \pi_0(M))[m],
+\ea\]
+and the exact triangle 
+\[
+(\pi_m(A)[m]) \tensor^\bL_A M \ra M \ra \tau_{\le m - 1}(A)  \tensor^\bL_A M
+\]
+ then shows that $M$ is $A$-flat.
+
+The settled case when $A'$ is $0$-truncated allows us to replace $A$ and $A'$ by $\pi_0(A)$ and $\pi_0(A')$, and hence assume that $A$ and $A'$ are $0$-truncated. Moreover, induction on the order of nilpotence of the ideal $I \ce \Ker(A \surjects A')$ allows us to assume that $I^2 = 0$. In this case, \S\ref{pp:flat-modules} gives
+\[
+I \tensor^\bL_A M \cong I \tensor^\bL_{A'} (A' \tensor^\bL_A M) \cong I \tensor_A M,
+\]
+so the exact triangle $I \tensor^\bL_A M \ra M \ra A' \tensor^\bL_A M$ shows that $M$ is $0$-truncated. Thus, since $A' \tensor^\bL_A M$ is $0$-truncated, we have $\Tor_1^A(A', M) \cong 0$, so that $M$ is $A$-flat by the  flatness criterion \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/051C}{051C}}.
+\epf
+
+
+
+
+%\blem 
+%For a map $A \ra A'$ of animated rings and elements $a_1, \dotsc, a_r \in A$, the map 
+%\[
+%A/^\bL(a_1^{n_1}, \dotsc, a_r^{n_r}) \ra A'/^\bL(a_1^{n_1}, \dotsc, a_r^{n_r})
+%\]
+%is \up{resp.,~faithfully} flat for all $n_1, \dotsc, n_r \ge 1$ if and only if it is so for $n_1 = \dotsc = n_r = 1$.
+%\elem
+
+%\bpf
+%. For the `if,' we may focus on flatness because surjectivity after applying $\Spec(\pi_0(-))$ is insensitive to nonreduced structure, and hence may be tested with $n_1 = \dotsc = n_r = 1$. Moreover, we may assume that $r = 1$: indeed, by applying the statement with $A \ra A'$ replaced by 
+%\[
+%A/^\bL(a_1^{n_1}, \dotsc, a_{r - 1}^{n_{r - 1}}) \ra A'/^\bL(a_1^{n_1}, \dotsc, a_{r - 1}^{n_{r - 1}}),
+%\]
+%we would have the right to assume that $n_r = 1$ and then repeat after permuting the $a_i$ to eventually arrange that $n_i = 1$ for all $i = 1, \dotsc, r$. For the rest of the proof we rename $a_1$ and $n_1$ to $a$ and $n$ and we will argue by induction on $n$, so we assume that $n > 1$. Moreover, since $(A/^\bL a^n)/^\bL a \cong (A/^\bL a)/^\bL a^n$ and likewise for $A'$, we may replace $A$ and $A'$ by $A/^\bL a^n$ and $A'/^\bL a^n$, respectively, to reduce to arguing that $A \ra A'$ is flat granted that there is an $a \in \pi_0(A)$ with $a^n = 0$ such that 
+%\[
+%A/^\bL a^{n'} \ra A'/^\bL a^{n'} \qxq{is flat for every} n' = 1, \dotsc, n - 1.
+%\] 
+ %Moreover, by replacing $A \ra A'$ by $A/^\bL a^n \ra A'/^\bL a^n$ we may assume that $a^n = 0$ in $\pi_0(A)$. 
+%The flatness of $A/^\bL a \ra A'/^\bL a$ and the long exact homotopy sequence that results from the exact triangle $\tau_{\ge 1}(A/^\bL a)[1] \tensor^\bL_A A' \ra A'/^\bL a \ra \pi_0(A)/(a) \tensor^\bL_A A'$ show that
+%\[
+%\Tor_1^{A}(\pi_0(A)/(a), \pi_0(A')) \cong 0.
+%\]
+%Thus, since $\pi_0(A')/(a)$ is flat over $\pi_0(A)/(a)$, the flatness criterion \cite{SP}*{\href{https://stacks.math.columbia.edu/tag/051C}{051C}} applies and shows that $\pi_0(A')$ is flat over $\pi_0(A)$. Thus, it remains to show that the map
+%\be \label{eqn:want-pi-iso}
+%\pi_i(A) \tensor_{\pi_0(A)} \pi_0(A') \ra \pi_i(A')
+%\ee
+%is an isomorphism, which we will do by induction on $i$. The case $i = 0$ is clear, so we consider $i > 0$. 
+
+%Namely, replacing $A$ by $\tau_{\le i} (A)$ and $A'$ by $A' \tensor^\bL_A \tau_{\le i}(A)$ does not affect the $\pi_i$ of $A$ and $A'$, so base change to $\tau_{\le i} (A)$ allows us to assume that $A$ is $i$-truncated. By the inductive assumption on $n$, the map $f\colon A/^\bL a^{n - 1} \ra A'/^\bL a^{n - 1}$ is flat, so we obtain $(\pi_j(A'))\langle a^{n - 1}\rangle = 0$ for $j \ge i + 1$. In particular, since $a^n = 0$ and $n > 1$, we get that $A'$ is also $i$-truncated and, by considering $\pi_{i + 1}(f)$, that
+%\be \label{eqn:pi-torsion}
+%(\pi_{i}(A))\langle a^{n - 1} \rangle \tensor_{\pi_0(A)} \pi_0(A') \isomto (\pi_{i}(A'))\langle a^{n - 1}\rangle.
+%\ee
+%By the inductive hypothesis on $i$ and the $\pi_0(A)$-flatness of $\pi_0(A')$, the right vertical map in the following morphism of short exact sequences is an isomorphism:
+%\[
+%\xymatrix@C=8pt{
+%0 \ar[r] & \pi_i(A)/(a^{n - 1}) \tensor_{\pi_0(A)} \pi_0(A') \ar[r] \ar[d] & \pi_i(A/^\bL a^{n -1 }) \tensor_{\pi_0(A)} \pi_0(A') \ar[r] \ar[d] & (\pi_{i - 1}(A))\langle a^{n - 1}\rangle \tensor_{\pi_0(A)} \pi_0(A') \ar[r] \ar[d] & 0   \\
+%0 \ar[r] & \pi_i(A')/(a^{n - 1}) \ar[r] & \pi_i(A'/^\bL a^{n - 1}) \ar[r]  & (\pi_{i - 1}(A'))\langle a^{n - 1}\rangle \ar[r] & 0.
+%}
+%\]
+%Therefore, since the middle vertical map is an isomorphism by the flatness of $f$, the left vertical map is also an isomorphism. In particular, the map \eqref{eqn:want-pi-iso} is surjective and, by also taking into account \eqref{eqn:pi-torsion} and using the snake lemma, also injective, as desired. 
+%\epf
+
+
+
+
+
+
+
+\bpp[Grothendieck topologies on the $\infty$-category of animated rings] \label{pp:topologies}
+\source{purity-flat-cohomology}
+A map $f\colon A\to A'$ of animated rings is \emph{flat} (resp.,~\emph{faithfully flat}) if $A'$ is flat (resp.,~faithfully flat) as an animated $A$-module (see \S\ref{pp:flat-modules}), concretely, if 
+\[
+\pi_0(f)\colon \pi_0(A) \to \pi_0(A')
+\]
+has the same property and  
+\[
+\pi_i(A) \otimes_{\pi_0(A)}\pi_0(A') \isomto \pi_i(A') \q \x{for all $i$}.
+\]
+A map $f$ of animated rings is \emph{\'{e}tale} if it is flat and $\pi_0(f)$ is \'{e}tale. A flat map $f$ is \emph{of finite presentation} (resp.,~\emph{finite}) if so is $\pi_0(f)$. All of these properties are inherited by the map $\pi_*(f)$ of graded rings. Moreover, by \S\ref{pp:flat-modules}, they are stable under composition and base change.
+%so that the map $\pi_*(A) \ra \pi_*(A')$ of graded rings is also flat \resp{faithfully flat; resp.,~\'{e}tale}.  These notions are stable under composition and base change: indeed, if $f$ is flat and $A \ra B$ is any map of animated rings, then 
+%\[
+%\Tor^{\pi_*(A)}_i(\pi_*(A'), \pi_*(B)) \cong \begin{cases} \pi_0(A') \tensor_{\pi_0(A)} \pi_*(B)  &\x{for $i = 0$,} \\ 0 &\x{for $i > 0$,} \end{cases}
+%\]
+%so the spectral sequence \cite{Qui67}*{II.\S6, Thm.~6 (b)} gives $\pi_i(A' \tensor_A^\bL B) \cong \pi_0(A') \tensor_{\pi_0(A)} \pi_i(B)$ for all $i$.  
+
+
+A map $f\colon A\to A'$ of animated rings is an \emph{fpqc cover} (resp.,~\emph{fppf cover}; resp.,~\emph{\'{e}tale cover}) if it is faithfully flat (resp.,~faithfully flat and of finite presentation; resp.,~faithfully flat and \'{e}tale). The stability properties above imply that such are covering maps for a Grothendieck topology on the $\infty$-category of animated rings (see \cite{HTT}*{Definition 6.2.2.1, Remark 6.2.2.3}). %, so give rise to the (big) \emph{fpqc site} (resp.,~\emph{fppf site}; resp.,~\emph{\'{e}tale site}). 
+Of course, if $A$ is $0$-truncated, then so is $A'$, to the effect that one does not obtain new covers of $0$-truncated rings.
+\epp
+
+
+
+%As we record in \Cref{rem:no-new-etale}, 
+The \'{e}tale site of an animated ring is insensitive to derived structure as follows. %This uses the following derived variant of the  Nakayama lemma. 
+
+
+%\blem \lab{support-lem}
+%For an animated ring $A$, an animated $A$-module $M$, and a nilpotent ideal $J \subset \pi_0(A)$, 
+%\[
+%M \tensor^\bL_A (\pi_0(A)/J) \simeq 0 \qxq{if and only if} M \simeq 0.
+%\]
+%\elem
+
+%\bpf
+%Since $\pi_0(A)$ has a finite filtration with $(\pi_0(A)/J)$-module subquotients, $M \tensor^\bL_A (\pi_0(A)/J) \simeq 0$ if and only if $M \tensor^\bL_A \pi_0(A) \simeq 0$. Since each $\pi_n(A)$ is a $\pi_0(A)$-module, induction on $n$ shows that the latter happens if and only if $M \tensor^\bL_A \tau_{\le n}(A) \simeq 0$ for all $n$, so that $\pi_n(M) = 0$ for all $n$ and $M \simeq 0$. 
+%\epf
+
+
+
+
+\bprop \label{rem:no-new-etale}
+\source{purity-flat-cohomology}
+For an animated ring $A$, the $\pi_0(-)$ \up{or base change} functor from \'etale \up{resp.,~finite \'{e}tale} $A$-algebras to \'etale \up{resp.,~finite \'{e}tale} $\pi_0(A)$-algebras is an equivalence of $\infty$-categories. 
+\eprop
+
+\bpf 
+The two functors agree because $A'\otimes_A^{\mathbb L} \pi_0(A) \cong \pi_0(A')$ for any $A$-\'{e}tale (or even $A$-flat) $A'$ (see \S\ref{pp:topologies}). In particular, by \eqref{cot-cx-bc} and \Cref{support-lem}, we have $L_{A'/A}\cong0$ for any $A$-\'{e}tale $A'$. 
+%Let $B$ be an \'etale $A$-algebra. Then $\pi_0(B)$ is an \'etale $\pi_0(A)$-algebra, and . By , %the base change compatibility of the cotangent complex, compare with \cite[%Remark 
+%25.3.2.4]{SAG}, we have
+%\[
+%L_{B/A}\otimes^{\mathbb L}_A \pi_0(A)\cong L_{\pi_0(B)/\pi_0(A)}\cong0
+%\]
+%as the cotangent complex of an \'etale map of usual rings vanishes. This implies that $L_{B/A}\cong0$, as the functor $-\otimes^{\mathbb L}_A \pi_0(A)$ is conservative on animated $A$-modules, for example by noting that if $M\otimes^{\mathbb L}_A \pi_0 (A)\cong0$, then by induction $M\otimes^{\mathbb L}_A \tau_{\leq n} (A)\cong0$ for all $n$, which implies $M\cong0$ by passage to the limit over $n$. 
+
+To prove the full faithfulness, it suffices to argue that for any $A$-\'{e}tale $A'$ and any animated $A$-algebra $B$, the following map is an equivalence of anima:
+\[
+\Hom_A(A', B)\to \Hom_A(A',\pi_0(B))
+\]
+%is an equivalence of anima for any \'etale $A$-algebra $B'$; this will actually hold for any animated $A$-algebra $B'$. 
+Since $B \isomto R\lim_n(\tau_{\leq n} (B))$, by induction it suffices to show that 
+\[
+\Hom_A(A',\tau_{\leq n} (B))\to \Hom_A(A',\tau_{\leq n-1} (B)) \qx{is an equivalence of anima.}
+\]
+Since $\tau_{\leq n} (B)\to \tau_{\leq n-1} (B)$ admits the structure of a square-zero extension (see \Cref{sq-zero-eg}~\ref{sq-0-3}) and $\Hom_A(A',-)$ commutes with %all 
+limits, it then suffices to argue that for any trivial square-zero extension $C\oplus M$ of an animated $A$-algebra~$C$,
+\[
+\Hom_A(A',C)\to \Hom_A(A', C\oplus M) \qx{is an equivalence of anima.}
+\]
+But this map has an evident section, whose fibers are given by maps $L_{A'/A}\to M$ by the definition of the cotangent complex. Since $L_{A'/A}\cong 0$, the claim follows.
+
+For the remaining essential surjectivity, it is enough to handle the \'etale case (finiteness can be checked on $\pi_0$). Ideally, one should prove the result by deformation theory, using the vanishing of the cotangent complex, but %As we do not know a reference offhand, here is 
+we give an ad hoc argument. Namely, Zariski localizations can be lifted (for $f\in A$, one can form $A[\frac 1f]$ by base change from the universal case $\mathbb Z[f]\to \mathbb Z[f, \frac 1f]$), and \'etale algebras can be constructed Zariski locally. However, Zariski locally an \'etale map is standard \'etale, whose explicit description gives a lift to $A$ by lifting the defining elements from $\pi_0(A)$ to $A$.
+\epf
+
+
+
+
+
+\bpp[Cohomology over an animated ring] \label{pp:simplicial-coho-def}
+\source{purity-flat-cohomology}
+For an animated ring $A$, we define the $\infty$-topoi of \'etale, fppf, or fpqc sheaves  over $A$ (the latter for an implicit sufficiently large cardinal bound $\kappa$ as in \S\ref{conv}) by considering the corresponding $\infty$-category of presheaves, that is, of functors from animated $A$-algebras \'etale/fppf/flat over $A$ to anima, and taking the full subcategory of those functors that satisfy the sheaf condition for the respective notion of covers. The inclusion into all presheaves has a left adjoint, the \emph{sheafification}. The same applies to (pre)sheaves with values in any $\infty$-category, so for a presheaf $F$ with values in $\mathcal D(\mathbb Z)$ we let 
+\[
+R\Gamma_\et(A, F) \in \mathcal D(\mathbb Z) \qxq{and} R\Gamma_\fppf(A,F)\in \mathcal D(\mathbb Z)
+\]
+denote the values at $A$ of the \'{e}tale and the fppf sheafifications of $F$ and write $H^i_\et(A, F)$ and $H^i_\fppf(A, F)$ for the resulting cohomology groups. Since a $0$-truncated $A$ does not attain new \'{e}tale or flat covers in the animated setting (see \S\ref{pp:topologies}), for $0$-truncated $A$ this definition reproduces the classical \'{e}tale and fppf cohomology, respectively. In this article, we will get by with cohomology in the affine setting, but for any open $U \subset \Spec(\pi_0(A))$ we also set
+\[
+\tst R\Gamma_\fppf(U_A, F) \ce R\lim_{A'} (R\Gamma_\fppf(A', F))
+\]
+ where $A'$ ranges over those animated $A$-algebras fppf over $A$ for which the map
+ \[
+ \Spec(\pi_0(A')) \ra \Spec(\pi_0(A))
+ \]
+ factors over $U$; the subscript in $U_A$ reminds us that we are not merely forming the usual flat cohomology of the scheme $U$. We often abbreviate $R\Gamma_\fppf$ and $H^i_\fppf$ to $R\Gamma$ and $H^i$, respectively.
+ 
+% (the definition of $R\Gamma_\et(U_A, F)$ is analogous with 
+ 
+% (and analogously in the case of \'{e}tale cohomology)
+
+It is useful to keep in mind that in this setting cohomology need not vanish in negative degrees: for instance, if $A$ is an animated algebra over a commutative ring $R$ and $G$ is a commutative, affine $R$-group,\footnote{Throughout this article we limit ourselves to group schemes defined over a base classical ring $R$ because this suffices for our applications and is expedient. It would be more natural to allow groups $G$ defined over $A$ itself, but it seems unclear how to correctly define commutative finite flat group schemes over animated rings (in particular, so as to admit Cartier duals and B\'{e}gueri resolutions \eqref{Begueri-0}). We expect that with the correct definition, all such commutative finite flat group schemes may arise via base change from classical rings.} then, by fpqc descent (see, for instance, \cite{SAG}*{Remark~D.6.3.6}), %we have
+\be \label{coho-neg-deg}
+\source{purity-flat-cohomology}
+G(A) \isomto \tau^{\le 0}(R\Gamma_\fppf(A, G)).
+\ee
+We recall that a sheaf $F$ is a hypersheaf if it satisfies the sheaf condition with respect to hypercovers. This is automatic when $F$ is $n$-truncated for some $n$; for example, if $F$ is a sheaf of coconnective complexes (as in the usual setting of cohomology). Another important example is that quasi-coherent sheaves are hypersheaves in the \'etale, fppf, and fpqc sites: the quasi-coherent sheaf defined by some animated module $M$ is the limit of the sheaves defined by its truncations $\tau_{\leq n}(M)$, all of which are truncated, so the claim follows as limits of hypersheaves are hypersheaves (see also \cite{SAG}*{Corollary~D.6.3.4}).
+\epp 
+
+
+
+Despite possible negative degree cohomology, we have the following hyperdescent and Postnikov convergence result; it also extends Grothendieck's fppf-\'{e}tale comparison \cite{Gro68c}*{th\'{e}or\`{e}me~11.7} to animated~rings.
+
+\bthm \label{prop:smooth-fppf-et-comp} 
+\source{purity-flat-cohomology}
+Let $R$ be a ring and let $G$ be an affine, commutative $R$-group that is either smooth or finite locally free. The functor $A\mapsto R\Gamma_\fppf(A,G)$ satisfies fppf hyperdescent on animated $R$-algebras $A$ and
+\be \label{eqn:fppf-hyperdescent}
+\source{purity-flat-cohomology}
+\tst R\Gamma_\fppf(A,G)\isomto R\lim_n (R\Gamma_\fppf(\tau_{\leq n} (A),G)).
+\ee
+If $G$ is smooth, then even the functor $A\mapsto R\Gamma_\et(A,G)$ satisfies fppf hyperdescent and, in particular,
+\be \label{et-fppf-agree}
+\source{purity-flat-cohomology}
+R\Gamma_\et(A,G) \isomto R\Gamma_\fppf(A,G).
+\ee
+\ethm
+
+\begin{proof} 
+For a finite, locally free $G$, the B\'{e}gueri resolution
+\be \label{Begueri}
+\source{purity-flat-cohomology}
+0\to G\to \mathrm{Res}_{G^\ast/R} (\mathbb G_m) \to Q\to 0
+\ee
+is exact on the fppf site of any animated $R$-algebra $A$ because the map $\mathrm{Res}_{G^\ast/R} (\mathbb G_m) \to Q$ is faithfully flat and finitely presented. Thus, it reduces us to the case when $G$ is smooth. Moreover, since $G$ is affine, for any $A$ we have the Postnikov tower equivalence
+\be \label{eqn:G-affine-Postnikov}
+\source{purity-flat-cohomology}
+\tst G(A)\isomto R\lim_n (G(\tau_{\leq n} (A))).
+\ee
+By induction on $n$ and \Cref{cor:deftheorygroup}, the fiber $G(\tau_{\leq n}(A))^0$ of the map
+\[
+G(\tau_{\leq n}(A))\to G(\pi_0(A))
+\]
+satisfies fppf hyperdescent (see \S\ref{pp:simplicial-coho-def}). %compare, for instance, with \cite{SAG}*{D.6.3.4}
+ By \eqref{eqn:G-affine-Postnikov}, we have the identification
+\be \label{eqn:G0-Postnikov}
+\source{purity-flat-cohomology}
+\tst G(A)^0 \cong R\lim_n \p{G(\tau_{\leq n}(A))^0}, 
+\ee
+where $G(A)^0$ is the fiber of $G(A)\to G(\pi_0(A))$. Thus, the functor $A \mapsto G(A)^0$ satisfies fppf hyperdescent. By then sheafifying the fiber sequence
+\[
+G(A)^0 \to G(A)\to G(\pi_0(A))
+\]
+for the \'etale topology and using \Cref{rem:no-new-etale}, we obtain a fiber sequence 
+\be \label{eqn:after-fppf-sheafification}
+\source{purity-flat-cohomology}
+G(A)^0 \to R\Gamma_\et(A,G)\to R\Gamma_\et(\pi_0(A),G)
+\ee
+(see \S\ref{pp:simplicial-coho-def}). The base change of an fppf hypercover of $A$ along the map $A \ra \pi_0(A)$ is an fppf hypercover of $\pi_0(A)$ obtained by forming $\pi_0(-)$ levelwise, so the functor $A\mapsto R\Gamma_\et(\pi_0(A), G)$ satisfies fppf hyperdescent by Grothendieck's \cite{Gro68c}*{th\'{e}or\`{e}me~11.7}. Thus, the outer terms of \eqref{eqn:after-fppf-sheafification} satisfy fppf hyperdescent in $A$, and hence so does the middle term $A \mapsto R\Gamma_\fppf(A, G)$. By combining \eqref{eqn:G0-Postnikov} with \eqref{eqn:after-fppf-sheafification} applied with $\tau_{\le n}(A)$ in place of $A$, we obtain \eqref{eqn:fppf-hyperdescent}.
+\end{proof}
+
+
+
+We will use the following mild strengthening of the Postnikov completeness of $A\mapsto R\Gamma(A, G)$. 
+
+\bcor \label{cor:fppf-hyperdescent}
+\source{purity-flat-cohomology}
+Let $R$ be a ring, let $G$ be a commutative affine $R$-group that is either smooth or finite locally free, and let $A$ be an animated $R$-algebra. For a tower of maps $\dotsc \ra A_{n + 1} \ra A_n \ra \dotsc \ra A_0$ of animated $A$-algebras such that $\tau_{\le n}(A) \isomto \tau_{\le n}(A_n)$ for all $n$, we have
+\be \label{eqn:similar-to-Postnikov-tower}
+\source{purity-flat-cohomology}
+\tst R\Gamma_\fppf(A,G)\isomto R\lim_n (R\Gamma_\fppf(A_n,G)).
+\ee
+\ecor
+
+\bpf
+We consider the inverse limit diagram $\{ R\Gamma_\fppf(\tau_{\le m}(A_n), G) \}_{m,\, n \ge 0}$. If one first forms $R\lim$ in $m$ and afterwards in $n$, then, by \eqref{eqn:fppf-hyperdescent} with $A_n$ in place of $A$, one obtains the right side of \eqref{eqn:similar-to-Postnikov-tower}. If, on the other hand, one first forms $R\lim$ in $n$ and afterwards in $m$, then, by the assumption on the $A_n$, one obtains $R\lim_m(R\Gamma(\tau_{\le m}(A), G))$, which, by \eqref{eqn:fppf-hyperdescent} again, is $R\Gamma(A, G)$. 
+\epf
+
+
+
+The following sheafification of the deformation-theoretic \Cref{cor:deftheorygroup} plays a central role below.
+
+\bthm \label{prop:defthy}
+\source{purity-flat-cohomology}
+Let $R$ be a ring, let $G$ be a commutative, affine $R$-group that is either smooth or finite locally free, and let $e$ be the unit section of $G$. For a square-zero extension of animated $R$-algebras $A'\surjects A$ with ideal $M$, there is the following functorial fiber sequence in $\mathcal D(\mathbb Z)$\ucolon
+\[
+R\Gamma_\fppf(A',G)\to R\Gamma_\fppf(A,G)\to R\Hom_R(e^*(L_{G/R}), M[1]).
+\]
+\ethm
+
+\begin{proof} 
+For smooth $G$, this follows from \Cref{prop:smooth-fppf-et-comp} and \Cref{cor:deftheorygroup} by \'etale sheafification (the right-most term is $1$-connective, so the fibre sequence in animated abelian groups gives a fibre sequence in $\mathcal D(\mathbb Z)$). For finite, locally free $G$, as in the proof of \Cref{prop:smooth-fppf-et-comp}, the B\'{e}gueri resolution \eqref{Begueri}
+%\[%be \label{Begueri}
+%0\to G\to \mathrm{Res}_{G^\ast/R} (\mathbb G_m) \to Q\to 0
+%\]%ee
+reduces us to the smooth case.
+%is exact on the fppf site of any animated $R$-algebra $A$ because any $G$-torsor over $A$ is representable by an fppf $A$-algebra. This implies that the sheafification on the fppf site of $A$ of the fiber sequence in \Cref{cor:deftheorygroup} gives the desired fiber sequence.
+\end{proof}
+
+
+
+The following description of the positive degree flat cohomology of animated rings with suitable coefficients complements \eqref{coho-neg-deg}, which gave a description of the negative degree cohomology.
+
+%For certain purposes the following corollary eliminates animated aspects from consideration.
+
+\bcor \label{cor:nil-nil-deform-cohomology}
+\source{purity-flat-cohomology}
+Let $R$ be a ring and let $G$ be a smooth \up{resp.,~finite, locally free}, affine, commutative $R$-group. For an animated $R$-algebra $A$, the map
+\[
+\tst H^i_\fppf(A,G) \ra H^i_\fppf(\pi_0(A),G)  
+\]
+is surjective for all $i$ and is bijective for $i\ge 0$ \up{resp.,~for $i \ge 1$}.
+\ecor
+
+\bpf
+The finite locally free case reduces to the smooth one via the B\'{e}gueri sequence \eqref{Begueri}. In the smooth case, $e^*(L_{G/R})$ in \Cref{prop:defthy} is a projective module concentrated in degree $0$, so %we obtain that for each $n \ge 1$ the map
+\[
+H^i_\fppf(\tau_{\le n}(A), G) \ra H^i_\fppf(\tau_{\le n - 1}(A), G) \qxq{is} \begin{cases} \xq{surjective for} i \ge -1, \\ \xq{bijective for} \, \, \, i \ge 0. \end{cases}
+\]
+The Postnikov convergence \eqref{eqn:fppf-hyperdescent} then gives our claim.
+\epf
+
+
+
+Deformation theory has the following consequence for the insensitivity to nonreduced structure. 
+
+\bcor \label{no-nil-feelings}
+\source{purity-flat-cohomology}
+For a ring $R$, an ideal $I \subset R$ whose elements are nilpotent, and a smooth \resp{finite, locally free}, affine, commutative $R$-group $G$, the map
+\[
+H^i_\fppf(R, G) \ra H^i_\fppf(R/I, G) \ \ \x{is}\ \ \begin{cases} \xq{surjective for} i\ge 0 \qx{\resp{for $\q i \ge 1$}}, \\   \xq{bijective for} \ \  i\ge 1 \qx{\resp{for $\q i \ge 2$}.} \end{cases}
+\]
+\ecor
+
+
+For finite, locally free $G$, we will extend this result to general Henselian pairs in \Cref{inv-Hens-pair}. For smooth $G$, the same statement does not hold for arbitrary Henselian pairs, but see \cite{BC19}*{Proposition~2.1.4, Theorem 2.1.6, Remarks 2.1.7 and 2.1.8} for positive results in low cohomological degrees and counterexamples to general statements, as well as \cite{SGA3IIInew}*{expos\'{e}~XXIV, lemme~8.1.8, remarque~8.1.9} for positive results for \v{C}ech cohomology.
+
+\bpf
+The ring $R$ is a filtered direct union of its finite type $\bZ$-subalgebras $R'$ and $R/I$ is a similar direct union of the $R'/(R' \cap I)$. Thus, limit formalism reduces us to the case when $R$ is Noetherian, so that $I$ is nilpotent and, arguing by induction, even square-zero. In this case, \Cref{prop:defthy} (with \Cref{sq-zero-eg}~\ref{sq-0-2}) supplies the long exact sequence
+\[
+\dotsc \ra H^{i}(R\Hom_R(e^*(L_{G/R}), I)) \ra H^i(R, G) \ra H^i(R/I, G) \ra% H^{i + 1}(R\Hom_R(e^*(L_{G/R}), I)) \ra 
+\dotsc
+\]
+To get a desired vanishing of the flanking terms it now remains to recall from \S\ref{def-setup} that in the smooth \resp{finite, locally free} case, $e^*(L_{G/R})$ has perfect amplitude $[0, 0]$ \resp{$[-1, 0]$}.
+\epf
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\csub[The $p$-adic continuity formula for flat cohomology] \label{section:continuity-formula}
+\source{purity-flat-cohomology}
+
+
+
+The ultimate driving force of our analysis of new properties of fppf cohomology is the positive characteristic case of the key formula that we established in \Cref{KT-input}. To deduce mixed characteristic phenomena from this positive characteristic statement, we rely on the $p$-adic continuity formula that we exhibit in \Cref{thm:padiclimit} below (see also \Cref{adic-continuity} for a subsequent extension to adically complete rings). This formula has the flavor of a flat cohomology counterpart of Gabber's affine analog of proper base change for \'{e}tale cohomology \cite{Gab94a}*{Theorem~1} and is new already for $p$-adically complete, $p$-torsion free rings. The proof of this case does not require animated inputs, but for the sake of maximal applicability we directly treat the general case. The technique is to 
+%The continuity formula  \eqref{eqn:continuity-formula}, which is the first main goal of this section, will be argued by
+ reduce to rings that have no nonsplit fppf covers via the following lemma.
+
+
+
+\blem \label{lem:large-cover}
+\source{purity-flat-cohomology}
+For each ring $R$, there is an ind-fppf $R$-algebra $\wt{R}$ that has no nonsplit fppf covers. For each ideal $I \subset R$ contained in every maximal ideal, there is an $I\wt{R}$-Henselian such $\wt{R}$. %that is  %along $I\wt{R}$. 
+\elem
+
+\bpf
+The first claim is the $I = 0$ case of the second. Fix a set $\sS$ of representatives for isomorphism classes of faithfully flat, finitely presented $R$-algebras $R'$, and consider the ind-fppf $R$-algebra
+\[
+\tst R_1 \ce \bigotimes_{R' \in \sS} R' \qxq{and its $I$-Henselization} R_1^h.
+\]
+By iterating this construction (with $R_1^h$ in place of $R$ and so on), we obtain a tower of ind-fppf $R$-algebras $R_1 \ra R_1^h \ra  R_2 \ra R_2^h \ra \dotsc$ that are faithfully flat (see \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/00HP}{00HP}}%\cite{EGAIV2}*{2.3.4}
+). By construction,
+\[
+\tst \wt{R} \ce \varinjlim_{n > 0} R_n \cong \varinjlim_{n > 0} R^h_n
+\] 
+is $I\wt{R}$-Henselian. By a limit argument, every fppf cover $\wt{f} \colon \wt{R} \ra \wt{S}$ descends to an fppf cover $f\colon R_n \ra S$ for some $n$. There is an $R_n$-morphism $S\ra R_{n + 1} \ra \wt{R}$, so the cover $\wt{f}$ has a section.
+%and hence, by base change, we obtain a sought $\wt{R}$-section $\wt{S} \ra \wt{R}$. 
+\epf
+
+
+\brem
+\Cref{lem:large-cover} continues to hold with an analogous proof if in its formulation ind-fppf/fppf is replaced by ind-\'{e}tale/\'{e}tale, or by ind-smooth/smooth, or by ind-syntomic/syntomic.
+\erem
+
+
+
+%conclusion.
+
+%same holds for merely derived $I$-adically complete rings.
+
+
+
+
+
+
+
+
+
+
+
+
+
+%The deformation-theoretic work of \S\S\ref{sec:defthy}--\ref{sec:fppf-coho-simplicial} allows us to show in  that the fppf cohomology of a $p$-adically complete ring $A$ with coefficients in a commutative, finite, locally free $A$-group scheme of $p$-power order is a (derived) inverse limit of such cohomologies of the (derived) reductions $A/^\bL p^n$. , although  is already new (and does . The result itself .
+
+
+%Here, if $A$ is an animated ring and $a\in A$, corresponding to a map $\mathbb Z[X]\to A$, $X\mapsto a$, of animated rings, we set $A/^\bL a := A\otimes^\bL_{\mathbb Z[X]} \mathbb Z$, where the map $\mathbb Z[X]\to \mathbb Z$ sends $X$ to $0$.
+Another input to the $p$-adic continuity formula is the following lemma of Beauville--Laszlo type.
+
+\blem \label{lem:derived-BL-key}
+\source{purity-flat-cohomology}
+For a map $A \ra A'$ of animated rings and an $a\in A$ such that $A/^\bL a \isomto A'/^\bL a$, we have
+\[
+\tst %\x{the map} \q A \ra A' \times A[\f 1a] \qxq{is an arc cover and} 
+A \isomto A' \times_{A'[\f{1}{a}]} A[\f{1}{a}] \q\qx{\up{even in the derived $\infty$-category $\cD(\bZ)$}.}
+\]
+\elem
+
+\bpf
+%For the notation $/^\bL$, see \eqref{derived-quot}. 
+%Induction on $m$ gives $A/^\bL a^m \isomto A'/^\bL a^m $ for $m \ge 1$, % Here we use that in a stable $\infty$-category, for any composable maps $f$, $g$, there is a functorial triangle $\Cone(f) \ra \Cone(g \circ f) \ra \Cone(g)$ (see the proof of 1.1.2.14 in "Higher Algebra"); then we take $f = s^{m - 1}$ and $g = s$ and use the five lemma as usual.
+%so the map $A\ra A'$ induces an isomorphism on derived $a$-adic completions. %Let $A\ra V$ be a map to a valuation ring of rank $1$. If the image of $a$ is a unit in $V$, then this map factors through some $A[\f 1a] \ra V$. Otherwise, the derived $a$-adic completion $\wh{V}$ is a rank $1$ valuation ring extending $V$ and $A\ra \wh{V}$ factors through $A' \ra \wh{A} \ra \wh{V}$. Thus, $A\ra A' \times A[\f 1a]$ is indeed an arc cover. 
+%Consider the fiber $M$ of the displayed map.
+%\[
+%\tst \x{the fiber} \q K \qxq{of the map} A\ra A' \times_{A'[\f{1}{a}]} A[\f{1}{a}].
+%\]
+%Since $A'  is identified with
+Consider the fiber $M$ of the morphism 
+\[
+\tst A \ra \mathrm{Fib}\p{A' \oplus A[\f{1}{a}] \ra A'[\f{1}{a}]},
+\]
+where the second arrow is the difference map. We have $M[\f{1}{a}] \cong 0$ and $M/^\bL a \cong 0$; the former shows that the homotopy groups of $M$ are $a$-power torsion, and the latter that multiplication by $a$ is an isomorphism on them. In conclusion, $M \cong 0$, so also $A \isomto A'\times_{A'[\f{1}{a}]} A[\f{1}{a}]$. 
+\epf
+
+
+
+
+The final input is the following lemma that will be useful for us on multiple occasions.
+
+\blem \label{lem:sq-0-trick}
+\source{purity-flat-cohomology}
+For an animated ring $A$, an element $a \in A$, and the derived $a$-adic completion $\wh{A} \ce R\lim_{n > 0}(A/^\bL a^n)$, the ring $\pi_0(\wh{A})$ is a square-zero extension of the $a$-adic completion of $\pi_0(A)$. 
+\elem
+
+\bpf
+To analyze $\pi_0(\wh{A})$ we use the exact sequence 
+\[
+\tst 0 \ra \varprojlim_{n > 0}^1 (\pi_1(A/^\bL a^n)) \ra \pi_0(\wh{A}) \ra \varprojlim_{n > 0} (\pi_0(A)/(a^n)) \ra 0.
+\]
+It suffices to note that, since $\varprojlim_{n > 0}^2 \cong 0$, the ideal 
+\[
+\tst \varprojlim_{n > 0}^1 (\pi_1(A/^\bL a^n)) \subset \pi_0(\wh{A})
+\]
+is square-zero because the limit filtration on 
+\[
+\tst \pi_0(\wh{A}) \cong \pi_0(R\lim_{n > 0}(A/^\bL a^n))
+\]
+ is multiplicative.
+\epf
+
+
+
+
+
+\begin{theorem}
+\source{purity-flat-cohomology}
+\notready\label{thm:padiclimit} 
+\source{purity-flat-cohomology}
+For a prime $p$, a ring $R$, a commutative, finite, locally free $R$-group $G$ of $p$-power order, and an animated $R$-algebra $A$ such that $\pi_0(A)$ is $p$-Henselian, 
+\be \label{eqn:continuity-formula}
+\source{purity-flat-cohomology}
+\tst R\Gamma(A,G)\isomto R\lim_n (R\Gamma(A/^\bL p^n,G)).
+\ee
+%\up{where $A/^\bL p^n$ means the derived tensor product $A\otimes^\bL_{\mathbb Z} \mathbb Z/p^n\mathbb Z$}.
+\end{theorem}
+
+
+\begin{proof}
+For an initial reduction to $0$-truncated $A$, we begin by considering the system
+\[
+\{ R\Gamma(\tau_{\le m}(A)/^\bL p^n, G) \}_{m,\, n \ge 0}.
+\]
+The map $A/^\bL p^n \ra \tau_{\le m}(A)/^\bL p^n$ induces an isomorphism on truncations $\tau_{\le m}$, so \eqref{eqn:similar-to-Postnikov-tower} shows that forming $R\lim_m$ followed by $R\lim_n$ gives the right side of \eqref{eqn:continuity-formula}. On the other hand, by \eqref{eqn:fppf-hyperdescent}, forming $R\lim_n$ followed by $R\lim_m$ gives the left side granted that we know \eqref{eqn:continuity-formula} for truncated $A$. To reduce from the latter to $0$-truncated $A$ by induction on the truncation level, we use \Cref{prop:defthy}: for any square-zero extension $A'\to A$ with kernel $M$ we have
+\be \label{def-triangle-eq}
+\source{purity-flat-cohomology}
+R\Gamma(A', G) \ra R\Gamma(A, G) \ra R\Hom_R(e^*(L_{G/R}), M[1]),
+\ee
+so it suffices to argue that $R\Hom_R(e^*(L_{G/R}), M[1])$ is insensitive to replacing $M$ by its derived $p$-adic completion $\wh{M}$. For this, it suffices to observe that the cofiber of $M\to \wh{M}$ is a $\mathbb Z[\f 1p]$-module, whereas $e^*(L_{G/R})$ vanishes after inverting $p$. In conclusion, without losing generality, $A$ is $0$-truncated.
+
+
+\bcl \label{claim:descent}
+\source{purity-flat-cohomology}
+On $A$-algebras, the functor $A' \mapsto R\Gamma((A')^h_p, G)$ (where $(-)^h_p$ is the $p$-Henselization) 
+satisfies hyperdescent in the topology whose covers are the filtered direct limits of flat, finitely presented maps that are faithfully flat modulo $p$.
+\ecl
+
+\bpf
+Any filtered direct limit of flat, finitely presented maps that is faithfully flat modulo $p$ is a $p$-complete arc cover (see \S\ref{pp:arc-topology}~\ref{arc-pi-fflat}). Thus, by \Cref{BM-hens-comp}, the functor $A' \mapsto R\Gamma((A')^h_p[\f 1p], G)$ satisfies the desired hyperdescent. The cohomology with supports sequence then reduces us to arguing the same for the functor 
+\be \label{elt-excision}
+\source{purity-flat-cohomology}
+A' \mapsto R\Gamma_{\{ p = 0\}}((A')^h_p, G), \ \ \x{which is simply}\ \ A' \mapsto R\Gamma_{\{ p = 0\}}(A', G)
+\ee
+thanks to excision (for this last identification, see \cite{Mil80}*{Chapter~III, Proposition~1.27}\footnote{\label{foot:Milne}The proof of \cite{Mil80}*{Chapter~III, Proposition~1.27}, written for \'{e}tale cohomology, also works for flat cohomology: after shifting degrees as there, one reduces to the case $i = 0$, which is a claim about the restriction of an fppf sheaf to the small \'{e}tale site.}). Moreover, since this functor takes   coconnective values, descent (as opposed to hyperdescent) would suffice. The functor %$R\Gamma_{\{p = 0\}}(-, G)$ 
+\source{purity-flat-cohomology}
+also vanishes on $A[\f 1p]$-algebras, so the descent assertion is insensitive to replacing the cover $A' \ra A''$ by $A' \ra A'' \times A'[\f 1p]$. Thus, we may assume that our cover is faithfully flat. By limit arguments, both functors $A' \mapsto R\Gamma(A', G)$ and $A' \mapsto R\Gamma(A'[\f 1p], G)$ satisfy  descent with respect to ind-fppf maps. Consequently, so does the functor $A' \mapsto R\Gamma_{\{ p = 0\}}(A', G)$, and the claim follows.
+\epf
+
+%For a simplicial ind-fppf hypercover $S\to S^\bullet$, let $\wt{S}^\bullet$ be the levelwise $p$-Henselization of $S^\bullet$ along $(p)$. Each $S^i \ra \wt{S}^i$ is an isomorphism modulo powers of $p$ and also on $p$-power torsion, so we have a levelwise identification $S^\bullet/p^n \isomto \wt{S}^\bullet/p^n$ (derived quotients) of simplicial hypercovers of $S/p^n$. %(by simplicial rings $S^i/p^n \isomto \wt{S}^i/p^n$). 
+%Consequently, by \Cref{cor:fppf-hyperdescent}, the right side of \eqref{eqn:continuity-formula} satisfies 
+%\[
+%\tst R\lim_n (R\Gamma(S/p^n,G)) \isomto R\lim_n(R\lim_i(R\Gamma(\wt{S}^i/p^n,G))) \cong R\lim_i(R\lim_n(R\Gamma(\wt{S}^i/p^n,G))).
+%\]
+%To derive an analogous descent formula for the left side of \eqref{eqn:continuity-formula}, we will use the fiber sequence
+%\[
+%R\Gamma_{\{p=0\}}(S,G)\to R\Gamma(S,G)\to R\Gamma(S[\tfrac 1p],G).
+%\]
+%By the $p$-complete arc hyperdescent of \Cref{thm:arcdescent} (with \eqref{eqn:decomplete-id}), %since over $S[\f{1}{p}]$ our $G$ is \'{e}tale,
+%\[
+%\tst R\Gamma(S[\tfrac 1p],G) \isomto R\lim_i(R\Gamma(\wt{S}^i[\tfrac 1p],G)). 
+%\]
+%In addition, by an elementary case of excision 
+%(see
+%,
+%\[
+%\tst R\Gamma_{\{p=0\}}(S^i,G) \cong R\Gamma_{\{p=0\}}(\wt{S}^i,G), \qxq{so also} R\Gamma_{\{p=0\}}(S,G) \isomto R\lim_i(R\Gamma_{\{p=0\}}(\wt{S}^i,G)).
+%\]
+%By combining the preceding equations, we obtain the promised analogue for the left side of \eqref{eqn:continuity-formula}:
+%\[
+%\tst R\Gamma(S,G)\isomto R\lim_i (R\Gamma(\wt{S}^i,G)).
+%\]
+%Thus, it suffices to prove \eqref{eqn:continuity-formula} with $\wt{S}^i$ in place of $S$. 
+
+
+By \Cref{lem:large-cover}, we may build a hypercover $A^\bullet$ of $A$ in the topology whose covers are the filtered direct limits of flat, finitely presented maps that are faithfully flat modulo $p$ in such a way that each $A^i$ is $p$-Henselian and admits no nonsplit fppf covers. By \Cref{claim:descent}, the left side of \eqref{eqn:continuity-formula} satisfies hyperdescent with respect to this hypercover; by also using the deformation triangle \eqref{def-triangle-eq} and faithfully flat descent for modules, so does the right side. % Here we could also just use ind-fppf hyperdescent for fppf cohomology in the animated setting. Descent for modules means that A[p^n] is the Rlim of its base change to the ind-fppf nerve, which, because the functor is coconnective, reduces to descent, where it follows from MO #338498. 
+Effectively, we may replace $A$ by $A^i$ to reduce to the case when our ($0$-truncated) $p$-Henselian ring $A$ has no nonsplit fppf covers, a case in which
+\be \label{eqn:dream-cohomology}
+\source{purity-flat-cohomology}
+G(A) \isomto R\Gamma(A,G)
+ \ee
+(see \S\ref{pp:simplicial-coho-def}). We claim that for $n > 0$ we also have
+\be \label{eqn:mod-pn-desire}
+\source{purity-flat-cohomology}
+G(A/^\bL p^n) \isomto R\Gamma(A/^\bL p^n,G)
+\ee
+or, equivalently, that
+\[
+H^i(A/^\bL p^n,G)\cong0 \qxq{for} i>0.
+\]
+For this, \Cref{cor:nil-nil-deform-cohomology} gives $H^i(A/^\bL p^n,G) \isomto H^i(A/(p^n),G)$ for $i > 0$, so the B\'{e}gueri resolution \eqref{Begueri-0} reduces us to showing that for a smooth, affine $R$-group $Q$ we have 
+\[
+Q(A) \surjects Q(A/(p^n)) \qxq{and} H^i(A/(p^n), Q) \cong 0 \qxq{for} i > 0.
+\]
+The surjectivity follows from \cite{SP}*{Proposition~\href{https://stacks.math.columbia.edu/tag/07M8}{07M8}}. On the other hand, by %\Cref{rem:no-new-etale} and % commented out because there is nothing animated in the statement that we use here
+\cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/04D1}{04D1}}, every \'etale $(A/(p^n))$-algebra lifts to an \'{e}tale $A$-algebra, and hence is split, so the vanishing follows, too.
+%we only need to show 
+%we first note that $S/p^n$ admits no nonsplit \'etale covers: indeed. In particular, from the B\'{e}gueri resolution 
+%\[
+%0\to G\to \mathrm{Res}_{G^\ast/A} (\mathbb G_m)\to Q\to 0
+%\]
+%and \Cref{prop:smooth-fppf-et-comp}, we get $H^i(S/p^n,G)=0$ and $\pi_0(Q(S/p^n)) \surjects H^1(S/p^n,G)$. However, since $Q$ is smooth, deformation theoretic \Cref{prop:deformation-sections}\kestutis{need to insert/prove the def. theoretic in the preceding section} ensures that $\pi_0(Q(S/p^n)) \isomto Q(\pi_0(S/p^n))$. Consequently, \cite{SP}*{\href{https://stacks.math.columbia.edu/tag/07M8}{07M8}} supplies the surjection $Q(S) \surjects \pi_0(Q(S/p^n))$, to the effect that even the composite $Q(S) \ra H^1(S, G) \ra H^1(S/p^n, G)$ is surjective. However, $H^1(S,G) = 0$, so we must also have $H^1(S/p^n,G)=0$, and \eqref{eqn:mod-pn-desire} follows. 
+
+In the view of \eqref{eqn:dream-cohomology}--\eqref{eqn:mod-pn-desire}, it remains to show that for our $p$-Henselian, $0$-truncated $A$,
+\be \label{eqn:pi0-and-ML-desire}
+\source{purity-flat-cohomology}
+\tst G(A) \isomto R\lim_{n > 0}( G(A/^\bL p^n)) \q\x{(in the derived $\infty$-category $\mathcal D(\mathbb Z)$).}
+\ee
+For the derived $p$-adic completion $\widehat{A} \ce R\lim_n (A/^\bL p^n)$ of $A$, by  \Cref{lem:sq-0-trick}, the ring $\pi_0(\wh{A})$ 
+%we have the short exact sequence 
+%\[
+%\tst 0 \ra \varprojlim^1_{n > 0} (\pi_1(A/^\bL p^n)) \ra \pi_0(\wh{A}) \ra \varprojlim_{n > 0}(A/(p^n))  \ra 0.
+%\]
+%Since %$\pi_{\ge 2}(S/p^n) = 0$, 
+%$\varprojlim^2_{n > 0} \cong 0$, the ideal $\varprojlim^1_{n > 0} (\pi_1(A/^\bL p^n)) %\subset \pi_0(\wh{A})$ 
+is a square-zero extension of the $p$-adic completion of $\pi_0(A)$, so \Cref{BM-hens-comp} and \Cref{rem:no-new-etale} %, and the fact that $G$ is \'{e}tale over $S[\f{1}{p}]$ 
+imply that 
+\[
+\tst G(A[\f{1}{p}]) \isomto G(\widehat{A}[\f{1}{p}]).
+\]
+\Cref{lem:derived-BL-key} and the affineness of $G$ then give
+\[
+\tst G(A) \isomto G(\widehat{A})\times_{G(\widehat{A}[\tfrac 1p])} G(A[\tfrac 1p]) \cong G(\wh{A}) \cong  \lim_{n > 0}( G(A/^\bL p^n))
+\]
+(limit in the $\infty$-category $\Ani(\Ab)$). Thus, to deduce \eqref{eqn:pi0-and-ML-desire}, it suffices to show that the system $\{\pi_0 (G(A/^\bL p^n))\}_{n > 0}$ is Mittag--Leffler. Let $p^k$ be a power that kills $e^*(L_{G/R})$, and consider an $n > k$. By \Cref{cor:deftheorygroup}, the obstruction to lift an $x \in \pi_0(G(A/^\bL p^n))$ to $\pi_0(G(A/^\bL p^{2n}))$ is an
+\[%be \label{eqn:first-obstruction}
+\source{purity-flat-cohomology}
+\tst \gA \in \pi_0\!\p{\Hom_R\!\p{e^*(L_{G/R}), A\tensor^\bL_\bZ(\frac{p^n\bZ}{p^{2n}\bZ})[1]}\!},
+\]
+where this last $\pi_0$ injects into
+\[
+\tst\pi_0\!\p{\Hom_R\!\p{e^*(L_{G/R}), A\tensor^\bL_\bZ(\frac{p^n\bZ}{p^{2n}\bZ} \tensor^\bL_\bZ \frac{\bZ}{p^k\bZ})[1]}\!}\!.
+\]%ee
+%By our choice of $k$, this $\pi_0$ injects into
+%\be \label{eqn:intermediate-obstruction}
+%\pi_0\p{\Hom_R\p{L_{G/R}, A\tensor^\bL_\bZ(p^n\bZ/p^{2n}\bZ \tensor^\bL_\bZ \bZ/p^k\bZ)[1]}}\!.
+%\ee
+Since the object $e^*(L_{G/R})$ is of projective amplitude $[-1, 0]$ (see \S\ref{def-setup}), the truncation triangle 
+\[
+\tst (\frac{p^{2n - k}\bZ}{p^{2n}\bZ})[1] \ra \frac{p^n\bZ}{p^{2n}\bZ} \tensor^\bL_\bZ \frac{\bZ}{p^k\bZ} \ra \frac{p^n\bZ}{p^{n + k}\bZ} \ra \p{\frac{p^{2n - k}\bZ}{p^{2n}\bZ}}[2]
+\]
+is exact and shows that the last displayed group injects into
+\[%be \label{eqn:second-obstruction}
+\source{purity-flat-cohomology}
+\tst \pi_0\!\p{\Hom_R\!\p{e^*(L_{G/R}), A\tensor^\bL_\bZ (\frac{p^n\bZ}{p^{n + k}\bZ})[1]}\!}\!.
+\]%ee
+Consequently, by functoriality of \Cref{cor:deftheorygroup}, the obstruction to lifting $x$ to $\pi_0(G(A/^\bL p^{n + k}))$ is also $\gA$. In other words, if $x$ is in the image of $\pi_0(G(A/^\bL p^{n + k}))$, then it is also in the image of $\pi_0(G(A/^\bL p^{2n}))$ and, by replacing $n$ by $2n - k$ and iterating, we see that $x$ is in the image of $\pi_0(G(A/^\bL p^N))$ for every $N \ge n$, so that the system $\{\pi_0 (G(A/^\bL p^n))\}_{n > 0}$ is indeed Mittag--Leffler.
+\end{proof}
+
+
+\brem
+In the final part of the proof, instead of checking the Mittag--Leffler condition we could also apply \Cref{lem:lame-case} (that does not use \Cref{thm:padiclimit} or the subsequent parts of \S\S\ref{section:continuity-formula}--\ref{sec:descent}).
+\erem
+
+
+
+
+The following concrete consequence of \Cref{thm:padiclimit} extends \Cref{cor:perfect-vanish} beyond perfect $\bF_p$-algebras. Its case when $A$ is a $0$-truncated $\bF_p$-algebra and $G = \mu_{p}$ was settled in \cite{Tre80}*{Theorem}.
+
+\bcor \label{no-higher-coho}
+\source{purity-flat-cohomology}
+Let $R$ be a ring, let $p$ be a prime, and let $G$ be a commutative, finite, locally free $R$-group of $p$-power order. For each animated $R$-algebra $A$ such that $\pi_0(A)$ is $p$-Henselian, 
+\[
+\tst H^i(A, G) \cong 0 \qxq{for} i \ge 3 
+\]
+{\upshape(}resp., 
+\[
+H^i(A, G) \cong 0 \qxq{for} i \ge 2 \quad \x{if $(\pi_0(A)/(p))^\red$ is perfect{\upshape)}.}
+\]
+\ecor
+
+\bpf
+\Cref{cor:nil-nil-deform-cohomology} reduces us to $0$-truncated $A$. By \Cref{no-nil-feelings}, %(with the fact that $e^*(L_{G/R})$ has projective dimension $1$), 
+for $n \ge 2$, the map
+\[
+H^i(A/(p^n), G) \ra H^i(A/(p^{n - 1}), G) \qxq{is} \begin{cases}\xq{surjective for} &i \ge 1, \\  \xq{bijective for} &i \ge 2. \end{cases}
+\]
+Thus,	 \Cref{thm:padiclimit} (with \Cref{cor:nil-nil-deform-cohomology} again) reduces us to the case when $A$ is an $\bF_p$-algebra. By \Cref{no-nil-feelings} again,
+ we may then replace $A$ by $A^\red$ to assume that $A$ is reduced. If the resulting $A$ is perfect, then the Dieudonn\'{e}-theoretic \Cref{cor:perfect-vanish} gives the claim. Otherwise, we may assume that $A$ is Noetherian and consider the morphism of sites $\eps\colon A_\fppf \ra A_\et$ with its spectral sequence
+\[
+H^i_\et(A, R^j\eps_*(G)) \Rightarrow H^{i +j}_\fppf(A, G).
+\]
+By \cite{Gro68c}*{th\'{e}or\`{e}me~11.7} and the B\'{e}gueri sequence \eqref{Begueri-0}, we have 
+\[
+R^{\ge 2}\eps_*(G) \cong 0.
+\] %(see \Cref{Gro-lem}) 
+The \'{e}tale cohomological $p$-dimension of $A$ is $\le 1$ (see \cite{SGA4III}*{expos\'{e}~X, th\'{e}or\`{e}me~5.1}), so we obtain the desired $H^{\ge 3}_\fppf(A, G) \cong 0$. 
+\epf
+
+
+
+
+%\blem \label{Gro-lem}
+%For a scheme $S$ and the forgetful map of sites $\eps\colon S_\fppf \ra S_\et$,
+%\begin{equation*}
+%\tst R^i\eps_*(G) \cong 0 \qxq{for} i \ge 2 \qxq{and every commutative, finite, locally free $S$-group $G$.}
+%\end{equation*}
+%\elem
+
+%\bpf
+%By , for any smooth $S$-group scheme $H$ we have $R^i\eps_*(H) \cong 0$ for $i \ge 1$. %deduce the claim from that of loc. cit. on stalks
+%Thus, the  implies the claim. %for commutative, finite, locally free $G$. The claim for $p$-divisible $G$ then follows by using cite{SP}*{\href{https://stacks.math.columbia.edu/tag/0739}{0739}} because any such $G$ is the filtered direct limit of its $p^n$-torsion subgroups each of which is finite locally free over $S$.
+%\epf
+
+
+%
+%\bcor \label{}
+%For a prime $p$, a Henselian pair $(A, I)$ with $p \in I$, and a commutative finite locally free $A$-group 
+%\ecor
+
+%\bpf
+
+%\epf
+
+
+
+\Cref{thm:padiclimit} has the following consequence for the passage to the derived $p$-adic completion  for flat cohomology. At least for $0$-truncated $A$ and under additional bounded $p^\infty$-torsion assumptions, this could also be argued directly by an argument similar to the one used for \cite{BC19}*{Theorem~2.3.3~(d)}.
+
+
+\bcor \label{heavy-handed}
+\source{purity-flat-cohomology}
+Let $R$ be a ring, let $p$ be a prime, let $G$ be a commutative, finite, locally free $R$-group of $p$-power order, and let $A \ra A'$ be a map of animated $R$-algebras such that both $\pi_0(A)$ and $\pi_0(A')$ are $p$-Henselian and $A/^\bL p\isomto A'/^\bL p$. For each open 
+\[
+\tst \Spec(\pi_0(A)[\f{1}{p}]) \subset U \subset \Spec(\pi_0(A))
+\]
+with complement $Z \ce \Spec(\pi_0(A)) \setminus U$, we have \up{with definitions as in \uS\uref{pp:simplicial-coho-def}}
+\[
+\tst R\Gamma(U_A, G) \isomto R\Gamma(U_{A'}, G), \qxq{so also} R\Gamma_Z(A, G) \isomto R\Gamma_Z(A', G).
+\]
+\ecor
+
+We will complement this last isomorphism with a general excision result of this sort in \Cref{cor:excision}. For a version of \Cref{heavy-handed} beyond the $p$-adic setting, see \Cref{cor:more-algebrization} below.
+
+
+
+\bpf
+\Cref{lem:sq-0-trick} ensures that $\pi_0(\wh{A})$ is a square-zero extension of the $p$-adic completion of $\pi_0(A)$, so is $p$-Henselian. Thus, we may replace $A'$ by $\wh{A}$ and use \Cref{BM-hens-comp} (with \Cref{rem:no-new-etale}) to obtain the case $U = \Spec(A[\f{1}{p}])$:
+\be \lab{U-1p-case}
+\tst R\Gamma(A[\f 1p], G) \isomto R\Gamma(A'[\f 1p], G).
+\ee
+In general, it remains to see that 
+\[
+R\Gamma_{\{p = 0\}}(U, G) \isomto R\Gamma_{\{p = 0\}}(U_{A'}, G).
+\]
+ For this, we may work locally on $U$, so, by passing to an affine cover and forming $p$-Henselizations (which do not change the $R\Gamma_{\{ p = 0\}}$; see \Cref{prop:excision-prep} below for a much more general result, in our case \eqref{eqn:exicision-prep-square} is Cartesian by descent), we reduce to $U = \Spec(\pi_0(A))$. Then  the continuity formula \eqref{eqn:continuity-formula} gives 
+ \[
+ R\Gamma(A, G) \isomto R\Gamma(A', G),
+ \]
+ so, due to \eqref{U-1p-case}, also the following desired isomorphism:
+ \[
+ R\Gamma_{\{p = 0\}}(A, G) \isomto R\Gamma_{\{p = 0\}}(A', G). \qedhere
+ \]
+ % Here is the alternative argument alluded to in the sentence before the statement of the corollary. Due to capricious behavior of \begin{comment}, I just comment it out.
+%In the case when $U = \Spec(A[\f{1}{p}])$ the group $G$ is necessarily \'{e}tale and the claim follows from \Cref{nonaffine-Gab}. Thus, in general, the cohomology with supports sequence reduces us to showing that
+%\[
+%H^i_{\{p =0 \}}(U, G) \isomto H^i_{\{p =0 \}}(U_{A'}, G) \q \x{for all} \q i \in \bZ.
+%\]
+%For this, letting $\cH^j_{\{ p = 0 \}}$ denote the \'{e}tale sheafification of the fppf cohomology with supports functor $H^j_{\{ p = 0 \}}$, we consider the compatible $E_2$ spectral sequences
+%\[
+%H^i_\et(U, \cH^j_{\{ p = 0 \}}(-, G)) \Rightarrow H^{i + j}_{\{ p = 0 \}}(U, G) \q \x{and} \q H^i_\et(U_{A'}, \cH^j_{\{ p = 0 \}}(-, G)) \Rightarrow H^{i + j}_{\{ p = 0 \}}(U_{A'}, G)
+%\]
+%of \Cref{lem-sup-ss}. The \'{e}tale sheaves $\cH^j_{\{ p = 0 \}}(-, G)$ are supported on the $\{ p = 0\}$ loci of $U$ and $U_{A'}$, respectively, and $A/p \cong A'/p$, so it remains to show that, via the natural map,
+%\[
+%\x{the sheaf} \q \cH^j_{\{ p = 0 \}}(-, G) \x{ on $(U_{A'})_\et$} \q \x{is the pullback of}  \q  \cH^j_{\{ p = 0 \}}(-, G) \x{ on $U_\et$.}
+%\]
+ % A reference: \cite{SGA4II}*{VIII, 6.4}.
+%This claim is \'{e}tale local, so, by passing to the strict Henselizations $B'$ and $B$ at a variable geometric point of $U_{A'}$ and at its image in $U$, respectively, we reduce to showing that
+%\be \label{B-Bpr-G}
+%H^j_{\{ p = 0 \}}(B, G) \isomto H^j_{\{ p = 0 \}}(B', G) \q \x{for all} \q j \in \bZ.
+%\ee
+%For this, \Cref{nonaffine-Gab} gives $H^j(B[\f{1}{p}], G) \isomto H^j(B'[\f{1}{p}], G)$, which reduces us to showing that
+%\[
+%H^j(B, G) \isomto H^j(B', G) \q \x{for all} \q j \in \bZ.
+%\]
+%The latter is clear for $j < 0$, follows from \eqref{etale-eg-map} for $j = 0$ (by construction, $B$ and $B'$ have the same $p$-adic completion), follows from \eqref{G-tor-inv-eq} for $j = 1$, and follows by combining the B\'{e}gueri resolution \eqref{Begueri} with \cite{Gro68c}*{11.7~2} for $j \ge 2$.
+\epf 	
+
+
+
+%\beg \label{eg:for-passage-to-p-adic-completion}
+%The assumption $A/^\bL p \isomto A'/^\bL p$ of \Cref{heavy-handed} is met if $A'$ is the derived $p$-adic completion of $A$, for instance, if $A$ is $0$-truncated with bounded $p^\infty$-torsion and $A'$ is the usual $p$-adic completion of $A$. 
+%\eeg
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\csub[Excision for flat cohomology and reduction to complete rings] \label{sec:excision}
+\source{purity-flat-cohomology}
+
+
+
+
+To reduce purity for flat cohomology to the case of complete rings, we exhibit a general excision property of flat cohomology of (animated) rings in \Cref{cor:excision}, which vastly extends its special cases that appear in the literature: for instance, \cite{DH19}*{Lemma~2.6} proves it for excellent, Henselian discrete valuation rings (see also \cite{Maz72}*{Lemma~5.1} for an earlier special case). %, whereas \cite{Gab93}*{Thm.~2.8~(ii)} states it for $\mu_n$ in a special case.
+ The argument uses animated deformation theory of \S\S\ref{sec:defthy}--\ref{sec:fppf-coho-simplicial} and the $p$-adic continuity formula \eqref{eqn:continuity-formula} to eventually reduce to the positive characteristic case \eqref{crystalline-cor} of the key formula. %Dieudonn\'{e} theory over perfect schemes reviewed in \S\ref{section:Dieudonne-positive-characteristic}. 
+ The bulk of it is captured by \Cref{prop:excision-prep}, which itself uses the following auxiliary lemma. 
+
+
+
+%We wish to strengthen \Cref{heavy-handed} by weakening its condition $A/^\bL p \isomto A'/^\bL p$: namely, a more natural condition for its conclusion $R\Gamma_Z(A, G) \isomto R\Gamma_Z(A', G)$ would be requiring that $A$ and $A'$ be isomorphic merely along $Z$ rather than along $p$. We achieve this in 
+
+%, and the main input, in addition to , is 
+%This more general excision reduces \Cref{main} to its case when $R$ is complete (see \Cref{reduce-to-complete}). If our complete intersection $R$ satisfies additional assumptions, such as excellence, then this reduction is a straight-forward consequence of Popescu's desingularization and its variants (see \Cref{rem:easy-complete}). 
+
+
+
+
+
+
+
+%\blem \label{lem:auxiliary-s-torsion-control}
+%For a ring $A$, an $a \in A$ with $A[a^\infty] = A[a^n]$ for some $n > 0$, and an animated $A$-algebra $A'$ with $A/^\bL a\isomto A'/^\bL a$, each $\pi_i(A')$ with $i \ge 1$ is uniquely $a$-divisible, $\pi_0(A')[a^\infty] = \pi_0(A')[a^n]$, and $A/^\bL a\isomto \pi_0(A')/^\bL a$.  
+%\elem
+
+%\bpf
+%The assumption implies that $A'/^\bL a^N$ is $1$-truncated for each $N > 0$, so each $\pi_{\ge 2}(A')$ is uniquely $a$-divisible and we have the following exact sequence in low degrees:
+%\[
+%0 \ra \pi_1(A') \xra{a^N} \pi_1(A') \ra A[a^N] \ra \pi_0(A') \xra{a^N} \pi_0(A').
+%\]
+%By considering $N \ge n$, since $A[a^\infty] = A[a^n]$, it follows that $\pi_0(A')[a^\infty] = \pi_0(A')[a^n]$ and that for every $x \in \pi_1(A')$ there is a $y \in \pi_1(A')$ with $a^n x = a^N y$, that is, $x = a^{N - n} y$. In particular, $\pi_1(A')$ is also uniquely $a$-divisible and $A[a^\infty] \isomto \pi_0(A')[a^\infty]$. The assumed $A/^\bL a\isomto A'/^\bL a$ then also gives the desired $A/^\bL a\isomto \pi_0(A')/^\bL a$.
+%\epf
+
+\blem \label{lem:auxiliary-perfect-semiperfect-control}
+\source{purity-flat-cohomology}
+Let $A$ be a perfect $\bF_p$-algebra, let $A'$ be a semiperfect $A$-algebra, let $a \in A$ be such that $A/^\bL a\isomto A'/^\bL a$, and let 
+\[
+\tst A'_\perf \ce \varinjlim_{x \mapsto x^p} A'
+\]
+be the perfection of $A'$.   %\up{derived quotients}, 
+The module 
+\[
+\Ker(A' \surjects A'_\perf) \qxq{is uniquely $a$-divisible and} A'/^\bL a\isomto A'_\perf/^\bL a.
+\]
+\elem
+
+\bpf
+Since $A$ is perfect, its $a^\infty$-torsion is bounded. Thus, since 
+\[
+A/^\bL a^n \isomto A'/^\bL a^n \qxq{and hence also} A\langle a^n\rangle \isomto A'\langle a^n\rangle,
+\] % One considers the sequence $0 \ra \bZ[X]/(X^{n - 1}) \ra \bZ[X]/(X^n) \ra \bZ[X]/(X) \ra 0$; the point is that $A/^\bL a^n$ can also be defined using $\bZ[X]/(X^n)$, as one sees by representing $A$ by a simplicial ring for which can form the nonderived tensor product instead. 
+the $a^\infty$-torsion of $A'$ is also bounded. Consequently, the $a$-adic completion of $A'$ agrees with the derived $a$-adic completion. The latter agrees with the $a$-adic completion $\wh{A}$ of $A$, and $\wh{A}$ is perfect, so the completion map $A' \ra \wh{A}$ factors through $A' \surjects A'_\perf$ and then even through the $a$-adic completion of $A'_\perf$. We obtain a factorization 
+\[
+A'/(a) \surjects A'_\perf/(a) \ra \wh{A}/(a) \cong A/(a)
+\]%(usual nonderived quotients) 
+in which, by assumption, the composition is an isomorphism. Thus, both maps in this composition are isomorphisms. By repeating the same argument with $a^n$ in place of $a$, we get that $A' \ra A'_\perf$ induces an isomorphism on $a$-adic completions. Due to bounded $a^\infty$-torsion, these completions agree with their derived counterparts, so the resulting isomorphism $A'/^\bL a\isomto A'_\perf/^\bL a$ and the snake lemma give the unique $a$-divisibility of  $\Ker(A' \surjects A'_\perf)$.
+\epf
+
+
+
+
+
+\blem \label{prop:excision-prep} 
+\source{purity-flat-cohomology}
+For a ring $R$, a commutative, finite, locally free $R$-group $G$, a map $A\to A^\prime$ of animated $R$-algebras, and an $a\in A$ such that $A/^\bL a \isomto A^\prime/^\bL a$, %\up{for instance, $A'$ could be the derived $a$-adic completion of $A$}, 
+we have
+\be \label{eqn:excision-prep-supp}
+\source{purity-flat-cohomology}
+R\Gamma_{\{a = 0\}}(A, G) \isomto R\Gamma_{\{a = 0\}}(A', G),
+\ee
+equivalently,  the following square is Cartesian\ucolon
+\be \label{eqn:exicision-prep-square} \ba\xymatrix{
+\source{purity-flat-cohomology}
+R\Gamma(A,G)\ar[r]\ar[d] & R\Gamma(A[\tfrac 1a],G)\ar[d]\\
+R\Gamma(A^\prime,G)\ar[r] & R\Gamma(A^\prime[\tfrac 1a],G).
+}
+\ea\ee
+\elem
+
+\begin{proof} 
+The two formulations are equivalent because the fibers of the maps 
+\[
+\tst R\Gamma_{\{a = 0\}}(A, G) \ra R\Gamma_{\{a = 0\}}(A', G)
+\]
+and
+\[
+\tst R\Gamma(A,G) \ra R\Gamma(A^\prime,G) \times_{R\Gamma(A^\prime[\frac 1a],\,G)} R\Gamma(A[\frac 1a],G)
+\]
+are isomorphic, % See the second part of the Denis Nardin's answer to MO #333239.
+so we will focus on the Cartesian square statement. By decomposing $R$ into direct factors, we may assume that the order of $G$ is constant. By then expressing $G$ as the direct product of its primary factors, we may assume that this order is a power of a prime $p$. 
+
+\begin{claim}
+\source{purity-flat-cohomology}
+\notready \label{claim:def-theoretic-reduction}
+\source{purity-flat-cohomology}
+For a square-zero extension $A\surjects B$ of animated $R$-algebras and the base changed square-zero extension $A' \surjects B' \ce A' \tensor_A^\bL B$, the square
+\[\xymatrix{
+R\Gamma(A,G)\ar[r]\ar[d] & R\Gamma(A[\tfrac 1a],G) \ar[d] \\
+R\Gamma(A^\prime,G)\ar[r] & R\Gamma(A^\prime[\tfrac 1a],G)
+}
+\]
+is Cartesian if and only if so is the square
+\[\xymatrix{
+  R\Gamma(B,G)\ar[r]\ar[d] & R\Gamma(B[\tfrac 1a],G)\ar[d] \\
+  R\Gamma(B',G)\ar[r] & R\Gamma(B'[\tfrac 1a],G).
+}
+\]
+\end{claim}
+
+\bpf
+For the ideal $M$ of $A\surjects B$, \Cref{lem:derived-BL-key} gives 
+\[
+\tst M\isomto (A' \tensor^\bL_A M) \times_{(A' \tensor^\bL_A M)[\f 1a]} M[\f 1a].
+\]
+This identification persists after applying $R\Hom_R(e^*(L_{G/R}), -)$, so the  triangle
+\be \label{eqn:def-theoretic-triangle-middle-of-pf}
+\source{purity-flat-cohomology}
+R\Gamma(A,G)\to R\Gamma(B, G)\to R\Hom_R(e^*(L_{G/R}), M[1])
+\ee
+of \Cref{prop:defthy} and its analogues after base change to $A'$, $A[\f 1a]$, and $A'[\f 1a]$ show that the natural map between the fibers of the map 
+\[
+\tst R\Gamma(A,G) \ra R\Gamma(A^\prime,G) \times_{R\Gamma(A^\prime[\frac 1a],\,G)} R\Gamma(A[\tfrac 1a],G)
+\]
+and of its analogue after base change to $B$ is an isomorphism, % The total fiber of a square can be obtained by first taking fibers of horizontal maps, then of the resulting vertical one.
+and the claim follows. 
+
+For later use, we note that, due to the isomorphism between the fibers, we actually obtain a sharper variant: for instance, if $A$ is $0$-truncated, then, by repeating the argument inductively and forming a filtered direct limit, we see that the claim holds for any surjection $A\surjects B$ whose kernel is nil.
+\epf
+
+
+\begin{claim}
+\source{purity-flat-cohomology}
+\notready \label{claim:def-theoretic-reduction-2}
+\source{purity-flat-cohomology}
+For a square-zero extension of animated $R$-algebras $A\surjects B$  whose ideal $M$ is an $A[\f{1}{a}]$-module, the following square is Cartesian:
+\[\xymatrix{
+R\Gamma(A,G)\ar[r]\ar[d] & R\Gamma(B,G)\ar[d]   \\
+R\Gamma(A[\tfrac 1a],G) \ar[r] & R\Gamma(B[\tfrac 1a],G).
+}
+\]
+For  $0$-truncated $A$, the same holds for any surjection $A\surjects B$ whose kernel is nil and an $A[\f 1a]$-module. 
+\end{claim}
+
+\bpf
+The assumption on $M$ implies that the term $R\Hom_R(e^*(L_{G/R}), M[1])$ in the deformation-theoretic triangle \eqref{eqn:def-theoretic-triangle-middle-of-pf} does not change once we replace $A$ by $A[\f{1}{a}]$. Thus, the same argument that gave the equivalence of \eqref{eqn:excision-prep-supp} and \eqref{eqn:exicision-prep-square} implies the first part of the claim.  For $0$-truncated $A$, by iteration, the claim holds for any surjection $A\surjects B$ whose kernel is nilpotent and an $A[\f 1a]$-module. By forming filtered direct limits, we may then weaken nilpotence to being nil. % Think about maps between squares. The induced map between the total fibers is an isomorphism (both total fibers vanish), but the point is that there is a canonical map, so one can take a filtered direct limit and still get that the total fiber of the limit square vanishes.
+\epf
+
+
+
+The main stages of the subsequent argument are:
+\benuma
+\item
+to reduce to the case when $R$ is an $\bF_p$-algebra (so that $A$ and $A'$ are animated $\bF_p$-algebras); 
+
+\m
+to reduce to the case when $A$ is a $0$-truncated, perfect $\bF_p$-algebra;
+
+\item
+to reduce to the case when $A$ and $A'$ are $0$-truncated $\bF_p$-algebras with $A$ perfect;
+
+
+\item
+when $A$ and $A'$ are perfect $\bF_p$-algebras, to conclude using Dieudonn\'{e}-theoretic results of \S\ref{section:Dieudonne-positive-characteristic};
+
+\item
+to use the preceding step to reduce to the case when $A$ and $A'$ are perfect $\bF_p$-algebras.
+\eenum
+\emph{(1) Reduction to the case when $R$ is an $\bF_p$-algebra.} For any animated $R$-algebra $S$, letting  $S_{(p)}^h$ denote its $p$-Henselization (defined via \Cref{rem:no-new-etale}), descent supplies a functorial Cartesian~square
+\[\xymatrix{
+R\Gamma(S,G)\ar[r]\ar[d] & R\Gamma(S_{(p)}^h,G)\ar[d]\\
+R\Gamma(S[\tfrac 1p],G)\ar[r] & R\Gamma(S_{(p)}^h[\tfrac 1p],G).
+}\]
+By applying this with $S$ replaced by, in turn, $A$, $A'$, $A[\f{1}{a}]$, and $A'[\f{1}{a}]$, we see that each term of \eqref{eqn:exicision-prep-square} is a glueing of its version after inverting $p$ with the version after $p$-Henselizing along the version where we first $p$-Henselize and then invert $p$. Therefore, since limits commute, it suffices to show that the following analogues of the square \eqref{eqn:exicision-prep-square} are all Cartesian:
+\[\xymatrix{
+R\Gamma(A[\tfrac 1p],G)\ar[r]\ar[d] & R\Gamma(A[\tfrac 1{pa}],G)\ar[d] & R\Gamma(A_{(p)}^h,G)\ar[r]\ar[d] & R\Gamma((A[\tfrac 1a])_{(p)}^h,G)\ar[d]\\
+R\Gamma(A^\prime[\tfrac 1p],G)\ar[r] & R\Gamma(A^\prime[\tfrac 1{pa}],G), & R\Gamma(A_{(p)}^{\prime h},G)\ar[r] & R\Gamma((A^\prime[\tfrac 1a])_{(p)}^h,G),
+}\]
+\[\xymatrix{
+R\Gamma(A_{(p)}^h[\tfrac 1p],G)\ar[r]\ar[d] & R\Gamma((A[\tfrac 1a])_{(p)}^h[\tfrac 1p],G)\ar[d]\\
+R\Gamma(A_{(p)}^{\prime h}[\tfrac 1p],G)\ar[r] & R\Gamma((A^\prime[\tfrac 1a])_{(p)}^h[\tfrac 1p],G).
+}\]
+By \Cref{rem:no-new-etale}, the first and the last of these three squares depend only on the $\pi_0(-)$ of the animated rings involved. In addition, since $A/^\bL a^n \isomto A'/^\bL a^n$, we have $\pi_0(A)/(a^n) \isomto \pi_0(A')/(a^n)$, and, by \Cref{arc-descent} and \Cref{BM-hens-comp} (with \S\ref{pp:arc-topology}),  the functors 
+\[
+\tst R'\mapsto R\Gamma(R'[\frac 1p],G) \qxq{and} R'\mapsto R\Gamma(R'^h_{(p)}[\frac 1p],G)
+\]
+are arc sheaves on the category of $R$-algebras $R'$. Consequently, since arc descent implies formal gluing squares \cite{BM20}*{Theorem~6.4}, % In fact, strictly speaking loc. cit. does not apply because the functor there is supposed to be defined on all qcqs schemes whereas here the functor is only defined on affine schemes. Nevertheless, the claim follows from there by passing to an arc hypercover consisting of products of valuation rings and bootstrapping the Cartesian square by hyperdescent.
+the first and the last squares are Cartesian. 
+%By \Cref{lem:derived-BL-key}, the map $A\ra A[\tfrac 1{a}] \times A^\prime$ is an arc cover, so it is also a $p$-complete arc cover, to the effect that both  above are Cartesian by arc descent for \'{e}tale cohomology reviewed in \Cref{}; more precisely, we use that , applied to the functors  (both of which are arc-sheaves and depend only on $\pi_0(A)$). 
+By the $p$-adic continuity formula \eqref{eqn:continuity-formula}, the remaining Cartesianness of the second square reduces us to the case when $A$ is over $\bZ/p^n\bZ$ for some $n > 0$, a case in which this square is nothing else than \eqref{eqn:exicision-prep-square}. Moreover,  \Cref{claim:def-theoretic-reduction} reduces us further to $n = 1$, in other words, we have achieved the promised overall reduction to the case when $R$ is an $\bF_p$-algebra.
+
+
+\emph{(2) Reduction to the case when $A$ is a $0$-truncated, perfect $\bF_p$-algebra.}  
+The map 
+\[
+A' \ra A' \tensor^\bL_A \tau_{\le n}(A)
+\]
+is an isomorphism after applying $\tau_{\le n}(-)$, so, by \eqref{eqn:fppf-hyperdescent} and \eqref{eqn:similar-to-Postnikov-tower}, 
+\[
+\tst R\Gamma(A, G) \isomto R\lim_n\p{R\Gamma(\tau_{\le n}(A), G)}
+\]
+and 
+\[
+R\Gamma(A', G) \isomto R\lim_n\p{R\Gamma(A' \tensor_A^\bL \tau_{\le n}(A), G)}\!,
+\]
+and likewise after inverting $a$. Thus, we may assume that $A$ is $n$-truncated for some $n > 0$. \Cref{claim:def-theoretic-reduction} then reduces to $n = 0$, that is, to the animated $\bF_p$-algebra $A$ being a usual $\bF_p$-algebra. The $A$-algebra 
+\[
+\tst A_\infty \ce A[X_a^{1/p^\infty}\, \vert\, a \in A]/(X_a - a\, \vert\, a \in A)
+\]
+is ind-fppf and semiperfect, and the same holds for its tensor self-products over $A$. Thus, ind-fppf descent for fppf cohomology allows us to replace $A$ by such a tensor self-product and $A'$ by its base change to reduce to the case when $A$ is semiperfect. The last paragraph of the proof of \Cref{claim:def-theoretic-reduction} then allows us to divide out the nil-ideal $\Ker(A\surjects A_\perf)$ to reduce to the case when $A$ is perfect (here and below $A_\perf \ce \varinjlim_{x \mapsto x^p} A$). 
+
+\emph{(3) Reduction to the case when $A$ and $A'$ are $0$-truncated $\bF_p$-algebras with $A$ perfect.}  
+Our $0$-truncated, perfect $\bF_p$-algebra $A$ has bounded $a^\infty$-torsion, and $A/^\bL a^n \isomto A'/^\bL a^n$. Thus, each $\pi_{i}(A')$ with $i \ge 2$ is uniquely $a$-divisible and there is an exact sequence 
+\[
+0 \ra \pi_1(A') \xra{a^n} \pi_1(A') \ra A\langle a^n\rangle \ra \pi_0(A') \xra{a^n} \pi_0(A'),
+\]
+which, by letting $n$ grow, shows that $\pi_0(A')$ has bounded $a^\infty$-torsion and that $\pi_1(A')$ is also uniquely $a$-divisible. Then even 
+\[
+A\langle a^\infty\rangle \isomto (\pi_0(A))\langle a^\infty\rangle, \qxq{so also} A/^\bL a \isomto \pi_0(A')/^\bL a.
+\]
+Moreover, since each $\pi_i(A')$ with $i \ge 1$ is an $A[\f{1}{a}]$-module, the deformation-theoretic \eqref{eqn:def-theoretic-triangle-middle-of-pf} implies that for each $n > 0$,
+\[\xymatrix{
+R\Gamma(\tau_{\le n}(A'),G)\ar[r]\ar[d] & R\Gamma(\tau_{\le n - 1}(A'),G) \ar[d] \\
+R\Gamma(\tau_{\le n}(A')[\tfrac 1a],G)\ar[r] & R\Gamma(\tau_{\le n - 1}(A')[\tfrac 1a],G)
+}
+\]
+is a Cartesian square. Thus, the same square with $\pi_0(A')$ in place of $\tau_{\le n - 1}(A')$ is also Cartesian. By passing to the inverse limit in $n$ and using \eqref{eqn:fppf-hyperdescent}, we then find that the right square in
+\be \label{eqn:two-Cartesian-squares-argument} \ba\xymatrix{
+\source{purity-flat-cohomology}
+R\Gamma(A, G) \ar[d] \ar[r] & R\Gamma(A',G)\ar[r]\ar[d] & R\Gamma(\pi_0(A'),G) \ar[d] \\
+R\Gamma(A[\f 1a], G) \ar[r] & R\Gamma(A'[\tfrac 1a],G)\ar[r] & R\Gamma(\pi_0(A')[\tfrac 1a],G)
+}
+\ea \ee
+is Cartesian. Thus, the sought Cartesianness of the left square reduces to that of the outer one, % Think again about the total fiber of the square as in that MO answer. To get the total fiber of the outer square one takes the fiber of a map that is a composition of the map whose fiber is the total fiber of the left square and a map that is a base change of the total fiber map of the right square.
+so we may replace $A'$ by $\pi_0(A')$ to reduce to the case when $A$ and $A'$ are $\bF_p$-algebras with $A$ perfect. 
+
+
+\emph{(4) Conclusion in the case when $A$ and $A'$ are perfect  $\bF_p$-algebras.}  
+We now treat the case when the $\bF_p$-algebra $A'$ is also perfect. Then %we let $\bM(G)$ be the covariant Dieudonn\'{e} module of $G$ (see \S\ref{Gab-eq}), so that 
+\Cref{KT-input} identifies the map
+\[
+R\Gamma_{\{a = 0\}}(A, G) \ra R\Gamma_{\{a = 0\}}(A', G)
+\]
+with
+\[
+ R\Gamma_{(p,\, a)}(W(A), \bM(G))^{V - 1} \ra R\Gamma_{(p,\,  a)}(W(A'), \bM(G_{A'}))^{V - 1}.
+\]
+%for some $n > 0$ such that $p^n$ kills $G$. 
+For showing that the latter is an isomorphism, by d\'{e}vissage, we may remove $(-)^{V - 1}$, replace $\bM(G)$ by a projective $W(A)$-module (see \S\ref{Gab-eq}), % To get the base change here we use that the projective resolution $0 \ra P_1 \ra P_2 \ra \bM(G) \ra 0$ is such that $P_1 \ra P_2$ factors through multiplication by $p$, and hence remains injective when base changed to $W(S')$ since $S'$ is perfect.
+and then even replace it by a free $W(A)$-module. In other words, we are reduced to showing that the following map  is an isomorphism:
+\[
+R\Gamma_{(p,\,a)}(W(A), W(A)) \ra R\Gamma_{(p,\, a)}(W(A'), W(A')).
+\]
+The cohomology groups of the fiber of this map are $p$-power torsion, so we need to show that multiplication by $p$ is an automorphism on them. Thus, the sequences 
+\[
+0 \ra W(A) \xra{p} W(A) \ra A \ra 0 \qxq{and} 0 \ra W(A') \xra{p} W(A') \ra A' \ra 0
+\]
+reduce us to showing that the fiber of the map
+\[
+R\Gamma_{(p,\, a)}(W(A), A) \ra R\Gamma_{(p,\, a)}(W(A'), A'), 
+\]
+that is, of the map
+\[
+R\Gamma_{\{ a = 0\}}(A, A) \ra R\Gamma_{\{ a = 0\}}(A', A'),
+\]
+vanishes. The last fiber agrees with that of the map
+\[
+\tst R\Gamma(A, A) \ra R\Gamma(A', A') \times_{R\Gamma(A'[\f 1a],\, A'[\f 1a])} R\Gamma(A[\f 1a], A[\f 1a]),
+\]
+that is, with the fiber of the map $A\ra A' \times_{A'[\f 1a]}A[\f 1a]$, which is an isomorphism by \Cref{lem:derived-BL-key}.
+
+\emph{(5) Conclusion in the general case.}  Having established the case when both of our $\bF_p$-algebras $A$ and $A'$ are perfect, we return to the situation in which only $A$ is perfect and let $\wh{A}$ be the $a$-adic completion of $A$. Since $A$ has bounded $a^\infty$-torsion, $\wh{A}$ agrees with its derived counterpart, so that we have a map $A' \ra \wh{A}$ with $A'/^\bL a \isomto \wh{A}/^\bL a$. We consider the analogue of \eqref{eqn:two-Cartesian-squares-argument} with the perfect $\bF_p$-algebra $\wh{A}$ in place of $\pi_0(A')$. By the preceding step of the overall argument, in this analogue the outer square is Cartesian, so we are reduced to showing that the right one is, too. In other words, we may replace $A$ and $A'$ by $A'$ and $\wh{A}$, respectively, to reduce to the case when the $\bF_p$-algebra $A$ is arbitrary but $A'$ is perfect. In this situation, we repeat the reduction to perfect $A$ and note that it transforms our perfect $A'$ into an animated $\bF_p$-algebra for which $\pi_0(A')$ is semiperfect (the passage to semiperfect $A$ leaves $A'$ semiperfect, and the subsequent derived base change along $A\surjects A_\perf$ may introduce higher homotopy). After this, we repeat the reduction that uses the boundedness of the $a^\infty$-torsion of $A$ to replace $A'$ by $\pi_0(A')$ and are left with the case in which $A$ is perfect and $A'$ is semiperfect. \Cref{lem:auxiliary-perfect-semiperfect-control} then ensures that the nil-ideal $\Ker(A' \surjects A'_\perf)$ is an $A[\f 1a]$-module. Thus, \Cref{claim:def-theoretic-reduction-2} shows the Cartesianness of the square 
+\[\xymatrix{
+R\Gamma(A',G)\ar[r]\ar[d] & R\Gamma(A'_\perf,G)\ar[d]   \\
+R\Gamma(A'[\tfrac 1a],G) \ar[r] & R\Gamma(A'_\perf[\tfrac 1a], G).
+}
+\]
+By \Cref{lem:auxiliary-perfect-semiperfect-control}, we have $A'/^\bL a \isomto A'_\perf/^\bL a$, so the same argument as for \eqref{eqn:two-Cartesian-squares-argument} allows us to replace $A'$ by $A'_\perf$. However, then both $A$ and $A'$ are perfect, a case that we already settled. %using crystalline Dieudonn\'{e} theory.
+\end{proof}
+
+
+
+
+
+Before deducing the sought \Cref{cor:excision}, we clarify its excision condition. %in \Cref{comp-explain}. 
+
+
+
+
+
+
+\blem \label{comp-explain}
+\source{purity-flat-cohomology}
+For a map $f\colon A \ra A'$ of animated rings, an ideal  
+\[
+I = (a_1, \dotsc, a_r) \subset \pi_0(A) \qxq{satisfies} \pi_0(A)/I \isomto (\pi_0(A)/I) \tensor^\bL_A A'
+\]
+if and only if $f$ induces an isomorphism after iteratively forming derived $a_i$-adic completions for $i = 1,\dotsc, r$, equivalently, if and only if
+\[
+A/^\bL(a_1^n, \dotsc, a_r^n) \isomto A'/^\bL(a_1^n, \dotsc, a_r^n) \qxq{for every} n > 0;
+\] 
+in particular, all of these equivalent conditions depend only on the ideal $I$ and not on the $a_i$.
+\elem
+
+\bpf
+By \S\ref{ani-rings}, the iterated derived $a_i$-adic completion of $A$ is identified with 
+\[
+\tst \varprojlim_{n_1,\, \dotsc,\, n_r \ge 0} (A/^\bL(a_1^{n_1}, \dotsc, a_r^{n_r})),
+\]
+% one argues this "from the back," starts with the iterated completion, divides powers of $a_r$, then each of the quotients is derived $a_{r  -1}$-adically complete, etc.
+and likewise for $A'$. Thus, since the inverse subsystem where all the $n_i$ are equal is final, $f$ induces an isomorphism on iterated derived $a_i$-adic completions if and only if 
+\be \label{A-Apr-map}
+\source{purity-flat-cohomology}
+A/^\bL(a_1^n, \dotsc, a_r^n) \isomto A'/^\bL(a_1^n, \dotsc, a_r^n) \qxq{for every} n > 0.
+\ee
+If this holds for $n = 1$, then, since 
+\[
+\tst (\pi_0(A)/I) \tensor^\bL_A A' \cong (\pi_0(A)/I) \tensor^\bL_{A/^\bL(a_1,\, \dotsc,\, a_r)} A'/^\bL(a_1, \dotsc, a_r),
+\] 
+also $\pi_0(A)/I \isomto (\pi_0(A)/I) \tensor^\bL_A A'$. Conversely, if this last map is an isomorphism, then
+%so that, in particular, $\pi_0(A)/I \isomto \pi_0(A')/I$, then the cofiber of the map $\pi_0(A)/I \ra (\pi_0(A)/I) \tensor^\bL_A A'$ is an animated $(\pi_0(A')/I)$-module that vanishes after applying $-\tensor^\bL_{A'} (A'/^\bL(a_1, \dotsc, a_r))$, so also after applying $-\tensor^\bL_{A'} (\pi_0(A')/I)$. Thus, this cofiber vanishes by \Cref{support-lem}. 
+%Conversely, if $\pi_0(A)/I \isomto (\pi_0(A)/I) \tensor^\bL_A A'$, then 
+the cofiber of the map \eqref{A-Apr-map} is an animated $(A/^\bL(a_1^n, \dotsc, a_r^n))$-module that vanishes after applying $(\pi_0(A)/I) \tensor^\bL_{A/^\bL(a_1^n,\, \dotsc,\, a_r^n)} -$, and hence  itself vanishes by \Cref{support-lem}.
+\epf
+
+
+
+\bthm\label{cor:excision} 
+\source{purity-flat-cohomology}
+Let $R$ be a ring and let $G$ be a commutative, finite, locally free $R$-group. For each map $A\to A^\prime$ of animated $R$-algebras and each finitely generated ideal $I\subset \pi_0(A)$ such that 
+\[
+\pi_0(A)/I \isomto (\pi_0(A)/I)\otimes^\bL_A A'
+\]
+\up{see Lemma~\uref{comp-explain}}, we have
+\[
+R\Gamma_I(A, G) \isomto R\Gamma_{I}(A^\prime,G). %\q \x{for every .}
+\]
+\ethm
+
+\begin{proof} 
+By \Cref{comp-explain}, we may write $I = (a_1, \dotsc, a_r)$ and assume that $A'$ is the iterated derived $a_i$-adic completion of $A$ for $i = 1, \dotsc, r$, % This does not depend on the order of the $a_i$ by the proof of the previous lemma, cf. limit there.
+and then, by arguing inductively, assume instead that $A'$ is the derived $a$-adic completion of $A$ for some $a \in I$. 
+%We may assume that $A^\prime$ is the derived $I$-adic completion of $A$. Fix $a_1, \dotsc, a_r\in A$ that generate $I$, set $A_0 \ce A$, and define $A_i$ inductively as the derived $a_i$-adic completion of $A_{i - 1}$. The animated ring $A_r$ is derived $a_i$-adically complete for every $i$, so, by \cite{BS15}*{3.4.12}, it is even derived $I$-adically complete. Consequently, $A_r \isomto A'$, so it suffices to prove inductively that
+%\[
+%R\Gamma_I(A_i, G)\isomto R\Gamma_I(A_{i+1},G) \q \x{for} \q 0 \le i \le r - 1.
+%\]
+%Thus, we may now assume that $A^\prime$ is the derived $a$-adic completion of $A$ for some $a\in I$. 
+There is a functorial fiber sequence
+\[
+\tst R\Gamma_I(A,G)\to R\Gamma_{\{a = 0\}}(A,G)\to R\lim_{f \in I} \p{R\Gamma_{\{a = 0\}}(A[\f 1f], G)}, 
+\]
+and likewise for $A'$, so the claim follows from \Cref{prop:excision-prep} applied to $A\to A^\prime$ and to its localizations.
+\end{proof}
+
+
+
+We are ready to show that the validity of \Cref{main} depends only on the completion $\wh{R}$. 
+
+\bcor \label{reduce-to-complete}
+\source{purity-flat-cohomology}
+For a Noetherian local ring $(R, \fm)$ and a commutative, finite, flat $R$-group $G$,
+\[
+H^i_\fm(R, G) \isomto H^i_{\fm}(\wh{R}, G) \qxq{for every} i \in \bZ.
+\]
+In particular, Theorem \uref{main} reduces to its case when the complete intersection $R$ is $\fm$-adically complete.
+\ecor
+
+\bpf
+Indeed, $\wh{R}$ is $R$-flat with $R/\fm \isomto \wh{R}/\fm \wh{R}$, 
+%Indeed, since $R$ is Noetherian, its derived $\fm$-adic completion is identified with the classical $\fm$-adic completion $\wh{R}$ (see \cite{BS15}*{3.5.1}), 
+so \Cref{cor:excision} gives the claim.
+%\[
+%H^i_\fm(R, G) \cong H^i_{\wh{\fm}}(\wh{R}, G) \q \x{for every $i \in \bZ$ and every commutative, finite, flat $R$-group $G$.} \qedhere
+%\]
+\epf
+
+
+
+
+\brem \label{rem:easy-complete}
+\source{purity-flat-cohomology}
+Under additional assumptions on $R$ or $G$, previous results suffice to reduce \Cref{main} to complete $R$. 
+%Firstly, an elementary case of excision \cite{Mil80}*{III.1.27} allows one to replace $R$ by its Henselization $R^h$. 
+For instance, if $R$ is excellent (as one can sometimes reduce to using \cite{Pop19}*{Corollary 3.10}), 
+%If $R^h$ is excellent (for instance, if $R$ is, , 
+then \cite{BC19}*{Lemma~2.1.3} (with elementary excision \cite{Mil80}*{Chapter~III, Proposition~1.27}) % we also use \cite{EGAIV4}*{18.7.6} here (Henselization of an excellent Noetherian local ring is excellent),
+%that is based on Popescu's theorem %\cite{SP}*{\href{http://stacks.math.columbia.edu/tag/07GC}{07GC}} expresses the completion $\wh{R}$ as a filtered direct limit of smooth $R^h$-algebras $R_j$; since each $R^h \ra R_j$ has a section by Hensel's lemma \cite{EGAIV4}*{18.5.17}, limit formalism 
+gives %the desired
+\[
+H^i_\fm(R, G) \hra H^i_{\fm}(\wh{R}, G).
+\]
+%(and even $F(R^h) \hra F(\wh{R})$ for any functor $F$ that commutes with filtered direct limits; see also \cite{Pop19}*{Prop.~21}). 
+If instead $G$ is \'{e}tale, then \Cref{lem:et-to-hat} (or already \cite{Fuj95}*{Corollary~6.6.4}) suffices. %immediately gives the desired
+%\be \label{eqn:Fujiwara-Gabber}
+%H^i_\fm(R, G) \cong H^i_{\wh{\fm}}(\wh{R}, G).
+%\ee
+%Finally, if $R$ is a quotient of a regular local ring $(\wt{R}, \wt{\fm})$, necessarily by a regular sequence $f_1, \dotsc, f_n \in \wt{\fm}$, for instance, if $R$ is regular, then \cite{Pop19}*{Cor.~19} expresses $\wt{R}$ as a filtered direct limit of excellent regular local rings $(\wt{R}_i, \wt{\fm}_i)$ with local transition maps, the sequence $f_1, \dotsc, f_n$ descends to a regular sequence in every large $\wt{R}_i$,\footnote{\rv{One shows this using the Cohen structure theorem and imitating the proof of \cite{dJM99}*{4.7}.}} and one reduces to the completion of $\wt{R}_i/(f_1, \dotsc, f_n)$ as in \eqref{eqn:passage-to-hat}. % To preserve the dimension condition, one can descend even a regular sequence $f_1, \dotsc, f_n, f_{n + 1}, \dotsc, f_{n + d}$. % as we now justify with an argument from \cite{dJM99}*{4.7}. Indeed, otherwise our assumptions imply that $R \simeq \wt{R}/(f_1, \dotsc, f_m)$ for a regular local $\bF_p$-algebra $\wt{R}$ and an $\wt{R}$-regular sequence $f_1, \dotsc, f_m$. Popescu's theorem \cite{SP}*{\href{http://stacks.math.columbia.edu/tag/07GC}{07GC}} expresses $\wt{R}$ as a filtered direct limit of excellent, regular $\bF_p$-algebras $\wt{R}_j$ along local maps. For large $j$, by the Cohen structure theorem \cite{Mat89}*{29.7 and its proof}, the completion of $\wt{R}_j$ is of the form $k'\llb t_1, \dotsc, t_n, s_1, \dotsc, s_{n'} \rrb$ for a field $k'$, some $t_1, \dotsc, t_n \in \wt{R}_j$ that map to a regular system of parameters of $\wt{R}$ and some $s_1, \dotsc, s_{n'} \in \wt{R}_j$. The descent of $f_1, \dotsc, f_m$ to any such $\wt{R}_j$ is a regular sequence: even the sequence $s_1, \dotsc, s_{n'}, f_1, \dotsc, f_m$ is $\wt{R}_j$-regular. Thus, $R$ is a filtered direct limit of excellent local complete intersections and a limit argument gives the desired reduction.
+\erem
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\csub[$p$-complete arc descent over perfectoids and fpqc descent] \label{sec:descent}
+\source{purity-flat-cohomology}
+
+
+
+As we saw in \Cref{M(G)-coho-descent}, the Dieudonn\'{e} module side of the key formula \eqref{eqn:key-formula} satisfies $p$-complete arc hyperdescent. The main goal of this section is to establish the same for the flat cohomology side in \Cref{thm:strongdescent-perfectoid}, which will lead us to showing the key formula in \S\ref{perfectoid-version}. The main inputs are the $p$-adic continuity formula \eqref{eqn:continuity-formula}, deformation theory, and the $p$-complete arc hyperdescent for the structure presheaf on perfectoid rings \cite{BS19}*{Proposition~8.10} (see \Cref{arc-sheaves}).
+%A final input to the perfectoid purity for flat cohomology, which we will take up in \S\ref{perfectoid-version}, is a $p$-complete arc descent for flat cohomology of perfectoid rings, stated precisely . We have already established the Dieudonn\'{e} module counterpart 
+%This is the group version of the corresponding descent for cohomology valued in prismatic s that we established in , and is the final input to the . For the proof, we combine the $p$-adic continuity formula \eqref{eqn:continuity-formula} with Dieudonn\'{e} theory over perfect rings, similarly to the method used in \S\ref{sec:excision}. 
+
+
+%We turn to the promised $p$-complete arc descent for flat cohomology of perfectoid rings. 
+
+\bthm \label{thm:strongdescent-perfectoid}
+\source{purity-flat-cohomology}
+For a prime $p$, a perfectoid ring $A$, a commutative, finite, locally free $A$-group $G$, and a closed $Z \subset \Spec(A/pA)$, %on perfectoid $A$-algebras $A'$ 
+both functors
+\[
+A' \mapsto R\Gamma(A', G) \qxq{and} A' \mapsto R\Gamma_Z(A', G) %\qx{satisfy $p$-complete arc hyperdescent.}  
+\] 
+satisfy hyperdescent for those $p$-complete arc hypercovers whose terms are perfectoid $A$-algebras.
+\ethm
+
+\bpf
+%The functors are coconnective, so it suffices to argue descent instead of hyperdescent.
+For any $a \in A$, by \Cref{cor:ind-etale}, the $p$-adic completion $\wh{A[\f1a]}$ of $A[\f1a]$ is perfectoid. Moreover, by excision \Cref{cor:excision}, we have
+\[
+\tst R\Gamma_{\{p=0\}}(A[\f 1a],G) \isomto R\Gamma_{\{p=0\}}(\wh{A[\f 1a]},G),
+\]
+as one can also deduce from the simpler \Cref{heavy-handed} (with \eqref{elt-excision} and \eqref{no-big-tor}) for the $p$-primary part of $G$ and from the consequence \cite{BM20}*{Theorem 6.4} of arc descent \Cref{arc-descent} for the prime to $p$ part of $G$).
+ Letting $a \in A$ range over the elements vanishing on $Z$, the functorial fiber sequence
+\be \label{eqn:p-for-Z}
+\source{purity-flat-cohomology}
+\tst R\Gamma_Z(A,G)\to R\Gamma_{\{p=0\}}(A,G)\to R\lim_a \p{R\Gamma_{\{p=0\}}(A[\f 1a],G)}
+\ee
+therefore reduces us to the case when $Z = \Spec(A/pA)$. Moreover, by \Cref{arc-descent}, the functor $A' \mapsto R\Gamma(A'[\f 1p], G)$ satisfies hyperdescent for those $p$-complete arc hypercovers whose terms are perfectoid $A$-algebras, so the cohomology with supports triangle reduces us to the functor 
+\[
+A' \mapsto R\Gamma(A', G).
+\]
+For the latter, the arc descent aspect of \Cref{arc-descent} and invariance of \'{e}tale cohomology under Henselian pairs \cite{Gab94a}*{Theorem 1} take care of the prime to $p$-factor of $G$. Thus, we may assume that $G$ is of $p$-power order and use the $p$-adic continuity formula \eqref{eqn:continuity-formula} to reduce to the functor 
+\[
+A' \mapsto R\Gamma(A'/^\bL p^n, G).
+\] 
+By \Cref{arc-sheaves}, the functor $A' \mapsto A'/^\bL p$ satisfies hyperdescent for those $p$-complete arc hypercovers whose terms are perfectoid $A$-algebras. Thus, the deformation theoretic \Cref{prop:defthy} %, for any $p$-complete arc hypercover $A' \ra A'^\bullet$ of perfectoid $A$-algebras, pullback induces an isomorphism between the mapping fiber of
+%\be \label{descent-test-map}
+%\tst R\Gamma(A'/^\bL p^n, G) \ra R\lim_{\Delta}\p{R\Gamma(A'^\bullet/^\bL p^n, G)}  %\qxq{and} R\Gamma(A', G) \ra R\lim_{\Delta}(R\Gamma(A' \wh{\tensor}^\bL_A \dotsc \wh{\tensor}^\bL_A A')
+%\ee
+%and its counterpart with $n$ replaced by $n - 1$. This reduces us 
+allows us to decrease $n$ to reduce to showing $p$-complete arc hyperdescent for the functor $A' \mapsto R\Gamma(A'/^\bL p, G)$. To reduce further, we choose a system $\pi^{1/p^n} \in A$ of compatible $p$-power roots with $\pi$ a unit multiple of $p$ in $A$ (see \S\ref{perfectoid-def}). As above, by \Cref{arc-sheaves}, each functor $A' \mapsto A'/^\bL \pi^{1/p^n}$ satisfies hyperdescent for those $p$-complete arc hypercovers whose terms are perfectoid $A$-algebras $A'$. Thus, by iteratively applying \Cref{prop:defthy} we see that for any $p$-complete arc hypercover $A' \ra A'^\bullet$ whose terms are perfectoid $A$-algebras, the fiber of the hyperdescent comparison map
+\[
+\tst R\Gamma(A'/^\bL \pi^{1/p^n}, G) \ra R\lim_\Delta( R\Gamma(A'^\bullet/^\bL \pi^{1/p^n}, G))
+\]
+maps isomorphically to the corresponding fiber in which $n$ replaced by $n + 1$. Thus, by passing to the filtered direct limit over all $n \ge 0$, we even reduce to considering the functor % For passing to the limit consider a fixed hypercover and the mapping fiber of the comparison map. We want this fiber to vanish and we show that it maps isomorphically to its analogue when we kill smaller and smaller powers of $\pi$, then we pass to the limit.
+\[
+\tst A' \mapsto R\Gamma(\varinjlim_n (A'/^\bL \pi^{1/p^n}), G).
+\]
+Since $A'/ (\pi^{1/p^\infty}) \cong (A'/pA')^\red$ (see \eqref{p-oid-mod-pi}) and $A'\langle \pi\rangle = A'\langle \pi^{1/p^\infty} \rangle$ (see \eqref{no-big-tor}), we have 
+\[
+\tst \varinjlim_n (A'/^\bL \pi^{1/p^n}) \isomto (A'/pA')^\red.
+\]
+Thus, we may replace $A$ by the perfect $\bF_p$-algebra $(A/pA)^\red$ to reduce to showing that the functor $A' \mapsto R\Gamma(A', G)$ satisfies hyperdescent for those arc hypercovers whose terms are perfect $(A/pA)^\red$-algebras. By \eqref{crystalline-cor}, this functor is nothing else than 
+\[
+A' \mapsto R\Gamma(W(A'), \bM(G_{A'}))^{V = 1},
+\]
+so \Cref{M(G)-coho-descent} gives the claim.
+\epf
+
+
+
+
+
+
+
+
+
+
+%\temp{
+%\bpp[The arc topology on animated rings] \label{pp:arc-topology-2}
+%Building on \S\ref{pp:arc-topology}, we say that a map $A\ra A'$ of animated rings is an \emph{arc cover} (resp.,~\emph{$p$-complete arc cover}, etc.)~if so is the induced map $\pi_0(A) \ra \pi_0(A')$ of usual rings. By the left-adjointness of the functor $A\mapsto \pi_0(A)$, one could equivalently repeat the explicit definitions of \S\ref{pp:arc-topology} with $R$ and $R'$ now being animated rings. 
+%\epp
+
+
+%The following ``derived Beauville--Laszlo'' lemma supplies useful examples of arc covers. 
+
+%\brem
+%For a map $A \ra A'$ of animated rings and an $a\in A$ such that $A/^\bL a \isomto A'/^\bL a$,
+%\be \label{eqn:derived-BL-key}
+%\tst \x{the map} \q A \ra A' \times A[\f 1a] \qxq{is an arc cover and} A \isomto A' \times_{A'[\f{1}{a}]} A[\f{1}{a}].
+%\ee
+%\erem
+
+%The Bhatt--Mathew arc descent for \'{e}tale cohomology recalled in \Cref{arc-descent} extends to the animated setting as follows (the completion aspect \eqref{eqn:decomplete-id} is more classical and due  to Gabber).
+
+%We will make frequent use of the following recent arc-descent result of Bhatt--Mathew \cite{BM20}. Its comparison to .
+
+%\begin{theorem}\label{thm:arcdescent} \label{thm:plain-arcdescent-for-etale} \label{eqn:etale-arcdescent}
+%For a prime $p$, a ring $R$, and a finite, locally free $R$-group $G$ of $p$-power order, 
+%\[
+%\tst \x{the functor} \q A\mapsto R\Gamma(A[\f 1p], G) \q \x{satisfies hyperdescent in the arc topology on animated $A$-algebras};
+%\]
+%in addition, letting $(-)^h_p$ and $\wh{(-)}$ denote the $p$-Henselization and the \up{nonderived} $p$-adic completion,
+%\be \label{eqn:decomplete-id}
+%\tst R\Gamma((\pi_0(A))^h_p[\tfrac 1p],G) \isomto R\Gamma(\widehat{\pi_0(A)}[\tfrac 1p],G)
+%\ee
+%and the functor $A\mapsto R\Gamma(\widehat{\pi_0(A)}[\tfrac 1p],G)$ satisfies hyperdescent in the $p$-complete arc-topology.
+%\end{theorem}
+
+%We note that replacing the nonderived $p$-adic completion of $\pi_0(A)$ by its derived $p$-adic completion, or by the derived $p$-adic completion of $A$ itself, the functor is unchanged, as follows from the nilinvariance of the \'etale site and \Cref{rem:no-new-etale}. Similarly, we may replace the $p$-Henselization of $\pi_0(A)$ with the $p$-Henselization of $A$.
+
+%\begin{proof}
+%Over $R[\f 1p]$ the group $G$ is \'{e}tale, so, by \Cref{prop:smooth-fppf-et-comp}, all the appearing cohomology may be computed in the \'{e}tale topology. Thus, by \Cref{rem:no-new-etale} and \cite{BM20}*{Thm.~6.10} (or \cite{ILO14}*{XX, \S4.4}),
+%\[
+%\tst R\Gamma_\et(A[\tfrac 1p],G) \isomto R\Gamma_\et(\pi_0(A)[\tfrac 1p],G) \qxq{and} R\Gamma_\et((\pi_0(A))^h_p[\tfrac 1p],G) \isomto R\Gamma_\et(\widehat{\pi_0(A)}[\tfrac 1p],G).
+%\]
+%Thus, the arc descent (resp.,~the $p$-complete arc descent) claim is a special case of \Cref{arc-descent}---since the functors in question take coconnective values, descent for them implies hyperdescent. %for them(see, for instance, \cite{CM19}*{2.5}).
+%\end{proof}
+%}
+
+
+The method also leads to the following agreement of fppf cohomology with fpqc cohomology.
+
+
+\begin{theorem}
+\source{purity-flat-cohomology}
+\notready\label{thm:strongdescent} 
+\source{purity-flat-cohomology}
+For a ring $R$ and a commutative, finite, locally free $R$-group $G$, the functor 
+\[
+A\mapsto R\Gamma_\fppf(A,G)
+\]
+satisfies fpqc hyperdescent on animated $R$-algebras $A$. %, so, in particular,
+%\[
+%R\Gamma_\fppf(A,G) \cong R\Gamma_{\mathrm{fpqc},\, \kappa}(A,G) \q \x{for every auxiliary cutoff cardinal $\kappa$ as in \uS\uref{conv} with $\abs{A} <\kappa$}
+%\]
+%\up{cohomology in the small fpqc site of animated $A$-algebras $A'$ with $\abs{A'} < \kappa$}.%\footnote{\rv{Here $\abs{A'} < \kappa$ means that $\abs{\pi_n(A')} <\kappa$ for each $n \ge 0$.}}%\uscolon if $G$ is of $p$-power order, then restricted to $S$ with $\pi_0(S)$ Henselian along $(p)$ this functor satisfies .
+\end{theorem}
+
+\begin{proof} 
+%Granted that we implicitly restrict $A_\fppf$ to schemes of cardinality $< \kappa$ (which, by \cite{SGA4I}*{III, 4.1}, has no effect on topoi and hence on cohomology), the agreement of cohomology follows from the fpqc descent assertion. 
+We may restrict to $G$ of $p$-power order for a prime $p$ and have a functorial Cartesian square
+\[\xymatrix{
+R\Gamma_\fppf(A,G)\ar[r]\ar[d] & R\Gamma_\fppf(A_{(p)}^h,G)\ar[d]\\
+R\Gamma_\fppf(A[\tfrac 1p],G)\ar[r] & R\Gamma_\fppf(A_{(p)}^h[\tfrac 1p],G),
+}\]
+where $(-)_{(p)}^h$ denotes $p$-Henselization (see \Cref{rem:no-new-etale}). By \eqref{et-fppf-agree} and \Cref{rem:no-new-etale}, 
+\[
+\tst R\Gamma_\fppf(A[\frac 1p], G) \cong R\Gamma_\et(\pi_0(A)[\frac 1p], G)
+\]
+and 
+\[
+\tst R\Gamma_\fppf(A_{(p)}^h[\frac 1p],G) \cong R\Gamma_\et(\pi_0(A)_{(p)}^h[\frac 1p], G),
+\]
+so arc descent, that is, \Cref{arc-descent} and \Cref{BM-hens-comp} (with \S\ref{pp:arc-topology}~\ref{arc-fflat}), reduces us to showing fpqc hyperdescent for the functor
+\[
+A\mapsto R\Gamma_\fppf(A_{(p)}^h,G).
+\]
+\Cref{thm:padiclimit} then allows us to instead consider the functor 
+\[
+A\mapsto R\Gamma_\fppf(A/^\bL p^n,G).
+\]
+By fpqc hyperdescent for modules (see \S\ref{pp:simplicial-coho-def}), the deformation-theoretic \Cref{prop:defthy} reduces us further to $n = 1$. In other words, we have reduced to $R$ being an $\bF_p$-algebra. Postnikov-convergence of \Cref{cor:fppf-hyperdescent} then allows us to assume that $A$ is $n$-truncated, and we apply \Cref{prop:defthy} again  to assume further that $A$ is even $0$-truncated. 
+
+The $A$-flat $A'$ are then also $0$-truncated, so $R\Gamma_\fppf(-, G)$ takes coconnective values on them. In particular, it remains to show fpqc descent as opposed to hyperdescent. %(see \S\ref{pp:simplicial-coho-def}).
+Moreover, by ind-fppf descent as in the proof of \Cref{prop:excision-prep}, we may assume that $A$ is semiperfect. By applying the deformation-theoretic \Cref{prop:defthy} and passing to the direct limit over the nilpotent ideals of $A$, we may even replace $A$ by its perfection (compare with the proof of \Cref{prop:excision-prep}).  For perfect $A$, we strengthen the sought claim: we will show that any faithfully flat $A\ra A'$ with  \v{C}ech nerve $A'^\bullet$ is of universal descent for $R\Gamma_\fppf(-, G)$ in the sense that for any $A$-algebra $B$, 
+\[
+\tst R\Gamma_\fppf(B,G) \isomto  R\lim_\Delta \p{R\Gamma_\fppf(A^{\prime\bullet} \tensor_A B,G)}\!.
+\]
+The advantage of allowing any $B$ is that then, by \cite{LZ17}*{Lemma~3.1.2 (3)}, we can replace $A\to A'$ by any refinement. Thus, by \Cref{lem:perf-still-pro-fppf}, we may assume that $A'$ is also perfect. Then we repeat the same reductions as above to first assume by ind-fppf descent that $B$ is semiperfect and then, by deformation theory, perfect. Once $A$, $A'$, and $B$ are perfect, so is $B'=B\otimes_A A'$, to the effect that we have reduced the original claim to the case when both $A$ and $A'$ are perfect $\bF_p$-algebras and $G$ is of $p$-power order. \Cref{KT-input} then reduces us to showing that
+\[
+\tst R\Gamma(W(A),\bM(G_A))^{V = 1} \isomto  R\lim_\Delta \p{R\Gamma(W(A^{\prime\bullet}), \bM(G_{A^{\prime\bullet}}))^{V = 1}}\!.
+\]
+For this, by considering fiber sequences, we may first drop the superscripts ``$V = 1$,'' and then, by resolving $\bM(G_A)$ by finite projective $W(A)$-modules (see \S\ref{Gab-eq}) and expressing the latter as direct summands of finite free $W(A)$-modules, we reduce to showing that 
+\[
+\tst W(A) \isomto  R\lim_\Delta \p{W(A^{\prime\bullet})}\!.
+\]
+Since the Witt vectors of a perfect ring is a derived inverse limit of its reductions modulo powers of $p$, we may now drop $W(-)$ from both sides and conclude by fpqc descent.
+\end{proof}
+
+
+
+
+
+We conclude the section with the following consequence for $p$-completely faithfully flat descent. 
+
+\begin{corollary}
+\source{purity-flat-cohomology}
+\notready\label{cor:descentsupport} 
+\source{purity-flat-cohomology}
+Let $R$ be a ring, let $p$ be a prime, let $Z \subset \Spec(R/pR)$ be a closed subset, and let $G$ be a commutative, finite, locally free $R$-group of $p$-power order. On animated $R$-algebras $A$, both
+\[
+A\mapsto R\Gamma(A^h_{(p)}, G) \qxq{and} A\mapsto R\Gamma_Z(A,G)
+\]
+satisfy hyperdescent for cosimplicial algebras $A \ra A^\bullet$ such that $A/^\bL p \ra A^\bullet/^\bL p$ is an fpqc hypercover.
+\end{corollary}
+
+\begin{proof} 
+The $p$-Henselization $A^h_{(p)}$ has no effect on $A$ modulo powers of $p$ and, by \Cref{lem:reduced-flatness}, the map $A \ra A^\bullet$ is a faithfully flat hypercover modulo powers of $p$. % First argue that is has no effect modulo $p$: we know it's a flat map and iso. on $\pi_0$, so good. Then use the five lemma to argue the general case of modulo $p^n$. 
+Thus, the claim about the functor $A\mapsto R\Gamma(A^h_{(p)}, G)$ follows from the $p$-adic continuity formula \eqref{eqn:continuity-formula} and \Cref{thm:strongdescent}. %(noting that the faithful flatness of $A/^\bL p\ra A'/^\bL p$ implies that of $A/^\bL p^n\ra A'/^\bL p^n$ for all $n$). 
+For the claim about $A\mapsto R\Gamma_Z(A, G)$, the fiber sequence \eqref{eqn:p-for-Z} reduces us to the case when $Z = \Spec(R/pR)$. In this case, by excision \eqref{elt-excision}, there is a functorial fiber sequence
+\[
+\tst R\Gamma_{\{p=0\}}(A,G)\to R\Gamma(A^h_{(p)},G)\to R\Gamma(A^h_{(p)}[\frac 1p],G), 
+\]
+which, due to the settled case of $A\mapsto R\Gamma(A^h_{(p)}, G)$, reduces us to considering $A\mapsto R\Gamma(A^h_{(p)}[\frac 1p],G)$. By \eqref{et-fppf-agree} and \Cref{rem:no-new-etale}, this functor agrees with $A\mapsto R\Gamma_\et(\pi_0(A)^h_{(p)}[\frac 1p],G)$, which, by \Cref{BM-hens-comp} (with \S\ref{pp:arc-topology}~\ref{arc-pi-fflat}), satisfies hyperdescent for $p$-completely faithfully flat covers. %arc descent. It remains to recall from  that $p$-complete fpqc covers are also $p$-complete arc covers.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\begin{comment}
+
+
+
+
+\csub[The continuity formula for flat cohomology] \label{sec:genl-continuity}
+\source{purity-flat-cohomology}
+
+
+%\rv{
+
+
+We wish to supplement the $p$-adic continuity formula of \Cref{thm:padiclimit} with a general continuity formula for flat cohomology that we present in \Cref{adic-continuity} below. We will not use this general formula other than in \S\ref{sec:genl-continuity} (whose results will not be used elsewhere in this article), but we give some of its consequences in \Cref{inv-Hens-pair,cor:more-algebrization,cor:Gab-ann}. The continuity formula concerns those animated rings that are derived $I$-adically complete as follows. 
+
+
+\bpp[Derived $I$-adic completeness] \label{pp:derived-complete}
+\source{purity-flat-cohomology}
+An animated ring $A$ is \emph{derived $I$-adically complete} for an ideal $I \subset \pi_0(A)$ if $A$ is derived $a$-adically complete for every $a \in I$, in other words, if
+\[
+\tst A \isomto R\lim_{n > 0} (A/^\bL a^n) \qxq{for} a \in I.
+\]
+Similarly to \S\ref{ani-rings}, we may consider $A$ as an object of $D(\bZ[X])$ via the map $\bZ[X] \ra A$ given by $X\mapsto a$. Thus, by \cite{BS15}*{Proposition~3.4.4}, derived $I$-adic completeness of $A$ is equivalent to each $\pi_i(A)$ being derived $a$-adically complete for every $a \in I$, and \cite{BS15}*{Lemma~3.4.12} allows us to restrict to those $a$ that lie in a fixed generating set of $I$. Thus, derived $I$-adic completeness is stable under truncations and if $I = (a_1, \dotsc, a_n)$ is finitely generated, then, arguing as in the proof of \Cref{comp-explain}, we see that $A$ is derived $I$-adically complete if and only if
+\be \label{eqn:continuity-condition}
+\source{purity-flat-cohomology}
+\tst A \isomto R\lim_{n > 0} (A/^\bL (a_1^n, \dotsc, a_r^n)).
+\ee
+%Moreover, derived $I$-adic completeness is stable under passage to truncations. 
+Derived $I$-adic completeness of $A$ is weaker than $I$-adic completeness of homotopy groups: if each $\pi_i(A)$ is (classically) $I$-adically complete, then $A$ is derived $I$-adically complete, see \cite{BS15}*{Lemma~3.4.13}.
+\epp
+
+
+Derived $I$-adic completeness of $A$ implies $I$-Henselianity of $\pi_0(A)$ as follows. 
+%In turn, the latter is weaker than $I$-adic completeness, which directly implies $I$-Henselianity thanks to the stability of the latter under inverse limits (see \cite{SP}*{\href{https://stacks.math.columbia.edu/tag/0ALI}{0ALI}, \href{https://stacks.math.columbia.edu/tag/0EM6}{0EM6}} or  \cite{SP}*{\href{https://stacks.math.columbia.edu/tag/0ALJ}{0ALJ}}).
+
+
+
+%we recall that stability of Henselianity under inverse limits implies that an $I$-adically complete ring is $I$-Henselian, see  and now explain that the same holds for rings that are merely derived $I$-adic complete. 
+
+\blem \label{lem:DC-comp-Hens}
+\source{purity-flat-cohomology}
+For an animated ring $A$ and an ideal $I \subset \pi_0(A)$ such that $A$ is derived $I$-adically complete, the ring $\pi_0(A)$ is $I$-Henselian. %\uscolon if $A$ is $0$-truncated and $I$ is principal, then $A$ is a square-zero extension of its $I$-adic completion.
+%is a square-zero extension of its $I$-adic completion, so, in particular, it
+\elem
+
+\bpf
+By \S\ref{pp:derived-complete}, 
+%Similarly to \S\ref{ani-rings}, we may consider $A$ as an object of $D(\bZ[X])$ via the map $\bZ[X] \ra A$ given by $X\mapsto a$. Thus, \cite{BS15}*{3.4.4} shows that $\pi_0(A)$ is also derived $a$-adically complete for every $a \in I$ in a system of generators for $I$. In effect, 
+the animated aspect of the statement is illusory: we may replace $A$ by $\pi_0(A)$ to assume that $A$ is $0$-truncated. In this case, we use \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0G1S}{0G1S}} to reduce further to the case when $I$ is principal, generated by an $a \in I$, so that, by \Cref{lem:sq-0-trick}, the ring $A$ an extension of its $a$-adic completion by a square-zero ideal $J$. 
+%The derived $a$-adic completeness then amounts to the map $A \ra R\lim_{n > 0}(A/^\bL a^n)$ being an isomorphism, so it gives the exact sequence
+%\be \label{eqn:sq-zero-cute}
+%\tst 0 \ra \varprojlim_{n > 0}^1 (A\langle a^n \rangle) \ra A \ra \varprojlim_{n > 0} A/(a^n) \ra 0.
+%\ee
+%Since $\varprojlim_{n > 0}^2 \cong 0$, the ideal $J \ce \varprojlim_{n > 0}^1 (A\langle a^n \rangle) \subset A$ is square-zero. 
+Thus, since the $a$-adic completion %$\varprojlim_{n > 0} A/(a^n)$ 
+is $a$-Henselian, \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0DYD}{0DYD}} ensures that $A$ is $(J + (a))$-Henselian, and then also $a$-Henselian. %,  as desired.
+\epf
+
+
+
+The following special case of \Cref{inv-Hens-pair} is an input to the overall proof of the continuity formula.
+
+%that it implies a result on invariance under Henselian pairs  for flat cohomology of large degree of usual rings and in \Cref{} that it implies an algebraization 
+%, as well as a Henselian approximation  
+
+
+
+
+\blem \lab{baby-inv-Hens-pair}
+For a Henselian pair $(R, I)$ and a commutative, finite, locally free $R$-group $G$, 
+\be \lab{BIHP-map}
+H^2(R, G) \isomto H^2(R/I, G).
+\ee
+\elem
+
+\bpf
+By \cite{BC19}*{Theorem~2.1.6}, the map \eqref{BIHP-map} is injective and, for every smooth, affine $R$-group~$Q$, we have
+\be \label{eqn:BC-input}
+\source{purity-flat-cohomology}
+H^1(R, Q) \isomto H^1(R/I, Q) 
+\ee
+and
+\[
+\Ker(H^2(R, Q) \ra H^2(R/I, Q)) = \{*\}.
+\]
+Thus, the B\'{e}gueri sequence \eqref{Begueri-0} and the five lemma reduce the surjectivity of \eqref{BIHP-map} to that of the map 
+\[
+H^2(R', \bG_m)_\tors \ra H^2(R'/IR', \bG_m)_\tors \qxq{where} R' \ce \Gamma(G^*, \sO_{G^*}).
+\]
+For the latter, by \cite{Gab81}*{Chapter II, Theorem 1}, every element of the target $H^2(R'/IR', \bG_m)_\tors$ comes from some $H^1(R'/IR', \PGL_n)$, so it suffices to apply \eqref{eqn:BC-input} to $\PGL_{n}$ over the Henselian pair $(R', IR')$.
+%, for the remaining surjectivity it suffices to show that the image in $H^2(R/I, \Res_{G^*/R}(\bG_m))$ of any element of $H^2(R/I, G)$ lifts to $H^2(R, \Res_{G^*/R}(\bG_m))$. In fact, 
+\epf
+
+
+
+
+We use these lemmas to show the following case of \Cref{adic-continuity} that will serve as an input to the general case. Its vanishing condition holds when $A$ is of characteristic $p$ and $G$ is of $p$-power order (see \Cref{no-higher-coho}), so this case essentially includes the continuity formula in positive characteristic.
+
+
+\blem \label{lem:lame-case}
+\source{purity-flat-cohomology}
+Let $R$ be a ring, let $G$ be a commutative, finite, locally free $R$-group, let $A$ be an animated $R$-algebra, and let $a \in A$ be an element such that $A$ is derived $a$-adically complete and
+\[
+H^{i}(A, G) \cong H^i(A/^\bL a, G) \cong 0 \qxq{for} i \ge 3
+\]
+{\upshape(}equivalently, 
+\[
+H^{i}(\pi_0(A), G) \cong H^i(\pi_0(A)/(a), G) \cong 0 \qxq{for} i \ge 3).
+\]
+Then the continuity formula holds\ucolon
+\be \label{eqn:lame-map}
+\source{purity-flat-cohomology}
+\tst R\Gamma(A, G) \isomto R\lim_{n > 0}( R\Gamma(A/^\bL a^n, G)).
+\ee
+\elem
+
+\bpf
+The parenthetical reformulation of the vanishing condition follows from \Cref{cor:nil-nil-deform-cohomology}. This condition and \Cref{cor:nil-nil-deform-cohomology,no-nil-feelings} ensure that the map \eqref{eqn:lame-map} is an isomorphism in cohomological degrees $i \ge 3$. Likewise, by also using \Cref{baby-inv-Hens-pair,lem:DC-comp-Hens} and the surjectivity aspect of \Cref{no-nil-feelings} in cohomological degree $i = 1$ we see that the map \eqref{eqn:lame-map} is an isomorphism in cohomological degree $i = 2$. As for nonpositive degrees, it suffices to observe the following identification that results from $G$ being affine and $A$ being derived $a$-adically complete:
+\[
+\tst G(A) \isomto R\lim_{n > 0} G(A/^\bL a^n) \qx{(limit in the $\infty$-category $\Ani(\Ab)$).}
+\]
+To proceed with the remaining cohomological degree $1$, one possible approach (suggested by the referee) is to carry out a discussion of the cohomological classification of $G$-torsors over animated rings and then deduce the claim from the equivalence $\Vect(A) \simeq \lim_n \Vect(A/^\bL a^n)$ for $\infty$-categories of vector bundles. For the sake of expedience, we opt for a more pedestrian approach that is based on the following general reduction to the case when $A$ is $0$-truncated and $a$-adically complete.
+
+
+By \cite{BS15}*{Proposition~3.4.4}, the derived $a$-adic completeness of $A$ amounts to the derived $X$-adic completeness of each $\pi_i(A)$ viewed as a $\bZ[X]$-module via the map $\bZ[X] \mapsto \pi_0(A)$ given by $X \mapsto a$. In particular, the truncations $\tau_{\le m}(A)$ are again derived $a$-adically complete. Thus, by applying the strengthened version of Postnikov completeness presented in \Cref{cor:fppf-hyperdescent}, we may replace $A$ by the $\tau_{\le m}(A)$ to assume that $A$ is $m$-truncated for some $m \ge 0$. If $m > 0$, then, by \Cref{sq-zero-eg}~\ref{sq-0-3}, such an $A$ is a square-zero extension of $\tau_{\le m - 1}(A)$ by $\pi_m(A)[m]$, so that the deformation-theoretic triangle
+\[
+R\Gamma(A, G) \ra R\Gamma(\tau_{\le m - 1}(A), G) \ra R\Hom_R(e^*(L_{G/R}), \pi_m(A)[m + 1])
+\]
+supplied by \Cref{prop:defthy}, its analogues after derived reduction modulo $a^n$, and the derived $a$-adic completeness of $\pi_m(A)$ allow us to replace $A$ by $\tau_{\le m - 1}(A)$. By decreasing $m$ in this way, we reduce to the case when our animated $R$-algebra $A$ that satisfies the condition on the vanishing of cohomology is $0$-truncated. Moreover, since $A$ is derived $a$-adically complete, by \Cref{lem:sq-0-trick}, it is an extension of its $a$-adic completion by an ideal of square-zero. By \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/05GG}{05GG}, Proposition~\href{https://stacks.math.columbia.edu/tag/091T}{091T}}, the $a$-adic completion of $A$ is automatically derived $a$-adically complete, so the same holds for the square-zero ideal in question. Thus, by repeating the deformation-theoretic reduction once more and using \Cref{no-nil-feelings} to retain the vanishing condition, we reduce to the case when our $R$-algebra $A$ is $a$-adically complete. 
+
+
+In this case, for the remaining claim about cohomological degree $i = 1$, we first show that the map 
+\[
+\tst R\lim_{n > 0}( R\Gamma(A/^\bL a^n, G)) \ra R\lim_{n > 0}( R\Gamma(A/(a^n), G))
+\]
+is an isomorphism in cohomological degree $1$. Due to \Cref{cor:nil-nil-deform-cohomology}, for this it suffices to show that
+\be \label{eqn:lim1-iso}
+\source{purity-flat-cohomology}
+\tst \varprojlim_{n > 0}^1 H^0(A/^\bL a^n, G) \isomto \varprojlim_{n > 0}^1 G(A/(a^n)).
+\ee
+\Cref{sq-zero-eg}~\ref{sq-0-3} ensures that $A/^\bL a^n$ is a square-zero extension of $A/(a^n)$ by $(A\langle a^n\rangle)[1]$, so \Cref{prop:defthy} gives the exact sequences
+\[
+0 \ra H^1(R\Hom_R(e^*(L_{G/R}), A\langle a^n\rangle)) \ra H^0(A/^\bL a^n, G) \ra G(A/(a^n)) \ra 0. 
+\]
+Since $A$ is $a$-adically and so also derived $a$-adically complete, we have 
+\[
+R\lim(\{A\langle a^n\rangle\}_{n > 0}) \cong 0,
+\]
+so
+\[
+R\lim(\{\Hom_A(P, A\langle a^n\rangle)\}_{n > 0}) \cong 0
+\]
+for every finite projective $A$-module $P$. Since $e^*(L_{G/R})$ has perfect amplitude $[-1, 0]$ (see \S\ref{def-setup}), we conclude that the systems 
+\[
+\tst \{H^i(R\Hom_R(e^*(L_{G/R}), A\langle a^n\rangle))\}_{n > 0}
+\]
+have vanishing $\varprojlim_{n\ge 0}$ and $\varprojlim_{n > 0}^1$ (to argue this concretely, one uses the $\varprojlim^1$ sequences \cite{BK72}*{Chapter IX, Propositions 2.3, Remark~2.6}). Thus, the displayed short exact sequences above give
+\[
+\tst \varprojlim_{n > 0} H^0(A/^\bL a^n, G) \cong \varprojlim_{n> 0} G(A/(a^n)) 
+\]
+and
+\[
+\tst \varprojlim_{n > 0}^1 H^0(A/^\bL a^n, G) \cong \varprojlim_{n> 0}^1 G(A/(a^n)),
+\]
+so that, in particular, \eqref{eqn:lim1-iso} is an isomorphism, as desired. 
+
+All that remains to argue for our $a$-adically complete $R$-algebra $A$ is that the map 
+\[
+\tst R\Gamma(A, G) \ra R\lim_{n > 0}( R\Gamma(A/(a^n), G))
+\]
+is an isomorphism in cohomological degree $i = 1$, which amounts to the exactness of the sequence
+\be \label{eqn:H1-seq}
+\source{purity-flat-cohomology}
+\tst 0 \ra \varprojlim^1_{n > 0} G(A/(a^n)) \ra H^1(A, G) \ra \varprojlim_{n > 0} H^1(A/(a^n), G) \ra 0.
+\ee
+Since $A$ is $a$-adically complete and $G$ is finite, locally free, a $G$-torsor $X$ amounts to a compatible sequence of $G_{A/(a^n)}$-torsors 
+\[
+\tst (X_n, \iota_n \colon X_{n + 1}|_{A/(a^n)} \isomto X_n)_{n\ge 0}
+\]
+with specified torsor isomorphisms $\iota_n$. In particular, the third arrow is surjective and its kernel consists of the isomorphism classes of those systems for which each $X_n$ is trivial. By \cite{BK72}*{Chapter IX, Section 2.1}, the elements of $\varprojlim_{n > 0}^1 G(A/(a^n))$ are orbits of the sequences $(x_n) \in \prod_{n > 0} G(A/(a^n))$ under the action of $\prod_{n > 0} G(A/(a^n))$ given by 
+\be \label{eqn:lim1-action}
+\source{purity-flat-cohomology}
+(g_n) \cdot (x_n) = (g_n + x_n - g_{n + 1}|_{A/(a^n)}).
+\ee
+The sequence $(x_n)$ amounts to a sequence of torsor isomorphisms $\iota_n$ as above with each $X_n$ being a trivial torsor. A sequence $(g_n)$ amounts to a change of trivializations of the $X_n$, and the effect of this change on the $\iota_n$ amounts precisely to the formula \eqref{eqn:lim1-action}. From this optic, the first map of \eqref{eqn:H1-seq} is indeed the inclusion of the classes of those $(X_n, \iota_n)$ for which each $X_n$ is trivial.
+\epf
+
+
+
+
+
+
+
+The general continuity formula \eqref{eqn:genl-continuity} that we are pursuing and  fpqc hyperdescent of \Cref{thm:strongdescent} imply that fppf cohomology with commutative, finite, locally free coefficients should satisfy $a$-completely faithfully flat hyperdescent on derived $a$-adically complete animated rings. We now establish this hyperdescent directly to later use it as an input to the proof of the continuity formula. 
+
+
+\blem \label{lem:a-hyperdescent}
+\source{purity-flat-cohomology}
+Let $R$ be a ring, let $G$ be a commutative, finite, locally free $R$-group, and let $A$ be an animated $R$-algebra. For each cosimplicial animated $A$-algebra $A^\bullet$ and each $a \in A$ such that $A$ and each $A^i$ are derived $a$-adically complete and the map $A \ra A^\bullet$ is a faithfully flat hypercover modulo $a$,
+\be \label{eqn:a-hyperdescent}
+\source{purity-flat-cohomology}
+\tst R\Gamma(A, G) \isomto R\lim_\Delta(R\Gamma(A^\bullet, G)). 
+\ee
+\elem
+
+\bpf
+Thanks to \Cref{lem:reduced-flatness}, the map $A \ra A^\bullet$ is a faithfully flat hypercover modulo every $a^n$. Moreover, by decomposing $G$ into primary factors, we assume that it is of $p$-power order for a prime $p$. By \Cref{lem:sq-0-trick} and \cite{SP}*{Lemmas~\href{https://stacks.math.columbia.edu/tag/0DYD}{0DYD} and~\href{https://stacks.math.columbia.edu/tag/09XI}{09XI}}, for an animated $A$-algebra $A'$, the $\pi_0(-)$ of the derived $a$-adic completion $(A'^h_{(p)})\wh{\ }$ of the $p$-Henselization of $A'$ (defined using \Cref{rem:no-new-etale}) is $p$-Henselian. Thus, the $p$-adic continuity formula \eqref{eqn:continuity-formula} applies and, together with the fact that the formation of the derived $a$-adic completion commutes with reduction modulo $p$, gives the identification of functors 
+\[
+\tst R\Gamma(((-)^h_{(p)})\wh{\ }, G) \cong R\lim_{n > 0} R\Gamma(-/^\bL p^n, G)
+\]
+on derived $a$-adically complete animated $A$-algebras. Each functor $R\Gamma(-/^\bL p^n, G)$ satisfies an analogue of the desired hyperdescent \eqref{eqn:a-hyperdescent} thanks to the fpqc descent of \Cref{thm:strongdescent} and to \Cref{lem:lame-case} (we recall that the vanishing condition of the latter holds for inputs whose $\pi_0(-)$ is $p$-Henselian, for instance, whose $\pi_0(-)$ is even killed by some $p^n$, see \Cref{no-higher-coho}). Thus, the functor $R\Gamma(((-)^h_{(p)})\wh{\ }, G)$ also satisfies this analogue, to the effect that it suffices to show  the analogue of \eqref{eqn:a-hyperdescent} for the following functor on derived $a$-adically complete animated $A$-algebras:
+\be \label{eqn:functor-fib}
+\source{purity-flat-cohomology}
+\Fib\p{R\Gamma(-, G) \ra R\Gamma(((-)^h_{(p)})\wh{\ }, G) }\!.
+\ee
+For this, we will use an excision trick to replace $G$ by $j_!(G)$, where 
+\[
+\tst j \colon \Spec(R[\f 1p]) \ra \Spec(R)
+\]
+is the indicated open immersion and $j_!(G)$ is taken in the \'{e}tale topology. Namely, for $a$-adically complete animated $A$-algebras $A'$, the map $A' \ra (A'^h_{(p)})\wh{\ }$ is an isomorphism modulo $p$, so the excision \Cref{prop:excision-prep} and its counterpart for \'{e}tale cohomology supplied by \cite{BM20}*{Theorems~1.15 and~5.4} imply that the following commutative squares of functors are Cartesian when evaluated on such $A'$:
+\[
+\xymatrix{
+R\Gamma(-, G) \ar[d] \ar[r] & R\Gamma(((-)^h_{(p)})\wh{\ }, G) \ar[d] \\
+R\Gamma((-)[\f 1p], G) \ar[r] & R\Gamma(((-)^h_{(p)})\wh{\ }\,[\f 1p], G),
+}
+\]
+\[
+\xymatrix{
+  R\Gamma(-, j_!(G)) \ar[d] \ar[r] & R\Gamma(((-)^h_{(p)})\wh{\ }, j_!(G)) \ar[d] \\
+ R\Gamma((-)[\f 1p], G) \ar[r] & R\Gamma(((-)^h_{(p)})\wh{\ }\,[\f 1p], G),
+}
+\]
+where in the second square the cohomology is taken in the \'{e}tale topology. Thus, the functor \eqref{eqn:functor-fib} agrees with the functor
+\[
+\tst \Fib\p{R\Gamma(-, j_!(G)) \ra R\Gamma(((-)^h_{(p)})\wh{\ }, j_!(G)) }\!.
+\]
+We conclude that it suffices to show the analogue of \eqref{eqn:a-hyperdescent} for each of the functors
+\[
+R\Gamma(-, j_!(G)) \qxq{and} R\Gamma(((-)^h_{(p)})\wh{\ }, j_!(G))
+\]
+where the cohomology is \'{e}tale. By \Cref{rem:no-new-etale}, \'{e}tale cohomology depends only on the $\pi_0(-)$ of the animated ring in question. Moreover, by \Cref{lem:DC-comp-Hens} and the invariance of \'{e}tale cohomology with torsion coefficients under Henselian pairs \cite{Gab94a}*{Theorem~1}, on derived $a$-adically complete animated $A$-algebras these functors agree with the functors 
+\[
+R\Gamma((-)/^\bL a, j_!(G)) \qxq{and} R\Gamma(((-)/^\bL p)/^\bL a, j_!(G)) \cong R\Gamma(((-)/^\bL a)/^\bL p, j_!(G)).
+\]
+Thus, the desired hyperdescent for them with respect to $A \ra A^\bullet$ follows from faithfully flat hyperdescent for \'{e}tale cohomology with torsion coefficients, which itself is a special case of \Cref{arc-descent} (and the fact that faithfully flat maps are arc covers, as reviewed in \S\ref{pp:arc-topology}~\ref{arc-fflat}).
+\epf
+
+
+
+
+
+
+
+
+
+
+
+
+
+We are ready for the promised general continuity formula for flat cohomology. We thank Akhil Matthew for pointing our attention to such a statement in analogy with \cite{DM17}*{Theorem~1.5}.
+
+\bthm \label{adic-continuity}
+\source{purity-flat-cohomology}
+Let $R$ be a ring and let  $G$ be a commutative, finite, locally free $R$-group. For an animated $R$-algebra $A$ and an ideal $I = (a_1, \dotsc, a_r) \subset \pi_0(A)$ such that $A$ is derived $I$-adically complete, we have the following continuity formula\ucolon
+%elements $a_1, \dotsc, a_r \in A$ such that
+%\be \label{eqn:continuity-condition}
+%\tst A \isomto R\lim_{n > 0} (A/^\bL (a_1^n, \dotsc, a_r^n))
+%\ee
+%\up{see the proof for a reformulation}, 
+\be \label{eqn:genl-continuity}
+\source{purity-flat-cohomology}
+\tst R\Gamma(A, G) \isomto R\lim_{n > 0} (R\Gamma(A/^\bL (a_1^n, \dotsc, a_r^n), G)). 
+\ee
+\ethm
+
+\bpf
+The case $r = 0$ is clear, so we assume that $r > 0$. By \S\ref{pp:derived-complete} and the proof of \Cref{comp-explain}, derived $I$-adic completeness amounts to $A$ being equal to its iterated derived $a_i$-adic completion for $i = 1, \dotsc, r$. %For $r = 1$, this simply amounts to $A$ being derived $a_1$-adically complete. 
+Moreover, each $A/^\bL (a_1^n, \dotsc, a_{r - 1}^n)$ inherits derived $a_r$-adic completeness from $A$ and %we may form the derived limit as follows:
+\[
+\tst R\lim_{n > 0} (A/^\bL (a_1^n, \dotsc, a_r^n)) \cong R\lim_{n > 0} (R\lim_{m \ge 0} (A/^\bL (a_1^n, \dotsc, a_{r - 1}^n, a_r^m))),
+\]
+and likewise after first applying $R\Gamma(-, G)$. Thus, since \eqref{eqn:continuity-condition} also holds with $a_r$ omitted, we induct on $r$ to reduce  to the case $r = 1$. From now on we place ourselves in this case and set $a \ce a_1$. 
+
+By \Cref{thm:strongdescent} and \Cref{lem:a-hyperdescent}, both sides of \eqref{eqn:genl-continuity} satisfy hyperdescent with respect to cosimplicial animated $A$-algebras $A^\bullet$ such that each $A^i$ is derived $a$-adically complete and the map $A \ra A^\bullet$ is a faithfully flat hypercover modulo every $a^n$. In particular, \eqref{eqn:genl-continuity} holds for $A$ once it holds for each $A^i$. We use \Cref{rem:no-new-etale} and \Cref{lem:large-cover} to construct such an $A^\bullet$ for which each $A^i$ is the derived $a$-adic completion of an animated $A$-algebra $A'^i$ that has no nonsplit \'{e}tale covers. \Cref{lem:sq-0-trick} ensures that $\pi_0(A^i)$ is a square-zero extension of the $a$-adic completion of $\pi_0(A'^i)$, so \Cref{rem:no-new-etale} and \cite{SP}*{Lemmas~\href{https://stacks.math.columbia.edu/tag/09XI}{09XI} and~\href{https://stacks.math.columbia.edu/tag/04D1}{04D1}} imply that $\pi_0(A^i)$ also has no nonsplit \'{e}tale covers. Thus, by applying \Cref{rem:no-new-etale} one more time and renaming $A^i$ to $A$, we are reduced to the case when our $a$-adically complete animated $R$-algebra $A$, equivalently, $\pi_0(A)$, has no nonsplit \'{e}tale covers. In this case, the B\'{e}gueri sequence \eqref{Begueri-0} shows that $H^{j}(A, G) \cong 0$ for $j \ge 2$. By \Cref{rem:no-new-etale} and \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/04D1}{04D1}}, each $A/^\bL a^n$ also has no nonsplit \'{e}tale covers, so the B\'{e}gueri sequence and \eqref{et-fppf-agree} also show that $H^{j}(A/^\bL a^n, G) \cong 0$ for $j \ge 2$. Thus, applying \Cref{lem:lame-case} gives the conclusion.
+%Since, by \Cref{cor:nil-nil-deform-cohomology,no-nil-feelings}, the maps $H^1(A/^\bL a^{n + 1}, G) \ra H^1(A/^\bL a^{n}, G)$ are surjective, it follows that the $H^{\ge 2}$ of the right side of \eqref{eqn:genl-continuity} also vanish. 
+%\[
+%\tst \varprojlim^1_{n \ge 0} (A\langle a^n\rangle) \cong 0 \qxq{and} \varprojlim_{n \ge 0} (A\langle a^n\rangle) \cong 0,
+%\]
+%so also the analogous vanishing for the systems $\{\Hom_A(P, A\langle a^n\rangle)\}$ for a finite projective $A$-module $P$.
+%\[
+%0 \ra H^0(R\Hom_R(e^*(L_{G/R}), A\langle a^n\rangle)) \ra A\langle a^n\rangle^{\oplus i} \ra A\langle a^n\rangle \ra  H^1(R\Hom_R(e^*(L_{G/R}), A\langle a^n\rangle)) \ra 0
+%\]
+\epf
+
+
+
+\beg \label{eg:continuity}
+\source{purity-flat-cohomology}
+Let $R$ be a ring that is derived complete (for example, complete) with respect to a finitely generated ideal $I = (a_1, \dotsc, a_r) \subset R$ and let $G$ be a commutative, finite, locally free $R$-group scheme. Since $R$ is derived $a_i$-adically complete for $i = 1, \dotsc, r$, one argues as in the beginning of the proof of \Cref{adic-continuity} that the condition \eqref{eqn:continuity-condition} holds. Thus, \eqref{eqn:genl-continuity} and \Cref{cor:nil-nil-deform-cohomology,no-nil-feelings} show that for $i \ge 2$ the map
+\be \label{eqn:derived-prelim-case}
+\source{purity-flat-cohomology}
+H^i(R, G) \ra H^i(R/I, G) \qxq{is} \begin{cases}\xq{surjective for} i \ge 1, \\ \xq{bijective for}\ \, i \ge 2.  \end{cases}
+\ee
+Similarly, for $i = 1$ they give a short exact sequence
+\[
+\tst 0 \ra \varprojlim^1_{n > 0} H^{0}(R/^\bL(a_1^n, \dotsc, a_r^n), G) \ra H^1(R, G) \ra \varprojlim_{n > 0} H^1(R/I^n, G) \ra 0.
+\]
+The animated rings $R/^\bL(a_1^n, \dotsc, a_r^n)$ are $r$-truncated, so if $R$ is $I$-adically complete, then we may argue as in the proof of \Cref{lem:lame-case} with $A\langle a^n\rangle$ replaced by the positive homotopy groups of the $R/^\bL(a_1^n, \dotsc, a_r^n)$ to inductively replace $R/^\bL(a_1^n, \dotsc, a_r^n)$ by its $j$-truncation for $j = r - 1, \dotsc, 0$ in the short exact sequence displayed above. In effect, if $R$ is $I$-adically complete, then the sequence above takes the more concrete form
+\[
+\tst 0 \ra \varprojlim^1_{n > 0} G(R/I^n) \ra H^1(R, G) \ra \varprojlim_{n > 0} H^1(R/I^n, G) \ra 0.
+\]
+\eeg
+
+
+
+
+
+
+%By \Cref{inv-Hens-pair} below, \eqref{eqn:derived-prelim-case} holds even when $R$ is $I$-Henselian---
+
+
+
+\brem
+Contrary to the $p$-adic continuity formula \eqref{eqn:continuity-formula}, even in the case when the ideal $I$ in \Cref{adic-continuity} is principal, the general continuity formula \eqref{eqn:genl-continuity} does not hold if $A$ is merely $I$-Henselian (in the sense that $\pi_0(A)$ is $I$-Henselian). Indeed, if the Henselian version held, then together with the complete version \eqref{eqn:genl-continuity} it would imply that the cohomology groups $H^1(\bF_p\{t\}, \mu_p)$ and $H^1(\bF_p\llb t \rrb, \mu_p)$ are isomorphic, where $\bF_p\{t\}$ is the $t$-Henselization of $\bF_p[t]$. However, the Kummer sequence shows that $H^1(\bF_p\{t\}, \mu_p)$ is countable, whereas $H^1(\bF_p\llb t \rrb, \mu_p)$ is not.
+\erem
+
+
+
+
+
+As the following corollary shows, the insufficiency of Henselianity is a low degree phenomenon.
+% as we now show, for \eqref{eqn:derived-prelim-case} to hold it suffices to assume that $R$ is $I$-Henselian (by \Cref{lem:DC-comp-Hens}, this is a weaker assumption than $R$ being derived $I$-adically complete). 
+This complements \cite{BC19}*{Theorem~2.1.6}, which showed that for a smooth, quasi-affine group scheme $Q$, the functor $H^1(-, Q)$ is invariant under Henselian pairs. 
+
+\bcor \lab{inv-Hens-pair}
+For a Henselian pair $(R, I)$ and a commutative, finite, locally free $R$-group $G$,
+\[
+H^i(R, G) \ra H^i(R/I, G) \qxq{is} \begin{cases}\xq{surjective for} i \ge 1, \\ \xq{bijective for}\ \, i \ge 2.  \end{cases}
+\]
+\ecor
+
+The case $G = \mu_n$ of this corollary amounts to an unpublished result of Gabber. Moreover, when $R$ is Henselian local, it continues to hold for any commutative, flat, finitely presented $R$-group algebraic space $G$, see \cite{topology-torsors}*{Proposition B.13} which essentially restates \cite{Toe11}*{corollaire 3.4}, but beyond local $R$ there are counterexamples even when $G = \bG_m$, see \cite{BC19}*{Remark 2.1.8}. 
+
+\bpf
+The surjectivity for $i = 1$ follows from \cite{BC19}*{Theorem~2.1.6 (b)} (and does not require $G$ to be commutative), so we assume that $i \ge 2$. Moreover, we use limit formalism for flat cohomology to assume that $(R, I)$ is the Henselization of a finite type $\bZ$-algebra along some ideal, so that, by \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0AGV}{0AGV}}, the ring $R$ is Noetherian and, by \cite{SP}*{Lemmas~\href{https://stacks.math.columbia.edu/tag/0AH3}{0AH3} and~\href{https://stacks.math.columbia.edu/tag/0AH2}{0AH2}}, the fibers of the map $R \ra \wh{R}$ to the $I$-adic completion are geometrically regular. Thus, \cite{BC19}*{Lemma~2.1.3} (which is based on Popescu's theorem) allows us to assume that $R$ is even complete. This case follows from \eqref{eqn:derived-prelim-case}.
+%Then \Cref{adic-continuity}, \Cref{cor:nil-nil-deform-cohomology}, and \cite{SP}*{\href{https://stacks.math.columbia.edu/tag/07KY}{07KY}} give the short exact sequence
+%\[
+%\tst 0 \ra R^1\lim_{n \ge 1} (H^{i - 1}(R/I^n, G)) \ra H^i(R, G) \ra \lim_{n \ge 1}(H^i(R/I^n, G)) \ra 0.
+%\]
+%Since \Cref{baby-inv-Hens-pair} allows us to assume that $i \ge 3$, 
+%It remains to note that, by \Cref{no-nil-feelings}, the map $H^j(R/I^{n + 1}, G) \ra H^j(R/I^n, G)$ is surjective for $j \ge 1$ and bijective for $j \ge 2$. 
+\epf
+
+
+
+This invariance under Henselian pairs leads to the following algebraization statement for flat cohomology, which complements analogous algebraization for \'{e}tale cohomology \cite{BC19}*{Corollary~2.1.20} and for torsors under smooth, quasi-affine groups \cite{BC19}*{Corollary~2.1.22}. 
+
+\bcor \label{cor:algebraization}
+\source{purity-flat-cohomology}
+Let $B$ be a topological ring that has an open nonunital subring $B' \subset B$ such that $B'$ is Henselian as a nonunital ring and has an open neighborhood base of zero consisting of ideals of $B'$, and let $\wh{B}$ be the completion of $B$. For each commutative, finite, locally free $B$-group $G$, 
+\[
+H^i(B, G) \isomto H^i(\wh{B}, G) \qxq{for} i \ge 2. 
+\]
+\ecor
+
+
+\bpf
+By \Cref{inv-Hens-pair}, the axiomatic criterion \cite{BC19}*{Theorem~2.1.15} applies and gives the claim.
+%For context, we recall that results on invariance under Henselian pairs enter into the  that then shows that the functors in question are insensitive to completions of ``topologically Henselian'' topological rings, for instance, of Henselian Huber rings that were defined in \cite{Hub96}*{3.1.2}; as a simple example: if $(R, I)$ is a Henselian pair and one equips $R$ with the ring topology for which $I$ with its coarse topology is an open ideal of $R$, then $R$ is ``topologically Henselian'' and its completion is nothing else than $R/I$.
+\epf
+
+
+
+\beg
+Letting $R\{t\}$ denote the $t$-Henselization of $R[t]$ for a ring $R$, one may choose $B \ce R\{t\}[\f 1t]$ and $B' \ce tR\{t\}$ with $B'$ equipped with its $t$-adic topology, so that $\wh{B} \cong R\llp t \rrp$. Another example is that of a Henselian pair $(A, I)$: one may choose $B \ce A$ and $B' \ce I$ with $B'$ equipped with the coarse topology, so that $\wh{B} \cong A/I$ (thus, \Cref{cor:algebraization} recovers the $i \ge 2$ case of \Cref{inv-Hens-pair}). For further examples of possible $B$ and $B'$, see \cite{BC19}*{Example~2.1.18}.
+\eeg
+
+
+
+
+
+
+
+
+
+
+The continuity formula also allows us to extend \Cref{heavy-handed} beyond a $p$-adic case as follows.
+
+\bcor \label{cor:more-algebrization}
+\source{purity-flat-cohomology}
+Let $R$ be a ring, let $G$ be a commutative, finite, locally free $R$-group, let $A \ra A'$ be a map  of animated $R$-algebras, and let $I \subset \pi_0(A)$ be a finitely generated ideal such that $\pi_0(A)$ is $I$-Henselian, $\pi_0(A')$ is $I(\pi_0(A'))$-Henselian, and $\pi_0(A)/I \isomto (\pi_0(A)/I) \tensor^\bL_A A'$. Letting 
+\[
+U \ce \Spec(\pi_0(A)) \setminus \Spec(\pi_0(A)/I)
+\]
+be the complement of the vanishing locus of $I$, we have
+\[
+H^i(R\Gamma(U_A, G)) \isomto H^i(R\Gamma(U_{A'}, G)) \qxq{for} i \ge 2. %\qx{\up{cohomology in animated setup}.}
+\]
+\ecor
+
+\bpf
+The excision of \Cref{cor:excision}, the cohomology with supports sequence, and the five lemma reduce us to showing that 
+\[
+H^i(A, G) \isomto H^i(A', G) \qxq{for} i \ge 2.
+\]
+By \Cref{cor:nil-nil-deform-cohomology,inv-Hens-pair}, this map is identified with 
+\[
+H^i(\pi_0(A)/I, G) \ra H^i(\pi_0(A')/I\pi_0(A'), G),
+\]
+which is an isomorphism because, by our assumptions, even 
+\[
+\pi_0(A)/I \isomto \pi_0(A')/I\pi_0(A').\qedhere
+\] 
+\epf
+
+
+
+We conclude this section with an algebraization result whose special case with $G = \mu_n$ was announced in \cite{Gab93}*{Theorem~2.8~(ii)}. For an argument for \cite{Gab93}*{Theorem~2.8~(i)}, see \cite{BC19}*{Corollary~2.3.5~(b)--(c)}.
+
+
+\bcor\label{cor:Gab-ann}
+\source{purity-flat-cohomology}
+Let $R \ra R'$ be a map  of Noetherian rings, let $G$ be a commutative, finite, locally free $R$-group, and let $I \subset R$ be an ideal such that $R$ is $I$-Henselian, $R'$ is $IR'$-Henselian, and $R/I^n \isomto R'/I^nR'$ for $n > 0$. For each open
+\[
+\Spec(R)\setminus \Spec(R/I) \subset U \subset \Spec(R),
+\]
+we have
+\be \label{eqn:Gab-ann}
+\source{purity-flat-cohomology}
+H^i(U, G) \isomto H^i(U_{R'}, G) \qxq{for} i \ge 2.
+\ee
+\ecor
+
+\bpf
+Since the map $R \ra R'$ is an isomorphism on $I$-adic completions, we lose no generality by assuming that $R'$ is the $I$-adic completion of $R$, so that the map $R \ra R'$ is flat. Due to this flatness, \Cref{cor:more-algebrization} applies and settles the case $U = \Spec(R) \setminus V(I)$. In the general case, we first note that, by \cite{BC19}*{Corollary~2.3.5~(c)}, the map \eqref{eqn:Gab-ann} is injective for $i = 2$. Thus, setting $Z \ce U \cap \Spec(R/I)$, we use the cohomology with supports sequence and the five lemma to reduce to showing that 
+\be \label{eqn:Gab-ann-temp}
+\source{purity-flat-cohomology}
+R\Gamma_Z(U, G) \isomto R\Gamma_Z(U_{R'}, G). 
+\ee
+Both sides of \eqref{eqn:Gab-ann-temp} are Zariski sheaves on $U$, so we may argue locally on $U$ to reduce to the case $U = \Spec(R)$ and then use the excision of   \Cref{cor:excision} to conclude. 
+\epf
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\csub[Adically faithfully flat descent for cohomology with supports] \label{sec:genl-continuity}
+\source{purity-flat-cohomology}
+
+
+
+The continuity formula of \Cref{adic-continuity} and the fpqc descent of \Cref{thm:strongdescent} imply that flat cohomology of $I$-adically complete animated rings satisfies $I$-completely faithfully flat hyperdescent. We complement this by establishing the same for flat cohomology with supports in $I$, see \Cref{thm:adic-fpqc}. The results of this section will not be used elsewhere in this article. 
+
+
+
+\blem \label{lem:M-discrete}
+\source{purity-flat-cohomology}
+Let $A$ be a perfectoid ring that is derived $I$-adically complete for a finitely generated ideal $I = (a_1, \dotsc, a_r) \subset A$ and let $M$ be a derived $I$-adically complete animated $A$-module. If each $M/^\bL(a_1^n, \dotsc, a^n_r)$ is flat as an animated $A/^\bL(a_1^n, \dotsc, a_r^n)$-module, then $M$ is $0$-truncated.
+\elem
+
+\bpf
+By \Cref{lem:arc-base}, there is a $p$-complete arc hypercover $A \ra A^\bullet$ whose terms $A^i$ are perfectoid rings that are products of $p$-adically complete valuation rings of dimension $\le 1$ with algebraically closed fraction fields. By \Cref{arc-sheaves}, we have $A \isomto R\lim_\Delta A^\bullet$, so, for $n \ge 0$, also
+\[
+\tst A/^\bL(a_1^n, \dotsc, a^n_r) \isomto R\lim_\Delta (A^\bullet/^\bL(a_1^n, \dotsc, a^n_r)).
+\]
+Thus, if each $M/^\bL(a_1^n, \dotsc, a^n_r)$ is $A/^\bL(a_1^n, \dotsc, a_r^n)$-flat, as we assume from now on, then we also have
+\[
+\tst M/^\bL(a_1^n, \dotsc, a^n_r) \isomto R\lim_\Delta ((M \tensor_A^\bL A^\bullet)/^\bL(a_1^n, \dotsc, a^n_r)), 
+\]
+and so also
+\[
+\tst M \isomto R\lim_\Delta (M \wh{\tensor}_A^\bL A^\bullet),
+\]
+where $\wh{\tensor}_A^\bL$ denotes the iterated derived $a_j$-adic completion of the derived tensor product. Since $M$ is an animated $A$-module, it is connective. Thus, due to the last isomorphism, it is enough to show that each $M \wh{\tensor}_A^\bL A^i$ is $0$-truncated. The latter is an animated module over the iterated derived $a_j$-adic completion $\wh{A^i}$ of $A^i$. By the explicit nature of $A^i$, this $\wh{A^i}$ is the product of a subset of the valuation rings comprising $A^i$, in particular, $\wh{A^i}$ is also perfectoid. In conclusion, we may replace $A$ by $\wh{A^i}$ and $M$ by $M \wh{\tensor}_A^\bL A^i$, respectively, and subdivide into further subproducts if needed, to reduce to the case when the ideal $I \subset A$ is principal, generated by some $a \in A$ that has compatible $p$-power roots in $A$. 
+
+
+In this case, we set $M' \ce \varprojlim_{n > 0} (M/a^n M)$ and we claim that the canonical map $M \ra M'$ is an isomorphism---this will imply that $M$ is $0$-truncated, as desired. Both $M$ and $M'$ are derived $a$-adically complete (see \S\ref{pp:derived-complete}), so it suffices to check that $M/^\bL a \isomto M'/^\bL a$. \Cref{lem:reduced-flatness} and the assumption on $M$ imply that $M/^\bL a$ is $A/^\bL a$-flat, and \cite{Yek18}*{Theorem~2.8} implies that the map in question is an isomorphism on $\pi_0(-)$. Thus, by \S\ref{pp:flat-modules}, it suffices to check that $M'/^\bL a$ is $A/^\bL a$-flat or, by \Cref{lem:reduced-flatness} again, that $M' \tensor^\bL_A A/a$ is $0$-truncated and $A/a$-flat. This, however, is a special case of \cite{Yek18}*{Theorem~6.9 (with Theorem~4.3)} (to apply \emph{loc.~cit.},~we note that, in the terminology there, the ideal $(a) \subset A$ is weakly proregular because $A\langle a \rangle = A\langle a^\infty \rangle$ by \eqref{no-big-tor} above).
+\epf
+
+
+
+
+
+\bthm \label{thm:adic-fpqc}
+\source{purity-flat-cohomology}
+Let $R$ be a ring, let $G$ be a commutative, finite, locally free $R$-group, let $A$ be an animated $R$-algebra, and let $I = (a_1, \dotsc, a_r) \subset \pi_0(A)$ be  an ideal. For each cosimplicial animated $A$-algebra $A^\bullet$ such that %either
+%\benumr
+%\m
+the map $A/^\bL(a_1, \dotsc, a_r) \ra A^\bullet/^\bL(a_1, \dotsc, a_r)$ is a faithfully flat hypercover, 
+%\m
+%$A$ and all the $A^i$ are $0$-truncated and each $A/ I^n \ra A^\bullet/I^nA^\bullet$ is a faithfully flat hypercover\uscolon
+%\eenum
+%we have
+\be \label{eqn:adic-fpqc}
+\source{purity-flat-cohomology}
+\tst R\Gamma_I(A, G) \isomto R\lim_\Delta(R\Gamma_I(A^\bullet, G)).
+\ee
+If $A$ and the terms of $A^\bullet$ are derived $I$-adically complete, then, letting the complement of the vanishing locus of $I$ be $U \subset \Spec(\pi_0(A))$, equivalently, we have
+\be \label{eqn:adic-U-fpqc}
+\source{purity-flat-cohomology}
+\tst R\Gamma(A, G) \isomto R\lim_\Delta(R\Gamma(A^\bullet, G))
+\ee
+and
+\be \label{eqn:adic-U-fpqc-2} 
+\source{purity-flat-cohomology}
+\tst R\Gamma(U_A, G) \isomto R\lim_\Delta(R\Gamma(U_{A^\bullet}, G)).
+\ee
+\ethm
+
+\bpf
+By the continuity formula of \Cref{adic-continuity} and the fpqc descent of \Cref{thm:strongdescent}, if $A$ and the terms of $A^\bullet$ are derived $I$-adically complete, then
+\[
+\tst R\Gamma(A, G) \isomto R\lim_\Delta(R\Gamma(A^\bullet, G)).
+\]
+In particular, the cohomology with supports triangle then implies that \eqref{eqn:adic-fpqc} and \eqref{eqn:adic-U-fpqc-2} are equivalent. In general, by excision \Cref{cor:excision}, the claimed \eqref{eqn:adic-fpqc} is insensitive to replacing $A$ and the terms of $A^\bullet$ by their iterated $a_i$-adic completions for $i = 1, \dotsc, r$, so we lose no generality by assuming that $A$ and the terms of $A^\bullet$ are all derived $I$-adically complete.
+
+
+By decomposing into primary factors, we may assume that $G$ is of $p$-power order for a prime $p$. If $p$ is invertible in $\pi_0(A)$, then $G$ is \'{e}tale over $R$, so, by \eqref{et-fppf-agree} and \Cref{rem:no-new-etale}, we have
+\[
+R\Gamma_I(A, G) \cong R\Gamma_I(\pi_0(A), G) \qxq{and} R\Gamma_I(A^\bullet, G) \cong R\Gamma_I(\pi_0(A^\bullet), G). %\cong R\Gamma_I(\pi_0(A)^h, G) \qx{where $(-)^h$ is the $I$-Henselization.}
+\]
+By \Cref{lem:DC-comp-Hens}, the rings $\pi_0(A)$ and $\pi_0(A^\bullet)$ are $I$-Henselian. Moreover, by \S\ref{pp:arc-topology}~\ref{arc-pi-fflat} and \Cref{lem:reduced-flatness}, the map $\pi_0(A) \ra \pi_0(A^\bullet)$ is an $I$-complete arc hypercover. Thus, in the case when $p$ is invertible in $\pi_0(A)$, the claim follows from $I$-complete hyperdescent for \'{e}tale cohomology, more precisely, from \Cref{BM-hens-comp}. In general, this case shows that the third term of the triangle 
+\[
+\tst R\Gamma_{I + (p)}(A, G) \ra R\Gamma_I(A, G) \ra R\Gamma_I(A[\f1p], G)
+\]
+satisfies the analogue of \eqref{eqn:adic-fpqc}. Thus, we may replace $I$ by $I + (p)$ to henceforth assume that~$p \in I$. 
+
+
+Our next goal is to reduce to the case when $A$ is an animated $\bF_p$-algebra, and for this, as in the proof of \Cref{lem:a-hyperdescent}, we will use the excision trick of replacing $G$ by the extension by zero $j_!(G)$ taken in the \'{e}tale topology, where 
+\[
+\tst j \colon \Spec(R[\f 1p]) \ra \Spec(R)
+\]
+is the indicated open immersion. Namely, letting $A'$ range over those animated $A$-algebras fppf over $A$ for which $\Spec(\pi_0(A')) \ra \Spec(\pi_0(A))$ factors over $U$ (compare with \S\ref{pp:simplicial-coho-def}), by the excision \Cref{prop:excision-prep} and its counterpart for \'{e}tale cohomology supplied by \cite{BM20}*{Theorems~1.15 and~5.4}, we have the Cartesian squares
+\[
+\xymatrix{
+R\Gamma(U_A, G) \ar[d] \ar[r] & R\lim_{A'}R\Gamma(A^{\prime h}_{(p)}, G) \ar[d]   \\
+R\Gamma(A[\f 1p], G) \ar[r] & R\lim_{A'}R\Gamma(A^{\prime h}_{(p)}[\f 1p], G), 
+}
+\]
+\[
+\xymatrix{
+R\Gamma(U_A, j_!(G)) \ar[d] \ar[r] & R\lim_{A'}R\Gamma(A^{\prime h}_{(p)}, j_!(G)) \ar[d] \\
+R\Gamma(A[\f 1p], G) \ar[r] & R\lim_{A'}R\Gamma(A^{\prime h}_{(p)}[\f 1p], G),
+}
+\]
+where $(-)^h_{(p)}$ denotes the $p$-Henselization and in the second square the cohomology is taken in the \'{e}tale topology. Of course, we also have the analogous squares for the terms of $A^\bullet$, and we claim that the common fiber of the horizontal maps in the two squares above satisfies hyperdescent with respect to $A \ra A^\bullet$, that is, that it satisfies the analogues of \eqref{eqn:adic-fpqc}, \eqref{eqn:adic-U-fpqc}, and \eqref{eqn:adic-U-fpqc}. For this, it suffices to show the same claim for the terms $R\Gamma(U_A, j_!(G))$ and $R\lim_{A'}R\Gamma(A^{\prime h}_{(p)}, j_!(G))$. For $R\Gamma(U_A, j_!(G))$, this again follows from $I$-complete hyperdescent for \'{e}tale cohomology, that is, from \Cref{BM-hens-comp}. On the other hand, by invariance of \'{e}tale cohomology under Henselian pairs \cite{Gab94a}*{Theorem~1},
+\[
+\tst R\lim_{A'}R\Gamma(A^{\prime h}_{(p)}, j_!(G)) \cong R\Gamma(U_{A'}/^\bL p, j_!(G)) \cong R\Gamma(U_{A'/^\bL p}, j_!(G)).
+\]
+Thus, $I$-complete arc hyperdescent for \'{e}tale cohomology discussed in \Cref{BM-hens-comp} also handles the terms $R\lim_{A'}R\Gamma(A^{\prime h}_{(p)}, j_!(G))$. In conclusion, the common fibers of the horizontal maps do indeed satisfy the analogues of \eqref{eqn:adic-fpqc}, \eqref{eqn:adic-U-fpqc}, and \eqref{eqn:adic-U-fpqc-2}. By inspecting the top horizontal map of the left square, this means that our overall desired conclusion reduces to its analogue for the term $R\lim_{A'}R\Gamma(A^{\prime h}_{(p)}, G)$. By the $p$-adic continuity formula of \Cref{thm:padiclimit}, this term is identified with 
+\[
+\tst R\lim_{n > 0} R\Gamma(U_{A/^\bL p^n}, G).
+\]
+In effect, it suffices to show that $R\Gamma(U_{A/^\bL p^n}, G) \isomto R\Gamma(U_{A^\bullet/^\bL p^n}, G)$ for every $n > 0$, in other words, we are allowed to replace $A$ by $A/^\bL p^n$ in the overall claim we are seeking to prove. 
+
+
+
+To reduce further to the desired $n = 1$, we now establish insensitivity to square-zero extensions: for a square-zero extension $A \ra \ov{A}$ by an animated $\ov{A}$-module $M$, the desired \eqref{eqn:adic-fpqc} holds if and only if it holds after base change to $\ov{A}$. For this, by excision of \Cref{cor:excision}, the claim is insensitive to replacing $A$ and $\ov{A}$ by their iterated $a_i$-adic completions for $i = 1, \dotsc, r$ and $A^\bullet$ by its corresponding base changes. Thus, since these completions form a square-zero extension by the corresponding completion of $M$ (see \S\ref{pp:sq-zero}), we lose no generality by assuming that $A$, $\ov{A}$, and $M$ are all derived $I$-adically complete. Fpqc hyperdescent for modules, as discussed at the end of \S\ref{pp:simplicial-coho-def}, then gives
+\[
+\tst M \isomto R\lim_\Delta(M \tensor^\bL_A A^\bullet).
+\]
+Thus, the deformation-theoretic triangle of \Cref{prop:defthy} and its counterparts after base change to $A^\bullet$ give the claimed insensitivity to square-zero extensions.
+
+In the rest of the proof we focus on the remaining case when $A$ is an animated $\bF_p$-algebra. Moreover, Postnikov completeness of \Cref{cor:fppf-hyperdescent} allows us to replace $A$ and $A^\bullet$ by $\tau_{\le n}(A)$ and $\tau_{\le n} \tensor^\bL_A A^\bullet$, respectively,  for a variable $n$, so %, after completing this new $A^\bullet$, 
+we may assume that $A$ is $n$-truncated. By then iteratively combining the insensitivity to square-zero extensions with \Cref{sq-zero-eg}~\ref{sq-0-3}, we reduce to $0$-truncated $A$. Once $A$ is a $0$-truncated $\bF_p$-algebra, we consider the ind-fppf, faithfully flat, semiperfect $A$-algebra
+\[
+A_\infty \ce A[X_a^{1/p^\infty}\, |\, a \in A]/(X_a - a\, |\, a \in A).
+\]
+The terms of the \v{C}ech nerve of the ind-fppf cover $A \ra A_\infty$ are all semiperfect $\bF_p$-algebras, so, by ind-fppf descent for flat cohomology, we lose no generality by replacing the hypercover $A \ra A^\bullet$ by its bases changes to these terms to reduce to the case when $A$ is a semiperfect $\bF_p$-algebra. By iteratively using the insensitivity to square-zero extensions and passing to a filtered direct limit, we may then replace $A$ by $A^\red$ and $A^\bullet$ by its base change to $A^\red$ to reduce further to a perfect $\bF_p$-algebra $A$. 
+
+By excision \Cref{cor:excision} as before, we may replace $A$ and the $A^j$ by their iterated derived $a_i$-adic completions for $i = 1, \dotsc, r$ to assume that $A$ and the $A^j$ are derived $I$-adically complete: \Cref{recognize}~\ref{R-e} ensures that the resulting $A$ is still a perfect $\bF_p$-algebra. By \Cref{lem:M-discrete}, the $A^j$ are then also $0$-truncated, to the effect that the functor $R\Gamma_I(-, G)$ takes coconnective values on them. Thus, it suffices to show descent instead of hyperdescent, more precisely, we lose no generality by assuming that $A \ra A^\bullet$ is of \v{C}ech type, associated to a map of $\bF_p$-algebras $A \ra A'$ such that $A/^\bL (a_1, \dotsc, a_r) \ra A'/^\bL (a_1, \dotsc, a_r)$ is faithfully flat. This property is preserved by the preceding reductions, so we repeat them once more to again reduce to $A$ being perfect (this time, to preserve the \v{C}ech property, we only $I$-adically complete $A$ and $A'$ and not the other terms of $A^\bullet$). 
+
+Once $A \ra A^\bullet$ is of \v{C}ech type with a perfect $\bF_p$-algebra $A$ and a $0$-truncated $A'$, we claim that the desired descent \eqref{eqn:adic-fpqc} holds even after replacing $A \ra A^\bullet$ by its base change to any animated $A$-algebra $B$. The advantage of this claim is that, by \cite{LZ17}*{Lemma~3.1.2 (3)},  it is insensitive to replacing $A \ra A'$ by a refinement $A \ra A' \ra A''$. Thus, we let $A'' \ce \varinjlim_{a \mapsto a^p} A'$ be the perfection of $A'$: since $A$ is perfect, the map $A/^\bL (a_1, \dotsc, a_r) \ra A'' /^\bL (a_1, \dotsc, a_r)$ is still faithfully flat. In effect, we may assume that both $A$ and $A'$ are perfect at the cost of having to show \eqref{eqn:adic-fpqc} after base change to any animated $A$-algebra $B$. We then repeat the preceding reductions for this base change to $B$ to reduce further to the case when $B$ is also a perfect $\bF_p$-algebra. Since $A$ and $A'$ are also perfect, by \cite{BS17}*{Proposition~11.6}, the $B \tensor^\bL_A A^j$ are then also perfect $\bF_p$-algebras. 
+
+In conclusion, we are left with the case when the hypercover $A \ra A^\bullet$ is of \v{C}ech type and only involves perfect $\bF_p$-algebras. As before, we pass to iterated derived $a_i$-adic completions of its terms and use excision \Cref{cor:excision} to arrange that $A$ and all the $A^j$ are derived $I$-adically complete (and still perfect by \Cref{recognize}~\ref{R-e}). %Letting $n > 0$ be such that $p^n$ kills $G$, 
+\Cref{KT-input} then reduces us to showing that
+\[
+\tst R\Gamma_{(p,\, I)}(W(A), \bM(G))^{V = 1} \isomto R\lim_{\Delta} (R\Gamma_{(p,\, I)}(W(A^\bullet), \bM(G_{A^\bullet}))^{V = 1}),
+\]
+where we abusively write $(p, I)$ for the ideal $J \subset W(A)$ generated by $p$ and the Teichm\"{u}llers of the $a_i$. For this, the mapping fiber triangle allows us to remove the superscripts $(-)^{V = 1}$. Similarly, since the crystalline Dieudonn\'{e} module $\bM(G)$ is of projective dimension $\le 1$ over $W(A)$ and its formation commutes with base change (see \S\ref{Gab-eq}), it suffices to show that 
+\[
+\tst R\Gamma_{J}(W(A), W(A)) \isomto R\lim_{\Delta} (R\Gamma_{J}(W(A^\bullet), W(A^\bullet))).
+\]
+By \cite{SP}*{Lemma~\href{https://stacks.math.columbia.edu/tag/0954}{0954}}, we have 
+\[
+\tst R\Gamma_{J}(W(A), W(A)) \cong \varinjlim_{n > 0} R\Hom_{W(A)}(W(A)/J^n, W(A)),
+\]
+and likewise for $W(A^\bullet)$, so it suffices to show that 
+\[
+\tst R\Hom(W(A)/J^n, W(A)) \isomto R\lim_{\Delta}(R\Hom(W(A^\bullet)/J^nW(A^\bullet), W(A^\bullet))),
+\]
+where the $R\Hom$ are over $W(A)$ and $W(A^\bullet)$, respectively, and the maps are induced by base change. Since $p$ is a nonzerodivisor in $W(A)$ and $W(A^j)$, our assumption about faithful flatness modulo $(a_1, \dotsc, a_n)$ and \Cref{lem:reduced-flatness} ensure that 
+\[
+W(A)/J^n \tensor^\bL_{W(A)} W(A^\bullet) \cong W(A^\bullet)/J^nW(A^\bullet).
+\]
+Consequently, the target of the last displayed map is identified with
+\[
+\tst %R\Hom_{W(A)}(W(A)/J^n, W(A)) \isomto 
+R\lim_{\Delta}(R\Hom(W(A)/J^n, W(A^\bullet))) \cong R\Hom(W(A)/J^n, R\lim_{\Delta}W(A^\bullet)),
+\]
+where the $R\Hom$ are over $W(A)$. Moreover, by faithfully flat descent and derived $J$-adic completeness, we have 
+\[
+\tst W(A)/^\bL(p, a_1, \dotsc, a_r) \isomto R\lim_{\Delta}(W(A^\bullet)/^\bL(p, a_1, \dotsc, a_r)),
+\]
+so also
+\[
+\tst W(A) \isomto R\lim_{\Delta} W(A^\bullet).
+\]
+By combining this isomorphism with the aforementioned identification of the target, we obtain the conclusion.
+%By \Cref{lem:reduced-flatness}, each $A^i \tensor^\bL_A A/I^n$ is faithfully flat over $A/I^n$, so, in particular, is $0$-truncated. Thus, $\wh{A^i} \ce R\lim(A^i \tensor^\bL_A A/I^n)$ is $0$-truncated and, since $A$ is $I$-adically complete, \cite{SP}*{} ensures that the map $A^i \ra \wh{A^i}$ is an isomorphism after applying $-\tensor^\bL_A A/I^n$. Thus, by \Cref{lem:reduced-flatness} again, it induces an isomorphism on derived $I$-adic completions and, by excision \Cref{cor:excision}, we may replace $A^i$ by $\wh{A^i}$ to reduce to the case when all the $A^i$ are $0$-truncated. 
+\epf
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subfile{bad-characteristics}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subfile{G-of-order-p}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

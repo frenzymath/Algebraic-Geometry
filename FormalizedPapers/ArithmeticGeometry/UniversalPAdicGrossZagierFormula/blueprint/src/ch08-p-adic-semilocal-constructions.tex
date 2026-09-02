@@ -1,0 +1,770 @@
+% Source-derived chapter 08: $p$-adic semilocal  constructions
+% Original source: universal-p-adic-gross-zagier-formula
+\chapter{$p$-adic semilocal  constructions}
+\label{universal-p-adic-gross-zagier-formula-chapter-08}
+\source{universal-p-adic-gross-zagier-formula}
+
+\begin{remark}[Source section]
+\label{universal-p-adic-gross-zagier-formula-chapter-08-source}
+\source{universal-p-adic-gross-zagier-formula}
+\source{universal-p-adic-gross-zagier-formula}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: $p$-adic semilocal  constructions
+\lb{app A}
+
+
+
+
+
+
+\subsection{Preliminaries}\lb{A1}
+Throughout this appendix, unless otherwise noted  $L$ denotes a field of characteristic zero (admitting embeddings into $\bC$).
+
+
+\subsubsection{Admissible and coadmissible representations} Let $\G$ be a reductive group over $\Q_{p}$. We denote 
+\beq \lb{G ccc}
+G_{p}:=\G(\Q_{p}), \qquad G_{\infty}:= \G(\Q_{p}), \qquad G=G_{p\infty}:=G_{p}\ts G_{\infty}, \qquad G_{\Delta}:= \Delta(\G(\Q_{p}))\subset G, \eeq
+where $G_{p}$ and $G_{\Delta}$ have the $p$-adic topology, $G_{\infty}$ has the Zariski topology, and  $\Delta $ is the (continuous) diagonal embedding. The difference between $G_{p}$, $G_{\infty}$, $G_{\Delta}$ will be in the category of modules we choose to consider.  Namely, we consider the categories of smooth admissible representations of $G_{p}$ over $L$, of algebraic representations of $G_{\infty}$ over $L$, and the products of such for $G$; we call the  latter locally algebraic representations of $G$ over $L$.  
+
+\begin{defi}
+\source{universal-p-adic-gross-zagier-formula}
+\notready \lb{def admiss} Suppose  that $L$ is a finite extension of $\Q_{p}$. 
+A \emph{$p$-adic} locally algebraic admissible  representation $\Pi$ of $G$ over $L$ is one such that for each compact open subgroup $K\subset G_{\Delta}$, 
+there exists a family of  $\OO_{L}$-lattices $\Pi^{K, \circ}\subset \Pi^{K}$, for $K\subset G_{\Delta}$,  with the property that  $\Pi^{K', \circ}\cap \Pi^{K}= \Pi^{K, \circ}$ for all $K'\subset K$. 
+\end{defi}
+The typical example of  a $p$-adic locally algebraic admissible  representation is 
+$\varinjlim_{K_{p}\subset G_{p}} H^{i}(Y_{K^{p}K_{p}}, \cW)\ot W^{\vee}$, where $Y_{K}$ is the system of  locally symmetric spaces attached to a model $\G_{\Q}$ of $\G$ over $\Q$, and $\cW$ is the automorphic local system attached to the algebraic representation  $W$ of $G_{\infty}$.
+
+\medskip
+
+There is a dual notion, introduced in  \cite[p. 152]{Sch-T}, see also \cite{Sch-T2}. Assume that $L$ is endowed with a discrete valuation (possibly trivial), giving it a  norm $|\cd|$. Let  $G'$ be one of the groups \eqref{G ccc} or an open subgroup. For $K\subset G'$ a compact open subgroup,  let  $\cD_{G',K}=\cH_{G', K}:=C^{\infty}_{c}(K\bks G'/K,L)$ and $\cD_{G'}=\varprojlim \cD_{G',K}$ be the Hecke algebras of distributions; they are endowed with a natural topology as $L$-vector space, respectively as the inverse limit. A \emph{coadmissible} $G'$-representation $M$ over $(L, |\cd|)$ is  a topological right $\cD_{G'}$-module such that, for any compact subgroup $G^{\circ}\subset G'$,  the $\cD_{G^{\circ}}$-module $M$   admits a presentation  of the following form: there exists a  system of  topological $\cD_{G^{\circ}, K}$-modules $M_{K}$ and isomorphisms  $M_{K}\cong M_{K'}\ot_{\cD_{G^{\circ}, K'}} \cD_{G^{\circ}, K}$ for  $K'\subset K\subset G^{\circ}$, such that   $M\cong \varprojlim_{K} M_{K}$.
+
+Considering first a field  $L$ as endowed with a trivial valuation, we shall consider coadmissible representations $M$ of $G_{p}$ over $L$ that are \emph{smooth} in the sense  the Lie algebra $\frak g$ of $G_{p}$ acts trivially; coadmissible representations $W$  of $G_{\infty}$ that are algebraic (those are just algebraic representations); and the products of such as representations of $G$, which we call locally algebraic coadmissible representations of $G$.
+
+\begin{defi}
+\source{universal-p-adic-gross-zagier-formula}
+\notready  \lb{def coadmiss} Suppose  that $L$ is a finite extension of $\Q_{p}$; denote by $|\cd|$ the $p$-adic norm and by $|\cd|_{\rm triv}$ the trivial norm on $L$. 
+A \emph{$p$-adic} locally algebraic coadmissible  representation $M$ of $G$ over $L$  is one as above for $(L, |\cd|_{\rm triv})$, whose restriction to $G_{\Delta}$ is coadmissible for $(L, |\cd|)$. 
+\end{defi}
+
+The typical example of  a $p$-adic locally algebraic coadmissible  representation is 
+$\varprojlim_{K_{p}} H_{i}(Y_{K^{p}K_{p}}, \cW)\ot W^{\vee}$, where the notation is as after Definition \ref{def admiss}.
+
+
+
+
+
+
+
+\subsubsection{Notation} 
+Consider the groups \eqref{list}. For a place $v\vert p$ of $F$, we let
+ $$G_{v}:=\B_{v}^{\ts},\quad H_{v}:=E_{v}^{\ts},\quad H_{v}':=E_{v}^{\ts}/F_{v}^{\ts},\quad (G\ts H)'_{v}:= (G_{v}\ts H_{v})/F_{v}^{\ts}$$
+ as topological groups. We use the parallel notation $G_{*, v, \infty}$ for $G_{*,v}$ viewed as the group of points of an algebraic group over $F_{v}$.
+
+
+
+We assume from now on that $\B_{p}$ is split and fix an isomorphism $\G_{\Q_{p}}\cong \Res_{F_{p}/\Q_{p}}\GL_{2}$, giving a model of $\G_{*}$ over $\Z_{p}$. We define involutions 
+$$g^{\iota}:= g^{{\rm T}, -1} \quad \text{on $\G(\Q_{p})$}, \qquad h^{\iota}:=h^{c, -1} \quad \text{ on $\H(\Q_{p})$},$$ that induce involutions $\iota$ on all our groups. The embedding $\H'\into (\G\ts \H)'$ is compatible with the involutions.
+
+For $t\in T_{\G_{*}, p}$,  let $\Up_{t}:= K_{p, r}
+t K_{p,r}\in \cH^{K_{p,r}}_{G_{*, p}}$ for any $r\geq 1$, and 
+$$\Up_{t,p\infty}:=\Up_{t}\ot t_{\infty}^{}. $$
+When $x\in F_{p}^{\ts}$, we abuse notation by writing $\Up_{x}= \Up_{\smalltwomat {x}{}{}1}$; we also write 
+$$\Up_{p\infty}:= \Up_{\smalltwomat p{}{}1, p\infty}$$
+ for short.
+
+
+
+
+\subsubsection{Ordinary parts of admissible or coadmissible $G_{*}$-modules}  \lb{ssec ord}
+Let $L$ be a finite extension of $\Q_{p}$. Let $\Pi=\Pi_{p}\ot W$ be a $p$-adic locally algebraic admissible representation of $G_{*}$
+ Let us write 
+$$\Pi^{N_{0, (r)}}:= \Pi^{N_{0, (r)}}\ot W^{N} ,$$ where $N_{0, r}:=K_{p, r}$. Choose  $\OO_{L}$-lattices $W^{\circ}\subset W$, $\Pi_{p}^{\circ, K}\subset \Pi_{p}^{K}$, stable under the Hecke action, and compatibly with    the transition maps associated with  $K'\subset K$.
+ Then   $\Pi^{\circ, N_{0}}:=\Pi_{p}^{\circ, N_{0}} \ot W^{\circ, N}= \varinjlim_{r} \Pi_{p}^{\circ, K_{p,r}} \ot W^{\circ, N}$ 
+is  stable under the action of $\Up_{p\infty}$.
+As shown by Hida, the idempotent 
+ $$e^{\ord}: = \lim_{n}\Up_{p\infty}^{n!} \colon \Pi^{\circ, N_{0}}\to \Pi^{\circ, N_{0}}$$ is then well-defined and its image is denoted by $\Pi^{\circ, \ord}$.  The space $\Pi^{\circ, \ord}$ is   the maximal split $\OO_{L}$-submodule of $\Pi^{\circ, N_{0}}$ over which $\Up_{p\infty}$ acts invertibly. We also write $e^{\ord}$ for $e^{\ord}\ot 1\colon \Pi^{N_{0}}=\Pi^{\circ, N_{0}}\ot L\to \Pi^{N_{0}}$, and we let $\Pi^{\ord}=e^{\ord}\Pi^{N_{0}}$ be its image. If $\Pi_{p}$ and $W$ are irreducible, then $\Pi^{\ord}$ has dimension either~$0$ or~$1$; in the latter case we say that $\Pi$ is \emph{ordinary}.  (This notion is independent of the choice of lattices.)
+ 
+ Let ${\rm M}={\rm M}_{p}\ot W^{\vee}$ be a $p$-adic locally algebraic coadmissible  right module for $G_{*}$ over $L$. By definition of coadmissibility, the system $({\rm M}_{p,K})_{K\subset G_{*,p}}$ is endowed with a compatible system $\cH_{\G_{*}(\Z_{p}), K}$-stable  lattices ${\rm M}_{p,K}^{\circ}$, so that  for some $\G_{*}(\Z_{p})$-stable lattice $W^{\vee, \circ}$, 
+ ${\rm M}^{\circ}_{N_{0}}:= \varprojlim {\rm M}^{\circ}_{p, K_{p, r}}\ot W^{\vee, \circ}_{N_{0}}$
+is  stable under $\Up_{p\infty}$. Then we can again define $e^{\ord}\colon {\rm M}^{(\circ)}_{N_{0}} \to {\rm M}^{(\circ)}_{N_{0}}$. Its image 
+$${\rm M}^{(\circ), \ord}:= {\rm M}^{(\circ)}_{N_{0}} e^{\ord}$$ is called the \emph{ordinary part} of ${\rm M}^{(\circ)}_{N_{0}} $.
+ 
+The ordinary parts $\Pi^{\ord}$, ${\rm M}^{\ord}$ retain an action of the operators $\Up_{t, p\infty}$.
+ 
+ 
+ 
+ 
+\subsubsection{Special group elements, and further notation} The following notation will be in use throughout this appendix. Let  $v\vert p$ be a place of $F$. We denote by    $e_{v}$ be the ramification degree of $E_{v}/F_{v}$, and fix a uniformiser   $\vpi_{v}\in F_{v}$  chosen so that $\prod_{v\vert p}\vpi_{v}^{e_{v}}=p$.   Let ${\rm Tr}_{v}=\Tr_{E_{v}/F_{v}}$ and ${\rm Nm}_{v}:={\rm Nm}_{E_{v}/F_{v}}$ be the trace and norm.
+Fix an isomorphism $\OO_{E, v}=\OO_{F, v}\times \OO_{F, v}$ if $v$ is split. If $v$ is nonsplit,  let $c$ be the Galois conjugation of $E_{v}/F_{v}$, and  fix an element $\theta_{v}\in \OO_{E,v}$ such that $\OO_{E, v}=\OO_{F,v}[\theta_{v}]$ (thus $\theta_{v}$ is a unit if $v$ is inert and a uniformiser if $v$ is ramified). We define a purely imaginary ${\rm j}_{v}\in E_{v}^{\ts}$ to be 
+\beq\lb{jv}
+{\rm j}_{v}:= \begin{cases} (-1_{w},1_{w^{c}}) & \text{if $E_{v}=E_{w}^{\ts}\ts E_{w^{c}}^{\ts}$,} \\
+\tht_{v}^{c}-\tht_{v} & \text{if $E_{v}$ is a field}.
+\end{cases}
+\eeq
+
+We assume that $E_{v}$ embeds in $\B_{v}$ and fix the embedding $E_{v}\to \B_{v}$ to be 
+\beqq
+t=(t_{w},t_{w^{c}}) \mapsto  \twomat {t_{w}}{}{}{t_{w^{c}}} & &\text{if $E_{v}=E_{w}^{\ts} \ts E_{w^{c}}^{\ts}$}, \\
+ t=a+\theta b\mapsto \twomat {a+b\Tr_{v}\theta_{v}} {b{\rm Nm}_{v}\theta_{v}} {-b} a& & \text{if $E_{v}$ is a field}.
+\eeqq
+
+For $r\geq 0$, let 
+\beqq 
+w_{r, v}&:=\twomat {}1{-p^{r}}{} \in \GL_{2}(F_{v}), \qquad
+\gamma_{r,v} :=
+\begin{cases}
+	 {\twomat {p^{r}} 1{}{1}}   &\text{if $v$ splits}\\
+	{\twomat {p^{r}{\rm Nm}_{v}(\theta_{v})} {}{}1 }  &\text{if $v$ is nonsplit}
+\end{cases}
+\in (G\ts H)_{v}'
+\eeqq
+and 
+\beqq 
+w_{r}&:=\prod_{v\vert p}w_{r, v}\in \G(\Q_{p}), \qquad \gamma_{r}:= \prod_{v\vert p}\gamma_{r,v}\in (\G\ts\H)'(\Q_{p}).
+\eeqq
+\subsection{Toric,  ordinary, and anti-ordinary parts} \lb{sec: A1} Let $L$ be a finite extension of $\Q_{p}$. We perform some twists. 
+\subsubsection{Ordinary and anti-ordinary parts}
+ Let $w:=\smalltwomat {}1{-1}{}\in G_{*,\Delta}$ and let  $\pi^{w}$ be the representation on the same space as $\pi$ but with $G$-action given by $\pi^{w}(g)v:=\pi(w^{-1}gw)v$.  Let $N^{-}:= w^{-1}Nw$, and $U_{p\infty}^{-}:= U_{w^{-1}\smalltwomat p {}{}1 w, p\infty}$. 
+ 
+ Let $\pi=\pi_{p}\ot W$ be a $p$-adic admissible locally algebraic   representation of $G$ over $L$. The \emph{anti-ordinary part} of $\pi$ is  the space  $$\pi^{\rm a}:=\pi_{p}^{\rm a}\ot W^{N^{-}}\subset \pi$$  of `ordinary' elements  with respect to $N^{-}$ and $U_{p\infty}^{-}$. Because $\pi^{w}$ is isomorphic to $\pi$, the spaces $\pi^{\rm a}$ and  $\pi^{\ord}$ have the same dimension. 
+ 
+ Let $M=M_{p}\ot W$ be a  $p$-adic coadmissible locally algebraic   representation of $G$ over $L$. The \emph{anti-ordinary part} of $M$ is the quotient  $$M^{\rm a}:= M_{p}^{\rm a}\ot W_{N^{-}}$$ of $M$ that is its `ordinary' part with respect to $N_{0}^{-}$ and and $U_{p\infty}^{-}$.
+
+
+
+
+\begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\lb{w ord} Let $W$ be an algebraic representation of $G_{\infty}$. 
+\begin{enumerate}
+\item
+Let $\pi$ be a $p$-adic locally algebraic admissible representation of $G$. There is an isomorphism 
+\beqq
+w^{\ord}_{\rm a}\colon \pi^{\ord}&\to \pi^{\rm a}\\
+ f&\mapsto  \lim_{r\to \infty}  p^{r[F:\Q]} w_{r,p}w_{0, \infty}^{\iota}\Up_{p}^{-r}f,
+\eeqq
+where the sequence stabilises as soon as $r\geq 1 $ is such that $f_{p}\in \pi_{p}^{U_{1}^{1}(p^{r})}$.
+\item 
+Let $M$ be a  $p$-adic locally algebraic coadmissible representation of $G$. There is a map
+\beqq
+w^{\ord}_{\rm a}\colon M^{\ord}&\to M^{\rm a}\\
+ m=m_{p}\ot m_{\infty}&\mapsto  \lim_{r\to \infty}  p^{r[F:\Q]} [m  (U_{p}^{})^{-r} w_{r,p}]_{N_{0}^{-}} \ot [m_{\infty}w_{0, \infty}^{\iota}]_{N^{-}},
+ \eeqq
+ where before applying $w_{*}$, we take arbitrary lifts from $N_{0}^{}$-coinvariants to the module $M$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+That the maps are well-defined is a standard result left to the reader. At least for admissible representations, the map  is an isomorphism (equivalently, nonzero) because of Lemma \ref{lemm: loc pair} below.
+\end{proof}
+
+Let $\pi_{v}^{\ord}$ (respectively $\pi_{v}^{\rm a}$) denote  the preimage of $\pi^{\ord}$   (respectively $\pi^{\rm a}$) in $\pi_{v}$, and let $W_{v}$ be the $G_{v, \infty}$-component of $W$. The following local components of the above map are similarly well-defined:
+\beq\lb{waov}
+w_{{\rm a}, v}^{\ord}\colon \pi_{v}^{\ord}&\to \pi_{v }^{\rm a},
+&\qquad  w_{{\rm a}, v, \infty}^{\ord}\colon W_{v}^{N_{v}}&\to W_{v}^{N_{v}^{-}}\\
+ f_{v}&\mapsto \lim_{r\to \infty} p^{r[F_{v}:\Q_{p}]} w_{r , v} \Up_{p,v}^{-r}f_{v}, 
+ & 
+ f_{v, \infty}& \mapsto w_{0,v, \infty}^{\iota}f_{v, \infty}.
+ \eeq 
+ 
+ 
+ 
+\begin{lemm} \lb{cor w ord} Let $\pi$ be an ordinary representation of $G$. 
+If $(\ , \ )\colon \pi \ot \pi^{\vee}\to L$ is a nondegenerate  $G$-invariant  pairing, then  the pairing 
+\beqq
+(\ , \ )^{\ord} \colon \pi^{\ord}\ot \pi^{\vee, \ord}&\to L \\
+(f_{1}, f_{2})^{\ord}&:= (w_{\rm a}^{\ord} f_{1}, f_{2})\eeqq  is a nondegenerate pairing.
+\end{lemm}
+\begin{proof} It suffices to see this for a specific pairing $(\ , \ )$: we may take the product of the pairings \eqref{kir pair v} below, that are known to be nondegenerate,  and any nondegenerate pairing on $W\ot W^{\vee}$. Then the result follows from Lemmas \ref{lemm: loc pair} and  \ref{wao alg} below.
+\end{proof}
+
+\subsubsection{Ordinary and toric parts}\lb{ssec tord}
+We  construct a  map from the ordinary part of a representation of $(G\ts H)'$ to its toric coinvariants, as  well as a dual map in the opposite direction for coadmissibe modules. These map are the key to the interpolation of toric periods. 
+
+Suppose that   $W_{(v)}$ (respectively $W=\bigotimes_{v\vert p}W_{v}$ is  an algebraic representation of $(G\ts H)_{(v) , \infty}$ (respectively $(G\ts H)'_{\infty}$) over $L$  such that, for a field extension $L'/L$ splitting $E$,  $W_{(v), \infty}\ot_{L} L'=\bigotimes_{\sg\colon F_{(v)}\into L} W_{\sg}$ with 
+\beq\lb{Wwkl}
+W_{\sg}=W_{\sg, w, k, l}:= {\rm Sym}^{k_{\sg}-2}{\rm Std} \cdot {\det}^{w-k_{\sg}+2\over 2} \ot \sg^{{l_{\sg}-w}\over 2}{(\sg^{c})}^{-l_{\sg}-w\over 2}
+\eeq
+for some integers $k_{\sg }\geq 2, |l_{\sg}|<k_{\sg}, w$ of the same parity. (Here we have chosen, for each $\sg\colon F\into L$, an extension $\sg\colon E\into L$.) Then we define a constant
+\beq\lb{cW}
+c(W_{\sg}) &:=  {\rm j}_{v}^{-w-k_{\sg}+2 }\cdot {k_{\sg}-2 \choose (k_{\sg}-2-l_{\sg})/2} \cdot 
+\begin{cases} 1& \text{if $v $ splits in $E$}\\ 
+ \tht^{c,(k-2-l)/2} \tht^{(k-2+l)/2}  & \text{if $v$ does not split in $E$},
+\end{cases}\\
+   c(W_{(v)})&:=\prod_{\sg\colon F_{(v)}\into L} c(W_{\sg}).
+\eeq
+(Note that   ${\rm j}_{v}^{-w-k_{\sg}+2 }=1$ if $v$ splits in $E$, as $w+k_{\sg}-2$ is even.)
+
+
+
+\begin{lemm}\lb{ex mat id} 
+Recall the congruence subgroups $V_{v,r}'$, $K_{v,r}$ defined in \S~\ref{ssec cong}. For all $r\geq 1$, we  have the identity of Hecke operators in the Hecke algebra for $(G\ts H)'_{v}$:
+$$ V_{v, r+1}'\left( \sum_{t\in V_{v,r}'/V_{v,r+1}'} t \right) \cdot
+\gamma_{r+1,v}   K_{v,r}=   V_{v, r+1}' \gamma_{r,v}\cdot \Up_{\vpi_{v}}  K_{v, r}.$$
+\end{lemm}
+\begin{proof}
+This is a consequence of   the following matrix identity.
+
+Let $v\vert p$ be a prime of $F$.
+For   $r\in \Z_{\geq 1}$, $j\in \OO_{F,v}$ 
+ let 
+  $b_{j,v}:= \twomat {\vpi} j {}1$. In the split case, let 
+    $$ t_{j,r, v}= k_{j,r,v}:= \twomat {1+j\vpi^{r}}{}{}1\in E_{v}^{\ts}$$
+ In the nonsplit case, let
+ $$t_{j,r, v}=1+\theta_{v}\vpi_{v}^{r},
+  \qquad 
+  k_{j, r, v}=\twomat {1+j{\Tr}_{v}(\theta_{v}) \vpi_{v}^{r}} {{\rm Tr}_{v}(\theta_{v})-j\vpi_{v}^{r}}
+  {-j{\rm N}_{v}(\theta_{v}) \vpi_{v}^{2r}} { 1+j^{2}{\rm N}_{v}(\theta_{v} )\vpi_{v}^{r}}.
+  $$
+   
+    Then 
+$$t_{j,r, v}\gamma_{r+1,v}=\gamma_{r,v} b_{j,v} k_{j,r, v}$$
+in $\GL_{2}(F_{v})$.
+\end{proof}
+
+
+\begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\lb{gHo} Let $W$ be an algebraic representation of $(G\ts H)'_{\infty}$. 
+\begin{enumerate}
+\item Let $\Pi=\Pi_{p}\ot W$  be a $p$-adic locally algebraic  admissible representation  of $(G\ts H)'$. 
+There is a map 
+\begin{align}
+\nonumber
+\tord \colon \Pi^{\ord} &{\to}  \Pi_{H'}\\
+\lb{H'N}
+  f  &\mapsto \lim_{r} \ 
+    {H'_{}}[ p^{r[F:\Q]} \cdot c(W)^{-1}\cdot \gamma_{r, p\infty}  \Up_{p\infty}^{-r} f]
+ \end{align}
+where
+  ${H'_{}}[-]\colon \Pi\to \Pi_{H'}$ is the natural projection. 
+
+ The sequence in the right hand side of \eqref{H'N} stabilises as soon as $f_{p}\in \Pi^{K_{p, r}}$, where $K_{p, r}\subset (G\ts H)_{p}'$ is  defined at the end of \S~\ref{sec: not}.
+\item
+Let   ${\rm M}:= {\rm M}_{p}\ot W^{\vee}$ be a $p$-adic locally algebraic  coadmissible representation of $(G\ts H)'$.
+There  is a map 
+\beqq
+\tord \colon {\rm  M}^{H'}&\to {\rm M}^{\ord}\\
+m  &\mapsto \lim_{r} 
+\
+[ p^{r[F:\Q]} \cdot  c(W)^{-1}\cdot  m
+ \gamma_{r,p\infty}]
+{N_{0,r}} e^{\ord} \Up_{p\infty}^{-r},
+ \eeqq
+ where $[ -]{N_{0,r}}\colon  {\rm M} \to {\rm M}_{N_{0}}$ is the natural projection.
+\end{enumerate}
+\end{prop}
+
+The constant $c(W)$ is justified by Lemma \ref{unitary} below.
+
+\begin{proof}
+  For part 1, let  $f\in \Pi_{p}^{K_{p, r}}$. 
+   Then it follows from Lemma \ref{ex mat id} that,  denoting by  $[f_{r}]_{H'}$
+  the sequence in the right hand side of \eqref{H'N},   we have 
+  $${1\over p^{[F:\Q]}} \sum_{t\in V_{p,r}'/V_{p,r+1}'} \Pi(t) f_{r+1}=f_{r},$$
+ hence $[f_{r+1}-f_{r}]_{H'}=0 $ and the sequence stabilises. 
+ 
+ For part 2,  Lemma \ref{ex mat id} similarly implies (the boundedness and)
+  the convergence of the sequence in $\varprojlim_{r} {\rm M}_{N_{0, r}}^{\ord}$. 
+\end{proof}
+
+Let $\Pi_{v}^{\ord}$ denote  the preimage of $\Pi^{\ord}$ in $\Pi_{v}$, and let $W_{v}$ be the $(G\ts H)'_{v, \infty}$-component of $W$. 
+The following  local components of the above maps are similarly well-defined:
+\beq\lb{tord v}
+\gamma_{H',v}^{\ord}\colon \Pi_{v}^{\ord}&\to \Pi_{v, H'_{v}}
+&\qquad
+\gamma_{H',v, \infty}^{\ord}\colon W_{v}^{N}&\to W_{v, H'_{v}}\\
+ f_{v}&\mapsto \lim [p^{r[F_{v}:\Q_{p}]} \gamma_{r , v} \Up_{\vpi_{v}}^{-r}f_{v}]_{H'_{v}}, 
+ & 
+ f_{v, \infty}& \mapsto
+   c(W_{v})^{-1}
+   \cdot \gamma_{0,v, \infty}^{\iota}f_{v, \infty}. 
+ \eeq
+
+
+
+
+
+
+
+\subsubsection{Exceptional representations and vanishing of $P^{\ord}$}   We show that $\tord$ acts by zero precisely on those representations that are exceptional.
+\begin{lemm} \lb{exc vanishing}
+Let $\Pi=\pi\ot\chi$ be an ordinary, distinguished, irreducible representation of $(G\ts H)'$.  The following are equivalent:
+\begin{enumerate}
+\item $\Pi$ is exceptional; 
+\item $e_{v}(V_{(\pi, \chi)}) = 0$;
+\item there exists $P\in \Pi^{*, H'} -\{ 0\}$ such that $P^{\ord}:=P \tord=0$;
+\item for all $P\in \Pi^{*, H'}$,  we have $P^{\ord}=0$;
+\end{enumerate}
+\end{lemm}
+\begin{proof} The equivalence of 1. and 2. is  a reminder from  Lemma \ref{6444}. The equivalence of 3. and 4. is a consequence of multiplicity-one. Consider 3. Let $P\in \Pi^{*, H'}$. Identify  $\Pi^{\vee}=\Pi^{\iota}$ (the representation on the same space as $\Pi$, with group action twisted by the involution $\iota$). Then  the identity map on spaces yields  isomorphisms  $\Pi^{*, H'}\cong \Pi^{\vee, *, H'}$ and $\Pi^{\ord, *}\cong \Pi^{\vee, \ord, *}$, and it follows from the explicit description of $\tord$ that if $P^{\vee}$ denotes the image of $P$, then the image of $P^{\vee}$ is  $P^{\vee,\ord}$.  Hence,  $P^{\ord}$ is zero if and only if so is $P^{\vee, \ord}$, if and only if so is $P\ot P^{\vee}\circ \tord \ot \tord$. Now by the theory recalled in \S~\ref{ssec loc tp} , $P \ot P^{\vee}$ is necessarily a multiple of the explicit functional $Q_{dt, (, )}$ defined there. Therefore  it suffices to show that \emph{$Q_{dt, (, )}$ vanishes on the line $\tord \Pi^{\ord}\ot \tord \Pi^{\vee, \ord}$ if and only if $e_{v}(V_{(\pi, \chi)}) = 0$}. This follows from the explicit computations of Propositions \ref{toric period} and \ref{compare toric inf} below, cf. also Proposition \ref{compare Qs}.
+\end{proof}
+
+
+
+
+
+\subsection{Pairings at $p$} 
+\lb{A3}
+The goal of this subsection is to relate the $p$-components of the toric terms  $Q$ and their ordinary variants $Q^{\ord}$, as defined in \S\S~\ref{sec 42}-\ref{sec 43}.
+
+
+ Let $v \vert p$ be a place of $F$. 
+\subsubsection{Integrals and gamma factors}
+If $\pi$  (respectively $\chi$) is an irreducible representation of $G_{v}$ over $L$, we denote by $V_{\pi}$ (respectively $V_{\chi})$ the associated  $2$- (respectively $1$-) dimensional Frobenius-semisimple representation of ${\rm WD}_{F_{v}}$ (respectively of  ${\rm WD}_{E_{v}}:=\prod_{w\vert v}{\rm WD}_{E_{w}}$; we choose the  ``Hecke'' normalisation, so that $\det V_{\pi}$ is the cyclotomic character if $\pi$ is self-dual. 
+If $\Pi=\pi\ot \chi$ is an irreducible representation of $(G\ts H)'_{v}$, we denote by $V_{\Pi}= V_{\pi|{\rm WD}_{E_{v}}}\ot V_{\chi}$ the  associated  $2$-dimensional representation of ${\rm WD}_{E_{v}}$. 
+If $E_{*} $ is $F$ or $E$, $w\vert p$ is a prime of $E_{*}$   and $V$ is any representation of ${\rm WD}_{E_{*,v}}$ as above, we let $V_{w}:= V_{|{\rm WD}_{E_{*, w}}}$.
+
+
+ 
+ If $\psi\colon F_{v}\to \bC^{\ts}$ is a nontrivial character, we denote by $d_{\psi} y$ the selfdual Haar measure on $F_{v}$ and $d^{\ts}_{\psi}y:= d_{\psi}y/|y|$. The \emph{level} of $\psi$ is the largest $n$ such that $\psi_{|\vpi^{-n}\OO_{F, v}}=1$. We recall that if $\psi$ has level~0, then $\vol(\OO_{F, v},d_{\psi}y)=1$. 
+ 
+ Recall the Deligne--Langlands $\gamma$-factor  of \eqref{gamma intro}.
+
+\begin{lemm}[{\cite[Lemma A.1.1]{nonsplit}}] \lb{int gamma}
+Let $\mu\colon F_{v}^{\ts}\to \bC^{\ts}$ and $\psi\colon F_{v}\to \bC^{\ts}$ be  characters, with $\psi_{v}\neq 1$. Let $d^{\ts}y$ be a Haar measure on $F_{v}^{\ts}$.
+Then 
+$$\int_{F_{v}^{\ts}} \mu(y) \psi(y) d^{\ts}y={d^{\ts}y \over d^{\ts}_{\psi}y}  \cdot \mu(-1)\cdot  \gamma(\mu, \psi)^{-1} .$$
+\end{lemm}
+
+
+
+
+
+
+\subsubsection{Local pairing}  The following isolates those representations that can be components of an ordinary representation.
+\begin{defi}
+\source{universal-p-adic-gross-zagier-formula}
+\notready\lb{def-fs}
+A \emph{refined} representation $(\pi, \alpha)$ of $G_{v}$ over a field $L$ consists of  a smooth irreducible infinite-dimensional representation $\pi$ and   a character $\alpha\colon F_{v}\to L^{\ts}$, such that  $\pi$ embeds into  the un-normalised induction ${\rm Ind}( |\ |\alpha , |\ |^{-1}\omega\alpha^{-1}))$ for some  other  character $\omega\colon F_{v}^{\ts}\to L^{\ts}$.\footnote{Note that $\pi$ admits a refinement  if and only if it is neither supercuspidal nor $1$-dimensional.} Sometimes we abusively simply write $\pi$ instead of $(\pi, \alpha)$. A refined   representation $\Pi=\pi\ot \chi$ $(G\ts H)'_{v}$ is the product of a refined representation $\pi=(\pi, \alpha)$ of $G$ and a character $\chi$ of $H$, such that $\omega\chi_{|F_{v}^{\ts}}=\one$. 
+\end{defi}
+If $(\pi, \alpha)$ is a refined representation of $G_{v}$, we let $\pi^{\ord}\subset \pi^{N_{0}}$ be the unique line on which the operator $\Up_{t}$ acts by $\alpha(t)$. If $\Pi=\pi\ot\chi$  is a refined representation of $(G\ts H)'_{v}$, we let $\Pi^{\ord}:=\pi^{\ord}\ot\chi$. The  associated Weil--Deligne representation $V_{\pi}$ is reducible, and we have a unique filtration 
+$$0\to V_{\pi}^{+}\to V_{\pi} \to V_{\pi}^{-}\to 0$$
+such that ${\rm WD}_{F_{v}}$ acts on $V_{\pi}^{+}$ through the character $\alpha|\cdot|$. 
+
+
+Let $\pi$ be a refined  representation of $G_{v}$ over $L$, and let $(\ , \  )_{\pi}\colon \pi\ot \pi^{\vee}\to L$  be a  $G$-invariant   pairing. Then we define 
+\beqq
+(\ , \  )_{\pi}^{\ord}\colon \pi^{\ord}\ot (\pi^{\vee})^{\ord} & \to L \\
+f\ot f^{\vee} &\mapsto  (w^{\ord}_{\rm a}f, f^{\vee}),
+\eeqq
+where $w^{\ord}_{\rm a} $ is the operator denoted  $w_{{\rm a}, v}^{\ord}$ in \eqref{waov}. If $\Pi$ is a refined representation of $(G\ts H)_{v}'$ over $L$ and $(\ , \ ) =(\ , \ )_{\pi}(\ ,\ )_{\chi}\colon \Pi\ot \Pi^{\vee} \to L$ is a pairing, we define  $(\ , \ )^{\ord}:= (\ , \  )_{\pi}^{\ord} (\ ,\ )_{\chi}$, a pairing on $\Pi^{\ord}\ot \Pi^{\vee, \ord}$. 
+
+
+
+
+
+\begin{lemm} \lb{lemm: loc pair} Let $(\pi, \alpha)$ be a refined representation of $G_{p}$ over $\bC$, with central character  $\omega$ as in Definition \ref{def-fs}. Let $\alpha^{\vee}=\alpha\omega^{-1}$.
+ Let
+$$\ad(V_{\pi})^{++}(1)= \Hom(V_{\pi}^{-}, V_{\pi}^{+})(1).$$
+Fix  a   character $\psi\colon F_{v}\to \bC^{\ts}$ of level~$0$, and Kirillov models of $\iota\pi_{v}$, $\pi_{v}^{\vee}$ with respect to $\psi_{v}$, $-\psi_{v}$.
+Let
+\beq\lb{f kir}
+f_{v}^{(\vee)}(y):= \one_{\OO_{F, v}}(y) \alpha_{v}^{(\vee)} |\ |_{v}(y) \qquad \in \pi^{\ord}_{v}. 
+\eeq
+Suppose that $( \ , \ )_{\pi,{v}}$ is, in the Kirillov models, the pairing 
+\beq
+\lb{kir pair v}
+(f, f^{\vee})_{\pi}:= \int_{F^{\ts}}  f(y)f^{\vee}(y) d^{\ts}_{\psi}y .\eeq
+Then 
+$$(f, f^{\vee})^{\ord}_{\pi,v}= \omega_{v}(-1)\cdot \gamma(\ad(V_{\pi})^{++}(1), \psi)^{-1} .$$
+\end{lemm}
+\begin{proof}
+We omit all remaining subscripts $v$ and argue    similarly to \cite[Lemma 2.8]{hsieh3}.  The inner product
+$(f, f^{\vee})^{\ord}_{\pi}$ is the value at $s=0$ of 
+$$\qquad \alpha|\ |(\vpi)^{-r}Z(s+1/2,w_{r}f, \alpha^{\vee}|\  |), 
+\qquad Z(s+1/2, w_{r}f, \alpha^{\vee}|\ | ):=   \int_{F^{\ts}} w_{r}f(y)\alpha^{\vee}|\ |(y) |y|^{s}d^{\ts}_{\psi}y.$$
+  By  the functional equation for $\GL_{2}$, this equals 
+\beqq
+&\omega(-1)\cdot \gamma(s+1/2,\pi\ot \alpha^{\vee}|\ |, \psi)^{-1}  \cdot 
+\int_{p^{-r}\OO_{F}-\{0\}} \alpha\alpha^{\vee, -1}\omega^{-1}|\ |^{-s}(y) d^{\ts}_{\psi}y\\
+= \ & \omega(-1)\cdot  \gamma(s,\alpha \alpha^{\vee}|\ |^{2}, \psi)^{-1} \cdot \gamma(s, |\ |, \psi)^{-1}   
+\cdot \zeta_{F}(1)^{-1}
+\zeta_{F}(-s),
+\eeqq
+using the fact that the domain of integration can be replaced with $F^{\ts}$, the additivity of gamma factors, and the relation $\alpha^{\vee}=\alpha\omega^{-1}$. 
+Evaluating at $s=0$ we find 
+$\gamma(\ad(V_{\pi})^{++}(1), \psi)^{-1}$ as desired.
+\end{proof}
+
+
+
+
+
+
+\subsubsection{Local toric period} 
+\lb{A3mu}
+We compute the value of the local toric periods on the lines of interest to us. Let $\Pi=\pi\ot\chi$ be a refined representation of $(G\ts H)'_{v}$.
+ Let $dt$ be a measure on $H'_{v}$, and set as in \eqref{vol circ}
+$$ {\vol^{\circ}(H'_{v}, dt_{})} :=
+ {\vol(\OO_{E, v}^{\ts}/\OO_{F, v}^{\ts}, dt_{})\over e_{v} 
+  L(1, \eta_{v})^{-1}}.$$
+
+Then for all $f_{1}, f_{3}\in \Pi^{\ord}$, $f_{2},f_{4}\in \Pi^{\vee, \ord}$ with $f_{3}, f_{4}\neq 0$, we define
+\beq \lb{Q orddd v}
+Q_{dt}^{\ord}\left( {f_{1}\ot f_{2} \over f_{3}\ot f_{4}}\right)   : =  \mu^{+}({\rm j}_{v})^{}\cdot  {\vol^{\circ}(H'_{v}, dt_{})} \cdot {f_{1}\ot f_{2} \over f_{3}\ot f_{4}},
+\eeq 
+ where  ${\rm j}_{v}=\eqref{jv}$ and $\mu^{+}=\chi_{v}\cdot \alpha|\cdot|\circ N_{E_{v}/F_{v}}$ is the character giving the action of  $E_{v}^{\ts}$ on $V^{+}:=V_{\pi}^{+}\ot \chi$.
+
+
+
+
+\begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready \lb{toric period} Let $\Pi=\pi\ot\chi$ be a refined   representation of $(G\ts H)'_{v}$ over $L$, with associated Weil--Deligne representation $V=V_{\pi|{\rm WD}_{E_{v}}}\ot \chi$.  Let ${\tord}={\tord}_{,v}$ be as defined in \eqref{tord v}. Then  
+$$ 
+ Q_{dt}^{}\left({ \tord f_{1}\ot \tord f_{2} \over w_{\rm a}^{\ord} f_{3}\ot f_{4}}\right) =  e_{v}(V_{(\pi, \chi)}) \cdot  
+ Q_{dt}^{\ord}\left( {f_{1}\ot f_{2} \over f_{3}\ot f_{4}}\right) . $$
+Here $$  e_{v}(V_{(\pi, \chi)}) = \calL(V_{(\pi, \chi)}, 0)^{-1}\cdot
+ \iota^{-1}\left( |d|_{v}^{-1/2} \gamma({\rm ad}(\iota V_{\pi}^{++})(1),  \psi_{v})\cdot \prod_{w\vert v} \gamma(\iota V^{+}_{|{\rm WD}_{E_{w}}}, \psi_{E_{w}})^{-1}\right)$$
+is defined independently of  any choice of  an embedding $\iota\colon L\into \bC$ and nontrivial character $\psi\colon F_{v}\to \bC^{\ts}$.
+\end{prop}
+\begin{proof}
+Identify $\chi^{\pm 1}$ with $L$ and assume that $f_{i}=f_{i, \pi}f_{i, \chi}$ with $f_{i, \chi}$ identified with $1$. Fix $\iota\colon L\into \bC$ (omitted from the notation) and $\one\neq \psi\colon F_{v}\to \bC^{\ts}$. Identify $\pi$, $\pi^{\vee}$ with Kirillov models with respect to $\psi$, $-\psi$. 
+ Let $(\ , \ )=(\ ,  \ )_{\pi}\cdot(\, \ )_{\chi}$ be the invariant pairing on $\Pi \ot \Pi^{\vee}$
+such that     $( \ , \ )_{\pi} = \eqref{kir pair} $ and $(1 \ ,1  \ )_{\chi}=1$.  Assume, after a harmless extension of scalars, that $dt=|D_{v}|^{-1/2}
+d^{\ts}_{\psi_{E}}z/d^{\ts}_{\psi}y$, which gives  $\vol^{\circ}(H', dt)=1$.  Let $f_{1}=f_{3}=f_{\pi}$, $f_{2}=f_{4}=f_{\pi}^{\vee}$ with $f_{\pi}^{(\vee)}$ as in \eqref{f kir}. 
+
+In view of the definitions  \eqref{Qv sec4}, \eqref{Q orddd v} and of Lemma \ref{lemm: loc pair}, it suffices to show that 
+$$Q^{\sharp}(\tord f, \tord f^{\vee}) := \int_{H'_{v}}(\pi(t)\tord f,  \tord f^{\vee}) \chi(t) \, dt
+ =  \omega_{}(-1)\cd \mu^{+}({\rm j}_{v}) \cdot  
+ \prod_{w\vert v} \gamma(V^{+}_{|{\rm WD}_{E_{w}}}, \psi_{E_{w}})^{-1}.$$
+
+
+
+
+We denote by $\alpha$ the refinement of $\pi$, and we  fix  $r\geq 1$ to be larger than the valuations of the  conductors of $\pi$ and  of the norm of the conductor of $\chi$. 
+\paragraph{Split case} Suppose first that $E_{v}/F_{v}$ is split and identify $E_{v}^{\ts}=F_{v}^{\ts}\ts F_{v}^{\ts}$ as usual. 
+ Then as in  \cite[Lemma 10.12]{dd-pyzz} we find
+\beqq 
+Q^{\sharp}(\tord f, \tord f^{\vee}) &= 
+\prod_{w\vert v}
+\int_{E_{w}^{\ts}}\alpha\chi_{w}|\ |_{w}(y_{w}) \psi_{w}(y_{w}) d^{\ts}y_{w}
+\int_{E_{w^{c}}^{\ts}}\alpha_{}\chi_{w^{c}}|\ |_{w^{c}}(y_{w^{c}}) \psi_{w^{c}}(-y_{w^{c}}) d^{\ts}y_{w^{c}}\\
+&=
+\omega_{v}(-1)\cdot 
+\mu^{+}_{}({\rm j}_{v})
+ \cdot \gamma(V^{+}_{v}, \psi_{v})^{-1},
+ \eeqq
+ where we have used Lemma \ref{int gamma}.
+ 
+
+
+ 
+\paragraph{Nonsplit case} Now suppose that $E_{v}=E_{w}$ is a field and drop all subscripts $v$, $w$.
+We   abbreviate ${\rm T}:=\Tr(\theta)$, $\Nm:={\rm Nm}(\theta)$.
+
+ We have
+\beq\lb{nsplitQv} Q^{\sharp} (\tord f,\tord f^{\vee})
+ = 
+  \int_{H'}
+    \alpha\alpha^{\vee}|\ |^{2}(\vpi)^{-r}
+  \cdot
+  (\pi(\gamma_{r}^{-1}t \gamma_{r})f_{\pi} , f_{\pi}^{\vee})\chi(t) \, dt.
+\eeq
+ There is a decomposition 
+\beqq
+H'=H'_{1}\sqcup H'_{2}, \qquad H'_{1}=\{  1+b\theta  \ |\  b\in \OO_{F}\} ,
+\quad H'_{2}=
+\{a{\rm N} +\theta\  |\  a\in {\rm N}^{-1}\vpi\OO_{F}\}, 
+\eeqq
+  that is an isometry when  $H'_{1}$, $H_{2}'$ are endowed with the measures $d_{\psi}b$, $d_{\psi}a$.
+  
+  Let $r':= r+e-1$ and let us redefine, for the purposes of this proof, $w_{r'}:= \smalltwomat {}1{-\Nm^{-1}\vpi^{-r}}{}$.
+ Let  $\sim_{r'} $ denote the relation in $\GL(2, F)$ of equality up to right multiplication by an element of $U_{1}^{1}(\vpi^{r'})$, 
+ and let $t^{(r)}:= \gamma_{r}^{-1}t\gamma_{r}$. 
+
+\paragraph{Contribution from  $H_{1}'$.} For $t=1+b\theta\in H_{1}'$,  we have
+\beqq
+t^{(r)}=
+ \twomat {1+b{\rm T}} {b\vpi^{-r}}
+{-b\Nm\vpi^{r}}   {1} \sim_{r'}
+ \twomat {1+b{\rm T}+b^{2}\Nm}  {b\vpi^{-r}} {}1.
+\eeqq
+Hence the integral over $H_{1}'$ equals 
+\beqq
+\omega^{-1}\alpha^{2}|\ |^{2}(\vpi)^{-r}
+& \int_{\OO_{F}} \int_{\OO_{F}-\{0\}}
+\psi(by\vpi^{-r}) \alpha|\ |({\rm Nm}(1+b\theta)y) \alpha\omega^{-1}|\ |(y) \chi(1+b\theta)
+\,d^{\ts}_{\psi}y
+\, d_{\psi}b
+\\
+= &
+\int_{\OO_{F}}
+\int_{ \vpi^{-r}\OO_{F}-\{0\}} 
+\chi\cdot \alpha |\ |\circ {\rm Nm} ((1+b\tht)y)\cdot \psi(by)
+\,
+d_{\psi}^{\ts}y
+\, d_{\psi}b.
+\eeqq
+ 
+ We show that the domain of integration in $y$ can be harmlessly extended to $F^{\ts}$, i.e. that
+$$\int_{\OO_{F}} \int_{v(y)\leq  -r-1} \mu^{+}((1+b\tht) y)\psi(by) \, d^{\ts}_{\psi}y \, db$$
+vanishes. Consider first the contribution from $v(b)\geq r$.  On this domain, $\mu^{+}(1+b\tht)=1$ and integration in $db$ yields $\int_{\vpi^{r}\OO_{F}}\psi(by)\, db= \one_{\vpi^{-r}\OO_{F}}(y)$, that vanishes on $v(y)\leq -r-1$. Consider now the contribution from $v(b)\leq r-1$
+\beq \lb{rerb}
+\int_{0\leq v(b) \leq r-1}  \mu^{+}(1+b\tht) \int_{v(y)\leq -r-1} \mu^{+}(y)\psi(by) \, d^{\ts}_{\psi}y db.\eeq
+Let $n$ be the conductor of $\mu^{+}_{|F^{\ts}}$.  Then \eqref{rerb} vanishes if $n=0$; otherwise only the annulus $v(y)=-n-1$ contributes, and after a change of variable $y'=by$ we obtain 
+$$\eps(\mu^{+}_{|F^{\ts}}, \psi)^{-1}\cdot \int_{r- n \leq v(b) \leq r-1}   \mu^{+}(1+b\theta)\mu^{+}(b)^{-1} db.$$
+On  our domain $\mu^{+}(1+b\theta)=1$, and $\int \mu^{+}(b)^{-1}=0$ as $\mu^{+}_{|F^{\ts}} $ is ramified.
+
+We conclude that the contribution from $H_{1}'$ is 
+$$
+\int_{\OO_{F}} \int_{F^{\ts}} \mu^{+}((1+b\tht) y)\psi(by) \, d^{\ts}_{\psi}y \, db
+\int_{H_{1}'}
+\int_{ F^{\ts}}
+\mu^{+}(ty)\cdot \psi_{E}(ty/(\tht-\tht^{c}))
+\, d_{\psi}^{\ts}y
+\, dt.
+$$
+
+
+\paragraph{Contribution from  $H_{2}'$.}  For $t=a{\rm N}+\tht \in H_{2}'$, we have
+\beqq
+t^{(r)} 
+&=
+ \twomat {a\Nm+{\rm T}} {\vpi^{-r}}
+{-\Nm\vpi^{r}}   {a\Nm} 
+= 
+w_{r}'
+\twomat 
+1 {-a\vpi^{-r}}
+{a\Nm +{\rm T}} {\vpi^{-r}}
+\sim_{r}
+w_{r'}
+\twomat 
+{1+a{\rm T}+a^{2}\Nm } {-a\vpi^{-r}}
+{} {\vpi^{-r}} .
+\eeqq
+
+Then the integral over $H_{2}'$ is
+\beqq
+\ &\omega^{-1}\alpha^{2}|\ |^{2}(\vpi)^{-r}
+\int_{\Nm^{-1}\vpi\OO_{F}} 
+ \left( \pi(\left( \smalltwomat {{\rm Nm}(1+a\tht)} {-a\vpi^{-r}}
+{} {\vpi^{-r}} \right) f, 
+\pi^{\vee}(w_{r'}^{-1}f^{\vee} \right) \cdot\chi(a\Nm +\tht)
+\,d_{\psi }a\\
+=&
+\omega^{-1}\alpha^{2}|\ |^{2}(\vpi)^{-r}
+\int_{\Nm^{-1}\vpi\OO_{F}} 
+\int_{\OO_{F}-\{0\}}
+\omega(\vpi)^{-r} 
+\psi(-ay)
+\alpha|\ |(y\vpi^{r}{\rm Nm}(1+a\tht))
+\cdot\pi^{\vee}(w_{r'}^{-1})f^{\vee}(y) 
+\cdot
+ \chi(a\Nm +\tht)
+ \,d_{\psi}^{\ts}y\,
+\,d_{\psi }a\\
+=&
+\alpha|\  |(\vpi)^{-r}
+\int_{\Nm^{-1}\vpi\OO_{F}} 
+\int_{F^{\ts}}
+\alpha|\ |(y{\rm Nm}(1+a\tht))
+\cdot\pi^{\vee}(w_{r'}^{-1})f^{\vee}(y)
+\cdot \chi(a\Nm +\tht)
+ \,d_{\psi}^{\ts}y
+\,d_{\psi }a\\
+=&
+\alpha|\  |(\vpi^{-r}{\rm N}^{-1})  \cdot 
+Z(1/2,\pi^{\vee}( w_{r'}^{-1})f^{\vee}, \al|\ |)
+\cdot
+\int_{\Nm^{-1}\vpi\OO_{F}} 
+\alpha|\  |({\rm Nm}(a{\rm N}+ \tht))
+\cdot \chi(a\Nm +\tht)
+\, d_{\psi }a,
+\eeqq 
+where we have observed that $w_{r'}f^{\vee}$ vanishes outside $\OO_{F}$, and that $\psi(-ay)=1$ for $y\in \OO_{F}$. 
+Applying first the same argument as in the proof of Lemma \ref{lemm: loc pair},  then   Lemma \ref{int gamma}, this equals
+\beqq
+& \gamma(\ad(V_{\pi})^{++}(1),- \psi)^{-1}
+ \cdot   \int_{\Nm^{-1}\vpi\OO_{F}} \al|\  | \circ {\rm Nm} \cdot \chi(a\Nm +\tht) d_{\psi}a  \\
+ = & \int_{F^{\ts}}\mu^{+}(y) \psi(y) \, d^{\ts}_{\psi}y 
+  \cdot   \int_{\Nm^{-1}\vpi\OO_{F}} 
+\mu^{+}(a\Nm +\tht) d_{\psi}a  
+= \int_{H_{2}'} \int_{F^{\ts}}
+\mu^{+}(ty) \psi_{E}(ty/(\tht-\tht^{c})) \, d_{\psi}^{\ts}y.
+\eeqq
+
+\paragraph{Conclusion} Summing up the two contributions to \eqref{nsplitQv} yields
+$$\mu^{+}(\tht^{c}-\tht) \cdot \int_{H'} \int_{F^{\ts}}  \mu^{+}(u) \psi_{E}(u) \, d^{\ts}u 
+= \omega_{}(-1)\cdot  \mu^{+}({\rm j})\cdot    \gamma(\mu^{+}, \psi_{E})^{-1},
+$$
+as desired.
+ \end{proof}
+ 
+ 
+ 
+ 
+\subsection{Pairings at infinity}\lb{A4}
+ Fix a place $v\vert p$ of $F$. 
+\subsubsection{Models for algebraic representations and pairings} Suppose  that $W$ is the  representation \eqref{Wwkl} of $(G\ts H)_{v, \infty}'$ over $L\stackrel{\sg}{\hookleftarrow} E$. We identify $W$ with the space of homogeneous  polynomials $p(x, y)$ of degree $k-2$ in $L[x, y]$, where $x$ and  $y$ are considered as the components of a  column (respectively  row) vector if $W$ is viewed as a right (respectively left) representation. In those two cases, the action is respectively:
+\beq \lb{W act poly}
+p. (g, h)(x, y)&= \det(g)^{w-k+2\over 2}\sg(h)^{l-w\over 2}\sg^{c}(h)^{-l-w \over 2}\cdot  p(g(x, y)^{\rm T}) \\
+(g, h).p(x, y)& = \det(g)^{w-k+2\over 2}\sg(h)^{l-w\over 2}\sg^{c}(h)^{-l-w \over 2}\cdot  p((x, y)g) .
+\eeq
+In either case, we   fix the invariant pairing 
+\beq\lb{inv pair W} (x^{k-2-a}y^{a}, x^{a'}y^{k-2-a'}) = (-1)^{a} {k-2 \choose a}^{-1}\delta_{a, a'}.\eeq
+
+\begin{lemm} \lb{wao alg} Let $W=\eqref{Wwkl}$, viewed as a left representation  of $G_{v, \infty}$ only.  Let $w_{\rm a}^{\ord }\colon W^{N}\to W_{N}$ be the map denoted by $w_{{\rm a}, v, \infty}^{\ord}$ of \eqref{waov}. 
+Fix the models and pairing described above. Then $W^{N}$ is spanned by $x^{k-2}$ and $W_{N}$ is spanned by the image of $y^{k-2}$, and 
+$$(w_{\rm a}^{\ord } (x^{k-2}), x^{k-2})=1.$$
+\end{lemm}
+
+
+ 
+\subsubsection{The map $\tord $ is unitary on algebraic representations} We start with  a lemma completing the proof of Proposition \ref{indep of wt}. 
+
+
+
+
+Suppose that  $M_{p}=M_{p, 0}\ot W_{p}$ is a decomposition of a locally algebraic coadmissible right $(G\ts H)'_{p}$-representation over $L$, into the product of a smooth and an irreducible algebraic representation, respectively. Let $W^{\vee}_{\infty}$ be the dual representation to $W_{p}$, viewed as a right  representation of  $(G\ts H)'_{\infty}$. Assume that $L$ is a $p$-adic field and that  the $(G\ts H)'$-module  $M_{p}\ot W^{\vee}_{\infty}$ is $p$-adic coadmissible. Then the operator $\tord$ on it   (whose definition of Proposition \ref{gHo} extends \emph{verbatim} to the case where $M_{p}$ is only locally algebraic) decomposes as 
+$$\tord= \lim_{r\to \infty} (p^{r[F:\Q]}\cdot\gamma_{r, p}\Up_{p}^{-r})\ot \gamma_{r, p}\Up_{p}^{-r}\ot c(W)^{-1} \gamma_{0, \infty}^{\iota}.$$
+according to the decomposition $M_{p}\ot W^{\vee}_{\infty}=M_{p, 0}\ot W_{p}\ot W^{\vee}_{\infty}$
+
+\begin{lemm}\lb{unitary}  In relation to the situation just described, the operator 
+$${}^{\rm alg}\tord:=  \lim_{r\to \infty} \gamma_{r, p}\Up_{p}^{-r}\ot  c(W)^{-1}\gamma_{0, \infty}^{\iota}\colon W^{H'}\ot W^{\vee, H'} \to W^{N}\ot W_{N}$$
+is unitary.  That is, for any invariant pairing $(\ , \ )$ on $W\ot W^{\vee}$ and $\xi\in W^{H'}$, $\xi^{\vee}\in W^{\vee, H'}$, the images of $\xi\ot \xi^{\vee}$ and  ${}^{\rm alg}\tord (\xi\ot \xi^{\vee})$  under the pairings induced by $(\ , \  )$ coincide. 
+\end{lemm}
+
+
+
+\begin{proof}
+We may fix a place $v\vert p$, and consider the factor representations $W_{v}\ot W_{v,\infty}^{\vee}$  of $(G\ts H)'_{v} \ts(G\ts H)'_{v, \infty}$.  After extension of scalars, we may decompose $W_{v}=\bigotimes_{\sg\colon F\to \baar{Q}_{p}}W_{v}^{\sg}$ where each $W_{v}^{\sg}$ is one of the representations \eqref{Wwkl} for suitable integers $w, k, l$. Thus we are reduced to proving the unitarity of the relevant component of ${}^{\rm alg}\tord$ on the  representation $W_{v}^{\sg}\ot W_{v, \infty}^{\vee, \sg}$. We omit all subscripts.
+
+
+\paragraph{Split case}
+Suppose first that $v$ splits in $E$.  Then $W^{H'}= Lx^{(k-2-l)/2} y^{(k-2+l)/2}$, and if 
+$$\xi:= x^{(k-2-l)/2} y^{(k-2+l)/2} $$ then $$\xi^{\vee}:=   (-1)^{(k-2+l)/2} {k-2 \choose  {(k-2-l)/2}} x^{(k-2+l)/2}y^{ (k-2-l)/2}$$ satisfies $( \xi, \xi^{\vee})=1$. 
+We have 
+$$ \xi {\tord}_{, p}:=\lim_{r\to \infty} \xi \gamma_{r, p}\Up_{p}^{-r}  = y^{k-2},  $$
+and
+\beqq
+\xi^{\vee}{\tord}_{,\infty} 
+= (-1)^{(k-2+l)/2}   c(W)^{-1} {k-2 \choose  {(k-2-l)/2}}  x^{(k-2+l)/2}(-x+y)^{ (k-2-l)/2}
+\eeqq
+projects into $W^{\vee}_{N} \stackrel{\cong}{\leftarrow} Lx^{k-2}$ to 
+$$\xi^{\vee}{\tord}_{,\infty} =   (-1)^{k-2}   c(W)^{-1}   {k-2 \choose  {(k-2-l)/2}}  x^{k-2}.$$
+Hence 
+$$(  \xi {\tord}_{, p}, \xi^{\vee}{\tord}_{,\infty})=   c(W)^{-1}   {k-2 \choose  {(k-2-l)/2}} =1.$$
+
+\paragraph{Nonsplit case}
+Suppose now that $v$ does not split in $E$. Let $z:= x+\tht^{c} y$, $\baar{z}:=x+\tht y$. Then $W^{H'} = L z^{(k-2-l)/2}\baar{z}^{ (k-2+l)/2}$, and if 
+$$ \xi :=z^{(k-2-l)/2}\baar{z}^{ (k-2+l)/2}=  x^{(k-2-l)/2}y^{ (k-2+l)/2} .\twomat 1{\tht^{c}} 1{\tht}  (-{\rm j})^{(w+k-2)/2} \in W^{H'}$$
+then 
+$$\xi^{\vee}:=  (-1)^{(k-2+l)/2} {k-2 \choose  {(k-2-l)/2}} x^{(k-2+l)/2}y^{ (k-2-l)/2}  .\twomat 1{\tht^{c}} 1{\tht}  (-{\rm j})^{(-w-k+2)/2} \in W^{\vee, H'}$$
+satisfies $( \xi, \xi^{\vee})=1$. 
+We have 
+$$ \xi {\tord}_{, p}= {\rm N}^{(w-k+2)/2}   \tht^{c,(k-2-l)/2} \tht^{(k-2+l)/2} y^{k-2}  ,$$
+and  
+\beqq
+\xi^{\vee}{\tord}_{,\infty} 
+&=  (-1)^{(k-2-l)/2}  (-{\rm j})^{-(w+k-2)/2} c(W)^{-1}
+ {k-2 \choose  {(k-2-l)/2}} x^{(k-2+l)/2}y^{ (k-2-l)/2}  \twomat 1{\Nm^{-1}\tht^{c}} 1{\Nm^{-1}\tht} \eeqq
+projects into $W^{\vee}_{N} \stackrel{\cong}{\leftarrow} Lx^{k-2}$ to 
+$$\xi^{\vee}{\tord}_{,\infty} =  (-1)^{(k-2-l)/2}   (-{\rm j})^{-w-k+2}  c(W)^{-1} {k-2 \choose  {(k-2-l)/2}} \Nm^{(w+k-2)/2}
+x^{k-2}.
+$$
+Then 
+$$(  \xi {\tord}_{, p}, \xi^{\vee}{\tord}_{,\infty})=   (-{\rm j})^{-w-k+2 }  \tht^{c,(k-2-l)/2} \tht^{(k-2+l)/2} {k-2 \choose  {(k-2-l)/2}} c(W)^{-1}=1 .$$
+\end{proof}
+
+
+
+\subsubsection{Algebraic  toric period}\lb{A4mu}
+Let  $W =W_{G} \ot W_{H}$ be an  algebraic representation of $(G\ts H)'_{v,\infty}$ over $L$.
+For any $\iota\colon L\into \bC$, let $\iota V_{ }$ (respectively $\iota V_{G}$) be the Hodge structure associated with $W$ (respectively $W_{G}$),
+ and let\footnote{To compare with \eqref{calLv}, we have $\zeta_{\R}(2)/L(1, \eta_{\bC/\R})=1.$}
+$$\calL(V_{(W_{G}, W_{H})}, 0):= \iota^{-1}\left({\pi^{-[F_{v}:\Q_{p}]}L(\iota V_{}, 0) \over L(\ad(\iota V_{\G), \infty}), 1)}\right).$$ 
+
+Let $dt$ be a `measure' on $H'_{v, \infty}$, by which we simply mean a value $\vol(H'_{v, \infty }, dt)$ similarly to \S~\ref{ssec loc tp}, and set as in \eqref{vol circ}
+$$ {\vol^{\circ}(H'_{v}, dt_{})} :=2^{-[F_{v}:\Q]} \vol(H'_{v, \infty }, dt).$$
+ Let $(\ , \ )=(\ ,  \ )_{W_{G}}\cdot(\, \ )_{W_{H}}$ be a nondegenerate invariant pairing on $W. \ot W^{\vee}$. 
+
+Then for all $f_{1}, f_{3}\in W$, $f_{2},f_{4}\in W^{\vee}$ with $(f_{3}, f_{4})\neq 0$, we define
+\beq \lb{Q inf}
+Q_{dt}^{}\left( {f_{1}\ot f_{2} \over f_{3}\ot f_{4}}\right)   : =  \calL(V_{(W_{G}, W_{H})}, 0)^{-1}\cdot \vol^{}(H'_{v, \infty}, dt) \cdot {( {\rm p}_{H'} (f_{1}), {\rm p}_{H'} (f_{2})) \over (f_{3}, f_{4})},
+\eeq
+where ${\rm p}_{H'}$ denotes the idempotent projector onto $H'_{v, \infty}$-invariants. 
+
+Let $\sg_{W_{G}}\colon F_{v}^{\ts}\to L^{\ts}$ be the character giving the action of $\twomat {F_{v}^{\ts}}{}{}1$ on $W_{G}^{N}$, let $\chi\colon E_{v}^{\ts}\to L^{\ts} $ be the algebraic character attached to $W_{H}$, and let 
+$$\mu^{+}=\chi\cdot \sg_{W_{G}}\circ N_{E_{v}/F_{v}}.$$
+  Let ${\rm j}_{v}=\eqref{jv}$.
+ Then for all $f_{1}, f_{3}\in W^{N}:=W_{G}^{N}\ot W_{H}$, $f_{2}, f_{4}\in W^{\vee , N}$ with $f_{3}, f_{4}\neq 0$, we define
+\beq \lb{Q ord inf v}
+Q_{dt}^{\ord}\left( {f_{1}\ot f_{2} \over f_{3}\ot f_{4}}\right) :=
+\mu^{+}({\rm j}_{v})^{}\cdot  {\vol^{\circ}(H'_{v}, dt_{})} \cdot {f_{1}\ot f_{2} \over f_{3}\ot f_{4}}.
+\eeq 
+
+
+\begin{prop}
+\source{universal-p-adic-gross-zagier-formula}
+\notready \lb{compare toric inf} 
+Let $W$  be a    representation of $(G\ts H)'_{v, \infty}$ over $L$.
+Let ${\tord}={\tord}_{,v, \infty}$ be as defined in \eqref{tord v}, and let $w_{\rm a}^{\ord}=w_{{\rm a}, v, \infty}^{\ord}$ be as defined in \eqref{waov}. Then  for all $f_{1}, f_{3}\in W^{N}$, $f_{2}, f_{4}\in W^{\vee , N}$ with $f_{3}, f_{4}\neq 0$, 
+$$ 
+ Q_{dt}^{}\left({ \tord f_{1}\ot \tord f_{2} \over w_{\rm a}^{\ord} f_{3}\ot f_{4}}\right) =  \dim W \cdot   
+ Q_{dt}^{\ord}\left( {f_{1}\ot f_{2} \over f_{3}\ot f_{4}}\right) . $$
+\end{prop}
+\begin{proof} 
+After possibly extending scalars we may assume that $L$ splits $E$ and pick an extensions of each   $\sg\colon F\into L$ to a $\sg\colon  E\into L$. 
+We then have  $W=\bigotimes_{\sg\colon F\into L}W_{\sg} $ with  $W_{\sg}=\eqref{Wwkl}$ for suitable integers $w, k_{\sg},l_{\sg}$, and analogously $\mu^{+}(t)= \prod_{\sg\colon F\into L}\mu_{\sg}^{+}$ with 
+\beq \lb{xi+j}
+\mu_{\sg}^{+}(t)=\sg (t)^{(k_{\sg}-2+l_{\sg})/2} \sg (t^{c})^{(k_{\sg}-2-l_{\sg})/2}, \qquad  \mu_{\sg}^{+}({\rm j})=(-1)^{(k_{\sg}-2-l_{\sg})/2}\cdot  {\rm j}_{v}^{k_{\sg}-2}.
+\eeq
+If $v$ splits in $E$, this simplifies to $\mu_{\sg}^{+}({\rm j}) = (-1)^{(k_{\sg}-2+l_{\sg})/2}$. 
+
+
+Moreover, 
+ $\calL(V, 0)= \prod_{\sg}\calL(V_{\sg}, 0)$ with
+$$\calL(V_{\sg}, 0)= {\pi^{-1}\Gamma_{\bC}({k_{\sg}+l_{\sg}\over 2})\Gamma_{\bC}({k_{\sg}-l_{\sg}\over 2}) \over \Gamma_{\bC}(k_{\sg}) \Gamma_{\R}(2)} 
+= {2\over k_{\sg}-1} \cdot {k_{\sg}-2 \choose {k_{\sg}-2+l_{\sg}\over 2 }}^{-1}.
+$$
+
+Fix a $\sg \colon F\into L$ for the rest of this proof, work with $W_{\sg} $ only,  and we drop $\sg $  from the notation.  
+We may  assume  that $f:=f_{1}$, $f^{\vee}:= f_{2}$ both equal $x^{k-2}$ in the models \eqref{W act poly}, and that $\vol(H', dt)=1$.  By the definitions above and Lemma \ref{wao alg}, we then need to prove that 
+$$ Q(\tord f_, \tord  f^{\vee}):= 
+{k-1\over 2 }\cdot {k_{}-2 \choose {k-2+l_{}\over 2 }} \cdot ( {\rm p}_{H'}( \tord f_{1}), {\rm p}_{H'} (\tord  f_{2}) ) ={k-1 \over 2} \cdot \mu^{+}({\rm j}).$$
+Recall  in what follows that $\tord$ contains  the factor $c(W) =\eqref{cW}$.
+\paragraph{Split case}
+Suppose  first that $v$ splits in $E$.
+Then $W^{H'} =  L x^{(k-2-l)/ 2}y^{(k-2+l)/ 2 }$, and
+ $c(W)^{-1}\gamma_{0}^{\iota} f= c(W)^{-1} (x-y)^{k-2}$
+ projects to 
+$$
+{}\ \qquad \tord f =(-1)^{ (k-2+l )/ 2}  c(W)^{-1} {k-2 \choose (k-2-l)/2} x^{(k-2-l)/ 2}y^{(k-2+l )/ 2 } \qquad \in W^{H'}.$$
+ It follows that 
+\beqq
+Q^{}(\tord f_, \tord  f^{\vee})
+&=   { k_{}-1\over 2} \cdot {k_{}-2 \choose ( {k_{}-2+l)/ 2 }}^{2}\cdot 
+(-1)^{ {k-2+l\over 2}} \cdot c(W)^{-1}c(W^{\vee})^{-1}\\
+&=     {k-1\over 2} \cdot  \mu^{+}({\rm j}) .
+\eeqq
+
+\paragraph{Nonsplit case}
+Suppose now  that $v$ is nonsplit in $E$. Let $z:= x-\tht^{c,-1} y$, $\baar{z}:=x-\tht^{ -1}y$, then  $W^{H'}=L   z^{(k-2-l)/ 2}\baar{z}^{(k-2+l)/ 2 }$ and 
+$$  \gamma_{0}^{\iota} f=c(W)^{-1} \Nm^{(w+k-2)/2} x^{k-2} =c(W)^{-1} \Nm^{(w+k-2)/2} {\rm j}^{2-k}  (\tht^{c}z-\tht \baar{z})^{k-2}$$
+projects to
+\beqq 
+\tord f&= c(W^{\vee})^{-1}{k-2 \choose {k-2-l\over 2}}^{} (-1)^{(k-2+l)/  2}\cdot
+  \Nm^{(w+k-2)/2} {\rm j}^{2-k} \theta^{c, (k-l-2)/2} \theta^{(k+l-2)/2}\cdot z^{(k-2-l)/ 2}\baar{z}^{(k-2+l)/ 2 }\\
+&=
+c(W^{\vee})^{-1}{k-2 \choose {k-2-l\over 2}}^{} 
+(-1)^{(k-2+l)/  2}\cdot
+ {\rm j}^{(-w-k+2)/2} \theta^{c, (k-l-2)/2} \theta^{(k+l-2)/2}\cdot 
+ \twomat 1 1 {-\tht^{c,-1}} {-\tht^{-1}} . x^{(k-2-l)/ 2} {y}^{(k-2+l)/ 2 } .
+\eeqq
+By the invariance of the pairing, 
+$$Q(\tord f, \tord f^{\vee}) = (-1)^{(k-2+l)/2}    c(W)^{-1}c(W^{\vee})^{-1} {k-2 \choose {k-2-l\over 2}}
+(-{\rm j})^{2-k} \Nm^{k-2}  = (-1)^{k-2}{k-2 \choose {k-2-l\over 2}}^{-1}
+\mu^{+}({\rm j})$$
+so that again
+\beqq
+Q^{}(\tord f_, \tord  f^{\vee})= \dim W\cdot  \mu^{+}({\rm j}) .
+\eeqq
+\end{proof}

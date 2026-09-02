@@ -1,0 +1,210 @@
+% Source-derived chapter 07: Unitary irreducible rigid local systems and KZ equations
+% Original source: rigid-local-systems-multiplicative-eigenvalue-problem
+\chapter{Unitary irreducible rigid local systems and KZ equations}
+\label{rigid-local-systems-multiplicative-eigenvalue-problem-chapter-07}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+
+\begin{remark}[Source section]
+\label{rigid-local-systems-multiplicative-eigenvalue-problem-chapter-07-source}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Unitary irreducible rigid local systems and KZ equations
+\label{EqKZ}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\subsection{KZ equations on conformal blocks}\label{chocolate}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+ Let $\vec{\nu}=\nu^1,\dots,\nu^s,\nu^{s+1}$ be an $(s+1)$-tuple of dominant integral weights of $\mathfrak{sl}_r$ at level $k$ (a representation $\nu=\sum_{i=1}^{r-1} c_i\omega_i$ is said to be of level $k$ if $\sum_{i=1}^{r-1}c_i\leq k$). Assume $\sum_{i=1}^{s+1} \nu^i$ is in the root lattice, i.e., $\sum_{i=1}^{s+1}|\nu^i|$ is divisible by $r$. Let $\mathcal{A}_{s+1}$ be the configuration space of $s+1$ distinct points on $\Bbb{A}^1$:
+$$\mathcal{A}_{s+1}=\{(z_1,\dots,z_s,z_{s+1})\mid z_i\neq z_j, 1\leq i<j \leq s+1\}\subseteq \Bbb{A}^{s+1}.$$
+There is a bundle of conformal blocks $\mathcal{V}_{\vec{\nu}}$ on $\mathcal{A}_{s+1}$ \cite{tuy,sorger}. These bundles are quotients of the (constant bundles) of  coinvariants in the tensor product of the finite dimensional  representations $V_{\nu^i}$ of $\mathfrak{sl}_r$ of highest weight $\nu^i$. There is a flat logarithmic connection on $\mathcal{V}_{\vec{\nu}}$ over $\mathcal{A}_{s+1}$ without any projective ambiguities.
+\begin{remark}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready
+The fiber of $\mathcal{V}_{\vec{\nu}}$ over $(z_1,\dots,z_{s+1})$ is dual to $H^0(\Par_{r,\mathcal{O},S},\ml)$ where $S=\{z_1,\dots,z_{s+1}\}$, and $\ml=\mathcal{B}(\vec{\nu},k)$ \cite{pauly}. The following additional properties of conformal blocks are included for completeness and are not needed in this paper.
+\begin{enumerate}
+\item Let $e_{\theta}$ be the root operator corresponding to the highest root $\epsilon_1-\epsilon_r$ of $\mathfrak{sl}_r$. Let $\Bbb{V}= V_{\nu_1}\tensor V_{\nu_2}\tensor\dots \tensor V_{\nu_{s+1}}$ and let $T:\Bbb{V}\to \Bbb{V}$ be the operator $T=\sum_{i=1}^{s+1} z_i e_{\theta}^{(i)}$ with $e_{\theta}^{(i)}$ acting on the $i$th tensor coordinate.  Then the fiber of $\mathcal{V}_{\vec{\nu}}$
+    at $(z_1,\dots,z_{s+1})$ is the quotient
+    $$\frac{\Bbb{V}}{\mathfrak{sl}_r\cdot \Bbb{V} +\im T^{k+1}}$$ with the natural diagonal action of the Lie algebra $\mathfrak{sl}_r$  on $\Bbb{V}$.
+
+\item The connection on $\mathcal{V}_{\vec{\nu}}$ is induced by a connection on the constant bundle with fibers $\Bbb{V}$. The  operator corresponding to $\frac{\partial}{\partial z_i}$ acts on a constant tensor $v_1\tensor v_2\tensor\dots\tensor v_{s+1}$ as follows:
+    $$\frac{\partial}{\partial z_i}(v_1\tensor v_2\tensor\dots\tensor v_{s+1})=
+    -\frac{1}{r+k}\sum_{1\leq j\leq s+1, j\neq i}\frac{ {\Omega_{i,j}}(v_1\tensor v_2\tensor\dots\tensor v_{s+1})}{z_i-z_j}.$$
+Here $\Omega_{i,j}$ is the Casimir operator acting on the $i$ and $j$ tensor summands (see \cite[(5.40)]{Ueno} for more details).
+\end{enumerate}
+\end{remark}
+\subsubsection{Local monodromy}\label{clarinet}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let us pull back the KZ system to $\Bbb{A}^1-\{z_1,\dots,z_s\}$, under the map $t\mapsto (z_1,\dots,z_s,t)\in\mathcal{A}_{s+1}$, so that $z_{s+1}$ is the moving point and the other $z_i$ are fixed. The monodromies of this pullback local system
+on  $\Bbb{A}^1-\{z_1,\dots,z_s\}$ are the following (see the computations of \cite[Section 3.1]{naf}, placing the trivial representation at $\infty$). Recall that the local monodromy is  the exponential of $2\pi\sqrt{-1}$ times the residue of the logarithmic connection (since the local monodromy is diagonalizable in our setting).
+\begin{itemize}
+\item[-] The residue around $\infty$ is central with residue  $\frac{c(\mu_{s+1})}{r+k}$ times the identity matrix (see Definition  \ref{ls} below).
+\item[-] To compute the monodromy as $t$ goes around the point $z_i$, for ease of notation assume $z_i=z_s$. Note that there is a rank formula
+$$ \dim \mathcal{V}_{\vec{\nu}}=\sum_{\gamma}\rk \mathcal{V}_{\{\nu^1,\dots,\nu^{s-1},\gamma\}} \rk \mathcal{V}_{\{\nu^s,\gamma^*,\nu^{s+1}\}}.$$
+The local exponents (of the residue)  around $t=z_s$ are (see Definition  \ref{ls} below)  $\frac{1}{2(r+k)}(c(\gamma)-c(\nu^s)-c(\nu^{s+1}))$ with multiplicity equal to $\rk \mathcal{V}_{\{\nu^1,\dots,\nu^{s-1},\gamma\}} \rk \mathcal{V}_{\{\nu^s,\gamma^*,\nu^{s+1}\}}$.
+\end{itemize}
+
+
+\begin{defi}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{ls} Let $\frh_r$  be the Cartan subalgebra of $\mathfrak{sl}_r$. For $\lambda\in\frh_r^*$ let
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+$c(\lambda)=(\lambda,\lambda+2\rho)$ where $(\ ,\ )$ is the normalized Killing for on $\frh_r^*$ (i.e., all roots $\alpha$ have $(\alpha,\alpha)=2$)  and $\rho\in\frh_r^*$ the half sum of positive roots.
+\end{defi}
+%Note that explicit representation-theoretic  power series expansions are available for solutions of KZ equations in  neighborhoods of  singular points (see e.g., \cite{Ueno}).
+\subsection{Unitary irreducible rigid local systems come from KZ equations}\label{KZstuff}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let $E=C(d,r,\mathcal{O},n,\vec{J})$ be an effective cycle of codimension $1$ on $\Par_{n,\mathcal{O},S}$ (see Definition  \ref{cyclist}). Let $\ml=\mathcal{O}(E)=\mathcal{B}(\vec{\lambda},\ell)$ be the corresponding effective line bundle on $\Par_{n,\mathcal{O},S}$.  Write $\lambda^i=\sum_{b=1}^{n-1} c^b_i\omega_b$. Let
+$\ml'=\mathcal{B}(\vec{\mu},n)$ be the  line bundle on $\Par_{\ell,\widetilde{\mathcal{N}},S}$ as in Section \ref{SD}. We have a local system (L1) and a nonempty family of local systems (L2) in this situation.
+\begin{enumerate}
+
+\item[(L1)] The first local system is the KZ local system on $\Bbb{A}^1-\{z_1,\dots,z_s\}$ corresponding to the data $\nu^1,\dots,\nu^{s+1}$ with $\nu^{s+1}=\omega_1$ (as in Section \ref{chocolate}) at level $k=n-r$.
+The weights $\nu^i$ are defined as follows. First define $\mu^i=\lambda(J^i)$ for $j\neq1$, and $\mu^1$ the $d$-fold shift at level $k=n-r$ of $\lambda(J^1)$ (i.e., a single shift replaces $\mu=(\mu_1,\dots,\mu_r)$ by $(\mu_2,\dots,\mu_r,\mu_1-k)$. These are Young diagrams that fit into an $r\times (n-r)$ box. Let $\nu^i$ be their (ordinary) duals, $i=1,\dots,s$, i.e $\nu^i_j= (n-r)-\mu^i_{r+1-j}$.
+\item[(L2)]The effective line bundle $\ml'$ produces a non-empty family of  rank $\ell$ unitary local systems on $\Bbb{P}^1-(S\cup\{\infty\})$ as in Corollary \ref{sansD} applied with $\ell$ and $n$ interchanged (note that the local monodromy at $\infty$ is trivial).  Let $m$ be the remainder when $d$ is divided by $r$. Twist this family of local systems by $\zeta_n^{-j^1_m}$ at the point $p_1$ and $\zeta_n^{j^1_{m}}$ at $\infty$ (set $j^1_m=0$ if $m=0$). This twisted family is (L2).
+\end{enumerate}
+
+We will show that these two local systems (L1) and (L2) have essentially equivalent local monodromy up to central twists (in particular these have the same ranks), so that the KZ local system
+(up to twists by rank one local systems) lies in the family (L2). More precisely
+\begin{proposition}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{generalKZ}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Twist the local system in (L1) by $\exp(-2\pi\sqrt{-1}|\mu^i|/rn)$ at the points $p_i$ and $\exp(2\pi\sqrt{-1}\sum_{i=1}^s |\mu^i|/rn)$ at infinity. This twisted local system is in the family of local systems with fixed local monodromy given by (L2).
+\end{proposition}
+Here twisting means that we multiply the local monodromy elements by the central elements given.
+Proposition \ref{generalKZ} will be proved in Section \ref{KZe}. It implies the following:
+\begin{theorem}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{KZe}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+Let $\rigid$ be a unitary and irreducible rigid rank $\ell>1$ local systems such that the eigenvalues of the local monodromies are  $n$th roots of unity.  Then, there exists $1<r<n$ and a KZ local system on $\Bbb{P}^1-S\cup\{\infty\}$, for $\mathfrak{sl}_r$ at level $n-r$, with central monodromy
+around infinity, which is, up to a twist by  $rn$ roots of unity, isomorphic to $\rigid$.
+\end{theorem}
+\begin{proof}
+Let $\rigid$ be a unitary irreducible  rank $\ell>1$ rigid local system on $\Bbb{P}^1-S$, $S=\{p_1,\dots,p_s\}$. Assume $S\subseteq \Bbb{A}^1$. Let $\mathcal{A}$ be the conjugacy class data of
+$\rigid$, and $\ml=\mathcal{B}(\vec{\lambda},\ell)$ be the corresponding F-line bundle on $\Par_{n,\mathcal{O},S}$ (Theorem \ref{christmas}(ii)).  By Lemma \ref{divisorE} $\ml=\mathcal{O}(E)$ with $E$ for a reduced irreducible divisor of the form  $E=C(d,r,\mathcal{O},n,\vec{J})$ (Definition  \ref{cyclist}), a cycle  of codimension one i.e., $dn +r(n-r)-\sum_{i=1}^s |\sigma_{J^i}|=-1$. The theorem now follows from Proposition \ref{generalKZ} applied to $C(d,r,\mathcal{O},n,\vec{J})$ .
+\end{proof}
+
+\begin{remark}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready\label{hodge}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+The  works  \cite{Ram,BKZ,BM}   realise conformal blocks as suitable  isotypical spaces (under the action of a  finite group) in the $H^{M,0}$ of the cohomology of smooth projective varieties, consistent with connections. They do not however show that conformal blocks carry an integral Hodge structure over the ring of integers of a cyclotomic field (i.e., the part of $H^{M,0}$ is not shown to be a Hodge substructure of $H^M$ over the ring of integers of a number field). Note that Katz's motivic realizations are over the ring of integers of a cyclotomic field \cite[Theorem 8.4.1]{Katz}. It seems likely however that the conformal blocks picture should also be over the ring of integers of a cyclotomic field (see \cite[Question 6.2]{Loo}).
+\end{remark}
+
+The works \cite{BH} and \cite{Haraoka} produce an infinite collection of unitary rigid (irreducible) local systems with infinite monodromy, and therefore the corresponding KZ connections have infinite monodromy groups.
+\begin{example}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\notready
+For  the strange dual of Thaddeus' example (see Section \ref{E1}), we see that the KZ local system on $\mathcal{A}_4$ with  $\mathfrak{sl}_4$ and the representations $\lambda^1=2\omega_2+\omega_3$,
+$\lambda^2=\lambda^3=\omega_1+2\omega_2$ and $\lambda^4=\omega_1$ (and the trivial representation at infinity) has infinite monodromy (even infinite projective monodromy). Examples of TQFT representations (which are equivalent to the monodromy of KZ equations) with infinite monodromy were first given in \cite{Masbaum}.
+%These include the case of $\mathfrak{sl}_2$, on $\mathcal{A}_4$ (with a trivial representation at infinity): the representations are all  $\omega_1$ and the level is $k\in \Bbb{Z}_{>0}-\{1,2,4,8\}$. Masbaum also finds an element of infinite order in the monodromy group in these cases. Masbaum's examples are all hypergeometric systems (hence rigid) since they are equivalent to rank $2$ local systems on $\Bbb{P}^1-\{0,1,\infty\}$.
+\end{example}
+\subsection{Proof of  Proposition \ref{generalKZ}}
+\subsubsection{First steps}\label{atonal}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+ Since the codimension of the divisor
+$E=C(d,r,\mathcal{O},n,\vec{J})$ on $\Par_{n,{\mathcal{O}},S}$ is one, we have
+ \begin{equation}\label{ccdd}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\sum_{i=1}^s |\sigma_{J^i}|=dn +r(n-r)+1.
+\end{equation}
+%(Note that we may not have $\mn=\mathcal{O}$ even if that was the case to begin with. )
+Consider the shifted F-line bundle on $\Par_{n,\mathcal{O}(-D),n}$ obtained by applying the shift operation at $p_1$ $j^1_m$-times. Here $D=-j^1_m$. This F-line bundle has divisor  $E'=C(0,r,\mathcal{O}(-D),n,\vec{K})$ where  $K^1$ is the $j^1_m$ fold cyclic shift of $J^1$ (the cyclic shift applied once subtracts one from all elements of ${J}^1$ with zeros replaced by $n$). Let $K^j=J^j$ for $j>1$. Write $\mathcal{O}(E')= \mathcal{B}(\vec{\lambda},\ell)$.
+We note the following:
+\begin{enumerate}
+\item [(I)]  $\mu^i$ in the local system (L1) are equal to $\lambda(K^i)$ (see Definition  \ref{correspondence}),
+\item[(II)](L2) is the rank $\ell$ local system with local monodromy data (with eigenvalues $n$th roots of identity) given by the local monodromy  data $(\lambda^i)^T$ at the points $p_i$ and
+$\zeta_n^{j^1_{m}}I_{\ell}$ at infinity.
+\item[(III)] Formulas for  $\ell$ and $\vec{\lambda}$ are given in Section \ref{enume}, we recall them here: write
+$\lambda^i=\sum_{b=1}^{n} c_{i}^{b}\omega_b$, where $\omega_b$ is the $b$th fundamental weight.
+Also note that \eqref{ccdd} gives
+\begin{equation}\label{cccddd}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+\sum_{i=1}^s |\sigma_{K^i}|=rj^1_m +r(n-r)+1.
+\end{equation}
+ \end{enumerate}
+
+\begin{enumerate}
+\item[(A)] Let $K^{s+1}=\{n-r,n-r+1,\dots,n-2,n\}$. Then (see Formula \ref{ABL1})
+$$\ell=\langle\sigma_{K^1}, \sigma_{K^2},\dots,\sigma_{K^s},\sigma_{K^{s+1}}\rangle_{0,D-1}.$$
+
+\item[(B)] Suppose $b<n$. then $c_{i}^{b}=0$ if $b\not\in K^i$, or $b+1\in K^i$. If $b\in K^i$ and $b+1\not\in K^i$, define subsets $K'^1,\dots,K'^s$ of $[n]$
+ each of cardinality $r$ as follows: $K'^k=K^k$ if $k\neq i$, and $K'^i=(K^i-\{b\})\cup \{b+1\}$. Then
+$$c_i^{b}= \langle\sigma_{K'^1}, \sigma_{K'^2},\dots,\sigma_{K'^s}\rangle_{0,D}.$$
+\item[(C)] For $b=n$, the formula is given in Remark \ref{earlyAM}, which we recall here:
+$$\ell-(\lambda^i_{1}-\lambda^i_{r})=\langle\sigma_{I^1}, \sigma_{I^2},\dots,\sigma_{I^s}\rangle_{0,D-1}$$
+where $I^j=K^j$ for $j\neq i$ and $I^i= \{a\mid a=n\text{ or } a+1\in K^i\}$.
+\end{enumerate}
+\subsubsection{Rank equality verification of the two local systems}\label{listy}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+We first verify that the ranks are the same.
+We can readily convert the formula (A) into the rank of a conformal block for $\mathfrak{sl}_r$  at level $k=n-r$ using Lemma \ref{newlabel2}. Note that $\lambda(K^{s+1})=\omega_{r-1}$. Passing to (ordinary) dual weights (which does not change the rank of conformal blocks), we see that $\ell$ equals the rank of the  KZ local system on $\Bbb{A}^1-\{z_1,\dots,z_s\}$ corresponding to the data $\nu^1,\dots,\nu^{s+1}$ with $\nu^{s+1}=\omega_1$.
+\subsubsection{The local monodromy of the KZ equation}
+We now specialize  the formulas of Section \ref{clarinet} to the case $\nu^{s+1}=\omega_1$ to compute the local monodromies of the KZ system (L1). The following formulas facilitate this computation:
+\begin{enumerate}
+\item[(a)] If $\mu=(\mu_1,\dots,\mu_r)$, and $\nu=(\nu_1,\dots,\nu_r)$, then $(\mu,\nu)=(\sum_{i=1}^r\mu_i\nu_i) -\frac{|\mu||\nu|}{r}$. Here $|\mu|=\sum \mu_i$ (similarly $|\nu|$).
+\item[(b)] $c(\omega_1)=(r^2-1)/r$.
+\item[(c)]  Assume $\nu_r=0$. Then $\rk \mathcal{V}_{\nu,\gamma^*,\omega_1}=1$ if  $\gamma$ is of the form $\nu+L_i$ for $1\leq i<r$ (and $k\geq\gamma_1\geq\dots\geq \gamma_r=0$), and zero otherwise (see \cite{Gepner}). If $\nu_r>0$, the above implies that  we will have to allow one more value of $\gamma$ if in addition  $\nu_1=k$. This entry is $\nu+L_1-(1,\dots,1)$. Note that $c(\nu+L_1-(1,\dots,1))=c(\nu+L_1)$.
+\item[(d)] This motivates the following computation keeping in mind the second residue formula above in Section \ref{clarinet}: $c(\nu+L_i)-c(\nu)-c(\omega_1)= 2(\nu_i -\frac{|\nu|}{r} -i +1)$.
+\end{enumerate}
+
+We first compute the monodromy of the KZ system first around $t=z_s$. The $\gamma$ that appear are of three types (use item (c) above):
+\begin{itemize}
+\item[-] $\gamma=\nu^s+L_j$ with  $j>1$, $\nu^s_{j-1}> \nu^s_j$. This just means that $\mu^s_{r+2-j}<\mu^s_{r+1-j}$,
+i.e, $k^s_{r+2-j}> k^s_{r+1-j} +1$, or that if $b=k^i_{r+1-j}$, then $b\in K^i$ and $b+1\not\in K^i$. The residue of the part corresponding to $\gamma$ (of multiplicity  $\rk \mathcal{V}_{\nu^1,\dots,\nu^{s-1},\gamma}$) is $\frac{1}{r+k}=\frac{1}{n}$ times
+$$(\nu^s_j -\frac{|\nu|}{r} -j +1)= (n-r)-\mu^s_{r+1-j}-\frac{|\nu|}{r} -j +1$$
+using the formula $\mu^s_{n+r-i}=(n-r)+(r+1-j)-k^s_{r+1-j}=n+1-k^s_{r+1-j}$ and $\frac{|\nu|}{r}=n-r-\frac{|\mu|}{r}$, we see that this residue is equal to $\frac{1}{n}$ times $k^s_{r+1-j}-n +\frac{|\mu^s|}{r}$.
+\item[-] $\gamma=\nu^s+L_1$ with $\nu^s_{1}< (n-r)$, i.e., $k^s_r<n$.  The formulas are similar here and the residue is equal to  $\frac{1}{n}$ times $k^s_{r}-n +\frac{|\mu^s|}{r}$. Let $b=k^s_r$. Then in this case $n\not\in K^j$.
+\item[-] $\gamma=\nu^s -(1,1,\dots,1) +L_1$ when $\nu^s_1=n-r$ (i.e., $k^s_r=n$) and $\nu^s_r>0$, i., $k^s_1\neq 1$. Setting $b=k^s_r$, this case corresponds to $b=n$, and $1\not\in K^i$.
+In this case the residue is $\frac{1}{n}$ times $\frac{|\mu^s|}{r}$ which can be written in the same form as $k^s_{r}-n +\frac{|\mu^s|}{rn}$.
+\end{itemize}
+Around $t=\infty$ the residue is a constant $(r^2-1)/rn$. Subtracting  $\frac{|\mu^i|}{rn}$ (the codimension of $\sigma_{K^i}$ divided by $rn$) at the finite points $z_1,\dots,z_s$ and adding $\sum_i|\mu^i|/rn$ at infinity, we see that the monodromy at infinity has residue (using \eqref{cccddd})
+$$(r^2-1)/rn +\sum|\mu^i|/rn = \frac{1}{n}((r^2-1)/r +n-r+ \frac{1}{r} +j^1_m) =\frac{j^1_m}{n}+1.$$
+The local monodromy at the finite points $z_i$ have residues $b-n, b\in K^i$ (with possibly zero multiplicities). Therefore the equation of the fundamental group of $\Bbb{P}^1-\{z_1,\dots,z_s,\infty\}$ is a product of $\ell\times \ell$ invertible matrices
+\begin{equation}\label{KZMatrix}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+A_1\dots A_s A_{\infty}=I_{\ell}
+\end{equation}
+with
+\begin{itemize}
+\item  $A_i, i\neq \infty$ conjugate to a matrix with eigenvalues (with varying multiplicities)
+$$\exp(2\pi\sqrt{-1}(k^i_{r+1-j}-n)/n)= \exp(2\pi\sqrt{-1}k^i_{r+1-j}/n), j=1,\dots,r$$
+with multiplicities given by  ranks of conformal blocks $\rk \mathcal{V}_{\nu^1,\widehat{\nu_i}\dots,\nu^{s-1},\gamma}$ with $\nu^i$ omitted and $\gamma=\nu^i+L_j$ (if dominant of level $k=n-r$, count as zero otherwise).
+\item $A_{\infty}=\exp(2\pi\sqrt{-1}j^1_m/n)I_{\ell}$.
+\end{itemize}
+\subsubsection{The local monodromies of (L2)}
+By Item (I2) before equation \eqref{cccddd}, (L2) corresponds to matrix equations
+\begin{equation}\label{sdMatrix}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+B_1\dots B_s B_{\infty}=I_{\ell}
+\end{equation}
+ where
+\begin{itemize}
+\item  $B_{\infty}=\exp(2\pi\sqrt{-1}j^1_m/n)I_{\ell}$.
+\item For the conjugacy class of $B_i$ we proceed as follows. Note that $\lambda^i=\sum_{b=1}^{n-1} c^i_b\omega_b$. Here the set of $b$ is constrained  by (B) in Section \ref{atonal}. First, the set of $b$ is a subset of $K^i$. It is also easy to see that we need in addition one of the following to hold
+\begin{enumerate}
+\item  $b=n$ and $1\not\in K^i$.
+\item $b<n$ and $b+1\not\in K^i$.
+\end{enumerate}
+Note that the transpose of $\sum_{b=1}^n c^b_i\omega_b$ has rows of size $b$ with multiplicities $c^b_i$ (and $\sum c^b_i=\ell$).  Pick $b=k^i_{n+r-j}$. The eigenvalues of $B_i$ are therefore of the form $\exp(2\pi\sqrt{-1}k^i_{n+r-i}/n)$ with $b\in K^i$ with multiplicities $c^i_b$ (possibly zero).
+\end{itemize}
+\subsubsection{Comparison of local monodromies}
+We have two matrix equations \eqref{KZMatrix} and \eqref{sdMatrix}. We want to show that the matrices that appear are conjugate.
+Clearly $A_{\infty}=B_{\infty}$. It remains to show that $A_i$ is conjugate to $B_i$ for $i=1,\dots,s$.
+
+The eigenvalues of $A_i$ and $B_i$ are both of the form $\exp(2\pi\sqrt{-1}b/n)$ with $b\in K^i$ with multiplicities (possibly zero). We need to verify that the multiplicities are the same.
+Let $b=k^i_{r+1-j}$. We need to verify that
+\begin{equation}\label{desiree}
+\source{rigid-local-systems-multiplicative-eigenvalue-problem}
+c^i_b=\rk \mathcal{V}_{\nu^1,\widehat{\nu_i}\dots,\nu^{s-1},\gamma}
+\end{equation}
+with $\nu^i$ omitted and $\gamma=\nu^i+L_j$. Unless $b=n$ and $1\not\in K^i$, or $b<n$ and $b+1\not\in K^i$, both multiplicities are zero by the above discussion.
+
+If $b<n$, then $c^b_i$ is given by case (B) in Section \ref{listy}. Let $J'^i=(K^i-\{b\})\cup \{b+1\}$. Let $\mu'=\lambda(J'^i)$ and $\nu'=\mu'^*$. t is easy to see that $\nu'+L_j$, and we use  \cite[Proposition 3.4]{BHorn} again, to write $c^b_i$ as the rank of a conformal block for $\mathfrak{sl}_r$  at level $k=n-r$. This gives \eqref{desiree}.
+
+If $b=n$ and $1\not\in K^i.$ We use formula (C) from section \ref{listy}. Let $I^i= \{a\mid a=n\text{ or } a+1\in K^i\}$. We need to show that $\lambda(I^i)^*=\nu_i +L_1 -(1,1,\dots,1)$ which is easy to check. The rest of the computation is similar to the previous steps.

@@ -1,0 +1,189 @@
+% Source-derived chapter 07: Joyce-Song wall-crossing and punctual Quot schemes
+% Original source: virasoro-constraints-moduli-sheaves-vertex-algebras
+\chapter{Joyce-Song wall-crossing and punctual Quot schemes}
+\label{virasoro-constraints-moduli-sheaves-vertex-algebras-chapter-07}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+
+\begin{remark}[Source section]
+\label{virasoro-constraints-moduli-sheaves-vertex-algebras-chapter-07-source}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+This chapter reproduces the corresponding section of the retrieved
+LaTeX source, including its definitions, statements, examples, and
+proofs. It has not yet been translated into Lean.
+\notready
+\end{remark}
+
+% The source section title was: Joyce-Song wall-crossing and punctual Quot schemes
+\label{app:A}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+In Sections \ref{sec: rankreduction} and \ref{sec:lowrank} we have explored equivalences between Virasoro constraints in different moduli spaces that ultimately led to the proof of Theorem \ref{thm: main}. Some of these equivalences are shown in the following diagram:
+\begin{equation}
+\label{Eq:pairsheafWC}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    \begin{tikzcd}
+    \, & \arrow[ld,bend right=10, "\textup{JS}", swap] M_{n} &\, &\,& \, \arrow[ld,bend right=10, "\textup{JS}", swap] M_{\beta, n}\\
+    C^{[n]}\arrow[ru, bend right=10, "\textup{RR}", swap]\arrow[rd, bend right=10, "\textup{PB}", swap]& \,&\, & \, S_\beta^{[0,n]} \arrow[ru, bend right=10, "\textup{RR}", swap]\arrow[rd, bend right=10, "\textup{PB}", swap] &\, \\
+    \, & \Jac(C)  \arrow[lu,bend right=10, "\textup{PB}", swap]  &\, &\, & \, S^{[n]}\arrow[lu,bend right=10, "\textup{PB}", swap] 
+    \end{tikzcd}
+\end{equation}
+where $M_n$ and $M_{\beta,n}$ denote the moduli of zero-dimensional and one-dimensional sheaves, respectively. The labels RR, JS and PB stand for rank reduction (Theorem \ref{thm: rankreduction}), Joyce-Song wall-crossing and projective bundle compatibility, respectively. The rank reduction argument was the main content of Section \ref{sec: rankreduction}. The projective bundle compatibility was explained in Section \ref{sec: virtualprojectivebundle} and used in Section \ref{sec: nestedhilbertscheme} to show that the Virasoro constraints hold for nested Hilbert schemes. This appendix concerns the remaining arrow: Joyce-Song wall-crossing expresses the virtual fundamental class of moduli of pairs in terms of the classes of moduli of sheaves. 
+
+ A general formulation of Joyce-Song wall-crossing formula is proved in \cite[Theorem A.4]{Bo21.5}, and we recall it below, see \eqref{Eq: PJS}; in the case of moduli of vector bundles on curves it appears already in \cite[Theorem 2.8]{Bu22}. For the symmetric power of curves the consequence of \eqref{Eq: PJS}  is
+\begin{equation}\label{eq: JSsymmetricpowers}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\big[C^{[n]}\big]_{(1,\CO_\CE)}=\sum_{\substack{ \underline{n}\vdash n}}\frac{1}{l!}\, \big[[M_{n_1}]^\inva, \big[\ldots, \big[[M_{n_l}]^\inva, e^{(1,0)}\big]\ldots\big]\big]\end{equation}
+where $e^{(1,0)}\in V_\bullet^{\pa}$ is the class of a point $\{(\CO_X, 0)\}$ in the component $\CP_{(1,0)}$ and $M_n$ is the moduli space of 0-dimensional sheaves of length $n$. 
+
+In particular, this formula together with Lemma \ref{Lem: Mnp}, which shows that $[M_{n}]^\inva\in \widecheck{P}_0$, gives an alternative proof of the Virasoro constraints for the symmetric power of a curve (Proposition \ref{prop: symmetricpowers}). More generally, the same approach proves the Virasoro constraints for punctual Quot schemes $\Quot_X(V,n)$ on curves and surfaces, which are of independent interest and for which we do not know a direct proof without wall-crossing techniques. We also remark that the first part of Proposition \ref{thm: projectivebundleformula} is a special case of the Joyce-Song wall-crossing.
+
+
+\subsection{Joyce-Song pairs and wall-crossing}
+
+\label{sec: joycesong}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+Joyce-Song stable pairs are named after their first appearance in the work of Joyce and Song \cite[Section 12.1]{JS12}. Let $X$ be a curve or a surface, $\alpha\in C(X)$ and let $V$ be a fixed torsion-free sheaf on $X$ such that 
+\begin{equation}\label{eq: JSextvanish}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\Ext^{\geq 2}(V,F)=0\,.
+\end{equation}
+Recall that $p_F(z)$ denotes the reduced Gieseker polynomial of a sheaf $F$ where we will also use the notation $p_{\alpha}(z):=p_F(z)$. Joyce-Song pairs consist of a sheaf $F$ and a morphism
+$$
+V \xrightarrow{s} F
+$$
+with the following stability condition:
+\begin{enumerate}
+    \item $F$ is Gieseker-semistable;
+    \item $s\neq 0$; 
+    \item there is no $0\neq G\subsetneq F$ with $p_F(G)=p_F(z)$ such that $\mathrm{im}(s)\subseteq G$.
+\end{enumerate}
+
+We denote the resulting moduli space by $P^{\JS}_{V,\alpha}$. It has an obstruction theory at each $[V\to F]\in P^{\JS}_{V,\alpha}$ given by
+$$
+\RHom([V\to F], F)\,,
+$$
+which is 2-term by \eqref{eq: JSextvanish}. Denote by
+$[P^{\JS}_{V,\alpha}]^\vir$ the resulting virtual fundamental class. 
+
+
+When $V=\CO_X$, this stability condition is essentially the one in Proposition \ref{prop: limitt0}, except there stability is given in terms of $\mu$-stability and we now work with Gieseker stability because of a technicality explained in \cite[Rem. A.3]{Bo21.5}. This makes no difference in our applications, because we either work with sheaves supported in dimension $\leq 1$ or ideal sheaves, in which cases $P^{\JS}_{\CO_X, \alpha}$ coincides with the previously defined $P^{\JS}_{1,\alpha}$. Note also that Assumption \ref{ass: alphabig} implies the vanishing $\Ext^{\geq 2}(\CO_X,F)=0$. As explained in \cite{Bo21.5} (see Definition A.1 and the discussion afterwards), one can construct a 1-parameter family of stability conditions that connects the Joyce-Song stability to a stability condition in which the stable objects are $U\otimes V\to 0$ for some vector space $U$ and $0\to F$ for some Gieseker stable $F$. 
+
+The author then used Joyce's general theory to show the following wall-crossing formula for any $X=C,S$ (cf.  \cite[Theorem A.4]{Bo21.5}):
+ $$[P^{\JS}_{V,\alpha}]^\vir= \sum_{\substack{\underline{\alpha} \vdash \alpha\\ p_{\alpha_i}=p_{\alpha}}}\frac{1}{l!}\, \big[[M_{\alpha_1}]^\inva, \big[\ldots, \big[[M_{\alpha_l}]^\inva, e^{(\llbracket V\rrbracket,0)}\big]\ldots\big]\big]\,,$$
+ where $e^{(\llbracket V\rrbracket,0)}\in V_\bullet^{\pa}$ is the class of a point in the component $\CP_{(\llbracket V\rrbracket ,0)}$. This formula holds in $\widecheck V_\bullet^{\pa}$, but using Lemma \ref{lem: liftvertexalgebra} and the same argument that appears after the Lemma, we can lift it to $V_\bullet^{\pa}$:
+\begin{equation}
+\label{Eq: PJS} [P^{\JS}_{V,\alpha}]^\vir_{(q^*V,\BF)}= \sum_{\substack{\underline{\alpha} \vdash \alpha\\ p_{\alpha_i}=p_{\alpha}}}\frac{1}{l!}\, \big[[M_{\alpha_1}]^\inva, \big[\ldots, \big[[M_{\alpha_l}]^\inva, e^{(\llbracket V\rrbracket,0)}\big]\ldots\big]\big]\,.
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\end{equation}
+We recall the argument: clearly $\ch_1^{\CV}(\pt)\cap$ annihilates both  $[P^{\JS}_{V,\alpha}]^\vir_{(q^*V,\BF)}$ and $e^{(\llbracket V\rrbracket,0)}$, so by Lemma \ref{lem: liftvertexalgebra} a) it annihilates both sides of \eqref{Eq: PJS} and by part b) of the same Lemma (together with the original wall-crossing formula in $\widecheck V_\bullet^{\pa}$), we conclude \eqref{Eq: PJS}.
+
+The necessary assumptions for wall-crossing formulae to hold, similar to the ones alluded to in Assumption \ref{ass:WCpair}, were explicitly checked in \cite[Appendix]{Bo21.5}.
+
+\begin{remark}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready\label{rem: JSprojectivebundle}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    Suppose that $\alpha$ is such that there are no Gieseker strictly semistable sheaves of type $\alpha$. Then condition $(3)$ in the definition of Joyce-Song pairs is vacuous and $P^{\JS}_{V,\alpha}$ admits a description as a virtual projective bundle (cf. Section \ref{sec: virtualprojectivebundle})
+    \[P^{\JS}_{V,\alpha}=\BP_{M_\alpha}\big(Rp_\ast\big(q^\ast V^\vee\otimes \BG\big)\big)\,.\]
+    
+   Under this assumption, there are no decompositions $\alpha=\alpha_1+\ldots+\alpha_l$ with $p_{\alpha_i}=p_{\alpha}$, $M_{\alpha_i}\neq \emptyset$ and $l>1$. In this case, \eqref{Eq: PJS} becomes
+    \[[P^{\JS}_{V,\alpha}]^\vir_{(q^*V,\BF)}=\big[[M_\alpha]^\inva, e^{(\llbracket V\rrbracket,0)}\big]\,.\]
+When $V=\CO_X$ this is precisely the formula \eqref{eq: projectivebundlebracket}, for which we gave a direct proof. 
+\end{remark}
+
+
+\subsection{Application to Quot schemes}
+
+One special case of Joyce-Song pairs are punctual Quot schemes, and we can use \eqref{Eq: PJS} to give a proof of the Virasoro constraints for them. We currently do not have a direct proof of these without wall-crossing techniques. 
+
+For $X=C,S$ and a fixed torsion-free sheaf $V$ on $X$, the Quot scheme $\Quot_X(V,n)$ for $X=C,S$ parameterizes equivalence classes of surjective morphisms $V\to F$ from $V$ to a zero-dimensional sheaf $F$. When $V$ is a vector bundle, the virtual fundamental classes 
+$$
+\big[\Quot_X(V,n)\big]^\vir
+$$
+were constructed by Marian-Oprea-Pandharipande \cite[Lemma 1.1]{MOP1} (see Stark \cite[Proposition 5]{stark2} for a more detailed proof). It was remarked in \cite[Section 1.1]{Bo21.5} that the same obstruction theory given at each $[V\to F]\in \Quot_X(V,n)$ by
+$$
+\RHom([V\to F], F)
+$$
+is perfect of tor-amplitude $[-1,0]$ whenever $V$ is more generally torsion-free. To apply \eqref{Eq: PJS}, we use the identifications of moduli spaces and virtual fundamental classes
+$$
+P^{\JS}_{V,n} = \Quot_X(V,n)\,,\qquad [P^{\JS}_{V,n}]^\vir = \big[\Quot_X(V,n)\big]^\vir
+$$
+following immediately from their descriptions above; note that we are writing $n$ for the $K$-theory class of the sheaf $\CO_{\pt}^{\oplus n}$.
+To prove the Virasoro constraints for Quot schemes, we first show that the invariant classes counting zero-dimensional sheaves satisfy them. Note that $M_n$ has virtual dimension 1, which makes a direct proof accessible. 
+
+\begin{lemma}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{Lem: Mnp}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    For any $n>0$ and any $X=C,S$, the class $[M_{n}]^\inva$ is primary, i.e.,
+$$
+[M_n]^\inva\in \widecheck{P}_0\,.
+$$
+\end{lemma}
+\begin{proof}
+By Proposition \ref{prop: primaryomegabracket}, it is sufficient to prove that 
+$$
+\int_{[M_{n}]^{\overline{\inva}}} (\bL_k - \delta_{k,0})(D) =0\quad \textnormal{for all}\quad k\geq 0,\ D\in \BD^X\,,
+$$
+where $[M_{n}]^{\overline{\inva}}\in V_\bullet$ is the unique lift of $[M_n]^\inva\in \widecheck V_\bullet$ satisfying $\ch^\HH_1(1)\cap [M_{n}]^{\overline{\inva}}$. Since $\bL_0$ acts as the multiplication by the conformal degree 1, the case $k=0$ follows. On the other hand $\bR_{1}(D)$ annihilates $[M_{n}]^{\overline{\inva}}$ by degree reasons. In conclusion, it suffices to prove that $\int_{[M_{n}]^{\overline{\inva}}} \bT_{1}=0$. 
+
+Recall the definition of $\bT_1$ from Section \ref{sec: Virarosorops} leading to
+\begin{align*}
+    \bT_1=\sum_s (-1)^{\dim(X)}\Big[(-1)^{p_s^L}+(-1)^{p_s^R}\Big]\,\ch_0^\HH(\gamma_s^L)\ch_1^\HH(\gamma_s^R)
+\end{align*}
+where $\Delta_*(\td(X))=\sum_s \gamma_s^L\otimes \gamma_s^R$. Therefore it suffices to consider the Kunneth components satisfying $|p_s^L|=|p_s^R|$ which is further restricted by $p_s^L+p_s^R\geq \dim(X)$. On the other hand, $\ch_0^\HH(-)$ has a property that (after realization) 
+$$\ch_0^\HH(\gamma_s^L)=\begin{cases}
+\int_X \gamma_s^L\cup n\pt &\textnormal{if}\ \  p_s^L=q_s^L=0\,,\\
+0&\textnormal{if}\ \ p_s^L=q_s^L>0 \ \textnormal{ or } \ p_s^L>q_s^R\,.
+\end{cases}
+$$
+These vanishing properties are enough to prove that $\int_{[M_{n}]^{\overline{\inva}}} \bT_{1}=0$ when $X=C$. 
+
+When $X=S$, we additionally need that 
+\begin{equation}\label{eq: extra vanishing}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+    \ch_0^\HH(\gamma^{1,2})\cap [M_{n}]^{\overline{\inva}} = \ch_1^\HH(\gamma^{2,\bullet})\cap [M_{n}]^{\overline{\inva}}=0
+\end{equation}
+for all $\gamma^{1,2}\in H^{1,2}(X)$ and $\gamma^{2,\bullet}\in H^{2,\bullet}(X)$. This follows from \cite[Lemma 4.2]{Bo21.5}, but we make the argument used to prove it explicit in terms of descendents. Note that both $\ch_0^\HH(\gamma^{1,2})$ and $\ch_1^\HH(\gamma^{2,\bullet})$ use the first Chern character $\ch_1(\CF)$ of the universal complex over $\CM_{n\pt}\times X$.\footnote{Recall that $\CM_{n\pt}$ is the stack of all perfect complexes with class $n\pt$.} By the construction of invariant classes, they lie in the image of the pushforward map 
+$$\iota_*:H_\bullet(\mathcal{N}_{n\pt})\rightarrow H_\bullet(\CM_{n\pt})\,,
+$$
+where $\iota:\mathcal{N}_{n\pt}=\mathcal{N}_{(0,n\pt)}\hookrightarrow \CM_{n\pt}$ denotes the open immersion from the stack of zero-dimensional coherent sheaves of length $n$. Then the extra vanishings \eqref{eq: extra vanishing} follow from the geometric fact that $(\iota\times \id_X)^*\mathcal{F}$ is the universal zero-dimensional sheaf on $\mathcal{N}_{n\pt}\times X$ hence $(\iota\times \id_X)^*\ch_1(\mathcal{F})=0$. 
+\end{proof}
+We now conclude the precise version of Theorem \ref{thm: punctualquot}. 
+Because of
+$$
+\Quot_C(\CO_C,n)=C^{[n]}\,,
+$$
+Proposition \ref{prop: symmetricpowers} is a consequence of this more general result.
+\begin{theorem}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+\notready
+\label{prop: quot}
+\source{virasoro-constraints-moduli-sheaves-vertex-algebras}
+If $X=C$ or $X=S$ with $h^{2,0}(S)=0$, punctual Quot schemes $\Quot_X(V,n)$ satisfy pair Virasoro constraints, i.e.,
+$$\big[\Quot_X(V,n)\big]^\vir_{(p^*V,\BF)}\in P_0^{\pa}\,.
+$$
+\end{theorem}
+\begin{proof}
+As a corollary of \eqref{Eq: PJS}, we obtain the wall-crossing formula for Quot scheme involving invariant classes of zero-dimensional sheaves:
+$$
+    \big[\Quot_X(V,n)\big]^\vir_{(q^*V,\BF)} = \sum_{\begin{subarray}a \underline{n} \vdash n\end{subarray}}\frac{1}{l!}\, \big[[M_{n_1}]^\inva, \big[\ldots, \big[[M_{n_l}]^\inva, e^{(\llbracket V\rrbracket,0)}\big]\ldots\big]\big]\,. 
+$$
+Using Lemma \ref{Lem: Mnp} and Proposition \ref{prop: wallcrossingcompatibility2}, we conclude the result.
+\end{proof}
+
+
+    \end{appendices}
+
+
+
+
+
+
+
+
+
+
+\bibliographystyle{mybstfile.bst}
+\bibliography{refs.bib}
