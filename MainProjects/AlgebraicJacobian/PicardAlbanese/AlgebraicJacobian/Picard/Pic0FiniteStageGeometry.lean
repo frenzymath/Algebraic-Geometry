@@ -44,7 +44,9 @@ theorem locallyOfFiniteType_gluedMap
   change LocallyOfFiniteType (P.glueData.ι U ≫ P.gluedMap)
   rw [glueData_ι_gluedMap C P U]
   exact (HasRingHomProperty.Spec_iff (P := @LocallyOfFiniteType)).mpr
-    (RingHom.finiteType_algebraMap.mpr inferInstance)
+    (RingHom.finiteType_algebraMap.mpr
+      (finiteType_pic0FiniteStageChartBaseChangeRing
+        C P.L P.n P.m P.relation P.M P.N U))
 
 instance instLocallyOfFiniteTypeGluedMap
     (P : Pic0FiniteStageGluePackage C F) :

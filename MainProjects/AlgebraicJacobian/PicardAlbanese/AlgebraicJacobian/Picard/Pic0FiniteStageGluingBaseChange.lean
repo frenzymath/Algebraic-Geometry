@@ -45,6 +45,21 @@ noncomputable def baseChangeGluingIso
     ⟨_, Scheme.Pullback.gluedIsLimit P.presentation.glueData.openCover P.presentation.map
       (Spec.map (CommRingCat.ofHom (algebraMap P.N.1 k)))⟩
 
+set_option maxHeartbeats 12800000 in
+/-- The canonical gluing-to-pullback isomorphism preserves the second projection. -/
+theorem baseChangeGluingIso_hom_p2
+    {F : Type u} [Field F] [Algebra F k] [Algebra.IsAlgebraic F k]
+    (P : Pic0FiniteStageGluePackage C F) :
+    (baseChangeGluingIso C P).hom ≫
+        Scheme.Pullback.p2 P.presentation.glueData.openCover P.presentation.map
+          (Spec.map (CommRingCat.ofHom (algebraMap P.N.1 k))) =
+      pullback.snd P.presentation.map
+        (Spec.map (CommRingCat.ofHom (algebraMap P.N.1 k))) := by
+  exact limit.isoLimitCone_hom_π
+    ⟨_, Scheme.Pullback.gluedIsLimit P.presentation.glueData.openCover
+      P.presentation.map (Spec.map (CommRingCat.ofHom (algebraMap P.N.1 k)))⟩
+    WalkingCospan.right
+
 set_option synthInstance.maxHeartbeats 3200000 in
 -- The chart comparison elaborates the package's dependent scalar towers.
 set_option maxHeartbeats 12800000 in
@@ -104,6 +119,72 @@ theorem gluingChartIso_hom_ι
     _ = _ := congrArg
       (fun q => (pullback.congrHom (glueData_ι_gluedMap C P U) rfl).hom ≫ q)
       (chartBaseChangeIso_hom_ι C P U)
+
+set_option synthInstance.maxHeartbeats 3200000 in
+set_option maxHeartbeats 12800000 in
+/-- The chart comparison carries the scalar-extension structure map to the
+second projection of the chart pullback. -/
+theorem chartRingBaseChangeIso_hom_structureMap
+    {F : Type u} [Field F] [Algebra F k] [Algebra.IsAlgebraic F k]
+    (P : Pic0FiniteStageGluePackage C F)
+    (U : Pic0FiniteStageChartIndex C) :
+    (chartRingBaseChangeIso C P U).hom ≫
+        Spec.map (CommRingCat.ofHom
+          (algebraMap k (Pic0FiniteStageRing C (Sum.inl U)))) =
+      pullback.snd (chartBaseChangeMap C P U)
+        (Spec.map (CommRingCat.ofHom (algebraMap P.N.1 k))) := by
+  letI : CommRing
+      (Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U) :=
+    pic0FiniteStageChartBaseChangeRingCommRing
+      C P.L P.n P.m P.relation P.M P.N U
+  letI : CommSemiring
+      (Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U) :=
+    (inferInstance : CommRing
+      (Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U)).toCommSemiring
+  letI : Semiring
+      (Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U) :=
+    (inferInstance : CommSemiring
+      (Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U)).toSemiring
+  letI : Algebra P.N.1
+      (Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U) :=
+    pic0FiniteStageChartBaseChangeRingAlgebra
+      C P.L P.n P.m P.relation P.M P.N U
+  letI : CommRing
+      (k ⊗[P.N.1]
+        Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U) :=
+    @Algebra.TensorProduct.instCommRing P.N.1 k
+      (Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U)
+      (inferInstance : CommSemiring P.N.1) (inferInstance : CommRing k)
+      (inferInstance : Algebra P.N.1 k)
+      (inferInstance : CommSemiring
+        (Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U))
+      (inferInstance : Algebra P.N.1
+        (Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U))
+  letI : CommSemiring
+      (k ⊗[P.N.1]
+        Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U) :=
+    (inferInstance : CommRing
+      (k ⊗[P.N.1]
+        Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U)).toCommSemiring
+  letI : Semiring
+      (k ⊗[P.N.1]
+        Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U) :=
+    pic0FiniteStageFinalScalarExtensionSemiring C P.L P.n P.m P.relation P.M P.N
+      (Sum.inl U)
+  letI : Algebra k
+      (k ⊗[P.N.1]
+        Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U) :=
+    pic0FiniteStageFinalScalarExtensionAlgebra C P.L P.n P.m P.relation P.M P.N
+      (Sum.inl U)
+  change
+    (affineBaseChangeIso P.N.1 k
+      (Pic0FiniteStageChartBaseChangeRing C P.L P.n P.m P.relation P.M P.N U) ≪≫
+      Scheme.Spec.mapIso
+        (chartFinalBaseChangeEquiv C P U).symm.toRingEquiv.toCommRingCatIso.op).hom ≫
+      Spec.map (CommRingCat.ofHom
+        (algebraMap k (Pic0FiniteStageRing C (Sum.inl U)))) = _
+  exact affineBaseChangeIso_hom_structureMap
+    (chartFinalBaseChangeEquiv C P U)
 
 set_option synthInstance.maxHeartbeats 3200000 in
 -- The overlap comparison elaborates the package's dependent scalar towers.
@@ -217,6 +298,40 @@ theorem overlapBaseChangeIso_hom_ι
     _ = _ := congrArg
       (fun q => (overlapRingBaseChangeIso C P U V).hom ≫ q)
       (pic0FiniteStageAffineOverlap C U V).2.isoSpec_inv_ι
+
+set_option synthInstance.maxHeartbeats 3200000 in
+-- Normalize the right atlas projection at the overlap comparison boundary.
+set_option maxHeartbeats 12800000 in
+set_option backward.isDefEq.respectTransparency false in
+/-- The overlap comparison carries the exact right atlas projection to the
+pinned finite-stage overlap projection. -/
+theorem overlapBaseChangeIso_hom_atlas_t_f_ι
+    {F : Type u} [Field F] [Algebra F k] [Algebra.IsAlgebraic F k]
+    (P : Pic0FiniteStageGluePackage C F)
+    (U V : Pic0FiniteStageChartIndex C) :
+    (overlapBaseChangeIso C P U V).hom ≫
+        ((pic0SepClosedAtlasOverlapIso C U V).hom ≫
+          (((pic0SepClosedAtlasGlueData C).t U V ≫
+            (pic0SepClosedAtlasGlueData C).f V U) ≫ V.1.1.ι)) =
+      (overlapRingBaseChangeIso C P U V).hom ≫
+        (pic0FiniteStageAffineOverlap C U V).2.fromSpec := by
+  have atlas_projection :
+      (pic0SepClosedAtlasOverlapIso C U V).hom ≫
+          (((pic0SepClosedAtlasGlueData C).t U V ≫
+            (pic0SepClosedAtlasGlueData C).f V U) ≫ V.1.1.ι) =
+        (pic0FiniteStageAffineOverlap C U V).1.ι := by
+    calc
+      _ = ((pic0_sepClosed_representableBy (C := C)).1.left.homOfLE
+            (pic0FiniteStageAffineOverlap_le_right C U V)) ≫ V.1.1.ι := by
+        simpa only [Category.assoc] using
+          pic0SepClosedAtlasOverlapIso_hom_t_f_assoc C U V V.1.1.ι
+      _ = _ := Scheme.homOfLE_ι _ _
+  calc
+    _ = (overlapBaseChangeIso C P U V).hom ≫
+        (pic0FiniteStageAffineOverlap C U V).1.ι :=
+      congrArg (fun q => (overlapBaseChangeIso C P U V).hom ≫ q)
+        atlas_projection
+    _ = _ := overlapBaseChangeIso_hom_ι C P U V
 
 end Pic0FiniteStageGluePackage
 

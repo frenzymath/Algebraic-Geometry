@@ -6,21 +6,29 @@ Authors: The StacksPart01Lib Contributors
 
 import StacksPart01Lib.Topology
 import StacksPart01Lib.Spectrum
+import StacksPart01Lib.SpectrumExtras
+import StacksPart01Lib.SpectrumIrreducible
 import StacksPart01Lib.SpecClosed
 import StacksPart01Lib.Categories
 import StacksPart01Lib.SetTheory
 import StacksPart01Lib.Zariski
 import StacksPart01Lib.ZariskiExtras
 import StacksPart01Lib.ZariskiUnion
+import StacksPart01Lib.ZariskiComplement
 import StacksPart01Lib.IdealTheory
+import StacksPart01Lib.ChineseRemainder
 import StacksPart01Lib.Nilradical
 import StacksPart01Lib.Localization
 import StacksPart01Lib.LocalizationExtras
 import StacksPart01Lib.CommutativeAlgebra
+import StacksPart01Lib.Charpoly
+import StacksPart01Lib.CharpolyModule
 import StacksPart01Lib.FiniteModule
 import StacksPart01Lib.FiniteType
 import StacksPart01Lib.FiniteTypeExtras
+import StacksPart01Lib.FiniteBaseChange
 import StacksPart01Lib.Artinian
+import StacksPart01Lib.Integral
 
 /-!
 # StacksPart01Lib.Basic

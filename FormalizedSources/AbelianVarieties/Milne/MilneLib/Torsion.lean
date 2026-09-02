@@ -124,8 +124,25 @@ theorem nTorsion_eq_isogenyKernel (n : ℕ) :
     nTorsion A n = isogenyKernel (multiplicationBy A n) := rfl
 
 @[simp]
+theorem nTorsion_zero :
+    nTorsion A 0 = isogenyKernel (toUnit A ≫ η[A]) := by
+  rw [nTorsion_eq_isogenyKernel, multiplicationBy_zero]
+
+@[simp]
+theorem nTorsion_one :
+    nTorsion A 1 = isogenyKernel (𝟙 A) := by
+  rw [nTorsion_eq_isogenyKernel, multiplicationBy_one]
+
+@[simp]
 theorem nTorsionToBase_eq_isogenyKernelToBase (n : ℕ) :
     nTorsionToBase A n = isogenyKernelToBase (multiplicationBy A n) := rfl
+
+@[simp]
+theorem nTorsionToBase_isFinite_one :
+    IsFinite (nTorsionToBase A 1) := by
+  change IsFinite (isogenyKernelToBase (multiplicationBy A 1))
+  rw [multiplicationBy_one]
+  exact (Isogeny.id A).2
 
 /-- A finite multiplication map has a finite `n`-torsion kernel. -/
 theorem nTorsionToBase_isFinite_of_finite (n : ℕ)

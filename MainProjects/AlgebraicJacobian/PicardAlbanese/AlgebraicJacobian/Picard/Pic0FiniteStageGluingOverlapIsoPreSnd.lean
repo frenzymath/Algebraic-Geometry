@@ -48,33 +48,12 @@ theorem gluingOverlapIso_pre_snd
           (glueData_f_comp_inclusion_comp_gluedMap C P U V) rfl).hom ≫
         rightRestrictionBaseChangeMap C P U V := by
   apply pullback.hom_ext
-    (f := Spec.map (CommRingCat.ofHom
-      (algebraMap P.N.1
-        (Pic0FiniteStageChartBaseChangeRing
-          C P.L P.n P.m P.relation P.M P.N V))))
+    (f := chartBaseChangeMap C P V)
     (g := Spec.map (CommRingCat.ofHom (algebraMap P.N.1 k)))
   · simpa only [Category.assoc] using
       gluingOverlapIso_pre_snd_fst C P U V
   · simpa only [Category.assoc] using
       gluingOverlapIso_pre_snd_snd C P U V
-
-/-- The spectrum of the exact right restriction, followed by the right chart's
-affine identification, is the affine-overlap identification. -/
-theorem exactRightRestrictionAlgHom_fromSpec
-    (U V : Pic0FiniteStageChartIndex C) :
-    Spec.map (CommRingCat.ofHom
-        (exactRightRestrictionAlgHom C U V).toRingHom) ≫
-        V.1.2.fromSpec =
-      (pic0FiniteStageAffineOverlap C U V).2.fromSpec := by
-  change Spec.map (CommRingCat.ofHom
-      (pic0FiniteStageRestrictionRight C U V).toRingHom) ≫
-      V.1.2.fromSpec = _
-  change Spec.map
-      ((pic0_sepClosed_representableBy (C := C)).1.left.presheaf.map
-        (homOfLE (pic0FiniteStageAffineOverlap_le_right C U V)).op) ≫
-      V.1.2.fromSpec = _
-  exact V.1.2.map_fromSpec (pic0FiniteStageAffineOverlap C U V).2
-    (homOfLE (pic0FiniteStageAffineOverlap_le_right C U V)).op
 
 end Pic0FiniteStageGluePackage
 

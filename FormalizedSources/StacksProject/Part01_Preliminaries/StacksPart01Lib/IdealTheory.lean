@@ -31,6 +31,18 @@ theorem zeroLocus_mul {R : Type*} [CommSemiring R] (I J : Ideal R) :
       PrimeSpectrum.zeroLocus (↑I : Set R) ∪ PrimeSpectrum.zeroLocus (↑J : Set R) := by
   exact PrimeSpectrum.zeroLocus_mul I J
 
+/-- The zero locus of an intersection of ideals is the union of their zero
+loci (Stacks, Tag `00E0`, part (9)). -/
+theorem zeroLocus_inf {R : Type*} [CommSemiring R] (I J : Ideal R) :
+    PrimeSpectrum.zeroLocus (↑(I ⊓ J) : Set R) =
+      PrimeSpectrum.zeroLocus (↑I : Set R) ∪ PrimeSpectrum.zeroLocus (↑J : Set R) := by
+  exact PrimeSpectrum.zeroLocus_inf I J
+
+/-- The zero locus of the zero ideal is the whole spectrum. -/
+theorem zeroLocus_bot {R : Type*} [CommSemiring R] :
+    PrimeSpectrum.zeroLocus (↑(⊥ : Ideal R) : Set R) = Set.univ := by
+  exact PrimeSpectrum.zeroLocus_bot
+
 /-- The zero locus of a sum of ideals is the intersection of their zero loci
 (Stacks, Tag 00E0). -/
 theorem zeroLocus_sup {R : Type*} [CommSemiring R] (I J : Ideal R) :
@@ -68,6 +80,41 @@ theorem zeroLocus_iUnion {R : Type*} [CommSemiring R] {ι : Sort*}
     (s : ι → Set R) :
     PrimeSpectrum.zeroLocus (⋃ i, s i) = ⋂ i, PrimeSpectrum.zeroLocus (s i) := by
   exact PrimeSpectrum.zeroLocus_iUnion s
+
+/-- A family of ideal equations cuts out the intersection of its zero loci.
+
+This ideal-shaped wrapper keeps the orientation used in the Stacks Project
+while exposing the underlying set identity from `zeroLocus_iUnion`. -/
+theorem zeroLocus_iUnion_ideal {R : Type*} [CommSemiring R] {ι : Sort*}
+    (I : ι → Ideal R) :
+    PrimeSpectrum.zeroLocus (⋃ i, (I i : Set R)) =
+      ⋂ i, PrimeSpectrum.zeroLocus (I i : Set R) := by
+  exact PrimeSpectrum.zeroLocus_iUnion (fun i => (I i : Set R))
+
+/-- Every ideal is contained in its radical (Stacks, Tag 00E0). -/
+theorem ideal_le_radical {R : Type*} [CommSemiring R] (I : Ideal R) :
+    I ≤ I.radical := by
+  exact Ideal.le_radical
+
+/-- Radical is monotone with respect to inclusion of ideals. -/
+theorem radical_mono_of_le {R : Type*} [CommSemiring R]
+    {I J : Ideal R} (hIJ : I ≤ J) : I.radical ≤ J.radical := by
+  exact Ideal.radical_mono hIJ
+
+/-- Taking the radical twice has no further effect. -/
+theorem radical_idempotent {R : Type*} [CommSemiring R] (I : Ideal R) :
+    I.radical.radical = I.radical := by
+  exact Ideal.radical_idem I
+
+/-- The radical of an intersection is the intersection of the radicals. -/
+theorem radical_inf_eq_inf {R : Type*} [CommSemiring R] (I J : Ideal R) :
+    (I ⊓ J).radical = I.radical ⊓ J.radical := by
+  exact Ideal.radical_inf I J
+
+/-- The radical of a product is the intersection of the radicals. -/
+theorem radical_mul_eq_inf {R : Type*} [CommSemiring R] (I J : Ideal R) :
+    (I * J).radical = I.radical ⊓ J.radical := by
+  exact Ideal.radical_mul I J
 
 /- The zero locus of an ideal is empty exactly for the unit ideal. -/
 theorem zeroLocus_empty_iff_top {R : Type*} [CommSemiring R] {I : Ideal R} :

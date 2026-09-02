@@ -318,6 +318,52 @@ noncomputable instance pic0FiniteStageChartBaseChangeRingAlgebra
     (R := M.1) (S := N.1) (A := N.1)
     (B := Pic0FiniteStageChartModelRing C L n m relation M U)
 
+set_option synthInstance.maxHeartbeats 400000 in
+-- The nested base changes must elaborate with the pinned inner tensor algebra.
+set_option maxHeartbeats 3200000 in
+/-- The pinned finite-presentation witness for a scalar-extended finite-stage chart ring. -/
+theorem finitePresentation_pic0FiniteStageChartBaseChangeRing
+    {F : Type u} [Field F] [Algebra F k]
+    (L : DatG0.FinSubext F k)
+    (n m : Pic0FiniteStageRingIndex C → Nat)
+    (relation : forall j, Fin (m j) → MvPolynomial (Fin (n j)) L.1)
+    (M : DatG0.FinSubext L.1 k)
+    (N : DatG0.FinSubext M.1 k)
+    (U : Pic0FiniteStageChartIndex C) :
+    Algebra.FinitePresentation N.1
+      (Pic0FiniteStageChartBaseChangeRing C L n m relation M N U) := by
+  letI : Algebra M.1
+      (Pic0FiniteStageChartModelRing C L n m relation M U) :=
+    Algebra.TensorProduct.leftAlgebra
+      (R := L.1) (S := M.1) (A := M.1)
+      (B := DatG0.FiniteRelationAlgebra L.1
+        (n (Sum.inl U)) (m (Sum.inl U)) (relation (Sum.inl U)))
+  letI : CommRing
+      (Pic0FiniteStageChartModelRing C L n m relation M U) := inferInstance
+  letI : Algebra.FinitePresentation M.1
+      (Pic0FiniteStageChartModelRing C L n m relation M U) := by
+    exact Algebra.FinitePresentation.baseChange M.1
+  exact Algebra.FinitePresentation.baseChange N.1
+
+/-- The pinned finite-type witness for a scalar-extended finite-stage chart ring. -/
+theorem finiteType_pic0FiniteStageChartBaseChangeRing
+    {F : Type u} [Field F] [Algebra F k]
+    (L : DatG0.FinSubext F k)
+    (n m : Pic0FiniteStageRingIndex C → Nat)
+    (relation : forall j, Fin (m j) → MvPolynomial (Fin (n j)) L.1)
+    (M : DatG0.FinSubext L.1 k)
+    (N : DatG0.FinSubext M.1 k)
+    (U : Pic0FiniteStageChartIndex C) :
+    Algebra.FiniteType N.1
+      (Pic0FiniteStageChartBaseChangeRing C L n m relation M N U) := by
+  exact @Algebra.FiniteType.of_finitePresentation
+    N.1 (Pic0FiniteStageChartBaseChangeRing C L n m relation M N U)
+    (inferInstance : CommRing N.1)
+    (pic0FiniteStageChartBaseChangeRingCommRing C L n m relation M N U)
+    (pic0FiniteStageChartBaseChangeRingAlgebra C L n m relation M N U)
+    (finitePresentation_pic0FiniteStageChartBaseChangeRing
+      C L n m relation M N U)
+
 set_option maxHeartbeats 25600000 in
 -- Assemble the package's dependent tensor carriers once, before exposing projections.
 /-- The pinned affine gluing presentation computed from an inhabited finite-stage package. -/

@@ -5,6 +5,7 @@ Authors: The Hartshorne Contributors
 -/
 
 import HartshorneLib.Chapter4DegreeClass
+import HartshorneLib.Chapter4FiniteMapP1Cohomology
 import HartshorneLib.Chapter4ProductFormulaCohomology
 import HartshorneLib.Chapter4WeightedDegree
 
@@ -63,5 +64,26 @@ theorem residueWeightedProductFormula_of_moduleKSheaf_oneFinite
   intro g
   rw [CurveDivisor.residueWeightedDegree_eq_degree]
   exact principalDivisorsHaveDegreeZero_of_moduleKSheaf_oneFinite h1 g
+
+/-- Over an algebraically closed field, finite-map-to-`P1` existence supplies the
+finite divisor-sheaf cohomology used by the product-formula argument. -/
+theorem hasFiniteDivisorCohomology_of_smoothProperIntegralCurve
+    (X : Over (Spec (CommRingCat.of k)))
+    [IsIntegral X.left] [IsProper X.hom]
+    [SmoothOfRelativeDimension 1 X.hom] :
+    HasFiniteDivisorCohomology (k := k) (X := X) := by
+  exact hasFiniteDivisorCohomology_of_moduleKSheaf_oneFinite
+    (moduleFinite_moduleKSheaf_one_of_smoothProperIntegralCurve X)
+
+/-- The finite-map-to-`P1` construction therefore yields the residue-weighted
+product formula for principal divisors on an algebraically closed curve. -/
+theorem residueWeightedProductFormula_of_smoothProperIntegralCurve
+    (X : Over (Spec (CommRingCat.of k)))
+    [IsIntegral X.left] [IsProper X.hom]
+    [SmoothOfRelativeDimension 1 X.hom] :
+    ∀ g : X.left.functionFieldˣ,
+      CurveDivisor.residueWeightedDegree (principalDivisor g) = 0 := by
+  exact residueWeightedProductFormula_of_moduleKSheaf_oneFinite
+    (moduleFinite_moduleKSheaf_one_of_smoothProperIntegralCurve X)
 
 end Hartshorne

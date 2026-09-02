@@ -552,6 +552,7 @@ import AlgebraicJacobian.Picard.Pic0RepresentabilityPullbacks
 import AlgebraicJacobian.Picard.Pic0RepresentabilityDescentData
 import AlgebraicJacobian.Picard.Pic0GaloisAction
 import AlgebraicJacobian.Picard.JacobianDataAbel
+import AlgebraicJacobian.Picard.JacobianDataCanonical
 import AlgebraicJacobian.Picard.JacobianDataBaseChange
 import AlgebraicJacobian.Picard.JacobianDataBaseChangeAbel
 import AlgebraicJacobian.Picard.JacobianDataBaseChangeAbelCore
@@ -815,6 +816,7 @@ import AlgebraicJacobian.Picard.Pic0RankOneIsoBaseChange
 import AlgebraicJacobian.Picard.Pic0CriticalPath
 import AlgebraicJacobian.Picard.Pic0FiniteStageGeometry
 import AlgebraicJacobian.Picard.Pic0FiniteStageStableAffineCover
+import AlgebraicJacobian.Picard.Pic0ExactCarrierProducer
 import AlgebraicJacobian.Descent.FiniteStageApi
 
 /-!

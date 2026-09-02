@@ -25,6 +25,7 @@ variable [SmoothOfRelativeDimension 1 C.hom] [IsProper C.hom]
 namespace Pic0FiniteStageGluePackage
 
 set_option synthInstance.maxHeartbeats 3200000 in
+-- The source projection retains the glued chart pullback instance tower.
 set_option maxHeartbeats 12800000 in
 set_option backward.isDefEq.respectTransparency false in
 theorem gluingOverlapIso_pre_snd_snd_source

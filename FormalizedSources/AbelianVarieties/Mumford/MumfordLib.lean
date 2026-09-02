@@ -15,18 +15,25 @@ import MumfordLib.ComplexUniformization
 import MumfordLib.ComplexUniformizationExistence
 import MumfordLib.ComplexLattice
 import MumfordLib.ComplexVectorLattice
+import MumfordLib.ComplexTangentDimension
 import MumfordLib.ComplexVectorLatticeTopology
+import MumfordLib.ComplexQuotientAtlas
+import MumfordLib.ComplexExponentialAtlas
+import MumfordLib.ComplexLatticeAtlas
 import MumfordLib.ArbitraryLatticeTorsion
 import MumfordLib.ArbitraryLatticeFiniteTorsion
 import MumfordLib.DivisionFiber
+import MumfordLib.DivisionFiberTransport
 import MumfordLib.RigidityCorollaries
 import MumfordLib.QuotientTopology
 import MumfordLib.UniformizedTopology
 import MumfordLib.TranslationTopology
 import MumfordLib.Theta
+import MumfordLib.ThetaFactorSet
 import MumfordLib.ThetaNondegenerate
 import MumfordLib.ThetaIsotropic
 import MumfordLib.ThetaDuality
+import MumfordLib.ThetaComplexDuality
 
 /-!
 # MumfordLib

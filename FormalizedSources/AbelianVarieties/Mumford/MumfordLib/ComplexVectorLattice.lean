@@ -54,13 +54,37 @@ structure ComplexVectorLatticeExponentialData
 
 namespace ComplexVectorLatticeExponentialData
 
+/-- The integral period lattice in the original tangent-space coordinates. -/
+def ambientPeriodLatticeSubmodule
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g) : Submodule ℤ V :=
+  d.periodLattice.comap
+    (d.coordinate.toLinearEquiv.restrictScalars ℤ).toLinearMap
+
+/-- The named transported lattice inherits the discrete subtype topology from
+the stored standard-coordinate lattice. -/
+instance ambientPeriodLatticeSubmodule_discreteTopology
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g) :
+    DiscreteTopology d.ambientPeriodLatticeSubmodule := by
+  letI : DiscreteTopology d.periodLattice := d.periodLatticeDiscrete
+  exact instDiscreteTopologySubtypeMemSubmoduleIntComap ℂ d.periodLattice d.coordinate
+
 /-- The period subgroup in the original tangent-space coordinates. -/
 def ambientPeriodLattice
     {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
     [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
     (d : ComplexVectorLatticeExponentialData V X g) : AddSubgroup V :=
-  (d.periodLattice.comap
-    (d.coordinate.toLinearEquiv.restrictScalars ℤ).toLinearMap).toAddSubgroup
+  d.ambientPeriodLatticeSubmodule.toAddSubgroup
+
+theorem ambientPeriodLatticeSubmodule_toAddSubgroup
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g) :
+    d.ambientPeriodLatticeSubmodule.toAddSubgroup = d.ambientPeriodLattice :=
+  rfl
 
 @[simp]
 theorem ambientPeriodLattice_mem_iff
@@ -68,7 +92,7 @@ theorem ambientPeriodLattice_mem_iff
     [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
     (d : ComplexVectorLatticeExponentialData V X g) (v : V) :
     v ∈ d.ambientPeriodLattice ↔ d.coordinate v ∈ d.periodLattice := by
-  simp [ambientPeriodLattice]
+  simp [ambientPeriodLattice, ambientPeriodLatticeSubmodule]
 
 /-- The kernel field in terms of the named ambient period subgroup. -/
 theorem exponential_ker
@@ -105,6 +129,104 @@ theorem quotientAddEquiv_mk
     d.quotientAddEquiv (QuotientAddGroup.mk' d.ambientPeriodLattice v) =
       d.exponential v :=
   PeriodLatticeQuotient.quotientAddEquiv_mk d.toPeriodLatticeQuotient v
+
+/-- A representative in the arbitrary tangent quotient is torsion exactly
+    when its scalar multiple lies in the transported period lattice. -/
+theorem quotient_mk_mem_zsmulTorsion_iff
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g) (n : ℤ) (v : V) :
+    QuotientAddGroup.mk' d.ambientPeriodLattice v ∈
+        zsmulTorsionSubgroup (V ⧸ d.ambientPeriodLattice) n ↔
+      n • v ∈ d.ambientPeriodLattice := by
+  exact PeriodLatticeQuotient.quotient_mk_mem_zsmulTorsion_iff
+    d.ambientPeriodLattice n v
+
+@[simp]
+theorem exponential_eq_zero_iff_mem_ambientPeriodLattice
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g) (v : V) :
+    d.exponential v = 0 ↔ v ∈ d.ambientPeriodLattice := by
+  rw [← AddMonoidHom.mem_ker, d.exponential_ker]
+
+/- Two tangent representatives have the same exponential image exactly when
+   their difference is an ambient period.  This is the coordinate-free form
+   of the quotient representative criterion and is useful on overlaps of
+   local exponential branches. -/
+theorem exponential_eq_iff_sub_mem_ambientPeriodLattice
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g) (v w : V) :
+    d.exponential v = d.exponential w ↔
+      v - w ∈ d.ambientPeriodLattice := by
+  constructor
+  · intro h
+    have hz : d.exponential (v - w) = 0 := by
+      rw [map_sub, h, sub_self]
+    exact d.exponential_eq_zero_iff_mem_ambientPeriodLattice (v - w) |>.1 hz
+  · intro h
+    have hz : d.exponential (v - w) = 0 :=
+      d.exponential_eq_zero_iff_mem_ambientPeriodLattice (v - w) |>.2 h
+    have heq : d.exponential v - d.exponential w = 0 := by
+      simpa only [map_sub] using hz
+    exact sub_eq_zero.mp heq
+
+/-- Signed-integer torsion in the arbitrary tangent quotient, transported
+    through its exponential and a chosen genus-torus uniformization. -/
+noncomputable def quotientTorsionAddEquiv_of_uniformization
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g)
+    (u : GenusTorusUniformization X g) {n : ℤ} (hn : n ≠ 0) :
+    zsmulTorsionSubgroup (V ⧸ d.ambientPeriodLattice) n ≃+
+      (Fin (2 * g) → ZMod n.natAbs) :=
+  (zsmulTorsion_addEquiv_of_addEquiv d.quotientAddEquiv n).trans
+    (zsmulTorsion_addEquiv_of_uniformization u hn)
+
+@[simp]
+theorem quotientTorsionAddEquiv_of_uniformization_apply
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g)
+    (u : GenusTorusUniformization X g) {n : ℤ} (hn : n ≠ 0)
+    (q : zsmulTorsionSubgroup (V ⧸ d.ambientPeriodLattice) n) :
+    (d.quotientTorsionAddEquiv_of_uniformization u hn) q =
+      (zsmulTorsion_addEquiv_of_uniformization u hn)
+        ((zsmulTorsion_addEquiv_of_addEquiv d.quotientAddEquiv n) q) := by
+  rfl
+
+/-- The positive-natural notation for the arbitrary tangent quotient torsion
+    equivalence. -/
+noncomputable def quotientTorsionAddEquiv_of_uniformization_natCast
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g n : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g)
+    (u : GenusTorusUniformization X g) (hn : 0 < n) :
+    zsmulTorsionSubgroup (V ⧸ d.ambientPeriodLattice) (n : ℤ) ≃+
+      (Fin (2 * g) → ZMod n) := by
+  have hne : (n : ℤ) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt hn)
+  let castEquiv : (Fin (2 * g) → ZMod (n : ℤ).natAbs) ≃+
+      (Fin (2 * g) → ZMod n) :=
+    AddEquiv.cast (M := fun m : ℕ => Fin (2 * g) → ZMod m)
+      (Int.natAbs_ofNat' n)
+  exact (d.quotientTorsionAddEquiv_of_uniformization u hne).trans castEquiv
+
+/-- The arbitrary tangent quotient has the expected positive-natural torsion
+    cardinality. -/
+theorem quotientTorsion_card_of_uniformization_natCast
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g n : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g)
+    (u : GenusTorusUniformization X g) (hn : 0 < n) :
+    Nat.card (zsmulTorsionSubgroup (V ⧸ d.ambientPeriodLattice) (n : ℤ)) =
+      n ^ (2 * g) := by
+  have hne : (n : ℤ) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt hn)
+  rw [Nat.card_congr
+    (d.quotientTorsionAddEquiv_of_uniformization u hne).toEquiv]
+  simp [Nat.card_fun, Nat.card_zmod, Nat.card_eq_fintype_card]
 
 /-- The same exponential expressed in the standard genus coordinates. -/
 def canonicalExponential
@@ -169,6 +291,39 @@ def toCanonical
   surjective := d.canonicalExponential_surjective
   continuous := d.canonicalExponential_continuous
   kernel := d.canonicalExponential_kernel
+
+/-- The transported period lattice has integral rank twice the complex
+dimension of the tangent space. -/
+theorem ambientPeriodLattice_finrank
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g) :
+    Module.finrank ℤ d.ambientPeriodLatticeSubmodule = 2 * g := by
+  let e : d.periodLattice ≃ₗ[ℤ] d.ambientPeriodLatticeSubmodule :=
+    ZLattice.comap_equiv ℂ d.periodLattice d.coordinate.toLinearEquiv
+  rw [← e.finrank_eq]
+  exact d.toCanonical.periodLattice_finrank
+
+/-- The transported period lattice spans the real tangent space. -/
+theorem ambientPeriodLattice_isZLattice
+    {V X : Type*} [NormedAddCommGroup V] [NormedSpace ℂ V]
+    [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexVectorLatticeExponentialData V X g) :
+    IsZLattice ℝ d.ambientPeriodLatticeSubmodule := by
+  letI : DiscreteTopology d.periodLattice := d.periodLatticeDiscrete
+  letI : IsZLattice ℝ d.periodLattice := d.periodLatticeFull
+  let e : V ≃ₗ[ℝ] GenusComplexVector g :=
+    d.coordinate.toLinearEquiv.restrictScalars ℝ
+  let ce : V ≃L[ℝ] GenusComplexVector g :=
+    ContinuousLinearEquiv.mk e d.coordinate.continuous d.coordinate.symm.continuous
+  let L : Submodule ℤ V := ZLattice.comap ℝ d.periodLattice ce.toLinearMap
+  letI : DiscreteTopology L :=
+    instDiscreteTopologySubtypeMemSubmoduleIntComap ℝ d.periodLattice ce
+  have hL : IsZLattice ℝ L := instIsZLatticeComap ℝ d.periodLattice ce
+  have hEq : d.ambientPeriodLatticeSubmodule = L := by
+    ext v
+    simp [ambientPeriodLatticeSubmodule, L, ce, e, ZLattice.comap]
+  simpa only [hEq] using hL
 
 /-- Torsion cardinality for an arbitrary tangent-space lattice, once the target
 has a genus-torus uniformization. -/

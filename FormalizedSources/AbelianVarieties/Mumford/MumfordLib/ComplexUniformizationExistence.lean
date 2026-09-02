@@ -112,6 +112,99 @@ theorem complexTorusUniformization_nonempty_iff_exists_exponential
   · rintro ⟨exponential, hsurj, hkernel⟩
     exact ⟨ComplexTorusUniformization.ofExponential exponential hsurj hkernel⟩
 
+/-- A chosen exponential certificate gives division by every positive natural.
+
+This is the divisibility half of the analytic torsion statement, expressed at
+the explicit-data boundary so that it does not assert existence of an
+exponential for an arbitrary target. -/
+theorem ComplexTorusExponentialData.exists_division
+    {X : Type*} [AddCommGroup X] {g n : ℕ}
+    (d : ComplexTorusExponentialData X g) (x : X) (hn : 0 < n) :
+    ∃ y : X, (n : ℤ) • y = x := by
+  let u := d.toUniformization.toGenusTorusUniformization
+  have hnz : (n : ℤ) ≠ 0 := by
+    exact_mod_cast (Nat.ne_of_gt hn)
+  exact exists_division_of_uniformization u x hnz
+
+/-- The positive-natural torsion equivalence attached to an exponential
+certificate. -/
+noncomputable def ComplexTorusExponentialData.natCast_zsmulTorsion_addEquiv
+    {X : Type*} [AddCommGroup X] {g n : ℕ}
+    (d : ComplexTorusExponentialData X g) (hn : 0 < n) :
+    zsmulTorsionSubgroup X (n : ℤ) ≃+
+      (Fin (2 * g) → ZMod n) :=
+  natCast_zsmulTorsion_addEquiv_of_uniformization
+    d.toUniformization.toGenusTorusUniformization hn
+
+/-- Combined proposition-valued form of divisibility and finite torsion for a
+chosen exponential certificate.  `Nonempty` records the equivalence as a
+proposition, since an additive equivalence itself is data rather than a
+proposition. -/
+theorem ComplexTorusExponentialData.division_and_torsion
+    {X : Type*} [AddCommGroup X] {g n : ℕ}
+    (d : ComplexTorusExponentialData X g) (x : X) (hn : 0 < n) :
+    (∃ y : X, (n : ℤ) • y = x) ∧
+      Nonempty (zsmulTorsionSubgroup X (n : ℤ) ≃+
+        (Fin (2 * g) → ZMod n)) := by
+  refine ⟨d.exists_division x hn, ?_⟩
+  exact ⟨d.natCast_zsmulTorsion_addEquiv hn⟩
+
+/- The signed-integer torsion classification is the primary API; the
+   positive-natural version above is a specialization of it. -/
+noncomputable def ComplexTorusExponentialData.zsmulTorsion_addEquiv
+    {X : Type*} [AddCommGroup X] {g : ℕ} {n : ℤ}
+    (d : ComplexTorusExponentialData X g) (hn : n ≠ 0) :
+    zsmulTorsionSubgroup X n ≃+
+      (Fin (2 * g) → ZMod n.natAbs) :=
+  complexUniformization_zsmulTorsion_addEquiv d.toUniformization hn
+
+/- The data-boundary equivalence agrees with the canonical complex-quotient
+   factorization of the underlying uniformization witness. -/
+theorem ComplexTorusExponentialData.zsmulTorsion_addEquiv_eq_trans
+    {X : Type*} [AddCommGroup X] {g : ℕ} {n : ℤ}
+    (d : ComplexTorusExponentialData X g) (hn : n ≠ 0) :
+    d.zsmulTorsion_addEquiv hn =
+      (zsmulTorsion_addEquiv_of_addEquiv d.toUniformization.equiv n).trans
+        (complexGenusQuotient_zsmulTorsion_addEquiv hn) := by
+  exact complexUniformization_zsmulTorsion_addEquiv_eq_trans
+    d.toUniformization hn
+
+@[simp]
+theorem ComplexTorusExponentialData.zsmulTorsion_addEquiv_apply
+    {X : Type*} [AddCommGroup X] {g : ℕ} {n : ℤ}
+    (d : ComplexTorusExponentialData X g) (hn : n ≠ 0)
+    (x : zsmulTorsionSubgroup X n) :
+    ((d.zsmulTorsion_addEquiv hn) x : Fin (2 * g) → ZMod n.natAbs) =
+      (productTorus_zsmul_torsion_addEquiv_pi_zmod hn)
+        ((zsmulTorsion_addEquiv_of_addEquiv
+          d.toUniformization.toGenusTorusUniformization.equiv n) x) := by
+  exact complexUniformization_zsmulTorsion_addEquiv_apply
+    d.toUniformization hn x
+
+/-- Cardinality of signed-integer torsion under an exponential certificate. -/
+theorem ComplexTorusExponentialData.zsmulTorsion_card
+    {X : Type*} [AddCommGroup X] {g : ℕ} {n : ℤ}
+    (d : ComplexTorusExponentialData X g) (hn : n ≠ 0) :
+    Nat.card (zsmulTorsionSubgroup X n) = n.natAbs ^ (2 * g) := by
+  exact complexUniformization_zsmulTorsion_card d.toUniformization hn
+
+/-- Finiteness of signed-integer torsion under an exponential certificate. -/
+theorem ComplexTorusExponentialData.zsmulTorsion_finite
+    {X : Type*} [AddCommGroup X] {g : ℕ} {n : ℤ}
+    (d : ComplexTorusExponentialData X g) (hn : n ≠ 0) :
+    Finite (zsmulTorsionSubgroup X n) := by
+  exact complexUniformization_zsmulTorsion_finite d.toUniformization hn
+
+/-- Signed divisibility and finite torsion packaged as one proposition. -/
+theorem ComplexTorusExponentialData.division_and_zsmulTorsion
+    {X : Type*} [AddCommGroup X] {g : ℕ} {n : ℤ}
+    (d : ComplexTorusExponentialData X g) (x : X) (hn : n ≠ 0) :
+    (∃ y : X, n • y = x) ∧
+      Nonempty (zsmulTorsionSubgroup X n ≃+
+        (Fin (2 * g) → ZMod n.natAbs)) := by
+  refine ⟨?_, ⟨d.zsmulTorsion_addEquiv hn⟩⟩
+  exact complexUniformization_exists_division d.toUniformization x hn
+
 /-- The standard coordinate exponential supplies the canonical witness for the
 explicit genus torus model. -/
 def standardComplexTorusUniformization (g : ℕ) :

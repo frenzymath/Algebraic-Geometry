@@ -6,6 +6,7 @@ Authors: The Mumford Contributors
 
 import MumfordLib.ComplexUniformization
 import MumfordLib.ZLattice
+import Mathlib.Geometry.Manifold.Instances.Quotient
 import Mathlib.Topology.Covering.Quotient
 
 /-!
@@ -164,6 +165,40 @@ theorem quotient_mk_isCoveringMap
       (QuotientAddGroup.mk : GenusComplexVector g →
         GenusComplexVector g ⧸ d.periodLattice.toAddSubgroup) :=
   d.quotient_mk_isAddQuotientCoveringMap.isCoveringMap
+
+/-- The quotient projection is a local homeomorphism. -/
+theorem quotient_mk_isLocalHomeomorph
+    {X : Type*} [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexLatticeExponentialData X g) :
+    IsLocalHomeomorph
+      (QuotientAddGroup.mk : GenusComplexVector g →
+        GenusComplexVector g ⧸ d.periodLattice.toAddSubgroup) :=
+  d.quotient_mk_isCoveringMap.isLocalHomeomorph
+
+/-- The full period lattice induces a charted-space structure on its quotient.
+
+This is kept as an explicit value because the lattice belongs to the analytic
+certificate rather than to a global instance.  Smoothness and holomorphicity
+of the quotient charts require additional manifold infrastructure. -/
+@[reducible]
+noncomputable def quotientChartedSpace
+    {X : Type*} [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (d : ComplexLatticeExponentialData X g) :
+    ChartedSpace (GenusComplexVector g)
+      (GenusComplexVector g ⧸ d.periodLattice.toAddSubgroup) := by
+  letI : ProperlyDiscontinuousVAdd d.periodLattice.toAddSubgroup
+      (GenusComplexVector g) := d.periodLattice_properlyDiscontinuousVAdd
+  letI : ProperlyDiscontinuousVAdd d.periodLattice.toAddSubgroup.op
+      (GenusComplexVector g) := by
+    exact AddSubgroup.properlyDiscontinuousVAdd_opposite_of_tendsto_cofinite
+      d.periodLattice.toAddSubgroup
+      (AddSubgroup.tendsto_coe_cofinite_of_discrete
+        d.periodLattice.toAddSubgroup d.periodLattice_isDiscrete)
+  letI : IsCancelVAdd d.periodLattice.toAddSubgroup.op
+      (GenusComplexVector g) :=
+    (AddSubgroup.isAddQuotientCoveringMap
+      d.periodLattice.toAddSubgroup d.periodLattice_isDiscrete).isCancelVAdd
+  exact AddAction.instChartedSpaceQuotient
 
 theorem quotientAddEquiv_mk_eq_iff
     {X : Type*} [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
@@ -324,6 +359,36 @@ theorem quotientHomeomorph_eq_quotientAddEquiv
     d.quotientAddEquiv (QuotientAddGroup.mk' d.periodLattice.toAddSubgroup z)
   rw [d.quotientHomeomorph_mk, d.quotientAddEquiv_mk]
 
+/- The canonical complex-coordinate exponential is a concrete instance of the
+   full-lattice certificate.  Keeping this witness explicit makes the lattice
+   hypotheses available to the topological APIs without introducing a global
+   instance for arbitrary period subgroups. -/
+def standardComplexGenusTorusLatticeExponentialData (g : ℕ) :
+    ComplexLatticeExponentialData (GenusTorus g) g where
+  periodLattice := complexPeriodLatticeSubmodule g
+  periodLatticeDiscrete := inferInstance
+  periodLatticeFull := inferInstance
+  exponential := complexGenusTorusExponential g
+  surjective := complexGenusTorusExponential_surjective g
+  continuous := complexGenusTorusExponential_continuous g
+  kernel := by
+    rw [complexPeriodLatticeSubmodule_toAddSubgroup]
+    exact complexGenusTorusExponential_ker g
+
+@[simp]
+theorem standardComplexGenusTorusLatticeExponentialData_exponential_apply
+    (g : ℕ) (z : GenusComplexVector g) :
+    (standardComplexGenusTorusLatticeExponentialData g).exponential z =
+      complexGenusTorusExponential g z :=
+  rfl
+
+@[simp]
+theorem standardComplexGenusTorusLatticeExponentialData_periodLattice
+    (g : ℕ) :
+    (standardComplexGenusTorusLatticeExponentialData g).periodLattice.toAddSubgroup =
+      complexPeriodLattice g :=
+  complexPeriodLatticeSubmodule_toAddSubgroup g
+
 /-- The canonical exponential data for the quotient by any full lattice. -/
 def ofLattice
     (g : ℕ) (L : Submodule ℤ (GenusComplexVector g))
@@ -400,6 +465,44 @@ theorem quotient_isConnected
   exact isConnected_univ
 
 end ComplexLatticeExponentialData
+
+namespace ComplexTorusUniformization
+
+/-- A complex uniformization witness with continuous inverse supplies the
+full-lattice exponential certificate used by the topological interface. -/
+def toComplexLatticeExponentialData
+    {X : Type*} [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (u : ComplexTorusUniformization X g)
+    (hcont_symm : Continuous u.equiv.symm) :
+    ComplexLatticeExponentialData X g where
+  periodLattice := complexPeriodLatticeSubmodule g
+  periodLatticeDiscrete := inferInstance
+  periodLatticeFull := inferInstance
+  exponential := u.exponential
+  surjective := u.exponential_surjective
+  continuous := u.exponential_continuous hcont_symm
+  kernel := by
+    rw [u.exponential_ker]
+    exact (complexPeriodLatticeSubmodule_toAddSubgroup g).symm
+
+@[simp]
+theorem toComplexLatticeExponentialData_exponential_apply
+    {X : Type*} [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (u : ComplexTorusUniformization X g)
+    (hcont_symm : Continuous u.equiv.symm) (z : GenusComplexVector g) :
+    (u.toComplexLatticeExponentialData hcont_symm).exponential z = u.exponential z :=
+  rfl
+
+@[simp]
+theorem toComplexLatticeExponentialData_periodLattice
+    {X : Type*} [AddCommGroup X] [TopologicalSpace X] {g : ℕ}
+    (u : ComplexTorusUniformization X g)
+    (hcont_symm : Continuous u.equiv.symm) :
+    (u.toComplexLatticeExponentialData hcont_symm).periodLattice.toAddSubgroup =
+      complexPeriodLattice g :=
+  complexPeriodLatticeSubmodule_toAddSubgroup g
+
+end ComplexTorusUniformization
 end
 end Uniformization
 end Mumford

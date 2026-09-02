@@ -38,6 +38,24 @@ noncomputable def exactRightRestrictionAlgHom
       Pic0FiniteStageRing C (Sum.inr (U, V)) :=
   pic0FiniteStageMap C (Sum.inl (Sum.inr (U, V)))
 
+/-- The spectrum of the exact right restriction, followed by the right chart's
+affine identification, is the affine-overlap identification. -/
+theorem exactRightRestrictionAlgHom_fromSpec
+    (U V : Pic0FiniteStageChartIndex C) :
+    Spec.map (CommRingCat.ofHom
+        (exactRightRestrictionAlgHom C U V).toRingHom) ≫
+        V.1.2.fromSpec =
+      (pic0FiniteStageAffineOverlap C U V).2.fromSpec := by
+  change Spec.map (CommRingCat.ofHom
+      (pic0FiniteStageRestrictionRight C U V).toRingHom) ≫
+      V.1.2.fromSpec = _
+  change Spec.map
+      ((pic0_sepClosed_representableBy (C := C)).1.left.presheaf.map
+        (homOfLE (pic0FiniteStageAffineOverlap_le_right C U V)).op) ≫
+      V.1.2.fromSpec = _
+  exact V.1.2.map_fromSpec (pic0FiniteStageAffineOverlap C U V).2
+    (homOfLE (pic0FiniteStageAffineOverlap_le_right C U V)).op
+
 /-!
 The final comparison maps and the scalar extension map below are written with
 the carrier and structure witnesses selected by the pinned final-stage API.
@@ -431,6 +449,23 @@ theorem rightRestrictionBaseChangeMap_naturality
     (overlapFinalBaseChangeEquiv C P U V)
     (exactRightRestrictionAlgHom C U V)
     (rightRestrictionFinalBaseChangeEquiv_naturality C P U V)
+
+set_option synthInstance.maxHeartbeats 3200000 in
+-- Normalize the stable-index naturality square before entering glued diagrams.
+set_option maxHeartbeats 12800000 in
+set_option backward.isDefEq.respectTransparency false in
+/-- The pulled-back right restriction carries the right chart's affine
+identification to the affine-overlap identification. -/
+theorem rightRestrictionBaseChangeMap_fromSpec
+    {F : Type u} [Field F] [Algebra F k] [Algebra.IsAlgebraic F k]
+    (P : Pic0FiniteStageGluePackage C F)
+    (U V : Pic0FiniteStageChartIndex C) :
+    rightRestrictionBaseChangeMap C P U V ≫
+          (chartRingBaseChangeIso C P V).hom ≫ V.1.2.fromSpec =
+      (overlapRingBaseChangeIso C P U V).hom ≫
+        (pic0FiniteStageAffineOverlap C U V).2.fromSpec := by
+  rw [← Category.assoc, rightRestrictionBaseChangeMap_naturality C P U V,
+    Category.assoc, exactRightRestrictionAlgHom_fromSpec C U V]
 
 end Pic0FiniteStageGluePackage
 

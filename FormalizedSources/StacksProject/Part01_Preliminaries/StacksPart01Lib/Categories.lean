@@ -1,6 +1,7 @@
 import Mathlib.CategoryTheory.Groupoid
 import Mathlib.CategoryTheory.Iso
 import Mathlib.CategoryTheory.Limits.Constructions.LimitsOfProductsAndEqualizers
+import Mathlib.CategoryTheory.Retract
 import Mathlib.CategoryTheory.Yoneda
 
 universe u v w
@@ -96,6 +97,38 @@ theorem mono_comp {C : Type*} [Category C] {X Y Z : C}
 theorem epi_comp {C : Type*} [Category C] {X Y Z : C}
     (f : X ⟶ Y) (g : Y ⟶ Z) [Epi f] [Epi g] : Epi (f ≫ g) := by
   exact CategoryTheory.epi_comp f g
+
+/- A section (respectively retraction) exhibits a split mono (respectively
+split epi), hence gives the corresponding cancellation property. -/
+theorem mono_of_has_retraction {C : Type*} [Category C] {X Y : C}
+    (f : X ⟶ Y) (r : Y ⟶ X) (h : f ≫ r = 𝟙 X) : Mono f := by
+  letI : IsSplitMono f := IsSplitMono.mk ⟨⟨r, h⟩⟩
+  exact IsSplitMono.mono f
+
+theorem epi_of_has_section {C : Type*} [Category C] {X Y : C}
+    (f : X ⟶ Y) (s : Y ⟶ X) (h : s ≫ f = 𝟙 Y) : Epi f := by
+  letI : IsSplitEpi f := IsSplitEpi.mk ⟨⟨s, h⟩⟩
+  exact IsSplitEpi.epi f
+
+theorem mono_of_mono_comp {C : Type*} [Category C] {X Y Z : C}
+    (g : Z ⟶ Y) (f : Y ⟶ X) [Mono (g ≫ f)] : Mono g := by
+  exact CategoryTheory.mono_of_mono_fac (f := f) (g := g) (h := g ≫ f) rfl
+
+theorem epi_of_epi_comp {C : Type*} [Category C] {X Y Z : C}
+    (f : X ⟶ Y) (g : Y ⟶ Z) [Epi (f ≫ g)] : Epi g := by
+  exact CategoryTheory.epi_of_epi_fac (f := f) (g := g) (h := f ≫ g) rfl
+
+theorem functor_map_mono_of_retraction {C D : Type*} [Category C] [Category D]
+    (F : C ⥤ D) {X Y : C} (f : X ⟶ Y) (r : Y ⟶ X)
+    (h : f ≫ r = 𝟙 X) : Mono (F.map f) := by
+  apply mono_of_has_retraction (F.map f) (F.map r)
+  rw [← F.map_comp, h, F.map_id]
+
+theorem functor_map_epi_of_section {C D : Type*} [Category C] [Category D]
+    (F : C ⥤ D) {X Y : C} (f : X ⟶ Y) (s : Y ⟶ X)
+    (h : s ≫ f = 𝟙 Y) : Epi (F.map f) := by
+  apply epi_of_has_section (F.map f) (F.map s)
+  rw [← F.map_comp, h, F.map_id]
 
 theorem isIso_comp {C : Type*} [Category C] {X Y Z : C}
     (f : X ⟶ Y) (g : Y ⟶ Z) [IsIso f] [IsIso g] : IsIso (f ≫ g) := by

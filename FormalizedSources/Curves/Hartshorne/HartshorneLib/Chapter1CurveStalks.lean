@@ -8,6 +8,7 @@ import HartshorneLib.Chapter1Curves
 import Mathlib.AlgebraicGeometry.Morphisms.Smooth
 import Mathlib.AlgebraicGeometry.Stalk
 import Mathlib.RingTheory.DedekindDomain.Dvr
+import Mathlib.RingTheory.Flat.TorsionFree
 import Mathlib.RingTheory.QuasiFinite.Basic
 import Mathlib.RingTheory.RingHom.StandardSmooth
 import Mathlib.RingTheory.Unramified.Finite
@@ -292,5 +293,98 @@ theorem smoothCurve_isClosed_singleton_of_ne_genericPoint
     (hx : x ≠ genericPoint X) : IsClosed ({x} : Set X) :=
   closed_singleton_of_curve_specializations
     (fun _ _ h => smoothCurve_specializes_eq_genericPoint_or_eq f h) hx
+
+/-!
+## Transcendental functions
+-/
+
+/-- A nontrivial standard-smooth algebra of relative dimension one contains
+an element transcendental over its ground field.  This is the etale
+coordinate supplied by the standard-smooth structure theorem. -/
+theorem Algebra.IsStandardSmoothOfRelativeDimension.exists_transcendental
+    (k B : Type*) [Field k] [CommRing B] [Algebra k B] [Nontrivial B]
+    [Algebra.IsStandardSmoothOfRelativeDimension 1 k B] :
+    ∃ t : B, Transcendental k t := by
+  obtain ⟨g, hg⟩ :=
+    Algebra.IsStandardSmoothOfRelativeDimension.exists_etale_mvPolynomial 1 k B
+  algebraize [g.toRingHom]
+  have hEt : Algebra.Etale (MvPolynomial (Fin 1) k) B := hg.toAlgebra
+  have hinj : Function.Injective g := by
+    intro a b hab
+    by_contra hne
+    have hmem : a - b ∈ nonZeroDivisors (MvPolynomial (Fin 1) k) :=
+      mem_nonZeroDivisors_of_ne_zero (sub_ne_zero_of_ne hne)
+    have hreg := Module.Flat.isSMulRegular_of_nonZeroDivisors (M := B) hmem
+    have hmul : (a - b) • (1 : B) = (a - b) • (0 : B) := by
+      rw [smul_zero, Algebra.smul_def, mul_one, RingHom.algebraMap_toAlgebra, map_sub,
+        sub_eq_zero]
+      exact hab
+    exact one_ne_zero (hreg hmul)
+  refine ⟨g (MvPolynomial.X 0), ?_⟩
+  intro hX
+  have hpoly : IsAlgebraic k (MvPolynomial.X 0 : MvPolynomial (Fin 1) k) := by
+    obtain ⟨P, hP, hPeval⟩ := hX
+    refine ⟨P, hP, hinj ?_⟩
+    rw [map_zero, ← hPeval]
+    exact (Polynomial.aeval_algHom_apply g (MvPolynomial.X 0) P).symm
+  exact MvPolynomial.transcendental_X k (0 : Fin 1) hpoly
+
+/-- An integral curve smooth of relative dimension one has a rational function
+transcendental over its ground field.  The ground-field action is the
+structure morphism followed by the generic-point germ.
+
+The element is obtained from the etale coordinate of a standard-smooth affine
+chart through the relative-dimension-one existence theorem. -/
+theorem SmoothOfRelativeDimension.exists_transcendental_functionField
+    [SmoothOfRelativeDimension 1 f] [IsIntegral X] :
+    ∃ f₀ : X.functionField, ∀ P : Polynomial k, P ≠ 0 →
+      Polynomial.eval₂ ((Scheme.ΓSpecIso (CommRingCat.of k)).inv ≫ f.appTop ≫
+        X.presheaf.germ ⊤ (genericPoint X) trivial).hom f₀ P ≠ 0 := by
+  classical
+  obtain ⟨U, hU, V, hV, hxV, e, hsm⟩ :=
+    SmoothOfRelativeDimension.exists_isStandardSmoothOfRelativeDimension (n := 1) (f := f)
+      (genericPoint X)
+  have hUtop : U = ⊤ := by
+    have hsub : Subsingleton (Spec (CommRingCat.of k)) :=
+      inferInstanceAs (Subsingleton (PrimeSpectrum k))
+    refine TopologicalSpace.Opens.ext (Set.eq_univ_of_forall fun y => ?_)
+    simpa [Subsingleton.elim (f.base (genericPoint X)) y] using e hxV
+  subst hUtop
+  letI : Field Γ(Spec (CommRingCat.of k), ⊤) :=
+    ((Scheme.ΓSpecIso (CommRingCat.of k)).commRingCatIsoToRingEquiv.toMulEquiv.isField
+      (Field.toIsField k)).toField
+  haveI : Nonempty V := ⟨⟨genericPoint X, hxV⟩⟩
+  algebraize [(f.appLE ⊤ V e).hom]
+  obtain ⟨t, ht⟩ := Algebra.IsStandardSmoothOfRelativeDimension.exists_transcendental
+    Γ(Spec (CommRingCat.of k), ⊤) Γ(X, V)
+  refine ⟨(X.presheaf.germ V (genericPoint X) hxV).hom t, fun P hP => ?_⟩
+  have hcomp : (Scheme.ΓSpecIso (CommRingCat.of k)).inv ≫ f.appTop ≫
+      X.presheaf.germ ⊤ (genericPoint X) trivial =
+      (Scheme.ΓSpecIso (CommRingCat.of k)).inv ≫ f.appLE ⊤ V e ≫
+        X.presheaf.germ V (genericPoint X) hxV := by
+    simp only [Scheme.Hom.appLE, Category.assoc]
+    rw [X.presheaf.germ_res (homOfLE e) _ hxV]
+    rfl
+  rw [hcomp]
+  have heval : Polynomial.eval₂ ((Scheme.ΓSpecIso (CommRingCat.of k)).inv ≫
+      f.appLE ⊤ V e ≫ X.presheaf.germ V (genericPoint X) hxV).hom
+        ((X.presheaf.germ V (genericPoint X) hxV).hom t) P =
+      (X.presheaf.germ V (genericPoint X) hxV).hom
+        (Polynomial.aeval t (P.map (Scheme.ΓSpecIso (CommRingCat.of k)).inv.hom)) := by
+    rw [Polynomial.aeval_def, RingHom.algebraMap_toAlgebra, Polynomial.hom_eval₂,
+      Polynomial.eval₂_map]
+    rfl
+  rw [heval]
+  intro hzero
+  have hinj : Function.Injective ((Scheme.ΓSpecIso (CommRingCat.of k)).inv.hom :
+      k →+* _) :=
+    ((ConcreteCategory.isIso_iff_bijective
+      (Scheme.ΓSpecIso (CommRingCat.of k)).inv).mp inferInstance).injective
+  have hmap : P.map (Scheme.ΓSpecIso (CommRingCat.of k)).inv.hom ≠ 0 :=
+    fun h0 => hP ((Polynomial.map_eq_zero_iff hinj).mp h0)
+  refine ht ⟨P.map (Scheme.ΓSpecIso (CommRingCat.of k)).inv.hom, hmap, ?_⟩
+  refine germ_injective_of_isIntegral X (genericPoint X) hxV ?_
+  rw [map_zero]
+  exact hzero
 
 end Hartshorne

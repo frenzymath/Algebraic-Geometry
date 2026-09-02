@@ -69,7 +69,7 @@ artifacts; they are regenerated per package and are never committed.
 |---|---|
 | [`MainProjects/AlgebraicJacobian`](MainProjects/AlgebraicJacobian/) | Flagship algebraic-Jacobian challenge |
 | [`MainProjects/AlgebraicJacobian/MilneKollar`](MainProjects/AlgebraicJacobian/MilneKollar/) | Milne-Kollar route and legacy AJ Lean library (387 modules) |
-| [`MainProjects/AlgebraicJacobian/PicardAlbanese`](MainProjects/AlgebraicJacobian/PicardAlbanese/) | Etale Picard-Albanese route and from-scratch AJ Lean library (1,176 modules) |
+| [`MainProjects/AlgebraicJacobian/PicardAlbanese`](MainProjects/AlgebraicJacobian/PicardAlbanese/) | Etale Picard-Albanese route and from-scratch AJ Lean library (1,180 modules) |
 | [`shared/`](shared/) | Source-independent reusable Lean infrastructure |
 | [`FormalizedSources/StacksProject/`](FormalizedSources/StacksProject/) | **8** part-level projects containing all **109** Stacks chapters |
 | [`FormalizedSources/AbelianVarieties/Mumford`](FormalizedSources/AbelianVarieties/Mumford/) | Mumford's geometric treatment of abelian varieties |
@@ -125,7 +125,7 @@ The current workspace provides:
   annotations where declarations exist;
 - eight Stacks part-local Lean packages (`StacksPart01Lib` … `StacksPart08Lib`);
 - two Algebraic Jacobian Lean packages under route directories
-  (`MilneKollar`: 387 modules; `PicardAlbanese`: 1,176 modules);
+  (`MilneKollar`: 387 modules; `PicardAlbanese`: 1,180 modules);
 - a workspace-level visual theme distinct from the default Poincare styling;
 - GFDL provenance tracking for Stacks text and Apache 2.0 for original code.
 

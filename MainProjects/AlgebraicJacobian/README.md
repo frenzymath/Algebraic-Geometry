@@ -40,7 +40,7 @@ The ported route has also been checked with the smaller
 slower because it elaborates the entire challenge cone.
 
 `PicardAlbanese/` contains the newer from-scratch implementation ported from
-`MainProjects/Algebraic-Jacobian-Challenge-Rebuild` (1,176 library modules).
+`MainProjects/Algebraic-Jacobian-Challenge-Rebuild` (1,180 library modules).
 The full Horizon root remains an active development cone, so the route keeps
 all source modules available for explicit targets; the verified stable target
 is:

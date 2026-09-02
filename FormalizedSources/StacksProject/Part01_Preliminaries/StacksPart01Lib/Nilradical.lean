@@ -45,4 +45,9 @@ theorem sInf_minimalPrimes_eq_radical {R : Type*} [CommSemiring R]
     {I : Ideal R} : sInf I.minimalPrimes = I.radical := by
   exact Ideal.sInf_minimalPrimes
 
+/-- Every nontrivial ring has a minimal prime ideal (Stacks, Tag 00E0). -/
+theorem minimal_prime_exists {R : Type*} [CommSemiring R] [Nontrivial R] :
+    Nonempty ((⊥ : Ideal R).minimalPrimes) := by
+  exact Ideal.nonempty_minimalPrimes bot_ne_top
+
 end StacksPart01

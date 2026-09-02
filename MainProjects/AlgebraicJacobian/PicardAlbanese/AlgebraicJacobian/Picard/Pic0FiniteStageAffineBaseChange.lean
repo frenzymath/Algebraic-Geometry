@@ -39,6 +39,36 @@ noncomputable def affineBaseChangeIso :
       Spec (.of (K ⊗[R] A)) :=
   pullbackSymmetry _ _ ≪≫ pullbackSpecIso R K A
 
+set_option maxHeartbeats 12800000 in
+/-- The affine base-change comparison carries the scalar-extension structure map
+to the second pullback projection. -/
+theorem affineBaseChangeIso_hom_structureMap
+    {R K A B : Type u} [CommRing R] [CommRing K] [CommRing A] [CommRing B]
+    [Algebra R K] [Algebra R A] [Algebra R B] [Algebra K B]
+    [IsScalarTower R K B]
+    (e : K ⊗[R] A ≃ₐ[K] B) :
+    (affineBaseChangeIso R K A ≪≫
+      Scheme.Spec.mapIso e.symm.toRingEquiv.toCommRingCatIso.op).hom ≫
+        Spec.map (CommRingCat.ofHom (algebraMap K B)) =
+      pullback.snd (Spec.map (CommRingCat.ofHom (algebraMap R A)))
+        (Spec.map (CommRingCat.ofHom (algebraMap R K))) := by
+  simp only [affineBaseChangeIso, Iso.trans_hom, Category.assoc]
+  change (pullbackSymmetry _ _).hom ≫ (pullbackSpecIso R K A).hom ≫
+      Spec.map e.symm.toRingEquiv.toCommRingCatIso.hom ≫
+        Spec.map (CommRingCat.ofHom (algebraMap K B)) = _
+  rw [← AlgebraicGeometry.Spec.map_comp]
+  have hring :
+      CommRingCat.ofHom (algebraMap K B) ≫
+          e.symm.toRingEquiv.toCommRingCatIso.hom =
+        CommRingCat.ofHom (Algebra.TensorProduct.includeLeftRingHom :
+          K →+* K ⊗[R] A) := by
+    ext x
+    change e.symm (algebraMap K B x) = _
+    rw [e.symm.commutes]
+    rfl
+  rw [hring, pullbackSpecIso_hom_fst]
+  exact pullbackSymmetry_hom_comp_fst _ _
+
 @[reassoc (attr := simp)]
 theorem affineBaseChangeIso_inv_fst :
     (affineBaseChangeIso R K A).inv ≫ pullback.fst _ _ =

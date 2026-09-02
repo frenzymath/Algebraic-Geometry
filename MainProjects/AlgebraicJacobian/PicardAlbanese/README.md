@@ -3,7 +3,7 @@
 This route combines the source-faithful blueprint with the ported Lean library
 from Horizon's `MainProjects/Algebraic-Jacobian-Challenge-Rebuild`.
 
-The full from-scratch source tree has 1,176 library modules. Its active root
+The full from-scratch source tree has 1,180 library modules. Its active root
 contains unfinished development cones, so the stable target currently checked
 in this workspace is the two-lattice foundation:
 

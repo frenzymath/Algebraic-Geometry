@@ -5,6 +5,7 @@ Authors: The Mumford Contributors
 -/
 
 import MumfordLib.Theta
+import Mathlib.Algebra.Category.Grp.Injective
 import Mathlib.GroupTheory.Coset.Card
 import Mathlib.SetTheory.Cardinal.NatCard
 
@@ -30,6 +31,36 @@ noncomputable def commutatorPairingRestriction
     (E : ThetaExtension G S K) (H : AddSubgroup K) :
     K →+ (H →+ Additive S) :=
   (AddMonoidHom.compHom' H.subtype).comp E.commutatorPairingBihom
+
+/-- A divisible character group lets a globally surjective commutator pairing
+restrict surjectively to every subgroup. -/
+theorem commutatorPairingRestriction_surjective_of_divisible
+    (E : ThetaExtension G S K) (H : AddSubgroup K)
+    [DivisibleBy (Additive S) ℤ]
+    (hpair : Function.Surjective E.commutatorPairingBihom) :
+    Function.Surjective (E.commutatorPairingRestriction H) := by
+  let hext : Function.Surjective
+      (AddMonoidHom.compHom' H.subtype :
+        (K →+ Additive S) →+ (H →+ Additive S)) := by
+    intro chi
+    obtain ⟨psi, hpsi⟩ :=
+      (Module.Baer.of_divisible (Additive S)).extension_property_addMonoidHom
+        H.subtype H.subtype_injective chi
+    exact ⟨psi, hpsi⟩
+  intro chi
+  obtain ⟨psi, hpsi⟩ := hext chi
+  obtain ⟨k, hk⟩ := hpair psi
+  refine ⟨k, ?_⟩
+  ext h
+  have h1 := congrArg (fun f : K →+ Additive S => f (h : K)) hk
+  have h2 := congrArg (fun f : H →+ Additive S => f h) hpsi
+  change Additive.ofMul (E.commutatorPairing k (h : K)) = chi h
+  change E.commutatorPairingBihom k (h : K) = psi (h : K) at h1
+  change (H.subtype.compHom' psi) h = chi h at h2
+  calc
+    Additive.ofMul (E.commutatorPairing k (h : K)) = psi (h : K) := by
+      simpa only [E.commutatorPairingBihom_apply] using h1
+    _ = chi h := by simpa using h2
 
 /-- The commutator orthogonal of a subgroup. -/
 noncomputable def commutatorPairingOrthogonal
@@ -270,6 +301,20 @@ def IsMaximalIsotropic
   E.IsIsotropic H ∧
     ∀ J : AddSubgroup K, H ≤ J → E.IsIsotropic J → J ≤ H
 
+/-- A finite theta quotient has a maximal isotropic subgroup. -/
+theorem exists_isMaximalIsotropic
+    (E : ThetaExtension G S K) [Finite K] :
+    ∃ H : AddSubgroup K, E.IsMaximalIsotropic H := by
+  classical
+  letI : Fintype K := Fintype.ofFinite K
+  letI : Finite (AddSubgroup K) := Finite.of_injective
+    (fun H : AddSubgroup K => (H : Set K))
+    SetLike.coe_injective
+  obtain ⟨H, _, hH, hmax⟩ :=
+    Finite.exists_le_maximal (p := fun H : AddSubgroup K => E.IsIsotropic H)
+      (a := ⊥) E.isIsotropic_bot
+  exact ⟨H, ⟨hH, fun J hHJ hJ => hmax hJ hHJ⟩⟩
+
 /-- A maximal isotropic subgroup equals its commutator orthogonal. -/
 theorem eq_commutatorPairingOrthogonal_of_isMaximalIsotropic
     (E : ThetaExtension G S K) (H : AddSubgroup K)
@@ -317,6 +362,31 @@ theorem isMaximalIsotropic_iff_eq_commutatorPairingOrthogonal
     intro j hj
     exact (E.commutatorPairingOrthogonal_anti hHJ) (hJ hj)
 
+/-- A maximal isotropic subgroup identifies the quotient with its character
+group whenever restriction of the commutator pairing is surjective. -/
+noncomputable def quotientMaximalIsotropicAddEquiv
+    (E : ThetaExtension G S K) (H : AddSubgroup K)
+    (hmax : E.IsMaximalIsotropic H)
+    (hsurj : Function.Surjective (E.commutatorPairingRestriction H)) :
+    K ⧸ H ≃+ (H →+ Additive S) := by
+  have hker : (E.commutatorPairingRestriction H).ker = H := by
+    change E.commutatorPairingOrthogonal H = H
+    exact (E.eq_commutatorPairingOrthogonal_of_isMaximalIsotropic H hmax).symm
+  exact (QuotientAddGroup.quotientAddEquivOfEq hker.symm).trans
+    (QuotientAddGroup.quotientKerEquivOfSurjective
+      (E.commutatorPairingRestriction H) hsurj)
+
+@[simp]
+theorem quotientMaximalIsotropicAddEquiv_mk
+    (E : ThetaExtension G S K) (H : AddSubgroup K)
+    (hmax : E.IsMaximalIsotropic H)
+    (hsurj : Function.Surjective (E.commutatorPairingRestriction H))
+    (k : K) :
+    E.quotientMaximalIsotropicAddEquiv H hmax hsurj
+      (QuotientAddGroup.mk' H k) =
+      E.commutatorPairingRestriction H k := by
+  rfl
+
 /-- The cardinality of the quotient by an orthogonal subgroup is the
 cardinality of the character image whenever the restricted pairing is
 surjective. -/
@@ -356,18 +426,12 @@ theorem natCard_eq_square_of_isMaximalIsotropic
     (hsurj : Function.Surjective (E.commutatorPairingRestriction H))
     (hdual : Nat.card (H →+ Additive S) = Nat.card H) :
     Nat.card K = Nat.card H ^ 2 := by
-  have hker : (E.commutatorPairingRestriction H).ker = H := by
-    change E.commutatorPairingOrthogonal H = H
-    exact (E.eq_commutatorPairingOrthogonal_of_isMaximalIsotropic H hmax).symm
-  let e : K ⧸ H ≃+ (H →+ Additive S) :=
-    (QuotientAddGroup.quotientAddEquivOfEq hker.symm).trans
-      (QuotientAddGroup.quotientKerEquivOfSurjective
-        (E.commutatorPairingRestriction H) hsurj)
   calc
     Nat.card K = Nat.card (K ⧸ H) * Nat.card H :=
       AddSubgroup.card_eq_card_quotient_mul_card_addSubgroup H
     _ = Nat.card (H →+ Additive S) * Nat.card H := by
-      rw [Nat.card_congr e.toEquiv]
+      rw [Nat.card_congr
+        (E.quotientMaximalIsotropicAddEquiv H hmax hsurj).toEquiv]
     _ = Nat.card H ^ 2 := by rw [hdual, pow_two]
 
 end ThetaExtension
