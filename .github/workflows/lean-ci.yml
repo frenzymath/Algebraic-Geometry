@@ -22,7 +22,7 @@ jobs:
     timeout-minutes: 120
     steps:
       - name: Check out the candidate commit
-        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
         with:
           fetch-depth: 1
           persist-credentials: false
@@ -66,7 +66,7 @@ jobs:
       - name: Restore manifest-keyed dependency artifacts
         id: dependency-cache
         if: steps.cache-availability.outputs.enabled == 'true'
-        uses: actions/cache/restore@0400d5f644dc74513175e3cd8d07132dd4860809
+        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
         with:
           path: AGLib/.lake/packages
           key: ${{ steps.cache-key.outputs.dependency-key }}
@@ -74,7 +74,7 @@ jobs:
       - name: Restore rotating protected-branch build artifacts
         id: build-cache
         if: steps.cache-availability.outputs.enabled == 'true'
-        uses: actions/cache/restore@0400d5f644dc74513175e3cd8d07132dd4860809
+        uses: actions/cache/restore@caa296126883cff596d87d8935842f9db880ef25
         with:
           path: AGLib/.lake/build
           key: ${{ steps.cache-key.outputs.build-key }}
@@ -100,7 +100,7 @@ jobs:
           github.event_name == 'push' &&
           github.ref == 'refs/heads/palimpsest/aglib' &&
           steps.dependency-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@0400d5f644dc74513175e3cd8d07132dd4860809
+        uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25
         with:
           path: AGLib/.lake/packages
           key: ${{ steps.cache-key.outputs.dependency-key }}
@@ -111,7 +111,7 @@ jobs:
           github.event_name == 'push' &&
           github.ref == 'refs/heads/palimpsest/aglib' &&
           steps.build-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@0400d5f644dc74513175e3cd8d07132dd4860809
+        uses: actions/cache/save@caa296126883cff596d87d8935842f9db880ef25
         with:
           path: AGLib/.lake/build
           key: ${{ steps.cache-key.outputs.build-key }}
