@@ -1,19 +1,13 @@
-# Tate's thesis in the de Rham Setting
+## Tate's thesis in the de Rham Setting
 
-Source-faithful formalization project under
-`FormalizedPapers/ArithmeticGeometry/TatesThesisDeRhamSetting`.
+Blueprint project under `FormalizedPapers/ArithmeticGeometry/TatesThesisDeRhamSetting`.
 
 - Blueprint: [`blueprint/src/content.tex`](blueprint/src/content.tex)
-- Source preamble: [`blueprint/src/source-preamble.tex`](blueprint/src/source-preamble.tex)
+- Direct PDF: [arXiv PDF](https://arxiv.org/pdf/2107.11325)
 - Project graph configuration: [`hgraph/config.yaml`](hgraph/config.yaml)
-- Source bundle: [`references/tates-thesis-de-rham-setting/`](../../../references/tates-thesis-de-rham-setting/)
-- Manifest entry: [`references/manifest.yaml`](../../../references/manifest.yaml)
+- Bibliography: [`blueprint/src/refs.bib`](blueprint/src/refs.bib)
 
-The blueprint contains the complete mathematical body of the retrieved paper,
-divided into one source-derived TeX chapter file per paper section. Source
-sections, definitions, statements, examples, and proofs are retained; only the
-document heading is adapted for the blueprint driver. Chapter provenance remarks
-are marked `\\notready` because this content has not yet been translated into
-checked Lean declarations. MR identifiers remain bibliographic cross-references
-in the root catalog.
-
+The blueprint is intentionally rephrased and distilled for formalization.
+Read it alongside the original paper for complete statements, proofs,
+conventions, and references. Source-backed nodes are marked `\notready`
+until their mathematical content has been checked against Lean declarations.

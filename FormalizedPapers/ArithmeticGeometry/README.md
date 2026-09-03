@@ -11,4 +11,3 @@ Projects in this section are grouped by their primary mathematical substrate.
 - [A Chabauty--Coleman bound for surfaces](ChabautyColemanBoundSurfaces/README.md) — `chabauty-coleman-bound-surfaces`
 - [On the birational section conjecture with strong birationality assumptions](BirationalSectionConjectureStrongBirationality/README.md) — `birational-section-conjecture-strong-birationality`
 - [Higher Siegel--Weil formula for unitary groups: the non-singular terms](HigherSiegelWeilUnitaryNonsingularTerms/README.md) — `higher-siegel-weil-unitary-nonsingular-terms`
-

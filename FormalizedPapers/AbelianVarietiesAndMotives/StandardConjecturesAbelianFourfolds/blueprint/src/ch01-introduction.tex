@@ -7,15 +7,12 @@
 \begin{remark}[Source section]
 \label{standard-conjectures-abelian-fourfolds-chapter-01-source}
 \source{standard-conjectures-abelian-fourfolds}
-\source{standard-conjectures-abelian-fourfolds}
-This chapter reproduces the corresponding section of the retrieved
-LaTeX source, including its definitions, statements, examples, and
-proofs. It has not yet been translated into Lean.
+This chapter records the source section; no Lean declaration has yet been checked for this material.
 \notready
 \end{remark}
 
 % The source section title was: Introduction
-In this paper we prove that the standard conjecture of Hodge type holds for abelian fourfolds. This is the first  unconditional\footnote{Milne showed that the   Hodge conjecture for complex abelian varieties  implies the standard conjecture of Hodge type for abelian varieties over any field \cite{pola}.}  result on the conjecture since its formulation. Before giving the precise statement and a sketch of the proof, we briefly recall the history of the problem. 
+In this paper we prove that the standard conjecture of Hodge type holds for abelian fourfolds. This is the first  unconditional\footnote{Milne showed that the   Hodge conjecture for complex abelian varieties  implies the standard conjecture of Hodge type for abelian varieties over any field \cite{pola}.}  result on the conjecture since its formulation. Before giving the precise statement and a sketch of the proof, we briefly recall the history of the problem.
 
 
 
@@ -30,68 +27,64 @@ The history of the problem starts with the so called Hodge index  theorem.
 \begin{theorem}
 \source{standard-conjectures-abelian-fourfolds}
 \notready\label{introsegre}
-\source{standard-conjectures-abelian-fourfolds}
-Suppose that $X$ has dimension two. Then the intersection product  
+Suppose that $X$ has dimension two. Then the intersection product
 \[\mathcal{Z}^1_{\num}(X)_{\Q}\times \mathcal{Z}_{\num}^1(X)_{\Q} \longrightarrow \Q\]
 is of signature $(s_+ ; s_-)=(1; \rho_1 - 1)$.
 \end{theorem}
 When the characteristic $p$ is zero, the above theorem was proved by Hodge by relating  the intersection product to the cup product in singular cohomology through the cycle class map \cite{Hodge}. An algebraic proof, valid in any characteristic,  was found by Segre \cite{Segre} and Bronowski \cite{Brono}.
 
-Elaborating on an argument of Mattuck--Tate \cite {Mattuck}, Grothendieck  realized that the Lang--Weil estimate for the number of rational points on a smooth and projective curve $C$ over a finite field follows from the Hodge index theorem applied to the surface $X=C\times C$ \cite{Grothseg}. He then proposed a program to show the Weil conjectures for varieties of higher dimension based on a conjectural generalisation of the Hodge index theorem,  known as the standard conjecture of Hodge type. Together with the three other standard conjectures (and the resolution of singularities), it was considered by Grothendieck as the most urgent task in algebraic geometry \cite{GrothSC}. 
+Elaborating on an argument of Mattuck--Tate \cite {Mattuck}, Grothendieck  realized that the Lang--Weil estimate for the number of rational points on a smooth and projective curve $C$ over a finite field follows from the Hodge index theorem applied to the surface $X=C\times C$ \cite{Grothseg}. He then proposed a program to show the Weil conjectures for varieties of higher dimension based on a conjectural generalisation of the Hodge index theorem,  known as the standard conjecture of Hodge type. Together with the three other standard conjectures (and the resolution of singularities), it was considered by Grothendieck as the most urgent task in algebraic geometry \cite{GrothSC}.
 
-This conjecture is connected with other arithmetic contexts such as the conjectural description of the rational points on a Shimura variety over a finite field \cite{LRSC} and the weight-monodromy conjecture \cite{mSaito}. 
+This conjecture is connected with other arithmetic contexts such as the conjectural description of the rational points on a Shimura variety over a finite field \cite{LRSC} and the weight-monodromy conjecture \cite{mSaito}.
 
 The four standard conjectures imply that the category of numerical motives   is semisimple and polarizable just as the category of Hodge structures of smooth projective complex varieties \cite{Rivano}. Surprisingly enough, Jannsen proved semisimplicity   unconditionally and independently of the standard conjectures \cite{Jann}. Polarizability is still open and it is intimately related to the standard conjecture of Hodge type.
 
 
- 
+
  As a conclusion of this historical panorama, let us mention that Gillet and Soul\'e have proposed an arithmetic version of the standard conjectures (i.e. over a ring of integers) \cite{soule}. Some results on the arithmetic standard conjecture of Hodge type can be found in \cite{Kunz1,Kunz2,Kunz3,Kresch}.
-  
+
   \subsection*{Main results}
   Let us now recall the formulation of the standard conjecture of Hodge type.
   \begin{conj}
 \source{standard-conjectures-abelian-fourfolds}
 \notready
   Let   $d$ be the dimension of   a smooth, projective and geometrically connected variety $X$ and fix a hyperplane section $L$ of $X$.  For $n \leq d/2$ define the space of primitive cycles $\mathcal{Z}^{n,\prim}_{\num}(X)_{\Q}$ as
-\[\mathcal{Z}^{n,\prim}_{\num}(X)_{\Q} = \{\alpha \in \mathcal{Z}^{n}_{\num}(X)_{\Q} , \hspace{0.2cm} \alpha \cdot L^ {{d-2n+1}}=0 \hspace{0.2cm}  \textrm{in}  \hspace{0.2cm}  \mathcal{Z}^{d-n+1}_{\num}(X)_{\Q}\}\]
-and define the pairing  
+\[\mathcal{Z}^{n,\prim}_{\num}(X)_{\Q} = \{\alpha \in \mathcal{Z}^{n}_{\num}(X)_{\Q} ,  \alpha \cdot L^ {{d-2n+1}}=0   \textrm{in}    \mathcal{Z}^{d-n+1}_{\num}(X)_{\Q}\}\]
+and define the pairing
 \[\langle \cdot, \cdot \rangle_{n} : \mathcal{Z}^{n,\prim}_{\num}(X)_{\Q}  \times  \mathcal{Z}^{n,\prim}_{\num}(X)_{\Q}  \longrightarrow \Q\]
  via the intersection product
  \[\alpha, \beta \mapsto  (-1)^n \alpha \cdot \beta \cdot L^{d-2n}.\]
 The   standard conjecture of Hodge type predicts that this pairing is positive definite.
 \end{conj}
-  
- 
-The evidences for Grothendieck were the case $n=1$ (which can be shown by reducing it to Theorem \ref{introsegre}) and the case     $p=0$. Indeed,  in characteristic zero, one can use the cycle class map to relate the quadratic form $\langle \cdot, \cdot \rangle_{n}$ to the quadratic form given by the cup product on singular cohomology. Then  this kind of positivity statements can be deduced from positivity statements in cohomology, such as the Hodge--Riemann relations in Hodge theory. 
+
+
+The evidences for Grothendieck were the case $n=1$ (which can be shown by reducing it to Theorem \ref{introsegre}) and the case     $p=0$. Indeed,  in characteristic zero, one can use the cycle class map to relate the quadratic form $\langle \cdot, \cdot \rangle_{n}$ to the quadratic form given by the cup product on singular cohomology. Then  this kind of positivity statements can be deduced from positivity statements in cohomology, such as the Hodge--Riemann relations in Hodge theory.
 
 
 
 \
 
 
- The following is our main theorem. 
+ The following is our main theorem.
 
 \begin{theorem}
 \source{standard-conjectures-abelian-fourfolds}
 \notready\label{thmintro}
-\source{standard-conjectures-abelian-fourfolds}
 The standard conjecture of Hodge type holds for abelian fourfolds in positive characteristic.\end{theorem}
 It turns out that this statement is equivalent to the following, which is maybe a more direct formulation (see also  Proposition \ref{anypolarization}).
 \begin{theorem}
-\label{src-standard-conjectures-abelian-fourfolds-ch01-introduction-statement-1}
 \source{standard-conjectures-abelian-fourfolds}
-\notready 
-Let $X$ be an abelian fourfold. Then the intersection product 
+\notready
+Let $X$ be an abelian fourfold. Then the intersection product
 \[\mathcal{Z}^2_{\num}(X)_{\Q}\times \mathcal{Z}_{\num}^2(X)_{\Q} \longrightarrow \Q\]
 is of signature  $ (s_+;s_-) = ( \rho_2 - \rho_1+1;  \rho_1-1)$, with $\rho_n$ as in $($\ref{eq:intro}$)$.
-\end{theorem} 
+\end{theorem}
 This formulation should   be reminiscent of the Hodge index theorem.
 
 
 \begin{remark}
 \source{standard-conjectures-abelian-fourfolds}
 \notready\label{remintro}
-\source{standard-conjectures-abelian-fourfolds}
 As we explained above, the standard conjecture of Hodge type is known in characteristic zero. Hence Theorem \ref{thmintro} is new only   for those algebraic classes that cannot be lifted to characteristic zero. We discuss the existence of such classes in  Appendix \ref{geometricexamples}.
 \end{remark}
 
@@ -100,8 +93,7 @@ By combining Theorem \ref{thmintro} with  a theorem of Clozel  \cite{Clozel} we 
 \begin{theorem}
 \source{standard-conjectures-abelian-fourfolds}
 \notready\label{thmclozelintro}
-\source{standard-conjectures-abelian-fourfolds}
-Let $X$ be an   abelian fourfold. Then numerical equivalence on $X$ coincides with $\ell$-adic homological equivalence on $X$ for infinitely many prime numbers $\ell$. 
+Let $X$ be an   abelian fourfold. Then numerical equivalence on $X$ coincides with $\ell$-adic homological equivalence on $X$ for infinitely many prime numbers $\ell$.
 \end{theorem}
 The fact that homological and numerical equivalence should always coincide is also one   of the four standard conjectures. The two others (namely K\"unneth and Lefschetz) being known for abelian varieties, Theorems \ref{thmintro} and \ref{thmclozelintro} imply that in order to fully understand the standard conjectures for abelian fourfolds what is missing is $\ell$-independency of $\ell$-adic homological equivalence.
 
@@ -125,13 +117,13 @@ Technically speaking, we do not compute $q \otimes \Q_\ell$ directly, but rather
 
 \
 
-The comparison  $q \otimes \Q_\ell \cong \tilde{q}\otimes \Q_\ell$ holds for all $\ell \neq p$   by smooth proper base change in $\ell$-adic cohomology.  On the other hand one computes $\tilde{q} \otimes \R$ using the Hodge--Riemann relations; it is negative definite if and only if the Hodge types appearing in the Hodge structure $\tilde{q}$ are odd. 
+The comparison  $q \otimes \Q_\ell \cong \tilde{q}\otimes \Q_\ell$ holds for all $\ell \neq p$   by smooth proper base change in $\ell$-adic cohomology.  On the other hand one computes $\tilde{q} \otimes \R$ using the Hodge--Riemann relations; it is negative definite if and only if the Hodge types appearing in the Hodge structure $\tilde{q}$ are odd.
 
 Now the theory of quadratic forms (in particular the product formula on Hilbert symbols) tells us that the positivity of $q \otimes \R$ is equivalent to the following statement. The quadratic forms $q \otimes \Q_p $ and $\tilde{q}\otimes \Q_p$ are   not isomorphic  precisely   if the Hodge types of $\tilde{q}$ are odd. (Note that this equivalence holds because our quadratic spaces have rank two.)
 
 \
 
-This formulation translates the  problem into a question in $p$-adic Hodge theory. To solve it we use the $p$-adic comparison theorem which gives a canonical isomorphism $(q\otimes \Q_p) \otimes B_\crys \cong (\tilde{q}\otimes \Q_p) \otimes B_\crys$ over a   $\Q_p$-algebra $B_{\crys}$. The strategy then consists in  writing explicitly the matrix of the isomorphism with respect to  well chosen bases of the two $\Q_p$-structures (i.e. computing the $p$-adic periods) and then exploit this explicit isomorphism to determine whether the two quadratic forms are  isomorphic also over $\Q_p$. 
+This formulation translates the  problem into a question in $p$-adic Hodge theory. To solve it we use the $p$-adic comparison theorem which gives a canonical isomorphism $(q\otimes \Q_p) \otimes B_\crys \cong (\tilde{q}\otimes \Q_p) \otimes B_\crys$ over a   $\Q_p$-algebra $B_{\crys}$. The strategy then consists in  writing explicitly the matrix of the isomorphism with respect to  well chosen bases of the two $\Q_p$-structures (i.e. computing the $p$-adic periods) and then exploit this explicit isomorphism to determine whether the two quadratic forms are  isomorphic also over $\Q_p$.
 
 The reason for which  a $p$-adic period is in general more computable than a complex one is that it comes equipped with some extra structures (in particular the action of an absolute Frobenius and the de Rham filtration) which sometimes characterize it\footnote{For example, an element of $B_\crys$ which is invariant under the Frobenius and sits in the zeroth step  of the filtration must be an element of $\Q_p$  \cite[Theorem 5.3.7]{Fontp}.}. Moreover, in our particular situation, these extra structures are particularly simple: the absolute Frobenius must act trivially (because $q\otimes \Q_p$ is spanned by algebraic cycles) and the only non-trivial subspace appearing in the de Rham filtration is a line (as these quadratic spaces have rank two).
 
@@ -147,6 +139,6 @@ Appendix \ref{geometricexamples} contains exemples of exotic motives and in part
 \subsection*{Acknowledgements}
 I would like to thank  Olivier Benoist,  Rutger Noot and Jean-Pierre Wintenberger for useful discussions; Eva Bayer, Giancarlo Lucchini Arteche and Olivier Wittenberg for explanations on  Galois cohomology; Xavier Caruso and Matthew Morrow for explanations on comparison theorems;   Olivier Brinon and Adriano Marmora for their help with $p$-adic periods; Robert Laterveer and Gianluca Pacienza for drawing my attention to the example in Proposition  \ref{propfermat}; Fr\'ed\'eric D\'eglise for pointing out the reference \cite{NiziFred}; Javier Fres\'an, Thomas Kr\"amer, Marco Maculan and Anastasia Prokudina for useful comments on the text.
 
-Finally, I would like to thank the anonymous referee for many useful suggestions and especially for pointing out an argument which allowed to compute the $p$-adic periods in a direct way instead of using \cite[\S 9]{Colmez}. This made the $p$-adic part of the paper more self-contained and as elementary as possible. 
+Finally, I would like to thank the anonymous referee for many useful suggestions and especially for pointing out an argument which allowed to compute the $p$-adic periods in a direct way instead of using \cite[\S 9]{Colmez}. This made the $p$-adic part of the paper more self-contained and as elementary as possible.
 
 This research was partly supported by the grant ANR--18--CE40--0017 of Agence National de la Recherche.

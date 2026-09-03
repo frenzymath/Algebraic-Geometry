@@ -1,20 +1,17 @@
 # Formalized Papers
 
-Source-faithful formalization projects for the algebraic-geometry papers
-retrieved from the author's publication list. This tree mirrors
-`FormalizedSources/`: each project has a README, a local blueprint, project
-metadata, and its own hgraph configuration.
+Blueprint projects for the algebraic-geometry papers in this workspace. Each
+project has a concise, rephrased mathematical guide, a direct source-PDF link,
+project metadata, and its own hgraph configuration.
 
 The machine-readable registry is [`paper-catalog.yaml`](paper-catalog.yaml).
-Original PDFs, e-print archives, and extracted TeX remain in the shared
-[root references library](../references/) and are indexed by
-[`references/manifest.yaml`](../references/manifest.yaml).
+The guides are distilled for formalization and should be read alongside their
+original papers; they are not substitutes for the source text.
 
-All project and reference names use descriptive titles/slugs. MR identifiers
-are cross-references only. Each project's blueprint is a complete
-source-derived paper body, split into one TeX chapter file per source section.
-Its source-backed mathematical nodes are currently `\notready`; this records
-that the content still needs translation into checked Lean declarations.
+All project names use descriptive titles/slugs. MR identifiers are
+cross-references only. Source-backed mathematical nodes are currently
+`\notready`; this records that the content still needs translation into
+checked Lean declarations.
 
 ## Categories
 

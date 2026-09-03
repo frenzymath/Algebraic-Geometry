@@ -9,4 +9,3 @@ Projects in this section are grouped by their primary mathematical substrate.
 - [Canonical representations of surface groups](CanonicalRepresentationsSurfaceGroups/README.md) — `canonical-representations-surface-groups`
 - [Geometric local systems on very general curves and isomonodromy](GeometricLocalSystemsVeryGeneralCurvesIsomonodromy/README.md) — `geometric-local-systems-general-curves-isomonodromy`
 - [The P=W conjecture for GL_n](PWConjectureGLN/README.md) — `pw-conjecture-gl-n`
-
