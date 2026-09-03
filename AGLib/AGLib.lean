@@ -6,6 +6,7 @@ Authors: Frenzymath
 module
 
 public import AGLib.Basic
+public import AGLib.AlgebraicGeometry.Morphisms.Smooth
 
 /-!
 # AGLib
