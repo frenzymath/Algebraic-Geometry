@@ -6,6 +6,9 @@ Authors: Frenzymath
 module
 
 public import AGLib.Basic
+public import AGLib.RingTheory.Nilpotent.InvertibleModule
+
+import AGLib.RingTheory.Nilpotent.InvertibleModuleTest
 
 /-!
 # AGLib
