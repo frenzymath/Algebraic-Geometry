@@ -10,6 +10,7 @@ public import AGLib.RingTheory.Nilpotent.InvertibleModule
 public import AGLib.AlgebraicGeometry.Morphisms.Smooth
 
 import AGLib.RingTheory.Nilpotent.InvertibleModuleTest
+import AGLib.Tests.Smooth
 
 /-!
 # AGLib
