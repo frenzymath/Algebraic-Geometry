@@ -2,10 +2,9 @@
 
 AGLib is a mathlib-style algebraic geometry library maintained in the
 [Algebraic Geometry](https://github.com/frenzymath/Algebraic-Geometry)
-repository. The current bootstrap adds no declarations of its own; it exposes
-mathlib's category of schemes as the initial public surface. Future modules are
-intended to contain general, documented declarations extracted from stable
-formalizations in that repository.
+repository. Its initial public API provides reducedness results for smooth
+algebras and scheme morphisms, together with invertible-module freeness over
+nilpotent thickenings, extracted from stable formalizations in that repository.
 
 AGLib is not a mirror of a book, blueprint, or flagship proof. Its only Lean
 dependency is mathlib; source-faithful projects provide candidates and
@@ -33,10 +32,15 @@ still runs when no Actions cache endpoint is configured.
 ## Layout
 
 ```text
-AGLib.lean           umbrella import for the stable public surface
-AGLib/Basic.lean     minimal foundational import
-ROADMAP.md           scope, dependency layers, and extraction policy
-docs/references.bib  bibliography for precise literature citations
+AGLib.lean                                      umbrella import for the stable public surface
+AGLib/Basic.lean                                minimal foundational import
+AGLib/RingTheory/Nilpotent/InvertibleModule.lean nilpotent-thickening freeness results
+AGLib/RingTheory/Nilpotent/InvertibleModuleTest.lean compiling nilpotent smoke test
+AGLib/RingTheory/Smooth/Reduced.lean            algebraic reducedness results
+AGLib/AlgebraicGeometry/Morphisms/Smooth.lean   scheme-morphism results
+AGLib/Tests/Smooth.lean                         compiling public-API smoke tests
+ROADMAP.md                                      scope and extraction policy
+docs/references.bib                             bibliography for precise citations
 ```
 
 New code belongs in fine-grained modules organized by mathematical subject.
